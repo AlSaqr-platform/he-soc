@@ -157,11 +157,11 @@ module alsaqr_clk_rst_gen (
         );
    
      rstgen i_cluster_rstgen (
-            .clk_i       ( clk_cluster_o       ),
-            .rst_ni      ( s_rstn_soc          ),
-            .test_mode_i ( test_mode_i         ),
-            .rst_no      ( s_rstn_cluster_sync ), //to be used by logic clocked with ref clock in AO domain
-            .init_no     (                     )                    //not used
+            .clk_i       ( clk_cluster_o            ),
+            .rst_ni      ( s_rstn_soc & (~rst_dm_i) ),
+            .test_mode_i ( test_mode_i              ),
+            .rst_no      ( s_rstn_cluster_sync      ), //to be used by logic clocked with ref clock in AO domain
+            .init_no     (                          )                    //not used
         );
 
     `else // !`ifndef PULP_FPGA_EMUL

@@ -16,8 +16,22 @@ int main(int argc, char const *argv[]) {
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
   uint32_t * hyaxicfg_reg_mask = 0x1A104018;
   pulp_write32(hyaxicfg_reg_mask,26); //128MB addressable
-  uint32_t * hyaxicfg_reg_memspace = 0x1A1004024;
+  uint32_t * hyaxicfg_reg_memspace = 0x1A104024;
   pulp_write32(hyaxicfg_reg_memspace,0x84000000); // Changing RAM end address, 64 MB
+  // cluster setup
+  pulp_write32(0x1C000854,0x1C00813E);
+  pulp_write32(0x100000CC,0);
+  pulp_write32(0x10201400,0xffffffff);
+  pulp_write32(0x100000C8,0x0000ff38);
+  pulp_write32(0x100000CC,0);
+  pulp_write32(0x100040CC,0);
+  pulp_write32(0x100040C8,0x0000BF38);
+  pulp_write32(0x100000C4,0x100000C8);
+  // change ris5y boot addresses
+  int boot_addr_core=0x10200040;
+  for (int i=0; i<8; i++)
+    pulp_write32(0x10200040+i*4,0x1C008080);
+  pulp_write32(0x10200008,0xff);
   printf("Hello CVA6!\n");
   uart_wait_tx_done();
   return 0;

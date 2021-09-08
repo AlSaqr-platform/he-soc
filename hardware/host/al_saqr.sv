@@ -375,7 +375,7 @@ module al_saqr
      .AXI_ID_WIDTH   ( ariane_soc::IdWidth      ),
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           ),
      .LOG_DEPTH      ( 3                        )
-     ) soc_to_cluster_dst_cdc_fifo_i 
+     ) cluster_to_soc_dst_cdc_fifo_i 
        (
        .dst_clk_i  ( s_soc_clk                    ),
        .dst_rst_ni ( s_soc_rst_n                  ),

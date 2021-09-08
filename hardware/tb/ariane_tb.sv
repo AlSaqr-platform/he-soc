@@ -389,6 +389,8 @@ module ariane_tb;
         repeat(30000)
               #(CLOCK_PERIOD/2);
         debug_module_init();
+        // LOAD cluster code
+        load_binary("./test");
         load_binary(binary);
         #(REFClockPeriod);
         jtag_ariane_wakeup();
