@@ -390,8 +390,10 @@ module ariane_tb;
               #(CLOCK_PERIOD/2);
         debug_module_init();
         // LOAD cluster code
-        load_binary("./test");
+        load_binary("../software/pulp/mm.riscv");
         load_binary(binary);
+        // Call the JTAG preload task
+        jtag_data_preload();
         #(REFClockPeriod);
         jtag_ariane_wakeup();
         jtag_read_eoc();
@@ -529,9 +531,6 @@ module ariane_tb;
         memory[section_addr/AxiWideBeWidth + i] = word;
       end
     end
-
-    // Call the JTAG preload task
-    jtag_data_preload();
 
   endtask // load_binary
 

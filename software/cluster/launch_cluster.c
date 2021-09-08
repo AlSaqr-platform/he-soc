@@ -30,10 +30,14 @@ int main(int argc, char const *argv[]) {
   // change ris5y boot addresses
   int boot_addr_core=0x10200040;
   for (int i=0; i<8; i++)
-    pulp_write32(0x10200040+i*4,0x1C008080);
+    pulp_write32(0x10200040+i*4,0x1C000000);
   pulp_write32(0x10200008,0xff);
+
+  while( ((pulp_read32(0x1C001000))<<31)!=0x80000000 );
+
   printf("Hello CVA6!\n");
   uart_wait_tx_done();
+    
   return 0;
 }
  
