@@ -31,10 +31,10 @@ int thread_entry(int cid, int nc) {
   uart_wait_tx_done();
   pulp_write32(i,pulp_read32(i)+1);
   }
-  
+  else{
   while(pulp_read32(i)<8);
-  
-  pulp_write32(0x10001000,1<<31);
+  pulp_write32(0x10001000,1);
+  }
   
   return 0;
 }
