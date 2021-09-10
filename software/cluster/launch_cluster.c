@@ -35,6 +35,11 @@ int main(int argc, char const *argv[]) {
 
   while( ((pulp_read32(0x1C001000))<<31)!=0x80000000 );
 
+  if(((pulp_read32(0x1C001000))<<31)==0x80000000)
+    printf("Cl ok\n");
+  else
+    printf("Cl error!\n");
+  
   printf("Hello CVA6!\n");
   uart_wait_tx_done();
     

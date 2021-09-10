@@ -53,6 +53,9 @@ package ariane_soc;
    
   localparam NB_PERIPHERALS = HYAXI + 1;
 
+  localparam NumChipsPerHyperbus      = 2;
+  localparam logic[63:0] HyperRamSize = 64'h4000000; // 64MB
+   
 
   localparam logic[63:0] DebugLength    = 64'h1000;
   localparam logic[63:0] ROMLength      = 64'h10000;
@@ -63,7 +66,7 @@ package ariane_soc;
   localparam logic[63:0] TimerLength    = 64'h1000;
   localparam logic[63:0] SPILength      = 64'h800000;
   localparam logic[63:0] EthernetLength = 64'h10000;
-  localparam logic[63:0] HYAXILength    = 64'h8000000;  // 128MB of hyperram
+  localparam logic[63:0] HYAXILength    = HyperRamSize*NumChipsPerHyperbus;  // 128MB of hyperram on bus 0
   localparam logic[63:0] L2SPMLength    = 64'h100000;   // 1MB of scratchpad memory 
   localparam logic[63:0] APB_SLVSLength = 64'h7000;     // 1 slave = 4 KB ( check slaves in apb_soc_pkg.sv)
   // Instantiate AXI protocol checkers

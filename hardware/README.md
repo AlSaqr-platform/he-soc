@@ -11,7 +11,7 @@ This repository contains the hardware files needed to build the Ariane-SoC and i
 
 ## Architecture 
 
-![alt text](https://github.com/AlSaqr-platform/cva6/blob/FLLs/hardware/docs/RTL.jpg)
+![alt text](./docs/RTL.jpg)
 
 ## Hello World:
 
@@ -33,7 +33,7 @@ make clean all
 cd ../..
 
 ```
-
+please change the setup to point to you toolchains and Questasim installations.
 
 ### RTL BUILD
 
@@ -53,6 +53,28 @@ make sim elf-bin=../software/hello/hello.riscv
 Doing so will load the elf binary through the DMI interface, driven by the SimDTM, communicating with FESVR, the host.
 
 To load the code through JTAG interface, you can add the `localjtag=1` option and do `make localjtag=1 scripts_vip`. Be aware that the preload of the code is slower in this case. 
+
+### Running code on the cluster
+
+To compile the code you can go in the `software/pulp` folder:
+
+```
+export PATH=/path-to-riscy-toolchain/bin:$PATH
+
+make clean all
+
+```
+
+```
+cd hardware
+
+make update
+
+make scripts_vips localjtag=1
+
+make sim elf-bin=../software/cluster/launch_cluster.riscv cl-bin=../software/pulp/mm.riscv
+
+```
 
 ### FPGA Emulation
 

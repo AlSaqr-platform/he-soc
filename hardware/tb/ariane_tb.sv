@@ -139,7 +139,8 @@ module ariane_tb;
     logic [31:0] exit_o;
 
     string        binary ;
-
+    string        cluster_binary;
+   
     genvar j;
     generate
        for (j=0; j<32; j++) begin
@@ -229,22 +230,22 @@ module ariane_tb;
         .pad_gpio             ( w_gpios                ),
         .cva6_uart_rx_i       ( w_cva6_uart_rx         ),
         .cva6_uart_tx_o       ( w_cva6_uart_tx         ),
-        .pad_axi_hyper_dq0        ( w_axi_hyper_dq0            ),
-        .pad_axi_hyper_dq1        ( w_axi_hyper_dq1            ),
-        .pad_axi_hyper_ck         ( w_axi_hyper_ck             ),
-        .pad_axi_hyper_ckn        ( w_axi_hyper_ckn            ),
-        .pad_axi_hyper_csn0       ( w_axi_hyper_csn0           ),
-        .pad_axi_hyper_csn1       ( w_axi_hyper_csn1           ),
-        .pad_axi_hyper_rwds0      ( w_axi_hyper_rwds0          ),
-        .pad_axi_hyper_rwds1      ( w_axi_hyper_rwds1          ),
-        .pad_axi_hyper_reset      ( w_axi_hyper_reset          )
+        .pad_axi_hyper_dq0    ( w_axi_hyper_dq0        ),
+        .pad_axi_hyper_dq1    ( w_axi_hyper_dq1        ),
+        .pad_axi_hyper_ck     ( w_axi_hyper_ck         ),
+        .pad_axi_hyper_ckn    ( w_axi_hyper_ckn        ),
+        .pad_axi_hyper_csn0   ( w_axi_hyper_csn0       ),
+        .pad_axi_hyper_csn1   ( w_axi_hyper_csn1       ),
+        .pad_axi_hyper_rwds0  ( w_axi_hyper_rwds0      ),
+        .pad_axi_hyper_rwds1  ( w_axi_hyper_rwds1      ),
+        .pad_axi_hyper_reset  ( w_axi_hyper_reset      )
    );
 
    s27ks0641 #(
          .TimingModel   ( "S27KS0641DPBHI020"    ),
          .UserPreload   ( 1'b0                   ),
          .mem_file_name ( "hyper.mem"            )
-     ) i_s27ks0641 (
+     ) i_main_hyperram0 (
             .DQ7      ( w_axi_hyper_dq0[7] ),
             .DQ6      ( w_axi_hyper_dq0[6] ),
             .DQ5      ( w_axi_hyper_dq0[5] ),
@@ -258,8 +259,27 @@ module ariane_tb;
             .CK       ( w_axi_hyper_ck     ),
             .CKNeg    ( w_axi_hyper_ckn    ),
             .RESETNeg ( w_axi_hyper_reset  )
+     ); 
+   s27ks0641 #(
+         .TimingModel   ( "S27KS0641DPBHI020"    ),
+         .UserPreload   ( 1'b0                   ),
+         .mem_file_name ( "hyper.mem"            )
+     ) i_main_hyperram1 (
+            .DQ7      ( w_axi_hyper_dq0[7] ),
+            .DQ6      ( w_axi_hyper_dq0[6] ),
+            .DQ5      ( w_axi_hyper_dq0[5] ),
+            .DQ4      ( w_axi_hyper_dq0[4] ),
+            .DQ3      ( w_axi_hyper_dq0[3] ),
+            .DQ2      ( w_axi_hyper_dq0[2] ),
+            .DQ1      ( w_axi_hyper_dq0[1] ),
+            .DQ0      ( w_axi_hyper_dq0[0] ),
+            .RWDS     ( w_axi_hyper_rwds0  ),
+            .CSNeg    ( w_axi_hyper_csn1   ),
+            .CK       ( w_axi_hyper_ck     ),
+            .CKNeg    ( w_axi_hyper_ckn    ),
+            .RESETNeg ( w_axi_hyper_reset  )
      );
-   
+  
 // Hyperram and hyperflash modules
    generate
       if(USE_HYPER_MODELS == 1) begin
@@ -383,14 +403,19 @@ module ariane_tb;
    initial  begin: local_jtag_preload
 
       if(LOCAL_JTAG) begin
-        if ( $value$plusargs ("STRING=%s", binary));
+        if ( $value$plusargs ("CVA6_STRING=%s", binary));
           $display("Testing %s", binary);
+        if ( $value$plusargs ("CL_STRING=%s", cluster_binary));
+         if(cluster_binary!="none") 
+           $display("Testing cluster: %s", cluster_binary);
 
         repeat(30000)
               #(CLOCK_PERIOD/2);
         debug_module_init();
         // LOAD cluster code
-        load_binary("../software/pulp/mm.riscv");
+        if(cluster_binary!="none") 
+          load_binary(cluster_binary);
+
         load_binary(binary);
         // Call the JTAG preload task
         jtag_data_preload();

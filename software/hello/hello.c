@@ -16,7 +16,7 @@ int main(int argc, char const *argv[]) {
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
   uint32_t * hyaxicfg_reg_mask = 0x1A104018;
   pulp_write32(hyaxicfg_reg_mask,26); //128MB addressable
-  uint32_t * hyaxicfg_reg_memspace = 0x1A1004024;
+  uint32_t * hyaxicfg_reg_memspace = 0x1A104024;
   pulp_write32(hyaxicfg_reg_memspace,0x84000000); // Changing RAM end address, 64 MB
   printf("Hello CVA6!\n");
   uart_wait_tx_done();

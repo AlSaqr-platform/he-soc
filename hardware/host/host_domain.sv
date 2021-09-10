@@ -314,22 +314,22 @@ module host_domain
           );
    
     hyperbus #(
-         .NumChips       ( 2                           ),
-         .AxiAddrWidth   ( AXI_ADDRESS_WIDTH           ),
-         .AxiDataWidth   ( AXI_DATA_WIDTH              ),
-         .AxiIdWidth     ( ariane_soc::IdWidthSlave    ),
-         .axi_req_t      ( ariane_axi_soc::req_slv_t   ),
-         .axi_rsp_t      ( ariane_axi_soc::resp_slv_t  ),
-         .axi_w_chan_t   ( ariane_axi_soc::w_chan_t    ),
-         .RegAddrWidth   ( RegAw                       ),
-         .RegDataWidth   ( RegDw                       ),
-         .reg_req_t      ( reg_req_t                   ),
-         .reg_rsp_t      ( reg_rsp_t                   ),
-         .axi_rule_t     ( ariane_soc::addr_map_rule_t ),
-         .RxFifoLogDepth ( 4                           ),
-         .TxFifoLogDepth ( 4                           ),
-         .RstChipBase    ( ariane_soc::HYAXIBase       ),  // Base address for all chips
-         .RstChipSpace   ( ariane_soc::HYAXILength     )   // 8 MB
+         .NumChips       ( ariane_soc::NumChipsPerHyperbus ),
+         .AxiAddrWidth   ( AXI_ADDRESS_WIDTH               ),
+         .AxiDataWidth   ( AXI_DATA_WIDTH                  ),
+         .AxiIdWidth     ( ariane_soc::IdWidthSlave        ),
+         .axi_req_t      ( ariane_axi_soc::req_slv_t       ),
+         .axi_rsp_t      ( ariane_axi_soc::resp_slv_t      ),
+         .axi_w_chan_t   ( ariane_axi_soc::w_chan_t        ),
+         .RegAddrWidth   ( RegAw                           ),
+         .RegDataWidth   ( RegDw                           ),
+         .reg_req_t      ( reg_req_t                       ),
+         .reg_rsp_t      ( reg_rsp_t                       ),
+         .axi_rule_t     ( ariane_soc::addr_map_rule_t     ),
+         .RxFifoLogDepth ( 4                               ),
+         .TxFifoLogDepth ( 4                               ),
+         .RstChipBase    ( ariane_soc::HYAXIBase           ),  // Base address for all chips
+         .RstChipSpace   ( ariane_soc::HyperRamSize        )   
      ) axi_hyperbus (
          .clk_phy_i              ( phy_clk               ),
          .clk_phy_i_90           ( phy_clk_90            ),
