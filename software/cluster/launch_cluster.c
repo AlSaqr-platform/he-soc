@@ -33,9 +33,9 @@ int main(int argc, char const *argv[]) {
     pulp_write32(0x10200040+i*4,0x1C000000);
   pulp_write32(0x10200008,0xff);
 
-  while( ((pulp_read32(0x1C001000))<<31)!=0x80000000 );
+  while( ((pulp_read32(0x10000000))<<31)!=0x80000000 );
 
-  if(((pulp_read32(0x1C001000))<<31)==0x80000000)
+  if(((pulp_read32(0x10000000))<<31)==0x80000000)
     printf("Cl ok\n");
   else
     printf("Cl error!\n");

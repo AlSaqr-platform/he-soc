@@ -121,12 +121,12 @@ _start:
 
   # get core id
   csrr a0, mhartid
-  # for now, assume only 1 core
-  li a1, 1
+  # for now, assume 8 cores
+  li a1, 8
 1:bgeu a0, a1, 1b
 
-  # give each core 128KB of stack + TLS
-#define STKSHIFT 17
+  # give each core 64KB of stack + TLS
+#define STKSHIFT 16
   sll a2, a0, STKSHIFT
   add tp, tp, a2
   add sp, a0, 1

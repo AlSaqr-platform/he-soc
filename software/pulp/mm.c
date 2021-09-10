@@ -11,19 +11,28 @@ static inline unsigned int core_id() {
   return hart_id & 0x01f;
 }
 
-int main(int argc, char const *argv[]) {
+int * i;
 
-  #ifdef FPGA_EMULATION
-  int baud_rate = 9600;
-  int test_freq = 10000000;
-  #else
-  int baud_rate = 115200;
-  int test_freq = 17500000;
-  #endif  
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
-  if (core_id()==0)
-    printf("Hello from cluster!\n");
+//int main(int argc, char const *argv[]) {
+int thread_entry(int cid, int nc) {
+
+  i=0x10000000;
+  pulp_write32(i,0);
+  if(core_id()==0){
+  printf("%d\n", core_id());
   uart_wait_tx_done();
+  pulp_write32(i,pulp_read32(i)+1);
+  }
 
+  while(pulp_read32(i)<core_id());
+  
+  if(core_id()!=0){
+  printf("%d\n",core_id());
+  uart_wait_tx_done();
+  pulp_write32(i,pulp_read32(i)+1);
+  }
+  
+  while(pulp_read32(i)<8);
+  pulp_write32(0x10000000,1<<31);
   return 0;
 }
