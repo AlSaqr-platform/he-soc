@@ -130,13 +130,13 @@ module l2_subsystem
             .NumPorts  ( 1                   )
           ) bank_i (
             .clk_i,
-            .rst_ni  (),
-            .req_i   (  mem_req_l2[i]                                    ),
-            .we_i    (  ~mem_wen_l2[i]                                   ),
-            .addr_i  (  mem_addr_l2[i]                                   ),
-            .wdata_i (  mem_wdata_l2[i]                                  ),
-            .be_i    (  mem_be_l2[i]                                     ),
-            .rdata_o (  mem_rdata_l2[i]                                  )
+            .rst_ni  (  rst_ni               ),
+            .req_i   (  mem_req_l2[i]        ),
+            .we_i    (  ~mem_wen_l2[i]       ),
+            .addr_i  (  mem_addr_l2[i]       ),
+            .wdata_i (  mem_wdata_l2[i]      ),
+            .be_i    (  mem_be_l2[i]         ),
+            .rdata_o (  mem_rdata_l2[i]      )
           );
 
 

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
+#include "./cluster_code.h"
 //#define FPGA_EMULATION
 
 int main(int argc, char const *argv[]) {
@@ -19,6 +20,7 @@ int main(int argc, char const *argv[]) {
   uint32_t * hyaxicfg_reg_memspace = 0x1A104024;
   pulp_write32(hyaxicfg_reg_memspace,0x84000000); // Changing RAM end address, 64 MB
   // cluster setup
+  load_cluster_code();
   pulp_write32(0x1C000854,0x1C00813E);
   pulp_write32(0x100000CC,0);
   pulp_write32(0x10201400,0xffffffff);
