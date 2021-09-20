@@ -483,7 +483,7 @@ module al_saqr
    
   `REG_BUS_ASSIGN_TO_REQ(reg_req,i_padframecfg_rbus)
   `REG_BUS_ASSIGN_FROM_RSP(i_padframecfg_rbus,reg_rsp)
-
+  `ifndef FPGA_EMUL
    alsaqr_periph_padframe #(
             .AW     ( 32        ),
             .DW     ( 32        ),
@@ -575,5 +575,5 @@ module al_saqr
 
    `ASSIGN_PERIPHS_SDIO1_PAD2SOC(s_pad_to_sdio[1],s_port_signals_pad2soc.periphs.sdio1)
    `ASSIGN_PERIPHS_SDIO1_SOC2PAD(s_port_signals_soc2pad.periphs.sdio1,s_sdio_to_pad[1])
-
+   `endif
 endmodule

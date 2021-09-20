@@ -119,7 +119,7 @@ module l2_subsystem
         //Perform TCDM handshaking for constant 1 cycle latency
         assign mem_gnt_l2[i] = mem_req_l2[i];
         
-        `ifndef TARGET_SYNTHESIS          
+        `ifndef TARGET_ASIC          
           tc_sram #(
             .SimInit   ( "random"            ),
         `else

@@ -5,6 +5,7 @@ set_property CLOCK_DEDICATED_ROUTE ANY_CMT_COLUMN [get_nets i_sysclk_iobuf/O]
 #alsaqr clock
 create_clock -period 100.000  [get_pins  i_alsaqr/i_host_domain/i_apb_subsystem/i_alsaqr_clk_rst_gen/i_fpga_clk_gen/i_clk_manager/clk_out1]
 create_clock -period 100.000  [get_pins  i_alsaqr/i_host_domain/i_apb_subsystem/i_alsaqr_clk_rst_gen/i_fpga_clk_gen/i_clk_manager/clk_out2]
+set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins i_sysclk_iobuf/O]] -group [get_clocks -of_objects [get_pins i_alsaqr/i_host_domain/i_apb_subsystem/i_alsaqr_clk_rst_gen/i_fpga_clk_gen/i_clk_manager/clk_out1]] -group [get_clocks -of_objects [get_pins i_alsaqr/i_host_domain/i_apb_subsystem/i_alsaqr_clk_rst_gen/i_fpga_clk_gen/i_clk_manager/clk_out2]]
 
 ## JTAG
 create_clock -period 100.000 -name tck -waveform {0.000 50.000} [get_ports pad_jtag_tck]
