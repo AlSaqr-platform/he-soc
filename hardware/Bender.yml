@@ -60,7 +60,7 @@ sources:
   - host/pad_frame.sv
   - host/al_saqr.sv
 
-  - target: all(fpga,xilinx, not(gate))
+  - target: all(fpga,xilinx, not(asic))
     defines:
       FPGA_TARGET_XILINX: ~
       WT_DCACHE: ~
@@ -72,7 +72,7 @@ sources:
       - ./fpga/boot_rom.sv
       - ./fpga/alsaqr_xilinx.sv
 
-  - target: all(gate, not(all(fpga, xilinx)))
+  - target: all(asic, not(all(fpga, xilinx)))
     defines:
       WT_DCACHE: ~
     files:
