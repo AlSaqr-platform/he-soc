@@ -118,21 +118,25 @@ module l2_subsystem
 
         //Perform TCDM handshaking for constant 1 cycle latency
         assign mem_gnt_l2[i] = mem_req_l2[i];
-          
+        
+        `ifndef TARGET_ASIC          
           tc_sram #(
+            .SimInit   ( "random"            ),
+        `else
+          tc_sram_gf22 #(
+        `endif
             .NumWords  ( L2_BANK_SIZE        ), // 2^15 lines of 32 bits each (128kB), 4 Banks -> 512 kB total memory
             .DataWidth ( L2_DATA_WIDTH       ),
-            .NumPorts  ( 1                   ),
-            .SimInit   ( "random"            )
+            .NumPorts  ( 1                   )
           ) bank_i (
             .clk_i,
-            .rst_ni,
-            .req_i   (  mem_req_l2[i]                                    ),
-            .we_i    (  ~mem_wen_l2[i]                                   ),
-            .addr_i  (  mem_addr_l2[i]                                   ),
-            .wdata_i (  mem_wdata_l2[i]                                  ),
-            .be_i    (  mem_be_l2[i]                                     ),
-            .rdata_o (  mem_rdata_l2[i]                                  )
+            .rst_ni  (  rst_ni               ),
+            .req_i   (  mem_req_l2[i]        ),
+            .we_i    (  ~mem_wen_l2[i]       ),
+            .addr_i  (  mem_addr_l2[i]       ),
+            .wdata_i (  mem_wdata_l2[i]      ),
+            .be_i    (  mem_be_l2[i]         ),
+            .rdata_o (  mem_rdata_l2[i]      )
           );
 
 

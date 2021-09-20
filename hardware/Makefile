@@ -28,12 +28,14 @@ test-location  ?= output/test
 torture-logs   :=
 # custom elf bin to run with sim or sim-verilator
 elf-bin        ?= ../software/hello/hello.riscv
+#cl-bin         ?= ../software/pulp/mm.riscv
+cl-bin         ?= none
 # root path
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 root-dir := $(dir $(mkfile_path))
 
 BENDER_FPGA_SCRIPTS_DIR = fpga/alsaqr/tcl/generated
-
+BENDER_SYNTH_DIR = gf22
 BENDER_BUILD_DIR:=.
 
 ifndef RISCV
@@ -150,6 +152,10 @@ scripts-bender-fpga: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
 	./bender script vivado -t fpga -t xilinx > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
+scripts-bender-synopsys: | Bender.lock
+	echo 'set ROOT [file normalize [file dirname [info script]]/../../../]' > $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
+	./bender script synopsys -t rtl -t synthesis -t asic | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
+
 scripts:
 	./bender script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
@@ -195,9 +201,9 @@ generate-trace-vsim:
 	make generate-trace
 
 run:
-	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library) +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +STRING=$(elf-bin) -t 1ps \
+	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library) +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) -t 1ps \
 	+BASEDIR=$(riscv-test-dir) $(uvm-flags) $(QUESTASIM_FLAGS) -gblso $(SPIKE_ROOT)/lib/libfesvr.so -sv_lib $(dpi-library)/ariane_dpi  \
-	${top_level}_optimized +permissive-off ++$(elf-bin) ++$(target-options) | tee sim.log
+	${top_level}_optimized +permissive-off ++$(elf-bin) ++$(target-options) ++$(cl-bin) | tee sim.log
 
 
 sim: build run

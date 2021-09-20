@@ -5,8 +5,10 @@ package:
 
 dependencies:
   cva6: { path: "deps/cva6" }
+  alsaqr_padframe: { path: "deps/alsaqr_periph_padframe" }
   apb_uart: { path: "../fpga/src/apb_uart" }
-  axi: { git: "https://github.com/pulp-platform/axi.git", version: "0.29.0" } 
+  axi: { git: "https://github.com/pulp-platform/axi.git", version: "0.29.1" } 
+  fpnew: { git: "https://github.com/pulp-platform/fpnew.git", version: 0.6.5 }
   tcdm_interconnect: { git: "https://github.com/pulp-platform/cluster_interconnect.git", version: "1.1.2" }
   axi2tcdm: { git: "https://github.com/AlSaqr-platform/axi2mem.git", rev: "master" }
   apb:  { git: "https://github.com/pulp-platform/apb.git", version:  0.1.0 }
@@ -20,13 +22,15 @@ dependencies:
   udma_filter: { git: "https://github.com/pulp-platform/udma_filter.git", version: 1.0.2 }
   udma_external_per: { git: "https://github.com/pulp-platform/udma_external_per.git", version: 1.0.3 }
   udma_hyper: { git: "https://github.com/pulp-platform/udma_hyper.git", rev: "e404cb28b8a19d48f0fd88a3806498a122932bf3" }
-  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.3 }
+  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.55 }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", version: 0.1.1 }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "0e9f142f2f11278445c953ad011fce1c7ed85b66" }
-  hyperbus: { git: "git@iis-git.ee.ethz.ch:bslk/hyperbus.git", rev: "b6bc5197ce106c138ac3731a7faee482017e2d45" }
-  register_interface:  { git: "https://github.com/pulp-platform/register_interface.git", version: 0.2.2  }
+  hyperbus: { git: "git@iis-git.ee.ethz.ch:bslk/hyperbus.git", rev: "c20de056a3ce0fba7cfc05982ce3ae5778591fa7" }
+  register_interface:  { git: "https://github.com/pulp-platform/register_interface.git", version: 0.3.1  }
   apb_fll_if: { git: "https://github.com/pulp-platform/apb_fll_if.git", version: 0.1.3 }
   generic_FLL: { git: "https://github.com/pulp-platform/generic_FLL.git", rev: "1c92dc73a940392182fd4cb7b86f35649b349595" }
+  apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
+  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "ec860dc85d6426f199d6f4d152e754ee7bedc82c" }
 
 export_include_dirs:
   - include/
@@ -37,6 +41,7 @@ sources:
   - include/apb_soc_pkg.sv
   - include/pulp_interfaces.sv
   - include/ariane_axi_soc_pkg.sv
+  - include/udma_subsystem_pkg.sv
   - include/tcdm_macros.sv
   - host/axi2tcdm_wrap.sv
   - host/ariane_peripherals.sv
@@ -54,20 +59,31 @@ sources:
   - host/host_domain.sv
   - host/pad_frame.sv
   - host/al_saqr.sv
-  - tb/common/uart.sv                                                     
-  - tb/common/SimDTM.sv                                                   
-  - tb/common/SimJTAG.sv
 
-  - target: all(fpga,xilinx)
+  - target: all(fpga,xilinx, not(asic))
     defines:
       FPGA_TARGET_XILINX: ~
       WT_DCACHE: ~
       FPGA_EMUL: ~
+      PULP_FPGA_EMUL: ~
     files:
       - ../fpga/src/pad_functional_xilinx/pad_functional_xilinx.sv
       - ./fpga/fpga_clk_gen.sv
       - ./fpga/boot_rom.sv
       - ./fpga/alsaqr_xilinx.sv
+
+  - target: all(asic, not(all(fpga, xilinx)))
+    defines:
+      WT_DCACHE: ~
+    files:
+      - ../bootrom/bootrom.sv
+      - host/generic_delay.sv
+      - host/pads_gf22.sv
+      - host/tc_sram_gf22.sv
+      - host/tc_clk_gf22.sv
+      - host/generic_memory_gf22.sv
+      - host/tc_sram.sv
+      # tc_sram is instantiated as behavioral sram in cva6's caches. TODOs : macros.
       
   - target: vip
     files:
@@ -76,6 +92,9 @@ sources:
       
   - target: test
     files:
+      - tb/common/uart.sv                                                     
+      - tb/common/SimDTM.sv                                                   
+      - tb/common/SimJTAG.sv
       - deps/cva6/src/util/sram.sv
       - ../bootrom/bootrom.sv
       - tb/common/jtag_pkg.sv

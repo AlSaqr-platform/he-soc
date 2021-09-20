@@ -9,155 +9,110 @@
 // specific language governing permissions and limitations under the License.
 
 module udma_subsystem
+  import udma_subsystem_pkg::*;
 #(
     parameter L2_DATA_WIDTH  = 32,
-    parameter L2_ADDR_WIDTH  = 19,   //L2 addr space of 2MB
-    parameter CAM_DATA_WIDTH = 8,
+    parameter L2_ADDR_WIDTH  = 19,  //L2 addr space of 2MB
     parameter APB_ADDR_WIDTH = 12,  //APB slaves are 4KB by default
     parameter TRANS_SIZE     = 20,  //max uDMA transaction size of 1MB
-    parameter N_SPI          = 1,
-    parameter N_UART         = 1,
-    parameter N_I2C          = 2,
-    parameter N_HYPER        = 1 
+    parameter CAM_DATA_WIDTH = 8
 )
 (
-    output logic                       L2_ro_wen_o    ,
-    output logic                       L2_ro_req_o    ,
-    input  logic                       L2_ro_gnt_i    ,
-    output logic                [31:0] L2_ro_addr_o   ,
-    output logic [L2_DATA_WIDTH/8-1:0] L2_ro_be_o     ,
-    output logic   [L2_DATA_WIDTH-1:0] L2_ro_wdata_o  ,
-    input  logic                       L2_ro_rvalid_i ,
-    input  logic   [L2_DATA_WIDTH-1:0] L2_ro_rdata_i  ,
+    output logic                       L2_ro_wen_o ,
+    output logic                       L2_ro_req_o ,
+    input logic                        L2_ro_gnt_i ,
+    output logic [31:0]                L2_ro_addr_o ,
+    output logic [L2_DATA_WIDTH/8-1:0] L2_ro_be_o ,
+    output logic [L2_DATA_WIDTH-1:0]   L2_ro_wdata_o ,
+    input logic                        L2_ro_rvalid_i ,
+    input logic [L2_DATA_WIDTH-1:0]    L2_ro_rdata_i ,
 
-    output logic                       L2_wo_wen_o    ,
-    output logic                       L2_wo_req_o    ,
-    input  logic                       L2_wo_gnt_i    ,
-    output logic                [31:0] L2_wo_addr_o   ,
-    output logic   [L2_DATA_WIDTH-1:0] L2_wo_wdata_o  ,
-    output logic [L2_DATA_WIDTH/8-1:0] L2_wo_be_o     ,
-    input  logic                       L2_wo_rvalid_i ,
-    input  logic   [L2_DATA_WIDTH-1:0] L2_wo_rdata_i  ,
+    output logic                       L2_wo_wen_o ,
+    output logic                       L2_wo_req_o ,
+    input logic                        L2_wo_gnt_i ,
+    output logic [31:0]                L2_wo_addr_o ,
+    output logic [L2_DATA_WIDTH-1:0]   L2_wo_wdata_o ,
+    output logic [L2_DATA_WIDTH/8-1:0] L2_wo_be_o ,
+    input logic                        L2_wo_rvalid_i ,
+    input logic [L2_DATA_WIDTH-1:0]    L2_wo_rdata_i ,
 
-    input  logic                       dft_test_mode_i,
-    input  logic                       dft_cg_enable_i,
+    input logic                        dft_test_mode_i,
+    input logic                        dft_cg_enable_i,
 
-    input  logic                       sys_clk_i,
-    input  logic                       sys_resetn_i,
+    input logic                        sys_clk_i,
+    input logic                        sys_resetn_i,
 
-    input  logic                       periph_clk_i,
+    input logic                        periph_clk_i,
 
-    input  logic  [APB_ADDR_WIDTH-1:0] udma_apb_paddr,
-    input  logic                [31:0] udma_apb_pwdata,
-    input  logic                       udma_apb_pwrite,
-    input  logic                       udma_apb_psel,
-    input  logic                       udma_apb_penable,
-    output logic                [31:0] udma_apb_prdata,
+    input logic [APB_ADDR_WIDTH-1:0]   udma_apb_paddr,
+    input logic [31:0]                 udma_apb_pwdata,
+    input logic                        udma_apb_pwrite,
+    input logic                        udma_apb_psel,
+    input logic                        udma_apb_penable,
+    output logic [31:0]                udma_apb_prdata,
     output logic                       udma_apb_pready,
     output logic                       udma_apb_pslverr,
 
-    output logic            [32*4-1:0] events_o,
+    output logic [32*4-1:0]            events_o,
 
-    input  logic                      event_valid_i,
-    input  logic                [7:0] event_data_i,
-    output logic                      event_ready_o,
+    input logic                        event_valid_i,
+    input logic [7:0]                  event_data_i,
+    output logic                       event_ready_o,
 
     // SPIM
-    output logic     [N_SPI-1:0]       spi_clk,
-    output logic     [N_SPI-1:0] [3:0] spi_csn,
-    output logic     [N_SPI-1:0] [3:0] spi_oen,
-    output logic     [N_SPI-1:0] [3:0] spi_sdo,
-    input  logic     [N_SPI-1:0] [3:0] spi_sdi,
-
-    // I2C
-    input  logic           [N_I2C-1:0] i2c_scl_i,
-    output logic           [N_I2C-1:0] i2c_scl_o,
-    output logic           [N_I2C-1:0] i2c_scl_oe,
-    input  logic           [N_I2C-1:0] i2c_sda_i,
-    output logic           [N_I2C-1:0] i2c_sda_o,
-    output logic           [N_I2C-1:0] i2c_sda_oe,
-
-    // CAM
-    input  logic                       cam_clk_i,
-    input  logic  [CAM_DATA_WIDTH-1:0] cam_data_i,
-    input  logic                       cam_hsync_i,
-    input  logic                       cam_vsync_i,
-
-    // UART
-    input  logic          [N_UART-1:0] uart_rx_i,
-    output logic          [N_UART-1:0] uart_tx_o,
-
-    // SDIO
-    output logic                       sdio_clk_o,
-    output logic                       sdio_cmd_o,
-    input  logic                       sdio_cmd_i,
-    output logic                       sdio_cmd_oen_o,
-    output logic                 [3:0] sdio_data_o,
-    input  logic                 [3:0] sdio_data_i,
-    output logic                 [3:0] sdio_data_oen_o,
+    output                             qspi_to_pad_t [N_SPI-1:0] qspi_to_pad,
+    input                              pad_to_qspi_t [N_SPI-1:0] pad_to_qspi,
     
-    // I2S
-    input  logic                       i2s_slave_sd0_i,
-    input  logic                       i2s_slave_sd1_i,
-    input  logic                       i2s_slave_ws_i,
-    output logic                       i2s_slave_ws_o,
-    output logic                       i2s_slave_ws_oe,
-    input  logic                       i2s_slave_sck_i,
-    output logic                       i2s_slave_sck_o,
-    output logic                       i2s_slave_sck_oe,
-
+    // I2C
+    output                             i2c_to_pad_t [N_I2C-1:0] i2c_to_pad,
+    input                              pad_to_i2c_t [N_I2C-1:0] pad_to_i2c,
+   
+    // CAM
+  	input                              pad_to_cam_t [N_CAM-1:0] pad_to_cam,
+    
+    // UART
+    input                              pad_to_uart_t [N_UART-1:0] pad_to_uart,
+    output                             uart_to_pad_t [N_UART-1:0] uart_to_pad,
+    
+    // SDIO
+    output                             sdio_to_pad_t [N_SDIO-1:0] sdio_to_pad,
+    input                              pad_to_sdio_t [N_SDIO-1:0] pad_to_sdio,
+ 
     // HYPERBUS
-    output logic [1:0]                 hyper_cs_no,
-    output logic                       hyper_ck_o,
-    output logic                       hyper_ck_no,
-    output logic [1:0]                 hyper_rwds_o,
-    input  logic                       hyper_rwds_i,
-    output logic [1:0]                 hyper_rwds_oe_o,
-    input  logic [15:0]                hyper_dq_i,
-    output logic [15:0]                hyper_dq_o,
-    output logic [1:0]                 hyper_dq_oe_o,
-    output logic                       hyper_reset_no
-
+    output                             hyper_to_pad_t hyper_to_pad,
+    input                              pad_to_hyper_t pad_to_hyper
+ 
 );
 
     localparam DEST_SIZE = 2;
 
     localparam L2_AWIDTH_NOAL = L2_ADDR_WIDTH + 2;
 
-    localparam N_I2S      = 1;
-    localparam N_CAM      = 1;
-    localparam N_CSI2     = 0;
-    localparam N_SDIO     = 1;
-    localparam N_JTAG     = 0;
-    localparam N_MRAM     = 0;
     localparam N_FILTER   = 1;
-    localparam N_CH_HYPER = 8;
-    localparam N_FPGA     = 0;
-`ifdef PULP_TRAINING	  
-    localparam N_EXT_PER  = 1;
-`else			  
-    localparam N_EXT_PER  = 0;
-`endif
-
-    localparam N_RX_CHANNELS =   N_SPI + N_HYPER + N_MRAM + N_JTAG + N_SDIO + N_UART + N_I2C + N_I2S + N_CAM + 2*N_CSI2 + N_FPGA + N_EXT_PER + N_CH_HYPER;
-    localparam N_TX_CHANNELS = 2*N_SPI + N_HYPER + N_MRAM + N_JTAG + N_SDIO + N_UART + N_I2C + N_I2S + N_FPGA + N_EXT_PER + N_CH_HYPER;
+    localparam N_CH_HYPER = 1;
+   
+    localparam N_RX_CHANNELS =   N_SPI + N_HYPER + N_SDIO + N_UART + N_I2C + N_CAM  + N_CH_HYPER;
+    localparam N_TX_CHANNELS = 2*N_SPI + N_HYPER + N_SDIO + N_UART + 2*N_I2C + N_CH_HYPER;
 
     localparam N_RX_EXT_CHANNELS =   N_FILTER;
     localparam N_TX_EXT_CHANNELS = 2*N_FILTER;
     localparam N_STREAMS         =   N_FILTER;
     localparam STREAM_ID_WIDTH   = 1;//$clog2(N_STREAMS)
 
-    localparam N_PERIPHS = N_SPI + N_HYPER + N_UART + N_MRAM + N_I2C + N_CAM + N_I2S + N_CSI2 + N_SDIO + N_JTAG + N_FILTER + N_FPGA + N_EXT_PER + N_CH_HYPER;
+    // TODO: N_PERIPHS has to be <= 31, including N_CH_HYPER. The udma_subsystem supports up to 32 periphs, but 
+    // including the udma core (channel 0).
+    // Now N_PERIPHS is 32, so we are not actually able to write in the HYPER's channel cfg regs (33rd periph).
+    // The default regs value work for with he hyperram (not for the flash for example!).
+    localparam N_PERIPHS = N_SPI + N_HYPER + N_UART + N_I2C + N_CAM + N_SDIO + N_FILTER + N_CH_HYPER;  
 
     // TX Channels
     localparam CH_ID_TX_UART    = 0;
     localparam CH_ID_TX_SPIM    = N_UART;
     localparam CH_ID_CMD_SPIM   = CH_ID_TX_SPIM  + N_SPI  ;
     localparam CH_ID_TX_I2C     = CH_ID_CMD_SPIM + N_SPI  ;
-    localparam CH_ID_TX_SDIO    = CH_ID_TX_I2C   + N_I2C  ;
-    localparam CH_ID_TX_I2S     = CH_ID_TX_SDIO  + N_SDIO ;
-    localparam CH_ID_TX_CAM     = CH_ID_TX_I2S   + N_I2S  ;
-    localparam CH_ID_TX_HYPER   = CH_ID_TX_CAM   + N_CAM  ;
+    localparam CH_ID_CMD_I2C    = CH_ID_TX_I2C   + N_I2C  ;
+    localparam CH_ID_TX_SDIO    = CH_ID_CMD_I2C  + N_I2C  ;
+    localparam CH_ID_TX_HYPER   = CH_ID_TX_SDIO  + N_SDIO ;
     // Tx Ext Channel
     localparam CH_ID_TX_EXT_PER = CH_ID_TX_HYPER + N_HYPER + N_CH_HYPER;
  
@@ -167,8 +122,7 @@ module udma_subsystem
     localparam CH_ID_RX_SPIM    = N_UART;
     localparam CH_ID_RX_I2C     = CH_ID_RX_SPIM  + N_SPI  ;
     localparam CH_ID_RX_SDIO    = CH_ID_RX_I2C   + N_I2C  ;
-    localparam CH_ID_RX_I2S     = CH_ID_RX_SDIO  + N_SDIO ;
-    localparam CH_ID_RX_CAM     = CH_ID_RX_I2S   + N_I2S  ;
+    localparam CH_ID_RX_CAM     = CH_ID_RX_SDIO  + N_SDIO ;
     localparam CH_ID_RX_HYPER   = CH_ID_RX_CAM   + N_CAM  ;
     // Rx Ext Channel
     localparam CH_ID_RX_EXT_PER = CH_ID_RX_HYPER + N_HYPER + N_CH_HYPER;
@@ -180,16 +134,12 @@ module udma_subsystem
     localparam CH_ID_EXT_RX_FILTER = 0;
 
     localparam PER_ID_UART    = 0;                  
-    localparam PER_ID_SPIM    = PER_ID_UART   + N_UART   ;     
-    localparam PER_ID_I2C     = PER_ID_SPIM   + N_SPI    ;     
-    localparam PER_ID_SDIO    = PER_ID_I2C    + N_I2C    ; 
-    localparam PER_ID_I2S     = PER_ID_SDIO   + N_SDIO   ; 
-    localparam PER_ID_CAM     = PER_ID_I2S    + N_I2S    ; 
-    localparam PER_ID_FILTER  = PER_ID_CAM    + N_CAM    ; 
-    localparam PER_ID_HYPER   = PER_ID_FILTER + N_FILTER ;
-    localparam PER_ID_EXT_PER = PER_ID_HYPER  + N_HYPER  + N_CH_HYPER;
-
-
+    localparam PER_ID_SPIM    = PER_ID_UART   + N_UART   ; // 7
+    localparam PER_ID_I2C     = PER_ID_SPIM   + N_SPI    ; // 18   
+    localparam PER_ID_SDIO    = PER_ID_I2C    + N_I2C    ; // 24
+    localparam PER_ID_CAM     = PER_ID_SDIO   + N_SDIO   ; // 26
+    localparam PER_ID_FILTER  = PER_ID_CAM    + N_CAM    ; // 28
+    localparam PER_ID_HYPER   = PER_ID_FILTER + N_FILTER ; // 29
     
 
     logic [N_TX_CHANNELS-1:0] [L2_AWIDTH_NOAL-1 : 0] s_tx_cfg_startaddr;
@@ -257,7 +207,7 @@ module udma_subsystem
     logic [N_STREAMS-1:0]                             s_stream_eot;
     logic [N_STREAMS-1:0]                             s_stream_ready;
 
-    logic [16*8-1:0] s_events;
+    logic [32*4-1:0] s_events;
 
     logic         [1:0] s_rf_event;
 
@@ -273,13 +223,9 @@ module udma_subsystem
 
     logic            [N_SPI-1:0] s_spi_eot;
     logic            [N_I2C-1:0] s_i2c_evt;
-    logic           [N_UART-1:0] s_uart_evt;
-
+    logic            [N_I2C-1:0] s_i2c_eot;
+   
     logic         [3:0] s_trigger_events;
-
-    logic s_cam_evt;
-    logic s_i2s_evt;
-    logic s_i2c1_evt;
 
     logic s_filter_eot_evt;
     logic s_filter_act_evt;
@@ -294,8 +240,6 @@ module udma_subsystem
     integer i;
 
     assign s_cam_evt     = 1'b0;
-    assign s_i2s_evt     = 1'b0;
-    assign s_uart_evt    = 1'b0;
 
     assign events_o      = s_events;
 
@@ -446,19 +390,22 @@ module udma_subsystem
                 .L2_AWIDTH_NOAL(L2_AWIDTH_NOAL),
                 .TRANS_SIZE(TRANS_SIZE)
             ) i_uart(
-                .sys_clk_i           ( s_clk_periphs_core[PER_ID_UART+g_uart]  ),
-                .periph_clk_i        ( s_clk_periphs_per[PER_ID_UART+g_uart]   ),
-                .rstn_i              ( sys_resetn_i                            ),
+                .sys_clk_i           ( s_clk_periphs_core[PER_ID_UART+g_uart]    ),
+                .periph_clk_i        ( s_clk_periphs_per[PER_ID_UART+g_uart]     ),
+                .rstn_i              ( sys_resetn_i                              ),
+                                                                                 
+                .uart_tx_o           ( uart_to_pad[g_uart].tx_o                  ),
+                .uart_rx_i           ( pad_to_uart[g_uart].rx_i                  ),
 
-                .uart_tx_o           ( uart_tx_o[g_uart]                       ),
-                .uart_rx_i           ( uart_rx_i[g_uart]                       ),
-
-                .cfg_data_i          ( s_periph_data_to                        ),
-                .cfg_addr_i          ( s_periph_addr                           ),
-                .cfg_valid_i         ( s_periph_valid[PER_ID_UART+g_uart]      ),
-                .cfg_rwn_i           ( s_periph_rwn                            ),
-                .cfg_data_o          ( s_periph_data_from[PER_ID_UART+g_uart]  ),
-                .cfg_ready_o         ( s_periph_ready[PER_ID_UART+g_uart]      ),
+                .rx_char_event_o     (                                           ),
+                .err_event_o         (                                           ),
+                                                                                 
+                .cfg_data_i          ( s_periph_data_to                          ),
+                .cfg_addr_i          ( s_periph_addr                             ),
+                .cfg_valid_i         ( s_periph_valid[PER_ID_UART+g_uart]        ),
+                .cfg_rwn_i           ( s_periph_rwn                              ),
+                .cfg_data_o          ( s_periph_data_from[PER_ID_UART+g_uart]    ),
+                .cfg_ready_o         ( s_periph_ready[PER_ID_UART+g_uart]        ),
 
                 .cfg_rx_startaddr_o  ( s_rx_cfg_startaddr[CH_ID_RX_UART+g_uart]  ),
                 .cfg_rx_size_o       ( s_rx_cfg_size[CH_ID_RX_UART+g_uart]       ),
@@ -469,7 +416,7 @@ module udma_subsystem
                 .cfg_rx_pending_i    ( s_rx_ch_pending[CH_ID_RX_UART+g_uart]     ),
                 .cfg_rx_curr_addr_i  ( s_rx_ch_curr_addr[CH_ID_RX_UART+g_uart]   ),
                 .cfg_rx_bytes_left_i ( s_rx_ch_bytes_left[CH_ID_RX_UART+g_uart]  ),
-                .cfg_rx_datasize_o   (                                         ),  // FIXME ANTONIO
+                .cfg_rx_datasize_o   (                                           ),  // FIXME ANTONIO
 
                 .cfg_tx_startaddr_o  ( s_tx_cfg_startaddr[CH_ID_TX_UART+g_uart]  ),
                 .cfg_tx_size_o       ( s_tx_cfg_size[CH_ID_TX_UART+g_uart]       ),
@@ -480,7 +427,7 @@ module udma_subsystem
                 .cfg_tx_pending_i    ( s_tx_ch_pending[CH_ID_TX_UART+g_uart]     ),
                 .cfg_tx_curr_addr_i  ( s_tx_ch_curr_addr[CH_ID_TX_UART+g_uart]   ),
                 .cfg_tx_bytes_left_i ( s_tx_ch_bytes_left[CH_ID_TX_UART+g_uart]  ),
-                .cfg_tx_datasize_o   (                                         ),  // FIXME ANTONIO
+                .cfg_tx_datasize_o   (                                           ),  // FIXME ANTONIO
 
                 .data_tx_req_o       ( s_tx_ch_req[CH_ID_TX_UART+g_uart]         ),
                 .data_tx_gnt_i       ( s_tx_ch_gnt[CH_ID_TX_UART+g_uart]         ),
@@ -523,23 +470,23 @@ module udma_subsystem
                 .dft_cg_enable_i     ( dft_cg_enable_i                          ),
                 .spi_eot_o           ( s_spi_eot[g_spi]                         ),
                 .spi_event_i         ( s_trigger_events                         ),
-                .spi_clk_o           ( spi_clk[g_spi]                           ),
-                .spi_csn0_o          ( spi_csn[g_spi][0]                        ),
-                .spi_csn1_o          ( spi_csn[g_spi][1]                        ),
-                .spi_csn2_o          ( spi_csn[g_spi][2]                        ),
-                .spi_csn3_o          ( spi_csn[g_spi][3]                        ),
-                .spi_oen0_o          ( spi_oen[g_spi][0]                        ),
-                .spi_oen1_o          ( spi_oen[g_spi][1]                        ),
-                .spi_oen2_o          ( spi_oen[g_spi][2]                        ),
-                .spi_oen3_o          ( spi_oen[g_spi][3]                        ),
-                .spi_sdo0_o          ( spi_sdo[g_spi][0]                        ),
-                .spi_sdo1_o          ( spi_sdo[g_spi][1]                        ),
-                .spi_sdo2_o          ( spi_sdo[g_spi][2]                        ),
-                .spi_sdo3_o          ( spi_sdo[g_spi][3]                        ),
-                .spi_sdi0_i          ( spi_sdi[g_spi][0]                        ),
-                .spi_sdi1_i          ( spi_sdi[g_spi][1]                        ),
-                .spi_sdi2_i          ( spi_sdi[g_spi][2]                        ),
-                .spi_sdi3_i          ( spi_sdi[g_spi][3]                        ),
+                .spi_clk_o           ( qspi_to_pad[g_spi].clk_o                 ),
+                .spi_csn0_o          ( qspi_to_pad[g_spi].csn0_o                ),
+                .spi_csn1_o          ( qspi_to_pad[g_spi].csn1_o                ),
+                .spi_csn2_o          ( qspi_to_pad[g_spi].csn2_o                ),
+                .spi_csn3_o          ( qspi_to_pad[g_spi].csn3_o                ),
+                .spi_oen0_o          ( qspi_to_pad[g_spi].sd0_oen_o             ),
+                .spi_oen1_o          ( qspi_to_pad[g_spi].sd1_oen_o             ),
+                .spi_oen2_o          ( qspi_to_pad[g_spi].sd2_oen_o             ),
+                .spi_oen3_o          ( qspi_to_pad[g_spi].sd3_oen_o             ),
+                .spi_sdo0_o          ( qspi_to_pad[g_spi].sd0_o                ),
+                .spi_sdo1_o          ( qspi_to_pad[g_spi].sd1_o                ),
+                .spi_sdo2_o          ( qspi_to_pad[g_spi].sd2_o                ),
+                .spi_sdo3_o          ( qspi_to_pad[g_spi].sd3_o                ),
+                .spi_sdi0_i          ( pad_to_qspi[g_spi].sd0_i                ),
+                .spi_sdi1_i          ( pad_to_qspi[g_spi].sd1_i                ),
+                .spi_sdi2_i          ( pad_to_qspi[g_spi].sd2_i                ),
+                .spi_sdi3_i          ( pad_to_qspi[g_spi].sd3_i                ),
 
                 .cfg_data_i          ( s_periph_data_to                         ),
                 .cfg_addr_i          ( s_periph_addr                            ),
@@ -606,278 +553,247 @@ module udma_subsystem
         begin: i_i2c_gen
             assign s_events[4*(PER_ID_I2C+g_i2c)+0] = s_rx_ch_events[CH_ID_RX_I2C+g_i2c];
             assign s_events[4*(PER_ID_I2C+g_i2c)+1] = s_tx_ch_events[CH_ID_TX_I2C+g_i2c];
-            assign s_events[4*(PER_ID_I2C+g_i2c)+2] = 1'b0;
-            assign s_events[4*(PER_ID_I2C+g_i2c)+3] = 1'b0;
+            assign s_events[4*(PER_ID_I2C+g_i2c)+2] = s_tx_ch_events[CH_ID_CMD_I2C+g_i2c];
+            assign s_events[4*(PER_ID_I2C+g_i2c)+3] = s_i2c_eot[g_i2c];
 
             assign s_rx_cfg_stream[CH_ID_RX_I2C+g_i2c] = 'h0;
             assign s_rx_cfg_stream_id[CH_ID_RX_I2C+g_i2c] = 'h0;
             assign s_rx_ch_destination[CH_ID_RX_I2C+g_i2c] = 'h0;
             assign s_tx_ch_destination[CH_ID_TX_I2C+g_i2c] = 'h0;
+            assign s_tx_ch_destination[CH_ID_CMD_I2C+g_i2c] = 'h0;
 
             udma_i2c_top #(
                 .L2_AWIDTH_NOAL(L2_AWIDTH_NOAL),
                 .TRANS_SIZE(TRANS_SIZE)
             ) i_i2c (
-            //
-            // inputs & outputs
-            //
-                .sys_clk_i           ( s_clk_periphs_core[PER_ID_I2C+g_i2c] ),
-                .periph_clk_i        ( s_clk_periphs_per[PER_ID_I2C+g_i2c]  ),
-                .rstn_i              ( sys_resetn_i                  ),
+                .sys_clk_i           ( s_clk_periphs_core[PER_ID_I2C+g_i2c]      ),
+                .periph_clk_i        ( s_clk_periphs_per[PER_ID_I2C+g_i2c]       ),
+                .rstn_i              ( sys_resetn_i                              ),
+                .i2c_eot_o           ( s_i2c_eot[g_i2c]                          ),
 
-                .cfg_data_i          ( s_periph_data_to                  ),
-                .cfg_addr_i          ( s_periph_addr                     ),
-                .cfg_valid_i         ( s_periph_valid[PER_ID_I2C+g_i2c]       ),
-                .cfg_rwn_i           ( s_periph_rwn                      ),
-                .cfg_data_o          ( s_periph_data_from[PER_ID_I2C+g_i2c]   ),
-                .cfg_ready_o         (  s_periph_ready[PER_ID_I2C+g_i2c] ),
+                .cfg_data_i          ( s_periph_data_to                          ),
+                .cfg_addr_i          ( s_periph_addr                             ),
+                .cfg_valid_i         ( s_periph_valid[PER_ID_I2C+g_i2c]          ),
+                .cfg_rwn_i           ( s_periph_rwn                              ),
+                .cfg_data_o          ( s_periph_data_from[PER_ID_I2C+g_i2c]      ),
+                .cfg_ready_o         (  s_periph_ready[PER_ID_I2C+g_i2c]         ),
 
+                .cmd_req_o           ( s_tx_ch_req[CH_ID_CMD_I2C+g_i2c]          ),
+                .cmd_gnt_i           ( s_tx_ch_gnt[CH_ID_CMD_I2C+g_i2c]          ),
+                .cmd_datasize_o      ( s_tx_ch_datasize[CH_ID_CMD_I2C+g_i2c]     ),
+                .cmd_i               ( s_tx_ch_data[CH_ID_CMD_I2C+g_i2c]         ),
+                .cmd_valid_i         ( s_tx_ch_valid[CH_ID_CMD_I2C+g_i2c]        ),
+                .cmd_ready_o         ( s_tx_ch_ready[CH_ID_CMD_I2C+g_i2c]        ),
 
-                .cfg_tx_startaddr_o  ( s_tx_cfg_startaddr[CH_ID_TX_I2C+g_i2c]   ),
-                .cfg_tx_size_o       ( s_tx_cfg_size[CH_ID_TX_I2C+g_i2c]        ),
-                .cfg_tx_continuous_o ( s_tx_cfg_continuous[CH_ID_TX_I2C+g_i2c]  ),
-                .cfg_tx_en_o         ( s_tx_cfg_en[CH_ID_TX_I2C+g_i2c]          ),
-                .cfg_tx_clr_o        ( s_tx_cfg_clr[CH_ID_TX_I2C+g_i2c]         ),
-                .cfg_tx_en_i         ( s_tx_ch_en[CH_ID_TX_I2C+g_i2c]           ),
-                .cfg_tx_pending_i    ( s_tx_ch_pending[CH_ID_TX_I2C+g_i2c]      ),
-                .cfg_tx_curr_addr_i  ( s_tx_ch_curr_addr[CH_ID_TX_I2C+g_i2c]    ),
-                .cfg_tx_bytes_left_i ( s_tx_ch_bytes_left[CH_ID_TX_I2C+g_i2c]   ),
+                .cfg_cmd_startaddr_o  ( s_tx_cfg_startaddr[CH_ID_CMD_I2C+g_i2c]  ),
+                .cfg_cmd_size_o       ( s_tx_cfg_size[CH_ID_CMD_I2C+g_i2c]       ),
+                .cfg_cmd_continuous_o ( s_tx_cfg_continuous[CH_ID_CMD_I2C+g_i2c] ),
+                .cfg_cmd_en_o         ( s_tx_cfg_en[CH_ID_CMD_I2C+g_i2c]         ),
+                .cfg_cmd_clr_o        ( s_tx_cfg_clr[CH_ID_CMD_I2C+g_i2c]        ),
+                .cfg_cmd_en_i         ( s_tx_ch_en[CH_ID_CMD_I2C+g_i2c]          ),
+                .cfg_cmd_pending_i    ( s_tx_ch_pending[CH_ID_CMD_I2C+g_i2c]     ),
+                .cfg_cmd_curr_addr_i  ( s_tx_ch_curr_addr[CH_ID_CMD_I2C+g_i2c]   ),
+                .cfg_cmd_bytes_left_i ( s_tx_ch_bytes_left[CH_ID_CMD_I2C+g_i2c]  ),
 
-                .cfg_rx_startaddr_o  ( s_rx_cfg_startaddr[CH_ID_RX_I2C+g_i2c]   ),
-                .cfg_rx_size_o       ( s_rx_cfg_size[CH_ID_RX_I2C+g_i2c]        ),
-                .cfg_rx_continuous_o ( s_rx_cfg_continuous[CH_ID_RX_I2C+g_i2c]  ),
-                .cfg_rx_en_o         ( s_rx_cfg_en[CH_ID_RX_I2C+g_i2c]          ),
-                .cfg_rx_clr_o        ( s_rx_cfg_clr[CH_ID_RX_I2C+g_i2c]         ),
-                .cfg_rx_en_i         ( s_rx_ch_en[CH_ID_RX_I2C+g_i2c]           ),
-                .cfg_rx_pending_i    ( s_rx_ch_pending[CH_ID_RX_I2C+g_i2c]      ),
-                .cfg_rx_curr_addr_i  ( s_rx_ch_curr_addr[CH_ID_RX_I2C+g_i2c]    ),
-                .cfg_rx_bytes_left_i ( s_rx_ch_bytes_left[CH_ID_RX_I2C+g_i2c]   ),
+                .cfg_tx_startaddr_o  ( s_tx_cfg_startaddr[CH_ID_TX_I2C+g_i2c]    ),
+                .cfg_tx_size_o       ( s_tx_cfg_size[CH_ID_TX_I2C+g_i2c]         ),
+                .cfg_tx_continuous_o ( s_tx_cfg_continuous[CH_ID_TX_I2C+g_i2c]   ),
+                .cfg_tx_en_o         ( s_tx_cfg_en[CH_ID_TX_I2C+g_i2c]           ),
+                .cfg_tx_clr_o        ( s_tx_cfg_clr[CH_ID_TX_I2C+g_i2c]          ),
+                .cfg_tx_en_i         ( s_tx_ch_en[CH_ID_TX_I2C+g_i2c]            ),
+                .cfg_tx_pending_i    ( s_tx_ch_pending[CH_ID_TX_I2C+g_i2c]       ),
+                .cfg_tx_curr_addr_i  ( s_tx_ch_curr_addr[CH_ID_TX_I2C+g_i2c]     ),
+                .cfg_tx_bytes_left_i ( s_tx_ch_bytes_left[CH_ID_TX_I2C+g_i2c]    ),
 
-                .data_tx_req_o       ( s_tx_ch_req[CH_ID_TX_I2C+g_i2c]          ),
-                .data_tx_gnt_i       ( s_tx_ch_gnt[CH_ID_TX_I2C+g_i2c]          ),
-                .data_tx_datasize_o  ( s_tx_ch_datasize[CH_ID_TX_I2C+g_i2c]     ),
-                .data_tx_i           ( s_tx_ch_data[CH_ID_TX_I2C+g_i2c][7:0]    ),
-                .data_tx_valid_i     ( s_tx_ch_valid[CH_ID_TX_I2C+g_i2c]        ),
-                .data_tx_ready_o     ( s_tx_ch_ready[CH_ID_TX_I2C+g_i2c]        ),
+                .cfg_rx_startaddr_o  ( s_rx_cfg_startaddr[CH_ID_RX_I2C+g_i2c]    ),
+                .cfg_rx_size_o       ( s_rx_cfg_size[CH_ID_RX_I2C+g_i2c]         ),
+                .cfg_rx_continuous_o ( s_rx_cfg_continuous[CH_ID_RX_I2C+g_i2c]   ),
+                .cfg_rx_en_o         ( s_rx_cfg_en[CH_ID_RX_I2C+g_i2c]           ),
+                .cfg_rx_clr_o        ( s_rx_cfg_clr[CH_ID_RX_I2C+g_i2c]          ),
+                .cfg_rx_en_i         ( s_rx_ch_en[CH_ID_RX_I2C+g_i2c]            ),
+                .cfg_rx_pending_i    ( s_rx_ch_pending[CH_ID_RX_I2C+g_i2c]       ),
+                .cfg_rx_curr_addr_i  ( s_rx_ch_curr_addr[CH_ID_RX_I2C+g_i2c]     ),
+                .cfg_rx_bytes_left_i ( s_rx_ch_bytes_left[CH_ID_RX_I2C+g_i2c]    ),
 
-                .data_rx_datasize_o  ( s_rx_ch_datasize[CH_ID_RX_I2C+g_i2c]     ),
-                .data_rx_o           ( s_rx_ch_data[CH_ID_RX_I2C+g_i2c][7:0]    ),
-                .data_rx_valid_o     ( s_rx_ch_valid[CH_ID_RX_I2C+g_i2c]        ),
-                .data_rx_ready_i     ( s_rx_ch_ready[CH_ID_RX_I2C+g_i2c]        ),
+                .data_tx_req_o       ( s_tx_ch_req[CH_ID_TX_I2C+g_i2c]           ),
+                .data_tx_gnt_i       ( s_tx_ch_gnt[CH_ID_TX_I2C+g_i2c]           ),
+                .data_tx_datasize_o  ( s_tx_ch_datasize[CH_ID_TX_I2C+g_i2c]      ),
+                .data_tx_i           ( s_tx_ch_data[CH_ID_TX_I2C+g_i2c][7:0]     ),
+                .data_tx_valid_i     ( s_tx_ch_valid[CH_ID_TX_I2C+g_i2c]         ),
+                .data_tx_ready_o     ( s_tx_ch_ready[CH_ID_TX_I2C+g_i2c]         ),
 
-                .err_o               ( s_i2c_evt[g_i2c]                        ),
+                .data_rx_datasize_o  ( s_rx_ch_datasize[CH_ID_RX_I2C+g_i2c]      ),
+                .data_rx_o           ( s_rx_ch_data[CH_ID_RX_I2C+g_i2c][7:0]     ),
+                .data_rx_valid_o     ( s_rx_ch_valid[CH_ID_RX_I2C+g_i2c]         ),
+                .data_rx_ready_i     ( s_rx_ch_ready[CH_ID_RX_I2C+g_i2c]         ),
 
-                .scl_i               ( i2c_scl_i[g_i2c]                      ),
-                .scl_o               ( i2c_scl_o[g_i2c]                      ),
-                .scl_oe              ( i2c_scl_oe[g_i2c]                     ),
-                .sda_i               ( i2c_sda_i[g_i2c]                      ),
-                .sda_o               ( i2c_sda_o[g_i2c]                      ),
-                .sda_oe              ( i2c_sda_oe[g_i2c]                     ),
-                .ext_events_i        ( s_trigger_events                  )
+                .err_o               ( s_i2c_evt[g_i2c]                          ),
+
+                .scl_i               ( pad_to_i2c[g_i2c].scl_i                   ),
+                .scl_o               ( i2c_to_pad[g_i2c].scl_o                   ),
+                .scl_oe              ( i2c_to_pad[g_i2c].scl_oe_o                ),
+                .sda_i               ( pad_to_i2c[g_i2c].sda_i                   ),
+                .sda_o               ( i2c_to_pad[g_i2c].sda_o                   ),
+                .sda_oe              ( i2c_to_pad[g_i2c].sda_oe_o                ),
+                .ext_events_i        ( s_trigger_events                          )
             );
             assign s_rx_ch_data[CH_ID_RX_I2C+g_i2c][31:8]= 'h0;
         end
     endgenerate
 
     //PER_ID 4
+    logic [N_SDIO-1:0] s_sdio_eot;
+    logic [N_SDIO-1:0] s_sdio_err;
 
-    logic                        s_sdio_eot;
-    logic                        s_sdio_err;
+    generate
+       for (genvar g_sdio=0;g_sdio<N_SDIO;g_sdio++)
+         begin: i_sdio_gen
+            logic [3:0]sdio_data_o;
+            logic [3:0]sdio_data_oen_o;
+            logic [3:0]sdio_data_i;
+            assign s_events[4*(PER_ID_SDIO+g_sdio)]    = s_rx_ch_events[CH_ID_RX_SDIO+g_sdio];
+            assign s_events[4*(PER_ID_SDIO+g_sdio)+1]  = s_tx_ch_events[CH_ID_TX_SDIO+g_sdio];
+            assign s_events[4*(PER_ID_SDIO+g_sdio)+2]  = s_sdio_eot[g_sdio];
+            assign s_events[4*(PER_ID_SDIO+g_sdio)+3]  = s_sdio_err[g_sdio];
+            assign s_rx_cfg_stream[CH_ID_RX_SDIO+g_sdio] = 'h0;
+            assign s_rx_cfg_stream_id[CH_ID_RX_SDIO+g_sdio] = 'h0;
+            assign s_rx_ch_destination[CH_ID_RX_SDIO+g_sdio] = 'h0;
+            assign s_tx_ch_destination[CH_ID_TX_SDIO+g_sdio] = 'h0;
+            udma_sdio_top #(
+                .L2_AWIDTH_NOAL ( L2_AWIDTH_NOAL ),
+                .TRANS_SIZE     ( TRANS_SIZE     )
+            ) i_sdio (
+                .sys_clk_i           ( s_clk_periphs_core[PER_ID_SDIO+g_sdio] ),
+                .periph_clk_i        ( s_clk_periphs_per[PER_ID_SDIO+g_sdio]  ),
+                .rstn_i              ( sys_resetn_i                           ),
+            
+                .err_o               ( s_sdio_err[g_sdio] ),
+                .eot_o               ( s_sdio_eot[g_sdio] ),
+            
+                .sdclk_o             ( sdio_to_pad[g_sdio].clk_o      ),
+                .sdcmd_o             ( sdio_to_pad[g_sdio].cmd_o      ),
+                .sdcmd_i             ( pad_to_sdio[g_sdio].cmd_i      ),
+                .sdcmd_oen_o         ( sdio_to_pad[g_sdio].cmd_oen_o  ),
+                .sddata_o            ( sdio_data_o                    ),
+                .sddata_i            ( sdio_data_i                    ),
+                .sddata_oen_o        ( sdio_data_oen_o                ),
+            
+                .cfg_data_i          ( s_periph_data_to                              ),
+                .cfg_addr_i          ( s_periph_addr                                 ),
+                .cfg_valid_i         ( s_periph_valid[PER_ID_SDIO+g_sdio]            ),
+                .cfg_rwn_i           ( s_periph_rwn                                  ),
+                .cfg_data_o          ( s_periph_data_from[PER_ID_SDIO+g_sdio]        ),
+                .cfg_ready_o         ( s_periph_ready[PER_ID_SDIO+g_sdio]            ),
+            
+                .cfg_rx_startaddr_o  ( s_rx_cfg_startaddr[CH_ID_RX_SDIO+g_sdio]      ),
+                .cfg_rx_size_o       ( s_rx_cfg_size[CH_ID_RX_SDIO+g_sdio]           ),
+                .cfg_rx_continuous_o ( s_rx_cfg_continuous[CH_ID_RX_SDIO+g_sdio]     ),
+                .cfg_rx_en_o         ( s_rx_cfg_en[CH_ID_RX_SDIO+g_sdio]             ),
+                .cfg_rx_clr_o        ( s_rx_cfg_clr[CH_ID_RX_SDIO+g_sdio]            ),
+                .cfg_rx_en_i         ( s_rx_ch_en[CH_ID_RX_SDIO+g_sdio]              ),
+                .cfg_rx_pending_i    ( s_rx_ch_pending[CH_ID_RX_SDIO+g_sdio]         ),
+                .cfg_rx_curr_addr_i  ( s_rx_ch_curr_addr[CH_ID_RX_SDIO+g_sdio]       ),
+                .cfg_rx_bytes_left_i ( s_rx_ch_bytes_left[CH_ID_RX_SDIO+g_sdio]      ),
+            
+                .cfg_tx_startaddr_o  ( s_tx_cfg_startaddr[CH_ID_TX_SDIO+g_sdio]      ),
+                .cfg_tx_size_o       ( s_tx_cfg_size[CH_ID_TX_SDIO+g_sdio]           ),
+                .cfg_tx_continuous_o ( s_tx_cfg_continuous[CH_ID_TX_SDIO+g_sdio]     ),
+                .cfg_tx_en_o         ( s_tx_cfg_en[CH_ID_TX_SDIO+g_sdio]             ),
+                .cfg_tx_clr_o        ( s_tx_cfg_clr[CH_ID_TX_SDIO+g_sdio]            ),
+                .cfg_tx_en_i         ( s_tx_ch_en[CH_ID_TX_SDIO+g_sdio]              ),
+                .cfg_tx_pending_i    ( s_tx_ch_pending[CH_ID_TX_SDIO+g_sdio]         ),
+                .cfg_tx_curr_addr_i  ( s_tx_ch_curr_addr[CH_ID_TX_SDIO+g_sdio]       ),
+                .cfg_tx_bytes_left_i ( s_tx_ch_bytes_left[CH_ID_TX_SDIO+g_sdio]      ),
+            
+                .data_tx_req_o       ( s_tx_ch_req[CH_ID_TX_SDIO+g_sdio]             ),
+                .data_tx_gnt_i       ( s_tx_ch_gnt[CH_ID_TX_SDIO+g_sdio]             ),
+                .data_tx_datasize_o  ( s_tx_ch_datasize[CH_ID_TX_SDIO+g_sdio]        ),
+                .data_tx_i           ( s_tx_ch_data[CH_ID_TX_SDIO+g_sdio]            ),
+                .data_tx_valid_i     ( s_tx_ch_valid[CH_ID_TX_SDIO+g_sdio]           ),
+                .data_tx_ready_o     ( s_tx_ch_ready[CH_ID_TX_SDIO+g_sdio]           ),
+            
+                .data_rx_datasize_o  ( s_rx_ch_datasize[CH_ID_RX_SDIO+g_sdio]        ),
+                .data_rx_o           ( s_rx_ch_data[CH_ID_RX_SDIO+g_sdio]            ),
+                .data_rx_valid_o     ( s_rx_ch_valid[CH_ID_RX_SDIO+g_sdio]           ),
+                .data_rx_ready_i     ( s_rx_ch_ready[CH_ID_RX_SDIO+g_sdio]           )
+            );
+            assign sdio_to_pad[g_sdio].data0_o = sdio_data_o[0];
+            assign sdio_to_pad[g_sdio].data1_o = sdio_data_o[1];
+            assign sdio_to_pad[g_sdio].data2_o = sdio_data_o[2];
+            assign sdio_to_pad[g_sdio].data3_o = sdio_data_o[3];
+            assign sdio_to_pad[g_sdio].data0_oen_o = sdio_data_oen_o[0];
+            assign sdio_to_pad[g_sdio].data1_oen_o = sdio_data_oen_o[1];
+            assign sdio_to_pad[g_sdio].data2_oen_o = sdio_data_oen_o[2];
+            assign sdio_to_pad[g_sdio].data3_oen_o = sdio_data_oen_o[3];
+            assign sdio_data_i[0] = pad_to_sdio[g_sdio].data0_i;
+            assign sdio_data_i[1] = pad_to_sdio[g_sdio].data1_i;
+            assign sdio_data_i[2] = pad_to_sdio[g_sdio].data2_i;
+            assign sdio_data_i[3] = pad_to_sdio[g_sdio].data2_i;            
+         end // block: assign
+     endgenerate
 
-    assign s_events[4*PER_ID_SDIO]    = s_rx_ch_events[CH_ID_RX_SDIO];
-    assign s_events[4*PER_ID_SDIO+1]  = s_tx_ch_events[CH_ID_TX_SDIO];
-    assign s_events[4*PER_ID_SDIO+2]  = s_sdio_eot;
-    assign s_events[4*PER_ID_SDIO+3]  = s_sdio_err;
-    assign s_rx_cfg_stream[CH_ID_RX_SDIO] = 'h0;
-    assign s_rx_cfg_stream_id[CH_ID_RX_SDIO] = 'h0;
-    assign s_rx_ch_destination[CH_ID_RX_SDIO] = 'h0;
-    assign s_tx_ch_destination[CH_ID_TX_SDIO] = 'h0;
-    udma_sdio_top #(
-        .L2_AWIDTH_NOAL ( L2_AWIDTH_NOAL ),
-        .TRANS_SIZE     ( TRANS_SIZE     )
-    ) i_sdio (
-        .sys_clk_i           ( s_clk_periphs_core[PER_ID_SDIO] ),
-        .periph_clk_i        ( s_clk_periphs_per[PER_ID_SDIO]  ),
-        .rstn_i              ( sys_resetn_i                  ),
-
-        .err_o               ( s_sdio_err      ),
-        .eot_o               ( s_sdio_eot      ),
-
-        .sdclk_o             ( sdio_clk_o      ),
-        .sdcmd_o             ( sdio_cmd_o      ),
-        .sdcmd_i             ( sdio_cmd_i      ),
-        .sdcmd_oen_o         ( sdio_cmd_oen_o  ),
-        .sddata_o            ( sdio_data_o     ),
-        .sddata_i            ( sdio_data_i     ),
-        .sddata_oen_o        ( sdio_data_oen_o ),
-
-        .cfg_data_i          ( s_periph_data_to                    ),
-        .cfg_addr_i          ( s_periph_addr                       ),
-        .cfg_valid_i         ( s_periph_valid[PER_ID_SDIO]         ),
-        .cfg_rwn_i           ( s_periph_rwn                        ),
-        .cfg_data_o          ( s_periph_data_from[PER_ID_SDIO]     ),
-        .cfg_ready_o         ( s_periph_ready[PER_ID_SDIO]    ),
-
-        .cfg_rx_startaddr_o  ( s_rx_cfg_startaddr[CH_ID_RX_SDIO]      ),
-        .cfg_rx_size_o       ( s_rx_cfg_size[CH_ID_RX_SDIO]           ),
-        .cfg_rx_continuous_o ( s_rx_cfg_continuous[CH_ID_RX_SDIO]     ),
-        .cfg_rx_en_o         ( s_rx_cfg_en[CH_ID_RX_SDIO]             ),
-        .cfg_rx_clr_o        ( s_rx_cfg_clr[CH_ID_RX_SDIO]            ),
-        .cfg_rx_en_i         ( s_rx_ch_en[CH_ID_RX_SDIO]              ),
-        .cfg_rx_pending_i    ( s_rx_ch_pending[CH_ID_RX_SDIO]         ),
-        .cfg_rx_curr_addr_i  ( s_rx_ch_curr_addr[CH_ID_RX_SDIO]       ),
-        .cfg_rx_bytes_left_i ( s_rx_ch_bytes_left[CH_ID_RX_SDIO]      ),
-
-        .cfg_tx_startaddr_o  ( s_tx_cfg_startaddr[CH_ID_TX_SDIO]      ),
-        .cfg_tx_size_o       ( s_tx_cfg_size[CH_ID_TX_SDIO]           ),
-        .cfg_tx_continuous_o ( s_tx_cfg_continuous[CH_ID_TX_SDIO]     ),
-        .cfg_tx_en_o         ( s_tx_cfg_en[CH_ID_TX_SDIO]             ),
-        .cfg_tx_clr_o        ( s_tx_cfg_clr[CH_ID_TX_SDIO]            ),
-        .cfg_tx_en_i         ( s_tx_ch_en[CH_ID_TX_SDIO]              ),
-        .cfg_tx_pending_i    ( s_tx_ch_pending[CH_ID_TX_SDIO]         ),
-        .cfg_tx_curr_addr_i  ( s_tx_ch_curr_addr[CH_ID_TX_SDIO]       ),
-        .cfg_tx_bytes_left_i ( s_tx_ch_bytes_left[CH_ID_TX_SDIO]      ),
-
-        .data_tx_req_o       ( s_tx_ch_req[CH_ID_TX_SDIO]             ),
-        .data_tx_gnt_i       ( s_tx_ch_gnt[CH_ID_TX_SDIO]             ),
-        .data_tx_datasize_o  ( s_tx_ch_datasize[CH_ID_TX_SDIO]        ),
-        .data_tx_i           ( s_tx_ch_data[CH_ID_TX_SDIO]            ),
-        .data_tx_valid_i     ( s_tx_ch_valid[CH_ID_TX_SDIO]           ),
-        .data_tx_ready_o     ( s_tx_ch_ready[CH_ID_TX_SDIO]           ),
-
-        .data_rx_datasize_o  ( s_rx_ch_datasize[CH_ID_RX_SDIO]        ),
-        .data_rx_o           ( s_rx_ch_data[CH_ID_RX_SDIO]            ),
-        .data_rx_valid_o     ( s_rx_ch_valid[CH_ID_RX_SDIO]           ),
-        .data_rx_ready_i     ( s_rx_ch_ready[CH_ID_RX_SDIO]           )
-    );
-
-
-    //PER_ID 5
-    assign s_events[4*PER_ID_I2S]    = s_rx_ch_events[CH_ID_RX_I2S];
-    assign s_events[4*PER_ID_I2S+1]  = s_tx_ch_events[CH_ID_TX_I2S];
-    assign s_events[4*PER_ID_I2S+2]  = 1'b0;
-    assign s_events[4*PER_ID_I2S+3]  = 1'b0;
-    assign s_rx_cfg_stream[CH_ID_RX_I2S] = 'h0;
-    assign s_rx_cfg_stream_id[CH_ID_RX_I2S] = 'h0;
-    assign s_rx_ch_destination[CH_ID_RX_I2S] = 'h0;
-    assign s_tx_ch_destination[CH_ID_TX_I2S] = 'h0;
-    udma_i2s_top #(
-        .L2_AWIDTH_NOAL(L2_AWIDTH_NOAL),
-        .TRANS_SIZE(TRANS_SIZE)
-    ) i_i2s_udma (
-        .sys_clk_i           ( s_clk_periphs_core[PER_ID_I2S]  ),
-        .periph_clk_i        ( s_clk_periphs_per[PER_ID_I2S]   ),
-        .rstn_i              ( sys_resetn_i                    ),
-
-        .dft_test_mode_i     ( dft_test_mode_i                 ),
-        .dft_cg_enable_i     ( dft_cg_enable_i                 ),
-
-        .pad_slave_sd0_i     ( i2s_slave_sd0_i                 ),
-        .pad_slave_sd1_i     ( i2s_slave_sd1_i                 ),
-        .pad_slave_sck_i     ( i2s_slave_sck_i                 ),
-        .pad_slave_sck_o     ( i2s_slave_sck_o                 ),
-        .pad_slave_sck_oe    ( i2s_slave_sck_oe                ),
-        .pad_slave_ws_i      ( i2s_slave_ws_i                  ),
-        .pad_slave_ws_o      ( i2s_slave_ws_o                  ),
-        .pad_slave_ws_oe     ( i2s_slave_ws_oe                 ),
-
-        .pad_master_sd0_o    (                                 ),
-        .pad_master_sd1_o    (                                 ),
-        .pad_master_sck_i    (                                 ),
-        .pad_master_sck_o    (                                 ),
-        .pad_master_sck_oe   (                                 ),
-        .pad_master_ws_i     ( 1'b0                            ),
-        .pad_master_ws_o     (                                 ),
-        .pad_master_ws_oe    (                                 ),
-
-        .cfg_data_i          ( s_periph_data_to                ),
-        .cfg_addr_i          ( s_periph_addr                   ),
-        .cfg_valid_i         ( s_periph_valid[PER_ID_I2S]      ),
-        .cfg_rwn_i           ( s_periph_rwn                    ),
-        .cfg_data_o          ( s_periph_data_from[PER_ID_I2S]  ),
-        .cfg_ready_o         ( s_periph_ready[PER_ID_I2S]      ),
-
-        .cfg_rx_startaddr_o  ( s_rx_cfg_startaddr[CH_ID_RX_I2S]  ),
-        .cfg_rx_size_o       ( s_rx_cfg_size[CH_ID_RX_I2S]       ),
-        .cfg_rx_continuous_o ( s_rx_cfg_continuous[CH_ID_RX_I2S] ),
-        .cfg_rx_en_o         ( s_rx_cfg_en[CH_ID_RX_I2S]         ),
-        .cfg_rx_clr_o        ( s_rx_cfg_clr[CH_ID_RX_I2S]        ),
-        .cfg_rx_en_i         ( s_rx_ch_en[CH_ID_RX_I2S]          ),
-        .cfg_rx_pending_i    ( s_rx_ch_pending[CH_ID_RX_I2S]     ),
-        .cfg_rx_curr_addr_i  ( s_rx_ch_curr_addr[CH_ID_RX_I2S]   ),
-        .cfg_rx_bytes_left_i ( s_rx_ch_bytes_left[CH_ID_RX_I2S]  ),
-
-        .cfg_tx_startaddr_o  ( s_tx_cfg_startaddr[CH_ID_TX_I2S]  ),
-        .cfg_tx_size_o       ( s_tx_cfg_size[CH_ID_TX_I2S]       ),
-        .cfg_tx_continuous_o ( s_tx_cfg_continuous[CH_ID_TX_I2S] ),
-        .cfg_tx_en_o         ( s_tx_cfg_en[CH_ID_TX_I2S]         ),
-        .cfg_tx_clr_o        ( s_tx_cfg_clr[CH_ID_TX_I2S]        ),
-        .cfg_tx_en_i         ( s_tx_ch_en[CH_ID_TX_I2S]          ),
-        .cfg_tx_pending_i    ( s_tx_ch_pending[CH_ID_TX_I2S]     ),
-        .cfg_tx_curr_addr_i  ( s_tx_ch_curr_addr[CH_ID_TX_I2S]   ),
-        .cfg_tx_bytes_left_i ( s_tx_ch_bytes_left[CH_ID_TX_I2S]  ),
-
-        .data_rx_datasize_o  ( s_rx_ch_datasize[CH_ID_RX_I2S]    ),
-        .data_rx_o           ( s_rx_ch_data[CH_ID_RX_I2S]        ),
-        .data_rx_valid_o     ( s_rx_ch_valid[CH_ID_RX_I2S]       ),
-        .data_rx_ready_i     ( s_rx_ch_ready[CH_ID_RX_I2S]       ),
-
-        .data_tx_req_o       ( s_tx_ch_req[CH_ID_TX_I2S]         ),
-        .data_tx_gnt_i       ( s_tx_ch_gnt[CH_ID_TX_I2S]         ),
-        .data_tx_datasize_o  ( s_tx_ch_datasize[CH_ID_TX_I2S]    ),
-        .data_tx_i           ( s_tx_ch_data[CH_ID_TX_I2S]        ),
-        .data_tx_valid_i     ( s_tx_ch_valid[CH_ID_TX_I2S]       ),
-        .data_tx_ready_o     ( s_tx_ch_ready[CH_ID_TX_I2S]       )
-    );
-
-    //PER_ID 6
-    assign s_events[4*PER_ID_CAM]    = s_rx_ch_events[CH_ID_RX_CAM];
-    assign s_events[4*PER_ID_CAM+1]  = 1'b0;
-    assign s_events[4*PER_ID_CAM+2]  = 1'b0;
-    assign s_events[4*PER_ID_CAM+3]  = 1'b0;
-    assign s_rx_cfg_stream[CH_ID_RX_CAM] = 'h0;
-    assign s_rx_cfg_stream_id[CH_ID_RX_CAM] = 'h0;
-    assign s_rx_ch_destination[CH_ID_RX_CAM] = 'h0;
-    camera_if #(
-        .L2_AWIDTH_NOAL(L2_AWIDTH_NOAL),
-        .TRANS_SIZE(TRANS_SIZE),
-        .DATA_WIDTH(8)
-    ) i_camera_if (
-        .clk_i(s_clk_periphs_core[PER_ID_CAM]),
-        .rstn_i(sys_resetn_i),
-
-        .dft_test_mode_i(dft_test_mode_i),
-        .dft_cg_enable_i(dft_cg_enable_i),
-
-        .cfg_data_i          ( s_periph_data_to                ),
-        .cfg_addr_i          ( s_periph_addr                   ),
-        .cfg_valid_i         ( s_periph_valid[PER_ID_CAM]      ),
-        .cfg_rwn_i           ( s_periph_rwn                    ),
-        .cfg_data_o          ( s_periph_data_from[PER_ID_CAM]  ),
-        .cfg_ready_o         ( s_periph_ready[PER_ID_CAM]      ),
-
-        .cfg_rx_startaddr_o  ( s_rx_cfg_startaddr[CH_ID_RX_CAM]  ),
-        .cfg_rx_size_o       ( s_rx_cfg_size[CH_ID_RX_CAM]       ),
-        .cfg_rx_continuous_o ( s_rx_cfg_continuous[CH_ID_RX_CAM] ),
-        .cfg_rx_en_o         ( s_rx_cfg_en[CH_ID_RX_CAM]         ),
-        .cfg_rx_clr_o        ( s_rx_cfg_clr[CH_ID_RX_CAM]        ),
-        .cfg_rx_en_i         ( s_rx_ch_en[CH_ID_RX_CAM]          ),
-        .cfg_rx_pending_i    ( s_rx_ch_pending[CH_ID_RX_CAM]     ),
-        .cfg_rx_curr_addr_i  ( s_rx_ch_curr_addr[CH_ID_RX_CAM]   ),
-        .cfg_rx_bytes_left_i ( s_rx_ch_bytes_left[CH_ID_RX_CAM]  ),
-
-        .data_rx_datasize_o  ( s_rx_ch_datasize[CH_ID_RX_CAM]    ),
-        .data_rx_data_o      ( s_rx_ch_data[CH_ID_RX_CAM][15:0]  ),
-        .data_rx_valid_o     ( s_rx_ch_valid[CH_ID_RX_CAM]       ),
-        .data_rx_ready_i     ( s_rx_ch_ready[CH_ID_RX_CAM]       ),
-
-        .cam_clk_i           ( cam_clk_i                       ),
-        .cam_data_i          ( cam_data_i                      ),
-        .cam_hsync_i         ( cam_hsync_i                     ),
-        .cam_vsync_i         ( cam_vsync_i                     )
-    );
-    assign s_rx_ch_data[CH_ID_RX_CAM][31:16]='h0;
-
+    //PER_ID
+    generate
+       for (genvar g_cam=0;g_cam<N_CAM;g_cam++)
+        begin: i_cam_gen
+        logic  [7:0] cam_data_i;    
+        assign s_events[4*(PER_ID_CAM+g_cam)]    = s_rx_ch_events[CH_ID_RX_CAM+g_cam];
+        assign s_events[4*(PER_ID_CAM+g_cam)+1]  = 1'b0;
+        assign s_events[4*(PER_ID_CAM+g_cam)+2]  = 1'b0;
+        assign s_events[4*(PER_ID_CAM+g_cam)+3]  = 1'b0;
+        assign s_rx_cfg_stream[CH_ID_RX_CAM+g_cam] = 'h0;
+        assign s_rx_cfg_stream_id[CH_ID_RX_CAM+g_cam] = 'h0;
+        assign s_rx_ch_destination[CH_ID_RX_CAM+g_cam] = 'h0;
+        camera_if #(
+            .L2_AWIDTH_NOAL(L2_AWIDTH_NOAL),
+            .TRANS_SIZE(TRANS_SIZE),
+            .DATA_WIDTH(8)
+        ) i_camera_if (
+            .clk_i(s_clk_periphs_core[PER_ID_CAM+g_cam]),
+            .rstn_i(sys_resetn_i),
+        
+            .dft_test_mode_i(dft_test_mode_i),
+            .dft_cg_enable_i(dft_cg_enable_i),
+        
+            .cfg_data_i          ( s_periph_data_to                        ),
+            .cfg_addr_i          ( s_periph_addr                           ),
+            .cfg_valid_i         ( s_periph_valid[PER_ID_CAM+g_cam]        ),
+            .cfg_rwn_i           ( s_periph_rwn                            ),
+            .cfg_data_o          ( s_periph_data_from[PER_ID_CAM+g_cam]    ),
+            .cfg_ready_o         ( s_periph_ready[PER_ID_CAM+g_cam]        ),
+        
+            .cfg_rx_startaddr_o  ( s_rx_cfg_startaddr[CH_ID_RX_CAM+g_cam]  ),
+            .cfg_rx_size_o       ( s_rx_cfg_size[CH_ID_RX_CAM+g_cam]       ),
+            .cfg_rx_continuous_o ( s_rx_cfg_continuous[CH_ID_RX_CAM+g_cam] ),
+            .cfg_rx_en_o         ( s_rx_cfg_en[CH_ID_RX_CAM+g_cam]         ),
+            .cfg_rx_clr_o        ( s_rx_cfg_clr[CH_ID_RX_CAM+g_cam]        ),
+            .cfg_rx_en_i         ( s_rx_ch_en[CH_ID_RX_CAM+g_cam]          ),
+            .cfg_rx_pending_i    ( s_rx_ch_pending[CH_ID_RX_CAM+g_cam]     ),
+            .cfg_rx_curr_addr_i  ( s_rx_ch_curr_addr[CH_ID_RX_CAM+g_cam]   ),
+            .cfg_rx_bytes_left_i ( s_rx_ch_bytes_left[CH_ID_RX_CAM+g_cam]  ),
+        
+            .data_rx_datasize_o  ( s_rx_ch_datasize[CH_ID_RX_CAM+g_cam]    ),
+            .data_rx_data_o      ( s_rx_ch_data[CH_ID_RX_CAM+g_cam][15:0]  ),
+            .data_rx_valid_o     ( s_rx_ch_valid[CH_ID_RX_CAM+g_cam]       ),
+            .data_rx_ready_i     ( s_rx_ch_ready[CH_ID_RX_CAM+g_cam]       ),
+        
+            .cam_clk_i           ( pad_to_cam[g_cam].clk_i                 ),
+            .cam_data_i          ( cam_data_i                              ),
+            .cam_hsync_i         ( pad_to_cam[g_cam].hsync_i               ),
+            .cam_vsync_i         ( pad_to_cam[g_cam].vsync_i               )
+        );
+        assign s_rx_ch_data[CH_ID_RX_CAM+g_cam][31:16]='h0;
+        assign cam_data_i[0] = pad_to_cam[g_cam].data0_i;
+        assign cam_data_i[1] = pad_to_cam[g_cam].data1_i;
+        assign cam_data_i[2] = pad_to_cam[g_cam].data2_i;
+        assign cam_data_i[3] = pad_to_cam[g_cam].data3_i;
+        assign cam_data_i[4] = pad_to_cam[g_cam].data4_i;
+        assign cam_data_i[5] = pad_to_cam[g_cam].data5_i;
+        assign cam_data_i[6] = pad_to_cam[g_cam].data6_i;           
+        assign cam_data_i[7] = pad_to_cam[g_cam].data7_i;           
+     end // block: assign
+   endgenerate
+   
    //PER_ID 7
     assign s_events[4*PER_ID_FILTER]    = s_filter_eot_evt;
     assign s_events[4*PER_ID_FILTER+1]  = s_filter_act_evt;
@@ -944,8 +860,16 @@ module udma_subsystem
     );
 
 
-
-
+    logic [1:0]  hyper_cs_no;
+    logic        hyper_ck_o;
+    logic        hyper_ck_no;
+    logic [1:0]  hyper_rwds_o;
+    logic        hyper_rwds_i;
+    logic [1:0]  hyper_rwds_oe;
+    logic [15:0] hyper_dq_i;
+    logic [15:0] hyper_dq_o;
+    logic [1:0]  hyper_dq_oe;
+    logic        hyper_reset_no;
 
     assign s_hyper_sys_clk = |s_clk_periphs_core[PER_ID_HYPER+N_CH_HYPER : PER_ID_HYPER];
     assign s_hyper_periph_clk = |s_clk_periphs_per[PER_ID_HYPER+N_CH_HYPER : PER_ID_HYPER];
@@ -1034,79 +958,40 @@ module udma_subsystem
 
          //////////////TO/FROM EXTERNAL OF THE CHIP///////////////////////////
         .hyper_cs_no             ( hyper_cs_no                                      ),
-        .hyper_ck_o              ( hyper_ck_o                                       ),
-        .hyper_ck_no             ( hyper_ck_no                                      ),
+        .hyper_ck_o              ( hyper_to_pad.ck_o                                ),
+        .hyper_ck_no             ( hyper_to_pad.ckn_o                               ),
         .hyper_rwds_o            ( hyper_rwds_o                                     ),
-        .hyper_rwds_i            ( hyper_rwds_i                                     ),
-        .hyper_rwds_oe_o         ( hyper_rwds_oe_o                                  ),
+        .hyper_rwds_i            ( pad_to_hyper.rwds_i                              ),
+        .hyper_rwds_oe_o         ( hyper_rwds_oe                                    ),
         .hyper_dq_i              ( hyper_dq_i                                       ),
         .hyper_dq_o              ( hyper_dq_o                                       ),
-        .hyper_dq_oe_o           ( hyper_dq_oe_o                                    ),
-        .hyper_reset_no          ( hyper_reset_no                                   )
-        //.debug_hyper_rwds_oe_o   ( debug_hyper_rwds_oe_o                            ),
-        //.debug_hyper_dq_oe_o     ( debug_hyper_dq_oe_o                              ),
-        //.debug_hyper_phy_state_o ( debug_hyper_phy_state_o                          )
+        .hyper_dq_oe_o           ( hyper_dq_oe                                      ),
+        .hyper_reset_no          ( hyper_to_pad.resetn_o                            )
     );
 
+    assign hyper_to_pad.rwds_o  = hyper_rwds_o[0];
+    assign hyper_to_pad.rwds_oe_o = hyper_rwds_oe[0];
+    assign hyper_to_pad.dq_oe_o = hyper_dq_oe[0];
+    
+    assign hyper_to_pad.cs0n_o = hyper_cs_no[0];
+    assign hyper_to_pad.cs1n_o = hyper_cs_no[1];
+    
+    assign hyper_to_pad.dq0_o = hyper_dq_o[0];
+    assign hyper_to_pad.dq1_o = hyper_dq_o[1];
+    assign hyper_to_pad.dq2_o = hyper_dq_o[2];
+    assign hyper_to_pad.dq3_o = hyper_dq_o[3];
+    assign hyper_to_pad.dq4_o = hyper_dq_o[4];
+    assign hyper_to_pad.dq5_o = hyper_dq_o[5];
+    assign hyper_to_pad.dq6_o = hyper_dq_o[6];
+    assign hyper_to_pad.dq7_o = hyper_dq_o[7];
+    
+    assign hyper_dq_i[0] = pad_to_hyper.dq0_i;
+    assign hyper_dq_i[1] = pad_to_hyper.dq1_i;
+    assign hyper_dq_i[2] = pad_to_hyper.dq2_i;
+    assign hyper_dq_i[3] = pad_to_hyper.dq3_i;
+    assign hyper_dq_i[4] = pad_to_hyper.dq4_i;
+    assign hyper_dq_i[5] = pad_to_hyper.dq5_i;
+    assign hyper_dq_i[6] = pad_to_hyper.dq6_i;
+    assign hyper_dq_i[7] = pad_to_hyper.dq7_i;
 
-`ifdef PULP_TRAINING
-    //PER_ID 9
-    assign s_events[4*PER_ID_EXT_PER]            = s_rx_ch_events[CH_ID_RX_EXT_PER];
-    assign s_events[4*PER_ID_EXT_PER+1]          = s_tx_ch_events[CH_ID_TX_EXT_PER];
-    assign s_events[4*PER_ID_EXT_PER+2]          = 1'b0;
-    assign s_events[4*PER_ID_EXT_PER+3]          = 1'b0;
-
-    assign s_rx_cfg_stream[CH_ID_RX_EXT_PER]     = 'h0;
-    assign s_rx_cfg_stream_id[CH_ID_RX_EXT_PER]  = 'h0;
-    assign s_rx_ch_destination[CH_ID_RX_EXT_PER] = 'h0;
-    assign s_tx_ch_destination[CH_ID_TX_EXT_PER] = 'h0;
-
-    udma_external_per_wrapper #(
-      .L2_AWIDTH_NOAL(L2_AWIDTH_NOAL),
-      .TRANS_SIZE(TRANS_SIZE)
-    ) i_external_per (
-        .sys_clk_i           ( s_clk_periphs_core[PER_ID_EXT_PER]    ),
-        .periph_clk_i        ( s_clk_periphs_per[PER_ID_EXT_PER]     ),
-        .rstn_i              ( sys_resetn_i                          ),
-
-        .cfg_data_i          ( s_periph_data_to                      ),
-        .cfg_addr_i          ( s_periph_addr                         ),
-        .cfg_valid_i         ( s_periph_valid[PER_ID_EXT_PER]        ),
-        .cfg_rwn_i           ( s_periph_rwn                          ),
-        .cfg_ready_o         ( s_periph_ready[PER_ID_EXT_PER]        ),
-        .cfg_data_o          ( s_periph_data_from[PER_ID_EXT_PER]    ),
-
-        .cfg_rx_startaddr_o  ( s_rx_cfg_startaddr[CH_ID_RX_EXT_PER]  ),
-        .cfg_rx_size_o       ( s_rx_cfg_size[CH_ID_RX_EXT_PER]       ),
-        .cfg_rx_continuous_o ( s_rx_cfg_continuous[CH_ID_RX_EXT_PER] ),
-        .cfg_rx_en_o         ( s_rx_cfg_en[CH_ID_RX_EXT_PER]         ),
-        .cfg_rx_clr_o        ( s_rx_cfg_clr[CH_ID_RX_EXT_PER]        ),
-        .cfg_rx_en_i         ( s_rx_ch_en[CH_ID_RX_EXT_PER]          ),
-        .cfg_rx_pending_i    ( s_rx_ch_pending[CH_ID_RX_EXT_PER]     ),
-        .cfg_rx_curr_addr_i  ( s_rx_ch_curr_addr[CH_ID_RX_EXT_PER]   ),
-        .cfg_rx_bytes_left_i ( s_rx_ch_bytes_left[CH_ID_RX_EXT_PER]  ),
-
-        .cfg_tx_startaddr_o  ( s_tx_cfg_startaddr[CH_ID_TX_EXT_PER]  ),
-        .cfg_tx_size_o       ( s_tx_cfg_size[CH_ID_TX_EXT_PER]       ),
-        .cfg_tx_continuous_o ( s_tx_cfg_continuous[CH_ID_TX_EXT_PER] ),
-        .cfg_tx_en_o         ( s_tx_cfg_en[CH_ID_TX_EXT_PER]         ),
-        .cfg_tx_clr_o        ( s_tx_cfg_clr[CH_ID_TX_EXT_PER]        ),
-        .cfg_tx_en_i         ( s_tx_ch_en[CH_ID_TX_EXT_PER]          ),
-        .cfg_tx_pending_i    ( s_tx_ch_pending[CH_ID_TX_EXT_PER]     ),
-        .cfg_tx_curr_addr_i  ( s_tx_ch_curr_addr[CH_ID_TX_EXT_PER]   ),
-        .cfg_tx_bytes_left_i ( s_tx_ch_bytes_left[CH_ID_TX_EXT_PER]  ),
-
-        .data_tx_req_o       ( s_tx_ch_req[CH_ID_TX_EXT_PER]         ),
-        .data_tx_gnt_i       ( s_tx_ch_gnt[CH_ID_TX_EXT_PER]         ),
-        .data_tx_datasize_o  ( s_tx_ch_datasize[CH_ID_TX_EXT_PER]    ),
-        .data_tx_i           ( s_tx_ch_data[CH_ID_TX_EXT_PER]        ),
-        .data_tx_valid_i     ( s_tx_ch_valid[CH_ID_TX_EXT_PER]       ),
-        .data_tx_ready_o     ( s_tx_ch_ready[CH_ID_TX_EXT_PER]       ),
-
-        .data_rx_datasize_o  ( s_rx_ch_datasize[CH_ID_RX_EXT_PER]    ),
-        .data_rx_o           ( s_rx_ch_data[CH_ID_RX_EXT_PER]        ),
-        .data_rx_valid_o     ( s_rx_ch_valid[CH_ID_RX_EXT_PER]       ),
-        .data_rx_ready_i     ( s_rx_ch_ready[CH_ID_RX_EXT_PER]       )
-    );
-`endif
 endmodule

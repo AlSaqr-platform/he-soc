@@ -31,26 +31,30 @@ int main() {
 
     int * tx_buffer;
     int * rx_buffer;
-    tx_buffer = 0xC00007B0;
-    rx_buffer = 0xC0001000;
+    tx_buffer = 0x1C0007B0;
+    rx_buffer = 0x1C001000;
     int a;
     int *p;
     int hyper_addr;
     int error =0;
     int id1, id2;
     int pass = 0;
-    int periph_id = 8;
+    int periph_id = 28;
 
     // PLIC setup for hyper tx
     int plic_base = 0x0C000000;
-    int tx_hyper_plic_id = 59;
-    int rx_hyper_plic_id = 58;
+    int tx_hyper_plic_id = 131;
+    int rx_hyper_plic_id = 130;
+    // Plics events for a periph with id = N are mapped as
+    // n_evt[i]=N*4+8+i , with i=[0:3].
+    // Each periph has 4 event signals it can use. The first
+    // 8 events are already mapped to other non-udma signals.
     int plic_en_bits = plic_base + 0x2080;
     // set tx interrupt priority to 1
     pulp_write32(plic_base+tx_hyper_plic_id*4, 1);
     //enable interrupt for context 1 
     pulp_write32(plic_en_bits+(((int)(tx_hyper_plic_id/32))*4), 1<<(tx_hyper_plic_id%32));
-    
+
     udma_hyper_setup();
   
     for (int i=0; i< (BUFFER_SIZE); i++)
