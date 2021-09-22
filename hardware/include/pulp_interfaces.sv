@@ -351,3 +351,187 @@ interface XBAR_DEMUX_BUS;
    );
 
 endinterface // XBAR_DEMUX_BUS
+
+interface MP_ICACHE_CTRL_UNIT_BUS;
+    // ICACHE_CTRL UNIT INTERFACE
+    //***************************************
+    logic                 bypass_req;
+    logic [`NB_CORES:0]   bypass_ack; // NB_CORES + 1
+    logic                 flush_req;
+    logic                 flush_ack;
+
+    logic                 sel_flush_req;
+    logic [31:0]          sel_flush_addr;
+    logic                 sel_flush_ack;
+
+`ifdef FEATURE_ICACHE_STAT
+    logic [31:0]          global_hit_count;
+    logic [31:0]          global_trans_count;
+    logic [31:0]          global_miss_count;
+    logic [31:0]          global_cong_count;
+
+    logic [`NB_CORES-1:0][31:0]  bank_hit_count;
+    logic [`NB_CORES-1:0][31:0]  bank_trans_count;
+    logic [`NB_CORES-1:0][31:0]  bank_miss_count;
+    logic [`NB_CORES-1:0][31:0]  bank_cong_count;
+
+    logic                 ctrl_clear_regs;
+    logic                 ctrl_enable_regs;
+`endif
+
+    // Master Side
+    //***************************************
+    modport Master
+    (
+        output bypass_req,
+        output flush_req,
+        input  bypass_ack,
+        input  flush_ack,
+
+        output sel_flush_req,
+        output sel_flush_addr,
+        input  sel_flush_ack
+
+    `ifdef FEATURE_ICACHE_STAT
+        ,
+        input  global_hit_count,
+        input  global_trans_count,
+        input  global_miss_count,
+        input  global_cong_count,
+
+        input  bank_hit_count,
+        input  bank_trans_count,
+        input  bank_miss_count,
+        input  bank_cong_count,
+
+        output ctrl_clear_regs,
+        output ctrl_enable_regs
+    `endif
+    );
+
+    // Slave Side
+    //***************************************
+    modport Slave
+    (
+        input  bypass_req,
+        input  flush_req,
+        output bypass_ack,
+        output flush_ack,
+
+        input  sel_flush_req,
+        input  sel_flush_addr,
+        output sel_flush_ack
+
+    `ifdef FEATURE_ICACHE_STAT
+        ,
+        output global_hit_count,
+        output global_trans_count,
+        output global_miss_count,
+        output global_cong_count,
+
+        output bank_hit_count,
+        output bank_trans_count,
+        output bank_miss_count,
+        output bank_cong_count,
+
+        input  ctrl_clear_regs,
+        input  ctrl_enable_regs
+    `endif
+    );
+endinterface //~ MP_ICACHE_CTRL_UNIT_BUS
+
+interface MP_PF_ICACHE_CTRL_UNIT_BUS;
+    // ICACHE_CTRL UNIT INTERFACE
+    //***************************************
+    logic                 bypass_req;
+    logic [`NB_CORES:0]   bypass_ack; // NB_CORES + 1
+    logic                 flush_req;
+    logic                 flush_ack;
+
+    logic                 sel_flush_req;
+    logic [31:0]          sel_flush_addr;
+    logic                 sel_flush_ack;
+
+    logic [31:0]          pf_addr;
+    logic [7:0]           pf_size;
+    logic                 pf_req;
+    logic                 pf_ack;
+    logic                 pf_done;
+
+
+`ifdef FEATURE_ICACHE_STAT
+    logic [31:0]          global_hit_count;
+    logic [31:0]          global_trans_count;
+    logic [31:0]          global_miss_count;
+
+    logic [`NB_CORES-1:0][31:0]  bank_hit_count;
+    logic [`NB_CORES-1:0][31:0]  bank_trans_count;
+    logic [`NB_CORES-1:0][31:0]  bank_miss_count;
+
+    logic                 ctrl_clear_regs;
+    logic                 ctrl_enable_regs;
+`endif
+
+    // Master Side
+    //***************************************
+    modport Master
+    (
+        output bypass_req,
+        output flush_req,
+        input  bypass_ack,
+        input  flush_ack,
+
+        output sel_flush_req,
+        output sel_flush_addr,
+        input  sel_flush_ack,
+
+        output pf_addr, pf_size, pf_req,
+        input  pf_ack,  pf_done
+
+    `ifdef FEATURE_ICACHE_STAT
+        ,
+        input  global_hit_count,
+        input  global_trans_count,
+        input  global_miss_count,
+
+        input  bank_hit_count,
+        input  bank_trans_count,
+        input  bank_miss_count,
+
+        output ctrl_clear_regs,
+        output ctrl_enable_regs
+    `endif
+    );
+
+    // Slave Side
+    //***************************************
+    modport Slave
+    (
+        input  bypass_req,
+        input  flush_req,
+        output bypass_ack,
+        output flush_ack,
+
+        input  sel_flush_req,
+        input  sel_flush_addr,
+        output sel_flush_ack,
+
+        input  pf_addr, pf_size, pf_req,
+        output pf_ack,  pf_done
+
+    `ifdef FEATURE_ICACHE_STAT
+        ,
+        output global_hit_count,
+        output global_trans_count,
+        output global_miss_count,
+
+        output bank_hit_count,
+        output bank_trans_count,
+        output bank_miss_count,
+
+        input  ctrl_clear_regs,
+        input  ctrl_enable_regs
+    `endif
+    );
+endinterface //~ MP_PF_ICACHE_CTRL_UNIT_BUS
+
