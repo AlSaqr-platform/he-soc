@@ -11,7 +11,7 @@ parser = argparse.ArgumentParser(description='Generate hyper memory image file f
 
 parser.add_argument("--input", dest="input_file", default=None, help="Specify input file (ex. ./area.rpt)")
 
-parser.add_argument("--hier", dest="hier", default=0, help="Specify input file (ex. ./area.rpt)")
+parser.add_argument("--hier", dest="hier", default=0, help="Specify hierarchy level you are interested in")
 
 parser.add_argument("--filter", dest="filter", default=10, help="Specify minimum % to appear in the bar")
 
@@ -30,7 +30,7 @@ delimiter=" "
 with open(args.input_file, "rU") as fi:
     data = list(map(lambda x:x.split(), fi.read().strip().split("\n")))
 
-A=np.array(data)
+A=np.vstack(data)
 B=np.array([])
 j=0
 mystrings=A[:,0]
