@@ -36,13 +36,9 @@ module bootrom
    assign dina = 64'h00000000_00000000;
 
    xilinx_rom_bank_1024x64 rom_mem_i (
-                                      .clka  (clk_i),
-                                      .rsta  (~rst),
-                                      .ena   (~req_i),
-                                      .wea   (wea),
-                                      .addra (addr_i[11:2]),
-                                      .dina  (dina),
-                                      .douta (rdata_o)
+                                      .clk  (clk_i),
+                                      .a (addr_i[11:2]),
+                                      .qspo (rdata_o)
                                       );
 
 endmodule
