@@ -37,8 +37,8 @@ module bootrom
 
    xilinx_rom_bank_1024x64 rom_mem_i (
                                       .clk  (clk_i),
-                                      .a (addr_i[11:2]),
-                                      .qspo (rdata_o)
+                                      .a (addr_i[12:3]),
+                                      .spo (rdata_o)
                                       );
 
 endmodule

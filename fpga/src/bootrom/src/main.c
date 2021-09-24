@@ -6,7 +6,6 @@
 int main()
 {
     init_uart(10000000, 9600);
-  //  init_uart(17500000, 115200);
     print_uart("It's a boot world!\r\n");
 
         __asm__ volatile(

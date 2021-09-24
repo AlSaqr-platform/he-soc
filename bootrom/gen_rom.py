@@ -77,11 +77,6 @@ $content
 };
 """
 
-oe_var= """\
-memory_initialization_radix=16;
-memory_initialization_vector=
-$content;
-"""
 def read_bin():
 
     with open(filename + ".img", 'rb') as f:
@@ -113,21 +108,6 @@ with open(filename + ".h", "w") as f:
     s = Template(c_var)
     f.write(s.substitute(filename=filename, size=int(len(rom)/4), content=rom_str))
 
-    f.close()
-
-
-""" Generate .oe for Vivado 
-"""
-with open(filename + ".oe", "w") as f:
-    rom_str = ""
-    # process in junks of 64 bit (8 byte)
-    for i in reversed(range(int(len(rom)/8))):
-        rom_str += "".join(rom[i*8+4:i*8+8][::-1]) + "".join(rom[i*8:i*8+4][::-1]) + ",\n"
-
-    # remove the trailing comma
-    rom_str = rom_str[:-2]
-    s=Template(oe_var)
-    f.write(s.substitute(filename=filename, size=int(len(rom)/8), content=rom_str))
     f.close()
 
     

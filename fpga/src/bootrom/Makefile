@@ -48,7 +48,11 @@ $(MAIN): ariane.dtb $(OBJS_C) $(OBJS_S) linker.lds
 clean:
 	$(RM) $(OBJS_C) $(OBJS_S) $(MAIN) $(MAIN_BIN) $(MAIN_IMG) *.dtb
 
-all: $(MAIN) $(MAIN_BIN) $(MAIN_IMG) $(MAIN_SV)
+coe:
+	riscv64-unknown-elf-objcopy   -O binary bootrom.elf bootrom.bin
+	bin2coe -i bootrom.bin -w 64 -o bootrom.coe
+
+all: $(MAIN) $(MAIN_BIN) $(MAIN_IMG) $(MAIN_SV) coe
 	@echo "zero stage bootloader has been compiled!"
 
 # DO NOT DELETE THIS LINE -- make depend needs it
