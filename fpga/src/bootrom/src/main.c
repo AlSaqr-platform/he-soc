@@ -6,13 +6,17 @@
 int main()
 {
     init_uart(10000000, 9600);
+    
     print_uart("It's a boot world!\r\n");
 
         __asm__ volatile(
-            "li s0, 0x80000000;"
+            "csrr a0, mhartid;"
             "la a1, _dtb;"
-            "jr s0");
+            "ebreak;");
 
+
+    print_uart("Waiting the code...\r\n");
+        
     while (1)
     {
         // do nothing
