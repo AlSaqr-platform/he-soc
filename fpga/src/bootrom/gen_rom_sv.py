@@ -54,10 +54,10 @@ module bootrom (
 """
 endmodule = """\
     };
-    logic [$$clog2(RomSize)-1:0] addr_q;
+    logic [$clog2(RomSize)-1:0] addr_q;
     always_ff @(posedge clk_i) begin
         if (req_i) begin
-            addr_q <= addr_i[$$clog2(RomSize)-1+3:3];
+            addr_q <= addr_i[$clog2(RomSize)-1+3:3];
         end
     end
     // this prevents spurious Xes from propagating into
