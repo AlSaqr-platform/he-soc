@@ -1,58 +1,35 @@
-CROSSCOMPILE ?= riscv64-unknown-elf-
-CC = ${CROSSCOMPILE}gcc
-PYTHON=python
+# Copyright 2020 ETH Zurich and University of Bologna.
+# Solderpad Hardware License, Version 0.51, see LICENSE for details.
+# SPDX-License-Identifier: SHL-0.51
+#
+# Nils Wistoff <nwistoff@iis.ee.ethz.ch>
 
-CFLAGS = -Os -ggdb -march=rv64imac -mabi=lp64 -Wall -mcmodel=medany -mexplicit-relocs
-CCASFLAGS = -mcmodel=medany -mexplicit-relocs
-LDFLAGS = -nostdlib -nodefaultlibs -nostartfiles
-
+MKFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
+MKFILE_DIR  := $(dir $(MKFILE_PATH))
+ROOT        := ${MKFILE_DIR}../../../../..
+ARIANE_SDK  ?= ${ROOT}/../ariane-sdk
 INCLUDES = -I./ -I./src
-
-SRCS_C = src/main.c src/uart.c src/spi.c src/sd.c src/gpt.c
-SRCS_ASM = startup.S
+SRCS_C = src/main.c src/uart.c
 OBJS_C = $(SRCS_C:.c=.o)
-OBJS_S = $(SRCS_ASM:.S=.o)
 
-MAIN = bootrom.elf
-MAIN_BIN = $(MAIN:.elf=.bin)
-MAIN_IMG = $(MAIN:.elf=.img)
-MAIN_SV = $(MAIN:.elf=.sv)
-
-#.PHONY: clean
-
-$(MAIN): ariane.dtb $(OBJS_C) $(OBJS_S) linker.lds
-	$(CC) $(CFLAGS) $(LDFLAGS) $(INCLUDES) -Tlinker.lds $(OBJS_S) $(OBJS_C) -o $(MAIN)
-	@echo "LD    >= $(MAIN)"
-
-%.img: %.bin
-	dd if=$< of=$@ bs=128
-
-%.bin: %.elf
-	$(CROSSCOMPILE)objcopy -O binary $< $@
+.PHONY: all
+all: bootrom.coe
 
 %.o: %.c
-	@$(CC) $(CFLAGS) $(INCLUDES) -c $<  -o $@
-	@echo "CC    <= $<"
-
-%.o: %.S
-	@$(CC) $(CFLAGS) $(CCASFLAGS) $(INCLUDES) -c $<  -o $@
+	riscv64-unknown-elf-gcc -Os -ggdb -march=rv64imafd -mabi=lp64d -Wall -mcmodel=medany -mexplicit-relocs -fno-builtin $(INCLUDES) -c $<  -o $@
 	@echo "CC    <= $<"
 
 %.dtb: %.dts
 	dtc -I dts $< -O dtb -o $@
 
-%.sv: %.img
-	$(PYTHON) ./gen_rom.py $<
-	@echo "PYTHON >= $(MAIN_SV)"
+bootrom.elf bootrom.dump bootrom.bin: bootrom.S $(OBJS_C) bootrom.ld occamy.dtb
+	riscv64-unknown-elf-gcc -mabi=lp64d -march=rv64imafd -static -nostartfiles $(INCLUDES) -Tbootrom.ld $< $(OBJS_C) -o bootrom.elf
+	riscv64-unknown-elf-objdump -d bootrom.elf > bootrom.dump
+	riscv64-unknown-elf-objcopy --pad-to 0x1001000 -O binary bootrom.elf bootrom.bin
+
+
+%.coe: %.bin 
+	bin2coe -i $< -o $@ -w 64
 
 clean:
-	$(RM) $(OBJS_C) $(OBJS_S) $(MAIN) $(MAIN_BIN) $(MAIN_IMG) *.dtb
-
-coe:
-	riscv64-unknown-elf-objcopy   -O binary bootrom.elf bootrom.bin
-	bin2coe -i bootrom.bin -w 64 -o bootrom.coe
-
-all: $(MAIN) $(MAIN_BIN) $(MAIN_IMG) $(MAIN_SV) coe
-	@echo "zero stage bootloader has been compiled!"
-
-# DO NOT DELETE THIS LINE -- make depend needs it
+	rm -rf *.bin *.coe *.dump src/*.o *.dtb

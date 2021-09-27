@@ -1,27 +1,34 @@
-/dts-v1/;
+// Copyright 2021 ETH Zurich and University of Bologna.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
 
+// TODO(niwis) auto generate
+/dts-v1/;
 / {
   #address-cells = <2>;
   #size-cells = <2>;
-  compatible = "eth,ariane-bare-dev";
-  model = "eth,ariane-bare";
+  compatible = "eth,occamy-dev";
+  model = "eth,occamy";
   chosen {
     stdout-path = "/soc/uart@40000000:9600";
+  };
+  memory@80000000 {
+    device_type = "memory";
+    reg = <0x0 0x80000000 0x0 0x40000000>;
   };
   cpus {
     #address-cells = <1>;
     #size-cells = <0>;
-    timebase-frequency = <125000000>; // 25 MHz
+    timebase-frequency = <125000000>;
     CPU0: cpu@0 {
-      clock-frequency = <10000000>; // 50 MHz
       device_type = "cpu";
-      reg = <0>;
       status = "okay";
-      compatible = "eth, ariane", "riscv";
-      riscv,isa = "rv64imafdc";
+      compatible = "eth,ariane", "riscv";
+      clock-frequency = <10000000>;
+      riscv,isa = "rv64fimafd";
       mmu-type = "riscv,sv39";
       tlb-split;
-      // HLIC - hart local interrupt controller
+      reg = <0>;
       CPU0_intc: interrupt-controller {
         #interrupt-cells = <1>;
         interrupt-controller;
@@ -29,11 +36,7 @@
       };
     };
   };
-  memory@80000000 {
-    device_type = "memory";
-    reg = <0x0 0x80000000 0x0 0x40000000>;
-  };
-  L26: soc {
+  soc: soc {
     #address-cells = <2>;
     #size-cells = <2>;
     compatible = "eth,ariane-bare-soc", "simple-bus";
