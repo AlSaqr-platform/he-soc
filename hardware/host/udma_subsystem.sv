@@ -7,6 +7,8 @@
 // this License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the
 // specific language governing permissions and limitations under the License.
+`include "register_interface/typedef.svh"
+`include "register_interface/assign.svh"
 
 module udma_subsystem
   import udma_subsystem_pkg::*;
@@ -906,16 +908,54 @@ module udma_subsystem
     assign s_rx_cfg_stream_id[CH_ID_RX_HYPER]  = 'h0;
     assign s_rx_ch_destination[CH_ID_RX_HYPER] = 'h0;
     assign s_tx_ch_destination[CH_ID_TX_HYPER] = 'h0;
+    logic                          clk0;
+    logic                          clk90;
 
-    udma_hyper_top #(
+    clk_gen_hyper ddr_clk (
+        .clk_i    ( s_clk_periphs_per[PER_ID_HYPER] ),
+        .rst_ni   ( sys_resetn_i                    ),
+        .clk0_o   ( clk0                            ),
+        .clk90_o  ( clk90                           ),
+        .clk180_o (                                 ),
+        .clk270_o (                                 )
+    );   
+
+   localparam RegAw  = 32;
+   localparam RegDw  = 32; 
+   typedef logic [RegAw-1:0]   reg_addr_t;
+   typedef logic [RegDw-1:0]   reg_data_t;
+   typedef logic [RegDw/8-1:0] reg_strb_t;   
+   `REG_BUS_TYPEDEF_REQ(reg_req_t, reg_addr_t, reg_data_t, reg_strb_t)
+   `REG_BUS_TYPEDEF_RSP(reg_rsp_t, reg_data_t)
+    
+    hyperbus #(
       .L2_AWIDTH_NOAL(L2_AWIDTH_NOAL),
       .TRANS_SIZE(TRANS_SIZE),
-      .NB_CH(N_CH_HYPER)
+      .NB_CH(N_CH_HYPER),
+         .NumChips       ( ariane_soc::NumChipsPerHyperbus ),
+         .AxiAddrWidth   ( 64                              ),
+         .AxiDataWidth   ( 64                              ),
+         .AxiIdWidth     ( ariane_soc::IdWidthSlave        ),
+         .IsClockODelayed( 1                               ),
+         .axi_req_t      ( ariane_axi_soc::req_slv_t       ),
+         .axi_rsp_t      ( ariane_axi_soc::resp_slv_t      ),
+         .axi_w_chan_t   ( ariane_axi_soc::w_chan_t        ),
+         .RegAddrWidth   ( 32                              ),
+         .RegDataWidth   ( 32                              ),
+         .reg_req_t      ( reg_req_t                       ),
+         .reg_rsp_t      ( reg_rsp_t                       ),
+         .axi_rule_t     ( ariane_soc::addr_map_rule_t     ),
+         .RxFifoLogDepth ( 4                               ),
+         .TxFifoLogDepth ( 4                               ),
+         .RstChipBase    ( ariane_soc::HYAXIBase           ),  // Base address for all chips
+         .RstChipSpace   ( ariane_soc::HyperRamSize        )   
     ) i_hyper (
-        .sys_clk_i           ( s_clk_periphs_core[PER_ID_HYPER]                     ),
-        .periph_clk_i        ( s_clk_periphs_per[PER_ID_HYPER]                      ),
-        .rstn_i              ( sys_resetn_i                                         ),
-
+        .clk_sys_i           ( s_clk_periphs_core[PER_ID_HYPER]                     ),
+        .clk_phy_i           ( clk0                                                 ),
+        .clk_phy_i_90        ( clk90                                                ),
+        .rst_sys_ni          ( sys_resetn_i                                         ),
+        .rst_phy_ni          ( sys_resetn_i                                         ),
+        .test_mode_i         ( '0                                                   ),
         .cfg_data_i          ( s_periph_data_to                                     ),
         .cfg_addr_i          ( s_periph_addr                                        ),
         .cfg_valid_i         ( s_periph_valid[PER_ID_HYPER+N_CH_HYPER : PER_ID_HYPER]    ),

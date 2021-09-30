@@ -61,7 +61,7 @@ int main() {
     {
         tx_buffer[i] = 0xffff0000+i;
     } 
-    hyper_addr = 1;
+    hyper_addr = 0;
 
   #ifdef VERBOSE
     printf("hyper_addr: %d \n", hyper_addr);

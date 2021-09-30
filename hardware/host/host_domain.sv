@@ -126,8 +126,6 @@ module host_domain
 
    localparam NB_UDMA_TCDM_CHANNEL = 2;
 
-   localparam RegAw  = 32;
-   localparam RegDw  = 32;
    
    logic                                 s_soc_clk;
    logic                                 s_synch_soc_rst;
@@ -139,13 +137,15 @@ module host_domain
    logic                                 phy_clk;
    logic                                 phy_clk_90;
    
+   assign   soc_clk_o  = s_soc_clk;
+   assign   soc_rst_no = s_synch_soc_rst;
+
+   localparam RegAw  = 32;
+   localparam RegDw  = 32;
  
    typedef logic [RegAw-1:0]   reg_addr_t;
    typedef logic [RegDw-1:0]   reg_data_t;
    typedef logic [RegDw/8-1:0] reg_strb_t;
-
-   assign   soc_clk_o  = s_soc_clk;
-   assign   soc_rst_no = s_synch_soc_rst;
    
    `REG_BUS_TYPEDEF_REQ(reg_req_t, reg_addr_t, reg_data_t, reg_strb_t)
    `REG_BUS_TYPEDEF_RSP(reg_rsp_t, reg_data_t)
@@ -318,6 +318,7 @@ module host_domain
          .AxiAddrWidth   ( AXI_ADDRESS_WIDTH               ),
          .AxiDataWidth   ( AXI_DATA_WIDTH                  ),
          .AxiIdWidth     ( ariane_soc::IdWidthSlave        ),
+         .IsClockODelayed( 1                               ),
          .axi_req_t      ( ariane_axi_soc::req_slv_t       ),
          .axi_rsp_t      ( ariane_axi_soc::resp_slv_t      ),
          .axi_w_chan_t   ( ariane_axi_soc::w_chan_t        ),
