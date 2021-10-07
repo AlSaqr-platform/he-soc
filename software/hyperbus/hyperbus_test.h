@@ -56,6 +56,10 @@ __wait_cycles_end:
   return;
 }
 
+static inline void set_chipsel_hyper (unsigned int chip_sel){
+  pulp_write32(UDMA_HYPERBUS_OFFSET + CONFIG_REG_OFFSET*N_CHANNEL + 0x28, chip_sel);
+}
+
 static inline void set_memsel_hyper(unsigned int mem_sel){
   pulp_write32(UDMA_HYPERBUS_OFFSET + CONFIG_REG_OFFSET*N_CHANNEL + 0x20, mem_sel); // hyperram 0, hyperflash 1, psram(x8) 2, psram(x16)3
 }

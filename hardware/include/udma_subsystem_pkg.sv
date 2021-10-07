@@ -125,5 +125,16 @@ package udma_subsystem_pkg;
 		logic pwm7_o;
 	} pwm_to_pad_t;
 
+	// system related bitwidths
+	localparam L2_DATA_WIDTH    = 32;
+	localparam L2_ADDR_WIDTH    = 19;   //L2 addr space of 2MB
+	localparam CAM_DATA_WIDTH   = 8;
+	localparam APB_ADDR_WIDTH   = 12;  //APB slaves are 4KB by default
+	localparam TRANS_SIZE       = 20;  //max uDMA transaction size of 1MB
+	localparam L2_AWIDTH_NOAL   = L2_ADDR_WIDTH + 2;
+	localparam DEST_SIZE        = 2;
+	localparam STREAM_ID_WIDTH  = 4;
+
+   
 endpackage
    

@@ -153,8 +153,8 @@ module host_domain
    reg_req_t   reg_req;
    reg_rsp_t   reg_rsp;
 
-   ariane_axi_soc::req_slv_t    axi_hyper_req;
-   ariane_axi_soc::resp_slv_t   axi_hyper_rsp;
+   ariane_axi_soc::req_slv_t    axi_hyper0_req;
+   ariane_axi_soc::resp_slv_t   axi_hyper0_rsp;
 
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
@@ -175,7 +175,14 @@ module host_domain
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
      .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-   ) hyper_axi_bus();
+   ) hyper0_axi_bus();
+
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+   ) hyper1_axi_bus();
    
    XBAR_TCDM_BUS axi_bridge_2_interconnect[AXI64_2_TCDM32_N_PORTS]();
    XBAR_TCDM_BUS udma_2_tcdm_channels[NB_UDMA_TCDM_CHANNEL]();
@@ -217,7 +224,8 @@ module host_domain
         .dm_rst_o             ( s_dm_rst             ),
         .l2_axi_master        ( l2_axi_bus           ),
         .apb_axi_master       ( apb_axi_bus          ),
-        .hyper_axi_master     ( hyper_axi_bus        ),
+        .hyper0_axi_master    ( hyper0_axi_bus       ),
+        .hyper1_axi_master    ( hyper1_axi_bus       ),
         .cluster_axi_master   ( cluster_axi_master   ),
         .cluster_axi_slave    ( cluster_axi_slave    ),
         .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
@@ -253,7 +261,6 @@ module host_domain
 
 
    apb_subsystem #(
-       .L2_ADDR_WIDTH  ( L2_MEM_ADDR_WIDTH        ),
        .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
        .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
        .AXI_USER_WIDTH ( AXI_USER_WIDTH           ),
@@ -267,7 +274,8 @@ module host_domain
       .rstn_soc_sync_o        ( s_synch_soc_rst                ),
       .rstn_global_sync_o     ( s_synch_global_rst             ),
       .rstn_cluster_sync_o    ( rstn_cluster_sync_o            ),
-      .clk_cluster_o          ( clk_cluster_o                  ),                 
+      .clk_cluster_o          ( clk_cluster_o                  ),
+      .hyper1_axi_bus_slave   ( hyper1_axi_bus                 ),                 
       .axi_apb_slave          ( apb_axi_bus                    ),
       .hyaxicfg_reg_master    ( i_hyaxicfg_rbus                ),
       .udma_tcdm_channels     ( udma_2_tcdm_channels           ),
@@ -297,8 +305,8 @@ module host_domain
   `REG_BUS_ASSIGN_TO_REQ(reg_req,i_hyaxicfg_rbus)
   `REG_BUS_ASSIGN_FROM_RSP(i_hyaxicfg_rbus,reg_rsp)
     
-  `AXI_ASSIGN_TO_REQ(axi_hyper_req,hyper_axi_bus)
-  `AXI_ASSIGN_FROM_RESP(hyper_axi_bus,axi_hyper_rsp)
+  `AXI_ASSIGN_TO_REQ(axi_hyper0_req,hyper0_axi_bus)
+  `AXI_ASSIGN_FROM_RESP(hyper0_axi_bus,axi_hyper0_rsp)
 
 `ifdef FPGA_EMUL
 (* DONT_TOUCH = "TRUE" *)   clk_gen_hyper i_clk_gen_hyper (
@@ -329,7 +337,7 @@ module host_domain
          .axi_rule_t     ( ariane_soc::addr_map_rule_t     ),
          .RxFifoLogDepth ( 4                               ),
          .TxFifoLogDepth ( 4                               ),
-         .RstChipBase    ( ariane_soc::HYAXIBase           ),  // Base address for all chips
+         .RstChipBase    ( ariane_soc::HYAXIBase0          ),  // Base address for all chips
          .RstChipSpace   ( ariane_soc::HyperRamSize        )   
      ) axi_hyperbus (
          .clk_phy_i              ( phy_clk               ),
@@ -338,8 +346,8 @@ module host_domain
          .clk_sys_i              ( s_soc_clk             ),
          .rst_sys_ni             ( s_synch_soc_rst       ),
          .test_mode_i            ( '0                    ),
-         .axi_req_i              ( axi_hyper_req         ),
-         .axi_rsp_o              ( axi_hyper_rsp         ),
+         .axi_req_i              ( axi_hyper0_req        ),
+         .axi_rsp_o              ( axi_hyper0_rsp        ),
          .reg_req_i              ( reg_req               ),
          .reg_rsp_o              ( reg_rsp               ),
          .hyper_cs_no            ( axi_hyper_cs_no       ),

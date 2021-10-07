@@ -20,7 +20,6 @@ module apb_subsystem
     parameter int unsigned AXI_USER_WIDTH = 1,
     parameter int unsigned AXI_ADDR_WIDTH = 64,
     parameter int unsigned AXI_DATA_WIDTH = 64,
-    parameter int unsigned L2_ADDR_WIDTH  = 32, // L2 address space
     parameter int unsigned CAM_DATA_WIDTH = 8,
     parameter int unsigned NUM_GPIO       = 64 
 ) (
@@ -35,6 +34,7 @@ module apb_subsystem
     output logic                rstn_cluster_sync_o,
    
     AXI_BUS.Slave               axi_apb_slave,
+    AXI_BUS.Slave               hyper1_axi_bus_slave,
     REG_BUS.out                 hyaxicfg_reg_master,
     XBAR_TCDM_BUS.Master        udma_tcdm_channels[1:0],
     REG_BUS.out                 padframecfg_reg_master,
@@ -160,10 +160,6 @@ module apb_subsystem
    assign apb_udma_address = apb_udma_master_bus.paddr ;
                             
    udma_subsystem
-     #(
-        .L2_ADDR_WIDTH  ( L2_ADDR_WIDTH ), 
-        .APB_ADDR_WIDTH ( 32            )  
-     ) 
      (
 
          .events_o        ( events_o                      ),
@@ -178,7 +174,9 @@ module apb_subsystem
          .sys_clk_i       ( clk_soc_o                     ),
          .sys_resetn_i    ( s_rstn_soc_sync               ),
                                                           
-         .periph_clk_i    ( s_clk_per                     ), 
+         .periph_clk_i    ( s_clk_per                     ),
+
+         .hyper1_axi_bus_slave (hyper1_axi_bus_slave      ),
 
          .L2_ro_wen_o     ( udma_tcdm_channels[0].wen     ),
          .L2_ro_req_o     ( udma_tcdm_channels[0].req     ),

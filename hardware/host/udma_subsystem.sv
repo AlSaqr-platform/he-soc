@@ -9,16 +9,11 @@
 // specific language governing permissions and limitations under the License.
 `include "register_interface/typedef.svh"
 `include "register_interface/assign.svh"
+`include "axi/assign.svh"
 
 module udma_subsystem
+  import axi_pkg::xbar_cfg_t;
   import udma_subsystem_pkg::*;
-#(
-    parameter L2_DATA_WIDTH  = 32,
-    parameter L2_ADDR_WIDTH  = 19,  //L2 addr space of 2MB
-    parameter APB_ADDR_WIDTH = 12,  //APB slaves are 4KB by default
-    parameter TRANS_SIZE     = 20,  //max uDMA transaction size of 1MB
-    parameter CAM_DATA_WIDTH = 8
-)
 (
     output logic                       L2_ro_wen_o ,
     output logic                       L2_ro_req_o ,
@@ -61,6 +56,8 @@ module udma_subsystem
     input logic [7:0]                  event_data_i,
     output logic                       event_ready_o,
 
+    AXI_BUS.Slave                      hyper1_axi_bus_slave, 
+ 
     // SPIM
     output                             qspi_to_pad_t [N_SPI-1:0] qspi_to_pad,
     input                              pad_to_qspi_t [N_SPI-1:0] pad_to_qspi,
@@ -912,7 +909,7 @@ module udma_subsystem
     logic                          clk90;
 
     clk_gen_hyper ddr_clk (
-        .clk_i    ( s_clk_periphs_per[PER_ID_HYPER] ),
+        .clk_i    ( sys_clk_i                       ),
         .rst_ni   ( sys_resetn_i                    ),
         .clk0_o   ( clk0                            ),
         .clk90_o  ( clk90                           ),
@@ -927,6 +924,11 @@ module udma_subsystem
    typedef logic [RegDw/8-1:0] reg_strb_t;   
    `REG_BUS_TYPEDEF_REQ(reg_req_t, reg_addr_t, reg_data_t, reg_strb_t)
    `REG_BUS_TYPEDEF_RSP(reg_rsp_t, reg_data_t)
+
+   ariane_axi_soc::req_slv_t    axi_hyper_req;
+   ariane_axi_soc::resp_slv_t   axi_hyper_rsp;
+  `AXI_ASSIGN_TO_REQ(axi_hyper_req,hyper1_axi_bus_slave)
+  `AXI_ASSIGN_FROM_RESP(hyper1_axi_bus_slave,axi_hyper_rsp)
     
     hyperbus #(
       .L2_AWIDTH_NOAL(L2_AWIDTH_NOAL),
@@ -947,15 +949,17 @@ module udma_subsystem
          .axi_rule_t     ( ariane_soc::addr_map_rule_t     ),
          .RxFifoLogDepth ( 4                               ),
          .TxFifoLogDepth ( 4                               ),
-         .RstChipBase    ( ariane_soc::HYAXIBase           ),  // Base address for all chips
+         .RstChipBase    ( ariane_soc::HYAXIBase1          ),  // Base address for all chips
          .RstChipSpace   ( ariane_soc::HyperRamSize        )   
     ) i_hyper (
-        .clk_sys_i           ( s_clk_periphs_core[PER_ID_HYPER]                     ),
+        .clk_sys_i           ( sys_clk_i ),// s_clk_periphs_core[PER_ID_HYPER]                     ),
         .clk_phy_i           ( clk0                                                 ),
         .clk_phy_i_90        ( clk90                                                ),
         .rst_sys_ni          ( sys_resetn_i                                         ),
         .rst_phy_ni          ( sys_resetn_i                                         ),
         .test_mode_i         ( '0                                                   ),
+        .axi_req_i              ( axi_hyper_req        ),
+        .axi_rsp_o              ( axi_hyper_rsp        ),
         .cfg_data_i          ( s_periph_data_to                                     ),
         .cfg_addr_i          ( s_periph_addr                                        ),
         .cfg_valid_i         ( s_periph_valid[PER_ID_HYPER+N_CH_HYPER : PER_ID_HYPER]    ),
