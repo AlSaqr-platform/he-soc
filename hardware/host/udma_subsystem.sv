@@ -98,10 +98,6 @@ module udma_subsystem
     localparam N_STREAMS         =   N_FILTER;
     localparam STREAM_ID_WIDTH   = 1;//$clog2(N_STREAMS)
 
-    // TODO: N_PERIPHS has to be <= 31, including N_CH_HYPER. The udma_subsystem supports up to 32 periphs, but 
-    // including the udma core (channel 0).
-    // Now N_PERIPHS is 32, so we are not actually able to write in the HYPER's channel cfg regs (33rd periph).
-    // The default regs value work for with he hyperram (not for the flash for example!).
     localparam N_PERIPHS = N_SPI + N_HYPER + N_UART + N_I2C + N_CAM + N_SDIO + N_FILTER + N_CH_HYPER;  
 
     // TX Channels
