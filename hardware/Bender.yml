@@ -12,7 +12,7 @@ dependencies:
   tcdm_interconnect: { git: "https://github.com/pulp-platform/cluster_interconnect.git", version: "1.1.2" }
   axi2tcdm: { git: "https://github.com/AlSaqr-platform/axi2mem.git", rev: "master" }
   apb:  { git: "https://github.com/pulp-platform/apb.git", version:  0.1.0 }
-  udma_core: { git: "https://github.com/pulp-platform/udma_core.git", rev:"871cdcd2bbb149139e0f95fbd78b10e19ac1f47f" }
+  udma_core: { git: "https://github.com/pulp-platform/udma_core.git", rev: "871cdcd2bbb149139e0f95fbd78b10e19ac1f47f" }
   udma_uart: { git: "https://github.com/pulp-platform/udma_uart.git", version: 1.0.1 }
   udma_i2c: { git: "https://github.com/pulp-platform/udma_i2c.git", version: 1.0.0 }
   udma_i2s: { git: "https://github.com/pulp-platform/udma_i2s.git", version: 1.1.2 }
@@ -21,10 +21,10 @@ dependencies:
   udma_camera: { git: "https://github.com/pulp-platform/udma_camera.git", version: 1.1.2 }
   udma_filter: { git: "https://github.com/pulp-platform/udma_filter.git", version: 1.0.2 }
   udma_external_per: { git: "https://github.com/pulp-platform/udma_external_per.git", version: 1.0.3 }
-  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.55 }
+  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.6 }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", version: 0.1.1 }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "0e9f142f2f11278445c953ad011fce1c7ed85b66" }
-  hyperbus: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/hyperbus.git", rev: "6b66e77837dc19423a4a100a03aaa0b3d63b8766" }
+  hyperbus: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/hyperbus.git", rev: "96f1911d8834cbc0d55b43261f94fde8e74c4aac" }
   register_interface:  { git: "https://github.com/pulp-platform/register_interface.git", version: 0.3.1  }
   apb_fll_if: { git: "https://github.com/pulp-platform/apb_fll_if.git", version: 0.1.3 }
   generic_FLL: { git: "https://github.com/pulp-platform/generic_FLL.git", rev: "1c92dc73a940392182fd4cb7b86f35649b349595" }

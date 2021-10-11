@@ -165,7 +165,7 @@ module apb_subsystem
    logic [31:0]                        apb_udma_address;     
    assign apb_udma_address = apb_udma_master_bus.paddr ;
                             
-   udma_subsystem
+   udma_subsystem i_udma_subsystem
      (
 
          .events_o        ( events_o                      ),
