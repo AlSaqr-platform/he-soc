@@ -5,7 +5,7 @@ package udma_subsystem_pkg;
   localparam N_SDIO         = 2;
   localparam N_CAM          = 2;
   localparam N_I2C          = 5;
-  localparam N_HYPER        = 1;
+  localparam N_HYPER        = 2;
 
   typedef struct packed {
  		logic tx_o;

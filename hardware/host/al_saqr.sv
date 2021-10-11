@@ -147,8 +147,8 @@ module al_saqr
      .LOG_DEPTH      ( 3                        )
   ) async_cluster_to_soc_axi_bus();
    
-  pad_to_hyper_t s_pad_to_hyper;
-  hyper_to_pad_t s_hyper_to_pad;
+  pad_to_hyper_t [N_HYPER-1:0] s_pad_to_hyper;
+  hyper_to_pad_t [N_HYPER-1:0] s_hyper_to_pad;
 
   qspi_to_pad_t [N_SPI-1:0] s_qspi_to_pad;
   pad_to_qspi_t [N_SPI-1:0] s_pad_to_qspi;
@@ -251,58 +251,72 @@ module al_saqr
       .cva6_uart_rx_i         ( cva6_uart_rx_i                   ),
       .cva6_uart_tx_o         ( cva6_uart_tx_o                   ),
 
-      .pwm_to_pad             ( s_pwm_to_pad                     ),
- 
-      .axi_hyper_cs_no        ( s_axi_hyper_cs_n                 ),
-      .axi_hyper_ck_o         ( s_axi_hyper_ck                   ),
-      .axi_hyper_ck_no        ( s_axi_hyper_ck_n                 ),
-      .axi_hyper_rwds_o       ( s_axi_hyper_rwds_o               ),
-      .axi_hyper_rwds_i       ( s_axi_hyper_rwds_i               ),
-      .axi_hyper_rwds_oe_o    ( s_axi_hyper_rwds_oe              ),
-      .axi_hyper_dq_i         ( s_axi_hyper_dq_i                 ),
-      .axi_hyper_dq_o         ( s_axi_hyper_dq_o                 ),
-      .axi_hyper_dq_oe_o      ( s_axi_hyper_dq_oe                ),
-      .axi_hyper_reset_no     ( s_axi_hyper_reset_n              )
-
+      .pwm_to_pad             ( s_pwm_to_pad                     )
     );
 
-   assign s_hyper_dq_o[0] = s_hyper_to_pad.dq0_o;
-   assign s_hyper_dq_o[1] = s_hyper_to_pad.dq1_o;
-   assign s_hyper_dq_o[2] = s_hyper_to_pad.dq2_o;
-   assign s_hyper_dq_o[3] = s_hyper_to_pad.dq3_o;
-   assign s_hyper_dq_o[4] = s_hyper_to_pad.dq4_o;
-   assign s_hyper_dq_o[5] = s_hyper_to_pad.dq5_o;
-   assign s_hyper_dq_o[6] = s_hyper_to_pad.dq6_o;
-   assign s_hyper_dq_o[7] = s_hyper_to_pad.dq7_o;
+   assign s_hyper_dq_o[0] = s_hyper_to_pad[1].dq0_o;
+   assign s_hyper_dq_o[1] = s_hyper_to_pad[1].dq1_o;
+   assign s_hyper_dq_o[2] = s_hyper_to_pad[1].dq2_o;
+   assign s_hyper_dq_o[3] = s_hyper_to_pad[1].dq3_o;
+   assign s_hyper_dq_o[4] = s_hyper_to_pad[1].dq4_o;
+   assign s_hyper_dq_o[5] = s_hyper_to_pad[1].dq5_o;
+   assign s_hyper_dq_o[6] = s_hyper_to_pad[1].dq6_o;
+   assign s_hyper_dq_o[7] = s_hyper_to_pad[1].dq7_o;
    
-   assign s_hyper_cs_n[0]    = s_hyper_to_pad.cs0n_o;
-   assign s_hyper_cs_n[1]    = s_hyper_to_pad.cs1n_o;
-   assign s_hyper_rwds_o[0]  = s_hyper_to_pad.rwds_o;
-   assign s_hyper_rwds_oe[0] = s_hyper_to_pad.rwds_oe_o;
-   assign s_hyper_dq_oe      = s_hyper_to_pad.dq_oe_o;
+   assign s_hyper_cs_n[0]    = s_hyper_to_pad[1].cs0n_o;
+   assign s_hyper_cs_n[1]    = s_hyper_to_pad[1].cs1n_o;
+   assign s_hyper_rwds_o[0]  = s_hyper_to_pad[1].rwds_o;
+   assign s_hyper_rwds_oe[0] = s_hyper_to_pad[1].rwds_oe_o;
+   assign s_hyper_dq_oe      = s_hyper_to_pad[1].dq_oe_o;
    
-   assign s_pad_to_hyper.dq0_i = s_hyper_dq_i[0];
-   assign s_pad_to_hyper.dq1_i = s_hyper_dq_i[1];
-   assign s_pad_to_hyper.dq2_i = s_hyper_dq_i[2];
-   assign s_pad_to_hyper.dq3_i = s_hyper_dq_i[3];
-   assign s_pad_to_hyper.dq4_i = s_hyper_dq_i[4];
-   assign s_pad_to_hyper.dq5_i = s_hyper_dq_i[5];
-   assign s_pad_to_hyper.dq6_i = s_hyper_dq_i[6];
-   assign s_pad_to_hyper.dq7_i = s_hyper_dq_i[7];
+   assign s_pad_to_hyper[1].dq0_i = s_hyper_dq_i[0];
+   assign s_pad_to_hyper[1].dq1_i = s_hyper_dq_i[1];
+   assign s_pad_to_hyper[1].dq2_i = s_hyper_dq_i[2];
+   assign s_pad_to_hyper[1].dq3_i = s_hyper_dq_i[3];
+   assign s_pad_to_hyper[1].dq4_i = s_hyper_dq_i[4];
+   assign s_pad_to_hyper[1].dq5_i = s_hyper_dq_i[5];
+   assign s_pad_to_hyper[1].dq6_i = s_hyper_dq_i[6];
+   assign s_pad_to_hyper[1].dq7_i = s_hyper_dq_i[7];
 
+   assign s_axi_hyper_cs_n[0] = s_hyper_to_pad[0].cs0n_o ;
+   assign s_axi_hyper_cs_n[1] = s_hyper_to_pad[0].cs1n_o;
+   assign s_axi_hyper_ck = s_hyper_to_pad[0].ck_o;
+   assign s_axi_hyper_ck_n = s_hyper_to_pad[0].ckn_o;
+   assign s_axi_hyper_rwds_o = s_hyper_to_pad[0].rwds_o;
+   assign s_axi_hyper_rwds_oe = s_hyper_to_pad[0].rwds_oe_o;
+   assign s_axi_hyper_dq_oe = s_hyper_to_pad[0].dq_oe_o;
+   assign s_axi_hyper_reset_n = s_hyper_to_pad[0].resetn_o;
+   assign s_axi_hyper_dq_o[0] = s_hyper_to_pad[0].dq0_o;
+   assign s_axi_hyper_dq_o[1] = s_hyper_to_pad[0].dq1_o;
+   assign s_axi_hyper_dq_o[2] = s_hyper_to_pad[0].dq2_o;
+   assign s_axi_hyper_dq_o[3] = s_hyper_to_pad[0].dq3_o;
+   assign s_axi_hyper_dq_o[4] = s_hyper_to_pad[0].dq4_o;
+   assign s_axi_hyper_dq_o[5] = s_hyper_to_pad[0].dq5_o;
+   assign s_axi_hyper_dq_o[6] = s_hyper_to_pad[0].dq6_o;
+   assign s_axi_hyper_dq_o[7] = s_hyper_to_pad[0].dq7_o;
+   assign s_pad_to_hyper[0].rwds_i = s_axi_hyper_rwds_i;
+   assign s_pad_to_hyper[0].dq0_i = s_axi_hyper_dq_i[0];
+   assign s_pad_to_hyper[0].dq1_i = s_axi_hyper_dq_i[1];
+   assign s_pad_to_hyper[0].dq2_i = s_axi_hyper_dq_i[2];
+   assign s_pad_to_hyper[0].dq3_i = s_axi_hyper_dq_i[3];
+   assign s_pad_to_hyper[0].dq4_i = s_axi_hyper_dq_i[4];
+   assign s_pad_to_hyper[0].dq5_i = s_axi_hyper_dq_i[5];
+   assign s_pad_to_hyper[0].dq6_i = s_axi_hyper_dq_i[6];
+   assign s_pad_to_hyper[0].dq7_i = s_axi_hyper_dq_i[7];
+   
    pad_frame #()
     i_pad_frame
       (       
       .hyper_cs_ni            ( s_hyper_cs_n                    ),
-      .hyper_ck_i             ( s_hyper_to_pad.ck_o             ),
-      .hyper_ck_ni            ( s_hyper_to_pad.ckn_o            ),
+      .hyper_ck_i             ( s_hyper_to_pad[1].ck_o          ),
+      .hyper_ck_ni            ( s_hyper_to_pad[1].ckn_o         ),
       .hyper_rwds_i           ( s_hyper_rwds_o                  ),
-      .hyper_rwds_o           ( s_pad_to_hyper.rwds_i           ),
+      .hyper_rwds_o           ( s_pad_to_hyper[1].rwds_i        ),
       .hyper_rwds_oe_i        ( s_hyper_rwds_oe                 ),
       .hyper_dq_o             ( s_hyper_dq_i                    ),
       .hyper_dq_i             ( s_hyper_dq_o                    ),
       .hyper_dq_oe_i          ( s_hyper_dq_oe                   ),
-      .hyper_reset_ni         ( s_hyper_to_pad.resetn_o         ),
+      .hyper_reset_ni         ( s_hyper_to_pad[1].resetn_o      ),
 
       .pad_hyper_dq0          ( pad_hyper_dq0                   ),
       .pad_hyper_dq1          ( pad_hyper_dq1                   ),

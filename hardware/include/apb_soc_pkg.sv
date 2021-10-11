@@ -19,7 +19,7 @@ package apb_soc_pkg;
       logic [31:0] end_addr;
    } addr_map_rule_t;
 
-   localparam NUM_APB_SLAVES = 6;
+   localparam NUM_APB_SLAVES = 7;
 
    localparam NUM_GPIO = 64;
    
@@ -34,12 +34,13 @@ package apb_soc_pkg;
   
    
    typedef enum logic [31:0] {
-     FLLBase      = 32'h1A10_0000,
-     GPIOSBase    = 32'h1A10_1000,
-     UDMABase     = 32'h1A10_2000,
-     HYAXICFGBase = 32'h1A10_4000,
-     ADVTIMERBase = 32'h1A10_5000,
-     PADFRAMEBase = 32'h1A10_6000
+     FLLBase       = 32'h1A10_0000,
+     GPIOSBase     = 32'h1A10_1000,
+     UDMABase      = 32'h1A10_2000,
+     HYAXICFG0Base = 32'h1A10_4000,
+     HYAXICFG1Base = 32'h1A10_5000,
+     ADVTIMERBase  = 32'h1A10_6000,
+     PADFRAMEBase  = 32'h1A10_7000
     } soc_apb_bus_start_t;
    
 endpackage

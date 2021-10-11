@@ -18,7 +18,7 @@
  * Mantainer: Luca Valente (luca.valente2@unibo.it)
  */
 
-#define TIMER_OFFSET 0xC1005000
+#define TIMER_OFFSET 0xC1006000
 
 static inline void enable_timer()
  {

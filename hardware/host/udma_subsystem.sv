@@ -50,13 +50,14 @@ module udma_subsystem
     output logic                       udma_apb_pready,
     output logic                       udma_apb_pslverr,
 
-    output logic [32*4-1:0]            events_o,
+    output logic [33*4-1:0]            events_o,
 
     input logic                        event_valid_i,
     input logic [7:0]                  event_data_i,
     output logic                       event_ready_o,
 
-    AXI_BUS.Slave                      hyper1_axi_bus_slave, 
+    AXI_BUS.Slave                      hyper_axi_bus_slave [N_HYPER-1:0], 
+    REG_BUS.in                         hyper_reg_cfg_slave [N_HYPER-1:0],
  
     // SPIM
     output                             qspi_to_pad_t [N_SPI-1:0] qspi_to_pad,
@@ -78,8 +79,8 @@ module udma_subsystem
     input                              pad_to_sdio_t [N_SDIO-1:0] pad_to_sdio,
  
     // HYPERBUS
-    output                             hyper_to_pad_t hyper_to_pad,
-    input                              pad_to_hyper_t pad_to_hyper
+    output                             hyper_to_pad_t [N_HYPER-1:0] hyper_to_pad,
+    input                              pad_to_hyper_t [N_HYPER-1:0] pad_to_hyper
  
 );
 
@@ -202,7 +203,7 @@ module udma_subsystem
     logic [N_STREAMS-1:0]                             s_stream_eot;
     logic [N_STREAMS-1:0]                             s_stream_ready;
 
-    logic [32*4-1:0] s_events;
+    logic [N_PERIPHS*4-1:0] s_events;
 
     logic         [1:0] s_rf_event;
 
@@ -224,13 +225,6 @@ module udma_subsystem
 
     logic s_filter_eot_evt;
     logic s_filter_act_evt;
-
-
-    logic s_hyper_sys_clk;
-    logic s_hyper_periph_clk;
-    logic [N_CH_HYPER-1:0] s_evt_eot_hyper;
-    logic is_hyper_read_q;
-    logic is_hyper_read_d;
 
     integer i;
 
@@ -854,53 +848,6 @@ module udma_subsystem
         .filter_ready_o           ( s_stream_ready[STREAM_ID_FILTER]    )
     );
 
-
-    logic [1:0]  hyper_cs_no;
-    logic        hyper_ck_o;
-    logic        hyper_ck_no;
-    logic [1:0]  hyper_rwds_o;
-    logic        hyper_rwds_i;
-    logic [1:0]  hyper_rwds_oe;
-    logic [15:0] hyper_dq_i;
-    logic [15:0] hyper_dq_o;
-    logic [1:0]  hyper_dq_oe;
-    logic        hyper_reset_no;
-
-    assign s_hyper_sys_clk = |s_clk_periphs_core[PER_ID_HYPER+N_CH_HYPER : PER_ID_HYPER];
-    assign s_hyper_periph_clk = |s_clk_periphs_per[PER_ID_HYPER+N_CH_HYPER : PER_ID_HYPER];
-
-    //PER_ID 9
-    assign s_events[4*PER_ID_HYPER]            = s_rx_ch_events[CH_ID_RX_HYPER];
-    assign s_events[4*PER_ID_HYPER+1]          = s_tx_ch_events[CH_ID_TX_HYPER];
-    assign s_events[4*PER_ID_HYPER+2]          = |s_evt_eot_hyper & is_hyper_read_d ;
-    assign s_events[4*PER_ID_HYPER+3]          = |s_evt_eot_hyper & !is_hyper_read_d;
-
-    always_ff @(posedge s_clk_periphs_core[PER_ID_HYPER], negedge sys_resetn_i) begin
-       if(!sys_resetn_i) 
-             is_hyper_read_q <= 1'b0;
-       else
-             is_hyper_read_q <= is_hyper_read_d;
-    end 
-    always_comb begin
-           if(is_hyper_read_q) begin
-                if ( s_tx_ch_events[CH_ID_TX_HYPER] & !s_rx_ch_events[CH_ID_RX_HYPER]) begin
-                      is_hyper_read_d = 1'b0;
-                end
-                else  is_hyper_read_d = 1'b1;
-           end 
-           else if(!is_hyper_read_q) begin
-                if ( s_rx_ch_events[CH_ID_RX_HYPER] & !s_tx_ch_events[CH_ID_TX_HYPER]) begin
-                      is_hyper_read_d = 1'b1;
-                end
-                else  is_hyper_read_d = 1'b0;
-           end
-    end
-
-
-    assign s_rx_cfg_stream[CH_ID_RX_HYPER]     = 'h0;
-    assign s_rx_cfg_stream_id[CH_ID_RX_HYPER]  = 'h0;
-    assign s_rx_ch_destination[CH_ID_RX_HYPER] = 'h0;
-    assign s_tx_ch_destination[CH_ID_TX_HYPER] = 'h0;
     logic                          clk0;
     logic                          clk90;
 
@@ -913,125 +860,181 @@ module udma_subsystem
         .clk270_o (                                 )
     );   
 
-   localparam RegAw  = 32;
-   localparam RegDw  = 32; 
-   typedef logic [RegAw-1:0]   reg_addr_t;
-   typedef logic [RegDw-1:0]   reg_data_t;
-   typedef logic [RegDw/8-1:0] reg_strb_t;   
-   `REG_BUS_TYPEDEF_REQ(reg_req_t, reg_addr_t, reg_data_t, reg_strb_t)
-   `REG_BUS_TYPEDEF_RSP(reg_rsp_t, reg_data_t)
+    localparam RegAw  = 32;
+    localparam RegDw  = 32; 
+    typedef logic [RegAw-1:0]   reg_addr_t;
+    typedef logic [RegDw-1:0]   reg_data_t;
+    typedef logic [RegDw/8-1:0] reg_strb_t;   
+    `REG_BUS_TYPEDEF_REQ(reg_req_t, reg_addr_t, reg_data_t, reg_strb_t)
+    `REG_BUS_TYPEDEF_RSP(reg_rsp_t, reg_data_t)   
 
-   ariane_axi_soc::req_slv_t    axi_hyper_req;
-   ariane_axi_soc::resp_slv_t   axi_hyper_rsp;
-  `AXI_ASSIGN_TO_REQ(axi_hyper_req,hyper1_axi_bus_slave)
-  `AXI_ASSIGN_FROM_RESP(hyper1_axi_bus_slave,axi_hyper_rsp)
+    generate
+       for (genvar g_hyper=0;g_hyper<N_HYPER;g_hyper++) begin: i_hyper_gen
+         logic [1:0]  hyper_cs_no;
+         logic        hyper_ck_o;
+         logic        hyper_ck_no;
+         logic [1:0]  hyper_rwds_o;
+         logic        hyper_rwds_i;
+         logic [1:0]  hyper_rwds_oe;
+         logic [15:0] hyper_dq_i;
+         logic [15:0] hyper_dq_o;
+         logic [1:0]  hyper_dq_oe;
+         logic        hyper_reset_no;
+         logic [N_CH_HYPER-1:0] s_evt_eot_hyper;
+         logic is_hyper_read_q;
+         logic is_hyper_read_d;
+         
+         assign s_events[4*(PER_ID_HYPER+g_hyper)]            = s_rx_ch_events[CH_ID_RX_HYPER+g_hyper];
+         assign s_events[4*(PER_ID_HYPER+g_hyper)+1]          = s_tx_ch_events[CH_ID_TX_HYPER+g_hyper];
+         assign s_events[4*(PER_ID_HYPER+g_hyper)+2]          = |s_evt_eot_hyper & is_hyper_read_d ;
+         assign s_events[4*(PER_ID_HYPER+g_hyper)+3]          = |s_evt_eot_hyper & !is_hyper_read_d;
+
+         always_ff @(posedge sys_clk_i, negedge sys_resetn_i) begin
+            if(!sys_resetn_i) 
+                  is_hyper_read_q <= 1'b0;
+            else
+                  is_hyper_read_q <= is_hyper_read_d;
+         end 
+         always_comb begin
+                if(is_hyper_read_q) begin
+                     if ( s_tx_ch_events[CH_ID_TX_HYPER] & !s_rx_ch_events[CH_ID_RX_HYPER]) begin
+                           is_hyper_read_d = 1'b0;
+                     end
+                     else  is_hyper_read_d = 1'b1;
+                end 
+                else if(!is_hyper_read_q) begin
+                     if ( s_rx_ch_events[CH_ID_RX_HYPER] & !s_tx_ch_events[CH_ID_TX_HYPER]) begin
+                           is_hyper_read_d = 1'b1;
+                     end
+                     else  is_hyper_read_d = 1'b0;
+                end
+         end
+
+
+         assign s_rx_cfg_stream[CH_ID_RX_HYPER+g_hyper]     = 'h0;
+         assign s_rx_cfg_stream_id[CH_ID_RX_HYPER+g_hyper]  = 'h0;
+         assign s_rx_ch_destination[CH_ID_RX_HYPER+g_hyper] = 'h0;
+         assign s_tx_ch_destination[CH_ID_TX_HYPER+g_hyper] = 'h0;
+         
+         ariane_axi_soc::req_slv_t    axi_hyper_req;
+         ariane_axi_soc::resp_slv_t   axi_hyper_rsp;
+         `AXI_ASSIGN_TO_REQ(axi_hyper_req,hyper_axi_bus_slave[g_hyper])
+         `AXI_ASSIGN_FROM_RESP(hyper_axi_bus_slave[g_hyper],axi_hyper_rsp)
+         reg_req_t   reg_req;
+         reg_rsp_t   reg_rsp;
+         `REG_BUS_ASSIGN_TO_REQ(reg_req,hyper_reg_cfg_slave[g_hyper])
+         `REG_BUS_ASSIGN_FROM_RSP(i_hyaxicfg_rbus[g_hyper],reg_rsp)
     
-    hyperbus #(
-      .L2_AWIDTH_NOAL(L2_AWIDTH_NOAL),
-      .TRANS_SIZE(TRANS_SIZE),
-      .NB_CH(N_CH_HYPER),
-         .NumChips       ( ariane_soc::NumChipsPerHyperbus ),
-         .AxiAddrWidth   ( 64                              ),
-         .AxiDataWidth   ( 64                              ),
-         .AxiIdWidth     ( ariane_soc::IdWidthSlave        ),
-         .IsClockODelayed( 1                               ),
-         .axi_req_t      ( ariane_axi_soc::req_slv_t       ),
-         .axi_rsp_t      ( ariane_axi_soc::resp_slv_t      ),
-         .axi_w_chan_t   ( ariane_axi_soc::w_chan_t        ),
-         .RegAddrWidth   ( 32                              ),
-         .RegDataWidth   ( 32                              ),
-         .reg_req_t      ( reg_req_t                       ),
-         .reg_rsp_t      ( reg_rsp_t                       ),
-         .axi_rule_t     ( ariane_soc::addr_map_rule_t     ),
-         .RxFifoLogDepth ( 4                               ),
-         .TxFifoLogDepth ( 4                               ),
-         .RstChipBase    ( ariane_soc::HYAXIBase1          ),  // Base address for all chips
-         .RstChipSpace   ( ariane_soc::HyperRamSize        )   
-    ) i_hyper (
-        .clk_sys_i           ( sys_clk_i ),// s_clk_periphs_core[PER_ID_HYPER]                     ),
-        .clk_phy_i           ( clk0                                                 ),
-        .clk_phy_i_90        ( clk90                                                ),
-        .rst_sys_ni          ( sys_resetn_i                                         ),
-        .rst_phy_ni          ( sys_resetn_i                                         ),
-        .test_mode_i         ( '0                                                   ),
-        .axi_req_i              ( axi_hyper_req        ),
-        .axi_rsp_o              ( axi_hyper_rsp        ),
-        .cfg_data_i          ( s_periph_data_to                                     ),
-        .cfg_addr_i          ( s_periph_addr                                        ),
-        .cfg_valid_i         ( s_periph_valid[PER_ID_HYPER+N_CH_HYPER : PER_ID_HYPER]    ),
-        .cfg_rwn_i           ( s_periph_rwn                                         ),
-        .cfg_ready_o         ( s_periph_ready[PER_ID_HYPER+N_CH_HYPER : PER_ID_HYPER]    ),
-        .cfg_data_o          ( s_periph_data_from[PER_ID_HYPER+N_CH_HYPER : PER_ID_HYPER]),
-
-        .cfg_rx_startaddr_o  ( s_rx_cfg_startaddr[CH_ID_RX_HYPER]                   ),
-        .cfg_rx_size_o       ( s_rx_cfg_size[CH_ID_RX_HYPER]                        ),
-        .cfg_rx_continuous_o ( s_rx_cfg_continuous[CH_ID_RX_HYPER]                  ),
-        .cfg_rx_en_o         ( s_rx_cfg_en[CH_ID_RX_HYPER]                          ),
-        .cfg_rx_clr_o        ( s_rx_cfg_clr[CH_ID_RX_HYPER]                         ),
-        .cfg_rx_en_i         ( s_rx_ch_en[CH_ID_RX_HYPER]                           ),
-        .cfg_rx_pending_i    ( s_rx_ch_pending[CH_ID_RX_HYPER]                      ),
-        .cfg_rx_curr_addr_i  ( s_rx_ch_curr_addr[CH_ID_RX_HYPER]                    ),
-        .cfg_rx_bytes_left_i ( s_rx_ch_bytes_left[CH_ID_RX_HYPER]                   ),
-
-        .cfg_tx_startaddr_o  ( s_tx_cfg_startaddr[CH_ID_TX_HYPER]                   ),
-        .cfg_tx_size_o       ( s_tx_cfg_size[CH_ID_TX_HYPER]                        ),
-        .cfg_tx_continuous_o ( s_tx_cfg_continuous[CH_ID_TX_HYPER]                  ),
-        .cfg_tx_en_o         ( s_tx_cfg_en[CH_ID_TX_HYPER]                          ),
-        .cfg_tx_clr_o        ( s_tx_cfg_clr[CH_ID_TX_HYPER]                         ),
-        .cfg_tx_en_i         ( s_tx_ch_en[CH_ID_TX_HYPER]                           ),
-        .cfg_tx_pending_i    ( s_tx_ch_pending[CH_ID_TX_HYPER]                      ),
-        .cfg_tx_curr_addr_i  ( s_tx_ch_curr_addr[CH_ID_TX_HYPER]                    ),
-        .cfg_tx_bytes_left_i ( s_tx_ch_bytes_left[CH_ID_TX_HYPER]                   ),
-        .evt_eot_hyper_o     ( s_evt_eot_hyper                                      ),
-
-        .data_tx_req_o       ( s_tx_ch_req[CH_ID_TX_HYPER]                          ),
-        .data_tx_gnt_i       ( s_tx_ch_gnt[CH_ID_TX_HYPER]                          ),
-        .data_tx_datasize_o  ( s_tx_ch_datasize[CH_ID_TX_HYPER]                     ),
-        .data_tx_i           ( s_tx_ch_data[CH_ID_TX_HYPER]                         ),
-        .data_tx_valid_i     ( s_tx_ch_valid[CH_ID_TX_HYPER]                        ),
-        .data_tx_ready_o     ( s_tx_ch_ready[CH_ID_TX_HYPER]                        ),
-
-        .data_rx_datasize_o  ( s_rx_ch_datasize[CH_ID_RX_HYPER]                     ),
-        .data_rx_o           ( s_rx_ch_data[CH_ID_RX_HYPER]                         ),
-        .data_rx_valid_o     ( s_rx_ch_valid[CH_ID_RX_HYPER]                        ),
-        .data_rx_ready_i     ( s_rx_ch_ready[CH_ID_RX_HYPER]                        ),
-
-         //////////////TO/FROM EXTERNAL OF THE CHIP///////////////////////////
-        .hyper_cs_no             ( hyper_cs_no                                      ),
-        .hyper_ck_o              ( hyper_to_pad.ck_o                                ),
-        .hyper_ck_no             ( hyper_to_pad.ckn_o                               ),
-        .hyper_rwds_o            ( hyper_rwds_o                                     ),
-        .hyper_rwds_i            ( pad_to_hyper.rwds_i                              ),
-        .hyper_rwds_oe_o         ( hyper_rwds_oe                                    ),
-        .hyper_dq_i              ( hyper_dq_i                                       ),
-        .hyper_dq_o              ( hyper_dq_o                                       ),
-        .hyper_dq_oe_o           ( hyper_dq_oe                                      ),
-        .hyper_reset_no          ( hyper_to_pad.resetn_o                            )
-    );
-
-    assign hyper_to_pad.rwds_o  = hyper_rwds_o[0];
-    assign hyper_to_pad.rwds_oe_o = hyper_rwds_oe[0];
-    assign hyper_to_pad.dq_oe_o = hyper_dq_oe[0];
-    
-    assign hyper_to_pad.cs0n_o = hyper_cs_no[0];
-    assign hyper_to_pad.cs1n_o = hyper_cs_no[1];
-    
-    assign hyper_to_pad.dq0_o = hyper_dq_o[0];
-    assign hyper_to_pad.dq1_o = hyper_dq_o[1];
-    assign hyper_to_pad.dq2_o = hyper_dq_o[2];
-    assign hyper_to_pad.dq3_o = hyper_dq_o[3];
-    assign hyper_to_pad.dq4_o = hyper_dq_o[4];
-    assign hyper_to_pad.dq5_o = hyper_dq_o[5];
-    assign hyper_to_pad.dq6_o = hyper_dq_o[6];
-    assign hyper_to_pad.dq7_o = hyper_dq_o[7];
-    
-    assign hyper_dq_i[0] = pad_to_hyper.dq0_i;
-    assign hyper_dq_i[1] = pad_to_hyper.dq1_i;
-    assign hyper_dq_i[2] = pad_to_hyper.dq2_i;
-    assign hyper_dq_i[3] = pad_to_hyper.dq3_i;
-    assign hyper_dq_i[4] = pad_to_hyper.dq4_i;
-    assign hyper_dq_i[5] = pad_to_hyper.dq5_i;
-    assign hyper_dq_i[6] = pad_to_hyper.dq6_i;
-    assign hyper_dq_i[7] = pad_to_hyper.dq7_i;
-
+         hyperbus #(
+              .L2_AWIDTH_NOAL ( L2_AWIDTH_NOAL                                           ),
+              .TRANS_SIZE     ( TRANS_SIZE                                               ),
+              .NB_CH          ( N_CH_HYPER                                               ),
+              .NumChips       ( ariane_soc::NumChipsPerHyperbus                          ),
+              .AxiAddrWidth   ( 64                                                       ),
+              .AxiDataWidth   ( 64                                                       ),
+              .AxiIdWidth     ( ariane_soc::IdWidthSlave                                 ),
+              .IsClockODelayed( 1                                                        ),
+              .axi_req_t      ( ariane_axi_soc::req_slv_t                                ),
+              .axi_rsp_t      ( ariane_axi_soc::resp_slv_t                               ),
+              .axi_w_chan_t   ( ariane_axi_soc::w_chan_t                                 ),
+              .RegAddrWidth   ( RegAw                                                    ),
+              .RegDataWidth   ( RegDw                                                    ),
+              .reg_req_t      ( reg_req_t                                                ),
+              .reg_rsp_t      ( reg_rsp_t                                                ),
+              .axi_rule_t     ( ariane_soc::addr_map_rule_t                              ),
+              .RxFifoLogDepth ( 4                                                        ),
+              .TxFifoLogDepth ( 4                                                        ),
+              .RstChipBase    ( ariane_soc::HYAXIBase0 + ariane_soc::HYAXILength*g_hyper ),  // Base address for all chips
+              .RstChipSpace   ( ariane_soc::HyperRamSize                                 )   
+         ) i_hyper (
+             .clk_sys_i           ( sys_clk_i                                            ),
+             .clk_phy_i           ( clk0                                                 ),
+             .clk_phy_i_90        ( clk90                                                ),
+             .rst_sys_ni          ( sys_resetn_i                                         ),
+             .rst_phy_ni          ( sys_resetn_i                                         ),
+             .test_mode_i         ( '0                                                   ),
+             .axi_req_i           ( axi_hyper_req                                        ),
+             .axi_rsp_o           ( axi_hyper_rsp                                        ),
+             .reg_req_i           ( reg_req                                              ),
+             .reg_rsp_o           ( reg_rsp                                              ),
+             .cfg_data_i          ( s_periph_data_to                                     ),
+             .cfg_addr_i          ( s_periph_addr                                        ),
+             .cfg_rwn_i           ( s_periph_rwn                                         ),
+             .cfg_valid_i         ( s_periph_valid[PER_ID_HYPER+N_CH_HYPER+g_hyper : PER_ID_HYPER+g_hyper]      ),
+             .cfg_ready_o         ( s_periph_ready[PER_ID_HYPER+N_CH_HYPER+g_hyper : PER_ID_HYPER+g_hyper]      ),
+             .cfg_data_o          ( s_periph_data_from[PER_ID_HYPER+N_CH_HYPER +g_hyper : PER_ID_HYPER+g_hyper] ),
+         
+             .cfg_rx_startaddr_o  ( s_rx_cfg_startaddr[CH_ID_RX_HYPER+g_hyper]              ),
+             .cfg_rx_size_o       ( s_rx_cfg_size[CH_ID_RX_HYPER+g_hyper]                   ),
+             .cfg_rx_continuous_o ( s_rx_cfg_continuous[CH_ID_RX_HYPER+g_hyper]             ),
+             .cfg_rx_en_o         ( s_rx_cfg_en[CH_ID_RX_HYPER+g_hyper]                     ),
+             .cfg_rx_clr_o        ( s_rx_cfg_clr[CH_ID_RX_HYPER+g_hyper]                    ),
+             .cfg_rx_en_i         ( s_rx_ch_en[CH_ID_RX_HYPER+g_hyper]                      ),
+             .cfg_rx_pending_i    ( s_rx_ch_pending[CH_ID_RX_HYPER+g_hyper]                 ),
+             .cfg_rx_curr_addr_i  ( s_rx_ch_curr_addr[CH_ID_RX_HYPER+g_hyper]               ),
+             .cfg_rx_bytes_left_i ( s_rx_ch_bytes_left[CH_ID_RX_HYPER+g_hyper]              ),
+         
+             .cfg_tx_startaddr_o  ( s_tx_cfg_startaddr[CH_ID_TX_HYPER+g_hyper]              ),
+             .cfg_tx_size_o       ( s_tx_cfg_size[CH_ID_TX_HYPER+g_hyper]                   ),
+             .cfg_tx_continuous_o ( s_tx_cfg_continuous[CH_ID_TX_HYPER+g_hyper]             ),
+             .cfg_tx_en_o         ( s_tx_cfg_en[CH_ID_TX_HYPER+g_hyper]                     ),
+             .cfg_tx_clr_o        ( s_tx_cfg_clr[CH_ID_TX_HYPER+g_hyper]                    ),
+             .cfg_tx_en_i         ( s_tx_ch_en[CH_ID_TX_HYPER+g_hyper]                      ),
+             .cfg_tx_pending_i    ( s_tx_ch_pending[CH_ID_TX_HYPER+g_hyper]                 ),
+             .cfg_tx_curr_addr_i  ( s_tx_ch_curr_addr[CH_ID_TX_HYPER+g_hyper]               ),
+             .cfg_tx_bytes_left_i ( s_tx_ch_bytes_left[CH_ID_TX_HYPER+g_hyper]              ),
+             .evt_eot_hyper_o     ( s_evt_eot_hyper                                         ),
+         
+             .data_tx_req_o       ( s_tx_ch_req[CH_ID_TX_HYPER+g_hyper]                     ),
+             .data_tx_gnt_i       ( s_tx_ch_gnt[CH_ID_TX_HYPER+g_hyper]                     ),
+             .data_tx_datasize_o  ( s_tx_ch_datasize[CH_ID_TX_HYPER+g_hyper]                ),
+             .data_tx_i           ( s_tx_ch_data[CH_ID_TX_HYPER+g_hyper]                    ),
+             .data_tx_valid_i     ( s_tx_ch_valid[CH_ID_TX_HYPER+g_hyper]                   ),
+             .data_tx_ready_o     ( s_tx_ch_ready[CH_ID_TX_HYPER+g_hyper]                   ),
+         
+             .data_rx_datasize_o  ( s_rx_ch_datasize[CH_ID_RX_HYPER+g_hyper]                ),
+             .data_rx_o           ( s_rx_ch_data[CH_ID_RX_HYPER+g_hyper]                    ),
+             .data_rx_valid_o     ( s_rx_ch_valid[CH_ID_RX_HYPER+g_hyper]                   ),
+             .data_rx_ready_i     ( s_rx_ch_ready[CH_ID_RX_HYPER+g_hyper]                   ),
+         
+              //////////////TO/FROM EXTERNAL OF THE CHIP///////////////////////////
+             .hyper_cs_no             ( hyper_cs_no                                      ),
+             .hyper_ck_o              ( hyper_to_pad[g_hyper].ck_o                       ),
+             .hyper_ck_no             ( hyper_to_pad[g_hyper].ckn_o                      ),
+             .hyper_rwds_o            ( hyper_rwds_o                                     ),
+             .hyper_rwds_i            ( pad_to_hyper[g_hyper].rwds_i                     ),
+             .hyper_rwds_oe_o         ( hyper_rwds_oe                                    ),
+             .hyper_dq_i              ( hyper_dq_i                                       ),
+             .hyper_dq_o              ( hyper_dq_o                                       ),
+             .hyper_dq_oe_o           ( hyper_dq_oe                                      ),
+             .hyper_reset_no          ( hyper_to_pad[g_hyper].resetn_o                   )
+         );
+         
+         assign hyper_to_pad[g_hyper].rwds_o  = hyper_rwds_o[0];
+         assign hyper_to_pad[g_hyper].rwds_oe_o = hyper_rwds_oe[0];
+         assign hyper_to_pad[g_hyper].dq_oe_o = hyper_dq_oe[0];
+         
+         assign hyper_to_pad[g_hyper].cs0n_o = hyper_cs_no[0];
+         assign hyper_to_pad[g_hyper].cs1n_o = hyper_cs_no[1];
+         
+         assign hyper_to_pad[g_hyper].dq0_o = hyper_dq_o[0];
+         assign hyper_to_pad[g_hyper].dq1_o = hyper_dq_o[1];
+         assign hyper_to_pad[g_hyper].dq2_o = hyper_dq_o[2];
+         assign hyper_to_pad[g_hyper].dq3_o = hyper_dq_o[3];
+         assign hyper_to_pad[g_hyper].dq4_o = hyper_dq_o[4];
+         assign hyper_to_pad[g_hyper].dq5_o = hyper_dq_o[5];
+         assign hyper_to_pad[g_hyper].dq6_o = hyper_dq_o[6];
+         assign hyper_to_pad[g_hyper].dq7_o = hyper_dq_o[7];
+         
+         assign hyper_dq_i[0] = pad_to_hyper[g_hyper].dq0_i;
+         assign hyper_dq_i[1] = pad_to_hyper[g_hyper].dq1_i;
+         assign hyper_dq_i[2] = pad_to_hyper[g_hyper].dq2_i;
+         assign hyper_dq_i[3] = pad_to_hyper[g_hyper].dq3_i;
+         assign hyper_dq_i[4] = pad_to_hyper[g_hyper].dq4_i;
+         assign hyper_dq_i[5] = pad_to_hyper[g_hyper].dq5_i;
+         assign hyper_dq_i[6] = pad_to_hyper[g_hyper].dq6_i;
+         assign hyper_dq_i[7] = pad_to_hyper[g_hyper].dq7_i;
+       end // block: i_hyper_gen
+   endgenerate
+   
 endmodule

@@ -23,7 +23,7 @@
 #include "utils.h"
 #include "./hyperbus_test.h"
 #include "../common/encoding.h"
-#define BUFFER_SIZE 32
+#define BUFFER_SIZE 64
 //#define VERBOSE
 //#define EXTRA_VERBOSE
 // THIS IS A COMPLETE TEST. PLEASE CHANGE THE link.ld from 0x80000000 to 0x88000000 to properly use it.
@@ -104,7 +104,7 @@ int main() {
     for (int i=0; i< BUFFER_SIZE; i++)
       {      
       #ifdef EXTRA_VERBOSE
-      printf("@%d %x, %x ok?\n", i, rx_buffer[i], tx_buffer[i]);
+      printf("%x\n", rx_buffer[i]);
       #endif
       error += rx_buffer[i] ^ tx_buffer[i];
       }
