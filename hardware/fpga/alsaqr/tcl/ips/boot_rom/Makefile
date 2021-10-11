@@ -1,4 +1,4 @@
-PROJECT:=xilinx_rom_bank_256x64
+PROJECT:=xilinx_rom_bank_1024x64
 
 all:
 	vivado-2018.2 vivado -mode batch -source run.tcl

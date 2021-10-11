@@ -1,9 +1,9 @@
 start_gui
-create_project alsaqr /scratch/lvalente/project/arianissimo2/cva6/hardware/fpga/alsaqr -part xczu9eg-ffvb1156-2-e
+create_project alsaqr /scratch/lvalente/templatealsaqr/cva6/hardware/fpga/alsaqr -part xczu9eg-ffvb1156-2-e
 source ./alsaqr/tcl/generated/compile.tcl
 set_property top alsaqr_xilinx [current_fileset]
 read_ip ./alsaqr/tcl/ips/clk_mngr/ip/xilinx_clk_mngr.xci
-read_ip ./alsaqr/tcl/ips/boot_rom/ip/xilinx_rom_bank_256x64.xci
+read_ip ./alsaqr/tcl/ips/boot_rom/ip/xilinx_rom_bank_1024x64.xci
 add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_$::env(BOARD).xdc"
 update_compile_order -fileset sources_1
 auto_detect_xpm

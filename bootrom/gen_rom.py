@@ -110,6 +110,7 @@ with open(filename + ".h", "w") as f:
 
     f.close()
 
+    
 """ Generate SystemVerilog bootcode for FPGA and ASIC
 """
 with open(filename + ".sv", "w") as f:
@@ -124,4 +125,6 @@ with open(filename + ".sv", "w") as f:
     f.write(license)
     s = Template(module)
     f.write(s.substitute(filename=filename, size=int(len(rom)/8), content=rom_str))
+    f.close()
 
+    

@@ -59,7 +59,8 @@ module cva6_subsytem
   output logic            cva6_uart_tx_o,   
   AXI_BUS.Master          l2_axi_master,
   AXI_BUS.Master          apb_axi_master,
-  AXI_BUS.Master          hyper_axi_master,
+  AXI_BUS.Master          hyper0_axi_master,
+  AXI_BUS.Master          hyper1_axi_master,
   AXI_BUS.Master          cluster_axi_master,
   AXI_BUS.Slave           cluster_axi_slave
 );
@@ -112,8 +113,15 @@ module cva6_subsytem
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-  ) hyper_axi_master_cut();
+  ) hyper0_axi_master_cut();
 
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+  ) hyper1_axi_master_cut();
+   
   AXI_BUS #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -353,7 +361,7 @@ module cva6_subsytem
 
 
   // ---------------
-  // AXI hyperbus Slave
+  // AXI hyperbus Slave 0
   // ---------------
 
   axi_cut_intf #(
@@ -362,11 +370,11 @@ module cva6_subsytem
     .DATA_WIDTH ( AXI_DATA_WIDTH           ),
     .ID_WIDTH   ( ariane_soc::IdWidthSlave ),
     .USER_WIDTH ( AXI_USER_WIDTH           )
-  ) riscvatomics2axihyper_cut (
+  ) riscvatomics2axihyper0_cut (
     .clk_i,
-    .rst_ni ( ndmreset_n                ),
-    .in     ( hyper_axi_master_cut      ),
-    .out    ( hyper_axi_master          )
+    .rst_ni ( ndmreset_n                 ),
+    .in     ( hyper0_axi_master_cut      ),
+    .out    ( hyper0_axi_master          )
   );
                  
   axi_riscv_atomics_wrap #(
@@ -376,13 +384,44 @@ module cva6_subsytem
     .AXI_USER_WIDTH ( AXI_USER_WIDTH           ),
     .AXI_MAX_WRITE_TXNS ( 1  ),
     .RISCV_WORD_WIDTH   ( 64 )
-  ) i_axi_riscv_atomics (
+  ) i_axi_riscv_atomics0 (
     .clk_i,
-    .rst_ni ( ndmreset_n                ),
-    .slv    ( master[ariane_soc::HYAXI] ),
-    .mst    ( hyper_axi_master_cut      )
+    .rst_ni ( ndmreset_n                 ),
+    .slv    ( master[ariane_soc::HYAXI0] ),
+    .mst    ( hyper0_axi_master_cut      )
   );
 
+  // ---------------
+  // AXI hyperbus Slave 1
+  // ---------------
+
+  axi_cut_intf #(
+    .BYPASS     ( 1'b0                     ),
+    .ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+    .DATA_WIDTH ( AXI_DATA_WIDTH           ),
+    .ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+    .USER_WIDTH ( AXI_USER_WIDTH           )
+  ) riscvatomics2axihyper1_cut (
+    .clk_i,
+    .rst_ni ( ndmreset_n                 ),
+    .in     ( hyper1_axi_master_cut      ),
+    .out    ( hyper1_axi_master          )
+  );
+                 
+  axi_riscv_atomics_wrap #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH           ),
+    .AXI_MAX_WRITE_TXNS ( 1  ),
+    .RISCV_WORD_WIDTH   ( 64 )
+  ) i_axi_riscv_atomics1 (
+    .clk_i,
+    .rst_ni ( ndmreset_n                 ),
+    .slv    ( master[ariane_soc::HYAXI1] ),
+    .mst    ( hyper1_axi_master_cut      )
+  );
+   
   // ---------------
   // AXI CLUSTER Slave
   // ---------------
@@ -482,10 +521,15 @@ module cva6_subsytem
     start_addr: ariane_soc::EthernetBase,
     end_addr:   ariane_soc::EthernetBase + ariane_soc::EthernetLength  
   };
-  assign addr_map[ariane_soc::HYAXI] = '{ 
-    idx:  ariane_soc::HYAXI,
-    start_addr: ariane_soc::HYAXIBase,
-    end_addr:   ariane_soc::HYAXIBase     + ariane_soc::HYAXILength  
+  assign addr_map[ariane_soc::HYAXI0] = '{ 
+    idx:  ariane_soc::HYAXI0,
+    start_addr: ariane_soc::HYAXIBase0,
+    end_addr:   ariane_soc::HYAXIBase0     + ariane_soc::HYAXILength  
+  }; 
+  assign addr_map[ariane_soc::HYAXI1] = '{ 
+    idx:  ariane_soc::HYAXI1,
+    start_addr: ariane_soc::HYAXIBase1,
+    end_addr:   ariane_soc::HYAXIBase1     + ariane_soc::HYAXILength  
   }; 
 
 

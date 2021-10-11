@@ -90,27 +90,16 @@ module host_domain
   input                       pad_to_sdio_t [N_SDIO-1:0] pad_to_sdio,
  
   // HYPERBUS
-  output                      hyper_to_pad_t hyper_to_pad,
-  input                       pad_to_hyper_t pad_to_hyper,
+  output                      hyper_to_pad_t [N_HYPER-1:0] hyper_to_pad,
+  input                       pad_to_hyper_t [N_HYPER-1:0] pad_to_hyper,
 
   output                      pwm_to_pad_t pwm_to_pad,
 
   // GPIOs
   input logic [NUM_GPIO-1:0]  gpio_in,
   output logic [NUM_GPIO-1:0] gpio_out,
-  output logic [NUM_GPIO-1:0] gpio_dir,
+  output logic [NUM_GPIO-1:0] gpio_dir
 
-  // PHY interface
-  output logic [1:0]          axi_hyper_cs_no,
-  output logic                axi_hyper_ck_o,
-  output logic                axi_hyper_ck_no,
-  output logic                axi_hyper_rwds_o,
-  input logic                 axi_hyper_rwds_i,
-  output logic                axi_hyper_rwds_oe_o,
-  input logic [7:0]           axi_hyper_dq_i,
-  output logic [7:0]          axi_hyper_dq_o,
-  output logic                axi_hyper_dq_oe_o, 
-  output logic                axi_hyper_reset_no
 );
 
    // When changing these parameters, change the L2 size accordingly in ariane_soc_pkg
@@ -126,35 +115,19 @@ module host_domain
 
    localparam NB_UDMA_TCDM_CHANNEL = 2;
 
-   localparam RegAw  = 32;
-   localparam RegDw  = 32;
    
    logic                                 s_soc_clk;
    logic                                 s_synch_soc_rst;
    logic                                 s_synch_global_rst;
    logic                                 s_dm_rst;
    logic                                 ndmreset_n;
-   logic [32*4-1:0]                      s_udma_events;
+   logic [33*4-1:0]                      s_udma_events;
 
    logic                                 phy_clk;
    logic                                 phy_clk_90;
    
- 
-   typedef logic [RegAw-1:0]   reg_addr_t;
-   typedef logic [RegDw-1:0]   reg_data_t;
-   typedef logic [RegDw/8-1:0] reg_strb_t;
-
    assign   soc_clk_o  = s_soc_clk;
    assign   soc_rst_no = s_synch_soc_rst;
-   
-   `REG_BUS_TYPEDEF_REQ(reg_req_t, reg_addr_t, reg_data_t, reg_strb_t)
-   `REG_BUS_TYPEDEF_RSP(reg_rsp_t, reg_data_t)
- 
-   reg_req_t   reg_req;
-   reg_rsp_t   reg_rsp;
-
-   ariane_axi_soc::req_slv_t    axi_hyper_req;
-   ariane_axi_soc::resp_slv_t   axi_hyper_rsp;
 
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
@@ -175,17 +148,26 @@ module host_domain
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
      .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-   ) hyper_axi_bus();
+   ) hyper0_axi_bus();
+
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+   ) hyper1_axi_bus();
+
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+   ) hyper_axi_bus[N_HYPER-1:0]();
+   
    
    XBAR_TCDM_BUS axi_bridge_2_interconnect[AXI64_2_TCDM32_N_PORTS]();
    XBAR_TCDM_BUS udma_2_tcdm_channels[NB_UDMA_TCDM_CHANNEL]();
   
-   REG_BUS #(
-        .ADDR_WIDTH( RegAw ),
-        .DATA_WIDTH( RegDw )
-    ) i_hyaxicfg_rbus (
-        .clk_i (s_soc_clk)
-    ); 
  
    cva6_subsytem # (
         .NUM_WORDS         ( NUM_WORDS  ),
@@ -217,7 +199,8 @@ module host_domain
         .dm_rst_o             ( s_dm_rst             ),
         .l2_axi_master        ( l2_axi_bus           ),
         .apb_axi_master       ( apb_axi_bus          ),
-        .hyper_axi_master     ( hyper_axi_bus        ),
+        .hyper0_axi_master    ( hyper0_axi_bus       ),
+        .hyper1_axi_master    ( hyper1_axi_bus       ),
         .cluster_axi_master   ( cluster_axi_master   ),
         .cluster_axi_slave    ( cluster_axi_slave    ),
         .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
@@ -252,8 +235,10 @@ module host_domain
      );
 
 
+  `AXI_ASSIGN(hyper_axi_bus[0],hyper0_axi_bus)
+  `AXI_ASSIGN(hyper_axi_bus[1],hyper1_axi_bus)
+   
    apb_subsystem #(
-       .L2_ADDR_WIDTH  ( L2_MEM_ADDR_WIDTH        ),
        .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
        .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
        .AXI_USER_WIDTH ( AXI_USER_WIDTH           ),
@@ -267,9 +252,9 @@ module host_domain
       .rstn_soc_sync_o        ( s_synch_soc_rst                ),
       .rstn_global_sync_o     ( s_synch_global_rst             ),
       .rstn_cluster_sync_o    ( rstn_cluster_sync_o            ),
-      .clk_cluster_o          ( clk_cluster_o                  ),                 
+      .clk_cluster_o          ( clk_cluster_o                  ),
+      .hyper_axi_bus_slave    ( hyper_axi_bus                  ),                 
       .axi_apb_slave          ( apb_axi_bus                    ),
-      .hyaxicfg_reg_master    ( i_hyaxicfg_rbus                ),
       .udma_tcdm_channels     ( udma_2_tcdm_channels           ),
       .padframecfg_reg_master ( padframecfg_reg_master         ),
 
@@ -294,64 +279,8 @@ module host_domain
 
       );
                      
-  `REG_BUS_ASSIGN_TO_REQ(reg_req,i_hyaxicfg_rbus)
-  `REG_BUS_ASSIGN_FROM_RSP(i_hyaxicfg_rbus,reg_rsp)
-    
-  `AXI_ASSIGN_TO_REQ(axi_hyper_req,hyper_axi_bus)
-  `AXI_ASSIGN_FROM_RESP(hyper_axi_bus,axi_hyper_rsp)
 
-`ifdef FPGA_EMUL
-(* DONT_TOUCH = "TRUE" *)   clk_gen_hyper i_clk_gen_hyper (
-`else
-          clk_gen_hyper i_clk_gen_hyper (                                                           
-`endif
-          .clk_i    ( s_soc_clk       ),
-          .rst_ni   ( s_synch_soc_rst ),
-          .clk0_o   ( phy_clk         ),
-          .clk90_o  ( phy_clk_90      ),
-          .clk180_o (                 ),
-          .clk270_o (                 )
-          );
-   
-    hyperbus #(
-         .NumChips       ( ariane_soc::NumChipsPerHyperbus ),
-         .AxiAddrWidth   ( AXI_ADDRESS_WIDTH               ),
-         .AxiDataWidth   ( AXI_DATA_WIDTH                  ),
-         .AxiIdWidth     ( ariane_soc::IdWidthSlave        ),
-         .axi_req_t      ( ariane_axi_soc::req_slv_t       ),
-         .axi_rsp_t      ( ariane_axi_soc::resp_slv_t      ),
-         .axi_w_chan_t   ( ariane_axi_soc::w_chan_t        ),
-         .RegAddrWidth   ( RegAw                           ),
-         .RegDataWidth   ( RegDw                           ),
-         .reg_req_t      ( reg_req_t                       ),
-         .reg_rsp_t      ( reg_rsp_t                       ),
-         .axi_rule_t     ( ariane_soc::addr_map_rule_t     ),
-         .RxFifoLogDepth ( 4                               ),
-         .TxFifoLogDepth ( 4                               ),
-         .RstChipBase    ( ariane_soc::HYAXIBase           ),  // Base address for all chips
-         .RstChipSpace   ( ariane_soc::HyperRamSize        )   
-     ) axi_hyperbus (
-         .clk_phy_i              ( phy_clk               ),
-         .clk_phy_i_90           ( phy_clk_90            ),
-         .rst_phy_ni             ( s_synch_soc_rst       ),
-         .clk_sys_i              ( s_soc_clk             ),
-         .rst_sys_ni             ( s_synch_soc_rst       ),
-         .test_mode_i            ( '0                    ),
-         .axi_req_i              ( axi_hyper_req         ),
-         .axi_rsp_o              ( axi_hyper_rsp         ),
-         .reg_req_i              ( reg_req               ),
-         .reg_rsp_o              ( reg_rsp               ),
-         .hyper_cs_no            ( axi_hyper_cs_no       ),
-         .hyper_ck_o             ( axi_hyper_ck_o        ),
-         .hyper_ck_no            ( axi_hyper_ck_no       ),
-         .hyper_rwds_o           ( axi_hyper_rwds_o      ),
-         .hyper_rwds_i           ( axi_hyper_rwds_i      ),
-         .hyper_rwds_oe_o        ( axi_hyper_rwds_oe_o   ),
-         .hyper_dq_i             ( axi_hyper_dq_i        ),
-         .hyper_dq_o             ( axi_hyper_dq_o        ),
-         .hyper_dq_oe_o          ( axi_hyper_dq_oe_o     ),
-         .hyper_reset_no         ( axi_hyper_reset_no    )
-     );
+    
  
  
 endmodule

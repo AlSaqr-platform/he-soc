@@ -37,7 +37,8 @@ package ariane_soc;
   localparam SocToClusterIdWidth = 3;   
    
   typedef enum int unsigned {
-    HYAXI    = 11,
+    HYAXI1   = 12,
+    HYAXI0   = 11,
     UART     = 10,
     Ethernet = 9,
     SPI      = 8,
@@ -51,7 +52,7 @@ package ariane_soc;
     Debug    = 0
   } axi_slaves_t;
    
-  localparam NB_PERIPHERALS = HYAXI + 1;
+  localparam NB_PERIPHERALS = HYAXI1 + 1;
 
   localparam NumChipsPerHyperbus      = 2;
   localparam logic[63:0] HyperRamSize = 64'h4000000; // 64MB
@@ -68,7 +69,7 @@ package ariane_soc;
   localparam logic[63:0] EthernetLength = 64'h10000;
   localparam logic[63:0] HYAXILength    = HyperRamSize*NumChipsPerHyperbus;  // 128MB of hyperram on bus 0
   localparam logic[63:0] L2SPMLength    = 64'h100000;   // 1MB of scratchpad memory 
-  localparam logic[63:0] APB_SLVSLength = 64'h7000;     // 1 slave = 4 KB ( check slaves in apb_soc_pkg.sv)
+  localparam logic[63:0] APB_SLVSLength = 64'h8000;     // 1 slave = 4 KB ( check slaves in apb_soc_pkg.sv)
   // Instantiate AXI protocol checkers
   localparam bit GenProtocolChecker = 1'b0;
 
@@ -84,7 +85,8 @@ package ariane_soc;
     SPIBase      = 64'h2000_0000,
     EthernetBase = 64'h3000_0000,
     UARTBase     = 64'h4000_0000,
-    HYAXIBase    = 64'h8000_0000
+    HYAXIBase0   = 64'h8000_0000,
+    HYAXIBase1   = HYAXIBase0+HYAXILength
   } soc_bus_start_t; 
   // Let x = NB_PERIPHERALS: as long as Base(xth slave)+Length(xth slave) is < 1_0000_0000 we can cut the 32 MSBs addresses without any worries. 
 
@@ -99,14 +101,14 @@ package ariane_soc;
     // idempotent region
     NrNonIdempotentRules:  1,
     NonIdempotentAddrBase: {64'b0},
-    NonIdempotentLength:   {HYAXIBase},
-    NrExecuteRegionRules:  4,
-    ExecuteRegionAddrBase: {HYAXIBase, L2SPMBase,   ROMBase,   DebugBase},
-    ExecuteRegionLength:   {HYAXILength, L2SPMLength, ROMLength, DebugLength},
+    NonIdempotentLength:   {HYAXIBase0},
+    NrExecuteRegionRules:  5,
+    ExecuteRegionAddrBase: {HYAXIBase0, HYAXIBase1, L2SPMBase,   ROMBase,   DebugBase},
+    ExecuteRegionLength:   {HYAXILength, HYAXILength, L2SPMLength, ROMLength, DebugLength},
     // cached region
-    NrCachedRegionRules:    1,
-    CachedRegionAddrBase:  {HYAXIBase},
-    CachedRegionLength:    {HYAXILength},
+    NrCachedRegionRules:    2,
+    CachedRegionAddrBase:  {HYAXIBase0,HYAXIBase1},
+    CachedRegionLength:    {HYAXILength,HYAXILength},
     //  cache config
     Axi64BitCompliant:      1'b1,
     SwapEndianess:          1'b0,

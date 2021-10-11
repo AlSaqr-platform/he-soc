@@ -22,7 +22,7 @@
 #define ARCHI_UDMA_ADDR  0x1A102000 // = 3238002688
 #define UDMA_HYPERBUS_OFFSET (437264384 + 128*31)
 #define HYPERBUS_DEVICE_NUM 30
-#define N_CHANNEL 8
+#define N_CHANNEL 1
 #define CONFIG_REG_OFFSET 0x80
 
 static inline void wait_cycles(const unsigned cycles)
@@ -54,6 +54,10 @@ __wait_cycles_start:
           : __wait_cycles_start);
 __wait_cycles_end:
   return;
+}
+
+static inline void set_chipsel_hyper (unsigned int chip_sel){
+  pulp_write32(UDMA_HYPERBUS_OFFSET + CONFIG_REG_OFFSET*N_CHANNEL + 0x28, chip_sel);
 }
 
 static inline void set_memsel_hyper(unsigned int mem_sel){

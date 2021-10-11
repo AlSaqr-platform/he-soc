@@ -1,8 +1,12 @@
+// Copyright 2021 ETH Zurich and University of Bologna.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+
 #pragma once
 
 #include <stdint.h>
 
-#define UART_BASE 0x10000000
+#define UART_BASE 0x40000000
 
 #define UART_RBR UART_BASE + 0
 #define UART_THR UART_BASE + 0

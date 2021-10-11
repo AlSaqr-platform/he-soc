@@ -279,15 +279,11 @@ module ariane_tb;
             .CKNeg    ( w_axi_hyper_ckn    ),
             .RESETNeg ( w_axi_hyper_reset  )
      );
-  
-// Hyperram and hyperflash modules
-   generate
-      if(USE_HYPER_MODELS == 1) begin
          s27ks0641 #(
             .TimingModel   ( "S27KS0641DPBHI020" ),
             .UserPreload   ( 1'b0                ),
             .mem_file_name ( "hyper.mem"         )
-         ) hyperram_model (
+         ) i_main_hyperram2 (
             .DQ7      ( w_hyper_dq0[7] ),
             .DQ6      ( w_hyper_dq0[6] ),
             .DQ5      ( w_hyper_dq0[5] ),
@@ -302,11 +298,11 @@ module ariane_tb;
             .CKNeg    ( w_hyper_ckn    ),
             .RESETNeg ( w_hyper_reset  )
          );
-         s26ks512s #(
-            .TimingModel   ( "S26KS512SDPBHI000"),
-            .UserPreload   ( 1'b0               ),
-            .mem_file_name ( "hyper.mem"        )
-         ) hyperflash_model (
+         s27ks0641 #(
+            .TimingModel   ( "S27KS0641DPBHI020" ),
+            .UserPreload   ( 1'b0                ),
+            .mem_file_name ( "hyper.mem"         )
+         ) i_main_hyperram3 (
             .DQ7      ( w_hyper_dq0[7] ),
             .DQ6      ( w_hyper_dq0[6] ),
             .DQ5      ( w_hyper_dq0[5] ),
@@ -319,12 +315,8 @@ module ariane_tb;
             .CSNeg    ( w_hyper_csn0   ),
             .CK       ( w_hyper_ck     ),
             .CKNeg    ( w_hyper_ckn    ),
-            .RESETNeg ( w_hyper_reset  ),
-            .INTNeg   (                ),
-            .RSTONeg  (                )                
+            .RESETNeg ( w_hyper_reset  )                
          );
-      end
-   endgenerate
 
    uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart_bus (.rx(w_cva6_uart_tx), .tx(w_cva6_uart_rx), .rx_en(1'b1));
 

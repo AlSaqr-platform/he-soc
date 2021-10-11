@@ -20,7 +20,6 @@ module apb_subsystem
     parameter int unsigned AXI_USER_WIDTH = 1,
     parameter int unsigned AXI_ADDR_WIDTH = 64,
     parameter int unsigned AXI_DATA_WIDTH = 64,
-    parameter int unsigned L2_ADDR_WIDTH  = 32, // L2 address space
     parameter int unsigned CAM_DATA_WIDTH = 8,
     parameter int unsigned NUM_GPIO       = 64 
 ) (
@@ -35,11 +34,11 @@ module apb_subsystem
     output logic                rstn_cluster_sync_o,
    
     AXI_BUS.Slave               axi_apb_slave,
-    REG_BUS.out                 hyaxicfg_reg_master,
+    AXI_BUS.Slave               hyper_axi_bus_slave[N_HYPER-1:0],
     XBAR_TCDM_BUS.Master        udma_tcdm_channels[1:0],
     REG_BUS.out                 padframecfg_reg_master,
 
-    output logic [32*4-1:0]     events_o,
+    output logic [33*4-1:0]     events_o,
 
     // SPIM
     output                      qspi_to_pad_t [N_SPI-1:0] qspi_to_pad,
@@ -61,8 +60,8 @@ module apb_subsystem
     input                       pad_to_sdio_t [N_SDIO-1:0] pad_to_sdio,
  
     // HYPERBUS
-    output                      hyper_to_pad_t hyper_to_pad,
-    input                       pad_to_hyper_t pad_to_hyper,
+    output                      hyper_to_pad_t [N_HYPER-1:0] hyper_to_pad,
+    input                       pad_to_hyper_t [N_HYPER-1:0] pad_to_hyper,
    
     // GPIOs
     input logic [NUM_GPIO-1:0]  gpio_in,
@@ -99,7 +98,7 @@ module apb_subsystem
    APB_BUS  #(
                .APB_ADDR_WIDTH(32),
                .APB_DATA_WIDTH(32)
-   ) apb_hyaxicfg_master_bus();
+   ) apb_hyaxicfg_master_bus [N_HYPER-1:0]();
 
    APB_BUS  #(
                .APB_ADDR_WIDTH(32),
@@ -125,6 +124,13 @@ module apb_subsystem
                .FLL_ADDR_WIDTH( 2),
                .FLL_DATA_WIDTH(32)
    ) cluster_fll_bus();
+
+   REG_BUS #(
+        .ADDR_WIDTH( 32 ),
+        .DATA_WIDTH( 32 )
+    ) i_hyaxicfg_rbus [N_HYPER-1:0] (
+        .clk_i (s_soc_clk)
+    ); 
   
    axi2apb_wrap #(
          .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH           ),
@@ -159,11 +165,7 @@ module apb_subsystem
    logic [31:0]                        apb_udma_address;     
    assign apb_udma_address = apb_udma_master_bus.paddr ;
                             
-   udma_subsystem
-     #(
-        .L2_ADDR_WIDTH  ( L2_ADDR_WIDTH ), 
-        .APB_ADDR_WIDTH ( 32            )  
-     ) 
+   udma_subsystem i_udma_subsystem
      (
 
          .events_o        ( events_o                      ),
@@ -178,7 +180,10 @@ module apb_subsystem
          .sys_clk_i       ( clk_soc_o                     ),
          .sys_resetn_i    ( s_rstn_soc_sync               ),
                                                           
-         .periph_clk_i    ( s_clk_per                     ), 
+         .periph_clk_i    ( s_clk_per                     ),
+
+         .hyper_axi_bus_slave ( hyper_axi_bus_slave       ),
+         .hyper_reg_cfg_slave ( i_hyaxicfg_rbus           ),
 
          .L2_ro_wen_o     ( udma_tcdm_channels[0].wen     ),
          .L2_ro_req_o     ( udma_tcdm_channels[0].req     ),
@@ -282,23 +287,27 @@ module apb_subsystem
        );
 
    
-    apb_to_reg i_apb_to_hyaxicfg
-      (
-       .clk_i     ( clk_soc_o       ),
-       .rst_ni    ( s_rstn_soc_sync ),
- 
-       .penable_i ( apb_hyaxicfg_master_bus.penable ),
-       .pwrite_i  ( apb_hyaxicfg_master_bus.pwrite  ),
-       .paddr_i   ( apb_hyaxicfg_master_bus.paddr   ),
-       .psel_i    ( apb_hyaxicfg_master_bus.psel    ),
-       .pwdata_i  ( apb_hyaxicfg_master_bus.pwdata  ),
-       .prdata_o  ( apb_hyaxicfg_master_bus.prdata  ),
-       .pready_o  ( apb_hyaxicfg_master_bus.pready  ),
-       .pslverr_o ( apb_hyaxicfg_master_bus.pslverr ),
-
-       .reg_o     ( hyaxicfg_reg_master             )
-      );      
-
+   generate
+      for(genvar i=0;i<N_HYPER;i++) begin: I_hyper_cfg_gen
+        apb_to_reg i_apb_to_hyaxicfg
+          (
+           .clk_i     ( clk_soc_o       ),
+           .rst_ni    ( s_rstn_soc_sync ),
+          
+           .penable_i ( apb_hyaxicfg_master_bus[i].penable ),
+           .pwrite_i  ( apb_hyaxicfg_master_bus[i].pwrite  ),
+           .paddr_i   ( apb_hyaxicfg_master_bus[i].paddr   ),
+           .psel_i    ( apb_hyaxicfg_master_bus[i].psel    ),
+           .pwdata_i  ( apb_hyaxicfg_master_bus[i].pwdata  ),
+           .prdata_o  ( apb_hyaxicfg_master_bus[i].prdata  ),
+           .pready_o  ( apb_hyaxicfg_master_bus[i].pready  ),
+           .pslverr_o ( apb_hyaxicfg_master_bus[i].pslverr ),
+          
+           .reg_o     ( i_hyaxicfg_rbus[i]             )
+          );      
+      end // block: I_hyper_cfg_gen
+   endgenerate
+   
    logic [3:0]   pwm0_o;
    logic [3:0]   pwm1_o;
    

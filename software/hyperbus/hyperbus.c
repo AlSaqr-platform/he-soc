@@ -23,16 +23,20 @@
 #include "utils.h"
 #include "./hyperbus_test.h"
 #include "../common/encoding.h"
-#define BUFFER_SIZE 32
+#define BUFFER_SIZE 64
 //#define VERBOSE
 //#define EXTRA_VERBOSE
-
+// THIS IS A COMPLETE TEST. PLEASE CHANGE THE link.ld from 0x80000000 to 0x88000000 to properly use it.
+// WE'LL UPDATE IT ASAP.
 int main() {
+    int baud_rate = 115200;
+    int test_freq = 17500000;
 
     int * tx_buffer;
     int * rx_buffer;
     tx_buffer = 0x1C0007B0;
     rx_buffer = 0x1C001000;
+    int l3_buffer[BUFFER_SIZE];
     int a;
     int *p;
     int hyper_addr;
@@ -40,7 +44,7 @@ int main() {
     int id1, id2;
     int pass = 0;
     int periph_id = 28;
-
+    uart_set_cfg(0,(test_freq/baud_rate)>>4);
     // PLIC setup for hyper tx
     int plic_base = 0x0C000000;
     int tx_hyper_plic_id = 131;
@@ -56,18 +60,16 @@ int main() {
     pulp_write32(plic_en_bits+(((int)(tx_hyper_plic_id/32))*4), 1<<(tx_hyper_plic_id%32));
 
     udma_hyper_setup();
-  
+    set_chipsel_hyper(0);
     for (int i=0; i< (BUFFER_SIZE); i++)
     {
-        tx_buffer[i] = 0xffff0000+i;
+      tx_buffer[i]=0xffff0000+i;
     } 
-    hyper_addr = 1;
-
   #ifdef VERBOSE
     printf("hyper_addr: %d \n", hyper_addr);
   #endif
     barrier();
-    udma_hyper_dwrite((BUFFER_SIZE*4),(unsigned int) hyper_addr, (unsigned int)tx_buffer, 128, 0);
+    udma_hyper_dwrite((BUFFER_SIZE*4),(unsigned int) l3_buffer, (unsigned int)tx_buffer, 128, 0);
     barrier();
     
   #ifdef VERBOSE
@@ -80,8 +82,8 @@ int main() {
     }
   #endif
 
-    // wfi until reading the tx hyper id from the PLIC
-    while(pulp_read32(plic_base+0x201004)!=tx_hyper_plic_id) {
+    //  wfi until reading the tx hyper id from the PLIC
+      while(pulp_read32(plic_base+0x201004)!=tx_hyper_plic_id) {
       asm volatile ("wfi");
           }
 
@@ -89,7 +91,7 @@ int main() {
     pulp_write32(plic_base+rx_hyper_plic_id*4, 1);
     pulp_write32(plic_en_bits+(((int)(rx_hyper_plic_id/32))*4), 1<<(rx_hyper_plic_id%32));
     
-    udma_hyper_dread((BUFFER_SIZE*4),(unsigned int) hyper_addr, (unsigned int)rx_buffer, 128, 0);
+    udma_hyper_dread((BUFFER_SIZE*4),(unsigned int) l3_buffer, (unsigned int)rx_buffer, 128, 0);
 
     // wfi until reading the rx hyper id from the PLIC
     while(pulp_read32(plic_base+0x201004)!=rx_hyper_plic_id) {
@@ -102,19 +104,20 @@ int main() {
     for (int i=0; i< BUFFER_SIZE; i++)
       {      
       #ifdef EXTRA_VERBOSE
-      printf("rx_buffer[%d] = %x, expected: %x \n", i, rx_buffer[i], tx_buffer[i]);
+      printf("%x\n", rx_buffer[i]);
       #endif
       error += rx_buffer[i] ^ tx_buffer[i];
-      
       }
-
+      #ifdef EXTRA_VERBOSE
+      uart_wait_tx_done();
+      #endif
+      
       if(error!=0) { 
           printf("error \n");
           pass=1;
           }
       else printf("ok\n");
-
-      printf("Fin. \n");
+      uart_wait_tx_done();
 
       return pass;
   

@@ -1,31 +1,49 @@
-#include "uart.h"
-#include "spi.h"
-#include "sd.h"
-#include "gpt.h"
+// Copyright 2021 ETH Zurich and University of Bologna.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
 
-int main()
-{
-    init_uart(50000000, 115200);
+#include "uart.h"
+#define SPL_SRC 0x1001000UL
+#define SPL_SIZE 0xC000
+#define SPL_DEST 0x70000000UL
+
+// Boot modes.
+enum boot_mode_t { JTAG, SPL_ROM };
+
+int main() {
+    init_uart(10000000, 9600);
     print_uart("Hello World!\r\n");
 
-    int res = gpt_find_boot_partition((uint8_t *)0x80000000UL, 2 * 16384);
+    // Hardcode boot mode for now. TODO(luca): derive e.g. from GPIO.
+    enum boot_mode_t boot_mode = JTAG;
 
-    if (res == 0)
-    {
-        // jump to the address
-        __asm__ volatile(
-            "li s0, 0x80000000;"
-            "la a1, _dtb;"
-            "jr s0");
+    switch (boot_mode) {
+        case JTAG:
+            __asm__ volatile(
+                "csrr a0, mhartid;"
+                "la a1, device_tree;"
+                "ebreak;");
+            break;
+        case SPL_ROM:
+            print_uart("Loading U-Boot SPL from ROM...\r\n");
+            for (int i = 0; i < SPL_SIZE; i += 8) {
+                *(long *)(SPL_DEST + i) = *(long *)(SPL_SRC + i);
+            }
+            __asm__ volatile(
+                "fence.i;"
+                "csrr a0, mhartid;"
+                "la a1, device_tree;"
+                "jr %0;" ::"r"(SPL_DEST));
+            break;
+        default:
+            break;
     }
 
-    while (1)
-    {
+    while (1) {
         // do nothing
     }
 }
 
-void handle_trap(void)
-{
+void handle_trap(void) {
     // print_uart("trap\r\n");
 }
