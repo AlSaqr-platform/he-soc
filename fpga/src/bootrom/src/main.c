@@ -11,8 +11,9 @@
 enum boot_mode_t { JTAG, SPL_ROM };
 
 int main() {
-    init_uart(10000000, 9600);
-    print_uart("Hello World!\r\n");
+    //  TODO:Fix uart deadlock
+    //init_uart(10000000, 9600);
+    //print_uart("Hello World!\r\n");
 
     // Hardcode boot mode for now. TODO(luca): derive e.g. from GPIO.
     enum boot_mode_t boot_mode = JTAG;

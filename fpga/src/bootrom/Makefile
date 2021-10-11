@@ -35,3 +35,5 @@ bootrom.elf bootrom.dump bootrom.bin: bootrom.S $(OBJS_C) bootrom.ld occamy.dtb
 
 clean:
 	rm -rf *.bin *.coe *.dump src/*.o *.dtb
+
+#  export PATH=$PATH:~/.local/bin
