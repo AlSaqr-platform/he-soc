@@ -46,6 +46,9 @@ module ariane_tb;
     parameter  USE_24FC1025_MODEL   = 1;
     parameter  USE_S25FS256S_MODEL  = 1;
 
+    // use camera verification IP
+   parameter  USE_SDVT_CPI = 1;
+
   `ifdef USE_LOCAL_JTAG 
     parameter  LOCAL_JTAG          = 1;
     parameter  CHECK_LOCAL_JTAG    = 0; 
@@ -129,9 +132,13 @@ module ariane_tb;
     tri                  w_spim_csn0    ;
     tri                  w_spim_sdio0   ; 
     wire                 w_spim_sdio1   ;
-    wire                 w_spi_flash_so;
     tri                  w_spim_sdio2   ; 
     tri                  w_spim_sdio3   ;
+
+    wire                  w_cam_pclk;
+    wire [7:0]            w_cam_data;
+    wire                  w_cam_hsync;
+    wire                  w_cam_vsync;
 
     wire                  w_cva6_uart_rx ;
     wire                  w_cva6_uart_tx ;
@@ -293,10 +300,9 @@ module ariane_tb;
         );
 
    end
-
    endgenerate
 
-   generate
+  generate
     /* SPI flash */
       if(USE_S25FS256S_MODEL == 1) begin
          s25fs256s #(
@@ -312,8 +318,23 @@ module ariane_tb;
             .RESETNeg (  )
          );
       end
+  endgenerate
 
-   endgenerate
+  generate
+     /* CAM */
+      if (USE_SDVT_CPI==1) begin
+         cam_vip #(
+            .HRES       ( 320 ),
+            .VRES       ( 240 )
+         ) i_cam_vip (
+            .cam_pclk_o  ( w_cam_pclk  ),
+            .cam_vsync_o ( w_cam_vsync ),
+            .cam_href_o  ( w_cam_hsync ),
+            .cam_data_o  ( w_cam_data  )
+         );
+      end
+  endgenerate
+
 
    s27ks0641 #(
          .TimingModel   ( "S27KS0641DPBHI020"    ),
