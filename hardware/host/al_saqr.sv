@@ -71,6 +71,12 @@ module al_saqr
   inout wire          pad_spim_csn0    ,
   inout wire          pad_spim_sck     ,
 
+  //CAM
+  inout wire          pad_cam_pclk,
+  inout wire          pad_cam_vsync,
+  inout wire          pad_cam_href,
+  inout wire [7:0]    pad_cam_data,
+
   // CVA6 DEBUG UART
   input logic         cva6_uart_rx_i,
   output logic        cva6_uart_tx_o,
@@ -379,11 +385,28 @@ module al_saqr
       .out_spim_sdio2_i       ( s_qspi_to_pad[0].sd2_o          ),
       .out_spim_sdio3_i       ( s_qspi_to_pad[0].sd3_o          ),
       
+      .in_spim_sdio0_o        ( s_pad_to_qspi[0].sd0_i         ),
+      .in_spim_sdio1_o        ( s_pad_to_qspi[0].sd1_i         ),
+      .in_spim_sdio2_o        ( s_pad_to_qspi[0].sd2_i         ),
+      .in_spim_sdio3_o        ( s_pad_to_qspi[0].sd3_i         ),
 
-      .in_spim_sdio0_o         ( s_pad_to_qspi[0].sd0_i         ),
-      .in_spim_sdio1_o         ( s_pad_to_qspi[0].sd1_i         ),
-      .in_spim_sdio2_o         ( s_pad_to_qspi[0].sd2_i         ),
-      .in_spim_sdio3_o         ( s_pad_to_qspi[0].sd3_i         ),
+      .pad_cam_pclk           ( pad_cam_pclk                   ),
+      .pad_cam_vsync          ( pad_cam_vsync                  ),
+      .pad_cam_href           ( pad_cam_href                   ),
+      .pad_cam_data           ( pad_cam_data                   ),
+
+      .in_cam_clk_o           ( s_pad_to_cam[0].clk_i          ),
+      .in_cam_hsync_o         ( s_pad_to_cam[0].hsync_i        ),
+      .in_cam_vsync_o         ( s_pad_to_cam[0].vsync_i        ),
+
+      .in_cam_data0_o         ( s_pad_to_cam[0].data0_i        ),
+      .in_cam_data1_o         ( s_pad_to_cam[0].data1_i        ),
+      .in_cam_data2_o         ( s_pad_to_cam[0].data2_i        ),
+      .in_cam_data3_o         ( s_pad_to_cam[0].data3_i        ),
+      .in_cam_data4_o         ( s_pad_to_cam[0].data4_i        ),
+      .in_cam_data5_o         ( s_pad_to_cam[0].data5_i        ),
+      .in_cam_data6_o         ( s_pad_to_cam[0].data6_i        ),
+      .in_cam_data7_o         ( s_pad_to_cam[0].data7_i        ),
 
       .axi_hyper_cs_ni        ( s_axi_hyper_cs_n                ),
       .axi_hyper_ck_i         ( s_axi_hyper_ck                  ),
@@ -641,7 +664,7 @@ module al_saqr
    `ASSIGN_PERIPHS_I2C3_PAD2SOC(s_pad_to_i2c[3],s_port_signals_pad2soc.periphs.i2c3)
    `ASSIGN_PERIPHS_I2C3_SOC2PAD(s_port_signals_soc2pad.periphs.i2c3,s_i2c_to_pad[3])
  
-   `ASSIGN_PERIPHS_CAM0_PAD2SOC(s_pad_to_cam[0],s_port_signals_pad2soc.periphs.cam0)
+   //`ASSIGN_PERIPHS_CAM0_PAD2SOC(s_pad_to_cam[0],s_port_signals_pad2soc.periphs.cam0)
 
    `ASSIGN_PERIPHS_SPI10_PAD2SOC(s_pad_to_qspi[10],s_port_signals_pad2soc.periphs.spi10)
    `ASSIGN_PERIPHS_SPI10_SOC2PAD(s_port_signals_soc2pad.periphs.spi10,s_qspi_to_pad[10])

@@ -45,6 +45,12 @@ module pad_frame
      inout wire          pad_spim_csn0    ,
      inout wire          pad_spim_sck     ,
 
+     //CAM
+     inout wire          pad_cam_pclk     ,
+     inout wire          pad_cam_vsync    ,
+     inout wire          pad_cam_href     ,
+     inout wire [7:0]    pad_cam_data     ,
+
      // HYPERBUS
      input logic [1:0]   axi_hyper_cs_ni ,
      input logic         axi_hyper_ck_i ,
@@ -84,6 +90,21 @@ module pad_frame
      input logic         out_spim_csn1_i  ,
      input logic         out_spim_csn0_i  ,
      input logic         out_spim_sck_i   ,
+
+     //CAM
+     output logic        in_cam_clk_o     ,
+     output logic        in_cam_hsync_o   ,
+     output logic        in_cam_vsync_o   ,
+
+     output logic        in_cam_data0_o      ,
+     output logic        in_cam_data1_o      ,
+     output logic        in_cam_data2_o      ,
+     output logic        in_cam_data3_o      ,
+     output logic        in_cam_data4_o      ,
+     output logic        in_cam_data5_o      ,
+     output logic        in_cam_data6_o      ,
+     output logic        in_cam_data7_o      ,
+
                          
      inout wire [7:0]    pad_axi_hyper_dq0 ,
      inout wire [7:0]    pad_axi_hyper_dq1 ,
@@ -148,6 +169,21 @@ module pad_frame
     pad_functional_pd padinst_spim_sdio1  (.OEN( oen_spim_sdio1_i ), .I( out_spim_sdio1_i ), .O( in_spim_sdio1_o ), .PAD( pad_spim_sdio1 ), .PEN( 1'b0 ) );
     pad_functional_pd padinst_spim_sdio2  (.OEN( oen_spim_sdio2_i ), .I( out_spim_sdio2_i ), .O( in_spim_sdio2_o ), .PAD( pad_spim_sdio2 ), .PEN( 1'b0 ) );
     pad_functional_pd padinst_spim_sdio3  (.OEN( oen_spim_sdio3_i ), .I( out_spim_sdio3_i ), .O( in_spim_sdio3_o ), .PAD( pad_spim_sdio3 ), .PEN( 1'b0 ) );
+
+    //CAM
+    pad_functional_pd padinst_cam_pclk   (.OEN( 1'b1 ), .I(  ), .O( in_cam_clk_o  ), .PAD( pad_cam_pclk  ), .PEN( 1'b0 ) );
+    pad_functional_pd padinst_cam_hsync  (.OEN( 1'b1 ), .I(  ), .O( in_cam_hsync_o ), .PAD( pad_cam_href ), .PEN( 1'b0 ) );
+    pad_functional_pd padinst_cam_vsync  (.OEN( 1'b1 ), .I(  ), .O( in_cam_vsync_o ), .PAD( pad_cam_vsync ), .PEN( 1'b0 ) );
+
+    pad_functional_pd padinst_cam_data0  (.OEN( 1'b1 ), .I(  ), .O( in_cam_data0_o ), .PAD( pad_cam_data[0] ), .PEN( 1'b0 ) );
+    pad_functional_pd padinst_cam_data1  (.OEN( 1'b1 ), .I(  ), .O( in_cam_data1_o ), .PAD( pad_cam_data[1] ), .PEN( 1'b0 ) );
+    pad_functional_pd padinst_cam_data2  (.OEN( 1'b1 ), .I(  ), .O( in_cam_data2_o ), .PAD( pad_cam_data[2] ), .PEN( 1'b0 ) );
+    pad_functional_pd padinst_cam_data3  (.OEN( 1'b1 ), .I(  ), .O( in_cam_data3_o ), .PAD( pad_cam_data[3] ), .PEN( 1'b0 ) );
+    pad_functional_pd padinst_cam_data4  (.OEN( 1'b1 ), .I(  ), .O( in_cam_data4_o ), .PAD( pad_cam_data[4] ), .PEN( 1'b0 ) );
+    pad_functional_pd padinst_cam_data5  (.OEN( 1'b1 ), .I(  ), .O( in_cam_data5_o ), .PAD( pad_cam_data[5] ), .PEN( 1'b0 ) );
+    pad_functional_pd padinst_cam_data6  (.OEN( 1'b1 ), .I(  ), .O( in_cam_data6_o ), .PAD( pad_cam_data[6] ), .PEN( 1'b0 ) );
+    pad_functional_pd padinst_cam_data7  (.OEN( 1'b1 ), .I(  ), .O( in_cam_data7_o ), .PAD( pad_cam_data[7] ), .PEN( 1'b0 ) );
+    
 
 
 `endif //  `ifndef FPGA_EMUL

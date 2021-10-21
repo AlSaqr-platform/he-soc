@@ -269,7 +269,12 @@ module ariane_tb;
         .pad_spim_sdio0           ( w_spim_sdio0               ), 
         .pad_spim_sdio1           ( w_spim_sdio1               ),
         .pad_spim_sdio2           ( w_spim_sdio2               ), 
-        .pad_spim_sdio3           ( w_spim_sdio3               )
+        .pad_spim_sdio3           ( w_spim_sdio3               ),
+        
+        .pad_cam_pclk             ( w_cam_pclk                 ),
+        .pad_cam_vsync            ( w_cam_vsync                ),
+        .pad_cam_href             ( w_cam_hsync                ),
+        .pad_cam_data             ( w_cam_data                 )
 
    );
 
@@ -324,8 +329,8 @@ module ariane_tb;
      /* CAM */
       if (USE_SDVT_CPI==1) begin
          cam_vip #(
-            .HRES       ( 320 ),
-            .VRES       ( 240 )
+            .HRES       ( 32 ), //320
+            .VRES       ( 32 ) //240
          ) i_cam_vip (
             .cam_pclk_o  ( w_cam_pclk  ),
             .cam_vsync_o ( w_cam_vsync ),
