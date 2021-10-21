@@ -332,7 +332,8 @@ module ariane_tb;
             .HRES       ( 32 ), //320
             .VRES       ( 32 ) //240
          ) i_cam_vip (
-            .cam_pclk_o  ( w_cam_pclk  ),
+            .en_i        ( w_gpios[0]  ),
+            .cam_clk_o   ( w_cam_pclk  ),
             .cam_vsync_o ( w_cam_vsync ),
             .cam_href_o  ( w_cam_hsync ),
             .cam_data_o  ( w_cam_data  )

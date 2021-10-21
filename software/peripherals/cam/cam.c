@@ -33,37 +33,12 @@
 #define BUFFER_SIZE_READ 12
 #define N_CAM 1
 
-static inline void wait_cycles(const unsigned cycles)
-{
-  /**
-   * Each iteration of the loop below will take four cycles on RI5CY (one for
-   * `addi` and three for the taken `bnez`; if the instructions hit in the
-   * I$).  Thus, we let `i` count the number of remaining loop iterations and
-   * initialize it to a fourth of the number of clock cyles.  With this
-   * initialization, we must not enter the loop if the number of clock cycles
-   * is less than four, because this will cause an underflow on the first
-   * subtraction.
-   */
-  register unsigned threshold;
-  asm volatile("li %[threshold], 4" : [threshold] "=r" (threshold));
-  asm volatile goto("ble %[cycles], %[threshold], %l2"
-          : /* no output */
-    : [cycles] "r" (cycles), [threshold] "r" (threshold)
-          : /* no clobbers */
-    : __wait_cycles_end);
-  register unsigned i = cycles >> 2;
-  __wait_cycles_start:
-  // Decrement `i` and loop if it is not yet zero.
-  asm volatile("addi %0, %0, -1" : "+r" (i));
-  asm volatile goto("bnez %0, %l1"
-          : /* no output */
-    : "r" (i)
-          : /* no clobbers */
-    : __wait_cycles_start);
-  __wait_cycles_end:
-  return;
-}
 
+#define GPIO_PADDIR_0_31_OFFSET 0x0
+#define GPIO_PADEN_0_31_OFFSET 0x4
+#define GPIO_PADOUT_0_31_OFFSET 0xC
+#define GPIO_GPIOEN_32_63_OFFSET 0x3C
+#define GPIO_PADIN_32_63_OFFSET 0x40
 
 int main(){
   int error=0;
@@ -71,6 +46,8 @@ int main(){
   //config registers
   uint32_t reg=0;
   uint16_t concat=0;
+  uint32_t address;
+  uint32_t val_wr = 0x00000000;
 
   uint16_t *rx_addr= (uint16_t*) 0x1C001000;
 
@@ -86,6 +63,19 @@ int main(){
       int test_freq = 17500000;
   #endif  
       uart_set_cfg(0,(test_freq/baud_rate)>>4);
+
+  //Set GPIO 0 direction as OUT
+  address = ARCHI_GPIO_ADDR + GPIO_PADDIR_0_31_OFFSET;
+  val_wr = 0x1;
+  pulp_write32(address, val_wr);
+  while(pulp_read32(address) != val_wr);
+
+  //Disable the Camera VIP by GPIO 0 -> 0
+  address = ARCHI_GPIO_ADDR + GPIO_PADOUT_0_31_OFFSET;
+  val_wr = 0x0;
+  pulp_write32(address, val_wr);
+  while(pulp_read32(address) != val_wr);
+  printf("Camera Vip Disabled\n");
 
   //clear rx buffer
   for(int i=0; i< HRES * VRES; i++){
@@ -125,6 +115,13 @@ int main(){
   barrier();
 
   printf("End Of Config\n");
+
+  //Enable Camera VIP by GPIO 0 -> 1
+  address = ARCHI_GPIO_ADDR + GPIO_PADOUT_0_31_OFFSET;
+  val_wr = 0x1;
+  pulp_write32(address, val_wr);
+  while(pulp_read32(address) != val_wr);
+  printf("Camera Vip Enabled\n");
 
   //wait_cycles(70000);
   do{

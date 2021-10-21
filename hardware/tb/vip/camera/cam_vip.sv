@@ -20,7 +20,8 @@
         parameter VRES = 480
 )
 (
-    output logic       cam_pclk_o,
+    input logic        en_i,
+    output logic       cam_clk_o,
     output logic       cam_vsync_o,
     output logic       cam_href_o,
     output logic [7:0] cam_data_o
@@ -31,6 +32,8 @@
     localparam clk_period=150; // 6MHz
     localparam TP = 2;
     localparam TLINE = (HRES+144)*TP;
+
+    logic cam_pclk_o;
 
     logic [23:0] pixel_array0 [(HRES*VRES)-1:0];
     logic [23:0] pixel_array1 [(HRES*VRES)-1:0];
@@ -64,11 +67,13 @@
 
     assign s_currentpixel = r_framesel ? pixel_array1[(r_lineptr*HRES)+r_colptr] : pixel_array0[(r_lineptr*HRES)+r_colptr];
     assign cam_data_o     = r_bytesel ? {s_currentpixel[12:10],s_currentpixel[7:3]} : {s_currentpixel[23:19],s_currentpixel[15:13]}; //coded with RGB565
-
+    assign cam_clk_o = en_i ? cam_pclk_o : 1'b0 ;
+    
     initial
     begin
         cam_pclk_o  = 1'b1;
-
+        
+        @(posedge en_i);
         // wait one cycle first
         #(clk_period);
 
@@ -89,6 +94,7 @@
         $fwrite(f0,"\n\n\nint volatile frame_0[N_PIXEL] = {\n");
         $fwrite(f1,"\n\n\nint volatile frame_1[N_PIXEL] = {\n");
         @(negedge s_rstn);
+        @(posedge en_i);
         @(posedge cam_pclk_o);
         for(int i=0; i<=2;i++) begin
             @(posedge cam_href_o) 
@@ -234,8 +240,8 @@
         endcase // state
     end
 
-    always_ff @(posedge cam_pclk_o or negedge s_rstn) begin : proc_r_bytesel
-        if(~s_rstn) begin
+    always_ff @(posedge cam_pclk_o or negedge s_rstn or negedge en_i) begin : proc_r_bytesel
+        if(~s_rstn | ~en_i) begin
             r_bytesel  <= 'h0;
             r_colptr   <= 'h0;
             r_lineptr  <= 'h0;
@@ -248,8 +254,8 @@
         end
     end
 
-    always_ff @(posedge cam_pclk_o or negedge s_rstn) begin : proc_r_counter
-        if(~s_rstn) begin
+    always_ff @(posedge cam_pclk_o or negedge s_rstn or negedge en_i) begin : proc_r_counter
+        if(~s_rstn | ~en_i) begin
             r_counter <= 0;
             r_target  <= 0;
             r_active  <= 0;
@@ -281,8 +287,8 @@
         end
     end
 
-    always_ff @(posedge cam_pclk_o or negedge s_rstn) begin : proc_state
-        if(~s_rstn) begin
+    always_ff @(posedge cam_pclk_o or negedge s_rstn or negedge en_i) begin : proc_state
+        if(~s_rstn | ~en_i) begin
             state <= RST;
         end else begin
             state <= state_next;
