@@ -67,11 +67,11 @@
 
     assign s_currentpixel = r_framesel ? pixel_array1[(r_lineptr*HRES)+r_colptr] : pixel_array0[(r_lineptr*HRES)+r_colptr];
     assign cam_data_o     = r_bytesel ? {s_currentpixel[12:10],s_currentpixel[7:3]} : {s_currentpixel[23:19],s_currentpixel[15:13]}; //coded with RGB565
-    assign cam_clk_o = en_i ? cam_pclk_o : 1'b0 ;
+    assign cam_clk_o =  cam_pclk_o ;
     
     initial
     begin
-        cam_pclk_o  = 1'b1;
+        cam_pclk_o  = 1'b0;
         
         @(posedge en_i);
         // wait one cycle first

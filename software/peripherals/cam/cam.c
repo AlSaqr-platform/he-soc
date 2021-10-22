@@ -26,6 +26,7 @@
 #include "../../inc/udma/cpi/udma_cpi_v1.h"
 #include "rgb565_f0.h"
 
+//This test receives 32*32*2 bytes from the VIP, change the VIP to receive bigger data
 #define HRES 32
 #define VRES 32
 
