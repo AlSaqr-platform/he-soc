@@ -9,7 +9,7 @@ source scripts/area_report.tcl
 
 
 set reAnalyzeRTL "TRUE"
-set TRIAL_DIR "trial1_02_09_2021"
+set TRIAL_DIR "trial2_03_11_2021"
 set DESIGN_NAME "al_saqr"
  
 ####################################################################
@@ -51,6 +51,12 @@ check_design                        > ${TRIAL_DIR}/reports/d01_check_design_post
 current_design al_saqr
 write -format verilog -hier -o ./${TRIAL_DIR}/unmapped/${DESIGN_NAME}_chip_unmapped.v
 write -format ddc -hier -o ./${TRIAL_DIR}/unmapped/${DESIGN_NAME}_chip_unmapped.ddc ${DESIGN_NAME}
+
+####################################################################
+## LINK
+####################################################################
+link                                                      > ${TRIAL_DIR}/reports/d02_link_alsaqr.rpt
+
 report_timing -loop -max_paths 100 > ./${TRIAL_DIR}/timing_loops.rpt
 
 ####################################################################
@@ -76,17 +82,18 @@ set uniquify_naming_style "alsaqr_%s_%d"
 uniquify -force                                           > ${TRIAL_DIR}/reports/d04_pre_synth_uniquify.rpt
 
 ####################################################################
-## SET OPERATING CONDITIONS
+## SET OPERATING CONDITIONS SSG VDD=0.72V VSS=0V NO BIAS T=40 C
 ####################################################################
-set_operating_conditions -max SSG_0P59V_0P00V_0P00V_0P00V_M40C
+set_operating_conditions -max SSG_0P72V_0P00V_0P00V_0P00V_M40C
 
 ####################################################################
 ## ADD CONSTRAINTS
 ####################################################################
-source -echo -verbose ./scripts/constraints/alsaqr.clock.sdc       > ${TRIAL_DIR}/reports/d06_constr_clk.rpt
-#source -echo -verbose ./scripts/constraints/constraints.hyper.sdc        > ${TRIAL_DIR}/reports/d05_constr_hyper.rpt
-#source -echo -verbose ./scripts/constraints/constraints.peripherals.sdc  > ${TRIAL_DIR}/reports/d07_constr_periphs.rpt
-source -echo -verbose ./scripts/constraints/alsaqr.exceptions.sdc   > ${TRIAL_DIR}/reports/d08_constr_excep.rpt
+set_app_var hdlin_sv_enable_rtl_attributes true
+source -echo -verbose ./scripts/constraints/alsaqr.clock.sdc             > ${TRIAL_DIR}/reports/d05_constr_clk.rpt
+source -echo -verbose ./scripts/constraints/constraints.hyper.sdc        > ${TRIAL_DIR}/reports/d06_constr_hyper.rpt
+source -echo -verbose ./scripts/constraints/constraints.peripherals.sdc  > ${TRIAL_DIR}/reports/d07_constr_periphs.rpt
+source -echo -verbose ./scripts/constraints/alsaqr.exceptions.sdc        > ${TRIAL_DIR}/reports/d08_constr_excep.rpt
 
 ####################################################################
 ## INSERT CLK GATING CELLS

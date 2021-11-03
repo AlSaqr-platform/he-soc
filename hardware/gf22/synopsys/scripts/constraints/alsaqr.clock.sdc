@@ -5,7 +5,7 @@ set REF_C_Latency_Min            500
 set REF_C_Uncertainty            500
 
 # FLL1 CLOCK: 200 MHz
-set SOC_C_Period                 5000
+set SOC_C_Period                 2500
 set SOC_C_Latency_Max            500
 set SOC_C_Latency_Min            500
 set SOC_C_Uncertainty            100
@@ -17,7 +17,7 @@ set PER_C_Latency_Min            500
 set PER_C_Uncertainty            100
 
 # FLL3 CLOCK: 200 MHz
-set CLUSTER_C_Period             4000
+set CLUSTER_C_Period             2000
 set CLUSTER_C_Latency_Max        500
 set CLUSTER_C_Latency_Min        500
 set CLUSTER_C_Uncertainty        100
@@ -93,13 +93,4 @@ set_clock_latency -max                      $PER_C_Latency_Max [get_clocks FLL_P
 set_clock_latency -min                      $PER_C_Latency_Min [get_clocks FLL_PER_CLK]
 
 
-########################################
-### GENERATED CLOCK FROM CLOCK MUXES ###
-########################################
-# SOC CLK
-create_generated_clock         [get_pins i_host_domain/i_clk_gen_hyper/clk0_o] \
-     -name AXI_HYPER_CLK_PHY -source [get_pins  i_host_domain/i_apb_subsystem/i_alsaqr_clk_rst_gen/i_fll_soc/FLLCLK] -divide_by 2
-
-create_generated_clock         [get_pins i_host_domain/i_clk_gen_hyper/clk90_o] \
-     -name AXI_HYPER_CLK_PHY_90 -source [get_pins  i_host_domain/i_apb_subsystem/i_alsaqr_clk_rst_gen/i_fll_soc/FLLCLK]  -edges {2 4 6}
 

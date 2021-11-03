@@ -74,12 +74,12 @@ module al_saqr
   output logic [31:0] dmi_resp_bits_data, 
 `endif
   // JTAG
-  input logic         jtag_TCK,
-  input logic         jtag_TMS,
-  input logic         jtag_TDI,
-  input logic         jtag_TRSTn,
-  output logic        jtag_TDO_data,
-  output logic        jtag_TDO_driven
+  inout wire          jtag_TCK,
+  inout wire          jtag_TMS,
+  inout wire          jtag_TDI,
+  inout wire          jtag_TRSTn,
+  inout wire          jtag_TDO_data,
+  inout wire          jtag_TDO_driven
 
 );
 
@@ -108,6 +108,15 @@ module al_saqr
   logic [NUM_GPIO-1:0]         s_gpio_pad_in;
   logic [NUM_GPIO-1:0]         s_gpio_pad_out;
   logic [NUM_GPIO-1:0]         s_gpio_pad_dir;
+
+  logic                        s_rst_ni;
+  logic                        s_jtag_TCK;
+  logic                        s_jtag_TDI;
+  logic                        s_jtag_TDO;
+  logic                        s_jtag_TMS;
+  logic                        s_jtag_TRSTn;
+  logic                        s_rtc_i;
+   
 
   logic s_soc_clk  ;
   logic s_soc_rst_n; 
@@ -195,8 +204,8 @@ module al_saqr
         .NUM_GPIO          ( NUM_GPIO   ),
         .JtagEnable        ( JtagEnable )
     ) i_host_domain (
-      .rst_ni,
-      .rtc_i,
+      .rst_ni(s_rst_ni),
+      .rtc_i(s_rtc_i),
 `ifndef TARGET_SYNTHESIS
       .dmi_req_valid,
       .dmi_req_ready,
@@ -218,12 +227,12 @@ module al_saqr
       .dmi_resp_bits_resp   (    ),
       .dmi_resp_bits_data   (    ), 
 `endif
-      .jtag_TCK,
-      .jtag_TMS,
-      .jtag_TDI,
-      .jtag_TRSTn,
-      .jtag_TDO_data,
-      .jtag_TDO_driven,
+      .jtag_TCK               ( s_jtag_TCK                      ),
+      .jtag_TMS               ( s_jtag_TMS                      ),
+      .jtag_TDI               ( s_jtag_TDI                      ),
+      .jtag_TRSTn             ( s_jtag_TRSTn                    ),
+      .jtag_TDO_data          ( s_jtag_TDO                      ),
+      .jtag_TDO_driven        (                                 ),
       .cluster_axi_master     ( soc_to_cluster_axi_bus          ),
       .cluster_axi_slave      ( cluster_to_soc_axi_bus          ),
       .soc_clk_o              ( s_soc_clk                       ),
@@ -352,7 +361,22 @@ module al_saqr
       .gpio_pad_out           ( s_gpio_pad_out                  ),
       .gpio_pad_in            ( s_gpio_pad_in                   ),
       .gpio_pad_dir           ( s_gpio_pad_dir                  ),      
-      .pad_gpio               ( pad_gpio                        )
+      .pad_gpio               ( pad_gpio                        ),
+      .ref_clk_o              ( s_rtc_i                         ),
+      .rstn_o                 ( s_rst_ni                        ),
+      .jtag_tck_o             ( s_jtag_TCK                      ),
+      .jtag_tdi_o             ( s_jtag_TDI                      ),
+      .jtag_tdo_i             ( s_jtag_TDO                      ),
+      .jtag_tms_o             ( s_jtag_TMS                      ),
+      .jtag_trst_o            ( s_jtag_TRSTn                    ),
+      
+      .pad_reset_n            ( rst_ni                          ),
+      .pad_jtag_tck           ( jtag_TCK                        ),
+      .pad_jtag_tdi           ( jtag_TDI                        ),
+      .pad_jtag_tdo           ( jtag_TDO_data                   ),
+      .pad_jtag_tms           ( jtag_TMS                        ),
+      .pad_jtag_trst          ( jtag_TRSTn                      ),
+      .pad_xtal_in            ( rtc_i                           )
      );
 
    axi_serializer_intf #(
@@ -438,7 +462,7 @@ module al_saqr
     (
         .clk_i                        ( s_cluster_clk                ),
         .rst_ni                       ( s_cluster_rst_n              ),
-        .ref_clk_i                    ( rtc_i                        ),
+        .ref_clk_i                    ( s_rtc_i                      ),
 
         .pmu_mem_pwdn_i               ( 1'b0                         ),
         
