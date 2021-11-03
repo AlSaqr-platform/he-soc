@@ -8,6 +8,28 @@ set_dont_touch_network [ get_ports i_host_domain/jtag_TCK]
 set_dont_touch_network [ get_ports i_host_domain/jtag_TRSTn]
 set_dont_touch_network [ get_ports i_host_domain/rst_ni]
 set_dont_touch_network [ get_ports i_host_domain/rtc_i]
+#
+# REGISTER FILE
+set_multicycle_path 2 -setup -through [get_pins cluster_i/CORE[*].core_region_i/CL_CORE.RISCV_CORE/id_stage_i/registers_i/riscv_register_file_i/mem_reg*/Q]
+set_multicycle_path 1 -hold  -through [get_pins cluster_i/CORE[*].core_region_i/CL_CORE.RISCV_CORE/id_stage_i/registers_i/riscv_register_file_i/mem_reg*/Q]
+
+# ICACHE PRIVATE
+# DATA BANK
+set_multicycle_path 2 -setup -through [get_pins cluster_i/icache_top_i/PRI_ICACHE[*].i_pri_icache/_DATA_WAY_[*].DATA_BANK/register_file_1r_1w_i/MemContentxDP_reg*/Q]
+set_multicycle_path 1 -hold  -through [get_pins cluster_i/icache_top_i/PRI_ICACHE[*].i_pri_icache/_DATA_WAY_[*].DATA_BANK/register_file_1r_1w_i/MemContentxDP_reg*/Q]
+
+# TAG BANK
+set_multicycle_path 2 -setup -through [get_pins cluster_i/icache_top_i/PRI_ICACHE[*].i_pri_icache/_TAG_WAY_[*].TAG_BANK/MemContentxDP_reg*/Q]
+set_multicycle_path 1 -hold  -through [get_pins cluster_i/icache_top_i/PRI_ICACHE[*].i_pri_icache/_TAG_WAY_[*].TAG_BANK/MemContentxDP_reg*/Q]
+
+# ICACHE SHARED
+# DATA BANK
+set_multicycle_path 2 -setup -through [get_pins cluster_i/icache_top_i/Main_Icache[*].i_main_shared_icache/DATA_RAM_WAY[*].DATA_RAM/scm_data/register_file_1r_1w_i/MemContentxDP_reg*/Q]
+set_multicycle_path 1 -hold  -through [get_pins cluster_i/icache_top_i/Main_Icache[*].i_main_shared_icache/DATA_RAM_WAY[*].DATA_RAM/scm_data/register_file_1r_1w_i/MemContentxDP_reg*/Q]
+
+# TAG BANK
+set_multicycle_path 2 -setup -through [get_pins cluster_i/icache_top_i/Main_Icache[*].i_main_shared_icache/TAG_RAM_WAY[*].TAG_RAM/scm_tag/register_file_1r_1w_i/MemContentxDP_reg*/Q]
+set_multicycle_path 1 -hold  -through [get_pins cluster_i/icache_top_i/Main_Icache[*].i_main_shared_icache/TAG_RAM_WAY[*].TAG_RAM/scm_tag/register_file_1r_1w_i/MemContentxDP_reg*/Q]
 
 # those constraints gets automatically applied on all the rtl modules that require no ungrouping and that have asynch paths (e.g. in between CDCs fifos)
 # attributes need to be specified directly in the RTL and "hdlin_sv_enable_rtl_attributes" must be set to true with the following 
