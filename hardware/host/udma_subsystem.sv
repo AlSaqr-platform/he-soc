@@ -851,7 +851,11 @@ module udma_subsystem
     logic                          clk0;
     logic                          clk90;
 
-    clk_gen_hyper ddr_clk (
+    `ifdef FPGA_EMUL
+    (* DONT_TOUCH = "TRUE" *)   clk_gen_hyper i_clk_gen_hyper (
+    `else
+    clk_gen_hyper i_clk_gen_hyper (                                                           
+    `endif
         .clk_i    ( sys_clk_i                       ),
         .rst_ni   ( sys_resetn_i                    ),
         .clk0_o   ( clk0                            ),
