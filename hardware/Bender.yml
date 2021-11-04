@@ -80,8 +80,6 @@ sources:
       - host/pads_gf22.sv
       - host/tc_sram_gf22.sv
       - host/tc_clk_gf22.sv
-      - host/tc_sram.sv
-      # tc_sram is instantiated as behavioral sram in cva6's caches. TODOs : macros.
       
   - target: vip
     files:

@@ -19,8 +19,8 @@ set_multicycle_path 2 -setup -through [get_pins cluster_i/icache_top_i/PRI_ICACH
 set_multicycle_path 1 -hold  -through [get_pins cluster_i/icache_top_i/PRI_ICACHE[*].i_pri_icache/_DATA_WAY_[*].DATA_BANK/register_file_1r_1w_i/MemContentxDP_reg*/Q]
 
 # TAG BANK
-set_multicycle_path 2 -setup -through [get_pins cluster_i/icache_top_i/PRI_ICACHE[*].i_pri_icache/_TAG_WAY_[*].TAG_BANK/MemContentxDP_reg*/Q]
-set_multicycle_path 1 -hold  -through [get_pins cluster_i/icache_top_i/PRI_ICACHE[*].i_pri_icache/_TAG_WAY_[*].TAG_BANK/MemContentxDP_reg*/Q]
+set_multicycle_path 2 -setup -through [get_pins cluster_i/icache_top_i/PRI_ICACHE[*].i_pri_icache/_TAG_WAY_[*].TAG_BANK/register_file_1w_multi_port_read_i/MemContentxDP_reg*/Q]
+set_multicycle_path 1 -hold  -through [get_pins cluster_i/icache_top_i/PRI_ICACHE[*].i_pri_icache/_TAG_WAY_[*].TAG_BANK/register_file_1w_multi_port_read_i/MemContentxDP_reg*/Q]
 
 # ICACHE SHARED
 # DATA BANK
