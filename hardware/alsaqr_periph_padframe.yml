@@ -490,7 +490,7 @@ pad_domains:
             connections:
               chip2pad: gpio{i}_i
               gpio{i}_o: pad2chip
-              oen: gpio{i}_d_i
+              oen: ~gpio{i}_d_i
               puen: 1'b1
       
       #PAD_PWM       
