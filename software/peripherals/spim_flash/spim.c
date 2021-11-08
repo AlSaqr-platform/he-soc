@@ -22,8 +22,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include "utils.h"
-#include "../../inc/udma/udma.h"
-#include "../../inc/udma/spim/udma_spim_v3.h"
+#include "udma.h"
+#include "udma_spim_v3.h"
 #include "flash_page.h"
 
 
@@ -254,6 +254,12 @@ int main(){
       int test_freq = 17500000;
   #endif  
       uart_set_cfg(0,(test_freq/baud_rate)>>4);
+
+
+  alsaqr_periph_padframe_periphs_pad_gpio_b_00_mux_set( 2 );
+  alsaqr_periph_padframe_periphs_pad_gpio_b_01_mux_set( 2 );
+  alsaqr_periph_padframe_periphs_pad_gpio_b_02_mux_set( 2 );
+  alsaqr_periph_padframe_periphs_pad_gpio_b_03_mux_set( 2 );
 
   for (int u = 0; u<N_SPI; u++){
 

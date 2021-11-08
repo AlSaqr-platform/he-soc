@@ -19,7 +19,9 @@
 
 module host_domain 
   import axi_pkg::xbar_cfg_t;
-  import udma_subsystem_pkg::*;   
+  import udma_subsystem_pkg::*;  
+  import gpio_pkg::*; 
+  import pkg_alsaqr_periph_padframe::*; 
 #(
   parameter int unsigned AXI_USER_WIDTH    = 1,
   parameter int unsigned AXI_ADDRESS_WIDTH = 64,
@@ -95,10 +97,9 @@ module host_domain
 
   output                      pwm_to_pad_t pwm_to_pad,
 
-  // GPIOs
-  input logic [NUM_GPIO-1:0]  gpio_in,
-  output logic [NUM_GPIO-1:0] gpio_out,
-  output logic [NUM_GPIO-1:0] gpio_dir
+  output gpio_to_pad_t        gpio_to_pad,
+  input  pad_to_gpio_t        pad_to_gpio,
+  input port_signals_pad2soc_t port_signals_pad2soc
 
 );
 
@@ -272,15 +273,14 @@ module host_domain
       .hyper_to_pad           ( hyper_to_pad                   ),
       .pad_to_hyper           ( pad_to_hyper                   ),
       .pwm_to_pad             ( pwm_to_pad                     ),
-                        
-      .gpio_in                ( gpio_in                        ),
-      .gpio_out               ( gpio_out                       ),
-      .gpio_dir               ( gpio_dir                       )
 
+      .gpio_to_pad            ( gpio_to_pad                    ),
+      .pad_to_gpio            ( pad_to_gpio                    ),
+      .port_signals_pad2soc   ( port_signals_pad2soc           )
+                        
       );
                      
 
     
- 
  
 endmodule

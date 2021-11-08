@@ -2,7 +2,7 @@ current_dir = $(shell pwd)
 
 utils_dir = $(SW_HOME)/inc/
 
-directories = . drivers/inc drivers/src string_lib/inc string_lib/src
+directories = . drivers/inc drivers/src string_lib/inc string_lib/src padframe/inc padframe/src udma udma/cpi udma/i2c udma/spim udma/uart 
 
 INC=$(foreach d, $(directories), -I$(utils_dir)$d)
 

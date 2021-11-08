@@ -22,8 +22,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include "utils.h"
-#include "../../inc/udma/udma.h"
-#include "../../inc/udma/i2c/udma_i2c_v2.h"
+#include "udma.h"
+#include "udma_i2c_v2.h"
 
 #define DATA_SIZE 4
 #define BUFFER_SIZE 10
@@ -40,6 +40,10 @@ int main()
   uint8_t *rx_buffer= (uint8_t*) 0x1C002000;
   uint32_t *cmd_buffer_wr = (uint32_t*) 0x1C003000;
   uint32_t *cmd_buffer_rd = (uint32_t*) 0x1C004000;
+
+
+  alsaqr_periph_padframe_periphs_pad_gpio_b_50_mux_sel_t mux_sel_scl;
+  alsaqr_periph_padframe_periphs_pad_gpio_b_51_mux_sel_t mux_sel_sda;
 
   //Expected datas
   /*uint8_t expected_rx_buffer[DATA_SIZE]={ 0xCA,
@@ -188,7 +192,12 @@ int main()
   #endif  
       uart_set_cfg(0,(test_freq/baud_rate)>>4);
     
-    
+  mux_sel_scl =2;
+  alsaqr_periph_padframe_periphs_pad_gpio_b_50_mux_set( mux_sel_scl );
+
+  mux_sel_sda =2;
+  alsaqr_periph_padframe_periphs_pad_gpio_b_51_mux_set( mux_sel_sda );
+
   for (u=0;u<N_I2C;u++) {
 
     //WRITE

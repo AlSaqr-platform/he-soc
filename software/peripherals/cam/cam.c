@@ -22,8 +22,8 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include "utils.h"
-#include "../../inc/udma/udma.h"
-#include "../../inc/udma/cpi/udma_cpi_v1.h"
+#include "udma.h"
+#include "udma_cpi_v1.h"
 #include "rgb565_f0.h"
 
 //This test receives 32*32*2 bytes from the VIP, change the VIP to receive bigger data
@@ -54,6 +54,19 @@ int main(){
 
   int j;
 
+  alsaqr_periph_padframe_periphs_pad_gpio_b_00_mux_sel_t mux_b00=1;
+
+  alsaqr_periph_padframe_periphs_pad_gpio_d_00_mux_sel_t mux_d00=1;
+  alsaqr_periph_padframe_periphs_pad_gpio_d_01_mux_sel_t mux_d01=1;
+  alsaqr_periph_padframe_periphs_pad_gpio_d_02_mux_sel_t mux_d02=1;
+  alsaqr_periph_padframe_periphs_pad_gpio_d_03_mux_sel_t mux_d03=1;
+  alsaqr_periph_padframe_periphs_pad_gpio_d_04_mux_sel_t mux_d04=1;
+  alsaqr_periph_padframe_periphs_pad_gpio_d_05_mux_sel_t mux_d05=1;
+  alsaqr_periph_padframe_periphs_pad_gpio_d_06_mux_sel_t mux_d06=1;
+  alsaqr_periph_padframe_periphs_pad_gpio_d_07_mux_sel_t mux_d07=1;
+  alsaqr_periph_padframe_periphs_pad_gpio_d_08_mux_sel_t mux_d08=1;
+  alsaqr_periph_padframe_periphs_pad_gpio_d_09_mux_sel_t mux_d09=1;
+  alsaqr_periph_padframe_periphs_pad_gpio_d_10_mux_sel_t mux_d10=1;
 
   //FIX PRINTF UART
   #ifdef FPGA_EMULATION
@@ -64,6 +77,34 @@ int main(){
       int test_freq = 17500000;
   #endif  
       uart_set_cfg(0,(test_freq/baud_rate)>>4);
+
+   //Config pad_gpio_b_00 as GPIO
+  alsaqr_periph_padframe_periphs_pad_gpio_b_00_mux_set( mux_b00 );
+  //barrier();
+
+  //Config padframe on CAM0
+  alsaqr_periph_padframe_periphs_pad_gpio_d_00_mux_set( mux_d00 );
+  //barrier();
+  alsaqr_periph_padframe_periphs_pad_gpio_d_01_mux_set( mux_d01 );
+  //barrier();
+  alsaqr_periph_padframe_periphs_pad_gpio_d_02_mux_set( mux_d02 );
+  //barrier();
+  alsaqr_periph_padframe_periphs_pad_gpio_d_03_mux_set( mux_d03 );
+  //barrier();
+  alsaqr_periph_padframe_periphs_pad_gpio_d_04_mux_set( mux_d04 );
+  //barrier();
+  alsaqr_periph_padframe_periphs_pad_gpio_d_05_mux_set( mux_d05 );
+  //barrier();
+  alsaqr_periph_padframe_periphs_pad_gpio_d_06_mux_set( mux_d06 );
+  //barrier();
+  alsaqr_periph_padframe_periphs_pad_gpio_d_07_mux_set( mux_d07 );
+  //barrier();
+  alsaqr_periph_padframe_periphs_pad_gpio_d_08_mux_set( mux_d08 );
+  //barrier();
+  alsaqr_periph_padframe_periphs_pad_gpio_d_09_mux_set( mux_d09 );
+  //barrier();
+  alsaqr_periph_padframe_periphs_pad_gpio_d_10_mux_set( mux_d10 );
+  //barrier();
 
   //Set GPIO 0 direction as OUT
   address = ARCHI_GPIO_ADDR + GPIO_PADDIR_0_31_OFFSET;

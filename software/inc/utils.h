@@ -1,5 +1,6 @@
 #include "./drivers/src/uart.c"
 #include "./string_lib/src/string_lib.c"
+#include "./padframe/src/alsaqr_periph_padframe.c"
 
 #define pulp_write32(add, val_) (*(volatile unsigned int *)(long)(add) = val_)
 #define pulp_read32(add) (*(volatile unsigned int *)(long)(add))

@@ -33,24 +33,6 @@ module pad_frame
      inout wire          pad_hyper_rwds1 ,
      inout wire          pad_hyper_reset ,
 
-     //I2C
-     inout wire          pad_i2c_sda     ,
-     inout wire          pad_i2c_scl     ,
-
-     //SPI MASTER
-     inout wire          pad_spim_sdio0   ,
-     inout wire          pad_spim_sdio1   ,
-     inout wire          pad_spim_sdio2   ,
-     inout wire          pad_spim_sdio3   ,
-     inout wire          pad_spim_csn0    ,
-     inout wire          pad_spim_sck     ,
-
-     //CAM
-     inout wire          pad_cam_pclk     ,
-     inout wire          pad_cam_vsync    ,
-     inout wire          pad_cam_href     ,
-     inout wire [7:0]    pad_cam_data     ,
-
      // HYPERBUS
      input logic [1:0]   axi_hyper_cs_ni ,
      input logic         axi_hyper_ck_i ,
@@ -62,49 +44,6 @@ module pad_frame
      input logic [7:0]   axi_hyper_dq_i ,
      input logic         axi_hyper_dq_oe_i ,
      input logic         axi_hyper_reset_ni ,
-
-     //I2C
-     input logic         i2c_sda_oe_i ,
-     input logic         i2c_scl_oe_i ,
-     input logic         i2c_sda_out_i ,
-     input logic         i2c_scl_out_i ,
-     output logic        i2c_in_sda_o ,
-     output logic        i2c_in_scl_o ,
-
-     //SPI MASTER
-     input logic         oen_spim_sdio0_i  ,
-     input logic         oen_spim_sdio1_i  ,
-     input logic         oen_spim_sdio2_i  ,
-     input logic         oen_spim_sdio3_i  ,
-
-     output logic        in_spim_sdio0_o  ,
-     output logic        in_spim_sdio1_o  ,
-     output logic        in_spim_sdio2_o  ,
-     output logic        in_spim_sdio3_o  ,
-
-     input logic         out_spim_sdio0_i ,
-     input logic         out_spim_sdio1_i ,
-     input logic         out_spim_sdio2_i ,
-     input logic         out_spim_sdio3_i ,
-
-     input logic         out_spim_csn1_i  ,
-     input logic         out_spim_csn0_i  ,
-     input logic         out_spim_sck_i   ,
-
-     //CAM
-     output logic        in_cam_clk_o     ,
-     output logic        in_cam_hsync_o   ,
-     output logic        in_cam_vsync_o   ,
-
-     output logic        in_cam_data0_o      ,
-     output logic        in_cam_data1_o      ,
-     output logic        in_cam_data2_o      ,
-     output logic        in_cam_data3_o      ,
-     output logic        in_cam_data4_o      ,
-     output logic        in_cam_data5_o      ,
-     output logic        in_cam_data6_o      ,
-     output logic        in_cam_data7_o      ,
-
                          
      inout wire [7:0]    pad_axi_hyper_dq0 ,
      inout wire [7:0]    pad_axi_hyper_dq1 ,
@@ -114,13 +53,7 @@ module pad_frame
      inout wire          pad_axi_hyper_csn1 ,
      inout wire          pad_axi_hyper_rwds0 ,
      inout wire          pad_axi_hyper_rwds1 ,
-     inout wire          pad_axi_hyper_reset ,
-
-     input wire [63:0]   gpio_pad_out,
-     output wire [63:0]  gpio_pad_in,
-     input wire [63:0]   gpio_pad_dir,
-
-     inout wire [63:0]   pad_gpio,
+     inout wire          pad_axi_hyper_reset 
 
      output logic        ref_clk_o,
      output logic        rstn_o,
@@ -137,7 +70,7 @@ module pad_frame
      inout wire          pad_jtag_tms,
      inout wire          pad_jtag_trst,
      inout wire          pad_xtal_in
-     
+
      );
 
 `ifndef FPGA_EMUL  
@@ -158,32 +91,6 @@ module pad_frame
         end
     endgenerate
 
-    //I2C
-    pad_functional_pu padinst_i2c_sda     (.OEN( ~i2c_sda_oe_i ), .I( i2c_sda_out_i ), .O( i2c_in_sda_o ), .PAD( pad_i2c_sda ), .PEN( 1'b0 ) );
-    pad_functional_pu padinst_i2c_scl     (.OEN( ~i2c_scl_oe_i ), .I( i2c_scl_out_i ), .O( i2c_in_scl_o ), .PAD( pad_i2c_scl ), .PEN( 1'b0 ) );
-
-    //SPI MASTER
-    pad_functional_pd padinst_spim_sck    (.OEN( 1'b0   ), .I( out_spim_sck_i   ), .O(   ), .PAD( pad_spim_sck   ), .PEN( 1'b0 ) );
-    pad_functional_pd padinst_spim_csn0   (.OEN( 1'b0  ),  .I( out_spim_csn0_i  ), .O(   ), .PAD( pad_spim_csn0  ), .PEN( 1'b0 ) );
-    pad_functional_pd padinst_spim_sdio0  (.OEN( oen_spim_sdio0_i ), .I( out_spim_sdio0_i ), .O( in_spim_sdio0_o ), .PAD( pad_spim_sdio0 ), .PEN( 1'b0 ) );
-    pad_functional_pd padinst_spim_sdio1  (.OEN( oen_spim_sdio1_i ), .I( out_spim_sdio1_i ), .O( in_spim_sdio1_o ), .PAD( pad_spim_sdio1 ), .PEN( 1'b0 ) );
-    pad_functional_pd padinst_spim_sdio2  (.OEN( oen_spim_sdio2_i ), .I( out_spim_sdio2_i ), .O( in_spim_sdio2_o ), .PAD( pad_spim_sdio2 ), .PEN( 1'b0 ) );
-    pad_functional_pd padinst_spim_sdio3  (.OEN( oen_spim_sdio3_i ), .I( out_spim_sdio3_i ), .O( in_spim_sdio3_o ), .PAD( pad_spim_sdio3 ), .PEN( 1'b0 ) );
-
-    //CAM
-    pad_functional_pd padinst_cam_pclk   (.OEN( 1'b1 ), .I(  ), .O( in_cam_clk_o  ), .PAD( pad_cam_pclk  ), .PEN( 1'b0 ) );
-    pad_functional_pd padinst_cam_hsync  (.OEN( 1'b1 ), .I(  ), .O( in_cam_hsync_o ), .PAD( pad_cam_href ), .PEN( 1'b0 ) );
-    pad_functional_pd padinst_cam_vsync  (.OEN( 1'b1 ), .I(  ), .O( in_cam_vsync_o ), .PAD( pad_cam_vsync ), .PEN( 1'b0 ) );
-
-    pad_functional_pd padinst_cam_data0  (.OEN( 1'b1 ), .I(  ), .O( in_cam_data0_o ), .PAD( pad_cam_data[0] ), .PEN( 1'b0 ) );
-    pad_functional_pd padinst_cam_data1  (.OEN( 1'b1 ), .I(  ), .O( in_cam_data1_o ), .PAD( pad_cam_data[1] ), .PEN( 1'b0 ) );
-    pad_functional_pd padinst_cam_data2  (.OEN( 1'b1 ), .I(  ), .O( in_cam_data2_o ), .PAD( pad_cam_data[2] ), .PEN( 1'b0 ) );
-    pad_functional_pd padinst_cam_data3  (.OEN( 1'b1 ), .I(  ), .O( in_cam_data3_o ), .PAD( pad_cam_data[3] ), .PEN( 1'b0 ) );
-    pad_functional_pd padinst_cam_data4  (.OEN( 1'b1 ), .I(  ), .O( in_cam_data4_o ), .PAD( pad_cam_data[4] ), .PEN( 1'b0 ) );
-    pad_functional_pd padinst_cam_data5  (.OEN( 1'b1 ), .I(  ), .O( in_cam_data5_o ), .PAD( pad_cam_data[5] ), .PEN( 1'b0 ) );
-    pad_functional_pd padinst_cam_data6  (.OEN( 1'b1 ), .I(  ), .O( in_cam_data6_o ), .PAD( pad_cam_data[6] ), .PEN( 1'b0 ) );
-    pad_functional_pd padinst_cam_data7  (.OEN( 1'b1 ), .I(  ), .O( in_cam_data7_o ), .PAD( pad_cam_data[7] ), .PEN( 1'b0 ) );
-    
 
 
 `endif //  `ifndef FPGA_EMUL
@@ -202,14 +109,6 @@ module pad_frame
         end
     endgenerate
    
-`ifndef FPGA_EMUL       
-    genvar i;
-    generate
-       for (i=0; i<64; i++) begin
-                pad_functional_pu padinst_gpio  (.OEN(~gpio_pad_dir[i]   ), .I( gpio_pad_out[i]   ), .O( gpio_pad_in[i]  ), .PAD( pad_gpio[i]   ), .PEN(1'b1 ) );
-        end
-    endgenerate
-`endif
 
 `ifndef FPGA_EMUL
   pad_functional_pu padinst_ref_clk    (.OEN(1'b1            ), .I(                ), .O(ref_clk_o      ), .PAD(pad_xtal_in   ), .PEN(1'b1             ) );

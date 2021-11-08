@@ -40,6 +40,7 @@ sources:
   - include/pulp_interfaces.sv
   - include/ariane_axi_soc_pkg.sv
   - include/udma_subsystem_pkg.sv
+  - include/gpio_pkg.sv
   - include/tcdm_macros.sv
   - host/axi2tcdm_wrap.sv
   - host/ariane_peripherals.sv
@@ -52,6 +53,7 @@ sources:
   - host/freqmeter.sv
   - host/alsaqr_clk_rst_gen.sv
   - host/apb_subsystem.sv
+  - host/apb_gpio_wrap.sv
   - host/cva6_subsystem.sv
   - host/l2_subsystem.sv
   - host/clk_gen_hyper.sv

@@ -16,6 +16,8 @@
 module apb_subsystem
   import apb_soc_pkg::*;
   import udma_subsystem_pkg::*;
+  import gpio_pkg::*; 
+  import pkg_alsaqr_periph_padframe::*; 
 #( 
     parameter int unsigned AXI_USER_WIDTH = 1,
     parameter int unsigned AXI_ADDR_WIDTH = 64,
@@ -64,9 +66,9 @@ module apb_subsystem
     input                       pad_to_hyper_t [N_HYPER-1:0] pad_to_hyper,
    
     // GPIOs
-    input logic [NUM_GPIO-1:0]  gpio_in,
-    output logic [NUM_GPIO-1:0] gpio_out,
-    output logic [NUM_GPIO-1:0] gpio_dir,
+    output gpio_to_pad_t        gpio_to_pad,
+    input  pad_to_gpio_t        pad_to_gpio,
+    input port_signals_pad2soc_t port_signals_pad2soc,
 
     output                      pwm_to_pad_t pwm_to_pad
 );
@@ -254,6 +256,20 @@ module apb_subsystem
         .gpio_padcfg     (                    ),
         .interrupt       (                    )
     );
+
+    apb_gpio_wrap #( 
+     .NUM_GPIO       ( NUM_GPIO  )
+    ) i_apb_gpio_wrap (
+        .gpio_in         ( gpio_in            ),
+        .gpio_out        ( gpio_out           ),
+        .gpio_dir        ( gpio_dir           ),
+
+        .gpio_to_pad            ( gpio_to_pad                    ),
+        .pad_to_gpio            ( pad_to_gpio                    ),
+        .port_signals_pad2soc   ( port_signals_pad2soc           )
+    );
+
+
 
     apb_fll_if_wrap #(
         .APB_ADDR_WIDTH (32)
