@@ -21,7 +21,7 @@ dependencies:
   udma_camera: { git: "https://github.com/pulp-platform/udma_camera.git", version: 1.1.2 }
   udma_filter: { git: "https://github.com/pulp-platform/udma_filter.git", version: 1.0.2 }
   udma_external_per: { git: "https://github.com/pulp-platform/udma_external_per.git", version: 1.0.3 }
-  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.6 }
+  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.7 }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", version: 0.1.1 }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "0e9f142f2f11278445c953ad011fce1c7ed85b66" }
   hyperbus: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/hyperbus.git", rev: "cd0a440d9e5f4084a266615c7f0817d21c1528b1" }

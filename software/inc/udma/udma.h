@@ -3,7 +3,7 @@
 
 #include "../../inc/properties.h"
 #include "../memory_map.h"
-
+#include "../padframe/src/alsaqr_periph_padframe.c"
 /*
  * Global register map
  */

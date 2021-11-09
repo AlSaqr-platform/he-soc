@@ -53,7 +53,13 @@ module pad_frame
      inout wire          pad_axi_hyper_csn1 ,
      inout wire          pad_axi_hyper_rwds0 ,
      inout wire          pad_axi_hyper_rwds1 ,
-     inout wire          pad_axi_hyper_reset 
+     inout wire          pad_axi_hyper_reset ,
+
+     input logic         cva6_uart_tx,
+     output logic        cva6_uart_rx,
+     
+     inout wire          pad_cva6_uart_rx ,
+     inout wire          pad_cva6_uart_tx ,
 
      output logic        ref_clk_o,
      output logic        rstn_o,
@@ -73,6 +79,23 @@ module pad_frame
 
      );
 
+    pad_functional_pu padinst_axi_hyper_csno0  (.OEN( 1'b0                  ), .I( axi_hyper_cs_ni[0]  ), .O(                   ), .PAD( pad_axi_hyper_csn0    ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_axi_hyper_csno1  (.OEN( 1'b0                  ), .I( axi_hyper_cs_ni[1]  ), .O(                   ), .PAD( pad_axi_hyper_csn1    ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_axi_hyper_ck     (.OEN( 1'b0                  ), .I( axi_hyper_ck_i      ), .O(                   ), .PAD( pad_axi_hyper_ck      ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_axi_hyper_ckno   (.OEN( 1'b0                  ), .I( axi_hyper_ck_ni     ), .O(                   ), .PAD( pad_axi_hyper_ckn     ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_axi_hyper_rwds0  (.OEN(~axi_hyper_rwds_oe_i   ), .I( axi_hyper_rwds_i    ), .O( axi_hyper_rwds_o  ), .PAD( pad_axi_hyper_rwds0   ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_axi_hyper_resetn (.OEN( 1'b0                  ), .I( axi_hyper_reset_ni  ), .O(                   ), .PAD( pad_axi_hyper_reset   ), .PEN(1'b1 ) );
+
+    genvar k;
+    generate
+       for (k=0; k<8; k++) begin
+                pad_functional_pu padinst_axi_hyper_dqio0  (.OEN(~axi_hyper_dq_oe_i   ), .I( axi_hyper_dq_i[k]   ), .O( axi_hyper_dq_o[k]  ), .PAD( pad_axi_hyper_dq0[k]   ), .PEN(1'b1 ) );
+        end
+    endgenerate
+   
+    pad_functional_pu padinst_uart_rx    (.OEN( 1'b1   ), .I(1'b0         ), .O(cva6_uart_rx ), .PAD(pad_cva6_uart_rx   ), .PEN(1'b1) );
+    pad_functional_pu padinst_uart_tx    (.OEN( 1'b0   ), .I(cva6_uart_tx ), .O(             ), .PAD(pad_cva6_uart_tx   ), .PEN(1'b1) );
+   
 `ifndef FPGA_EMUL  
 
     //HYPER
@@ -91,43 +114,25 @@ module pad_frame
         end
     endgenerate
 
+    pad_functional_pu padinst_ref_clk    (.OEN(1'b1            ), .I(                ), .O(ref_clk_o      ), .PAD(pad_xtal_in   ), .PEN(1'b1             ) );
+    pad_functional_pu padinst_reset_n    (.OEN(1'b1            ), .I(                ), .O(rstn_o         ), .PAD(pad_reset_n   ), .PEN(1'b1             ) );
+    pad_functional_pu padinst_jtag_tck   (.OEN(1'b1            ), .I(                ), .O(jtag_tck_o     ), .PAD(pad_jtag_tck  ), .PEN(1'b1             ) );
+    pad_functional_pu padinst_jtag_tms   (.OEN(1'b1            ), .I(                ), .O(jtag_tms_o     ), .PAD(pad_jtag_tms  ), .PEN(1'b1             ) );
+    pad_functional_pu padinst_jtag_tdi   (.OEN(1'b1            ), .I(                ), .O(jtag_tdi_o     ), .PAD(pad_jtag_tdi  ), .PEN(1'b1             ) );
+    pad_functional_pu padinst_jtag_trstn (.OEN(1'b1            ), .I(                ), .O(jtag_trst_o    ), .PAD(pad_jtag_trst ), .PEN(1'b1             ) );
+    pad_functional_pd padinst_jtag_tdo   (.OEN(1'b0            ), .I(jtag_tdo_i      ), .O(               ), .PAD(pad_jtag_tdo  ), .PEN(1'b1             ) );
 
-
-`endif //  `ifndef FPGA_EMUL
-   
-    pad_functional_pu padinst_axi_hyper_csno0  (.OEN( 1'b0                  ), .I( axi_hyper_cs_ni[0]  ), .O(                   ), .PAD( pad_axi_hyper_csn0    ), .PEN(1'b1 ) );
-    pad_functional_pu padinst_axi_hyper_csno1  (.OEN( 1'b0                  ), .I( axi_hyper_cs_ni[1]  ), .O(                   ), .PAD( pad_axi_hyper_csn1    ), .PEN(1'b1 ) );
-    pad_functional_pu padinst_axi_hyper_ck     (.OEN( 1'b0                  ), .I( axi_hyper_ck_i      ), .O(                   ), .PAD( pad_axi_hyper_ck      ), .PEN(1'b1 ) );
-    pad_functional_pu padinst_axi_hyper_ckno   (.OEN( 1'b0                  ), .I( axi_hyper_ck_ni     ), .O(                   ), .PAD( pad_axi_hyper_ckn     ), .PEN(1'b1 ) );
-    pad_functional_pu padinst_axi_hyper_rwds0  (.OEN(~axi_hyper_rwds_oe_i   ), .I( axi_hyper_rwds_i    ), .O( axi_hyper_rwds_o  ), .PAD( pad_axi_hyper_rwds0   ), .PEN(1'b1 ) );
-    pad_functional_pu padinst_axi_hyper_resetn (.OEN( 1'b0                  ), .I( axi_hyper_reset_ni  ), .O(                   ), .PAD( pad_axi_hyper_reset   ), .PEN(1'b1 ) );
-
-    genvar k;
-    generate
-       for (k=0; k<8; k++) begin
-                pad_functional_pu padinst_axi_hyper_dqio0  (.OEN(~axi_hyper_dq_oe_i   ), .I( axi_hyper_dq_i[k]   ), .O( axi_hyper_dq_o[k]  ), .PAD( pad_axi_hyper_dq0[k]   ), .PEN(1'b1 ) );
-        end
-    endgenerate
-   
-
-`ifndef FPGA_EMUL
-  pad_functional_pu padinst_ref_clk    (.OEN(1'b1            ), .I(                ), .O(ref_clk_o      ), .PAD(pad_xtal_in   ), .PEN(1'b1             ) );
-  pad_functional_pu padinst_reset_n    (.OEN(1'b1            ), .I(                ), .O(rstn_o         ), .PAD(pad_reset_n   ), .PEN(1'b1             ) );
-  pad_functional_pu padinst_jtag_tck   (.OEN(1'b1            ), .I(                ), .O(jtag_tck_o     ), .PAD(pad_jtag_tck  ), .PEN(1'b1             ) );
-  pad_functional_pu padinst_jtag_tms   (.OEN(1'b1            ), .I(                ), .O(jtag_tms_o     ), .PAD(pad_jtag_tms  ), .PEN(1'b1             ) );
-  pad_functional_pu padinst_jtag_tdi   (.OEN(1'b1            ), .I(                ), .O(jtag_tdi_o     ), .PAD(pad_jtag_tdi  ), .PEN(1'b1             ) );
-  pad_functional_pu padinst_jtag_trstn (.OEN(1'b1            ), .I(                ), .O(jtag_trst_o    ), .PAD(pad_jtag_trst ), .PEN(1'b1             ) );
-  pad_functional_pd padinst_jtag_tdo   (.OEN(1'b0            ), .I(jtag_tdo_i      ), .O(               ), .PAD(pad_jtag_tdo  ), .PEN(1'b1             ) );
 `else
-  assign ref_clk_o = pad_xtal_in;
-  assign rstn_o = pad_reset_n;
+    assign ref_clk_o = pad_xtal_in;
+    assign rstn_o = pad_reset_n;
+    
+    //JTAG signals
+    assign pad_jtag_tdo = jtag_tdo_i;
+    assign jtag_trst_o = pad_jtag_trst;
+    assign jtag_tms_o = pad_jtag_tms;
+    assign jtag_tck_o = pad_jtag_tck;
+    assign jtag_tdi_o = pad_jtag_tdi;
 
-  //JTAG signals
-  assign pad_jtag_tdo = jtag_tdo_i;
-  assign jtag_trst_o = pad_jtag_trst;
-  assign jtag_tms_o = pad_jtag_tms;
-  assign jtag_tck_o = pad_jtag_tck;
-  assign jtag_tdi_o = pad_jtag_tdi;
 `endif
    
 endmodule

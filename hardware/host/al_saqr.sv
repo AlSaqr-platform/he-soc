@@ -185,8 +185,8 @@ module al_saqr
   inout wire logic    pad_periphs_pad_gpio_pwm7_pad,
 
   // CVA6 DEBUG UART
-  input logic         cva6_uart_rx_i,
-  output logic        cva6_uart_tx_o,
+  inout wire logic    cva6_uart_rx_i,
+  inout wire logic    cva6_uart_tx_o,
   // FROM SimDTM
 `ifndef TARGET_SYNTHESIS
   input logic         dmi_req_valid,
@@ -281,6 +281,9 @@ module al_saqr
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           ),
      .LOG_DEPTH      ( 3                        )
   ) async_cluster_to_soc_axi_bus();
+
+  logic s_cva6_uart_rx_i;
+  logic s_cva6_uart_tx_o;
    
   pad_to_hyper_t [N_HYPER-1:0] s_pad_to_hyper;
   hyper_to_pad_t [N_HYPER-1:0] s_hyper_to_pad;
@@ -383,8 +386,8 @@ module al_saqr
       .pad_to_gpio            ( s_pad_to_gpio_b                  ),
       .port_signals_pad2soc   ( s_port_signals_pad2soc           ),
 
-      .cva6_uart_rx_i         ( cva6_uart_rx_i                   ),
-      .cva6_uart_tx_o         ( cva6_uart_tx_o                   ),
+      .cva6_uart_rx_i         ( s_cva6_uart_rx_i                 ),
+      .cva6_uart_tx_o         ( s_cva6_uart_tx_o                 ),
 
       .pwm_to_pad             ( s_pwm_to_pad                     )
     );
@@ -442,63 +445,69 @@ module al_saqr
    pad_frame #()
     i_pad_frame
       (       
-      .hyper_cs_ni            ( s_hyper_cs_n                    ),
-      .hyper_ck_i             ( s_hyper_to_pad[1].ck_o          ),
-      .hyper_ck_ni            ( s_hyper_to_pad[1].ckn_o         ),
-      .hyper_rwds_i           ( s_hyper_rwds_o                  ),
-      .hyper_rwds_o           ( s_pad_to_hyper[1].rwds_i        ),
-      .hyper_rwds_oe_i        ( s_hyper_rwds_oe                 ),
-      .hyper_dq_o             ( s_hyper_dq_i                    ),
-      .hyper_dq_i             ( s_hyper_dq_o                    ),
-      .hyper_dq_oe_i          ( s_hyper_dq_oe                   ),
-      .hyper_reset_ni         ( s_hyper_to_pad[1].resetn_o      ),
+      .hyper_cs_ni            ( s_hyper_cs_n               ),
+      .hyper_ck_i             ( s_hyper_to_pad[1].ck_o     ),
+      .hyper_ck_ni            ( s_hyper_to_pad[1].ckn_o    ),
+      .hyper_rwds_i           ( s_hyper_rwds_o             ),
+      .hyper_rwds_o           ( s_pad_to_hyper[1].rwds_i   ),
+      .hyper_rwds_oe_i        ( s_hyper_rwds_oe            ),
+      .hyper_dq_o             ( s_hyper_dq_i               ),
+      .hyper_dq_i             ( s_hyper_dq_o               ),
+      .hyper_dq_oe_i          ( s_hyper_dq_oe              ),
+      .hyper_reset_ni         ( s_hyper_to_pad[1].resetn_o ),
 
-      .pad_hyper_dq0          ( pad_hyper_dq0                   ),
-      .pad_hyper_dq1          ( pad_hyper_dq1                   ),
-      .pad_hyper_ck           ( pad_hyper_ck                    ),
-      .pad_hyper_ckn          ( pad_hyper_ckn                   ),
-      .pad_hyper_csn0         ( pad_hyper_csn0                  ),
-      .pad_hyper_csn1         ( pad_hyper_csn1                  ),
-      .pad_hyper_rwds0        ( pad_hyper_rwds0                 ),
-      .pad_hyper_rwds1        ( pad_hyper_rwds1                 ),
-      .pad_hyper_reset        ( pad_hyper_reset                 ),
+      .pad_hyper_dq0          ( pad_hyper_dq0              ),
+      .pad_hyper_dq1          ( pad_hyper_dq1              ),
+      .pad_hyper_ck           ( pad_hyper_ck               ),
+      .pad_hyper_ckn          ( pad_hyper_ckn              ),
+      .pad_hyper_csn0         ( pad_hyper_csn0             ),
+      .pad_hyper_csn1         ( pad_hyper_csn1             ),
+      .pad_hyper_rwds0        ( pad_hyper_rwds0            ),
+      .pad_hyper_rwds1        ( pad_hyper_rwds1            ),
+      .pad_hyper_reset        ( pad_hyper_reset            ),
 
-      .axi_hyper_cs_ni        ( s_axi_hyper_cs_n                ),
-      .axi_hyper_ck_i         ( s_axi_hyper_ck                  ),
-      .axi_hyper_ck_ni        ( s_axi_hyper_ck_n                ),
-      .axi_hyper_rwds_i       ( s_axi_hyper_rwds_o              ),
-      .axi_hyper_rwds_o       ( s_axi_hyper_rwds_i              ),
-      .axi_hyper_rwds_oe_i    ( s_axi_hyper_rwds_oe             ),
-      .axi_hyper_dq_o         ( s_axi_hyper_dq_i                ),
-      .axi_hyper_dq_i         ( s_axi_hyper_dq_o                ),
-      .axi_hyper_dq_oe_i      ( s_axi_hyper_dq_oe               ),
-      .axi_hyper_reset_ni     ( s_axi_hyper_reset_n             ),
+      .axi_hyper_cs_ni        ( s_axi_hyper_cs_n           ),
+      .axi_hyper_ck_i         ( s_axi_hyper_ck             ),
+      .axi_hyper_ck_ni        ( s_axi_hyper_ck_n           ),
+      .axi_hyper_rwds_i       ( s_axi_hyper_rwds_o         ),
+      .axi_hyper_rwds_o       ( s_axi_hyper_rwds_i         ),
+      .axi_hyper_rwds_oe_i    ( s_axi_hyper_rwds_oe        ),
+      .axi_hyper_dq_o         ( s_axi_hyper_dq_i           ),
+      .axi_hyper_dq_i         ( s_axi_hyper_dq_o           ),
+      .axi_hyper_dq_oe_i      ( s_axi_hyper_dq_oe          ),
+      .axi_hyper_reset_ni     ( s_axi_hyper_reset_n        ),
 
-      .pad_axi_hyper_dq0      ( pad_axi_hyper_dq0               ),
-      .pad_axi_hyper_dq1      ( pad_axi_hyper_dq1               ),
-      .pad_axi_hyper_ck       ( pad_axi_hyper_ck                ),
-      .pad_axi_hyper_ckn      ( pad_axi_hyper_ckn               ),
-      .pad_axi_hyper_csn0     ( pad_axi_hyper_csn0              ),
-      .pad_axi_hyper_csn1     ( pad_axi_hyper_csn1              ),
-      .pad_axi_hyper_rwds0    ( pad_axi_hyper_rwds0             ),
-      .pad_axi_hyper_rwds1    ( pad_axi_hyper_rwds1             ),
-      .pad_axi_hyper_reset    ( pad_axi_hyper_reset             )
+      .pad_axi_hyper_dq0      ( pad_axi_hyper_dq0          ),
+      .pad_axi_hyper_dq1      ( pad_axi_hyper_dq1          ),
+      .pad_axi_hyper_ck       ( pad_axi_hyper_ck           ),
+      .pad_axi_hyper_ckn      ( pad_axi_hyper_ckn          ),
+      .pad_axi_hyper_csn0     ( pad_axi_hyper_csn0         ),
+      .pad_axi_hyper_csn1     ( pad_axi_hyper_csn1         ),
+      .pad_axi_hyper_rwds0    ( pad_axi_hyper_rwds0        ),
+      .pad_axi_hyper_rwds1    ( pad_axi_hyper_rwds1        ),
+      .pad_axi_hyper_reset    ( pad_axi_hyper_reset        ),
 
-      .ref_clk_o              ( s_rtc_i                         ),
-      .rstn_o                 ( s_rst_ni                        ),
-      .jtag_tck_o             ( s_jtag_TCK                      ),
-      .jtag_tdi_o             ( s_jtag_TDI                      ),
-      .jtag_tdo_i             ( s_jtag_TDO                      ),
-      .jtag_tms_o             ( s_jtag_TMS                      ),
-      .jtag_trst_o            ( s_jtag_TRSTn                    ),
+      .cva6_uart_rx           ( s_cva6_uart_rx_i           ),
+      .cva6_uart_tx           ( s_cva6_uart_tx_o           ),
+      .pad_cva6_uart_tx       ( cva6_uart_tx_o             ),
+      .pad_cva6_uart_rx       ( cva6_uart_rx_i             ),
+
+              
+      .ref_clk_o              ( s_rtc_i                    ),
+      .rstn_o                 ( s_rst_ni                   ),
+      .jtag_tck_o             ( s_jtag_TCK                 ),
+      .jtag_tdi_o             ( s_jtag_TDI                 ),
+      .jtag_tdo_i             ( s_jtag_TDO                 ),
+      .jtag_tms_o             ( s_jtag_TMS                 ),
+      .jtag_trst_o            ( s_jtag_TRSTn               ),
       
-      .pad_reset_n            ( rst_ni                          ),
-      .pad_jtag_tck           ( jtag_TCK                        ),
-      .pad_jtag_tdi           ( jtag_TDI                        ),
-      .pad_jtag_tdo           ( jtag_TDO_data                   ),
-      .pad_jtag_tms           ( jtag_TMS                        ),
-      .pad_jtag_trst          ( jtag_TRSTn                      ),
-      .pad_xtal_in            ( rtc_i                           )
+      .pad_reset_n            ( rst_ni                     ),
+      .pad_jtag_tck           ( jtag_TCK                   ),
+      .pad_jtag_tdi           ( jtag_TDI                   ),
+      .pad_jtag_tdo           ( jtag_TDO_data              ),
+      .pad_jtag_tms           ( jtag_TMS                   ),
+      .pad_jtag_trst          ( jtag_TRSTn                 ),
+      .pad_xtal_in            ( rtc_i                      )
      );
 
    axi_serializer_intf #(
@@ -644,6 +653,7 @@ module al_saqr
   `REG_BUS_ASSIGN_TO_REQ(reg_req,i_padframecfg_rbus)
   `REG_BUS_ASSIGN_FROM_RSP(i_padframecfg_rbus,reg_rsp)
 
+   `ifndef FPGA_EMUL
    alsaqr_periph_padframe #(
             .AW     ( 32        ),
             .DW     ( 32        ),
@@ -897,7 +907,7 @@ module al_saqr
 
    //GPIO_F_18_23
 
-   
+   `endif   
 
 
 
