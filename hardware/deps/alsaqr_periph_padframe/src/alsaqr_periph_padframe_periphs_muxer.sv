@@ -1111,7 +1111,7 @@ module alsaqr_periph_padframe_periphs_muxer
        end
        PAD_MUX_GROUP_PAD_GPIO_B_41_SEL_UART0_UART_RX: begin
           mux_to_pads_o.pad_gpio_b_41.chip2pad = s_reg2hw.pad_gpio_b_41_cfg.chip2pad.q;
-          mux_to_pads_o.pad_gpio_b_41.oen = 1'b0;
+          mux_to_pads_o.pad_gpio_b_41.oen = 1'b1;
           mux_to_pads_o.pad_gpio_b_41.puen = 1'b1;
        end
        PAD_MUX_GROUP_PAD_GPIO_B_41_SEL_GPIO_B_GPIO41: begin
@@ -1163,7 +1163,7 @@ module alsaqr_periph_padframe_periphs_muxer
        end
        PAD_MUX_GROUP_PAD_GPIO_B_43_SEL_UART1_UART_RX: begin
           mux_to_pads_o.pad_gpio_b_43.chip2pad = s_reg2hw.pad_gpio_b_43_cfg.chip2pad.q;
-          mux_to_pads_o.pad_gpio_b_43.oen = 1'b0;
+          mux_to_pads_o.pad_gpio_b_43.oen = 1'b1;
           mux_to_pads_o.pad_gpio_b_43.puen = 1'b1;
        end
        PAD_MUX_GROUP_PAD_GPIO_B_43_SEL_GPIO_B_GPIO43: begin
@@ -1215,7 +1215,7 @@ module alsaqr_periph_padframe_periphs_muxer
        end
        PAD_MUX_GROUP_PAD_GPIO_B_45_SEL_UART2_UART_RX: begin
           mux_to_pads_o.pad_gpio_b_45.chip2pad = s_reg2hw.pad_gpio_b_45_cfg.chip2pad.q;
-          mux_to_pads_o.pad_gpio_b_45.oen = 1'b0;
+          mux_to_pads_o.pad_gpio_b_45.oen = 1'b1;
           mux_to_pads_o.pad_gpio_b_45.puen = 1'b1;
        end
        PAD_MUX_GROUP_PAD_GPIO_B_45_SEL_GPIO_B_GPIO45: begin
@@ -1267,7 +1267,7 @@ module alsaqr_periph_padframe_periphs_muxer
        end
        PAD_MUX_GROUP_PAD_GPIO_B_47_SEL_UART3_UART_RX: begin
           mux_to_pads_o.pad_gpio_b_47.chip2pad = s_reg2hw.pad_gpio_b_47_cfg.chip2pad.q;
-          mux_to_pads_o.pad_gpio_b_47.oen = 1'b0;
+          mux_to_pads_o.pad_gpio_b_47.oen = 1'b1;
           mux_to_pads_o.pad_gpio_b_47.puen = 1'b1;
        end
        PAD_MUX_GROUP_PAD_GPIO_B_47_SEL_GPIO_B_GPIO47: begin
@@ -1319,7 +1319,7 @@ module alsaqr_periph_padframe_periphs_muxer
        end
        PAD_MUX_GROUP_PAD_GPIO_B_49_SEL_UART4_UART_RX: begin
           mux_to_pads_o.pad_gpio_b_49.chip2pad = s_reg2hw.pad_gpio_b_49_cfg.chip2pad.q;
-          mux_to_pads_o.pad_gpio_b_49.oen = 1'b0;
+          mux_to_pads_o.pad_gpio_b_49.oen = 1'b1;
           mux_to_pads_o.pad_gpio_b_49.puen = 1'b1;
        end
        PAD_MUX_GROUP_PAD_GPIO_B_49_SEL_GPIO_B_GPIO49: begin
@@ -1918,7 +1918,7 @@ module alsaqr_periph_padframe_periphs_muxer
        end
        PAD_MUX_GROUP_PAD_GPIO_D_07_SEL_UART7_UART_RX: begin
           mux_to_pads_o.pad_gpio_d_07.chip2pad = s_reg2hw.pad_gpio_d_07_cfg.chip2pad.q;
-          mux_to_pads_o.pad_gpio_d_07.oen = 1'b0;
+          mux_to_pads_o.pad_gpio_d_07.oen = 1'b1;
           mux_to_pads_o.pad_gpio_d_07.puen = 1'b1;
        end
        default: begin
@@ -2654,7 +2654,7 @@ module alsaqr_periph_padframe_periphs_muxer
        end
        PAD_MUX_GROUP_PAD_GPIO_F_14_SEL_UART6_UART_RX: begin
           mux_to_pads_o.pad_gpio_f_14.chip2pad = s_reg2hw.pad_gpio_f_14_cfg.chip2pad.q;
-          mux_to_pads_o.pad_gpio_f_14.oen = 1'b0;
+          mux_to_pads_o.pad_gpio_f_14.oen = 1'b1;
           mux_to_pads_o.pad_gpio_f_14.puen = 1'b1;
        end
        default: begin
@@ -2696,7 +2696,7 @@ module alsaqr_periph_padframe_periphs_muxer
        end
        PAD_MUX_GROUP_PAD_GPIO_F_16_SEL_UART5_UART_RX: begin
           mux_to_pads_o.pad_gpio_f_16.chip2pad = s_reg2hw.pad_gpio_f_16_cfg.chip2pad.q;
-          mux_to_pads_o.pad_gpio_f_16.oen = 1'b0;
+          mux_to_pads_o.pad_gpio_f_16.oen = 1'b1;
           mux_to_pads_o.pad_gpio_f_16.puen = 1'b1;
        end
        default: begin

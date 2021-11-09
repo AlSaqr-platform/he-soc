@@ -358,7 +358,7 @@ pad_domains:
             mux_groups: [pad_gpio_b_41]
             connections:
               rx_o: pad2chip
-              oen: 1'b0
+              oen: 1'b1
               puen: 1'b1
       
       - name: uart1
@@ -374,7 +374,7 @@ pad_domains:
             mux_groups: [pad_gpio_b_43]
             connections:
               rx_o: pad2chip
-              oen: 1'b0
+              oen: 1'b1
               puen: 1'b1
 
       - name: uart2
@@ -390,7 +390,7 @@ pad_domains:
             mux_groups: [pad_gpio_b_45]
             connections:
               rx_o: pad2chip
-              oen: 1'b0
+              oen: 1'b1
               puen: 1'b1
 
       - name: uart3
@@ -406,7 +406,7 @@ pad_domains:
             mux_groups: [pad_gpio_b_47]
             connections:
               rx_o: pad2chip
-              oen: 1'b0
+              oen: 1'b1
               puen: 1'b1
 
       - name: uart4
@@ -422,7 +422,7 @@ pad_domains:
             mux_groups: [pad_gpio_b_49]
             connections:
               rx_o: pad2chip
-              oen: 1'b0
+              oen: 1'b1
               puen: 1'b1
 
       - name: i2c0
@@ -664,7 +664,7 @@ pad_domains:
             mux_groups: [pad_gpio_d_07]
             connections:
               rx_o: pad2chip
-              oen: 1'b0
+              oen: 1'b1
               puen: 1'b1
       
       #PAD_GPIO_E
@@ -874,7 +874,7 @@ pad_domains:
             mux_groups: [pad_gpio_f_14]
             connections:
               rx_o: pad2chip
-              oen: 1'b0
+              oen: 1'b1
               puen: 1'b1
 
       - name: uart5
@@ -890,7 +890,7 @@ pad_domains:
             mux_groups: [pad_gpio_f_16]
             connections:
               rx_o: pad2chip
-              oen: 1'b0
+              oen: 1'b1
               puen: 1'b1
 
       - name: ddr_link
