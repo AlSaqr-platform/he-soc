@@ -68,7 +68,6 @@ module apb_subsystem
     // GPIOs
     output gpio_to_pad_t        gpio_to_pad,
     input  pad_to_gpio_t        pad_to_gpio,
-    input port_signals_pad2soc_t port_signals_pad2soc,
 
     output                      pwm_to_pad_t pwm_to_pad
 );
@@ -229,6 +228,11 @@ module apb_subsystem
       );
    
     logic [63:0] s_gpio_sync; 
+    logic [NUM_GPIO-1:0] s_gpio_in;
+    logic [NUM_GPIO-1:0] s_gpio_out;
+    logic [NUM_GPIO-1:0] s_gpio_dir;
+   
+   
     apb_gpio #(
         .APB_ADDR_WIDTH (32),
         .PAD_NUM        (NUM_GPIO),
@@ -250,23 +254,22 @@ module apb_subsystem
 
         .gpio_in_sync    ( s_gpio_sync                 ),
 
-        .gpio_in         ( gpio_in            ),
-        .gpio_out        ( gpio_out           ),
-        .gpio_dir        ( gpio_dir           ),
-        .gpio_padcfg     (                    ),
-        .interrupt       (                    )
+        .gpio_in         ( s_gpio_in                   ),
+        .gpio_out        ( s_gpio_out                  ),
+        .gpio_dir        ( s_gpio_dir                  ),
+        .gpio_padcfg     (                             ),
+        .interrupt       (                             )
     );
 
-    apb_gpio_wrap #( 
+    gpio2padframe #( 
      .NUM_GPIO       ( NUM_GPIO  )
     ) i_apb_gpio_wrap (
-        .gpio_in         ( gpio_in            ),
-        .gpio_out        ( gpio_out           ),
-        .gpio_dir        ( gpio_dir           ),
+        .gpio_in         ( s_gpio_in   ),
+        .gpio_out        ( s_gpio_out  ),
+        .gpio_dir        ( s_gpio_dir  ),
 
-        .gpio_to_pad            ( gpio_to_pad                    ),
-        .pad_to_gpio            ( pad_to_gpio                    ),
-        .port_signals_pad2soc   ( port_signals_pad2soc           )
+        .gpio_to_pad     ( gpio_to_pad ),
+        .pad_to_gpio     ( pad_to_gpio )
     );
 
 

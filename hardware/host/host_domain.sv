@@ -98,8 +98,7 @@ module host_domain
   output                      pwm_to_pad_t pwm_to_pad,
 
   output gpio_to_pad_t        gpio_to_pad,
-  input  pad_to_gpio_t        pad_to_gpio,
-  input port_signals_pad2soc_t port_signals_pad2soc
+  input  pad_to_gpio_t        pad_to_gpio
 
 );
 
@@ -275,9 +274,7 @@ module host_domain
       .pwm_to_pad             ( pwm_to_pad                     ),
 
       .gpio_to_pad            ( gpio_to_pad                    ),
-      .pad_to_gpio            ( pad_to_gpio                    ),
-      .port_signals_pad2soc   ( port_signals_pad2soc           )
-                        
+      .pad_to_gpio            ( pad_to_gpio                    )
       );
                      
 

@@ -145,10 +145,18 @@ set UART_OD_MAX 0.35
 set UART_ID_MIN 0.10
 set UART_ID_MAX 0.20
 
-for {set i 0} {$i < 4} {incr i} {
+for {set i 0} {$i < 8} {incr i} {
 
 	set_output_delay -min -clock FLL_PER_CLK [ expr $PER_C_Period * $UART_OD_MIN ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*uart*${i}*tx* ]
 	set_output_delay -max -clock FLL_PER_CLK [ expr $PER_C_Period * $UART_OD_MAX ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*uart*${i}*tx* ]
 	set_max_delay    [ expr $PER_C_Period * $UART_ID_MAX ] -from  [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*uart*${i}*rx* ]
 
 }
+
+###############
+# CVA6 UART   #
+###############
+
+set_output_delay -min -clock SOC_PER_CLK [ expr $PER_C_Period * $UART_OD_MIN ] [ get_pins i_padframe/cva6_uart_tx ]
+set_output_delay -max -clock SOC_PER_CLK [ expr $PER_C_Period * $UART_OD_MAX ] [ get_pins i_padframe/cva6_uart_tx ]
+set_max_delay    [ expr $PER_C_Period * $UART_ID_MAX ] -from  [ get_pins i_padframe/cva6_uart_tx ]

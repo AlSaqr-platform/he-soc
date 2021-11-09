@@ -384,7 +384,6 @@ module al_saqr
 
       .gpio_to_pad            ( s_gpio_b_to_pad                  ),
       .pad_to_gpio            ( s_pad_to_gpio_b                  ),
-      .port_signals_pad2soc   ( s_port_signals_pad2soc           ),
 
       .cva6_uart_rx_i         ( s_cva6_uart_rx_i                 ),
       .cva6_uart_tx_o         ( s_cva6_uart_tx_o                 ),

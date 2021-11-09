@@ -124,9 +124,6 @@ module ariane_tb;
     wire                  w_hyper_rwds1  ;
     wire                  w_hyper_reset  ;
 
-    //OLD PADFRAME
-    wire [63:0]           w_gpios        ; 
-
     wire                  w_i2c_sda      ;
     wire                  w_i2c_scl      ;
 
@@ -290,13 +287,11 @@ module ariane_tb;
 
     string        binary ;
     string        cluster_binary;
+
+  assign pad_periphs_pad_gpio_b_37_pad = pad_periphs_pad_gpio_b_05_pad;
+  assign pad_periphs_pad_gpio_b_38_pad = pad_periphs_pad_gpio_b_06_pad;
+  assign pad_periphs_pad_gpio_b_39_pad = pad_periphs_pad_gpio_b_07_pad;
    
-    genvar j;
-    generate
-       for (j=0; j<32; j++) begin
-          assign w_gpios[63-j] = w_gpios[j] ? 1 : 0 ;          
-        end
-    endgenerate
 
   assign exit_o              = (jtag_enable[0]) ? s_jtag_exit          : s_dmi_exit;
 
@@ -377,7 +372,6 @@ module ariane_tb;
         .pad_hyper_rwds0      ( w_hyper_rwds0          ),
         .pad_hyper_rwds1      ( w_hyper_rwds1          ),
         .pad_hyper_reset      ( w_hyper_reset          ),
-        //.pad_gpio             ( w_gpios                ),
         .cva6_uart_rx_i       ( w_cva6_uart_rx         ),
         .cva6_uart_tx_o       ( w_cva6_uart_tx         ),
         
@@ -391,33 +385,14 @@ module ariane_tb;
         .pad_axi_hyper_rwds1      ( w_axi_hyper_rwds1          ),
         .pad_axi_hyper_reset      ( w_axi_hyper_reset          ),
         
-        /* OLD PADFRAME
-
-        .pad_i2c_sda              ( w_i2c_sda                  ),
-        .pad_i2c_scl              ( w_i2c_scl                  ),
-        
-        .pad_spim_sck             ( w_spim_sck                 ), 
-        .pad_spim_csn0            ( w_spim_csn0                ), 
-        .pad_spim_sdio0           ( w_spim_sdio0               ), 
-        .pad_spim_sdio1           ( w_spim_sdio1               ),
-        .pad_spim_sdio2           ( w_spim_sdio2               ), 
-        .pad_spim_sdio3           ( w_spim_sdio3               ),
-        
-        .pad_cam_pclk             ( w_cam_pclk                 ),
-        .pad_cam_vsync            ( w_cam_vsync                ),
-        .pad_cam_href             ( w_cam_hsync                ),
-        .pad_cam_data             ( w_cam_data                 )*/
-
-
-        //NEW PADFRAME
         .pad_periphs_pad_gpio_b_00_pad(pad_periphs_pad_gpio_b_00_pad),
         .pad_periphs_pad_gpio_b_01_pad(pad_periphs_pad_gpio_b_01_pad),
         .pad_periphs_pad_gpio_b_02_pad(pad_periphs_pad_gpio_b_02_pad),
         .pad_periphs_pad_gpio_b_03_pad(pad_periphs_pad_gpio_b_03_pad),
         .pad_periphs_pad_gpio_b_04_pad(pad_periphs_pad_gpio_b_04_pad),
-        .pad_periphs_pad_gpio_b_05_pad(),
-        .pad_periphs_pad_gpio_b_06_pad(),
-        .pad_periphs_pad_gpio_b_07_pad(),
+        .pad_periphs_pad_gpio_b_05_pad(pad_periphs_pad_gpio_b_05_pad),
+        .pad_periphs_pad_gpio_b_06_pad(pad_periphs_pad_gpio_b_06_pad),
+        .pad_periphs_pad_gpio_b_07_pad(pad_periphs_pad_gpio_b_07_pad),
         .pad_periphs_pad_gpio_b_08_pad(),
         .pad_periphs_pad_gpio_b_09_pad(),
         .pad_periphs_pad_gpio_b_10_pad(),
@@ -447,9 +422,9 @@ module ariane_tb;
         .pad_periphs_pad_gpio_b_34_pad(),
         .pad_periphs_pad_gpio_b_35_pad(),
         .pad_periphs_pad_gpio_b_36_pad(),
-        .pad_periphs_pad_gpio_b_37_pad(),
-        .pad_periphs_pad_gpio_b_38_pad(),
-        .pad_periphs_pad_gpio_b_39_pad(),
+        .pad_periphs_pad_gpio_b_37_pad(pad_periphs_pad_gpio_b_37_pad),
+        .pad_periphs_pad_gpio_b_38_pad(pad_periphs_pad_gpio_b_38_pad),
+        .pad_periphs_pad_gpio_b_39_pad(pad_periphs_pad_gpio_b_39_pad),
         .pad_periphs_pad_gpio_b_40_pad(pad_periphs_pad_gpio_b_40_pad),
         .pad_periphs_pad_gpio_b_41_pad(pad_periphs_pad_gpio_b_41_pad),
         .pad_periphs_pad_gpio_b_42_pad(),
