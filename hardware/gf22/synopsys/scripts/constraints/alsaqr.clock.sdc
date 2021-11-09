@@ -5,7 +5,7 @@ set REF_C_Latency_Min            500
 set REF_C_Uncertainty            500
 
 # FLL1 CLOCK: 200 MHz
-set SOC_C_Period                 2500
+set SOC_C_Period                 2250
 set SOC_C_Latency_Max            500
 set SOC_C_Latency_Min            500
 set SOC_C_Uncertainty            100
