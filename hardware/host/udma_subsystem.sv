@@ -856,7 +856,7 @@ module udma_subsystem
     `else
     clk_gen_hyper i_clk_gen_hyper (                                                           
     `endif
-        .clk_i    ( sys_clk_i                       ),
+        .clk_i    ( periph_clk_i                    ),
         .rst_ni   ( sys_resetn_i                    ),
         .clk0_o   ( clk0                            ),
         .clk90_o  ( clk90                           ),

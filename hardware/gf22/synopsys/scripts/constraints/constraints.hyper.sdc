@@ -3,10 +3,10 @@
 ########################################
 # SOC CLK
 create_generated_clock         [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_clk_gen_hyper/clk0_o] \
-     -name AXI_HYPER_CLK_PHY -source [get_pins  i_host_domain/i_apb_subsystem/i_alsaqr_clk_rst_gen/i_fll_soc/FLLCLK] -divide_by 2
+     -name AXI_HYPER_CLK_PHY -source [get_pins  i_host_domain/i_apb_subsystem/i_alsaqr_clk_rst_gen/i_fll_per/FLLCLK] -divide_by 2
 
 create_generated_clock         [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_clk_gen_hyper/clk90_o] \
-     -name AXI_HYPER_CLK_PHY_90 -source [get_pins  i_host_domain/i_apb_subsystem/i_alsaqr_clk_rst_gen/i_fll_soc/FLLCLK]  -edges {2 4 6}
+     -name AXI_HYPER_CLK_PHY_90 -source [get_pins  i_host_domain/i_apb_subsystem/i_alsaqr_clk_rst_gen/i_fll_per/FLLCLK]  -edges {2 4 6}
 
 create_generated_clock -name HYPER_CK_O -source [get_ports i_host_domain/i_apb_subsystem/i_udma_subsystem/i_clk_gen_hyper/clk90_o] \
 	-divide_by 1 [get_ports pad_axi_hyper_ck] 

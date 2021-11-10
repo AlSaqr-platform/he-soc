@@ -11,7 +11,7 @@ set SOC_C_Latency_Min            500
 set SOC_C_Uncertainty            100
 
 # FLL2 CLOCK: 200 MHz
-set PER_C_Period                 5000
+set PER_C_Period                 3125
 set PER_C_Latency_Max            500
 set PER_C_Latency_Min            500
 set PER_C_Uncertainty            100
