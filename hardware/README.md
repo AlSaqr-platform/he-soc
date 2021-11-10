@@ -37,7 +37,7 @@ please change the setup to point to you toolchains and Questasim installations.
 
 ### RTL BUILD
 
-First do `make bender` to locally install [bender](https://github.com/pulp-platform/bender) (please have a look at it first) and download the vip RTL modules ( [HYPERRAM](https://www.cypress.com/documentation/models/verilog/s27kl0641-s27ks0641-verilog) and [HYPERFLASH](https://www.cypress.com/verilog/s26ks512s-verilog) ). Then:
+First do `make bender` to locally install [bender](https://github.com/pulp-platform/bender) (please have a look at it first) and download the vip RTL modules ( [HYPERRAM](https://www.cypress.com/documentation/models/verilog/s27kl0641-s27ks0641-verilog), [HYPERFLASH](https://www.cypress.com/verilog/s26ks512s-verilog), [SPI](http://www.cypress.com/file/260016) and [I2C](http://ww1.microchip.com/downloads/en/DeviceDoc/24xx1025_Verilog_Model.zip) ). Then:
 
 ```
 cd hardware

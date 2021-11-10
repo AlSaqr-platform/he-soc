@@ -36,7 +36,7 @@ module cva6_subsytem
   input  logic            rst_ni,
   input  logic            sync_rst_ni,
   output logic            dm_rst_o,
-  input  logic [32*4-1:0] udma_events_i,
+  input  logic [33*4-1:0] udma_events_i,
   // FROM SimDTM
   input  logic            dmi_req_valid,
   output logic            dmi_req_ready,

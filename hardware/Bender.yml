@@ -21,26 +21,26 @@ dependencies:
   udma_camera: { git: "https://github.com/pulp-platform/udma_camera.git", version: 1.1.2 }
   udma_filter: { git: "https://github.com/pulp-platform/udma_filter.git", version: 1.0.2 }
   udma_external_per: { git: "https://github.com/pulp-platform/udma_external_per.git", version: 1.0.3 }
-  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.6 }
+  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.7 }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", version: 0.1.1 }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "0e9f142f2f11278445c953ad011fce1c7ed85b66" }
-  hyperbus: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/hyperbus.git", rev: "96f1911d8834cbc0d55b43261f94fde8e74c4aac" }
+  hyperbus: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/hyperbus.git", rev: "cd0a440d9e5f4084a266615c7f0817d21c1528b1" }
   register_interface:  { git: "https://github.com/pulp-platform/register_interface.git", version: 0.3.1  }
   apb_fll_if: { git: "https://github.com/pulp-platform/apb_fll_if.git", version: 0.1.3 }
   generic_FLL: { git: "https://github.com/pulp-platform/generic_FLL.git", rev: "1c92dc73a940392182fd4cb7b86f35649b349595" }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
-  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "04fd3ddf7f19e4c67bb22e373f9bd5b2a970bf70" }
+  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "487dcd03253985be93bd060196fed5ce3dc56028" }
 
 export_include_dirs:
   - include/
 
 sources:
-  - deps/cva6/src/tech_cells_generic/src/generic_memory.sv
   - include/ariane_soc_pkg.sv
   - include/apb_soc_pkg.sv
   - include/pulp_interfaces.sv
   - include/ariane_axi_soc_pkg.sv
   - include/udma_subsystem_pkg.sv
+  - include/gpio_pkg.sv
   - include/tcdm_macros.sv
   - host/axi2tcdm_wrap.sv
   - host/ariane_peripherals.sv
@@ -53,6 +53,7 @@ sources:
   - host/freqmeter.sv
   - host/alsaqr_clk_rst_gen.sv
   - host/apb_subsystem.sv
+  - host/gpio2padframe.sv
   - host/cva6_subsystem.sv
   - host/l2_subsystem.sv
   - host/clk_gen_hyper.sv
@@ -77,18 +78,18 @@ sources:
       WT_DCACHE: ~
     files:
       - ../bootrom/bootrom.sv
-      - host/generic_delay.sv
+      - host/memwrap.sv
       - host/pads_gf22.sv
       - host/tc_sram_gf22.sv
       - host/tc_clk_gf22.sv
-      - host/generic_memory_gf22.sv
-      - host/tc_sram.sv
-      # tc_sram is instantiated as behavioral sram in cva6's caches. TODOs : macros.
       
   - target: vip
     files:
       - tb/vip/hyperflash_model/s26ks512s.v
       - tb/vip/hyperram_model/s27ks0641.v
+      - tb/vip/i2c_eeprom/24FC1025.v
+      - tb/vip/spi_flash/S25fs256s/model/s25fs256s.v
+      - tb/vip/camera/cam_vip.sv
       
   - target: test
     files:

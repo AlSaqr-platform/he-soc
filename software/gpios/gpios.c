@@ -22,6 +22,7 @@
 #include <stdint.h>
 #include "utils.h"
 #include "../common/encoding.h"
+#include "../padframe/src/alsaqr_periph_padframe.c"
 #define BUFFER_SIZE 32
 #define ARCHI_GPIO_ADDR 0x1A101000
 #define GPIO_PADDIR_0_31_OFFSET 0x0
@@ -46,6 +47,10 @@ uint32_t invert(uint32_t a)
 
 int main() {
 
+  int baud_rate = 115200;
+  int test_freq = 17500000;
+  uart_set_cfg(0,(test_freq/baud_rate)>>4);
+  
   uint32_t error = 0;
   uint32_t address;
   uint32_t val_wr = 0x00000000;
@@ -54,6 +59,14 @@ int main() {
   uint32_t gpio_in;
   uint32_t val_rd1;
   uint32_t gpio_val;
+  
+  alsaqr_periph_padframe_periphs_pad_gpio_b_05_mux_set(1);
+  alsaqr_periph_padframe_periphs_pad_gpio_b_06_mux_set(1);
+  alsaqr_periph_padframe_periphs_pad_gpio_b_07_mux_set(1);
+
+  alsaqr_periph_padframe_periphs_pad_gpio_b_37_mux_set(1);
+  alsaqr_periph_padframe_periphs_pad_gpio_b_38_mux_set(1);
+  alsaqr_periph_padframe_periphs_pad_gpio_b_39_mux_set(1);
 
   #ifdef VERBOSE
   printf("GPIO[63-i] driven by GPIO[i] in Hardware \n");
@@ -72,7 +85,7 @@ int main() {
   #endif
   
   address = ARCHI_GPIO_ADDR + GPIO_PADOUT_0_31_OFFSET;
-  val_wr = 0xdeadbeef;
+  val_wr = 0xa0;
   pulp_write32(address, val_wr);
   while(pulp_read32(address) != val_wr);
 
@@ -93,14 +106,15 @@ int main() {
   val_rd = pulp_read32(address);
   address = ARCHI_GPIO_ADDR + GPIO_PADOUT_0_31_OFFSET;
   val_rd1 = pulp_read32(address);
-  if(val_rd!=(invert(val_rd1))){
+  if((val_rd & 0xe0)!= (val_rd1 & 0xe0)){
     error++ ;
   }
-  #ifdef VERBOSE
   printf("in = %x\n", val_rd); // gpio_val);
   printf("out = %x\n", val_rd1);
+  #ifdef VERBOSE
   printf("exp = %x\n", invert(val_rd1));
   printf("[POST-TEST] errors = %0d\n",error);
-  #endif 
+  #endif
+  uart_wait_tx_done();  
   return error;
 }

@@ -16,6 +16,8 @@
 module apb_subsystem
   import apb_soc_pkg::*;
   import udma_subsystem_pkg::*;
+  import gpio_pkg::*; 
+  import pkg_alsaqr_periph_padframe::*; 
 #( 
     parameter int unsigned AXI_USER_WIDTH = 1,
     parameter int unsigned AXI_ADDR_WIDTH = 64,
@@ -64,9 +66,8 @@ module apb_subsystem
     input                       pad_to_hyper_t [N_HYPER-1:0] pad_to_hyper,
    
     // GPIOs
-    input logic [NUM_GPIO-1:0]  gpio_in,
-    output logic [NUM_GPIO-1:0] gpio_out,
-    output logic [NUM_GPIO-1:0] gpio_dir,
+    output gpio_to_pad_t        gpio_to_pad,
+    input  pad_to_gpio_t        pad_to_gpio,
 
     output                      pwm_to_pad_t pwm_to_pad
 );
@@ -162,7 +163,7 @@ module apb_subsystem
     );
    
 
-   logic [31:0]                        apb_udma_address;     
+   logic [udma_subsystem_pkg::APB_ADDR_WIDTH - 1:0]                        apb_udma_address;     
    assign apb_udma_address = apb_udma_master_bus.paddr ;
                             
    udma_subsystem i_udma_subsystem
@@ -227,6 +228,11 @@ module apb_subsystem
       );
    
     logic [63:0] s_gpio_sync; 
+    logic [NUM_GPIO-1:0] s_gpio_in;
+    logic [NUM_GPIO-1:0] s_gpio_out;
+    logic [NUM_GPIO-1:0] s_gpio_dir;
+   
+   
     apb_gpio #(
         .APB_ADDR_WIDTH (32),
         .PAD_NUM        (NUM_GPIO),
@@ -248,12 +254,25 @@ module apb_subsystem
 
         .gpio_in_sync    ( s_gpio_sync                 ),
 
-        .gpio_in         ( gpio_in            ),
-        .gpio_out        ( gpio_out           ),
-        .gpio_dir        ( gpio_dir           ),
-        .gpio_padcfg     (                    ),
-        .interrupt       (                    )
+        .gpio_in         ( s_gpio_in                   ),
+        .gpio_out        ( s_gpio_out                  ),
+        .gpio_dir        ( s_gpio_dir                  ),
+        .gpio_padcfg     (                             ),
+        .interrupt       (                             )
     );
+
+    gpio2padframe #( 
+     .NUM_GPIO       ( NUM_GPIO  )
+    ) i_apb_gpio_wrap (
+        .gpio_in         ( s_gpio_in   ),
+        .gpio_out        ( s_gpio_out  ),
+        .gpio_dir        ( s_gpio_dir  ),
+
+        .gpio_to_pad     ( gpio_to_pad ),
+        .pad_to_gpio     ( pad_to_gpio )
+    );
+
+
 
     apb_fll_if_wrap #(
         .APB_ADDR_WIDTH (32)

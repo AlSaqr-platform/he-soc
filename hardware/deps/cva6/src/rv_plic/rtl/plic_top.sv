@@ -59,7 +59,7 @@ module plic_top #(
     rv_plic_target #(
       .N_SOURCE  ( N_SOURCE ),
       .MAX_PRIO  ( MAX_PRIO ),
-      .ALGORITHM ( "SEQUENTIAL" )
+      .ALGORITHM ( "MATRIX" )
     ) i_target (
       .clk_i,
       .rst_ni,
