@@ -3,13 +3,13 @@ XLEN:=32
 
 current_dir = $(shell pwd)
 
-utils_dir = /scratch/lvalente/project/arianissimo2/cva6/software/inc/
+utils_dir = $(current_dir)/../inc/
 
 directories = . drivers/inc drivers/src string_lib/inc string_lib/src
 
 INC=$(foreach d, $(directories), -I$(utils_dir)$d)
 
-inc_dir := /scratch/lvalente/project/arianissimo2/cva6/software/pulp/common
+inc_dir := $(current_dir)/common
 
 RISCV_PREFIX ?= riscv$(XLEN)-unknown-elf-
 RISCV_GCC ?= $(RISCV_PREFIX)gcc
@@ -30,5 +30,8 @@ build:
 dis:
 	$(RISCV_OBJDUMP) $(APP).riscv > $(APP).dump
 
-all: clean build dis
+dump_header:
+	./elf_to_header.py --binary=$(APP).riscv --vectors=$(current_dir)/../cluster/cluster_code.h
+
+all: clean build dis dump_header
 

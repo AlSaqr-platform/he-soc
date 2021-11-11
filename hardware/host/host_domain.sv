@@ -44,6 +44,8 @@ module host_domain
   output logic                soc_rst_no,
   output logic                clk_cluster_o,
   output logic                rstn_cluster_sync_o,
+  output logic                cluster_en_sa_boot_o,
+  output logic                cluster_fetch_en_o,
 
   REG_BUS.out                 padframecfg_reg_master,
   // CVA6 DEBUG UART
@@ -253,6 +255,8 @@ module host_domain
       .rstn_global_sync_o     ( s_synch_global_rst             ),
       .rstn_cluster_sync_o    ( rstn_cluster_sync_o            ),
       .clk_cluster_o          ( clk_cluster_o                  ),
+      .cluster_fetch_en_o     ( cluster_fetch_en_o             ),
+
       .hyper_axi_bus_slave    ( hyper_axi_bus                  ),                 
       .axi_apb_slave          ( apb_axi_bus                    ),
       .udma_tcdm_channels     ( udma_2_tcdm_channels           ),

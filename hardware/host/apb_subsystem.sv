@@ -17,7 +17,7 @@ module apb_subsystem
   import apb_soc_pkg::*;
   import udma_subsystem_pkg::*;
   import gpio_pkg::*; 
-  import pkg_alsaqr_periph_padframe::*; 
+  import pkg_alsaqr_periph_padframe::*;
 #( 
     parameter int unsigned AXI_USER_WIDTH = 1,
     parameter int unsigned AXI_ADDR_WIDTH = 64,
@@ -34,6 +34,8 @@ module apb_subsystem
     output logic                clk_soc_o,
     output logic                clk_cluster_o,
     output logic                rstn_cluster_sync_o,
+    output logic                cluster_en_sa_boot_o,
+    output logic                cluster_fetch_en_o,
    
     AXI_BUS.Slave               axi_apb_slave,
     AXI_BUS.Slave               hyper_axi_bus_slave[N_HYPER-1:0],
@@ -74,7 +76,11 @@ module apb_subsystem
 
    logic                                s_clk_per;
    logic                                s_rstn_soc_sync;
+   logic                                s_rstn_cluster_sync;
+   logic                                s_cluster_ctrl_rstn;
+   
    assign rstn_soc_sync_o = s_rstn_soc_sync;
+   assign rstn_cluster_sync_o = s_rstn_cluster_sync && s_cluster_ctrl_rstn;
    
    APB_BUS  #(
                .APB_ADDR_WIDTH(32),
@@ -111,6 +117,11 @@ module apb_subsystem
                .APB_DATA_WIDTH(32)
    ) apb_padframe_master_bus();
    
+   APB_BUS  #(
+               .APB_ADDR_WIDTH(32),
+               .APB_DATA_WIDTH(32)
+   ) apb_socctrl_master_bus();
+
    FLL_BUS  #(
                .FLL_ADDR_WIDTH( 2),
                .FLL_DATA_WIDTH(32)
@@ -159,7 +170,8 @@ module apb_subsystem
     .fll_master(apb_fll_master_bus),
     .hyaxicfg_master(apb_hyaxicfg_master_bus),
     .advtimer_master(apb_advtimer_master_bus),
-    .padframe_master(apb_padframe_master_bus)
+    .padframe_master(apb_padframe_master_bus),
+    .socctrl_master(apb_socctrl_master_bus)
     );
    
 
@@ -300,7 +312,7 @@ module apb_subsystem
         .cluster_fll_slave  ( cluster_fll_bus     ),
         .rstn_soc_sync_o    ( s_rstn_soc_sync     ),
         .rstn_global_sync_o ( rstn_global_sync_o  ), 
-        .rstn_cluster_sync_o( rstn_cluster_sync_o ),
+        .rstn_cluster_sync_o( s_rstn_cluster_sync ),
         .clk_soc_o          ( clk_soc_o           ),
         .clk_per_o          ( s_clk_per           ),
         .clk_cluster_o      ( clk_cluster_o       )                 
@@ -370,21 +382,32 @@ module apb_subsystem
    assign pwm_to_pad.pwm7_o = pwm1_o[3];
    
 
-    apb_to_reg i_apb_to_padframecfg
-      (
-       .clk_i     ( clk_soc_o       ),
-       .rst_ni    ( s_rstn_soc_sync ),
+   apb_to_reg i_apb_to_padframecfg
+     (
+      .clk_i     ( clk_soc_o       ),
+      .rst_ni    ( s_rstn_soc_sync ),
  
-       .penable_i ( apb_padframe_master_bus.penable ),
-       .pwrite_i  ( apb_padframe_master_bus.pwrite  ),
-       .paddr_i   ( apb_padframe_master_bus.paddr   ),
-       .psel_i    ( apb_padframe_master_bus.psel    ),
-       .pwdata_i  ( apb_padframe_master_bus.pwdata  ),
-       .prdata_o  ( apb_padframe_master_bus.prdata  ),
-       .pready_o  ( apb_padframe_master_bus.pready  ),
-       .pslverr_o ( apb_padframe_master_bus.pslverr ),
+      .penable_i ( apb_padframe_master_bus.penable ),
+      .pwrite_i  ( apb_padframe_master_bus.pwrite  ),
+      .paddr_i   ( apb_padframe_master_bus.paddr   ),
+      .psel_i    ( apb_padframe_master_bus.psel    ),
+      .pwdata_i  ( apb_padframe_master_bus.pwdata  ),
+      .prdata_o  ( apb_padframe_master_bus.prdata  ),
+      .pready_o  ( apb_padframe_master_bus.pready  ),
+      .pslverr_o ( apb_padframe_master_bus.pslverr ),
 
-       .reg_o     ( padframecfg_reg_master          )
-      );      
+      .reg_o     ( padframecfg_reg_master          )
+     );      
+
+  apb_soc_control i_apb_soc_control
+  (
+    .clk_i (clk_soc_o),
+    .rst_ni (s_rstn_soc_sync),
+    .apb_slave (apb_socctrl_master_bus),
+    .cluster_ctrl_rstn_o (s_cluster_ctrl_rstn),
+    .cluster_en_sa_boot_o (cluster_en_sa_boot_o),
+    .cluster_fetch_en_o (cluster_fetch_en_o)
+   );
    
+
 endmodule

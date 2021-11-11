@@ -104,7 +104,6 @@ module alsaqr_xilinx
         .pad_hyper_rwds0      (                 ),
         .pad_hyper_rwds1      (                 ),
         .pad_hyper_reset      (                 ),
-        .pad_gpio             (                 ),
         .cva6_uart_rx_i       ( pad_uart_rx     ),
         .cva6_uart_tx_o       ( pad_uart_tx     ),
         .pad_axi_hyper_dq0    ( s_pad_hyper_dq0 ),

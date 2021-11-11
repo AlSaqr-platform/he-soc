@@ -6,6 +6,7 @@ package:
 dependencies:
   cva6: { path: "deps/cva6" }
   alsaqr_padframe: { path: "deps/alsaqr_periph_padframe" }
+  apb_host_control: { path: "deps/apb_host_control_regs" }
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: "0.29.1" } 
   fpnew: { git: "https://github.com/pulp-platform/fpnew.git", version: 0.6.5 }
@@ -51,6 +52,7 @@ sources:
   - host/apb_fll_wrap.sv
   - host/freqmeter.sv
   - host/alsaqr_clk_rst_gen.sv
+  - host/apb_soc_control.sv
   - host/apb_subsystem.sv
   - host/gpio2padframe.sv
   - host/cva6_subsystem.sv

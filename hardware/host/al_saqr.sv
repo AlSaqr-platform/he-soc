@@ -367,6 +367,8 @@ module al_saqr
       .soc_clk_o              ( s_soc_clk                       ),
       .soc_rst_no             ( s_soc_rst_n                     ),
       .rstn_cluster_sync_o    ( s_cluster_rst_n                 ),
+      .cluster_en_sa_boot_o   ( s_cluster_en_sa_boot            ),
+      .cluster_fetch_en_o     ( s_cluster_fetch_en              ),
       .clk_cluster_o          ( s_cluster_clk                   ),                 
       .padframecfg_reg_master ( i_padframecfg_rbus              ),
       .hyper_to_pad           ( s_hyper_to_pad                  ),
@@ -597,7 +599,7 @@ module al_saqr
         .pmu_mem_pwdn_i               ( 1'b0                         ),
         
         .base_addr_i                  ( '0                           ),
-        
+       
         .dma_pe_evt_ack_i             ( '0                           ),
         .dma_pe_evt_valid_o           (                              ),
         .dma_pe_irq_ack_i             ( '0                           ),
@@ -605,9 +607,9 @@ module al_saqr
         .dbg_irq_valid_i              ( '0                           ),
         .pf_evt_ack_i                 ( '0                           ),
         .pf_evt_valid_o               (                              ),
-        .en_sa_boot_i                 ( 1'b0                         ),
+        .en_sa_boot_i                 ( s_cluster_en_sa_boot         ),
         .test_mode_i                  ( 1'b0                         ),
-        .fetch_en_i                   ( 1'b0                         ),
+        .fetch_en_i                   ( s_cluster_fetch_en           ),
         .eoc_o                        (                              ),
         .busy_o                       (                              ),
         .cluster_id_i                 ( 6'b000000                    ),

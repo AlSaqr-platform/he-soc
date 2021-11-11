@@ -2,6 +2,7 @@
 
 export VIVADO_HOME=/opt/xilinx/Vivado/2018.2
 source $VIVADO_HOME/settings64.sh
+export PROJECT_HOME=$(pwd)/alsaqr
 
 #VIVADO SETTINGS
 #Settings are board specific. Check FPGA board datasheet to add new target
