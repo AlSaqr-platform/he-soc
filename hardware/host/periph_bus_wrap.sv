@@ -38,34 +38,35 @@ module periph_bus_wrap
     logic [apb_soc_pkg::NUM_APB_SLAVES-1:0][APB_ADDR_WIDTH-1:0] s_start_addr;
     logic [apb_soc_pkg::NUM_APB_SLAVES-1:0][APB_ADDR_WIDTH-1:0] s_end_addr;
 
+   
     `APB_ASSIGN_MASTER(s_masters[0], fll_master);
     assign s_start_addr[0] = apb_soc_pkg::FLLBase;
     assign s_end_addr[0]   = apb_soc_pkg::FLLBase + apb_soc_pkg::FLLLength - 1;
 
-    `APB_ASSIGN_MASTER(s_masters[1], gpio_master);
-    assign s_start_addr[1] = apb_soc_pkg::GPIOSBase;
-    assign s_end_addr[1]   = apb_soc_pkg::GPIOSBase + apb_soc_pkg::GPIOSLength - 1;
+    `APB_ASSIGN_MASTER(s_masters[1], hyaxicfg_master[0]);
+    assign s_start_addr[1] = apb_soc_pkg::HYAXICFG0Base;
+    assign s_end_addr[1]   = apb_soc_pkg::HYAXICFG0Base + apb_soc_pkg::HYAXICFGLength - 1 ;
 
-    `APB_ASSIGN_MASTER(s_masters[2], udma_master);
-    assign s_start_addr[2] = apb_soc_pkg::UDMABase;
-    assign s_end_addr[2]   = apb_soc_pkg::UDMABase + apb_soc_pkg::UDMALength - 1;
-   
-    `APB_ASSIGN_MASTER(s_masters[3], hyaxicfg_master[0]);
-    assign s_start_addr[3] = apb_soc_pkg::HYAXICFG0Base;
-    assign s_end_addr[3]   = apb_soc_pkg::HYAXICFG0Base + apb_soc_pkg::HYAXICFGLength - 1 ;
+    `APB_ASSIGN_MASTER(s_masters[2], hyaxicfg_master[1]);
+    assign s_start_addr[2] = apb_soc_pkg::HYAXICFG1Base;
+    assign s_end_addr[2]   = apb_soc_pkg::HYAXICFG1Base + apb_soc_pkg::HYAXICFGLength - 1 ;
 
-    `APB_ASSIGN_MASTER(s_masters[4], hyaxicfg_master[1]);
-    assign s_start_addr[4] = apb_soc_pkg::HYAXICFG1Base;
-    assign s_end_addr[4]   = apb_soc_pkg::HYAXICFG1Base + apb_soc_pkg::HYAXICFGLength - 1 ;
+    `APB_ASSIGN_MASTER(s_masters[3], advtimer_master);
+    assign s_start_addr[3] = apb_soc_pkg::ADVTIMERBase;
+    assign s_end_addr[3]   = apb_soc_pkg::ADVTIMERBase + apb_soc_pkg::ADVTIMERLength - 1 ;
 
-    `APB_ASSIGN_MASTER(s_masters[5], advtimer_master);
-    assign s_start_addr[5] = apb_soc_pkg::ADVTIMERBase;
-    assign s_end_addr[5]   = apb_soc_pkg::ADVTIMERBase + apb_soc_pkg::ADVTIMERLength - 1 ;
+    `APB_ASSIGN_MASTER(s_masters[4], padframe_master);
+    assign s_start_addr[4] = apb_soc_pkg::PADFRAMEBase;
+    assign s_end_addr[4]   = apb_soc_pkg::PADFRAMEBase + apb_soc_pkg::PADFRAMELength - 1 ;  
 
-    `APB_ASSIGN_MASTER(s_masters[6], padframe_master);
-    assign s_start_addr[6] = apb_soc_pkg::PADFRAMEBase;
-    assign s_end_addr[6]   = apb_soc_pkg::PADFRAMEBase + apb_soc_pkg::PADFRAMELength - 1 ;   
-   
+    `APB_ASSIGN_MASTER(s_masters[5], gpio_master);
+    assign s_start_addr[5] = apb_soc_pkg::GPIOSBase;
+    assign s_end_addr[5]   = apb_soc_pkg::GPIOSBase + apb_soc_pkg::GPIOSLength - 1;
+
+    `APB_ASSIGN_MASTER(s_masters[6], udma_master);
+    assign s_start_addr[6] = apb_soc_pkg::UDMABase;
+    assign s_end_addr[6]   = apb_soc_pkg::UDMABase + apb_soc_pkg::UDMALength - 1;
+    
    apb_node_wrap #(
         .NB_MASTER      ( apb_soc_pkg::NUM_APB_SLAVES ),
         .APB_ADDR_WIDTH ( 32                          ),

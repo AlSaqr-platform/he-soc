@@ -11,7 +11,8 @@
 // The UDMA register map is made of several channels, each channel area size is defined just below
 
 // Periph area size in log2
-#define UDMA_PERIPH_AREA_SIZE_LOG2  7
+#define UDMA_PERIPH_AREA_SIZE_LOG2  12
+
 
 // Periph area size
 #define UDMA_PERIPH_AREA_SIZE       (1<<UDMA_PERIPH_AREA_SIZE_LOG2)
@@ -22,8 +23,8 @@
 // Channel area size
 #define UDMA_CHANNEL_SIZE           (1<<UDMA_CHANNEL_SIZE_LOG2)
 
-#define UDMA_FIRST_CHANNEL_OFFSET   0x80
-
+//#define UDMA_FIRST_CHANNEL_OFFSET   0x80
+#define UDMA_FIRST_CHANNEL_OFFSET   0x1000
 
 
 // Each channel area is itself made of 3 areas

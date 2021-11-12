@@ -163,7 +163,8 @@ module apb_subsystem
     );
    
 
-   logic [udma_subsystem_pkg::APB_ADDR_WIDTH - 1:0]                        apb_udma_address;     
+   logic [udma_subsystem_pkg::APB_ADDR_WIDTH - 1:0]                        apb_udma_address;   
+
    assign apb_udma_address = apb_udma_master_bus.paddr ;
                             
    udma_subsystem i_udma_subsystem
