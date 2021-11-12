@@ -172,6 +172,12 @@ for (int u = 0; u < N_UART; ++u)
   }
    udma_uart_close(u);
 }
+
+  if (error==0)
+    printf("Test PASSED\n");
+  else
+    printf("Test FAILED\n");
+
   uart_wait_tx_done();
   return error;
 }

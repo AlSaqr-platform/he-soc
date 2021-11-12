@@ -24,7 +24,7 @@
 #include "../common/encoding.h"
 #include "../padframe/src/alsaqr_periph_padframe.c"
 #define BUFFER_SIZE 32
-#define ARCHI_GPIO_ADDR 0x1A101000
+#define ARCHI_GPIO_ADDR 0x1A105000
 #define GPIO_PADDIR_0_31_OFFSET 0x0
 #define GPIO_PADEN_0_31_OFFSET 0x4
 #define GPIO_PADOUT_0_31_OFFSET 0xC

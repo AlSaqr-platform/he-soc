@@ -126,6 +126,7 @@ int main(){
 
   uint32_t udma_cam_channel_base = hal_udma_channel_base(UDMA_CHANNEL_ID(ARCHI_UDMA_CAM_ID(0))); //select the camera ID=0
   barrier();
+  printf("Channel base: %x\n", udma_cam_channel_base);
 
   plp_udma_cg_set(plp_udma_cg_get() | (0xffffffff));
   printf("Enable all CG\n");
