@@ -69,7 +69,7 @@ package ariane_soc;
   localparam logic[63:0] EthernetLength = 64'h10000;
   localparam logic[63:0] HYAXILength    = HyperRamSize*NumChipsPerHyperbus;  // 128MB of hyperram on bus 0
   localparam logic[63:0] L2SPMLength    = 64'h100000;   // 1MB of scratchpad memory 
-  localparam logic[63:0] APB_SLVSLength = 64'h25000;     // 1 slave = 4 KB ( check slaves in apb_soc_pkg.sv)
+  localparam logic[63:0] APB_SLVSLength = 64'h26000;     // 1 slave = 4 KB ( check slaves in apb_soc_pkg.sv)
   // Instantiate AXI protocol checkers
   localparam bit GenProtocolChecker = 1'b0;
 
