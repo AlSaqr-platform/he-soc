@@ -22,12 +22,21 @@
 #include <stdint.h>
 #include "utils.h"
 #include "../common/encoding.h"
+#include "udma.h"
 #include "timer.h"
 #define BUFFER_SIZE 32
 //#define VERBOSE
 //#define EXTRA_VERBOSE
 
 int main() {
+  alsaqr_periph_padframe_periphs_pad_gpio_pwm0_mux_set (1);
+  alsaqr_periph_padframe_periphs_pad_gpio_pwm1_mux_set (2);
+  alsaqr_periph_padframe_periphs_pad_gpio_pwm2_mux_set (3);
+  alsaqr_periph_padframe_periphs_pad_gpio_pwm3_mux_set (4);
+  alsaqr_periph_padframe_periphs_pad_gpio_pwm4_mux_set (5);
+  alsaqr_periph_padframe_periphs_pad_gpio_pwm5_mux_set (6);
+  alsaqr_periph_padframe_periphs_pad_gpio_pwm6_mux_set (7);
+  alsaqr_periph_padframe_periphs_pad_gpio_pwm7_mux_set (8);
 
   enable_timer();
   config_counter(0,0,0,0,0,0);
