@@ -23,7 +23,7 @@ package apb_soc_pkg;
 
    localparam NUM_GPIO = 64;
    
-   localparam logic [31:0] UDMALength     = 32'h20000; //4K * N_PERIPHS  (N_PERIPHS=32)
+   localparam logic [31:0] UDMALength     = 32'h22000; //4K * N_PERIPHS  (N_PERIPHS=34)
    localparam logic [31:0] GPIOSLength    = 32'h1000;
    localparam logic [31:0] FLLLength      = 32'h1000;
    localparam logic [31:0] HYAXICFGLength = 32'h1000;
@@ -37,6 +37,6 @@ package apb_soc_pkg;
      ADVTIMERBase  = 32'h1A10_3000,
      PADFRAMEBase  = 32'h1A10_4000,
      GPIOSBase     = 32'h1A10_5000,
-     UDMABase      = 32'h1A10_6000
+     UDMABase      = 32'h1A20_0000
     } soc_apb_bus_start_t;
 endpackage
