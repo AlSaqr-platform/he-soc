@@ -29,6 +29,7 @@ package udma_subsystem_pkg;
 		logic csn3_o;
 		logic clk_o;
 	} qspi_to_pad_t;
+	
 	typedef struct packed {
 		logic sd0_i;
 		logic sd1_i;
@@ -41,16 +42,17 @@ package udma_subsystem_pkg;
 	   logic sda_oe_o;
 	   logic scl_o;
 	   logic scl_oe_o;
-	  } i2c_to_pad_t;
+	} i2c_to_pad_t;
+	
 	typedef struct packed {
 	   logic sda_i;
 	   logic scl_i;
-	 } pad_to_i2c_t;
+	} pad_to_i2c_t;
 
-  typedef struct packed {
-    logic clk_i;
-    logic hsync_i;
-    logic vsync_i;
+	typedef struct packed {
+	    logic clk_i;
+	    logic hsync_i;
+	    logic vsync_i;
 		logic data0_i;
 		logic data1_i;
 		logic data2_i;
@@ -59,12 +61,12 @@ package udma_subsystem_pkg;
 		logic data5_i;
 		logic data6_i;
 		logic data7_i;
-  } pad_to_cam_t;
+	} pad_to_cam_t;
 
-  typedef struct packed {
-    logic clk_o;
-    logic cmd_o;
-    logic cmd_oen_o;
+	typedef struct packed {
+	    logic clk_o;
+	    logic cmd_o;
+	    logic cmd_oen_o;
 		logic data0_o;
 		logic data1_o;
 		logic data2_o;
@@ -73,15 +75,15 @@ package udma_subsystem_pkg;
 		logic data1_oen_o;
 		logic data2_oen_o;
 		logic data3_oen_o;
-  } sdio_to_pad_t;
+	} sdio_to_pad_t;
 
-  typedef struct packed {
-    logic cmd_i;
+	typedef struct packed {
+	    logic cmd_i;
 		logic data0_i;
 		logic data1_i;
 		logic data2_i;
 		logic data3_i;
-  } pad_to_sdio_t;
+	} pad_to_sdio_t;
 
 	typedef struct packed {
 		logic cs0n_o;
