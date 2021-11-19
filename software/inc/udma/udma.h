@@ -372,27 +372,27 @@ static inline int plp_udma_busy(unsigned channelOffset)
 }
 
 static inline void plp_udma_cg_set(unsigned int value) {
-  pulp_write32(ARCHI_SOC_UDMA_PERIPHERALS_ADDR + ARCHI_UDMA_OFFSET + UDMA_CONF_OFFSET + UDMA_CONF_CG_OFFSET, value);
+  pulp_write32(ARCHI_SOC_PERIPHERALS_ADDR + ARCHI_UDMA_OFFSET + UDMA_CONF_OFFSET + UDMA_CONF_CG_OFFSET, value);
 }
 
  static inline unsigned int plp_udma_cg_get() {
-  return pulp_read32(ARCHI_SOC_UDMA_PERIPHERALS_ADDR + ARCHI_UDMA_OFFSET + UDMA_CONF_OFFSET + UDMA_CONF_CG_OFFSET);
+  return pulp_read32(ARCHI_SOC_PERIPHERALS_ADDR + ARCHI_UDMA_OFFSET + UDMA_CONF_OFFSET + UDMA_CONF_CG_OFFSET);
 }
 
 static inline void plp_udma_evtin_set(unsigned int value) {
-  pulp_write32(ARCHI_SOC_UDMA_PERIPHERALS_ADDR + ARCHI_UDMA_OFFSET + UDMA_CONF_OFFSET + UDMA_CONF_EVTIN_OFFSET, value);
+  pulp_write32(ARCHI_SOC_PERIPHERALS_ADDR + ARCHI_UDMA_OFFSET + UDMA_CONF_OFFSET + UDMA_CONF_EVTIN_OFFSET, value);
 }
 
 static inline unsigned int plp_udma_evtin_get() {
-  return pulp_read32(ARCHI_SOC_UDMA_PERIPHERALS_ADDR + ARCHI_UDMA_OFFSET + UDMA_CONF_OFFSET + UDMA_CONF_EVTIN_OFFSET);
+  return pulp_read32(ARCHI_SOC_PERIPHERALS_ADDR + ARCHI_UDMA_OFFSET + UDMA_CONF_OFFSET + UDMA_CONF_EVTIN_OFFSET);
 }
 
 static inline unsigned int hal_udma_periph_base(int id) {
-  return ARCHI_SOC_UDMA_PERIPHERALS_ADDR + ARCHI_UDMA_OFFSET + UDMA_PERIPH_OFFSET(id);
+  return ARCHI_SOC_PERIPHERALS_ADDR + ARCHI_UDMA_OFFSET + UDMA_PERIPH_OFFSET(id);
 }
 
 static inline unsigned int hal_udma_channel_base(int id) {
-  return ARCHI_SOC_UDMA_PERIPHERALS_ADDR + ARCHI_UDMA_OFFSET + UDMA_PERIPH_OFFSET(id>>1) + UDMA_CHANNEL_OFFSET(id&1);
+  return ARCHI_SOC_PERIPHERALS_ADDR + ARCHI_UDMA_OFFSET + UDMA_PERIPH_OFFSET(id>>1) + UDMA_CHANNEL_OFFSET(id&1);
 }
 
 
