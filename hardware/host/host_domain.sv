@@ -19,6 +19,7 @@
 
 module host_domain 
   import axi_pkg::xbar_cfg_t;
+  import ariane_soc::HyperbusNumPhys;
   import udma_subsystem_pkg::*;  
   import gpio_pkg::*; 
   import pkg_alsaqr_periph_padframe::*; 
@@ -94,8 +95,8 @@ module host_domain
   input                       pad_to_sdio_t [N_SDIO-1:0] pad_to_sdio,
  
   // HYPERBUS
-  output                      hyper_to_pad_t [N_HYPER-1:0] hyper_to_pad,
-  input                       pad_to_hyper_t [N_HYPER-1:0] pad_to_hyper,
+  output                      hyper_to_pad_t [HyperbusNumPhys-1:0] hyper_to_pad,
+  input                       pad_to_hyper_t [HyperbusNumPhys-1:0] pad_to_hyper,
 
   output                      pwm_to_pad_t pwm_to_pad,
 
@@ -145,26 +146,13 @@ module host_domain
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
    ) apb_axi_bus();
 
-   AXI_BUS #(
-     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
-     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-   ) hyper0_axi_bus();
 
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
      .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-   ) hyper1_axi_bus();
-
-   AXI_BUS #(
-     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
-     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-   ) hyper_axi_bus[N_HYPER-1:0]();
+   ) hyper_axi_bus();
    
    
    XBAR_TCDM_BUS axi_bridge_2_interconnect[AXI64_2_TCDM32_N_PORTS]();
@@ -201,8 +189,7 @@ module host_domain
         .dm_rst_o             ( s_dm_rst             ),
         .l2_axi_master        ( l2_axi_bus           ),
         .apb_axi_master       ( apb_axi_bus          ),
-        .hyper0_axi_master    ( hyper0_axi_bus       ),
-        .hyper1_axi_master    ( hyper1_axi_bus       ),
+        .hyper_axi_master     ( hyper_axi_bus        ),
         .cluster_axi_master   ( cluster_axi_master   ),
         .cluster_axi_slave    ( cluster_axi_slave    ),
         .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
@@ -237,8 +224,6 @@ module host_domain
      );
 
 
-  `AXI_ASSIGN(hyper_axi_bus[0],hyper0_axi_bus)
-  `AXI_ASSIGN(hyper_axi_bus[1],hyper1_axi_bus)
    
    apb_subsystem #(
        .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
@@ -255,6 +240,7 @@ module host_domain
       .rstn_global_sync_o     ( s_synch_global_rst             ),
       .rstn_cluster_sync_o    ( rstn_cluster_sync_o            ),
       .clk_cluster_o          ( clk_cluster_o                  ),
+      .cluster_en_sa_boot_o   ( cluster_en_sa_boot_o           ),
       .cluster_fetch_en_o     ( cluster_fetch_en_o             ),
 
       .hyper_axi_bus_slave    ( hyper_axi_bus                  ),                 

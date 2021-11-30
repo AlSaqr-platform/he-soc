@@ -24,6 +24,7 @@ module al_saqr
   import udma_subsystem_pkg::*;
   import gpio_pkg::*;
   import pkg_alsaqr_periph_padframe::*; 
+  import ariane_soc::HyperbusNumPhys;
 #(
   parameter int unsigned AXI_USER_WIDTH    = 1,
   parameter int unsigned AXI_ADDRESS_WIDTH = 64,
@@ -40,24 +41,21 @@ module al_saqr
 ) (
   input logic         rtc_i,
   input logic         rst_ni,
-  inout wire [7:0]    pad_hyper_dq0,
-  inout wire [7:0]    pad_hyper_dq1,
-  inout wire          pad_hyper_ck,
-  inout wire          pad_hyper_ckn,
-  inout wire          pad_hyper_csn0,
-  inout wire          pad_hyper_csn1,
-  inout wire          pad_hyper_rwds0,
-  inout wire          pad_hyper_rwds1,
-  inout wire          pad_hyper_reset,
-  inout wire [7:0]    pad_axi_hyper_dq0,
-  inout wire [7:0]    pad_axi_hyper_dq1,
-  inout wire          pad_axi_hyper_ck,
-  inout wire          pad_axi_hyper_ckn,
-  inout wire          pad_axi_hyper_csn0,
-  inout wire          pad_axi_hyper_csn1,
-  inout wire          pad_axi_hyper_rwds0,
-  inout wire          pad_axi_hyper_rwds1,
-  inout wire          pad_axi_hyper_reset,
+
+  inout wire [7:0]    pad_hyper0_dq ,
+  inout wire          pad_hyper0_ck ,
+  inout wire          pad_hyper0_ckn ,
+  inout wire [1:0]    pad_hyper0_csn ,
+  inout wire          pad_hyper0_rwds ,
+  inout wire          pad_hyper0_reset ,
+
+
+  inout wire [7:0]    pad_hyper1_dq ,
+  inout wire          pad_hyper1_ck ,
+  inout wire          pad_hyper1_ckn ,
+  inout wire [1:0]    pad_hyper1_csn ,
+  inout wire          pad_hyper1_rwds ,
+  inout wire          pad_hyper1_reset ,
 
   inout wire logic    pad_periphs_pad_gpio_b_00_pad,
   inout wire logic    pad_periphs_pad_gpio_b_01_pad,
@@ -209,28 +207,6 @@ module al_saqr
 
 );
 
-      
-  logic [1:0]                  s_hyper_cs_n;
-  logic                        s_hyper_ck;
-  logic                        s_hyper_ck_n;
-  logic [1:0]                  s_hyper_rwds_o;
-  logic                        s_hyper_rwds_i;
-  logic [1:0]                  s_hyper_rwds_oe;
-  logic [15:0]                 s_hyper_dq_i;
-  logic [15:0]                 s_hyper_dq_o;
-  logic [1:0]                  s_hyper_dq_oe;
-  logic                        s_hyper_reset_n;
-  logic [1:0]                  s_axi_hyper_cs_n;
-  logic                        s_axi_hyper_ck;
-  logic                        s_axi_hyper_ck_n;
-  logic                        s_axi_hyper_rwds_o;
-  logic                        s_axi_hyper_rwds_i;
-  logic                        s_axi_hyper_rwds_oe;
-  logic [7:0]                  s_axi_hyper_dq_i;
-  logic [7:0]                  s_axi_hyper_dq_o;
-  logic                        s_axi_hyper_dq_oe;
-  logic                        s_axi_hyper_reset_n;
-
   logic [NUM_GPIO-1:0]         s_gpio_pad_in;
   logic [NUM_GPIO-1:0]         s_gpio_pad_out;
   logic [NUM_GPIO-1:0]         s_gpio_pad_dir;
@@ -285,8 +261,8 @@ module al_saqr
   logic s_cva6_uart_rx_i;
   logic s_cva6_uart_tx_o;
    
-  pad_to_hyper_t [N_HYPER-1:0] s_pad_to_hyper;
-  hyper_to_pad_t [N_HYPER-1:0] s_hyper_to_pad;
+  pad_to_hyper_t [HyperbusNumPhys-1:0] s_pad_to_hyper;
+  hyper_to_pad_t [HyperbusNumPhys-1:0] s_hyper_to_pad;
 
   qspi_to_pad_t [N_SPI-1:0] s_qspi_to_pad;
   pad_to_qspi_t [N_SPI-1:0] s_pad_to_qspi;
@@ -393,100 +369,28 @@ module al_saqr
       .pwm_to_pad             ( s_pwm_to_pad                     )
     );
 
-   assign s_hyper_dq_o[0] = s_hyper_to_pad[1].dq0_o;
-   assign s_hyper_dq_o[1] = s_hyper_to_pad[1].dq1_o;
-   assign s_hyper_dq_o[2] = s_hyper_to_pad[1].dq2_o;
-   assign s_hyper_dq_o[3] = s_hyper_to_pad[1].dq3_o;
-   assign s_hyper_dq_o[4] = s_hyper_to_pad[1].dq4_o;
-   assign s_hyper_dq_o[5] = s_hyper_to_pad[1].dq5_o;
-   assign s_hyper_dq_o[6] = s_hyper_to_pad[1].dq6_o;
-   assign s_hyper_dq_o[7] = s_hyper_to_pad[1].dq7_o;
-   
-   assign s_hyper_cs_n[0]    = s_hyper_to_pad[1].cs0n_o;
-   assign s_hyper_cs_n[1]    = s_hyper_to_pad[1].cs1n_o;
-   assign s_hyper_rwds_o[0]  = s_hyper_to_pad[1].rwds_o;
-   assign s_hyper_rwds_oe[0] = s_hyper_to_pad[1].rwds_oe_o;
-   assign s_hyper_dq_oe      = s_hyper_to_pad[1].dq_oe_o;
-   
-   assign s_pad_to_hyper[1].dq0_i = s_hyper_dq_i[0];
-   assign s_pad_to_hyper[1].dq1_i = s_hyper_dq_i[1];
-   assign s_pad_to_hyper[1].dq2_i = s_hyper_dq_i[2];
-   assign s_pad_to_hyper[1].dq3_i = s_hyper_dq_i[3];
-   assign s_pad_to_hyper[1].dq4_i = s_hyper_dq_i[4];
-   assign s_pad_to_hyper[1].dq5_i = s_hyper_dq_i[5];
-   assign s_pad_to_hyper[1].dq6_i = s_hyper_dq_i[6];
-   assign s_pad_to_hyper[1].dq7_i = s_hyper_dq_i[7];
-
-   assign s_axi_hyper_cs_n[0] = s_hyper_to_pad[0].cs0n_o ;
-   assign s_axi_hyper_cs_n[1] = s_hyper_to_pad[0].cs1n_o;
-   assign s_axi_hyper_ck = s_hyper_to_pad[0].ck_o;
-   assign s_axi_hyper_ck_n = s_hyper_to_pad[0].ckn_o;
-   assign s_axi_hyper_rwds_o = s_hyper_to_pad[0].rwds_o;
-   assign s_axi_hyper_rwds_oe = s_hyper_to_pad[0].rwds_oe_o;
-   assign s_axi_hyper_dq_oe = s_hyper_to_pad[0].dq_oe_o;
-   assign s_axi_hyper_reset_n = s_hyper_to_pad[0].resetn_o;
-   assign s_axi_hyper_dq_o[0] = s_hyper_to_pad[0].dq0_o;
-   assign s_axi_hyper_dq_o[1] = s_hyper_to_pad[0].dq1_o;
-   assign s_axi_hyper_dq_o[2] = s_hyper_to_pad[0].dq2_o;
-   assign s_axi_hyper_dq_o[3] = s_hyper_to_pad[0].dq3_o;
-   assign s_axi_hyper_dq_o[4] = s_hyper_to_pad[0].dq4_o;
-   assign s_axi_hyper_dq_o[5] = s_hyper_to_pad[0].dq5_o;
-   assign s_axi_hyper_dq_o[6] = s_hyper_to_pad[0].dq6_o;
-   assign s_axi_hyper_dq_o[7] = s_hyper_to_pad[0].dq7_o;
-   assign s_pad_to_hyper[0].rwds_i = s_axi_hyper_rwds_i;
-   assign s_pad_to_hyper[0].dq0_i = s_axi_hyper_dq_i[0];
-   assign s_pad_to_hyper[0].dq1_i = s_axi_hyper_dq_i[1];
-   assign s_pad_to_hyper[0].dq2_i = s_axi_hyper_dq_i[2];
-   assign s_pad_to_hyper[0].dq3_i = s_axi_hyper_dq_i[3];
-   assign s_pad_to_hyper[0].dq4_i = s_axi_hyper_dq_i[4];
-   assign s_pad_to_hyper[0].dq5_i = s_axi_hyper_dq_i[5];
-   assign s_pad_to_hyper[0].dq6_i = s_axi_hyper_dq_i[6];
-   assign s_pad_to_hyper[0].dq7_i = s_axi_hyper_dq_i[7];
    
    pad_frame #()
     i_pad_frame
       (       
-      .hyper_cs_ni            ( s_hyper_cs_n               ),
-      .hyper_ck_i             ( s_hyper_to_pad[1].ck_o     ),
-      .hyper_ck_ni            ( s_hyper_to_pad[1].ckn_o    ),
-      .hyper_rwds_i           ( s_hyper_rwds_o             ),
-      .hyper_rwds_o           ( s_pad_to_hyper[1].rwds_i   ),
-      .hyper_rwds_oe_i        ( s_hyper_rwds_oe            ),
-      .hyper_dq_o             ( s_hyper_dq_i               ),
-      .hyper_dq_i             ( s_hyper_dq_o               ),
-      .hyper_dq_oe_i          ( s_hyper_dq_oe              ),
-      .hyper_reset_ni         ( s_hyper_to_pad[1].resetn_o ),
 
-      .pad_hyper_dq0          ( pad_hyper_dq0              ),
-      .pad_hyper_dq1          ( pad_hyper_dq1              ),
-      .pad_hyper_ck           ( pad_hyper_ck               ),
-      .pad_hyper_ckn          ( pad_hyper_ckn              ),
-      .pad_hyper_csn0         ( pad_hyper_csn0             ),
-      .pad_hyper_csn1         ( pad_hyper_csn1             ),
-      .pad_hyper_rwds0        ( pad_hyper_rwds0            ),
-      .pad_hyper_rwds1        ( pad_hyper_rwds1            ),
-      .pad_hyper_reset        ( pad_hyper_reset            ),
-
-      .axi_hyper_cs_ni        ( s_axi_hyper_cs_n           ),
-      .axi_hyper_ck_i         ( s_axi_hyper_ck             ),
-      .axi_hyper_ck_ni        ( s_axi_hyper_ck_n           ),
-      .axi_hyper_rwds_i       ( s_axi_hyper_rwds_o         ),
-      .axi_hyper_rwds_o       ( s_axi_hyper_rwds_i         ),
-      .axi_hyper_rwds_oe_i    ( s_axi_hyper_rwds_oe        ),
-      .axi_hyper_dq_o         ( s_axi_hyper_dq_i           ),
-      .axi_hyper_dq_i         ( s_axi_hyper_dq_o           ),
-      .axi_hyper_dq_oe_i      ( s_axi_hyper_dq_oe          ),
-      .axi_hyper_reset_ni     ( s_axi_hyper_reset_n        ),
-
-      .pad_axi_hyper_dq0      ( pad_axi_hyper_dq0          ),
-      .pad_axi_hyper_dq1      ( pad_axi_hyper_dq1          ),
-      .pad_axi_hyper_ck       ( pad_axi_hyper_ck           ),
-      .pad_axi_hyper_ckn      ( pad_axi_hyper_ckn          ),
-      .pad_axi_hyper_csn0     ( pad_axi_hyper_csn0         ),
-      .pad_axi_hyper_csn1     ( pad_axi_hyper_csn1         ),
-      .pad_axi_hyper_rwds0    ( pad_axi_hyper_rwds0        ),
-      .pad_axi_hyper_rwds1    ( pad_axi_hyper_rwds1        ),
-      .pad_axi_hyper_reset    ( pad_axi_hyper_reset        ),
+      .pad_to_hyper           ( s_pad_to_hyper             ),
+      .hyper_to_pad           ( s_hyper_to_pad             ),
+              
+      .pad_hyper0_dq ,
+      .pad_hyper0_ck ,
+      .pad_hyper0_ckn ,
+      .pad_hyper0_csn ,
+      .pad_hyper0_rwds ,
+      .pad_hyper0_reset ,
+      
+      
+      .pad_hyper1_dq ,
+      .pad_hyper1_ck ,
+      .pad_hyper1_ckn ,
+      .pad_hyper1_csn ,
+      .pad_hyper1_rwds ,
+      .pad_hyper1_reset ,
 
       .cva6_uart_rx           ( s_cva6_uart_rx_i           ),
       .cva6_uart_tx           ( s_cva6_uart_tx_o           ),

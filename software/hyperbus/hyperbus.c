@@ -26,8 +26,7 @@
 #define BUFFER_SIZE 64
 //#define VERBOSE
 //#define EXTRA_VERBOSE
-// THIS IS A COMPLETE TEST. PLEASE CHANGE THE link.ld from 0x80000000 to 0x88000000 to properly use it.
-// WE'LL UPDATE IT ASAP.
+
 int main() {
     int baud_rate = 115200;
     int test_freq = 17500000;
@@ -60,6 +59,8 @@ int main() {
     pulp_write32(plic_en_bits+(((int)(tx_hyper_plic_id/32))*4), 1<<(tx_hyper_plic_id%32));
 
     udma_hyper_setup();
+    set_pagebound_hyper(2048);
+    
     set_chipsel_hyper(0);
     for (int i=0; i< (BUFFER_SIZE); i++)
     {
