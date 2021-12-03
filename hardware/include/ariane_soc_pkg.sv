@@ -17,7 +17,7 @@ package ariane_soc;
   localparam int unsigned NumSources = 255;
   localparam int unsigned MaxPriority = 7;
 
-  localparam NrSlaves = 3; // actually masters, but slaves on the crossbar: Debug module, CVA6, Cluster
+  localparam NrSlaves = 4; // actually masters, but slaves on the crossbar: Debug module, CVA6, Cluster
 
    
   typedef struct packed {
@@ -38,7 +38,8 @@ package ariane_soc;
   localparam SocToClusterIdWidth = 3;   
    
   typedef enum int unsigned {
-    HYAXI    = 12,
+    HYAXI    = 13,
+    SERIAL_LINK = 12,
     TLB_CFG  = 11, 
     UART     = 10,
     Ethernet = 9,
@@ -64,6 +65,7 @@ package ariane_soc;
   localparam logic[63:0] ROMLength      = 64'h10000;
   localparam logic[63:0] UARTLength     = 64'h1000;
   localparam logic[63:0] TLB_CFGLength  = 64'h0000_0000_0000_FFFF;
+  localparam logic[63:0] SerLinkLength  = 64'h1000; // to check
   localparam logic[63:0] CLINTLength    = 64'hC0000;
   localparam logic[63:0] PLICLength     = 64'h3FF_FFFF;
   localparam logic[63:0] ClusterLength  = 64'h400000;
@@ -90,6 +92,7 @@ package ariane_soc;
     EthernetBase = 64'h3000_0000,
     UARTBase     = 64'h4000_0000,
     TLB_CFGBase  = 64'h5000_0000,
+    SerLink_Base = 64'h6000_0000,
     HYAXIBase    = 64'h8000_0000
   } soc_bus_start_t; 
   // Let x = NB_PERIPHERALS: as long as Base(xth slave)+Length(xth slave) is < 1_0000_0000 we can cut the 32 MSBs addresses without any worries. 
@@ -120,5 +123,34 @@ package ariane_soc;
     DmBaseAddress:          DebugBase,
     NrPMPEntries:           8
   };
+
+  typedef struct packed {
+    logic [31:0]  addr;
+    logic         write;
+    logic [31:0]  wdata;
+    logic [3:0]   wstrb;
+    logic         valid;
+  } ddr_reg_req_t;
+
+  typedef struct packed {
+    logic [31:0]  rdata;
+    logic         error;
+    logic         ready;
+  } ddr_reg_rsp_t;
+
+  typedef struct packed {
+    logic         ddr0_i;
+    logic         ddr1_i;
+    logic         ddr2_i;
+    logic         ddr3_i;
+    logic         ddr_clk_i;
+  } pad_to_ser_link;
+
+  typedef struct packed {
+    logic         ddr0_o;
+    logic         ddr1_o;
+    logic         ddr2_o;
+    logic         ddr3_o;
+  } ser_link_to_pad;
 
 endpackage

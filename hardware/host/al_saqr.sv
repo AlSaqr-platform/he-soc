@@ -25,6 +25,7 @@ module al_saqr
   import apb_soc_pkg::NUM_GPIO;
   import udma_subsystem_pkg::*;
   import gpio_pkg::*;
+  import ariane_soc::*;
   import pkg_alsaqr_periph_padframe::*; 
   import ariane_soc::HyperbusNumPhys;
 #(
@@ -330,14 +331,22 @@ module al_saqr
 
   qspi_to_pad_t [N_SPI-1:0] s_qspi_to_pad;
   pad_to_qspi_t [N_SPI-1:0] s_pad_to_qspi;
+  
   i2c_to_pad_t [N_I2C-1:0] s_i2c_to_pad;
   pad_to_i2c_t [N_I2C-1:0] s_pad_to_i2c;
+  
   pad_to_cam_t [N_CAM-1:0] s_pad_to_cam;
+ 
   pad_to_uart_t [N_UART-1:0] s_pad_to_uart;
   uart_to_pad_t [N_UART-1:0] s_uart_to_pad;
+  
   sdio_to_pad_t [N_SDIO-1:0] s_sdio_to_pad;
   pad_to_sdio_t [N_SDIO-1:0] s_pad_to_sdio;
+  
   pwm_to_pad_t s_pwm_to_pad;
+
+  pad_to_ser_link s_pad_to_serial_link;
+  ser_link_to_pad s_serial_link_to_pad;
 
   gpio_to_pad_t s_gpio_b_to_pad;
   pad_to_gpio_t s_pad_to_gpio_b;
@@ -415,18 +424,26 @@ module al_saqr
       .cluster_fetch_en_o     ( s_cluster_fetch_en              ),
       .clk_cluster_o          ( s_cluster_clk                   ),                 
       .padframecfg_reg_master ( i_padframecfg_rbus              ),
+      
       .hyper_to_pad           ( s_hyper_to_pad                  ),
       .pad_to_hyper           ( s_pad_to_hyper                  ),    
 
       .qspi_to_pad            ( s_qspi_to_pad                   ),
       .pad_to_qspi            ( s_pad_to_qspi                   ),
+
       .i2c_to_pad             ( s_i2c_to_pad                    ),
       .pad_to_i2c             ( s_pad_to_i2c                    ),
+
   	  .pad_to_cam             ( s_pad_to_cam                    ),
+
       .pad_to_uart            ( s_pad_to_uart                   ),
       .uart_to_pad            ( s_uart_to_pad                   ),
+
       .sdio_to_pad            ( s_sdio_to_pad                   ),
-      .pad_to_sdio            ( s_pad_to_sdio                   ),                     
+      .pad_to_sdio            ( s_pad_to_sdio                   ),
+
+      .serial_link_to_pad     ( s_serial_link_to_pad             ),
+      .pad_to_serial_link     ( s_pad_to_serial_link             ),                     
 
       .gpio_to_pad            ( s_gpio_b_to_pad                  ),
       .pad_to_gpio            ( s_pad_to_gpio_b                  ),
@@ -1070,11 +1087,9 @@ module al_saqr
   `ASSIGN_PERIPHS_UART6_PAD2SOC(s_pad_to_uart[6],s_port_signals_pad2soc.periphs.uart6)
   `ASSIGN_PERIPHS_UART6_SOC2PAD(s_port_signals_soc2pad.periphs.uart6,s_uart_to_pad[6])
 
-   //GPIO_F_8_13
-
-   //GPIO_F_14_17
-
-   //GPIO_F_18_23
+   //SERIAL LINK
+   `ASSIGN_PERIPHS_DDR_LINK_PAD2SOC(s_pad_to_serial_link,s_port_signals_pad2soc.periphs.ddr_link)
+   `ASSIGN_PERIPHS_DDR_LINK_SOC2PAD(s_port_signals_soc2pad.periphs.ddr_link,s_serial_link_to_pad)
 
    `endif   
 
