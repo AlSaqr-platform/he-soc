@@ -16,6 +16,22 @@ int main(int argc, char const *argv[]) {
   int test_freq = 100000000;
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
+  h2c_tlb_cfg();
+  // uint32_t * h2c_tlb_addr = 0x50000000 + 0x0000;
+  // pulp_write32(0x50000000, 0x0000);
+  // pulp_write32(0x50000004, 0x0000);
+  // pulp_write32(0x50000008, 0xFFFF);
+  // pulp_write32(0x5000000C, 0xFFFF);
+  // pulp_write32(0x50000010, 0x0000);
+  // pulp_write32(0x50000014, 0x0000);
+  // pulp_write32(0x50000018, 0x7);
+  // pulp_write32(0x5000001C, 0x0000); 
+  // pulp_write32(0x50000020, 0x0000); 
+  // pulp_write32(0x50000024, 0xFFFF); 
+  // pulp_write32(0x50000028, 0xFFFF); 
+  // pulp_write32(0x5000002C, 0x0000); 
+  // pulp_write32(0x50000030, 0x0000); 
+  // pulp_write32(0x50000034, 0x7);
   uint32_t * hyaxicfg_reg_mask = 0x1A104018;
   pulp_write32(hyaxicfg_reg_mask,26); //128MB addressable
   uint32_t * hyaxicfg_reg_memspace = 0x1A104024;

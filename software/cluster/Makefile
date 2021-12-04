@@ -2,3 +2,10 @@ APP := launch_cluster
 XLEN:=64
 
 include $(shell pwd)/../common.mk
+
+rtl: 
+	 $(MAKE) -C ../../hardware/ all
+
+sim:
+	$(MAKE) -C ../../hardware/ sim elf-bin=$(shell pwd)/$(APP).riscv
+	# $(MAKE) -C ../../hardware/ sim elf-bin=../software/cluster/launch_cluster.riscv

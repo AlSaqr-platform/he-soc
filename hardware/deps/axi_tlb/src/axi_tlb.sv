@@ -188,8 +188,8 @@ module axi_tlb #(
     .b_chan_t     ( b_t               ),
     .ar_chan_t    ( slv_ar_t          ),
     .r_chan_t     ( r_t               ),
-    .axi_req_t    ( slv_req_t         ),
-    .axi_resp_t   ( axi_resp_t        ),
+    .req_t        ( slv_req_t         ),
+    .resp_t       ( axi_resp_t        ),
     .NoMstPorts   ( 2                 ),
     .MaxTrans     ( AxiSlvPortMaxTxns ),
     .AxiLookBits  ( AxiIdWidth        ),
@@ -259,8 +259,8 @@ module axi_tlb #(
   // Handle TLB misses: Absorb burst and respond with slave error.
   axi_err_slv #(
     .AxiIdWidth   ( AxiIdWidth            ),
-    .axi_req_t    ( slv_req_t             ),
-    .axi_resp_t   ( axi_resp_t            ),
+    .req_t        ( slv_req_t             ),
+    .resp_t       ( axi_resp_t            ),
     .Resp         ( axi_pkg::RESP_SLVERR  ),
     .RespWidth    ( 32'd32                ),
     .RespData     ( 32'hDEC0FFEE          ),
@@ -282,15 +282,15 @@ endmodule
 
 /// Interface variant of [`axi_tlb`](module.axi_tlb)
 module axi_tlb_intf #(
-  parameter int unsigned AXI_SLV_PORT_ADDR_WIDTH = 0,
-  parameter int unsigned AXI_MST_PORT_ADDR_WIDTH = 0,
-  parameter int unsigned AXI_DATA_WIDTH = 0,
+  parameter int unsigned AXI_SLV_PORT_ADDR_WIDTH =  0,
+  parameter int unsigned AXI_MST_PORT_ADDR_WIDTH =  0,
+  parameter int unsigned AXI_DATA_WIDTH =  0,
   parameter int unsigned AXI_ID_WIDTH = 0,
   parameter int unsigned AXI_USER_WIDTH = 0,
   parameter int unsigned AXI_SLV_PORT_MAX_TXNS = 0,
-  parameter int unsigned CFG_AXI_ADDR_WIDTH = 0,
-  parameter int unsigned CFG_AXI_DATA_WIDTH = 0,
-  parameter int unsigned L1_NUM_ENTRIES = 0,
+  parameter int unsigned CFG_AXI_ADDR_WIDTH =  0,
+  parameter int unsigned CFG_AXI_DATA_WIDTH =  0,
+  parameter int unsigned L1_NUM_ENTRIES =  0,
   parameter bit L1_CUT_AX = 1'b1
 ) (
   input  logic    clk_i,
@@ -360,8 +360,8 @@ module axi_tlb_intf #(
     .slv_req_t            ( slv_req_t               ),
     .mst_req_t            ( mst_req_t               ),
     .axi_resp_t           ( axi_resp_t              ),
-    .lite_req_t           ( lite_req_t              ),
-    .lite_resp_t          ( lite_resp_t             )
+    .axi_lite_req_t       ( lite_req_t              ),
+    .axi_lite_resp_t      ( lite_resp_t             )
   ) i_axi_tlb (
     .clk_i,
     .rst_ni,

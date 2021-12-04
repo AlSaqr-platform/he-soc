@@ -141,14 +141,14 @@ module axi_tlb_l1 #(
     .res_ready_i  ( rd_res_ready_i  )
   );
 
-  // Table entries from AXI4-Lite registers, aligned to 32-bit words
+  // Table entries from AXI4-Lite registers, aligned to 64-bit words
   localparam int unsigned InpPageNumBytes = cf_math_pkg::ceil_div(InpPageNumWidth, 8);
-  localparam int unsigned InpPageNumBytesAligned = cf_math_pkg::ceil_div(InpPageNumBytes, 4) * 4;
+  localparam int unsigned InpPageNumBytesAligned = cf_math_pkg::ceil_div(InpPageNumBytes, 8) * 8;
   localparam int unsigned OupPageNumBytes = cf_math_pkg::ceil_div(OupPageNumWidth, 8);
-  localparam int unsigned OupPageNumBytesAligned = cf_math_pkg::ceil_div(OupPageNumBytes, 4) * 4;
+  localparam int unsigned OupPageNumBytesAligned = cf_math_pkg::ceil_div(OupPageNumBytes, 8) * 8;
   localparam int unsigned FlagBits = $bits(flags_t);
   localparam int unsigned FlagBytes = cf_math_pkg::ceil_div(FlagBits, 8);
-  localparam int unsigned FlagBytesAligned = cf_math_pkg::ceil_div(FlagBytes, 4) * 4;
+  localparam int unsigned FlagBytesAligned = cf_math_pkg::ceil_div(FlagBytes, 8) * 8;
   localparam int unsigned EntryBytesAligned =
       2 * InpPageNumBytesAligned + OupPageNumBytesAligned + FlagBytesAligned;
   localparam int unsigned RegNumBytes = NumEntries * EntryBytesAligned;
@@ -168,6 +168,8 @@ module axi_tlb_l1 #(
     logic [InpPageNumBytesAligned*8-1:0]  last;
     logic [InpPageNumBytesAligned*8-1:0]  first;
   } entry_padded_t;
+
+  parameter entry_mask_t entry_read_param = '{'1, '0, '1, '0, '1, '0, '1, '0};
   entry_mask_t entry_read_only;
   assign entry_read_only = '{
     flags_padding:  '1,
@@ -191,6 +193,7 @@ module axi_tlb_l1 #(
     .AxiDataWidth   ( CfgAxiDataWidth       ),
     .PrivProtOnly   ( 1'b0                  ),
     .SecuProtOnly   ( 1'b0                  ),
+    .AxiReadOnly    ( entry_read_param      ),
     .RegRstVal      ( '{RegNumBytes{8'h00}} ),
     .req_lite_t     ( axi_lite_req_t        ),
     .resp_lite_t    ( axi_lite_resp_t       )
@@ -203,7 +206,7 @@ module axi_tlb_l1 #(
     .rd_active_o      ( /* unused */          ),
     .reg_d_i          ( '{RegNumBytes{8'h00}} ),
     .reg_load_i       ( '{RegNumBytes{1'b0}}  ),
-    .reg_read_only_i  ( read_only             ),
+    //.reg_read_only_i  ( read_only             ),
     .reg_q_o          ( reg_q                 )
   );
   entry_padded_t [NumEntries-1:0] entries_padded;

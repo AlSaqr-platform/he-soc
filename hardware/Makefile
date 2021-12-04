@@ -220,3 +220,5 @@ clean:
 	rm -f *log
 	rm -f transcript
 	rm -f uart
+
+all: clean build
