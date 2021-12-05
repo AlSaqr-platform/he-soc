@@ -8,4 +8,3 @@ rtl:
 
 sim:
 	$(MAKE) -C ../../hardware/ sim elf-bin=$(shell pwd)/$(APP).riscv
-	# $(MAKE) -C ../../hardware/ sim elf-bin=../software/cluster/launch_cluster.riscv

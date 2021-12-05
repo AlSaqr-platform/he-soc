@@ -776,7 +776,7 @@ module al_saqr
 
   `AXI_LITE_ASSIGN_FROM_REQ ( tlb_h2c_cfg     , h2c_tlb_cfg_req )
   `AXI_LITE_ASSIGN_TO_RESP  ( h2c_tlb_cfg_resp, tlb_h2c_cfg     )
-  localparam int unsigned ENTRIES = 1024;
+  localparam int unsigned ENTRIES = 32;
 
   axi_tlb_intf #(
     .AXI_SLV_PORT_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
@@ -787,8 +787,8 @@ module al_saqr
     .AXI_SLV_PORT_MAX_TXNS   ( 1                        ), // at most 4 host threads
     .CFG_AXI_ADDR_WIDTH      ( AXI_LITE_AW              ),
     .CFG_AXI_DATA_WIDTH      ( AXI_LITE_DW              ),
-    .L1_NUM_ENTRIES          ( ENTRIES ), //ariane_soc::NrSlaves     ),
-    .L1_CUT_AX               ( ariane_soc::NrSlaves     )
+    .L1_NUM_ENTRIES          ( ENTRIES                  ), 
+    .L1_CUT_AX               ( 1                        )
   ) i_h2c_tlb                (
   .clk_i                     ( s_soc_clk                ),
   .rst_ni                    ( s_soc_rst_n              ),
