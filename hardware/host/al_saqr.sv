@@ -722,7 +722,7 @@ module al_saqr
     assign c2h_tlb_cfg_resp.r.data   = '0;
     assign c2h_tlb_cfg_resp.r.resp   = '0;
     assign c2h_tlb_cfg_resp.r_valid  = '0;
-    assign c2h_tlb_cfg_resp.r_ready  = '0;
+    //assign c2h_tlb_cfg_resp.r_ready  = '0;
 
   `AXI_LITE_ASSIGN_TO_REQ    ( h2c_tlb_cfg_lite_req, tlb_cfg_lite_master   )
   `AXI_LITE_ASSIGN_FROM_RESP ( tlb_cfg_lite_master , h2c_tlb_cfg_lite_resp )

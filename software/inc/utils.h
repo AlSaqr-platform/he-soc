@@ -46,13 +46,13 @@ void set_flls() {
 }
 
 void h2c_tlb_cfg () {
-  pulp_write32(0x50000000, 0x0000); // First virtual address ->
-  pulp_write32(0x50000004, 0x0000); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
-  pulp_write32(0x50000008, 0xFFFF); // Last virtual address ->
-  pulp_write32(0x5000000C, 0xFFFF); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
-  pulp_write32(0x50000010, 0x0000); // Physical base address
-  pulp_write32(0x50000014, 0x0000); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
-  pulp_write32(0x50000018, 0x7   ); // Flags
+  pulp_write32(0x50000000, 0x00000000); // First virtual address ->
+  pulp_write32(0x50000004, 0x80000000); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
+  pulp_write32(0x50000008, 0xFFFFFFFF); // Last virtual address ->
+  pulp_write32(0x5000000C, 0xFFFFFFFF); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
+  pulp_write32(0x50000010, 0x00000000); // Physical base address
+  pulp_write32(0x50000014, 0x00000000); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
+  pulp_write32(0x50000018, 0x00000007); // Flags
 }
 
 // Cluster to Host TLB config (mapped at 0x0000_0000_5000_1000)
@@ -63,5 +63,5 @@ void c2h_tlb_cfg () {
   pulp_write32(0x5000100C, 0xFFFFFFFF); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
   pulp_write32(0x50001010, 0x10000000); // Physical base address
   pulp_write32(0x50001014, 0x00000000); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
-  pulp_write32(0x50001018, 0x7       ); // Flags
+  pulp_write32(0x50001018, 0x00000007); // Flags
 }
