@@ -81,8 +81,6 @@ module host_domain
   // SoC to cluster AXI
   AXI_BUS.Master              cluster_axi_master,
   AXI_BUS.Slave               cluster_axi_slave,
-  // TLB Master (C2H)
-  AXI_BUS.Slave               tlb_slave,
   // TLB Config
   AXI_LITE.Master             tlb_cfg_lite_master,
   // SPIM
@@ -225,8 +223,7 @@ module host_domain
         .cluster_axi_slave    ( cluster_axi_slave    ),
         .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
         .cva6_uart_tx_o       ( cva6_uart_tx_o       ),
-        .tlb_cfg_master       ( tlb_cfg_data64       ),
-        .tlb_slave            ( tlb_slave            )
+        .tlb_cfg_master       ( tlb_cfg_data64       )
     );
 
   /*************************************************************************************************************/

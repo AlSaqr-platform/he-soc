@@ -62,6 +62,6 @@ void c2h_tlb_cfg () {
   pulp_write32(0x50001008, 0xFFFFFFFF); // Last virtual address ->
   pulp_write32(0x5000100C, 0xFFFFFFFF); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
   pulp_write32(0x50001010, 0x00000000); // Physical base address
-  pulp_write32(0x50001014, 0x00000000); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
+  pulp_write32(0x50001014, 0x10000000); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
   pulp_write32(0x50001018, 0x00000007); // Flags
 }

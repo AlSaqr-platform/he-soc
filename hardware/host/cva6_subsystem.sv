@@ -61,7 +61,6 @@ module cva6_subsystem
   output logic            cva6_uart_tx_o,  
   // TLB BUSes start here
   AXI_BUS.Master          tlb_cfg_master,
-  AXI_BUS.Slave           tlb_slave,
   // TLB BUSes end here 
   AXI_BUS.Master          l2_axi_master,
   AXI_BUS.Master          apb_axi_master,
@@ -524,11 +523,6 @@ module cva6_subsystem
   /************************************************************************************************************/
   /*                                         AXI INTF FOR TLBs: START                                         */
   /************************************************************************************************************/ 
-
-  // --------------------
-  // AXI TLB Master (C2H)
-  // --------------------  
-  `AXI_ASSIGN(slave[3], tlb_slave)
 
   // --------------------
   // AXI TLB Slave (CFG)

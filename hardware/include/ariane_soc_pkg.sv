@@ -17,7 +17,7 @@ package ariane_soc;
   localparam int unsigned NumSources = 255;
   localparam int unsigned MaxPriority = 7;
 
-  localparam NrSlaves = 4; // actually masters, but slaves on the crossbar: Debug module, CVA6, Cluster, TLB (C2H)
+  localparam NrSlaves = 3; // actually masters, but slaves on the crossbar: Debug module, CVA6, Cluster
 
    
   typedef struct packed {
