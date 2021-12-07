@@ -17,9 +17,7 @@ module alsaqr_clk_rst_gen (
     input  logic        test_mode_i,
     input  logic        sel_fll_clk_i,
     input  logic        shift_enable_i,
-    FLL_BUS.Slave       soc_fll_slave,
-    FLL_BUS.Slave       per_fll_slave,
-    FLL_BUS.Slave       cluster_fll_slave,
+    FLL_BUS.in          fll_intf,
     output logic        rstn_soc_sync_o,
     output logic        rstn_global_sync_o,
     output logic        rstn_cluster_sync_o,
@@ -43,6 +41,8 @@ module alsaqr_clk_rst_gen (
     logic s_rst_glob_sync;
     logic s_rstn_cluster_sync;
 
+    logic [3:0] s_clk;
+   
 
     // currently, FLLs are not supported for FPGA emulation
     `ifndef FPGA_EMUL
@@ -51,73 +51,31 @@ module alsaqr_clk_rst_gen (
     freq_meter #(.FLL_NAME("PER_FLL"),     .MAX_SAMPLE(4096)) PER_METER (.clk(s_clk_fll_per));
     freq_meter #(.FLL_NAME("CLUSTER_FLL"), .MAX_SAMPLE(4096)) CLUSTER_METER (.clk(s_clk_fll_cluster));
     //synopsys translate_on
-
-        gf22_FLL i_fll_soc
-        (
-            .FLLCLK ( s_clk_fll_soc            ),
-            .FLLOE  ( 1'b1                     ),
-            .REFCLK ( ref_clk_i                ),
-            .LOCK   ( soc_fll_slave.lock       ),
-            .CFGREQ ( soc_fll_slave.req        ),
-            .CFGACK ( soc_fll_slave.ack        ),
-            .CFGAD  ( soc_fll_slave.add[1:0]   ),
-            .CFGD   ( soc_fll_slave.data       ),
-            .CFGQ   ( soc_fll_slave.r_data     ),
-            .CFGWEB ( soc_fll_slave.wrn        ),
-            .RSTB   ( rstn_glob_i              ),
-            .PWD    ( 1'b0                     ),
-            .RET    ( 1'b0                     ),
-            .TM     ( test_mode_i              ),
-            .TE     ( shift_enable_i           ),
-            .TD     ( 1'b0                     ), //TO FIX DFT
-            .TQ     (                          ), //TO FIX DFT
-            .JTD    ( 1'b0                     ), //TO FIX DFT
-            .JTQ    (                          )  //TO FIX DFT
+    gf22_FLL i_gf22_fll (
+        // Clock & reset
+        .OUTCLK(s_clk), // FLL clock outputs
+        .REFCLK(ref_clk_i), // Reference clock input
+        .RSTB(rstn_glob_i),   // Asynchronous reset (active low)
+        .CFGREQ(fll_intf.req), // CFG I/F access request (active high)
+        .CFGACK(fll_intf.ack), // CFG I/F access granted (active high)
+        .CFGAD(fll_intf.addr),  // CFG I/F address bus
+        .CFGD(fll_intf.wdata),   // CFG I/F input data bus (write)
+        .CFGQ(fll_intf.rdata),   // CFG I/F output data bus (read)
+        .CFGWEB(fll_intf.web), // CFG I/F write enable (active low)
+        .PWD(1'b0),   // Asynchronous power down (active high)
+        .RET(1'b0),    // Asynchronous retention/isolation control (active high)
+        .TM(1'b0),     // Test mode (active high)
+        .TE(1'b0),     // Scan enable (active high)
+        .TD('0),     // Scan data input for chain 1:4
+        .TQ(),     // Scan data output for chain 1:4
+        .JTD(1'b0),    // Scan data in 5
+        .JTQ()     // Scan data out 5
         );
 
-        gf22_FLL i_fll_per (
-            .FLLCLK ( s_clk_fll_per            ),
-            .FLLOE  ( 1'b1                     ),
-            .REFCLK ( ref_clk_i                ),
-            .LOCK   ( per_fll_slave.lock       ),
-            .CFGREQ ( per_fll_slave.req        ),
-            .CFGACK ( per_fll_slave.ack        ),
-            .CFGAD  ( per_fll_slave.add[1:0]   ),
-            .CFGD   ( per_fll_slave.data       ),
-            .CFGQ   ( per_fll_slave.r_data     ),
-            .CFGWEB ( per_fll_slave.wrn        ),
-            .RSTB   ( rstn_glob_i              ),
-            .PWD    ( 1'b0                     ),
-            .RET    ( 1'b0                     ),
-            .TM     ( test_mode_i              ),
-            .TE     ( shift_enable_i           ),
-            .TD     ( 1'b0                     ), //TO FIX DFT
-            .TQ     (                          ), //TO FIX DFT
-            .JTD    ( 1'b0                     ), //TO FIX DFT
-            .JTQ    (                          )  //TO FIX DFT
-        );
-
-        gf22_FLL i_fll_cluster (
-            .FLLCLK ( s_clk_fll_cluster            ),
-            .FLLOE  ( 1'b1                         ),
-            .REFCLK ( ref_clk_i                    ),
-            .LOCK   ( cluster_fll_slave.lock       ),
-            .CFGREQ ( cluster_fll_slave.req        ),
-            .CFGACK ( cluster_fll_slave.ack        ),
-            .CFGAD  ( cluster_fll_slave.add[1:0]   ),
-            .CFGD   ( cluster_fll_slave.data       ),
-            .CFGQ   ( cluster_fll_slave.r_data     ),
-            .CFGWEB ( cluster_fll_slave.wrn        ),
-            .RSTB   ( rstn_glob_i                  ),
-            .PWD    ( 1'b0                         ),
-            .RET    ( 1'b0                         ),
-            .TM     ( test_mode_i                  ),
-            .TE     ( shift_enable_i               ),
-            .TD     ( 1'b0                         ), //TO FIX DFT
-            .TQ     (                              ), //TO FIX DFT
-            .JTD    ( 1'b0                         ), //TO FIX DFT
-            .JTQ    (                              )  //TO FIX DFT
-        );
+    assign s_clk_fll_soc     = s_clk[0];
+    assign s_clk_fll_per     = s_clk[1];
+    assign s_clk_fll_cluster = s_clk[2];
+   
 
     tc_clk_mux2 clk_mux_fll_soc_i (
                 .clk0_i    ( s_clk_fll_soc  ),
@@ -179,27 +137,12 @@ module alsaqr_clk_rst_gen (
                         .soc_clk_o(s_clk_fll_soc),
                         .per_clk_o(s_clk_fll_per),
                         .cluster_clk_o(s_clk_cluster),
-                        .soc_cfg_lock_o(soc_fll_slave.lock),
-                        .soc_cfg_req_i(soc_fll_slave.req),
-                        .soc_cfg_ack_o(soc_fll_slave.ack),
-                        .soc_cfg_add_i(soc_fll_slave.add),
-                        .soc_cfg_data_i(soc_fll_slave.data),
-                        .soc_cfg_r_data_o(soc_fll_slave.r_data),
-                        .soc_cfg_wrn_i(soc_fll_slave.wrn),
-                        .per_cfg_lock_o(per_fll_slave.lock),
-                        .per_cfg_req_i(per_fll_slave.req),
-                        .per_cfg_ack_o(per_fll_slave.ack),
-                        .per_cfg_add_i(per_fll_slave.add),
-                        .per_cfg_data_i(per_fll_slave.data),
-                        .per_cfg_r_data_o(per_fll_slave.r_data),
-                        .per_cfg_wrn_i(per_fll_slave.wrn),
-                        .cluster_cfg_lock_o(cluster_fll_slave.lock),
-                        .cluster_cfg_req_i(cluster_fll_slave.req),
-                        .cluster_cfg_ack_o(cluster_fll_slave.ack),
-                        .cluster_cfg_add_i(cluster_fll_slave.add),
-                        .cluster_cfg_data_i(cluster_fll_slave.data),
-                        .cluster_cfg_r_data_o(cluster_fll_slave.r_data),
-                        .cluster_cfg_wrn_i(cluster_fll_slave.wrn)
+                        .cfg_req_i(fll_intf.req),
+                        .cfg_ack_o(fll_intf.ack),
+                        .cfg_add_i(fll_intf.addr),
+                        .cfg_data_i(fll_intf.wdata),
+                        .cfg_r_data_o(fll_intf.rdata),
+                        .cfg_wrn_i(fll_intf.web)
                         );
 
     assign s_clk_soc     = s_clk_fll_soc;
@@ -220,8 +163,8 @@ module alsaqr_clk_rst_gen (
     assign clk_per_o       = s_clk_per;
     assign clk_cluster_o   = s_clk_cluster;
 
-    assign rstn_soc_sync_o = s_rstn_soc_sync;
-    assign rstn_global_sync_o = s_rst_glob_sync;   
+    assign rstn_soc_sync_o     = s_rstn_soc_sync;
+    assign rstn_global_sync_o  = s_rst_glob_sync;   
     assign rstn_cluster_sync_o = s_rstn_cluster_sync;
 
     `ifdef DO_NOT_USE_FLL

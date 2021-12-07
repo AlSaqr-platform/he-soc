@@ -38,6 +38,7 @@ module pad_frame
 
      output logic        ref_clk_o,
      output logic        rstn_o,
+     output logic        bypass_o,
      output logic        jtag_tck_o,
      output logic        jtag_tdi_o,
      input logic         jtag_tdo_i,
@@ -50,6 +51,8 @@ module pad_frame
      inout wire          pad_jtag_tdo,
      inout wire          pad_jtag_tms,
      inout wire          pad_jtag_trst,
+
+     inout wire          pad_bypass,
      inout wire          pad_xtal_in
 
      );
@@ -90,6 +93,7 @@ module pad_frame
    
 `ifndef FPGA_EMUL  
 
+    pad_functional_pu padinst_bypass_clk (.OEN(1'b1            ), .I(                ), .O(bypass_o       ), .PAD(pad_bypass    ), .PEN(1'b1             ) );   
     pad_functional_pu padinst_ref_clk    (.OEN(1'b1            ), .I(                ), .O(ref_clk_o      ), .PAD(pad_xtal_in   ), .PEN(1'b1             ) );
     pad_functional_pu padinst_reset_n    (.OEN(1'b1            ), .I(                ), .O(rstn_o         ), .PAD(pad_reset_n   ), .PEN(1'b1             ) );
     pad_functional_pu padinst_jtag_tck   (.OEN(1'b1            ), .I(                ), .O(jtag_tck_o     ), .PAD(pad_jtag_tck  ), .PEN(1'b1             ) );
@@ -101,7 +105,7 @@ module pad_frame
 `else
     assign ref_clk_o = pad_xtal_in;
     assign rstn_o = pad_reset_n;
-    
+    assign bypass_o = pad_bypass;    
     //JTAG signals
     assign pad_jtag_tdo = jtag_tdo_i;
     assign jtag_trst_o = pad_jtag_trst;

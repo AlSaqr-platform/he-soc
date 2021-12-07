@@ -19,20 +19,20 @@ module periph_bus_wrap
 ) (
     input logic    clk_i,
     input logic    rst_ni,
-    APB_BUS.Slave  apb_slave,
-    APB_BUS.Master udma_master,
-    APB_BUS.Master gpio_master,
-    APB_BUS.Master fll_master,
-    APB_BUS.Master hyaxicfg_master,
-    APB_BUS.Master advtimer_master,
-    APB_BUS.Master padframe_master,
-    APB_BUS.Master socctrl_master
+    APB.Slave  apb_slave,
+    APB.Master udma_master,
+    APB.Master gpio_master,
+    APB.Master fll_master,
+    APB.Master hyaxicfg_master,
+    APB.Master advtimer_master,
+    APB.Master padframe_master,
+    APB.Master socctrl_master
 );
 
-    APB_BUS
+    APB
     #(
-        .APB_ADDR_WIDTH( APB_ADDR_WIDTH ),
-        .APB_DATA_WIDTH( APB_DATA_WIDTH )
+        .ADDR_WIDTH( APB_ADDR_WIDTH ),
+        .DATA_WIDTH( APB_DATA_WIDTH )
     )
     s_masters[apb_soc_pkg::NUM_APB_SLAVES-1:0]();
 

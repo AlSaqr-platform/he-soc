@@ -41,6 +41,7 @@ module host_domain
 ) (
   input logic                 rtc_i,
   input logic                 rst_ni,
+  input logic                 bypass_clk_i,
   output logic                soc_clk_o,
   output logic                soc_rst_no,
   output logic                clk_cluster_o,
@@ -234,6 +235,7 @@ module host_domain
       .clk_i                  ( s_soc_clk                      ),
       .rtc_i                  ( rtc_i                          ),
       .rst_ni                 ( rst_ni                         ),
+      .bypass_clk_i           ( bypass_clk_i                   ),  
       .rst_dm_i               ( s_dm_rst                       ),
       .clk_soc_o              ( s_soc_clk                      ),
       .rstn_soc_sync_o        ( s_synch_soc_rst                ),

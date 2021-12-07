@@ -38,8 +38,12 @@ module ariane_tb;
     logic clk_i;
     logic rst_ni;
     logic rtc_i;
+    wire  s_rst_ni;
+    wire  s_rtc_i;
+    wire s_bypass;
     logic rst_DTM;
 
+   
     localparam ENABLE_DM_TESTS = 0;
    
     parameter  USE_HYPER_MODELS     = 1;
@@ -286,6 +290,9 @@ module ariane_tb;
   assign pad_periphs_pad_gpio_b_38_pad = pad_periphs_pad_gpio_b_06_pad;
   assign pad_periphs_pad_gpio_b_39_pad = pad_periphs_pad_gpio_b_07_pad;
    
+  assign s_bypass=1'b0;
+  assign s_rst_ni=rst_ni;
+  assign s_rtc_i=rtc_i;
 
   assign exit_o              = (jtag_enable[0]) ? s_jtag_exit          : s_dmi_exit;
 
@@ -340,8 +347,9 @@ module ariane_tb;
         .StallRandomInput  ( 1'b1                        ),
         .JtagEnable        ( jtag_enable[0] | LOCAL_JTAG )
     ) dut (
-        .rst_ni,
-        .rtc_i,
+        .rst_ni               ( s_rst_ni               ),
+        .rtc_i                ( s_rtc_i                ),
+        .bypass_clk_i         ( s_bypass               ),
         .dmi_req_valid        ( s_dmi_req_valid        ),
         .dmi_req_ready        ( s_dmi_req_ready        ),
         .dmi_req_bits_addr    ( s_dmi_req_bits_addr    ),
@@ -682,35 +690,33 @@ module ariane_tb;
 
     // Clock process
     initial begin
-        clk_i = 1'b0;
         rst_ni = 1'b0;
         rst_DTM = 1'b0;
         jtag_mst.trst_n = 1'b0;
        
-        repeat(8)
-            #(CLOCK_PERIOD/2) clk_i = ~clk_i;
+        repeat(2)
+            @(posedge rtc_i);
         rst_ni = 1'b1;
-        repeat(200)
-           #(CLOCK_PERIOD/2) clk_i = ~clk_i;
+        repeat(20)
+            @(posedge rtc_i);
         rst_DTM = 1'b1;
         jtag_mst.trst_n = 1'b1;       
         forever begin
-            #(CLOCK_PERIOD/2) clk_i = 1'b1;
-            #(CLOCK_PERIOD/2) clk_i = 1'b0;
-
+            @(posedge clk_i);
             cycles++;
         end
     end
 
     initial begin
         forever begin
-            rtc_i = 1'b1;
-            #(RTC_CLOCK_PERIOD/2) rtc_i = 1'b0;
+            rtc_i = 1'b0;
             #(RTC_CLOCK_PERIOD/2) rtc_i = 1'b1;
+            #(RTC_CLOCK_PERIOD/2) rtc_i = 1'b0;
         end
     end
    
-
+   assign clk_i = dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o;
+   
    assign s_tck = clk_i;
    
     initial begin

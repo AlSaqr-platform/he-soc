@@ -20,7 +20,7 @@ module apb_soc_control
 ) (
     input logic    clk_i,
     input logic    rst_ni,
-    APB_BUS.Slave  apb_slave,
+    APB.Slave      apb_slave,
     output logic   cluster_ctrl_rstn_o,
     output logic   cluster_en_sa_boot_o,
     output logic   cluster_fetch_en_o

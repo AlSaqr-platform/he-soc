@@ -12,7 +12,7 @@ dependencies:
   fpnew: { git: "https://github.com/pulp-platform/fpnew.git", version: 0.6.5 }
   tcdm_interconnect: { git: "https://github.com/pulp-platform/cluster_interconnect.git", version: "1.1.2" }
   axi2tcdm: { git: "https://github.com/AlSaqr-platform/axi2mem.git", rev: "master" }
-  apb:  { git: "https://github.com/pulp-platform/apb.git", version:  0.1.0 }
+  apb: { git: "https://github.com/pulp-platform/apb.git", version: 0.2.1 }
   udma_core: { git: "https://github.com/Alsaqr-platform/udma_core.git", version: 2.0.0 }
   udma_uart: { git: "https://github.com/Alsaqr-platform/udma_uart.git", rev: "28fe46e2571679762d759890007d11721e89c308" }
   udma_i2c: { git: "https://github.com/Alsaqr-platform/udma_i2c.git", rev: "a0713d439e11b3b85f0071dc6b59d9fb758633ca" }
@@ -22,12 +22,12 @@ dependencies:
   udma_filter: { git: "https://github.com/Alsaqr-platform/udma_filter.git", rev: "3e1fe269bcb70a7eef115ca8dc7e668229f04b46" }
   udma_external_per: { git: "https://github.com/Alsaqr-platform/udma_external_per.git", rev: "2b43a6a5b1c6d11dc7a6a6ada5233682adb76447" }
   tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.7 }
-  apb_node: { git: "https://github.com/pulp-platform/apb_node.git", version: 0.1.1 }
+  apb_node: { git: "https://github.com/pulp-platform/apb_node.git", rev: "d436ab3dad8260eadc1288bdc543c79b4d7462c7" }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "0e9f142f2f11278445c953ad011fce1c7ed85b66" }
   hyperbus: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/hyperbus.git", rev: "290e16c8afbc1c918a8d6fc15a3d498bd4730d8c" }
   register_interface:  { git: "https://github.com/pulp-platform/register_interface.git", version: 0.3.1  }
-  apb_fll_if: { git: "https://github.com/pulp-platform/apb_fll_if.git", version: 0.1.3 }
-  generic_FLL: { git: "https://github.com/pulp-platform/generic_FLL.git", rev: "1c92dc73a940392182fd4cb7b86f35649b349595" }
+  apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", rev: "54a322db93ed65555173775a3a4cd1ddd43709a5" }
+  fll_behav: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/fll_behav.git", rev: "8c531bc20b93c6d73d9fddbb04b390c05abce8b1" }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "487dcd03253985be93bd060196fed5ce3dc56028" }
 
@@ -49,7 +49,6 @@ sources:
   - ../fpga/src/axi2apb/src/axi2apb_64_32.sv
   - ../fpga/src/axi2apb/src/axi2apb_wrap.sv
   - host/periph_bus_wrap.sv
-  - host/apb_fll_wrap.sv
   - host/freqmeter.sv
   - host/alsaqr_clk_rst_gen.sv
   - host/apb_soc_control.sv

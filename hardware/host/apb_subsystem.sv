@@ -28,6 +28,7 @@ module apb_subsystem
 ) (
     input logic                 clk_i,
     input logic                 rst_ni,
+    input logic                 bypass_clk_i,
     input logic                 rtc_i,
     input logic                 rst_dm_i,
     output logic                rstn_soc_sync_o,
@@ -83,61 +84,50 @@ module apb_subsystem
    assign rstn_soc_sync_o = s_rstn_soc_sync;
    assign rstn_cluster_sync_o = s_rstn_cluster_sync && s_cluster_ctrl_rstn;
    
-   APB_BUS  #(
-               .APB_ADDR_WIDTH(32),
-               .APB_DATA_WIDTH(32)
+   APB  #(
+               .ADDR_WIDTH(32),
+               .DATA_WIDTH(32)
    ) apb_peripheral_master_bus();
 
-   APB_BUS  #(
-               .APB_ADDR_WIDTH(32),
-               .APB_DATA_WIDTH(32)
+   APB  #(
+               .ADDR_WIDTH(32),
+               .DATA_WIDTH(32)
    ) apb_udma_master_bus();
 
-   APB_BUS  #(
-               .APB_ADDR_WIDTH(32),
-               .APB_DATA_WIDTH(32)
+   APB  #(
+               .ADDR_WIDTH(32),
+               .DATA_WIDTH(32)
    ) apb_gpio_master_bus();
   
-   APB_BUS  #(
-               .APB_ADDR_WIDTH(32),
-               .APB_DATA_WIDTH(32)
+   APB  #(
+               .ADDR_WIDTH(32),
+               .DATA_WIDTH(32)
    ) apb_fll_master_bus();
 
-   APB_BUS  #(
-               .APB_ADDR_WIDTH(32),
-               .APB_DATA_WIDTH(32)
+   APB  #(
+               .ADDR_WIDTH(32),
+               .DATA_WIDTH(32)
    ) apb_hyaxicfg_master_bus ();
 
-   APB_BUS  #(
-               .APB_ADDR_WIDTH(32),
-               .APB_DATA_WIDTH(32)
+   APB  #(
+               .ADDR_WIDTH(32),
+               .DATA_WIDTH(32)
    ) apb_advtimer_master_bus();
    
-   APB_BUS  #(
-               .APB_ADDR_WIDTH(32),
-               .APB_DATA_WIDTH(32)
+   APB  #(
+               .ADDR_WIDTH(32),
+               .DATA_WIDTH(32)
    ) apb_padframe_master_bus();
    
-   APB_BUS  #(
-               .APB_ADDR_WIDTH(32),
-               .APB_DATA_WIDTH(32)
+   APB  #(
+               .ADDR_WIDTH(32),
+               .DATA_WIDTH(32)
    ) apb_socctrl_master_bus();
 
-   FLL_BUS  #(
-               .FLL_ADDR_WIDTH( 2),
-               .FLL_DATA_WIDTH(32)
-   ) soc_fll_bus();
+   FLL_BUS fll_master_bus(
+                          .clk_i(s_soc_clk)
+                          );
    
-   FLL_BUS  #(
-               .FLL_ADDR_WIDTH( 2),
-               .FLL_DATA_WIDTH(32)
-   ) per_fll_bus();
-   
-   FLL_BUS  #(
-               .FLL_ADDR_WIDTH( 2),
-               .FLL_DATA_WIDTH(32)
-   ) cluster_fll_bus();
-
    REG_BUS #(
         .ADDR_WIDTH( 32 ),
         .DATA_WIDTH( 32 )
@@ -288,15 +278,13 @@ module apb_subsystem
 
 
 
-    apb_fll_if_wrap #(
+    apb_to_fll #(
         .APB_ADDR_WIDTH (32)
     ) i_apb_fll (
-       .clk_i              ( clk_soc_o          ),
-       .rst_ni             ( s_rstn_soc_sync    ),
-       .apb_fll_slave      ( apb_fll_master_bus ),
-       .soc_fll_master     ( soc_fll_bus        ),
-       .per_fll_master     ( per_fll_bus        ),
-       .cluster_fll_master ( cluster_fll_bus    )
+       .clk_i    ( clk_soc_o          ),
+       .rst_ni   ( s_rstn_soc_sync    ),
+       .apb      ( apb_fll_master_bus ),
+       .fll_intf ( fll_master_bus     )
     );
 
     alsaqr_clk_rst_gen i_alsaqr_clk_rst_gen   
@@ -306,11 +294,9 @@ module apb_subsystem
         .rst_dm_i           ( rst_dm_i            ),
         .test_clk_i         ( 1'b0                ),
         .test_mode_i        ( 1'b0                ),
-        .sel_fll_clk_i      ( 1'b0                ), 
+        .sel_fll_clk_i      ( bypass_clk_i        ), 
         .shift_enable_i     ( 1'b0                ),               
-        .soc_fll_slave      ( soc_fll_bus         ),
-        .per_fll_slave      ( per_fll_bus         ),
-        .cluster_fll_slave  ( cluster_fll_bus     ),
+        .fll_intf           ( fll_master_bus      ),
         .rstn_soc_sync_o    ( s_rstn_soc_sync     ),
         .rstn_global_sync_o ( rstn_global_sync_o  ), 
         .rstn_cluster_sync_o( s_rstn_cluster_sync ),
