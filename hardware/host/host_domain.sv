@@ -48,7 +48,9 @@ module host_domain
   output logic                rstn_cluster_sync_o,
   output logic                cluster_en_sa_boot_o,
   output logic                cluster_fetch_en_o,
-
+  output logic                dma_pe_evt_ack_o,
+  input  logic                dma_pe_evt_valid_i,
+                                        
   REG_BUS.out                 padframecfg_reg_master,
   // CVA6 DEBUG UART
   input logic                 cva6_uart_rx_i,
@@ -123,16 +125,19 @@ module host_domain
    logic                                 s_soc_clk;
    logic                                 s_synch_soc_rst;
    logic                                 s_synch_global_rst;
+   logic                                 s_rstn_cluster_sync;
    logic                                 s_dm_rst;
    logic                                 ndmreset_n;
-   logic [33*4-1:0]                      s_udma_events;
+   logic [31*4-1:0]                      s_udma_events;
+   logic                                 s_dma_pe_evt;
 
    logic                                 phy_clk;
    logic                                 phy_clk_90;
    
    assign   soc_clk_o  = s_soc_clk;
    assign   soc_rst_no = s_synch_soc_rst;
-
+   assign   rstn_cluster_sync_o = s_rstn_cluster_sync;
+   
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -187,6 +192,7 @@ module host_domain
         .jtag_TDO_driven,
         .sync_rst_ni          ( s_synch_soc_rst      ),
         .udma_events_i        ( s_udma_events        ),
+        .cl_dma_pe_evt_i      ( s_dma_pe_evt         ),
         .dm_rst_o             ( s_dm_rst             ),
         .l2_axi_master        ( l2_axi_bus           ),
         .apb_axi_master       ( apb_axi_bus          ),
@@ -223,8 +229,14 @@ module host_domain
       .axi_bridge_2_interconnect ( axi_bridge_2_interconnect ),
       .udma_tcdm_channels        ( udma_2_tcdm_channels      )
      );
-
-
+   
+    edge_propagator_rx ep_dma_pe_evt_i (
+        .clk_i   ( s_soc_clk               ),
+        .rstn_i  ( s_rstn_cluster_sync     ),
+        .valid_o ( s_dma_pe_evt            ),
+        .ack_o   ( dma_pe_evt_ack_o        ),
+        .valid_i ( dma_pe_evt_valid_i      )
+    );
    
    apb_subsystem #(
        .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
@@ -240,7 +252,7 @@ module host_domain
       .clk_soc_o              ( s_soc_clk                      ),
       .rstn_soc_sync_o        ( s_synch_soc_rst                ),
       .rstn_global_sync_o     ( s_synch_global_rst             ),
-      .rstn_cluster_sync_o    ( rstn_cluster_sync_o            ),
+      .rstn_cluster_sync_o    ( s_rstn_cluster_sync            ),
       .clk_cluster_o          ( clk_cluster_o                  ),
       .cluster_en_sa_boot_o   ( cluster_en_sa_boot_o           ),
       .cluster_fetch_en_o     ( cluster_fetch_en_o             ),

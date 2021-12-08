@@ -12,6 +12,7 @@
 // Date: 15/04/2017
 // Description: Top level testbench module. Instantiates the top level DUT, configures
 //              the virtual interfaces and starts the test passed by +UVM_TEST+
+//`define TEST_CLOCK_BYPASS
 
 `timescale 1ps/1ps
 
@@ -32,8 +33,12 @@ module ariane_tb;
     localparam int unsigned CLOCK_PERIOD   = 56832ps;
     localparam int unsigned REFClockPeriod = 56832ps;
     // toggle with RTC period
-    localparam int unsigned RTC_CLOCK_PERIOD = 30.517us;
-
+    `ifndef TEST_CLOCK_BYPASS
+      localparam int unsigned RTC_CLOCK_PERIOD = 30.517us;
+    `else 
+      localparam int unsigned RTC_CLOCK_PERIOD = 10ns;
+    `endif
+   
     localparam NUM_WORDS = 2**25;
     logic clk_i;
     logic rst_ni;
@@ -290,7 +295,12 @@ module ariane_tb;
   assign pad_periphs_pad_gpio_b_38_pad = pad_periphs_pad_gpio_b_06_pad;
   assign pad_periphs_pad_gpio_b_39_pad = pad_periphs_pad_gpio_b_07_pad;
    
-  assign s_bypass=1'b0;
+  `ifndef TEST_CLOCK_BYPASS
+    assign s_bypass=1'b0;
+  `else
+    assign s_bypass=1'b1;
+  `endif
+    
   assign s_rst_ni=rst_ni;
   assign s_rtc_i=rtc_i;
 

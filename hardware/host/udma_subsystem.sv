@@ -51,7 +51,7 @@ module udma_subsystem
     output logic                       udma_apb_pready,
     output logic                       udma_apb_pslverr,
 
-    output logic [33*4-1:0]            events_o,
+    output logic [31*4-1:0]            events_o,
 
     input logic                        event_valid_i,
     input logic [7:0]                  event_data_i,
@@ -102,6 +102,7 @@ module udma_subsystem
     localparam STREAM_ID_WIDTH   = 1;//$clog2(N_STREAMS)
 
     localparam N_PERIPHS = N_SPI + N_HYPER + N_UART + N_I2C + N_CAM + N_SDIO + N_FILTER + N_CH_HYPER*N_HYPER;  
+    localparam N_EVENTS  = N_SPI + N_HYPER + N_UART + N_I2C + N_CAM + N_SDIO + N_FILTER ;  
 
     // TX Channels
     localparam CH_ID_TX_UART    = 0;
@@ -205,7 +206,7 @@ module udma_subsystem
     logic [N_STREAMS-1:0]                             s_stream_eot;
     logic [N_STREAMS-1:0]                             s_stream_ready;
 
-    logic [N_PERIPHS*4-1:0] s_events;
+    logic [N_EVENTS*4-1:0] s_events;
 
     logic         [1:0] s_rf_event;
 
@@ -233,7 +234,7 @@ module udma_subsystem
     assign s_cam_evt     = 1'b0;
 
     assign events_o      = s_events;
-
+       
     assign L2_ro_wen_o   = 1'b1;
     assign L2_wo_wen_o   = 1'b0;
 

@@ -262,6 +262,9 @@ module al_saqr
 
   logic s_cva6_uart_rx_i;
   logic s_cva6_uart_tx_o;
+
+  logic s_dma_pe_evt_ack;
+  logic s_dma_pe_evt_valid;
    
   pad_to_hyper_t [HyperbusNumPhys-1:0] s_pad_to_hyper;
   hyper_to_pad_t [HyperbusNumPhys-1:0] s_hyper_to_pad;
@@ -343,6 +346,8 @@ module al_saqr
       .jtag_TDO_driven        (                                 ),
       .cluster_axi_master     ( soc_to_cluster_axi_bus          ),
       .cluster_axi_slave      ( cluster_to_soc_axi_bus          ),
+      .dma_pe_evt_ack_o       ( s_dma_pe_evt_ack                ),
+      .dma_pe_evt_valid_i     ( s_dma_pe_evt_valid              ),
       .soc_clk_o              ( s_soc_clk                       ),
       .soc_rst_no             ( s_soc_rst_n                     ),
       .rstn_cluster_sync_o    ( s_cluster_rst_n                 ),
@@ -509,23 +514,27 @@ module al_saqr
         
         .base_addr_i                  ( '0                           ),
        
-        .dma_pe_evt_ack_i             ( '0                           ),
-        .dma_pe_evt_valid_o           (                              ),
-        .dma_pe_irq_ack_i             ( '0                           ),
+        .dma_pe_evt_ack_i             ( s_dma_pe_evt_ack             ),
+        .dma_pe_evt_valid_o           ( s_dma_pe_evt_valid           ),
+
+        .dma_pe_irq_ack_i             ( 1'b1                         ),
         .dma_pe_irq_valid_o           (                              ),
+
         .dbg_irq_valid_i              ( '0                           ),
-        .pf_evt_ack_i                 ( '0                           ),
+
+        .pf_evt_ack_i                 ( 1'b1                         ),
         .pf_evt_valid_o               (                              ),
+
+        .async_cluster_events_wptr_i  ( '0  ),
+        .async_cluster_events_rptr_o  (     ),
+        .async_cluster_events_data_i  ( '0  ),
+
         .en_sa_boot_i                 ( s_cluster_en_sa_boot         ),
         .test_mode_i                  ( 1'b0                         ),
         .fetch_en_i                   ( s_cluster_fetch_en           ),
         .eoc_o                        (                              ),
         .busy_o                       (                              ),
         .cluster_id_i                 ( 6'b000000                    ),
-
-        .async_cluster_events_wptr_i  ( '0  ),
-        .async_cluster_events_rptr_o  (     ),
-        .async_cluster_events_data_i  ( '0  ),
 
         .async_data_master_aw_wptr_o  ( async_cluster_to_soc_axi_bus.aw_wptr  ),
         .async_data_master_aw_rptr_i  ( async_cluster_to_soc_axi_bus.aw_rptr  ),
@@ -558,7 +567,7 @@ module al_saqr
         .async_data_slave_b_wptr_o    ( async_soc_to_cluster_axi_bus.b_wptr   ),
         .async_data_slave_b_rptr_i    ( async_soc_to_cluster_axi_bus.b_rptr   ),
         .async_data_slave_b_data_o    ( async_soc_to_cluster_axi_bus.b_data   )
-   );   
+   );    
    
   `REG_BUS_ASSIGN_TO_REQ(reg_req,i_padframecfg_rbus)
   `REG_BUS_ASSIGN_FROM_RSP(i_padframecfg_rbus,reg_rsp)

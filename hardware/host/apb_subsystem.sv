@@ -44,7 +44,7 @@ module apb_subsystem
     XBAR_TCDM_BUS.Master        udma_tcdm_channels[1:0],
     REG_BUS.out                 padframecfg_reg_master,
 
-    output logic [33*4-1:0]     events_o,
+    output logic [31*4-1:0]     events_o,
 
     // SPIM
     output                      qspi_to_pad_t [N_SPI-1:0] qspi_to_pad,
