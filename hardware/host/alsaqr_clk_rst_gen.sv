@@ -14,30 +14,37 @@ module alsaqr_clk_rst_gen (
     input  logic        test_clk_i,
     input  logic        rstn_glob_i,
     input  logic        rst_dm_i,
+
     input  logic        test_mode_i,
     input  logic        sel_fll_clk_i,
     input  logic        shift_enable_i,
     FLL_BUS.in          fll_intf,
+
     output logic        rstn_soc_sync_o,
+    output logic        rstn_cva6_sync_o,
     output logic        rstn_global_sync_o,
     output logic        rstn_cluster_sync_o,
 
     output logic        clk_soc_o,
+    output logic        clk_cva6_o,
     output logic        clk_per_o,
     output logic        clk_cluster_o
 );
 
     logic s_clk_soc;
+    logic s_clk_cva6;
     logic s_clk_per;
     logic s_clk_cluster;
 
     logic s_clk_fll_soc;
+    logic s_clk_fll_cva6;
     logic s_clk_fll_per;
     logic s_clk_fll_cluster;
 
     logic s_rstn_soc;
 
     logic s_rstn_soc_sync;
+    logic s_rstn_cva6_sync;
     logic s_rst_glob_sync;
     logic s_rstn_cluster_sync;
 
@@ -72,10 +79,18 @@ module alsaqr_clk_rst_gen (
         .JTQ()     // Scan data out 5
         );
 
-    assign s_clk_fll_soc     = s_clk[0];
-    assign s_clk_fll_per     = s_clk[1];
-    assign s_clk_fll_cluster = s_clk[2];
+    assign s_clk_fll_cva6    = s_clk[0];
+    assign s_clk_fll_soc     = s_clk[1];
+    assign s_clk_fll_per     = s_clk[2];
+    assign s_clk_fll_cluster = s_clk[3];
    
+
+    tc_clk_mux2 clk_mux_fll_cva6_i (
+                .clk0_i    ( s_clk_fll_cva6 ),
+                .clk1_i    ( ref_clk_i      ),
+                .clk_sel_i ( sel_fll_clk_i  ),
+                .clk_o     ( s_clk_cva6     )
+                );
 
     tc_clk_mux2 clk_mux_fll_soc_i (
                 .clk0_i    ( s_clk_fll_soc  ),
@@ -98,8 +113,16 @@ module alsaqr_clk_rst_gen (
                 .clk_o     ( s_clk_cluster      )
                 );
 
+     rstgen i_cva6_rstgen (
+            .clk_i       ( s_clk_cva6               ),
+            .rst_ni      ( s_rstn_soc & (~rst_dm_i) ),
+            .test_mode_i ( test_mode_i              ),
+            .rst_no      ( s_rstn_cva6_sync         ), //to be used by logic clocked with ref clock in AO domain
+            .init_no     (                          )                    //not used
+        );
+   
      rstgen i_soc_rstgen (
-            .clk_i       ( clk_soc_o                ),
+            .clk_i       ( s_clk_soc                ),
             .rst_ni      ( s_rstn_soc & (~rst_dm_i) ),
             .test_mode_i ( test_mode_i              ),
             .rst_no      ( s_rstn_soc_sync          ), //to be used by logic clocked with ref clock in AO domain
@@ -107,7 +130,7 @@ module alsaqr_clk_rst_gen (
         );
 
      rstgen i_soc_dm_rstgen (
-            .clk_i       ( clk_soc_o                ),
+            .clk_i       ( s_clk_soc                ),
             .rst_ni      ( s_rstn_soc               ),
             .test_mode_i ( test_mode_i              ),
             .rst_no      ( s_rst_glob_sync          ), //to be used by logic clocked with ref clock in AO domain
@@ -115,7 +138,7 @@ module alsaqr_clk_rst_gen (
         );
    
      rstgen i_cluster_rstgen (
-            .clk_i       ( clk_cluster_o            ),
+            .clk_i       ( s_clk_cluster            ),
             .rst_ni      ( s_rstn_soc & (~rst_dm_i) ),
             .test_mode_i ( test_mode_i              ),
             .rst_no      ( s_rstn_cluster_sync      ), //to be used by logic clocked with ref clock in AO domain
@@ -158,12 +181,14 @@ module alsaqr_clk_rst_gen (
 
 
     assign s_rstn_soc = rstn_glob_i;
-   
+
+    assign clk_cva6_o      = s_clk_cva6;
     assign clk_soc_o       = s_clk_soc;
     assign clk_per_o       = s_clk_per;
     assign clk_cluster_o   = s_clk_cluster;
 
     assign rstn_soc_sync_o     = s_rstn_soc_sync;
+    assign rstn_cva6_sync_o    = s_rstn_cva6_sync;
     assign rstn_global_sync_o  = s_rst_glob_sync;   
     assign rstn_cluster_sync_o = s_rstn_cluster_sync;
 

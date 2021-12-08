@@ -15,7 +15,7 @@
 
 `include "axi/assign.svh"
 
-module cva6_subsytem 
+module cva6_subsystem 
   import axi_pkg::xbar_cfg_t;
 #(
   parameter int unsigned AXI_USER_WIDTH    = 1,
@@ -35,6 +35,8 @@ module cva6_subsytem
   input  logic            rtc_i,
   input  logic            rst_ni,
   input  logic            sync_rst_ni,
+  input  logic            cva6_clk_i,
+  input  logic            cva6_rst_ni,
   output logic            dm_rst_o,
   input  logic [31*4-1:0] udma_events_i,
   input  logic            cl_dma_pe_evt_i,
@@ -93,6 +95,13 @@ module cva6_subsytem
   assign test_en = 1'b0;
   assign jtag_enable = JtagEnable;
    
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
+  ) cva6_axi_master();
+
   AXI_BUS #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
@@ -594,18 +603,18 @@ module cva6_subsytem
   ariane #(
     .ArianeCfg  ( ariane_soc::ArianeSocCfg )
   ) i_ariane (
-    .clk_i                ( clk_i               ),
-    .rst_ni               ( ndmreset_n          ),
+    .clk_i                ( cva6_clk_i          ),
+    .rst_ni               ( cva6_rst_ni         ),
     .boot_addr_i          ( ariane_soc::ROMBase ), // start fetching from ROM
     .hart_id_i            ( '0                  ),
-    .irq_i                ( irqs                ),
-    .ipi_i                ( ipi                 ),
-    .time_irq_i           ( timer_irq           ),
+    .irq_i                ( irqs                ), // async signal
+    .ipi_i                ( ipi                 ), // async signal
+    .time_irq_i           ( timer_irq           ), // async signal
 // Disable Debug when simulating with Spike
 `ifdef SPIKE_TANDEM
-    .debug_req_i          ( 1'b0                ),
-`else
-    .debug_req_i          ( debug_req_core      ),
+    .debug_req_i          ( 1'b0                ), // async signal
+`else                                              
+    .debug_req_i          ( debug_req_core      ), // async signal
 `endif
     .axi_req_o            ( axi_ariane_req      ),
     .axi_resp_i           ( axi_ariane_resp     )
@@ -614,8 +623,23 @@ module cva6_subsytem
   axi_master_connect i_axi_master_connect_ariane (
     .axi_req_i(axi_ariane_req),
     .axi_resp_o(axi_ariane_resp),
-    .master(slave[0])
+    .master(cva6_axi_master)
   );
+
+  axi_cdc_intf #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
+    ) cva6_to_xbar (
+      .src_clk_i(cva6_clk_i),
+      .src_rst_ni(cva6_rst_ni),
+      .src(cva6_axi_master),
+      .dst_clk_i(clk_i),
+      .dst_rst_ni(ndmreset_n),
+      .dst(slave[0])
+      );
+   
 
   // -------------
   // Simulation Helper Functions

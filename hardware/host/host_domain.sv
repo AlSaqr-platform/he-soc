@@ -121,7 +121,8 @@ module host_domain
 
    localparam NB_UDMA_TCDM_CHANNEL = 2;
 
-   
+   logic                                 s_clk_cva6;
+   logic                                 s_rstn_cva6_sync;
    logic                                 s_soc_clk;
    logic                                 s_synch_soc_rst;
    logic                                 s_synch_global_rst;
@@ -165,7 +166,7 @@ module host_domain
    XBAR_TCDM_BUS udma_2_tcdm_channels[NB_UDMA_TCDM_CHANNEL]();
   
  
-   cva6_subsytem # (
+   cva6_subsystem # (
         .NUM_WORDS         ( NUM_WORDS  ),
         .InclSimDTM        ( 1'b1       ),
         .StallRandomOutput ( 1'b1       ),
@@ -174,6 +175,8 @@ module host_domain
    ) i_cva_subsystem (
         .clk_i(s_soc_clk),
         .rst_ni(s_synch_global_rst),
+        .cva6_clk_i(s_clk_cva6),
+        .cva6_rst_ni(s_rstn_cva6_sync),
         .rtc_i,
         .dmi_req_valid,
         .dmi_req_ready,
@@ -249,9 +252,11 @@ module host_domain
       .rst_ni                 ( rst_ni                         ),
       .bypass_clk_i           ( bypass_clk_i                   ),  
       .rst_dm_i               ( s_dm_rst                       ),
+      .clk_cva6_o             ( s_clk_cva6                     ),
       .clk_soc_o              ( s_soc_clk                      ),
       .rstn_soc_sync_o        ( s_synch_soc_rst                ),
       .rstn_global_sync_o     ( s_synch_global_rst             ),
+      .rstn_cva6_sync_o       ( s_rstn_cva6_sync               ),
       .rstn_cluster_sync_o    ( s_rstn_cluster_sync            ),
       .clk_cluster_o          ( clk_cluster_o                  ),
       .cluster_en_sa_boot_o   ( cluster_en_sa_boot_o           ),

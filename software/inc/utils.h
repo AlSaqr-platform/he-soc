@@ -18,6 +18,11 @@ void set_flls() {
   int data;
   int addr;
 
+  // set clk_div to 2 for clk[2:0]
+  addr = 0x1A10002C;
+  data = 0x00020202;
+  pulp_write32(addr, data);
+
   // set up fll 0 to output 200MHz
   addr = 0x1A100010;
   data = 0x25C350;
