@@ -15,7 +15,7 @@
 
 `include "axi/assign.svh"
 
-module cva6_subsytem 
+module cva6_subsystem 
   import axi_pkg::xbar_cfg_t;
 #(
   parameter int unsigned AXI_USER_WIDTH    = 1,
@@ -35,9 +35,11 @@ module cva6_subsytem
   input  logic            rtc_i,
   input  logic            rst_ni,
   input  logic            sync_rst_ni,
+  input  logic            cva6_clk_i,
+  input  logic            cva6_rst_ni,
   output logic            dm_rst_o,
-  input  logic [33*4-1:0] udma_events_i,
-  // FROM SimDTM
+  input  logic [31*4-1:0] udma_events_i,
+  input  logic            cl_dma_pe_evt_i,
   input  logic            dmi_req_valid,
   output logic            dmi_req_ready,
   input  logic [ 6:0]     dmi_req_bits_addr,
@@ -59,8 +61,7 @@ module cva6_subsytem
   output logic            cva6_uart_tx_o,   
   AXI_BUS.Master          l2_axi_master,
   AXI_BUS.Master          apb_axi_master,
-  AXI_BUS.Master          hyper0_axi_master,
-  AXI_BUS.Master          hyper1_axi_master,
+  AXI_BUS.Master          hyper_axi_master,
   AXI_BUS.Master          cluster_axi_master,
   AXI_BUS.Slave           cluster_axi_slave
 );
@@ -99,6 +100,13 @@ module cva6_subsytem
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
     .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
+  ) cva6_axi_master();
+
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
   ) slave[ariane_soc::NrSlaves-1:0]();
 
   AXI_BUS #(
@@ -113,15 +121,8 @@ module cva6_subsytem
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-  ) hyper0_axi_master_cut();
+  ) hyper_axi_master_cut();
 
-  AXI_BUS #(
-    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
-    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-    .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-  ) hyper1_axi_master_cut();
-   
   AXI_BUS #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -361,7 +362,7 @@ module cva6_subsytem
 
 
   // ---------------
-  // AXI hyperbus Slave 0
+  // AXI hyperbus Slave 
   // ---------------
 
   axi_cut_intf #(
@@ -370,11 +371,11 @@ module cva6_subsytem
     .DATA_WIDTH ( AXI_DATA_WIDTH           ),
     .ID_WIDTH   ( ariane_soc::IdWidthSlave ),
     .USER_WIDTH ( AXI_USER_WIDTH           )
-  ) riscvatomics2axihyper0_cut (
+  ) riscvatomics2axihyper_cut (
     .clk_i,
-    .rst_ni ( ndmreset_n                 ),
-    .in     ( hyper0_axi_master_cut      ),
-    .out    ( hyper0_axi_master          )
+    .rst_ni ( ndmreset_n                ),
+    .in     ( hyper_axi_master_cut      ),
+    .out    ( hyper_axi_master          )
   );
                  
   axi_riscv_atomics_wrap #(
@@ -386,40 +387,9 @@ module cva6_subsytem
     .RISCV_WORD_WIDTH   ( 64 )
   ) i_axi_riscv_atomics0 (
     .clk_i,
-    .rst_ni ( ndmreset_n                 ),
-    .slv    ( master[ariane_soc::HYAXI0] ),
-    .mst    ( hyper0_axi_master_cut      )
-  );
-
-  // ---------------
-  // AXI hyperbus Slave 1
-  // ---------------
-
-  axi_cut_intf #(
-    .BYPASS     ( 1'b0                     ),
-    .ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-    .DATA_WIDTH ( AXI_DATA_WIDTH           ),
-    .ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-    .USER_WIDTH ( AXI_USER_WIDTH           )
-  ) riscvatomics2axihyper1_cut (
-    .clk_i,
-    .rst_ni ( ndmreset_n                 ),
-    .in     ( hyper1_axi_master_cut      ),
-    .out    ( hyper1_axi_master          )
-  );
-                 
-  axi_riscv_atomics_wrap #(
-    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
-    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-    .AXI_USER_WIDTH ( AXI_USER_WIDTH           ),
-    .AXI_MAX_WRITE_TXNS ( 1  ),
-    .RISCV_WORD_WIDTH   ( 64 )
-  ) i_axi_riscv_atomics1 (
-    .clk_i,
-    .rst_ni ( ndmreset_n                 ),
-    .slv    ( master[ariane_soc::HYAXI1] ),
-    .mst    ( hyper1_axi_master_cut      )
+    .rst_ni ( ndmreset_n                ),
+    .slv    ( master[ariane_soc::HYAXI] ),
+    .mst    ( hyper_axi_master_cut      )
   );
    
   // ---------------
@@ -521,17 +491,11 @@ module cva6_subsytem
     start_addr: ariane_soc::EthernetBase,
     end_addr:   ariane_soc::EthernetBase + ariane_soc::EthernetLength  
   };
-  assign addr_map[ariane_soc::HYAXI0] = '{ 
-    idx:  ariane_soc::HYAXI0,
-    start_addr: ariane_soc::HYAXIBase0,
-    end_addr:   ariane_soc::HYAXIBase0     + ariane_soc::HYAXILength  
+  assign addr_map[ariane_soc::HYAXI] = '{ 
+    idx:  ariane_soc::HYAXI,
+    start_addr: ariane_soc::HYAXIBase,
+    end_addr:   ariane_soc::HYAXIBase     + ariane_soc::HYAXILength  
   }; 
-  assign addr_map[ariane_soc::HYAXI1] = '{ 
-    idx:  ariane_soc::HYAXI1,
-    start_addr: ariane_soc::HYAXIBase1,
-    end_addr:   ariane_soc::HYAXIBase1     + ariane_soc::HYAXILength  
-  }; 
-
 
   axi_xbar_intf #(
     .AXI_USER_WIDTH         ( AXI_USER_WIDTH                        ),
@@ -600,32 +564,33 @@ module cva6_subsytem
     .InclSPI      ( 1'b0                     ),
     .InclEthernet ( 1'b0                     )
   ) i_ariane_peripherals (
-    .clk_i     ( clk_i                        ),
-    .rst_ni    ( ndmreset_n                   ),
-    .plic      ( master[ariane_soc::PLIC]     ),
-    .uart      ( master[ariane_soc::UART]     ),
-    .spi       ( master[ariane_soc::SPI]      ),
-    .ethernet  ( master[ariane_soc::Ethernet] ),
-    .timer     ( master[ariane_soc::Timer]    ),
-    .udma_evt_i( udma_events_i                ),
-    .irq_o     ( irqs                         ),
-    .rx_i      ( cva6_uart_rx_i               ),
-    .tx_o      ( cva6_uart_tx_o               ),
-    .eth_txck  ( ),
-    .eth_rxck  ( ),
-    .eth_rxctl ( ),
-    .eth_rxd   ( ),
-    .eth_rst_n ( ),
-    .eth_tx_en ( ),
-    .eth_txd   ( ),
-    .phy_mdio  ( ),
-    .eth_mdc   ( ),
-    .mdio      ( ),
-    .mdc       ( ),
-    .spi_clk_o ( ),
-    .spi_mosi  ( ),
-    .spi_miso  ( ),
-    .spi_ss    ( )
+    .clk_i           ( clk_i                        ),
+    .rst_ni          ( ndmreset_n                   ),
+    .plic            ( master[ariane_soc::PLIC]     ),
+    .uart            ( master[ariane_soc::UART]     ),
+    .spi             ( master[ariane_soc::SPI]      ),
+    .ethernet        ( master[ariane_soc::Ethernet] ),
+    .timer           ( master[ariane_soc::Timer]    ),
+    .udma_evt_i      ( udma_events_i                ),
+    .cl_dma_pe_evt_i ( cl_dma_pe_evt_i              ),
+    .irq_o           ( irqs                         ),
+    .rx_i            ( cva6_uart_rx_i               ),
+    .tx_o            ( cva6_uart_tx_o               ),
+    .eth_txck        ( ),
+    .eth_rxck        ( ),
+    .eth_rxctl       ( ),
+    .eth_rxd         ( ),
+    .eth_rst_n       ( ),
+    .eth_tx_en       ( ),
+    .eth_txd         ( ),
+    .phy_mdio        ( ),
+    .eth_mdc         ( ),
+    .mdio            ( ),
+    .mdc             ( ),
+    .spi_clk_o       ( ),
+    .spi_mosi        ( ),
+    .spi_miso        ( ),
+    .spi_ss          ( )
   );
 
 
@@ -638,18 +603,18 @@ module cva6_subsytem
   ariane #(
     .ArianeCfg  ( ariane_soc::ArianeSocCfg )
   ) i_ariane (
-    .clk_i                ( clk_i               ),
-    .rst_ni               ( ndmreset_n          ),
+    .clk_i                ( cva6_clk_i          ),
+    .rst_ni               ( cva6_rst_ni         ),
     .boot_addr_i          ( ariane_soc::ROMBase ), // start fetching from ROM
     .hart_id_i            ( '0                  ),
-    .irq_i                ( irqs                ),
-    .ipi_i                ( ipi                 ),
-    .time_irq_i           ( timer_irq           ),
+    .irq_i                ( irqs                ), // async signal
+    .ipi_i                ( ipi                 ), // async signal
+    .time_irq_i           ( timer_irq           ), // async signal
 // Disable Debug when simulating with Spike
 `ifdef SPIKE_TANDEM
-    .debug_req_i          ( 1'b0                ),
-`else
-    .debug_req_i          ( debug_req_core      ),
+    .debug_req_i          ( 1'b0                ), // async signal
+`else                                              
+    .debug_req_i          ( debug_req_core      ), // async signal
 `endif
     .axi_req_o            ( axi_ariane_req      ),
     .axi_resp_i           ( axi_ariane_resp     )
@@ -658,8 +623,23 @@ module cva6_subsytem
   axi_master_connect i_axi_master_connect_ariane (
     .axi_req_i(axi_ariane_req),
     .axi_resp_o(axi_ariane_resp),
-    .master(slave[0])
+    .master(cva6_axi_master)
   );
+
+  axi_cdc_intf #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
+    ) cva6_to_xbar (
+      .src_clk_i(cva6_clk_i),
+      .src_rst_ni(cva6_rst_ni),
+      .src(cva6_axi_master),
+      .dst_clk_i(clk_i),
+      .dst_rst_ni(ndmreset_n),
+      .dst(slave[0])
+      );
+   
 
   // -------------
   // Simulation Helper Functions

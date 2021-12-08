@@ -87,12 +87,14 @@
         flag=-5;
         p0=0;
         p1=0;
+
+        `ifdef GENERATE_H
         f0 = $fopen("./rgb565_f0.h","w");
         f1 = $fopen("./rgb565_f1.h","w");
-        
-
         $fwrite(f0,"\n\n\nint volatile frame_0[N_PIXEL] = {\n");
         $fwrite(f1,"\n\n\nint volatile frame_1[N_PIXEL] = {\n");
+        `endif
+
         @(negedge s_rstn);
         @(posedge en_i);
         @(posedge cam_pclk_o);
@@ -103,13 +105,17 @@
                 if (r_framesel==1'b1) begin  
                     if (stop0==0) begin
                         stop0=1;
+                        `ifdef GENERATE_H
                         $fwrite(f0,"};\n");
                         $fwrite(f0,"#define N_PIXEL %d\n",p0);
                         $fclose(f0);
+                        `endif
                     end
                     if(stop1>-1) begin
                         if(p1<HRES*VRES*2) begin
+                            `ifdef GENERATE_H
                             $fwrite(f1,"    0x%h,\n",cam_data_o);
+                            `endif
                             p1++;
                             flag=1;
                         end
@@ -117,15 +123,19 @@
                 end else begin
                     if (stop0==0) begin
                         if(p0<HRES*VRES*2) begin
+                           `ifdef GENERATE_H
                             $fwrite(f0,"    0x%h,\n",cam_data_o);
+                            `endif
                             p0++;
                             stop1++;
                         end
                     end else begin
                         if(flag>0) begin
+                            `ifdef GENERATE_H
                             $fwrite(f1,"};\n");
                             $fwrite(f1,"#define N_PIXEL %d\n",p1);
                             $fclose(f1);
+                            `endif
                             flag=-5;
                             stop1=-1;
                         end
@@ -148,10 +158,8 @@
             if (!$value$plusargs("VSIM_PATH=%s", vsim_path)) 
                 vsim_path = "../";
 
-        /*frame0_path = {vsim_path, "/../rtl/vip/camera/img/frame0.img"};
-        frame1_path = {vsim_path, "/../rtl/vip/camera/img/frame1.img"};*/
-        frame0_path = "/scratch/smatt/cva6/hardware/tb/vip/camera/img/frame0.img";
-        frame1_path = "/scratch/smatt/cva6/hardware/tb/vip/camera/img/frame0.img";
+        frame0_path = {vsim_path, "./tb/vip/camera/img/frame0.img"};
+        frame1_path = {vsim_path, "./tb/vip/camera/img/frame1.img"};
         $readmemh(frame0_path, pixel_array0);
         $readmemh(frame1_path, pixel_array1);
         #30ms s_rstn = 1'b1;

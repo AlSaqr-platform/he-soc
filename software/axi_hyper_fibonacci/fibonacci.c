@@ -27,7 +27,15 @@
 const int RESULT_FIB[N] = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181};
 
 int main(int argc, char const *argv[]) {
-  uart_sim_cfg();
+  #ifdef FPGA_EMULATION
+  int baud_rate = 9600;
+  int test_freq = 10000000;
+  #else
+  set_flls();
+  int baud_rate = 115200;
+  int test_freq = 100000000;
+  #endif  
+  uart_set_cfg(0,(test_freq/baud_rate)>>4);
   int b[N];
   int i;
   b[0]=0;

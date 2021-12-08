@@ -12,6 +12,7 @@
 // Date: 15/04/2017
 // Description: Top level testbench module. Instantiates the top level DUT, configures
 //              the virtual interfaces and starts the test passed by +UVM_TEST+
+//`define TEST_CLOCK_BYPASS
 
 `timescale 1ps/1ps
 
@@ -29,17 +30,24 @@ module ariane_tb;
 
     static uvm_cmdline_processor uvcl = uvm_cmdline_processor::get_inst();
 
-    localparam int unsigned CLOCK_PERIOD   = 56832ps;
-    localparam int unsigned REFClockPeriod = 56832ps;
+    localparam int unsigned REFClockPeriod = 67000ps; // jtag clock
     // toggle with RTC period
-    localparam int unsigned RTC_CLOCK_PERIOD = 30.517us;
-
+    `ifndef TEST_CLOCK_BYPASS
+      localparam int unsigned RTC_CLOCK_PERIOD = 30.517us;
+    `else 
+      localparam int unsigned RTC_CLOCK_PERIOD = 10ns;
+    `endif
+   
     localparam NUM_WORDS = 2**25;
     logic clk_i;
     logic rst_ni;
     logic rtc_i;
+    wire  s_rst_ni;
+    wire  s_rtc_i;
+    wire s_bypass;
     logic rst_DTM;
 
+   
     localparam ENABLE_DM_TESTS = 0;
    
     parameter  USE_HYPER_MODELS     = 1;
@@ -50,13 +58,21 @@ module ariane_tb;
     // use camera verification IP
    parameter  USE_SDVT_CPI = 1;
 
-  `ifdef USE_LOCAL_JTAG 
+  `ifdef PRELOAD
+    parameter  PRELOAD_HYPERRAM    = 1;
     parameter  LOCAL_JTAG          = 1;
     parameter  CHECK_LOCAL_JTAG    = 0; 
-  `else
-    parameter  LOCAL_JTAG          = 0;
-    parameter  CHECK_LOCAL_JTAG    = 0; 
+  `else 
+    parameter PRELOAD_HYPERRAM = 0;
+    `ifdef USE_LOCAL_JTAG 
+      parameter  LOCAL_JTAG          = 1;
+      parameter  CHECK_LOCAL_JTAG    = 0; 
+    `else
+      parameter  LOCAL_JTAG          = 0;
+      parameter  CHECK_LOCAL_JTAG    = 0; 
+    `endif
   `endif
+   
 
   `ifdef POSTLAYOUT
     localparam int unsigned JtagSampleDelay = (REFClockPeriod < 10ns) ? 2 : 1;
@@ -114,25 +130,28 @@ module ariane_tb;
     wire                  s_jtag2alsaqr_trstn     ;
     wire                  s_jtag2alsaqr_tdo       ;
    
-    wire [7:0]            w_hyper_dq0    ;
-    wire [7:0]            w_hyper_dq1    ;
-    wire                  w_hyper_ck     ;
-    wire                  w_hyper_ckn    ;
-    wire                  w_hyper_csn0   ;
-    wire                  w_hyper_csn1   ;
-    wire                  w_hyper_rwds0  ;
-    wire                  w_hyper_rwds1  ;
-    wire                  w_hyper_reset  ;
+    wire [7:0]            w_hyper0_dq;
+    wire                  w_hyper0_ck;
+    wire                  w_hyper0_ckn;
+    wire [1:0]            w_hyper0_csn;
+    wire                  w_hyper0_rwds;
+    wire                  w_hyper0_reset;
+    wire [7:0]            w_hyper1_dq;
+    wire                  w_hyper1_ck;
+    wire                  w_hyper1_ckn;
+    wire [1:0]            w_hyper1_csn;
+    wire                  w_hyper1_rwds;
+    wire                  w_hyper1_reset;
 
     wire                  w_i2c_sda      ;
     wire                  w_i2c_scl      ;
 
-    tri                  w_spim_sck     ; 
-    tri                  w_spim_csn0    ;
-    tri                  w_spim_sdio0   ; 
-    wire                 w_spim_sdio1   ;
-    tri                  w_spim_sdio2   ; 
-    tri                  w_spim_sdio3   ;
+    tri                   w_spim_sck     ; 
+    tri                   w_spim_csn0    ;
+    tri                   w_spim_sdio0   ; 
+    wire                  w_spim_sdio1   ;
+    tri                   w_spim_sdio2   ; 
+    tri                   w_spim_sdio3   ;
 
     wire                  w_cam_pclk;
     wire [7:0]            w_cam_data;
@@ -270,15 +289,6 @@ module ariane_tb;
     wire                  w_cva6_uart_rx ;
     wire                  w_cva6_uart_tx ;
    
-    wire [7:0]            w_axi_hyper_dq0    ;
-    wire [7:0]            w_axi_hyper_dq1    ;
-    wire                  w_axi_hyper_ck     ;
-    wire                  w_axi_hyper_ckn    ;
-    wire                  w_axi_hyper_csn0   ;
-    wire                  w_axi_hyper_csn1   ;
-    wire                  w_axi_hyper_rwds0  ;
-    wire                  w_axi_hyper_rwds1  ;
-    wire                  w_axi_hyper_reset  ;
   
     longint unsigned cycles;
     longint unsigned max_cycles;
@@ -292,6 +302,14 @@ module ariane_tb;
   assign pad_periphs_pad_gpio_b_38_pad = pad_periphs_pad_gpio_b_06_pad;
   assign pad_periphs_pad_gpio_b_39_pad = pad_periphs_pad_gpio_b_07_pad;
    
+  `ifndef TEST_CLOCK_BYPASS
+    assign s_bypass=1'b0;
+  `else
+    assign s_bypass=1'b1;
+  `endif
+    
+  assign s_rst_ni=rst_ni;
+  assign s_rtc_i=rtc_i;
 
   assign exit_o              = (jtag_enable[0]) ? s_jtag_exit          : s_dmi_exit;
 
@@ -346,8 +364,9 @@ module ariane_tb;
         .StallRandomInput  ( 1'b1                        ),
         .JtagEnable        ( jtag_enable[0] | LOCAL_JTAG )
     ) dut (
-        .rst_ni,
-        .rtc_i,
+        .rst_ni               ( s_rst_ni               ),
+        .rtc_i                ( s_rtc_i                ),
+        .bypass_clk_i         ( s_bypass               ),
         .dmi_req_valid        ( s_dmi_req_valid        ),
         .dmi_req_ready        ( s_dmi_req_ready        ),
         .dmi_req_bits_addr    ( s_dmi_req_bits_addr    ),
@@ -363,27 +382,22 @@ module ariane_tb;
         .jtag_TRSTn           ( s_jtag2alsaqr_trstn    ),
         .jtag_TDO_data        ( s_jtag2alsaqr_tdo      ),
         .jtag_TDO_driven      ( s_jtag_TDO_driven      ),
-        .pad_hyper_dq0        ( w_hyper_dq0            ),
-        .pad_hyper_dq1        ( w_hyper_dq1            ),
-        .pad_hyper_ck         ( w_hyper_ck             ),
-        .pad_hyper_ckn        ( w_hyper_ckn            ),
-        .pad_hyper_csn0       ( w_hyper_csn0           ),
-        .pad_hyper_csn1       ( w_hyper_csn1           ),
-        .pad_hyper_rwds0      ( w_hyper_rwds0          ),
-        .pad_hyper_rwds1      ( w_hyper_rwds1          ),
-        .pad_hyper_reset      ( w_hyper_reset          ),
+
         .cva6_uart_rx_i       ( w_cva6_uart_rx         ),
         .cva6_uart_tx_o       ( w_cva6_uart_tx         ),
         
-        .pad_axi_hyper_dq0        ( w_axi_hyper_dq0            ),
-        .pad_axi_hyper_dq1        ( w_axi_hyper_dq1            ),
-        .pad_axi_hyper_ck         ( w_axi_hyper_ck             ),
-        .pad_axi_hyper_ckn        ( w_axi_hyper_ckn            ),
-        .pad_axi_hyper_csn0       ( w_axi_hyper_csn0           ),
-        .pad_axi_hyper_csn1       ( w_axi_hyper_csn1           ),
-        .pad_axi_hyper_rwds0      ( w_axi_hyper_rwds0          ),
-        .pad_axi_hyper_rwds1      ( w_axi_hyper_rwds1          ),
-        .pad_axi_hyper_reset      ( w_axi_hyper_reset          ),
+        .pad_hyper0_dq        ( w_hyper0_dq            ),
+        .pad_hyper0_ck        ( w_hyper0_ck            ),
+        .pad_hyper0_ckn       ( w_hyper0_ckn           ),
+        .pad_hyper0_csn       ( w_hyper0_csn           ),
+        .pad_hyper0_rwds      ( w_hyper0_rwds          ),
+        .pad_hyper0_reset     ( w_hyper0_reset         ),
+        .pad_hyper1_dq        ( w_hyper1_dq            ),
+        .pad_hyper1_ck        ( w_hyper1_ck            ),
+        .pad_hyper1_ckn       ( w_hyper1_ckn           ),
+        .pad_hyper1_csn       ( w_hyper1_csn           ),
+        .pad_hyper1_rwds      ( w_hyper1_rwds          ),
+        .pad_hyper1_reset     ( w_hyper1_reset         ),
         
         .pad_periphs_pad_gpio_b_00_pad(pad_periphs_pad_gpio_b_00_pad),
         .pad_periphs_pad_gpio_b_01_pad(pad_periphs_pad_gpio_b_01_pad),
@@ -591,79 +605,79 @@ module ariane_tb;
 
    s27ks0641 #(
          .TimingModel   ( "S27KS0641DPBHI020"    ),
-         .UserPreload   ( 1'b0                   ),
-         .mem_file_name ( "hyper.mem"            )
+         .UserPreload   ( PRELOAD_HYPERRAM       ),
+         .mem_file_name ( "./hyperram0.slm"      )
      ) i_main_hyperram0 (
-            .DQ7      ( w_axi_hyper_dq0[7] ),
-            .DQ6      ( w_axi_hyper_dq0[6] ),
-            .DQ5      ( w_axi_hyper_dq0[5] ),
-            .DQ4      ( w_axi_hyper_dq0[4] ),
-            .DQ3      ( w_axi_hyper_dq0[3] ),
-            .DQ2      ( w_axi_hyper_dq0[2] ),
-            .DQ1      ( w_axi_hyper_dq0[1] ),
-            .DQ0      ( w_axi_hyper_dq0[0] ),
-            .RWDS     ( w_axi_hyper_rwds0  ),
-            .CSNeg    ( w_axi_hyper_csn0   ),
-            .CK       ( w_axi_hyper_ck     ),
-            .CKNeg    ( w_axi_hyper_ckn    ),
-            .RESETNeg ( w_axi_hyper_reset  )
+            .DQ7      ( w_hyper0_dq[7]  ),
+            .DQ6      ( w_hyper0_dq[6]  ),
+            .DQ5      ( w_hyper0_dq[5]  ),
+            .DQ4      ( w_hyper0_dq[4]  ),
+            .DQ3      ( w_hyper0_dq[3]  ),
+            .DQ2      ( w_hyper0_dq[2]  ),
+            .DQ1      ( w_hyper0_dq[1]  ),
+            .DQ0      ( w_hyper0_dq[0]  ),
+            .RWDS     ( w_hyper0_rwds   ),
+            .CSNeg    ( w_hyper0_csn[0] ),
+            .CK       ( w_hyper0_ck     ),
+            .CKNeg    ( w_hyper0_ckn    ),
+            .RESETNeg ( w_hyper0_reset  )
      ); 
    s27ks0641 #(
          .TimingModel   ( "S27KS0641DPBHI020"    ),
          .UserPreload   ( 1'b0                   ),
          .mem_file_name ( "hyper.mem"            )
      ) i_main_hyperram1 (
-            .DQ7      ( w_axi_hyper_dq0[7] ),
-            .DQ6      ( w_axi_hyper_dq0[6] ),
-            .DQ5      ( w_axi_hyper_dq0[5] ),
-            .DQ4      ( w_axi_hyper_dq0[4] ),
-            .DQ3      ( w_axi_hyper_dq0[3] ),
-            .DQ2      ( w_axi_hyper_dq0[2] ),
-            .DQ1      ( w_axi_hyper_dq0[1] ),
-            .DQ0      ( w_axi_hyper_dq0[0] ),
-            .RWDS     ( w_axi_hyper_rwds0  ),
-            .CSNeg    ( w_axi_hyper_csn1   ),
-            .CK       ( w_axi_hyper_ck     ),
-            .CKNeg    ( w_axi_hyper_ckn    ),
-            .RESETNeg ( w_axi_hyper_reset  )
+            .DQ7      ( w_hyper0_dq[7]  ),
+            .DQ6      ( w_hyper0_dq[6]  ),
+            .DQ5      ( w_hyper0_dq[5]  ),
+            .DQ4      ( w_hyper0_dq[4]  ),
+            .DQ3      ( w_hyper0_dq[3]  ),
+            .DQ2      ( w_hyper0_dq[2]  ),
+            .DQ1      ( w_hyper0_dq[1]  ),
+            .DQ0      ( w_hyper0_dq[0]  ),
+            .RWDS     ( w_hyper0_rwds   ),
+            .CSNeg    ( w_hyper0_csn[1] ),
+            .CK       ( w_hyper0_ck     ),
+            .CKNeg    ( w_hyper0_ckn    ),
+            .RESETNeg ( w_hyper0_reset  )
      );
          s27ks0641 #(
             .TimingModel   ( "S27KS0641DPBHI020" ),
-            .UserPreload   ( 1'b0                ),
-            .mem_file_name ( "hyper.mem"         )
+            .UserPreload   ( PRELOAD_HYPERRAM    ),
+            .mem_file_name ( "./hyperram1.slm"   )
          ) i_main_hyperram2 (
-            .DQ7      ( w_hyper_dq0[7] ),
-            .DQ6      ( w_hyper_dq0[6] ),
-            .DQ5      ( w_hyper_dq0[5] ),
-            .DQ4      ( w_hyper_dq0[4] ),
-            .DQ3      ( w_hyper_dq0[3] ),
-            .DQ2      ( w_hyper_dq0[2] ),
-            .DQ1      ( w_hyper_dq0[1] ),
-            .DQ0      ( w_hyper_dq0[0] ),
-            .RWDS     ( w_hyper_rwds0  ),
-            .CSNeg    ( w_hyper_csn1   ),
-            .CK       ( w_hyper_ck     ),
-            .CKNeg    ( w_hyper_ckn    ),
-            .RESETNeg ( w_hyper_reset  )
+            .DQ7      ( w_hyper1_dq[7]  ),
+            .DQ6      ( w_hyper1_dq[6]  ),
+            .DQ5      ( w_hyper1_dq[5]  ),
+            .DQ4      ( w_hyper1_dq[4]  ),
+            .DQ3      ( w_hyper1_dq[3]  ),
+            .DQ2      ( w_hyper1_dq[2]  ),
+            .DQ1      ( w_hyper1_dq[1]  ),
+            .DQ0      ( w_hyper1_dq[0]  ),
+            .RWDS     ( w_hyper1_rwds   ),
+            .CSNeg    ( w_hyper1_csn[0] ),
+            .CK       ( w_hyper1_ck     ),
+            .CKNeg    ( w_hyper1_ckn    ),
+            .RESETNeg ( w_hyper1_reset  )
          );
          s27ks0641 #(
             .TimingModel   ( "S27KS0641DPBHI020" ),
             .UserPreload   ( 1'b0                ),
             .mem_file_name ( "hyper.mem"         )
          ) i_main_hyperram3 (
-            .DQ7      ( w_hyper_dq0[7] ),
-            .DQ6      ( w_hyper_dq0[6] ),
-            .DQ5      ( w_hyper_dq0[5] ),
-            .DQ4      ( w_hyper_dq0[4] ),
-            .DQ3      ( w_hyper_dq0[3] ),
-            .DQ2      ( w_hyper_dq0[2] ),
-            .DQ1      ( w_hyper_dq0[1] ),
-            .DQ0      ( w_hyper_dq0[0] ),
-            .RWDS     ( w_hyper_rwds0  ),
-            .CSNeg    ( w_hyper_csn0   ),
-            .CK       ( w_hyper_ck     ),
-            .CKNeg    ( w_hyper_ckn    ),
-            .RESETNeg ( w_hyper_reset  )                
+            .DQ7      ( w_hyper1_dq[7]  ),
+            .DQ6      ( w_hyper1_dq[6]  ),
+            .DQ5      ( w_hyper1_dq[5]  ),
+            .DQ4      ( w_hyper1_dq[4]  ),
+            .DQ3      ( w_hyper1_dq[3]  ),
+            .DQ2      ( w_hyper1_dq[2]  ),
+            .DQ1      ( w_hyper1_dq[1]  ),
+            .DQ0      ( w_hyper1_dq[0]  ),
+            .RWDS     ( w_hyper1_rwds   ),
+            .CSNeg    ( w_hyper1_csn[1] ),
+            .CK       ( w_hyper1_ck     ),
+            .CKNeg    ( w_hyper1_ckn    ),
+            .RESETNeg ( w_hyper1_reset  )
          );
 
    uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart_bus (.rx(w_cva6_uart_tx), .tx(w_cva6_uart_rx), .rx_en(1'b1));
@@ -693,37 +707,39 @@ module ariane_tb;
 
     // Clock process
     initial begin
-        clk_i = 1'b0;
         rst_ni = 1'b0;
         rst_DTM = 1'b0;
         jtag_mst.trst_n = 1'b0;
        
-        repeat(8)
-            #(CLOCK_PERIOD/2) clk_i = ~clk_i;
+        repeat(2)
+            @(posedge rtc_i);
         rst_ni = 1'b1;
-        repeat(200)
-           #(CLOCK_PERIOD/2) clk_i = ~clk_i;
+        repeat(20)
+            @(posedge rtc_i);
         rst_DTM = 1'b1;
         jtag_mst.trst_n = 1'b1;       
         forever begin
-            #(CLOCK_PERIOD/2) clk_i = 1'b1;
-            #(CLOCK_PERIOD/2) clk_i = 1'b0;
-
+            @(posedge clk_i);
             cycles++;
         end
     end
 
     initial begin
         forever begin
-            rtc_i = 1'b1;
-            #(RTC_CLOCK_PERIOD/2) rtc_i = 1'b0;
+            rtc_i = 1'b0;
             #(RTC_CLOCK_PERIOD/2) rtc_i = 1'b1;
+            #(RTC_CLOCK_PERIOD/2) rtc_i = 1'b0;
         end
     end
    
+   assign clk_i = dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o;
 
-   assign s_tck = clk_i;
-   
+   initial begin
+      s_tck = '0;
+      forever
+        #(REFClockPeriod/2) s_tck=~s_tck;
+   end
+      
     initial begin
         forever begin
 
@@ -742,28 +758,79 @@ module ariane_tb;
 
    initial  begin: local_jtag_preload
 
+      logic [63:0] rdata;
+      logic [32:0] addr;
+
+      automatic dm::sbcs_t sbcs = '{
+        sbautoincrement: 1'b1,
+        sbreadondata   : 1'b1,
+        default        : 1'b0
+      };
+      
       if(LOCAL_JTAG) begin
-        if ( $value$plusargs ("CVA6_STRING=%s", binary));
-          $display("Testing %s", binary);
-        if ( $value$plusargs ("CL_STRING=%s", cluster_binary));
-         if(cluster_binary!="none") 
-           $display("Testing cluster: %s", cluster_binary);
 
-        repeat(30000)
-              #(CLOCK_PERIOD/2);
-        debug_module_init();
-        // LOAD cluster code
-        if(cluster_binary!="none") 
-          load_binary(cluster_binary);
-
-        load_binary(binary);
-        // Call the JTAG preload task
-        jtag_data_preload();
-        #(REFClockPeriod);
-        jtag_ariane_wakeup();
-        jtag_read_eoc();
-      end
-
+         if(!PRELOAD_HYPERRAM) begin
+           if ( $value$plusargs ("CVA6_STRING=%s", binary));
+             $display("Testing %s", binary);
+           if ( $value$plusargs ("CL_STRING=%s", cluster_binary));
+            if(cluster_binary!="none") 
+              $display("Testing cluster: %s", cluster_binary);
+         end 
+         
+        repeat(50)
+            @(posedge rtc_i);
+           debug_module_init();
+           if(!PRELOAD_HYPERRAM) begin
+              // LOAD cluster code
+              if(cluster_binary!="none") 
+                load_binary(cluster_binary);
+              
+              load_binary(binary);
+              // Call the JTAG preload task
+              jtag_data_preload();
+           end else begin
+              $display("Sanity write/read at 0x1C000000"); // word = 8 bytes here
+              addr = 32'h1c000000;
+              do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+              while (sbcs.sbbusy);
+              riscv_dbg.write_dmi(dm::SBCS, sbcs);
+              do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+              while (sbcs.sbbusy);
+              riscv_dbg.write_dmi(dm::SBAddress0, addr);
+              do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+              while (sbcs.sbbusy);         
+              riscv_dbg.write_dmi(dm::SBData1, 32'hdeadcaca);
+              do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+              while (sbcs.sbbusy);           
+              riscv_dbg.write_dmi(dm::SBData0, 32'habbaabba);
+              do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+              while (sbcs.sbbusy);  
+              sbcs.sbreadonaddr = 1;
+              riscv_dbg.write_dmi(dm::SBCS, sbcs);
+              do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+              while (sbcs.sbbusy);  
+              riscv_dbg.write_dmi(dm::SBAddress0, addr);
+              do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+              while (sbcs.sbbusy);
+              riscv_dbg.read_dmi(dm::SBData1, rdata[63:32]);
+              // Wait until SBA is free to read another 32 bits
+              do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+              while (sbcs.sbbusy);           
+              riscv_dbg.read_dmi(dm::SBData0, rdata[32:0]);
+              // Wait until SBA is free to read another 32 bits
+              do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+              while (sbcs.sbbusy);           
+              if(rdata!=64'hdeadcacaabbaabba) begin
+                $fatal(1,"rdata at 0x1c000000: %x" , rdata);
+              end else begin
+                $display("R/W sanity check ok!");
+              end
+           end 
+            
+           #(REFClockPeriod);
+           jtag_ariane_wakeup();
+           jtag_read_eoc();
+         end 
    end
    
   task debug_module_init;

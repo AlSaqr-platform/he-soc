@@ -19,11 +19,13 @@
  */
 
 
-#define ARCHI_UDMA_ADDR  0x1A102000 // = 3238002688
-#define UDMA_HYPERBUS_OFFSET (437264384 + 128*31)
+#define ARCHI_UDMA_ADDR  0x1A200000 // = d'437280768
+#define CONFIG_REG_OFFSET 0x1000
+#define N_PER 0x1F 
+#define UDMA_HYPERBUS_OFFSET (ARCHI_UDMA_ADDR + (CONFIG_REG_OFFSET * N_PER))
 #define HYPERBUS_DEVICE_NUM 30
 #define N_CHANNEL 1
-#define CONFIG_REG_OFFSET 0x80
+
 
 static inline void wait_cycles(const unsigned cycles)
 {
@@ -161,7 +163,7 @@ static inline void udma_hyper_setup(){
   pulp_write32(ARCHI_UDMA_ADDR, 1 << HYPERBUS_DEVICE_NUM); // clock for the hyper bus module is activated
   set_en_latency_add(1);
   set_t_cs_max(0xffffffff);
-  set_memsel_hyper(0);
+  set_memsel_hyper(3); // Now we have two phys!
   set_t_latency_access(6);
 }
 
@@ -220,12 +222,9 @@ static inline void udma_hyper_sleep(){
 static inline void udma_hyper_dwrite(unsigned int len, unsigned int ext_addr, unsigned int l2_addr, unsigned int page_bound, unsigned int tran_id){
 
   int memsel;
-  memsel = check_memsel_hyper();
+
   set_pagebound_hyper(page_bound);
   set_twd_param_hyper(0, 0, 0, 0, 0, 0, tran_id);
-
-  if(memsel==2 | memsel==3) set_en_latency_add(0);
-  else set_en_latency_add(1); 
 
   set_tx_param_hyper(len, ext_addr, l2_addr, tran_id);
   barrier();
@@ -304,12 +303,8 @@ static inline void udma_hyperflash_erase(unsigned int sector_addr, unsigned int 
 static inline void udma_hyper_dread(unsigned int len, unsigned int ext_addr, unsigned int l2_addr, unsigned int page_bound, unsigned int tran_id){
 
   int memsel;
-  memsel = check_memsel_hyper();
   set_pagebound_hyper(page_bound);
   set_twd_param_hyper(0, 0, 0, 0, 0, 0, tran_id);
-
-  if(memsel!=1) set_en_latency_add(1);
-  else set_en_latency_add(0);
 
   set_rx_param_hyper(len, ext_addr, l2_addr, tran_id);
   kick_read_hyper(tran_id);

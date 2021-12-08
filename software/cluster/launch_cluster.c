@@ -11,8 +11,9 @@ int main(int argc, char const *argv[]) {
   int baud_rate = 9600;
   int test_freq = 10000000;
   #else
+  set_flls();
   int baud_rate = 115200;
-  int test_freq = 17500000;
+  int test_freq = 100000000;
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
   uint32_t * hyaxicfg_reg_mask = 0x1A104018;
@@ -21,6 +22,8 @@ int main(int argc, char const *argv[]) {
   pulp_write32(hyaxicfg_reg_memspace,0x84000000); // Changing RAM end address, 64 MB
   // cluster setup
   load_cluster_code();
+  pulp_write32(0x1A106000,0x0);
+  pulp_write32(0x1A106000,0x1);
   pulp_write32(0x1C000854,0x1C00813E);
   pulp_write32(0x100000CC,0);
   pulp_write32(0x10201400,0xffffffff);
@@ -33,6 +36,8 @@ int main(int argc, char const *argv[]) {
   int boot_addr_core=0x10200040;
   for (int i=0; i<8; i++)
     pulp_write32(0x10200040+i*4,0x1C000000);
+  pulp_write32(0x1A106000,0x3);
+  pulp_write32(0x1A106000,0x7);
   pulp_write32(0x10200008,0xff);
 
   while( ((pulp_read32(0x10001000))<<31)!=0x80000000 );

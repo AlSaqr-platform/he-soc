@@ -101,6 +101,37 @@ class stim(object):
       for key in sorted(self.mem.keys()):
         file.write('%X_%0*X\n' % (int(key), width*2, self.mem.get(key)))
 
+        
+  def __gen_stim_interleaved_slm(self, filename, width):
+
+    self.dump('  Generating to file: ' + filename)
+
+    try:
+      os.makedirs(os.path.dirname(filename))
+    except:
+      pass
+
+    with open(filename, 'w') as file:
+      for key in sorted(self.mem.keys()):
+        a=self.mem.get(key)
+        b=int(key)
+        b=b-0x80000000
+        file.write('@%05X %0*X\n' % (b>>2, width, a%0x10000))
+        
+    self.dump('  Generating to file: hyperram1.slm' )
+
+    try:
+      os.makedirs(os.path.dirname("hyperram1.slm"))
+    except:
+      pass
+
+    with open("hyperram1.slm", 'w') as file:
+      for key in sorted(self.mem.keys()):
+        a=self.mem.get(key)
+        b=int(key)
+        b=b-0x80000000
+        file.write('@%05X %0*X\n' % (b>>2, width, a>>16))
+        
   def __gen_stim_header(self, filename, width):
 
     self.dump('  Generating to file: ' + filename)
@@ -159,6 +190,11 @@ class stim(object):
                       self.dump('  Bypassing section (base: 0x%x, size: 0x%x)' % (addr, size))
 
 
+  def gen_stim_interleaved_slm(self, stim_file):
+
+      self.__parse_binaries(4)
+
+      self.__gen_stim_interleaved_slm(stim_file, 4)
 
   def gen_stim_header_32(self, stim_file):
 
@@ -572,6 +608,6 @@ if __name__ == "__main__":
 
     stim_gen.add_binary(args.binary)
 
-    stim_gen.gen_stim_header_32(args.vectors)
+    stim_gen.gen_stim_interleaved_slm(args.vectors)
 
 

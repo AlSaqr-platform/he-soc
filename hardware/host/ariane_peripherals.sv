@@ -27,7 +27,8 @@ module ariane_peripherals #(
     AXI_BUS.Slave           spi             ,
     AXI_BUS.Slave           ethernet        ,
     AXI_BUS.Slave           timer           ,
-    input  logic [33*4-1:0] udma_evt_i      ,
+    input  logic [31*4-1:0] udma_evt_i      ,
+    input  logic            cl_dma_pe_evt_i ,
     output logic [1:0]      irq_o           ,
     // UART
     input  logic            rx_i            ,
@@ -58,9 +59,10 @@ module ariane_peripherals #(
     logic [ariane_soc::NumSources-1:0] irq_sources;
 
     // Unused interrupt sources
-    assign irq_sources[ariane_soc::NumSources-1:139] = '0;
-    assign irq_sources[138:7] = udma_evt_i[131:0];
-                        
+    assign irq_sources[ariane_soc::NumSources-1:132] = '0;
+    assign irq_sources[130:7] = udma_evt_i[123:0];
+    assign irq_sources[131] = cl_dma_pe_evt_i;
+
     REG_BUS #(
         .ADDR_WIDTH ( 32 ),
         .DATA_WIDTH ( 32 )

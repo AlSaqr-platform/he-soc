@@ -54,9 +54,38 @@ Doing so will load the elf binary through the DMI interface, driven by the SimDT
 
 To load the code through JTAG interface, you can add the `localjtag=1` option and do `make localjtag=1 scripts_vip`. Be aware that the preload of the code is slower in this case. 
 
+### Preload
+
+To reduce simulation time, you can also preload the code in the hyperram. To do so follow the steps here:
+
+```
+cd hardware
+
+make update
+
+make preload=1 scripts_vips
+
+```
+This will generate the compile.tcl with the right defines. Go to the test you want to run.
+
+```
+cd ../software/hello/
+
+make clean all
+
+```
+
+This will generate the hyperram*.slm that will be in the rams at t=0. Go to the hardware folder and do:
+
+```
+make sim
+
+```
+Be aware than you will always run the latest test you compiled!
+
 ### Running code on the cluster
 
-To compile the code you can go in the `software/pulp` folder:
+To compile the cluster's code you can go in the `software/pulp` folder:
 
 ```
 export PATH=/path-to-riscy-toolchain/bin:$PATH
@@ -64,21 +93,22 @@ export PATH=/path-to-riscy-toolchain/bin:$PATH
 make clean all
 
 ```
+Then,
 
 ```
-cd hardware
+cd ../cluster
 
-make update
+make clean all
 
-make scripts_vips localjtag=1
-
-make sim elf-bin=../software/cluster/launch_cluster.riscv cl-bin=../software/pulp/mm.riscv
+make sim elf-bin=../software/cluster/launch_cluster.riscv 
 
 ```
 
 ### FPGA Emulation
 
 We now support emulation on Xilinx ZCU102. You first need to purchase an HyperRAM, where the core is stored during the boot. Then, you'll need to plug it in to the FMC board following the mapping provided in `cva6/hardware/fpga/alsaqr/tcl/fmc_board_zcu102.xdc`. From this folder:
+
+If you do not have an hyperram, you can use the L2SPM (`@1C000000`) to store code.
 
 ```
 make scripts-bender-fpga
@@ -103,7 +133,7 @@ make clean all
 
 cd ../../../../
 
-vivado-2018.2 vivado -mode batch -source run.tcl
+make run
 
 ```
 

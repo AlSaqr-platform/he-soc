@@ -1,0 +1,43 @@
+{
+    name: "control_register_config"
+    clock_primary: "clk_i"
+    reset_primary: "rst_ni"
+    bus_interfaces: [
+        { protocol: "reg_iface", direction: "device"}
+    ]
+    regwidth: 32,
+    registers: [
+        {skipto: "0x0"},
+      {
+          name: CONTROL_CLUSTER
+          desc: '''Cluster signal configuration.'''
+          swaccess: "rw"
+          fields: [
+            {
+                bits: "0"
+                name: reset_n
+                desc: '''Soft reset signal to the cluster'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "1"
+            },
+            {
+                bits: "1"
+                name: en_sa_boot
+                desc: '''Enable for cluster's boot'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "2"
+                name: fetch_en
+                desc: '''Cluster fetch enable'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+          ]
+      }
+    ]
+}

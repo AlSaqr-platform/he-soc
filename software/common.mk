@@ -27,4 +27,8 @@ build:
 dis:
 	$(RISCV_OBJDUMP) $(APP).riscv > $(APP).dump
 
-all: clean build dis
+dump_slm:
+	./../elf_to_slm.py --binary=$(APP).riscv --vectors=hyperram0.slm
+	cp hyperram*.slm $(current_dir)/../../hardware/
+
+all: clean build dis dump_slm

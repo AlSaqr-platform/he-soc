@@ -157,6 +157,6 @@ for {set i 0} {$i < 8} {incr i} {
 # CVA6 UART   #
 ###############
 
-set_output_delay -min -clock SOC_PER_CLK [ expr $PER_C_Period * $UART_OD_MIN ] [ get_pins i_pad_frame/cva6_uart_tx ]
-set_output_delay -max -clock SOC_PER_CLK [ expr $PER_C_Period * $UART_OD_MAX ] [ get_pins i_pad_frame/cva6_uart_tx ]
+set_output_delay -min -clock FLL_SOC_CLK [ expr $PER_C_Period * $UART_OD_MIN ] [ get_pins i_pad_frame/cva6_uart_tx ]
+set_output_delay -max -clock FLL_SOC_CLK [ expr $PER_C_Period * $UART_OD_MAX ] [ get_pins i_pad_frame/cva6_uart_tx ]
 set_max_delay    [ expr $PER_C_Period * $UART_ID_MAX ] -from  [ get_pins i_pad_frame/cva6_uart_tx ]

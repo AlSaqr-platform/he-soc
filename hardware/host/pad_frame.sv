@@ -10,50 +10,25 @@
 
 
 module pad_frame
+  import udma_subsystem_pkg::*;
     (
-     // HYPERBUS
-     input logic [1:0]   hyper_cs_ni ,
-     input logic         hyper_ck_i ,
-     input logic         hyper_ck_ni ,
-     input logic [1:0]   hyper_rwds_i ,
-     output logic        hyper_rwds_o ,
-     input logic [1:0]   hyper_rwds_oe_i ,
-     output logic [15:0] hyper_dq_o ,
-     input logic [15:0]  hyper_dq_i ,
-     input logic [1:0]   hyper_dq_oe_i ,
-     input logic         hyper_reset_ni ,
-
-     inout wire [7:0]    pad_hyper_dq0 ,
-     inout wire [7:0]    pad_hyper_dq1 ,
-     inout wire          pad_hyper_ck ,
-     inout wire          pad_hyper_ckn ,
-     inout wire          pad_hyper_csn0 ,
-     inout wire          pad_hyper_csn1 ,
-     inout wire          pad_hyper_rwds0 ,
-     inout wire          pad_hyper_rwds1 ,
-     inout wire          pad_hyper_reset ,
-
-     // HYPERBUS
-     input logic [1:0]   axi_hyper_cs_ni ,
-     input logic         axi_hyper_ck_i ,
-     input logic         axi_hyper_ck_ni ,
-     input logic         axi_hyper_rwds_i ,
-     output logic        axi_hyper_rwds_o ,
-     input logic         axi_hyper_rwds_oe_i ,
-     output logic [7:0]  axi_hyper_dq_o ,
-     input logic [7:0]   axi_hyper_dq_i ,
-     input logic         axi_hyper_dq_oe_i ,
-     input logic         axi_hyper_reset_ni ,
+     input               hyper_to_pad_t [1:0] hyper_to_pad,
+     output              pad_to_hyper_t [1:0] pad_to_hyper,
                          
-     inout wire [7:0]    pad_axi_hyper_dq0 ,
-     inout wire [7:0]    pad_axi_hyper_dq1 ,
-     inout wire          pad_axi_hyper_ck ,
-     inout wire          pad_axi_hyper_ckn ,
-     inout wire          pad_axi_hyper_csn0 ,
-     inout wire          pad_axi_hyper_csn1 ,
-     inout wire          pad_axi_hyper_rwds0 ,
-     inout wire          pad_axi_hyper_rwds1 ,
-     inout wire          pad_axi_hyper_reset ,
+     inout wire [7:0]    pad_hyper0_dq ,
+     inout wire          pad_hyper0_ck ,
+     inout wire          pad_hyper0_ckn ,
+     inout wire [1:0]    pad_hyper0_csn ,
+     inout wire          pad_hyper0_rwds ,
+     inout wire          pad_hyper0_reset ,
+
+
+     inout wire [7:0]    pad_hyper1_dq ,
+     inout wire          pad_hyper1_ck ,
+     inout wire          pad_hyper1_ckn ,
+     inout wire [1:0]    pad_hyper1_csn ,
+     inout wire          pad_hyper1_rwds ,
+     inout wire          pad_hyper1_reset ,
 
      input logic         cva6_uart_tx,
      output logic        cva6_uart_rx,
@@ -63,6 +38,7 @@ module pad_frame
 
      output logic        ref_clk_o,
      output logic        rstn_o,
+     output logic        bypass_o,
      output logic        jtag_tck_o,
      output logic        jtag_tdi_o,
      input logic         jtag_tdo_i,
@@ -75,45 +51,49 @@ module pad_frame
      inout wire          pad_jtag_tdo,
      inout wire          pad_jtag_tms,
      inout wire          pad_jtag_trst,
+
+     inout wire          pad_bypass,
      inout wire          pad_xtal_in
 
      );
 
-    pad_functional_pu padinst_axi_hyper_csno0  (.OEN( 1'b0                  ), .I( axi_hyper_cs_ni[0]  ), .O(                   ), .PAD( pad_axi_hyper_csn0    ), .PEN(1'b1 ) );
-    pad_functional_pu padinst_axi_hyper_csno1  (.OEN( 1'b0                  ), .I( axi_hyper_cs_ni[1]  ), .O(                   ), .PAD( pad_axi_hyper_csn1    ), .PEN(1'b1 ) );
-    pad_functional_pu padinst_axi_hyper_ck     (.OEN( 1'b0                  ), .I( axi_hyper_ck_i      ), .O(                   ), .PAD( pad_axi_hyper_ck      ), .PEN(1'b1 ) );
-    pad_functional_pu padinst_axi_hyper_ckno   (.OEN( 1'b0                  ), .I( axi_hyper_ck_ni     ), .O(                   ), .PAD( pad_axi_hyper_ckn     ), .PEN(1'b1 ) );
-    pad_functional_pu padinst_axi_hyper_rwds0  (.OEN(~axi_hyper_rwds_oe_i   ), .I( axi_hyper_rwds_i    ), .O( axi_hyper_rwds_o  ), .PAD( pad_axi_hyper_rwds0   ), .PEN(1'b1 ) );
-    pad_functional_pu padinst_axi_hyper_resetn (.OEN( 1'b0                  ), .I( axi_hyper_reset_ni  ), .O(                   ), .PAD( pad_axi_hyper_reset   ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper0_csno0  (.OEN( 1'b0                     ), .I( hyper_to_pad[0].cs0n_o  ), .O(                      ), .PAD(pad_hyper0_csn[0]), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper0_csno1  (.OEN( 1'b0                     ), .I( hyper_to_pad[0].cs1n_o  ), .O(                      ), .PAD(pad_hyper0_csn[1]), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper0_ck     (.OEN( 1'b0                     ), .I( hyper_to_pad[0].ck_o    ), .O(                      ), .PAD(pad_hyper0_ck    ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper0_ckno   (.OEN( 1'b0                     ), .I( hyper_to_pad[0].ckn_o   ), .O(                      ), .PAD(pad_hyper0_ckn   ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper0_rwds0  (.OEN(~hyper_to_pad[0].rwds_oe_o), .I( hyper_to_pad[0].rwds_o  ), .O(pad_to_hyper[0].rwds_i), .PAD(pad_hyper0_rwds  ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper0_resetn (.OEN( 1'b0                     ), .I( hyper_to_pad[0].resetn_o), .O(                      ), .PAD(pad_hyper0_reset ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper0_dqio0  (.OEN(~hyper_to_pad[0].dq_oe_o  ), .I( hyper_to_pad[0].dq0_o   ), .O(pad_to_hyper[0].dq0_i ), .PAD(pad_hyper0_dq[0] ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper0_dqio1  (.OEN(~hyper_to_pad[0].dq_oe_o  ), .I( hyper_to_pad[0].dq1_o   ), .O(pad_to_hyper[0].dq1_i ), .PAD(pad_hyper0_dq[1] ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper0_dqio2  (.OEN(~hyper_to_pad[0].dq_oe_o  ), .I( hyper_to_pad[0].dq2_o   ), .O(pad_to_hyper[0].dq2_i ), .PAD(pad_hyper0_dq[2] ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper0_dqio3  (.OEN(~hyper_to_pad[0].dq_oe_o  ), .I( hyper_to_pad[0].dq3_o   ), .O(pad_to_hyper[0].dq3_i ), .PAD(pad_hyper0_dq[3] ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper0_dqio4  (.OEN(~hyper_to_pad[0].dq_oe_o  ), .I( hyper_to_pad[0].dq4_o   ), .O(pad_to_hyper[0].dq4_i ), .PAD(pad_hyper0_dq[4] ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper0_dqio5  (.OEN(~hyper_to_pad[0].dq_oe_o  ), .I( hyper_to_pad[0].dq5_o   ), .O(pad_to_hyper[0].dq5_i ), .PAD(pad_hyper0_dq[5] ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper0_dqio6  (.OEN(~hyper_to_pad[0].dq_oe_o  ), .I( hyper_to_pad[0].dq6_o   ), .O(pad_to_hyper[0].dq6_i ), .PAD(pad_hyper0_dq[6] ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper0_dqio7  (.OEN(~hyper_to_pad[0].dq_oe_o  ), .I( hyper_to_pad[0].dq7_o   ), .O(pad_to_hyper[0].dq7_i ), .PAD(pad_hyper0_dq[7] ), .PEN(1'b1 ) );
 
-    genvar k;
-    generate
-       for (k=0; k<8; k++) begin
-                pad_functional_pu padinst_axi_hyper_dqio0  (.OEN(~axi_hyper_dq_oe_i   ), .I( axi_hyper_dq_i[k]   ), .O( axi_hyper_dq_o[k]  ), .PAD( pad_axi_hyper_dq0[k]   ), .PEN(1'b1 ) );
-        end
-    endgenerate
+    pad_functional_pu padinst_hyper1_csno0  (.OEN( 1'b0                     ), .I( hyper_to_pad[1].cs0n_o  ), .O(                      ), .PAD(pad_hyper1_csn[0]), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper1_csno1  (.OEN( 1'b0                     ), .I( hyper_to_pad[1].cs1n_o  ), .O(                      ), .PAD(pad_hyper1_csn[1]), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper1_ck     (.OEN( 1'b0                     ), .I( hyper_to_pad[1].ck_o    ), .O(                      ), .PAD(pad_hyper1_ck    ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper1_ckno   (.OEN( 1'b0                     ), .I( hyper_to_pad[1].ckn_o   ), .O(                      ), .PAD(pad_hyper1_ckn   ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper1_rwds0  (.OEN(~hyper_to_pad[1].rwds_oe_o), .I( hyper_to_pad[1].rwds_o  ), .O(pad_to_hyper[1].rwds_i), .PAD(pad_hyper1_rwds  ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper1_resetn (.OEN( 1'b0                     ), .I( hyper_to_pad[1].resetn_o), .O(                      ), .PAD(pad_hyper1_reset ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper1_dqio0  (.OEN(~hyper_to_pad[1].dq_oe_o  ), .I( hyper_to_pad[1].dq0_o   ), .O(pad_to_hyper[1].dq0_i ), .PAD(pad_hyper1_dq[0] ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper1_dqio1  (.OEN(~hyper_to_pad[1].dq_oe_o  ), .I( hyper_to_pad[1].dq1_o   ), .O(pad_to_hyper[1].dq1_i ), .PAD(pad_hyper1_dq[1] ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper1_dqio2  (.OEN(~hyper_to_pad[1].dq_oe_o  ), .I( hyper_to_pad[1].dq2_o   ), .O(pad_to_hyper[1].dq2_i ), .PAD(pad_hyper1_dq[2] ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper1_dqio3  (.OEN(~hyper_to_pad[1].dq_oe_o  ), .I( hyper_to_pad[1].dq3_o   ), .O(pad_to_hyper[1].dq3_i ), .PAD(pad_hyper1_dq[3] ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper1_dqio4  (.OEN(~hyper_to_pad[1].dq_oe_o  ), .I( hyper_to_pad[1].dq4_o   ), .O(pad_to_hyper[1].dq4_i ), .PAD(pad_hyper1_dq[4] ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper1_dqio5  (.OEN(~hyper_to_pad[1].dq_oe_o  ), .I( hyper_to_pad[1].dq5_o   ), .O(pad_to_hyper[1].dq5_i ), .PAD(pad_hyper1_dq[5] ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper1_dqio6  (.OEN(~hyper_to_pad[1].dq_oe_o  ), .I( hyper_to_pad[1].dq6_o   ), .O(pad_to_hyper[1].dq6_i ), .PAD(pad_hyper1_dq[6] ), .PEN(1'b1 ) );
+    pad_functional_pu padinst_hyper1_dqio7  (.OEN(~hyper_to_pad[1].dq_oe_o  ), .I( hyper_to_pad[1].dq7_o   ), .O(pad_to_hyper[1].dq7_i ), .PAD(pad_hyper1_dq[7] ), .PEN(1'b1 ) );
+   
    
     pad_functional_pu padinst_uart_rx    (.OEN( 1'b1   ), .I(1'b0         ), .O(cva6_uart_rx ), .PAD(pad_cva6_uart_rx   ), .PEN(1'b1) );
     pad_functional_pu padinst_uart_tx    (.OEN( 1'b0   ), .I(cva6_uart_tx ), .O(             ), .PAD(pad_cva6_uart_tx   ), .PEN(1'b1) );
    
 `ifndef FPGA_EMUL  
 
-    //HYPER
-    pad_functional_pu padinst_hyper_csno0  (.OEN( 1'b0              ), .I( hyper_cs_ni[0]     ), .O(                   ), .PAD( pad_hyper_csn0    ), .PEN(1'b1 ) );
-    pad_functional_pu padinst_hyper_csno1  (.OEN( 1'b0              ), .I( hyper_cs_ni[1]     ), .O(                   ), .PAD( pad_hyper_csn1    ), .PEN(1'b1 ) );
-    pad_functional_pu padinst_hyper_ck     (.OEN( 1'b0              ), .I( hyper_ck_i         ), .O(                   ), .PAD( pad_hyper_ck      ), .PEN(1'b1 ) );
-    pad_functional_pu padinst_hyper_ckno   (.OEN( 1'b0              ), .I( hyper_ck_ni        ), .O(                   ), .PAD( pad_hyper_ckn     ), .PEN(1'b1 ) );
-    pad_functional_pu padinst_hyper_rwds0  (.OEN(~hyper_rwds_oe_i[0]), .I( hyper_rwds_i[0]    ), .O( hyper_rwds_o      ), .PAD( pad_hyper_rwds0   ), .PEN(1'b1 ) );
-    pad_functional_pu padinst_hyper_rwds1  (.OEN(~hyper_rwds_oe_i[1]), .I( hyper_rwds_i[1]    ), .O(                   ), .PAD( pad_hyper_rwds1   ), .PEN(1'b1 ) );
-    pad_functional_pu padinst_hyper_resetn (.OEN( 1'b0              ), .I( hyper_reset_ni     ), .O(                   ), .PAD( pad_hyper_reset   ), .PEN(1'b1 ) );
-
-    genvar j;
-    generate
-       for (j=0; j<8; j++) begin
-                pad_functional_pu padinst_hyper_dqio0  (.OEN(~hyper_dq_oe_i[0]   ), .I( hyper_dq_i[j]   ), .O( hyper_dq_o[j]  ), .PAD( pad_hyper_dq0[j]   ), .PEN(1'b1 ) );
-        end
-    endgenerate
-
+    pad_functional_pu padinst_bypass_clk (.OEN(1'b1            ), .I(                ), .O(bypass_o       ), .PAD(pad_bypass    ), .PEN(1'b1             ) );   
     pad_functional_pu padinst_ref_clk    (.OEN(1'b1            ), .I(                ), .O(ref_clk_o      ), .PAD(pad_xtal_in   ), .PEN(1'b1             ) );
     pad_functional_pu padinst_reset_n    (.OEN(1'b1            ), .I(                ), .O(rstn_o         ), .PAD(pad_reset_n   ), .PEN(1'b1             ) );
     pad_functional_pu padinst_jtag_tck   (.OEN(1'b1            ), .I(                ), .O(jtag_tck_o     ), .PAD(pad_jtag_tck  ), .PEN(1'b1             ) );
@@ -125,7 +105,7 @@ module pad_frame
 `else
     assign ref_clk_o = pad_xtal_in;
     assign rstn_o = pad_reset_n;
-    
+    assign bypass_o = pad_bypass;    
     //JTAG signals
     assign pad_jtag_tdo = jtag_tdo_i;
     assign jtag_trst_o = pad_jtag_trst;

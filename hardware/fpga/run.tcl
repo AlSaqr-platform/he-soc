@@ -1,5 +1,5 @@
 start_gui
-create_project alsaqr /scratch/lvalente/templatealsaqr/cva6/hardware/fpga/alsaqr -part xczu9eg-ffvb1156-2-e
+create_project alsaqr $::env(PROJECT_HOME) -part $::env(XILINX_PART)
 source ./alsaqr/tcl/generated/compile.tcl
 set_property top alsaqr_xilinx [current_fileset]
 read_ip ./alsaqr/tcl/ips/clk_mngr/ip/xilinx_clk_mngr.xci

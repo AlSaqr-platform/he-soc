@@ -27,20 +27,35 @@ module alsaqr_xilinx
    inout wire  pad_uart_rx,
    inout wire  pad_uart_tx,
    
-   inout       FMC_hyper_dqio0 ,
-   inout       FMC_hyper_dqio1 ,
-   inout       FMC_hyper_dqio2 ,
-   inout       FMC_hyper_dqio3 ,
-   inout       FMC_hyper_dqio4 ,
-   inout       FMC_hyper_dqio5 ,
-   inout       FMC_hyper_dqio6 ,
-   inout       FMC_hyper_dqio7 ,
-   inout       FMC_hyper_ck    ,
-   inout       FMC_hyper_ckn   ,
-   inout       FMC_hyper_csn0  ,
-   inout       FMC_hyper_csn1  ,
-   inout       FMC_hyper_rwds0 ,
-   inout       FMC_hyper_reset ,
+   inout       FMC_hyper0_dqio0 ,
+   inout       FMC_hyper0_dqio1 ,
+   inout       FMC_hyper0_dqio2 ,
+   inout       FMC_hyper0_dqio3 ,
+   inout       FMC_hyper0_dqio4 ,
+   inout       FMC_hyper0_dqio5 ,
+   inout       FMC_hyper0_dqio6 ,
+   inout       FMC_hyper0_dqio7 ,
+   inout       FMC_hyper0_ck    ,
+   inout       FMC_hyper0_ckn   ,
+   inout       FMC_hyper0_csn0  ,
+   inout       FMC_hyper0_csn1  ,
+   inout       FMC_hyper0_rwds  ,
+   inout       FMC_hyper0_reset ,
+
+   inout       FMC_hyper1_dqio0 ,
+   inout       FMC_hyper1_dqio1 ,
+   inout       FMC_hyper1_dqio2 ,
+   inout       FMC_hyper1_dqio3 ,
+   inout       FMC_hyper1_dqio4 ,
+   inout       FMC_hyper1_dqio5 ,
+   inout       FMC_hyper1_dqio6 ,
+   inout       FMC_hyper1_dqio7 ,
+   inout       FMC_hyper1_ck    ,
+   inout       FMC_hyper1_ckn   ,
+   inout       FMC_hyper1_csn0  ,
+   inout       FMC_hyper1_csn1  ,
+   inout       FMC_hyper1_rwds0 ,
+   inout       FMC_hyper1_reset ,
 
    input wire  pad_reset,
 
@@ -73,49 +88,69 @@ module alsaqr_xilinx
 
    assign reset_n = ~pad_reset & pad_jtag_trst;
 
-   wire [7:0] s_pad_hyper_dq0;
+   wire [7:0] s_pad_hyper0_dq;
+   wire [1:0] s_pad_hyper0_csn;
+   wire [7:0] s_pad_hyper1_dq;
+   wire [1:0] s_pad_hyper1_csn;
 
-   assign s_pad_hyper_dq0[0] = FMC_hyper_dqio0;
-   assign s_pad_hyper_dq0[1] = FMC_hyper_dqio1;
-   assign s_pad_hyper_dq0[2] = FMC_hyper_dqio2;
-   assign s_pad_hyper_dq0[3] = FMC_hyper_dqio3;
-   assign s_pad_hyper_dq0[4] = FMC_hyper_dqio4;
-   assign s_pad_hyper_dq0[5] = FMC_hyper_dqio5;
-   assign s_pad_hyper_dq0[6] = FMC_hyper_dqio6;
-   assign s_pad_hyper_dq0[7] = FMC_hyper_dqio7;
+   assign s_pad_hyper0_csn[0] = FMC_hyper0_csn0;
+   assign s_pad_hyper0_csn[1] = FMC_hyper0_csn1;   
+   assign s_pad_hyper0_dq[0]  = FMC_hyper0_dqio0;
+   assign s_pad_hyper0_dq[1]  = FMC_hyper0_dqio1;
+   assign s_pad_hyper0_dq[2]  = FMC_hyper0_dqio2;
+   assign s_pad_hyper0_dq[3]  = FMC_hyper0_dqio3;
+   assign s_pad_hyper0_dq[4]  = FMC_hyper0_dqio4;
+   assign s_pad_hyper0_dq[5]  = FMC_hyper0_dqio5;
+   assign s_pad_hyper0_dq[6]  = FMC_hyper0_dqio6;
+   assign s_pad_hyper0_dq[7]  = FMC_hyper0_dqio7;
+
+   assign s_pad_hyper1_csn[0] = FMC_hyper1_csn0;
+   assign s_pad_hyper1_csn[1] = FMC_hyper1_csn1;   
+   assign s_pad_hyper1_dq[0]  = FMC_hyper1_dqio0;
+   assign s_pad_hyper1_dq[1]  = FMC_hyper1_dqio1;
+   assign s_pad_hyper1_dq[2]  = FMC_hyper1_dqio2;
+   assign s_pad_hyper1_dq[3]  = FMC_hyper1_dqio3;
+   assign s_pad_hyper1_dq[4]  = FMC_hyper1_dqio4;
+   assign s_pad_hyper1_dq[5]  = FMC_hyper1_dqio5;
+   assign s_pad_hyper1_dq[6]  = FMC_hyper1_dqio6;
+   assign s_pad_hyper1_dq[7]  = FMC_hyper1_dqio7;
    
     al_saqr #(
         .JtagEnable        ( 1'b1          )
     ) i_alsaqr (
-        .rst_ni               ( reset_n         ),
-        .rtc_i                ( ref_clk         ),
-        .jtag_TCK             ( pad_jtag_tck    ),
-        .jtag_TMS             ( pad_jtag_tms    ),
-        .jtag_TDI             ( pad_jtag_tdi    ),
-        .jtag_TRSTn           ( 1'b1            ),
-        .jtag_TDO_data        ( pad_jtag_tdo    ),
-        .jtag_TDO_driven      (                 ),
-        .pad_hyper_dq0        (                 ),
-        .pad_hyper_dq1        (                 ),
-        .pad_hyper_ck         (                 ),
-        .pad_hyper_ckn        (                 ),
-        .pad_hyper_csn0       (                 ),
-        .pad_hyper_csn1       (                 ),
-        .pad_hyper_rwds0      (                 ),
-        .pad_hyper_rwds1      (                 ),
-        .pad_hyper_reset      (                 ),
-        .pad_gpio             (                 ),
-        .cva6_uart_rx_i       ( pad_uart_rx     ),
-        .cva6_uart_tx_o       ( pad_uart_tx     ),
-        .pad_axi_hyper_dq0    ( s_pad_hyper_dq0 ),
-        .pad_axi_hyper_dq1    (                 ),
-        .pad_axi_hyper_ck     ( FMC_hyper_ck    ),
-        .pad_axi_hyper_ckn    ( FMC_hyper_ckn   ),
-        .pad_axi_hyper_csn0   ( FMC_hyper_csn0  ),
-        .pad_axi_hyper_csn1   ( FMC_hyper_csn1  ),
-        .pad_axi_hyper_rwds0  ( FMC_hyper_rwds0 ),
-        .pad_axi_hyper_rwds1  (                 ),
-        .pad_axi_hyper_reset  ( FMC_hyper_reset )
+        .rst_ni           ( reset_n          ),
+        .rtc_i            ( ref_clk          ),
+        .jtag_TCK         ( pad_jtag_tck     ),
+        .jtag_TMS         ( pad_jtag_tms     ),
+        .jtag_TDI         ( pad_jtag_tdi     ),
+        .jtag_TRSTn       ( 1'b1             ),
+        .jtag_TDO_data    ( pad_jtag_tdo     ),
+        .jtag_TDO_driven  (                  ),
+        .pad_hyper_dq0    (                  ),
+        .pad_hyper_dq1    (                  ),
+        .pad_hyper_ck     (                  ),
+        .pad_hyper_ckn    (                  ),
+        .pad_hyper_csn0   (                  ),
+        .pad_hyper_csn1   (                  ),
+        .pad_hyper_rwds0  (                  ),
+        .pad_hyper_rwds1  (                  ),
+        .pad_hyper_reset  (                  ),
+        .cva6_uart_rx_i   ( pad_uart_rx      ),
+        .cva6_uart_tx_o   ( pad_uart_tx      ),
+
+        .pad_hyper0_dq    ( s_pad_hyper0_dq  ),
+        .pad_hyper0_ck    ( FMC_hyper0_ck    ),
+        .pad_hyper0_ckn   ( FMC_hyper0_ckn   ),
+        .pad_hyper0_csn   ( s_pad_hyper0_csn ),
+        .pad_hyper0_rwds  ( FMC_hyper0_rwds  ),
+        .pad_hyper0_reset ( FMC_hyper0_reset ),
+
+        .pad_hyper1_dq    ( s_pad_hyper1_dq  ),
+        .pad_hyper1_ck    ( FMC_hyper1_ck    ),
+        .pad_hyper1_ckn   ( FMC_hyper1_ckn   ),
+        .pad_hyper1_csn   ( s_pad_hyper1_csn ),
+        .pad_hyper1_rwds  ( FMC_hyper1_rwds  ),
+        .pad_hyper1_reset ( FMC_hyper1_reset )
    );
 
 

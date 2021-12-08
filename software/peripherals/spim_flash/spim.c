@@ -245,15 +245,15 @@ int main(){
   }
 
 
-  //FIX PRINTF UART
   #ifdef FPGA_EMULATION
-      int baud_rate = 9600;
-      int test_freq = 10000000;
+  int baud_rate = 9600;
+  int test_freq = 10000000;
   #else
-      int baud_rate = 115200;
-      int test_freq = 17500000;
+  set_flls();
+  int baud_rate = 115200;
+  int test_freq = 100000000;
   #endif  
-      uart_set_cfg(0,(test_freq/baud_rate)>>4);
+  uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
 
   alsaqr_periph_padframe_periphs_pad_gpio_b_00_mux_set( 2 );
