@@ -49,8 +49,9 @@ int main(int argc, char const *argv[]) {
   int baud_rate = 9600;
   int test_freq = 10000000;
   #else
+  set_flls();
   int baud_rate = 115200;
-  int test_freq = 17500000;
+  int test_freq = 100000000;
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 

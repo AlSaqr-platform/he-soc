@@ -30,8 +30,7 @@ module ariane_tb;
 
     static uvm_cmdline_processor uvcl = uvm_cmdline_processor::get_inst();
 
-    localparam int unsigned CLOCK_PERIOD   = 56832ps;
-    localparam int unsigned REFClockPeriod = 56832ps;
+    localparam int unsigned REFClockPeriod = 67000ps; // jtag clock
     // toggle with RTC period
     `ifndef TEST_CLOCK_BYPASS
       localparam int unsigned RTC_CLOCK_PERIOD = 30.517us;
@@ -59,13 +58,21 @@ module ariane_tb;
     // use camera verification IP
    parameter  USE_SDVT_CPI = 1;
 
-  `ifdef USE_LOCAL_JTAG 
+  `ifdef PRELOAD
+    parameter  PRELOAD_HYPERRAM    = 1;
     parameter  LOCAL_JTAG          = 1;
     parameter  CHECK_LOCAL_JTAG    = 0; 
-  `else
-    parameter  LOCAL_JTAG          = 0;
-    parameter  CHECK_LOCAL_JTAG    = 0; 
+  `else 
+    parameter PRELOAD_HYPERRAM = 0;
+    `ifdef USE_LOCAL_JTAG 
+      parameter  LOCAL_JTAG          = 1;
+      parameter  CHECK_LOCAL_JTAG    = 0; 
+    `else
+      parameter  LOCAL_JTAG          = 0;
+      parameter  CHECK_LOCAL_JTAG    = 0; 
+    `endif
   `endif
+   
 
   `ifdef POSTLAYOUT
     localparam int unsigned JtagSampleDelay = (REFClockPeriod < 10ns) ? 2 : 1;
@@ -598,8 +605,8 @@ module ariane_tb;
 
    s27ks0641 #(
          .TimingModel   ( "S27KS0641DPBHI020"    ),
-         .UserPreload   ( 1'b0                   ),
-         .mem_file_name ( "hyper.mem"            )
+         .UserPreload   ( PRELOAD_HYPERRAM       ),
+         .mem_file_name ( "./hyperram0.slm"      )
      ) i_main_hyperram0 (
             .DQ7      ( w_hyper0_dq[7]  ),
             .DQ6      ( w_hyper0_dq[6]  ),
@@ -636,8 +643,8 @@ module ariane_tb;
      );
          s27ks0641 #(
             .TimingModel   ( "S27KS0641DPBHI020" ),
-            .UserPreload   ( 1'b0                ),
-            .mem_file_name ( "hyper.mem"         )
+            .UserPreload   ( PRELOAD_HYPERRAM    ),
+            .mem_file_name ( "./hyperram1.slm"   )
          ) i_main_hyperram2 (
             .DQ7      ( w_hyper1_dq[7]  ),
             .DQ6      ( w_hyper1_dq[6]  ),
@@ -726,9 +733,13 @@ module ariane_tb;
     end
    
    assign clk_i = dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o;
-   
-   assign s_tck = clk_i;
-   
+
+   initial begin
+      s_tck = '0;
+      forever
+        #(REFClockPeriod/2) s_tck=~s_tck;
+   end
+      
     initial begin
         forever begin
 
@@ -747,28 +758,79 @@ module ariane_tb;
 
    initial  begin: local_jtag_preload
 
+      logic [63:0] rdata;
+      logic [32:0] addr;
+
+      automatic dm::sbcs_t sbcs = '{
+        sbautoincrement: 1'b1,
+        sbreadondata   : 1'b1,
+        default        : 1'b0
+      };
+      
       if(LOCAL_JTAG) begin
-        if ( $value$plusargs ("CVA6_STRING=%s", binary));
-          $display("Testing %s", binary);
-        if ( $value$plusargs ("CL_STRING=%s", cluster_binary));
-         if(cluster_binary!="none") 
-           $display("Testing cluster: %s", cluster_binary);
 
-        repeat(30000)
-              #(CLOCK_PERIOD/2);
-        debug_module_init();
-        // LOAD cluster code
-        if(cluster_binary!="none") 
-          load_binary(cluster_binary);
-
-        load_binary(binary);
-        // Call the JTAG preload task
-        jtag_data_preload();
-        #(REFClockPeriod);
-        jtag_ariane_wakeup();
-        jtag_read_eoc();
-      end
-
+         if(!PRELOAD_HYPERRAM) begin
+           if ( $value$plusargs ("CVA6_STRING=%s", binary));
+             $display("Testing %s", binary);
+           if ( $value$plusargs ("CL_STRING=%s", cluster_binary));
+            if(cluster_binary!="none") 
+              $display("Testing cluster: %s", cluster_binary);
+         end 
+         
+        repeat(50)
+            @(posedge rtc_i);
+           debug_module_init();
+           if(!PRELOAD_HYPERRAM) begin
+              // LOAD cluster code
+              if(cluster_binary!="none") 
+                load_binary(cluster_binary);
+              
+              load_binary(binary);
+              // Call the JTAG preload task
+              jtag_data_preload();
+           end else begin
+              $display("Sanity write/read at 0x1C000000"); // word = 8 bytes here
+              addr = 32'h1c000000;
+              do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+              while (sbcs.sbbusy);
+              riscv_dbg.write_dmi(dm::SBCS, sbcs);
+              do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+              while (sbcs.sbbusy);
+              riscv_dbg.write_dmi(dm::SBAddress0, addr);
+              do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+              while (sbcs.sbbusy);         
+              riscv_dbg.write_dmi(dm::SBData1, 32'hdeadcaca);
+              do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+              while (sbcs.sbbusy);           
+              riscv_dbg.write_dmi(dm::SBData0, 32'habbaabba);
+              do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+              while (sbcs.sbbusy);  
+              sbcs.sbreadonaddr = 1;
+              riscv_dbg.write_dmi(dm::SBCS, sbcs);
+              do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+              while (sbcs.sbbusy);  
+              riscv_dbg.write_dmi(dm::SBAddress0, addr);
+              do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+              while (sbcs.sbbusy);
+              riscv_dbg.read_dmi(dm::SBData1, rdata[63:32]);
+              // Wait until SBA is free to read another 32 bits
+              do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+              while (sbcs.sbbusy);           
+              riscv_dbg.read_dmi(dm::SBData0, rdata[32:0]);
+              // Wait until SBA is free to read another 32 bits
+              do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+              while (sbcs.sbbusy);           
+              if(rdata!=64'hdeadcacaabbaabba) begin
+                $fatal(1,"rdata at 0x1c000000: %x" , rdata);
+              end else begin
+                $display("R/W sanity check ok!");
+              end
+           end 
+            
+           #(REFClockPeriod);
+           jtag_ariane_wakeup();
+           jtag_read_eoc();
+         end 
    end
    
   task debug_module_init;

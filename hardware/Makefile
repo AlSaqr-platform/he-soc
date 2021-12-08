@@ -138,6 +138,11 @@ ifdef localjtag
 	questa-cmd += +define+USE_LOCAL_JTAG 
 endif
 
+ifdef preload
+	compile_flag += +define+PRELOAD
+	questa-cmd += +define+PRELOAD 
+endif
+
 bender:
 	curl --proto '=https' --tlsv1.2 https://fabianschuiki.github.io/bender/init -sSf | sh
 
