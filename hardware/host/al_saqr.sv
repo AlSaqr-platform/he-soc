@@ -289,11 +289,21 @@ module al_saqr
      .LOG_DEPTH      ( 3                        )
   ) async_cluster_to_soc_axi_bus();
 
-  AXI_LITE_ASYNC_GRAY #(
-     .AXI_ADDR_WIDTH   ( AXI_ADDRESS_WIDTH        ),
-     .AXI_DATA_WIDTH   ( AXI_DATA_WIDTH           ),
-     .LOG_DEPTH        ( 3                        )
-  ) async_tlb_cfg_lite ();
+  AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidth      ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+  ) c2h_tlb_cfg_axi_bus();
+   
+
+  AXI_BUS_ASYNC_GRAY #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidth      ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH           ),
+     .LOG_DEPTH      ( 3                        )
+  ) async_cfg_axi_bus();
    
   AXI_LITE #(
     .AXI_ADDR_WIDTH (AXI_LITE_AW),
@@ -314,32 +324,6 @@ module al_saqr
     .AXI_ADDR_WIDTH (AXI_ADDRESS_WIDTH),
     .AXI_DATA_WIDTH (AXI_LITE_DW)
   ) c2h_tlb_cfg();
-
-  /*************************************FAKE BUSES*************************************/
-  AXI_BUS #(
-     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
-     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-  ) fake_slv();
-  
-  AXI_BUS #(
-     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
-     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-  ) fake_mst();
-  AXI_BUS #(
-     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
-     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-  ) fake_bus();
-  // 
-  // AXI_LITE #(
-  //   .AXI_ADDR_WIDTH (AXI_ADDRESS_WIDTH),
-  //   .AXI_DATA_WIDTH (AXI_LITE_DW)
-  // ) fake_cfg();
 
   logic s_cva6_uart_rx_i;
   logic s_cva6_uart_tx_o;
@@ -546,18 +530,36 @@ module al_saqr
        .dst_clk_i  ( s_soc_clk                    ),
        .dst_rst_ni ( s_soc_rst_n                  ),
        .src        ( async_cluster_to_soc_axi_bus ),
-       .dst        ( cluster_to_tlb_axi_bus       ) // cluster_to_soc_axi_bus       )
+       .dst        ( cluster_to_tlb_axi_bus       )
        );
 
-   axi_lite_cdc_dst_intf #(
-    .AXI_ADDR_WIDTH       ( AXI_ADDRESS_WIDTH  ),
-    .AXI_DATA_WIDTH       ( AXI_DATA_WIDTH     ),
-    .LOG_DEPTH            ( 3                  )
-   ) i_c2h_dst_cdc_lite   (
-    .dst_clk_i            ( s_soc_clk          ),
-    .dst_rst_ni           ( s_soc_rst_n        ),
-    .src                  ( async_tlb_cfg_lite ),
-    .dst                  ( c2h_tlb_cfg_lite   )
+   axi_cdc_dst_intf      #(
+     .AXI_ADDR_WIDTH      ( AXI_ADDRESS_WIDTH   ),
+     .AXI_DATA_WIDTH      ( AXI_DATA_WIDTH      ),
+     .AXI_ID_WIDTH        ( ariane_soc::IdWidth ),
+     .AXI_USER_WIDTH      ( AXI_USER_WIDTH      ),
+     .LOG_DEPTH           ( 3                   )
+     ) cfg_dst_cdc_fifo_i (
+       .dst_clk_i         ( s_soc_clk           ),
+       .dst_rst_ni        ( s_soc_rst_n         ),
+       .src               ( async_cfg_axi_bus   ),
+       .dst               ( c2h_tlb_cfg_axi_bus )
+       );
+
+   axi_to_axi_lite_intf #(
+     .AXI_ADDR_WIDTH     ( AXI_ADDRESS_WIDTH   ),
+     .AXI_DATA_WIDTH     ( AXI_DATA_WIDTH      ),
+     .AXI_ID_WIDTH       ( ariane_soc::IdWidth ),
+     .AXI_USER_WIDTH     ( AXI_USER_WIDTH      ),
+     .AXI_MAX_WRITE_TXNS ( 1                   ),
+     .AXI_MAX_READ_TXNS  ( 1                   ),
+     .FALL_THROUGH       ( 0                   )
+   ) i_axi2lite_tlb_cfg  (
+     .clk_i              ( s_soc_clk           ),
+     .rst_ni             ( s_soc_rst_n         ),
+     .testmode_i         ( 1'b0                ),
+     .slv                ( c2h_tlb_cfg_axi_bus ),
+     .mst                ( c2h_tlb_cfg_lite    )
    );
    
     pulp_cluster
@@ -645,6 +647,22 @@ module al_saqr
         .async_data_master_b_rptr_o   ( async_cluster_to_soc_axi_bus.b_rptr   ),
         .async_data_master_b_data_i   ( async_cluster_to_soc_axi_bus.b_data   ),
 
+        .async_cfg_master_aw_wptr_o   ( async_cfg_axi_bus.aw_wptr             ),
+        .async_cfg_master_aw_rptr_i   ( async_cfg_axi_bus.aw_rptr             ),
+        .async_cfg_master_aw_data_o   ( async_cfg_axi_bus.aw_data             ),
+        .async_cfg_master_ar_wptr_o   ( async_cfg_axi_bus.ar_wptr             ),
+        .async_cfg_master_ar_rptr_i   ( async_cfg_axi_bus.ar_rptr             ),
+        .async_cfg_master_ar_data_o   ( async_cfg_axi_bus.ar_data             ),
+        .async_cfg_master_w_data_o    ( async_cfg_axi_bus.w_data              ),
+        .async_cfg_master_w_wptr_o    ( async_cfg_axi_bus.w_wptr              ),
+        .async_cfg_master_w_rptr_i    ( async_cfg_axi_bus.w_rptr              ),
+        .async_cfg_master_r_wptr_i    ( async_cfg_axi_bus.r_wptr              ),
+        .async_cfg_master_r_rptr_o    ( async_cfg_axi_bus.r_rptr              ),
+        .async_cfg_master_r_data_i    ( async_cfg_axi_bus.r_data              ),
+        .async_cfg_master_b_wptr_i    ( async_cfg_axi_bus.b_wptr              ),
+        .async_cfg_master_b_rptr_o    ( async_cfg_axi_bus.b_rptr              ),
+        .async_cfg_master_b_data_i    ( async_cfg_axi_bus.b_data              ),
+     
         .async_data_slave_aw_wptr_i   ( async_soc_to_cluster_axi_bus.aw_wptr  ),
         .async_data_slave_aw_rptr_o   ( async_soc_to_cluster_axi_bus.aw_rptr  ),
         .async_data_slave_aw_data_i   ( async_soc_to_cluster_axi_bus.aw_data  ),
@@ -659,8 +677,7 @@ module al_saqr
         .async_data_slave_r_data_o    ( async_soc_to_cluster_axi_bus.r_data   ),
         .async_data_slave_b_wptr_o    ( async_soc_to_cluster_axi_bus.b_wptr   ),
         .async_data_slave_b_rptr_i    ( async_soc_to_cluster_axi_bus.b_rptr   ),
-        .async_data_slave_b_data_o    ( async_soc_to_cluster_axi_bus.b_data   ),
-        .async_tlb_cfg_master         ( async_tlb_cfg_lite                    )
+        .async_data_slave_b_data_o    ( async_soc_to_cluster_axi_bus.b_data   )
    );
 
   /**************************************************************************************************/
@@ -699,22 +716,12 @@ module al_saqr
   axi_lite_req_t  h2c_tlb_cfg_req,
                   c2h_tlb_cfg_req,
                   h2c_tlb_cfg_lite_req,
-                  c2h_tlb_cfg_lite_req,
-                  h2c_tlb_cfg_lite_req_masked,
-                  c2h_tlb_cfg_lite_req_masked;
-
+                  c2h_tlb_cfg_lite_req;
+   
   axi_lite_resp_t h2c_tlb_cfg_resp,
                   c2h_tlb_cfg_resp,
                   h2c_tlb_cfg_lite_resp,
                   c2h_tlb_cfg_lite_resp;
-
-  axi_req_t       c2h_req,
-                  c2h_direct_req,
-                  c2h_tlb_cfg_axi_req;
-
-  axi_resp_t      c2h_resp,
-                  c2h_direct_resp,
-                  c2h_tlb_cfg_axi_resp;
 
   localparam axi_pkg::xbar_cfg_t FromHostTlbCfgXbarCfg = '{
     NoSlvPorts:  2,
@@ -723,8 +730,8 @@ module al_saqr
     MaxSlvTrans: 1,
     FallThrough: 0,
     LatencyMode: axi_pkg::CUT_SLV_AX,
-    AxiIdWidthSlvPorts: 1, // actually no ID at all for AXI-Lite
-    AxiIdUsedSlvPorts: 1,  // actually no ID at all for AXI-Lite
+    AxiIdWidthSlvPorts: 1,
+    AxiIdUsedSlvPorts: 1, 
     UniqueIds   : 0,
     AxiAddrWidth: AXI_LITE_AW,
     AxiDataWidth: AXI_LITE_DW,
@@ -760,8 +767,8 @@ module al_saqr
      .clk_i                 ( s_soc_clk                                      ),
      .rst_ni                ( s_soc_rst_n                                    ),
      .test_i                ( 1'b0                                           ),
-     .slv_ports_req_i       ( {c2h_tlb_cfg_lite_req , h2c_tlb_cfg_lite_req } ), // Converted through AXI_LITE_SET_REQ_STRUCT and goes to host subsystem
-     .slv_ports_resp_o      ( {c2h_tlb_cfg_lite_resp, h2c_tlb_cfg_lite_resp} ), // This must be connected to the host subsystem
+     .slv_ports_req_i       ( {c2h_tlb_cfg_lite_req , h2c_tlb_cfg_lite_req } ), 
+     .slv_ports_resp_o      ( {c2h_tlb_cfg_lite_resp, h2c_tlb_cfg_lite_resp} ), 
      .mst_ports_req_o       ( {c2h_tlb_cfg_req ,      h2c_tlb_cfg_req }      ),
      .mst_ports_resp_i      ( {c2h_tlb_cfg_resp,      h2c_tlb_cfg_resp}      ),
      .addr_map_i            ( FromHostTlbCfgXbarAddrMap                      ),
@@ -778,7 +785,7 @@ module al_saqr
     .AXI_DATA_WIDTH          ( AXI_DATA_WIDTH           ),
     .AXI_ID_WIDTH            ( ariane_soc::IdWidthSlave ),
     .AXI_USER_WIDTH          ( AXI_USER_WIDTH           ),
-    .AXI_SLV_PORT_MAX_TXNS   ( 1                        ), // at most 4 host threads
+    .AXI_SLV_PORT_MAX_TXNS   ( 1                        ), 
     .CFG_AXI_ADDR_WIDTH      ( AXI_LITE_AW              ),
     .CFG_AXI_DATA_WIDTH      ( AXI_LITE_DW              ),
     .L1_NUM_ENTRIES          ( ENTRIES                  ), 
@@ -801,7 +808,7 @@ module al_saqr
      .AXI_DATA_WIDTH          ( AXI_DATA_WIDTH         ),
      .AXI_ID_WIDTH            ( ariane_soc::IdWidth    ),
      .AXI_USER_WIDTH          ( AXI_USER_WIDTH         ),
-     .AXI_SLV_PORT_MAX_TXNS   ( 1                      ), // at most 4 host threads
+     .AXI_SLV_PORT_MAX_TXNS   ( 1                      ), 
      .CFG_AXI_ADDR_WIDTH      ( AXI_LITE_AW            ),
      .CFG_AXI_DATA_WIDTH      ( AXI_LITE_DW            ),
      .L1_NUM_ENTRIES          ( ENTRIES                ),
