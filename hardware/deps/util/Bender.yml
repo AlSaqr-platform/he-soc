@@ -4,7 +4,7 @@ package:
     - "Florian Zaruba <zarubaf@iis.ee.ethz.ch>"
 
 dependencies:
-  cva6: { path: "../cva6" }
+  cva6: { git: "git@github.com:minho-pulp/cva6.git" , rev: "7ba534b87fc71e7390d30fddde47ac37cdd34d4d" }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.29.1 } 
   common_cells: { git: "https://github.com/pulp-platform/common_cells.git", version: 1.21.0 }
     
