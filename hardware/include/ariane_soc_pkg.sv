@@ -30,8 +30,9 @@ package ariane_soc;
   // The ID width of the master ports is wider than that of the slave ports.
   // The additional ID bits are used by the internal multiplexers to route responses. 
   // The ID width of the master ports must be AxiIdWidthSlvPorts + $clog_2(NoSlvPorts).
-  localparam IdWidth   = 5;
-  localparam IdWidthSlave = IdWidth + $clog2(NrSlaves);
+  // The same parameters in cva6/include/ariane_axi need to match with the values below!
+  localparam IdWidth   = 5; // Do not change
+  localparam IdWidthSlave = IdWidth + $clog2(NrSlaves); 
 
   // Ensure that SocToClusterIdWidth + $clog2(ClusterNrSlaves) = IdWidth 
   localparam SocToClusterIdWidth = 3;   

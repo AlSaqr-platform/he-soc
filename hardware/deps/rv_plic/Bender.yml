@@ -1,0 +1,14 @@
+package:
+  name: rv_plic
+  authors:
+    - "low risc"
+    - "Florian Zaruba <zarubaf@iis.ee.ethz.ch>"
+    - "Luca Valente <luca.valente@unibo.it>"
+
+    
+sources:
+  - rtl/reg_intf_pkg.sv
+  - rtl/rv_plic_target.sv
+  - rtl/rv_plic_gateway.sv
+  - rtl/plic_regmap.sv
+  - rtl/plic_top.sv

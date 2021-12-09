@@ -1,0 +1,21 @@
+package:
+  name: utils
+  authors:
+    - "Florian Zaruba <zarubaf@iis.ee.ethz.ch>"
+
+dependencies:
+  cva6: { path: "../cva6" }
+  axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.29.1 } 
+  common_cells: { git: "https://github.com/pulp-platform/common_cells.git", version: 1.21.0 }
+    
+sources:
+  - target: not(synthesis)
+    files:
+      - include/instr_tracer_pkg.sv
+      - ./instr_tracer_if.sv
+      - ./instr_tracer.sv
+  - ./axi2mem.sv
+  - ./axi_master_connect.sv
+  - ./axi_slave_connect.sv
+  - ./axi_master_connect_rev.sv
+  - ./axi_slave_connect_rev.sv

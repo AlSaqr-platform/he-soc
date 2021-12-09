@@ -1,0 +1,10 @@
+package:
+  name: clint
+  authors:
+
+dependencies:
+  cva6: { path: "../cva6" }
+    
+sources:
+  - ./axi_lite_interface.sv
+  - ./clint.sv
