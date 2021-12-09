@@ -20,6 +20,9 @@ import ariane_pkg::*;
 import uvm_pkg::*;
 
 `include "uvm_macros.svh"
+`include "axi/assign.svh"
+`include "register_interface/typedef.svh"
+`include "register_interface/assign.svh"
 
 import "DPI-C" function read_elf(input string filename);
 import "DPI-C" function byte get_section(output longint address, output longint len);
@@ -53,7 +56,8 @@ module ariane_tb;
     parameter  USE_HYPER_MODELS     = 1;
     parameter  USE_24FC1025_MODEL   = 1;
     parameter  USE_S25FS256S_MODEL  = 1;
-    parameter  USE_UART =1;
+    parameter  USE_UART             = 1;
+    parameter  USE_SERIAL_LINK      = 1;
 
     // use camera verification IP
    parameter  USE_SDVT_CPI = 1;
@@ -142,6 +146,8 @@ module ariane_tb;
     wire [1:0]            w_hyper1_csn;
     wire                  w_hyper1_rwds;
     wire                  w_hyper1_reset;
+
+    wire                  soc_clock;
 
     wire                  w_i2c_sda      ;
     wire                  w_i2c_scl      ;
@@ -289,6 +295,7 @@ module ariane_tb;
     wire                  w_cva6_uart_rx ;
     wire                  w_cva6_uart_tx ;
    
+    wire ddr_ext_clk;
   
     longint unsigned cycles;
     longint unsigned max_cycles;
@@ -356,7 +363,7 @@ module ariane_tb;
     .jtag_TDO_driven      ( s_jtag_TDO_driven    ),
     .exit                 ( s_jtag_exit          )
   );
-   
+  
     al_saqr #(
         .NUM_WORDS         ( NUM_WORDS                   ),
         .InclSimDTM        ( 1'b1                        ),
@@ -506,23 +513,24 @@ module ariane_tb;
         .pad_periphs_pad_gpio_f_14_pad(),
         .pad_periphs_pad_gpio_f_15_pad(),
         .pad_periphs_pad_gpio_f_16_pad(),
-        .pad_periphs_pad_gpio_f_17_pad(),
-        .pad_periphs_pad_gpio_f_18_pad(),
-        .pad_periphs_pad_gpio_f_19_pad(),
-        .pad_periphs_pad_gpio_f_20_pad(),
-        .pad_periphs_pad_gpio_f_21_pad(),
-        .pad_periphs_pad_gpio_f_22_pad(),
-        .pad_periphs_pad_gpio_f_23_pad(),
-        .pad_periphs_pad_gpio_pwm7_pad(),
-        .pad_periphs_pad_gpio_f_24_pad(),
-        .pad_periphs_pad_gpio_f_25_pad(),
+        .pad_periphs_pad_gpio_f_17_pad( pad_periphs_pad_gpio_f_17_pad ),
+        .pad_periphs_pad_gpio_f_18_pad( pad_periphs_pad_gpio_f_18_pad ),
+        .pad_periphs_pad_gpio_f_19_pad( pad_periphs_pad_gpio_f_19_pad ),
+        .pad_periphs_pad_gpio_f_20_pad( pad_periphs_pad_gpio_f_20_pad ),
+        .pad_periphs_pad_gpio_f_21_pad( pad_periphs_pad_gpio_f_21_pad ),
+        .pad_periphs_pad_gpio_f_22_pad( pad_periphs_pad_gpio_f_22_pad ),
+        .pad_periphs_pad_gpio_f_23_pad( pad_periphs_pad_gpio_f_23_pad ),       
+        .pad_periphs_pad_gpio_f_24_pad( pad_periphs_pad_gpio_f_24_pad ),
+        .pad_periphs_pad_gpio_f_25_pad( pad_periphs_pad_gpio_f_25_pad ),
+
         .pad_periphs_pad_gpio_pwm0_pad(),
         .pad_periphs_pad_gpio_pwm1_pad(),
         .pad_periphs_pad_gpio_pwm2_pad(),
         .pad_periphs_pad_gpio_pwm3_pad(),
         .pad_periphs_pad_gpio_pwm4_pad(),
         .pad_periphs_pad_gpio_pwm5_pad(),
-        .pad_periphs_pad_gpio_pwm6_pad()
+        .pad_periphs_pad_gpio_pwm6_pad(),
+        .pad_periphs_pad_gpio_pwm7_pad()
    );
 
    
@@ -600,6 +608,147 @@ module ariane_tb;
         assign pad_periphs_pad_gpio_d_08_pad = w_cam_data[6];
         assign pad_periphs_pad_gpio_d_09_pad = w_cam_data[7];
       end
+  endgenerate
+
+
+  generate
+     /* DDR SERIAL LINK */
+    if (USE_SERIAL_LINK==1) begin
+
+      ariane_axi_soc::req_t ddr_1_in_req, ddr_1_out_req;
+      ariane_axi_soc::resp_t ddr_1_in_rsp, ddr_1_out_rsp;
+
+      wire [3:0] ddr_i, ddr_o;
+      wire ddr_clk;
+
+      logic [63:0] mem_rdata_o, mem_wdata_o, mem_addr_o;
+      logic [7:0] mem_strb_o;
+      logic req_to_mem, mem_we_o;
+
+      localparam RegAw  = 32;
+      localparam RegDw  = 32;
+
+      typedef logic [RegAw-1:0]   reg_addr_t;
+      typedef logic [RegDw-1:0]   reg_data_t;
+      typedef logic [RegDw/8-1:0] reg_strb_t;
+
+      `REG_BUS_TYPEDEF_REQ(reg_req_t, reg_addr_t, reg_data_t, reg_strb_t)
+      `REG_BUS_TYPEDEF_RSP(reg_rsp_t, reg_data_t)
+     
+      reg_req_t   reg_req ='0;
+      reg_rsp_t   reg_rsp ;
+
+      assign pad_periphs_pad_gpio_f_17_pad = pad_periphs_pad_gpio_b_00_pad==1 ? ddr_clk : 0 ;
+
+      assign pad_periphs_pad_gpio_f_18_pad = ddr_o[0];
+      assign pad_periphs_pad_gpio_f_19_pad = ddr_o[1];
+      assign pad_periphs_pad_gpio_f_20_pad = ddr_o[2];
+      assign pad_periphs_pad_gpio_f_21_pad = ddr_o[3];
+
+      assign ddr_i[0] = pad_periphs_pad_gpio_f_22_pad;
+      assign ddr_i[1] = pad_periphs_pad_gpio_f_23_pad;       
+      assign ddr_i[2] = pad_periphs_pad_gpio_f_24_pad;
+      assign ddr_i[3] = pad_periphs_pad_gpio_f_25_pad;
+
+      assign ddr_clk = pad_periphs_pad_gpio_b_00_pad==1 ? ddr_ext_clk : 0; 
+
+      localparam time         TckDdr          = 70ns;
+      parameter int unsigned AXI_USER_WIDTH    = 1;
+      parameter int unsigned AXI_ADDRESS_WIDTH = 64;
+      parameter int unsigned AXI_DATA_WIDTH    = 64;
+      parameter int unsigned L2_BANK_SIZE    = 4096;
+
+      // DDR link clock and reset
+      clk_rst_gen #(
+        .ClkPeriod    ( TckDdr         ),
+        .RstClkCycles ( 5             )
+      ) i_clk_rst_gen_ddr (
+        .clk_o  ( ddr_ext_clk ),
+        .rst_no (  )
+      );
+
+      AXI_BUS #(
+        .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+        .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+        .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+        .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+      ) ddr_mstport();
+
+      AXI_BUS #(
+        .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+        .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
+        .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+        .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
+      ) ddr_slvport();
+
+      `AXI_ASSIGN_FROM_REQ(ddr_slvport, ddr_1_out_req)
+      `AXI_ASSIGN_TO_RESP(ddr_1_out_rsp, ddr_slvport)
+
+      `AXI_ASSIGN_TO_REQ(ddr_1_in_req, ddr_mstport )
+      `AXI_ASSIGN_FROM_RESP(ddr_mstport, ddr_1_in_rsp )
+
+      // first serial instance
+      serial_link #(
+        .axi_req_t        ( ariane_axi_soc::req_t     ),
+        .axi_rsp_t        ( ariane_axi_soc::resp_t    ),
+        .aw_chan_t        ( ariane_axi_soc::aw_chan_t ),
+        .ar_chan_t        ( ariane_axi_soc::ar_chan_t ),
+        .cfg_req_t        ( reg_req_t ),
+        .cfg_rsp_t        ( reg_rsp_t )
+      ) i_serial_link_out (
+          .clk_i          ( clk_i ),
+          .rst_ni         ( rst_ni ),
+          .testmode_i     ( 1'b0   ),
+         
+          .axi_in_req_i   ( ddr_1_in_req ), //slv -> mst axi
+          .axi_in_rsp_o   ( ddr_1_in_rsp ), //slv -> mst axi
+
+          .axi_out_req_o  ( ddr_1_out_req ), //mst -> slv axi
+          .axi_out_rsp_i  ( ddr_1_out_rsp ), //mst -> slv axi
+
+          .cfg_req_i      ( reg_req  ), //apb slave
+          .cfg_rsp_o      ( reg_rsp  ), //apb slave
+          
+          .ddr_clk_i      ( ddr_clk ),
+          .ddr_i          ( ddr_i ),
+          .ddr_o          ( ddr_o )
+      );
+
+      axi2mem #(
+        .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+        .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH ),
+        .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
+        .AXI_USER_WIDTH ( AXI_USER_WIDTH )
+      ) i_axi2rom (
+        .clk_i  ( clk_i ),
+        .rst_ni ( rst_ni ),
+        .slave  ( ddr_slvport ), //from serial link mst port (slv)
+        .req_o  ( req_to_mem  ), //to mem
+        .we_o   ( mem_we_o    ),
+        .addr_o ( mem_addr_o  ),
+        .be_o   ( mem_strb_o  ),
+        .data_o ( mem_wdata_o ),
+
+        .data_i ( mem_rdata_o ) //from mem
+      );
+
+      tc_sram #(
+        .SimInit   ( "random"            ),
+        .NumWords  ( L2_BANK_SIZE        ), // 2^15 lines of 32 bits each (128kB), 4 Banks -> 512 kB total memory
+        .DataWidth ( AXI_DATA_WIDTH      ),
+        .NumPorts  ( 1                   )
+      ) slink_mem (
+        .clk_i   ( clk_i ),
+        .rst_ni  ( rst_ni      ),
+        .req_i   ( req_to_mem  ),
+        .we_i    ( mem_we_o    ),
+        .addr_i  ( mem_addr_o  ),
+        .wdata_i ( mem_wdata_o ),
+        .be_i    ( mem_strb_o  ),
+        .rdata_o ( mem_rdata_o )
+      );
+
+    end  
   endgenerate
 
 

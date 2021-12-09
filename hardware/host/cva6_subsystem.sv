@@ -14,6 +14,8 @@
 //              Instantiates an AXI-Bus and memories
 
 `include "axi/assign.svh"
+`include "register_interface/typedef.svh"
+`include "register_interface/assign.svh"
 
 module cva6_subsystem 
   import axi_pkg::xbar_cfg_t;
@@ -61,6 +63,7 @@ module cva6_subsystem
   //SERIAL LINK
   output ser_link_to_pad serial_link_to_pad,
   input  pad_to_ser_link pad_to_serial_link,
+  REG_BUS.out            serial_linkcfg_reg_master,
 
   // CVA6 DEBUG UART
   input  logic            cva6_uart_rx_i,
@@ -582,11 +585,20 @@ module cva6_subsystem
   ariane_axi_soc::req_t ddr_1_in_req, ddr_1_out_req;
   ariane_axi_soc::resp_t ddr_1_in_rsp, ddr_1_out_rsp;
 
-  ariane_soc::ddr_reg_req_t ddr_1_cfg_req;
-  ariane_soc::ddr_reg_rsp_t ddr_1_cfg_resp;
-
   logic [3:0] ddr_i, ddr_o;
 
+  localparam RegAw  = 32;
+  localparam RegDw  = 32;
+
+  typedef logic [RegAw-1:0]   reg_addr_t;
+  typedef logic [RegDw-1:0]   reg_data_t;
+  typedef logic [RegDw/8-1:0] reg_strb_t;
+
+  `REG_BUS_TYPEDEF_REQ(reg_req_t, reg_addr_t, reg_data_t, reg_strb_t)
+  `REG_BUS_TYPEDEF_RSP(reg_rsp_t, reg_data_t)
+ 
+  reg_req_t   reg_req;
+  reg_rsp_t   reg_rsp;
 
   `AXI_ASSIGN_TO_REQ(ddr_1_in_req, master[ariane_soc::SERIAL_LINK])
   `AXI_ASSIGN_FROM_RESP(master[ariane_soc::SERIAL_LINK], ddr_1_in_rsp)
@@ -594,7 +606,8 @@ module cva6_subsystem
   `AXI_ASSIGN_FROM_REQ(slave[3], ddr_1_out_req)
   `AXI_ASSIGN_TO_RESP(ddr_1_out_rsp, slave[3])
 
-  assign ddr_1_cfg_req = '0;
+  `REG_BUS_ASSIGN_TO_REQ(reg_req,serial_linkcfg_reg_master)
+  `REG_BUS_ASSIGN_FROM_RSP(serial_linkcfg_reg_master,reg_rsp)
 
   assign ddr_i[0] = pad_to_serial_link.ddr0_i;
   assign ddr_i[1] = pad_to_serial_link.ddr1_i;
@@ -612,8 +625,8 @@ module cva6_subsystem
     .axi_rsp_t        ( ariane_axi_soc::resp_t      ),
     .aw_chan_t        ( ariane_axi_soc::aw_chan_t   ),
     .ar_chan_t        ( ariane_axi_soc::ar_chan_t   ),
-    .cfg_req_t        ( ariane_soc::ddr_reg_req_t       ),
-    .cfg_rsp_t        ( ariane_soc::ddr_reg_rsp_t       )
+    .cfg_req_t        ( reg_req_t   ),
+    .cfg_rsp_t        ( reg_rsp_t   )
   ) i_serial_link_1 (
       .clk_i          ( clk_i           ),
       .rst_ni         ( rst_ni          ),
@@ -624,8 +637,8 @@ module cva6_subsystem
       .axi_out_req_o  ( ddr_1_out_req   ), //mst -> slv axi
       .axi_out_rsp_i  ( ddr_1_out_rsp   ), //mst -> slv axi
 
-      .cfg_req_i      ( ddr_1_cfg_req   ),
-      .cfg_rsp_o      ( ddr_1_cfg_resp  ),
+      .cfg_req_i      ( '0  ), //reg_req from apb slave
+      .cfg_rsp_o      (     ), //reg_rsp apb slave
       
       .ddr_clk_i      ( pad_to_serial_link.ddr_clk_i ),
       .ddr_i          ( ddr_i ),

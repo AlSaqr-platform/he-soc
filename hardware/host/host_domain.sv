@@ -144,7 +144,15 @@ module host_domain
 
    logic                                 phy_clk;
    logic                                 phy_clk_90;
-   
+
+   REG_BUS #(
+        .ADDR_WIDTH( 32 ),
+        .DATA_WIDTH( 32 )
+    ) serial_linkcfg_reg_master (
+        .clk_i (s_soc_clk)
+    ); 
+
+
    assign   soc_clk_o  = s_soc_clk;
    assign   soc_rst_no = s_synch_soc_rst;
    assign   rstn_cluster_sync_o = s_rstn_cluster_sync;
@@ -226,7 +234,8 @@ module host_domain
         .hyper_axi_master     ( hyper_axi_bus        ),
 
         .serial_link_to_pad   ( serial_link_to_pad   ),
-        .pad_to_serial_link   ( pad_to_serial_link   ),   
+        .pad_to_serial_link   ( pad_to_serial_link   ),
+        .serial_linkcfg_reg_master ( serial_linkcfg_reg_master ),   
         
         .cluster_axi_master   ( cluster_axi_master   ),
         .cluster_axi_slave    ( cluster_axi_slave    ),
@@ -341,6 +350,7 @@ module host_domain
       .axi_apb_slave          ( apb_axi_bus                    ),
       .udma_tcdm_channels     ( udma_2_tcdm_channels           ),
       .padframecfg_reg_master ( padframecfg_reg_master         ),
+      .serial_linkcfg_reg_master ( serial_linkcfg_reg_master   ),
 
       .events_o               ( s_udma_events                  ),
 

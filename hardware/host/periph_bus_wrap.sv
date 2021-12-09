@@ -19,14 +19,16 @@ module periph_bus_wrap
 ) (
     input logic    clk_i,
     input logic    rst_ni,
-    APB.Slave  apb_slave,
-    APB.Master udma_master,
-    APB.Master gpio_master,
-    APB.Master fll_master,
-    APB.Master hyaxicfg_master,
-    APB.Master advtimer_master,
-    APB.Master padframe_master,
-    APB.Master socctrl_master
+
+    APB_BUS.Slave  apb_slave,
+    APB_BUS.Master udma_master,
+    APB_BUS.Master gpio_master,
+    APB_BUS.Master fll_master,
+    APB_BUS.Master hyaxicfg_master,
+    APB_BUS.Master advtimer_master,
+    APB_BUS.Master padframe_master,
+    APB_BUS.Master serial_link_master,
+    APB_BUS.Master socctrl_master
 );
 
     APB
@@ -64,9 +66,14 @@ module periph_bus_wrap
     assign s_start_addr[5] = apb_soc_pkg::SOCCTRLBase;
     assign s_end_addr[5]   = apb_soc_pkg::SOCCTRLBase + apb_soc_pkg::SOCCTRLLength - 1 ;   
 
-    `APB_ASSIGN_MASTER(s_masters[6], udma_master);
-    assign s_start_addr[6] = apb_soc_pkg::UDMABase;
-    assign s_end_addr[6]   = apb_soc_pkg::UDMABase + apb_soc_pkg::UDMALength - 1;
+    `APB_ASSIGN_MASTER(s_masters[6], serial_link_master);
+    assign s_start_addr[6] = apb_soc_pkg::SerLinkBase;
+    assign s_end_addr[6]   = apb_soc_pkg::SerLinkBase + apb_soc_pkg::SerLinkLength - 1;
+    
+    `APB_ASSIGN_MASTER(s_masters[7], udma_master);
+    assign s_start_addr[7] = apb_soc_pkg::UDMABase;
+    assign s_end_addr[7]   = apb_soc_pkg::UDMABase + apb_soc_pkg::UDMALength - 1;
+
 
    
    apb_node_wrap #(
