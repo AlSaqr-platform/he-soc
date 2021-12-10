@@ -637,8 +637,8 @@ module cva6_subsystem
       .axi_out_req_o  ( ddr_1_out_req   ), //mst -> slv axi
       .axi_out_rsp_i  ( ddr_1_out_rsp   ), //mst -> slv axi
 
-      .cfg_req_i      ( '0  ), //reg_req from apb slave
-      .cfg_rsp_o      (     ), //reg_rsp apb slave
+      .cfg_req_i      ( reg_req ), //reg_req from apb slave
+      .cfg_rsp_o      ( reg_rsp ), //reg_rsp apb slave
       
       .ddr_clk_i      ( pad_to_serial_link.ddr_clk_i ),
       .ddr_i          ( ddr_i ),
