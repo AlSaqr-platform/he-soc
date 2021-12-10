@@ -124,20 +124,6 @@ package ariane_soc;
     NrPMPEntries:           8
   };
 
-  /*typedef struct packed {
-    logic [31:0]  addr;
-    logic         write;
-    logic [31:0]  wdata;
-    logic [3:0]   wstrb;
-    logic         valid;
-  } ddr_reg_req_t;
-
-  typedef struct packed {
-    logic [31:0]  rdata;
-    logic         error;
-    logic         ready;
-  } ddr_reg_rsp_t;*/
-
   typedef struct packed {
     logic         ddr0_i;
     logic         ddr1_i;
