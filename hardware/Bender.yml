@@ -4,11 +4,16 @@ package:
     - "Luca Valente"
 
 dependencies:
-  cva6: { path: "deps/cva6" }
+  axi_riscv_atomics: { path: "deps/axi_riscv_atomics" }
+  clint: { path: "deps/clint" }
+  rv_plic: { path: "deps/rv_plic" }
+  util: { path: "deps/util" }
   alsaqr_padframe: { path: "deps/alsaqr_periph_padframe" }
   apb_host_control: { path: "deps/apb_host_control_regs" }
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
+  cva6: { git: "git@github.com:minho-pulp/cva6.git" , rev: "7ba534b87fc71e7390d30fddde47ac37cdd34d4d" }
+  riscv-dbg: { git: "git@github.com:Alsaqr-platform/riscv-dbg.git", rev: "4d8ead780a6b9877873930bcc3c8ed4806d2c8a3" }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: "0.29.1" } 
   fpnew: { git: "https://github.com/pulp-platform/fpnew.git", version: 0.6.5 }
   tcdm_interconnect: { git: "https://github.com/pulp-platform/cluster_interconnect.git", version: "1.1.2" }
@@ -26,8 +31,8 @@ dependencies:
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", rev: "d436ab3dad8260eadc1288bdc543c79b4d7462c7" }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "0e9f142f2f11278445c953ad011fce1c7ed85b66" }
   hyperbus: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/hyperbus.git", rev: "290e16c8afbc1c918a8d6fc15a3d498bd4730d8c" }
-  register_interface:  { git: "https://github.com/pulp-platform/register_interface.git", version: 0.3.1  }
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", rev: "597faa6bab2971d79098545fa076bbca293ae90d" }
+  register_interface:  { git: "https://github.com/pulp-platform/register_interface.git", version: 0.3.1  }
   fll_behav: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/fll_behav.git", rev: "94a1e45d53c9fa71ae897a66dea6f19111eb6655" }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "ecbe38689a556575b330c3962c21afafcac5af0d" }
@@ -49,6 +54,16 @@ sources:
   - ../fpga/src/axi2apb/src/axi2apb.sv
   - ../fpga/src/axi2apb/src/axi2apb_64_32.sv
   - ../fpga/src/axi2apb/src/axi2apb_wrap.sv
+  - ../fpga/src/axi_slice/src/axi_w_buffer.sv
+  - ../fpga/src/axi_slice/src/axi_b_buffer.sv
+  - ../fpga/src/axi_slice/src/axi_slice_wrap.sv
+  - ../fpga/src/axi_slice/src/axi_slice.sv
+  - ../fpga/src/axi_slice/src/axi_single_slice.sv
+  - ../fpga/src/axi_slice/src/axi_ar_buffer.sv
+  - ../fpga/src/axi_slice/src/axi_r_buffer.sv
+  - ../fpga/src/axi_slice/src/axi_aw_buffer.sv
+  - ../fpga/src/apb_timer/apb_timer.sv
+  - ../fpga/src/apb_timer/timer.sv
   - host/periph_bus_wrap.sv
   - host/freqmeter.sv
   - host/alsaqr_clk_rst_gen.sv
@@ -97,7 +112,6 @@ sources:
       - tb/common/uart.sv                                                     
       - tb/common/SimDTM.sv                                                   
       - tb/common/SimJTAG.sv
-      - deps/cva6/src/util/sram.sv
       - ../bootrom/bootrom.sv
       - tb/common/jtag_pkg.sv
       - tb/common/jtag_intf.sv
