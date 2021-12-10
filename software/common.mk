@@ -29,12 +29,12 @@ dis:
 
 dump_slm:
 	./../elf_to_slm.py --binary=$(APP).riscv --vectors=hyperram0.slm
-	cp hyperram*.slm $(current_dir)/../../hardware/
+	cp hyperram*.slm  $(SW_HOME)/../hardware/
 
 all: clean build dis dump_slm
 
 rtl: 
-	 $(MAKE) -C ../../hardware/ all
+	 $(MAKE) -C  $(SW_HOME)/../hardware/ all
 
 sim:
-	$(MAKE) -C ../../hardware/ sim elf-bin=$(shell pwd)/$(APP).riscv
+	$(MAKE) -C  $(SW_HOME)/../hardware/ sim elf-bin=$(shell pwd)/$(APP).riscv

@@ -85,17 +85,12 @@ This will generate the binaries and the hyperram*.slm that will be in the rams a
 ```
 make sim elf-bin=../software/hello/hello.riscv
 ```
-or
-```
-make sim
-```
-If you used the preload flag. Be aware that the loaded code will be the last one you compiled.
+or simply `make sim` if you used the preload flag. Be aware that the loaded code will be the last one you compiled.
 
  * Option 2: go to the test folder (ex `software/hello`)
  
 ```
 make sim
-
 ```
 
 ### Running code on the cluster

@@ -31,9 +31,6 @@ module al_saqr
   parameter int unsigned AXI_USER_WIDTH    = 1,
   parameter int unsigned AXI_ADDRESS_WIDTH = 64,
   parameter int unsigned AXI_DATA_WIDTH    = 64,
-  // AXILITE parameters
-  parameter int unsigned AXI_LITE_AW       = 32,
-  parameter int unsigned AXI_LITE_DW       = 32,
 `ifdef DROMAJO
   parameter bit          InclSimDTM        = 1'b0,
 `else
@@ -212,6 +209,9 @@ module al_saqr
   inout wire          jtag_TDO_driven
 
 );
+  // AXILITE parameters
+  localparam int unsigned AXI_LITE_AW       = 32;
+  localparam int unsigned AXI_LITE_DW       = 32;
 
   logic [NUM_GPIO-1:0]         s_gpio_pad_in;
   logic [NUM_GPIO-1:0]         s_gpio_pad_out;
