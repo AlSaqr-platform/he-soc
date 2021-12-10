@@ -15,6 +15,8 @@
 `include "register_interface/typedef.svh"
 `include "register_interface/assign.svh"
 `include "alsaqr_periph_padframe/assign.svh"
+`include "axi/typedef.svh"
+`include "axi/assign.svh"
 `include "cluster_bus_defines.sv"
 `include "pulp_soc_defines.sv"
 
@@ -207,6 +209,9 @@ module al_saqr
   inout wire          jtag_TDO_driven
 
 );
+  // AXILITE parameters
+  localparam int unsigned AXI_LITE_AW       = 32;
+  localparam int unsigned AXI_LITE_DW       = 32;
 
   logic [NUM_GPIO-1:0]         s_gpio_pad_in;
   logic [NUM_GPIO-1:0]         s_gpio_pad_out;
@@ -232,7 +237,25 @@ module al_saqr
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
      .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-  ) soc_to_cluster_axi_bus();
+  ) soc_to_tlb_axi_bus();
+  AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+  ) tlb_to_cluster_axi_bus();
+  AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+  ) cluster_to_tlb_axi_bus();
+  AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+  ) tlb_to_soc_axi_bus();
   AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH               ),
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH                  ),
@@ -259,6 +282,42 @@ module al_saqr
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           ),
      .LOG_DEPTH      ( 3                        )
   ) async_cluster_to_soc_axi_bus();
+
+  AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidth      ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+  ) c2h_tlb_cfg_axi_bus();
+   
+
+  AXI_BUS_ASYNC_GRAY #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidth      ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH           ),
+     .LOG_DEPTH      ( 3                        )
+  ) async_cfg_axi_bus();
+   
+  AXI_LITE #(
+    .AXI_ADDR_WIDTH (AXI_LITE_AW),
+    .AXI_DATA_WIDTH (AXI_LITE_DW)
+  ) h2c_tlb_cfg();
+   
+  AXI_LITE #(
+    .AXI_ADDR_WIDTH    ( AXI_LITE_AW ),
+    .AXI_DATA_WIDTH    ( AXI_LITE_DW )
+  ) tlb_cfg_lite_master();
+
+  AXI_LITE #(
+    .AXI_ADDR_WIDTH  ( AXI_LITE_AW ),
+    .AXI_DATA_WIDTH  ( AXI_LITE_DW )
+  ) c2h_tlb_cfg_lite ();
+
+  AXI_LITE #(
+    .AXI_ADDR_WIDTH (AXI_ADDRESS_WIDTH),
+    .AXI_DATA_WIDTH (AXI_LITE_DW)
+  ) c2h_tlb_cfg();
 
   logic s_cva6_uart_rx_i;
   logic s_cva6_uart_tx_o;
@@ -344,10 +403,11 @@ module al_saqr
       .jtag_TRSTn             ( s_jtag_TRSTn                    ),
       .jtag_TDO_data          ( s_jtag_TDO                      ),
       .jtag_TDO_driven        (                                 ),
-      .cluster_axi_master     ( soc_to_cluster_axi_bus          ),
-      .cluster_axi_slave      ( cluster_to_soc_axi_bus          ),
+      .cluster_axi_master     ( soc_to_tlb_axi_bus              ),
       .dma_pe_evt_ack_o       ( s_dma_pe_evt_ack                ),
       .dma_pe_evt_valid_i     ( s_dma_pe_evt_valid              ),
+      .cluster_axi_slave      ( tlb_to_soc_axi_bus              ),
+      .tlb_cfg_lite_master    ( tlb_cfg_lite_master             ),
       .soc_clk_o              ( s_soc_clk                       ),
       .soc_rst_no             ( s_soc_rst_n                     ),
       .rstn_cluster_sync_o    ( s_cluster_rst_n                 ),
@@ -435,7 +495,7 @@ module al_saqr
       ) (
         .clk_i  ( s_soc_clk                         ),
         .rst_ni ( s_soc_rst_n                       ),
-        .slv    ( soc_to_cluster_axi_bus            ),
+        .slv    ( tlb_to_cluster_axi_bus            ),
         .mst    ( serialized_soc_to_cluster_axi_bus )
       );
 
@@ -464,8 +524,37 @@ module al_saqr
        .dst_clk_i  ( s_soc_clk                    ),
        .dst_rst_ni ( s_soc_rst_n                  ),
        .src        ( async_cluster_to_soc_axi_bus ),
-       .dst        ( cluster_to_soc_axi_bus       )
+       .dst        ( cluster_to_tlb_axi_bus       )
        );
+
+   axi_cdc_dst_intf      #(
+     .AXI_ADDR_WIDTH      ( AXI_ADDRESS_WIDTH   ),
+     .AXI_DATA_WIDTH      ( AXI_DATA_WIDTH      ),
+     .AXI_ID_WIDTH        ( ariane_soc::IdWidth ),
+     .AXI_USER_WIDTH      ( AXI_USER_WIDTH      ),
+     .LOG_DEPTH           ( 3                   )
+     ) cfg_dst_cdc_fifo_i (
+       .dst_clk_i         ( s_soc_clk           ),
+       .dst_rst_ni        ( s_soc_rst_n         ),
+       .src               ( async_cfg_axi_bus   ),
+       .dst               ( c2h_tlb_cfg_axi_bus )
+       );
+
+   axi_to_axi_lite_intf #(
+     .AXI_ADDR_WIDTH     ( AXI_ADDRESS_WIDTH   ),
+     .AXI_DATA_WIDTH     ( AXI_DATA_WIDTH      ),
+     .AXI_ID_WIDTH       ( ariane_soc::IdWidth ),
+     .AXI_USER_WIDTH     ( AXI_USER_WIDTH      ),
+     .AXI_MAX_WRITE_TXNS ( 1                   ),
+     .AXI_MAX_READ_TXNS  ( 1                   ),
+     .FALL_THROUGH       ( 0                   )
+   ) i_axi2lite_tlb_cfg  (
+     .clk_i              ( s_soc_clk           ),
+     .rst_ni             ( s_soc_rst_n         ),
+     .testmode_i         ( 1'b0                ),
+     .slv                ( c2h_tlb_cfg_axi_bus ),
+     .mst                ( c2h_tlb_cfg_lite    )
+   );
    
     pulp_cluster
     #(
@@ -552,6 +641,22 @@ module al_saqr
         .async_data_master_b_rptr_o   ( async_cluster_to_soc_axi_bus.b_rptr   ),
         .async_data_master_b_data_i   ( async_cluster_to_soc_axi_bus.b_data   ),
 
+        .async_cfg_master_aw_wptr_o   ( async_cfg_axi_bus.aw_wptr             ),
+        .async_cfg_master_aw_rptr_i   ( async_cfg_axi_bus.aw_rptr             ),
+        .async_cfg_master_aw_data_o   ( async_cfg_axi_bus.aw_data             ),
+        .async_cfg_master_ar_wptr_o   ( async_cfg_axi_bus.ar_wptr             ),
+        .async_cfg_master_ar_rptr_i   ( async_cfg_axi_bus.ar_rptr             ),
+        .async_cfg_master_ar_data_o   ( async_cfg_axi_bus.ar_data             ),
+        .async_cfg_master_w_data_o    ( async_cfg_axi_bus.w_data              ),
+        .async_cfg_master_w_wptr_o    ( async_cfg_axi_bus.w_wptr              ),
+        .async_cfg_master_w_rptr_i    ( async_cfg_axi_bus.w_rptr              ),
+        .async_cfg_master_r_wptr_i    ( async_cfg_axi_bus.r_wptr              ),
+        .async_cfg_master_r_rptr_o    ( async_cfg_axi_bus.r_rptr              ),
+        .async_cfg_master_r_data_i    ( async_cfg_axi_bus.r_data              ),
+        .async_cfg_master_b_wptr_i    ( async_cfg_axi_bus.b_wptr              ),
+        .async_cfg_master_b_rptr_o    ( async_cfg_axi_bus.b_rptr              ),
+        .async_cfg_master_b_data_i    ( async_cfg_axi_bus.b_data              ),
+     
         .async_data_slave_aw_wptr_i   ( async_soc_to_cluster_axi_bus.aw_wptr  ),
         .async_data_slave_aw_rptr_o   ( async_soc_to_cluster_axi_bus.aw_rptr  ),
         .async_data_slave_aw_data_i   ( async_soc_to_cluster_axi_bus.aw_data  ),
@@ -567,8 +672,153 @@ module al_saqr
         .async_data_slave_b_wptr_o    ( async_soc_to_cluster_axi_bus.b_wptr   ),
         .async_data_slave_b_rptr_i    ( async_soc_to_cluster_axi_bus.b_rptr   ),
         .async_data_slave_b_data_o    ( async_soc_to_cluster_axi_bus.b_data   )
-   );    
+   );
+
+  /**************************************************************************************************/
+  /*                                      BEGIN AXI TLBs REGION                                     */
+  /**************************************************************************************************/
+  localparam int unsigned N_CLUSTERS = 1;
+  localparam int unsigned ENTRIES = 32;
+
+  typedef logic [AXI_ADDRESS_WIDTH-1:0       ] addr_t;
+  typedef logic [AXI_DATA_WIDTH-1:0          ] data_t;
+  typedef logic [(AXI_DATA_WIDTH/8)-1:0      ] strb_t;
+  typedef logic [AXI_USER_WIDTH-1:0          ] id_usr_t;
+  typedef logic [ariane_soc::IdWidthSlave-1:0] id_slv_t;
+  // AXI-Lite Interface Types
+  typedef logic [AXI_LITE_AW-1:0]   lite_addr_t;
+  typedef logic [AXI_LITE_DW-1:0]   lite_data_t;
+  typedef logic [AXI_LITE_DW/8-1:0] lite_strb_t;
+
+  `AXI_TYPEDEF_AW_CHAN_T ( aw_chan_t,  addr_t,    id_slv_t, id_usr_t  )
+  `AXI_TYPEDEF_W_CHAN_T  ( w_chan_t,   data_t,    strb_t,   id_usr_t  )
+  `AXI_TYPEDEF_B_CHAN_T  ( b_chan_t,   id_slv_t,  id_usr_t            )
+  `AXI_TYPEDEF_AR_CHAN_T ( ar_chan_t,  addr_t,    id_slv_t, id_usr_t  )
+  `AXI_TYPEDEF_R_CHAN_T  ( r_chan_t,   data_t,    id_slv_t, id_usr_t  )
+  `AXI_TYPEDEF_REQ_T     ( axi_req_t,  aw_chan_t, w_chan_t, ar_chan_t )
+  `AXI_TYPEDEF_RESP_T    ( axi_resp_t, b_chan_t,  r_chan_t            )
+
+  // Passed as parameters to the axi_lite_xbar
+  `AXI_LITE_TYPEDEF_AW_CHAN_T ( aw_chan_lite_t , lite_addr_t                                   )
+  `AXI_LITE_TYPEDEF_W_CHAN_T  ( w_chan_lite_t  , lite_data_t   , lite_strb_t                   )
+  `AXI_LITE_TYPEDEF_B_CHAN_T  ( b_chan_lite_t                                                  )
+  `AXI_LITE_TYPEDEF_AR_CHAN_T ( ar_chan_lite_t , lite_addr_t                                   )
+  `AXI_LITE_TYPEDEF_R_CHAN_T  ( r_chan_lite_t  , lite_data_t                                   )
+  `AXI_LITE_TYPEDEF_REQ_T     ( axi_lite_req_t , aw_chan_lite_t, w_chan_lite_t, ar_chan_lite_t )
+  `AXI_LITE_TYPEDEF_RESP_T    ( axi_lite_resp_t, b_chan_lite_t , r_chan_lite_t                 )
+
+  axi_lite_req_t  h2c_tlb_cfg_req,
+                  c2h_tlb_cfg_req,
+                  h2c_tlb_cfg_lite_req,
+                  c2h_tlb_cfg_lite_req;
    
+  axi_lite_resp_t h2c_tlb_cfg_resp,
+                  c2h_tlb_cfg_resp,
+                  h2c_tlb_cfg_lite_resp,
+                  c2h_tlb_cfg_lite_resp;
+
+  localparam axi_pkg::xbar_cfg_t FromHostTlbCfgXbarCfg = '{
+    NoSlvPorts:  2,
+    NoMstPorts:  2,
+    MaxMstTrans: 1,
+    MaxSlvTrans: 1,
+    FallThrough: 0,
+    LatencyMode: axi_pkg::CUT_SLV_AX,
+    AxiIdWidthSlvPorts: 1,
+    AxiIdUsedSlvPorts: 1, 
+    UniqueIds   : 0,
+    AxiAddrWidth: AXI_LITE_AW,
+    AxiDataWidth: AXI_LITE_DW,
+    NoAddrRules: 2
+  };
+
+  typedef axi_pkg::xbar_rule_32_t tlb_cfg_xbar_rule_t;
+  initial assert (AXI_LITE_AW == 32)
+    else $fatal(1, "Change `tlb_cfg_xbar_rule_t` for address width other than 32 bit!");
+  localparam tlb_cfg_xbar_rule_t [FromHostTlbCfgXbarCfg.NoAddrRules-1:0]
+      FromHostTlbCfgXbarAddrMap = '{
+    '{idx: 32'd1, start_addr: 32'h5000_1000, end_addr: 32'h5000_2000},
+    '{idx: 32'd0, start_addr: 32'h5000_0000, end_addr: 32'h5000_1000}
+  };
+
+  `AXI_LITE_ASSIGN_TO_REQ    ( h2c_tlb_cfg_lite_req, tlb_cfg_lite_master   )
+  `AXI_LITE_ASSIGN_FROM_RESP ( tlb_cfg_lite_master , h2c_tlb_cfg_lite_resp )
+
+  `AXI_LITE_ASSIGN_TO_REQ    ( c2h_tlb_cfg_lite_req, c2h_tlb_cfg_lite      )
+  `AXI_LITE_ASSIGN_FROM_RESP ( c2h_tlb_cfg_lite    , c2h_tlb_cfg_lite_resp )
+
+  axi_lite_xbar #(
+     .Cfg                   ( FromHostTlbCfgXbarCfg ),
+     .aw_chan_t             ( aw_chan_lite_t        ),
+     .w_chan_t              ( w_chan_lite_t         ),
+     .b_chan_t              ( b_chan_lite_t         ),
+     .ar_chan_t             ( ar_chan_lite_t        ),
+     .r_chan_t              ( r_chan_lite_t         ),
+     .req_t                 ( axi_lite_req_t        ),
+     .resp_t                ( axi_lite_resp_t       ),
+     .rule_t                ( tlb_cfg_xbar_rule_t   )
+   ) i_tlb_cfg_xbar         (
+     .clk_i                 ( s_soc_clk                                      ),
+     .rst_ni                ( s_soc_rst_n                                    ),
+     .test_i                ( 1'b0                                           ),
+     .slv_ports_req_i       ( {c2h_tlb_cfg_lite_req , h2c_tlb_cfg_lite_req } ), 
+     .slv_ports_resp_o      ( {c2h_tlb_cfg_lite_resp, h2c_tlb_cfg_lite_resp} ), 
+     .mst_ports_req_o       ( {c2h_tlb_cfg_req ,      h2c_tlb_cfg_req }      ),
+     .mst_ports_resp_i      ( {c2h_tlb_cfg_resp,      h2c_tlb_cfg_resp}      ),
+     .addr_map_i            ( FromHostTlbCfgXbarAddrMap                      ),
+     .en_default_mst_port_i ( {1'b0, 1'b0}                                   ),
+     .default_mst_port_i    ( {1'b0, 1'b0}                                   )
+   );
+
+  `AXI_LITE_ASSIGN_FROM_REQ ( h2c_tlb_cfg     , h2c_tlb_cfg_req )
+  `AXI_LITE_ASSIGN_TO_RESP  ( h2c_tlb_cfg_resp, h2c_tlb_cfg     )
+
+  axi_tlb_intf #(
+    .AXI_SLV_PORT_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+    .AXI_MST_PORT_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+    .AXI_DATA_WIDTH          ( AXI_DATA_WIDTH           ),
+    .AXI_ID_WIDTH            ( ariane_soc::IdWidthSlave ),
+    .AXI_USER_WIDTH          ( AXI_USER_WIDTH           ),
+    .AXI_SLV_PORT_MAX_TXNS   ( 1                        ), 
+    .CFG_AXI_ADDR_WIDTH      ( AXI_LITE_AW              ),
+    .CFG_AXI_DATA_WIDTH      ( AXI_LITE_DW              ),
+    .L1_NUM_ENTRIES          ( ENTRIES                  ), 
+    .L1_CUT_AX               ( 1                        )
+  ) i_h2c_tlb                (
+    .clk_i                   ( s_soc_clk                ),
+    .rst_ni                  ( s_soc_rst_n              ),
+    .test_en_i               ( 1'b0                     ),
+    .slv                     ( soc_to_tlb_axi_bus       ),
+    .mst                     ( tlb_to_cluster_axi_bus   ),
+    .cfg                     ( h2c_tlb_cfg              )
+  ); 
+
+   `AXI_LITE_ASSIGN_FROM_REQ ( c2h_tlb_cfg     , c2h_tlb_cfg_req )
+   `AXI_LITE_ASSIGN_TO_RESP  ( c2h_tlb_cfg_resp, c2h_tlb_cfg     )
+   
+   axi_tlb_intf #(
+     .AXI_SLV_PORT_ADDR_WIDTH ( AXI_ADDRESS_WIDTH      ),
+     .AXI_MST_PORT_ADDR_WIDTH ( AXI_ADDRESS_WIDTH      ),
+     .AXI_DATA_WIDTH          ( AXI_DATA_WIDTH         ),
+     .AXI_ID_WIDTH            ( ariane_soc::IdWidth    ),
+     .AXI_USER_WIDTH          ( AXI_USER_WIDTH         ),
+     .AXI_SLV_PORT_MAX_TXNS   ( 1                      ), 
+     .CFG_AXI_ADDR_WIDTH      ( AXI_LITE_AW            ),
+     .CFG_AXI_DATA_WIDTH      ( AXI_LITE_DW            ),
+     .L1_NUM_ENTRIES          ( ENTRIES                ),
+     .L1_CUT_AX               ( 1                      )
+   ) i_c2h_tlb                (                             
+     .clk_i                   ( s_soc_clk              ),
+     .rst_ni                  ( s_soc_rst_n            ),
+     .test_en_i               ( 1'b0                   ),
+     .slv                     ( cluster_to_tlb_axi_bus ),
+     .mst                     ( tlb_to_soc_axi_bus     ),
+     .cfg                     ( c2h_tlb_cfg            )
+   );
+  
+  /**************************************************************************************************/
+  /*                                       END AXI TLB REGION                                       */
+  /**************************************************************************************************/
   `REG_BUS_ASSIGN_TO_REQ(reg_req,i_padframecfg_rbus)
   `REG_BUS_ASSIGN_FROM_RSP(i_padframecfg_rbus,reg_rsp)
 

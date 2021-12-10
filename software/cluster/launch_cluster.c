@@ -16,6 +16,10 @@ int main(int argc, char const *argv[]) {
   int test_freq = 100000000;
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
+  // H2C TLB configuration
+  h2c_tlb_cfg();
+  // C2H TLB configuration
+  c2h_tlb_cfg();
   uint32_t * hyaxicfg_reg_mask = 0x1A104018;
   pulp_write32(hyaxicfg_reg_mask,26); //128MB addressable
   uint32_t * hyaxicfg_reg_memspace = 0x1A104024;

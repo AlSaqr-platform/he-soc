@@ -8,6 +8,7 @@ dependencies:
   alsaqr_padframe: { path: "deps/alsaqr_periph_padframe" }
   apb_host_control: { path: "deps/apb_host_control_regs" }
   apb_uart: { path: "../fpga/src/apb_uart" }
+  axi_tlb: { path: "deps/axi_tlb"}
   axi: { git: "https://github.com/pulp-platform/axi.git", version: "0.29.1" } 
   fpnew: { git: "https://github.com/pulp-platform/fpnew.git", version: 0.6.5 }
   tcdm_interconnect: { git: "https://github.com/pulp-platform/cluster_interconnect.git", version: "1.1.2" }
@@ -29,7 +30,7 @@ dependencies:
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", rev: "597faa6bab2971d79098545fa076bbca293ae90d" }
   fll_behav: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/fll_behav.git", rev: "94a1e45d53c9fa71ae897a66dea6f19111eb6655" }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
-  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "487dcd03253985be93bd060196fed5ce3dc56028" }
+  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "ecbe38689a556575b330c3962c21afafcac5af0d" }
 
 export_include_dirs:
   - include/

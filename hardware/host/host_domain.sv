@@ -27,6 +27,9 @@ module host_domain
   parameter int unsigned AXI_USER_WIDTH    = 1,
   parameter int unsigned AXI_ADDRESS_WIDTH = 64,
   parameter int unsigned AXI_DATA_WIDTH    = 64,
+  // AXILITE parameters
+  parameter int unsigned AXI_LITE_AW       = 32,
+  parameter int unsigned AXI_LITE_DW       = 32,
 `ifdef DROMAJO
   parameter bit          InclSimDTM        = 1'b0,
 `else
@@ -78,6 +81,8 @@ module host_domain
   // SoC to cluster AXI
   AXI_BUS.Master              cluster_axi_master,
   AXI_BUS.Slave               cluster_axi_slave,
+  // TLB Config
+  AXI_LITE.Master             tlb_cfg_lite_master,
   // SPIM
   output                      qspi_to_pad_t [N_SPI-1:0] qspi_to_pad,
   input                       pad_to_qspi_t [N_SPI-1:0] pad_to_qspi,
@@ -160,6 +165,20 @@ module host_domain
      .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
    ) hyper_axi_bus();
+
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+   ) tlb_cfg_data64 ();
+   
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_LITE_DW              ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+   ) tlb_cfg_data32 ();
    
    
    XBAR_TCDM_BUS axi_bridge_2_interconnect[AXI64_2_TCDM32_N_PORTS]();
@@ -203,8 +222,54 @@ module host_domain
         .cluster_axi_master   ( cluster_axi_master   ),
         .cluster_axi_slave    ( cluster_axi_slave    ),
         .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
-        .cva6_uart_tx_o       ( cva6_uart_tx_o       )
+        .cva6_uart_tx_o       ( cva6_uart_tx_o       ),
+        .tlb_cfg_master       ( tlb_cfg_data64       )
     );
+
+  /*************************************************************************************************************/
+  /*                                AXI LITE XBAR FOR TLBs CONFIGURATION: START                                */
+  /*************************************************************************************************************/ 
+  
+  // // Mask upper 16 bits of config addresses. (???)
+  // always_comb begin
+  //   `AXI_LITE_SET_REQ_STRUCT(tlb_cfg_req, tlb_cfg_req_unmasked) // Set the interface 
+  //   tlb_cfg_req.aw.addr &= 32'h0000_FFFF;
+  //   tlb_cfg_req.ar.addr &= 32'h0000_FFFF;
+  // end
+
+  axi_dw_converter_intf #(
+    .AXI_ID_WIDTH             ( ariane_soc::IdWidthSlave ),
+    .AXI_ADDR_WIDTH           ( AXI_ADDRESS_WIDTH        ),
+    .AXI_SLV_PORT_DATA_WIDTH  ( AXI_DATA_WIDTH           ),
+    .AXI_MST_PORT_DATA_WIDTH  ( AXI_LITE_DW              ),
+    .AXI_USER_WIDTH           ( AXI_USER_WIDTH           ),
+    .AXI_MAX_READS            ( 1                        )
+  ) i_dwc_tlb_cfg (
+    .clk_i        ( s_soc_clk           ),
+    .rst_ni       ( s_synch_soc_rst     ),
+    .slv          ( tlb_cfg_data64      ),
+    .mst          ( tlb_cfg_data32      )
+  );
+
+  axi_to_axi_lite_intf #(
+    .AXI_ADDR_WIDTH     ( AXI_ADDRESS_WIDTH        ),
+    .AXI_DATA_WIDTH     ( AXI_DATA_WIDTH           ),
+    .AXI_ID_WIDTH       ( ariane_soc::IdWidthSlave ),
+    .AXI_USER_WIDTH     ( AXI_USER_WIDTH           ),
+    .AXI_MAX_WRITE_TXNS ( 1                        ),
+    .AXI_MAX_READ_TXNS  ( 1                        ),
+    .FALL_THROUGH       ( 1'b0                     )
+  ) i_axi_to_axi_lite_tlb_cfg (
+    .clk_i       ( s_soc_clk           ),
+    .rst_ni      ( s_synch_soc_rst     ),
+    .testmode_i  ( 1'b0                ),
+    .slv         ( tlb_cfg_data32      ),
+    .mst         ( tlb_cfg_lite_master )
+  );
+  
+  /************************************************************************************************************/
+  /*                                AXI LITE XBAR FOR TLBs CONFIGURATION: STOP                                */
+  /************************************************************************************************************/
    
    
    axi2tcdm_wrap #(

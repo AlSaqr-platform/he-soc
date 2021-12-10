@@ -58,7 +58,10 @@ module cva6_subsystem
   output logic            jtag_TDO_driven,
   // CVA6 DEBUG UART
   input  logic            cva6_uart_rx_i,
-  output logic            cva6_uart_tx_o,   
+  output logic            cva6_uart_tx_o,  
+  // TLB BUSes start here
+  AXI_BUS.Master          tlb_cfg_master,
+  // TLB BUSes end here 
   AXI_BUS.Master          l2_axi_master,
   AXI_BUS.Master          apb_axi_master,
   AXI_BUS.Master          hyper_axi_master,
@@ -496,6 +499,11 @@ module cva6_subsystem
     start_addr: ariane_soc::HYAXIBase,
     end_addr:   ariane_soc::HYAXIBase     + ariane_soc::HYAXILength  
   }; 
+  assign addr_map[ariane_soc::TLB_CFG] = '{ 
+    idx:  ariane_soc::TLB_CFG,
+    start_addr: ariane_soc::TLB_CFGBase,
+    end_addr:   ariane_soc::TLB_CFGBase     + ariane_soc::TLB_CFGLength  
+  }; 
 
   axi_xbar_intf #(
     .AXI_USER_WIDTH         ( AXI_USER_WIDTH                        ),
@@ -511,6 +519,20 @@ module cva6_subsystem
     .en_default_mst_port_i  ('0), // disable default master port for all slave ports
     .default_mst_port_i     ('0)
   );
+
+  /************************************************************************************************************/
+  /*                                         AXI INTF FOR TLBs: START                                         */
+  /************************************************************************************************************/ 
+
+  // --------------------
+  // AXI TLB Slave (CFG)
+  // --------------------
+  `AXI_ASSIGN(tlb_cfg_master, master[ariane_soc::TLB_CFG])
+
+
+  /***********************************************************************************************************/
+  /*                                         AXI INTF FOR TLBs: STOP                                         */
+  /***********************************************************************************************************/ 
    
   // ---------------
   // CLINT
