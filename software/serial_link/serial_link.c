@@ -28,6 +28,9 @@
 #define BUFFER_SIZE_READ 12
 
 #define SERIAL_LINK_BASE 0x50000000
+#define L2_BASE 0x1C000000
+#define VAL_WR_AXI_DRV 777
+
 
 #define GPIO_PADDIR_0_31_OFFSET 0x0
 #define GPIO_PADEN_0_31_OFFSET 0x4
@@ -121,6 +124,10 @@ int main(){
   pulp_write32(address, val_wr);
   while(pulp_read32(address) != val_wr);
   printf("ddr_clk_i  enabled\n");
+
+  address = L2_BASE;
+  while(pulp_read32(address) != VAL_WR_AXI_DRV);
+  printf("SUCCESSFUL read (%d) written into L2 from offchip Serial Link \n",pulp_read32(address));
   
   wait_cycles(50000);
 

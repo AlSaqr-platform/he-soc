@@ -468,10 +468,12 @@ module ariane_tb;
         .pad_periphs_pad_gpio_b_59_pad(),
         .pad_periphs_pad_gpio_b_60_pad(),
         .pad_periphs_pad_gpio_b_61_pad(),
+
         .pad_periphs_pad_gpio_c_00_pad(),
         .pad_periphs_pad_gpio_c_01_pad(),
         .pad_periphs_pad_gpio_c_02_pad(),
         .pad_periphs_pad_gpio_c_03_pad(),
+
         .pad_periphs_pad_gpio_d_00_pad(pad_periphs_pad_gpio_d_00_pad),
         .pad_periphs_pad_gpio_d_01_pad(pad_periphs_pad_gpio_d_01_pad),
         .pad_periphs_pad_gpio_d_02_pad(pad_periphs_pad_gpio_d_02_pad),
@@ -483,6 +485,7 @@ module ariane_tb;
         .pad_periphs_pad_gpio_d_08_pad(pad_periphs_pad_gpio_d_08_pad),
         .pad_periphs_pad_gpio_d_09_pad(pad_periphs_pad_gpio_d_09_pad),
         .pad_periphs_pad_gpio_d_10_pad(pad_periphs_pad_gpio_d_10_pad),
+
         .pad_periphs_pad_gpio_e_00_pad(),
         .pad_periphs_pad_gpio_e_01_pad(),
         .pad_periphs_pad_gpio_e_02_pad(),
@@ -496,6 +499,7 @@ module ariane_tb;
         .pad_periphs_pad_gpio_e_10_pad(),
         .pad_periphs_pad_gpio_e_11_pad(),
         .pad_periphs_pad_gpio_e_12_pad(),
+
         .pad_periphs_pad_gpio_f_00_pad(),
         .pad_periphs_pad_gpio_f_01_pad(),
         .pad_periphs_pad_gpio_f_02_pad(),
@@ -615,6 +619,13 @@ module ariane_tb;
      /* DDR SERIAL LINK */
     if (USE_SERIAL_LINK==1) begin
 
+      localparam time         TckDdr           = 70ns;
+      parameter int unsigned AXI_USER_WIDTH    = 1;
+      parameter int unsigned AXI_ADDRESS_WIDTH = 64;
+      parameter int unsigned AXI_DATA_WIDTH    = 64;
+      parameter int unsigned L2_BANK_SIZE      = 4096;
+      parameter int unsigned AXI_WRITE_DATA    = 777;   //This define the write data for the write_axi task
+
       ariane_axi_soc::req_t ddr_1_in_req, ddr_1_out_req;
       ariane_axi_soc::resp_t ddr_1_in_rsp, ddr_1_out_rsp;
 
@@ -635,8 +646,8 @@ module ariane_tb;
       `REG_BUS_TYPEDEF_REQ(reg_req_t, reg_addr_t, reg_data_t, reg_strb_t)
       `REG_BUS_TYPEDEF_RSP(reg_rsp_t, reg_data_t)
      
-      reg_req_t   reg_req ='0;
-      reg_rsp_t   reg_rsp ;
+      reg_req_t   ddr_reg_req ='0;
+      reg_rsp_t   ddr_reg_rsp ;
 
       assign pad_periphs_pad_gpio_f_17_pad = pad_periphs_pad_gpio_b_00_pad==1 ? ddr_clk : 0 ;
 
@@ -652,12 +663,6 @@ module ariane_tb;
 
       assign ddr_clk = pad_periphs_pad_gpio_b_00_pad==1 ? ddr_ext_clk : 0; 
 
-      localparam time         TckDdr          = 70ns;
-      parameter int unsigned AXI_USER_WIDTH    = 1;
-      parameter int unsigned AXI_ADDRESS_WIDTH = 64;
-      parameter int unsigned AXI_DATA_WIDTH    = 64;
-      parameter int unsigned L2_BANK_SIZE    = 4096;
-
       // DDR link clock and reset
       clk_rst_gen #(
         .ClkPeriod    ( TckDdr         ),
@@ -672,20 +677,20 @@ module ariane_tb;
         .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
         .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
         .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-      ) ddr_mstport();
+      ) ddr_axi_master();
 
       AXI_BUS #(
         .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
         .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
         .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
         .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
-      ) ddr_slvport();
+      ) ddr_axi_slave();
 
-      `AXI_ASSIGN_FROM_REQ(ddr_slvport, ddr_1_out_req)
-      `AXI_ASSIGN_TO_RESP(ddr_1_out_rsp, ddr_slvport)
+      `AXI_ASSIGN_FROM_REQ(ddr_axi_slave, ddr_1_out_req)
+      `AXI_ASSIGN_TO_RESP(ddr_1_out_rsp, ddr_axi_slave)
 
-      `AXI_ASSIGN_TO_REQ(ddr_1_in_req, ddr_mstport )
-      `AXI_ASSIGN_FROM_RESP(ddr_mstport, ddr_1_in_rsp )
+      `AXI_ASSIGN_TO_REQ(ddr_1_in_req, ddr_axi_master )
+      `AXI_ASSIGN_FROM_RESP(ddr_axi_master, ddr_1_in_rsp )
 
       // first serial instance
       serial_link #(
@@ -696,7 +701,7 @@ module ariane_tb;
         .cfg_req_t        ( reg_req_t ),
         .cfg_rsp_t        ( reg_rsp_t )
       ) i_serial_link_out (
-          .clk_i          ( clk_i ),
+          .clk_i          ( s_tck ),
           .rst_ni         ( rst_ni ),
           .testmode_i     ( 1'b0   ),
          
@@ -706,8 +711,8 @@ module ariane_tb;
           .axi_out_req_o  ( ddr_1_out_req ), //mst -> slv axi
           .axi_out_rsp_i  ( ddr_1_out_rsp ), //mst -> slv axi
 
-          .cfg_req_i      ( reg_req  ), //apb slave
-          .cfg_rsp_o      ( reg_rsp  ), //apb slave
+          .cfg_req_i      ( ddr_reg_req  ), //apb slave
+          .cfg_rsp_o      ( ddr_reg_rsp  ), //apb slave
           
           .ddr_clk_i      ( ddr_clk ),
           .ddr_i          ( ddr_i ),
@@ -720,9 +725,9 @@ module ariane_tb;
         .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
         .AXI_USER_WIDTH ( AXI_USER_WIDTH )
       ) i_axi2rom (
-        .clk_i  ( clk_i ),
+        .clk_i  ( s_tck ),
         .rst_ni ( rst_ni ),
-        .slave  ( ddr_slvport ), //from serial link mst port (slv)
+        .slave  ( ddr_axi_slave ), //from serial link mst port (slv)
         .req_o  ( req_to_mem  ), //to mem
         .we_o   ( mem_we_o    ),
         .addr_o ( mem_addr_o  ),
@@ -738,7 +743,7 @@ module ariane_tb;
         .DataWidth ( AXI_DATA_WIDTH      ),
         .NumPorts  ( 1                   )
       ) slink_mem (
-        .clk_i   ( clk_i ),
+        .clk_i   ( s_tck ),
         .rst_ni  ( rst_ni      ),
         .req_i   ( req_to_mem  ),
         .we_i    ( mem_we_o    ),
@@ -747,6 +752,170 @@ module ariane_tb;
         .be_i    ( mem_strb_o  ),
         .rdata_o ( mem_rdata_o )
       );
+
+       // -------------------- DDR AXI drivers --------------------
+
+        localparam AxiAw  = 64;
+        localparam AxiDw  = 64;
+        localparam AxiMaxSize = $clog2(AxiDw/8);
+        localparam AxiIw  = ariane_soc::IdWidthSlave;
+
+        typedef logic [AxiAw-1:0]   axi_addr_t;
+        typedef logic [AxiDw-1:0]   axi_data_t;
+        typedef logic [AxiDw/8-1:0] axi_strb_t;
+        typedef logic [AxiIw-1:0]   axi_id_t;
+
+    
+        AXI_BUS_DV #(
+            .AXI_ADDR_WIDTH(AxiAw ),
+            .AXI_DATA_WIDTH(AxiDw ),
+            .AXI_ID_WIDTH  (AxiIw ),
+            .AXI_USER_WIDTH(1     )
+        ) axi_dv(s_tck);
+
+        `AXI_ASSIGN(ddr_axi_master, axi_dv)
+
+        typedef axi_test::axi_driver #(
+            .AW(AxiAw ),
+            .DW(AxiDw ),
+            .IW(AxiIw ),
+            .UW(1),
+            .TA(REFClockPeriod*0.1),
+            .TT(REFClockPeriod*0.9)
+        ) axi_drv_t;
+
+        axi_drv_t ddr_axi_master_drv = new(axi_dv);
+
+        axi_test::axi_ax_beat #(.AW(AxiAw ), .IW(AxiIw ), .UW(1)) ar_beat = new();
+        axi_test::axi_r_beat  #(.DW(AxiDw ), .IW(AxiIw ), .UW(1)) r_beat  = new();
+        axi_test::axi_ax_beat #(.AW(AxiAw ), .IW(AxiIw ), .UW(1)) aw_beat = new();
+        axi_test::axi_w_beat  #(.DW(AxiDw ), .UW(1))              w_beat  = new();
+        axi_test::axi_b_beat  #(.IW(AxiIw ), .UW(1))              b_beat  = new();
+
+        initial begin
+            ddr_axi_master_drv.reset_master();
+            @(posedge pad_periphs_pad_gpio_b_00_pad);
+                #(1ms)
+                 write_axi('h1C000000, 4090, 3, AXI_WRITE_DATA, 'hffff);
+        end
+
+        // -------------------------- Regbus driver --------------------------
+
+
+        logic [AxiDw-1:0] trans_wdata;
+        logic [AxiDw-1:0] trans_rdata;
+        axi_addr_t    temp_waddr;
+        axi_addr_t    temp_raddr;
+        logic [4:0]   last_waddr;
+        logic [4:0]   last_raddr;
+        typedef logic [AxiDw-1:0] data_t;   
+
+        data_t        memory[bit [31:0]];
+        int           read_index = 0;
+        int           write_index = 0;
+       
+       
+        reg_req_t   reg_req;
+        reg_rsp_t   reg_rsp;
+
+        REG_BUS #(
+            .ADDR_WIDTH( RegAw ),
+            .DATA_WIDTH( RegDw )
+        ) i_rbus (
+            .clk_i (s_tck)
+        );
+        
+        integer fr, fw;
+
+        reg_test::reg_driver #(
+            .AW ( RegAw  ),
+            .DW ( RegDw  ),
+            .TA(REFClockPeriod*0.1),
+            .TT(REFClockPeriod*0.9)
+        ) i_rmaster = new( i_rbus );
+
+        assign reg_req = reg_req_t'{
+            addr:   i_rbus.addr,
+            write:  i_rbus.write,
+            wdata:  i_rbus.wdata,
+            wstrb:  i_rbus.wstrb,
+            valid:  i_rbus.valid
+        };
+
+        assign i_rbus.rdata = reg_rsp.rdata;
+        assign i_rbus.ready = reg_rsp.ready;
+        assign i_rbus.error = reg_rsp.error;
+
+      //----------------------- AXI DRIVER TASKS --------------------------
+
+      int unsigned            k, j;
+
+          // axi write task
+          task write_axi;
+              input axi_addr_t      waddr;
+              input axi_pkg::len_t  burst_len;
+              input axi_pkg::size_t size;
+              input logic [63:0]    data_w;
+              input axi_strb_t      wstrb;
+
+              @(posedge s_tck);
+
+              temp_waddr = waddr;
+              aw_beat.ax_addr  = waddr;
+              aw_beat.ax_len   = burst_len;
+              aw_beat.ax_burst = axi_pkg::BURST_INCR;
+              aw_beat.ax_size  = size;
+             
+              w_beat.w_strb   = wstrb;
+              w_beat.w_last   = 1'b0;
+              last_waddr = '0;
+
+              if(aw_beat.ax_size>AxiMaxSize) begin
+                $display("Not supported");
+              end else begin
+                $display("%p", aw_beat);
+
+                ddr_axi_master_drv.send_aw(aw_beat);
+                
+                
+                for(int unsigned i = 0; i < burst_len + 1; i++) begin
+                    if (i == burst_len) begin
+                        w_beat.w_last = 1'b1;
+                    end
+                    w_beat.w_data = data_w;
+                    ddr_axi_master_drv.send_w(w_beat);
+                    trans_wdata = '1; //the memory regions where we do not write are have all ones in the hyperram.
+                    `ifdef AXI_VERBOSE
+                    $display("%p", w_beat);
+                    $display("%x", w_beat.w_data);
+                    `endif
+                    if (i==0) begin
+                       for (k = temp_waddr[AxiMaxSize-1:0]; k<(((temp_waddr[AxiMaxSize-1:0]>>size)<<size) + (2**size)) ; k++)  begin
+                         trans_wdata[k*8 +:8] = (wstrb[k]) ? w_beat.w_data[(k*8) +: 8] : '1;
+                       end
+                    end else begin
+                       for(j=temp_waddr[AxiMaxSize-1:0]; j<temp_waddr[AxiMaxSize-1:0]+(2**size); j++) begin
+                          trans_wdata[j*8 +:8] = (wstrb[j]) ? w_beat.w_data[(j*8) +: 8] : '1;
+                       end
+                    end
+                    $fwrite(fw, "%x %x %x %d %d \n",  w_beat.w_data, trans_wdata, temp_waddr, (((temp_waddr[AxiMaxSize-1:0]>>size)<<size) + (2**size)), write_index);
+                    memory[write_index]=trans_wdata;
+                    if($isunknown(trans_wdata)) begin
+                       $fatal(1,"Xs @%x\n",temp_waddr);
+                    end   
+                    write_index++;
+                    if(i==0)
+                      temp_waddr = ((temp_waddr>>size)<<size) + (2**size);
+                    else
+                      temp_waddr = temp_waddr + (2**size);
+                    last_waddr = temp_waddr[AxiMaxSize-1:0] + (2**size);
+                end // for (int unsigned i = 0; i < burst_len + 1; i++)
+                
+                ddr_axi_master_drv.recv_b(b_beat);
+              end 
+             
+          endtask
+
 
     end  
   endgenerate
