@@ -46,13 +46,12 @@ make update
 
 make scripts_vips
 
-make sim elf-bin=../software/hello/hello.riscv
-
 ```
 
 Doing so will load the elf binary through the DMI interface, driven by the SimDTM, communicating with FESVR, the host.
 
-To load the code through JTAG interface, you can add the `localjtag=1` option and do `make localjtag=1 scripts_vip`. Be aware that the preload of the code is slower in this case. 
+To load the code through JTAG interface, you can add the `localjtag=1` option and do `make localjtag=1 scripts_vip`. Be aware that the preload of the code is slower in this case.
+
 
 ### Preload
 
@@ -68,6 +67,8 @@ make preload=1 scripts_vips
 ```
 This will generate the compile.tcl with the right defines. Go to the test you want to run.
 
+### Compile the code
+
 ```
 cd ../software/hello/
 
@@ -75,13 +76,27 @@ make clean all
 
 ```
 
-This will generate the hyperram*.slm that will be in the rams at t=0. Go to the hardware folder and do:
+This will generate the binaries and the hyperram*.slm that will be in the rams at t=0 (in case of preloading). 
 
+### Run the test
+
+ * Option 1: go to the hardware folder and do:
+
+```
+make sim elf-bin=../software/hello/hello.riscv
+```
+or
+```
+make sim
+```
+If you used the preload flag. Be aware that the loaded code will be the last one you compiled.
+
+ * Option 2: go to the test folder (ex `software/hello`)
+ 
 ```
 make sim
 
 ```
-Be aware than you will always run the latest test you compiled!
 
 ### Running code on the cluster
 

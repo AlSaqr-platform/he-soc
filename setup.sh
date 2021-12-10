@@ -1,9 +1,9 @@
 #!/bin/bash
 echo "exporting RISCV"
 
-export PATH=/scratch/lvalente/riscv_install/bin:$PATH
+export PATH=/usr/scratch/lagrev5/lvalente/riscv_install/bin:$PATH
 
-export RISCV=/scratch/lvalente/riscv_install
+export RISCV=/usr/scratch/lagrev5/lvalente/riscv_install
 
 export SW_HOME=$(pwd)/software
 

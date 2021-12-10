@@ -237,12 +237,6 @@ module al_saqr
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
      .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-  ) soc_to_cluster_axi_bus(); // NO LONGER USED
-  AXI_BUS #(
-     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
-     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
   ) soc_to_tlb_axi_bus();
   AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
@@ -753,7 +747,7 @@ module al_saqr
   `AXI_LITE_ASSIGN_TO_REQ    ( c2h_tlb_cfg_lite_req, c2h_tlb_cfg_lite      )
   `AXI_LITE_ASSIGN_FROM_RESP ( c2h_tlb_cfg_lite    , c2h_tlb_cfg_lite_resp )
 
-   axi_lite_xbar #(
+  axi_lite_xbar #(
      .Cfg                   ( FromHostTlbCfgXbarCfg ),
      .aw_chan_t             ( aw_chan_lite_t        ),
      .w_chan_t              ( w_chan_lite_t         ),

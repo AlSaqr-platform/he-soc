@@ -32,3 +32,9 @@ dump_slm:
 	cp hyperram*.slm $(current_dir)/../../hardware/
 
 all: clean build dis dump_slm
+
+rtl: 
+	 $(MAKE) -C ../../hardware/ all
+
+sim:
+	$(MAKE) -C ../../hardware/ sim elf-bin=$(shell pwd)/$(APP).riscv
