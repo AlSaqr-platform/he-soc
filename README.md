@@ -147,7 +147,7 @@ make scripts_vip
 
 mkdir tmp
 
-make run-regressions
+make batch-mode=1 run-regressions
 ```
 
 The tests that will be executed are the one listed in `software/regression.list`

@@ -7,3 +7,4 @@ peripherals/i2c
 peripherals/spim_flash
 peripherals/uart
 gpios
+cluster
