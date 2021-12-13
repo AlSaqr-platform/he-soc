@@ -294,8 +294,14 @@ module al_saqr
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
      .AXI_ID_WIDTH   ( ariane_soc::IdWidth      ),
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-  ) c2h_tlb_cfg_axi_bus();
-   
+  ) c2h_tlb_cfg_axi_bus_64();
+
+  AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_LITE_DW              ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidth      ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+  ) c2h_tlb_cfg_axi_bus_32();
 
   AXI_BUS_ASYNC_GRAY #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
@@ -540,8 +546,7 @@ module al_saqr
      .AXI_ID_WIDTH   ( ariane_soc::IdWidth      ),
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           ),
      .LOG_DEPTH      ( 3                        )
-     ) cluster_to_soc_dst_cdc_fifo_i 
-       (
+     ) cluster_to_soc_dst_cdc_fifo_i (
        .dst_clk_i  ( s_soc_clk                    ),
        .dst_rst_ni ( s_soc_rst_n                  ),
        .src        ( async_cluster_to_soc_axi_bus ),
@@ -549,32 +554,46 @@ module al_saqr
        );
 
    axi_cdc_dst_intf      #(
-     .AXI_ADDR_WIDTH      ( AXI_ADDRESS_WIDTH   ),
-     .AXI_DATA_WIDTH      ( AXI_DATA_WIDTH      ),
-     .AXI_ID_WIDTH        ( ariane_soc::IdWidth ),
-     .AXI_USER_WIDTH      ( AXI_USER_WIDTH      ),
-     .LOG_DEPTH           ( 3                   )
-     ) cfg_dst_cdc_fifo_i (
-       .dst_clk_i         ( s_soc_clk           ),
-       .dst_rst_ni        ( s_soc_rst_n         ),
-       .src               ( async_cfg_axi_bus   ),
-       .dst               ( c2h_tlb_cfg_axi_bus )
+     .AXI_ADDR_WIDTH      ( AXI_ADDRESS_WIDTH      ),
+     .AXI_DATA_WIDTH      ( AXI_DATA_WIDTH         ),
+     .AXI_ID_WIDTH        ( ariane_soc::IdWidth    ),
+     .AXI_USER_WIDTH      ( AXI_USER_WIDTH         ),
+     .LOG_DEPTH           ( 3                      )
+     ) cfg_dst_cdc_fifo_i (                        
+       .dst_clk_i         ( s_soc_clk              ),
+       .dst_rst_ni        ( s_soc_rst_n            ),
+       .src               ( async_cfg_axi_bus      ),
+       .dst               ( c2h_tlb_cfg_axi_bus_64 )
        );
 
+   axi_dw_converter_intf #(
+     .AXI_ID_WIDTH             ( ariane_soc::IdWidthSlave ),
+     .AXI_ADDR_WIDTH           ( AXI_ADDRESS_WIDTH        ),
+     .AXI_SLV_PORT_DATA_WIDTH  ( AXI_DATA_WIDTH           ),
+     .AXI_MST_PORT_DATA_WIDTH  ( AXI_LITE_DW              ),
+     .AXI_USER_WIDTH           ( AXI_USER_WIDTH           ),
+     .AXI_MAX_READS            ( 1                        )
+   ) i_dwc_tlb_cfg (
+     .clk_i        ( s_soc_clk              ),
+     .rst_ni       ( s_synch_soc_rst        ),
+     .slv          ( c2h_tlb_cfg_axi_bus_64 ),
+     .mst          ( c2h_tlb_cfg_axi_bus_32 )
+   );
+
    axi_to_axi_lite_intf #(
-     .AXI_ADDR_WIDTH     ( AXI_ADDRESS_WIDTH   ),
-     .AXI_DATA_WIDTH     ( AXI_DATA_WIDTH      ),
-     .AXI_ID_WIDTH       ( ariane_soc::IdWidth ),
-     .AXI_USER_WIDTH     ( AXI_USER_WIDTH      ),
-     .AXI_MAX_WRITE_TXNS ( 1                   ),
-     .AXI_MAX_READ_TXNS  ( 1                   ),
-     .FALL_THROUGH       ( 0                   )
-   ) i_axi2lite_tlb_cfg  (
-     .clk_i              ( s_soc_clk           ),
-     .rst_ni             ( s_soc_rst_n         ),
-     .testmode_i         ( 1'b0                ),
-     .slv                ( c2h_tlb_cfg_axi_bus ),
-     .mst                ( c2h_tlb_cfg_lite    )
+     .AXI_ADDR_WIDTH     ( AXI_ADDRESS_WIDTH      ),
+     .AXI_DATA_WIDTH     ( AXI_DATA_WIDTH         ),
+     .AXI_ID_WIDTH       ( ariane_soc::IdWidth    ),
+     .AXI_USER_WIDTH     ( AXI_USER_WIDTH         ),
+     .AXI_MAX_WRITE_TXNS ( 1                      ),
+     .AXI_MAX_READ_TXNS  ( 1                      ),
+     .FALL_THROUGH       ( 0                      )
+   ) i_axi2lite_tlb_cfg  (                        
+     .clk_i              ( s_soc_clk              ),
+     .rst_ni             ( s_soc_rst_n            ),
+     .testmode_i         ( 1'b0                   ),
+     .slv                ( c2h_tlb_cfg_axi_bus_32 ),
+     .mst                ( c2h_tlb_cfg_lite       )
    );
    
     pulp_cluster
