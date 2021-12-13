@@ -20,15 +20,15 @@ module periph_bus_wrap
     input logic    clk_i,
     input logic    rst_ni,
 
-    APB_BUS.Slave  apb_slave,
-    APB_BUS.Master udma_master,
-    APB_BUS.Master gpio_master,
-    APB_BUS.Master fll_master,
-    APB_BUS.Master hyaxicfg_master,
-    APB_BUS.Master advtimer_master,
-    APB_BUS.Master padframe_master,
-    APB_BUS.Master serial_link_master,
-    APB_BUS.Master socctrl_master
+    APB.Slave  apb_slave,
+    APB.Master udma_master,
+    APB.Master gpio_master,
+    APB.Master fll_master,
+    APB.Master hyaxicfg_master,
+    APB.Master advtimer_master,
+    APB.Master padframe_master,
+    APB.Master socctrl_master,
+    APB.Master serial_link_master
 );
 
     APB
@@ -90,5 +90,7 @@ module periph_bus_wrap
         .start_addr_i ( s_start_addr ),
         .end_addr_i   ( s_end_addr   )
     );
+
+
 
 endmodule

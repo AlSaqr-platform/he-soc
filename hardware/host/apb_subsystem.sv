@@ -123,9 +123,9 @@ module apb_subsystem
                .DATA_WIDTH(32)
    ) apb_padframe_master_bus();
 
-   APB_BUS  #(
-               .APB_ADDR_WIDTH(32),
-               .APB_DATA_WIDTH(32)
+   APB  #(
+               .ADDR_WIDTH(32),
+               .DATA_WIDTH(32)
    ) apb_serial_link_master_bus();
    
    APB  #(
