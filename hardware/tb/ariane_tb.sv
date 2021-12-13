@@ -635,6 +635,7 @@ module ariane_tb;
       logic [63:0] mem_rdata_o, mem_wdata_o, mem_addr_o;
       logic [7:0] mem_strb_o;
       logic req_to_mem, mem_we_o;
+      logic clk;
 
       localparam RegAw  = 32;
       localparam RegDw  = 32;
@@ -663,14 +664,22 @@ module ariane_tb;
 
       assign ddr_clk = pad_periphs_pad_gpio_b_00_pad==1 ? ddr_ext_clk : 0; 
 
-      // DDR link clock and reset
-      clk_rst_gen #(
-        .ClkPeriod    ( TckDdr         ),
-        .RstClkCycles ( 5             )
-      ) i_clk_rst_gen_ddr (
-        .clk_o  ( ddr_ext_clk ),
-        .rst_no (  )
-      );
+      // DDR link ext clock
+      initial begin
+        clk = 1'b0;
+      end
+      always begin
+        // Emit rising clock edge.
+        clk = 1'b1;
+        // Wait for at most half the clock period before emitting falling clock edge.  Due to integer
+        // division, this is not always exactly half the clock period but as close as we can get.
+        #(TckDdr / 2);
+        // Emit falling clock edge.
+        clk = 1'b0;
+        // Wait for remainder of clock period before continuing with next cycle.
+        #((TckDdr + 1) / 2);
+      end
+      assign ddr_ext_clk = clk;
 
       AXI_BUS #(
         .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
@@ -691,7 +700,7 @@ module ariane_tb;
 
       `AXI_ASSIGN_TO_REQ(ddr_1_in_req, ddr_axi_master )
       `AXI_ASSIGN_FROM_RESP(ddr_axi_master, ddr_1_in_rsp )
-
+     
       // first serial instance
       serial_link #(
         .axi_req_t        ( ariane_axi_soc::req_t     ),
