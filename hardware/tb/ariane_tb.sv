@@ -85,7 +85,7 @@ module ariane_tb;
   `else  
     parameter int   jtag_enable = '0 ;
   `endif
-
+   
     localparam logic [15:0] PartNumber = 1; 
     logic program_loaded = 0;
     logic  eoc;
@@ -751,7 +751,7 @@ module ariane_tb;
                 `uvm_info( "Core Test",  $sformatf("*** SUCCESS *** (tohost = %0d)", (exit_o >> 1)), UVM_LOW)
             end
 
-            $finish();
+            $stop;
         end
     end
 

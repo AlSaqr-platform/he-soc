@@ -7,6 +7,8 @@ export RISCV=/usr/scratch/lagrev5/lvalente/riscv_install
 
 export SW_HOME=$(pwd)/software
 
+export HW_HOME=$(pwd)/hardware
+
 echo "exporting QUESTASIM PATH"
 
 export QUESTASIM_HOME=/usr/pack/modelsim-10.7b-kgf/questasim/
