@@ -5,6 +5,18 @@
 #include "./cluster_code.h"
 //#define FPGA_EMULATION
 
+// H2C_TLB Configuration
+uint64_t h2c_first_va = 0x0000000000000000;
+uint64_t h2c_last_va  = 0xFFFFFFFFFFFFFFFF;
+uint64_t h2c_base_pa  = 0x0000000010000000;
+uint8_t  h2c_flags    = 0x07;
+
+// C2H_TLB Configuration
+uint64_t c2h_first_va = 0x0000000080000000;
+uint64_t c2h_last_va  = 0xFFFFFFFFFFFFFFFF;
+uint64_t c2h_base_pa  = 0x0000000010000000;
+uint8_t  c2h_flags    = 0x07; 
+
 int main(int argc, char const *argv[]) {
 
   #ifdef FPGA_EMULATION
@@ -17,9 +29,9 @@ int main(int argc, char const *argv[]) {
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
   // H2C TLB configuration
-  h2c_tlb_cfg();
+  tlb_cfg(H2C_TLB_BASE_ADDR, h2c_first_va, h2c_last_va, h2c_base_pa, h2c_flags);
   // C2H TLB configuration
-  c2h_tlb_cfg();
+  tlb_cfg(C2H_TLB_BASE_ADDR, c2h_first_va, c2h_last_va, c2h_base_pa, c2h_flags);
   uint32_t * hyaxicfg_reg_mask = 0x1A104018;
   pulp_write32(hyaxicfg_reg_mask,26); //128MB addressable
   uint32_t * hyaxicfg_reg_memspace = 0x1A104024;
