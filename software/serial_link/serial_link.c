@@ -28,6 +28,7 @@
 #define BUFFER_SIZE_READ 12
 
 #define SERIAL_LINK_BASE 0x60000000
+#define SERIAL_LINK_CFG_BASE 0X1A107000
 #define L2_BASE 0x1C000000
 #define VAL_WR_AXI_DRV 777
 
@@ -77,6 +78,7 @@ int main(){
   uint16_t concat=0;
   uint32_t address;
   uint32_t val_wr = 0x00000000;
+  uint32_t reg_val = 0x00000000;
 
   uint16_t *rx_addr= (uint16_t*) 0x1C001000;
 
@@ -123,7 +125,6 @@ int main(){
   val_wr = 0x1;
   pulp_write32(address, val_wr);
   while(pulp_read32(address) != val_wr);
-  printf("ddr_clk_i  enabled\n");
 
   address = L2_BASE;
   while(pulp_read32(address) != VAL_WR_AXI_DRV);
@@ -148,6 +149,23 @@ int main(){
     wait_cycles(500);
     address += 4;
   }
+
+  //Test read cfg reg from APB
+
+  /*
+    SerialCfgStatus       = 32'h000,
+    SerialCfgTrainingMask = 32'h008,
+    SerialCfgDelay        = 32'h010
+  */
+  address = SERIAL_LINK_CFG_BASE;
+  val_wr=pulp_read32(address);
+  printf ("First read SerialCfgStatus reg: %d \n",val_wr);
+  reg_val= 0xFFFFFFFF;
+  pulp_write32(address, reg_val);
+  reg_val=pulp_read32(address);
+  printf ("Read after write SerialCfgStatus reg: %d -> %d \n",val_wr, reg_val);
+  if(val_wr==reg_val)
+    error++;
   
   if(error!=0)
     printf("Test FAILED with :%d\n",error);
