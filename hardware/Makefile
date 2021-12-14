@@ -33,6 +33,10 @@ cl-bin         ?= none
 # root path
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 root-dir := $(dir $(mkfile_path))
+# regression
+alsaqr-regression-dir      := ./
+alsaqr-regression-list     := ./regression.list
+alsaqr-regression          := $(shell xargs printf '\n%s' < $(alsaqr-regression-list) | cut -b 1-)
 
 BENDER_FPGA_SCRIPTS_DIR = fpga/alsaqr/tcl/generated
 BENDER_SYNTH_DIR = gf22
@@ -85,12 +89,6 @@ CFLAGS := -I$(QUESTASIM_HOME)/include         \
           $(if $(DROMAJO), -I../tb/dromajo/src,) \
           -std=c++11 -I../tb/dpi -O3
 
-#ifdef XCELIUM_HOME
-#CFLAGS += -I$(XCELIUM_HOME)/tools/include
-#else
-#$(warning XCELIUM_HOME not set which is necessary for compiling DPIs when using XCELIUM)
-#endif
-
 ifdef spike-tandem
     CFLAGS += -Itb/riscv-isa-sim/install/include/spike
 endif
@@ -111,7 +109,7 @@ list_incdir := $(foreach dir, ${incdir}, +incdir+$(dir))
 # if defined, calls the questa targets in batch mode
 ifdef batch-mode
 	questa-flags += -c
-	questa-cmd   := -do "coverage save -onexit tmp/$@.ucdb; run -a; quit -code [coverage attribute -name TESTSTATUS -concise]"
+	questa-cmd   := -do "coverage save -onexit ./test.ucdb; run -a; quit -code [coverage attribute -name TESTSTATUS -concise]"
 	questa-cmd   += -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; log -r /*; run -all;"
 else
 	questa-cmd   := -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; log -r /*; run -all;"
@@ -147,7 +145,7 @@ bender:
 	curl --proto '=https' --tlsv1.2 https://fabianschuiki.github.io/bender/init -sSf | sh
 
 update:
-	./bender update
+	bender update
 
 libbender:
 	@vlib work
@@ -155,19 +153,19 @@ libbender:
 
 scripts-bender-fpga: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
-	./bender script vivado -t fpga -t xilinx -t tech_cells_generic_include_xilinx_xpm > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
+	bender script vivado -t fpga -t xilinx -t tech_cells_generic_include_xilinx_xpm > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
 scripts-bender-synopsys: | Bender.lock
 	echo 'set ROOT [file normalize [file dirname [info script]]/../../../]' > $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
-	./bender script synopsys -t rtl -t synthesis -t asic | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
+	bender script synopsys -t rtl -t synthesis -t asic | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
 
 scripts:
-	./bender script vsim \
+	bender script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t rtl -t test > compile.tcl
 
 scripts_vip:
-	./bender script vsim \
+	bender script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t rtl -t test -t vip > compile.tcl
 
@@ -207,11 +205,23 @@ generate-trace-vsim:
 
 run:
 	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library) +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) -t 1ps \
-	+BASEDIR=$(riscv-test-dir) $(uvm-flags) $(QUESTASIM_FLAGS) -gblso $(SPIKE_ROOT)/lib/libfesvr.so -sv_lib $(dpi-library)/ariane_dpi  \
+	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi  \
 	${top_level}_optimized +permissive-off ++$(elf-bin) ++$(target-options) ++$(cl-bin) | tee sim.log
 
 
 sim: build run
+
+$(alsaqr-regression): build
+	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library) +max-cycles=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) -t 1ps \
+	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi   \
+	${top_level}_optimized $(QUESTASIM_FLAGS) +permissive-off ++$(alsaqr-regression-dir)/$@ ++$(target-options) | tee tmp/alsaqr-regression-$@.log
+
+check-benchmarks:
+	echo $(alsaqr-regression)
+	./check-regs.sh 
+
+run-regressions:	$(alsaqr-regression)
+	$(MAKE) check-benchmarks
 
 clean:
 	rm -rf $(riscv-torture-dir)/output/test*
@@ -220,5 +230,8 @@ clean:
 	rm -f *log
 	rm -f transcript
 	rm -f uart
+	rm -f *.riscv
+	rm -f regression.list
+
 
 all: clean build

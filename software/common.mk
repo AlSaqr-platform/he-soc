@@ -1,3 +1,7 @@
+ifdef nogui
+	sim_flags = batch-mode=1 
+endif
+
 current_dir = $(shell pwd)
 
 utils_dir = $(SW_HOME)/inc/
@@ -23,18 +27,19 @@ clean:
 build:
 	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir)/test.ld $(RISCV_LINK_OPTS) $(inc_dir)/crt.S $(inc_dir)/syscalls.c -L $(inc_dir) $(APP).c -o $(APP).riscv
 
-
 dis:
 	$(RISCV_OBJDUMP) $(APP).riscv > $(APP).dump
 
-dump_slm:
-	./../elf_to_slm.py --binary=$(APP).riscv --vectors=hyperram0.slm
-	cp hyperram*.slm  $(SW_HOME)/../hardware/
+dump:
+	$(SW_HOME)/elf_to_slm.py --binary=$(APP).riscv --vectors=hyperram0.slm
+	cp hyperram*.slm  $(HW_HOME)/
+	cp $(APP).riscv  $(HW_HOME)/
+	echo $(APP).riscv | tee -a  $(HW_HOME)/regression.list
 
-all: clean build dis dump_slm
+all: clean build dis dump
 
 rtl: 
 	 $(MAKE) -C  $(SW_HOME)/../hardware/ all
 
 sim:
-	$(MAKE) -C  $(SW_HOME)/../hardware/ sim elf-bin=$(shell pwd)/$(APP).riscv
+	$(MAKE) -C  $(SW_HOME)/../hardware/ sim $(sim_flags) elf-bin=$(shell pwd)/$(APP).riscv

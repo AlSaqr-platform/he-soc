@@ -221,7 +221,7 @@ int main()
     plp_udma_enqueue(UDMA_I2C_CMD_ADDR(u) ,  (int)cmd_buffer_wr     , BUFFER_SIZE*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
 
     // WAIT WRITE TO BE DONE BY THE MEMORY
-    for (volatile int i = 0; i < 25000; ++i)
+    for (volatile int i = 0; i < 75000; ++i)
     {
       i++;
     }
@@ -250,7 +250,7 @@ int main()
 
     plp_udma_enqueue(UDMA_I2C_DATA_ADDR(u) ,  (int)rx_buffer     , 4               , UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_8);
     plp_udma_enqueue(UDMA_I2C_CMD_ADDR(u) ,  (int)cmd_buffer_rd  , BUFFER_SIZE_READ*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
-    for (volatile int i = 0; i < 25000; ++i)
+    for (volatile int i = 0; i < 10000; ++i)
     {
       i++;
     }
@@ -258,12 +258,11 @@ int main()
     {
       if (rx_buffer[i]!=expected_rx_buffer[i])
       {
+        #ifdef VERBOSE
         printf("rx_buffer[%0d]=0x%0x different from expected 0x%0x\n", i, rx_buffer[i], expected_rx_buffer[i]);
+        #endif
         error++;
       }
-      else
-        printf("rx_buffer[%0d]=0x%0x as expected\n", i, rx_buffer[i]);
-
       uart_wait_tx_done();
     }
     

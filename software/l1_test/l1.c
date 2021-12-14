@@ -16,6 +16,8 @@ int main(int argc, char const *argv[]) {
   int test_freq = 100000000;
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
+  h2c_tlb_cfg();
+  c2h_tlb_cfg();
   int * b;
   b=0x10000000;
   int i;
