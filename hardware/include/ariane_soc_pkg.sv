@@ -38,20 +38,20 @@ package ariane_soc;
   localparam SocToClusterIdWidth = 3;   
    
   typedef enum int unsigned {
-    HYAXI    = 13,
+    HYAXI       = 13,
     SERIAL_LINK = 12,
-    TLB_CFG  = 11, 
-    UART     = 10,
-    Ethernet = 9,
-    SPI      = 8,
-    Timer    = 7,
-    APB_SLVS = 6,
-    L2SPM    = 5,
-    Cluster  = 4,
-    PLIC     = 3,
-    CLINT    = 2,
-    ROM      = 1,
-    Debug    = 0
+    TLB_CFG     = 11, 
+    UART        = 10,
+    Ethernet    = 9,
+    SPI         = 8,
+    Timer       = 7,
+    APB_SLVS    = 6,
+    L2SPM       = 5,
+    Cluster     = 4,
+    PLIC        = 3,
+    CLINT       = 2,
+    ROM         = 1,
+    Debug       = 0
   } axi_slaves_t;
    
   localparam NB_PERIPHERALS = HYAXI + 1;
