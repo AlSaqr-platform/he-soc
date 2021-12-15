@@ -8,3 +8,4 @@ peripherals/spim_flash
 peripherals/uart
 gpios
 cluster
+serial_link

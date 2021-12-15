@@ -794,48 +794,61 @@ pad_domains:
           - name: eth_rst
             mux_groups: [pad_gpio_f_00]            
             connections:
-              chip2pad: eth_rst_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: eth_rxck
-            mux_groups: [pad_gpio_f_01]            
-            connections:
-              eth_rxcd_o: pad2chip
-              oen: 1'b0
-              puen: 1'b1
-          - name: eth_rxctl
-            mux_groups: [pad_gpio_f_02]            
-            connections:
-              eth_rxctl_o: pad2chip
-              oen: 1'b0
-              puen: 1'b1
-          - name: eth_rxd{i}
-            multiple: 4
-            mux_groups: ["pad_gpio_f_{3+i:2d}"]            
-            connections:
-              eth_rxd{i}_o: pad2chip
+              chip2pad: eth_rstn_i
               oen: 1'b0
               puen: 1'b1
           - name: eth_txck
-            mux_groups: [pad_gpio_f_07]            
+            mux_groups: [pad_gpio_f_01]            
             connections:
-              chip2pad: eth_txcd_i
-              oen: 1'b1
+              chip2pad: eth_txck_i
+              oen: 1'b0
               puen: 1'b1
           - name: eth_txctl
-            mux_groups: [pad_gpio_f_08]            
+            mux_groups: [pad_gpio_f_02]            
             connections:
-              chip2pad: eth_txctl_o
-              oen: 1'b1
+              chip2pad: eth_txctl_i
+              oen: 1'b0
               puen: 1'b1
           - name: eth_txd{i}
             multiple: 4
-            mux_groups: ["pad_gpio_f_{9+i:2d}"]            
+            mux_groups: ["pad_gpio_f_{3+i:2d}"]            
             connections:
               chip2pad: eth_txd{i}_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: eth_mdc
+            mux_groups: [pad_gpio_f_07]            
+            connections:
+              chip2pad: eth_mdc_i
+              oen: 1'b0
+              puen: 1'b1 
+          - name: eth_mdio
+            mux_groups: [pad_gpio_f_08]
+            connections:
+              chip2pad: eth_md_i
+              eth_md_o: pad2chip
+              oen: ~eth_md_oe
+              puen: 1'b1  
+          - name: eth_rxck
+            mux_groups: [pad_gpio_f_09]            
+            connections:
+              eth_rxck_o: pad2chip
               oen: 1'b1
               puen: 1'b1
-      
+          - name: eth_rxctl
+            mux_groups: [pad_gpio_f_10]            
+            connections:
+              eth_rxctl_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: eth_rxd{i}
+            multiple: 4
+            mux_groups: ["pad_gpio_f_{11+i:2d}"]            
+            connections:
+              eth_rxd{i}_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+           
       - name: sdio1
         output_defaults: 1'b1
         ports:
@@ -865,13 +878,13 @@ pad_domains:
         output_defaults: 1'b1
         ports:
           - name: uart_tx
-            mux_groups: [pad_gpio_f_13]
+            mux_groups: [pad_gpio_f_07]
             connections:
               chip2pad: tx_i
               oen: 1'b0
               puen: 1'b1
           - name: uart_rx
-            mux_groups: [pad_gpio_f_14]
+            mux_groups: [pad_gpio_f_08]
             connections:
               rx_o: pad2chip
               oen: 1'b1
@@ -899,7 +912,7 @@ pad_domains:
           - name: clk_i
             mux_groups: [pad_gpio_f_17]
             connections:
-              clk_o: pad2chip
+              ddr_clk_o: pad2chip
               oen: 1'b1
               puen: 1'b1
           - name: ddr{i}_in

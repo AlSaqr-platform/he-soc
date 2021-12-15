@@ -44,7 +44,9 @@ module apb_subsystem
     AXI_BUS.Slave               axi_apb_slave,
     AXI_BUS.Slave               hyper_axi_bus_slave,
     XBAR_TCDM_BUS.Master        udma_tcdm_channels[1:0],
+    
     REG_BUS.out                 padframecfg_reg_master,
+    REG_BUS.out                 serial_linkcfg_reg_master,
 
     output logic [31*4-1:0]     events_o,
 
@@ -120,6 +122,11 @@ module apb_subsystem
                .ADDR_WIDTH(32),
                .DATA_WIDTH(32)
    ) apb_padframe_master_bus();
+
+   APB  #(
+               .ADDR_WIDTH(32),
+               .DATA_WIDTH(32)
+   ) apb_serial_link_master_bus();
    
    APB  #(
                .ADDR_WIDTH(32),
@@ -164,6 +171,7 @@ module apb_subsystem
     .hyaxicfg_master(apb_hyaxicfg_master_bus),
     .advtimer_master(apb_advtimer_master_bus),
     .padframe_master(apb_padframe_master_bus),
+    .serial_link_master (apb_serial_link_master_bus),
     .socctrl_master(apb_socctrl_master_bus)
     );
    
@@ -384,7 +392,25 @@ module apb_subsystem
       .pslverr_o ( apb_padframe_master_bus.pslverr ),
 
       .reg_o     ( padframecfg_reg_master          )
+     );
+
+    apb_to_reg i_apb_to_serial_link_cfg
+     (
+      .clk_i     ( clk_soc_o       ),
+      .rst_ni    ( s_rstn_soc_sync ),
+ 
+      .penable_i ( apb_serial_link_master_bus.penable ),
+      .pwrite_i  ( apb_serial_link_master_bus.pwrite  ),
+      .paddr_i   ( apb_serial_link_master_bus.paddr   ),
+      .psel_i    ( apb_serial_link_master_bus.psel    ),
+      .pwdata_i  ( apb_serial_link_master_bus.pwdata  ),
+      .prdata_o  ( apb_serial_link_master_bus.prdata  ),
+      .pready_o  ( apb_serial_link_master_bus.pready  ),
+      .pslverr_o ( apb_serial_link_master_bus.pslverr ),
+
+      .reg_o     ( serial_linkcfg_reg_master          )
      );      
+      
 
   apb_soc_control i_apb_soc_control
   (

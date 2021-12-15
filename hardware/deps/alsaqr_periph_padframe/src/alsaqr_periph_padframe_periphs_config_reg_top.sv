@@ -1240,8 +1240,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic pad_gpio_f_07_cfg_puen_qs;
   logic pad_gpio_f_07_cfg_puen_wd;
   logic pad_gpio_f_07_cfg_puen_we;
-  logic pad_gpio_f_07_mux_sel_qs;
-  logic pad_gpio_f_07_mux_sel_wd;
+  logic [1:0] pad_gpio_f_07_mux_sel_qs;
+  logic [1:0] pad_gpio_f_07_mux_sel_wd;
   logic pad_gpio_f_07_mux_sel_we;
   logic pad_gpio_f_08_cfg_chip2pad_qs;
   logic pad_gpio_f_08_cfg_chip2pad_wd;
@@ -1252,8 +1252,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic pad_gpio_f_08_cfg_puen_qs;
   logic pad_gpio_f_08_cfg_puen_wd;
   logic pad_gpio_f_08_cfg_puen_we;
-  logic pad_gpio_f_08_mux_sel_qs;
-  logic pad_gpio_f_08_mux_sel_wd;
+  logic [1:0] pad_gpio_f_08_mux_sel_qs;
+  logic [1:0] pad_gpio_f_08_mux_sel_wd;
   logic pad_gpio_f_08_mux_sel_we;
   logic pad_gpio_f_09_cfg_chip2pad_qs;
   logic pad_gpio_f_09_cfg_chip2pad_wd;
@@ -12019,9 +12019,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[pad_gpio_f_07_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_pad_gpio_f_07_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -12126,9 +12126,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[pad_gpio_f_08_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_pad_gpio_f_08_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -16509,7 +16509,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign pad_gpio_f_07_cfg_puen_wd = reg_wdata[2];
 
   assign pad_gpio_f_07_mux_sel_we = addr_hit[195] & reg_we & !reg_error;
-  assign pad_gpio_f_07_mux_sel_wd = reg_wdata[0];
+  assign pad_gpio_f_07_mux_sel_wd = reg_wdata[1:0];
 
   assign pad_gpio_f_08_cfg_chip2pad_we = addr_hit[196] & reg_we & !reg_error;
   assign pad_gpio_f_08_cfg_chip2pad_wd = reg_wdata[0];
@@ -16521,7 +16521,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign pad_gpio_f_08_cfg_puen_wd = reg_wdata[2];
 
   assign pad_gpio_f_08_mux_sel_we = addr_hit[197] & reg_we & !reg_error;
-  assign pad_gpio_f_08_mux_sel_wd = reg_wdata[0];
+  assign pad_gpio_f_08_mux_sel_wd = reg_wdata[1:0];
 
   assign pad_gpio_f_09_cfg_chip2pad_we = addr_hit[198] & reg_we & !reg_error;
   assign pad_gpio_f_09_cfg_chip2pad_wd = reg_wdata[0];
@@ -17804,7 +17804,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[195]: begin
-        reg_rdata_next[0] = pad_gpio_f_07_mux_sel_qs;
+        reg_rdata_next[1:0] = pad_gpio_f_07_mux_sel_qs;
       end
 
       addr_hit[196]: begin
@@ -17814,7 +17814,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[197]: begin
-        reg_rdata_next[0] = pad_gpio_f_08_mux_sel_qs;
+        reg_rdata_next[1:0] = pad_gpio_f_08_mux_sel_qs;
       end
 
       addr_hit[198]: begin
