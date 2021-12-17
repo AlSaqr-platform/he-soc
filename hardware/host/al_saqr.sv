@@ -46,6 +46,10 @@ module al_saqr
   inout logic         rst_ni,
   inout logic         bypass_clk_i, 
 
+`ifdef XILINX_DDR
+  AXI_BUS.Master      axi_ddr_master,
+`endif
+
   inout wire [7:0]    pad_hyper0_dq ,
   inout wire          pad_hyper0_ck ,
   inout wire          pad_hyper0_ckn ,
@@ -423,6 +427,9 @@ module al_saqr
       .jtag_TRSTn             ( s_jtag_TRSTn                    ),
       .jtag_TDO_data          ( s_jtag_TDO                      ),
       .jtag_TDO_driven        (                                 ),
+`ifdef XILINX_DDR
+      .axi_ddr_master         ( axi_ddr_master                  ),
+`endif
       .cluster_axi_master     ( soc_to_tlb_axi_bus              ),
       .dma_pe_evt_ack_o       ( s_dma_pe_evt_ack                ),
       .dma_pe_evt_valid_i     ( s_dma_pe_evt_valid              ),

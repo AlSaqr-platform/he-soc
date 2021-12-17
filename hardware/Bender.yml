@@ -79,7 +79,21 @@ sources:
   - host/pad_frame.sv
   - host/al_saqr.sv
 
-  - target: all(fpga,xilinx, not(asic))
+  - target: all(fpga, xilinx, ddr, not(asic))
+    defines:
+      XILINX_DDR: ~
+      FPGA_TARGET_XILINX: ~
+      WT_DCACHE: ~
+      FPGA_EMUL: ~
+      PULP_FPGA_EMUL: ~
+    files:
+      - ../fpga/src/pad_functional_xilinx/pad_functional_xilinx.sv
+      - ./fpga/ddr/fpga_clk_gen.sv
+      - ./fpga/ddr/boot_rom.sv
+      - ./fpga/ddr/axi_flat.sv
+      - ./fpga/ddr/alsaqr_xilinx.sv
+        
+  - target: all(fpga,xilinx, not(asic), not(ddr))
     defines:
       FPGA_TARGET_XILINX: ~
       WT_DCACHE: ~
@@ -90,7 +104,7 @@ sources:
       - ./fpga/fpga_clk_gen.sv
       - ./fpga/boot_rom.sv
       - ./fpga/alsaqr_xilinx.sv
-
+      
   - target: all(asic, not(all(fpga, xilinx)))
     defines:
       WT_DCACHE: ~

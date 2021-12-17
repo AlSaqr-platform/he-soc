@@ -78,7 +78,10 @@ module host_domain
   input logic                 jtag_TRSTn,
   output logic                jtag_TDO_data,
   output logic                jtag_TDO_driven,
-                              
+
+  `ifdef XILINX_DDR
+  AXI_BUS.Master              axi_ddr_master,
+  `endif   
   // SoC to cluster AXI
   AXI_BUS.Master              cluster_axi_master,
   AXI_BUS.Slave               cluster_axi_slave,
@@ -170,8 +173,7 @@ module host_domain
      .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
    ) apb_axi_bus();
-
-
+  
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -197,7 +199,22 @@ module host_domain
    XBAR_TCDM_BUS axi_bridge_2_interconnect[AXI64_2_TCDM32_N_PORTS]();
    XBAR_TCDM_BUS udma_2_tcdm_channels[NB_UDMA_TCDM_CHANNEL]();
   
- 
+
+  `ifdef XILINX_DDR
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+   ) dummyaxibus();
+   assign dummyaxibus.aw_valid  = 1'b0;
+   assign dummyaxibus.ar_valid  = 1'b0;
+   assign dummyaxibus.w_valid   = 1'b0;
+   
+   
+   `AXI_ASSIGN(axi_ddr_master,hyper_axi_bus)
+  `endif
+     
    cva6_subsystem # (
         .NUM_WORDS         ( NUM_WORDS  ),
         .InclSimDTM        ( 1'b1       ),
@@ -339,7 +356,11 @@ module host_domain
       .cluster_en_sa_boot_o   ( cluster_en_sa_boot_o           ),
       .cluster_fetch_en_o     ( cluster_fetch_en_o             ),
 
+      `ifdef XILINX_DDR
+      .hyper_axi_bus_slave    ( dummyaxibus                    ),                 
+      `else
       .hyper_axi_bus_slave    ( hyper_axi_bus                  ),                 
+      `endif                        
       .axi_apb_slave          ( apb_axi_bus                    ),
       .udma_tcdm_channels     ( udma_2_tcdm_channels           ),
       .padframecfg_reg_master ( padframecfg_reg_master         ),
