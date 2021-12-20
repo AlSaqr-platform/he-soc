@@ -1,6 +1,6 @@
 #Create constraint for the clock input of the zcu102 board
 
-create_clock -period 13.328 [get_ports c0_sys_clk_p]
+create_clock -period 4.000 [get_ports c0_sys_clk_p]
 set_property CLOCK_DEDICATED_ROUTE ANY_CMT_COLUMN [get_nets u_ibufg_sys_clk/O]
 
 #alsaqr clock
@@ -8,16 +8,6 @@ create_clock -period 55.600  [get_pins  u_ddr4_0/c0_ddr4_ui_clk]
 
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  u_ddr4_0/c0_ddr4_ui_clk]] -group [get_clocks -of_objects [get_ports c0_sys_clk_p]]
 
-current_instance u_ddr4_0/inst/u_ddr4_mem_intfc/u_ddr_cal_riu/mcs0/inst/microblaze_I/U0
-create_waiver -type DRC -id {DPIP-2} -user "microblaze" -desc "Non-pipelined by design" -internal -objects [get_cells -hierarchical *DSP48E1_I1] -objects [get_pins -quiet -filter {REF_PIN_NAME=~A[*]} -of [get_cells -hierarchical *DSP48E1_I1]] -timestamp "Thu Dec 16 11:10:48 GMT 2021"
-create_waiver -type DRC -id {DPIP-2} -user "microblaze" -desc "Non-pipelined by design" -internal -objects [get_cells -hierarchical *DSP48E1_I1] -objects [get_pins -quiet -filter {REF_PIN_NAME=~B[*]} -of [get_cells -hierarchical *DSP48E1_I1]] -timestamp "Thu Dec 16 11:10:48 GMT 2021"
-create_waiver -type DRC -id {DPOP-3} -user "microblaze" -desc "Non-pipelined by design" -internal -objects [get_cells -hierarchical *DSP48E1_I1] -objects [get_pins -quiet -filter REF_PIN_NAME=~P* -of [get_cells -hierarchical *DSP48E1_I1]] -timestamp "Thu Dec 16 11:10:48 GMT 2021"
-create_waiver -type DRC -id {DPOP-3} -user "microblaze" -desc "Non-pipelined by design" -internal -objects [get_cells -hierarchical *DSP48E1_I1] -objects [get_pins -quiet -filter REF_PIN_NAME=~*OUT* -of [get_cells -hierarchical *DSP48E1_I1]] -timestamp "Thu Dec 16 11:10:48 GMT 2021"
-create_waiver -type DRC -id {DPOP-4} -user "microblaze" -desc "Non-pipelined by design" -internal -objects [get_cells -hierarchical *DSP48E1_I1] -objects [get_pins -quiet -filter {REF_PIN_NAME=~P[*]} -of [get_cells -hierarchical *DSP48E1_I1]] -timestamp "Thu Dec 16 11:10:48 GMT 2021"
-create_waiver -type DRC -id {DPOP-4} -user "microblaze" -desc "Non-pipelined by design" -internal -objects [get_cells -hierarchical *DSP48E1_I1] -objects [get_pins -quiet -filter REF_PIN_NAME=~PATTERN* -of [get_cells -hierarchical *DSP48E1_I1]] -timestamp "Thu Dec 16 11:10:48 GMT 2021"
-create_waiver -type DRC -id {DPOP-4} -user "microblaze" -desc "Non-pipelined by design" -internal -objects [get_cells -hierarchical *DSP48E1_I1] -objects [get_pins -quiet -filter REF_PIN_NAME=~*OUT* -of [get_cells -hierarchical *DSP48E1_I1]] -timestamp "Thu Dec 16 11:10:48 GMT 2021"
-#revert back to original instance
-current_instance -quiet
 set_property CLOCK_DEDICATED_ROUTE BACKBONE [get_pins -hier -filter {NAME =~ */u_ddr4_infrastructure/gen_mmcme4.u_mmcme_adv_inst/CLKIN1}]
 
 ## JTAG

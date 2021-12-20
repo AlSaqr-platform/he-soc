@@ -35,10 +35,10 @@ module alsaqr_xilinx
     output [0:0]  c0_ddr4_ck_t,
     output [0:0]  c0_ddr4_ck_c,
     output        c0_ddr4_reset_n,
-    inout [8:0]   c0_ddr4_dm_dbi_n,
-    inout [71:0]  c0_ddr4_dq,
-    inout [8:0]   c0_ddr4_dqs_t,
-    inout [8:0]   c0_ddr4_dqs_c,
+    inout [1:0]   c0_ddr4_dm_dbi_n,
+    inout [15:0]  c0_ddr4_dq,
+    inout [1:0]   c0_ddr4_dqs_t,
+    inout [1:0]   c0_ddr4_dqs_c,
    
     inout wire    pad_uart_rx,
     inout wire    pad_uart_tx,
@@ -151,7 +151,7 @@ module alsaqr_xilinx
 
   // Slave Interface Write Address Ports
   wire [6:0]      c0_ddr4_s_axi_awid;
-  wire [30:0]     c0_ddr4_s_axi_awaddr;
+  wire [28:0]     c0_ddr4_s_axi_awaddr;
   wire [7:0]      c0_ddr4_s_axi_awlen;
   wire [2:0]      c0_ddr4_s_axi_awsize;
   wire [1:0]      c0_ddr4_s_axi_awburst;
@@ -172,7 +172,7 @@ module alsaqr_xilinx
   wire           c0_ddr4_s_axi_bvalid;
    // Slave Interface Read Address Ports
   wire [6:0]     c0_ddr4_s_axi_arid;
-  wire [30:0]    c0_ddr4_s_axi_araddr;
+  wire [28:0]    c0_ddr4_s_axi_araddr;
   wire [7:0]     c0_ddr4_s_axi_arlen;
   wire [2:0]     c0_ddr4_s_axi_arsize;
   wire [1:0]     c0_ddr4_s_axi_arburst;
@@ -251,29 +251,7 @@ ddr4_0 u_ddr4_0
    .c0_ddr4_ui_clk_sync_rst       (c0_ddr4_rst),
    .addn_ui_clkout1                            (),
    .dbg_clk                                    (dbg_clk),
-     // AXI CTRL port
-     .c0_ddr4_s_axi_ctrl_awvalid       (1'b0),
-     .c0_ddr4_s_axi_ctrl_awready       (),
-     .c0_ddr4_s_axi_ctrl_awaddr        (32'b0),
-     // Slave Interface Write Data Ports
-     .c0_ddr4_s_axi_ctrl_wvalid        (1'b0),
-     .c0_ddr4_s_axi_ctrl_wready        (),
-     .c0_ddr4_s_axi_ctrl_wdata         (32'b0),
-     // Slave Interface Write Response Ports
-     .c0_ddr4_s_axi_ctrl_bvalid        (),
-     .c0_ddr4_s_axi_ctrl_bready        (1'b1),
-     .c0_ddr4_s_axi_ctrl_bresp         (),
-     // Slave Interface Read Address Ports
-     .c0_ddr4_s_axi_ctrl_arvalid       (1'b0),
-     .c0_ddr4_s_axi_ctrl_arready       (),
-     .c0_ddr4_s_axi_ctrl_araddr        (32'b0),
-     // Slave Interface Read Data Ports
-     .c0_ddr4_s_axi_ctrl_rvalid        (),
-     .c0_ddr4_s_axi_ctrl_rready        (1'b1),
-     .c0_ddr4_s_axi_ctrl_rdata         (),
-     .c0_ddr4_s_axi_ctrl_rresp         (),
-     // Interrupt output
-     .c0_ddr4_interrupt                (),
+
   // Slave Interface Write Address Ports
   .c0_ddr4_aresetn                     (c0_ddr4_aresetn),
   .c0_ddr4_s_axi_awid                  (c0_ddr4_s_axi_awid),
