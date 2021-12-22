@@ -114,10 +114,16 @@ module alsaqr_xilinx
      .AXI_DATA_WIDTH ( 64        ),
      .AXI_ID_WIDTH   ( 7         ),
      .AXI_USER_WIDTH ( 1         )
-             ) axi_ddr_bus();
+             ) axi_ddr_bus_64();
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 64        ),
+     .AXI_DATA_WIDTH ( 128       ),
+     .AXI_ID_WIDTH   ( 7         ),
+     .AXI_USER_WIDTH ( 1         )
+             ) axi_ddr_bus_128();
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( 64        ),
+     .AXI_DATA_WIDTH ( 128       ),
      .AXI_ID_WIDTH   ( 7         ),
      .AXI_USER_WIDTH ( 1         )
              ) axi_ddr_sync();
@@ -200,9 +206,9 @@ module alsaqr_xilinx
   //***********************************************************************
   // Differential input clock input buffers
   //***********************************************************************
-  wire c0_sys_clk_i;
   wire c0_sys_clk_o;
-
+  wire c0_sys_clk_i;
+   
   IBUFDS #
     (
      .IBUF_LOW_PWR ("FALSE")
@@ -211,9 +217,17 @@ module alsaqr_xilinx
       (
        .I  (c0_sys_clk_p),
        .IB (c0_sys_clk_n),
-       .O  (c0_sys_clk_o)
+       .O  (c0_sys_clk_i)
        );
 
+ xilinx_clk_mngr clk_divider
+ (
+  .clk_out1(c0_sys_clk_o),
+  .reset(pad_reset),
+  .locked(),
+  .clk_in1(c0_sys_clk_i)
+ );
+   
 wire c0_ddr4_reset_n_int;
   assign c0_ddr4_reset_n = c0_ddr4_reset_n_int;
 
@@ -307,17 +321,30 @@ ddr4_0 u_ddr4_0
 //***************************************************************************
 // ALSAQR
 //***************************************************************************
+   axi_dw_converter_intf #(
+     .AXI_ADDR_WIDTH          ( 64        ),
+     .AXI_SLV_PORT_DATA_WIDTH ( 64        ),
+     .AXI_MST_PORT_DATA_WIDTH ( 128       ),
+     .AXI_ID_WIDTH            ( 7         ),
+     .AXI_USER_WIDTH          ( 1         ),
+     .AXI_MAX_READS           ( 1         )
+     ) axiddrdwc (
+                 .clk_i (ref_clk),
+                 .rst_ni(reset_n),
+                 .slv(axi_ddr_bus_64),
+                 .mst(axi_ddr_bus_128)
+                 );
    
    axi_cdc_intf #(
      .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 64        ),
+     .AXI_DATA_WIDTH ( 128       ),
      .AXI_ID_WIDTH   ( 7         ),
      .AXI_USER_WIDTH ( 1         ),
-     .LOG_DEPTH      ( 2         )
+     .LOG_DEPTH      ( 1         )
                   ) axiddrcdc (
                                .src_clk_i (ref_clk),
                                .src_rst_ni(reset_n),
-                               .src (axi_ddr_bus),
+                               .src (axi_ddr_bus_128),
                                .dst_clk_i (c0_sys_clk_o),
                                .dst_rst_ni(~pad_reset),
                                .dst(axi_ddr_sync)
@@ -358,7 +385,7 @@ ddr4_0 u_ddr4_0
         .jtag_TRSTn       ( 1'b1             ),
         .jtag_TDO_data    ( pad_jtag_tdo     ),
         .jtag_TDO_driven  (                  ),
-        .axi_ddr_master   ( axi_ddr_bus      ),
+        .axi_ddr_master   ( axi_ddr_bus_64   ),
         .cva6_uart_rx_i   ( pad_uart_rx      ),
         .cva6_uart_tx_o   ( pad_uart_tx      ),
 

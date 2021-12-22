@@ -10,7 +10,7 @@
 #############################################################
 
 ## Sys clock (ok)
-set_property -dict {PACKAGE_PIN P12 IOSTANDARD LVDS} [get_ports "c0_sys_clk_n"]
+set_property -dict {PACKAGE_PIN D12 IOSTANDARD LVDS} [get_ports "c0_sys_clk_n"]
 set_property -dict {PACKAGE_PIN E12 IOSTANDARD LVDS} [get_ports "c0_sys_clk_p"]
 
 set_property -dict {PACKAGE_PIN L19 IOSTANDARD LVCMOS12} [get_ports pad_reset]
@@ -85,31 +85,31 @@ set_property IOSTANDARD LVCMOS18 [ get_ports "c0_init_calib_complete" ]
 
 
 
-set_property PACKAGE_PIN F11 [ get_ports "c0_ddr4_dq[0]" ]
-set_property PACKAGE_PIN E11 [ get_ports "c0_ddr4_dq[1]" ]
-set_property PACKAGE_PIN F10 [ get_ports "c0_ddr4_dq[2]" ]
-set_property PACKAGE_PIN F9  [ get_ports "c0_ddr4_dq[3]" ]
-set_property PACKAGE_PIN H12 [ get_ports "c0_ddr4_dq[4]" ]
-set_property PACKAGE_PIN G12 [ get_ports "c0_ddr4_dq[5]" ]
-set_property PACKAGE_PIN E9  [ get_ports "c0_ddr4_dq[6]" ]
-set_property PACKAGE_PIN D9  [ get_ports "c0_ddr4_dq[7]" ]
-set_property PACKAGE_PIN R19 [ get_ports "c0_ddr4_dq[8]" ]
-set_property PACKAGE_PIN P19 [ get_ports "c0_ddr4_dq[9]" ]
-set_property PACKAGE_PIN M18 [ get_ports "c0_ddr4_dq[10]" ]
-set_property PACKAGE_PIN M17 [ get_ports "c0_ddr4_dq[11]" ]
-set_property PACKAGE_PIN N19 [ get_ports "c0_ddr4_dq[12]" ]
-set_property PACKAGE_PIN N18 [ get_ports "c0_ddr4_dq[13]" ]
-set_property PACKAGE_PIN N17 [ get_ports "c0_ddr4_dq[14]" ]
-set_property PACKAGE_PIN M16 [ get_ports "c0_ddr4_dq[15]" ]
+set_property PACKAGE_PIN K24 [ get_ports "c0_ddr4_dq[0]" ]
+set_property PACKAGE_PIN J24 [ get_ports "c0_ddr4_dq[1]" ]
+set_property PACKAGE_PIN M21 [ get_ports "c0_ddr4_dq[2]" ]
+set_property PACKAGE_PIN L21 [ get_ports "c0_ddr4_dq[3]" ]
+set_property PACKAGE_PIN K21 [ get_ports "c0_ddr4_dq[4]" ]
+set_property PACKAGE_PIN J21 [ get_ports "c0_ddr4_dq[5]" ]
+set_property PACKAGE_PIN K22 [ get_ports "c0_ddr4_dq[6]" ]
+set_property PACKAGE_PIN J22 [ get_ports "c0_ddr4_dq[7]" ]
+set_property PACKAGE_PIN H23 [ get_ports "c0_ddr4_dq[8]" ]
+set_property PACKAGE_PIN H22 [ get_ports "c0_ddr4_dq[9]" ]
+set_property PACKAGE_PIN E23 [ get_ports "c0_ddr4_dq[10]" ]
+set_property PACKAGE_PIN E22 [ get_ports "c0_ddr4_dq[11]" ]
+set_property PACKAGE_PIN F21 [ get_ports "c0_ddr4_dq[12]" ]
+set_property PACKAGE_PIN E21 [ get_ports "c0_ddr4_dq[13]" ]
+set_property PACKAGE_PIN F24 [ get_ports "c0_ddr4_dq[14]" ]
+set_property PACKAGE_PIN F23 [ get_ports "c0_ddr4_dq[15]" ]
 
-set_property PACKAGE_PIN D11  [ get_ports "c0_ddr4_dqs_t[0]" ]
-set_property PACKAGE_PIN D10  [ get_ports "c0_ddr4_dqs_c[0]" ]
-set_property PACKAGE_PIN P17  [ get_ports "c0_ddr4_dqs_t[1]" ]
-set_property PACKAGE_PIN P16  [ get_ports "c0_ddr4_dqs_c[1]" ]
+set_property PACKAGE_PIN M20  [ get_ports "c0_ddr4_dqs_t[0]" ]
+set_property PACKAGE_PIN L20  [ get_ports "c0_ddr4_dqs_c[0]" ]
+set_property PACKAGE_PIN H24  [ get_ports "c0_ddr4_dqs_t[1]" ]
+set_property PACKAGE_PIN G23  [ get_ports "c0_ddr4_dqs_c[1]" ]
 
 
-set_property PACKAGE_PIN G11 [ get_ports "c0_ddr4_dm_dbi_n[0]" ]
-set_property PACKAGE_PIN R18 [ get_ports "c0_ddr4_dm_dbi_n[1]" ]
+set_property PACKAGE_PIN L23 [ get_ports "c0_ddr4_dm_dbi_n[0]" ]
+set_property PACKAGE_PIN G22 [ get_ports "c0_ddr4_dm_dbi_n[1]" ]
 
 set_property PACKAGE_PIN C8  [ get_ports "c0_ddr4_odt[0]" ]
 
