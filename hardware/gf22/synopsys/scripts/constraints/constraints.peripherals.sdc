@@ -104,7 +104,7 @@ for {set i 0} {$i < 11} {incr i} {
 	set_case_analysis 0    [get_pins  i_host_domain/i_apb_subsystem/i_udma_subsystem/i_spim_gen[${i}].i_spim/u_clockgen/r_clockout_mux_reg/Q]
 	create_generated_clock [get_pins  i_host_domain/i_apb_subsystem/i_udma_subsystem/i_spim_gen[${i}].i_spim/u_clockgen/i_clkdiv_cnt/clk_o_reg/Q] \
 	                       -name SPIM_CLK_${i} \
-	                       -source [get_pins i_host_domain/i_apb_subsystem/i_alsaqr_clk_rst_gen/i_fll_per/FLLCLK] \
+	                       -source [get_pins i_host_domain/i_apb_subsystem/i_alsaqr_clk_rst_gen/i_gf22_fll/OUTCLK[2]] \
 	                       -divide_by $SPIM_CLK_DIV
 
    set_input_delay  -min -clock SPIM_CLK_${i} [ expr $SPIM_CLOCK_PERIOD * $SPIM_ID_MIN ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*spi${i}*sd* ]
@@ -143,7 +143,7 @@ for {set i 0} {$i < 5} {incr i} {
 set UART_OD_MIN 0.10
 set UART_OD_MAX 0.35
 set UART_ID_MIN 0.10
-set UART_ID_MAX 0.20
+set UART_ID_MAX 0.50
 
 for {set i 0} {$i < 8} {incr i} {
 

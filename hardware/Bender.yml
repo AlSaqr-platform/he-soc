@@ -36,7 +36,7 @@ dependencies:
   fll_behav: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/fll_behav.git", rev: "94a1e45d53c9fa71ae897a66dea6f19111eb6655" }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "0d624e84d5e5717405b77b167cc48c6bf60fd4e6" }
-  ddr-link: { git: "git@iis-git.ee.ethz.ch:bslk/ddr-link.git", rev: "6ea8f4ba242503171ec24292e4542ffe4f958af5"}
+  ddr-link: { git: "git@iis-git.ee.ethz.ch:bslk/ddr-link.git", rev: "a48fcaa3275bc0c6114ae38569f4df59437b6cad"}
 
 export_include_dirs:
   - include/
@@ -95,7 +95,7 @@ sources:
       WT_DCACHE: ~
     files:
       - ../bootrom/bootrom.sv
-      - host/memwrap.sv
+      - host/memwrap_gf22.sv
       - host/pads_gf22.sv
       - host/tc_sram_gf22.sv
       - host/tc_clk_gf22.sv

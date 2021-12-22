@@ -169,7 +169,7 @@ module axi_tlb_l1 #(
     logic [InpPageNumBytesAligned*8-1:0]  first;
   } entry_padded_t;
 
-  parameter entry_mask_t entry_read_param = '{'1, '0, '1, '0, '1, '0, '1, '0};
+  localparam entry_mask_t entry_read_param = '{'1, '0, '1, '0, '1, '0, '1, '0};
   entry_mask_t entry_read_only;
   assign entry_read_only = '{
     flags_padding:  '1,
@@ -194,20 +194,19 @@ module axi_tlb_l1 #(
     .PrivProtOnly   ( 1'b0                  ),
     .SecuProtOnly   ( 1'b0                  ),
     .AxiReadOnly    ( entry_read_param      ),
-    .RegRstVal      ( '{RegNumBytes{8'h00}} ),
+    .RegRstVal      ( '0                    ),
     .req_lite_t     ( axi_lite_req_t        ),
     .resp_lite_t    ( axi_lite_resp_t       )
   ) i_regs (
     .clk_i,
     .rst_ni,
-    .axi_req_i        ( cfg_req_i             ),
-    .axi_resp_o       ( cfg_resp_o            ),
-    .wr_active_o      ( /* unused */          ),
-    .rd_active_o      ( /* unused */          ),
-    .reg_d_i          ( '{RegNumBytes{8'h00}} ),
-    .reg_load_i       ( '{RegNumBytes{1'b0}}  ),
-    //.reg_read_only_i  ( read_only             ),
-    .reg_q_o          ( reg_q                 )
+    .axi_req_i        ( cfg_req_i    ),
+    .axi_resp_o       ( cfg_resp_o   ),
+    .wr_active_o      ( /* unused */ ),
+    .rd_active_o      ( /* unused */ ),
+    .reg_d_i          ( '0           ),
+    .reg_load_i       ( '0           ),
+    .reg_q_o          ( reg_q        )
   );
   entry_padded_t [NumEntries-1:0] entries_padded;
   assign {>>{entries_padded}} = reg_q;

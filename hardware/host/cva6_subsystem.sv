@@ -63,7 +63,7 @@ module cva6_subsystem
   //SERIAL LINK
   output ser_link_to_pad serial_link_to_pad,
   input  pad_to_ser_link pad_to_serial_link,
-  REG_BUS.out            serial_linkcfg_reg_master,
+  REG_BUS.in             serial_linkcfg_reg_master,
 
   // CVA6 DEBUG UART
   input  logic            cva6_uart_rx_i,
