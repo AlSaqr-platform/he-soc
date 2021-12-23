@@ -11,8 +11,8 @@ set_dont_touch_network [ get_ports i_host_domain/rst_ni]
 set_dont_touch_network [ get_ports i_host_domain/rtc_i]
 set_dont_touch_network [ get_ports i_host_domain/bypass_clk_i]
 # CLUSTER REGISTER FILE IS DONE WITH LATCHES
-set_multicycle_path 2 -setup -through [get_pins cluster_i/CORE[*].core_region_i/CL_CORE.RISCV_CORE/id_stage_i/registers_i/riscv_register_file_i/mem_reg*/Q]
-set_multicycle_path 1 -hold  -through [get_pins cluster_i/CORE[*].core_region_i/CL_CORE.RISCV_CORE/id_stage_i/registers_i/riscv_register_file_i/mem_reg*/Q]
+set_multicycle_path 2 -setup -through [get_pins cluster_i/CORE[*].core_region_i/RISCV_CORE/id_stage_i/registers_i/riscv_register_file_i/mem_reg*/Q]
+set_multicycle_path 1 -hold  -through [get_pins cluster_i/CORE[*].core_region_i/RISCV_CORE/id_stage_i/registers_i/riscv_register_file_i/mem_reg*/Q]
 
 # ICACHE PRIVATE
 # DATA BANK
