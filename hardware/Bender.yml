@@ -35,7 +35,7 @@ dependencies:
   register_interface:  { git: "https://github.com/pulp-platform/register_interface.git", version: 0.3.1  }
   fll_behav: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/fll_behav.git", rev: "94a1e45d53c9fa71ae897a66dea6f19111eb6655" }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
-  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "35d55968dd60c3ce8f00c402e90e23480415250c" }
+  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "0a54e3aaacc89bc2a95b32d38835a226e5c75d95" }
   ddr-link: { git: "git@iis-git.ee.ethz.ch:bslk/ddr-link.git", rev: "6ea8f4ba242503171ec24292e4542ffe4f958af5"}
 
 export_include_dirs:
