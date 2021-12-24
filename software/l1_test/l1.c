@@ -16,8 +16,10 @@ int main(int argc, char const *argv[]) {
   int test_freq = 100000000;
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
-  h2c_tlb_cfg();
-  c2h_tlb_cfg();
+  // H2C TLB configuration
+  tlb_cfg(H2C_TLB_BASE_ADDR, h2c_first_va, h2c_last_va, h2c_base_pa, h2c_flags);
+  // C2H TLB configuration
+  tlb_cfg(C2H_TLB_BASE_ADDR, c2h_first_va, c2h_last_va, c2h_base_pa, c2h_flags);
   int * b;
   b=0x10000000;
   int i;
