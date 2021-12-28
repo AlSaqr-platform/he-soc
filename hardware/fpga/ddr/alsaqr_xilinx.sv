@@ -126,6 +126,42 @@ module alsaqr_xilinx
      .AXI_DATA_WIDTH ( 128       ),
      .AXI_ID_WIDTH   ( 7         ),
      .AXI_USER_WIDTH ( 1         )
+             ) axi_ddr_sync_cut_0();
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( 64        ),
+     .AXI_DATA_WIDTH ( 128       ),
+     .AXI_ID_WIDTH   ( 7         ),
+     .AXI_USER_WIDTH ( 1         )
+             ) axi_ddr_sync_cut_1();
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( 64        ),
+     .AXI_DATA_WIDTH ( 128       ),
+     .AXI_ID_WIDTH   ( 7         ),
+     .AXI_USER_WIDTH ( 1         )
+             ) axi_ddr_sync_cut_2();
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( 64        ),
+     .AXI_DATA_WIDTH ( 128       ),
+     .AXI_ID_WIDTH   ( 7         ),
+     .AXI_USER_WIDTH ( 1         )
+             ) axi_ddr_sync_cut_3();
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( 64        ),
+     .AXI_DATA_WIDTH ( 128       ),
+     .AXI_ID_WIDTH   ( 7         ),
+     .AXI_USER_WIDTH ( 1         )
+             ) axi_ddr_sync_cut_4();
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( 64        ),
+     .AXI_DATA_WIDTH ( 128       ),
+     .AXI_ID_WIDTH   ( 7         ),
+     .AXI_USER_WIDTH ( 1         )
+             ) axi_ddr_sync_cut_5();
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( 64        ),
+     .AXI_DATA_WIDTH ( 128       ),
+     .AXI_ID_WIDTH   ( 7         ),
+     .AXI_USER_WIDTH ( 1         )
              ) axi_ddr_sync();
 
   wire [APP_ADDR_WIDTH-1:0] c0_ddr4_app_addr;
@@ -218,15 +254,16 @@ module alsaqr_xilinx
        .I  (c0_sys_clk_p),
        .IB (c0_sys_clk_n),
        .O  (c0_sys_clk_i)
-       );
+       );  
 
- xilinx_clk_mngr clk_divider
- (
-  .clk_out1(c0_sys_clk_o),
-  .reset(pad_reset),
-  .locked(),
-  .clk_in1(c0_sys_clk_i)
- );
+  IBUF #
+    (
+     .IBUF_LOW_PWR ("FALSE")
+     ) u_ibufg_sys_clk_o
+      (
+       .I  (c0_sys_clk_i),
+       .O  (c0_sys_clk_o)
+       );  
    
 wire c0_ddr4_reset_n_int;
   assign c0_ddr4_reset_n = c0_ddr4_reset_n_int;
@@ -347,7 +384,73 @@ ddr4_0 u_ddr4_0
                                .src (axi_ddr_bus_128),
                                .dst_clk_i (c0_sys_clk_o),
                                .dst_rst_ni(~pad_reset),
-                               .dst(axi_ddr_sync)
+                               .dst(axi_ddr_sync_cut_0)
+                               );   
+   axi_cut_intf #(
+     .ADDR_WIDTH ( 64        ),
+     .DATA_WIDTH ( 128       ),
+     .ID_WIDTH   ( 7         ),
+     .USER_WIDTH ( 1         )
+                  ) axiddrcut01(
+                               .clk_i (c0_sys_clk_o),
+                               .rst_ni(~pad_reset),
+                               .in (axi_ddr_sync_cut_0),
+                               .out (axi_ddr_sync_cut_1)
+                               );
+   axi_cut_intf #(
+     .ADDR_WIDTH ( 64        ),
+     .DATA_WIDTH ( 128       ),
+     .ID_WIDTH   ( 7         ),
+     .USER_WIDTH ( 1         )
+                  ) axiddrcut12(
+                               .clk_i (c0_sys_clk_o),
+                               .rst_ni(~pad_reset),
+                               .in (axi_ddr_sync_cut_1),
+                               .out (axi_ddr_sync_cut_2)
+                               );
+   axi_cut_intf #(
+     .ADDR_WIDTH ( 64        ),
+     .DATA_WIDTH ( 128       ),
+     .ID_WIDTH   ( 7         ),
+     .USER_WIDTH ( 1         )
+                  ) axiddrcut23(
+                               .clk_i (c0_sys_clk_o),
+                               .rst_ni(~pad_reset),
+                               .in (axi_ddr_sync_cut_2),
+                               .out (axi_ddr_sync_cut_3)
+                               );
+   axi_cut_intf #(
+     .ADDR_WIDTH ( 64        ),
+     .DATA_WIDTH ( 128       ),
+     .ID_WIDTH   ( 7         ),
+     .USER_WIDTH ( 1         )
+                  ) axiddrcut34(
+                               .clk_i (c0_sys_clk_o),
+                               .rst_ni(~pad_reset),
+                               .in (axi_ddr_sync_cut_3),
+                               .out (axi_ddr_sync_cut_4)
+                               );
+   axi_cut_intf #(
+     .ADDR_WIDTH ( 64        ),
+     .DATA_WIDTH ( 128       ),
+     .ID_WIDTH   ( 7         ),
+     .USER_WIDTH ( 1         )
+                  ) axiddrcut45(
+                               .clk_i (c0_sys_clk_o),
+                               .rst_ni(~pad_reset),
+                               .in (axi_ddr_sync_cut_4),
+                               .out (axi_ddr_sync_cut_5)
+                               );
+   axi_cut_intf #(
+     .ADDR_WIDTH ( 64        ),
+     .DATA_WIDTH ( 128       ),
+     .ID_WIDTH   ( 7         ),
+     .USER_WIDTH ( 1         )
+                  ) axiddrcut3s(
+                               .clk_i (c0_sys_clk_o),
+                               .rst_ni(~pad_reset),
+                               .in (axi_ddr_sync_cut_5),
+                               .out (axi_ddr_sync)
                                );
    
    `AXI_FLATTEN_MASTER(c0_ddr4_s_axi,axi_ddr_sync)

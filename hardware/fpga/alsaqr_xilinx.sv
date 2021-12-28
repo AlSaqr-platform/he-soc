@@ -126,15 +126,7 @@ module alsaqr_xilinx
         .jtag_TRSTn       ( 1'b1             ),
         .jtag_TDO_data    ( pad_jtag_tdo     ),
         .jtag_TDO_driven  (                  ),
-        .pad_hyper_dq0    (                  ),
-        .pad_hyper_dq1    (                  ),
-        .pad_hyper_ck     (                  ),
-        .pad_hyper_ckn    (                  ),
-        .pad_hyper_csn0   (                  ),
-        .pad_hyper_csn1   (                  ),
-        .pad_hyper_rwds0  (                  ),
-        .pad_hyper_rwds1  (                  ),
-        .pad_hyper_reset  (                  ),
+
         .cva6_uart_rx_i   ( pad_uart_rx      ),
         .cva6_uart_tx_o   ( pad_uart_tx      ),
 
