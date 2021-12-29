@@ -4,18 +4,18 @@ create_clock -period 4.000 [get_ports c0_sys_clk_p]
 set_property CLOCK_DEDICATED_ROUTE ANY_CMT_COLUMN [get_nets u_ibufg_sys_clk/O]
 
 create_clock -period 4.000 [get_pins u_ibufg_sys_clk_o/O]
-set_property CLOCK_DEDICATED_ROUTE ANY_CMT_COLUMN [get_nets u_ibufg_sys_clk_o/O]
+set_property CLOCK_DEDICATED_ROUTE ANY_CMT_COLUMN [get_pins u_ibufg_sys_clk_o/O]
 
 
 #alsaqr clock
-create_clock -period 83.300  [get_pins  u_ddr4_0/c0_ddr4_ui_clk]
+create_clock -period 83.300  [get_pins  alsaqr_clk_manager/clk_out1]
 
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  u_ddr4_0/c0_ddr4_ui_clk]]
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_ports c0_sys_clk_p]] 
+set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  alsaqr_clk_manager/clk_out1]] 
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  u_ibufg_sys_clk_o/O]] 
 
-set_false_path -from [get_ports pad_reset]
-
+#set_false_path -from [get_ports pad_reset]
 
 ## JTAG
 create_clock -period 100.000 -name tck -waveform {0.000 50.000} [get_ports pad_jtag_tck]

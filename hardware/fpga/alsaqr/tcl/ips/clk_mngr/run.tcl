@@ -18,30 +18,18 @@ create_project $ipName . -part $partNumber
 set_property board_part $boardName [current_project]
 
 create_ip -name clk_wiz -vendor xilinx.com -library ip -module_name $ipName
-set_property -dict [list CONFIG.PRIMITIVE {MMCM} \
-                        CONFIG.PRIM_IN_FREQ {250.000} \
-                        CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {125.000} \
+set_property -dict [list CONFIG.PRIM_IN_FREQ {250.000} \
+                        CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {12.000} \
+                        CONFIG.RESET_TYPE {ACTIVE_LOW} \
                         CONFIG.CLKIN1_JITTER_PS {40.0} \
-                        CONFIG.CLKOUT1_DRIVES {Buffer} \
-                        CONFIG.CLKOUT2_DRIVES {Buffer} \
-                        CONFIG.CLKOUT3_DRIVES {Buffer} \
-                        CONFIG.CLKOUT4_DRIVES {Buffer} \
-                        CONFIG.CLKOUT5_DRIVES {Buffer} \
-                        CONFIG.CLKOUT6_DRIVES {Buffer} \
-                        CONFIG.CLKOUT7_DRIVES {Buffer} \
-                        CONFIG.FEEDBACK_SOURCE {FDBK_AUTO} \
-                        CONFIG.USE_LOCKED {true} \
-                        CONFIG.USE_RESET {true} \
-                        CONFIG.MMCM_DIVCLK_DIVIDE {2} \
-                        CONFIG.MMCM_CLKFBOUT_MULT_F {9.625} \
+                        CONFIG.MMCM_DIVCLK_DIVIDE {25} \
+                        CONFIG.MMCM_CLKFBOUT_MULT_F {105.750} \
                         CONFIG.MMCM_CLKIN1_PERIOD {4.000} \
                         CONFIG.MMCM_CLKIN2_PERIOD {10.0} \
-                        CONFIG.MMCM_COMPENSATION {AUTO} \
-                        CONFIG.MMCM_CLKOUT0_DIVIDE_F {9.625} \
-                        CONFIG.CLKOUT1_JITTER {106.624} \
-                        CONFIG.CLKOUT1_PHASE_ERROR {85.285}\
-                        CONFIG.AUTO_PRIMITIVE {BUFGCE_DIV} \
-                       ] [get_ips $ipName]
+                        CONFIG.MMCM_CLKOUT0_DIVIDE_F {88.125} \
+                        CONFIG.RESET_PORT {resetn} \
+                        CONFIG.CLKOUT1_JITTER {350.612} \
+                        CONFIG.CLKOUT1_PHASE_ERROR {426.712} ] [get_ips $ipName]
 
 generate_target all [get_files  ./$ipName.srcs/sources_1/ip/$ipName/$ipName.xci]
 create_ip_run [get_files -of_objects [get_fileset sources_1] ./$ipName.srcs/sources_1/ip/$ipName/$ipName.xci]

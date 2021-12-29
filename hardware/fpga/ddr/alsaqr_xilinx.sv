@@ -100,7 +100,14 @@ module alsaqr_xilinx
    logic       c0_ddr4_clk;
    
 
-   assign ref_clk = c0_ddr4_clk;  
+   xilinx_clk_mngr alsaqr_clk_manager(
+                                      .resetn(~pad_reset),
+                                      .locked(),
+                                      .clk_in1(c0_sys_clk_o),
+                                      .clk_out1(ref_clk)
+                                      );
+   
+//   assign ref_clk = c0_ddr4_clk;  
   
    assign reset_n = ~pad_reset & pad_jtag_trst;
 
@@ -264,6 +271,8 @@ module alsaqr_xilinx
        .I  (c0_sys_clk_i),
        .O  (c0_sys_clk_o)
        );  
+
+
    
 wire c0_ddr4_reset_n_int;
   assign c0_ddr4_reset_n = c0_ddr4_reset_n_int;
