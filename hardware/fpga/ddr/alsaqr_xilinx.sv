@@ -106,9 +106,7 @@ module alsaqr_xilinx
                                       .clk_in1(c0_sys_clk_o),
                                       .clk_out1(ref_clk)
                                       );
-   
-//   assign ref_clk = c0_ddr4_clk;  
-  
+     
    assign reset_n = ~pad_reset & pad_jtag_trst;
 
    wire [7:0] s_pad_hyper0_dq;
@@ -198,43 +196,6 @@ module alsaqr_xilinx
   wire                      c0_ddr4_read_cmptd;
   wire                      c0_ddr4_cmptd_one_wr_rd;
 
-  // Slave Interface Write Address Ports
-  wire [6:0]      c0_ddr4_s_axi_awid;
-  wire [28:0]     c0_ddr4_s_axi_awaddr;
-  wire [7:0]      c0_ddr4_s_axi_awlen;
-  wire [2:0]      c0_ddr4_s_axi_awsize;
-  wire [1:0]      c0_ddr4_s_axi_awburst;
-  wire [3:0]      c0_ddr4_s_axi_awcache;
-  wire [2:0]      c0_ddr4_s_axi_awprot;
-  wire            c0_ddr4_s_axi_awvalid;
-  wire            c0_ddr4_s_axi_awready;
-   // Slave Interface Write Data Ports
-  wire [63:0]    c0_ddr4_s_axi_wdata;
-  wire [7:0]     c0_ddr4_s_axi_wstrb;
-  wire           c0_ddr4_s_axi_wlast;
-  wire           c0_ddr4_s_axi_wvalid;
-  wire           c0_ddr4_s_axi_wready;
-   // Slave Interface Write Response Ports
-  wire           c0_ddr4_s_axi_bready;
-  wire [6:0]     c0_ddr4_s_axi_bid;
-  wire [1:0]     c0_ddr4_s_axi_bresp;
-  wire           c0_ddr4_s_axi_bvalid;
-   // Slave Interface Read Address Ports
-  wire [6:0]     c0_ddr4_s_axi_arid;
-  wire [28:0]    c0_ddr4_s_axi_araddr;
-  wire [7:0]     c0_ddr4_s_axi_arlen;
-  wire [2:0]     c0_ddr4_s_axi_arsize;
-  wire [1:0]     c0_ddr4_s_axi_arburst;
-  wire [3:0]     c0_ddr4_s_axi_arcache;
-  wire           c0_ddr4_s_axi_arvalid;
-  wire           c0_ddr4_s_axi_arready;
-   // Slave Interface Read Data Ports
-  wire           c0_ddr4_s_axi_rready;
-  wire [6:0]     c0_ddr4_s_axi_rid;
-  wire [63:0]    c0_ddr4_s_axi_rdata;
-  wire [1:0]     c0_ddr4_s_axi_rresp;
-  wire           c0_ddr4_s_axi_rlast;
-  wire           c0_ddr4_s_axi_rvalid;
 
   wire           c0_ddr4_cmp_data_valid;
   wire [63:0]    c0_ddr4_cmp_data;     // Compare data
@@ -250,7 +211,7 @@ module alsaqr_xilinx
   // Differential input clock input buffers
   //***********************************************************************
   wire c0_sys_clk_o;
-  wire c0_sys_clk_i;
+  wire c0_sys_clk_s;
    
   IBUFDS #
     (
@@ -260,7 +221,7 @@ module alsaqr_xilinx
       (
        .I  (c0_sys_clk_p),
        .IB (c0_sys_clk_n),
-       .O  (c0_sys_clk_i)
+       .O  (c0_sys_clk_s)
        );  
 
   IBUF #
@@ -268,7 +229,7 @@ module alsaqr_xilinx
      .IBUF_LOW_PWR ("FALSE")
      ) u_ibufg_sys_clk_o
       (
-       .I  (c0_sys_clk_i),
+       .I  (c0_sys_clk_s),
        .O  (c0_sys_clk_o)
        );  
 
@@ -309,53 +270,51 @@ ddr4_0 u_ddr4_0
 
    .c0_ddr4_ui_clk                (c0_ddr4_clk),
    .c0_ddr4_ui_clk_sync_rst       (c0_ddr4_rst),
-   .addn_ui_clkout1                            (),
    .dbg_clk                                    (dbg_clk),
 
   // Slave Interface Write Address Ports
   .c0_ddr4_aresetn                     (c0_ddr4_aresetn),
-  .c0_ddr4_s_axi_awid                  (c0_ddr4_s_axi_awid),
-  .c0_ddr4_s_axi_awaddr                (c0_ddr4_s_axi_awaddr),
-  .c0_ddr4_s_axi_awlen                 (c0_ddr4_s_axi_awlen),
-  .c0_ddr4_s_axi_awsize                (c0_ddr4_s_axi_awsize),
-  .c0_ddr4_s_axi_awburst               (c0_ddr4_s_axi_awburst),
-  .c0_ddr4_s_axi_awlock                (1'b0),
-  .c0_ddr4_s_axi_awcache               (c0_ddr4_s_axi_awcache),
-  .c0_ddr4_s_axi_awprot                (c0_ddr4_s_axi_awprot),
-  .c0_ddr4_s_axi_awqos                 (4'b0),
-  .c0_ddr4_s_axi_awvalid               (c0_ddr4_s_axi_awvalid),
-  .c0_ddr4_s_axi_awready               (c0_ddr4_s_axi_awready),
+  .c0_ddr4_s_axi_awid                  (axi_ddr_sync.aw_id),
+  .c0_ddr4_s_axi_awaddr                (axi_ddr_sync.aw_addr[28:0]),
+  .c0_ddr4_s_axi_awlen                 (axi_ddr_sync.aw_len),
+  .c0_ddr4_s_axi_awsize                (axi_ddr_sync.aw_size),
+  .c0_ddr4_s_axi_awburst               (axi_ddr_sync.aw_burst),
+  .c0_ddr4_s_axi_awlock                (axi_ddr_sync.aw_lock),
+  .c0_ddr4_s_axi_awcache               (axi_ddr_sync.aw_cache),
+  .c0_ddr4_s_axi_awprot                (axi_ddr_sync.aw_prot),
+  .c0_ddr4_s_axi_awqos                 (axi_ddr_sync.aw_qos),
+  .c0_ddr4_s_axi_awvalid               (axi_ddr_sync.aw_valid),
+  .c0_ddr4_s_axi_awready               (axi_ddr_sync.aw_ready),
   // Slave Interface Write Data Ports
-  .c0_ddr4_s_axi_wdata                 (c0_ddr4_s_axi_wdata),
-  .c0_ddr4_s_axi_wstrb                 (c0_ddr4_s_axi_wstrb),
-  .c0_ddr4_s_axi_wlast                 (c0_ddr4_s_axi_wlast),
-  .c0_ddr4_s_axi_wvalid                (c0_ddr4_s_axi_wvalid),
-  .c0_ddr4_s_axi_wready                (c0_ddr4_s_axi_wready),
-  // Slave Interface Write Response Ports
-  .c0_ddr4_s_axi_bid                   (c0_ddr4_s_axi_bid),
-  .c0_ddr4_s_axi_bresp                 (c0_ddr4_s_axi_bresp),
-  .c0_ddr4_s_axi_bvalid                (c0_ddr4_s_axi_bvalid),
-  .c0_ddr4_s_axi_bready                (c0_ddr4_s_axi_bready),
+  .c0_ddr4_s_axi_wdata                 (axi_ddr_sync.w_data),
+  .c0_ddr4_s_axi_wstrb                 (axi_ddr_sync.w_strb),
+  .c0_ddr4_s_axi_wlast                 (axi_ddr_sync.w_last),
+  .c0_ddr4_s_axi_wvalid                (axi_ddr_sync.w_valid),
+  .c0_ddr4_s_axi_wready                (axi_ddr_sync.w_ready),
+  // Slave Interface Write Response Port
+  .c0_ddr4_s_axi_bid                   (axi_ddr_sync.b_id),
+  .c0_ddr4_s_axi_bresp                 (axi_ddr_sync.b_resp),
+  .c0_ddr4_s_axi_bvalid                (axi_ddr_sync.b_valid),
+  .c0_ddr4_s_axi_bready                (axi_ddr_sync.b_ready),
   // Slave Interface Read Address Ports
-  .c0_ddr4_s_axi_arid                  (c0_ddr4_s_axi_arid),
-  .c0_ddr4_s_axi_araddr                (c0_ddr4_s_axi_araddr),
-  .c0_ddr4_s_axi_arlen                 (c0_ddr4_s_axi_arlen),
-  .c0_ddr4_s_axi_arsize                (c0_ddr4_s_axi_arsize),
-  .c0_ddr4_s_axi_arburst               (c0_ddr4_s_axi_arburst),
-  .c0_ddr4_s_axi_arlock                (1'b0),
-  .c0_ddr4_s_axi_arcache               (c0_ddr4_s_axi_arcache),
-  .c0_ddr4_s_axi_arprot                (3'b0),
-  .c0_ddr4_s_axi_arqos                 (4'b0),
-  .c0_ddr4_s_axi_arvalid               (c0_ddr4_s_axi_arvalid),
-  .c0_ddr4_s_axi_arready               (c0_ddr4_s_axi_arready),
+  .c0_ddr4_s_axi_arid                  (axi_ddr_sync.ar_id),
+  .c0_ddr4_s_axi_araddr                (axi_ddr_sync.ar_addr[28:0]),
+  .c0_ddr4_s_axi_arlen                 (axi_ddr_sync.ar_len),
+  .c0_ddr4_s_axi_arsize                (axi_ddr_sync.ar_size),
+  .c0_ddr4_s_axi_arburst               (axi_ddr_sync.ar_burst),
+  .c0_ddr4_s_axi_arlock                (axi_ddr_sync.ar_lock),
+  .c0_ddr4_s_axi_arcache               (axi_ddr_sync.ar_cache),
+  .c0_ddr4_s_axi_arprot                (axi_ddr_sync.ar_prot),
+  .c0_ddr4_s_axi_arqos                 (axi_ddr_sync.ar_qos),
+  .c0_ddr4_s_axi_arvalid               (axi_ddr_sync.ar_valid),
+  .c0_ddr4_s_axi_arready               (axi_ddr_sync.ar_ready),
   // Slave Interface Read Data Ports
-  .c0_ddr4_s_axi_rid                   (c0_ddr4_s_axi_rid),
-  .c0_ddr4_s_axi_rdata                 (c0_ddr4_s_axi_rdata),
-  .c0_ddr4_s_axi_rresp                 (c0_ddr4_s_axi_rresp),
-  .c0_ddr4_s_axi_rlast                 (c0_ddr4_s_axi_rlast),
-  .c0_ddr4_s_axi_rvalid                (c0_ddr4_s_axi_rvalid),
-  .c0_ddr4_s_axi_rready                (c0_ddr4_s_axi_rready),
-  
+  .c0_ddr4_s_axi_rid                   (axi_ddr_sync.r_id),
+  .c0_ddr4_s_axi_rdata                 (axi_ddr_sync.r_data),
+  .c0_ddr4_s_axi_rresp                 (axi_ddr_sync.r_resp),
+  .c0_ddr4_s_axi_rlast                 (axi_ddr_sync.r_last),
+  .c0_ddr4_s_axi_rvalid                (axi_ddr_sync.r_valid),
+  .c0_ddr4_s_axi_rready                (axi_ddr_sync.r_ready),
   // Debug Port
   .dbg_bus         (dbg_bus)                                             
 
@@ -391,8 +350,8 @@ ddr4_0 u_ddr4_0
                                .src_clk_i (ref_clk),
                                .src_rst_ni(reset_n),
                                .src (axi_ddr_bus_128),
-                               .dst_clk_i (c0_sys_clk_o),
-                               .dst_rst_ni(~pad_reset),
+                               .dst_clk_i (c0_ddr4_clk),
+                               .dst_rst_ni(c0_ddr4_aresetn),
                                .dst(axi_ddr_sync_cut_0)
                                );   
    axi_cut_intf #(
@@ -401,8 +360,8 @@ ddr4_0 u_ddr4_0
      .ID_WIDTH   ( 7         ),
      .USER_WIDTH ( 1         )
                   ) axiddrcut01(
-                               .clk_i (c0_sys_clk_o),
-                               .rst_ni(~pad_reset),
+                               .clk_i (c0_ddr4_clk),
+                               .rst_ni(c0_ddr4_aresetn),
                                .in (axi_ddr_sync_cut_0),
                                .out (axi_ddr_sync_cut_1)
                                );
@@ -412,8 +371,8 @@ ddr4_0 u_ddr4_0
      .ID_WIDTH   ( 7         ),
      .USER_WIDTH ( 1         )
                   ) axiddrcut12(
-                               .clk_i (c0_sys_clk_o),
-                               .rst_ni(~pad_reset),
+                               .clk_i (c0_ddr4_clk),
+                               .rst_ni(c0_ddr4_aresetn),
                                .in (axi_ddr_sync_cut_1),
                                .out (axi_ddr_sync_cut_2)
                                );
@@ -423,8 +382,8 @@ ddr4_0 u_ddr4_0
      .ID_WIDTH   ( 7         ),
      .USER_WIDTH ( 1         )
                   ) axiddrcut23(
-                               .clk_i (c0_sys_clk_o),
-                               .rst_ni(~pad_reset),
+                               .clk_i (c0_ddr4_clk),
+                               .rst_ni(c0_ddr4_aresetn),
                                .in (axi_ddr_sync_cut_2),
                                .out (axi_ddr_sync_cut_3)
                                );
@@ -434,8 +393,8 @@ ddr4_0 u_ddr4_0
      .ID_WIDTH   ( 7         ),
      .USER_WIDTH ( 1         )
                   ) axiddrcut34(
-                               .clk_i (c0_sys_clk_o),
-                               .rst_ni(~pad_reset),
+                               .clk_i (c0_ddr4_clk),
+                               .rst_ni(c0_ddr4_aresetn),
                                .in (axi_ddr_sync_cut_3),
                                .out (axi_ddr_sync_cut_4)
                                );
@@ -445,8 +404,8 @@ ddr4_0 u_ddr4_0
      .ID_WIDTH   ( 7         ),
      .USER_WIDTH ( 1         )
                   ) axiddrcut45(
-                               .clk_i (c0_sys_clk_o),
-                               .rst_ni(~pad_reset),
+                               .clk_i (c0_ddr4_clk),
+                               .rst_ni(c0_ddr4_aresetn),
                                .in (axi_ddr_sync_cut_4),
                                .out (axi_ddr_sync_cut_5)
                                );
@@ -456,14 +415,12 @@ ddr4_0 u_ddr4_0
      .ID_WIDTH   ( 7         ),
      .USER_WIDTH ( 1         )
                   ) axiddrcut3s(
-                               .clk_i (c0_sys_clk_o),
-                               .rst_ni(~pad_reset),
+                               .clk_i (c0_ddr4_clk),
+                               .rst_ni(c0_ddr4_aresetn) ,
                                .in (axi_ddr_sync_cut_5),
                                .out (axi_ddr_sync)
                                );
-   
-   `AXI_FLATTEN_MASTER(c0_ddr4_s_axi,axi_ddr_sync)
-   
+      
    assign s_pad_hyper0_csn[0] = FMC_hyper0_csn0;
    assign s_pad_hyper0_csn[1] = FMC_hyper0_csn1;   
    assign s_pad_hyper0_dq[0]  = FMC_hyper0_dqio0;

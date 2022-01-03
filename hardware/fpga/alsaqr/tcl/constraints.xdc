@@ -6,6 +6,7 @@ set_property CLOCK_DEDICATED_ROUTE ANY_CMT_COLUMN [get_nets u_ibufg_sys_clk/O]
 create_clock -period 4.000 [get_pins u_ibufg_sys_clk_o/O]
 set_property CLOCK_DEDICATED_ROUTE ANY_CMT_COLUMN [get_pins u_ibufg_sys_clk_o/O]
 
+create_clock -period 4.000 [get_pins u_ddr4_0/c0_ddr4_ui_clk]
 
 #alsaqr clock
 create_clock -period 83.300  [get_pins  alsaqr_clk_manager/clk_out1]

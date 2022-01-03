@@ -51,12 +51,12 @@
   assign mst.b_valid  = ``pat``_bvalid;    \
   assign mst.b_id     = ``pat``_bid;       \
   assign mst.b_resp   = ``pat``_bresp;     \
-//  assign mst.b.user   = ``pat``_buser;     \
+  assign mst.b_user   =  '0;     \
                                            \
   assign mst.r_valid  = ``pat``_rvalid;    \
   assign mst.r_id     = ``pat``_rid;       \
   assign mst.r_data   = ``pat``_rdata;     \
   assign mst.r_resp   = ``pat``_rresp;     \
   assign mst.r_last   = ``pat``_rlast;     \
-//  assign mst.r_user   = ``pat``_ruser;
+  assign mst.r_user   = '0;
 
