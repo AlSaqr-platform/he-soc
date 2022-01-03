@@ -160,6 +160,7 @@ module alsaqr_clk_rst_gen (
                         .soc_clk_o(s_clk_fll_soc),
                         .per_clk_o(s_clk_fll_per),
                         .cluster_clk_o(s_clk_cluster),
+                        .cva6_clk_o(s_clk_fll_cva6),
                         .cfg_req_i(fll_intf.req),
                         .cfg_ack_o(fll_intf.ack),
                         .cfg_add_i(fll_intf.addr),
@@ -171,11 +172,13 @@ module alsaqr_clk_rst_gen (
     assign s_clk_soc     = s_clk_fll_soc;
     assign s_clk_cluster = s_clk_fll_cluster;
     assign s_clk_per     = s_clk_fll_per;
-
+    assign s_clk_cva6    = s_clk_fll_cva6;
+   
     assign s_rstn_soc_sync = s_rstn_soc;
     assign s_rstn_cluster_sync = s_rstn_soc;
     assign s_rst_glob_sync = s_rstn_soc;    
-
+    assign s_rstn_cva6_sync = s_rstn_soc;
+   
     `endif
 
 

@@ -101,7 +101,7 @@ module alsaqr_xilinx
    
 
    xilinx_clk_mngr alsaqr_clk_manager(
-                                      .resetn(~pad_reset),
+                                      .resetn(reset_n),
                                       .locked(),
                                       .clk_in1(c0_sys_clk_o),
                                       .clk_out1(ref_clk)

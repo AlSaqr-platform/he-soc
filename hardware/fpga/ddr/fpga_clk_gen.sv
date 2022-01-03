@@ -28,6 +28,7 @@ module fpga_clk_gen (
                      output logic        soc_clk_o,
                      output logic        per_clk_o,
                      output logic        cluster_clk_o,
+                     output logic        cva6_clk_o,
                      input logic         cfg_req_i,
                      output logic        cfg_ack_o,
                      input logic [3:0]   cfg_add_i,
@@ -40,7 +41,8 @@ module fpga_clk_gen (
   assign soc_clk_o     = ref_clk_i;
   assign cluster_clk_o = ref_clk_i;
   assign per_clk_o     = ref_clk_i;
-
+  assign cva6_clk_o    = ref_clk_i;
+   
   assign soc_cfg_ack_o     = 1'b1; //Always acknowledge without doing anything for now
   assign per_cfg_ack_o     = 1'b1;
   assign cluster_cfg_ack_o = 1'b1;
