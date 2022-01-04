@@ -122,49 +122,49 @@ module alsaqr_xilinx
              ) axi_ddr_bus_64();
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 128       ),
-     .AXI_ID_WIDTH   ( 7         ),
-     .AXI_USER_WIDTH ( 1         )
-             ) axi_ddr_bus_128();
-   AXI_BUS #(
-     .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 128       ),
+     .AXI_DATA_WIDTH ( 64        ),
      .AXI_ID_WIDTH   ( 7         ),
      .AXI_USER_WIDTH ( 1         )
              ) axi_ddr_sync_cut_0();
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 128       ),
+     .AXI_DATA_WIDTH ( 64        ),
      .AXI_ID_WIDTH   ( 7         ),
      .AXI_USER_WIDTH ( 1         )
              ) axi_ddr_sync_cut_1();
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 128       ),
+     .AXI_DATA_WIDTH ( 64        ),
      .AXI_ID_WIDTH   ( 7         ),
      .AXI_USER_WIDTH ( 1         )
              ) axi_ddr_sync_cut_2();
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 128       ),
+     .AXI_DATA_WIDTH ( 64        ),
      .AXI_ID_WIDTH   ( 7         ),
      .AXI_USER_WIDTH ( 1         )
              ) axi_ddr_sync_cut_3();
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 128       ),
+     .AXI_DATA_WIDTH ( 64        ),
      .AXI_ID_WIDTH   ( 7         ),
      .AXI_USER_WIDTH ( 1         )
              ) axi_ddr_sync_cut_4();
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 128       ),
+     .AXI_DATA_WIDTH ( 64        ),
      .AXI_ID_WIDTH   ( 7         ),
      .AXI_USER_WIDTH ( 1         )
              ) axi_ddr_sync_cut_5();
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 128       ),
+     .AXI_DATA_WIDTH ( 64        ),
+     .AXI_ID_WIDTH   ( 7         ),
+     .AXI_USER_WIDTH ( 1         )
+             ) axi_ddr_sync_cut_6();
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( 64        ),
+     .AXI_DATA_WIDTH ( 64        ),
      .AXI_ID_WIDTH   ( 7         ),
      .AXI_USER_WIDTH ( 1         )
              ) axi_ddr_sync();
@@ -326,37 +326,23 @@ ddr4_0 u_ddr4_0
 //***************************************************************************
 // ALSAQR
 //***************************************************************************
-   axi_dw_converter_intf #(
-     .AXI_ADDR_WIDTH          ( 64        ),
-     .AXI_SLV_PORT_DATA_WIDTH ( 64        ),
-     .AXI_MST_PORT_DATA_WIDTH ( 128       ),
-     .AXI_ID_WIDTH            ( 7         ),
-     .AXI_USER_WIDTH          ( 1         ),
-     .AXI_MAX_READS           ( 1         )
-     ) axiddrdwc (
-                 .clk_i (ref_clk),
-                 .rst_ni(reset_n),
-                 .slv(axi_ddr_bus_64),
-                 .mst(axi_ddr_bus_128)
-                 );
-   
    axi_cdc_intf #(
      .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 128       ),
+     .AXI_DATA_WIDTH ( 64        ),
      .AXI_ID_WIDTH   ( 7         ),
      .AXI_USER_WIDTH ( 1         ),
      .LOG_DEPTH      ( 1         )
                   ) axiddrcdc (
                                .src_clk_i (ref_clk),
                                .src_rst_ni(reset_n),
-                               .src (axi_ddr_bus_128),
+                               .src (axi_ddr_bus_64),
                                .dst_clk_i (c0_ddr4_clk),
                                .dst_rst_ni(c0_ddr4_aresetn),
                                .dst(axi_ddr_sync_cut_0)
                                );   
    axi_cut_intf #(
      .ADDR_WIDTH ( 64        ),
-     .DATA_WIDTH ( 128       ),
+     .DATA_WIDTH ( 64        ),
      .ID_WIDTH   ( 7         ),
      .USER_WIDTH ( 1         )
                   ) axiddrcut01(
@@ -367,7 +353,7 @@ ddr4_0 u_ddr4_0
                                );
    axi_cut_intf #(
      .ADDR_WIDTH ( 64        ),
-     .DATA_WIDTH ( 128       ),
+     .DATA_WIDTH ( 64        ),
      .ID_WIDTH   ( 7         ),
      .USER_WIDTH ( 1         )
                   ) axiddrcut12(
@@ -378,7 +364,7 @@ ddr4_0 u_ddr4_0
                                );
    axi_cut_intf #(
      .ADDR_WIDTH ( 64        ),
-     .DATA_WIDTH ( 128       ),
+     .DATA_WIDTH ( 64        ),
      .ID_WIDTH   ( 7         ),
      .USER_WIDTH ( 1         )
                   ) axiddrcut23(
@@ -389,7 +375,7 @@ ddr4_0 u_ddr4_0
                                );
    axi_cut_intf #(
      .ADDR_WIDTH ( 64        ),
-     .DATA_WIDTH ( 128       ),
+     .DATA_WIDTH ( 64        ), 
      .ID_WIDTH   ( 7         ),
      .USER_WIDTH ( 1         )
                   ) axiddrcut34(
@@ -400,7 +386,7 @@ ddr4_0 u_ddr4_0
                                );
    axi_cut_intf #(
      .ADDR_WIDTH ( 64        ),
-     .DATA_WIDTH ( 128       ),
+     .DATA_WIDTH ( 64        ),
      .ID_WIDTH   ( 7         ),
      .USER_WIDTH ( 1         )
                   ) axiddrcut45(
@@ -411,13 +397,24 @@ ddr4_0 u_ddr4_0
                                );
    axi_cut_intf #(
      .ADDR_WIDTH ( 64        ),
-     .DATA_WIDTH ( 128       ),
+     .DATA_WIDTH ( 64        ),
      .ID_WIDTH   ( 7         ),
      .USER_WIDTH ( 1         )
-                  ) axiddrcut3s(
+                  ) axiddrcut56(
+                               .clk_i (c0_ddr4_clk),
+                               .rst_ni(c0_ddr4_aresetn),
+                               .in (axi_ddr_sync_cut_5),
+                               .out (axi_ddr_sync_cut_6)
+                               );
+   axi_cut_intf #(
+     .ADDR_WIDTH ( 64        ),
+     .DATA_WIDTH ( 64        ),
+     .ID_WIDTH   ( 7         ),
+     .USER_WIDTH ( 1         )
+                  ) axiddrcut6s(
                                .clk_i (c0_ddr4_clk),
                                .rst_ni(c0_ddr4_aresetn) ,
-                               .in (axi_ddr_sync_cut_5),
+                               .in (axi_ddr_sync_cut_6),
                                .out (axi_ddr_sync)
                                );
       
