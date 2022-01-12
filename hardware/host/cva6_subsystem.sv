@@ -552,12 +552,22 @@ module cva6_subsystem
   // ---------------
   // CLINT
   // ---------------
+  // divide clock by two
   logic ipi;
   logic timer_irq;
-
+  logic rtc_clint;
+   
   ariane_axi_soc::req_slv_t    axi_clint_req;
   ariane_axi_soc::resp_slv_t   axi_clint_resp;
 
+  always_ff @(posedge rtc_i or negedge ndmreset_n) begin
+    if (~ndmreset_n) begin
+      rtc_clint <= 0;
+    end else begin
+      rtc_clint <= rtc_clint ^ 1'b1;
+    end
+  end
+   
   clint #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -569,7 +579,7 @@ module cva6_subsystem
     .testmode_i  ( test_en        ),
     .axi_req_i   ( axi_clint_req  ),
     .axi_resp_o  ( axi_clint_resp ),
-    .rtc_i       ( rtc_i          ),
+    .rtc_i       ( rtc_clint      ),
     .timer_irq_o ( timer_irq      ),
     .ipi_o       ( ipi            )
   );
