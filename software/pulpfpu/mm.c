@@ -53,7 +53,7 @@ int thread_entry(int cid, int nc) {
     printf("%x\n", *result_pointer);
     printf("%x\n", *(result_pointer+0x1));
     
-    if( (*result_pointer!=0x53e4bb42) || (*(result_pointer+0x1)!=4032110a) )
+    if( (*result_pointer!=0x53e4bb42) || (*(result_pointer+0x1)!=0x4032110a) )
       printf("error\n");
     pulp_write32(0x10001000,1);
 
