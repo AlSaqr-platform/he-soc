@@ -1,2 +1,2 @@
 overrides:
-  riscv: { git: "git@git.eees.dei.unibo.it:alsaqr-deliveries/riscv.git",  rev: "8a0a53499bbf78618ed5410f45dafec004489b67"}
+  riscv: { git: "git@iis-git.ee.ethz.ch:darkside/riscv.git",  rev: "8a0a53499bbf78618ed5410f45dafec004489b67"}
