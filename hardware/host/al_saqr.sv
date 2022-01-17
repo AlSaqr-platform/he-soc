@@ -777,8 +777,8 @@ module al_saqr
     else $fatal(1, "Change `tlb_cfg_xbar_rule_t` for address width other than 32 bit!");
   localparam tlb_cfg_xbar_rule_t [FromHostTlbCfgXbarCfg.NoAddrRules-1:0]
       FromHostTlbCfgXbarAddrMap = '{
-    '{idx: 32'd1, start_addr: 32'h5000_1000, end_addr: 32'h5000_2000},
-    '{idx: 32'd0, start_addr: 32'h5000_0000, end_addr: 32'h5000_1000}
+    '{idx: 32'd1, start_addr: 32'h1040_1000, end_addr: 32'h1040_2000},
+    '{idx: 32'd0, start_addr: 32'h1040_0000, end_addr: 32'h1040_1000}
   };
 
   `AXI_LITE_ASSIGN_TO_REQ    ( h2c_tlb_cfg_lite_req, tlb_cfg_lite_master   )

@@ -128,7 +128,7 @@ int main(){
 
   address = L2_BASE;
   while(pulp_read32(address) != VAL_WR_AXI_DRV);
-  printf("SUCCESSFUL read (%d) written into L2 from offchip Serial Link \n",pulp_read32(address));
+  printf("OK read (%d) written into L2 from offchip Serial Link \n",pulp_read32(address));
   
   wait_cycles(50000);
 

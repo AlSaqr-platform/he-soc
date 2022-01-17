@@ -91,7 +91,7 @@ package ariane_soc;
     SPIBase      = 64'h2000_0000,
     EthernetBase = 64'h3000_0000,
     UARTBase     = 64'h4000_0000,
-    TLB_CFGBase  = 64'h5000_0000,
+    TLB_CFGBase  = 64'h1040_0000,
     SerLink_Base = 64'h6000_0000,
     HYAXIBase    = 64'h8000_0000
   } soc_bus_start_t; 
