@@ -5,6 +5,8 @@
 #include "./cluster_code.h"
 //#define FPGA_EMULATION
 
+uint32_t ret_value = 0;
+
 int main(int argc, char const *argv[]) {
 
   #ifdef FPGA_EMULATION
@@ -18,10 +20,11 @@ int main(int argc, char const *argv[]) {
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
   // H2C TLB configuration
-  tlb_cfg(H2C_TLB_BASE_ADDR, 0, h2c_first_va, h2c_last_va, h2c_base_pa, h2c_flags);
+  tlb_cfg(H2C_TLB_BASE_ADDR, 0, h2c_first_va, h2c_last_va, h2c_base_pa, 0x07);
   // C2H TLB configuration
-  tlb_cfg(C2H_TLB_BASE_ADDR, 0, c2h_first_va, c2h_last_va, c2h_base_pa, c2h_flags);
-  
+  tlb_cfg(C2H_TLB_BASE_ADDR, 0, c2h_first_va, c2h_last_va, c2h_base_pa, 0x07);
+  // pulp_write32(0x10004000, 0xBEDEAD);
+
   uint32_t * hyaxicfg_reg_mask = 0x1A104018;
   pulp_write32(hyaxicfg_reg_mask,26); //128MB addressable
   uint32_t * hyaxicfg_reg_memspace = 0x1A104024;
@@ -38,37 +41,23 @@ int main(int argc, char const *argv[]) {
   pulp_write32(0x100040CC,0);
   pulp_write32(0x100040C8,0x0000BF38);
   pulp_write32(0x100000C4,0x100000C8);
-  //start of custom memory set-up
-  pulp_write32(0x10000004, 0x1C001038);
-  pulp_write32(0x1C001038, 0x1c0083a6);
-  pulp_write32(0x1C001040, 0x10001ab8);
-  pulp_write32(0x1c001044, 0x00000400);
-  pulp_write32(0x1c001048, 0x00000400);
-  pulp_write32(0x1c00105c, 0x000000ff);
-  pulp_write32(0x1c00104c, 0x00000008);
-  //end of custom memory set-up
-  
   // change ris5y boot addresses
   int boot_addr_core=0x10200040;
   for (int i=0; i<8; i++)
-    pulp_write32(0x10200040+i*4,0x1C008080);
+    pulp_write32(0x10200040+i*4,0x1C000000);
   pulp_write32(0x1A106000,0x3);
   pulp_write32(0x1A106000,0x7);
   pulp_write32(0x10200008,0xff);
 
-  while( ((pulp_read32(0x10001000))<<31)!=0x80000000 );
+  while (pulp_read32(0x10003010) != 0xBEDEAD);
+  
+  if (pulp_read32(0x10002000) == 0xDEADFACE) {
+    printf("Error!\n");
+    ret_value += 1;
+  } else 
+      printf("Ok!\n");
 
-  if(((pulp_read32(0x10001000))<<31)==0x80000000){
-    printf("Cl ok\n");
-    uart_wait_tx_done();
-    return 0; }
-  else {
-    printf("Cl error!\n");
-    uart_wait_tx_done();
-    return -1; }
+  uart_wait_tx_done();
     
-  return -1;
+  return ret_value;
 }
- 
-
-

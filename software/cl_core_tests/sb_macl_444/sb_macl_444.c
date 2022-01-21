@@ -18,9 +18,9 @@ int main(int argc, char const *argv[]) {
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
   
   // H2C TLB configuration
-  tlb_cfg(H2C_TLB_BASE_ADDR, h2c_first_va, h2c_last_va, h2c_base_pa, h2c_flags);
+  tlb_cfg(H2C_TLB_BASE_ADDR, 0, h2c_first_va, h2c_last_va, h2c_base_pa, h2c_flags);
   // C2H TLB configuration
-  tlb_cfg(C2H_TLB_BASE_ADDR, c2h_first_va, c2h_last_va, c2h_base_pa, c2h_flags);
+  tlb_cfg(C2H_TLB_BASE_ADDR, 0, c2h_first_va, c2h_last_va, c2h_base_pa, c2h_flags);
   
   uint32_t * hyaxicfg_reg_mask = 0x1A104018;
   pulp_write32(hyaxicfg_reg_mask,26); //128MB addressable

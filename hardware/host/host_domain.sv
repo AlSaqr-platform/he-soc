@@ -248,13 +248,6 @@ module host_domain
   /*************************************************************************************************************/
   /*                                AXI LITE XBAR FOR TLBs CONFIGURATION: START                                */
   /*************************************************************************************************************/ 
-  
-  // // Mask upper 16 bits of config addresses. (???)
-  // always_comb begin
-  //   `AXI_LITE_SET_REQ_STRUCT(tlb_cfg_req, tlb_cfg_req_unmasked) // Set the interface 
-  //   tlb_cfg_req.aw.addr &= 32'h0000_FFFF;
-  //   tlb_cfg_req.ar.addr &= 32'h0000_FFFF;
-  // end
 
   axi_dw_converter_intf #(
     .AXI_ID_WIDTH             ( ariane_soc::IdWidthSlave ),
@@ -272,7 +265,7 @@ module host_domain
 
   axi_to_axi_lite_intf #(
     .AXI_ADDR_WIDTH     ( AXI_ADDRESS_WIDTH        ),
-    .AXI_DATA_WIDTH     ( AXI_DATA_WIDTH           ),
+    .AXI_DATA_WIDTH     ( AXI_LITE_DW              ),
     .AXI_ID_WIDTH       ( ariane_soc::IdWidthSlave ),
     .AXI_USER_WIDTH     ( AXI_USER_WIDTH           ),
     .AXI_MAX_WRITE_TXNS ( 1                        ),

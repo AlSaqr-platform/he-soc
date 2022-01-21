@@ -575,14 +575,14 @@ module al_saqr
      .AXI_MAX_READS            ( 1                        )
    ) i_dwc_tlb_cfg (
      .clk_i        ( s_soc_clk              ),
-     .rst_ni       ( s_synch_soc_rst        ),
+     .rst_ni       ( s_soc_rst_n            ),
      .slv          ( c2h_tlb_cfg_axi_bus_64 ),
      .mst          ( c2h_tlb_cfg_axi_bus_32 )
    );
 
    axi_to_axi_lite_intf #(
      .AXI_ADDR_WIDTH     ( AXI_ADDRESS_WIDTH      ),
-     .AXI_DATA_WIDTH     ( AXI_DATA_WIDTH         ),
+     .AXI_DATA_WIDTH     ( AXI_LITE_DW            ),
      .AXI_ID_WIDTH       ( ariane_soc::IdWidth    ),
      .AXI_USER_WIDTH     ( AXI_USER_WIDTH         ),
      .AXI_MAX_WRITE_TXNS ( 1                      ),

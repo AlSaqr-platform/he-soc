@@ -1,3 +1,4 @@
+#include "properties.h"
 #include "./drivers/src/uart.c"
 #include "./string_lib/src/string_lib.c"
 #include "./archi_tlb/archi_tlb.h"
@@ -46,17 +47,19 @@ void set_flls() {
 
 }
 
-void tlb_cfg ( uint32_t tlb_addr,
-               uint64_t first_va,
-               uint64_t last_va ,
-               uint64_t base_pa ,
+void tlb_cfg ( uint32_t tlb_addr ,
+               uint32_t entry_idx,
+               uint64_t first_va ,
+               uint64_t last_va  ,
+               uint64_t base_pa  ,
                uint8_t  flags
              ) {
-  pulp_write32(tlb_addr + FIRST_VA_LSW, ((first_va & 0xFFFFFFFF00000000)  >> 32 )); // First virtual address ->
-  pulp_write32(tlb_addr + FIRST_VA_MSW, ((first_va & 0x00000000FFFFFFFF)        )); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
-  pulp_write32(tlb_addr + LAST_VA_LSW , ((last_va  & 0xFFFFFFFF00000000)  >> 32 )); // Last virtual address ->
-  pulp_write32(tlb_addr + LAST_VA_MSW , ((last_va  & 0x00000000FFFFFFFF)        )); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
-  pulp_write32(tlb_addr + BASE_PA_LSW , ((base_pa  & 0xFFFFFFFF00000000)  >> 32 )); // Physical base address
-  pulp_write32(tlb_addr + BASE_PA_MSW , ((base_pa  & 0x00000000FFFFFFFF)        )); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
-  pulp_write32(tlb_addr + FLAGS       , flags                                    ); // Flags
+  uint32_t entry_addr = tlb_addr + (0x1C)*entry_idx;
+  pulp_write32(entry_addr + FIRST_VA_LSW, ((first_va & 0xFFFFFFFF00000000)  >> 32 )); // First virtual address ->
+  pulp_write32(entry_addr + FIRST_VA_MSW, ((first_va & 0x00000000FFFFFFFF)        )); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
+  pulp_write32(entry_addr + LAST_VA_LSW , ((last_va  & 0xFFFFFFFF00000000)  >> 32 )); // Last virtual address ->
+  pulp_write32(entry_addr + LAST_VA_MSW , ((last_va  & 0x00000000FFFFFFFF)        )); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
+  pulp_write32(entry_addr + BASE_PA_LSW , ((base_pa  & 0xFFFFFFFF00000000)  >> 32 )); // Physical base address
+  pulp_write32(entry_addr + BASE_PA_MSW , ((base_pa  & 0x00000000FFFFFFFF)        )); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
+  pulp_write32(entry_addr + FLAGS       , flags                                    ); // Flags
 }

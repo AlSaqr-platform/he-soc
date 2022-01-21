@@ -6,7 +6,9 @@ test_list=`xargs printf '%s ' < regression.list | cut -b 1-`
 cd pulp
 source setup.sh
 make clean all
-cd ../../
+cd ../axi_tlb/stimuli
+make clean all
+cd ../../../
 source setup.sh
 cd software
 
