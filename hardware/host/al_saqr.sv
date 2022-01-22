@@ -519,6 +519,8 @@ module al_saqr
       .pad_xtal_in            ( rtc_i                      )
      );
 
+  `ifndef EXCLUDE_CLUSTER   
+
    axi_serializer_intf #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -573,73 +575,45 @@ module al_saqr
        .dst               ( c2h_tlb_cfg_axi_bus_64 )
        );
 
-   axi_dw_converter_intf #(
-     .AXI_ID_WIDTH             ( ariane_soc::IdWidthSlave ),
-     .AXI_ADDR_WIDTH           ( AXI_ADDRESS_WIDTH        ),
-     .AXI_SLV_PORT_DATA_WIDTH  ( AXI_DATA_WIDTH           ),
-     .AXI_MST_PORT_DATA_WIDTH  ( AXI_LITE_DW              ),
-     .AXI_USER_WIDTH           ( AXI_USER_WIDTH           ),
-     .AXI_MAX_READS            ( 1                        )
-   ) i_dwc_tlb_cfg (
-     .clk_i        ( s_soc_clk              ),
-     .rst_ni       ( s_soc_rst_n            ),
-     .slv          ( c2h_tlb_cfg_axi_bus_64 ),
-     .mst          ( c2h_tlb_cfg_axi_bus_32 )
-   );
-
-   axi_to_axi_lite_intf #(
-     .AXI_ADDR_WIDTH     ( AXI_ADDRESS_WIDTH      ),
-     .AXI_DATA_WIDTH     ( AXI_LITE_DW            ),
-     .AXI_ID_WIDTH       ( ariane_soc::IdWidth    ),
-     .AXI_USER_WIDTH     ( AXI_USER_WIDTH         ),
-     .AXI_MAX_WRITE_TXNS ( 1                      ),
-     .AXI_MAX_READ_TXNS  ( 1                      ),
-     .FALL_THROUGH       ( 0                      )
-   ) i_axi2lite_tlb_cfg  (                        
-     .clk_i              ( s_soc_clk              ),
-     .rst_ni             ( s_soc_rst_n            ),
-     .testmode_i         ( 1'b0                   ),
-     .slv                ( c2h_tlb_cfg_axi_bus_32 ),
-     .mst                ( c2h_tlb_cfg_lite       )
-   );
-   
     pulp_cluster
-//    #(
-//        .NB_CORES                     ( `NB_CORES                       ),
-//        .NB_HWPE_PORTS                ( 4                               ),
-//        .NB_DMAS                      ( `NB_DMAS                        ),
-//        .HWPE_PRESENT                 ( 0                               ),
-//        .TCDM_SIZE                    ( 256*1024                        ),
-//        .NB_TCDM_BANKS                ( 16                              ),
-//        .SET_ASSOCIATIVE              ( 4                               ),
-//        .CACHE_LINE                   ( 1                               ),
-//        .CACHE_SIZE                   ( 4096                            ),
-//        .ICACHE_DATA_WIDTH            ( 128                             ),
-//        .L0_BUFFER_FEATURE            ( "DISABLED"                      ),
-//        .MULTICAST_FEATURE            ( "DISABLED"                      ),
-//        .SHARED_ICACHE                ( "ENABLED"                       ),
-//        .DIRECT_MAPPED_FEATURE        ( "DISABLED"                      ),
-//        .L2_SIZE                      ( ariane_soc::L2SPMLength         ),
-//        .ROM_BOOT_ADDR                ( 32'h1A000000                    ),
-//        .BOOT_ADDR                    ( 32'hC0000000                    ),
-//        .INSTR_RDATA_WIDTH            ( 32                              ),
-//        .CLUST_FPU                    ( `CLUST_FPU                      ),
-//        .CLUST_FP_DIVSQRT             ( `CLUST_FP_DIVSQRT               ),
-//        .CLUST_SHARED_FP              ( `CLUST_SHARED_FP                ),
-//        .CLUST_SHARED_FP_DIVSQRT      ( `CLUST_SHARED_FP_DIVSQRT        ),
-//        .AXI_ADDR_WIDTH               ( AXI_ADDRESS_WIDTH               ),
-//        .AXI_DATA_IN_WIDTH            ( AXI_DATA_WIDTH                  ),
-//        .AXI_DATA_OUT_WIDTH           ( AXI_DATA_WIDTH                  ),
-//        .AXI_USER_WIDTH               ( AXI_USER_WIDTH                  ),
-//        .AXI_ID_IN_WIDTH              ( ariane_soc::SocToClusterIdWidth ),
-//        .AXI_ID_OUT_WIDTH             ( ariane_soc::IdWidth             ),
-//        .LOG_DEPTH                    ( 3                               ),
-//        .DATA_WIDTH                   ( 32                              ),
-//        .ADDR_WIDTH                   ( 32                              ),
-//        .LOG_CLUSTER                  ( 3                               ),
-//        .PE_ROUTING_LSB               ( 10                              ),
-//        .EVNT_WIDTH                   ( 8                               )
-//    )    
+    `ifndef TARGET_SYNTHESIS
+    #(
+        .NB_CORES                     ( `NB_CORES                       ),
+        .NB_HWPE_PORTS                ( 4                               ),
+        .NB_DMAS                      ( `NB_DMAS                        ),
+        .HWPE_PRESENT                 ( 0                               ),
+        .TCDM_SIZE                    ( 256*1024                        ),
+        .NB_TCDM_BANKS                ( 16                              ),
+        .SET_ASSOCIATIVE              ( 4                               ),
+        .CACHE_LINE                   ( 1                               ),
+        .CACHE_SIZE                   ( 4096                            ),
+        .ICACHE_DATA_WIDTH            ( 128                             ),
+        .L0_BUFFER_FEATURE            ( "DISABLED"                      ),
+        .MULTICAST_FEATURE            ( "DISABLED"                      ),
+        .SHARED_ICACHE                ( "ENABLED"                       ),
+        .DIRECT_MAPPED_FEATURE        ( "DISABLED"                      ),
+        .L2_SIZE                      ( ariane_soc::L2SPMLength         ),
+        .ROM_BOOT_ADDR                ( 32'h1A000000                    ),
+        .BOOT_ADDR                    ( 32'hC0000000                    ),
+        .INSTR_RDATA_WIDTH            ( 32                              ),
+        .CLUST_FPU                    ( `CLUST_FPU                      ),
+        .CLUST_FP_DIVSQRT             ( `CLUST_FP_DIVSQRT               ),
+        .CLUST_SHARED_FP              ( `CLUST_SHARED_FP                ),
+        .CLUST_SHARED_FP_DIVSQRT      ( `CLUST_SHARED_FP_DIVSQRT        ),
+        .AXI_ADDR_WIDTH               ( AXI_ADDRESS_WIDTH               ),
+        .AXI_DATA_IN_WIDTH            ( AXI_DATA_WIDTH                  ),
+        .AXI_DATA_OUT_WIDTH           ( AXI_DATA_WIDTH                  ),
+        .AXI_USER_WIDTH               ( AXI_USER_WIDTH                  ),
+        .AXI_ID_IN_WIDTH              ( ariane_soc::SocToClusterIdWidth ),
+        .AXI_ID_OUT_WIDTH             ( ariane_soc::IdWidth             ),
+        .LOG_DEPTH                    ( 3                               ),
+        .DATA_WIDTH                   ( 32                              ),
+        .ADDR_WIDTH                   ( 32                              ),
+        .LOG_CLUSTER                  ( 3                               ),
+        .PE_ROUTING_LSB               ( 10                              ),
+        .EVNT_WIDTH                   ( 8                               )
+    )
+   `endif
     cluster_i
     (
         .clk_i                        ( s_cluster_clk                ),
@@ -720,7 +694,128 @@ module al_saqr
         .async_data_slave_b_rptr_i    ( async_soc_to_cluster_axi_bus.b_rptr   ),
         .async_data_slave_b_data_o    ( async_soc_to_cluster_axi_bus.b_data   )
    );
+  `else // !`ifndef EXCLUDE_CLUSTER
+   
+     assign c2h_tlb_cfg_axi_bus_64.aw_id = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.aw_addr = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.aw_len = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.aw_size = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.aw_burst = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.aw_lock = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.aw_cache = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.aw_prot = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.aw_qos = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.aw_region = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.aw_atop = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.aw_user = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.aw_valid = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.w_data = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.w_strb = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.w_last = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.w_user = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.w_valid = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.b_ready = 1'b1;
+     assign c2h_tlb_cfg_axi_bus_64.ar_id = 'h0; 
+     assign c2h_tlb_cfg_axi_bus_64.ar_addr = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.ar_len = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.ar_size = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.ar_burst = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.ar_lock = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.ar_cache = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.ar_prot = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.ar_qos = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.ar_region = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.ar_user = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.ar_valid = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.ar_ready = 'h0;
+     assign c2h_tlb_cfg_axi_bus_64.r_ready = 1'b1;
 
+     assign cluster_to_tlb_axi_bus.aw_id = 'h0;
+     assign cluster_to_tlb_axi_bus.aw_addr = 'h0;
+     assign cluster_to_tlb_axi_bus.aw_len = 'h0;
+     assign cluster_to_tlb_axi_bus.aw_size = 'h0;
+     assign cluster_to_tlb_axi_bus.aw_burst = 'h0;
+     assign cluster_to_tlb_axi_bus.aw_lock = 'h0;
+     assign cluster_to_tlb_axi_bus.aw_cache = 'h0;
+     assign cluster_to_tlb_axi_bus.aw_prot = 'h0;
+     assign cluster_to_tlb_axi_bus.aw_qos = 'h0;
+     assign cluster_to_tlb_axi_bus.aw_region = 'h0;
+     assign cluster_to_tlb_axi_bus.aw_atop = 'h0;
+     assign cluster_to_tlb_axi_bus.aw_user = 'h0;
+     assign cluster_to_tlb_axi_bus.aw_valid = 'h0;
+     assign cluster_to_tlb_axi_bus.w_data = 'h0;
+     assign cluster_to_tlb_axi_bus.w_strb = 'h0;
+     assign cluster_to_tlb_axi_bus.w_last = 'h0;
+     assign cluster_to_tlb_axi_bus.w_user = 'h0;
+     assign cluster_to_tlb_axi_bus.w_valid = 'h0;
+     assign cluster_to_tlb_axi_bus.b_ready = 1'b1;
+     assign cluster_to_tlb_axi_bus.ar_id = 'h0; 
+     assign cluster_to_tlb_axi_bus.ar_addr = 'h0;
+     assign cluster_to_tlb_axi_bus.ar_len = 'h0;
+     assign cluster_to_tlb_axi_bus.ar_size = 'h0;
+     assign cluster_to_tlb_axi_bus.ar_burst = 'h0;
+     assign cluster_to_tlb_axi_bus.ar_lock = 'h0;
+     assign cluster_to_tlb_axi_bus.ar_cache = 'h0;
+     assign cluster_to_tlb_axi_bus.ar_prot = 'h0;
+     assign cluster_to_tlb_axi_bus.ar_qos = 'h0;
+     assign cluster_to_tlb_axi_bus.ar_region = 'h0;
+     assign cluster_to_tlb_axi_bus.ar_user = 'h0;
+     assign cluster_to_tlb_axi_bus.ar_valid = 'h0;
+     assign cluster_to_tlb_axi_bus.ar_ready = 'h0;
+     assign cluster_to_tlb_axi_bus.r_ready = 1'b1;
+
+     ariane_axi_soc::req_slv_t    fake_cluster_s_req;
+     ariane_axi_soc::resp_slv_t   fake_cluster_s_resp;
+   
+     `AXI_ASSIGN_TO_REQ(fake_cluster_s_req,tlb_to_cluster_axi_bus)
+     `AXI_ASSIGN_FROM_RESP(tlb_to_cluster_axi_bus,fake_cluster_s_resp)
+   
+     axi_err_slv #(
+       .AxiIdWidth ( ariane_soc::IdWidth    ),
+       .req_t      ( ariane_axi::req_slv_t  ),
+       .resp_t     ( ariane_axi::resp_slv_t ),
+       .RespWidth  ( 32'd64                 ),
+       .RespData   ( 64'hdeadbeefdeadbeef   ),
+       .ATOPs      ( 1'b0                   ),
+       .MaxTrans   ( 1                      )
+       ) clusternotimplemented (
+         .clk_i      ( s_soc_clk           ),
+         .rst_ni     ( s_soc_rst_n         ),
+         .slv_req_i  ( fake_cluster_s_req  ),
+         .slv_resp_o ( fake_cluster_s_resp )
+         );
+   `endif // !`ifndef EXCLUDE_CLUSTER
+
+   axi_dw_converter_intf #(
+     .AXI_ID_WIDTH             ( ariane_soc::IdWidthSlave ),
+     .AXI_ADDR_WIDTH           ( AXI_ADDRESS_WIDTH        ),
+     .AXI_SLV_PORT_DATA_WIDTH  ( AXI_DATA_WIDTH           ),
+     .AXI_MST_PORT_DATA_WIDTH  ( AXI_LITE_DW              ),
+     .AXI_USER_WIDTH           ( AXI_USER_WIDTH           ),
+     .AXI_MAX_READS            ( 1                        )
+   ) i_dwc_tlb_cfg (
+     .clk_i        ( s_soc_clk              ),
+     .rst_ni       ( s_soc_rst_n            ),
+     .slv          ( c2h_tlb_cfg_axi_bus_64 ),
+     .mst          ( c2h_tlb_cfg_axi_bus_32 )
+   );
+
+   axi_to_axi_lite_intf #(
+     .AXI_ADDR_WIDTH     ( AXI_ADDRESS_WIDTH      ),
+     .AXI_DATA_WIDTH     ( AXI_LITE_DW            ),
+     .AXI_ID_WIDTH       ( ariane_soc::IdWidth    ),
+     .AXI_USER_WIDTH     ( AXI_USER_WIDTH         ),
+     .AXI_MAX_WRITE_TXNS ( 1                      ),
+     .AXI_MAX_READ_TXNS  ( 1                      ),
+     .FALL_THROUGH       ( 0                      )
+   ) i_axi2lite_tlb_cfg  (                        
+     .clk_i              ( s_soc_clk              ),
+     .rst_ni             ( s_soc_rst_n            ),
+     .testmode_i         ( 1'b0                   ),
+     .slv                ( c2h_tlb_cfg_axi_bus_32 ),
+     .mst                ( c2h_tlb_cfg_lite       )
+   );
+          
   /**************************************************************************************************/
   /*                                      BEGIN AXI TLBs REGION                                     */
   /**************************************************************************************************/

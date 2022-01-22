@@ -60,8 +60,8 @@ module ariane_peripherals #(
 
     // Unused interrupt sources
     assign irq_sources[ariane_soc::NumSources-1:132] = '0;
-    assign irq_sources[130:7] = udma_evt_i[123:0];
-    assign irq_sources[131] = cl_dma_pe_evt_i;
+    assign irq_sources[130:7] = '0; // udma_evt_i[123:0];
+    assign irq_sources[131] = '0; //cl_dma_pe_evt_i;
 
     REG_BUS #(
         .ADDR_WIDTH ( 32 ),
@@ -274,7 +274,7 @@ module ariane_peripherals #(
             .PRDATA  ( uart_prdata     ),
             .PREADY  ( uart_pready     ),
             .PSLVERR ( uart_pslverr    ),
-            .INT     ( irq_sources[0]  ),
+            .INT     ( irq_sources[1]  ),
             .OUT1N   (                 ), // keep open
             .OUT2N   (                 ), // keep open
             .RTSN    (                 ), // no flow control
@@ -482,7 +482,7 @@ module ariane_peripherals #(
         assign spi_mosi = 1'b0;
         assign spi_ss = 1'b0;
 
-        assign irq_sources [1] = 1'b0;
+        assign irq_sources [0] = 1'b0;
         assign spi.aw_ready = 1'b1;
         assign spi.ar_ready = 1'b1;
         assign spi.w_ready = 1'b1;

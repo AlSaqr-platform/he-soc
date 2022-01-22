@@ -174,10 +174,10 @@ module alsaqr_clk_rst_gen (
     assign s_clk_per     = s_clk_fll_per;
     assign s_clk_cva6    = s_clk_fll_cva6;
    
-    assign s_rstn_soc_sync = s_rstn_soc;
-    assign s_rstn_cluster_sync = s_rstn_soc;
+    assign s_rstn_soc_sync = s_rstn_soc & (~rst_dm_i) ;
+    assign s_rstn_cluster_sync = s_rstn_soc & (~rst_dm_i);
     assign s_rst_glob_sync = s_rstn_soc;    
-    assign s_rstn_cva6_sync = s_rstn_soc;
+    assign s_rstn_cva6_sync = s_rstn_soc & (~rst_dm_i);
    
     `endif
 
