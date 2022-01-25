@@ -60,8 +60,8 @@ module ariane_peripherals #(
 
     // Unused interrupt sources
     assign irq_sources[ariane_soc::NumSources-1:132] = '0;
-    assign irq_sources[130:7] = '0; // udma_evt_i[123:0];
-    assign irq_sources[131] = '0; //cl_dma_pe_evt_i;
+    assign irq_sources[130:7] = udma_evt_i[123:0];
+    assign irq_sources[131] = cl_dma_pe_evt_i;
 
     REG_BUS #(
         .ADDR_WIDTH ( 32 ),
