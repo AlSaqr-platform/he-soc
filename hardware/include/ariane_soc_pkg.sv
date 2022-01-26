@@ -72,7 +72,7 @@ package ariane_soc;
   localparam logic[63:0] TimerLength    = 64'h1000;
   localparam logic[63:0] SPILength      = 64'h800000;
   localparam logic[63:0] EthernetLength = 64'h10000;
-  localparam logic[63:0] HYAXILength    = HyperRamSize*NumChipsPerHyperbus*HyperbusNumPhys;  // 256MB of hyperrams
+  localparam logic[63:0] HYAXILength    = 64'h20000000;  //HyperRamSize*NumChipsPerHyperbus*HyperbusNumPhys;  // 256MB of hyperrams
   localparam logic[63:0] L2SPMLength    = 64'h100000;   // 1MB of scratchpad memory 
   localparam logic[63:0] APB_SLVSLength = 64'h122000;
    
@@ -85,13 +85,13 @@ package ariane_soc;
     CLINTBase    = 64'h0200_0000,
     PLICBase     = 64'h0C00_0000,
     ClusterBase  = 64'h1000_0000,
+    TLB_CFGBase  = 64'h1040_0000,                             
     APB_SLVSBase = 64'h1A10_0000,
     L2SPMBase    = 64'h1C00_0000,
     TimerBase    = 64'h1800_0000,
     SPIBase      = 64'h2000_0000,
     EthernetBase = 64'h3000_0000,
     UARTBase     = 64'h4000_0000,
-    TLB_CFGBase  = 64'h5000_0000,
     SerLink_Base = 64'h6000_0000,
     HYAXIBase    = 64'h8000_0000
   } soc_bus_start_t; 

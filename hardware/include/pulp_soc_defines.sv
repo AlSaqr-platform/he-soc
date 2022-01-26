@@ -15,6 +15,12 @@
  */
 
 /*
+ *  Activate this define to exclude the cluster and speed up the FPGA deployement
+ */
+
+// `define EXCLUDE_CLUSTER
+
+/*
  * Collection of legacy pulp cluster defines.
  * 
  */
@@ -27,12 +33,19 @@
 
 `define FC_FPU 1
 `define FC_FP_DIVSQRT 1
-`define CLUST_FPU 1
-`define CLUST_FP_DIVSQRT 1
-// set to 2 when APU is connected
-`define CLUST_SHARED_FP 2
-// set to 2 to have divsqrt in one unit
-`define CLUST_SHARED_FP_DIVSQRT 2
+
+// Remove the FPUs in the cluster for FPGA SYNTHESIS
+`ifdef FPGA_TARGET_XILINX
+  `define CLUST_FPU 0
+  `define CLUST_FP_DIVSQRT 0
+  `define CLUST_SHARED_FP 0
+  `define CLUST_SHARED_FP_DIVSQRT 0
+`else
+  `define CLUST_FPU 1
+  `define CLUST_FP_DIVSQRT 1
+  `define CLUST_SHARED_FP 2
+  `define CLUST_SHARED_FP_DIVSQRT 2
+`endif 
 
 //PARAMETRES
 `define NB_CLUSTERS   1

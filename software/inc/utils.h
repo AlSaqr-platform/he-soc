@@ -1,5 +1,7 @@
+#include "properties.h"
 #include "./drivers/src/uart.c"
 #include "./string_lib/src/string_lib.c"
+#include "./archi_tlb/archi_tlb.h"
 
 #define pulp_write32(add, val_) (*(volatile unsigned int *)(long)(add) = val_)
 #define pulp_read32(add) (*(volatile unsigned int *)(long)(add))
@@ -45,23 +47,19 @@ void set_flls() {
 
 }
 
-void h2c_tlb_cfg () {
-  pulp_write32(0x50000000, 0x00000000); // First virtual address ->
-  pulp_write32(0x50000004, 0x80000000); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
-  pulp_write32(0x50000008, 0xFFFFFFFF); // Last virtual address ->
-  pulp_write32(0x5000000C, 0xFFFFFFFF); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
-  pulp_write32(0x50000010, 0x00000000); // Physical base address
-  pulp_write32(0x50000014, 0x10000000); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
-  pulp_write32(0x50000018, 0x00000007); // Flags
-}
-
-// Cluster to Host TLB config (mapped at 0x0000_0000_5000_1000)
-void c2h_tlb_cfg () {
-  pulp_write32(0x50001000, 0x00000000); // First virtual address ->
-  pulp_write32(0x50001004, 0x80000000); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
-  pulp_write32(0x50001008, 0xFFFFFFFF); // Last virtual address ->
-  pulp_write32(0x5000100C, 0xFFFFFFFF); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
-  pulp_write32(0x50001010, 0x00000000); // Physical base address
-  pulp_write32(0x50001014, 0x10000000); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
-  pulp_write32(0x50001018, 0x00000007); // Flags
+void tlb_cfg ( uint32_t tlb_addr ,
+               uint32_t entry_idx,
+               uint64_t first_va ,
+               uint64_t last_va  ,
+               uint64_t base_pa  ,
+               uint8_t  flags
+             ) {
+  uint32_t entry_addr = tlb_addr + (0x1C)*entry_idx;
+  pulp_write32(entry_addr + FIRST_VA_LSW, ((first_va & 0xFFFFFFFF00000000)  >> 32 )); // First virtual address ->
+  pulp_write32(entry_addr + FIRST_VA_MSW, ((first_va & 0x00000000FFFFFFFF)        )); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
+  pulp_write32(entry_addr + LAST_VA_LSW , ((last_va  & 0xFFFFFFFF00000000)  >> 32 )); // Last virtual address ->
+  pulp_write32(entry_addr + LAST_VA_MSW , ((last_va  & 0x00000000FFFFFFFF)        )); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
+  pulp_write32(entry_addr + BASE_PA_LSW , ((base_pa  & 0xFFFFFFFF00000000)  >> 32 )); // Physical base address
+  pulp_write32(entry_addr + BASE_PA_MSW , ((base_pa  & 0x00000000FFFFFFFF)        )); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
+  pulp_write32(entry_addr + FLAGS       , flags                                    ); // Flags
 }

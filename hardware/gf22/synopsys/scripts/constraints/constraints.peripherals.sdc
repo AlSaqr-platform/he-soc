@@ -48,43 +48,44 @@ set CAM_CLOCK_PERIOD 20000
 set CAM_ID_MIN 0.1
 set CAM_ID_MAX 0.5
 
-# switch the mux
-## CAM CLK on PAD6 --> mux_sel[6] set to 46 (CPI CLK)
-# connect pad in case analysis
-#set pad_idx 6
-#set bits [ dec2bin $PAD_MUX_GROUP_MX_GPIOB_SEL_CPI0_PCLK ]
-#
-#set_case_analysis [string index $bits 0] [ get_pins  kraken_padframe_i/i_periphs/i_periphs_muxer/i_regfile/reg2hw\[pad_gpiob_mux_sel\]\[${pad_idx}\]\[q\]\[0\] ]
-#set_case_analysis [string index $bits 1] [ get_pins  kraken_padframe_i/i_periphs/i_periphs_muxer/i_regfile/reg2hw\[pad_gpiob_mux_sel\]\[${pad_idx}\]\[q\]\[1\] ]
-#set_case_analysis [string index $bits 2] [ get_pins  kraken_padframe_i/i_periphs/i_periphs_muxer/i_regfile/reg2hw\[pad_gpiob_mux_sel\]\[${pad_idx}\]\[q\]\[2\] ]
-#set_case_analysis [string index $bits 3] [ get_pins  kraken_padframe_i/i_periphs/i_periphs_muxer/i_regfile/reg2hw\[pad_gpiob_mux_sel\]\[${pad_idx}\]\[q\]\[3\] ]
-#set_case_analysis [string index $bits 4] [ get_pins  kraken_padframe_i/i_periphs/i_periphs_muxer/i_regfile/reg2hw\[pad_gpiob_mux_sel\]\[${pad_idx}\]\[q\]\[4\] ]
-#set_case_analysis [string index $bits 5] [ get_pins  kraken_padframe_i/i_periphs/i_periphs_muxer/i_regfile/reg2hw\[pad_gpiob_mux_sel\]\[${pad_idx}\]\[q\]\[5\] ]
-
 # define the clock at the padframe output pclk pin, we do not consider the propagation from any input pad through the mux, which should be < 1ns
-create_clock -period $CAM_CLOCK_PERIOD -name CAM_CLK [get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam0*clk*]
+create_clock -period $CAM_CLOCK_PERIOD -name CAM_CLK0 [get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam0*clk*]
 set_ideal_network                        [get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam0*clk*]
 set_dont_touch_network                   [get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam0*clk*]
-set_clock_uncertainty   1000             [get_clocks CAM_CLK]
-set_clock_transition    200              [get_clocks CAM_CLK]
-set_clock_latency -max  1000             [get_clocks CAM_CLK]
-set_clock_latency -min  500              [get_clocks CAM_CLK]
+set_clock_uncertainty   1000             [get_clocks CAM_CLK0]
+set_clock_transition    200              [get_clocks CAM_CLK0]
+set_clock_latency -max  7000             [get_clocks CAM_CLK0]
+set_clock_latency -min  500              [get_clocks CAM_CLK0]
 
-set_input_delay  -min -clock CAM_CLK [ expr $CAM_CLOCK_PERIOD * $CAM_ID_MIN ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam0*hsync* ]
-set_input_delay  -max -clock CAM_CLK [ expr $CAM_CLOCK_PERIOD * $CAM_ID_MAX ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam0*hsync* ]
+set_input_delay  -min -clock CAM_CLK0 [ expr $CAM_CLOCK_PERIOD * $CAM_ID_MIN ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam0*hsync* ]
+set_input_delay  -max -clock CAM_CLK0 [ expr $CAM_CLOCK_PERIOD * $CAM_ID_MAX ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam0*hsync* ]
+                                    
+set_input_delay  -min -clock CAM_CLK0 [ expr $CAM_CLOCK_PERIOD * $CAM_ID_MIN ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam0*vsync* ]
+set_input_delay  -max -clock CAM_CLK0 [ expr $CAM_CLOCK_PERIOD * $CAM_ID_MAX ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam0*vsync* ]
+                                    
+set_input_delay  -min -clock CAM_CLK0 [ expr $CAM_CLOCK_PERIOD * $CAM_ID_MIN ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam0*data* ]
+set_input_delay  -max -clock CAM_CLK0 [ expr $CAM_CLOCK_PERIOD * $CAM_ID_MAX ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam0*data* ]
 
-set_input_delay  -min -clock CAM_CLK [ expr $CAM_CLOCK_PERIOD * $CAM_ID_MIN ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam0*vsync* ]
-set_input_delay  -max -clock CAM_CLK [ expr $CAM_CLOCK_PERIOD * $CAM_ID_MAX ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam0*vsync* ]
+set_clock_groups -asynchronous  -name CAM0 -group CAM_CLK0
 
-set_input_delay  -min -clock CAM_CLK [ expr $CAM_CLOCK_PERIOD * $CAM_ID_MIN ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam0*data* ]
-set_input_delay  -max -clock CAM_CLK [ expr $CAM_CLOCK_PERIOD * $CAM_ID_MAX ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam0*data* ]
+create_clock -period $CAM_CLOCK_PERIOD -name CAM_CLK1 [get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam1*clk*]
+set_ideal_network                        [get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam1*clk*]
+set_dont_touch_network                   [get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam1*clk*]
+set_clock_uncertainty   1000             [get_clocks CAM_CLK1]
+set_clock_transition    200              [get_clocks CAM_CLK1]
+set_clock_latency -max  7000             [get_clocks CAM_CLK1]
+set_clock_latency -min  500              [get_clocks CAM_CLK1]
 
-#remove_case_analysis [ get_pins  i_alsaqr_periph_padframe/i_periphs/i_periphs_muxer/i_regfile/reg2hw\[pad_gpiob_mux_sel\]\[${pad_idx}\]\[q\]\[0\] ]
-#remove_case_analysis [ get_pins  i_alsaqr_periph_padframe/i_periphs/i_periphs_muxer/i_regfile/reg2hw\[pad_gpiob_mux_sel\]\[${pad_idx}\]\[q\]\[1\] ]
-#remove_case_analysis [ get_pins  i_alsaqr_periph_padframe/i_periphs/i_periphs_muxer/i_regfile/reg2hw\[pad_gpiob_mux_sel\]\[${pad_idx}\]\[q\]\[2\] ]
-#remove_case_analysis [ get_pins  i_alsaqr_periph_padframe/i_periphs/i_periphs_muxer/i_regfile/reg2hw\[pad_gpiob_mux_sel\]\[${pad_idx}\]\[q\]\[3\] ]
-#remove_case_analysis [ get_pins  i_alsaqr_periph_padframe/i_periphs/i_periphs_muxer/i_regfile/reg2hw\[pad_gpiob_mux_sel\]\[${pad_idx}\]\[q\]\[4\] ]
-#remove_case_analysis [ get_pins  i_alsaqr_periph_padframe/i_periphs/i_periphs_muxer/i_regfile/reg2hw\[pad_gpiob_mux_sel\]\[${pad_idx}\]\[q\]\[5\] ]
+set_input_delay  -min -clock CAM_CLK1 [ expr $CAM_CLOCK_PERIOD * $CAM_ID_MIN ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam1*hsync* ]
+set_input_delay  -max -clock CAM_CLK1 [ expr $CAM_CLOCK_PERIOD * $CAM_ID_MAX ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam1*hsync* ]
+
+set_input_delay  -min -clock CAM_CLK1 [ expr $CAM_CLOCK_PERIOD * $CAM_ID_MIN ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam1*vsync* ]
+set_input_delay  -max -clock CAM_CLK1 [ expr $CAM_CLOCK_PERIOD * $CAM_ID_MAX ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam1*vsync* ]
+
+set_input_delay  -min -clock CAM_CLK1 [ expr $CAM_CLOCK_PERIOD * $CAM_ID_MIN ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam1*data* ]
+set_input_delay  -max -clock CAM_CLK1 [ expr $CAM_CLOCK_PERIOD * $CAM_ID_MAX ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*cam1*data* ]
+
+set_clock_groups -asynchronous  -name CAM1 -group CAM_CLK1
 
 #######################
 # QSPI MASTER 0 - 11  #
@@ -104,7 +105,7 @@ for {set i 0} {$i < 11} {incr i} {
 	set_case_analysis 0    [get_pins  i_host_domain/i_apb_subsystem/i_udma_subsystem/i_spim_gen[${i}].i_spim/u_clockgen/r_clockout_mux_reg/Q]
 	create_generated_clock [get_pins  i_host_domain/i_apb_subsystem/i_udma_subsystem/i_spim_gen[${i}].i_spim/u_clockgen/i_clkdiv_cnt/clk_o_reg/Q] \
 	                       -name SPIM_CLK_${i} \
-	                       -source [get_pins i_host_domain/i_apb_subsystem/i_alsaqr_clk_rst_gen/i_fll_per/FLLCLK] \
+	                       -source [get_pins i_host_domain/i_apb_subsystem/i_alsaqr_clk_rst_gen/i_gf22_fll/OUTCLK[2]] \
 	                       -divide_by $SPIM_CLK_DIV
 
    set_input_delay  -min -clock SPIM_CLK_${i} [ expr $SPIM_CLOCK_PERIOD * $SPIM_ID_MIN ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*spi${i}*sd* ]
@@ -143,7 +144,7 @@ for {set i 0} {$i < 5} {incr i} {
 set UART_OD_MIN 0.10
 set UART_OD_MAX 0.35
 set UART_ID_MIN 0.10
-set UART_ID_MAX 0.20
+set UART_ID_MAX 0.50
 
 for {set i 0} {$i < 8} {incr i} {
 

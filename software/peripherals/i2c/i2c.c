@@ -171,7 +171,7 @@ int main()
       cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
       break;
       case 10: 
-      cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
+      cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_NACK)<<24);
       break;
       case 11: 
       cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_STOP)<<24);

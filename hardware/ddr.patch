@@ -1,0 +1,13 @@
+diff --git a/src/serial_link_delay.sv b/src/serial_link_delay.sv
+index 983f172..3940da0 100644
+--- a/src/serial_link_delay.sv
++++ b/src/serial_link_delay.sv
+@@ -11,7 +11,7 @@ module serial_link_delay (
+   output logic [1:0] clk_o
+ );
+ 
+-  `ifndef TARGET_GF22
++  `ifndef TARGET_SYNTHESIS
+     generic_delay_D4_O2_3P750_1P875_CG1 i_generic_delay_D4_O2_3P750_1P875_CG1 (
+       .clk_i   (clk_i   ),
+       .enable_i(enable_i),

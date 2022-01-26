@@ -9,7 +9,7 @@ source scripts/area_report.tcl
 
 
 set reAnalyzeRTL "TRUE"
-set TRIAL_DIR "trial2_03_11_2021"
+set TRIAL_DIR "trial1_22_12_2021"
 set DESIGN_NAME "al_saqr"
  
 ####################################################################
@@ -138,7 +138,7 @@ check_design                                              > ./${TRIAL_DIR}/repor
 set uniquify_naming_style "alsaqr_%s_%d"
 uniquify -force                                           > ./${TRIAL_DIR}/reports/d13_uniquify_post_synth.rpt
 
-####################################################################
+###################################################################
 ## POST SYNTHESIS DDC
 ####################################################################
 sh mkdir -p ./${TRIAL_DIR}/mapped
@@ -167,12 +167,14 @@ report_timing -through [ get_pins soc_domain_i/pulp_soc_i/fc_subsystem_i/FC_CORE
 report_timing -through [ get_pins soc_domain_i/pulp_soc_i/fc_subsystem_i/FC_CORE_lFC_CORE/ex_stage_i/*     ] > ./${TRIAL_DIR}/reports/core_exstage.rpt
 report_timing -through [ get_pins soc_domain_i/pulp_soc_i/fc_subsystem_i/FC_CORE_lFC_CORE/ex_stage_i/*fpu* ] > ./${TRIAL_DIR}/reports/core_fpu.rpt
 
+report_timing -max_paths 10 -to FLL_CVA6_CLK                                                                     > ./${TRIAL_DIR}/reports/timing_cva6_clock.rpt
 report_timing -max_paths 10 -to FLL_SOC_CLK                                                                      > ./${TRIAL_DIR}/reports/timing_soc_clock.rpt
 report_timing -max_paths 10 -to FLL_PER_CLK                                                                      > ./${TRIAL_DIR}/reports/timing_per_clock.rpt
 report_timing -max_paths 10 -to FLL_CLUSTER_CLK                                                                  > ./${TRIAL_DIR}/reports/timing_clu_clock.rpt
-report_timing -max_paths 10 -to AXI_HYPER_CLK_PHY                                                                > ./${TRIAL_DIR}/reports/timing_axi_hyper_clock.rpt
-report_timing -max_paths 10 -to AXI_HYPER_CLK_PHY                                                                > ./${TRIAL_DIR}/reports/timing_axi_hyper_90_clock.rpt
-report_timing -max_paths 10 -to RWDS_CLK                                                                         > ./${TRIAL_DIR}/reports/timing_rwds_clock.rpt
+report_timing -max_paths 10 -to HYPER_CLK_PHY                                                                    > ./${TRIAL_DIR}/reports/timing_axi_hyper_clock.rpt
+report_timing -max_paths 10 -to HYPER_CLK_PHY_90                                                                 > ./${TRIAL_DIR}/reports/timing_axi_hyper_90_clock.rpt
+report_timing -max_paths 10 -to clk_rwds_sample0                                                                 > ./${TRIAL_DIR}/reports/timing_rwds_clock_0.rpt
+report_timing -max_paths 10 -to clk_rwds_sample1                                                                 > ./${TRIAL_DIR}/reports/timing_rwds_clock_1.rpt
 
 ####################################################################
 ## WRITE OUT CONSTRAINTS

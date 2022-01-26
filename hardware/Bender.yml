@@ -12,7 +12,7 @@ dependencies:
   apb_host_control: { path: "deps/apb_host_control_regs" }
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
-  cva6: { git: "git@github.com:minho-pulp/cva6.git" , rev: "7de8e9429f0cf38b8668e7c993d4acad63bbc4b1" }
+  cva6: { git: "git@github.com:minho-pulp/cva6.git" , rev: "1fe85047dea774bffea4c1215a18a8b61c6844df" }
   riscv-dbg: { git: "git@github.com:Alsaqr-platform/riscv-dbg.git", rev: "4d8ead780a6b9877873930bcc3c8ed4806d2c8a3" }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: "0.29.1" } 
   fpnew: { git: "https://github.com/pulp-platform/fpnew.git", version: 0.6.5 }
@@ -30,13 +30,13 @@ dependencies:
   tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.7 }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", rev: "d436ab3dad8260eadc1288bdc543c79b4d7462c7" }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "0e9f142f2f11278445c953ad011fce1c7ed85b66" }
-  hyperbus: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/hyperbus.git", rev: "290e16c8afbc1c918a8d6fc15a3d498bd4730d8c" }
+  hyperbus: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "290e16c8afbc1c918a8d6fc15a3d498bd4730d8c" }
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", rev: "597faa6bab2971d79098545fa076bbca293ae90d" }
   register_interface:  { git: "https://github.com/pulp-platform/register_interface.git", version: 0.3.1  }
   fll_behav: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/fll_behav.git", rev: "94a1e45d53c9fa71ae897a66dea6f19111eb6655" }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
-  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "6929d08653f76b6d69fdadd867732551f1ae9426" }
-  ddr-link: { git: "git@iis-git.ee.ethz.ch:bslk/ddr-link.git", rev: "6ea8f4ba242503171ec24292e4542ffe4f958af5"}
+  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "373acb897141e764ccce3e47ef0f42ccdcaaa6f9" }
+  ddr-link: { git: "git@github.com:AlSaqr-platform/ddr-link.git", rev: "a48fcaa3275bc0c6114ae38569f4df59437b6cad"}
 
 export_include_dirs:
   - include/
@@ -71,6 +71,7 @@ sources:
   - host/apb_soc_control.sv
   - host/apb_subsystem.sv
   - host/gpio2padframe.sv
+  - host/cva6_synth_wrap.sv
   - host/cva6_subsystem.sv
   - host/l2_subsystem.sv
   - host/clk_gen_hyper.sv
@@ -78,7 +79,21 @@ sources:
   - host/pad_frame.sv
   - host/al_saqr.sv
 
-  - target: all(fpga,xilinx, not(asic))
+  - target: all(fpga, xilinx, ddr, not(asic))
+    defines:
+      XILINX_DDR: ~
+      FPGA_TARGET_XILINX: ~
+      WT_DCACHE: ~
+      FPGA_EMUL: ~
+      PULP_FPGA_EMUL: ~
+    files:
+      - ../fpga/src/pad_functional_xilinx/pad_functional_xilinx.sv
+      - ./fpga/ddr/fpga_clk_gen.sv
+      - ./fpga/ddr/boot_rom.sv
+      - ./fpga/ddr/axi_flat.sv
+      - ./fpga/ddr/alsaqr_xilinx.sv
+        
+  - target: all(fpga,xilinx, not(asic), not(ddr))
     defines:
       FPGA_TARGET_XILINX: ~
       WT_DCACHE: ~
@@ -89,13 +104,13 @@ sources:
       - ./fpga/fpga_clk_gen.sv
       - ./fpga/boot_rom.sv
       - ./fpga/alsaqr_xilinx.sv
-
+      
   - target: all(asic, not(all(fpga, xilinx)))
     defines:
       WT_DCACHE: ~
     files:
       - ../bootrom/bootrom.sv
-      - host/memwrap.sv
+      - host/memwrap_gf22.sv
       - host/pads_gf22.sv
       - host/tc_sram_gf22.sv
       - host/tc_clk_gf22.sv

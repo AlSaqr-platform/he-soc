@@ -3,15 +3,16 @@ set_ideal_network [ get_ports jtag_TCK]
 set_ideal_network [ get_ports jtag_TRSTn]
 set_ideal_network [ get_ports rst_ni]
 set_ideal_network [ get_ports rtc_i]
+set_ideal_network [ get_ports bypass_clk_i]
 #
 set_dont_touch_network [ get_ports i_host_domain/jtag_TCK]
 set_dont_touch_network [ get_ports i_host_domain/jtag_TRSTn]
 set_dont_touch_network [ get_ports i_host_domain/rst_ni]
 set_dont_touch_network [ get_ports i_host_domain/rtc_i]
-#
+set_dont_touch_network [ get_ports i_host_domain/bypass_clk_i]
 # CLUSTER REGISTER FILE IS DONE WITH LATCHES
-set_multicycle_path 2 -setup -through [get_pins cluster_i/CORE[*].core_region_i/CL_CORE.RISCV_CORE/id_stage_i/registers_i/riscv_register_file_i/mem_reg*/Q]
-set_multicycle_path 1 -hold  -through [get_pins cluster_i/CORE[*].core_region_i/CL_CORE.RISCV_CORE/id_stage_i/registers_i/riscv_register_file_i/mem_reg*/Q]
+set_multicycle_path 2 -setup -through [get_pins cluster_i/CORE[*].core_region_i/RISCV_CORE/id_stage_i/registers_i/riscv_register_file_i/mem_reg*/Q]
+set_multicycle_path 1 -hold  -through [get_pins cluster_i/CORE[*].core_region_i/RISCV_CORE/id_stage_i/registers_i/riscv_register_file_i/mem_reg*/Q]
 
 # ICACHE PRIVATE
 # DATA BANK
@@ -51,10 +52,12 @@ set_false_path -hold -through [get_pins -hierarchical -filter async] -through [g
 # FALSE PATH ON CLOCK DOMAINS CROSSING
 set_clock_groups -asynchronous -name GRP_REF_CLK         -group REF_CLK
 set_clock_groups -asynchronous -name GRP_JTAG_CLK        -group JTAG_CLK
-set_clock_groups -asynchronous -name GRP_HYPER_CLK       -group AXI_HYPER_CLK_PHY
+set_clock_groups -asynchronous -name GRP_HYPER_CLK       -group HYPER_CLK_PHY
 set_clock_groups -asynchronous -name GRP_FLL_CLUSTER_CLK -group FLL_CLUSTER_CLK
 set_clock_groups -asynchronous -name GRP_FLL_SOC_CLK     -group FLL_SOC_CLK
 set_clock_groups -asynchronous -name GRP_FLL_PER_CLK     -group FLL_PER_CLK
-set_clock_groups -asynchronous -name GRP_HYPER_90_CLK    -group AXI_HYPER_CLK_PHY
-set_clock_groups -asynchronous -name GRP_RWDS_CLK        -group RWDS_CLK
+set_clock_groups -asynchronous -name GRP_HYPER_90_CLK    -group HYPER_CLK_PHY
+set_clock_groups -asynchronous -name GRP_RWDS_CLK_0      -group RWDS_CLK_0
+set_clock_groups -asynchronous -name GRP_RWDS_CLK_1      -group RWDS_CLK_1
+set_clock_groups -asynchronous -name GRP_CVA6_CLK        -group FLL_CVA6_CLK
 

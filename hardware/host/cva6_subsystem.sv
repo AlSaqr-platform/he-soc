@@ -63,7 +63,7 @@ module cva6_subsystem
   //SERIAL LINK
   output ser_link_to_pad serial_link_to_pad,
   input  pad_to_ser_link pad_to_serial_link,
-  REG_BUS.out            serial_linkcfg_reg_master,
+  REG_BUS.in             serial_linkcfg_reg_master,
 
   // CVA6 DEBUG UART
   input  logic            cva6_uart_rx_i,
@@ -107,12 +107,13 @@ module cva6_subsystem
   assign test_en = 1'b0;
   assign jtag_enable = JtagEnable;
    
-  AXI_BUS #(
+  AXI_BUS_ASYNC_GRAY #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
     .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
-    .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
-  ) cva6_axi_master();
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH      ),
+    .LOG_DEPTH      ( 1                   )
+  ) cva6_axi_master_dst();
 
   AXI_BUS #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
@@ -551,12 +552,22 @@ module cva6_subsystem
   // ---------------
   // CLINT
   // ---------------
+  // divide clock by two
   logic ipi;
   logic timer_irq;
-
+  logic rtc_clint;
+   
   ariane_axi_soc::req_slv_t    axi_clint_req;
   ariane_axi_soc::resp_slv_t   axi_clint_resp;
 
+  always_ff @(posedge rtc_i or negedge ndmreset_n) begin
+    if (~ndmreset_n) begin
+      rtc_clint <= 0;
+    end else begin
+      rtc_clint <= rtc_clint ^ 1'b1;
+    end
+  end
+   
   clint #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -568,7 +579,7 @@ module cva6_subsystem
     .testmode_i  ( test_en        ),
     .axi_req_i   ( axi_clint_req  ),
     .axi_resp_o  ( axi_clint_resp ),
-    .rtc_i       ( rtc_i          ),
+    .rtc_i       ( rtc_clint      ),
     .timer_irq_o ( timer_irq      ),
     .ipi_o       ( ipi            )
   );
@@ -703,130 +714,44 @@ module cva6_subsystem
   // ---------------
   // Core
   // ---------------
-  ariane_axi_soc::req_t    axi_ariane_req;
-  ariane_axi_soc::resp_t   axi_ariane_resp;
 
-  ariane #(
-    .ArianeCfg  ( ariane_soc::ArianeSocCfg )
-  ) i_ariane (
-    .clk_i                ( cva6_clk_i          ),
-    .rst_ni               ( cva6_rst_ni         ),
-    .boot_addr_i          ( ariane_soc::ROMBase ), // start fetching from ROM
-    .hart_id_i            ( '0                  ),
-    .irq_i                ( irqs                ), // async signal
-    .ipi_i                ( ipi                 ), // async signal
-    .time_irq_i           ( timer_irq           ), // async signal
-// Disable Debug when simulating with Spike
-`ifdef SPIKE_TANDEM
-    .debug_req_i          ( 1'b0                ), // async signal
-`else                                              
-    .debug_req_i          ( debug_req_core      ), // async signal
-`endif
-    .axi_req_o            ( axi_ariane_req      ),
-    .axi_resp_i           ( axi_ariane_resp     )
+  cva6_synth_wrap i_ariane_wrap (
+    .clk_i                ( cva6_clk_i                  ),
+    .rst_ni               ( cva6_rst_ni                 ),
+    .boot_addr_i          ( ariane_soc::ROMBase         ), // start fetching from ROM
+    .hart_id_i            ( '0                          ),
+    .irq_i                ( irqs                        ), // async signal
+    .ipi_i                ( ipi                         ), // async signal
+    .time_irq_i           ( timer_irq                   ), // async signal
+    .debug_req_i          ( debug_req_core              ), // async signal
+    .data_master_aw_wptr_o( cva6_axi_master_dst.aw_wptr ),
+    .data_master_aw_data_o( cva6_axi_master_dst.aw_data ), 
+    .data_master_aw_rptr_i( cva6_axi_master_dst.aw_rptr ),
+    .data_master_ar_wptr_o( cva6_axi_master_dst.ar_wptr ),
+    .data_master_ar_data_o( cva6_axi_master_dst.ar_data ),
+    .data_master_ar_rptr_i( cva6_axi_master_dst.ar_rptr ),
+    .data_master_w_wptr_o ( cva6_axi_master_dst.w_wptr  ),
+    .data_master_w_data_o ( cva6_axi_master_dst.w_data  ),
+    .data_master_w_rptr_i ( cva6_axi_master_dst.w_rptr  ),
+    .data_master_r_wptr_i ( cva6_axi_master_dst.r_wptr  ),
+    .data_master_r_data_i ( cva6_axi_master_dst.r_data  ),
+    .data_master_r_rptr_o ( cva6_axi_master_dst.r_rptr  ),
+    .data_master_b_wptr_i ( cva6_axi_master_dst.b_wptr  ),
+    .data_master_b_data_i ( cva6_axi_master_dst.b_data  ),
+    .data_master_b_rptr_o ( cva6_axi_master_dst.b_rptr  )
   );
 
-  axi_master_connect i_axi_master_connect_ariane (
-    .axi_req_i(axi_ariane_req),
-    .axi_resp_o(axi_ariane_resp),
-    .master(cva6_axi_master)
-  );
-
-  axi_cdc_intf #(
+  axi_cdc_dst_intf #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
     .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
-    .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH      ),
+    .LOG_DEPTH      ( 1                   )
     ) cva6_to_xbar (
-      .src_clk_i(cva6_clk_i),
-      .src_rst_ni(cva6_rst_ni),
-      .src(cva6_axi_master),
+      .src(cva6_axi_master_dst),
       .dst_clk_i(clk_i),
       .dst_rst_ni(ndmreset_n),
       .dst(slave[0])
       );
    
-
-  // -------------
-  // Simulation Helper Functions
-  // -------------
-  // check for response errors
-  always_ff @(posedge clk_i) begin : p_assert
-    if (axi_ariane_req.r_ready &&
-      axi_ariane_resp.r_valid &&
-      axi_ariane_resp.r.resp inside {axi_pkg::RESP_DECERR, axi_pkg::RESP_SLVERR}) begin
-      $warning("R Response Errored");
-    end
-    if (axi_ariane_req.b_ready &&
-      axi_ariane_resp.b_valid &&
-      axi_ariane_resp.b.resp inside {axi_pkg::RESP_DECERR, axi_pkg::RESP_SLVERR}) begin
-      $warning("B Response Errored");
-    end
-  end
-
-`ifdef AXI_SVA
-  // AXI 4 Assertion IP integration - You will need to get your own copy of this IP if you want
-  // to use it
-  Axi4PC #(
-    .DATA_WIDTH(ariane_axi_soc::DataWidth),
-    .WID_WIDTH(ariane_soc::IdWidthSlave),
-    .RID_WIDTH(ariane_soc::IdWidthSlave),
-    .AWUSER_WIDTH(ariane_axi_soc::UserWidth),
-    .WUSER_WIDTH(ariane_axi_soc::UserWidth),
-    .BUSER_WIDTH(ariane_axi_soc::UserWidth),
-    .ARUSER_WIDTH(ariane_axi_soc::UserWidth),
-    .RUSER_WIDTH(ariane_axi_soc::UserWidth),
-    .ADDR_WIDTH(ariane_axi_soc::AddrWidth)
-  ) i_Axi4PC (
-    .ACLK(clk_i),
-    .ARESETn(ndmreset_n),
-    .AWID(dram.aw_id),
-    .AWADDR(dram.aw_addr),
-    .AWLEN(dram.aw_len),
-    .AWSIZE(dram.aw_size),
-    .AWBURST(dram.aw_burst),
-    .AWLOCK(dram.aw_lock),
-    .AWCACHE(dram.aw_cache),
-    .AWPROT(dram.aw_prot),
-    .AWQOS(dram.aw_qos),
-    .AWREGION(dram.aw_region),
-    .AWUSER(dram.aw_user),
-    .AWVALID(dram.aw_valid),
-    .AWREADY(dram.aw_ready),
-    .WLAST(dram.w_last),
-    .WDATA(dram.w_data),
-    .WSTRB(dram.w_strb),
-    .WUSER(dram.w_user),
-    .WVALID(dram.w_valid),
-    .WREADY(dram.w_ready),
-    .BID(dram.b_id),
-    .BRESP(dram.b_resp),
-    .BUSER(dram.b_user),
-    .BVALID(dram.b_valid),
-    .BREADY(dram.b_ready),
-    .ARID(dram.ar_id),
-    .ARADDR(dram.ar_addr),
-    .ARLEN(dram.ar_len),
-    .ARSIZE(dram.ar_size),
-    .ARBURST(dram.ar_burst),
-    .ARLOCK(dram.ar_lock),
-    .ARCACHE(dram.ar_cache),
-    .ARPROT(dram.ar_prot),
-    .ARQOS(dram.ar_qos),
-    .ARREGION(dram.ar_region),
-    .ARUSER(dram.ar_user),
-    .ARVALID(dram.ar_valid),
-    .ARREADY(dram.ar_ready),
-    .RID(dram.r_id),
-    .RLAST(dram.r_last),
-    .RDATA(dram.r_data),
-    .RRESP(dram.r_resp),
-    .RUSER(dram.r_user),
-    .RVALID(dram.r_valid),
-    .RREADY(dram.r_ready),
-    .CACTIVE('0),
-    .CSYSREQ('0),
-    .CSYSACK('0)
-  );
-`endif
 endmodule
