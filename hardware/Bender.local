@@ -1,2 +1,0 @@
-overrides:
-  riscv: { git: "git@iis-git.ee.ethz.ch:darkside/riscv.git",  rev: "81b012be1b40db1f1d83a387a71c68c229d70b6a"}
