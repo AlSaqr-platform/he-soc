@@ -30,13 +30,13 @@ dependencies:
   tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.7 }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", rev: "d436ab3dad8260eadc1288bdc543c79b4d7462c7" }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "0e9f142f2f11278445c953ad011fce1c7ed85b66" }
-  hyperbus: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/hyperbus.git", rev: "290e16c8afbc1c918a8d6fc15a3d498bd4730d8c" }
+  hyperbus: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "290e16c8afbc1c918a8d6fc15a3d498bd4730d8c" }
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", rev: "597faa6bab2971d79098545fa076bbca293ae90d" }
   register_interface:  { git: "https://github.com/pulp-platform/register_interface.git", version: 0.3.1  }
   fll_behav: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/fll_behav.git", rev: "94a1e45d53c9fa71ae897a66dea6f19111eb6655" }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
-  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "bd99c0b0dbfcbf6e03ace0649e428a0a08604485" }
-  ddr-link: { git: "git@iis-git.ee.ethz.ch:bslk/ddr-link.git", rev: "a48fcaa3275bc0c6114ae38569f4df59437b6cad"}
+  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "373acb897141e764ccce3e47ef0f42ccdcaaa6f9" }
+  ddr-link: { git: "git@github.com:AlSaqr-platform/ddr-link.git", rev: "a48fcaa3275bc0c6114ae38569f4df59437b6cad"}
 
 export_include_dirs:
   - include/

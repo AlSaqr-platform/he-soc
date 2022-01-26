@@ -576,7 +576,7 @@ module al_saqr
        );
 
     pulp_cluster
-    `ifndef TARGET_SYNTHESIS
+    `ifdef CHANGE_CLUSTER_PARAMETERS
     #(
         .NB_CORES                     ( `NB_CORES                       ),
         .NB_HWPE_PORTS                ( 4                               ),
