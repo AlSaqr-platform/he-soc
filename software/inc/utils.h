@@ -2,6 +2,7 @@
 #include "./drivers/src/uart.c"
 #include "./string_lib/src/string_lib.c"
 #include "./archi_tlb/archi_tlb.h"
+#include "./archi_dma/archi_dma.h"
 
 #define pulp_write32(add, val_) (*(volatile unsigned int *)(long)(add) = val_)
 #define pulp_read32(add) (*(volatile unsigned int *)(long)(add))
@@ -62,4 +63,44 @@ void tlb_cfg ( uint32_t tlb_addr ,
   pulp_write32(entry_addr + BASE_PA_LSW , ((base_pa  & 0xFFFFFFFF00000000)  >> 32 )); // Physical base address
   pulp_write32(entry_addr + BASE_PA_MSW , ((base_pa  & 0x00000000FFFFFFFF)        )); // -> Continue if AXI_LITE_DWIDTH < AXI_AWIDTH
   pulp_write32(entry_addr + FLAGS       , flags                                    ); // Flags
+}
+
+uint32_t dma_h2c_tfr_cfg( uint64_t src,
+                          uint32_t dst,
+                          uint32_t dim
+                        ) {
+  pulp_write32(CL_DMA_BASE + SRC_LOW_OFFS , src        );
+  pulp_write32(CL_DMA_BASE + SRC_HIGH_OFFS, (src >> 32));
+
+  pulp_write32(CL_DMA_BASE + DST_LOW_OFFS , dst        );
+  pulp_write32(CL_DMA_BASE + SRC_HIGH_OFFS, 0x00000000 );
+                                                       
+  pulp_write32(CL_DMA_BASE + TFR_LEN_OFFS , dim        );
+
+  // Reading the transfer id starts the DMA transaction
+  uint32_t tfr_id = pulp_read32(CL_DMA_BASE + TFR_ID_OFFS);
+
+  return tfr_id;
+}
+
+uint32_t dma_c2h_tfr_cfg( uint32_t src,
+                          uint64_t dst,
+                          uint32_t dim
+                        ) {
+  pulp_write32(CL_DMA_BASE + SRC_LOW_OFFS , src       );
+  pulp_write32(CL_DMA_BASE + SRC_HIGH_OFFS, 0x00000000);
+
+  pulp_write32(CL_DMA_BASE + DST_LOW_OFFS , dst       );
+  pulp_write32(CL_DMA_BASE + SRC_HIGH_OFFS, (dst >> 32));
+
+  pulp_write32(CL_DMA_BASE + TFR_LEN_OFFS , dim       );
+
+  // Reading the transfer id starts the DMA transaction
+  uint32_t tfr_id = pulp_read32(CL_DMA_BASE + TFR_ID_OFFS);
+
+  return tfr_id;
+}
+
+void dma_wait_tfr_done (uint32_t tfr_id){
+  while (pulp_read32(CL_DMA_BASE + DONE_ID_OFFS) < tfr_id);
 }
