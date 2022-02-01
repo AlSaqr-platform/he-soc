@@ -5,7 +5,8 @@ l1_test
 dma/c2h_transfer
 dma/h2c_transfer
 axi_tlb
-cluster
+fpu_pulp
+hello_pulp
 hello
 hyperbus
 l2_test

@@ -3,20 +3,21 @@
 BASEDIR=$(pwd)
 test_list=`xargs printf '%s ' < regression.list | cut -b 1-`
 
-cd pulp
+cd $BASEDIR/../
 source ./setup.sh
+
+cd $BASEDIR/hello_pulp/stimuli
 make clean all
-# Creating stimuli for axi_tlb
-cd ../axi_tlb/stimuli
+cd $BASEDIR/fpu_pulp/stimuli
 make clean all
-# Creating stimuli for dma
-cd ../../dma/c2h_transfer/stimuli
+cd $BASEDIR/axi_tlb/stimuli
 make clean all
-cd ../../h2c_transfer/stimuli
+cd $BASEDIR/dma/c2h_transfer/stimuli
 make clean all
-cd ../../../
-source setup.sh
-cd software
+cd $BASEDIR/dma/h2c_transfer/stimuli
+make clean all
+
+cd $BASEDIR
 
 for value in $test_list
 do
