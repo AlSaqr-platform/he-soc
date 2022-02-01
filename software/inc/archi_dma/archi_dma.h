@@ -7,8 +7,8 @@
 #define SRC_HIGH_OFFS 0x04
 #define DST_LOW_OFFS  0x08
 #define DST_HIGH_OFFS 0x0C
-#define TFR_LEN_OFFS  0x10
-#define TFR_ID_OFFS   0x20
+#define TRNF_LEN_OFFS 0x10
+#define TRNF_ID_OFFS  0x20
 #define DONE_ID_OFFS  0x28
 
 #endif
