@@ -23,7 +23,6 @@ RISCV_LINK_OPTS := -static -nostdlib -nostartfiles -lm -lgcc
 clean:
 	rm -f $(APP).riscv
 	rm -f $(APP).dump
-	rm -f cluster_code.h
 	rm -f *.slm
 
 build:
