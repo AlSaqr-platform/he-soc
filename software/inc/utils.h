@@ -75,7 +75,7 @@ uint32_t dma_h2c_trnf_cfg( uint64_t src,
   pulp_write32(CL_DMA_BASE + DST_LOW_OFFS , dst        );
   pulp_write32(CL_DMA_BASE + DST_HIGH_OFFS, 0x00000000 );
                                                        
-  pulp_write32(CL_DMA_BASE + TRNF_LEN_OFFS , dim        );
+  pulp_write32(CL_DMA_BASE + TRNF_LEN_OFFS , dim       );
 
   // Reading the transfer id starts the DMA transaction
   uint32_t trnf_id = pulp_read32(CL_DMA_BASE + TRNF_ID_OFFS);
@@ -87,10 +87,10 @@ uint32_t dma_c2h_trnf_cfg( uint32_t src,
                            uint64_t dst,
                            uint32_t dim
                          ) {
-  pulp_write32(CL_DMA_BASE + SRC_LOW_OFFS , src       );
-  pulp_write32(CL_DMA_BASE + SRC_HIGH_OFFS, 0x00000000);
-
-  pulp_write32(CL_DMA_BASE + DST_LOW_OFFS , dst       );
+  pulp_write32(CL_DMA_BASE + SRC_LOW_OFFS , src        );
+  pulp_write32(CL_DMA_BASE + SRC_HIGH_OFFS, 0x00000000 );
+                                                       
+  pulp_write32(CL_DMA_BASE + DST_LOW_OFFS , dst        );
   pulp_write32(CL_DMA_BASE + DST_HIGH_OFFS, (dst >> 32));
 
   pulp_write32(CL_DMA_BASE + TRNF_LEN_OFFS , dim       );
