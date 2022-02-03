@@ -1,4 +1,4 @@
-APP := dma_h2c
+APP := dma
 XLEN:=64
 
 include $(shell pwd)/../../common.mk
