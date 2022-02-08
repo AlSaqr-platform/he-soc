@@ -51,13 +51,12 @@ int thread_entry(int cid, int nc) {
       fresult[1] = fresult[1] + fv3[j];
     }
     
-    #ifdef VERBOSE
       printf("%x\n", *result_pointer);
       printf("%x\n", *(result_pointer+0x1));
-    #endif
     
     if( (*result_pointer!=0x53e4bb42) || (*(result_pointer+0x1)!=0x4032110a) )
       printf("error\n");
+
     pulp_write32(0x10001000,1);
 
   }
