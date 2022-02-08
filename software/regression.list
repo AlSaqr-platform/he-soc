@@ -6,7 +6,9 @@ l1_test
 cluster
 fpu_tests/fp32_matmul
 fpu_tests/fp16_matmul
+fpu_tests/fp16-vec_matmul
 fpu_tests/fp16alt_matmul
+fpu_tests/fp16alt-vec_matmul
 hello
 hyperbus
 l2_test
