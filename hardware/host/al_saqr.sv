@@ -786,6 +786,10 @@ module al_saqr
          );
    `endif // !`ifndef EXCLUDE_CLUSTER
 
+  /**************************************************************************************************/
+  /*                                      BEGIN AXI TLBs REGION                                     */
+  /**************************************************************************************************/
+
    axi_dw_converter_intf #(
      .AXI_ID_WIDTH             ( ariane_soc::IdWidthSlave ),
      .AXI_ADDR_WIDTH           ( AXI_ADDRESS_WIDTH        ),
@@ -815,10 +819,7 @@ module al_saqr
      .slv                ( c2h_tlb_cfg_axi_bus_32 ),
      .mst                ( c2h_tlb_cfg_lite       )
    );
-          
-  /**************************************************************************************************/
-  /*                                      BEGIN AXI TLBs REGION                                     */
-  /**************************************************************************************************/
+
   localparam int unsigned N_CLUSTERS = 1;
   localparam int unsigned ENTRIES = 32;
 
