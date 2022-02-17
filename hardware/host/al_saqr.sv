@@ -315,17 +315,17 @@ module al_saqr
     .AXI_ADDR_WIDTH (AXI_ADDRESS_WIDTH),
     .AXI_DATA_WIDTH (AXI_LITE_DW)
   ) c2h_tlb_cfg();
-<<<<<<< HEAD
-=======
+  
+  wire fake_rst;
+  
 
   opentitan u_RoT(
-    .clk_sys(rtc_i),
+    .clk_sys(rtc_i && !fake_rst),//!s_rst_ni),
     .rst_sys_n(rst_ni),
-    .test_reset(s_rst_ni)
+    .test_reset(fake_rst)//s_rst_ni)
 );
 
->>>>>>> implemented the boot of alsaqr using OT
-   
+ 
   logic s_cva6_uart_rx_i;
   logic s_cva6_uart_tx_o;
 
