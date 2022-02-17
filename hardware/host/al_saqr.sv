@@ -315,6 +315,16 @@ module al_saqr
     .AXI_ADDR_WIDTH (AXI_ADDRESS_WIDTH),
     .AXI_DATA_WIDTH (AXI_LITE_DW)
   ) c2h_tlb_cfg();
+<<<<<<< HEAD
+=======
+
+  opentitan u_RoT(
+    .clk_sys(rtc_i),
+    .rst_sys_n(rst_ni),
+    .test_reset(s_rst_ni)
+);
+
+>>>>>>> implemented the boot of alsaqr using OT
    
   logic s_cva6_uart_rx_i;
   logic s_cva6_uart_tx_o;
@@ -493,7 +503,7 @@ module al_saqr
 
       .ref_clk_o        ( s_rtc_i          ),
       .bypass_o         ( s_bypass_clk     ),
-      .rstn_o           ( s_rst_ni         ),
+      .rstn_o           ( ),//s_rst_ni         ),
       .jtag_tck_o       ( s_jtag_TCK       ),
       .jtag_tdi_o       ( s_jtag_TDI       ),
       .jtag_tdo_i       ( s_jtag_TDO       ),
