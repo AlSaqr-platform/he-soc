@@ -38,6 +38,8 @@ dependencies:
   ddr-link: { git: "git@github.com:AlSaqr-platform/ddr-link.git", rev: "bf77d024f7290d885601d54bf608f29be6982951"}
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", version: 0.0.1 }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "29760251dfabcf0f3e94f344fedea356d0313a62" }
+
 
 
 export_include_dirs:
