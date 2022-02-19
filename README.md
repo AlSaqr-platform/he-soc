@@ -24,102 +24,51 @@ The repository is organized as follows
 
  * `software` contains the bare metals tests you can run on the SoC
 
-## Hello World:
+## Integration of OT:
+
+This flow is going to set up the environment for the simulation of AlSaqr whit OT integrated. Alsaqr il programmed with the usual hello world of the original repo.
+OT is porgrammed as well with the test software present in the benderized branch of OT.
 
 ```
-git clone https://github.com/AlSaqr-platform/cva6.git
+git clone -b opentitan_integration https://github.com/AlSaqr-platform/cva6.git
 
-git submodule update --init --recursive
-```
+cd cva6
 
-To compile the code:
-
-```
 source setup.sh
-
-cd software/hello
-
-make clean all
-
-cd ../..
 
 ```
 please change the setup to point to you toolchains and Questasim installations.
 
 ### RTL BUILD
 
-First install [bender](https://github.com/pulp-platform/bender). You can install `bender` in whatever folder you like. Then do:
+A working version for bender is already present in the root dir of the repo, it is needed to export the path to it as follows:
 
 ```
-export PATH=<path-to-bender-binary>:$PATH
+export PATH=<path-to-root-dir-cva6>:$PATH
 
 ulimit -n 2048
 ```
 
 You also need to download the vip RTL modules ( [HYPERRAM](https://www.cypress.com/documentation/models/verilog/s27kl0641-s27ks0641-verilog), [HYPERFLASH](https://www.cypress.com/verilog/s26ks512s-verilog), [SPI](http://www.cypress.com/file/260016) and [I2C](http://ww1.microchip.com/downloads/en/DeviceDoc/24xx1025_Verilog_Model.zip) ).
+Since there are currently some issues with the dependencies defined in the opentitan bender, we need to clone the repo in a local dir and override. Then the procedure to be followed is the same of the
+helloworld readme of the master branch cva6.
 
 ```
 cd hardware
 
-make update
-
-make scripts_vips
-
-```
-
-Doing so will load the elf binary through the DMI interface, driven by the SimDTM, communicating with FESVR, the host.
-
-To load the code through JTAG interface, you can add the `localjtag=1` option and do `make localjtag=1 scripts_vip`. Be aware that the preload of the code is slower in this case.
-
-
-### Preload
-
-To reduce simulation time, you can also preload the code in the hyperram. To do so follow the steps here:
-
-```
-cd hardware
+*clone the vips RTL modules into tb dir*
 
 make update
 
-make preload=1 scripts_vips
+bender clone opentitan
 
-```
-This will generate the compile.tcl with the right defines. Go to the test you want to run.
+make update
 
-### Compile the code
+make scripts_vip 
 
-```
-cd ../software/hello/
-
-make clean all
-
-```
-
-This will generate the binaries and the hyperram*.slm that will be in the rams at t=0 (in case of preloading). 
-
-### Run the test
-
- * Option 1: go to the hardware folder and do:
-
-```
-make sim elf-bin=../software/hello/hello.riscv
-```
-or simply `make sim` if you used the preload flag. Be aware that the loaded code will be the last one you compiled.
-
- * Option 2: go to the test folder (ex `software/hello`)
- 
-```
 make sim
-```
-
-### Running code on the cluster
-
-To compile the cluster's code you can go in the `software/pulp` folder:
 
 ```
-export PATH=/path-to-riscy-toolchain/bin:$PATH
-
-make clean all
 
 ```
 Then,
@@ -155,3 +104,4 @@ The tests that will be executed are the one listed in `software/regression.list`
 ### FPGA Emulation
 
 We now support emulation on Xilinx VCU118. Please have a look to the README in the `hardware/fpga` folder.
+
