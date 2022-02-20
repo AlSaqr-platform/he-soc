@@ -159,7 +159,7 @@ module alsaqr_clk_rst_gen (
                         .shift_enable_i,
                         .soc_clk_o(s_clk_fll_soc),
                         .per_clk_o(s_clk_fll_per),
-                        .cluster_clk_o(s_clk_cluster),
+                        .cluster_clk_o(s_clk_fll_cluster),
                         .cva6_clk_o(s_clk_fll_cva6),
                         .cfg_req_i(fll_intf.req),
                         .cfg_ack_o(fll_intf.ack),
