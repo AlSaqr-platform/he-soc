@@ -50,17 +50,12 @@ ulimit -n 2048
 ```
 
 You also need to download the vip RTL modules ( [HYPERRAM](https://www.cypress.com/documentation/models/verilog/s27kl0641-s27ks0641-verilog), [HYPERFLASH](https://www.cypress.com/verilog/s26ks512s-verilog), [SPI](http://www.cypress.com/file/260016) and [I2C](http://ww1.microchip.com/downloads/en/DeviceDoc/24xx1025_Verilog_Model.zip) ).
-Since there are currently some issues with the dependencies defined in the opentitan bender, we need to clone the repo in a local dir and override. Then the procedure to be followed is the same of the
-helloworld readme of the master branch cva6.
+
 
 ```
 cd hardware
 
 *clone the vips RTL modules into tb dir*
-
-make update
-
-bender clone opentitan
 
 make update
 
