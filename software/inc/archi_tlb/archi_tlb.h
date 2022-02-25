@@ -16,16 +16,16 @@
 #define FLAGS        0x18
 
 // H2C_TLB Configuration variables
-uint64_t h2c_first_va = 0x0000000000000000;
-uint64_t h2c_last_va  = 0x00000000FFFFFFFF;
-uint64_t h2c_base_pa  = 0x0000000010000000;
-uint8_t  h2c_flags    = 0x07;
+#define h2c_first_va 0x0000000000000000
+#define h2c_last_va  0x00000000FFFFFFFF
+#define h2c_base_pa  0x0000000010000000
+#define h2c_flags    0x07
 
 // C2H_TLB Configuration variables
-uint64_t c2h_first_va = 0x0000000000000000;
-uint64_t c2h_last_va  = 0x00000000FFFFFFFF;
-uint64_t c2h_base_pa  = 0x0000000000000000;
-uint8_t  c2h_flags    = 0x07;
+#define c2h_first_va 0x0000000000000000
+#define c2h_last_va  0x00000000FFFFFFFF
+#define c2h_base_pa  0x0000000000000000
+#define c2h_flags    0x07
 
 #define TLB_FLAG_VALID    ((uint8_t)(1 << 0))
 #define TLB_FLAG_READABLE ((uint8_t)(1 << 1))
