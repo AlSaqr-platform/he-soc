@@ -37,6 +37,8 @@ dependencies:
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "373acb897141e764ccce3e47ef0f42ccdcaaa6f9" }
   ddr-link: { git: "git@github.com:AlSaqr-platform/ddr-link.git", rev: "a48fcaa3275bc0c6114ae38569f4df59437b6cad"}
+  can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "df1b218c3bf2c3ad29969ffe14190f9ef8db5962" }
+
 
 export_include_dirs:
   - include/
