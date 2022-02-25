@@ -109,6 +109,10 @@ module host_domain
   //SERIAL LINK
   output                      ser_link_to_pad serial_link_to_pad,
   input                       pad_to_ser_link pad_to_serial_link,
+
+  //CAN
+  output                      can_to_pad_t [N_CAN-1 : 0] can_to_pad,
+  input                       pad_to_can_t [N_CAN-1 : 0] pad_to_can,
  
   // HYPERBUS
   output                      hyper_to_pad_t [HyperbusNumPhys-1:0] hyper_to_pad,
@@ -144,6 +148,7 @@ module host_domain
    logic                                 ndmreset_n;
    logic [31*4-1:0]                      s_udma_events;
    logic                                 s_dma_pe_evt;
+   logic [N_CAN-1:0]                     s_can_irq;
 
    logic                                 phy_clk;
    logic                                 phy_clk_90;
@@ -244,6 +249,7 @@ module host_domain
         .jtag_TDO_driven,
         .sync_rst_ni          ( s_synch_soc_rst      ),
         .udma_events_i        ( s_udma_events        ),
+        .can_irq_i            ( s_can_irq            ),
         .cl_dma_pe_evt_i      ( s_dma_pe_evt         ),
         .dm_rst_o             ( s_dm_rst             ),
         .l2_axi_master        ( l2_axi_bus           ),
@@ -367,6 +373,7 @@ module host_domain
       .serial_linkcfg_reg_master ( serial_linkcfg_reg_master   ),
 
       .events_o               ( s_udma_events                  ),
+      .can_irq_o              ( s_can_irq                      ),
 
       .qspi_to_pad            ( qspi_to_pad                    ),
       .pad_to_qspi            ( pad_to_qspi                    ),
@@ -380,6 +387,8 @@ module host_domain
       .hyper_to_pad           ( hyper_to_pad                   ),
       .pad_to_hyper           ( pad_to_hyper                   ),
       .pwm_to_pad             ( pwm_to_pad                     ),
+      .can_to_pad             ( can_to_pad                     ),
+      .pad_to_can             ( pad_to_can                     ),
 
       .gpio_to_pad            ( gpio_to_pad                    ),
       .pad_to_gpio            ( pad_to_gpio                    )

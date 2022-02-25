@@ -6,6 +6,7 @@ package udma_subsystem_pkg;
   localparam N_CAM          = 2;
   localparam N_I2C          = 5;
   localparam N_HYPER        = 1; // Do not change unless you know what you are doing.
+  localparam N_CAN          = 2;
 
   typedef struct packed {
  		logic tx_o;
@@ -126,6 +127,14 @@ package udma_subsystem_pkg;
 		logic pwm6_o;
 		logic pwm7_o;
 	} pwm_to_pad_t;
+
+	typedef struct packed {
+	    logic rx_i;
+	} pad_to_can_t;
+
+	typedef struct packed {
+	    logic tx_o;
+	} can_to_pad_t;
 
 	// system related bitwidths
 	localparam L2_DATA_WIDTH    = 32;

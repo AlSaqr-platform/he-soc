@@ -357,6 +357,9 @@ module al_saqr
   
   sdio_to_pad_t [N_SDIO-1:0] s_sdio_to_pad;
   pad_to_sdio_t [N_SDIO-1:0] s_pad_to_sdio;
+
+  can_to_pad_t [N_CAN-1 : 0] s_can_to_pad;
+  pad_to_can_t [N_CAN-1 : 0] s_pad_to_can;
   
   pwm_to_pad_t s_pwm_to_pad;
 
@@ -460,16 +463,19 @@ module al_saqr
       .sdio_to_pad            ( s_sdio_to_pad                   ),
       .pad_to_sdio            ( s_pad_to_sdio                   ),
 
-      .serial_link_to_pad     ( s_serial_link_to_pad             ),
-      .pad_to_serial_link     ( s_pad_to_serial_link             ),                     
+      .serial_link_to_pad     ( s_serial_link_to_pad            ),
+      .pad_to_serial_link     ( s_pad_to_serial_link            ),                     
 
-      .gpio_to_pad            ( s_gpio_b_to_pad                  ),
-      .pad_to_gpio            ( s_pad_to_gpio_b                  ),
+      .gpio_to_pad            ( s_gpio_b_to_pad                 ),
+      .pad_to_gpio            ( s_pad_to_gpio_b                 ),
 
-      .cva6_uart_rx_i         ( s_cva6_uart_rx_i                 ),
-      .cva6_uart_tx_o         ( s_cva6_uart_tx_o                 ),
+      .can_to_pad             ( s_can_to_pad                    ),
+      .pad_to_can             ( s_pad_to_can                    ),
 
-      .pwm_to_pad             ( s_pwm_to_pad                     )
+      .cva6_uart_rx_i         ( s_cva6_uart_rx_i                ),
+      .cva6_uart_tx_o         ( s_cva6_uart_tx_o                ),
+
+      .pwm_to_pad             ( s_pwm_to_pad                    )
     );
    
    pad_frame #()
@@ -1173,8 +1179,12 @@ module al_saqr
    `ASSIGN_PERIPHS_SPI7_SOC2PAD(s_port_signals_soc2pad.periphs.spi7,s_qspi_to_pad[7])
 
    //CAN0
+   `ASSIGN_PERIPHS_CAN0_PAD2SOC(s_pad_to_can[0],s_port_signals_pad2soc.periphs.can0)
+   `ASSIGN_PERIPHS_CAN0_SOC2PAD(s_port_signals_soc2pad.periphs.can0,s_can_to_pad[0])
 
    //CAN1
+   `ASSIGN_PERIPHS_CAN0_PAD2SOC(s_pad_to_can[1],s_port_signals_pad2soc.periphs.can1)
+   `ASSIGN_PERIPHS_CAN0_SOC2PAD(s_port_signals_soc2pad.periphs.can1,s_can_to_pad[1])
 
    `ASSIGN_PERIPHS_I2C1_PAD2SOC(s_pad_to_i2c[1],s_port_signals_pad2soc.periphs.i2c1)
    `ASSIGN_PERIPHS_I2C1_SOC2PAD(s_port_signals_soc2pad.periphs.i2c1,s_i2c_to_pad[1])
