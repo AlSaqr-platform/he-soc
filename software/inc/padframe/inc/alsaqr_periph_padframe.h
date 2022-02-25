@@ -4017,7 +4017,7 @@ uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_00_cfg_puen_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_00_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_00_group_CAN0_port_CAN0_TX = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_00_group_CAN0_port_CAN_TX = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_00_group_SPI7_port_SPI_SCK = 2,
 } alsaqr_periph_padframe_periphs_pad_gpio_c_00_mux_sel_t;
 
@@ -4081,7 +4081,7 @@ uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_01_cfg_puen_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_01_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_01_group_CAN0_port_CAN0_RX = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_01_group_CAN0_port_CAN_RX = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_01_group_SPI7_port_SPI_MISO = 2,
 } alsaqr_periph_padframe_periphs_pad_gpio_c_01_mux_sel_t;
 
@@ -4145,7 +4145,7 @@ uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_02_cfg_puen_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_02_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_02_group_CAN1_port_CAN1_TX = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_02_group_CAN1_port_CAN_TX = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_02_group_SPI7_port_SPI_MOSI = 2,
 } alsaqr_periph_padframe_periphs_pad_gpio_c_02_mux_sel_t;
 
@@ -4209,7 +4209,7 @@ uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_03_cfg_puen_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_03_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_03_group_CAN1_port_CAN1_RX = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_03_group_CAN1_port_CAN_RX = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_03_group_SPI7_port_SPI_CS0 = 2,
 } alsaqr_periph_padframe_periphs_pad_gpio_c_03_mux_sel_t;
 

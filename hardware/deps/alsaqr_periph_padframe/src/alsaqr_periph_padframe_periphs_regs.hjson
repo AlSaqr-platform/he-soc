@@ -3840,7 +3840,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_can0_can0_tx", desc: "Connect port can0_tx from port group can0 to this pad." }
+                      { value: "1", name: "port_can0_can_tx", desc: "Connect port can_tx from port group can0 to this pad." }
                       { value: "2", name: "port_spi7_spi_sck", desc: "Connect port spi_sck from port group spi7 to this pad." }
                   ]
               }
@@ -3901,7 +3901,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_can0_can0_rx", desc: "Connect port can0_rx from port group can0 to this pad." }
+                      { value: "1", name: "port_can0_can_rx", desc: "Connect port can_rx from port group can0 to this pad." }
                       { value: "2", name: "port_spi7_spi_miso", desc: "Connect port spi_miso from port group spi7 to this pad." }
                   ]
               }
@@ -3962,7 +3962,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_can1_can1_tx", desc: "Connect port can1_tx from port group can1 to this pad." }
+                      { value: "1", name: "port_can1_can_tx", desc: "Connect port can_tx from port group can1 to this pad." }
                       { value: "2", name: "port_spi7_spi_mosi", desc: "Connect port spi_mosi from port group spi7 to this pad." }
                   ]
               }
@@ -4023,7 +4023,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_can1_can1_rx", desc: "Connect port can1_rx from port group can1 to this pad." }
+                      { value: "1", name: "port_can1_can_rx", desc: "Connect port can_rx from port group can1 to this pad." }
                       { value: "2", name: "port_spi7_spi_cs0", desc: "Connect port spi_cs0 from port group spi7 to this pad." }
                   ]
               }

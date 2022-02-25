@@ -367,16 +367,16 @@
   assign load.sd0_i = driver.sd0_o; \
 
 `define ASSIGN_PERIPHS_CAN0_PAD2SOC(load, driver) \
-  assign load.can0_rx_i = driver.can0_rx_o; \
+  assign load.rx_i = driver.rx_o; \
 
 `define ASSIGN_PERIPHS_CAN0_SOC2PAD(load, driver) \
-  assign load.can0_tx_i = driver.can0_tx_o; \
+  assign load.tx_i = driver.tx_o; \
 
 `define ASSIGN_PERIPHS_CAN1_PAD2SOC(load, driver) \
-  assign load.can1_rx_i = driver.can1_rx_o; \
+  assign load.rx_i = driver.rx_o; \
 
 `define ASSIGN_PERIPHS_CAN1_SOC2PAD(load, driver) \
-  assign load.can1_tx_i = driver.can1_tx_o; \
+  assign load.tx_i = driver.tx_o; \
 
 `define ASSIGN_PERIPHS_I2C1_PAD2SOC(load, driver) \
   assign load.scl_i = driver.scl_o; \

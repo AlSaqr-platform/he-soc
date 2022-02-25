@@ -1815,22 +1815,22 @@ package pkg_internal_alsaqr_periph_padframe_periphs;
 
   parameter PAD_MUX_GROUP_PAD_GPIO_C_00_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_C_00_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_C_00_SEL_CAN0_CAN0_TX = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_C_00_SEL_CAN0_CAN_TX = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_C_00_SEL_SPI7_SPI_SCK = 2'd2;
 
   parameter PAD_MUX_GROUP_PAD_GPIO_C_01_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_C_01_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_C_01_SEL_CAN0_CAN0_RX = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_C_01_SEL_CAN0_CAN_RX = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_C_01_SEL_SPI7_SPI_MISO = 2'd2;
 
   parameter PAD_MUX_GROUP_PAD_GPIO_C_02_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_C_02_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_C_02_SEL_CAN1_CAN1_TX = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_C_02_SEL_CAN1_CAN_TX = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_C_02_SEL_SPI7_SPI_MOSI = 2'd2;
 
   parameter PAD_MUX_GROUP_PAD_GPIO_C_03_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_C_03_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_C_03_SEL_CAN1_CAN1_RX = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_C_03_SEL_CAN1_CAN_RX = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_C_03_SEL_SPI7_SPI_CS0 = 2'd2;
 
   parameter PAD_MUX_GROUP_PAD_GPIO_D_00_SEL_WIDTH = 2;

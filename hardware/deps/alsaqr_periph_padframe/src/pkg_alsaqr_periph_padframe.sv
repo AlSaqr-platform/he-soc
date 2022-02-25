@@ -406,19 +406,19 @@ package pkg_alsaqr_periph_padframe;
      } pad_domain_periphs_port_group_spi7_pad2soc_t;
 
    typedef struct packed {
-      logic        can0_tx_i;
+      logic        tx_i;
      } pad_domain_periphs_port_group_can0_soc2pad_t;
 
    typedef struct packed {
-      logic        can0_rx_o;
+      logic        rx_o;
      } pad_domain_periphs_port_group_can0_pad2soc_t;
 
    typedef struct packed {
-      logic        can1_tx_i;
+      logic        tx_i;
      } pad_domain_periphs_port_group_can1_soc2pad_t;
 
    typedef struct packed {
-      logic        can1_rx_o;
+      logic        rx_o;
      } pad_domain_periphs_port_group_can1_pad2soc_t;
 
    typedef struct packed {

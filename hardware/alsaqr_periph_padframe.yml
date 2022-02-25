@@ -535,37 +535,37 @@ pad_domains:
 
       - name: can0
         output_defaults:
-          can0_rx_o: 1'b1
+          rx_o: 1'b1
         ports:
-          - name: can0_tx
+          - name: can_tx
             mux_groups: [pad_gpio_c_00]
             connections:
-              chip2pad: can0_tx_i
+              chip2pad: tx_i
               oen: 1'b0
-              puen: 1'b1
-          - name: can0_rx
+              puen: 1'b0
+          - name: can_rx
             mux_groups: [pad_gpio_c_01]
             connections:
-              can0_rx_o: pad2chip
+              rx_o: pad2chip
               oen: 1'b1
-              puen: 1'b1
+              puen: 1'b0
       
       - name: can1
         output_defaults:
-          can1_rx_o: 1'b1     
-        ports:         
-          - name: can1_tx
+          rx_o: 1'b1
+        ports:
+          - name: can_tx
             mux_groups: [pad_gpio_c_02]
             connections:
-              chip2pad: can1_tx_i
+              chip2pad: tx_i
               oen: 1'b0
-              puen: 1'b1
-          - name: can1_rx
+              puen: 1'b0
+          - name: can_rx
             mux_groups: [pad_gpio_c_03]
             connections:
-              can1_rx_o: pad2chip
+              rx_o: pad2chip
               oen: 1'b1
-              puen: 1'b1
+              puen: 1'b0
 
       #PAD_GPIO_D
       - name: i2c1
