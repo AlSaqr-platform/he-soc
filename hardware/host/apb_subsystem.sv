@@ -19,6 +19,7 @@ module apb_subsystem
   import gpio_pkg::*; 
   import pkg_alsaqr_periph_padframe::*;
   import ariane_soc::HyperbusNumPhys;
+  import ariane_soc::NumChipsPerHyperbus;
 #( 
     parameter int unsigned AXI_USER_WIDTH = 1,
     parameter int unsigned AXI_ADDR_WIDTH = 64,
@@ -71,8 +72,12 @@ module apb_subsystem
     input                       pad_to_sdio_t [N_SDIO-1:0] pad_to_sdio,
  
     // HYPERBUS
-    output                      hyper_to_pad_t [HyperbusNumPhys-1:0] hyper_to_pad,
-    input                       pad_to_hyper_t [HyperbusNumPhys-1:0] pad_to_hyper,
+    inout  [HyperbusNumPhys-1:0][NumChipsPerHyperbus-1:0] pad_hyper_csn,
+    inout  [HyperbusNumPhys-1:0]                          pad_hyper_ck,
+    inout  [HyperbusNumPhys-1:0]                          pad_hyper_ckn,
+    inout  [HyperbusNumPhys-1:0]                          pad_hyper_rwds,
+    inout  [HyperbusNumPhys-1:0]                          pad_hyper_reset,
+    inout  [HyperbusNumPhys-1:0][7:0]                     pad_hyper_dq, 
    
     // GPIOs
     output                      gpio_to_pad_t gpio_to_pad,
@@ -255,9 +260,13 @@ module apb_subsystem
          .uart_to_pad     ( uart_to_pad                    ),
          .sdio_to_pad     ( sdio_to_pad                    ),
          .pad_to_sdio     ( pad_to_sdio                    ),
-         .hyper_to_pad    ( hyper_to_pad                   ),
-         .pad_to_hyper    ( pad_to_hyper                   )
 
+         .pad_hyper_csn,
+         .pad_hyper_ck,
+         .pad_hyper_ckn,
+         .pad_hyper_rwds,
+         .pad_hyper_reset,
+         .pad_hyper_dq
       );
    
     logic [63:0] s_gpio_sync; 
@@ -436,26 +445,26 @@ module apb_subsystem
         .txt_buffer_count    ( 2  ),
         .target_technology   ( 0  ) // 0 for ASIC or 1 for FPGA
       ) i_apb_to_can (
-      .aclk             ( clk_soc_o ),
-      .arstn            ( s_rstn_soc_sync ),
-      
-      .scan_enable      ( 1'b0 ),
-      .res_n_out        ( ),
-      .irq              ( can_irq_o[0] ),
-      .CAN_tx           ( can_to_pad[0].tx_o ),
-      .CAN_rx           ( pad_to_can[0].rx_i ),
-      .timestamp        ( can_timestamp  ),
+      .aclk             ( clk_soc_o                   ),
+      .arstn            ( s_rstn_soc_sync             ),
+                                                      
+      .scan_enable      ( 1'b0                        ),
+      .res_n_out        (                             ),
+      .irq              ( can_irq_o[0]                ),
+      .CAN_tx           ( can_to_pad[0].tx_o          ),
+      .CAN_rx           ( pad_to_can[0].rx_i          ),
+      .timestamp        ( can_timestamp               ),
 
-      .s_apb_paddr      ( apb_can0_master_bus.paddr ),
+      .s_apb_paddr      ( apb_can0_master_bus.paddr   ),
       .s_apb_penable    ( apb_can0_master_bus.penable ),
-      .s_apb_pprot      ( 3'b000),
-      .s_apb_prdata     ( apb_can0_master_bus.prdata ),
-      .s_apb_pready     ( apb_can0_master_bus.pready ),
-      .s_apb_psel       ( apb_can0_master_bus.psel ),
+      .s_apb_pprot      ( 3'b000                      ),
+      .s_apb_prdata     ( apb_can0_master_bus.prdata  ),
+      .s_apb_pready     ( apb_can0_master_bus.pready  ),
+      .s_apb_psel       ( apb_can0_master_bus.psel    ),
       .s_apb_pslverr    ( apb_can0_master_bus.pslverr ),
-      .s_apb_pstrb      ( 4'b1111 ),
-      .s_apb_pwdata     ( apb_can0_master_bus.pwdata ),
-      .s_apb_pwrite     ( apb_can0_master_bus.pwrite )
+      .s_apb_pstrb      ( 4'b1111                     ),
+      .s_apb_pwdata     ( apb_can0_master_bus.pwdata  ),
+      .s_apb_pwrite     ( apb_can0_master_bus.pwrite  )
       );
 
       //set to minimal configuration
@@ -464,26 +473,26 @@ module apb_subsystem
         .txt_buffer_count    ( 2  ),
         .target_technology   ( 0  ) // 0 for ASIC or 1 for FPGA
       ) i_apb_to_can1 (
-      .aclk             ( clk_soc_o ),
-      .arstn            ( s_rstn_soc_sync ),
-      
-      .scan_enable      ( 1'b0 ),
-      .res_n_out        ( ),
-      .irq              ( can_irq_o[1] ),
-      .CAN_tx           ( can_to_pad[1].tx_o ),
-      .CAN_rx           ( pad_to_can[1].rx_i ),
-      .timestamp        ( can_timestamp  ),
+      .aclk             ( clk_soc_o                   ),
+      .arstn            ( s_rstn_soc_sync             ),
+                                                      
+      .scan_enable      ( 1'b0                        ),
+      .res_n_out        (                             ),
+      .irq              ( can_irq_o[1]                ),
+      .CAN_tx           ( can_to_pad[1].tx_o          ),
+      .CAN_rx           ( pad_to_can[1].rx_i          ),
+      .timestamp        ( can_timestamp               ),
 
-      .s_apb_paddr      ( apb_can1_master_bus.paddr ),
+      .s_apb_paddr      ( apb_can1_master_bus.paddr   ),
       .s_apb_penable    ( apb_can1_master_bus.penable ),
-      .s_apb_pprot      ( 3'b000),
-      .s_apb_prdata     ( apb_can1_master_bus.prdata ),
-      .s_apb_pready     ( apb_can1_master_bus.pready ),
-      .s_apb_psel       ( apb_can1_master_bus.psel ),
+      .s_apb_pprot      ( 3'b000                      ),
+      .s_apb_prdata     ( apb_can1_master_bus.prdata  ),
+      .s_apb_pready     ( apb_can1_master_bus.pready  ),
+      .s_apb_psel       ( apb_can1_master_bus.psel    ),
       .s_apb_pslverr    ( apb_can1_master_bus.pslverr ),
-      .s_apb_pstrb      ( 4'b1111 ),
-      .s_apb_pwdata     ( apb_can1_master_bus.pwdata ),
-      .s_apb_pwrite     ( apb_can1_master_bus.pwrite )
+      .s_apb_pstrb      ( 4'b1111                     ),
+      .s_apb_pwdata     ( apb_can1_master_bus.pwdata  ),
+      .s_apb_pwrite     ( apb_can1_master_bus.pwrite  )
       );
 
       

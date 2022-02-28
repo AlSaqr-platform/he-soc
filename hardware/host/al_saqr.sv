@@ -50,19 +50,13 @@ module al_saqr
   AXI_BUS.Master      axi_ddr_master,
 `endif
 
-  inout wire [7:0]    pad_hyper0_dq ,
-  inout wire          pad_hyper0_ck ,
-  inout wire          pad_hyper0_ckn ,
-  inout wire [1:0]    pad_hyper0_csn ,
-  inout wire          pad_hyper0_rwds ,
-  inout wire          pad_hyper0_reset ,
-
-  inout wire [7:0]    pad_hyper1_dq ,
-  inout wire          pad_hyper1_ck ,
-  inout wire          pad_hyper1_ckn ,
-  inout wire [1:0]    pad_hyper1_csn ,
-  inout wire          pad_hyper1_rwds ,
-  inout wire          pad_hyper1_reset ,
+  // HYPERBUS
+  inout  [1:0][1:0]   pad_hyper_csn,
+  inout  [1:0]        pad_hyper_ck,
+  inout  [1:0]        pad_hyper_ckn,
+  inout  [1:0]        pad_hyper_rwds,
+  inout  [1:0]        pad_hyper_reset,
+  inout  [1:0][7:0]   pad_hyper_dq,
 
   inout wire logic    pad_periphs_pad_gpio_b_00_pad,
   inout wire logic    pad_periphs_pad_gpio_b_01_pad,
@@ -444,10 +438,7 @@ module al_saqr
       .cluster_en_sa_boot_o   ( s_cluster_en_sa_boot            ),
       .cluster_fetch_en_o     ( s_cluster_fetch_en              ),
       .clk_cluster_o          ( s_cluster_clk                   ),                 
-      .padframecfg_reg_master ( i_padframecfg_rbus              ),
-      
-      .hyper_to_pad           ( s_hyper_to_pad                  ),
-      .pad_to_hyper           ( s_pad_to_hyper                  ),    
+      .padframecfg_reg_master ( i_padframecfg_rbus              ), 
 
       .qspi_to_pad            ( s_qspi_to_pad                   ),
       .pad_to_qspi            ( s_pad_to_qspi                   ),
@@ -475,31 +466,21 @@ module al_saqr
       .cva6_uart_rx_i         ( s_cva6_uart_rx_i                ),
       .cva6_uart_tx_o         ( s_cva6_uart_tx_o                ),
 
-      .pwm_to_pad             ( s_pwm_to_pad                    )
+      .pwm_to_pad             ( s_pwm_to_pad                    ),
+
+      .pad_hyper_csn,
+      .pad_hyper_ck,
+      .pad_hyper_ckn,
+      .pad_hyper_rwds,
+      .pad_hyper_reset,
+      .pad_hyper_dq
+
     );
    
    pad_frame #()
     i_pad_frame
       (       
-
-      .pad_to_hyper           ( s_pad_to_hyper             ),
-      .hyper_to_pad           ( s_hyper_to_pad             ),
               
-      .pad_hyper0_dq ,
-      .pad_hyper0_ck ,
-      .pad_hyper0_ckn ,
-      .pad_hyper0_csn ,
-      .pad_hyper0_rwds ,
-      .pad_hyper0_reset ,
-      
-      
-      .pad_hyper1_dq ,
-      .pad_hyper1_ck ,
-      .pad_hyper1_ckn ,
-      .pad_hyper1_csn ,
-      .pad_hyper1_rwds ,
-      .pad_hyper1_reset ,
-
       .cva6_uart_rx           ( s_cva6_uart_rx_i           ),
       .cva6_uart_tx           ( s_cva6_uart_tx_o           ),
       .pad_cva6_uart_tx       ( cva6_uart_tx_o             ),

@@ -15,6 +15,7 @@ module udma_subsystem
   import axi_pkg::xbar_cfg_t;
   import udma_subsystem_pkg::*;
   import ariane_soc::HyperbusNumPhys;
+  import ariane_soc::NumChipsPerHyperbus;
 (
     output logic                       L2_ro_wen_o ,
     output logic                       L2_ro_req_o ,
@@ -80,9 +81,12 @@ module udma_subsystem
     input                              pad_to_sdio_t [N_SDIO-1:0] pad_to_sdio,
  
     // HYPERBUS
-    output                             hyper_to_pad_t [HyperbusNumPhys-1:0] hyper_to_pad,
-    input                              pad_to_hyper_t [HyperbusNumPhys-1:0] pad_to_hyper
- 
+    inout  [HyperbusNumPhys-1:0][NumChipsPerHyperbus-1:0] pad_hyper_csn,
+    inout  [HyperbusNumPhys-1:0]                          pad_hyper_ck,
+    inout  [HyperbusNumPhys-1:0]                          pad_hyper_ckn,
+    inout  [HyperbusNumPhys-1:0]                          pad_hyper_rwds,
+    inout  [HyperbusNumPhys-1:0]                          pad_hyper_reset,
+    inout  [HyperbusNumPhys-1:0][7:0]                     pad_hyper_dq 
 );
 
 
@@ -928,10 +932,15 @@ module udma_subsystem
               .AxiAddrWidth   ( 64                                                       ),
               .AxiDataWidth   ( 64                                                       ),
               .AxiIdWidth     ( ariane_soc::IdWidthSlave                                 ),
+              .AxiUserWidth   ( ariane_axi_soc::UserWidth                                ),
               .IsClockODelayed( 0                                                        ),
               .axi_req_t      ( ariane_axi_soc::req_slv_t                                ),
               .axi_rsp_t      ( ariane_axi_soc::resp_slv_t                               ),
               .axi_w_chan_t   ( ariane_axi_soc::w_chan_t                                 ),
+              .axi_aw_chan_t  ( ariane_axi_soc::aw_chan_slv_t                            ),
+              .axi_b_chan_t   ( ariane_axi_soc::b_chan_slv_t                             ),
+              .axi_ar_chan_t  ( ariane_axi_soc::ar_chan_slv_t                            ),
+              .axi_r_chan_t   ( ariane_axi_soc::r_chan_slv_t                             ),
               .RegAddrWidth   ( RegAw                                                    ),
               .RegDataWidth   ( RegDw                                                    ),
               .reg_req_t      ( reg_req_t                                                ),
@@ -992,51 +1001,13 @@ module udma_subsystem
              .data_rx_ready_i     ( s_rx_ch_ready[CH_ID_RX_HYPER+g_hyper]                   ),
          
               //////////////TO/FROM EXTERNAL OF THE CHIP///////////////////////////
-             .hyper_cs_no         ( hyper_cs_no     ),
-             .hyper_ck_o          ( hyper_ck_o      ),
-             .hyper_ck_no         ( hyper_ck_no     ),
-             .hyper_rwds_o        ( hyper_rwds_o    ),
-             .hyper_rwds_i        ( hyper_rwds_i    ),
-             .hyper_rwds_oe_o     ( hyper_rwds_oe_o ),
-             .hyper_dq_i          ( hyper_dq_i      ),
-             .hyper_dq_o          ( hyper_dq_o      ),
-             .hyper_dq_oe_o       ( hyper_dq_oe_o   ),
-             .hyper_reset_no      ( hyper_reset_no  )
+             .pad_hyper_csn,
+             .pad_hyper_ck,
+             .pad_hyper_ckn,
+             .pad_hyper_rwds,
+             .pad_hyper_reset,
+             .pad_hyper_dq
          );
-
-         for (genvar j=0;j<ariane_soc::HyperbusNumPhys;j++) begin: i_hyper_bind
-                                                               
-           assign hyper_to_pad[j+g_hyper].rwds_o    = hyper_rwds_o[j];
-           assign hyper_to_pad[j+g_hyper].rwds_oe_o = hyper_rwds_oe_o[j];
-           assign hyper_to_pad[j+g_hyper].dq_oe_o   = hyper_dq_oe_o[j];
-           assign hyper_to_pad[j+g_hyper].ck_o      = hyper_ck_o[j];
-           assign hyper_to_pad[j+g_hyper].ckn_o     = hyper_ck_no[j];
-           assign hyper_to_pad[j+g_hyper].resetn_o  = hyper_reset_no[j];
-
-           assign hyper_rwds_i[j] = pad_to_hyper[j+g_hyper].rwds_i;
-           
-           assign hyper_to_pad[j+g_hyper].cs0n_o = hyper_cs_no[j][0];
-           assign hyper_to_pad[j+g_hyper].cs1n_o = hyper_cs_no[j][1];
-           
-           assign hyper_to_pad[j+g_hyper].dq0_o = hyper_dq_o[j][0];
-           assign hyper_to_pad[j+g_hyper].dq1_o = hyper_dq_o[j][1];
-           assign hyper_to_pad[j+g_hyper].dq2_o = hyper_dq_o[j][2];
-           assign hyper_to_pad[j+g_hyper].dq3_o = hyper_dq_o[j][3];
-           assign hyper_to_pad[j+g_hyper].dq4_o = hyper_dq_o[j][4];
-           assign hyper_to_pad[j+g_hyper].dq5_o = hyper_dq_o[j][5];
-           assign hyper_to_pad[j+g_hyper].dq6_o = hyper_dq_o[j][6];
-           assign hyper_to_pad[j+g_hyper].dq7_o = hyper_dq_o[j][7];
-           
-           assign hyper_dq_i[j][0] = pad_to_hyper[j+g_hyper].dq0_i;
-           assign hyper_dq_i[j][1] = pad_to_hyper[j+g_hyper].dq1_i;
-           assign hyper_dq_i[j][2] = pad_to_hyper[j+g_hyper].dq2_i;
-           assign hyper_dq_i[j][3] = pad_to_hyper[j+g_hyper].dq3_i;
-           assign hyper_dq_i[j][4] = pad_to_hyper[j+g_hyper].dq4_i;
-           assign hyper_dq_i[j][5] = pad_to_hyper[j+g_hyper].dq5_i;
-           assign hyper_dq_i[j][6] = pad_to_hyper[j+g_hyper].dq6_i;
-           assign hyper_dq_i[j][7] = pad_to_hyper[j+g_hyper].dq7_i;
-
-         end // block: i_hyper_bind
 
        end // block: i_hyper_gen
    endgenerate

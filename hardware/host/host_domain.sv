@@ -20,6 +20,7 @@
 module host_domain 
   import axi_pkg::xbar_cfg_t;
   import ariane_soc::HyperbusNumPhys;
+  import ariane_soc::NumChipsPerHyperbus;
   import ariane_soc::*;
   import udma_subsystem_pkg::*;  
   import gpio_pkg::*; 
@@ -115,8 +116,12 @@ module host_domain
   input                       pad_to_can_t [N_CAN-1 : 0] pad_to_can,
  
   // HYPERBUS
-  output                      hyper_to_pad_t [HyperbusNumPhys-1:0] hyper_to_pad,
-  input                       pad_to_hyper_t [HyperbusNumPhys-1:0] pad_to_hyper,
+  inout  [HyperbusNumPhys-1:0][NumChipsPerHyperbus-1:0] pad_hyper_csn,
+  inout  [HyperbusNumPhys-1:0]                          pad_hyper_ck,
+  inout  [HyperbusNumPhys-1:0]                          pad_hyper_ckn,
+  inout  [HyperbusNumPhys-1:0]                          pad_hyper_rwds,
+  inout  [HyperbusNumPhys-1:0]                          pad_hyper_reset,
+  inout  [HyperbusNumPhys-1:0][7:0]                     pad_hyper_dq,
 
   output                      pwm_to_pad_t pwm_to_pad,
 
@@ -384,14 +389,19 @@ module host_domain
       .uart_to_pad            ( uart_to_pad                    ),
       .sdio_to_pad            ( sdio_to_pad                    ),
       .pad_to_sdio            ( pad_to_sdio                    ),
-      .hyper_to_pad           ( hyper_to_pad                   ),
-      .pad_to_hyper           ( pad_to_hyper                   ),
       .pwm_to_pad             ( pwm_to_pad                     ),
       .can_to_pad             ( can_to_pad                     ),
       .pad_to_can             ( pad_to_can                     ),
 
       .gpio_to_pad            ( gpio_to_pad                    ),
-      .pad_to_gpio            ( pad_to_gpio                    )
+      .pad_to_gpio            ( pad_to_gpio                    ),
+
+      .pad_hyper_csn,
+      .pad_hyper_ck,
+      .pad_hyper_ckn,
+      .pad_hyper_rwds,
+      .pad_hyper_reset,
+      .pad_hyper_dq
       );
                      
 
