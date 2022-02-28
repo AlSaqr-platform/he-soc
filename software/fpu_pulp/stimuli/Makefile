@@ -16,7 +16,7 @@ RISCV_GCC ?= $(RISCV_PREFIX)gcc
 
 RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump --disassemble-all --disassemble-zeroes --section=.text --section=.text.startup --section=.text.init --section=.data
 
-RISCV_FLAGS     := -mcmodel=medany -static -std=gnu99 -O2 -ffast-math -fno-common -fno-builtin-printf $(INC)
+RISCV_FLAGS     := -mcmodel=medany -static -std=gnu99 -O2 -ffast-math -fno-common -fno-builtin-printf -march=rv32imc_zfinx $(INC)
 RISCV_LINK_OPTS := -static -nostartfiles -lm -lgcc
 
 clean:
@@ -31,7 +31,7 @@ dis:
 	$(RISCV_OBJDUMP) $(APP).riscv > $(APP).dump
 
 dump_header:
-	$(inc_dir)/elf_to_header.py --binary=$(current_dir)/$(APP).riscv --vectors=$(current_dir)/../cluster_code.h
+	 $(inc_dir)/elf_to_header.py --binary=$(current_dir)/$(APP).riscv --vectors=$(current_dir)/../cluster_code.h
 
 all: clean build dis dump_header
 

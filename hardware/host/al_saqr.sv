@@ -792,6 +792,10 @@ module al_saqr
          );
    `endif // !`ifndef EXCLUDE_CLUSTER
 
+  /**************************************************************************************************/
+  /*                                      BEGIN AXI TLBs REGION                                     */
+  /**************************************************************************************************/
+
    axi_dw_converter_intf #(
      .AXI_ID_WIDTH             ( ariane_soc::IdWidthSlave ),
      .AXI_ADDR_WIDTH           ( AXI_ADDRESS_WIDTH        ),
@@ -821,10 +825,7 @@ module al_saqr
      .slv                ( c2h_tlb_cfg_axi_bus_32 ),
      .mst                ( c2h_tlb_cfg_lite       )
    );
-          
-  /**************************************************************************************************/
-  /*                                      BEGIN AXI TLBs REGION                                     */
-  /**************************************************************************************************/
+
   localparam int unsigned N_CLUSTERS = 1;
   localparam int unsigned ENTRIES = 32;
 
@@ -927,7 +928,7 @@ module al_saqr
     .AXI_DATA_WIDTH          ( AXI_DATA_WIDTH           ),
     .AXI_ID_WIDTH            ( ariane_soc::IdWidthSlave ),
     .AXI_USER_WIDTH          ( AXI_USER_WIDTH           ),
-    .AXI_SLV_PORT_MAX_TXNS   ( 1                        ), 
+    .AXI_SLV_PORT_MAX_TXNS   ( 8                        ), 
     .CFG_AXI_ADDR_WIDTH      ( AXI_LITE_AW              ),
     .CFG_AXI_DATA_WIDTH      ( AXI_LITE_DW              ),
     .L1_NUM_ENTRIES          ( ENTRIES                  ), 
@@ -950,7 +951,7 @@ module al_saqr
      .AXI_DATA_WIDTH          ( AXI_DATA_WIDTH         ),
      .AXI_ID_WIDTH            ( ariane_soc::IdWidth    ),
      .AXI_USER_WIDTH          ( AXI_USER_WIDTH         ),
-     .AXI_SLV_PORT_MAX_TXNS   ( 1                      ), 
+     .AXI_SLV_PORT_MAX_TXNS   ( 8                      ), 
      .CFG_AXI_ADDR_WIDTH      ( AXI_LITE_AW            ),
      .CFG_AXI_DATA_WIDTH      ( AXI_LITE_DW            ),
      .L1_NUM_ENTRIES          ( ENTRIES                ),

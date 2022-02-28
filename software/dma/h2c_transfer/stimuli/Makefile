@@ -1,15 +1,15 @@
-APP := mm
+APP := stimuli
 XLEN:=32
 
 current_dir = $(shell pwd)
 
-utils_dir = $(current_dir)/../inc/
+utils_dir = $(current_dir)/../../../inc/
 
 directories = . drivers/inc drivers/src string_lib/inc string_lib/src
 
 INC=$(foreach d, $(directories), -I$(utils_dir)$d)
 
-inc_dir := $(current_dir)/common
+inc_dir := $(current_dir)/../../../common_pulp
 
 RISCV_PREFIX ?= riscv$(XLEN)-unknown-elf-
 RISCV_GCC ?= $(RISCV_PREFIX)gcc
@@ -31,7 +31,7 @@ dis:
 	$(RISCV_OBJDUMP) $(APP).riscv > $(APP).dump
 
 dump_header:
-	./elf_to_header.py --binary=$(APP).riscv --vectors=$(current_dir)/../cluster/cluster_code.h
+	$(inc_dir)/elf_to_header.py --binary=$(current_dir)/$(APP).riscv --vectors=$(current_dir)/../cluster_code.h
 
 all: clean build dis dump_header
 

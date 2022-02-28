@@ -1,9 +1,12 @@
-axi_tlb
 cl_core_tests/sb_macl_888
 cl_core_tests/sb_macl_444
 cl_core_tests/sb_macl_844
 l1_test
-cluster
+dma/c2h_transfer
+dma/h2c_transfer
+axi_tlb
+fpu_pulp
+hello_pulp
 hello
 hyperbus
 l2_test

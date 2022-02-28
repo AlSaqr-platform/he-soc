@@ -1,4 +1,4 @@
-APP := launch_cluster
+APP := fpu_pulp
 XLEN:=64
 
 include $(shell pwd)/../common.mk
