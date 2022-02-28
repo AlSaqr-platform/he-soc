@@ -50,11 +50,21 @@ module mock_uart (
     byte scr = 0;
     logic fifo_enabled = 1'b0;
 
+    integer charnum = 0;
+    logic [256*8-1:0] stringa = '0;
+
     assign pready_o = 1'b1;
     assign pslverr_o = 1'b0;
 
     function void uart_tx(byte ch);
-        $write("%c", ch);
+        if(ch==8'h0A) begin
+          $display("Mock uart: %s\n",stringa);
+          charnum = 0;
+          stringa = '0;
+        end else begin
+          stringa[(255-charnum)*8 +: 8] = ch;
+          charnum = charnum + 1;
+        end
     endfunction : uart_tx
 
     always_ff @(posedge clk_i or negedge rst_ni) begin
@@ -63,7 +73,9 @@ module mock_uart (
                 case ((paddr_i >> 'h2) & 'h7)
                     THR: begin
                         if (lcr & 'h80) dll <= byte'(pwdata_i[7:0]);
-                        else uart_tx(byte'(pwdata_i[7:0]));
+                        else begin
+                           uart_tx(byte'(pwdata_i[7:0]));
+                        end
                     end
                     IER: begin
                         if (lcr & 'h80) dlm <= byte'(pwdata_i[7:0]);

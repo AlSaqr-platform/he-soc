@@ -292,7 +292,7 @@ module ariane_peripherals
             .SOUT    ( tx_o            )
         );
     end else begin
-        assign irq_sources[0] = 1'b0;
+        assign irq_sources[1] = 1'b0;
         /* pragma translate_off */
         mock_uart i_mock_uart (
             .clk_i     ( clk_i        ),

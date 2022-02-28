@@ -670,13 +670,8 @@ module cva6_subsystem
     .AxiAddrWidth ( AXI_ADDRESS_WIDTH        ),
     .AxiDataWidth ( AXI_DATA_WIDTH           ),
     .AxiIdWidth   ( ariane_soc::IdWidthSlave ),
-`ifndef VERILATOR
-  // disable UART when using Spike, as we need to rely on the mockuart
-  `ifdef SPIKE_TANDEM
-    .InclUART     ( 1'b0                     ),
-  `else
+`ifdef TARGET_SYNTHESIS
     .InclUART     ( 1'b1                     ),
-  `endif
 `else
     .InclUART     ( 1'b0                     ),
 `endif
