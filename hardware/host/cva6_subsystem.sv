@@ -302,6 +302,7 @@ module cva6_subsystem
     .rst_ni                ( rst_ni                    ),
     .req_i                 ( dm_master_req             ),
     .type_i                ( ariane_axi::SINGLE_REQ    ),
+    .busy_o                (                           ),
     .gnt_o                 ( dm_master_gnt             ),
     .gnt_id_o              (                           ),
     .addr_i                ( dm_master_add             ),

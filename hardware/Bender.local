@@ -1,3 +1,0 @@
-overrides:
-  fll_behav: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/fll_behav.git", rev: "657782a563a04a34abcdb9a04b4c1f98ca8e159e" }
-  register_interface:  { git: "https://github.com/Alsaqr-platform/register_interface.git", rev: "6b81692ab5f6e7ab7a2663da9ecc7390014ce070"  }
