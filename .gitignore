@@ -2,6 +2,8 @@ site/*
 *.ucdb
 covhtmlreport/*
 work/*
+hardware/.bender
+hardware/Bender.lock
 transcript
 *.ini
 *.wlf
