@@ -452,10 +452,6 @@ module ariane_tb;
         .pad_periphs_pad_gpio_b_55_pad(),
         .pad_periphs_pad_gpio_b_56_pad(pad_periphs_pad_gpio_b_56_pad),
         .pad_periphs_pad_gpio_b_57_pad(pad_periphs_pad_gpio_b_57_pad),
-        .pad_periphs_pad_gpio_b_58_pad(),
-        .pad_periphs_pad_gpio_b_59_pad(),
-        .pad_periphs_pad_gpio_b_60_pad(),
-        .pad_periphs_pad_gpio_b_61_pad(),
 
         .pad_periphs_pad_gpio_c_00_pad(),
         .pad_periphs_pad_gpio_c_01_pad(),

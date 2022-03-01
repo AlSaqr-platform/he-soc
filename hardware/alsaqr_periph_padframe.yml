@@ -13,7 +13,13 @@ pad_domains:
             .O(${conn["pad2chip"]}),
             .PUEN(${conn["puen"]}),
             .PAD(${conn["pad"]}),
-            .PEN(1'b0)
+            .DRV(${conn["drv"]}),
+            .SLW(${conn["slw"]}),
+            .SMT(${conn["smt"]}),
+            .PWORK(PWROK_S),
+            .IOPWROK(IOPWROK_S),
+            .BIAS(BIAS_S),
+            .RETC(RETC_S)
           );
         pad_signals: &BEHAV_SIGNALS
           - name: pad
@@ -45,19 +51,60 @@ pad_domains:
             conn_type: dynamic
             default_reset_value: 1
             default_static_value: 1'b1
+          - name: drv
+            description: "Driving strength"
+            size: 2
+            kind: input
+            conn_type: dynamic
+            default_reset_value: 0
+            default_static_value: 2'b00
+          - name: slw
+            size: 1
+            kind: input
+            conn_type: dynamic
+            default_reset_value: 0
+            default_static_value: 1'b0
+          - name: smt
+            description: "Schmit trigger enable"
+            size: 1
+            kind: input
+            conn_type: dynamic
+            default_reset_value: 0
+            default_static_value: 1'b0
+      - name: IN22FDX_GPIO18_10M3S40PI_PWRDET_V
+        description: ""
+        template: |
+          wire PWROK_S, IOPWROK_S, BIAS_S, RETC_S;
+
+          `ifdef TARGET_ASIC
+          IN22FDX_GPIO18_10M3S40PI_PWRDET_TIE_V ${instance_name} (
+            .RETCOUT (RETC_S),
+            .PWROKOUT (PWROK_S),
+            .IOPWROKOUT (IOPWROK_S),
+            .RETCIN(1'b0),
+            .BIAS(BIAS_S)
+          );
+          `endif
+
 
     pad_list:     # padframe physical pad instances
-
+    
+      - name: pwrdet
+        description: "pwrdet pad"
+        pad_type: IN22FDX_GPIO18_10M3S40PI_PWRDET_V
+        is_static: true
+        
         ##  __  __                    _ 
         ## |  \/  |                  | |
         ## | \  / |_   ___  _____  __| |
         ## | |\/| | | | \ \/ / _ \/ _` |
         ## | |  | | |_| |>  <  __/ (_| |
         ## |_|  |_|\__,_/_/\_\___|\__,_|
+        
       - name: pad_gpio_b_{i:2d}
         mux_groups: [self]
         description: "pads for 3 i2c and 2 spi"
-        multiple: 62
+        multiple: 58
         pad_type: pad_functional
         is_static: false
       - name: pad_gpio_c_{i:2d}
@@ -484,7 +531,7 @@ pad_domains:
         output_defaults: 1'b0
         ports:
           - name: gpio{i}
-            multiple: 62
+            multiple: 58
             mux_groups: ["pad_gpio_b_{i:2d}"]
             description: "Bidirectional GPIO {i} signal"
             connections:

@@ -261,22 +261,10 @@ module gpio2padframe
     assign gpio_to_pad.gpio57_d_o = gpio_dir[57];
     assign gpio_to_pad.gpio57_o = gpio_out[57];
 
-    assign gpio_in[58] =  pad_to_gpio.gpio58_i;
-    assign gpio_to_pad.gpio58_d_o = gpio_dir[58];
-    assign gpio_to_pad.gpio58_o = gpio_out[58];
-
-    assign gpio_in[59] =  pad_to_gpio.gpio59_i;
-    assign gpio_to_pad.gpio59_d_o = gpio_dir[59];
-    assign gpio_to_pad.gpio59_o = gpio_out[59];
-
-    assign gpio_in[60] =  pad_to_gpio.gpio60_i;
-    assign gpio_to_pad.gpio60_d_o = gpio_dir[60];
-    assign gpio_to_pad.gpio60_o = gpio_out[60];
-
-    assign gpio_in[61] =  pad_to_gpio.gpio61_i;
-    assign gpio_to_pad.gpio61_d_o = gpio_dir[61];
-    assign gpio_to_pad.gpio61_o = gpio_out[61];
-
+    assign gpio_in[58] = '0;
+    assign gpio_in[59] = '0;
+    assign gpio_in[60] = '0;
+    assign gpio_in[61] = '0;
     assign gpio_in[62] = '0;
     assign gpio_in[63] = '0;
   
