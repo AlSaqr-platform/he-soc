@@ -33,12 +33,13 @@ dependencies:
   hyperbus: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "c1f9a8ceb149896fa3bb90bda7e5f6623667cb86" }
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", version: 1.0.1 }
   register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
-  apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.}
+  apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "a635280f9a88e64778b52873be0c8f2d38d63634" }
   ddr-link: { git: "git@github.com:AlSaqr-platform/ddr-link.git", rev: "bf77d024f7290d885601d54bf608f29be6982951"}
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", version: 0.0.1 }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
-  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "4d6f168058fb5b4f47c17d48570f36481885d0e0" }
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "d23a6de043916eabd2651c64862ed39639610b20" }
+
 
 
 
