@@ -7,7 +7,7 @@
 package control_register_config_reg_pkg;
 
   // Address widths within the block
-  parameter int BlockAw = 2;
+  parameter int BlockAw = 6;
 
   ////////////////////////////
   // Typedefs for registers //
@@ -25,22 +25,77 @@ package control_register_config_reg_pkg;
     } fetch_en;
   } control_register_config_reg2hw_control_cluster_reg_t;
 
+  typedef struct packed {
+    logic [31:0] q;
+  } control_register_config_reg2hw_logic_locking_key_0_mreg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } control_register_config_reg2hw_logic_locking_key_1_mreg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } control_register_config_reg2hw_gwt_write_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } control_register_config_hw2reg_gwt_read_reg_t;
+
   // Register -> HW type
   typedef struct packed {
-    control_register_config_reg2hw_control_cluster_reg_t control_cluster; // [2:0]
+    control_register_config_reg2hw_control_cluster_reg_t control_cluster; // [290:288]
+    control_register_config_reg2hw_logic_locking_key_0_mreg_t [3:0] logic_locking_key_0; // [287:160]
+    control_register_config_reg2hw_logic_locking_key_1_mreg_t [3:0] logic_locking_key_1; // [159:32]
+    control_register_config_reg2hw_gwt_write_reg_t gwt_write; // [31:0]
   } control_register_config_reg2hw_t;
 
+  // HW -> register type
+  typedef struct packed {
+    control_register_config_hw2reg_gwt_read_reg_t gwt_read; // [32:0]
+  } control_register_config_hw2reg_t;
+
   // Register offsets
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER_OFFSET = 2'h 0;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER_OFFSET = 6'h 0;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_0_OFFSET = 6'h 4;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_1_OFFSET = 6'h 8;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_2_OFFSET = 6'h c;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_3_OFFSET = 6'h 10;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_0_OFFSET = 6'h 14;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_1_OFFSET = 6'h 18;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_2_OFFSET = 6'h 1c;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_3_OFFSET = 6'h 20;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_GWT_WRITE_OFFSET = 6'h 24;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_GWT_READ_OFFSET = 6'h 28;
 
   // Register index
   typedef enum int {
-    CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER
+    CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_0,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_1,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_2,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_3,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_0,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_1,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_2,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_3,
+    CONTROL_REGISTER_CONFIG_GWT_WRITE,
+    CONTROL_REGISTER_CONFIG_GWT_READ
   } control_register_config_id_e;
 
   // Register width information to check illegal writes
-  parameter logic [3:0] CONTROL_REGISTER_CONFIG_PERMIT [1] = '{
-    4'b 0001  // index[0] CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER
+  parameter logic [3:0] CONTROL_REGISTER_CONFIG_PERMIT [11] = '{
+    4'b 0001, // index[ 0] CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER
+    4'b 1111, // index[ 1] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_0
+    4'b 1111, // index[ 2] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_1
+    4'b 1111, // index[ 3] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_2
+    4'b 1111, // index[ 4] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_3
+    4'b 1111, // index[ 5] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_0
+    4'b 1111, // index[ 6] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_1
+    4'b 1111, // index[ 7] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_2
+    4'b 1111, // index[ 8] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_3
+    4'b 1111, // index[ 9] CONTROL_REGISTER_CONFIG_GWT_WRITE
+    4'b 1111  // index[10] CONTROL_REGISTER_CONFIG_GWT_READ
   };
 
 endpackage

@@ -79,6 +79,7 @@ sources:
   - host/clk_gen_hyper.sv
   - host/host_domain.sv
   - host/pad_frame.sv
+  - host/gwt_test.sv
   - host/al_saqr.sv
 
   - target: all(fpga, xilinx, ddr, not(asic))

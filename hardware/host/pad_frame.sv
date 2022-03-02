@@ -35,24 +35,31 @@ module pad_frame
      inout wire          pad_jtag_trst,
 
      inout wire          pad_bypass,
-     inout wire          pad_xtal_in
+     inout wire          pad_xtal_in,
 
+     inout wire          gwt_b_0,
+     inout wire          gwt_r250_0,
+     inout wire          pad_gwt_ana0,
+     inout wire          gwt_b_1,
+     inout wire          gwt_r250_1,
+     inout wire          pad_gwt_ana1
      );
    
+    wire PWROK_S, IOPWROK_S, BIAS_S, RETC_S;
    
-    pad_functional_pu padinst_uart_rx    (.OEN( 1'b1   ), .I(1'b0         ), .O(cva6_uart_rx ), .PAD(pad_cva6_uart_rx   ), .PEN(1'b1) );
-    pad_functional_pu padinst_uart_tx    (.OEN( 1'b0   ), .I(cva6_uart_tx ), .O(             ), .PAD(pad_cva6_uart_tx   ), .PEN(1'b1) );
+    pad_alsaqr_pu padinst_uart_rx    (.OEN( 1'b1   ), .I(1'b0         ), .O(cva6_uart_rx ), .PAD(pad_cva6_uart_rx   ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S) );
+    pad_alsaqr_pu padinst_uart_tx    (.OEN( 1'b0   ), .I(cva6_uart_tx ), .O(             ), .PAD(pad_cva6_uart_tx   ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S) );
    
 `ifndef FPGA_EMUL  
 
-    pad_functional_pu padinst_bypass_clk (.OEN(1'b1            ), .I(                ), .O(bypass_o       ), .PAD(pad_bypass    ), .PEN(1'b1             ) );   
-    pad_functional_pu padinst_ref_clk    (.OEN(1'b1            ), .I(                ), .O(ref_clk_o      ), .PAD(pad_xtal_in   ), .PEN(1'b1             ) );
-    pad_functional_pu padinst_reset_n    (.OEN(1'b1            ), .I(                ), .O(rstn_o         ), .PAD(pad_reset_n   ), .PEN(1'b1             ) );
-    pad_functional_pu padinst_jtag_tck   (.OEN(1'b1            ), .I(                ), .O(jtag_tck_o     ), .PAD(pad_jtag_tck  ), .PEN(1'b1             ) );
-    pad_functional_pu padinst_jtag_tms   (.OEN(1'b1            ), .I(                ), .O(jtag_tms_o     ), .PAD(pad_jtag_tms  ), .PEN(1'b1             ) );
-    pad_functional_pu padinst_jtag_tdi   (.OEN(1'b1            ), .I(                ), .O(jtag_tdi_o     ), .PAD(pad_jtag_tdi  ), .PEN(1'b1             ) );
-    pad_functional_pu padinst_jtag_trstn (.OEN(1'b1            ), .I(                ), .O(jtag_trst_o    ), .PAD(pad_jtag_trst ), .PEN(1'b1             ) );
-    pad_functional_pd padinst_jtag_tdo   (.OEN(1'b0            ), .I(jtag_tdo_i      ), .O(               ), .PAD(pad_jtag_tdo  ), .PEN(1'b1             ) );
+    pad_alsaqr_pu padinst_bypass_clk (.OEN( 1'b1   ), .I(            ), .O( bypass_o    ), .PAD( pad_bypass    ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );   
+    pad_alsaqr_pu padinst_ref_clk    (.OEN( 1'b1   ), .I(            ), .O( ref_clk_o   ), .PAD( pad_xtal_in   ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+    pad_alsaqr_pu padinst_reset_n    (.OEN( 1'b1   ), .I(            ), .O( rstn_o      ), .PAD( pad_reset_n   ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+    pad_alsaqr_pu padinst_jtag_tck   (.OEN( 1'b1   ), .I(            ), .O( jtag_tck_o  ), .PAD( pad_jtag_tck  ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+    pad_alsaqr_pu padinst_jtag_tms   (.OEN( 1'b1   ), .I(            ), .O( jtag_tms_o  ), .PAD( pad_jtag_tms  ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+    pad_alsaqr_pu padinst_jtag_tdi   (.OEN( 1'b1   ), .I(            ), .O( jtag_tdi_o  ), .PAD( pad_jtag_tdi  ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+    pad_alsaqr_pu padinst_jtag_trstn (.OEN( 1'b1   ), .I(            ), .O( jtag_trst_o ), .PAD( pad_jtag_trst ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+    pad_alsaqr_pd padinst_jtag_tdo   (.OEN( 1'b0   ), .I( jtag_tdo_i ), .O(             ), .PAD( pad_jtag_tdo  ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
 
 `else
     assign ref_clk_o = pad_xtal_in;
@@ -65,6 +72,15 @@ module pad_frame
     assign jtag_tck_o = pad_jtag_tck;
     assign jtag_tdi_o = pad_jtag_tdi;
 
-`endif
+`endif // !`ifndef FPGA_EMUL
+
+`ifdef TARGET_ASIC
    
+   IN22FDX_GPIO18_10M3S40PI_PWRDET_TIE_V pad_frame_pwrdet ( .RETCOUT (RETC_S), .PWROKOUT (PWROK_S), .IOPWROKOUT (IOPWROK_S), .RETCIN(1'b0), .BIAS(BIAS_S) );
+
+   IN22FDX_GPIO18_10M19S40PI_ANA_H gwt_test_ana0 ( .DATA_B(gwt_b_0), .DATA_R250(gwt_r250_0), .PAD(pad_gwt_ana0), .PWORK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+   IN22FDX_GPIO18_10M19S40PI_ANA_H gwt_test_ana1 ( .DATA_B(gwt_b_1), .DATA_R250(gwt_r250_1), .PAD(pad_gwt_ana1), .PWORK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+
+`endif
+     
 endmodule

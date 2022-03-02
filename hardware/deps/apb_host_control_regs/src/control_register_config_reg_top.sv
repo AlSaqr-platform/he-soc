@@ -10,7 +10,7 @@
 module control_register_config_reg_top #(
     parameter type reg_req_t = logic,
     parameter type reg_rsp_t = logic,
-    parameter int AW = 2
+    parameter int AW = 6
 ) (
   input clk_i,
   input rst_ni,
@@ -18,6 +18,7 @@ module control_register_config_reg_top #(
   output reg_rsp_t reg_rsp_o,
   // To HW
   output control_register_config_reg_pkg::control_register_config_reg2hw_t reg2hw, // Write
+  input  control_register_config_reg_pkg::control_register_config_hw2reg_t hw2reg, // Read
 
 
   // Config
@@ -76,6 +77,34 @@ module control_register_config_reg_top #(
   logic control_cluster_fetch_en_qs;
   logic control_cluster_fetch_en_wd;
   logic control_cluster_fetch_en_we;
+  logic [31:0] logic_locking_key_0_0_qs;
+  logic [31:0] logic_locking_key_0_0_wd;
+  logic logic_locking_key_0_0_we;
+  logic [31:0] logic_locking_key_0_1_qs;
+  logic [31:0] logic_locking_key_0_1_wd;
+  logic logic_locking_key_0_1_we;
+  logic [31:0] logic_locking_key_0_2_qs;
+  logic [31:0] logic_locking_key_0_2_wd;
+  logic logic_locking_key_0_2_we;
+  logic [31:0] logic_locking_key_0_3_qs;
+  logic [31:0] logic_locking_key_0_3_wd;
+  logic logic_locking_key_0_3_we;
+  logic [31:0] logic_locking_key_1_0_qs;
+  logic [31:0] logic_locking_key_1_0_wd;
+  logic logic_locking_key_1_0_we;
+  logic [31:0] logic_locking_key_1_1_qs;
+  logic [31:0] logic_locking_key_1_1_wd;
+  logic logic_locking_key_1_1_we;
+  logic [31:0] logic_locking_key_1_2_qs;
+  logic [31:0] logic_locking_key_1_2_wd;
+  logic logic_locking_key_1_2_we;
+  logic [31:0] logic_locking_key_1_3_qs;
+  logic [31:0] logic_locking_key_1_3_wd;
+  logic logic_locking_key_1_3_we;
+  logic [31:0] gwt_write_qs;
+  logic [31:0] gwt_write_wd;
+  logic gwt_write_we;
+  logic [31:0] gwt_read_qs;
 
   // Register instances
   // R[control_cluster]: V(False)
@@ -159,11 +188,294 @@ module control_register_config_reg_top #(
 
 
 
+  // Subregister 0 of Multireg logic_locking_key_0
+  // R[logic_locking_key_0_0]: V(False)
 
-  logic [0:0] addr_hit;
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_logic_locking_key_0_0 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (logic_locking_key_0_0_we),
+    .wd     (logic_locking_key_0_0_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.logic_locking_key_0[0].q ),
+
+    // to register interface (read)
+    .qs     (logic_locking_key_0_0_qs)
+  );
+
+  // Subregister 1 of Multireg logic_locking_key_0
+  // R[logic_locking_key_0_1]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_logic_locking_key_0_1 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (logic_locking_key_0_1_we),
+    .wd     (logic_locking_key_0_1_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.logic_locking_key_0[1].q ),
+
+    // to register interface (read)
+    .qs     (logic_locking_key_0_1_qs)
+  );
+
+  // Subregister 2 of Multireg logic_locking_key_0
+  // R[logic_locking_key_0_2]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_logic_locking_key_0_2 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (logic_locking_key_0_2_we),
+    .wd     (logic_locking_key_0_2_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.logic_locking_key_0[2].q ),
+
+    // to register interface (read)
+    .qs     (logic_locking_key_0_2_qs)
+  );
+
+  // Subregister 3 of Multireg logic_locking_key_0
+  // R[logic_locking_key_0_3]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_logic_locking_key_0_3 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (logic_locking_key_0_3_we),
+    .wd     (logic_locking_key_0_3_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.logic_locking_key_0[3].q ),
+
+    // to register interface (read)
+    .qs     (logic_locking_key_0_3_qs)
+  );
+
+
+
+  // Subregister 0 of Multireg logic_locking_key_1
+  // R[logic_locking_key_1_0]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_logic_locking_key_1_0 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (logic_locking_key_1_0_we),
+    .wd     (logic_locking_key_1_0_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.logic_locking_key_1[0].q ),
+
+    // to register interface (read)
+    .qs     (logic_locking_key_1_0_qs)
+  );
+
+  // Subregister 1 of Multireg logic_locking_key_1
+  // R[logic_locking_key_1_1]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_logic_locking_key_1_1 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (logic_locking_key_1_1_we),
+    .wd     (logic_locking_key_1_1_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.logic_locking_key_1[1].q ),
+
+    // to register interface (read)
+    .qs     (logic_locking_key_1_1_qs)
+  );
+
+  // Subregister 2 of Multireg logic_locking_key_1
+  // R[logic_locking_key_1_2]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_logic_locking_key_1_2 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (logic_locking_key_1_2_we),
+    .wd     (logic_locking_key_1_2_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.logic_locking_key_1[2].q ),
+
+    // to register interface (read)
+    .qs     (logic_locking_key_1_2_qs)
+  );
+
+  // Subregister 3 of Multireg logic_locking_key_1
+  // R[logic_locking_key_1_3]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_logic_locking_key_1_3 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (logic_locking_key_1_3_we),
+    .wd     (logic_locking_key_1_3_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.logic_locking_key_1[3].q ),
+
+    // to register interface (read)
+    .qs     (logic_locking_key_1_3_qs)
+  );
+
+
+  // R[gwt_write]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_gwt_write (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (gwt_write_we),
+    .wd     (gwt_write_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.gwt_write.q ),
+
+    // to register interface (read)
+    .qs     (gwt_write_qs)
+  );
+
+
+  // R[gwt_read]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RO"),
+    .RESVAL  (32'h0)
+  ) u_gwt_read (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    .we     (1'b0),
+    .wd     ('0  ),
+
+    // from internal hardware
+    .de     (hw2reg.gwt_read.de),
+    .d      (hw2reg.gwt_read.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (),
+
+    // to register interface (read)
+    .qs     (gwt_read_qs)
+  );
+
+
+
+
+  logic [10:0] addr_hit;
   always_comb begin
     addr_hit = '0;
-    addr_hit[0] = (reg_addr == CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER_OFFSET);
+    addr_hit[ 0] = (reg_addr == CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER_OFFSET);
+    addr_hit[ 1] = (reg_addr == CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_0_OFFSET);
+    addr_hit[ 2] = (reg_addr == CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_1_OFFSET);
+    addr_hit[ 3] = (reg_addr == CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_2_OFFSET);
+    addr_hit[ 4] = (reg_addr == CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_3_OFFSET);
+    addr_hit[ 5] = (reg_addr == CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_0_OFFSET);
+    addr_hit[ 6] = (reg_addr == CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_1_OFFSET);
+    addr_hit[ 7] = (reg_addr == CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_2_OFFSET);
+    addr_hit[ 8] = (reg_addr == CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_3_OFFSET);
+    addr_hit[ 9] = (reg_addr == CONTROL_REGISTER_CONFIG_GWT_WRITE_OFFSET);
+    addr_hit[10] = (reg_addr == CONTROL_REGISTER_CONFIG_GWT_READ_OFFSET);
   end
 
   assign addrmiss = (reg_re || reg_we) ? ~|addr_hit : 1'b0 ;
@@ -171,7 +483,17 @@ module control_register_config_reg_top #(
   // Check sub-word write is permitted
   always_comb begin
     wr_err = (reg_we &
-              ((addr_hit[0] & (|(CONTROL_REGISTER_CONFIG_PERMIT[0] & ~reg_be)))));
+              ((addr_hit[ 0] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 0] & ~reg_be))) |
+               (addr_hit[ 1] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 1] & ~reg_be))) |
+               (addr_hit[ 2] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 2] & ~reg_be))) |
+               (addr_hit[ 3] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 3] & ~reg_be))) |
+               (addr_hit[ 4] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 4] & ~reg_be))) |
+               (addr_hit[ 5] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 5] & ~reg_be))) |
+               (addr_hit[ 6] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 6] & ~reg_be))) |
+               (addr_hit[ 7] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 7] & ~reg_be))) |
+               (addr_hit[ 8] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 8] & ~reg_be))) |
+               (addr_hit[ 9] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 9] & ~reg_be))) |
+               (addr_hit[10] & (|(CONTROL_REGISTER_CONFIG_PERMIT[10] & ~reg_be)))));
   end
 
   assign control_cluster_reset_n_we = addr_hit[0] & reg_we & !reg_error;
@@ -183,6 +505,33 @@ module control_register_config_reg_top #(
   assign control_cluster_fetch_en_we = addr_hit[0] & reg_we & !reg_error;
   assign control_cluster_fetch_en_wd = reg_wdata[2];
 
+  assign logic_locking_key_0_0_we = addr_hit[1] & reg_we & !reg_error;
+  assign logic_locking_key_0_0_wd = reg_wdata[31:0];
+
+  assign logic_locking_key_0_1_we = addr_hit[2] & reg_we & !reg_error;
+  assign logic_locking_key_0_1_wd = reg_wdata[31:0];
+
+  assign logic_locking_key_0_2_we = addr_hit[3] & reg_we & !reg_error;
+  assign logic_locking_key_0_2_wd = reg_wdata[31:0];
+
+  assign logic_locking_key_0_3_we = addr_hit[4] & reg_we & !reg_error;
+  assign logic_locking_key_0_3_wd = reg_wdata[31:0];
+
+  assign logic_locking_key_1_0_we = addr_hit[5] & reg_we & !reg_error;
+  assign logic_locking_key_1_0_wd = reg_wdata[31:0];
+
+  assign logic_locking_key_1_1_we = addr_hit[6] & reg_we & !reg_error;
+  assign logic_locking_key_1_1_wd = reg_wdata[31:0];
+
+  assign logic_locking_key_1_2_we = addr_hit[7] & reg_we & !reg_error;
+  assign logic_locking_key_1_2_wd = reg_wdata[31:0];
+
+  assign logic_locking_key_1_3_we = addr_hit[8] & reg_we & !reg_error;
+  assign logic_locking_key_1_3_wd = reg_wdata[31:0];
+
+  assign gwt_write_we = addr_hit[9] & reg_we & !reg_error;
+  assign gwt_write_wd = reg_wdata[31:0];
+
   // Read data return
   always_comb begin
     reg_rdata_next = '0;
@@ -191,6 +540,46 @@ module control_register_config_reg_top #(
         reg_rdata_next[0] = control_cluster_reset_n_qs;
         reg_rdata_next[1] = control_cluster_en_sa_boot_qs;
         reg_rdata_next[2] = control_cluster_fetch_en_qs;
+      end
+
+      addr_hit[1]: begin
+        reg_rdata_next[31:0] = logic_locking_key_0_0_qs;
+      end
+
+      addr_hit[2]: begin
+        reg_rdata_next[31:0] = logic_locking_key_0_1_qs;
+      end
+
+      addr_hit[3]: begin
+        reg_rdata_next[31:0] = logic_locking_key_0_2_qs;
+      end
+
+      addr_hit[4]: begin
+        reg_rdata_next[31:0] = logic_locking_key_0_3_qs;
+      end
+
+      addr_hit[5]: begin
+        reg_rdata_next[31:0] = logic_locking_key_1_0_qs;
+      end
+
+      addr_hit[6]: begin
+        reg_rdata_next[31:0] = logic_locking_key_1_1_qs;
+      end
+
+      addr_hit[7]: begin
+        reg_rdata_next[31:0] = logic_locking_key_1_2_qs;
+      end
+
+      addr_hit[8]: begin
+        reg_rdata_next[31:0] = logic_locking_key_1_3_qs;
+      end
+
+      addr_hit[9]: begin
+        reg_rdata_next[31:0] = gwt_write_qs;
+      end
+
+      addr_hit[10]: begin
+        reg_rdata_next[31:0] = gwt_read_qs;
       end
 
       default: begin
