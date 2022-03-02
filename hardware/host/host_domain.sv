@@ -58,6 +58,7 @@ module host_domain
   output logic [31:0]         gwt_cfg_o,
   input  logic [31:0]         gwt_cfg_i,
   input  logic                gwt_cfg_ie,
+  output logic [127:0]        key_1,
                                         
   REG_BUS.out                 padframecfg_reg_master,
   // CVA6 DEBUG UART
@@ -160,7 +161,8 @@ module host_domain
 
    logic                                 phy_clk;
    logic                                 phy_clk_90;
-
+   logic [127:0]                         s_key_0;
+   
    REG_BUS #(
         .ADDR_WIDTH( 32 ),
         .DATA_WIDTH( 32 )
@@ -239,6 +241,7 @@ module host_domain
         .rst_ni(s_synch_global_rst),
         .cva6_clk_i(s_clk_cva6),
         .cva6_rst_ni(s_rstn_cva6_sync),
+        .key_i(s_key_0),
         .rtc_i,
         .dmi_req_valid,
         .dmi_req_ready,
@@ -369,7 +372,7 @@ module host_domain
       .clk_cluster_o          ( clk_cluster_o                  ),
       .cluster_en_sa_boot_o   ( cluster_en_sa_boot_o           ),
       .cluster_fetch_en_o     ( cluster_fetch_en_o             ),
-      .key_0                  ( key_0                          ),
+      .key_0                  ( s_key_0                        ),
       .key_1                  ( key_1                          ),
       .gwt_cfg_o              ( gwt_cfg_o                      ),
       .gwt_cfg_i              ( gwt_cfg_i                      ),

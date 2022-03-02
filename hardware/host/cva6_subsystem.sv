@@ -69,7 +69,8 @@ module cva6_subsystem
 
   // CVA6 DEBUG UART
   input  logic            cva6_uart_rx_i,
-  output logic            cva6_uart_tx_o,  
+  output logic            cva6_uart_tx_o,
+  input  logic [127:0]    key_i, 
   // TLB BUSes start here
   AXI_BUS.Master          tlb_cfg_master,
   // TLB BUSes end here 
@@ -404,6 +405,7 @@ module cva6_subsystem
   ) i_axi_riscv_atomics0 (
     .clk_i,
     .rst_ni ( ndmreset_n                ),
+    .key_i  ( key_i                     ),
     .slv    ( master[ariane_soc::HYAXI] ),
     .mst    ( hyper_axi_master_cut      )
   );

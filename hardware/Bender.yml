@@ -80,6 +80,7 @@ sources:
   - host/host_domain.sv
   - host/pad_frame.sv
   - host/gwt_test.sv
+  - host/axi_dw_converter_ll.sv
   - host/al_saqr.sv
 
   - target: all(fpga, xilinx, ddr, not(asic))

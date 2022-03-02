@@ -335,6 +335,8 @@ module al_saqr
     .AXI_DATA_WIDTH (AXI_LITE_DW)
   ) c2h_tlb_cfg();
 
+  logic [127:0]  s_key_1;
+   
   logic s_cva6_uart_rx_i;
   logic s_cva6_uart_tx_o;
 
@@ -406,6 +408,7 @@ module al_saqr
       .gwt_cfg_o(s_gwt_cfg_i),
       .gwt_cfg_i(s_gwt_cfg_o),
       .gwt_cfg_ie(s_gwt_cfg_oe),
+      .key_1(s_key_1),
 `ifndef TARGET_SYNTHESIS
       .dmi_req_valid,
       .dmi_req_ready,
@@ -792,7 +795,7 @@ module al_saqr
   /*                                      BEGIN AXI TLBs REGION                                     */
   /**************************************************************************************************/
 
-   axi_dw_converter_intf #(
+   axi_dw_converter_intf_ll #(
      .AXI_ID_WIDTH             ( ariane_soc::IdWidthSlave ),
      .AXI_ADDR_WIDTH           ( AXI_ADDRESS_WIDTH        ),
      .AXI_SLV_PORT_DATA_WIDTH  ( AXI_DATA_WIDTH           ),
@@ -802,6 +805,7 @@ module al_saqr
    ) i_dwc_tlb_cfg (
      .clk_i        ( s_soc_clk              ),
      .rst_ni       ( s_soc_rst_n            ),
+     .key_i        ( s_key_1                ),
      .slv          ( c2h_tlb_cfg_axi_bus_64 ),
      .mst          ( c2h_tlb_cfg_axi_bus_32 )
    );
