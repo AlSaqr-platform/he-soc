@@ -317,12 +317,44 @@ module al_saqr
   ) c2h_tlb_cfg();
   
   wire fake_rst;
+  import lc_ctrl_pkg::*;
+  import edn_pkg::*; 
+ 
+   
+  logic [3:0] tieoff_data = 4'b0;
+  logic       enable      = 1'b0;
+  logic       test_reset;
+  
   
 
   opentitan u_RoT(
-    .clk_sys(rtc_i && !fake_rst),//!s_rst_ni),
-    .rst_sys_n(rst_ni),
-    .test_reset(fake_rst)//s_rst_ni)
+                  
+    .clk_main_i (s_soc_clk & !fake_rst),
+    .clk_io_i   (s_soc_clk & !fake_rst),
+    .clk_usb_i  (s_soc_clk & !fake_rst),
+    .clk_aon_i  (s_soc_clk & !fake_rst),
+
+    .por_n_i(s_rst_ni),
+
+    // spi_device
+    .cio_spi_device_sck_p2d (1'b0),
+    .cio_spi_device_csb_p2d (1'b0),
+    .cio_spi_device_sd_p2d  (tieoff_data),
+                  
+    // spi_host0
+    .cio_spi_host0_sd_p2d   (tieoff_data),
+                  
+    // spi_host1
+    .cio_spi_host1_sd_p2d   (tieoff_data),
+ 
+    .scan_rst_ni (s_rst_ni),
+    .scan_en_i   (1'b1),
+    .scanmode_i (4'b1010),
+    .ast_clk_byp_ack_i(4'b0101), 
+
+    .ast_edn_req_i ('0),
+    
+    .test_reset(fake_rst)
 );
 
  

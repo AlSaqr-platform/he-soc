@@ -4,11 +4,16 @@ covhtmlreport/*
 work/*
 hardware/.bender
 hardware/Bender.lock
+hardware/work/*
+hardware/working_dir/*
 transcript
+Bender.local
+tcl_stacktrace.txt
 *.ini
 *.wlf
 .moore
 *.vstf
+hardware/compile.tcl
 wlft*
 *nfs*
 src/moore.sv
