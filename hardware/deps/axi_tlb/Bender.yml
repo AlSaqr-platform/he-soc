@@ -6,8 +6,8 @@ package:
     - "Yvan Tortorella <yvan.tortorella@unibo.it>"
 
 dependencies:
-  register_interface:     { git: "https://github.com/pulp-platform/register_interface.git", version: 0.3.1 }
-  common_cells:           { git: "https://github.com/pulp-platform/common_cells.git", version: 1.21.0 }
+  register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
+  common_cells: { git: "https://github.com/pulp-platform/common_cells.git", version: 1.21.0 }
   common_verification: { git: "https://github.com/pulp-platform/common_verification.git", version: 0.2.0 }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: "0.29.1" }
 

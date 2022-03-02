@@ -49,7 +49,7 @@ module ariane_tb;
     wire  s_rtc_i;
     wire s_bypass;
     logic rst_DTM;
-
+    localparam NumPhys = 2;
    
     localparam ENABLE_DM_TESTS = 0;
    
@@ -134,18 +134,12 @@ module ariane_tb;
     wire                  s_jtag2alsaqr_trstn     ;
     wire                  s_jtag2alsaqr_tdo       ;
    
-    wire [7:0]            w_hyper0_dq;
-    wire                  w_hyper0_ck;
-    wire                  w_hyper0_ckn;
-    wire [1:0]            w_hyper0_csn;
-    wire                  w_hyper0_rwds;
-    wire                  w_hyper0_reset;
-    wire [7:0]            w_hyper1_dq;
-    wire                  w_hyper1_ck;
-    wire                  w_hyper1_ckn;
-    wire [1:0]            w_hyper1_csn;
-    wire                  w_hyper1_rwds;
-    wire                  w_hyper1_reset;
+    wire  [NumPhys-1:0][1:0] hyper_cs_n_wire;
+    wire  [NumPhys-1:0]      hyper_ck_wire;
+    wire  [NumPhys-1:0]      hyper_ck_n_wire;
+    wire  [NumPhys-1:0]      hyper_rwds_wire;
+    wire  [NumPhys-1:0][7:0] hyper_dq_wire;
+    wire  [NumPhys-1:0]      hyper_reset_n_wire;
 
     wire                  soc_clock;
 
@@ -393,18 +387,12 @@ module ariane_tb;
         .cva6_uart_rx_i       ( w_cva6_uart_rx         ),
         .cva6_uart_tx_o       ( w_cva6_uart_tx         ),
         
-        .pad_hyper0_dq        ( w_hyper0_dq            ),
-        .pad_hyper0_ck        ( w_hyper0_ck            ),
-        .pad_hyper0_ckn       ( w_hyper0_ckn           ),
-        .pad_hyper0_csn       ( w_hyper0_csn           ),
-        .pad_hyper0_rwds      ( w_hyper0_rwds          ),
-        .pad_hyper0_reset     ( w_hyper0_reset         ),
-        .pad_hyper1_dq        ( w_hyper1_dq            ),
-        .pad_hyper1_ck        ( w_hyper1_ck            ),
-        .pad_hyper1_ckn       ( w_hyper1_ckn           ),
-        .pad_hyper1_csn       ( w_hyper1_csn           ),
-        .pad_hyper1_rwds      ( w_hyper1_rwds          ),
-        .pad_hyper1_reset     ( w_hyper1_reset         ),
+        .pad_hyper_csn        ( hyper_cs_n_wire        ),
+        .pad_hyper_ck         ( hyper_ck_wire          ),
+        .pad_hyper_ckn        ( hyper_ck_n_wire        ),
+        .pad_hyper_rwds       ( hyper_rwds_wire        ),
+        .pad_hyper_reset      ( hyper_reset_n_wire     ),
+        .pad_hyper_dq         ( hyper_dq_wire          ), 
         
         .pad_periphs_pad_gpio_b_00_pad(pad_periphs_pad_gpio_b_00_pad),
         .pad_periphs_pad_gpio_b_01_pad(pad_periphs_pad_gpio_b_01_pad),
@@ -464,10 +452,6 @@ module ariane_tb;
         .pad_periphs_pad_gpio_b_55_pad(),
         .pad_periphs_pad_gpio_b_56_pad(pad_periphs_pad_gpio_b_56_pad),
         .pad_periphs_pad_gpio_b_57_pad(pad_periphs_pad_gpio_b_57_pad),
-        .pad_periphs_pad_gpio_b_58_pad(),
-        .pad_periphs_pad_gpio_b_59_pad(),
-        .pad_periphs_pad_gpio_b_60_pad(),
-        .pad_periphs_pad_gpio_b_61_pad(),
 
         .pad_periphs_pad_gpio_c_00_pad(),
         .pad_periphs_pad_gpio_c_01_pad(),
@@ -929,84 +913,49 @@ module ariane_tb;
     end  
   endgenerate
 
-
-   s27ks0641 #(
-         .TimingModel   ( "S27KS0641DPBHI020"    ),
-         .UserPreload   ( PRELOAD_HYPERRAM       ),
-         .mem_file_name ( "./hyperram0.slm"      )
-     ) i_main_hyperram0 (
-            .DQ7      ( w_hyper0_dq[7]  ),
-            .DQ6      ( w_hyper0_dq[6]  ),
-            .DQ5      ( w_hyper0_dq[5]  ),
-            .DQ4      ( w_hyper0_dq[4]  ),
-            .DQ3      ( w_hyper0_dq[3]  ),
-            .DQ2      ( w_hyper0_dq[2]  ),
-            .DQ1      ( w_hyper0_dq[1]  ),
-            .DQ0      ( w_hyper0_dq[0]  ),
-            .RWDS     ( w_hyper0_rwds   ),
-            .CSNeg    ( w_hyper0_csn[0] ),
-            .CK       ( w_hyper0_ck     ),
-            .CKNeg    ( w_hyper0_ckn    ),
-            .RESETNeg ( w_hyper0_reset  )
-     ); 
-   s27ks0641 #(
-         .TimingModel   ( "S27KS0641DPBHI020"    ),
-         .UserPreload   ( 1'b0                   ),
-         .mem_file_name ( "hyper.mem"            )
-     ) i_main_hyperram1 (
-            .DQ7      ( w_hyper0_dq[7]  ),
-            .DQ6      ( w_hyper0_dq[6]  ),
-            .DQ5      ( w_hyper0_dq[5]  ),
-            .DQ4      ( w_hyper0_dq[4]  ),
-            .DQ3      ( w_hyper0_dq[3]  ),
-            .DQ2      ( w_hyper0_dq[2]  ),
-            .DQ1      ( w_hyper0_dq[1]  ),
-            .DQ0      ( w_hyper0_dq[0]  ),
-            .RWDS     ( w_hyper0_rwds   ),
-            .CSNeg    ( w_hyper0_csn[1] ),
-            .CK       ( w_hyper0_ck     ),
-            .CKNeg    ( w_hyper0_ckn    ),
-            .RESETNeg ( w_hyper0_reset  )
-     );
-         s27ks0641 #(
-            .TimingModel   ( "S27KS0641DPBHI020" ),
-            .UserPreload   ( PRELOAD_HYPERRAM    ),
-            .mem_file_name ( "./hyperram1.slm"   )
-         ) i_main_hyperram2 (
-            .DQ7      ( w_hyper1_dq[7]  ),
-            .DQ6      ( w_hyper1_dq[6]  ),
-            .DQ5      ( w_hyper1_dq[5]  ),
-            .DQ4      ( w_hyper1_dq[4]  ),
-            .DQ3      ( w_hyper1_dq[3]  ),
-            .DQ2      ( w_hyper1_dq[2]  ),
-            .DQ1      ( w_hyper1_dq[1]  ),
-            .DQ0      ( w_hyper1_dq[0]  ),
-            .RWDS     ( w_hyper1_rwds   ),
-            .CSNeg    ( w_hyper1_csn[0] ),
-            .CK       ( w_hyper1_ck     ),
-            .CKNeg    ( w_hyper1_ckn    ),
-            .RESETNeg ( w_hyper1_reset  )
-         );
-         s27ks0641 #(
-            .TimingModel   ( "S27KS0641DPBHI020" ),
-            .UserPreload   ( 1'b0                ),
-            .mem_file_name ( "hyper.mem"         )
-         ) i_main_hyperram3 (
-            .DQ7      ( w_hyper1_dq[7]  ),
-            .DQ6      ( w_hyper1_dq[6]  ),
-            .DQ5      ( w_hyper1_dq[5]  ),
-            .DQ4      ( w_hyper1_dq[4]  ),
-            .DQ3      ( w_hyper1_dq[3]  ),
-            .DQ2      ( w_hyper1_dq[2]  ),
-            .DQ1      ( w_hyper1_dq[1]  ),
-            .DQ0      ( w_hyper1_dq[0]  ),
-            .RWDS     ( w_hyper1_rwds   ),
-            .CSNeg    ( w_hyper1_csn[1] ),
-            .CK       ( w_hyper1_ck     ),
-            .CKNeg    ( w_hyper1_ckn    ),
-            .RESETNeg ( w_hyper1_reset  )
-         );
-
+  generate
+     for (genvar i=0; i<2; i++) begin : hyperrams
+       s27ks0641 #(
+             .TimingModel   ( "S27KS0641DPBHI020"    ),
+             .UserPreload   ( PRELOAD_HYPERRAM       ),
+             .mem_file_name ( "./hyperram0.slm"      )
+         ) i_main_hyperram0 (
+                .DQ7           ( hyper_dq_wire[0][7]      ),
+                .DQ6           ( hyper_dq_wire[0][6]      ),
+                .DQ5           ( hyper_dq_wire[0][5]      ),
+                .DQ4           ( hyper_dq_wire[0][4]      ),
+                .DQ3           ( hyper_dq_wire[0][3]      ),
+                .DQ2           ( hyper_dq_wire[0][2]      ),
+                .DQ1           ( hyper_dq_wire[0][1]      ),
+                .DQ0           ( hyper_dq_wire[0][0]      ),
+                .RWDS          ( hyper_rwds_wire[0]       ),
+                .CSNeg         ( hyper_cs_n_wire[0][i]    ),
+                .CK            ( hyper_ck_wire[0]         ),
+                .CKNeg         ( hyper_ck_n_wire[0]       ),
+                .RESETNeg      ( hyper_reset_n_wire[0]    )
+       ); 
+       s27ks0641 #(
+             .TimingModel   ( "S27KS0641DPBHI020"    ),
+             .UserPreload   ( PRELOAD_HYPERRAM       ),
+             .mem_file_name ( "./hyperram1.slm"      )
+         ) i_main_hyperram1 (
+                .DQ7           ( hyper_dq_wire[1][7]      ),
+                .DQ6           ( hyper_dq_wire[1][6]      ),
+                .DQ5           ( hyper_dq_wire[1][5]      ),
+                .DQ4           ( hyper_dq_wire[1][4]      ),
+                .DQ3           ( hyper_dq_wire[1][3]      ),
+                .DQ2           ( hyper_dq_wire[1][2]      ),
+                .DQ1           ( hyper_dq_wire[1][1]      ),
+                .DQ0           ( hyper_dq_wire[1][0]      ),
+                .RWDS          ( hyper_rwds_wire[1]       ),
+                .CSNeg         ( hyper_cs_n_wire[1][i]    ),
+                .CK            ( hyper_ck_wire[1]         ),
+                .CKNeg         ( hyper_ck_n_wire[1]       ),
+                .RESETNeg      ( hyper_reset_n_wire[1]    )
+       ); 
+     end // block: hyperrams
+   endgenerate
+   
    uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart_bus (.rx(w_cva6_uart_tx), .tx(w_cva6_uart_rx), .rx_en(1'b1));
 
     initial begin: reset_jtag

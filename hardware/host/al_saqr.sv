@@ -50,19 +50,13 @@ module al_saqr
   AXI_BUS.Master      axi_ddr_master,
 `endif
 
-  inout wire [7:0]    pad_hyper0_dq ,
-  inout wire          pad_hyper0_ck ,
-  inout wire          pad_hyper0_ckn ,
-  inout wire [1:0]    pad_hyper0_csn ,
-  inout wire          pad_hyper0_rwds ,
-  inout wire          pad_hyper0_reset ,
-
-  inout wire [7:0]    pad_hyper1_dq ,
-  inout wire          pad_hyper1_ck ,
-  inout wire          pad_hyper1_ckn ,
-  inout wire [1:0]    pad_hyper1_csn ,
-  inout wire          pad_hyper1_rwds ,
-  inout wire          pad_hyper1_reset ,
+  // HYPERBUS
+  inout  [1:0][1:0]   pad_hyper_csn,
+  inout  [1:0]        pad_hyper_ck,
+  inout  [1:0]        pad_hyper_ckn,
+  inout  [1:0]        pad_hyper_rwds,
+  inout  [1:0]        pad_hyper_reset,
+  inout  [1:0][7:0]   pad_hyper_dq,
 
   inout wire logic    pad_periphs_pad_gpio_b_00_pad,
   inout wire logic    pad_periphs_pad_gpio_b_01_pad,
@@ -122,10 +116,6 @@ module al_saqr
   inout wire logic    pad_periphs_pad_gpio_b_55_pad,
   inout wire logic    pad_periphs_pad_gpio_b_56_pad,
   inout wire logic    pad_periphs_pad_gpio_b_57_pad,
-  inout wire logic    pad_periphs_pad_gpio_b_58_pad,
-  inout wire logic    pad_periphs_pad_gpio_b_59_pad,
-  inout wire logic    pad_periphs_pad_gpio_b_60_pad,
-  inout wire logic    pad_periphs_pad_gpio_b_61_pad,
 
   inout wire logic    pad_periphs_pad_gpio_c_00_pad,
   inout wire logic    pad_periphs_pad_gpio_c_01_pad,
@@ -357,6 +347,9 @@ module al_saqr
   
   sdio_to_pad_t [N_SDIO-1:0] s_sdio_to_pad;
   pad_to_sdio_t [N_SDIO-1:0] s_pad_to_sdio;
+
+  can_to_pad_t [N_CAN-1 : 0] s_can_to_pad;
+  pad_to_can_t [N_CAN-1 : 0] s_pad_to_can;
   
   pwm_to_pad_t s_pwm_to_pad;
 
@@ -441,10 +434,7 @@ module al_saqr
       .cluster_en_sa_boot_o   ( s_cluster_en_sa_boot            ),
       .cluster_fetch_en_o     ( s_cluster_fetch_en              ),
       .clk_cluster_o          ( s_cluster_clk                   ),                 
-      .padframecfg_reg_master ( i_padframecfg_rbus              ),
-      
-      .hyper_to_pad           ( s_hyper_to_pad                  ),
-      .pad_to_hyper           ( s_pad_to_hyper                  ),    
+      .padframecfg_reg_master ( i_padframecfg_rbus              ), 
 
       .qspi_to_pad            ( s_qspi_to_pad                   ),
       .pad_to_qspi            ( s_pad_to_qspi                   ),
@@ -460,40 +450,33 @@ module al_saqr
       .sdio_to_pad            ( s_sdio_to_pad                   ),
       .pad_to_sdio            ( s_pad_to_sdio                   ),
 
-      .serial_link_to_pad     ( s_serial_link_to_pad             ),
-      .pad_to_serial_link     ( s_pad_to_serial_link             ),                     
+      .serial_link_to_pad     ( s_serial_link_to_pad            ),
+      .pad_to_serial_link     ( s_pad_to_serial_link            ),                     
 
-      .gpio_to_pad            ( s_gpio_b_to_pad                  ),
-      .pad_to_gpio            ( s_pad_to_gpio_b                  ),
+      .gpio_to_pad            ( s_gpio_b_to_pad                 ),
+      .pad_to_gpio            ( s_pad_to_gpio_b                 ),
 
-      .cva6_uart_rx_i         ( s_cva6_uart_rx_i                 ),
-      .cva6_uart_tx_o         ( s_cva6_uart_tx_o                 ),
+      .can_to_pad             ( s_can_to_pad                    ),
+      .pad_to_can             ( s_pad_to_can                    ),
 
-      .pwm_to_pad             ( s_pwm_to_pad                     )
+      .cva6_uart_rx_i         ( s_cva6_uart_rx_i                ),
+      .cva6_uart_tx_o         ( s_cva6_uart_tx_o                ),
+
+      .pwm_to_pad             ( s_pwm_to_pad                    ),
+
+      .pad_hyper_csn,
+      .pad_hyper_ck,
+      .pad_hyper_ckn,
+      .pad_hyper_rwds,
+      .pad_hyper_reset,
+      .pad_hyper_dq
+
     );
    
    pad_frame #()
     i_pad_frame
       (       
-
-      .pad_to_hyper           ( s_pad_to_hyper             ),
-      .hyper_to_pad           ( s_hyper_to_pad             ),
               
-      .pad_hyper0_dq ,
-      .pad_hyper0_ck ,
-      .pad_hyper0_ckn ,
-      .pad_hyper0_csn ,
-      .pad_hyper0_rwds ,
-      .pad_hyper0_reset ,
-      
-      
-      .pad_hyper1_dq ,
-      .pad_hyper1_ck ,
-      .pad_hyper1_ckn ,
-      .pad_hyper1_csn ,
-      .pad_hyper1_rwds ,
-      .pad_hyper1_reset ,
-
       .cva6_uart_rx           ( s_cva6_uart_rx_i           ),
       .cva6_uart_tx           ( s_cva6_uart_tx_o           ),
       .pad_cva6_uart_tx       ( cva6_uart_tx_o             ),
@@ -786,6 +769,10 @@ module al_saqr
          );
    `endif // !`ifndef EXCLUDE_CLUSTER
 
+  /**************************************************************************************************/
+  /*                                      BEGIN AXI TLBs REGION                                     */
+  /**************************************************************************************************/
+
    axi_dw_converter_intf #(
      .AXI_ID_WIDTH             ( ariane_soc::IdWidthSlave ),
      .AXI_ADDR_WIDTH           ( AXI_ADDRESS_WIDTH        ),
@@ -815,10 +802,7 @@ module al_saqr
      .slv                ( c2h_tlb_cfg_axi_bus_32 ),
      .mst                ( c2h_tlb_cfg_lite       )
    );
-          
-  /**************************************************************************************************/
-  /*                                      BEGIN AXI TLBs REGION                                     */
-  /**************************************************************************************************/
+
   localparam int unsigned N_CLUSTERS = 1;
   localparam int unsigned ENTRIES = 32;
 
@@ -921,7 +905,7 @@ module al_saqr
     .AXI_DATA_WIDTH          ( AXI_DATA_WIDTH           ),
     .AXI_ID_WIDTH            ( ariane_soc::IdWidthSlave ),
     .AXI_USER_WIDTH          ( AXI_USER_WIDTH           ),
-    .AXI_SLV_PORT_MAX_TXNS   ( 1                        ), 
+    .AXI_SLV_PORT_MAX_TXNS   ( 8                        ), 
     .CFG_AXI_ADDR_WIDTH      ( AXI_LITE_AW              ),
     .CFG_AXI_DATA_WIDTH      ( AXI_LITE_DW              ),
     .L1_NUM_ENTRIES          ( ENTRIES                  ), 
@@ -944,7 +928,7 @@ module al_saqr
      .AXI_DATA_WIDTH          ( AXI_DATA_WIDTH         ),
      .AXI_ID_WIDTH            ( ariane_soc::IdWidth    ),
      .AXI_USER_WIDTH          ( AXI_USER_WIDTH         ),
-     .AXI_SLV_PORT_MAX_TXNS   ( 1                      ), 
+     .AXI_SLV_PORT_MAX_TXNS   ( 8                      ), 
      .CFG_AXI_ADDR_WIDTH      ( AXI_LITE_AW            ),
      .CFG_AXI_DATA_WIDTH      ( AXI_LITE_DW            ),
      .L1_NUM_ENTRIES          ( ENTRIES                ),
@@ -1037,10 +1021,6 @@ module al_saqr
       .pad_periphs_pad_gpio_b_55_pad(pad_periphs_pad_gpio_b_55_pad),
       .pad_periphs_pad_gpio_b_56_pad(pad_periphs_pad_gpio_b_56_pad),
       .pad_periphs_pad_gpio_b_57_pad(pad_periphs_pad_gpio_b_57_pad),
-      .pad_periphs_pad_gpio_b_58_pad(pad_periphs_pad_gpio_b_58_pad),
-      .pad_periphs_pad_gpio_b_59_pad(pad_periphs_pad_gpio_b_59_pad),
-      .pad_periphs_pad_gpio_b_60_pad(pad_periphs_pad_gpio_b_60_pad),
-      .pad_periphs_pad_gpio_b_61_pad(pad_periphs_pad_gpio_b_61_pad),
       
       .pad_periphs_pad_gpio_c_00_pad(pad_periphs_pad_gpio_c_00_pad),
       .pad_periphs_pad_gpio_c_01_pad(pad_periphs_pad_gpio_c_01_pad),
@@ -1173,8 +1153,12 @@ module al_saqr
    `ASSIGN_PERIPHS_SPI7_SOC2PAD(s_port_signals_soc2pad.periphs.spi7,s_qspi_to_pad[7])
 
    //CAN0
+   `ASSIGN_PERIPHS_CAN0_PAD2SOC(s_pad_to_can[0],s_port_signals_pad2soc.periphs.can0)
+   `ASSIGN_PERIPHS_CAN0_SOC2PAD(s_port_signals_soc2pad.periphs.can0,s_can_to_pad[0])
 
    //CAN1
+   `ASSIGN_PERIPHS_CAN0_PAD2SOC(s_pad_to_can[1],s_port_signals_pad2soc.periphs.can1)
+   `ASSIGN_PERIPHS_CAN0_SOC2PAD(s_port_signals_soc2pad.periphs.can1,s_can_to_pad[1])
 
    `ASSIGN_PERIPHS_I2C1_PAD2SOC(s_pad_to_i2c[1],s_port_signals_pad2soc.periphs.i2c1)
    `ASSIGN_PERIPHS_I2C1_SOC2PAD(s_port_signals_soc2pad.periphs.i2c1,s_i2c_to_pad[1])

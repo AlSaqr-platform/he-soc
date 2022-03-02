@@ -5,7 +5,7 @@ package:
     - "Luca V"
 
 dependencies:
-  register_interface:     { git: "https://github.com/pulp-platform/register_interface.git", version: 0.3.1 }
+  register_interface:     { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
   common_cells:           { git: "https://github.com/pulp-platform/common_cells.git", version: 1.21.0 }
 
 sources:

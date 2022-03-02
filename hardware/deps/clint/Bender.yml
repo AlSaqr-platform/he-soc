@@ -3,7 +3,7 @@ package:
   authors:
 
 dependencies:
-  cva6: { git: "git@github.com:minho-pulp/cva6.git" , rev: "1fe85047dea774bffea4c1215a18a8b61c6844df" }
+  cva6: { git: "git@github.com:minho-pulp/cva6.git", rev: "c597c899d78560822a7eac027f27dc56c361a88c" }
     
 sources:
   - ./axi_lite_interface.sv

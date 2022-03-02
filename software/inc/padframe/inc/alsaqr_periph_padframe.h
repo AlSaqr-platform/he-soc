@@ -26,6 +26,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_00_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_00_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_00_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_00
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_00_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_00
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -52,6 +66,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_00_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_00_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_00_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_00
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_00_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_00_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_00
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_00_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_00_REGISTER = 0,
@@ -90,6 +132,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_01_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_01_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_01_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_01
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_01_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_01
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -116,6 +172,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_01_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_01_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_01_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_01
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_01_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_01_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_01
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_01_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_01_REGISTER = 0,
@@ -154,6 +238,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_02_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_02_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_02
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_02_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_02
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_02_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_02
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -180,6 +278,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_02_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_02_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_02
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_02_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_02
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_02_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_02
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_02_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_02
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_02_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_02_REGISTER = 0,
@@ -218,6 +344,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_03_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_03_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_03
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_03_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_03
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_03_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_03
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -244,6 +384,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_03_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_03_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_03
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_03_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_03
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_03_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_03
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_03_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_03
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_03_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_03_REGISTER = 0,
@@ -282,6 +450,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_04_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_04_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_04
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_04_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_04
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_04_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_04
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -308,6 +490,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_04_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_04_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_04
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_04_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_04
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_04_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_04
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_04_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_04
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_04_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_04_REGISTER = 0,
@@ -346,6 +556,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_05_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_05_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_05
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_05_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_05
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_05_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_05
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -372,6 +596,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_05_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_05_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_05
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_05_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_05
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_05_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_05
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_05_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_05
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_05_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_05_REGISTER = 0,
@@ -410,6 +662,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_06_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_06_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_06
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_06_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_06
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_06_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_06
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -436,6 +702,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_06_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_06_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_06
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_06_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_06
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_06_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_06
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_06_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_06
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_06_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_06_REGISTER = 0,
@@ -474,6 +768,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_07_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_07_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_07
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_07_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_07
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_07_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_07
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -500,6 +808,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_07_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_07_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_07
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_07_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_07
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_07_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_07
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_07_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_07
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_07_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_07_REGISTER = 0,
@@ -538,6 +874,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_08_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_08_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_08
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_08_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_08
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_08_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_08
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -564,6 +914,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_08_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_08_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_08
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_08_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_08
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_08_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_08
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_08_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_08
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_08_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_08_REGISTER = 0,
@@ -602,6 +980,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_09_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_09_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_09
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_09_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_09
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_09_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_09
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -628,6 +1020,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_09_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_09_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_09
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_09_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_09
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_09_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_09
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_09_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_09
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_09_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_09_REGISTER = 0,
@@ -666,6 +1086,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_10_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_10_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_10
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_10_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_10
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_10_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_10
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -692,6 +1126,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_10_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_10_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_10
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_10_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_10
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_10_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_10
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_10_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_10
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_10_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_10_REGISTER = 0,
@@ -730,6 +1192,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_11_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_11_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_11
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_11_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_11
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_11_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_11
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -756,6 +1232,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_11_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_11_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_11
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_11_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_11
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_11_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_11
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_11_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_11
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_11_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_11_REGISTER = 0,
@@ -794,6 +1298,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_12_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_12_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_12
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_12_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_12
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_12_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_12
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -820,6 +1338,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_12_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_12_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_12
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_12_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_12
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_12_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_12
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_12_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_12
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_12_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_12_REGISTER = 0,
@@ -858,6 +1404,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_13_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_13_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_13
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_13_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_13
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_13_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_13
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -884,6 +1444,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_13_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_13_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_13
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_13_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_13
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_13_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_13
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_13_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_13
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_13_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_13_REGISTER = 0,
@@ -922,6 +1510,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_14_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_14_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_14
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_14_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_14
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_14_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_14
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -948,6 +1550,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_14_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_14_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_14
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_14_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_14
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_14_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_14
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_14_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_14
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_14_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_14_REGISTER = 0,
@@ -986,6 +1616,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_15_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_15_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_15
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_15_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_15
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_15_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_15
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -1012,6 +1656,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_15_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_15_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_15
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_15_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_15
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_15_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_15
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_15_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_15
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_15_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_15_REGISTER = 0,
@@ -1050,6 +1722,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_16_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_16_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_16
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_16_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_16
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_16_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_16
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -1076,6 +1762,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_16_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_16_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_16
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_16_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_16
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_16_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_16
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_16_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_16
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_16_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_16_REGISTER = 0,
@@ -1114,6 +1828,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_17_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_17_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_17
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_17_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_17
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_17_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_17
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -1140,6 +1868,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_17_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_17_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_17
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_17_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_17
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_17_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_17
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_17_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_17
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_17_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_17_REGISTER = 0,
@@ -1178,6 +1934,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_18_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_18_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_18
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_18_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_18
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_18_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_18
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -1204,6 +1974,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_18_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_18_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_18
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_18_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_18
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_18_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_18
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_18_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_18
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_18_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_18_REGISTER = 0,
@@ -1242,6 +2040,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_19_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_19_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_19
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_19_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_19
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_19_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_19
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -1268,6 +2080,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_19_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_19_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_19
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_19_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_19
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_19_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_19
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_19_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_19
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_19_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_19_REGISTER = 0,
@@ -1306,6 +2146,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_20_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_20_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_20
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_20_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_20
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_20_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_20
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -1332,6 +2186,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_20_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_20_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_20
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_20_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_20
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_20_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_20
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_20_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_20
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_20_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_20_REGISTER = 0,
@@ -1370,6 +2252,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_21_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_21_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_21
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_21_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_21
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_21_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_21
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -1396,6 +2292,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_21_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_21_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_21
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_21_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_21
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_21_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_21
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_21_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_21
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_21_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_21_REGISTER = 0,
@@ -1434,6 +2358,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_22_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_22_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_22
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_22_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_22
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_22_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_22
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -1460,6 +2398,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_22_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_22_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_22
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_22_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_22
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_22_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_22
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_22_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_22
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_22_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_22_REGISTER = 0,
@@ -1498,6 +2464,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_23_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_23_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_23
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_23_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_23
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_23_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_23
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -1524,6 +2504,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_23_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_23_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_23
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_23_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_23
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_23_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_23
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_23_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_23
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_23_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_23_REGISTER = 0,
@@ -1562,6 +2570,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_24_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_24_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_24
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_24_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_24
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_24_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_24
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -1588,6 +2610,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_24_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_24_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_24
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_24_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_24
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_24_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_24
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_24_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_24
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_24_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_24_REGISTER = 0,
@@ -1626,6 +2676,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_25_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_25_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_25
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_25_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_25
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_25_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_25
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -1652,6 +2716,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_25_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_25_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_25
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_25_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_25
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_25_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_25
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_25_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_25
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_25_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_25_REGISTER = 0,
@@ -1690,6 +2782,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_26_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_26_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_26
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_26_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_26
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_26_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_26
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -1716,6 +2822,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_26_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_26_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_26
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_26_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_26
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_26_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_26
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_26_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_26
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_26_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_26_REGISTER = 0,
@@ -1754,6 +2888,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_27_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_27_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_27
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_27_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_27
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_27_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_27
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -1780,6 +2928,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_27_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_27_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_27
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_27_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_27
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_27_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_27
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_27_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_27
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_27_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_27_REGISTER = 0,
@@ -1818,6 +2994,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_28_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_28_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_28
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_28_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_28
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_28_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_28
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -1844,6 +3034,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_28_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_28_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_28
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_28_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_28
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_28_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_28
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_28_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_28
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_28_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_28_REGISTER = 0,
@@ -1882,6 +3100,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_29_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_29_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_29
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_29_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_29
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_29_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_29
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -1908,6 +3140,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_29_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_29_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_29
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_29_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_29
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_29_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_29
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_29_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_29
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_29_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_29_REGISTER = 0,
@@ -1946,6 +3206,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_30_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_30_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_30
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_30_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_30
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_30_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_30
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -1972,6 +3246,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_30_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_30_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_30
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_30_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_30
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_30_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_30
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_30_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_30
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_30_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_30_REGISTER = 0,
@@ -2010,6 +3312,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_31_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_31_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_31
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_31_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_31
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_31_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_31
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -2036,6 +3352,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_31_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_31_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_31
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_31_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_31
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_31_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_31
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_31_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_31
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_31_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_31_REGISTER = 0,
@@ -2074,6 +3418,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_32_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_32_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_32
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_32_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_32
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_32_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_32
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -2100,6 +3458,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_32_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_32_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_32
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_32_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_32
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_32_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_32
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_32_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_32
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_32_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_32_REGISTER = 0,
@@ -2138,6 +3524,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_33_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_33_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_33
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_33_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_33
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_33_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_33
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -2164,6 +3564,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_33_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_33_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_33
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_33_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_33
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_33_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_33
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_33_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_33
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_33_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_33_REGISTER = 0,
@@ -2202,6 +3630,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_34_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_34_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_34
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_34_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_34
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_34_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_34
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -2228,6 +3670,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_34_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_34_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_34
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_34_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_34
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_34_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_34
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_34_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_34
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_34_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_34_REGISTER = 0,
@@ -2266,6 +3736,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_35_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_35_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_35
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_35_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_35
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_35_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_35
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -2292,6 +3776,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_35_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_35_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_35
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_35_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_35
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_35_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_35
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_35_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_35
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_35_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_35_REGISTER = 0,
@@ -2330,6 +3842,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_36_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_36_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_36
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_36_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_36
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_36_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_36
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -2356,6 +3882,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_36_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_36_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_36
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_36_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_36
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_36_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_36
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_36_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_36
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_36_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_36_REGISTER = 0,
@@ -2394,6 +3948,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_37_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_37_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_37
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_37_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_37
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_37_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_37
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -2420,6 +3988,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_37_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_37_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_37
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_37_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_37
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_37_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_37
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_37_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_37
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_37_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_37_REGISTER = 0,
@@ -2458,6 +4054,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_38_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_38_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_38
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_38_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_38
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_38_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_38
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -2484,6 +4094,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_38_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_38_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_38
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_38_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_38
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_38_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_38
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_38_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_38
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_38_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_38_REGISTER = 0,
@@ -2522,6 +4160,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_39_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_39_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_39
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_39_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_39
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_39_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_39
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -2548,6 +4200,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_39_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_39_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_39
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_39_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_39
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_39_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_39
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_39_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_39
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_39_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_39_REGISTER = 0,
@@ -2586,6 +4266,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_40_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_40_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_40
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_40_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_40
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_40_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_40
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -2612,6 +4306,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_40_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_40_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_40
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_40_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_40
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_40_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_40
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_40_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_40
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_40_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_40_REGISTER = 0,
@@ -2650,6 +4372,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_41_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_41_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_41
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_41_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_41
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_41_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_41
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -2676,6 +4412,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_41_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_41_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_41
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_41_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_41
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_41_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_41
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_41_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_41
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_41_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_41_REGISTER = 0,
@@ -2714,6 +4478,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_42_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_42_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_42
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_42_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_42
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_42_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_42
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -2740,6 +4518,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_42_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_42_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_42
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_42_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_42
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_42_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_42
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_42_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_42
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_42_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_42_REGISTER = 0,
@@ -2778,6 +4584,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_43_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_43_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_43
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_43_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_43
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_43_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_43
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -2804,6 +4624,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_43_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_43_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_43
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_43_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_43
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_43_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_43
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_43_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_43
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_43_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_43_REGISTER = 0,
@@ -2842,6 +4690,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_44_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_44_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_44
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_44_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_44
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_44_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_44
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -2868,6 +4730,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_44_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_44_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_44
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_44_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_44
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_44_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_44
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_44_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_44
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_44_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_44_REGISTER = 0,
@@ -2906,6 +4796,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_45_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_45_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_45
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_45_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_45
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_45_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_45
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -2932,6 +4836,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_45_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_45_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_45
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_45_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_45
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_45_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_45
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_45_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_45
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_45_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_45_REGISTER = 0,
@@ -2970,6 +4902,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_46_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_46_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_46
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_46_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_46
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_46_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_46
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -2996,6 +4942,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_46_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_46_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_46
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_46_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_46
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_46_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_46
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_46_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_46
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_46_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_46_REGISTER = 0,
@@ -3034,6 +5008,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_47_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_47_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_47
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_47_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_47
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_47_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_47
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -3060,6 +5048,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_47_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_47_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_47
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_47_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_47
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_47_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_47
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_47_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_47
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_47_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_47_REGISTER = 0,
@@ -3098,6 +5114,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_48_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_48_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_48
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_48_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_48
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_48_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_48
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -3124,6 +5154,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_48_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_48_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_48
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_48_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_48
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_48_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_48
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_48_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_48
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_48_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_48_REGISTER = 0,
@@ -3162,6 +5220,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_49_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_49_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_49
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_49_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_49
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_49_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_49
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -3188,6 +5260,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_49_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_49_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_49
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_49_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_49
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_49_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_49
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_49_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_49
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_49_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_49_REGISTER = 0,
@@ -3226,6 +5326,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_50_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_50_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_50
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_50_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_50
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_50_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_50
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -3252,6 +5366,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_50_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_50_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_50
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_50_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_50
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_50_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_50
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_50_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_50
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_50_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_50_REGISTER = 0,
@@ -3290,6 +5432,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_51_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_51_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_51
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_51_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_51
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_51_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_51
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -3316,6 +5472,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_51_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_51_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_51
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_51_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_51
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_51_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_51
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_51_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_51
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_51_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_51_REGISTER = 0,
@@ -3354,6 +5538,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_52_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_52_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_52
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_52_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_52
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_52_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_52
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -3380,6 +5578,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_52_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_52_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_52
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_52_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_52
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_52_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_52
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_52_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_52
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_52_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_52_REGISTER = 0,
@@ -3418,6 +5644,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_53_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_53_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_53
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_53_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_53
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_53_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_53
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -3444,6 +5684,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_53_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_53_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_53
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_53_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_53
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_53_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_53
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_53_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_53
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_53_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_53_REGISTER = 0,
@@ -3482,6 +5750,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_54_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_54_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_54
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_54_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_54
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_54_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_54
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -3508,6 +5790,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_54_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_54_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_54
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_54_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_54
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_54_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_54
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_54_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_54
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_54_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_54_REGISTER = 0,
@@ -3546,6 +5856,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_55_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_55_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_55
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_55_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_55
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_55_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_55
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -3572,6 +5896,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_55_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_55_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_55
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_55_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_55
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_55_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_55
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_55_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_55
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_55_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_55_REGISTER = 0,
@@ -3610,6 +5962,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_56_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_56_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_56
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_56_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_56
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_56_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_56
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -3636,6 +6002,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_56_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_56_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_56
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_56_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_56
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_56_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_56
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_56_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_56
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_56_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_56_REGISTER = 0,
@@ -3673,6 +6067,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_57_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_57_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_b_57
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_57_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_b_57
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_57_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_b_57
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -3700,6 +6108,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_57_cfg_puen_set(uint8_t value);
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_57_cfg_puen_get();
 
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_b_57
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_57_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_b_57
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_57_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_b_57
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_b_57_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_b_57
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_57_cfg_smt_get();
+
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_57_REGISTER = 0,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_57_group_GPIO_B_port_GPIO57 = 1,
@@ -3722,258 +6158,6 @@ void alsaqr_periph_padframe_periphs_pad_gpio_b_57_mux_set(alsaqr_periph_padframe
 
 
 /**
- * Sets the chip2pad pad signal for the pad: pad_gpio_b_58
- *
- * @param value The value to program into the pad configuration register. A value smaller than 1.
- */
-void alsaqr_periph_padframe_periphs_pad_gpio_b_58_cfg_chip2pad_set(uint8_t value);
-
-/**
- * Get the currently configured chip2pad value for the pad: pad_gpio_b_58
- *
- * @return The value of the chip2pad field
- */
-uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_58_cfg_chip2pad_get();
-
-/**
- * Sets the oen pad signal for the pad: pad_gpio_b_58
- *
- * @param value The value to program into the pad configuration register. A value smaller than 1.
- */
-void alsaqr_periph_padframe_periphs_pad_gpio_b_58_cfg_oen_set(uint8_t value);
-
-/**
- * Get the currently configured oen value for the pad: pad_gpio_b_58
- *
- * @return The value of the oen field
- */
-uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_58_cfg_oen_get();
-
-/**
- * Sets the puen pad signal for the pad: pad_gpio_b_58
- *
- * @param value The value to program into the pad configuration register. A value smaller than 1.
- */
-void alsaqr_periph_padframe_periphs_pad_gpio_b_58_cfg_puen_set(uint8_t value);
-
-/**
- * Get the currently configured puen value for the pad: pad_gpio_b_58
- *
- * @return The value of the puen field
- */
-uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_58_cfg_puen_get();
-
-typedef enum {
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_58_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_58_group_GPIO_B_port_GPIO58 = 1,
-} alsaqr_periph_padframe_periphs_pad_gpio_b_58_mux_sel_t;
-
-/**
-   * Choose the entity (a port or the dedicated configuration register) that controls pad_gpio_b_58.
-   *
-   * @param mux_sel Port or configuration register to connect to the pad.
- */
-void alsaqr_periph_padframe_periphs_pad_gpio_b_58_mux_set(alsaqr_periph_padframe_periphs_pad_gpio_b_58_mux_sel_t mux_sel);
-
-/**
- * Read the current multiplexer select value configured for pad_gpio_b_58.
- *
- * @return Port or configuration register currently connected to the pad.
- */
- alsaqr_periph_padframe_periphs_pad_gpio_b_58_mux_sel_t alsaqr_periph_padframe_periphs_pad_gpio_b_58_mux_get();
-
-
-
-/**
- * Sets the chip2pad pad signal for the pad: pad_gpio_b_59
- *
- * @param value The value to program into the pad configuration register. A value smaller than 1.
- */
-void alsaqr_periph_padframe_periphs_pad_gpio_b_59_cfg_chip2pad_set(uint8_t value);
-
-/**
- * Get the currently configured chip2pad value for the pad: pad_gpio_b_59
- *
- * @return The value of the chip2pad field
- */
-uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_59_cfg_chip2pad_get();
-
-/**
- * Sets the oen pad signal for the pad: pad_gpio_b_59
- *
- * @param value The value to program into the pad configuration register. A value smaller than 1.
- */
-void alsaqr_periph_padframe_periphs_pad_gpio_b_59_cfg_oen_set(uint8_t value);
-
-/**
- * Get the currently configured oen value for the pad: pad_gpio_b_59
- *
- * @return The value of the oen field
- */
-uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_59_cfg_oen_get();
-
-/**
- * Sets the puen pad signal for the pad: pad_gpio_b_59
- *
- * @param value The value to program into the pad configuration register. A value smaller than 1.
- */
-void alsaqr_periph_padframe_periphs_pad_gpio_b_59_cfg_puen_set(uint8_t value);
-
-/**
- * Get the currently configured puen value for the pad: pad_gpio_b_59
- *
- * @return The value of the puen field
- */
-uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_59_cfg_puen_get();
-
-typedef enum {
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_59_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_59_group_GPIO_B_port_GPIO59 = 1,
-} alsaqr_periph_padframe_periphs_pad_gpio_b_59_mux_sel_t;
-
-/**
-   * Choose the entity (a port or the dedicated configuration register) that controls pad_gpio_b_59.
-   *
-   * @param mux_sel Port or configuration register to connect to the pad.
- */
-void alsaqr_periph_padframe_periphs_pad_gpio_b_59_mux_set(alsaqr_periph_padframe_periphs_pad_gpio_b_59_mux_sel_t mux_sel);
-
-/**
- * Read the current multiplexer select value configured for pad_gpio_b_59.
- *
- * @return Port or configuration register currently connected to the pad.
- */
- alsaqr_periph_padframe_periphs_pad_gpio_b_59_mux_sel_t alsaqr_periph_padframe_periphs_pad_gpio_b_59_mux_get();
-
-
-
-/**
- * Sets the chip2pad pad signal for the pad: pad_gpio_b_60
- *
- * @param value The value to program into the pad configuration register. A value smaller than 1.
- */
-void alsaqr_periph_padframe_periphs_pad_gpio_b_60_cfg_chip2pad_set(uint8_t value);
-
-/**
- * Get the currently configured chip2pad value for the pad: pad_gpio_b_60
- *
- * @return The value of the chip2pad field
- */
-uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_60_cfg_chip2pad_get();
-
-/**
- * Sets the oen pad signal for the pad: pad_gpio_b_60
- *
- * @param value The value to program into the pad configuration register. A value smaller than 1.
- */
-void alsaqr_periph_padframe_periphs_pad_gpio_b_60_cfg_oen_set(uint8_t value);
-
-/**
- * Get the currently configured oen value for the pad: pad_gpio_b_60
- *
- * @return The value of the oen field
- */
-uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_60_cfg_oen_get();
-
-/**
- * Sets the puen pad signal for the pad: pad_gpio_b_60
- *
- * @param value The value to program into the pad configuration register. A value smaller than 1.
- */
-void alsaqr_periph_padframe_periphs_pad_gpio_b_60_cfg_puen_set(uint8_t value);
-
-/**
- * Get the currently configured puen value for the pad: pad_gpio_b_60
- *
- * @return The value of the puen field
- */
-uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_60_cfg_puen_get();
-
-typedef enum {
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_60_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_60_group_GPIO_B_port_GPIO60 = 1,
-} alsaqr_periph_padframe_periphs_pad_gpio_b_60_mux_sel_t;
-
-/**
-   * Choose the entity (a port or the dedicated configuration register) that controls pad_gpio_b_60.
-   *
-   * @param mux_sel Port or configuration register to connect to the pad.
- */
-void alsaqr_periph_padframe_periphs_pad_gpio_b_60_mux_set(alsaqr_periph_padframe_periphs_pad_gpio_b_60_mux_sel_t mux_sel);
-
-/**
- * Read the current multiplexer select value configured for pad_gpio_b_60.
- *
- * @return Port or configuration register currently connected to the pad.
- */
- alsaqr_periph_padframe_periphs_pad_gpio_b_60_mux_sel_t alsaqr_periph_padframe_periphs_pad_gpio_b_60_mux_get();
-
-
-
-/**
- * Sets the chip2pad pad signal for the pad: pad_gpio_b_61
- *
- * @param value The value to program into the pad configuration register. A value smaller than 1.
- */
-void alsaqr_periph_padframe_periphs_pad_gpio_b_61_cfg_chip2pad_set(uint8_t value);
-
-/**
- * Get the currently configured chip2pad value for the pad: pad_gpio_b_61
- *
- * @return The value of the chip2pad field
- */
-uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_61_cfg_chip2pad_get();
-
-/**
- * Sets the oen pad signal for the pad: pad_gpio_b_61
- *
- * @param value The value to program into the pad configuration register. A value smaller than 1.
- */
-void alsaqr_periph_padframe_periphs_pad_gpio_b_61_cfg_oen_set(uint8_t value);
-
-/**
- * Get the currently configured oen value for the pad: pad_gpio_b_61
- *
- * @return The value of the oen field
- */
-uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_61_cfg_oen_get();
-
-/**
- * Sets the puen pad signal for the pad: pad_gpio_b_61
- *
- * @param value The value to program into the pad configuration register. A value smaller than 1.
- */
-void alsaqr_periph_padframe_periphs_pad_gpio_b_61_cfg_puen_set(uint8_t value);
-
-/**
- * Get the currently configured puen value for the pad: pad_gpio_b_61
- *
- * @return The value of the puen field
- */
-uint8_t alsaqr_periph_padframe_periphs_pad_gpio_b_61_cfg_puen_get();
-
-typedef enum {
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_61_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_B_61_group_GPIO_B_port_GPIO61 = 1,
-} alsaqr_periph_padframe_periphs_pad_gpio_b_61_mux_sel_t;
-
-/**
-   * Choose the entity (a port or the dedicated configuration register) that controls pad_gpio_b_61.
-   *
-   * @param mux_sel Port or configuration register to connect to the pad.
- */
-void alsaqr_periph_padframe_periphs_pad_gpio_b_61_mux_set(alsaqr_periph_padframe_periphs_pad_gpio_b_61_mux_sel_t mux_sel);
-
-/**
- * Read the current multiplexer select value configured for pad_gpio_b_61.
- *
- * @return Port or configuration register currently connected to the pad.
- */
- alsaqr_periph_padframe_periphs_pad_gpio_b_61_mux_sel_t alsaqr_periph_padframe_periphs_pad_gpio_b_61_mux_get();
-
-
-
-/**
  * Sets the chip2pad pad signal for the pad: pad_gpio_c_00
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -3986,6 +6170,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_c_00_cfg_chip2pad_set(uint8_t value
  * @return The value of the chip2pad field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_00_cfg_chip2pad_get();
+
+/**
+ * Sets the drv pad signal for the pad: pad_gpio_c_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_c_00_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_c_00
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_00_cfg_drv_get();
 
 /**
  * Sets the oen pad signal for the pad: pad_gpio_c_00
@@ -4015,9 +6213,37 @@ void alsaqr_periph_padframe_periphs_pad_gpio_c_00_cfg_puen_set(uint8_t value);
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_00_cfg_puen_get();
 
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_c_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_c_00_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_c_00
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_00_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_c_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_c_00_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_c_00
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_00_cfg_smt_get();
+
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_00_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_00_group_CAN0_port_CAN0_TX = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_00_group_CAN0_port_CAN_TX = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_00_group_SPI7_port_SPI_SCK = 2,
 } alsaqr_periph_padframe_periphs_pad_gpio_c_00_mux_sel_t;
 
@@ -4052,6 +6278,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_c_01_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_01_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_c_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_c_01_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_c_01
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_01_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_c_01
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -4079,9 +6319,37 @@ void alsaqr_periph_padframe_periphs_pad_gpio_c_01_cfg_puen_set(uint8_t value);
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_01_cfg_puen_get();
 
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_c_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_c_01_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_c_01
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_01_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_c_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_c_01_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_c_01
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_01_cfg_smt_get();
+
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_01_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_01_group_CAN0_port_CAN0_RX = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_01_group_CAN0_port_CAN_RX = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_01_group_SPI7_port_SPI_MISO = 2,
 } alsaqr_periph_padframe_periphs_pad_gpio_c_01_mux_sel_t;
 
@@ -4116,6 +6384,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_c_02_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_02_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_c_02
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_c_02_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_c_02
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_02_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_c_02
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -4143,9 +6425,37 @@ void alsaqr_periph_padframe_periphs_pad_gpio_c_02_cfg_puen_set(uint8_t value);
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_02_cfg_puen_get();
 
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_c_02
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_c_02_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_c_02
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_02_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_c_02
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_c_02_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_c_02
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_02_cfg_smt_get();
+
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_02_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_02_group_CAN1_port_CAN1_TX = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_02_group_CAN1_port_CAN_TX = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_02_group_SPI7_port_SPI_MOSI = 2,
 } alsaqr_periph_padframe_periphs_pad_gpio_c_02_mux_sel_t;
 
@@ -4180,6 +6490,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_c_03_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_03_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_c_03
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_c_03_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_c_03
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_03_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_c_03
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -4207,9 +6531,37 @@ void alsaqr_periph_padframe_periphs_pad_gpio_c_03_cfg_puen_set(uint8_t value);
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_03_cfg_puen_get();
 
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_c_03
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_c_03_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_c_03
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_03_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_c_03
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_c_03_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_c_03
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_c_03_cfg_smt_get();
+
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_03_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_03_group_CAN1_port_CAN1_RX = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_03_group_CAN1_port_CAN_RX = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_C_03_group_SPI7_port_SPI_CS0 = 2,
 } alsaqr_periph_padframe_periphs_pad_gpio_c_03_mux_sel_t;
 
@@ -4244,6 +6596,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_00_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_00_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_d_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_00_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_d_00
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_00_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_d_00
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -4270,6 +6636,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_00_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_00_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_d_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_00_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_d_00
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_00_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_d_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_00_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_d_00
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_00_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_D_00_REGISTER = 0,
@@ -4308,6 +6702,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_01_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_01_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_d_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_01_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_d_01
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_01_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_d_01
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -4334,6 +6742,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_01_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_01_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_d_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_01_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_d_01
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_01_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_d_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_01_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_d_01
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_01_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_D_01_REGISTER = 0,
@@ -4372,6 +6808,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_02_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_02_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_d_02
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_02_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_d_02
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_02_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_d_02
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -4398,6 +6848,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_02_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_02_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_d_02
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_02_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_d_02
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_02_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_d_02
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_02_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_d_02
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_02_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_D_02_REGISTER = 0,
@@ -4436,6 +6914,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_03_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_03_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_d_03
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_03_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_d_03
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_03_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_d_03
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -4462,6 +6954,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_03_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_03_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_d_03
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_03_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_d_03
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_03_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_d_03
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_03_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_d_03
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_03_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_D_03_REGISTER = 0,
@@ -4500,6 +7020,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_04_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_04_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_d_04
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_04_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_d_04
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_04_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_d_04
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -4526,6 +7060,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_04_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_04_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_d_04
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_04_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_d_04
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_04_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_d_04
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_04_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_d_04
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_04_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_D_04_REGISTER = 0,
@@ -4564,6 +7126,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_05_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_05_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_d_05
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_05_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_d_05
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_05_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_d_05
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -4590,6 +7166,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_05_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_05_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_d_05
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_05_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_d_05
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_05_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_d_05
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_05_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_d_05
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_05_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_D_05_REGISTER = 0,
@@ -4628,6 +7232,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_06_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_06_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_d_06
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_06_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_d_06
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_06_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_d_06
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -4654,6 +7272,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_06_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_06_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_d_06
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_06_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_d_06
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_06_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_d_06
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_06_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_d_06
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_06_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_D_06_REGISTER = 0,
@@ -4692,6 +7338,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_07_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_07_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_d_07
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_07_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_d_07
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_07_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_d_07
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -4718,6 +7378,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_07_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_07_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_d_07
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_07_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_d_07
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_07_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_d_07
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_07_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_d_07
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_07_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_D_07_REGISTER = 0,
@@ -4756,6 +7444,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_08_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_08_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_d_08
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_08_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_d_08
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_08_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_d_08
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -4782,6 +7484,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_08_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_08_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_d_08
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_08_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_d_08
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_08_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_d_08
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_08_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_d_08
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_08_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_D_08_REGISTER = 0,
@@ -4819,6 +7549,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_09_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_09_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_d_09
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_09_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_d_09
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_09_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_d_09
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -4845,6 +7589,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_09_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_09_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_d_09
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_09_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_d_09
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_09_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_d_09
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_09_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_d_09
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_09_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_D_09_REGISTER = 0,
@@ -4882,6 +7654,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_10_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_10_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_d_10
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_10_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_d_10
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_10_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_d_10
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -4908,6 +7694,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_d_10_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_10_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_d_10
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_10_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_d_10
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_10_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_d_10
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_d_10_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_d_10
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_d_10_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_D_10_REGISTER = 0,
@@ -4945,6 +7759,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_00_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_00_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_e_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_00_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_e_00
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_00_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_e_00
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -4971,6 +7799,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_00_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_00_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_e_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_00_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_e_00
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_00_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_e_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_00_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_e_00
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_00_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_E_00_REGISTER = 0,
@@ -5010,6 +7866,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_01_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_01_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_e_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_01_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_e_01
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_01_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_e_01
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -5036,6 +7906,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_01_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_01_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_e_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_01_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_e_01
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_01_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_e_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_01_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_e_01
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_01_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_E_01_REGISTER = 0,
@@ -5075,6 +7973,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_02_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_02_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_e_02
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_02_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_e_02
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_02_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_e_02
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -5101,6 +8013,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_02_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_02_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_e_02
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_02_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_e_02
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_02_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_e_02
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_02_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_e_02
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_02_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_E_02_REGISTER = 0,
@@ -5140,6 +8080,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_03_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_03_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_e_03
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_03_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_e_03
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_03_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_e_03
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -5166,6 +8120,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_03_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_03_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_e_03
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_03_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_e_03
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_03_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_e_03
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_03_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_e_03
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_03_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_E_03_REGISTER = 0,
@@ -5205,6 +8187,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_04_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_04_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_e_04
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_04_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_e_04
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_04_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_e_04
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -5231,6 +8227,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_04_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_04_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_e_04
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_04_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_e_04
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_04_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_e_04
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_04_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_e_04
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_04_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_E_04_REGISTER = 0,
@@ -5268,6 +8292,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_05_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_05_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_e_05
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_05_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_e_05
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_05_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_e_05
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -5294,6 +8332,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_05_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_05_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_e_05
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_05_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_e_05
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_05_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_e_05
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_05_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_e_05
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_05_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_E_05_REGISTER = 0,
@@ -5331,6 +8397,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_06_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_06_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_e_06
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_06_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_e_06
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_06_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_e_06
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -5357,6 +8437,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_06_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_06_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_e_06
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_06_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_e_06
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_06_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_e_06
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_06_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_e_06
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_06_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_E_06_REGISTER = 0,
@@ -5394,6 +8502,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_07_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_07_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_e_07
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_07_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_e_07
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_07_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_e_07
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -5420,6 +8542,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_07_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_07_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_e_07
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_07_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_e_07
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_07_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_e_07
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_07_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_e_07
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_07_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_E_07_REGISTER = 0,
@@ -5457,6 +8607,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_08_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_08_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_e_08
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_08_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_e_08
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_08_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_e_08
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -5483,6 +8647,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_08_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_08_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_e_08
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_08_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_e_08
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_08_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_e_08
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_08_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_e_08
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_08_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_E_08_REGISTER = 0,
@@ -5521,6 +8713,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_09_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_09_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_e_09
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_09_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_e_09
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_09_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_e_09
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -5547,6 +8753,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_09_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_09_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_e_09
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_09_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_e_09
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_09_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_e_09
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_09_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_e_09
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_09_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_E_09_REGISTER = 0,
@@ -5585,6 +8819,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_10_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_10_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_e_10
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_10_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_e_10
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_10_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_e_10
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -5611,6 +8859,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_10_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_10_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_e_10
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_10_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_e_10
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_10_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_e_10
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_10_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_e_10
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_10_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_E_10_REGISTER = 0,
@@ -5649,6 +8925,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_11_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_11_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_e_11
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_11_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_e_11
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_11_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_e_11
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -5675,6 +8965,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_11_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_11_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_e_11
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_11_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_e_11
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_11_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_e_11
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_11_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_e_11
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_11_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_E_11_REGISTER = 0,
@@ -5712,6 +9030,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_12_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_12_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_e_12
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_12_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_e_12
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_12_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_e_12
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -5738,6 +9070,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_e_12_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_12_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_e_12
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_12_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_e_12
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_12_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_e_12
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_e_12_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_e_12
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_e_12_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_E_12_REGISTER = 0,
@@ -5775,6 +9135,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_00_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_00_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_00_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_00
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_00_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_00
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -5801,6 +9175,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_00_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_00_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_00_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_00
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_00_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_00_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_00
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_00_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_00_REGISTER = 0,
@@ -5838,6 +9240,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_01_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_01_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_01_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_01
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_01_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_01
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -5864,6 +9280,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_01_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_01_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_01_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_01
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_01_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_01_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_01
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_01_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_01_REGISTER = 0,
@@ -5902,6 +9346,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_02_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_02_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_02
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_02_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_02
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_02_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_02
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -5928,6 +9386,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_02_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_02_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_02
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_02_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_02
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_02_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_02
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_02_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_02
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_02_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_02_REGISTER = 0,
@@ -5966,6 +9452,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_03_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_03_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_03
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_03_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_03
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_03_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_03
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -5992,6 +9492,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_03_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_03_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_03
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_03_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_03
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_03_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_03
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_03_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_03
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_03_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_03_REGISTER = 0,
@@ -6030,6 +9558,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_04_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_04_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_04
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_04_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_04
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_04_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_04
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -6056,6 +9598,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_04_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_04_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_04
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_04_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_04
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_04_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_04
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_04_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_04
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_04_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_04_REGISTER = 0,
@@ -6094,6 +9664,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_05_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_05_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_05
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_05_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_05
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_05_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_05
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -6120,6 +9704,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_05_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_05_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_05
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_05_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_05
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_05_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_05
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_05_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_05
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_05_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_05_REGISTER = 0,
@@ -6158,6 +9770,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_06_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_06_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_06
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_06_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_06
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_06_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_06
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -6184,6 +9810,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_06_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_06_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_06
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_06_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_06
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_06_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_06
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_06_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_06
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_06_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_06_REGISTER = 0,
@@ -6222,6 +9876,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_07_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_07_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_07
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_07_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_07
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_07_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_07
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -6248,6 +9916,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_07_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_07_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_07
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_07_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_07
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_07_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_07
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_07_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_07
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_07_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_07_REGISTER = 0,
@@ -6286,6 +9982,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_08_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_08_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_08
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_08_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_08
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_08_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_08
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -6312,6 +10022,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_08_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_08_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_08
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_08_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_08
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_08_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_08
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_08_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_08
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_08_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_08_REGISTER = 0,
@@ -6350,6 +10088,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_09_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_09_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_09
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_09_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_09
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_09_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_09
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -6376,6 +10128,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_09_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_09_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_09
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_09_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_09
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_09_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_09
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_09_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_09
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_09_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_09_REGISTER = 0,
@@ -6413,6 +10193,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_10_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_10_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_10
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_10_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_10
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_10_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_10
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -6439,6 +10233,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_10_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_10_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_10
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_10_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_10
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_10_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_10
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_10_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_10
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_10_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_10_REGISTER = 0,
@@ -6476,6 +10298,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_11_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_11_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_11
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_11_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_11
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_11_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_11
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -6502,6 +10338,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_11_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_11_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_11
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_11_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_11
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_11_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_11
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_11_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_11
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_11_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_11_REGISTER = 0,
@@ -6539,6 +10403,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_12_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_12_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_12
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_12_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_12
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_12_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_12
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -6565,6 +10443,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_12_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_12_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_12
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_12_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_12
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_12_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_12
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_12_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_12
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_12_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_12_REGISTER = 0,
@@ -6602,6 +10508,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_13_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_13_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_13
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_13_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_13
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_13_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_13
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -6628,6 +10548,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_13_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_13_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_13
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_13_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_13
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_13_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_13
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_13_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_13
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_13_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_13_REGISTER = 0,
@@ -6665,6 +10613,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_14_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_14_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_14
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_14_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_14
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_14_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_14
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -6691,6 +10653,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_14_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_14_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_14
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_14_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_14
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_14_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_14
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_14_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_14
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_14_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_14_REGISTER = 0,
@@ -6728,6 +10718,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_15_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_15_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_15
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_15_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_15
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_15_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_15
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -6754,6 +10758,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_15_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_15_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_15
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_15_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_15
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_15_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_15
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_15_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_15
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_15_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_15_REGISTER = 0,
@@ -6791,6 +10823,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_16_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_16_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_16
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_16_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_16
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_16_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_16
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -6817,6 +10863,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_16_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_16_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_16
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_16_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_16
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_16_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_16
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_16_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_16
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_16_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_16_REGISTER = 0,
@@ -6854,6 +10928,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_17_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_17_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_17
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_17_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_17
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_17_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_17
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -6880,6 +10968,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_17_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_17_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_17
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_17_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_17
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_17_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_17
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_17_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_17
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_17_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_17_REGISTER = 0,
@@ -6917,6 +11033,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_18_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_18_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_18
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_18_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_18
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_18_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_18
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -6943,6 +11073,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_18_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_18_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_18
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_18_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_18
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_18_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_18
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_18_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_18
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_18_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_18_REGISTER = 0,
@@ -6980,6 +11138,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_19_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_19_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_19
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_19_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_19
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_19_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_19
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -7006,6 +11178,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_19_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_19_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_19
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_19_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_19
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_19_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_19
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_19_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_19
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_19_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_19_REGISTER = 0,
@@ -7043,6 +11243,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_20_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_20_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_20
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_20_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_20
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_20_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_20
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -7069,6 +11283,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_20_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_20_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_20
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_20_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_20
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_20_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_20
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_20_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_20
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_20_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_20_REGISTER = 0,
@@ -7106,6 +11348,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_21_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_21_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_21
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_21_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_21
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_21_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_21
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -7132,6 +11388,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_21_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_21_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_21
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_21_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_21
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_21_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_21
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_21_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_21
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_21_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_21_REGISTER = 0,
@@ -7169,6 +11453,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_22_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_22_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_22
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_22_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_22
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_22_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_22
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -7195,6 +11493,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_22_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_22_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_22
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_22_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_22
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_22_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_22
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_22_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_22
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_22_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_22_REGISTER = 0,
@@ -7232,6 +11558,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_23_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_23_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_23
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_23_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_23
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_23_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_23
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -7258,6 +11598,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_23_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_23_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_23
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_23_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_23
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_23_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_23
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_23_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_23
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_23_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_23_REGISTER = 0,
@@ -7295,6 +11663,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_24_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_24_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_24
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_24_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_24
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_24_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_24
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -7321,6 +11703,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_24_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_24_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_24
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_24_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_24
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_24_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_24
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_24_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_24
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_24_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_24_REGISTER = 0,
@@ -7358,6 +11768,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_25_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_25_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_f_25
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_25_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_f_25
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_25_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_f_25
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -7384,6 +11808,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_f_25_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_25_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_f_25
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_25_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_f_25
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_25_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_f_25
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_f_25_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_f_25
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_f_25_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_F_25_REGISTER = 0,
@@ -7421,6 +11873,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_pwm0_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm0_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_pwm0
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm0_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_pwm0
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm0_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_pwm0
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -7447,6 +11913,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_pwm0_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm0_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_pwm0
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm0_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_pwm0
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm0_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_pwm0
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm0_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_pwm0
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm0_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_PWM0_REGISTER = 0,
@@ -7491,6 +11985,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_pwm1_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm1_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_pwm1
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm1_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_pwm1
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm1_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_pwm1
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -7517,6 +12025,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_pwm1_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm1_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_pwm1
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm1_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_pwm1
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm1_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_pwm1
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm1_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_pwm1
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm1_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_PWM1_REGISTER = 0,
@@ -7561,6 +12097,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_pwm2_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm2_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_pwm2
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm2_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_pwm2
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm2_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_pwm2
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -7587,6 +12137,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_pwm2_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm2_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_pwm2
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm2_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_pwm2
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm2_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_pwm2
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm2_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_pwm2
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm2_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_PWM2_REGISTER = 0,
@@ -7631,6 +12209,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_pwm3_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm3_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_pwm3
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm3_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_pwm3
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm3_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_pwm3
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -7657,6 +12249,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_pwm3_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm3_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_pwm3
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm3_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_pwm3
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm3_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_pwm3
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm3_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_pwm3
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm3_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_PWM3_REGISTER = 0,
@@ -7701,6 +12321,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_pwm4_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm4_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_pwm4
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm4_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_pwm4
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm4_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_pwm4
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -7727,6 +12361,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_pwm4_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm4_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_pwm4
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm4_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_pwm4
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm4_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_pwm4
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm4_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_pwm4
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm4_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_PWM4_REGISTER = 0,
@@ -7771,6 +12433,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_pwm5_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm5_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_pwm5
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm5_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_pwm5
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm5_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_pwm5
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -7797,6 +12473,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_pwm5_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm5_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_pwm5
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm5_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_pwm5
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm5_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_pwm5
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm5_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_pwm5
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm5_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_PWM5_REGISTER = 0,
@@ -7841,6 +12545,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_pwm6_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm6_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_pwm6
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm6_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_pwm6
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm6_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_pwm6
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -7867,6 +12585,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_pwm6_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm6_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_pwm6
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm6_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_pwm6
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm6_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_pwm6
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm6_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_pwm6
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm6_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_PWM6_REGISTER = 0,
@@ -7911,6 +12657,20 @@ void alsaqr_periph_padframe_periphs_pad_gpio_pwm7_cfg_chip2pad_set(uint8_t value
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm7_cfg_chip2pad_get();
 
 /**
+ * Sets the drv pad signal for the pad: pad_gpio_pwm7
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm7_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: pad_gpio_pwm7
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm7_cfg_drv_get();
+
+/**
  * Sets the oen pad signal for the pad: pad_gpio_pwm7
  *
  * @param value The value to program into the pad configuration register. A value smaller than 1.
@@ -7937,6 +12697,34 @@ void alsaqr_periph_padframe_periphs_pad_gpio_pwm7_cfg_puen_set(uint8_t value);
  * @return The value of the puen field
  */
 uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm7_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: pad_gpio_pwm7
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm7_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: pad_gpio_pwm7
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm7_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: pad_gpio_pwm7
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_pad_gpio_pwm7_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: pad_gpio_pwm7
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_pad_gpio_pwm7_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_PAD_GPIO_PWM7_REGISTER = 0,

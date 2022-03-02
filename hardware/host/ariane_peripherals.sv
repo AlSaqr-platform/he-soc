@@ -9,7 +9,9 @@
 // specific language governing permissions and limitations under the License.
 
 // Xilinx Peripehrals
-module ariane_peripherals #(
+module ariane_peripherals 
+    import udma_subsystem_pkg::N_CAN;
+#(
     parameter  int AxiAddrWidth = -1,
     parameter  int AxiDataWidth = -1,
     parameter  int AxiIdWidth   = -1,
@@ -28,6 +30,7 @@ module ariane_peripherals #(
     AXI_BUS.Slave           ethernet        ,
     AXI_BUS.Slave           timer           ,
     input  logic [31*4-1:0] udma_evt_i      ,
+    input  logic [N_CAN-1:0] can_irq_i      ,
     input  logic            cl_dma_pe_evt_i ,
     output logic [1:0]      irq_o           ,
     // UART
@@ -59,9 +62,11 @@ module ariane_peripherals #(
     logic [ariane_soc::NumSources-1:0] irq_sources;
 
     // Unused interrupt sources
-    assign irq_sources[ariane_soc::NumSources-1:132] = '0;
+    assign irq_sources[ariane_soc::NumSources-1:134] = '0;
     assign irq_sources[130:7] = udma_evt_i[123:0];
     assign irq_sources[131] = cl_dma_pe_evt_i;
+    assign irq_sources[132] = can_irq_i[0];
+    assign irq_sources[133] = can_irq_i[1];
 
     REG_BUS #(
         .ADDR_WIDTH ( 32 ),
@@ -287,7 +292,7 @@ module ariane_peripherals #(
             .SOUT    ( tx_o            )
         );
     end else begin
-        assign irq_sources[0] = 1'b0;
+        assign irq_sources[1] = 1'b0;
         /* pragma translate_off */
         mock_uart i_mock_uart (
             .clk_i     ( clk_i        ),

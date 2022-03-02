@@ -20,6 +20,7 @@
 module host_domain 
   import axi_pkg::xbar_cfg_t;
   import ariane_soc::HyperbusNumPhys;
+  import ariane_soc::NumChipsPerHyperbus;
   import ariane_soc::*;
   import udma_subsystem_pkg::*;  
   import gpio_pkg::*; 
@@ -109,10 +110,18 @@ module host_domain
   //SERIAL LINK
   output                      ser_link_to_pad serial_link_to_pad,
   input                       pad_to_ser_link pad_to_serial_link,
+
+  //CAN
+  output                      can_to_pad_t [N_CAN-1 : 0] can_to_pad,
+  input                       pad_to_can_t [N_CAN-1 : 0] pad_to_can,
  
   // HYPERBUS
-  output                      hyper_to_pad_t [HyperbusNumPhys-1:0] hyper_to_pad,
-  input                       pad_to_hyper_t [HyperbusNumPhys-1:0] pad_to_hyper,
+  inout  [HyperbusNumPhys-1:0][NumChipsPerHyperbus-1:0] pad_hyper_csn,
+  inout  [HyperbusNumPhys-1:0]                          pad_hyper_ck,
+  inout  [HyperbusNumPhys-1:0]                          pad_hyper_ckn,
+  inout  [HyperbusNumPhys-1:0]                          pad_hyper_rwds,
+  inout  [HyperbusNumPhys-1:0]                          pad_hyper_reset,
+  inout  [HyperbusNumPhys-1:0][7:0]                     pad_hyper_dq,
 
   output                      pwm_to_pad_t pwm_to_pad,
 
@@ -144,6 +153,7 @@ module host_domain
    logic                                 ndmreset_n;
    logic [31*4-1:0]                      s_udma_events;
    logic                                 s_dma_pe_evt;
+   logic [N_CAN-1:0]                     s_can_irq;
 
    logic                                 phy_clk;
    logic                                 phy_clk_90;
@@ -244,6 +254,7 @@ module host_domain
         .jtag_TDO_driven,
         .sync_rst_ni          ( s_synch_soc_rst      ),
         .udma_events_i        ( s_udma_events        ),
+        .can_irq_i            ( s_can_irq            ),
         .cl_dma_pe_evt_i      ( s_dma_pe_evt         ),
         .dm_rst_o             ( s_dm_rst             ),
         .l2_axi_master        ( l2_axi_bus           ),
@@ -367,6 +378,7 @@ module host_domain
       .serial_linkcfg_reg_master ( serial_linkcfg_reg_master   ),
 
       .events_o               ( s_udma_events                  ),
+      .can_irq_o              ( s_can_irq                      ),
 
       .qspi_to_pad            ( qspi_to_pad                    ),
       .pad_to_qspi            ( pad_to_qspi                    ),
@@ -377,12 +389,19 @@ module host_domain
       .uart_to_pad            ( uart_to_pad                    ),
       .sdio_to_pad            ( sdio_to_pad                    ),
       .pad_to_sdio            ( pad_to_sdio                    ),
-      .hyper_to_pad           ( hyper_to_pad                   ),
-      .pad_to_hyper           ( pad_to_hyper                   ),
       .pwm_to_pad             ( pwm_to_pad                     ),
+      .can_to_pad             ( can_to_pad                     ),
+      .pad_to_can             ( pad_to_can                     ),
 
       .gpio_to_pad            ( gpio_to_pad                    ),
-      .pad_to_gpio            ( pad_to_gpio                    )
+      .pad_to_gpio            ( pad_to_gpio                    ),
+
+      .pad_hyper_csn,
+      .pad_hyper_ck,
+      .pad_hyper_ckn,
+      .pad_hyper_rwds,
+      .pad_hyper_reset,
+      .pad_hyper_dq
       );
                      
 

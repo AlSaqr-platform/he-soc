@@ -19,7 +19,7 @@ package apb_soc_pkg;
       logic [31:0] end_addr;
    } addr_map_rule_t;
 
-   localparam NUM_APB_SLAVES = 8;
+   localparam NUM_APB_SLAVES = 10;
 
    localparam NUM_GPIO = 64;
    
@@ -31,6 +31,7 @@ package apb_soc_pkg;
    localparam logic [31:0] PADFRAMELength = 32'h1000;
    localparam logic [31:0] SOCCTRLLength  = 32'h1000;
    localparam logic [31:0] SerLinkLength  = 32'h1000;
+   localparam logic [31:0] CanLength      = 32'h1000;
    
     typedef enum logic [31:0] {
      FLLBase       = 32'h1A10_0000,
@@ -40,6 +41,8 @@ package apb_soc_pkg;
      GPIOSBase     = 32'h1A10_5000,
      SOCCTRLBase   = 32'h1A10_6000,
      SerLinkBase   = 32'h1A10_7000,
+     Can0Base      = 32'h1A10_8000,
+     Can1Base      = 32'h1A10_9000,
      UDMABase      = 32'h1A20_0000
     } soc_apb_bus_start_t;
 endpackage

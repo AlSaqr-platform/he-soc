@@ -20,6 +20,7 @@
 module cva6_subsystem 
   import axi_pkg::xbar_cfg_t;
   import ariane_soc::*;
+  import udma_subsystem_pkg::N_CAN;  
 #(
   parameter int unsigned AXI_USER_WIDTH    = 1,
   parameter int unsigned AXI_ADDRESS_WIDTH = 64,
@@ -34,31 +35,32 @@ module cva6_subsystem
   parameter bit          StallRandomInput  = 1'b0,
   parameter bit          JtagEnable        = 1'b1
 ) (
-  input  logic            clk_i,
-  input  logic            rtc_i,
-  input  logic            rst_ni,
-  input  logic            sync_rst_ni,
-  input  logic            cva6_clk_i,
-  input  logic            cva6_rst_ni,
-  output logic            dm_rst_o,
-  input  logic [31*4-1:0] udma_events_i,
-  input  logic            cl_dma_pe_evt_i,
-  input  logic            dmi_req_valid,
-  output logic            dmi_req_ready,
-  input  logic [ 6:0]     dmi_req_bits_addr,
-  input  logic [ 1:0]     dmi_req_bits_op,
-  input  logic [31:0]     dmi_req_bits_data,
-  output logic            dmi_resp_valid,
-  input  logic            dmi_resp_ready,
-  output logic [ 1:0]     dmi_resp_bits_resp,
-  output logic [31:0]     dmi_resp_bits_data,
+  input  logic             clk_i,
+  input  logic             rtc_i,
+  input  logic             rst_ni,
+  input  logic             sync_rst_ni,
+  input  logic             cva6_clk_i,
+  input  logic             cva6_rst_ni,
+  output logic             dm_rst_o,
+  input  logic [31*4-1:0]  udma_events_i,
+  input  logic [N_CAN-1:0] can_irq_i,
+  input  logic             cl_dma_pe_evt_i,
+  input  logic             dmi_req_valid,
+  output logic             dmi_req_ready,
+  input  logic [ 6:0]      dmi_req_bits_addr,
+  input  logic [ 1:0]      dmi_req_bits_op,
+  input  logic [31:0]      dmi_req_bits_data,
+  output logic             dmi_resp_valid,
+  input  logic             dmi_resp_ready,
+  output logic [ 1:0]      dmi_resp_bits_resp,
+  output logic [31:0]      dmi_resp_bits_data,
   // JTAG
-  input  logic            jtag_TCK,
-  input  logic            jtag_TMS,
-  input  logic            jtag_TDI,
-  input  logic            jtag_TRSTn,
-  output logic            jtag_TDO_data,
-  output logic            jtag_TDO_driven,
+  input  logic             jtag_TCK,
+  input  logic             jtag_TMS,
+  input  logic             jtag_TDI,
+  input  logic             jtag_TRSTn,
+  output logic             jtag_TDO_data,
+  output logic             jtag_TDO_driven,
 
   //SERIAL LINK
   output ser_link_to_pad serial_link_to_pad,
@@ -300,6 +302,7 @@ module cva6_subsystem
     .rst_ni                ( rst_ni                    ),
     .req_i                 ( dm_master_req             ),
     .type_i                ( ariane_axi::SINGLE_REQ    ),
+    .busy_o                (                           ),
     .gnt_o                 ( dm_master_gnt             ),
     .gnt_id_o              (                           ),
     .addr_i                ( dm_master_add             ),
@@ -668,13 +671,8 @@ module cva6_subsystem
     .AxiAddrWidth ( AXI_ADDRESS_WIDTH        ),
     .AxiDataWidth ( AXI_DATA_WIDTH           ),
     .AxiIdWidth   ( ariane_soc::IdWidthSlave ),
-`ifndef VERILATOR
-  // disable UART when using Spike, as we need to rely on the mockuart
-  `ifdef SPIKE_TANDEM
-    .InclUART     ( 1'b0                     ),
-  `else
+`ifdef TARGET_SYNTHESIS
     .InclUART     ( 1'b1                     ),
-  `endif
 `else
     .InclUART     ( 1'b0                     ),
 `endif
@@ -689,6 +687,7 @@ module cva6_subsystem
     .ethernet        ( master[ariane_soc::Ethernet] ),
     .timer           ( master[ariane_soc::Timer]    ),
     .udma_evt_i      ( udma_events_i                ),
+    .can_irq_i       ( can_irq_i                    ),
     .cl_dma_pe_evt_i ( cl_dma_pe_evt_i              ),
     .irq_o           ( irqs                         ),
     .rx_i            ( cva6_uart_rx_i               ),

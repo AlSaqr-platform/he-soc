@@ -30,7 +30,7 @@ torture-logs   :=
 elf-bin        ?= ../software/hello/hello.riscv
 #cl-bin         ?= ../software/pulp/mm.riscv
 cl-bin         ?= none
-# root path
+# root pathelf-bin
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 root-dir := $(dir $(mkfile_path))
 # regression
@@ -216,7 +216,8 @@ run:
 sim: build run
 
 $(alsaqr-regression): build
-	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library) +max-cycles=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) -t 1ps \
+	mkdir -p tmp
+	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library) +max-cycles=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$@ +CL_STRING=$(cl-bin) -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi   \
 	${top_level}_optimized $(QUESTASIM_FLAGS) +permissive-off ++$(alsaqr-regression-dir)/$@ ++$(target-options) | tee tmp/alsaqr-regression-$@.log
 
