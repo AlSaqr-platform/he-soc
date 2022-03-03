@@ -5,6 +5,10 @@ export PATH=/usr/scratch/lagrev5/lvalente/riscv_install/bin:$PATH
 
 export RISCV=/usr/scratch/lagrev5/lvalente/riscv_install
 
+echo "exporting CLANG"
+
+export PATH=/usr/scratch/lagrev1/ytortorella/riscv/install/bin:$PATH
+
 export SW_HOME=$(pwd)/software
 
 export HW_HOME=$(pwd)/hardware
