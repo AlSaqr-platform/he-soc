@@ -8,6 +8,7 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the
 // specific language governing permissions and limitations under the License.
 
+`include "pad_dcdc_defines.sv"
 
 module pad_frame
   import udma_subsystem_pkg::*;
@@ -86,12 +87,12 @@ module pad_frame
 
 `endif // !`ifndef FPGA_EMUL
 
-   logic ku_dcdc_vdd_b    ;
-   logic ku_dcdc_vdd_r250 ;
-   logic ku_dcdc_vref_b   ;
-   logic ku_dcdc_vref_r250;
-   logic ku_dcdc_vout_b   ;
-   logic ku_dcdc_vout_r250;
+   wire ku_dcdc_vdd_b    ;
+   wire ku_dcdc_vdd_r250 ;
+   wire ku_dcdc_vref_b   ;
+   wire ku_dcdc_vref_r250;
+   wire ku_dcdc_vout_b   ;
+   wire ku_dcdc_vout_r250;
    
    `DECLARE_LOGIC(control_1)
    `DECLARE_LOGIC(control_2)

@@ -20,6 +20,7 @@ module gwt_test
      output logic [31:0] cfg_o,
      output logic        cfg_oe
      );
+`ifndef TARGET_ASIC
    initial begin
       cfg_o = '0;
       cfg_oe = 1'b1;
@@ -27,5 +28,5 @@ module gwt_test
       cfg_o=32'hdeadcaca;
       #60ns;
   end
-   
+`endif   
 endmodule
