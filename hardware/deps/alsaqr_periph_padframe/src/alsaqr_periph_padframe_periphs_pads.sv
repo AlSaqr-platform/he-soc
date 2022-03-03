@@ -133,7 +133,7 @@ module alsaqr_periph_padframe_periphs_pads
    wire PWROK_S, IOPWROK_S, BIAS_S, RETC_S;
   
   `ifdef TARGET_ASIC
-  IN22FDX_GPIO18_10M3S40PI_PWRDET_TIE_V i_pwrdet (
+  IN22FDX_GPIO18_10M19S40PI_PWRDET_TIE_H i_pwrdet (
     .RETCOUT (RETC_S),
     .PWROKOUT (PWROK_S),
     .IOPWROKOUT (IOPWROK_S),

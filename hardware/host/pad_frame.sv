@@ -104,14 +104,14 @@ module pad_frame
 
 `ifdef TARGET_ASIC
    
-   IN22FDX_GPIO18_10M3S40PI_PWRDET_TIE_V pad_frame_pwrdet ( .RETCOUT (RETC_S), .PWROKOUT (PWROK_S), .IOPWROKOUT (IOPWROK_S), .RETCIN(1'b0), .BIAS(BIAS_S) );
+   IN22FDX_GPIO18_10M19S40PI_PWRDET_TIE_V pad_frame_pwrdet ( .RETCOUT (RETC_S), .PWROKOUT (PWROK_S), .IOPWROKOUT (IOPWROK_S), .RETCIN(1'b0), .BIAS(BIAS_S) );
 
-   IN22FDX_GPIO18_10M19S40PI_ANA_H gwt_test_ana0 ( .DATA_B(gwt_b_0), .DATA_R250(gwt_r250_0), .PAD(pad_gwt_ana0), .PWORK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
-   IN22FDX_GPIO18_10M19S40PI_ANA_H gwt_test_ana1 ( .DATA_B(gwt_b_1), .DATA_R250(gwt_r250_1), .PAD(pad_gwt_ana1), .PWORK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+   IN22FDX_GPIO18_10M19S40PI_ANA_H gwt_test_ana0 ( .DATA_B(gwt_b_0), .DATA_R250(gwt_r250_0), .PAD(pad_gwt_ana0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+   IN22FDX_GPIO18_10M19S40PI_ANA_H gwt_test_ana1 ( .DATA_B(gwt_b_1), .DATA_R250(gwt_r250_1), .PAD(pad_gwt_ana1), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
 
-   IN22FDX_GPIO18_10M19S40PI_ANA_H ku_dcdc_vdd  ( .DATA_B(ku_dcdc_vdd_b ), .DATA_R250(ku_dcdc_vdd_r250 ), .PAD(pad_ku_dcdc_vdd ), .PWORK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
-   IN22FDX_GPIO18_10M19S40PI_ANA_H ku_dcdc_vref ( .DATA_B(ku_dcdc_vref_b), .DATA_R250(ku_dcdc_vref_r250), .PAD(pad_ku_dcdc_vref), .PWORK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
-   IN22FDX_GPIO18_10M19S40PI_ANA_H ku_dcdc_vout ( .DATA_B(ku_dcdc_vout_b), .DATA_R250(ku_dcdc_vout_r250), .PAD(pad_ku_dcdc_vout), .PWORK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+   IN22FDX_GPIO18_10M19S40PI_ANA_H ku_dcdc_vdd  ( .DATA_B(ku_dcdc_vdd_b ), .DATA_R250(ku_dcdc_vdd_r250 ), .PAD(pad_ku_dcdc_vdd ), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+   IN22FDX_GPIO18_10M19S40PI_ANA_H ku_dcdc_vref ( .DATA_B(ku_dcdc_vref_b), .DATA_R250(ku_dcdc_vref_r250), .PAD(pad_ku_dcdc_vref), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+   IN22FDX_GPIO18_10M19S40PI_ANA_H ku_dcdc_vout ( .DATA_B(ku_dcdc_vout_b), .DATA_R250(ku_dcdc_vout_r250), .PAD(pad_ku_dcdc_vout), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
 
    `PAD_INST(control_1)
    `PAD_INST(control_2)
@@ -132,11 +132,11 @@ module pad_frame
           .ku_dcdc_vout_r250 (ku_dcdc_vout_r250),
           `CONNECT_PAD(control_1),
           `CONNECT_PAD(control_2),
-          `CONNECT_PAD(clk_ext  ),
-          `CONNECT_PAD(sel_clk  ),
-          `CONNECT_PAD(SM_ext   ),
-          `CONNECT_PAD(sel_SM   ),
-          `CONNECT_PAD(PFM_out  )
+          `CONNECT_PAD(clk_ext),
+          `CONNECT_PAD(sel_clk),
+          `CONNECT_PAD(SM_ext),
+          `CONNECT_PAD(sel_SM),
+          `CONNECT_PAD(PFM_out)
           );
    
 endmodule

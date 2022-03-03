@@ -71,13 +71,13 @@ pad_domains:
             conn_type: dynamic
             default_reset_value: 0
             default_static_value: 1'b0
-      - name: IN22FDX_GPIO18_10M3S40PI_PWRDET_V
+      - name: IN22FDX_GPIO18_10M19S40PI_PWRDET_TIE_H
         description: ""
         template: |
           wire PWROK_S, IOPWROK_S, BIAS_S, RETC_S;
 
           `ifdef TARGET_ASIC
-          IN22FDX_GPIO18_10M3S40PI_PWRDET_TIE_V ${instance_name} (
+          IN22FDX_GPIO18_10M19S40PI_PWRDET_TIE_H ${instance_name} (
             .RETCOUT (RETC_S),
             .PWROKOUT (PWROK_S),
             .IOPWROKOUT (IOPWROK_S),
@@ -91,7 +91,7 @@ pad_domains:
     
       - name: pwrdet
         description: "pwrdet pad"
-        pad_type: IN22FDX_GPIO18_10M3S40PI_PWRDET_V
+        pad_type: IN22FDX_GPIO18_10M19S40PI_PWRDET_TIE_H
         is_static: true
         
         ##  __  __                    _ 

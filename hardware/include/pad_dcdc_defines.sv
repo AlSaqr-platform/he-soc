@@ -9,7 +9,7 @@
 // specific language governing permissions and limitations under the License.
 
 `define PAD_INST(pat)                              \
-  IN22FDX_GPIO18_10M3S40PI_IO_H ku_dcdc_``pat`` (  \
+  IN22FDX_GPIO18_10M19S40PI_IO_H ku_dcdc_``pat`` (  \
     .PAD     ( pad_ku_dcdc_``pat``     ),          \
     .DATA    ( s_data_ku_dcdc_``pat``  ),          \
     .Y       ( s_y_ku_dcdc_``pat``     ),          \

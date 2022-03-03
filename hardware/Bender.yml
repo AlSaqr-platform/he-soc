@@ -116,7 +116,6 @@ sources:
     files:
       - ../bootrom/bootrom.sv
       - host/memwrap_gf22.sv
-      - host/pads_gf22.sv
       - host/tc_sram_gf22.sv
       - host/tc_clk_gf22.sv
       
