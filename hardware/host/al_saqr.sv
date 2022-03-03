@@ -208,8 +208,19 @@ module al_saqr
   inout wire          jtag_TDO_driven,
    
   inout wire          pad_gwt_ana0,
-  inout wire          pad_gwt_ana1
+  inout wire          pad_gwt_ana1,
 
+  inout wire          pad_ku_dcdc_vdd,
+  inout wire          pad_ku_dcdc_vref,
+  inout wire          pad_ku_dcdc_vout,
+
+  inout wire          pad_ku_dcdc_control_1,
+  inout wire          pad_ku_dcdc_control_2,
+  inout wire          pad_ku_dcdc_clk_ext  ,
+  inout wire          pad_ku_dcdc_sel_clk  ,
+  inout wire          pad_ku_dcdc_SM_ext   ,
+  inout wire          pad_ku_dcdc_sel_SM   ,
+  inout wire          pad_ku_dcdc_PFM_out  
 );
   // AXILITE parameters
   localparam int unsigned AXI_LITE_AW       = 32;
@@ -521,7 +532,19 @@ module al_saqr
       .pad_gwt_ana0     ( pad_gwt_ana0     ),
       .gwt_b_1          ( s_gwt_b_1        ),
       .gwt_r250_1       ( s_gwt_r250_1     ),
-      .pad_gwt_ana1     ( pad_gwt_ana1     )
+      .pad_gwt_ana1     ( pad_gwt_ana1     ),
+
+      .pad_ku_dcdc_vdd       ( pad_ku_dcdc_vdd       ),     
+      .pad_ku_dcdc_vref      ( pad_ku_dcdc_vref      ),    
+      .pad_ku_dcdc_vout      ( pad_ku_dcdc_vout      ),    
+                                                     
+      .pad_ku_dcdc_control_1 ( pad_ku_dcdc_control_1 ),
+      .pad_ku_dcdc_control_2 ( pad_ku_dcdc_control_2 ),
+      .pad_ku_dcdc_clk_ext   ( pad_ku_dcdc_clk_ext   ),
+      .pad_ku_dcdc_sel_clk   ( pad_ku_dcdc_sel_clk   ),
+      .pad_ku_dcdc_SM_ext    ( pad_ku_dcdc_SM_ext    ),
+      .pad_ku_dcdc_sel_SM    ( pad_ku_dcdc_sel_SM    ),
+      .pad_ku_dcdc_PFM_out   ( pad_ku_dcdc_PFM_out   )
      );
 
   `ifndef EXCLUDE_CLUSTER   

@@ -78,6 +78,7 @@ sources:
   - host/l2_subsystem.sv
   - host/clk_gen_hyper.sv
   - host/host_domain.sv
+  - host/khalifa_dcdc.sv
   - host/pad_frame.sv
   - host/gwt_test.sv
   - host/axi_dw_converter_ll.sv
