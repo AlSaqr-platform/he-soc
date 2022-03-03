@@ -114,7 +114,7 @@ class stim(object):
       file.write('void load_cluster_code() {\n' ) 
       for key in sorted(self.mem.keys()):
         file.write('(*(volatile unsigned int *)(long)(0x%X)) = 0x%0*X ;\n' % (int(key), width*2, self.mem.get(key)))
-      file.write('return 0; \n }\n')
+      file.write('}\n')
                  
             
   def __parse_binaries(self, width):
