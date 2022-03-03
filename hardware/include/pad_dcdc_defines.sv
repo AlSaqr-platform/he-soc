@@ -21,7 +21,7 @@
     .NDOUT   ( s_ndout_ku_dcdc_``pat`` ),          \
     .DRV     ( s_drv_ku_dcdc_``pat``   ),          \
     .SLW     ( s_slw_ku_dcdc_``pat``   ),          \
-    .SMT     ( s_smt_ku_dcdc_``pat``   ), .PWORK ( PWROK_S ), .IOPWROK ( IOPWROK_S ), .BIAS ( BIAS_S ), .RETC ( RETC_S ) );
+    .SMT     ( s_smt_ku_dcdc_``pat``   ), .PWROK ( PWROK_S ), .IOPWROK ( IOPWROK_S ), .BIAS ( BIAS_S ), .RETC ( RETC_S ) );
 
 `define DECLARE_LOGIC(pat) \
     logic        s_data_ku_dcdc_``pat`` ;          \
