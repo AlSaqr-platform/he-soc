@@ -9,7 +9,7 @@ source scripts/area_report.tcl
 
 
 set reAnalyzeRTL "TRUE"
-set TRIAL_DIR "trial0_03_03_2022"
+set TRIAL_DIR "trial3_07_03_2022"
 set DESIGN_NAME "al_saqr"
  
 ####################################################################
@@ -74,6 +74,31 @@ set_dont_use [get_lib_cells */*20L*]
 ####################################################################
 link                                                      > ${TRIAL_DIR}/reports/d03_link_alsaqr.rpt
 
+set_dont_touch_network [get_pins  i_host_domain/i_cva_subsystem/i_axi_riscv_atomics0/i_atomics/i_amos/key*]
+set_dont_touch_network [get_pins i_dwc_tlb_cfg/i_axi_dw_converter/key_i*]
+
+set_dont_touch [get_nets {i_pad_frame/pad*/RETC}]
+set_dont_touch [get_nets {i_pad_frame/pad*/PWROK}]
+set_dont_touch [get_nets {i_pad_frame/pad*/IOPWROK}]
+set_dont_touch [get_nets {i_pad_frame/pad*/BIAS}]
+
+set_dont_touch [get_nets {i_alsaqr_periph_padframe/i_periphs/i_periphs_pads/*/RETC}]
+set_dont_touch [get_nets {i_alsaqr_periph_padframe/i_periphs/i_periphs_pads/*/PWROK}]
+set_dont_touch [get_nets {i_alsaqr_periph_padframe/i_periphs/i_periphs_pads/*/IOPWROK}]
+set_dont_touch [get_nets {i_alsaqr_periph_padframe/i_periphs/i_periphs_pads/*/BIAS}]
+
+set_dont_touch [get_nets {i_alsaqr_periph_padframe/i_periphs/i_periphs_pads/*/*/RETC}]
+set_dont_touch [get_nets {i_alsaqr_periph_padframe/i_periphs/i_periphs_pads/*/*/PWROK}]
+set_dont_touch [get_nets {i_alsaqr_periph_padframe/i_periphs/i_periphs_pads/*/*/IOPWROK}]
+set_dont_touch [get_nets {i_alsaqr_periph_padframe/i_periphs/i_periphs_pads/*/*/BIAS}]
+
+set_dont_touch [get_nets {i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/pad*/RETC}]
+set_dont_touch [get_nets {i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/pad*/PWROK}]
+set_dont_touch [get_nets {i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/pad*/IOPWROK}]
+set_dont_touch [get_nets {i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/pad*/BIAS}]
+
+set_dont_touch i_gwt_test
+set_dont_touch [get_cells i_pad_frame/i_khalifa_dcdc]
 ####################################################################
 ## UNIQUIFY
 ####################################################################

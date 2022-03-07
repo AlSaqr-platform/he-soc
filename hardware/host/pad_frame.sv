@@ -123,7 +123,7 @@ module pad_frame
    
 `endif
 
-   khalifa_dcdc (
+   khalifa_dcdc i_khalifa_dcdc (
           .ku_dcdc_vdd_b     (ku_dcdc_vdd_b    ),
           .ku_dcdc_vdd_r250  (ku_dcdc_vdd_r250 ),
           .ku_dcdc_vref_b    (ku_dcdc_vref_b   ),

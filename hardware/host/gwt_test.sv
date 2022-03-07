@@ -9,8 +9,7 @@
 // specific language governing permissions and limitations under the License.
 `timescale 1ps/1ps
 
-(* dont_touch = "true" *)
-module gwt_test
+(* dont_touch = "true" *) module gwt_test
     (
      inout wire          gwt_b_0,
      inout wire          gwt_r250_0,

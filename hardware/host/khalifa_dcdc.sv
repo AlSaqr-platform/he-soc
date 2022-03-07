@@ -31,7 +31,7 @@ module  IN22FDX_GPIO18_10M3S40PI_IO_H (
 endmodule
 `endif
                                         
-(* dont_touch = "true" *)
+(* dont_touch = "true" *) 
 module khalifa_dcdc (
        // ANALOG SIGNALS
        inout logic        ku_dcdc_vdd_b    ,

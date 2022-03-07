@@ -45,9 +45,9 @@ module ariane_tb;
     logic clk_i;
     logic rst_ni;
     logic rtc_i;
-    wire  s_rst_ni;
-    wire  s_rtc_i;
-    wire s_bypass;
+    logic s_rst_ni;
+    logic s_rtc_i;
+    logic s_bypass;
     logic rst_DTM;
     localparam NumPhys = 2;
    
@@ -361,25 +361,26 @@ module ariane_tb;
     .exit                 ( s_jtag_exit          )
   );
   
-    al_saqr #(
-        .NUM_WORDS         ( NUM_WORDS                   ),
-        .InclSimDTM        ( 1'b1                        ),
-        .StallRandomOutput ( 1'b1                        ),
-        .StallRandomInput  ( 1'b1                        ),
-        .JtagEnable        ( jtag_enable[0] | LOCAL_JTAG )
-    ) dut (
+//    al_saqr #(
+//        .NUM_WORDS         ( NUM_WORDS                   ),
+//        .InclSimDTM        ( 1'b1                        ),
+//        .StallRandomOutput ( 1'b1                        ),
+//        .StallRandomInput  ( 1'b1                        ),
+//        .JtagEnable        ( jtag_enable[0] | LOCAL_JTAG )
+//    )
+   al_saqr  dut (
         .rst_ni               ( s_rst_ni               ),
         .rtc_i                ( s_rtc_i                ),
         .bypass_clk_i         ( s_bypass               ),
-        .dmi_req_valid        ( s_dmi_req_valid        ),
-        .dmi_req_ready        ( s_dmi_req_ready        ),
-        .dmi_req_bits_addr    ( s_dmi_req_bits_addr    ),
-        .dmi_req_bits_op      ( s_dmi_req_bits_op      ),
-        .dmi_req_bits_data    ( s_dmi_req_bits_data    ),
-        .dmi_resp_valid       ( s_dmi_resp_valid       ),
-        .dmi_resp_ready       ( s_dmi_resp_ready       ),
-        .dmi_resp_bits_resp   ( s_dmi_resp_bits_resp   ),
-        .dmi_resp_bits_data   ( s_dmi_resp_bits_data   ),                      
+ //     .dmi_req_valid        ( s_dmi_req_valid        ),
+ //     .dmi_req_ready        ( s_dmi_req_ready        ),
+ //     .dmi_req_bits_addr    ( s_dmi_req_bits_addr    ),
+ //     .dmi_req_bits_op      ( s_dmi_req_bits_op      ),
+ //     .dmi_req_bits_data    ( s_dmi_req_bits_data    ),
+ //     .dmi_resp_valid       ( s_dmi_resp_valid       ),
+ //     .dmi_resp_ready       ( s_dmi_resp_ready       ),
+ //     .dmi_resp_bits_resp   ( s_dmi_resp_bits_resp   ),
+ //     .dmi_resp_bits_data   ( s_dmi_resp_bits_data   ),                      
         .jtag_TCK             ( s_jtag2alsaqr_tck      ),
         .jtag_TMS             ( s_jtag2alsaqr_tms      ),
         .jtag_TDI             ( s_jtag2alsaqr_tdi      ),
@@ -1027,6 +1028,7 @@ module ariane_tb;
        
         repeat(2)
             @(posedge rtc_i);
+        @(negedge rtc_i);       
         rst_ni = 1'b1;
         repeat(20)
             @(posedge rtc_i);
