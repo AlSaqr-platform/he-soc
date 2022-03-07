@@ -124,6 +124,13 @@ module cva6_subsystem
     .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
   ) slave[ariane_soc::NrSlaves-1:0]();
+ 
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
+  ) serial_link_master();
 
   AXI_BUS #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
@@ -616,8 +623,22 @@ module cva6_subsystem
   reg_req_t   reg_req;
   reg_rsp_t   reg_rsp;
 
-  `AXI_ASSIGN_TO_REQ(ddr_1_in_req, master[ariane_soc::SERIAL_LINK])
-  `AXI_ASSIGN_FROM_RESP(master[ariane_soc::SERIAL_LINK], ddr_1_in_rsp)
+  axi_serializer_intf #(
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+    .MAX_READ_TXNS  ( ariane_soc::NrSlaves     ),
+    .MAX_WRITE_TXNS ( ariane_soc::NrSlaves     ),
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+     )serial_link_serializer (
+       .clk_i  ( clk_i                           ),
+       .rst_ni ( rst_ni                          ),
+       .slv    ( master[ariane_soc::SERIAL_LINK] ),
+       .mst    ( serial_link_master              )
+     );
+  
+  `AXI_ASSIGN_TO_REQ(ddr_1_in_req,serial_link_master)
+  `AXI_ASSIGN_FROM_RESP(serial_link_master, ddr_1_in_rsp)
 
   `AXI_ASSIGN_FROM_REQ(slave[3], ddr_1_out_req)
   `AXI_ASSIGN_TO_RESP(ddr_1_out_rsp, slave[3])
