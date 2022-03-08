@@ -9,7 +9,7 @@ set CLK_PERIOD        2500
 set REF_CLK_PERIOD    100000
 
 create_clock -period $CLK_PERIOD -name CLUSTER_CLK [ get_ports clk_i        ]
-set_clock_uncertainty   500                        [ get_clocks CLUSTER_CLK ]
+set_clock_uncertainty   300                        [ get_clocks CLUSTER_CLK ]
 set_clock_transition    200                        [ get_clocks CLUSTER_CLK ]
 
 create_clock -period $REF_CLK_PERIOD  -name REF_CLK  [ get_ports  ref_clk_i ]
@@ -43,26 +43,26 @@ set_false_path -through [get_pins rstgen_i/i_rstgen_bypass/rst_no]
 
 # REGISTER FILE
 
-set_multicycle_path 2 -setup -through [get_pins CORE[*].core_region_i/RISCV_CORE/id_stage_i/registers_i/riscv_register_file_i/mem_reg*/Q]
-set_multicycle_path 1 -hold  -through [get_pins CORE[*].core_region_i/RISCV_CORE/id_stage_i/registers_i/riscv_register_file_i/mem_reg*/Q]
+set_multicycle_path 2 -setup -through [get_pins CORE_*__core_region_i/RISCV_CORE/id_stage_i/registers_i/riscv_register_file_i/mem_reg*/Q]
+set_multicycle_path 1 -hold  -through [get_pins CORE_*__core_region_i/RISCV_CORE/id_stage_i/registers_i/riscv_register_file_i/mem_reg*/Q]
 
 # ICACHE PRIVATE
 # DATA BANK
-set_multicycle_path 2 -setup -through [get_pins icache_top_i/PRI_ICACHE[*].i_pri_icache/_DATA_WAY_[*].DATA_BANK/register_file_1r_1w_i/MemContentxDP_reg*/Q]
-set_multicycle_path 1 -hold  -through [get_pins icache_top_i/PRI_ICACHE[*].i_pri_icache/_DATA_WAY_[*].DATA_BANK/register_file_1r_1w_i/MemContentxDP_reg*/Q]
+set_multicycle_path 2 -setup -through [get_pins icache_top_i/PRI_ICACHE_*__i_pri_icache/u_DATA_WAY__*__DATA_BANK/register_file_1r_1w_i/MemContentxDP_reg*/Q]
+set_multicycle_path 1 -hold  -through [get_pins icache_top_i/PRI_ICACHE_*__i_pri_icache/u_DATA_WAY__*__DATA_BANK/register_file_1r_1w_i/MemContentxDP_reg*/Q]
 
 # TAG BANK
-set_multicycle_path 2 -setup -through [get_pins icache_top_i/PRI_ICACHE[*].i_pri_icache/_TAG_WAY_[*].TAG_BANK/register_file_1w_multi_port_read_i/MemContentxDP_reg*/Q]
-set_multicycle_path 1 -hold  -through [get_pins icache_top_i/PRI_ICACHE[*].i_pri_icache/_TAG_WAY_[*].TAG_BANK/register_file_1w_multi_port_read_i/MemContentxDP_reg*/Q]
+set_multicycle_path 2 -setup -through [get_pins icache_top_i/PRI_ICACHE_*__i_pri_icache/u_TAG_WAY__*__TAG_BANK/register_file_1w_multi_port_read_i/MemContentxDP_reg*/Q]
+set_multicycle_path 1 -hold  -through [get_pins icache_top_i/PRI_ICACHE_*__i_pri_icache/u_TAG_WAY__*__TAG_BANK/register_file_1w_multi_port_read_i/MemContentxDP_reg*/Q]
 
 # ICACHE SHARED
 # DATA BANK
-set_multicycle_path 2 -setup -through [get_pins icache_top_i/Main_Icache[*].i_main_shared_icache/DATA_RAM_WAY[*].DATA_RAM/scm_data/register_file_1r_1w_i/MemContentxDP_reg*/Q]
-set_multicycle_path 1 -hold  -through [get_pins icache_top_i/Main_Icache[*].i_main_shared_icache/DATA_RAM_WAY[*].DATA_RAM/scm_data/register_file_1r_1w_i/MemContentxDP_reg*/Q]
+set_multicycle_path 2 -setup -through [get_pins icache_top_i/Main_Icache_*__i_main_shared_icache/DATA_RAM_WAY_*__DATA_RAM/scm_data/register_file_1r_1w_i/MemContentxDP_reg*/Q]
+set_multicycle_path 1 -hold  -through [get_pins icache_top_i/Main_Icache_*__i_main_shared_icache/DATA_RAM_WAY_*__DATA_RAM/scm_data/register_file_1r_1w_i/MemContentxDP_reg*/Q]
 
 # TAG BANK
-set_multicycle_path 2 -setup -through [get_pins icache_top_i/Main_Icache[*].i_main_shared_icache/TAG_RAM_WAY[*].TAG_RAM/scm_tag/register_file_1r_1w_i/MemContentxDP_reg*/Q]
-set_multicycle_path 1 -hold  -through [get_pins icache_top_i/Main_Icache[*].i_main_shared_icache/TAG_RAM_WAY[*].TAG_RAM/scm_tag/register_file_1r_1w_i/MemContentxDP_reg*/Q]
+set_multicycle_path 2 -setup -through [get_pins icache_top_i/Main_Icache_*__i_main_shared_icache/TAG_RAM_WAY_*__TAG_RAM/scm_tag/register_file_1r_1w_i/MemContentxDP_reg*/Q]
+set_multicycle_path 1 -hold  -through [get_pins icache_top_i/Main_Icache_*__i_main_shared_icache/TAG_RAM_WAY_*__TAG_RAM/scm_tag/register_file_1r_1w_i/MemContentxDP_reg*/Q]
 
 set_false_path -from [all_inputs]
 set_false_path -to   [all_outputs]

@@ -9,7 +9,7 @@ source ../scripts/area_report.tcl
 
 
 set reAnalyzeRTL "TRUE"
-set TRIAL_DIR "trial3_07_03_2022"
+set TRIAL_DIR "trial4_08_03_2022"
 set DESIGN_NAME "cva6_synth_wrap"
  
 ####################################################################
@@ -112,7 +112,7 @@ check_design                                              > ./${TRIAL_DIR}/repor
 ####################################################################
 ## POST SYNTHESIS UNIQUIFY 
 ####################################################################
-set uniquify_naming_style "alsaqr_%s_%d"
+set uniquify_naming_style "cva6_%s_%d"
 uniquify -force                                           > ./${TRIAL_DIR}/reports/d13_uniquify_post_synth.rpt
 
 ###################################################################
