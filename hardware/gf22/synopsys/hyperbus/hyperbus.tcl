@@ -81,7 +81,7 @@ set_dont_touch [get_nets  {i_hyperbus_macro/pad*/BIAS}   ]
 ## UNIQUIFY
 ####################################################################
 after 1000
-set uniquify_naming_style "alsaqr_%s_%d"
+set uniquify_naming_style "hyperbus_%s_%d"
 uniquify -force                                           > ${TRIAL_DIR}/reports/d04_pre_synth_uniquify.rpt
 
 ####################################################################
@@ -151,7 +151,7 @@ change_names -rules verilog -hier
 define_name_rules fixbackslashes -allowed "A-Za-z0-9_" -first_restricted "\\" -remove_chars
 change_names -rule fixbackslashes -h
 sh mkdir -p ./${TRIAL_DIR}/netlists
-write -format verilog -hier -o ./${TRIAL_DIR}/netlists/alsaqr_chip.v
+write -format verilog -hier -o ./${TRIAL_DIR}/netlists/hyperbus_async_macro.v
 
 ####################################################################
 ## REPORTS
@@ -161,20 +161,14 @@ report_area  -hier -nosplit                                                     
 report_resources -hierarchy                                                                                  > ./${TRIAL_DIR}/reports/dp_resource.rpt
 report_clock_gating                                                                                          > ./${TRIAL_DIR}/reports/clock_gating_postsyn.rpt
 report_units                                                                                                 > ./${TRIAL_DIR}/reports/units.rpt
-report_timing -through [ get_pins soc_domain_i/pulp_soc_i/fc_subsystem_i/FC_CORE_lFC_CORE/*                ] > ./${TRIAL_DIR}/reports/core.rpt
-report_timing -through [ get_pins soc_domain_i/pulp_soc_i/fc_subsystem_i/FC_CORE_lFC_CORE/instr*           ] > ./${TRIAL_DIR}/reports/core_instr.rpt
-report_timing -through [ get_pins soc_domain_i/pulp_soc_i/fc_subsystem_i/FC_CORE_lFC_CORE/data*            ] > ./${TRIAL_DIR}/reports/core_data.rpt
-report_timing -through [ get_pins soc_domain_i/pulp_soc_i/fc_subsystem_i/FC_CORE_lFC_CORE/ex_stage_i/*     ] > ./${TRIAL_DIR}/reports/core_exstage.rpt
-report_timing -through [ get_pins soc_domain_i/pulp_soc_i/fc_subsystem_i/FC_CORE_lFC_CORE/ex_stage_i/*fpu* ] > ./${TRIAL_DIR}/reports/core_fpu.rpt
 
-report_timing -max_paths 10 -to FLL_CVA6_CLK                                                                     > ./${TRIAL_DIR}/reports/timing_cva6_clock.rpt
-report_timing -max_paths 10 -to FLL_SOC_CLK                                                                      > ./${TRIAL_DIR}/reports/timing_soc_clock.rpt
-report_timing -max_paths 10 -to FLL_PER_CLK                                                                      > ./${TRIAL_DIR}/reports/timing_per_clock.rpt
-report_timing -max_paths 10 -to FLL_CLUSTER_CLK                                                                  > ./${TRIAL_DIR}/reports/timing_clu_clock.rpt
-report_timing -max_paths 10 -to HYPER_CLK_PHY                                                                    > ./${TRIAL_DIR}/reports/timing_axi_hyper_clock.rpt
-report_timing -max_paths 10 -to HYPER_CLK_PHY_90                                                                 > ./${TRIAL_DIR}/reports/timing_axi_hyper_90_clock.rpt
-report_timing -max_paths 10 -to clk_rwds_sample0                                                                 > ./${TRIAL_DIR}/reports/timing_rwds_clock_0.rpt
-report_timing -max_paths 10 -to clk_rwds_sample1                                                                 > ./${TRIAL_DIR}/reports/timing_rwds_clock_1.rpt
+report_timing -max_paths 10 -to clk_sys                                                                > ./${TRIAL_DIR}/reports/timing_sys_clock.rpt
+report_timing -max_paths 10 -to clk_phy_0                                                              > ./${TRIAL_DIR}/reports/timing_phy_clock.rpt
+report_timing -max_paths 10 -to clk_phy_90                                                             > ./${TRIAL_DIR}/reports/timing_phy_clock90.rpt
+report_timing -max_paths 10 -to clk_rwds_sample0                                                       > ./${TRIAL_DIR}/reports/timing_rwds0_sample_clock.rpt
+report_timing -max_paths 10 -to clk_rwds_sample1                                                       > ./${TRIAL_DIR}/reports/timing_rwds1_sample_clock.rpt
+report_timing -max_paths 10 -to clk_rwds_delayed0                                                      > ./${TRIAL_DIR}/reports/timing_rwds0_delayed_clock.rpt
+report_timing -max_paths 10 -to clk_rwds_delayed1                                                      > ./${TRIAL_DIR}/reports/timing_rwds1_delayed_clock.rpt
 
 ####################################################################
 ## WRITE OUT CONSTRAINTS

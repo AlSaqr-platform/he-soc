@@ -175,14 +175,14 @@ scripts_vip:
 
 benderrun: libbender $(util) $(library)
 	@test -f Bender.lock || { echo "ERROR: Bender.lock file does not exist. Did you run make checkout in bender mode?"; exit 1; }
-	vsim -c -do 'source compile.tcl; quit'
+	vsim -c -do 'source post_synth_compile.tcl; quit'
 	touch $(library)/.build-srcs
 
 bendertb: benderrun $(dpi)
 	touch $(library)/.build-tb
 
 build: bendertb 	$(dpi-library)/ariane_dpi.so
-	vopt $(compile_flag) -work $(library)  $(top_level) -o $(top_level)_optimized +acc -check_synthesis
+	vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc -check_synthesis
 
 
 $(library):
@@ -208,7 +208,7 @@ generate-trace-vsim:
 	make generate-trace
 
 run:
-	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library) +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) -t 1ps \
+	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -lib $(library) +notimingchecks +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi  \
 	${top_level}_optimized +permissive-off ++$(elf-bin) ++$(target-options) ++$(cl-bin) | tee sim.log
 

@@ -78,7 +78,7 @@ link                                                      > ${TRIAL_DIR}/reports
 ## UNIQUIFY
 ####################################################################
 after 1000
-set uniquify_naming_style "alsaqr_%s_%d"
+set uniquify_naming_style "cva6_%s_%d"
 uniquify -force                                           > ${TRIAL_DIR}/reports/d04_pre_synth_uniquify.rpt
 
 ####################################################################
