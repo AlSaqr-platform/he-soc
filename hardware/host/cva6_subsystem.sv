@@ -650,7 +650,7 @@ module cva6_subsystem
     .DATA_WIDTH ( AXI_DATA_WIDTH           ),
     .ID_WIDTH   ( ariane_soc::IdWidthSlave ),
     .USER_WIDTH ( AXI_USER_WIDTH           )
-  ) riscvatomics2axihyper_cut (
+  ) serial_link_cutter (
     .clk_i,
     .rst_ni ( ndmreset_n                ),
     .in     ( serial_link_cut           ),
