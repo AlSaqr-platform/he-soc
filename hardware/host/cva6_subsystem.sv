@@ -133,6 +133,13 @@ module cva6_subsystem
   ) serial_link_master();
 
   AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
+  ) serial_link_cut();
+   
+  AXI_BUS #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
@@ -632,11 +639,24 @@ module cva6_subsystem
     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
      )serial_link_serializer (
        .clk_i  ( clk_i                           ),
-       .rst_ni ( rst_ni                          ),
+       .rst_ni ( ndmreset_n                      ),
        .slv    ( master[ariane_soc::SERIAL_LINK] ),
-       .mst    ( serial_link_master              )
+       .mst    ( serial_link_cut                 )
      );
-  
+
+  axi_cut_intf #(
+    .BYPASS     ( 1'b0                     ),
+    .ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+    .DATA_WIDTH ( AXI_DATA_WIDTH           ),
+    .ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+    .USER_WIDTH ( AXI_USER_WIDTH           )
+  ) riscvatomics2axihyper_cut (
+    .clk_i,
+    .rst_ni ( ndmreset_n                ),
+    .in     ( serial_link_cut           ),
+    .out    ( serial_link_master        )
+  );
+   
   `AXI_ASSIGN_TO_REQ(ddr_1_in_req,serial_link_master)
   `AXI_ASSIGN_FROM_RESP(serial_link_master, ddr_1_in_rsp)
 
@@ -666,7 +686,7 @@ module cva6_subsystem
     .cfg_rsp_t        ( reg_rsp_t   )
   ) i_serial_link_1 (
       .clk_i          ( clk_i           ),
-      .rst_ni         ( rst_ni          ),
+      .rst_ni         ( ndmreset_n      ),
       .testmode_i     ( 1'b0            ),
       .axi_in_req_i   ( ddr_1_in_req    ), //slv -> mst axi
       .axi_in_rsp_o   ( ddr_1_in_rsp    ), //slv -> mst axi
