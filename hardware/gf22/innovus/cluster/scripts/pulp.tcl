@@ -24,7 +24,7 @@ setNanoRouteMode -reset
 setNanoRouteMode -routeBottomRoutingLayer 2
 setNanoRouteMode -routeTopRoutingLayer    8
 
-set floorW [ expr 1840.0 ]
+set floorW [ expr 1440.0 ]
 set floorH [ expr 1500.0 ]
 set floorMargin 0.5
 floorPlan -coreMarginsBy io -d  $floorW $floorH $floorMargin $floorMargin $floorMargin $floorMargin
@@ -96,7 +96,6 @@ setPlaceMode -place_global_cong_effort high \
 
 setAnalysisMode -analysisType onChipVariation -cppr both
 
-setAnalysisMode -aocv true
 
 source scripts/pulp_update_mmmc_sdc_prects.tcl
 
@@ -140,7 +139,7 @@ report_ccopt_skew_groups -file ./reports/clock/skew_groups.rpt
 timeDesign       -postCTS -expandedViews -outDir reports/pulp_03_timedesign_postCTS
 timeDesign -hold -postCTS -expandedViews -outDir reports/pulp_03_timedesign_postCTS
 
-optDesign -postCTS -hold -expandedViews -outDir reports/pulp_03_timedesign_postCTS_hold
+optDesign -postCTS -incr -expandedViews -outDir reports/pulp_03_timedesign_postCTS_hold
 
 saveDesign save/pulp_top_03_cts_hold.enc
 
@@ -176,7 +175,7 @@ saveDesign save/pulp_top_04_routed.enc
 source scripts/pulp_update_mmmc_sdc_postroute.tcl
 
 timeDesign       -postRoute -expandedViews -outDir reports/pulp_04_timedesign_postRoute
-timeDesign -hold -postRoute -expandedViews -outDir reports/pulp_04_timedesign_postRoute
+#timeDesign -hold -postRoute -expandedViews -outDir reports/pulp_04_timedesign_postRoute
 
 report_clocks                    >  reports/clocks_postRoute.rpt
 report_clocks -uncertainty_table >> reports/clocks_postRoute.rpt
@@ -187,7 +186,7 @@ setDelayCalMode -siAware true
 
 source scripts/pulp_update_mmmc_sdc_postroute_allViews_typ.tcl
 
-optDesign -postRoute -expandedViews -outDir reports/pulp_04_timedesign_postRoute_optdesign
+optDesign -postRoute -incr -expandedViews -outDir reports/pulp_04_timedesign_postRoute_optdesign
 #optDesign -postRoute -hold
 
 saveDesign save/pulp_top_04_routed_hold.enc

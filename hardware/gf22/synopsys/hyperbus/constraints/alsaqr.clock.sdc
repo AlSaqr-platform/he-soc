@@ -11,7 +11,7 @@ set_ideal_network rst_phy_ni
 ########################################
 
 if {![info exists tck_sys]} {
-    set tck_sys 3000
+    set tck_sys 2250
 }
 
 if {![info exists param_dw]} {
