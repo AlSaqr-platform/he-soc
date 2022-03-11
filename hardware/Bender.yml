@@ -13,7 +13,7 @@ dependencies:
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
   cva6: { git: "git@github.com:minho-pulp/cva6.git", rev: "c597c899d78560822a7eac027f27dc56c361a88c" }
-  riscv-dbg: { git: "git@github.com:Alsaqr-platform/riscv-dbg.git", rev: "4d8ead780a6b9877873930bcc3c8ed4806d2c8a3" }
+  riscv-dbg: { git: "git@github.com:Alsaqr-platform/riscv-dbg.git", version: 0.4.1 }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: "0.29.1" } 
   fpnew: { git: "https://github.com/pulp-platform/fpnew.git", version: 0.6.5 }
   tcdm_interconnect: { git: "https://github.com/pulp-platform/cluster_interconnect.git", version: "1.1.2" }
@@ -30,7 +30,7 @@ dependencies:
   tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.7 }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", rev: "d436ab3dad8260eadc1288bdc543c79b4d7462c7" }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "0e9f142f2f11278445c953ad011fce1c7ed85b66" }
-  hyperbus: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "bb0c17f2a8bc94cb9df91b46fa9ab445539f3fad" }
+  hyperbus: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "2e72ebb8a5280a7ddb11ef94136686496124cefd" }
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", version: 1.0.0 }
   register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
   fll_behav: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/fll_behav.git", version: 0.0.0 }

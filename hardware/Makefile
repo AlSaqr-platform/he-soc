@@ -42,12 +42,19 @@ BENDER_FPGA_SCRIPTS_DIR = fpga/alsaqr/tcl/generated
 BENDER_SYNTH_DIR = gf22
 BENDER_BUILD_DIR:=.
 
+
 ifndef RISCV
 $(error RISCV not set - please point your RISCV variable to your RISCV installation)
 endif
 
 ifndef QUESTASIM_HOME
 $(error QUESTASIM not set - please point to your QUESTA installation)
+endif
+
+ifndef post_synth
+    compile_script := compile.tcl
+else
+    compile_script := post_synth_compile.tcl
 endif
 
 # spike tandem verification
@@ -175,7 +182,7 @@ scripts_vip:
 
 benderrun: libbender $(util) $(library)
 	@test -f Bender.lock || { echo "ERROR: Bender.lock file does not exist. Did you run make checkout in bender mode?"; exit 1; }
-	vsim -c -do 'source post_synth_compile.tcl; quit'
+	vsim -c -do 'source $(compile_script); quit'
 	touch $(library)/.build-srcs
 
 bendertb: benderrun $(dpi)

@@ -1320,6 +1320,11 @@ module ariane_tb;
     riscv_dbg.write_dmi(dm::SBAddress0, 32'h8000_1000); // tohost address
     riscv_dbg.wait_idle(10);
     do begin 
+	     do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+	     while (sbcs.sbbusy);
+       riscv_dbg.write_dmi(dm::SBAddress0, 32'h8000_1000); // tohost address
+	     do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+	     while (sbcs.sbbusy);
        riscv_dbg.read_dmi(dm::SBData0, retval);
        # 100ns;
     end while (~retval[0]);
