@@ -7,7 +7,9 @@ export RISCV=/usr/scratch/lagrev5/lvalente/riscv_install
 
 echo "exporting CLANG"
 
-export PATH=/usr/scratch/lagrev1/ytortorella/riscv/install/bin:$PATH
+export PATH=/usr/scratch/lagrev1/ytortorella/hero_devel/install/bin:$PATH
+
+export ROOT_DIR=$(pwd)
 
 export SW_HOME=$(pwd)/software
 
@@ -28,4 +30,3 @@ export PATH=/usr/pack/riscv-1.0-kgf/pulp-gcc-2.5.0-rc1/bin:$PATH
 echo "cloning submodules"
 
 git submodule update --init --recursive
-
