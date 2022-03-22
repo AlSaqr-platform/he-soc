@@ -1,7 +1,9 @@
 APP := hello_pulp
 XLEN:=64
 
-include $(shell pwd)/../common.mk
+STIM = 1
+
+include $(SW_HOME)/common/common.mk
 
 rtl: 
 	 $(MAKE) -C ../../hardware/ all
