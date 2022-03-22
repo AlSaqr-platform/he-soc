@@ -645,11 +645,11 @@ module cva6_subsystem
      );
 
   axi_cut_intf #(
-    .BYPASS     ( 1'b0                     ),
-    .ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-    .DATA_WIDTH ( AXI_DATA_WIDTH           ),
-    .ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-    .USER_WIDTH ( AXI_USER_WIDTH           )
+    .BYPASS     ( 1'b0                ),
+    .ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+    .DATA_WIDTH ( AXI_DATA_WIDTH      ),
+    .ID_WIDTH   ( ariane_soc::IdWidth ),
+    .USER_WIDTH ( AXI_USER_WIDTH      )
   ) serial_link_cutter (
     .clk_i,
     .rst_ni ( ndmreset_n                ),
