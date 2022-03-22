@@ -1,4 +1,4 @@
 APP := spim
 XLEN:=64
 
-include $(shell pwd)/../../common.mk
+include $(SW_HOME)/common/common.mk

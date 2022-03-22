@@ -2,13 +2,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
-//#define FPGA_EMULATION
+// #define FPGA_EMULATION
 
 int main(int argc, char const *argv[]) {
 
   #ifdef FPGA_EMULATION
-  int baud_rate = 9600;
-  int test_freq = 10000000;
+  int baud_rate = 115200;
+  int test_freq = 50000000;
   #else
   set_flls();
   int baud_rate = 115200;
