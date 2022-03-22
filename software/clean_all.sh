@@ -3,9 +3,6 @@
 BASEDIR=$(pwd)
 test_list=`xargs printf '%s ' < regression.list | cut -b 1-`
 
-cd $BASEDIR/../
-source ./setup.sh
-
 # cd $BASEDIR/hello_pulp/stimuli
 # make clean all
 # cd $BASEDIR/fpu_pulp/stimuli
@@ -22,6 +19,6 @@ cd $BASEDIR
 for value in $test_list
 do
     cd $value
-    make clean all
+    make clean
     cd $BASEDIR
 done
