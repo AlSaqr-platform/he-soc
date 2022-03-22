@@ -17,9 +17,9 @@ RISCV_FLAGS     := -mcmodel=medany -static -O2 -ffast-math -fno-common -fno-buil
 RISCV_LINK_OPTS := -static -nostartfiles -lm
 
 CC        := clang
-CC_FLAGS  := -mcmodel=medany -static --sysroot=/usr/scratch/lagrev1/ytortorella/hero_devel/install/riscv32-unknown-elf
-CC_LIBS   := -L /usr/scratch/lagrev1/ytortorella/hero_devel/install/riscv32-unknown-elf/lib/rv32imcxpulpv2/ilp32/
-CC_INC    := -I /usr/scratch/lagrev1/ytortorella/hero_devel/install/riscv32-unknown-elf/include/ -I $(utils_dir) -I . -I $(INC)
+CC_FLAGS  := -mcmodel=medany -static --sysroot=/usr/scratch/lagrev5/ytortorella/hero-linux-toolchain/install/riscv32-hero-unknown-elf
+CC_LIBS   := -L /usr/scratch/lagrev5/ytortorella/hero-linux-toolchain/install/riscv32-hero-unknown-elf/lib/rv32imcxpulpv2/ilp32/
+CC_INC    := -I /usr/scratch/lagrev5/ytortorella/hero-linux-toolchain/install/riscv32-hero-unknown-elf/include/ -I $(utils_dir) -I . -I $(INC)
 LINK_OPTS := -static -nostartfiles
 OBJDUMP   := llvm-objdump --disassemble-all --disassemble-zeroes
 
