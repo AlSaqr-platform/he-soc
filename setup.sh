@@ -7,7 +7,7 @@ export RISCV=/usr/scratch/lagrev5/lvalente/riscv_install
 
 echo "exporting CLANG"
 
-export PATH=/usr/scratch/lagrev1/ytortorella/hero_devel/install/bin:$PATH
+export PATH=/usr/scratch/lagrev5/ytortorella/hero-linux-toolchain/install/bin:$PATH
 
 export ROOT_DIR=$(pwd)
 
