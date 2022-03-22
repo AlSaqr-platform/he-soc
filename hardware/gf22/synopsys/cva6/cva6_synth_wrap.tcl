@@ -103,10 +103,10 @@ set_attribute [get_cells  $CLK_GATE_CELL  ] is_clock_gating_cell true
 set_attribute [get_cells  $CLK_GATE_CELL  ] clock_gating_integrated_cell latch_posedge_precontrol 
 set_clock_gating_style -minimum_bitwidth 8 -positive_edge_logic integrated:$CLK_GATE_CELL -control_point  before  -control_signal scan_enable  -max_fanout 256
 
-report_clocks                                                       > ./${TRIAL_DIR}/reports/d10_clocks.rpt
+report_clocks                                             > ./${TRIAL_DIR}/reports/d10_clocks.rpt
 
 check_design                                              > ./${TRIAL_DIR}/reports/d11_check_design_precompile.rpt
-compile_ultra -no_autoungroup -timing -gate_clock 
+compile_ultra -no_autoungroup -timing  -no_boundary_optimization -gate_clock
 check_design                                              > ./${TRIAL_DIR}/reports/d12_check_design_postcompile.rpt
 
 ####################################################################

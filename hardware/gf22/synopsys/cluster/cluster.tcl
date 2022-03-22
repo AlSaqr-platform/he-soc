@@ -126,7 +126,7 @@ report_clocks                                                       > ./${TRIAL_
 #  ## COMPILE ULTRA
 #  ####################################################################
 check_design                                              > ./${TRIAL_DIR}/reports/d11_check_design_precompile.rpt
-compile_ultra -no_autoungroup -timing -gate_clock 
+compile_ultra -no_autoungroup -timing -no_boundary_optimization -gate_clock 
 check_design                                              > ./${TRIAL_DIR}/reports/d12_check_design_postcompile.rpt
 
 ####################################################################
