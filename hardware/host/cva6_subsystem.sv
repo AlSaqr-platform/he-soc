@@ -33,7 +33,9 @@ module cva6_subsystem
   parameter int unsigned NUM_WORDS         = 2**25,         // memory size
   parameter bit          StallRandomOutput = 1'b0,
   parameter bit          StallRandomInput  = 1'b0,
-  parameter bit          JtagEnable        = 1'b1
+  parameter bit          JtagEnable        = 1'b1,
+  parameter type         axi_req_t         = logic,
+  parameter type         axi_resp_t        = logic
 ) (
   input  logic             clk_i,
   input  logic             rtc_i,
@@ -78,7 +80,11 @@ module cva6_subsystem
   AXI_BUS.Master          apb_axi_master,
   AXI_BUS.Master          hyper_axi_master,
   AXI_BUS.Master          cluster_axi_master,
-  AXI_BUS.Slave           cluster_axi_slave
+  AXI_BUS.Slave           cluster_axi_slave,
+  // axi slave interface piloted by opentitan
+  input  axi_req_t        ot_axi_req,
+  output axi_resp_t       ot_axi_rsp
+   
 );
      // disable test-enable
   logic        test_en;
@@ -386,6 +392,13 @@ module cva6_subsystem
   );
 `endif
 
+  // ---------------
+  // OT axi master assignment
+  // ---------------
+
+  `AXI_ASSIGN_FROM_REQ(slave[4], ot_axi_req)
+  `AXI_ASSIGN_TO_RESP (ot_axi_rsp, slave[4])
+   
   // ---------------
   // AXI L2 Slave
   // ---------------
