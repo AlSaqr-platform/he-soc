@@ -4,10 +4,10 @@ manifest_version: 2
 pad_domains:
   - name: periphs
     pad_types: # behavioural pads as of now
-      - name: pad_functional
+      - name: pad_alsaqr
         description: "behavioural PU_PD pad"
         template: |
-          pad_functional ${instance_name} (
+          pad_alsaqr ${instance_name} (
             .OEN(${conn["oen"]}),
             .I(${conn["chip2pad"]}),
             .O(${conn["pad2chip"]}),
@@ -16,7 +16,7 @@ pad_domains:
             .DRV(${conn["drv"]}),
             .SLW(${conn["slw"]}),
             .SMT(${conn["smt"]}),
-            .PWORK(PWROK_S),
+            .PWROK(PWROK_S),
             .IOPWROK(IOPWROK_S),
             .BIAS(BIAS_S),
             .RETC(RETC_S)
@@ -105,37 +105,37 @@ pad_domains:
         mux_groups: [self]
         description: "pads for 3 i2c and 2 spi"
         multiple: 58
-        pad_type: pad_functional
+        pad_type: pad_alsaqr
         is_static: false
       - name: pad_gpio_c_{i:2d}
         mux_groups: [self]
         description: "pads for 1 qspi and 1 sdio"
         multiple: 4
-        pad_type: pad_functional
+        pad_type: pad_alsaqr
         is_static: false
       - name: pad_gpio_d_{i:2d}
         mux_groups: [self]
         description: "pads for 5 uart"
         multiple: 11
-        pad_type: pad_functional
+        pad_type: pad_alsaqr
         is_static: false
       - name: pad_gpio_e_{i:2d}
         mux_groups: [self]
         description: "pads for 3 spi, 1 camera, 2 can buses and 1 i2c"
         multiple: 13
-        pad_type: pad_functional
+        pad_type: pad_alsaqr
         is_static: false
       - name: pad_gpio_f_{i:2d}
         mux_groups: [self]
         description: "pads for 1 camera, 2 uart, 1 spi, 1 i2c"
         multiple: 26
-        pad_type: pad_functional
+        pad_type: pad_alsaqr
         is_static: false
       - name: pad_gpio_pwm{i}
         mux_groups: [mx_pwm]
         description: "pads for 1 camera, 2 uart, 1 spi, 1 i2c"
         multiple: 8
-        pad_type: pad_functional
+        pad_type: pad_alsaqr
         is_static: false
         
       ##  _____           _       
@@ -377,7 +377,7 @@ pad_domains:
               chip2pad: data{i}_i
               data{i}_o: pad2chip
               oen: data{i}_oen_i
-              puen: 1'b1
+              puen: 1'b0
           - name: sdio_clk
             mux_groups: [pad_gpio_b_38]
             connections:
@@ -390,7 +390,7 @@ pad_domains:
               chip2pad: cmd_i
               cmd_o: pad2chip
               oen: cmd_oen_i  
-              puen: 1'b1        
+              puen: 1'b0        
 
       - name: uart0
         output_defaults: 1'b1
@@ -906,7 +906,7 @@ pad_domains:
               chip2pad: data{i}_i
               data{i}_o: pad2chip
               oen: data{i}_oen_i
-              puen: 1'b1
+              puen: 1'b0
           - name: sdio_clk
             mux_groups: [pad_gpio_f_05]
             connections:
@@ -919,7 +919,7 @@ pad_domains:
               chip2pad: cmd_i
               cmd_o: pad2chip
               oen: cmd_oen_i 
-              puen: 1'b1 
+              puen: 1'b0
 
       - name: uart6
         output_defaults: 1'b1
