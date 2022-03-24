@@ -27,7 +27,7 @@ dependencies:
   udma_camera: { git: "https://github.com/Alsaqr-platform/udma_camera.git", rev: "0339ff06f0b62310d9c6c4b095d46b83064e0a23" }
   udma_filter: { git: "https://github.com/Alsaqr-platform/udma_filter.git", rev: "3e1fe269bcb70a7eef115ca8dc7e668229f04b46" }
   udma_external_per: { git: "https://github.com/Alsaqr-platform/udma_external_per.git", rev: "2b43a6a5b1c6d11dc7a6a6ada5233682adb76447" }
-  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.7 }
+  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", rev: "411bd43eadc46ae97e45d890fc3f916771c5491a" }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", rev: "d436ab3dad8260eadc1288bdc543c79b4d7462c7" }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "0e9f142f2f11278445c953ad011fce1c7ed85b66" }
   hyperbus: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "c1f9a8ceb149896fa3bb90bda7e5f6623667cb86" }
