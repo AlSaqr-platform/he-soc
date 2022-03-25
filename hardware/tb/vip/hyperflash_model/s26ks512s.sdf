@@ -1,0 +1,201 @@
+(DELAYFILE
+ (SDFVERSION "2.1")
+ (DESIGN "testbench_s26ks512s_verilog")
+ (DATE "Thu Jun  4 13:33:59 2015")
+ (VENDOR "Free Model Foundry")
+ (PROGRAM "SDF timing utility(tm)")
+ (VERSION "2.0.3")
+ (DIVIDER /)
+ (VOLTAGE 1.7:1.8:1.95)
+ (PROCESS)
+ (TEMPERATURE -40:25:85)
+ (TIMESCALE 1ns)
+ (CELL
+  (CELLTYPE "s26ks512s")
+  (INSTANCE s26ks512s)
+  (DELAY (ABSOLUTE
+    (IOPATH CSNeg DQ0 () () (2:4:6) () (2:4:6) ())
+    (IOPATH CSNeg DQ1 () () (2:4:6) () (2:4:6) ())
+    (IOPATH CSNeg DQ2 () () (2:4:6) () (2:4:6) ())
+    (IOPATH CSNeg DQ3 () () (2:4:6) () (2:4:6) ())
+    (IOPATH CSNeg DQ4 () () (2:4:6) () (2:4:6) ())
+    (IOPATH CSNeg DQ5 () () (2:4:6) () (2:4:6) ())
+    (IOPATH CSNeg DQ6 () () (2:4:6) () (2:4:6) ())
+    (IOPATH CSNeg DQ7 () () (2:4:6) () (2:4:6) ())
+
+    (IOPATH CSNeg RWDS () () (2:4:6) (2:4:6) (2:4:6) (2:4:8))
+
+    (IOPATH CK DQ0 (1.25:4.3:5.95) (1.25:4.3:5.95) () (1.25:4.3:5.95) () (1.25:4.3:5.95))
+    (IOPATH CK DQ1 (1.25:4.3:5.95) (1.25:4.3:5.95) () (1.25:4.3:5.95) () (1.25:4.3:5.95))
+    (IOPATH CK DQ2 (1.25:4.3:5.95) (1.25:4.3:5.95) () (1.25:4.3:5.95) () (1.25:4.3:5.95))
+    (IOPATH CK DQ3 (1.25:4.3:5.95) (1.25:4.3:5.95) () (1.25:4.3:5.95) () (1.25:4.3:5.95))
+    (IOPATH CK DQ4 (1.25:4.3:5.95) (1.25:4.3:5.95) () (1.25:4.3:5.95) () (1.25:4.3:5.95))
+    (IOPATH CK DQ5 (1.25:4.3:5.95) (1.25:4.3:5.95) () (1.25:4.3:5.95) () (1.25:4.3:5.95))
+    (IOPATH CK DQ6 (1.25:4.3:5.95) (1.25:4.3:5.95) () (1.25:4.3:5.95) () (1.25:4.3:5.95))
+    (IOPATH CK DQ7 (1.25:4.3:5.95) (1.25:4.3:5.95) () (1.25:4.3:5.95) () (1.25:4.3:5.95))
+
+    (IOPATH CK RWDS (1.1:4:5.5) (1.1:4:5.5) () () () ())
+
+  ))
+  (TIMINGCHECK
+
+    (SETUP CSNeg CK (3))
+
+    (SETUP (COND BURSTW0_Dout_Z DQ0) CK (0.6))
+    (SETUP (COND BURSTW0_Dout_Z DQ1) CK (0.6))
+    (SETUP (COND BURSTW0_Dout_Z DQ2) CK (0.6))
+    (SETUP (COND BURSTW0_Dout_Z DQ3) CK (0.6))
+    (SETUP (COND BURSTW0_Dout_Z DQ4) CK (0.6))
+    (SETUP (COND BURSTW0_Dout_Z DQ5) CK (0.6))
+    (SETUP (COND BURSTW0_Dout_Z DQ6) CK (0.6))
+    (SETUP (COND BURSTW0_Dout_Z DQ7) CK (0.6))
+
+    (SETUP (COND BURSTW1_Dout_Z DQ0) CK (1))
+    (SETUP (COND BURSTW1_Dout_Z DQ1) CK (1))
+    (SETUP (COND BURSTW1_Dout_Z DQ2) CK (1))
+    (SETUP (COND BURSTW1_Dout_Z DQ3) CK (1))
+    (SETUP (COND BURSTW1_Dout_Z DQ4) CK (1))
+    (SETUP (COND BURSTW1_Dout_Z DQ5) CK (1))
+    (SETUP (COND BURSTW1_Dout_Z DQ6) CK (1))
+    (SETUP (COND BURSTW1_Dout_Z DQ7) CK (1))
+
+
+    (HOLD CSNeg RESETNeg (150))
+
+    (HOLD CSNeg CK (0))
+
+    (HOLD (COND BURSTW0_Dout_Z DQ0) CK (0.6))
+    (HOLD (COND BURSTW0_Dout_Z DQ1) CK (0.6))
+    (HOLD (COND BURSTW0_Dout_Z DQ2) CK (0.6))
+    (HOLD (COND BURSTW0_Dout_Z DQ3) CK (0.6))
+    (HOLD (COND BURSTW0_Dout_Z DQ4) CK (0.6))
+    (HOLD (COND BURSTW0_Dout_Z DQ5) CK (0.6))
+    (HOLD (COND BURSTW0_Dout_Z DQ6) CK (0.6))
+    (HOLD (COND BURSTW0_Dout_Z DQ7) CK (0.6))
+
+    (HOLD (COND BURSTW1_Dout_Z DQ0) CK (1))
+    (HOLD (COND BURSTW1_Dout_Z DQ1) CK (1))
+    (HOLD (COND BURSTW1_Dout_Z DQ2) CK (1))
+    (HOLD (COND BURSTW1_Dout_Z DQ3) CK (1))
+    (HOLD (COND BURSTW1_Dout_Z DQ4) CK (1))
+    (HOLD (COND BURSTW1_Dout_Z DQ5) CK (1))
+    (HOLD (COND BURSTW1_Dout_Z DQ6) CK (1))
+    (HOLD (COND BURSTW1_Dout_Z DQ7) CK (1))
+
+
+    (WIDTH (negedge CK) (2.75))
+    (WIDTH (posedge CK) (2.75))
+    (WIDTH (posedge CSNeg) (6))
+    (WIDTH (negedge RESETNeg) (200))
+
+    (PERIOD (COND BURSTWRITE_EQ_0 (posedge CK)) (6))
+    (PERIOD (COND BURSTWRITE_EQ_1 (posedge CK)) (20))
+ ))
+ (CELL
+  (CELLTYPE "BUFFERs26ks512s")
+  (INSTANCE s26ks512s/BUF_DOutZ)
+  (DELAY (ABSOLUTE (DEVICE OUT (2:4:6)))))
+ (CELL
+  (CELLTYPE "BUFFERs26ks512s")
+  (INSTANCE s26ks512s/BUF_RWDS)
+  (DELAY (ABSOLUTE (DEVICE OUT (1.1:4:5.5)))))
+ (CELL
+  (CELLTYPE "BUFFERs26ks512s")
+  (INSTANCE s26ks512s/BUF_DOut)
+  (DELAY (ABSOLUTE (DEVICE OUT (1.25:4.3:5.95))))
+ )
+ (CELL
+  (CELLTYPE "s26ks512s")
+  (INSTANCE s26ks512s)
+(DELAY (ABSOLUTE
+    (IOPATH CSNeg DQ0 () () (2:4:6) () (2:4:6) ())
+    (IOPATH CSNeg DQ1 () () (2:4:6) () (2:4:6) ())
+    (IOPATH CSNeg DQ2 () () (2:4:6) () (2:4:6) ())
+    (IOPATH CSNeg DQ3 () () (2:4:6) () (2:4:6) ())
+    (IOPATH CSNeg DQ4 () () (2:4:6) () (2:4:6) ())
+    (IOPATH CSNeg DQ5 () () (2:4:6) () (2:4:6) ())
+    (IOPATH CSNeg DQ6 () () (2:4:6) () (2:4:6) ())
+    (IOPATH CSNeg DQ7 () () (2:4:6) () (2:4:6) ())
+
+    (IOPATH CSNeg RWDS () () (2:4:6) (2:4:6) (2:4:6) (2:4:8))
+
+    (IOPATH CK DQ0 (1.25:4.3:5.95) (1.25:4.3:5.95) () (1.25:4.3:5.95) () (1.25:4.3:5.95))
+    (IOPATH CK DQ1 (1.25:4.3:5.95) (1.25:4.3:5.95) () (1.25:4.3:5.95) () (1.25:4.3:5.95))
+    (IOPATH CK DQ2 (1.25:4.3:5.95) (1.25:4.3:5.95) () (1.25:4.3:5.95) () (1.25:4.3:5.95))
+    (IOPATH CK DQ3 (1.25:4.3:5.95) (1.25:4.3:5.95) () (1.25:4.3:5.95) () (1.25:4.3:5.95))
+    (IOPATH CK DQ4 (1.25:4.3:5.95) (1.25:4.3:5.95) () (1.25:4.3:5.95) () (1.25:4.3:5.95))
+    (IOPATH CK DQ5 (1.25:4.3:5.95) (1.25:4.3:5.95) () (1.25:4.3:5.95) () (1.25:4.3:5.95))
+    (IOPATH CK DQ6 (1.25:4.3:5.95) (1.25:4.3:5.95) () (1.25:4.3:5.95) () (1.25:4.3:5.95))
+    (IOPATH CK DQ7 (1.25:4.3:5.95) (1.25:4.3:5.95) () (1.25:4.3:5.95) () (1.25:4.3:5.95))
+
+    (IOPATH CK RWDS (1.1:4:5.5) (1.1:4:5.5) () () () ())
+
+  ))
+  (TIMINGCHECK
+
+    (SETUP CSNeg CK (3))
+
+    (SETUP (COND BURSTW0_Dout_Z DQ0) CK (0.6))
+    (SETUP (COND BURSTW0_Dout_Z DQ1) CK (0.6))
+    (SETUP (COND BURSTW0_Dout_Z DQ2) CK (0.6))
+    (SETUP (COND BURSTW0_Dout_Z DQ3) CK (0.6))
+    (SETUP (COND BURSTW0_Dout_Z DQ4) CK (0.6))
+    (SETUP (COND BURSTW0_Dout_Z DQ5) CK (0.6))
+    (SETUP (COND BURSTW0_Dout_Z DQ6) CK (0.6))
+    (SETUP (COND BURSTW0_Dout_Z DQ7) CK (0.6))
+
+    (SETUP (COND BURSTW1_Dout_Z DQ0) CK (1))
+    (SETUP (COND BURSTW1_Dout_Z DQ1) CK (1))
+    (SETUP (COND BURSTW1_Dout_Z DQ2) CK (1))
+    (SETUP (COND BURSTW1_Dout_Z DQ3) CK (1))
+    (SETUP (COND BURSTW1_Dout_Z DQ4) CK (1))
+    (SETUP (COND BURSTW1_Dout_Z DQ5) CK (1))
+    (SETUP (COND BURSTW1_Dout_Z DQ6) CK (1))
+    (SETUP (COND BURSTW1_Dout_Z DQ7) CK (1))
+
+
+    (HOLD CSNeg RESETNeg (150))
+
+    (HOLD CSNeg CK (0))
+
+    (HOLD (COND BURSTW0_Dout_Z DQ0) CK (0.6))
+    (HOLD (COND BURSTW0_Dout_Z DQ1) CK (0.6))
+    (HOLD (COND BURSTW0_Dout_Z DQ2) CK (0.6))
+    (HOLD (COND BURSTW0_Dout_Z DQ3) CK (0.6))
+    (HOLD (COND BURSTW0_Dout_Z DQ4) CK (0.6))
+    (HOLD (COND BURSTW0_Dout_Z DQ5) CK (0.6))
+    (HOLD (COND BURSTW0_Dout_Z DQ6) CK (0.6))
+    (HOLD (COND BURSTW0_Dout_Z DQ7) CK (0.6))
+
+    (HOLD (COND BURSTW1_Dout_Z DQ0) CK (1))
+    (HOLD (COND BURSTW1_Dout_Z DQ1) CK (1))
+    (HOLD (COND BURSTW1_Dout_Z DQ2) CK (1))
+    (HOLD (COND BURSTW1_Dout_Z DQ3) CK (1))
+    (HOLD (COND BURSTW1_Dout_Z DQ4) CK (1))
+    (HOLD (COND BURSTW1_Dout_Z DQ5) CK (1))
+    (HOLD (COND BURSTW1_Dout_Z DQ6) CK (1))
+    (HOLD (COND BURSTW1_Dout_Z DQ7) CK (1))
+
+
+    (WIDTH (negedge CK) (2.75))
+    (WIDTH (posedge CK) (2.75))
+    (WIDTH (posedge CSNeg) (6))
+    (WIDTH (negedge RESETNeg) (200))
+
+    (PERIOD (COND BURSTWRITE_EQ_0 (posedge CK)) (6))
+    (PERIOD (COND BURSTWRITE_EQ_1 (posedge CK)) (20))
+))
+ (CELL
+  (CELLTYPE "BUFFERs26ks512s")
+  (INSTANCE s26ks512s/BUF_DOutZ)
+  (DELAY (ABSOLUTE (DEVICE OUT (2:4:6)))))
+ (CELL
+  (CELLTYPE "BUFFERs26ks512s")
+  (INSTANCE s26ks512s/BUF_RWDS)
+  (DELAY (ABSOLUTE (DEVICE OUT (1.1:4:5.5)))))
+ (CELL
+  (CELLTYPE "BUFFERs26ks512s")
+  (INSTANCE s26ks512s/BUF_DOut)
+  (DELAY (ABSOLUTE (DEVICE OUT (1.25:4.3:5.95))))
+ )
+)

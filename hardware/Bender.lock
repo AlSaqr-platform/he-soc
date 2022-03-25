@@ -1,0 +1,408 @@
+---
+packages:
+  alsaqr_padframe:
+    revision: ~
+    version: ~
+    source:
+      Path: /scratch/aibrahim/clean/he-soc/hardware/deps/alsaqr_periph_padframe
+    dependencies:
+      - common_cells
+      - register_interface
+  apb:
+    revision: 91149ac0dd8141d037a32ebbf735360707a3267d
+    version: 0.2.1
+    source:
+      Git: "https://github.com/pulp-platform/apb.git"
+    dependencies:
+      - common_cells
+  apb_adv_timer:
+    revision: c8faec1e1755386d0e0f31a55ebd80612a3dcea9
+    version: 1.0.4
+    source:
+      Git: "https://github.com/pulp-platform/apb_adv_timer.git"
+    dependencies:
+      - tech_cells_generic
+  apb_fll_if:
+    revision: a6a38113626bd63ed4fd9b3e3f9605ad19c9be97
+    version: 1.0.0
+    source:
+      Git: "git@github.com:AlSaqr-platform/apb_fll_if.git"
+    dependencies:
+      - apb
+      - fll_behav
+  apb_gpio:
+    revision: 0e9f142f2f11278445c953ad011fce1c7ed85b66
+    version: ~
+    source:
+      Git: "https://github.com/pulp-platform/apb_gpio.git"
+    dependencies: []
+  apb_host_control:
+    revision: ~
+    version: ~
+    source:
+      Path: /scratch/aibrahim/clean/he-soc/hardware/deps/apb_host_control_regs
+    dependencies:
+      - common_cells
+      - register_interface
+  apb_node:
+    revision: d436ab3dad8260eadc1288bdc543c79b4d7462c7
+    version: ~
+    source:
+      Git: "https://github.com/pulp-platform/apb_node.git"
+    dependencies:
+      - apb
+  apb_uart:
+    revision: ~
+    version: ~
+    source:
+      Path: /scratch/aibrahim/clean/he-soc/hardware/../fpga/src/apb_uart
+    dependencies: []
+  axi:
+    revision: 527cf64a95f7aea36836b2db76dc4d767e150358
+    version: 0.29.2
+    source:
+      Git: "https://github.com/pulp-platform/axi.git"
+    dependencies:
+      - common_cells
+      - common_verification
+  axi2per:
+    revision: 5e0c44695ccdeefea73b0903d2ac2a74c65969fa
+    version: ~
+    source:
+      Git: "https://github.com/AlSaqr-platform/axi2per.git"
+    dependencies:
+      - axi
+      - axi_to_mem
+  axi2tcdm:
+    revision: 0311ca4a6c7b9454b2eee7399f98538ebfd464d6
+    version: ~
+    source:
+      Git: "https://github.com/AlSaqr-platform/axi2mem.git"
+    dependencies:
+      - common_cells
+  axi_riscv_atomics:
+    revision: ~
+    version: ~
+    source:
+      Path: /scratch/aibrahim/clean/he-soc/hardware/deps/axi_riscv_atomics
+    dependencies:
+      - axi
+      - common_cells
+  axi_slice:
+    revision: a4f72bc21ac4d7da631e8309d9f8d0c34b735c23
+    version: 1.1.4
+    source:
+      Git: "git@github.com:pulp-platform/axi_slice.git"
+    dependencies:
+      - common_cells
+  axi_tlb:
+    revision: ~
+    version: ~
+    source:
+      Path: /scratch/aibrahim/clean/he-soc/hardware/deps/axi_tlb
+    dependencies:
+      - axi
+      - common_cells
+      - common_verification
+      - register_interface
+  axi_to_mem:
+    revision: db90271829a3540b1153bc9a68b53e813d998f9a
+    version: ~
+    source:
+      Git: "https://github.com/AlSaqr-platform/axi2mem.git"
+    dependencies:
+      - axi
+      - common_cells
+  can_bus:
+    revision: df1b218c3bf2c3ad29969ffe14190f9ef8db5962
+    version: ~
+    source:
+      Git: "git@github.com:alsaqr-platform/can_bus.git"
+    dependencies: []
+  clint:
+    revision: ~
+    version: ~
+    source:
+      Path: /scratch/aibrahim/clean/he-soc/hardware/deps/clint
+    dependencies: []
+  cluster_dma:
+    revision: 55114c4c552e8ef02683b7cf5f4c73952dab3bd8
+    version: ~
+    source:
+      Git: "https://github.com/AlSaqr-platform/cluster-dma.git"
+    dependencies:
+      - axi
+      - common_cells
+  cluster_interconnect:
+    revision: ~
+    version: ~
+    source:
+      Path: rtl/dependencies/cluster_interconnect
+    dependencies: []
+  cluster_peripherals:
+    revision: ~
+    version: ~
+    source:
+      Path: rtl/dependencies/cluster_peripherals
+    dependencies: []
+  common_cells:
+    revision: dc555643226419b7a602f0aa39d449545ea4c1f2
+    version: 1.23.0
+    source:
+      Git: "git@github.com:pulp-platform/common_cells.git"
+    dependencies:
+      - common_verification
+      - tech_cells_generic
+  common_pads:
+    revision: a033463d973cf6a9b88b99c1927214d941b6d062
+    version: 0.0.2
+    source:
+      Git: "git@github.com:AlSaqr-platform/common_pads.git"
+    dependencies: []
+  common_verification:
+    revision: b616c1a25aea3b76e32dcbed2ec87d057efdcffd
+    version: 0.2.1
+    source:
+      Git: "https://github.com/pulp-platform/common_verification.git"
+    dependencies: []
+  ddr-link:
+    revision: bf77d024f7290d885601d54bf608f29be6982951
+    version: ~
+    source:
+      Git: "git@github.com:AlSaqr-platform/ddr-link.git"
+    dependencies:
+      - axi
+      - common_cells
+      - register_interface
+  event_unit_flex:
+    revision: 53fb3a1093aaaedfe883739fd8a3155d601210bc
+    version: ~
+    source:
+      Git: "https://github.com/AlSaqr-platform/event_unit_flex.git"
+    dependencies:
+      - common_cells
+  fll_behav:
+    revision: 657782a563a04a34abcdb9a04b4c1f98ca8e159e
+    version: 0.0.0
+    source:
+      Git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/fll_behav.git"
+    dependencies: []
+  fpnew:
+    revision: 8dc44406b1ccbc4487121710c1883e805f893965
+    version: 0.6.6
+    source:
+      Git: "https://github.com/pulp-platform/fpnew.git"
+    dependencies:
+      - common_cells
+      - fpu_div_sqrt_mvp
+  fpu_div_sqrt_mvp:
+    revision: 86e1f558b3c95e91577c41b2fc452c86b04e85ac
+    version: 1.0.4
+    source:
+      Git: "https://github.com/pulp-platform/fpu_div_sqrt_mvp.git"
+    dependencies:
+      - common_cells
+  fpu_interco:
+    revision: 38aa14205de38f01451e8a969089bc31f4c6f444
+    version: ~
+    source:
+      Git: "https://github.com/AlSaqr-platform/fpu_interco"
+    dependencies:
+      - fpnew
+      - riscv
+  hier-icache:
+    revision: 1e94c16b8f3082af40cc7e579027dc485202c1d6
+    version: ~
+    source:
+      Git: "https://github.com/pulp-platform/hier-icache.git"
+    dependencies:
+      - axi
+      - axi_slice
+      - common_cells
+      - icache-intc
+      - scm
+      - tech_cells_generic
+  hyperbus:
+    revision: 8d74ab72846633bece0d800c017c0179c9b067cf
+    version: ~
+    source:
+      Git: "git@github.com:AlSaqr-platform/hyperbus.git"
+    dependencies:
+      - axi
+      - common_cells
+      - common_pads
+      - register_interface
+      - tech_cells_generic
+      - udma_core
+  icache-intc:
+    revision: 663c3b6d3c2bf63ff25cda46f33c799c647b3985
+    version: 1.0.1
+    source:
+      Git: "https://github.com/pulp-platform/icache-intc.git"
+    dependencies: []
+  icache_private:
+    revision: 84436443d3a2dbad0b94a85c2c5cc8915632fd26
+    version: ~
+    source:
+      Git: "https://github.com/AlSaqr-platform/icache_private.git"
+    dependencies:
+      - axi_slice
+      - common_cells
+      - scm
+  per2axi:
+    revision: 3eac7f254b6c499745d15b51ce1d92d786a4fcc4
+    version: ~
+    source:
+      Git: "https://github.com/AlSaqr-platform/per2axi.git"
+    dependencies:
+      - axi
+      - common_cells
+  pulp_cluster:
+    revision: cc1edd536b29870650a518423a83c9d520412f05
+    version: ~
+    source:
+      Git: "git@github.com:AlSaqr-platform/pulp_cluster.git"
+    dependencies:
+      - axi
+      - axi2per
+      - axi_to_mem
+      - cluster_dma
+      - cluster_interconnect
+      - cluster_peripherals
+      - common_cells
+      - event_unit_flex
+      - fpu_interco
+      - hier-icache
+      - icache_private
+      - per2axi
+      - riscv
+      - scm
+      - tech_cells_generic
+      - timer_unit
+  register_interface:
+    revision: e4666935f3288db371a250fc6ef7641ad0af62ab
+    version: 0.3.2
+    source:
+      Git: "git@github.com:AlSaqr-platform/register_interface.git"
+    dependencies:
+      - axi
+      - common_cells
+  riscv:
+    revision: 92506f3351c18edf53758add7dd5a4fd69b7c8c1
+    version: ~
+    source:
+      Git: "git@github.com:AlSaqr-platform/riscv_nn.git"
+    dependencies:
+      - fpnew
+      - tech_cells_generic
+  riscv-dbg:
+    revision: 4d8ead780a6b9877873930bcc3c8ed4806d2c8a3
+    version: ~
+    source:
+      Git: "git@github.com:Alsaqr-platform/riscv-dbg.git"
+    dependencies:
+      - common_cells
+      - tech_cells_generic
+  rv_plic:
+    revision: ~
+    version: ~
+    source:
+      Path: /scratch/aibrahim/clean/he-soc/hardware/deps/rv_plic
+    dependencies: []
+  scm:
+    revision: e1ad7dffd9d8702430131ec8bc1a0d9ff686ece2
+    version: 1.1.0
+    source:
+      Git: "https://github.com/pulp-platform/scm.git"
+    dependencies: []
+  tcdm_interconnect:
+    revision: 7d0a4f8acae71a583a6713cab5554e60b9bb8d27
+    version: 1.2.1
+    source:
+      Git: "https://github.com/pulp-platform/cluster_interconnect.git"
+    dependencies:
+      - common_cells
+  tech_cells_generic:
+    revision: d21dc2e967fa82b6d7eb103bd07d9cf1e4fad808
+    version: 0.2.7
+    source:
+      Git: "https://github.com/pulp-platform/tech_cells_generic.git"
+    dependencies:
+      - common_verification
+  timer_unit:
+    revision: 3f4ee3e5b3875a473242de5d0c3ebb5a0fe4b8db
+    version: 1.0.2
+    source:
+      Git: "https://github.com/pulp-platform/timer_unit.git"
+    dependencies: []
+  udma_camera:
+    revision: 0339ff06f0b62310d9c6c4b095d46b83064e0a23
+    version: ~
+    source:
+      Git: "https://github.com/Alsaqr-platform/udma_camera.git"
+    dependencies:
+      - tech_cells_generic
+      - udma_core
+  udma_core:
+    revision: 5e8781bfad6e7c43f6aa4e0ee79f6fac5cc45337
+    version: 2.0.0
+    source:
+      Git: "https://github.com/Alsaqr-platform/udma_core.git"
+    dependencies:
+      - common_cells
+      - tech_cells_generic
+  udma_external_per:
+    revision: 2b43a6a5b1c6d11dc7a6a6ada5233682adb76447
+    version: ~
+    source:
+      Git: "https://github.com/Alsaqr-platform/udma_external_per.git"
+    dependencies:
+      - udma_core
+  udma_filter:
+    revision: 3e1fe269bcb70a7eef115ca8dc7e668229f04b46
+    version: ~
+    source:
+      Git: "https://github.com/Alsaqr-platform/udma_filter.git"
+    dependencies:
+      - udma_core
+  udma_i2c:
+    revision: a0713d439e11b3b85f0071dc6b59d9fb758633ca
+    version: ~
+    source:
+      Git: "https://github.com/Alsaqr-platform/udma_i2c.git"
+    dependencies:
+      - udma_core
+  udma_qspi:
+    revision: 2d0f67acfcdc5a3ee1c0a925db745f0daffb33cb
+    version: ~
+    source:
+      Git: "https://github.com/Alsaqr-platform/udma_qspi.git"
+    dependencies:
+      - common_cells
+      - tech_cells_generic
+      - udma_core
+  udma_sdio:
+    revision: f6bab4a0d249c55f937ecfdbeb1dfbed6d4492f8
+    version: ~
+    source:
+      Git: "https://github.com/Alsaqr-platform/udma_sdio.git"
+    dependencies:
+      - common_cells
+      - tech_cells_generic
+      - udma_core
+  udma_uart:
+    revision: 28fe46e2571679762d759890007d11721e89c308
+    version: ~
+    source:
+      Git: "https://github.com/Alsaqr-platform/udma_uart.git"
+    dependencies:
+      - common_cells
+      - udma_core
+  util:
+    revision: ~
+    version: ~
+    source:
+      Path: /scratch/aibrahim/clean/he-soc/hardware/deps/util
+    dependencies:
+      - axi
+      - common_cells

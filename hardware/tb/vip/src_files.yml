@@ -1,0 +1,89 @@
+S25FS256_model:
+  defines: [
+    SPEEDSIM,
+  ]
+  files: [
+    spi_flash/S25fs256s/model/s25fs256s.v,
+  ]
+  flags: [
+    skip_synthesis,
+  ]
+
+24FC1025_model:
+  defines: [
+    SPEEDSIM,
+  ]
+  files: [
+    i2c_eeprom/24FC1025.v,
+  ]
+  flags: [
+    skip_synthesis,
+  ]
+
+i2s_model:
+  defines: [
+    SPEEDSIM,
+  ]
+  files: [
+    i2s/i2c_if.v,
+    i2s/i2s_vip_channel.sv,
+  ]
+  flags: [
+    skip_synthesis,
+  ]
+
+i2s_dsp_microphone_model:
+  defines: [
+    SPEEDSIM,
+  ]
+  files: [
+    i2s_microphone/i2s_microphone.sv,
+  ]
+  flags: [
+    skip_synthesis,
+  ]
+
+i2s_dsp_generic_model:
+  defines: [
+    SPEEDSIM,
+  ]
+  files: [   
+    i2s_dsp_device/i2s_dsp_tx_device.sv,
+    i2s_dsp_device/i2s_dsp_rx_device.sv,
+  ]
+  flags: [
+    skip_synthesis,
+  ]
+
+hyperflash_model:
+  defines: [
+    SPEEDSIM,
+  ]
+  files: [
+    hyperflash_model/s26ks512s.v,
+  ]
+  flags: [
+    skip_synthesis,
+  ]
+
+hyperram_model:
+  defines: [
+    SPEEDSIM,
+  ]
+  files: [
+    hyperram_model/s27ks0641.v,
+  ]
+  flags: [
+    skip_synthesis,
+  ]
+
+open_models:
+  files: [
+    spi_master_padframe.sv,
+    uart_tb_rx.sv,
+    camera/cam_vip.sv
+  ]
+  flags: [
+    skip_synthesis,
+  ]
+
