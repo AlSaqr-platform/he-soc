@@ -25,8 +25,8 @@ module clint #(
     input  logic                      clk_i,       // Clock
     input  logic                      rst_ni,      // Asynchronous reset active low
     input  logic                      testmode_i,
-    input  ariane_axi::req_slv_t      axi_req_i,
-    output ariane_axi::resp_slv_t     axi_resp_o,
+    input  ariane_axi_soc::req_slv_t      axi_req_i,
+    output ariane_axi_soc::resp_slv_t     axi_resp_o,
     input  logic                      rtc_i,       // Real-time clock in (usually 32.768 kHz)
     output logic [NR_CORES-1:0]       timer_irq_o, // Timer interrupts
     output logic [NR_CORES-1:0]       ipi_o        // software interrupt (a.k.a inter-process-interrupt)

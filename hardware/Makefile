@@ -149,7 +149,7 @@ update:
 
 libbender:
 	@vlib work
-	vmap work ./work
+	vmap work ./openpiton/build//manycore/rel-0.1/work
 
 scripts-bender-fpga: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
