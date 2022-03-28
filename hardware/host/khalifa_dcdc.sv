@@ -33,13 +33,6 @@ endmodule
                                         
 (* dont_touch = "true" *) 
 module khalifa_dcdc (
-       // ANALOG SIGNALS
-       inout logic        ku_dcdc_vdd_b    ,
-       inout logic        ku_dcdc_vdd_r250 ,
-       inout logic        ku_dcdc_vref_b   ,
-       inout logic        ku_dcdc_vref_r250,
-       inout logic        ku_dcdc_vout_b   ,
-       inout logic        ku_dcdc_vout_r250,
        // DIGITAL PADS
        output logic       data_control_1_o , 
        input logic        y_control_1_i    ,    

@@ -86,14 +86,7 @@ module pad_frame
     assign jtag_tdi_o = pad_jtag_tdi;
 
 `endif // !`ifndef FPGA_EMUL
-
-   wire ku_dcdc_vdd_b    ;
-   wire ku_dcdc_vdd_r250 ;
-   wire ku_dcdc_vref_b   ;
-   wire ku_dcdc_vref_r250;
-   wire ku_dcdc_vout_b   ;
-   wire ku_dcdc_vout_r250;
-   
+  
    `DECLARE_LOGIC(control_1)
    `DECLARE_LOGIC(control_2)
    `DECLARE_LOGIC(clk_ext  )
@@ -109,9 +102,9 @@ module pad_frame
    IN22FDX_GPIO18_10M19S40PI_ANA_H gwt_test_ana0 ( .DATA_B(gwt_b_0), .DATA_R250(gwt_r250_0), .PAD(pad_gwt_ana0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
    IN22FDX_GPIO18_10M19S40PI_ANA_H gwt_test_ana1 ( .DATA_B(gwt_b_1), .DATA_R250(gwt_r250_1), .PAD(pad_gwt_ana1), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
 
-   IN22FDX_GPIO18_10M19S40PI_ANA_H ku_dcdc_vdd  ( .DATA_B(ku_dcdc_vdd_b ), .DATA_R250(ku_dcdc_vdd_r250 ), .PAD(pad_ku_dcdc_vdd ), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
-   IN22FDX_GPIO18_10M19S40PI_ANA_H ku_dcdc_vref ( .DATA_B(ku_dcdc_vref_b), .DATA_R250(ku_dcdc_vref_r250), .PAD(pad_ku_dcdc_vref), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
-   IN22FDX_GPIO18_10M19S40PI_ANA_H ku_dcdc_vout ( .DATA_B(ku_dcdc_vout_b), .DATA_R250(ku_dcdc_vout_r250), .PAD(pad_ku_dcdc_vout), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+   IN22FDX_GPIO18_10M19S40PI_VCS_H ku_dcdc_vdd  (  .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+   IN22FDX_GPIO18_10M19S40PI_VCS_H ku_dcdc_vref (  .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+   IN22FDX_GPIO18_10M19S40PI_VCS_H ku_dcdc_vout (  .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
 
    `PAD_INST(control_1)
    `PAD_INST(control_2)
@@ -124,12 +117,6 @@ module pad_frame
 `endif
 
    khalifa_dcdc i_khalifa_dcdc (
-          .ku_dcdc_vdd_b     (ku_dcdc_vdd_b    ),
-          .ku_dcdc_vdd_r250  (ku_dcdc_vdd_r250 ),
-          .ku_dcdc_vref_b    (ku_dcdc_vref_b   ),
-          .ku_dcdc_vref_r250 (ku_dcdc_vref_r250),
-          .ku_dcdc_vout_b    (ku_dcdc_vout_b   ),
-          .ku_dcdc_vout_r250 (ku_dcdc_vout_r250),
           `CONNECT_PAD(control_1),
           `CONNECT_PAD(control_2),
           `CONNECT_PAD(clk_ext),
