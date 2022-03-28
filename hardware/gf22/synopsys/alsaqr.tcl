@@ -36,7 +36,7 @@ sh date > ${TRIAL_DIR}/lock_date
 
 if { $reAnalyzeRTL == "TRUE" } {
     file delete -force -- ./work
-    source -echo -verbose ./scripts/analyze_top.tcl > ${TRIAL_DIR}/logs/analyze.log
+    source -echo -verbose ./scripts/analyze_alsaqr.tcl > ${TRIAL_DIR}/logs/analyze.log
 } else {
     read_file  -format ddc  ./${TRIAL_DIR}/unmapped/${DESIGN_NAME}_chip_unmapped.ddc
 }

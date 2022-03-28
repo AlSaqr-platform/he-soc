@@ -361,26 +361,28 @@ module ariane_tb;
     .exit                 ( s_jtag_exit          )
   );
   
-//    al_saqr #(
-//        .NUM_WORDS         ( NUM_WORDS                   ),
-//        .InclSimDTM        ( 1'b1                        ),
-//        .StallRandomOutput ( 1'b1                        ),
-//        .StallRandomInput  ( 1'b1                        ),
-//        .JtagEnable        ( jtag_enable[0] | LOCAL_JTAG )
-//    )
-   al_saqr  dut (
+    al_saqr 
+    `ifndef TARGET_TOP_POST_SYNTH_SIM #(
+        .NUM_WORDS         ( NUM_WORDS                   ),
+        .InclSimDTM        ( 1'b1                        ),
+        .StallRandomOutput ( 1'b1                        ),
+        .StallRandomInput  ( 1'b1                        ),
+        .JtagEnable        ( jtag_enable[0] | LOCAL_JTAG )
+    ) `endif dut (
         .rst_ni               ( s_rst_ni               ),
         .rtc_i                ( s_rtc_i                ),
         .bypass_clk_i         ( s_bypass               ),
- //     .dmi_req_valid        ( s_dmi_req_valid        ),
- //     .dmi_req_ready        ( s_dmi_req_ready        ),
- //     .dmi_req_bits_addr    ( s_dmi_req_bits_addr    ),
- //     .dmi_req_bits_op      ( s_dmi_req_bits_op      ),
- //     .dmi_req_bits_data    ( s_dmi_req_bits_data    ),
- //     .dmi_resp_valid       ( s_dmi_resp_valid       ),
- //     .dmi_resp_ready       ( s_dmi_resp_ready       ),
- //     .dmi_resp_bits_resp   ( s_dmi_resp_bits_resp   ),
- //     .dmi_resp_bits_data   ( s_dmi_resp_bits_data   ),                      
+        `ifndef TARGET_POST_SYNTH_SIM
+        .dmi_req_valid        ( s_dmi_req_valid        ),
+        .dmi_req_ready        ( s_dmi_req_ready        ),
+        .dmi_req_bits_addr    ( s_dmi_req_bits_addr    ),
+        .dmi_req_bits_op      ( s_dmi_req_bits_op      ),
+        .dmi_req_bits_data    ( s_dmi_req_bits_data    ),
+        .dmi_resp_valid       ( s_dmi_resp_valid       ),
+        .dmi_resp_ready       ( s_dmi_resp_ready       ),
+        .dmi_resp_bits_resp   ( s_dmi_resp_bits_resp   ),
+        .dmi_resp_bits_data   ( s_dmi_resp_bits_data   ),
+        `endif
         .jtag_TCK             ( s_jtag2alsaqr_tck      ),
         .jtag_TMS             ( s_jtag2alsaqr_tms      ),
         .jtag_TDI             ( s_jtag2alsaqr_tdi      ),
