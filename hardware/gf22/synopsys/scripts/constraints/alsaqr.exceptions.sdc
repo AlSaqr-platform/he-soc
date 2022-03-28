@@ -37,7 +37,7 @@ set_false_path -hold -through [get_pins -hierarchical -filter async] -through [g
 ##################
 ## MACROS       ##
 ##################
-set_max_delay 200 -from [get_pins i_host_domain/i_cva_subsystem/i_ariane_wrap/data_master_*_o* ] -to [get_pins get_pins i_host_domain/i_cva_subsystem/cva6_to_xbar/i_axi_cdc_dst/async_data_slave_*_i]
+set_max_delay 200 -from [get_pins i_host_domain/i_cva_subsystem/i_ariane_wrap/data_master_*_o* ] -to [get_pins i_host_domain/i_cva_subsystem/cva6_to_xbar/i_axi_cdc_dst/async_data_slave_*_i]
 set_max_delay 200 -from [get_pins i_host_domain/i_cva_subsystem/cva6_to_xbar/i_axi_cdc_dst/async_data_slave_*_o] -to [get_pins i_host_domain/i_cva_subsystem/i_ariane_wrap/data_master_*_i*  ]
 
 set_max_delay 200 -from [get_pins cluster_i/async_data_master_*_o ] -to [get_pins cluster_to_soc_dst_cdc_fifo_i/i_axi_cdc_dst/async_data_slave_*_i]
