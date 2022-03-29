@@ -372,7 +372,7 @@ module ariane_tb;
         .rst_ni               ( s_rst_ni               ),
         .rtc_i                ( s_rtc_i                ),
         .bypass_clk_i         ( s_bypass               ),
-        `ifndef TARGET_POST_SYNTH_SIM
+        `ifndef TARGET_TOP_POST_SYNTH_SIM
         .dmi_req_valid        ( s_dmi_req_valid        ),
         .dmi_req_ready        ( s_dmi_req_ready        ),
         .dmi_req_bits_addr    ( s_dmi_req_bits_addr    ),
