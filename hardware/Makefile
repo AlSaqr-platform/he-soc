@@ -117,7 +117,7 @@ list_incdir := $(foreach dir, ${incdir}, +incdir+$(dir))
 ifdef batch-mode
 	questa-flags += -c
 	questa-cmd   := -do "coverage save -onexit ./test.ucdb; run -a; quit -code [coverage attribute -name TESTSTATUS -concise]"
-	questa-cmd   += -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; log -r /*; run -all;"
+	questa-cmd   += -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; run -all;"
 else
 	questa-cmd   := -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; log -r /*; run -all;"
 endif 
