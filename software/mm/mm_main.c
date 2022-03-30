@@ -25,6 +25,7 @@
 #include "mm.c"
 #include "utils.h"
 #include "encoding.h"
+#define VERBOSE
 
 #pragma GCC optimize ("unroll-loops")
 
@@ -75,9 +76,9 @@ int  main(int argc, char const *argv[]) {
   uart_wait_tx_done();
   printf("C%d: %d cycles\n", cid, (int)(cycles));
   uart_wait_tx_done();
-  printf("C%d: %d flops\n", cid, 2*m*n*p);
+  printf("C%d: %d flops\n", cid, m*n*p);
   uart_wait_tx_done();
-  printf("C%d: %d Mflops @ %d MHz\n", cid, (test_freq/1000000)*2*m*n*p/(cycles), test_freq/1000000);
+  printf("C%d: %d Mflops @ %d MHz\n", cid, (test_freq/1000000)*m*n*p/(cycles), test_freq/1000000);
   uart_wait_tx_done();
   #endif
 

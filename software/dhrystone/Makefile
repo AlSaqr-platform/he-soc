@@ -1,0 +1,5 @@
+APP := dhrystone_main
+XLEN:=64
+
+include $(shell pwd)/../common.mk
+
