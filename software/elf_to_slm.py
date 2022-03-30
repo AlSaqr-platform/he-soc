@@ -101,6 +101,22 @@ class stim(object):
       for key in sorted(self.mem.keys()):
         file.write('%X_%0*X\n' % (int(key), width*2, self.mem.get(key)))
 
+  def __gen_stim_single_hyperram(self, filename, width):
+
+    self.dump('  Generating to file: hyperram.slm')
+
+    try:
+      os.makedirs(os.path.dirname(filename))
+    except:
+      pass
+
+    with open("hyperram.slm", 'w') as file:
+      for key in sorted(self.mem.keys()):
+        a=self.mem.get(key)
+        b=int(key)
+        b=b-0x80000000
+        file.write('@%05X %0*X\n' % (b>>1, width, a))
+        
         
   def __gen_stim_interleaved_slm(self, filename, width):
 
@@ -195,6 +211,12 @@ class stim(object):
       self.__parse_binaries(4)
 
       self.__gen_stim_interleaved_slm(stim_file, 4)
+      
+  def gen_stim_single_hyperram(self, stim_file):
+
+      self.__parse_binaries(2)
+
+      self.__gen_stim_single_hyperram(stim_file, 2)
 
   def gen_stim_header_32(self, stim_file):
 
@@ -607,6 +629,8 @@ if __name__ == "__main__":
     stim_gen = stim(verbose=True)
 
     stim_gen.add_binary(args.binary)
+
+    stim_gen.gen_stim_single_hyperram(args.vectors)
 
     stim_gen.gen_stim_interleaved_slm(args.vectors)
 

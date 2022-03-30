@@ -95,28 +95,28 @@ int main (int argc, char** argv)
   int test_freq = 100000000;
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
-  printf("\n");
+  printf("\r\n");
   uart_wait_tx_done();
-  printf("Dhrystone Benchmark, Version %s\n", Version);
+  printf("Dhrystone Benchmark, Version %s\r\n", Version);
   uart_wait_tx_done();
   if (Reg)
   {
-    printf("Program compiled with 'register' attribute\n");
+    printf("Program compiled with 'register' attribute\r\n");
   uart_wait_tx_done();
   }
   else
   {
-    printf("Program compiled without 'register' attribute\n");
+    printf("Program compiled without 'register' attribute\r\n");
   uart_wait_tx_done();
   }
-  printf("Using %s, HZ=%d\n", CLOCK_TYPE, HZ);
+  printf("Using %s, HZ=%d\r\n", CLOCK_TYPE, HZ);
   uart_wait_tx_done();
-  printf("\n");
+  printf("\r\n");
   uart_wait_tx_done();
 
   Done = false;
   while (!Done) {
-    printf("Trying %d runs through Dhrystone:\n", Number_Of_Runs);
+    printf("Trying %d runs through Dhrystone:\r\n", Number_Of_Runs);
   uart_wait_tx_done();
 
     /***************/
@@ -181,116 +181,115 @@ int main (int argc, char** argv)
 
     if (User_Time < Too_Small_Time)
     {
-      printf("Measured time too small to obtain meaningful results\n");
+      printf("Measured time too small to obtain meaningful results\r\n");
   uart_wait_tx_done();
       Number_Of_Runs = Number_Of_Runs * 10;
-      printf("\n");
+      printf("\r\n");
   uart_wait_tx_done();
     } else Done = true;
   }
 
-  printf("Final values of the variables used in the benchmark:\n");
+  printf("Final values of the variables used in the benchmark:\r\n");
   uart_wait_tx_done();
-  printf("\n");
+  printf("\r\n");
   uart_wait_tx_done();
-  printf("Int_Glob:            %d\n", Int_Glob);
+  printf("Int_Glob:            %d\r\n", Int_Glob);
   uart_wait_tx_done();
-  printf("        should be:   %d\n", 5);
+  printf("        should be:   %d\r\n", 5);
   uart_wait_tx_done();
-  printf("Bool_Glob:           %d\n", Bool_Glob);
+  printf("Bool_Glob:           %d\r\n", Bool_Glob);
   uart_wait_tx_done();
-  printf("        should be:   %d\n", 1);
+  printf("        should be:   %d\r\n", 1);
   uart_wait_tx_done();
-  printf("Ch_1_Glob:           %c\n", Ch_1_Glob);
+  printf("Ch_1_Glob:           %c\r\n", Ch_1_Glob);
   uart_wait_tx_done();
-  printf("        should be:   %c\n", 'A');
+  printf("        should be:   %c\r\n", 'A');
   uart_wait_tx_done();
-  printf("Ch_2_Glob:           %c\n", Ch_2_Glob);
+  printf("Ch_2_Glob:           %c\r\n", Ch_2_Glob);
   uart_wait_tx_done();
-  printf("        should be:   %c\n", 'B');
+  printf("        should be:   %c\r\n", 'B');
   uart_wait_tx_done();
-  printf("Arr_1_Glob[8]:       %d\n", Arr_1_Glob[8]);
+  printf("Arr_1_Glob[8]:       %d\r\n", Arr_1_Glob[8]);
   uart_wait_tx_done();
-  printf("        should be:   %d\n", 7);
+  printf("        should be:   %d\r\n", 7);
   uart_wait_tx_done();
-  printf("Arr_2_Glob[8][7]:    %d\n", Arr_2_Glob[8][7]);
+  printf("Arr_2_Glob[8][7]:    %d\r\n", Arr_2_Glob[8][7]);
   uart_wait_tx_done();
-  printf("        should be:   Number_Of_Runs + 10\n");
+  printf("        should be:   Number_Of_Runs + 10\r\n");
   uart_wait_tx_done();
-  printf("Ptr_Glob->\n");
+  printf("Ptr_Glob->\r\n");
   uart_wait_tx_done();
-  printf("  Ptr_Comp:          %d\n", (long) Ptr_Glob->Ptr_Comp);
+  printf("  Ptr_Comp:          %d\r\n", (long) Ptr_Glob->Ptr_Comp);
   uart_wait_tx_done();
-  printf("        should be:   (implementation-dependent)\n");
+  printf("        should be:   (implementation-dependent)\r\n");
   uart_wait_tx_done();
-  printf("  Discr:             %d\n", Ptr_Glob->Discr);
+  printf("  Discr:             %d\r\n", Ptr_Glob->Discr);
   uart_wait_tx_done();
-  printf("        should be:   %d\n", 0);
+  printf("        should be:   %d\r\n", 0);
   uart_wait_tx_done();
-  printf("  Enum_Comp:         %d\n", Ptr_Glob->variant.var_1.Enum_Comp);
+  printf("  Enum_Comp:         %d\r\n", Ptr_Glob->variant.var_1.Enum_Comp);
   uart_wait_tx_done();
-  printf("        should be:   %d\n", 2);
+  printf("        should be:   %d\r\n", 2);
   uart_wait_tx_done();
-  printf("  Int_Comp:          %d\n", Ptr_Glob->variant.var_1.Int_Comp);
+  printf("  Int_Comp:          %d\r\n", Ptr_Glob->variant.var_1.Int_Comp);
   uart_wait_tx_done();
-  printf("        should be:   %d\n", 17);
+  printf("        should be:   %d\r\n", 17);
   uart_wait_tx_done();
-  printf("  Str_Comp:          %s\n", Ptr_Glob->variant.var_1.Str_Comp);
+  printf("  Str_Comp:          %s\r\n", Ptr_Glob->variant.var_1.Str_Comp);
   uart_wait_tx_done();
-  printf("        should be:   DHRYSTONE PROGRAM, SOME STRING\n");
+  printf("        should be:   DHRYSTONE PROGRAM, SOME STRING\r\n");
   uart_wait_tx_done();
-  printf("Next_Ptr_Glob->\n");
+  printf("Next_Ptr_Glob->\r\n");
   uart_wait_tx_done();
-  printf("  Ptr_Comp:          %d\n", (long) Next_Ptr_Glob->Ptr_Comp);
+  printf("  Ptr_Comp:          %d\r\n", (long) Next_Ptr_Glob->Ptr_Comp);
   uart_wait_tx_done();
-  printf("        should be:   (implementation-dependent), same as above\n");
+  printf("        should be:   (implementation-dependent), same as above\r\n");
   uart_wait_tx_done();
-  printf("  Discr:             %d\n", Next_Ptr_Glob->Discr);
+  printf("  Discr:             %d\r\n", Next_Ptr_Glob->Discr);
   uart_wait_tx_done();
-  printf("        should be:   %d\n", 0);
+  printf("        should be:   %d\r\n", 0);
   uart_wait_tx_done();
-  printf("  Enum_Comp:         %d\n", Next_Ptr_Glob->variant.var_1.Enum_Comp);
+  printf("  Enum_Comp:         %d\r\n", Next_Ptr_Glob->variant.var_1.Enum_Comp);
   uart_wait_tx_done();
-  printf("        should be:   %d\n", 1);
+  printf("        should be:   %d\r\n", 1);
   uart_wait_tx_done();
-  printf("  Int_Comp:          %d\n", Next_Ptr_Glob->variant.var_1.Int_Comp);
+  printf("  Int_Comp:          %d\r\n", Next_Ptr_Glob->variant.var_1.Int_Comp);
   uart_wait_tx_done();
-  printf("        should be:   %d\n", 18);
+  printf("        should be:   %d\r\n", 18);
   uart_wait_tx_done();
-  printf("  Str_Comp:          %s\n",
+  printf("  Str_Comp:          %s\r\n", Next_Ptr_Glob->variant.var_1.Str_Comp);
   uart_wait_tx_done();
-                                Next_Ptr_Glob->variant.var_1.Str_Comp);
-  printf("        should be:   DHRYSTONE PROGRAM, SOME STRING\n");
+  printf("        should be:   DHRYSTONE PROGRAM, SOME STRING\r\n");
   uart_wait_tx_done();
-  printf("Int_1_Loc:           %d\n", Int_1_Loc);
+  printf("Int_1_Loc:           %d\r\n", Int_1_Loc);
   uart_wait_tx_done();
-  printf("        should be:   %d\n", 5);
+  printf("        should be:   %d\r\n", 5);
   uart_wait_tx_done();
-  printf("Int_2_Loc:           %d\n", Int_2_Loc);
+  printf("Int_2_Loc:           %d\r\n", Int_2_Loc);
   uart_wait_tx_done();
-  printf("        should be:   %d\n", 13);
+  printf("        should be:   %d\r\n", 13);
   uart_wait_tx_done();
-  printf("Int_3_Loc:           %d\n", Int_3_Loc);
+  printf("Int_3_Loc:           %d\r\n", Int_3_Loc);
   uart_wait_tx_done();
-  printf("        should be:   %d\n", 7);
+  printf("        should be:   %d\r\n", 7);
   uart_wait_tx_done();
-  printf("Enum_Loc:            %d\n", Enum_Loc);
+  printf("Enum_Loc:            %d\r\n", Enum_Loc);
   uart_wait_tx_done();
-  printf("        should be:   %d\n", 1);
+  printf("        should be:   %d\r\n", 1);
   uart_wait_tx_done();
-  printf("Str_1_Loc:           %s\n", Str_1_Loc);
+  printf("Str_1_Loc:           %s\r\n", Str_1_Loc);
   uart_wait_tx_done();
-  printf("        should be:   DHRYSTONE PROGRAM, 1'ST STRING\n");
+  printf("        should be:   DHRYSTONE PROGRAM, 1'ST STRING\r\n");
   uart_wait_tx_done();
-  printf("Str_2_Loc:           %s\n", Str_2_Loc);
+  printf("Str_2_Loc:           %s\r\n", Str_2_Loc);
   uart_wait_tx_done();
-  printf("        should be:   DHRYSTONE PROGRAM, 2'ND STRING\n");
+  printf("        should be:   DHRYSTONE PROGRAM, 2'ND STRING\r\n");
   uart_wait_tx_done();
-  printf("\n");
+  printf("\r\n");
   uart_wait_tx_done();
 
 
-  printf("Cycles for one run through Dhrystone: %d\n", User_Time/Number_Of_Runs);
+  printf("Cycles for one run through Dhrystone: %d\r\n", User_Time/Number_Of_Runs);
   uart_wait_tx_done();
 
   return 0;
