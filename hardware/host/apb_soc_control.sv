@@ -18,28 +18,34 @@ module apb_soc_control
     parameter APB_ADDR_WIDTH = 32,
     parameter APB_DATA_WIDTH = 32
 ) (
-    input logic    clk_i,
-    input logic    rst_ni,
-    APB.Slave      apb_slave,
-    output logic   cluster_ctrl_rstn_o,
-    output logic   cluster_en_sa_boot_o,
-    output logic   cluster_fetch_en_o
+    input logic          clk_i,
+    input logic          rst_ni,
+    APB.Slave            apb_slave,
+    output logic         cluster_ctrl_rstn_o,
+    output logic         cluster_en_sa_boot_o,
+    output logic         cluster_fetch_en_o,
+    output logic [127:0] key_0,
+    output logic [127:0] key_1,
+    output logic [31:0]  gwt_cfg_o,
+    input  logic [31:0]  gwt_cfg_i,
+    input  logic         gwt_cfg_ie
    );
    
 
-    localparam RegAw  = 32;
-    localparam RegDw  = 32; 
-    typedef logic [RegAw-1:0]   reg_addr_t;
-    typedef logic [RegDw-1:0]   reg_data_t;
-    typedef logic [RegDw/8-1:0] reg_strb_t;   
-    `REG_BUS_TYPEDEF_REQ(reg_req_t, reg_addr_t, reg_data_t, reg_strb_t)
-    `REG_BUS_TYPEDEF_RSP(reg_rsp_t, reg_data_t)
-     reg_req_t   reg_req;
-     reg_rsp_t   reg_rsp;
-     `REG_BUS_ASSIGN_TO_REQ(reg_req,cfg_reg_master)
-     `REG_BUS_ASSIGN_FROM_RSP(cfg_reg_master,reg_rsp)  
-
-    control_register_config_reg_pkg::control_register_config_reg2hw_t reg2hw_socctrl;
+   localparam RegAw  = 32;
+   localparam RegDw  = 32; 
+   typedef logic [RegAw-1:0]   reg_addr_t;
+   typedef logic [RegDw-1:0]   reg_data_t;
+   typedef logic [RegDw/8-1:0] reg_strb_t;   
+   `REG_BUS_TYPEDEF_REQ(reg_req_t, reg_addr_t, reg_data_t, reg_strb_t)
+   `REG_BUS_TYPEDEF_RSP(reg_rsp_t, reg_data_t)
+   reg_req_t   reg_req;
+   reg_rsp_t   reg_rsp;
+   `REG_BUS_ASSIGN_TO_REQ(reg_req,cfg_reg_master)
+   `REG_BUS_ASSIGN_FROM_RSP(cfg_reg_master,reg_rsp)  
+   control_register_config_reg_pkg::control_register_config_reg2hw_t reg2hw_socctrl;
+   control_register_config_reg_pkg::control_register_config_hw2reg_t hw2reg_socctrl;
+   
     REG_BUS #(
         .ADDR_WIDTH ( 32 ),
         .DATA_WIDTH ( 32 )
@@ -71,11 +77,21 @@ module apb_soc_control
        .reg_req_i  ( reg_req         ),
        .reg_rsp_o  ( reg_rsp         ),
        .reg2hw     ( reg2hw_socctrl  ),
+       .hw2reg     ( hw2reg_socctrl  ),
        .devmode_i  ( '0              )
    );
 
    assign cluster_ctrl_rstn_o = reg2hw_socctrl.control_cluster.reset_n.q;
    assign cluster_en_sa_boot_o = reg2hw_socctrl.control_cluster.en_sa_boot.q;
    assign cluster_fetch_en_o = reg2hw_socctrl.control_cluster.fetch_en.q;
+   assign gwt_cfg_o = reg2hw_socctrl.gwt_write.q;
+
+   for(genvar i=0;i<4;i++) begin : keysassign
+        assign key_0[(i+1)*32 -1 -: 32] = reg2hw_socctrl.logic_locking_key_0[i].q;           
+        assign key_1[(i+1)*32 -1 -: 32] = reg2hw_socctrl.logic_locking_key_1[i].q;           
+    end
+         
+   assign hw2reg_socctrl.gwt_read.d  = gwt_cfg_i  ;
+   assign hw2reg_socctrl.gwt_read.de = gwt_cfg_ie ;         
 
 endmodule

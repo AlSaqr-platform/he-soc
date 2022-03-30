@@ -45,9 +45,9 @@ module ariane_tb;
     logic clk_i;
     logic rst_ni;
     logic rtc_i;
-    wire  s_rst_ni;
-    wire  s_rtc_i;
-    wire s_bypass;
+    logic s_rst_ni;
+    logic s_rtc_i;
+    logic s_bypass;
     logic rst_DTM;
     localparam NumPhys = 2;
    
@@ -58,6 +58,8 @@ module ariane_tb;
     parameter  USE_S25FS256S_MODEL  = 1;
     parameter  USE_UART             = 1;
     parameter  USE_SERIAL_LINK      = 1;
+    parameter  USE_SDIO_1           = 1;
+    parameter  USE_SDIO_0           = 0;
 
     // use camera verification IP
    parameter  USE_SDVT_CPI = 1;
@@ -299,6 +301,7 @@ module ariane_tb;
     string        binary ;
     string        cluster_binary;
 
+  
   assign pad_periphs_pad_gpio_b_37_pad = pad_periphs_pad_gpio_b_05_pad;
   assign pad_periphs_pad_gpio_b_38_pad = pad_periphs_pad_gpio_b_06_pad;
   assign pad_periphs_pad_gpio_b_39_pad = pad_periphs_pad_gpio_b_07_pad;
@@ -358,16 +361,18 @@ module ariane_tb;
     .exit                 ( s_jtag_exit          )
   );
   
-    al_saqr #(
+    al_saqr 
+    `ifndef TARGET_TOP_POST_SYNTH_SIM #(
         .NUM_WORDS         ( NUM_WORDS                   ),
         .InclSimDTM        ( 1'b1                        ),
         .StallRandomOutput ( 1'b1                        ),
         .StallRandomInput  ( 1'b1                        ),
         .JtagEnable        ( jtag_enable[0] | LOCAL_JTAG )
-    ) dut (
+    ) `endif dut (
         .rst_ni               ( s_rst_ni               ),
         .rtc_i                ( s_rtc_i                ),
         .bypass_clk_i         ( s_bypass               ),
+        `ifndef TARGET_TOP_POST_SYNTH_SIM
         .dmi_req_valid        ( s_dmi_req_valid        ),
         .dmi_req_ready        ( s_dmi_req_ready        ),
         .dmi_req_bits_addr    ( s_dmi_req_bits_addr    ),
@@ -376,7 +381,8 @@ module ariane_tb;
         .dmi_resp_valid       ( s_dmi_resp_valid       ),
         .dmi_resp_ready       ( s_dmi_resp_ready       ),
         .dmi_resp_bits_resp   ( s_dmi_resp_bits_resp   ),
-        .dmi_resp_bits_data   ( s_dmi_resp_bits_data   ),                      
+        .dmi_resp_bits_data   ( s_dmi_resp_bits_data   ),
+        `endif
         .jtag_TCK             ( s_jtag2alsaqr_tck      ),
         .jtag_TMS             ( s_jtag2alsaqr_tms      ),
         .jtag_TDI             ( s_jtag2alsaqr_tdi      ),
@@ -428,9 +434,9 @@ module ariane_tb;
         .pad_periphs_pad_gpio_b_31_pad(),
         .pad_periphs_pad_gpio_b_32_pad(),
         .pad_periphs_pad_gpio_b_33_pad(),
-        .pad_periphs_pad_gpio_b_34_pad(),
-        .pad_periphs_pad_gpio_b_35_pad(),
-        .pad_periphs_pad_gpio_b_36_pad(),
+        .pad_periphs_pad_gpio_b_34_pad(pad_periphs_pad_gpio_b_34_pad),
+        .pad_periphs_pad_gpio_b_35_pad(pad_periphs_pad_gpio_b_35_pad),
+        .pad_periphs_pad_gpio_b_36_pad(pad_periphs_pad_gpio_b_36_pad),
         .pad_periphs_pad_gpio_b_37_pad(pad_periphs_pad_gpio_b_37_pad),
         .pad_periphs_pad_gpio_b_38_pad(pad_periphs_pad_gpio_b_38_pad),
         .pad_periphs_pad_gpio_b_39_pad(pad_periphs_pad_gpio_b_39_pad),
@@ -438,9 +444,9 @@ module ariane_tb;
         .pad_periphs_pad_gpio_b_41_pad(pad_periphs_pad_gpio_b_41_pad),
         .pad_periphs_pad_gpio_b_42_pad(),
         .pad_periphs_pad_gpio_b_43_pad(),
-        .pad_periphs_pad_gpio_b_44_pad(),
-        .pad_periphs_pad_gpio_b_45_pad(),
-        .pad_periphs_pad_gpio_b_46_pad(),
+        .pad_periphs_pad_gpio_b_44_pad(pad_periphs_pad_gpio_b_44_pad),
+        .pad_periphs_pad_gpio_b_45_pad(pad_periphs_pad_gpio_b_45_pad),
+        .pad_periphs_pad_gpio_b_46_pad(pad_periphs_pad_gpio_b_46_pad),
         .pad_periphs_pad_gpio_b_47_pad(),
         .pad_periphs_pad_gpio_b_48_pad(),
         .pad_periphs_pad_gpio_b_49_pad(),
@@ -485,12 +491,12 @@ module ariane_tb;
         .pad_periphs_pad_gpio_e_12_pad(),
 
         .pad_periphs_pad_gpio_f_00_pad(),
-        .pad_periphs_pad_gpio_f_01_pad(),
-        .pad_periphs_pad_gpio_f_02_pad(),
-        .pad_periphs_pad_gpio_f_03_pad(),
-        .pad_periphs_pad_gpio_f_04_pad(),
-        .pad_periphs_pad_gpio_f_05_pad(),
-        .pad_periphs_pad_gpio_f_06_pad(),
+        .pad_periphs_pad_gpio_f_01_pad(pad_periphs_pad_gpio_f_01_pad),
+        .pad_periphs_pad_gpio_f_02_pad(pad_periphs_pad_gpio_f_02_pad),
+        .pad_periphs_pad_gpio_f_03_pad(pad_periphs_pad_gpio_f_03_pad),
+        .pad_periphs_pad_gpio_f_04_pad(pad_periphs_pad_gpio_f_04_pad),
+        .pad_periphs_pad_gpio_f_05_pad(pad_periphs_pad_gpio_f_05_pad),
+        .pad_periphs_pad_gpio_f_06_pad(pad_periphs_pad_gpio_f_06_pad),
         .pad_periphs_pad_gpio_f_07_pad(),
         .pad_periphs_pad_gpio_f_08_pad(),
         .pad_periphs_pad_gpio_f_09_pad(),
@@ -597,6 +603,41 @@ module ariane_tb;
         assign pad_periphs_pad_gpio_d_09_pad = w_cam_data[7];
       end
   endgenerate
+
+  generate
+      if (USE_SDIO_0==1) begin
+
+        sdModel sdModelTB0(
+        .sdClk ( pad_periphs_pad_gpio_b_38_pad ),
+        .cmd   ( pad_periphs_pad_gpio_b_39_pad ),
+        .dat   ( {
+                  pad_periphs_pad_gpio_b_37_pad,
+                  pad_periphs_pad_gpio_b_36_pad,
+                  pad_periphs_pad_gpio_b_35_pad,
+                  pad_periphs_pad_gpio_b_34_pad } 
+                )
+        );
+
+      end
+  endgenerate
+
+  generate
+      if (USE_SDIO_1==1) begin
+
+        sdModel sdModelTB1(
+        .sdClk ( pad_periphs_pad_gpio_f_05_pad ),
+        .cmd   ( pad_periphs_pad_gpio_f_06_pad ),
+        .dat   ( {
+                  pad_periphs_pad_gpio_f_04_pad,
+                  pad_periphs_pad_gpio_f_03_pad,
+                  pad_periphs_pad_gpio_f_02_pad,
+                  pad_periphs_pad_gpio_f_01_pad } 
+                )
+        );
+
+      end
+  endgenerate
+
 
 
   generate
@@ -989,6 +1030,7 @@ module ariane_tb;
        
         repeat(2)
             @(posedge rtc_i);
+        @(negedge rtc_i);       
         rst_ni = 1'b1;
         repeat(20)
             @(posedge rtc_i);
@@ -1280,6 +1322,11 @@ module ariane_tb;
     riscv_dbg.write_dmi(dm::SBAddress0, 32'h8000_1000); // tohost address
     riscv_dbg.wait_idle(10);
     do begin 
+	     do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+	     while (sbcs.sbbusy);
+       riscv_dbg.write_dmi(dm::SBAddress0, 32'h8000_1000); // tohost address
+	     do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+	     while (sbcs.sbbusy);
        riscv_dbg.read_dmi(dm::SBData0, retval);
        # 100ns;
     end while (~retval[0]);

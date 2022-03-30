@@ -41,6 +41,11 @@ module apb_subsystem
     output logic                rstn_cluster_sync_o,
     output logic                cluster_en_sa_boot_o,
     output logic                cluster_fetch_en_o,
+    output logic [127:0]        key_0,
+    output logic [127:0]        key_1,
+    output logic [31:0]         gwt_cfg_o,
+    input  logic [31:0]         gwt_cfg_i,
+    input  logic                gwt_cfg_ie,
    
     AXI_BUS.Slave               axi_apb_slave,
     AXI_BUS.Slave               hyper_axi_bus_slave,
@@ -495,7 +500,6 @@ module apb_subsystem
       .s_apb_pwrite     ( apb_can1_master_bus.pwrite  )
       );
 
-      
 
   apb_soc_control i_apb_soc_control
   (
@@ -504,7 +508,12 @@ module apb_subsystem
     .apb_slave (apb_socctrl_master_bus),
     .cluster_ctrl_rstn_o (s_cluster_ctrl_rstn),
     .cluster_en_sa_boot_o (cluster_en_sa_boot_o),
-    .cluster_fetch_en_o (cluster_fetch_en_o)
+    .cluster_fetch_en_o (cluster_fetch_en_o),
+    .key_0(key_0),
+    .key_1(key_1),
+    .gwt_cfg_o(gwt_cfg_o),
+    .gwt_cfg_i(gwt_cfg_i),
+    .gwt_cfg_ie(gwt_cfg_ie)
    );
    
 

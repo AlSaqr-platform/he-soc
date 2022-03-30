@@ -12,8 +12,8 @@ dependencies:
   apb_host_control: { path: "deps/apb_host_control_regs" }
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
-  cva6: { git: "git@github.com:minho-pulp/cva6.git", rev: "c597c899d78560822a7eac027f27dc56c361a88c" }
-  riscv-dbg: { git: "git@github.com:Alsaqr-platform/riscv-dbg.git", rev: "4d8ead780a6b9877873930bcc3c8ed4806d2c8a3" }
+  cva6: { git: "git@github.com:minho-pulp/cva6.git", rev: "f2aec221764d935091942edd37c6de2480a41457" }
+  riscv-dbg: { git: "git@github.com:Alsaqr-platform/riscv-dbg.git", version: 0.4.1 }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: "0.29.1" } 
   fpnew: { git: "https://github.com/pulp-platform/fpnew.git", version: 0.6.5 }
   tcdm_interconnect: { git: "https://github.com/pulp-platform/cluster_interconnect.git", version: "1.1.2" }
@@ -23,21 +23,22 @@ dependencies:
   udma_uart: { git: "https://github.com/Alsaqr-platform/udma_uart.git", rev: "28fe46e2571679762d759890007d11721e89c308" }
   udma_i2c: { git: "https://github.com/Alsaqr-platform/udma_i2c.git", rev: "a0713d439e11b3b85f0071dc6b59d9fb758633ca" }
   udma_qspi: { git: "https://github.com/Alsaqr-platform/udma_qspi.git", rev: "2d0f67acfcdc5a3ee1c0a925db745f0daffb33cb" }
-  udma_sdio: { git: "https://github.com/Alsaqr-platform/udma_sdio.git", rev: "f6bab4a0d249c55f937ecfdbeb1dfbed6d4492f8" }
+  udma_sdio: { git: "https://github.com/AlSaqr-platform/udma_sdio.git", rev: "29abf42eeb9d1b793e4f27b8b98da0331eac7f42"}
   udma_camera: { git: "https://github.com/Alsaqr-platform/udma_camera.git", rev: "0339ff06f0b62310d9c6c4b095d46b83064e0a23" }
   udma_filter: { git: "https://github.com/Alsaqr-platform/udma_filter.git", rev: "3e1fe269bcb70a7eef115ca8dc7e668229f04b46" }
   udma_external_per: { git: "https://github.com/Alsaqr-platform/udma_external_per.git", rev: "2b43a6a5b1c6d11dc7a6a6ada5233682adb76447" }
   tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.7 }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", rev: "d436ab3dad8260eadc1288bdc543c79b4d7462c7" }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "0e9f142f2f11278445c953ad011fce1c7ed85b66" }
-  hyperbus: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "8d74ab72846633bece0d800c017c0179c9b067cf" }
+  hyperbus: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "d729452c41fc337ce36790a3111aa75eed552d53" }
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", version: 1.0.0 }
   register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
   fll_behav: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/fll_behav.git", version: 0.0.0 }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
-  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "cc1edd536b29870650a518423a83c9d520412f05" }
+  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "b516ac1b3c9b426c91b9dca5a0b3922b7338f698" }
   ddr-link: { git: "git@github.com:AlSaqr-platform/ddr-link.git", rev: "bf77d024f7290d885601d54bf608f29be6982951"}
-  can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "df1b218c3bf2c3ad29969ffe14190f9ef8db5962" }
+  can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", version: 0.0.1 }
+  common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
 
 
 export_include_dirs:
@@ -78,7 +79,10 @@ sources:
   - host/l2_subsystem.sv
   - host/clk_gen_hyper.sv
   - host/host_domain.sv
+  - host/khalifa_dcdc.sv
   - host/pad_frame.sv
+  - host/gwt_test.sv
+  - host/axi_dw_converter_ll.sv
   - host/al_saqr.sv
 
   - target: all(fpga, xilinx, ddr, not(asic))
@@ -113,9 +117,15 @@ sources:
     files:
       - ../bootrom/bootrom.sv
       - host/memwrap_gf22.sv
-      - host/pads_gf22.sv
       - host/tc_sram_gf22.sv
       - host/tc_clk_gf22.sv
+
+  - target: top_post_synth_sim
+    files:
+      - gf22/synopsys/hyperbus/trial4_08_03_2022/netlists/hyperbus_async_macro.v
+      - gf22/synopsys/cva6/trial4_08_03_2022/netlists/cva6_synth_wrap.v
+      - gf22/synopsys/cluster/trial4_08_03_2022/netlists/pulp_cluster.v
+      - gf22/synopsys/trial_hier/netlists/alsaqr_chip.v
       
   - target: vip
     files:
@@ -124,6 +134,8 @@ sources:
       - tb/vip/i2c_eeprom/24FC1025.v
       - tb/vip/spi_flash/S25fs256s/model/s25fs256s.v
       - tb/vip/camera/cam_vip.sv
+      - tb/vip/sdio/sdModel.v
+    
       
   - target: test
     files:

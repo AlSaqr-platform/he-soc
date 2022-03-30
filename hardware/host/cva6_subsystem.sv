@@ -69,7 +69,8 @@ module cva6_subsystem
 
   // CVA6 DEBUG UART
   input  logic            cva6_uart_rx_i,
-  output logic            cva6_uart_tx_o,  
+  output logic            cva6_uart_tx_o,
+  input  logic [127:0]    key_i, 
   // TLB BUSes start here
   AXI_BUS.Master          tlb_cfg_master,
   // TLB BUSes end here 
@@ -123,7 +124,21 @@ module cva6_subsystem
     .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
   ) slave[ariane_soc::NrSlaves-1:0]();
+ 
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
+  ) serial_link_master();
 
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
+  ) serial_link_cut();
+   
   AXI_BUS #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -404,6 +419,7 @@ module cva6_subsystem
   ) i_axi_riscv_atomics0 (
     .clk_i,
     .rst_ni ( ndmreset_n                ),
+    .key_i  ( key_i                     ),
     .slv    ( master[ariane_soc::HYAXI] ),
     .mst    ( hyper_axi_master_cut      )
   );
@@ -614,8 +630,35 @@ module cva6_subsystem
   reg_req_t   reg_req;
   reg_rsp_t   reg_rsp;
 
-  `AXI_ASSIGN_TO_REQ(ddr_1_in_req, master[ariane_soc::SERIAL_LINK])
-  `AXI_ASSIGN_FROM_RESP(master[ariane_soc::SERIAL_LINK], ddr_1_in_rsp)
+  axi_serializer_intf #(
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+    .MAX_READ_TXNS  ( ariane_soc::NrSlaves     ),
+    .MAX_WRITE_TXNS ( ariane_soc::NrSlaves     ),
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+     )serial_link_serializer (
+       .clk_i  ( clk_i                           ),
+       .rst_ni ( ndmreset_n                      ),
+       .slv    ( master[ariane_soc::SERIAL_LINK] ),
+       .mst    ( serial_link_cut                 )
+     );
+
+  axi_cut_intf #(
+    .BYPASS     ( 1'b0                ),
+    .ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+    .DATA_WIDTH ( AXI_DATA_WIDTH      ),
+    .ID_WIDTH   ( ariane_soc::IdWidth ),
+    .USER_WIDTH ( AXI_USER_WIDTH      )
+  ) serial_link_cutter (
+    .clk_i,
+    .rst_ni ( ndmreset_n                ),
+    .in     ( serial_link_cut           ),
+    .out    ( serial_link_master        )
+  );
+   
+  `AXI_ASSIGN_TO_REQ(ddr_1_in_req,serial_link_master)
+  `AXI_ASSIGN_FROM_RESP(serial_link_master, ddr_1_in_rsp)
 
   `AXI_ASSIGN_FROM_REQ(slave[3], ddr_1_out_req)
   `AXI_ASSIGN_TO_RESP(ddr_1_out_rsp, slave[3])
@@ -643,7 +686,7 @@ module cva6_subsystem
     .cfg_rsp_t        ( reg_rsp_t   )
   ) i_serial_link_1 (
       .clk_i          ( clk_i           ),
-      .rst_ni         ( rst_ni          ),
+      .rst_ni         ( ndmreset_n      ),
       .testmode_i     ( 1'b0            ),
       .axi_in_req_i   ( ddr_1_in_req    ), //slv -> mst axi
       .axi_in_rsp_o   ( ddr_1_in_rsp    ), //slv -> mst axi

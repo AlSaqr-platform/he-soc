@@ -637,16 +637,16 @@ module udma_subsystem
         end
     endgenerate
 
-    //PER_ID 4
+    //PER_ID 4 , 5
     logic [N_SDIO-1:0] s_sdio_eot;
     logic [N_SDIO-1:0] s_sdio_err;
 
+    logic [N_SDIO-1:0][3:0]sdio_data_o;
+    logic [N_SDIO-1:0][3:0]sdio_data_oen_o;
+    logic [N_SDIO-1:0][3:0]sdio_data_i;
     generate
        for (genvar g_sdio=0;g_sdio<N_SDIO;g_sdio++)
          begin: i_sdio_gen
-            logic [3:0]sdio_data_o;
-            logic [3:0]sdio_data_oen_o;
-            logic [3:0]sdio_data_i;
             assign s_events[4*(PER_ID_SDIO+g_sdio)]    = s_rx_ch_events[CH_ID_RX_SDIO+g_sdio];
             assign s_events[4*(PER_ID_SDIO+g_sdio)+1]  = s_tx_ch_events[CH_ID_TX_SDIO+g_sdio];
             assign s_events[4*(PER_ID_SDIO+g_sdio)+2]  = s_sdio_eot[g_sdio];
@@ -670,9 +670,9 @@ module udma_subsystem
                 .sdcmd_o             ( sdio_to_pad[g_sdio].cmd_o      ),
                 .sdcmd_i             ( pad_to_sdio[g_sdio].cmd_i      ),
                 .sdcmd_oen_o         ( sdio_to_pad[g_sdio].cmd_oen_o  ),
-                .sddata_o            ( sdio_data_o                    ),
-                .sddata_i            ( sdio_data_i                    ),
-                .sddata_oen_o        ( sdio_data_oen_o                ),
+                .sddata_o            ( sdio_data_o[g_sdio]            ),
+                .sddata_i            ( sdio_data_i[g_sdio]            ),
+                .sddata_oen_o        ( sdio_data_oen_o[g_sdio]        ),
             
                 .cfg_data_i          ( s_periph_data_to                              ),
                 .cfg_addr_i          ( s_periph_addr                                 ),
@@ -713,22 +713,24 @@ module udma_subsystem
                 .data_rx_valid_o     ( s_rx_ch_valid[CH_ID_RX_SDIO+g_sdio]           ),
                 .data_rx_ready_i     ( s_rx_ch_ready[CH_ID_RX_SDIO+g_sdio]           )
             );
-            assign sdio_to_pad[g_sdio].data0_o = sdio_data_o[0];
-            assign sdio_to_pad[g_sdio].data1_o = sdio_data_o[1];
-            assign sdio_to_pad[g_sdio].data2_o = sdio_data_o[2];
-            assign sdio_to_pad[g_sdio].data3_o = sdio_data_o[3];
-            assign sdio_to_pad[g_sdio].data0_oen_o = sdio_data_oen_o[0];
-            assign sdio_to_pad[g_sdio].data1_oen_o = sdio_data_oen_o[1];
-            assign sdio_to_pad[g_sdio].data2_oen_o = sdio_data_oen_o[2];
-            assign sdio_to_pad[g_sdio].data3_oen_o = sdio_data_oen_o[3];
-            assign sdio_data_i[0] = pad_to_sdio[g_sdio].data0_i;
-            assign sdio_data_i[1] = pad_to_sdio[g_sdio].data1_i;
-            assign sdio_data_i[2] = pad_to_sdio[g_sdio].data2_i;
-            assign sdio_data_i[3] = pad_to_sdio[g_sdio].data2_i;            
+
+            assign sdio_to_pad[g_sdio].data0_o = sdio_data_o[g_sdio][0];
+            assign sdio_to_pad[g_sdio].data1_o = sdio_data_o[g_sdio][1];
+            assign sdio_to_pad[g_sdio].data2_o = sdio_data_o[g_sdio][2];
+            assign sdio_to_pad[g_sdio].data3_o = sdio_data_o[g_sdio][3];
+            assign sdio_to_pad[g_sdio].data0_oen_o = sdio_data_oen_o[g_sdio][0];
+            assign sdio_to_pad[g_sdio].data1_oen_o = sdio_data_oen_o[g_sdio][1];
+            assign sdio_to_pad[g_sdio].data2_oen_o = sdio_data_oen_o[g_sdio][2];
+            assign sdio_to_pad[g_sdio].data3_oen_o = sdio_data_oen_o[g_sdio][3];
+            assign sdio_data_i[g_sdio][0] = pad_to_sdio[g_sdio].data0_i;
+            assign sdio_data_i[g_sdio][1] = pad_to_sdio[g_sdio].data1_i;
+            assign sdio_data_i[g_sdio][2] = pad_to_sdio[g_sdio].data2_i;
+            assign sdio_data_i[g_sdio][3] = pad_to_sdio[g_sdio].data3_i;            
          end // block: assign
      endgenerate
 
-    //PER_ID
+
+    //PER_ID 6
     generate
        for (genvar g_cam=0;g_cam<N_CAM;g_cam++)
         begin: i_cam_gen

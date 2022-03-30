@@ -42,12 +42,19 @@ BENDER_FPGA_SCRIPTS_DIR = fpga/alsaqr/tcl/generated
 BENDER_SYNTH_DIR = gf22
 BENDER_BUILD_DIR:=.
 
+
 ifndef RISCV
 $(error RISCV not set - please point your RISCV variable to your RISCV installation)
 endif
 
 ifndef QUESTASIM_HOME
 $(error QUESTASIM not set - please point to your QUESTA installation)
+endif
+
+ifndef post_synth
+    compile_script := compile.tcl
+else
+    compile_script := post_synth_compile.tcl
 endif
 
 # spike tandem verification
@@ -110,7 +117,7 @@ list_incdir := $(foreach dir, ${incdir}, +incdir+$(dir))
 ifdef batch-mode
 	questa-flags += -c
 	questa-cmd   := -do "coverage save -onexit ./test.ucdb; run -a; quit -code [coverage attribute -name TESTSTATUS -concise]"
-	questa-cmd   += -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; log -r /*; run -all;"
+	questa-cmd   += -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; run -all;"
 else
 	questa-cmd   := -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; log -r /*; run -all;"
 endif 
@@ -161,7 +168,7 @@ scripts-bender-fpga-ddr: | Bender.lock
 
 scripts-bender-synopsys: | Bender.lock
 	echo 'set ROOT [file normalize [file dirname [info script]]/../../../]' > $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
-	bender script synopsys -t rtl -t synthesis -t asic | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
+	bender script synopsys -t rtl -t synthesis -t asic -t top_level | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
 
 scripts:
 	bender script vsim \
@@ -173,16 +180,21 @@ scripts_vip:
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t rtl -t test -t vip > compile.tcl
 
+post_synth_scripts_vip:
+	bender script vsim \
+		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
+    -t rtl -t test -t top_post_synth_sim -t vip > post_synth_compile.tcl
+
 benderrun: libbender $(util) $(library)
 	@test -f Bender.lock || { echo "ERROR: Bender.lock file does not exist. Did you run make checkout in bender mode?"; exit 1; }
-	vsim -c -do 'source compile.tcl; quit'
+	vsim -c -do 'source $(compile_script); quit'
 	touch $(library)/.build-srcs
 
 bendertb: benderrun $(dpi)
 	touch $(library)/.build-tb
 
 build: bendertb 	$(dpi-library)/ariane_dpi.so
-	vopt $(compile_flag) -work $(library)  $(top_level) -o $(top_level)_optimized +acc -check_synthesis
+	vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc -check_synthesis
 
 
 $(library):
@@ -208,7 +220,7 @@ generate-trace-vsim:
 	make generate-trace
 
 run:
-	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library) +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) -t 1ps \
+	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -lib $(library) +notimingchecks +nospecify +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi  \
 	${top_level}_optimized +permissive-off ++$(elf-bin) ++$(target-options) ++$(cl-bin) | tee sim.log
 
@@ -217,7 +229,8 @@ sim: build run
 
 $(alsaqr-regression): build
 	mkdir -p tmp
-	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library) +max-cycles=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$@ +CL_STRING=$(cl-bin) -t 1ps \
+	../software/elf_to_slm.py --binary=$@ --vectors=hyperram0.slm
+	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library)  -suppress 3053 -suppress 8885 +max-cycles=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$@ +CL_STRING=$(cl-bin) -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi   \
 	${top_level}_optimized $(QUESTASIM_FLAGS) +permissive-off ++$(alsaqr-regression-dir)/$@ ++$(target-options) | tee tmp/alsaqr-regression-$@.log
 
@@ -235,6 +248,8 @@ clean:
 	rm -f *log
 	rm -f transcript
 	rm -f uart
+
+clean_regs:
 	rm -f *.riscv
 	rm -f regression.list
 

@@ -1,36 +1,25 @@
 # REGISTER FILE MULTICYCLE PATHS
-set_ideal_network [ get_ports jtag_TCK]
-set_ideal_network [ get_ports jtag_TRSTn]
-set_ideal_network [ get_ports rst_ni]
-set_ideal_network [ get_ports rtc_i]
-set_ideal_network [ get_ports bypass_clk_i]
+set_ideal_network [ get_ports jtag_TCK            ]
+set_ideal_network [ get_ports jtag_TRSTn          ]
+set_ideal_network [ get_ports rst_ni              ]
+set_ideal_network [ get_ports rtc_i               ]
+set_ideal_network [ get_ports bypass_clk_i        ]
+set_ideal_network [ get_ports i_host_domain/jtag_TCK    ]
+set_ideal_network [ get_ports i_host_domain/jtag_TRSTn  ]
+set_ideal_network [ get_ports i_host_domain/rst_ni      ]
+set_ideal_network [ get_ports i_host_domain/rtc_i       ]
+set_ideal_network [ get_ports i_host_domain/bypass_clk_i]
 #
-set_dont_touch_network [ get_ports i_host_domain/jtag_TCK]
-set_dont_touch_network [ get_ports i_host_domain/jtag_TRSTn]
-set_dont_touch_network [ get_ports i_host_domain/rst_ni]
-set_dont_touch_network [ get_ports i_host_domain/rtc_i]
+set_dont_touch_network [ get_ports jtag_TCK            ]
+set_dont_touch_network [ get_ports jtag_TRSTn          ]
+set_dont_touch_network [ get_ports rst_ni              ]
+set_dont_touch_network [ get_ports rtc_i               ]
+set_dont_touch_network [ get_ports bypass_clk_i        ]
+set_dont_touch_network [ get_ports i_host_domain/jtag_TCK    ]
+set_dont_touch_network [ get_ports i_host_domain/jtag_TRSTn  ]
+set_dont_touch_network [ get_ports i_host_domain/rst_ni      ]
+set_dont_touch_network [ get_ports i_host_domain/rtc_i       ]
 set_dont_touch_network [ get_ports i_host_domain/bypass_clk_i]
-# CLUSTER REGISTER FILE IS DONE WITH LATCHES
-set_multicycle_path 2 -setup -through [get_pins cluster_i/CORE[*].core_region_i/RISCV_CORE/id_stage_i/registers_i/riscv_register_file_i/mem_reg*/Q]
-set_multicycle_path 1 -hold  -through [get_pins cluster_i/CORE[*].core_region_i/RISCV_CORE/id_stage_i/registers_i/riscv_register_file_i/mem_reg*/Q]
-
-# ICACHE PRIVATE
-# DATA BANK
-set_multicycle_path 2 -setup -through [get_pins cluster_i/icache_top_i/PRI_ICACHE[*].i_pri_icache/_DATA_WAY_[*].DATA_BANK/register_file_1r_1w_i/MemContentxDP_reg*/Q]
-set_multicycle_path 1 -hold  -through [get_pins cluster_i/icache_top_i/PRI_ICACHE[*].i_pri_icache/_DATA_WAY_[*].DATA_BANK/register_file_1r_1w_i/MemContentxDP_reg*/Q]
-
-# TAG BANK
-set_multicycle_path 2 -setup -through [get_pins cluster_i/icache_top_i/PRI_ICACHE[*].i_pri_icache/_TAG_WAY_[*].TAG_BANK/register_file_1w_multi_port_read_i/MemContentxDP_reg*/Q]
-set_multicycle_path 1 -hold  -through [get_pins cluster_i/icache_top_i/PRI_ICACHE[*].i_pri_icache/_TAG_WAY_[*].TAG_BANK/register_file_1w_multi_port_read_i/MemContentxDP_reg*/Q]
-
-# ICACHE SHARED
-# DATA BANK
-set_multicycle_path 2 -setup -through [get_pins cluster_i/icache_top_i/Main_Icache[*].i_main_shared_icache/DATA_RAM_WAY[*].DATA_RAM/scm_data/register_file_1r_1w_i/MemContentxDP_reg*/Q]
-set_multicycle_path 1 -hold  -through [get_pins cluster_i/icache_top_i/Main_Icache[*].i_main_shared_icache/DATA_RAM_WAY[*].DATA_RAM/scm_data/register_file_1r_1w_i/MemContentxDP_reg*/Q]
-
-# TAG BANK
-set_multicycle_path 2 -setup -through [get_pins cluster_i/icache_top_i/Main_Icache[*].i_main_shared_icache/TAG_RAM_WAY[*].TAG_RAM/scm_tag/register_file_1r_1w_i/MemContentxDP_reg*/Q]
-set_multicycle_path 1 -hold  -through [get_pins cluster_i/icache_top_i/Main_Icache[*].i_main_shared_icache/TAG_RAM_WAY[*].TAG_RAM/scm_tag/register_file_1r_1w_i/MemContentxDP_reg*/Q]
 
 ## CLOCK DOMAIN CROSSING
 # those constraints gets automatically applied on all the rtl modules that require no ungrouping and that have asynch paths (e.g. in between CDCs fifos)
@@ -46,18 +35,44 @@ set_max_delay 1000 -through [get_pins -hierarchical -filter async] -through [get
 set_false_path -hold -through [get_pins -hierarchical -filter async] -through [get_pins -hierarchical -filter async]
 
 ##################
+## MACROS       ##
+##################
+set_max_delay 200 -from [get_pins i_host_domain/i_cva_subsystem/i_ariane_wrap/data_master_*_o* ] -to [get_pins i_host_domain/i_cva_subsystem/cva6_to_xbar/i_axi_cdc_dst/async_data_slave_*_i]
+set_max_delay 200 -from [get_pins i_host_domain/i_cva_subsystem/cva6_to_xbar/i_axi_cdc_dst/async_data_slave_*_o] -to [get_pins i_host_domain/i_cva_subsystem/i_ariane_wrap/data_master_*_i*  ]
+
+set_max_delay 200 -from [get_pins cluster_i/async_data_master_*_o ] -to [get_pins cluster_to_soc_dst_cdc_fifo_i/i_axi_cdc_dst/async_data_slave_*_i]
+set_max_delay 200 -from [get_pins cluster_to_soc_dst_cdc_fifo_i/i_axi_cdc_dst/async_data_slave_*_i] -to [get_pins cluster_i/async_data_master_*_i ]
+
+set_max_delay 200 -from [get_pins cluster_i/async_data_slave_*_o ] -to [get_pins soc_to_cluster_src_cdc_fifo_i/i_axi_cdc_src/async_data_master_*_i]
+set_max_delay 200 -from [get_pins soc_to_cluster_src_cdc_fifo_i/i_axi_cdc_src/async_data_master_*_o] -to [get_pins cluster_i/async_data_slave_*_i ]
+
+set_max_delay 200 -from [get_pins cluster_i/async_cfg_master_*_o ] -to [get_pins cfg_dst_cdc_fifo_i/i_axi_cdc_dst/async_data_slave_*_i]
+set_max_delay 200 -from [get_pins cfg_dst_cdc_fifo_i/i_axi_cdc_dst/async_data_slave_*_i] -to [get_pins cluster_i/async_cfg_master_*_i ]
+
+set_max_delay 200 -from [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/async_data_slave*_o ] -to [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_axi_cdc_src/async_data_master_*_i ]
+set_max_delay 200 -from [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_axi_cdc_src/async_data_master_*_o ] -to [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/async_data_slave*_i ] 
+
+set_max_delay 200 -from [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/async_reg_*_o ] -to [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_reg_cdc_slave_intf/async_*_i ]
+set_max_delay 200 -from [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_reg_cdc_slave_intf/async_*_o ] -to [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/async_reg_*_i ] 
+
+set_max_delay 200 -from [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/async_udma_reg_*_o ] -to [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/udma_channel_bind[*].i_reg_cdc_slave_intf/async_*_i ]
+set_max_delay 200 -from [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/udma_channel_bind[*].i_reg_cdc_slave_intf/async_*_o ] -to [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/async_udma_reg_*_i ] 
+
+wset_max_delay 200 -from [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/async_rx_*_o ] -to [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/udma_rx_src_fifo/async_*_i ]
+set_max_delay 200 -from [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/udma_rx_src_fifo/async_*_o ] -to [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/async_rx_*_i ] 
+
+set_max_delay 200 -from [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/async_tx_*_o ] -to [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/udma_tx_src_fifo/async_*_i ]
+set_max_delay 200 -from [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/udma_tx_src_fifo/async_*_o ] -to [get_pins i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/async_tx_*_i ] 
+
+##################
 ### FALSE PATH ###
 ##################
 
 # FALSE PATH ON CLOCK DOMAINS CROSSING
 set_clock_groups -asynchronous -name GRP_REF_CLK         -group REF_CLK
 set_clock_groups -asynchronous -name GRP_JTAG_CLK        -group JTAG_CLK
-set_clock_groups -asynchronous -name GRP_HYPER_CLK       -group HYPER_CLK_PHY
 set_clock_groups -asynchronous -name GRP_FLL_CLUSTER_CLK -group FLL_CLUSTER_CLK
 set_clock_groups -asynchronous -name GRP_FLL_SOC_CLK     -group FLL_SOC_CLK
 set_clock_groups -asynchronous -name GRP_FLL_PER_CLK     -group FLL_PER_CLK
-set_clock_groups -asynchronous -name GRP_HYPER_90_CLK    -group HYPER_CLK_PHY
-set_clock_groups -asynchronous -name GRP_RWDS_CLK_0      -group RWDS_CLK_0
-set_clock_groups -asynchronous -name GRP_RWDS_CLK_1      -group RWDS_CLK_1
 set_clock_groups -asynchronous -name GRP_CVA6_CLK        -group FLL_CVA6_CLK
 

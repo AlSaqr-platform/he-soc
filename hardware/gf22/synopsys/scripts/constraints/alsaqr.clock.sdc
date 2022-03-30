@@ -4,8 +4,8 @@ set REF_C_Latency_Max            1000
 set REF_C_Latency_Min            500
 set REF_C_Uncertainty            500
 
-# FLL0 CLOCK: 444 MHz
-set CVA6_C_Period                 2250
+# FLL0 CLOCK: 800 MHz
+set CVA6_C_Period                 1250
 set CVA6_C_Latency_Max            500
 set CVA6_C_Latency_Min            500
 set CVA6_C_Uncertainty            100

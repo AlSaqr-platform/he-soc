@@ -9,7 +9,7 @@ source scripts/area_report.tcl
 
 
 set reAnalyzeRTL "TRUE"
-set TRIAL_DIR "trial1_22_12_2021"
+set TRIAL_DIR "trial_hier"
 set DESIGN_NAME "al_saqr"
  
 ####################################################################
@@ -74,6 +74,26 @@ set_dont_use [get_lib_cells */*20L*]
 ####################################################################
 link                                                      > ${TRIAL_DIR}/reports/d03_link_alsaqr.rpt
 
+set_dont_touch_network [get_pins  i_host_domain/i_cva_subsystem/i_axi_riscv_atomics0/i_atomics/i_amos/key*]
+set_dont_touch_network [get_pins i_dwc_tlb_cfg/i_axi_dw_converter/key_i*]
+
+set_dont_touch [get_nets {i_pad_frame/pad*/RETC}]
+set_dont_touch [get_nets {i_pad_frame/pad*/PWROK}]
+set_dont_touch [get_nets {i_pad_frame/pad*/IOPWROK}]
+set_dont_touch [get_nets {i_pad_frame/pad*/BIAS}]
+
+set_dont_touch [get_nets {i_alsaqr_periph_padframe/i_periphs/i_periphs_pads/*/RETC}]
+set_dont_touch [get_nets {i_alsaqr_periph_padframe/i_periphs/i_periphs_pads/*/PWROK}]
+set_dont_touch [get_nets {i_alsaqr_periph_padframe/i_periphs/i_periphs_pads/*/IOPWROK}]
+set_dont_touch [get_nets {i_alsaqr_periph_padframe/i_periphs/i_periphs_pads/*/BIAS}]
+
+set_dont_touch [get_nets {i_alsaqr_periph_padframe/i_periphs/i_periphs_pads/*/*/RETC}]
+set_dont_touch [get_nets {i_alsaqr_periph_padframe/i_periphs/i_periphs_pads/*/*/PWROK}]
+set_dont_touch [get_nets {i_alsaqr_periph_padframe/i_periphs/i_periphs_pads/*/*/IOPWROK}]
+set_dont_touch [get_nets {i_alsaqr_periph_padframe/i_periphs/i_periphs_pads/*/*/BIAS}]
+
+set_dont_touch i_gwt_test
+set_dont_touch [get_cells i_pad_frame/i_khalifa_dcdc]
 ####################################################################
 ## UNIQUIFY
 ####################################################################
@@ -91,7 +111,6 @@ set_operating_conditions -max SSG_0P72V_0P00V_0P00V_0P00V_M40C
 ####################################################################
 set_app_var hdlin_sv_enable_rtl_attributes true
 source -echo -verbose ./scripts/constraints/alsaqr.clock.sdc             > ${TRIAL_DIR}/reports/d05_constr_clk.rpt
-source -echo -verbose ./scripts/constraints/constraints.hyper.sdc        > ${TRIAL_DIR}/reports/d06_constr_hyper.rpt
 source -echo -verbose ./scripts/constraints/constraints.peripherals.sdc  > ${TRIAL_DIR}/reports/d07_constr_periphs.rpt
 source -echo -verbose ./scripts/constraints/alsaqr.exceptions.sdc        > ${TRIAL_DIR}/reports/d08_constr_excep.rpt
 
@@ -112,22 +131,6 @@ report_clocks                                                       > ./${TRIAL_
 ## UNGROUPING
 ####################################################################
 
-#  
-#  ####################################################################
-#  ## CRITICAL RANGE (DEBUG ONLY)
-#  ####################################################################
-#  set_critical_range 200 *
-#  
-#  #set_dont_touch [get_cells vdd_core_pads*.i_vdd_core_pad]
-#  #set_dont_touch [get_cells vdd_io_pads*.i_vdd_io_pad]
-#  #set_dont_touch [get_cells i_vdd_pwr_on_ctr_io_pad]
-#  #set_dont_touch [get_cells cluster_vdd_pads*.i_vdd_cluster_pad]
-#  #set_dont_touch [get_cells vss_core_pads*.i_gnd_core_pad]
-#  #set_dont_touch [get_cells vss_io_pads*.i_gnd_io_pad]
-#  
-#  ####################################################################
-#  ## COMPILE ULTRA
-#  ####################################################################
 check_design                                              > ./${TRIAL_DIR}/reports/d11_check_design_precompile.rpt
 compile_ultra -no_autoungroup -timing -gate_clock 
 check_design                                              > ./${TRIAL_DIR}/reports/d12_check_design_postcompile.rpt
@@ -161,20 +164,11 @@ report_area  -hier -nosplit                                                     
 report_resources -hierarchy                                                                                  > ./${TRIAL_DIR}/reports/dp_resource.rpt
 report_clock_gating                                                                                          > ./${TRIAL_DIR}/reports/clock_gating_postsyn.rpt
 report_units                                                                                                 > ./${TRIAL_DIR}/reports/units.rpt
-report_timing -through [ get_pins soc_domain_i/pulp_soc_i/fc_subsystem_i/FC_CORE_lFC_CORE/*                ] > ./${TRIAL_DIR}/reports/core.rpt
-report_timing -through [ get_pins soc_domain_i/pulp_soc_i/fc_subsystem_i/FC_CORE_lFC_CORE/instr*           ] > ./${TRIAL_DIR}/reports/core_instr.rpt
-report_timing -through [ get_pins soc_domain_i/pulp_soc_i/fc_subsystem_i/FC_CORE_lFC_CORE/data*            ] > ./${TRIAL_DIR}/reports/core_data.rpt
-report_timing -through [ get_pins soc_domain_i/pulp_soc_i/fc_subsystem_i/FC_CORE_lFC_CORE/ex_stage_i/*     ] > ./${TRIAL_DIR}/reports/core_exstage.rpt
-report_timing -through [ get_pins soc_domain_i/pulp_soc_i/fc_subsystem_i/FC_CORE_lFC_CORE/ex_stage_i/*fpu* ] > ./${TRIAL_DIR}/reports/core_fpu.rpt
 
 report_timing -max_paths 10 -to FLL_CVA6_CLK                                                                     > ./${TRIAL_DIR}/reports/timing_cva6_clock.rpt
 report_timing -max_paths 10 -to FLL_SOC_CLK                                                                      > ./${TRIAL_DIR}/reports/timing_soc_clock.rpt
 report_timing -max_paths 10 -to FLL_PER_CLK                                                                      > ./${TRIAL_DIR}/reports/timing_per_clock.rpt
 report_timing -max_paths 10 -to FLL_CLUSTER_CLK                                                                  > ./${TRIAL_DIR}/reports/timing_clu_clock.rpt
-report_timing -max_paths 10 -to HYPER_CLK_PHY                                                                    > ./${TRIAL_DIR}/reports/timing_axi_hyper_clock.rpt
-report_timing -max_paths 10 -to HYPER_CLK_PHY_90                                                                 > ./${TRIAL_DIR}/reports/timing_axi_hyper_90_clock.rpt
-report_timing -max_paths 10 -to clk_rwds_sample0                                                                 > ./${TRIAL_DIR}/reports/timing_rwds_clock_0.rpt
-report_timing -max_paths 10 -to clk_rwds_sample1                                                                 > ./${TRIAL_DIR}/reports/timing_rwds_clock_1.rpt
 
 ####################################################################
 ## WRITE OUT CONSTRAINTS

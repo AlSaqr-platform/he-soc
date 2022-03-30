@@ -1,0 +1,94 @@
+##########################################################################
+#  Title      : Sample Common Power Format (cpf).file.
+#  Project    : gf 22 dz flow
+##########################################################################
+#  File       : chip.cpf
+#  Author     : Beat Muheim  <muheim@ee.ethz.ch>
+#  Company    : Microelectronics Design Center (DZ), ETH Zurich
+##########################################################################
+#  Description : Sample file to create the power intent of a design, 
+#                withe one default power domain,
+#                The power domain have do be linked to a delay corner withe
+#                'update_delay_corner' don in our case in to "mmmc.view.tcl".
+#
+#                Please note these are just for reference, adapt according
+#                to your design!
+#
+#                Perform:
+#                read_power_intent -cpf <cpf-file>
+#                commit_power_intent
+#
+#  Inputs      : 
+#  Outputs     : 
+#  Resources   :
+##########################################################################
+#  Copyright (c) 2016 Microelectronics Design Center, ETH Zurich
+##########################################################################
+# v0.1  - bm - Fri Mar 31 09:35:36 CEST 2017
+#  - copy from tsmc28 v0.1 and adapt 
+##########################################################################
+
+#-------------------------------------------------------------------------------
+# setting
+#-------------------------------------------------------------------------------
+set_cpf_version 1.1
+set_hierarchy_separator "/"
+
+#include ../../technology/cpf/
+
+#-------------------------------------------------------------------------------
+# design
+#-------------------------------------------------------------------------------
+set_design hyperbus_synth_wrap
+
+
+#-------------------------------------------------------------------------------
+# physical dmplementation
+#-------------------------------------------------------------------------------
+# create power domains
+create_power_domain -name PD_core -default 
+create_power_domain -name PD_pad
+
+# declare power and ground nets
+create_power_nets  -nets VDD
+create_ground_nets -nets VSS
+update_power_domain -name PD_core -primary_power_net VDD -primary_ground_net VSS
+
+create_power_nets  -nets VDDIO
+create_ground_nets -nets VSSIO
+update_power_domain -name PD_pad -primary_power_net VDDIO -primary_ground_net VSSIO
+
+# declare bias nets
+create_bias_net    -net VPW_P
+create_bias_net    -net VNW_N
+#update_power_domain -name PD_core -pmos_bias_net VPW_P  -nmos_bias_net VNW_N
+update_power_domain -name PD_core -pmos_bias_net VNW_N  -nmos_bias_net VPW_P
+  # WA: innovus is thinking NW have to be below pmos, this is not the case withe
+  #     the flip well cells (L & SL)
+  #     withe the opposite bias_net seating terms, it will be don correctly
+
+
+# create global connections
+create_global_connection -net VDD  -pins VDDC_0
+create_global_connection -net VSS  -pins VSSC_0
+
+create_global_connection -net VDDIO  -pins VDDIO_0
+create_global_connection -net VSSIO  -pins VSSIO_0
+
+# create nominal conditions
+create_nominal_condition -name 0V8 -state on  -voltage 0.8
+
+# create power mode
+create_power_mode -name PM_default \
+                  -domain_conditions { PD_core@0V8 } \
+                  -default
+
+#-------------------------------------------------------------------------------
+# Rules
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
+# 
+#-------------------------------------------------------------------------------
+end_design
