@@ -45,6 +45,7 @@ int main(int argc, char const *argv[]) {
   pulp_write32(0x10200008,0xff);
 
   pulp_write32(0x10001000,0x0);
+  pulp_write32(0x10001030,0x0);
   
   while( ((pulp_read32(0x10001000))<<31)!=0x80000000 );
 

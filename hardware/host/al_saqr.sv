@@ -28,6 +28,7 @@ module al_saqr
   import ariane_soc::*;
   import pkg_alsaqr_periph_padframe::*; 
   import ariane_soc::HyperbusNumPhys;
+  import ariane_soc::NumChipsPerHyperbus;
 #(
   parameter int unsigned AXI_USER_WIDTH    = 1,
   parameter int unsigned AXI_ADDRESS_WIDTH = 64,
@@ -51,12 +52,12 @@ module al_saqr
 `endif
 
   // HYPERBUS
-  inout  [1:0][1:0]   pad_hyper_csn,
-  inout  [1:0]        pad_hyper_ck,
-  inout  [1:0]        pad_hyper_ckn,
-  inout  [1:0]        pad_hyper_rwds,
-  inout  [1:0]        pad_hyper_reset,
-  inout  [1:0][7:0]   pad_hyper_dq,
+  inout  [HyperbusNumPhys-1:0][NumChipsPerHyperbus-1:0] pad_hyper_csn,
+  inout  [HyperbusNumPhys-1:0]                          pad_hyper_ck,
+  inout  [HyperbusNumPhys-1:0]                          pad_hyper_ckn,
+  inout  [HyperbusNumPhys-1:0]                          pad_hyper_rwds,
+  inout  [HyperbusNumPhys-1:0]                          pad_hyper_reset,
+  inout  [HyperbusNumPhys-1:0][7:0]                     pad_hyper_dq,
 
   inout wire logic    pad_periphs_pad_gpio_b_00_pad,
   inout wire logic    pad_periphs_pad_gpio_b_01_pad,

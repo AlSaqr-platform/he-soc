@@ -4,6 +4,10 @@ endif
 
 current_dir = $(shell pwd)
 
+ifdef CLUSTER_BIN
+	cc-elf-y = -DCLUSTER_BIN_PATH=\"$(current_dir)/stimuli/cluster.bin\"  -DCLUSTER_BIN
+endif
+
 utils_dir = $(SW_HOME)/inc/
 
 directories = . drivers/inc drivers/src string_lib/inc string_lib/src padframe/inc padframe/src udma udma/cpi udma/i2c udma/spim udma/uart udma/sdio
@@ -26,7 +30,7 @@ clean:
 	rm -f *.slm
 
 build:
-	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir)/test.ld $(RISCV_LINK_OPTS) $(inc_dir)/crt.S $(inc_dir)/syscalls.c -L $(inc_dir) $(APP).c -o $(APP).riscv
+	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir)/test.ld $(RISCV_LINK_OPTS) $(cc-elf-y) $(inc_dir)/crt.S  $(inc_dir)/syscalls.c -L $(inc_dir) $(APP).c -o $(APP).riscv
 
 dis:
 	$(RISCV_OBJDUMP) $(APP).riscv > $(APP).dump

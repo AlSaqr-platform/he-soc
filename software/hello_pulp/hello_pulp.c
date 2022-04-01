@@ -2,11 +2,21 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
+#ifndef CLUSTER_BIN
 #include "./cluster_code.h"
+#endif
 //#define FPGA_EMULATION
+
+extern int __cluster_code_start;
+extern int __cluster_code_end;
 
 int main(int argc, char const *argv[]) {
 
+  uint32_t *p, *end, *p0;
+  p = (uint32_t*)&__cluster_code_start;
+  p0 = (uint32_t*)&__cluster_code_start;
+  end = (uint32_t*)&__cluster_code_end;
+    
   #ifdef FPGA_EMULATION
   int baud_rate = 9600;
   int test_freq = 10000000;
@@ -25,7 +35,18 @@ int main(int argc, char const *argv[]) {
   uint32_t * hyaxicfg_reg_memspace = 0x1A104024;
   pulp_write32(hyaxicfg_reg_memspace,0x84000000); // Changing RAM end address, 64 MB
   // cluster setup
+  printf("start: %x, stop: %x\n", p,end);
+  uint32_t * addr;
+  #ifdef CLUSTER_BIN
+  while(p<end){
+    addr = 0x1C000000 + ((p - p0)*4);
+    pulp_write32(addr,pulp_read32(p));
+    p++;
+  }
+  #else
   load_cluster_code();
+  #endif
+  
   pulp_write32(0x1A106000,0x0);
   pulp_write32(0x1A106000,0x1);
   pulp_write32(0x1C000854,0x1C00813E);
@@ -45,6 +66,7 @@ int main(int argc, char const *argv[]) {
   pulp_write32(0x10200008,0xff);
 
   pulp_write32(0x10001000,0x0);
+  pulp_write32(0x10001030,0x0);
   
   while( ((pulp_read32(0x10001000))<<31)!=0x80000000 );
 

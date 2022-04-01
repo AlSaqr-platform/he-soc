@@ -178,11 +178,11 @@ class stim(object):
     self.__parse_binaries(1)
 
     try:
-      os.makedirs(os.path.dirname(stim_file))
+      os.makedirs(os.path.dirname("cluster.bin"))
     except:
       pass
 
-    with open(stim_file, 'wb') as file:
+    with open("cluster.bin", 'wb') as file:
       prev_addr = None
       for key in sorted(self.mem.keys()):
         addr = int(key)
@@ -574,4 +574,5 @@ if __name__ == "__main__":
 
     stim_gen.gen_stim_header_32(args.vectors)
 
+    stim_gen.gen_stim_bin(args.vectors)
 
