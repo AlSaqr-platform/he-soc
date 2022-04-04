@@ -154,35 +154,4 @@ The tests that will be executed are the one listed in `software/regression.list`
 
 ### FPGA Emulation
 
-We now support emulation on Xilinx ZCU102. You first need to purchase an HyperRAM, where the core is stored during the boot. Then, you'll need to plug it in to the FMC board following the mapping provided in `cva6/hardware/fpga/alsaqr/tcl/fmc_board_zcu102.xdc`. From this folder:
-
-If you do not have an hyperram, you can use the L2SPM (`@1C000000`) to store code.
-
-```
-make scripts-bender-fpga
-
-cd fpga
-
-source setup.sh 
-
-```
-select VCU118. The ZCU102 is already too small to fit all the logic we need.
-
-```
-cd alsaqr/tcl/ips/boot_rom/
-
-make clean all
-
-cd ../../../../
-
-cd alsaqr/tcl/ips/clk_mngr/
-
-make clean all
-
-cd ../../../../
-
-make run
-
-```
-
-
+We now support emulation on Xilinx VCU118. Please have a look to the README in the `hardware/fpga` folder.
