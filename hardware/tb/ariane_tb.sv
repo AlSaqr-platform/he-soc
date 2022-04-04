@@ -52,8 +52,7 @@ module ariane_tb;
     logic s_bypass;
     logic rst_DTM;
     localparam NumPhys = ariane_soc::HyperbusNumPhys;
-    localparam NumChips = ariane_soc::NumChipsPerHyperbus;
-   
+    localparam NumChips = ariane_soc::NumChipsPerHyperbus;   
    
     localparam ENABLE_DM_TESTS = 0;
    
@@ -105,9 +104,9 @@ module ariane_tb;
     localparam AxiWideByteOffset = $clog2(AxiWideBeWidth);
     typedef logic [ariane_axi_soc::AddrWidth-1:0] addr_t;
     typedef logic [ariane_axi_soc::DataWidth-1:0] data_t;   
-    data_t memory[bit [31:0]];
-    int sections [bit [31:0]];
-    
+    data_t memory [bit [31:0]];
+    int sections  [bit [31:0]];
+   
     wire                  s_dmi_req_valid;
     wire                  s_dmi_req_ready;
     wire [ 6:0]           s_dmi_req_bits_addr;
@@ -1174,10 +1173,10 @@ module ariane_tb;
                 $display("R/W sanity check ok!");
               end
            end 
-            
+
            #(REFClockPeriod);
-           jtag_ariane_wakeup();
-           jtag_read_eoc();
+           jtag_ariane_wakeup(32'h80000000);
+           jtag_read_eoc(32'h80000000);
          end 
    end
    
@@ -1292,6 +1291,7 @@ module ariane_tb;
     input string binary;                   // File name
     addr_t       section_addr, section_len;
     byte         buffer[];
+
     // Read ELF
     void'(read_elf(binary));
     $display("Reading %s", binary);
@@ -1316,14 +1316,51 @@ module ariane_tb;
 
   
   task jtag_ariane_wakeup;
+    input logic [31:0] start_addr;
+    logic [31:0] dm_status;
+     
+    automatic dm::sbcs_t sbcs = '{
+      sbautoincrement: 1'b1,
+      sbreadondata   : 1'b1,
+      default        : 1'b0
+    };
 
     $info("======== Waking up Ariane using JTAG ========");
-    // Generate the interrupt
-    riscv_dbg.write_dmi(dm::DMControl, 32'h0000_0003);
-
-    # 150ns; 
-     
+    // Initialize the dm module again, otherwise it will not work
+    debug_module_init();
+    do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    // Write PC to Data0 and Data1
+    riscv_dbg.write_dmi(dm::Data0, start_addr);
+    do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    riscv_dbg.write_dmi(dm::Data1, 32'h0000_0000);
+    do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    // Halt Req
+    riscv_dbg.write_dmi(dm::DMControl, 32'h8000_0001);
+    do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    // Wait for CVA6 to be halted
+    do riscv_dbg.read_dmi(dm::DMStatus, dm_status);
+    while (!dm_status[8]);
+    // Ensure haltreq, resumereq and ackhavereset all equal to 0
     riscv_dbg.write_dmi(dm::DMControl, 32'h0000_0001);
+    do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    // Register Access Abstract Command  
+    riscv_dbg.write_dmi(dm::Command, {8'h0,1'b0,3'h3,1'b0,1'b0,1'b1,1'b1,4'h0,dm::CSR_DPC});
+    do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    // Resume req. Exiting from debug mode CVA6 will jump at the DPC address.
+    // Ensure haltreq, resumereq and ackhavereset all equal to 0
+    riscv_dbg.write_dmi(dm::DMControl, 32'h4000_0001);
+    do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    riscv_dbg.write_dmi(dm::DMControl, 32'h0000_0001);
+    do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+     
     // Wait till end of computation
     program_loaded = 1;
 
@@ -1334,13 +1371,17 @@ module ariane_tb;
   endtask // execute_application
 
   task jtag_read_eoc;
-
+    input logic [31:0] start_addr;
+     
     automatic dm::sbcs_t sbcs = '{
       sbautoincrement: 1'b1,
       sbreadondata   : 1'b1,
       default        : 1'b0
     };
 
+    logic [31:0] to_host_addr;
+    to_host_addr = start_addr + 32'h1000;
+ 
     // Initialize the dm module again, otherwise it will not work
     debug_module_init();
     sbcs.sbreadonaddr = 1;
@@ -1349,12 +1390,12 @@ module ariane_tb;
     do riscv_dbg.read_dmi(dm::SBCS, sbcs);
     while (sbcs.sbbusy);
 
-    riscv_dbg.write_dmi(dm::SBAddress0, 32'h8000_1000); // tohost address
+    riscv_dbg.write_dmi(dm::SBAddress0, to_host_addr); // tohost address
     riscv_dbg.wait_idle(10);
     do begin 
 	     do riscv_dbg.read_dmi(dm::SBCS, sbcs);
 	     while (sbcs.sbbusy);
-       riscv_dbg.write_dmi(dm::SBAddress0, 32'h8000_1000); // tohost address
+       riscv_dbg.write_dmi(dm::SBAddress0, to_host_addr); // tohost address
 	     do riscv_dbg.read_dmi(dm::SBCS, sbcs);
 	     while (sbcs.sbbusy);
        riscv_dbg.read_dmi(dm::SBData0, retval);
