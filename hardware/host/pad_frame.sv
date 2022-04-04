@@ -114,8 +114,6 @@ module pad_frame
    `PAD_INST(sel_SM   )
    `PAD_INST(PFM_out  )
    
-`endif
-
    khalifa_dcdc i_khalifa_dcdc (
           `CONNECT_PAD(control_1),
           `CONNECT_PAD(control_2),
@@ -125,5 +123,7 @@ module pad_frame
           `CONNECT_PAD(sel_SM),
           `CONNECT_PAD(PFM_out)
           );
+
+`endif
    
 endmodule

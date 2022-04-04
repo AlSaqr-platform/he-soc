@@ -109,10 +109,12 @@ module alsaqr_xilinx
      
    assign reset_n = ~pad_reset & pad_jtag_trst;
 
-   wire [7:0] s_pad_hyper0_dq;
-   wire [1:0] s_pad_hyper0_csn;
-   wire [7:0] s_pad_hyper1_dq;
-   wire [1:0] s_pad_hyper1_csn;
+   wire  [1:0][1:0] hyper_cs_n_wire;
+   wire  [1:0]      hyper_ck_wire;
+   wire  [1:0]      hyper_ck_n_wire;
+   wire  [1:0]      hyper_rwds_wire;
+   wire  [1:0][7:0] hyper_dq_wire;
+   wire  [1:0]      hyper_reset_n_wire;
    
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( 64        ),
@@ -120,48 +122,6 @@ module alsaqr_xilinx
      .AXI_ID_WIDTH   ( 7         ),
      .AXI_USER_WIDTH ( 1         )
              ) axi_ddr_bus_64();
-   AXI_BUS #(
-     .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 64        ),
-     .AXI_ID_WIDTH   ( 7         ),
-     .AXI_USER_WIDTH ( 1         )
-             ) axi_ddr_sync_cut_0();
-   AXI_BUS #(
-     .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 64        ),
-     .AXI_ID_WIDTH   ( 7         ),
-     .AXI_USER_WIDTH ( 1         )
-             ) axi_ddr_sync_cut_1();
-   AXI_BUS #(
-     .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 64        ),
-     .AXI_ID_WIDTH   ( 7         ),
-     .AXI_USER_WIDTH ( 1         )
-             ) axi_ddr_sync_cut_2();
-   AXI_BUS #(
-     .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 64        ),
-     .AXI_ID_WIDTH   ( 7         ),
-     .AXI_USER_WIDTH ( 1         )
-             ) axi_ddr_sync_cut_3();
-   AXI_BUS #(
-     .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 64        ),
-     .AXI_ID_WIDTH   ( 7         ),
-     .AXI_USER_WIDTH ( 1         )
-             ) axi_ddr_sync_cut_4();
-   AXI_BUS #(
-     .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 64        ),
-     .AXI_ID_WIDTH   ( 7         ),
-     .AXI_USER_WIDTH ( 1         )
-             ) axi_ddr_sync_cut_5();
-   AXI_BUS #(
-     .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 64        ),
-     .AXI_ID_WIDTH   ( 7         ),
-     .AXI_USER_WIDTH ( 1         )
-             ) axi_ddr_sync_cut_6();
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( 64        ),
      .AXI_DATA_WIDTH ( 64        ),
@@ -338,136 +298,63 @@ ddr4_0 u_ddr4_0
                                .src (axi_ddr_bus_64),
                                .dst_clk_i (c0_ddr4_clk),
                                .dst_rst_ni(c0_ddr4_aresetn),
-                               .dst(axi_ddr_sync_cut_0)
+                               .dst(axi_ddr_sync)
                                );   
-   axi_cut_intf #(
-     .ADDR_WIDTH ( 64        ),
-     .DATA_WIDTH ( 64        ),
-     .ID_WIDTH   ( 7         ),
-     .USER_WIDTH ( 1         )
-                  ) axiddrcut01(
-                               .clk_i (c0_ddr4_clk),
-                               .rst_ni(c0_ddr4_aresetn),
-                               .in (axi_ddr_sync_cut_0),
-                               .out (axi_ddr_sync_cut_1)
-                               );
-   axi_cut_intf #(
-     .ADDR_WIDTH ( 64        ),
-     .DATA_WIDTH ( 64        ),
-     .ID_WIDTH   ( 7         ),
-     .USER_WIDTH ( 1         )
-                  ) axiddrcut12(
-                               .clk_i (c0_ddr4_clk),
-                               .rst_ni(c0_ddr4_aresetn),
-                               .in (axi_ddr_sync_cut_1),
-                               .out (axi_ddr_sync_cut_2)
-                               );
-   axi_cut_intf #(
-     .ADDR_WIDTH ( 64        ),
-     .DATA_WIDTH ( 64        ),
-     .ID_WIDTH   ( 7         ),
-     .USER_WIDTH ( 1         )
-                  ) axiddrcut23(
-                               .clk_i (c0_ddr4_clk),
-                               .rst_ni(c0_ddr4_aresetn),
-                               .in (axi_ddr_sync_cut_2),
-                               .out (axi_ddr_sync_cut_3)
-                               );
-   axi_cut_intf #(
-     .ADDR_WIDTH ( 64        ),
-     .DATA_WIDTH ( 64        ), 
-     .ID_WIDTH   ( 7         ),
-     .USER_WIDTH ( 1         )
-                  ) axiddrcut34(
-                               .clk_i (c0_ddr4_clk),
-                               .rst_ni(c0_ddr4_aresetn),
-                               .in (axi_ddr_sync_cut_3),
-                               .out (axi_ddr_sync_cut_4)
-                               );
-   axi_cut_intf #(
-     .ADDR_WIDTH ( 64        ),
-     .DATA_WIDTH ( 64        ),
-     .ID_WIDTH   ( 7         ),
-     .USER_WIDTH ( 1         )
-                  ) axiddrcut45(
-                               .clk_i (c0_ddr4_clk),
-                               .rst_ni(c0_ddr4_aresetn),
-                               .in (axi_ddr_sync_cut_4),
-                               .out (axi_ddr_sync_cut_5)
-                               );
-   axi_cut_intf #(
-     .ADDR_WIDTH ( 64        ),
-     .DATA_WIDTH ( 64        ),
-     .ID_WIDTH   ( 7         ),
-     .USER_WIDTH ( 1         )
-                  ) axiddrcut56(
-                               .clk_i (c0_ddr4_clk),
-                               .rst_ni(c0_ddr4_aresetn),
-                               .in (axi_ddr_sync_cut_5),
-                               .out (axi_ddr_sync_cut_6)
-                               );
-   axi_cut_intf #(
-     .ADDR_WIDTH ( 64        ),
-     .DATA_WIDTH ( 64        ),
-     .ID_WIDTH   ( 7         ),
-     .USER_WIDTH ( 1         )
-                  ) axiddrcut6s(
-                               .clk_i (c0_ddr4_clk),
-                               .rst_ni(c0_ddr4_aresetn) ,
-                               .in (axi_ddr_sync_cut_6),
-                               .out (axi_ddr_sync)
-                               );
       
-   assign s_pad_hyper0_csn[0] = FMC_hyper0_csn0;
-   assign s_pad_hyper0_csn[1] = FMC_hyper0_csn1;   
-   assign s_pad_hyper0_dq[0]  = FMC_hyper0_dqio0;
-   assign s_pad_hyper0_dq[1]  = FMC_hyper0_dqio1;
-   assign s_pad_hyper0_dq[2]  = FMC_hyper0_dqio2;
-   assign s_pad_hyper0_dq[3]  = FMC_hyper0_dqio3;
-   assign s_pad_hyper0_dq[4]  = FMC_hyper0_dqio4;
-   assign s_pad_hyper0_dq[5]  = FMC_hyper0_dqio5;
-   assign s_pad_hyper0_dq[6]  = FMC_hyper0_dqio6;
-   assign s_pad_hyper0_dq[7]  = FMC_hyper0_dqio7;
+   assign hyper_cs_n_wire[0][0] = FMC_hyper0_csn0;
+   assign hyper_cs_n_wire[0][1] = FMC_hyper0_csn1;   
+   assign hyper_dq_wire[0][0]   = FMC_hyper0_dqio0;
+   assign hyper_dq_wire[0][1]   = FMC_hyper0_dqio1;
+   assign hyper_dq_wire[0][2]   = FMC_hyper0_dqio2;
+   assign hyper_dq_wire[0][3]   = FMC_hyper0_dqio3;
+   assign hyper_dq_wire[0][4]   = FMC_hyper0_dqio4;
+   assign hyper_dq_wire[0][5]   = FMC_hyper0_dqio5;
+   assign hyper_dq_wire[0][6]   = FMC_hyper0_dqio6;
+   assign hyper_dq_wire[0][7]   = FMC_hyper0_dqio7;
+   assign hyper_rwds_wire[0]    = FMC_hyper0_rwds;
+   assign hyper_ck_wire[0]      = FMC_hyper0_ck;
+   assign hyper_ck_n_wire[0]    = FMC_hyper0_ckn;
+   assign hyper_reset_n_wire[0] = FMC_hyper0_reset;
+   
+   
+   assign hyper_cs_n_wire[1][0] = FMC_hyper1_csn0;
+   assign hyper_cs_n_wire[1][1] = FMC_hyper1_csn1;   
+   assign hyper_dq_wire[1][0]   = FMC_hyper1_dqio0;
+   assign hyper_dq_wire[1][1]   = FMC_hyper1_dqio1;
+   assign hyper_dq_wire[1][2]   = FMC_hyper1_dqio2;
+   assign hyper_dq_wire[1][3]   = FMC_hyper1_dqio3;
+   assign hyper_dq_wire[1][4]   = FMC_hyper1_dqio4;
+   assign hyper_dq_wire[1][5]   = FMC_hyper1_dqio5;
+   assign hyper_dq_wire[1][6]   = FMC_hyper1_dqio6;
+   assign hyper_dq_wire[1][7]   = FMC_hyper1_dqio7;
+   assign hyper_rwds_wire[1]    = FMC_hyper1_rwds;
+   assign hyper_ck_wire[1]      = FMC_hyper1_ck;
+   assign hyper_ck_n_wire[1]    = FMC_hyper1_ckn;
+   assign hyper_reset_n_wire[1] = FMC_hyper1_reset;
 
-   assign s_pad_hyper1_csn[0] = FMC_hyper1_csn0;
-   assign s_pad_hyper1_csn[1] = FMC_hyper1_csn1;   
-   assign s_pad_hyper1_dq[0]  = FMC_hyper1_dqio0;
-   assign s_pad_hyper1_dq[1]  = FMC_hyper1_dqio1;
-   assign s_pad_hyper1_dq[2]  = FMC_hyper1_dqio2;
-   assign s_pad_hyper1_dq[3]  = FMC_hyper1_dqio3;
-   assign s_pad_hyper1_dq[4]  = FMC_hyper1_dqio4;
-   assign s_pad_hyper1_dq[5]  = FMC_hyper1_dqio5;
-   assign s_pad_hyper1_dq[6]  = FMC_hyper1_dqio6;
-   assign s_pad_hyper1_dq[7]  = FMC_hyper1_dqio7;
    
     al_saqr #(
         .JtagEnable        ( 1'b1          )
     ) i_alsaqr (
-        .rst_ni           ( reset_n          ),
-        .rtc_i            ( ref_clk          ),
-        .jtag_TCK         ( pad_jtag_tck     ),
-        .jtag_TMS         ( pad_jtag_tms     ),
-        .jtag_TDI         ( pad_jtag_tdi     ),
-        .jtag_TRSTn       ( 1'b1             ),
-        .jtag_TDO_data    ( pad_jtag_tdo     ),
-        .jtag_TDO_driven  (                  ),
-        .axi_ddr_master   ( axi_ddr_bus_64   ),
-        .cva6_uart_rx_i   ( pad_uart_rx      ),
-        .cva6_uart_tx_o   ( pad_uart_tx      ),
+        .rst_ni           ( reset_n            ),
+        .rtc_i            ( ref_clk            ),
+        .jtag_TCK         ( pad_jtag_tck       ),
+        .jtag_TMS         ( pad_jtag_tms       ),
+        .jtag_TDI         ( pad_jtag_tdi       ),
+        .jtag_TRSTn       ( 1'b1               ),
+        .jtag_TDO_data    ( pad_jtag_tdo       ),
+        .jtag_TDO_driven  (                    ),
+        .axi_ddr_master   ( axi_ddr_bus_64     ),
+        .cva6_uart_rx_i   ( pad_uart_rx        ),
+        .cva6_uart_tx_o   ( pad_uart_tx        ),
 
-        .pad_hyper0_dq    ( s_pad_hyper0_dq  ),
-        .pad_hyper0_ck    ( FMC_hyper0_ck    ),
-        .pad_hyper0_ckn   ( FMC_hyper0_ckn   ),
-        .pad_hyper0_csn   ( s_pad_hyper0_csn ),
-        .pad_hyper0_rwds  ( FMC_hyper0_rwds  ),
-        .pad_hyper0_reset ( FMC_hyper0_reset ),
-
-        .pad_hyper1_dq    ( s_pad_hyper1_dq  ),
-        .pad_hyper1_ck    ( FMC_hyper1_ck    ),
-        .pad_hyper1_ckn   ( FMC_hyper1_ckn   ),
-        .pad_hyper1_csn   ( s_pad_hyper1_csn ),
-        .pad_hyper1_rwds  ( FMC_hyper1_rwds  ),
-        .pad_hyper1_reset ( FMC_hyper1_reset )
+        .pad_hyper_csn    ( hyper_cs_n_wire    ),
+        .pad_hyper_ck     ( hyper_ck_wire      ),
+        .pad_hyper_ckn    ( hyper_ck_n_wire    ),
+        .pad_hyper_rwds   ( hyper_rwds_wire    ),
+        .pad_hyper_reset  ( hyper_reset_n_wire ),
+        .pad_hyper_dq     ( hyper_dq_wire      )
+                
    );
 
 

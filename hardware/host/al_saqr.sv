@@ -1249,6 +1249,7 @@ module al_saqr
 
   `endif   
 
+   `ifndef TARGET_FPGA
    gwt_test i_gwt_test (
          .gwt_b_0(s_gwt_b_0),
          .gwt_r250_0(s_gwt_r250_0),
@@ -1258,5 +1259,6 @@ module al_saqr
          .cfg_o(s_gwt_cfg_o),
          .cfg_oe(s_gwt_cfg_oe)
          );
+   `endif
    
 endmodule

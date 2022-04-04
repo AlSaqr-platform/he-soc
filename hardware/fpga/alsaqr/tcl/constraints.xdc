@@ -3,7 +3,7 @@
 create_clock -period 4.000 [get_ports c0_sys_clk_p]
 set_property CLOCK_DEDICATED_ROUTE ANY_CMT_COLUMN [get_nets u_ibufg_sys_clk/O]
 
-create_clock -period 4.000 [get_pins u_ddr4_0/c0_ddr4_ui_clk]
+create_clock -period 6.400 [get_pins u_ddr4_0/c0_ddr4_ui_clk]
 
 #alsaqr clock
 create_clock -period 20  [get_pins  alsaqr_clk_manager/clk_out1]
@@ -20,7 +20,6 @@ create_clock -period 100.000 -name tck -waveform {0.000 50.000} [get_ports pad_j
 set_input_jitter tck 1.000
 set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets pad_jtag_tck_IBUF_inst/O]
 
-
 # minimize routing delay
 set_input_delay -clock tck -clock_fall 5.000 [get_ports pad_jtag_tdi]
 set_input_delay -clock tck -clock_fall 5.000 [get_ports pad_jtag_tms]
@@ -33,7 +32,6 @@ set_max_delay -from [get_ports pad_jtag_tdi] 20.000
 set_max_delay -datapath_only -from [get_pins i_alsaqr/i_host_domain/i_cva_subsystem/i_dmi_jtag/i_dmi_cdc/i_cdc_resp/i_src/data_src_q_reg*/C] -to [get_pins i_alsaqr/i_host_domain/i_cva_subsystem/i_dmi_jtag/i_dmi_cdc/i_cdc_resp/i_dst/data_dst_q_reg*/D] 20.000
 set_max_delay -datapath_only -from [get_pins i_alsaqr/i_host_domain/i_cva_subsystem/i_dmi_jtag/i_dmi_cdc/i_cdc_resp/i_src/req_src_q_reg/C]   -to [get_pins i_alsaqr/i_host_domain/i_cva_subsystem/i_dmi_jtag/i_dmi_cdc/i_cdc_resp/i_dst/req_dst_q_reg/D] 20.000
 set_max_delay -datapath_only -from [get_pins i_alsaqr/i_host_domain/i_cva_subsystem/i_dmi_jtag/i_dmi_cdc/i_cdc_req/i_dst/ack_dst_q_reg/C]    -to [get_pins i_alsaqr/i_host_domain/i_cva_subsystem/i_dmi_jtag/i_dmi_cdc/i_cdc_req/i_src/ack_src_q_reg/D] 20.000
-
 
 # reset signal
 set_false_path -from [get_ports pad_reset]
@@ -62,9 +60,9 @@ set_false_path -from [get_ports pad_reset]
 
 # Create RWDS clock
 create_clock -period 100.000 -name rwds_clk [get_ports FMC_hyper0_rwds]
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets i_alsaqr/i_pad_frame/padinst_hyper0_rwds0/iobuf_i/O]
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets i_alsaqr/i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/pad_gen[0].padinst_hyper_rwds0/iobuf_i/O] 
 create_clock -period 100.000 -name rwds_clk [get_ports FMC_hyper1_rwds]
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets i_alsaqr/i_pad_frame/padinst_hyper1_rwds0/iobuf_i/O]
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets i_alsaqr/i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/pad_gen[1].padinst_hyper_rwds0/iobuf_i/O] 
 
 
 ## Create the PHY clock
