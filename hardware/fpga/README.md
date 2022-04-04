@@ -1,4 +1,4 @@
-#FPGA Emulation
+# FPGA Emulation
 
 We now support emulation on the VCU118. For fpga emulation, you can choose if you want to plug which `axi_slave` you prefer to the `axi_xbar`: either the `hyperbus memory controller` or the `Xilinx DDR4 AXI IP` that uses the onboard DDR4.
 
