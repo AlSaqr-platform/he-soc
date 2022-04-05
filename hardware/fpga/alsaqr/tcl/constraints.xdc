@@ -13,6 +13,9 @@ set_clock_groups -asynchronous -group [get_clocks -of_objects [get_ports c0_sys_
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  alsaqr_clk_manager/clk_out1]] 
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  u_ddr4_0/c0_ddr4_ui_clk]]
 
+set_max_delay 6.400 -from [get_pins axiddrcdc/i_axi_cdc_src/async_data_master_*_o]  -to [get_pins axiddrcdc/i_axi_cdc_dst/async_data_slave_*_i ]
+set_max_delay 6.400 -from [get_pins axiddrcdc/i_axi_cdc_dst/async_data_slave_*_o ]  -to [get_pins axiddrcdc/i_axi_cdc_src/async_data_master_*_i]
+
 #set_false_path -from [get_ports pad_reset]
 
 ## JTAG

@@ -291,7 +291,7 @@ ddr4_0 u_ddr4_0
      .AXI_DATA_WIDTH ( 64        ),
      .AXI_ID_WIDTH   ( 7         ),
      .AXI_USER_WIDTH ( 1         ),
-     .LOG_DEPTH      ( 1         )
+     .LOG_DEPTH      ( 4         )
                   ) axiddrcdc (
                                .src_clk_i (ref_clk),
                                .src_rst_ni(reset_n),
