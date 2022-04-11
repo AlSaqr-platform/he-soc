@@ -13,9 +13,9 @@ INC=$(foreach d, $(directories), -I$(utils_dir)$d)
 inc_dir := $(SW_HOME)/common/
 
 CC        := clang
-CC_FLAGS  := -mcmodel=medany -static --sysroot=/usr/scratch/lagrev5/ytortorella/hero-linux-toolchain/install/riscv64-hero-linux-gnu/sysroot
-CC_LIBS   := -L /usr/scratch/lagrev5/ytortorella/hero-linux-toolchain/install/riscv64-hero-linux-gnu/sysroot/usr/lib
-CC_INC    := -I /usr/scratch/lagrev5/ytortorella/hero-linux-toolchain/install/riscv64-hero-linux-gnu/sysroot/usr/include/ -I $(utils_dir) -I $(inc_dir) -I $(INC)
+CC_FLAGS  := -mcmodel=medany -static --sysroot=/usr/scratch/lagrev1/ytortorella/hero-linux-toolchain/install/riscv64-hero-linux-gnu/sysroot
+CC_LIBS   := -L /usr/scratch/lagrev1/ytortorella/hero-linux-toolchain/install/riscv64-hero-linux-gnu/sysroot/usr/lib
+CC_INC    := -I /usr/scratch/lagrev1/ytortorella/hero-linux-toolchain/install/riscv64-hero-linux-gnu/sysroot/usr/include/ -I $(utils_dir) -I $(inc_dir) -I $(INC)
 LINK_OPTS := -static -nostdlib -nostartfiles
 OBJDUMP   := llvm-objdump --disassemble-all --disassemble-zeroes
 
@@ -33,7 +33,7 @@ clean:
 endif
 
 build:
-	$(CC) $(CC_FLAGS) $(CC_LIBS) $(CC_INC) --target=riscv64-hero-linux-gnu -mno-relax $(inc_dir)/crt.S $(inc_dir)/syscalls.c $(APP).c $(LINK_OPTS) -Wl,-T $(inc_dir)/test.ld -o $(APP).riscv -v
+	$(CC) $(CC_FLAGS) $(CC_LIBS) $(CC_INC) --target=riscv64-hero-linux-gnu -mno-relax $(inc_dir)/crt.S $(inc_dir)/syscalls.c $(APP).c $(LINK_OPTS) -Wl,-T $(inc_dir)/test.ld -Wl,-Map,output.map -o $(APP).riscv
 
 dis:
 	$(OBJDUMP) -d $(APP).riscv > $(APP).dump
