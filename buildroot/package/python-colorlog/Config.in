@@ -1,7 +1,0 @@
-config BR2_PACKAGE_PYTHON_COLORLOG
-	bool "python-colorlog"
-	depends on BR2_PACKAGE_PYTHON3
-	help
-	  Log formatting with colors.
-
-	  https://github.com/borntyping/python-colorlog
