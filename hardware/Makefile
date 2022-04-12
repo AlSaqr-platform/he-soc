@@ -128,6 +128,12 @@ ifdef preload
 	elf-bin = none
 endif
 
+ifdef l3-fake
+	questa-cmd += +L3_TCSRAM=$(l3-fake)
+  compile_flag +=  +define+L3_TCSRAM
+  compile_fpga += L3_TCSRAM
+endif
+
 ifdef exclude-cluster
 	questa-cmd += +EXCLUDE_CLUSTER=$(exclude-cluster)
   compile_flag +=  +define+EXCLUDE_CLUSTER

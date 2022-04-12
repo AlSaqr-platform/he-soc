@@ -414,8 +414,8 @@ module host_domain
       .pad_hyper_reset,
       .pad_hyper_dq
       );
-                     
 
-    
- 
+
+
+                      
 endmodule

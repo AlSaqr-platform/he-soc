@@ -75,6 +75,7 @@ sources:
   - host/apb_subsystem.sv
   - host/gpio2padframe.sv
   - host/cva6_synth_wrap.sv
+  - host/l3_onchip_subsystem.sv
   - host/cva6_subsystem.sv
   - host/l2_subsystem.sv
   - host/clk_gen_hyper.sv

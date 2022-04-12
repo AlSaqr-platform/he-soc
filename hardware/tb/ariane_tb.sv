@@ -303,7 +303,6 @@ module ariane_tb;
 
     string        binary ;
     string        cluster_binary;
-
   
   assign pad_periphs_pad_gpio_b_37_pad = pad_periphs_pad_gpio_b_05_pad;
   assign pad_periphs_pad_gpio_b_38_pad = pad_periphs_pad_gpio_b_06_pad;

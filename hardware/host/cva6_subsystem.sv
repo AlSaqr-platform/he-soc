@@ -158,6 +158,13 @@ module cva6_subsystem
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+  ) hyper_axi_master_redirect();
+
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
   ) cluster_axi_master_cut();
 
    
@@ -406,8 +413,28 @@ module cva6_subsystem
     .clk_i,
     .rst_ni ( ndmreset_n                ),
     .in     ( hyper_axi_master_cut      ),
-    .out    ( hyper_axi_master          )
+    .out    ( hyper_axi_master_redirect )
   );
+
+  `ifdef L3_TCSRAM
+  l3_onchip_subsystem # (
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+    ) l3_tcsram (
+                                    .clk_i ( clk_i                     ),
+                                    .rst_ni( ndmreset_n                ),
+                                    .slv   ( hyper_axi_master_redirect )
+                                    );
+   assign hyper_axi_master.aw_valid = 1'b0;
+   assign hyper_axi_master.ar_valid = 1'b0;
+   assign hyper_axi_master.w_valid  = 1'b0;
+  `else // !`ifdef L3_TCSRAM
+    `AXI_ASSIGN(hyper_axi_master,hyper_axi_master_redirect);
+  `endif
+   
+                       
                  
   axi_riscv_atomics_wrap #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
