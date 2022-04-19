@@ -134,7 +134,7 @@ package ariane_axi_soc;
         user_t          user;
     } r_chan_slv_t;
 
-    // Request/Response structs
+    // reuest/Response structs
     typedef struct packed {
         aw_chan_t aw;
         logic     aw_valid;

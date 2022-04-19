@@ -115,67 +115,68 @@ module cva6_synth_wrap
 
 
 
+  wire [4:0] dump_wid;
 
-    ibra_tb i_ariane (
+  cache_coherent_ariane_wrapper i_ariane (
     .core_ref_clk(clk_i),
     .sys_rst_n(rst_ni),
     // Debug
-    .alsaqr_bootaddr(ariane_soc::ROMBase),
     .debug_req_i(debug_req_i),   // async debug request
     // CLINT
     .timer_irq_i(time_irq_i),   // Timer interrupts
     .ipi_i(ipi_i),         // software interrupt (a.k.a inter-process-interrupt)
     // PLIC
     .irq_i(time_irq_i),          // level sensitive IR lines, mip & sip (async)
-   .m_axi_awid(axi_ariane_req.aw.id),
-   .m_axi_awaddr(axi_ariane_req.aw.addr ),
-   .m_axi_awlen(axi_ariane_req.aw.len),
-   .m_axi_awsize(axi_ariane_req.aw.size),
-   .m_axi_awburst(axi_ariane_req.aw.burst),
-   .m_axi_awlock(axi_ariane_req.aw.lock ),
-   .m_axi_awcache(axi_ariane_req.aw.cache),
-   .m_axi_awprot(axi_ariane_req.aw.prot),
-   .m_axi_awqos(axi_ariane_req.aw.qos ),
-   .m_axi_awregion(axi_ariane_req.aw.region),
-   .m_axi_awuser(axi_ariane_req.aw.user),
-   .m_axi_awvalid(axi_ariane_req.aw_valid),
-   .m_axi_awready(axi_ariane_resp.aw_ready),
 
-   .m_axi_wid(axi_ariane_req.w.id),
-   .m_axi_wdata(axi_ariane_req.w.data),
-   .m_axi_wstrb(axi_ariane_req.w.strb),
-   .m_axi_wlast(axi_ariane_req.w.last),
-   .m_axi_wuser(axi_ariane_req.w.user),
-   .m_axi_wvalid(axi_ariane_req.w_valid),
-   .m_axi_wready(axi_ariane_resp.w_ready),
+    .m_axi_awid(axi_ariane_req.aw.id),
+    .m_axi_awaddr(axi_ariane_req.aw.addr),
+    .m_axi_awlen(axi_ariane_req.aw.len),
+    .m_axi_awsize(axi_ariane_req.aw.size),
+    .m_axi_awburst(axi_ariane_req.aw.burst),
+    .m_axi_awlock(axi_ariane_req.aw.lock ),
+    .m_axi_awcache(axi_ariane_req.aw.cache),
+    .m_axi_awprot(axi_ariane_req.aw.prot),
+    .m_axi_awqos(axi_ariane_req.aw.qos ),
+    .m_axi_awregion(axi_ariane_req.aw.region),
+    .m_axi_awuser(axi_ariane_req.aw.user),
+    .m_axi_awvalid(axi_ariane_req.aw_valid),
+    .m_axi_awready(axi_ariane_resp.aw_ready),
 
-   .m_axi_arid(axi_ariane_req.ar.id),
-   .m_axi_araddr(axi_ariane_req.ar.addr),
-   .m_axi_arlen(axi_ariane_req.ar.len),
-   .m_axi_arsize(axi_ariane_req.ar.size ),
-   .m_axi_arburst(axi_ariane_req.ar.burst),
-   .m_axi_arlock(axi_ariane_req.ar.lock),
-   .m_axi_arcache(axi_ariane_req.ar.cache),
-   .m_axi_arprot(axi_ariane_req.ar.prot),
-   .m_axi_arqos(axi_ariane_req.ar.qos),
-   .m_axi_arregion(axi_ariane_req.ar.region),
-   .m_axi_aruser(axi_ariane_req.ar.user),
-   .m_axi_arvalid(axi_ariane_req.ar_valid),
-   .m_axi_arready(axi_ariane_resp.ar_ready),
+    .m_axi_wid(dump_wid),
+    .m_axi_wdata(axi_ariane_req.w.data),
+    .m_axi_wstrb(axi_ariane_req.w.strb),
+    .m_axi_wlast(axi_ariane_req.w.last),
+    .m_axi_wuser(axi_ariane_req.w.user),
+    .m_axi_wvalid(axi_ariane_req.w_valid),
+    .m_axi_wready(axi_ariane_resp.w_ready),
 
-   .m_axi_rid(axi_ariane_resp.r.id),
-   .m_axi_rdata(axi_ariane_resp.r.data),
-   .m_axi_rresp(axi_ariane_resp.r.resp),
-   .m_axi_rlast(axi_ariane_resp.r.last),
-   .m_axi_ruser(axi_ariane_resp.r.user),
-   .m_axi_rvalid(axi_ariane_resp.r_valid,
-   .m_axi_rready(axi_ariane_req.r_ready),
+    .m_axi_arid(axi_ariane_req.ar.id),
+    .m_axi_araddr(axi_ariane_req.ar.addr),
+    .m_axi_arlen(axi_ariane_req.ar.len),
+    .m_axi_arsize(axi_ariane_req.ar.size ),
+    .m_axi_arburst(axi_ariane_req.ar.burst),
+    .m_axi_arlock(axi_ariane_req.ar.lock),
+    .m_axi_arcache(axi_ariane_req.ar.cache),
+    .m_axi_arprot(axi_ariane_req.ar.prot),
+    .m_axi_arqos(axi_ariane_req.ar.qos),
+    .m_axi_arregion(axi_ariane_req.ar.region),
+    .m_axi_aruser(axi_ariane_req.ar.user),
+    .m_axi_arvalid(axi_ariane_req.ar_valid),
+    .m_axi_arready(axi_ariane_resp.ar_ready),
 
-   .m_axi_bid(axi_ariane_resp.b.id),
-   .m_axi_bresp(axi_ariane_resp.b.resp),
-   .m_axi_buser(axi_ariane_resp.b.user),
-   .m_axi_bvalid(axi_ariane_resp.b_valid),
-   .m_axi_bready(axi_ariane_req.b_ready)
+    .m_axi_rid(axi_ariane_resp.r.id),
+    .m_axi_rdata(axi_ariane_resp.r.data),
+    .m_axi_rresp(axi_ariane_resp.r.resp),
+    .m_axi_rlast(axi_ariane_resp.r.last),
+    .m_axi_ruser(axi_ariane_resp.r.user),
+    .m_axi_rvalid(axi_ariane_resp.r_valid),
+    .m_axi_rready(axi_ariane_req.r_ready),
+
+    .m_axi_bid(axi_ariane_resp.b.id),
+    .m_axi_bresp(axi_ariane_resp.b.resp),
+    .m_axi_buser(axi_ariane_resp.b.user),
+    .m_axi_bvalid(axi_ariane_resp.b_valid),
+    .m_axi_bready(axi_ariane_req.b_ready)
   );
   
   axi_master_connect i_axi_master_connect_ariane (
