@@ -751,9 +751,19 @@ module al_saqr
   `AXI_LITE_TYPEDEF_REQ_T     ( axi_lite_req_t , aw_chan_lite_t, w_chan_lite_t, ar_chan_lite_t )
   `AXI_LITE_TYPEDEF_RESP_T    ( axi_lite_resp_t, b_chan_lite_t , r_chan_lite_t                 )
 
-  axi_req_t  ot_axi_req;
-  axi_resp_t ot_axi_rsp;
+
+  `AXI_TYPEDEF_AW_CHAN_T (axi_ot_aw_t, axi_ot_addr_t, axi_ot_id_t, axi_ot_user_t)
+  `AXI_TYPEDEF_W_CHAN_T  (axi_ot_w_t, axi_ot_data_t, axi_ot_strb_t, axi_ot_user_t)
+  `AXI_TYPEDEF_B_CHAN_T  (axi_ot_b_t, axi_ot_id_t, axi_ot_user_t)
+  `AXI_TYPEDEF_AR_CHAN_T (axi_ot_ar_t, axi_ot_addr_t, axi_ot_id_t, axi_ot_user_t)
+  `AXI_TYPEDEF_R_CHAN_T  (axi_ot_r_t, axi_ot_data_t, axi_ot_id_t, axi_ot_user_t)
+  `AXI_TYPEDEF_REQ_T     (axi_ot_req_t, axi_ot_aw_t, axi_ot_w_t, axi_ot_ar_t)
+  `AXI_TYPEDEF_RESP_T    (axi_ot_resp_t, axi_ot_b_t, axi_ot_r_t)
    
+  axi_ot_req_t  ot_axi_req, axi_mbox_req;
+  axi_ot_resp_t ot_axi_rsp, axi_mbox_rsp;
+
+  logic irq_ariane, irq_ibex;
    
   opentitan #(
     .axi_req_t  (axi_req_t),
@@ -788,7 +798,23 @@ module al_saqr
     .test_reset(fake_rst),
 
     .axi_req(ot_axi_req),
-    .axi_rsp(ot_axi_rsp)
+    .axi_rsp(ot_axi_rsp),
+    .irq_ibex_i(irq_ibex)
+  );
+
+    
+  axi_scmi_mailbox #(
+      .AxiAddrWidth(64),
+      .AxiDataWidth(64),
+      .axi_req_t(axi_ot_req_t),
+      .axi_resp_t(axi_ot_resp_t)
+  ) u_scmi_shared_memory (
+      .clk_i(s_soc_clk),
+      .rst_ni(s_rst_ni),
+      .axi_mbox_req,
+      .axi_mbox_rsp,
+      .irq_ibex_o(irq_ibex),
+      .irq_ariane_o(irq_ariane)
   );
    
    
@@ -866,19 +892,23 @@ module al_saqr
       .sdio_to_pad            ( s_sdio_to_pad                   ),
       .pad_to_sdio            ( s_pad_to_sdio                   ),
 
-      .serial_link_to_pad     ( s_serial_link_to_pad             ),
-      .pad_to_serial_link     ( s_pad_to_serial_link             ),                     
+      .serial_link_to_pad     ( s_serial_link_to_pad            ),
+      .pad_to_serial_link     ( s_pad_to_serial_link            ),                     
 
-      .gpio_to_pad            ( s_gpio_b_to_pad                  ),
-      .pad_to_gpio            ( s_pad_to_gpio_b                  ),
+      .gpio_to_pad            ( s_gpio_b_to_pad                 ),
+      .pad_to_gpio            ( s_pad_to_gpio_b                 ),
 
-      .cva6_uart_rx_i         ( s_cva6_uart_rx_i                 ),
-      .cva6_uart_tx_o         ( s_cva6_uart_tx_o                 ),
+      .cva6_uart_rx_i         ( s_cva6_uart_rx_i                ),
+      .cva6_uart_tx_o         ( s_cva6_uart_tx_o                ),
 
-      .pwm_to_pad             ( s_pwm_to_pad                     ),
+      .pwm_to_pad             ( s_pwm_to_pad                    ),
 
-      .ot_axi_req             ( ot_axi_req                       ),
-      .ot_axi_rsp             ( ot_axi_rsp                       )
+      .ot_axi_req             ( ot_axi_req                      ),
+      .ot_axi_rsp             ( ot_axi_rsp                      ),
+
+      .axi_mbox_req           ( axi_mbox_req                    ),
+      .axi_mbox_rsp           ( axi_mbox_rsp                    ),
+      .irq_ariane_i           ( irq_ariane                      )
   );
       
   axi_lite_req_t  h2c_tlb_cfg_req,

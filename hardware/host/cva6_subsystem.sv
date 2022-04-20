@@ -83,7 +83,12 @@ module cva6_subsystem
   AXI_BUS.Slave           cluster_axi_slave,
   // axi slave interface piloted by opentitan
   input  axi_req_t        ot_axi_req,
-  output axi_resp_t       ot_axi_rsp
+  output axi_resp_t       ot_axi_rsp,
+ 
+  input  axi_resp_t       axi_mbox_rsp,  
+  output axi_req_t        axi_mbox_req,
+
+  input  logic            irq_ariane_i
    
 );
      // disable test-enable
@@ -795,6 +800,7 @@ module cva6_subsystem
     .eth_mdc         ( ),
     .mdio            ( ),
     .mdc             ( )
+    .irq_ariane_i
   );
 
 

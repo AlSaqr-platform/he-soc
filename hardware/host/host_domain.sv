@@ -140,8 +140,14 @@ module host_domain
 
   // axi slave interface piloted by opentitan
   input  axi_req_t            ot_axi_req,
-  output axi_resp_t           ot_axi_rsp
-
+  output axi_resp_t           ot_axi_rsp,
+ 
+  input  axi_resp_t           axi_mbox_rsp,
+  output axi_req_t            axi_mbox_req,
+  
+  // Mbox interrupt
+  input  logic                irq_ariane_i
+   
 );
 
    
@@ -371,6 +377,9 @@ module host_domain
         .jtag_TDO_driven,
         .ot_axi_req,
         .ot_axi_rsp,
+        .axi_mbox_req,
+        .axi_mbox_rsp,
+        .irq_ariane_i,
         .sync_rst_ni          ( s_synch_soc_rst      ),
         .udma_events_i        ( s_udma_events        ),
         .cluster_eoc_i        ( cluster_eoc_i        ),

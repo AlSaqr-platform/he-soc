@@ -50,7 +50,9 @@ module ariane_peripherals
     output logic            eth_mdc         ,
     // MDIO Interface       
     inout                   mdio            ,
-    output                  mdc             
+    output                  mdc             ,
+    // MAILBOX intr
+    input  logic            irq_ariane_i    
 );
 
   AXI_BUS #(
@@ -84,7 +86,8 @@ module ariane_peripherals
     assign irq_sources[139]                          = cl_dma_pe_evt_i;
     assign irq_sources[140]                          = can_irq_i[0];
     assign irq_sources[141]                          = can_irq_i[1];
-    assign irq_sources[ariane_soc::NumSources-1:142] = '0;
+    assign irq_sources[142]                          = irq_ariane_i;
+    assign irq_sources[ariane_soc::NumSources-1:143] = '0;
 
     REG_BUS #(
         .ADDR_WIDTH ( 32 ),
