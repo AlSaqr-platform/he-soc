@@ -57,6 +57,14 @@
 
 #define TEST_PAGE_SIZE 256
 
+#define PLIC_BASE 0x0C000000
+#define PLIC_CHECK PLIC_BASE + 0x201004
+//enable bits for sources 0-31
+#define PLIC_EN_BITS  PLIC_BASE + 0x2080
+
+#define USE_PLIC 1
+
+
 int pad_fun_offset[4] = {REG_PADFUN0_OFFSET,REG_PADFUN1_OFFSET,REG_PADFUN2_OFFSET,REG_PADFUN3_OFFSET};
 int pad_cfg_offset[16] = {REG_PADCFG0_OFFSET,REG_PADCFG1_OFFSET,REG_PADCFG2_OFFSET,REG_PADCFG3_OFFSET,REG_PADCFG4_OFFSET,REG_PADCFG5_OFFSET,REG_PADCFG6_OFFSET,REG_PADCFG7_OFFSET,REG_PADCFG8_OFFSET,REG_PADCFG9_OFFSET,REG_PADCFG10_OFFSET,REG_PADCFG11_OFFSET,REG_PADCFG12_OFFSET,REG_PADCFG13_OFFSET,REG_PADCFG14_OFFSET,REG_PADCFG15_OFFSET};
 
@@ -111,6 +119,11 @@ int main(){
 
   int error[N_SPI];
   int temp=0;
+
+  uint32_t tx_spi_plic_id ;
+  uint32_t rx_spi_plic_id ; 
+  uint32_t cmd_spi_plic_id ; 
+  uint32_t eot_spi_plic_id ; 
 
   //--- refer to this manual for the commands
   //--- https://www.cypress.com/file/216421/download
@@ -256,12 +269,17 @@ int main(){
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
 
-  alsaqr_periph_padframe_periphs_pad_gpio_b_00_mux_set( 2 );
-  alsaqr_periph_padframe_periphs_pad_gpio_b_01_mux_set( 2 );
-  alsaqr_periph_padframe_periphs_pad_gpio_b_02_mux_set( 2 );
-  alsaqr_periph_padframe_periphs_pad_gpio_b_03_mux_set( 2 );
+  alsaqr_periph_padframe_periphs_pad_gpio_b_00_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_pad_gpio_b_01_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_pad_gpio_b_02_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_pad_gpio_b_03_mux_set( 1 );
 
   for (int u = 0; u<N_SPI; u++){
+
+    rx_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +8 ; //32
+    tx_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +8 +1; //33
+    cmd_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +8 +2; //34
+    eot_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +8 +3; //35
 
     //printf("[%d, %d] Start test flash page programming over qspi %d\n",  0, 0,u);
 
@@ -283,12 +301,25 @@ int main(){
     barrier();
     plp_udma_enqueue(UDMA_SPIM_CMD_ADDR(u),  (int)tx_buffer_cmd_read_ID, 5*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
     //--- polling to check if the transfer is completed (when the "SADDR" register of the SPI channel is equal to 0)
-    do {
-      poll_var = pulp_read32(UDMA_CHANNEL_SIZE_OFFSET + UDMA_SPIM_RX_ADDR(u));
-      barrier();
-      poll_var = pulp_read32(UDMA_CHANNEL_SADDR_OFFSET + UDMA_SPIM_RX_ADDR(u));
-      barrier();
-    } while(poll_var != 0);
+    
+    if (USE_PLIC==0){
+      do {
+          poll_var = pulp_read32(UDMA_CHANNEL_SIZE_OFFSET + UDMA_SPIM_RX_ADDR(u));
+          barrier();
+        } while(poll_var != 0);
+    }else {
+      //Set RX interrupt
+      pulp_write32(PLIC_BASE+rx_spi_plic_id*4, 1); // set rx interrupt priority to 1
+      pulp_write32(PLIC_EN_BITS+(((int)(rx_spi_plic_id/32))*4), 1<<(rx_spi_plic_id%32)); //enable interrupt
+
+      //  wfi until reading the rx id from the PLIC
+      while(pulp_read32(PLIC_CHECK)!=rx_spi_plic_id) {
+        asm volatile ("wfi");
+      }
+
+      //Set completed Interrupt
+      pulp_write32(PLIC_CHECK,rx_spi_plic_id);
+    }
 
     //Write the Flash page
     plp_udma_enqueue(UDMA_SPIM_TX_ADDR(u) ,  (int)memory_page          ,TEST_PAGE_SIZE*4 + 4*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
@@ -297,20 +328,38 @@ int main(){
     barrier();
       
     // Check WIP ("Work-In-Progress" flag of the "Status Register 1" of the flash memory)
+
     temp=0;
     pulp_write32(sr1,0);
+
     do {
+      
       plp_udma_enqueue(UDMA_SPIM_RX_ADDR(u) ,  (unsigned int)sr1, 1*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
       barrier();
       plp_udma_enqueue(UDMA_SPIM_CMD_ADDR(u),  (int)tx_buffer_cmd_read_WIP, 5*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
       barrier();
-      //--- polling to check if the transfer is completed (when the "SADDR" register of the SPI channel is equal to 0)
-      do {
-        poll_var = pulp_read32(UDMA_CHANNEL_SIZE_OFFSET + UDMA_SPIM_RX_ADDR(u));
-        barrier();
-        poll_var = pulp_read32(UDMA_CHANNEL_SADDR_OFFSET + UDMA_SPIM_RX_ADDR(u));
-        barrier();
-      } while(poll_var != 0);
+        
+      if (USE_PLIC==0){
+        //--- polling to check if the transfer is completed (when the "SADDR" register of the SPI channel is equal to 0)
+        do {
+          poll_var = pulp_read32(UDMA_CHANNEL_SIZE_OFFSET + UDMA_SPIM_RX_ADDR(u));
+          barrier();
+        } while(poll_var != 0);
+      }else {
+
+        //Set RX interrupt
+        pulp_write32(PLIC_BASE+rx_spi_plic_id*4, 1); // set tx interrupt priority to 1
+        pulp_write32(PLIC_EN_BITS+(((int)(rx_spi_plic_id/32))*4), 1<<(rx_spi_plic_id%32)); //enable interrupt
+
+        //  wfi until reading the EOT id from the PLIC
+        while(pulp_read32(PLIC_CHECK)!=rx_spi_plic_id) {
+          asm volatile ("wfi");
+        }
+
+        //Set completed Interrupt
+        pulp_write32(PLIC_CHECK,rx_spi_plic_id);
+      }
+
       temp=pulp_read32(sr1);
       barrier();
       temp &=1;
@@ -330,12 +379,25 @@ int main(){
     barrier();
 
     // Polling to check if the transfer is completed (when the "SADDR" register of the SPI channel is equal to 0)
-    do {
-      poll_var = pulp_read32(UDMA_CHANNEL_SIZE_OFFSET + UDMA_SPIM_RX_ADDR(u));
-      barrier();
-      poll_var = pulp_read32(UDMA_CHANNEL_SADDR_OFFSET + UDMA_SPIM_RX_ADDR(u));
-      barrier();
-    } while(poll_var != 0);
+    if (USE_PLIC==0){
+      do {
+        poll_var = pulp_read32(UDMA_CHANNEL_SIZE_OFFSET + UDMA_SPIM_RX_ADDR(u));
+        barrier();
+      } while(poll_var != 0);
+    }else{
+
+      //Set RX interrupt
+      pulp_write32(PLIC_BASE+rx_spi_plic_id*4, 1); // set rx interrupt priority to 1
+      pulp_write32(PLIC_EN_BITS+(((int)(rx_spi_plic_id/32))*4), 1<<(rx_spi_plic_id%32)); //enable interrupt
+
+      //  wfi until reading the rx id from the PLIC
+      while(pulp_read32(PLIC_CHECK)!=rx_spi_plic_id) {
+        asm volatile ("wfi");
+      }
+
+      //Set completed Interrupt
+      pulp_write32(PLIC_CHECK,rx_spi_plic_id);
+    }
 
     barrier();
 

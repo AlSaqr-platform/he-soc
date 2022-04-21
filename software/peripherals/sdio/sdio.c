@@ -28,7 +28,7 @@
 #define BLOCK_SIZE 512
 #define BLOCK_COUNT 0x0
 
-#define N_SDIO 2
+#define N_SDIO 1
 #define SDIO_QUAD_EN 1
 
 #define FPGA_EMUL 0
@@ -242,14 +242,14 @@ int main()
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
     
-  alsaqr_periph_padframe_periphs_pad_gpio_f_01_mux_set( 2 );
-  alsaqr_periph_padframe_periphs_pad_gpio_f_02_mux_set( 2 );
-  alsaqr_periph_padframe_periphs_pad_gpio_f_03_mux_set( 2 );
-  alsaqr_periph_padframe_periphs_pad_gpio_f_04_mux_set( 2 );
-  alsaqr_periph_padframe_periphs_pad_gpio_f_05_mux_set( 2 );
-  alsaqr_periph_padframe_periphs_pad_gpio_f_06_mux_set( 2 );
+  alsaqr_periph_padframe_periphs_pad_gpio_b_08_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_pad_gpio_b_09_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_pad_gpio_b_10_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_pad_gpio_b_11_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_pad_gpio_b_12_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_pad_gpio_b_13_mux_set( 1 );
 
-for (int u = 1; u<N_SDIO; u++){
+for (int u = 0; u<N_SDIO; u++){
 
     for(int i = 0; i < BLOCK_SIZE*2 ; i++) {
         tx_buffer[i] = i;
