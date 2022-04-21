@@ -41,10 +41,6 @@ int main()
   uint32_t *cmd_buffer_wr = (uint32_t*) 0x1C003000;
   uint32_t *cmd_buffer_rd = (uint32_t*) 0x1C004000;
 
-
-  alsaqr_periph_padframe_periphs_pad_gpio_b_50_mux_sel_t mux_sel_scl;
-  alsaqr_periph_padframe_periphs_pad_gpio_b_51_mux_sel_t mux_sel_sda;
-
   //Expected datas
   /*uint8_t expected_rx_buffer[DATA_SIZE]={ 0xCA,
                                       0x00,
@@ -192,11 +188,9 @@ int main()
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
     
-  mux_sel_scl =2;
-  alsaqr_periph_padframe_periphs_pad_gpio_b_50_mux_set( mux_sel_scl );
+  alsaqr_periph_padframe_periphs_pad_gpio_b_04_mux_set( 1 );
 
-  mux_sel_sda =2;
-  alsaqr_periph_padframe_periphs_pad_gpio_b_51_mux_set( mux_sel_sda );
+  alsaqr_periph_padframe_periphs_pad_gpio_b_05_mux_set( 1 );
 
   for (u=0;u<N_I2C;u++) {
 
