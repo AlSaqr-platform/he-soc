@@ -884,7 +884,7 @@ module al_saqr
   `REG_BUS_ASSIGN_TO_REQ(reg_req,i_padframecfg_rbus)
   `REG_BUS_ASSIGN_FROM_RSP(i_padframecfg_rbus,reg_rsp)
 
-   `ifndef FPGA_EMUL
+   //`ifndef FPGA_EMUL
    alsaqr_periph_padframe #(
             .AW     ( 32        ),
             .DW     ( 32        ),
@@ -1022,7 +1022,7 @@ module al_saqr
    `ASSIGN_PERIPHS_DDR_LINK_SOC2PAD(s_port_signals_soc2pad.periphs.ddr_link,s_serial_link_to_pad)
    */
 
-  `endif   
+  //`endif   
 
    `ifndef TARGET_FPGA
    gwt_test i_gwt_test (
