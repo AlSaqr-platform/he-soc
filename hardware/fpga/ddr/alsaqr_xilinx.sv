@@ -74,6 +74,24 @@ module alsaqr_xilinx
     inout         FMC_hyper1_rwds ,
     inout         FMC_hyper1_reset ,
 
+    /************************************/
+    /*********** PADFRAME ***************/
+    /************************************/
+    inout wire  pad_periphs_pad_gpio_b_00_pad,
+    inout wire  pad_periphs_pad_gpio_b_01_pad,
+    inout wire  pad_periphs_pad_gpio_b_02_pad,
+    inout wire  pad_periphs_pad_gpio_b_03_pad,
+    inout wire  pad_periphs_pad_gpio_b_04_pad,
+    inout wire  pad_periphs_pad_gpio_b_05_pad,
+    inout wire  pad_periphs_pad_gpio_b_06_pad,
+    inout wire  pad_periphs_pad_gpio_b_07_pad,
+    inout wire  pad_periphs_pad_gpio_b_08_pad,
+    inout wire  pad_periphs_pad_gpio_b_09_pad,
+    inout wire  pad_periphs_pad_gpio_b_10_pad,
+    inout wire  pad_periphs_pad_gpio_b_11_pad,
+    inout wire  pad_periphs_pad_gpio_b_12_pad,
+    inout wire  pad_periphs_pad_gpio_b_13_pad,
+
     input wire    pad_reset,
 
     input wire    pad_jtag_trst,
@@ -347,6 +365,21 @@ ddr4_0 u_ddr4_0
         .axi_ddr_master   ( axi_ddr_bus_64     ),
         .cva6_uart_rx_i   ( pad_uart_rx        ),
         .cva6_uart_tx_o   ( pad_uart_tx        ),
+
+        .pad_periphs_pad_gpio_b_00_pad(pad_periphs_pad_gpio_b_00_pad),
+        .pad_periphs_pad_gpio_b_01_pad(pad_periphs_pad_gpio_b_01_pad),
+        .pad_periphs_pad_gpio_b_02_pad(pad_periphs_pad_gpio_b_02_pad),
+        .pad_periphs_pad_gpio_b_03_pad(pad_periphs_pad_gpio_b_03_pad),
+        .pad_periphs_pad_gpio_b_04_pad(pad_periphs_pad_gpio_b_04_pad),
+        .pad_periphs_pad_gpio_b_05_pad(pad_periphs_pad_gpio_b_05_pad),
+        .pad_periphs_pad_gpio_b_06_pad(pad_periphs_pad_gpio_b_06_pad),
+        .pad_periphs_pad_gpio_b_07_pad(pad_periphs_pad_gpio_b_07_pad),
+        .pad_periphs_pad_gpio_b_08_pad(pad_periphs_pad_gpio_b_08_pad),
+        .pad_periphs_pad_gpio_b_09_pad(pad_periphs_pad_gpio_b_09_pad),
+        .pad_periphs_pad_gpio_b_10_pad(pad_periphs_pad_gpio_b_10_pad),
+        .pad_periphs_pad_gpio_b_11_pad(pad_periphs_pad_gpio_b_11_pad),
+        .pad_periphs_pad_gpio_b_12_pad(pad_periphs_pad_gpio_b_12_pad),
+        .pad_periphs_pad_gpio_b_13_pad(pad_periphs_pad_gpio_b_13_pad),
 
         .pad_hyper_csn    ( hyper_cs_n_wire    ),
         .pad_hyper_ck     ( hyper_ck_wire      ),
