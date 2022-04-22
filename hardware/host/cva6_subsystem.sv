@@ -318,6 +318,7 @@ module cva6_subsystem
    
   axi_adapter #(
     .DATA_WIDTH            ( AXI_DATA_WIDTH            ),
+    .AXI_DATA_WIDTH        ( AXI_DATA_WIDTH            ),
     .AXI_ID_WIDTH          ( ariane_soc::IdWidth       )
   ) i_dm_axi_master (
     .clk_i                 ( clk_i                     ),
@@ -326,7 +327,7 @@ module cva6_subsystem
     .type_i                ( ariane_axi::SINGLE_REQ    ),
     .busy_o                (                           ),
     .gnt_o                 ( dm_master_gnt             ),
-    .gnt_id_o              (                           ),
+    // .gnt_id_o              (                           ),
     .addr_i                ( dm_master_add             ),
     .we_i                  ( dm_master_we              ),
     .wdata_i               ( dm_master_wdata           ),

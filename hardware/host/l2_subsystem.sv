@@ -120,14 +120,16 @@ module l2_subsystem
         assign mem_gnt_l2[i] = mem_req_l2[i];
         
         `ifndef TARGET_ASIC          
-          tc_sram #(
-            .SimInit   ( "random"            ),
+          sram #(
+            // .SimInit   ( "random"            ),
+            .DATA_WIDTH ( L2_DATA_WIDTH      ),
+            .NUM_WORDS  ( L2_BANK_SIZE       )
         `else
           tc_sram_gf22 #(
-        `endif
             .NumWords  ( L2_BANK_SIZE        ), // 2^15 lines of 32 bits each (128kB), 4 Banks -> 512 kB total memory
             .DataWidth ( L2_DATA_WIDTH       ),
             .NumPorts  ( 1                   )
+        `endif
           ) bank_i (
             .clk_i,
             .rst_ni  (  rst_ni               ),
