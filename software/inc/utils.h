@@ -17,12 +17,6 @@ void uart_sim_cfg() {
     uart_set_cfg(0,(test_freq/baud_rate)/16);
 }
 
-static uint64_t lfsr(uint64_t x)
-{
-  uint64_t bit = (x ^ (x >> 1)) & 1;
-  return (x >> 1) | (bit << 62);
-}
-
 void set_flls() {
   int data;
   int addr;

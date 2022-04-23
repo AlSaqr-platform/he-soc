@@ -1,10 +1,10 @@
 APP := fpu_pulp
 XLEN:=64
 
-include $(shell pwd)/../common.mk
+STIM = 1
 
-rtl: 
-	 $(MAKE) -C ../../hardware/ all
-
-sim:
-	$(MAKE) -C ../../hardware/ sim elf-bin=$(shell pwd)/$(APP).riscv
+ifeq ($(TOOLCHAIN), LLVM)
+	include $(SW_HOME)/common/llvm-common.mk
+else
+	include $(SW_HOME)/common/common.mk
+endif

@@ -1,5 +1,8 @@
 APP := stimuli
 XLEN:=32
 
-include $(shell pwd)/../../common_pulp/common_pulp.mk
-
+ifeq ($(TOOLCHAIN), LLVM)
+	include $(SW_HOME)/common_pulp/llvm-pulp-common.mk
+else
+	include $(SW_HOME)/common_pulp/pulp-common.mk
+endif

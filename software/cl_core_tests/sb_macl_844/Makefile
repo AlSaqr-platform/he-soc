@@ -1,4 +1,8 @@
 APP := sb_macl_844
 XLEN:=64
 
-include $(shell pwd)/../../common.mk
+ifeq ($(TOOLCHAIN), LLVM)
+	include $(SW_HOME)/common/llvm-common.mk
+else
+	include $(SW_HOME)/common/common.mk
+endif

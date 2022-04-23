@@ -4823,5 +4823,5 @@ void load_cluster_code() {
 (*(volatile unsigned int *)(long)(0x1C01061C)) = 0x00000000 ;
 (*(volatile unsigned int *)(long)(0x1C010620)) = 0x00000000 ;
 (*(volatile unsigned int *)(long)(0x1C010624)) = 0x00000000 ;
-return 0; 
+// return 0; 
  }

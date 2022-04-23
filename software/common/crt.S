@@ -216,11 +216,6 @@ trap_entry:
   addi sp, sp, 272
   mret
 
-#ifdef CLUSTER_BIN  
-.section .clusterraw
-.incbin CLUSTER_BIN_PATH
-#endif
-  
 .section ".tdata.begin"
 .globl _tdata_begin
 _tdata_begin:
@@ -240,4 +235,3 @@ tohost: .dword 0
 .align 6
 .globl fromhost
 fromhost: .dword 0
-

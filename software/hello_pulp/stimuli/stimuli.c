@@ -35,6 +35,6 @@ int thread_entry(int cid, int nc) {
   while(pulp_read32(i)<8);
   pulp_write32(0x10001000,1);
   }
-  
+
   return 0;
 }
