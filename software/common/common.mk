@@ -28,10 +28,20 @@ RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump --disassemble-all --disassemble-zeroes -
 RISCV_FLAGS     := -mcmodel=medany -static -std=gnu99 -O2 -ffast-math -fno-common -fno-builtin-printf $(INC)
 RISCV_LINK_OPTS := -static -nostdlib -nostartfiles -lm -lgcc
 
+ifeq ($(STIM), 1)
 clean:
 	rm -f $(APP).riscv
 	rm -f $(APP).dump
 	rm -f *.slm
+	rm -f *.map
+	$(MAKE) -C ./stimuli clean 
+else
+clean:
+	rm -f $(APP).riscv
+	rm -f $(APP).dump
+	rm -f *.slm
+	rm -f *.map
+endif
 
 build:
 	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir)/test.ld $(RISCV_LINK_OPTS) $(cc-elf-y) $(inc_dir)/crt.S  $(inc_dir)/syscalls.c -L $(inc_dir) $(APP).c -o $(APP).riscv
@@ -45,7 +55,15 @@ dump:
 	cp $(APP).riscv  $(HW_HOME)/
 	echo $(APP).riscv | tee -a  $(HW_HOME)/regression.list
 
-all: clean build dis dump
+stim:
+	$(MAKE) -C ./stimuli clean all
+
+ifeq ($(STIM), 1) 
+  all: clean stim build dis dump
+  STIM = 0
+else
+  all: clean build dis dump
+endif
 
 rtl: 
 	 $(MAKE) -C  $(SW_HOME)/../hardware/ all
