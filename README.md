@@ -35,7 +35,7 @@ git submodule update --init --recursive
 To compile the code:
 
 ```
-source setup.sh
+Do "source setup.sh" to select GCC toolchain or "source llvm-setup.sh" to select LLVM one
 
 cd software/hello
 
