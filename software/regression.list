@@ -20,6 +20,7 @@ peripherals/cam
 peripherals/i2c
 peripherals/spim_flash
 peripherals/uart
+peripherals/sdio
 gpios
 serial_link
 can
