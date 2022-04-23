@@ -21,8 +21,8 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "utils.h"
-#include "./hyperbus_test.h"
-#include "../common/encoding.h"
+#include "hyperbus_test.h"
+#include "encoding.h"
 #define BUFFER_SIZE 64
 //#define VERBOSE
 //#define EXTRA_VERBOSE
