@@ -14,6 +14,7 @@ fpu_tests/fp16alt_matmul
 fpu_tests/fp16alt-vec_matmul
 hello
 hyperbus
+axi_hyper_fibonacci
 l2_test
 peripherals/cam
 peripherals/i2c
