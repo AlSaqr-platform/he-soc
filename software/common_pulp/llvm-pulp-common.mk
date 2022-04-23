@@ -20,7 +20,7 @@ CC        := clang
 CC_FLAGS  := -mcmodel=medany -static --sysroot=/usr/scratch/lagrev1/ytortorella/hero-linux-toolchain/install/riscv32-hero-unknown-elf
 CC_LIBS   := -L /usr/scratch/lagrev1/ytortorella/hero-linux-toolchain/install/riscv32-hero-unknown-elf/lib/rv32imcxpulpv2/ilp32/
 CC_INC    := -I /usr/scratch/lagrev1/ytortorella/hero-linux-toolchain/install/riscv32-hero-unknown-elf/include/ -I $(utils_dir) -I . -I $(INC)
-LINK_OPTS := -static -nostartfiles
+LINK_OPTS := -static -nostartfiles -Wl,--gc-sections
 OBJDUMP   := llvm-objdump --disassemble-all --disassemble-zeroes
 
 clean:
@@ -31,7 +31,7 @@ clean:
 	rm -f ../cluster_code.h
 
 build:
-	$(CC) $(CC_FLAGS) $(CC_INC) $(CC_LIBS) -target riscv32-unknown-elf -mno-relax $(inc_dir)/crt.S $(inc_dir)/syscalls.c $(APP).c $(LINK_OPTS) -Wl,-T$(inc_dir)/test.ld -o $(APP).riscv
+	$(CC) $(CC_FLAGS) $(CC_INC) $(CC_LIBS) -O3 -target riscv32-unknown-elf -mno-relax $(inc_dir)/crt.S $(inc_dir)/syscalls.c $(APP).c $(LINK_OPTS) -Wl,-T$(inc_dir)/test.ld -o $(APP).riscv
 
 build-sdk:
 	# clang -c -emit-llvm -S -MT $(APP).ll -MMD -MP -MF -DNO_MAIN -DNO_DOUBLE -I../include  -fopenmp=libomp -O3 -static -fhero-device-default-as=device -target riscv32-hero-unknown-elf -I/scratch/ytortorella/hero-sdk/pulp/sdk/pkg/sdk/dev/install/include -I/scratch/ytortorella/hero-sdk/openmp-examples/common -include hero_64.h va_list.c
