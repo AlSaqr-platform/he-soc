@@ -11,6 +11,8 @@ export SW_HOME=$(pwd)/software
 
 export HW_HOME=$(pwd)/hardware
 
+export TOOLCHAIN=GCC
+
 echo "exporting QUESTASIM PATH"
 
 export QUESTASIM_HOME=/usr/pack/modelsim-10.7b-kgf/questasim/
