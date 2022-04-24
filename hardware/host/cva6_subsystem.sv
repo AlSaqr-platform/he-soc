@@ -71,7 +71,7 @@ module cva6_subsystem
   input  logic            cva6_uart_rx_i,
   output logic            cva6_uart_tx_o,
   input  logic [127:0]    key_i, 
-  AXI_BUS.Master          tlb_cfg_master,
+  AXI_BUS.Master          axi2lite_master,
   AXI_BUS.Master          l2_axi_master,
   AXI_BUS.Master          apb_axi_master,
   AXI_BUS.Master          hyper_axi_master,
@@ -579,7 +579,7 @@ module cva6_subsystem
   // --------------------
   // AXI TLB Slave (CFG)
   // --------------------
-  `AXI_ASSIGN(tlb_cfg_master, master[ariane_soc::TLB_CFG])
+  `AXI_ASSIGN(axi2lite_master, master[ariane_soc::TLB_CFG])
   
   // ---------------
   // CLINT

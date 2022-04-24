@@ -91,7 +91,7 @@ module host_domain
   AXI_BUS.Master              cluster_axi_master,
   AXI_BUS.Slave               cluster_axi_slave,
   // TLB Config
-  AXI_BUS.Master              tlb_cfg_master,
+  AXI_BUS.Master              axi2lite_master,
   // SPIM
   output                      qspi_to_pad_t [N_SPI-1:0] qspi_to_pad,
   input                       pad_to_qspi_t [N_SPI-1:0] pad_to_qspi,
@@ -258,7 +258,7 @@ module host_domain
 
         .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
         .cva6_uart_tx_o       ( cva6_uart_tx_o       ),
-        .tlb_cfg_master       ( tlb_cfg_master       )
+        .axi2lite_master      ( axi2lite_master      )
     );   
    
    axi2tcdm_wrap #(
