@@ -291,12 +291,6 @@ module al_saqr
      .AXI_USER_WIDTH ( AXI_USER_WIDTH                  ),
      .LOG_DEPTH      ( 3                               )
   ) async_soc_to_cluster_axi_bus();
-  // AXI_BUS #(
-  //    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-  //    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
-  //    .AXI_ID_WIDTH   ( ariane_soc::IdWidth      ),
-  //    .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-  // ) cluster_to_soc_axi_bus();
 
   AXI_BUS_ASYNC_GRAY #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
