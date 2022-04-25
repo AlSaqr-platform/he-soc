@@ -810,10 +810,11 @@ module al_saqr
   typedef logic [ariane_soc::IdWidthSlave-1:0] id_slv_t;
 
   // AXI-Lite Interface Types
-  typedef logic [AXI_LITE_AW-1:0]   lite_addr_t;
-  typedef logic [AXI_LITE_DW-1:0]   lite_data_t;
+  typedef logic [AXI_LITE_AW-1:0  ] lite_addr_t;
+  typedef logic [AXI_LITE_DW-1:0  ] lite_data_t;
   typedef logic [AXI_LITE_DW/8-1:0] lite_strb_t;
 
+  // Parameters for AXI4 RE/RESP types definition
   `AXI_TYPEDEF_AW_CHAN_T ( aw_chan_t , addr_t   , id_slv_t, id_usr_t      )
   `AXI_TYPEDEF_W_CHAN_T  ( w_chan64_t, data64_t , strb64_t, id_usr_t      )
   `AXI_TYPEDEF_W_CHAN_T  ( w_chan32_t, data32_t , strb32_t, id_usr_t      )
@@ -828,7 +829,7 @@ module al_saqr
   `AXI_TYPEDEF_REQ_T     ( axi_req32_t , aw_chan_t, w_chan32_t, ar_chan_t )
   `AXI_TYPEDEF_RESP_T    ( axi_resp32_t, b_chan_t , r_chan32_t            )
 
-  // Passed as parameters to the axi_lite_xbar
+  // Parameters for AXI-LITE RE/RESP types definition
   `AXI_LITE_TYPEDEF_AW_CHAN_T ( aw_chan_lite_t , lite_addr_t                                   )
   `AXI_LITE_TYPEDEF_W_CHAN_T  ( w_chan_lite_t  , lite_data_t   , lite_strb_t                   )
   `AXI_LITE_TYPEDEF_B_CHAN_T  ( b_chan_lite_t                                                  )
@@ -837,23 +838,31 @@ module al_saqr
   `AXI_LITE_TYPEDEF_REQ_T     ( axi_lite_req_t , aw_chan_lite_t, w_chan_lite_t, ar_chan_lite_t )
   `AXI_LITE_TYPEDEF_RESP_T    ( axi_lite_resp_t, b_chan_lite_t , r_chan_lite_t                 )
 
+  // REQ/RESP ports for Host and Cluster data conversion
+  // AXI4: 64-bit DataWidth -> AXI-LITE: 32-bit DataWidth
   axi_req64_t h2c_tlb_cfg_axi_req_64,
               c2h_tlb_cfg_axi_req_64;
-  
   axi_req32_t h2c_tlb_cfg_axi_req_32,
               c2h_tlb_cfg_axi_req_32;
 
   axi_resp64_t h2c_tlb_cfg_axi_resp_64,
                c2h_tlb_cfg_axi_resp_64;
-  
   axi_resp32_t h2c_tlb_cfg_axi_resp_32,
                c2h_tlb_cfg_axi_resp_32;
   
+  // Host MST Port assign to/from REQ/RESP for TLBs' CFG
+  // h2c_tlb_cfg_axi_bus_64 -> h2c_tlb_cfg_axi_req_64
+  // h2c_tlb_cfg_axi_bus_64 <- h2c_tlb_cfg_axi_resp_64
   `AXI_ASSIGN_TO_REQ    (h2c_tlb_cfg_axi_req_64, h2c_tlb_cfg_axi_bus_64 )
   `AXI_ASSIGN_FROM_RESP (h2c_tlb_cfg_axi_bus_64, h2c_tlb_cfg_axi_resp_64)
+  // Cluster MST Port assign to/from REQ/RESP for TLBs' CFG
+  // c2h_tlb_cfg_axi_bus_64 -> c2h_tlb_cfg_axi_req_64
+  // c2h_tlb_cfg_axi_bus_64 <- c2h_tlb_cfg_axi_resp_64
   `AXI_ASSIGN_TO_REQ    (c2h_tlb_cfg_axi_req_64, c2h_tlb_cfg_axi_bus_64 )
   `AXI_ASSIGN_FROM_RESP (c2h_tlb_cfg_axi_bus_64, c2h_tlb_cfg_axi_resp_64)
 
+  // AXI4 DataWidth converters for TLBs' CFG port
+  // AXI4: 64-bit DataWidth -> AXI-LITE: 32-bit DataWidth
   axi_dw_converter     #(
    .AxiMaxReads         ( 1                        ),
    .AxiSlvPortDataWidth ( AXI_DATA_WIDTH           ),
@@ -906,12 +915,14 @@ module al_saqr
    .mst_resp_i          ( c2h_tlb_cfg_axi_resp_32  )
   );
 
+  // AXI-LITE REQ/RESP for assign from downsized 32-bit DataWidth AXI4 
+  // to 32-bit DataWidth AXI-LITE for TLBs' CFG port
   axi_lite_req_t h2c_tlb_cfg_lite_req,
                  c2h_tlb_cfg_lite_req;
-  
   axi_lite_resp_t h2c_tlb_cfg_lite_resp,
                   c2h_tlb_cfg_lite_resp;
 
+  // AXI4 to AXI-LITE converters for TLBs' CFG port
   axi_to_axi_lite         #(
     .AxiAddrWidth          ( AXI_ADDRESS_WIDTH        ),
     .AxiDataWidth          ( AXI_LITE_DW              ),
@@ -956,12 +967,14 @@ module al_saqr
     .mst_resp_i            ( c2h_tlb_cfg_lite_resp    )
   );
 
-  axi_lite_req_t  h2c_tlb_cfg_req,
-                  c2h_tlb_cfg_req;
-   
+  // AXI-LITE REQ/RESP assigned from AXI-LITE XBAR
+  // to TLBs CFG port
+  axi_lite_req_t h2c_tlb_cfg_req,
+                 c2h_tlb_cfg_req;
   axi_lite_resp_t h2c_tlb_cfg_resp,
                   c2h_tlb_cfg_resp;
 
+  // AXI-LITE XBAR configuration parameter and address map
   localparam axi_pkg::xbar_cfg_t LiteXbarCfg = '{
     NoSlvPorts        : 2,
     NoMstPorts        : 2,
@@ -986,6 +999,7 @@ module al_saqr
     '{idx: 32'd0, start_addr: 32'h1040_0000, end_addr: 32'h1040_1000}
   };
 
+  // AXI-LITE XBAR for TLBs' config port
   axi_lite_xbar           #(
     .Cfg                   ( LiteXbarCfg                                    ),
     .aw_chan_t             ( aw_chan_lite_t                                 ),
@@ -1009,11 +1023,13 @@ module al_saqr
     .default_mst_port_i    ( {1'b0, 1'b0}                                   )
   );
 
-  axi_req64_t  h2c_tlb_slv_req,
-               h2c_tlb_mst_req;
+  // AXI4 REQ/RESP ports for Host to Cluster TLB MST/SLV ports
+  axi_req64_t h2c_tlb_slv_req,
+              h2c_tlb_mst_req;
   axi_resp64_t h2c_tlb_slv_resp,
                h2c_tlb_mst_resp;
   
+  // H2C TLB
   axi_tlb #(
     .AxiSlvPortAddrWidth ( AXI_ADDRESS_WIDTH        ),
     .AxiMstPortAddrWidth ( AXI_ADDRESS_WIDTH        ),
@@ -1042,22 +1058,24 @@ module al_saqr
     .cfg_resp_o          ( h2c_tlb_cfg_resp         )
   );
 
-  // H2C_TLB SLV Port assign
+  // H2C SLV Port assign to/from REQ/RESP
   // soc_to_tlb_axi_bus -> h2c_tlb_slv_req
   // soc_to_tlb_axi_bus <- h2c_tlb_slv_resp
   `AXI_ASSIGN_TO_REQ    (h2c_tlb_slv_req   , soc_to_tlb_axi_bus)
   `AXI_ASSIGN_FROM_RESP (soc_to_tlb_axi_bus, h2c_tlb_slv_resp  )
-  // H2C_TLB MST Port assign
-  // tlb_to_cluster_axi_bus <- h2c_tlb_mst_req
-  // tlb_to_cluster_axi_bus -> h2c_tlb_mst_resp
+  // H2C MST Port assign to/from REQ/RESP
+  // soc_to_tlb_axi_bus <- h2c_tlb_mst_req
+  // soc_to_tlb_axi_bus -> h2c_tlb_mst_resp
   `AXI_ASSIGN_FROM_REQ (tlb_to_cluster_axi_bus, h2c_tlb_mst_req       )
   `AXI_ASSIGN_TO_RESP  (h2c_tlb_mst_resp      , tlb_to_cluster_axi_bus)
 
-  axi_req64_t  c2h_tlb_slv_req,
-               c2h_tlb_mst_req;
+  // AXI4 REQ/RESP ports for Cluster to Host TLB MST/SLV ports
+  axi_req64_t c2h_tlb_slv_req,
+              c2h_tlb_mst_req;
   axi_resp64_t c2h_tlb_slv_resp,
                c2h_tlb_mst_resp;
 
+  // C2H TLB
   axi_tlb #(
     .AxiSlvPortAddrWidth ( AXI_ADDRESS_WIDTH        ),
     .AxiMstPortAddrWidth ( AXI_ADDRESS_WIDTH        ),
@@ -1086,12 +1104,12 @@ module al_saqr
     .cfg_resp_o          ( c2h_tlb_cfg_resp         )
   );
 
-  // C2H_TLB SLV Port assign
-  // cluster_to_tlb_axi_bus -> c2h_tlb_slv_req
-  // cluster_to_tlb_axi_bus <- c2h_tlb_slv_resp
+  // C2H SLV Port assign to/from REQ/RESP
+  // tlb_to_soc_axi_bus -> c2h_tlb_slv_req
+  // tlb_to_soc_axi_bus <- c2h_tlb_slv_resp
   `AXI_ASSIGN_TO_REQ    (c2h_tlb_slv_req       , cluster_to_tlb_axi_bus)
   `AXI_ASSIGN_FROM_RESP (cluster_to_tlb_axi_bus, c2h_tlb_slv_resp      )
-  // C2H_TLB MST Port assign
+  // C2H MST Port assign to/from REQ/RESP
   // tlb_to_soc_axi_bus <- c2h_tlb_mst_req
   // tlb_to_soc_axi_bus -> c2h_tlb_mst_resp
   `AXI_ASSIGN_FROM_REQ (tlb_to_soc_axi_bus, c2h_tlb_mst_req       )
