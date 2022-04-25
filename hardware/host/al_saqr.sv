@@ -814,7 +814,7 @@ module al_saqr
   typedef logic [AXI_LITE_DW-1:0  ] lite_data_t;
   typedef logic [AXI_LITE_DW/8-1:0] lite_strb_t;
 
-  // Parameters for AXI4 RE/RESP types definition
+  // Parameters for AXI4 REQ/RESP types definition
   `AXI_TYPEDEF_AW_CHAN_T ( aw_chan_t , addr_t   , id_slv_t, id_usr_t      )
   `AXI_TYPEDEF_W_CHAN_T  ( w_chan64_t, data64_t , strb64_t, id_usr_t      )
   `AXI_TYPEDEF_W_CHAN_T  ( w_chan32_t, data32_t , strb32_t, id_usr_t      )
