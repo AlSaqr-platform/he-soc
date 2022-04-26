@@ -103,8 +103,6 @@ set_property IOSTANDARD LVCMOS18 [get_ports c0_data_compare_error]
 set_property PACKAGE_PIN BF29 [get_ports c0_init_calib_complete]
 set_property IOSTANDARD LVCMOS18 [get_ports c0_init_calib_complete]
 
-
-
 set_property PACKAGE_PIN K24 [get_ports {c0_ddr4_dq[0]}]
 set_property PACKAGE_PIN J24 [get_ports {c0_ddr4_dq[1]}]
 set_property PACKAGE_PIN M21 [get_ports {c0_ddr4_dq[2]}]
@@ -121,8 +119,6 @@ set_property PACKAGE_PIN F21 [get_ports {c0_ddr4_dq[12]}]
 set_property PACKAGE_PIN E21 [get_ports {c0_ddr4_dq[13]}]
 set_property PACKAGE_PIN F24 [get_ports {c0_ddr4_dq[14]}]
 set_property PACKAGE_PIN F23 [get_ports {c0_ddr4_dq[15]}]
-
-
 
 set_property PACKAGE_PIN L23 [get_ports {c0_ddr4_dm_dbi_n[0]}]
 set_property PACKAGE_PIN G22 [get_ports {c0_ddr4_dm_dbi_n[1]}]
@@ -161,35 +157,37 @@ set_property PACKAGE_PIN N20 [get_ports c0_ddr4_reset_n]
 
 set_property PACKAGE_PIN E13 [get_ports c0_ddr4_act_n]
 
-
-####################################################################
-# PADFRAME FMC PERIPHERAL BOARD (SPI - I2C - UART - SDIO)
-####################################################################
-
-set_property PACKAGE_PIN AP12 [get_ports pad_periphs_pad_gpio_b_00_pad]
-set_property PACKAGE_PIN AN16 [get_ports pad_periphs_pad_gpio_b_01_pad]
-set_property PACKAGE_PIN AT14 [get_ports pad_periphs_pad_gpio_b_02_pad]
-set_property PACKAGE_PIN AR12 [get_ports pad_periphs_pad_gpio_b_03_pad]
-
-set_property PACKAGE_PIN AK15 [get_ports pad_periphs_pad_gpio_b_04_pad]
-set_property PACKAGE_PIN AL15 [get_ports pad_periphs_pad_gpio_b_05_pad]
-
-set_property PACKAGE_PIN BD13 [get_ports pad_periphs_pad_gpio_b_06_pad]
-set_property PACKAGE_PIN BE13 [get_ports pad_periphs_pad_gpio_b_07_pad]
-
-set_property PACKAGE_PIN AU11 [get_ports pad_periphs_pad_gpio_b_08_pad]
-set_property PACKAGE_PIN AV11 [get_ports pad_periphs_pad_gpio_b_09_pad]
-set_property PACKAGE_PIN AT12 [get_ports pad_periphs_pad_gpio_b_10_pad]
-set_property PACKAGE_PIN AU12 [get_ports pad_periphs_pad_gpio_b_11_pad]
-set_property PACKAGE_PIN AW13 [get_ports pad_periphs_pad_gpio_b_12_pad]
-set_property PACKAGE_PIN AY13 [get_ports pad_periphs_pad_gpio_b_13_pad]
-
-
-
 set_property PACKAGE_PIN F14 [get_ports {c0_ddr4_ck_t[0]}]
 set_property PACKAGE_PIN E14 [get_ports {c0_ddr4_ck_c[0]}]
 set_property PACKAGE_PIN H24 [get_ports {c0_ddr4_dqs_t[1]}]
 set_property PACKAGE_PIN G23 [get_ports {c0_ddr4_dqs_c[1]}]
 set_property PACKAGE_PIN M20 [get_ports {c0_ddr4_dqs_t[0]}]
 set_property PACKAGE_PIN L20 [get_ports {c0_ddr4_dqs_c[0]}]
+
+
+####################################################################
+# PADFRAME FMC PERIPHERAL BOARD (SPI - I2C - UART - SDIO)
+####################################################################
+
+set_property -dict { PACKAGE_PIN AP12 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_00_pad] #SPI_CSN
+set_property -dict { PACKAGE_PIN AN16 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_01_pad] #SPI_SCK
+set_property -dict { PACKAGE_PIN AT14 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_02_pad] #SPI_MISO
+set_property -dict { PACKAGE_PIN AR12 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_03_pad] #SPI_MOSI
+
+set_property -dict { PACKAGE_PIN AK15 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_04_pad] #SI2C_CL
+set_property -dict { PACKAGE_PIN AL15 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_05_pad] #I2C_SDA
+
+set_property -dict { PACKAGE_PIN BD13 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_06_pad] #UART_TX
+set_property -dict { PACKAGE_PIN BE13 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_07_pad] #UART_RX
+
+set_property -dict { PACKAGE_PIN AU11 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_08_pad] #SDIO_D0
+set_property -dict { PACKAGE_PIN AV11 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_09_pad] #SDIO_D1
+set_property -dict { PACKAGE_PIN AT12 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_10_pad] #SDIO_D2
+set_property -dict { PACKAGE_PIN AU12 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_11_pad] #SDIO_D3
+set_property -dict { PACKAGE_PIN AW13 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_12_pad] #SDIO_CLK
+set_property -dict { PACKAGE_PIN AY13 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_13_pad] #SDIO_CMD
+
+
+
+
 
