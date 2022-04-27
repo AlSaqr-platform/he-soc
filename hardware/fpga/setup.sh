@@ -4,6 +4,7 @@ export VIVADO_HOME=/opt/xilinx/Vivado/2018.2
 source $VIVADO_HOME/settings64.sh
 export PROJECT_HOME=$(pwd)/alsaqr
 
+export VIVADO_VERSION=vitis-2020.2
 #VIVADO SETTINGS
 #Settings are board specific. Check FPGA board datasheet to add new target
 # either "vcu118" or "zcu102"

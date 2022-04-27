@@ -746,7 +746,11 @@ module cva6_subsystem
 `else
     .InclUART     ( 1'b0                     ),
 `endif
+`ifdef TARGET_FPGA  
+    .InclSPI      ( 1'b1                     ),
+`else
     .InclSPI      ( 1'b0                     ),
+`endif
     .InclEthernet ( 1'b0                     )
   ) i_ariane_peripherals (
     .clk_i           ( clk_i                        ),
@@ -772,11 +776,7 @@ module cva6_subsystem
     .phy_mdio        ( ),
     .eth_mdc         ( ),
     .mdio            ( ),
-    .mdc             ( ),
-    .spi_clk_o       ( ),
-    .spi_mosi        ( ),
-    .spi_miso        ( ),
-    .spi_ss          ( )
+    .mdc             ( )
   );
 
 

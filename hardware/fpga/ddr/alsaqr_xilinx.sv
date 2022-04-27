@@ -141,7 +141,6 @@ module alsaqr_xilinx
   wire                      c0_ddr4_app_rd_data_valid;
   wire                      c0_ddr4_app_rdy;
   wire                      c0_ddr4_app_wdf_rdy;
-  wire                      c0_ddr4_clk;
   wire                      c0_ddr4_rst;
   wire                      dbg_clk;
   wire                      c0_wr_rd_complete;

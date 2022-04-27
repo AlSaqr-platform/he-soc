@@ -7,6 +7,7 @@ set_property top alsaqr_xilinx [current_fileset]
 read_ip ./alsaqr/tcl/ips/boot_rom/ip/xilinx_rom_bank_1024x64.xci
 read_ip ./alsaqr/tcl/ips/clk_mngr/ip/xilinx_clk_mngr.xci
 read_ip ./alsaqr/tcl/ips/ddr/ip/ddr4_0.xci
+read_ip ./alsaqr/tcl/ips/qspi/ip/xilinx_qspi.xci
 add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_$::env(BOARD).xdc"
 update_compile_order -fileset sources_1
 auto_detect_xpm
