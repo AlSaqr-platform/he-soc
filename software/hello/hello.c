@@ -1,8 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
+//#include "val_base.c"
+//#include "val_interface.c"
+
+
 
 int main(int argc, char const *argv[]) {
+
+  // val_base_execute_tests();
 
   ////////////////////// uart and intr setup //////////////////////
   
@@ -48,15 +54,16 @@ int main(int argc, char const *argv[]) {
   if( a == 0xBAADC0DE && b == 0xBAADC0DE && c == 0xBAADC0DE && d == 0xBAADC0DE && e == 0xBAADC0DE){
      pulp_write32(0x50000020, 0x00000001); // ring doorbell 
      while(pulp_read32(PLIC_CHECK)!=mbox_id) 
-       asm volatile ("wfi");
+       asm volatile ("wfi"); // the handler just returns here + 4
   }
   else{
      printf("Test failed!\n");
      uart_wait_tx_done();
      return 0;
   }
-
+  
   // start of """Interrupt Service Routine"""
+  // this code should be into an IRQ Handler
   
   pulp_write32(0x50000024, 0x00000000);
   pulp_write32(PLIC_CHECK, mbox_id);
