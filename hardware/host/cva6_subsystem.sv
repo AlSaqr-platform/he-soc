@@ -71,9 +71,7 @@ module cva6_subsystem
   input  logic            cva6_uart_rx_i,
   output logic            cva6_uart_tx_o,
   input  logic [127:0]    key_i, 
-  // TLB BUSes start here
-  AXI_BUS.Master          tlb_cfg_master,
-  // TLB BUSes end here 
+  AXI_BUS.Master          axi2lite_master,
   AXI_BUS.Master          l2_axi_master,
   AXI_BUS.Master          apb_axi_master,
   AXI_BUS.Master          hyper_axi_master,
@@ -167,7 +165,6 @@ module cva6_subsystem
     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
   ) cluster_axi_master_cut();
 
-   
   assign ndmreset_n = sync_rst_ni;
    
   // ---------------
@@ -293,7 +290,6 @@ module cva6_subsystem
     .dmi_resp_ready_i     ( debug_resp_ready            ),
     .dmi_resp_o           ( debug_resp                  )
   );
-
 
   axi2mem #(
     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
@@ -434,9 +430,7 @@ module cva6_subsystem
   `else // !`ifdef L3_TCSRAM
     `AXI_ASSIGN(hyper_axi_master,hyper_axi_master_redirect);
   `endif
-   
-                       
-                 
+         
   axi_riscv_atomics_wrap #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -562,9 +556,9 @@ module cva6_subsystem
     end_addr:   ariane_soc::HYAXIBase     + ariane_soc::HYAXILength  
   }; 
   assign addr_map[ariane_soc::TLB_CFG] = '{ 
-    idx:  ariane_soc::TLB_CFG,
+    idx       : ariane_soc::TLB_CFG,
     start_addr: ariane_soc::TLB_CFGBase,
-    end_addr:   ariane_soc::TLB_CFGBase     + ariane_soc::TLB_CFGLength  
+    end_addr  : ariane_soc::TLB_CFGBase + ariane_soc::TLB_CFGLength  
   }; 
 
   axi_xbar_intf #(
@@ -582,20 +576,11 @@ module cva6_subsystem
     .default_mst_port_i     ('0)
   );
 
-  /************************************************************************************************************/
-  /*                                         AXI INTF FOR TLBs: START                                         */
-  /************************************************************************************************************/ 
-
   // --------------------
   // AXI TLB Slave (CFG)
   // --------------------
-  `AXI_ASSIGN(tlb_cfg_master, master[ariane_soc::TLB_CFG])
-
-
-  /***********************************************************************************************************/
-  /*                                         AXI INTF FOR TLBs: STOP                                         */
-  /***********************************************************************************************************/ 
-   
+  `AXI_ASSIGN(axi2lite_master, master[ariane_soc::TLB_CFG])
+  
   // ---------------
   // CLINT
   // ---------------
@@ -747,11 +732,7 @@ module cva6_subsystem
 `else
     .InclUART     ( 1'b0                     ),
 `endif
-`ifdef TARGET_FPGA  
-    .InclSPI      ( 1'b1                     ),
-`else
     .InclSPI      ( 1'b0                     ),
-`endif
     .InclEthernet ( 1'b0                     )
   ) i_ariane_peripherals (
     .clk_i           ( clk_i                        ),
@@ -777,7 +758,11 @@ module cva6_subsystem
     .phy_mdio        ( ),
     .eth_mdc         ( ),
     .mdio            ( ),
-    .mdc             ( )
+    .mdc             ( ),
+    .spi_clk_o       ( ),
+    .spi_mosi        ( ),
+    .spi_miso        ( ),
+    .spi_ss          ( )
   );
 
 
