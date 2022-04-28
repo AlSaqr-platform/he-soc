@@ -5,9 +5,13 @@ export PATH=/usr/scratch/lagrev5/lvalente/riscv_install/bin:$PATH
 
 export RISCV=/usr/scratch/lagrev5/lvalente/riscv_install
 
+export ROOT_DIR=$(pwd)
+
 export SW_HOME=$(pwd)/software
 
 export HW_HOME=$(pwd)/hardware
+
+export TOOLCHAIN=GCC
 
 echo "exporting QUESTASIM PATH"
 
@@ -24,4 +28,3 @@ export PATH=/usr/pack/riscv-1.0-kgf/pulp-gcc-2.5.0-rc1/bin:$PATH
 echo "cloning submodules"
 
 git submodule update --init --recursive
-
