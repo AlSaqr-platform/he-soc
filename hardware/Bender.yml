@@ -79,6 +79,7 @@ sources:
   - host/cva6_subsystem.sv
   - host/l2_subsystem.sv
   - host/clk_gen_hyper.sv
+  - host/axi_lite_subsystem.sv
   - host/host_domain.sv
   - host/khalifa_dcdc.sv
   - host/pad_frame.sv

@@ -39,6 +39,8 @@ set_max_delay -datapath_only -from [get_pins i_alsaqr/i_host_domain/i_cva_subsys
 # reset signal
 set_false_path -from [get_ports pad_reset]
 
+set_false_path -hold -through [get_pins -hierarchical  *u_sync_clkb/serial_o ]
+
 # Set ASYNC_REG attribute for ff synchronizers to place them closer together and
 # increase MTBF
 #set_property ASYNC_REG true [get_cells i_pulp/soc_domain_i/pulp_soc_i/soc_peripherals_i/apb_adv_timer_i/u_tim0/u_in_stage/r_ls_clk_sync_reg*]
@@ -108,6 +110,11 @@ set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets i_alsaqr/i_host_domain/i_apb_
 #
 
 # SPI-STARTUPE3 Ultrascale+
+# Following are the SPI device parameters
+set tco_max 7
+set tco_min 1
+set tsu 2
+set th 3
 set tdata_trace_delay_max 0.25
 set tdata_trace_delay_min 0.25
 set tclk_trace_delay_max 0.2
@@ -117,8 +124,8 @@ set_input_delay -clock clk_sck -max [expr $tco_max + $tdata_trace_delay_max + $t
 set_input_delay -clock clk_sck -min [expr $tco_min + $tdata_trace_delay_min + $tclk_trace_delay_min] [get_pins -hierarchical *STARTUP*/DATA_IN[*]] -clock_fall;
 set_multicycle_path 2 -setup -from clk_sck -to [get_clocks -of_objects [get_pins -hierarchical */ext_spi_clk]]
 set_multicycle_path 1 -hold -end -from clk_sck -to [get_clocks -of_objects [get_pins -hierarchical */ext_spi_clk]]
-set_output_delay -clock clk_sck -max [expr $tsu + $tdata_trace_delay_max - $tclk_trace_delay_min] [get_pins -hierarchical *STARTUP*/DATA_OUT[*]];
-set_output_delay -clock clk_sck -min [expr $tdata_trace_delay_min -$th - $tclk_trace_delay_max] [get_pins -hierarchical *STARTUP*/DATA_OUT[*]];
+set_output_delay -clock clk_sck -max [expr $tsu + $tdata_trace_delay_max -$tclk_trace_delay_min] [get_pins -hierarchical *STARTUP*/DATA_OUT[*]];
+set_output_delay -clock clk_sck -min [expr $tdata_trace_delay_min -$th -$tclk_trace_delay_max] [get_pins -hierarchical *STARTUP*/DATA_OUT[*]];
 set_multicycle_path 2 -setup -start -from [get_clocks -of_objects [get_pins -hierarchical */ext_spi_clk]] -to clk_sck
 set_multicycle_path 1 -hold -from [get_clocks -of_objects [get_pins -hierarchical */ext_spi_clk]] -to clk_sck
 set_max_delay -datapath_only -from [get_pins -hier {*STARTUP*_inst/DI[*]}] 1.000

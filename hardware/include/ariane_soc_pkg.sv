@@ -40,7 +40,7 @@ package ariane_soc;
   typedef enum int unsigned {
     HYAXI       = 13,
     SERIAL_LINK = 12,
-    TLB_CFG     = 11, 
+    AXILiteDom  = 11, 
     UART        = 10,
     Ethernet    = 9,
     SPI         = 8,
@@ -64,7 +64,7 @@ package ariane_soc;
   localparam logic[63:0] DebugLength    = 64'h1000;
   localparam logic[63:0] ROMLength      = 64'h10000;
   localparam logic[63:0] UARTLength     = 64'h1000;
-  localparam logic[63:0] TLB_CFGLength  = 64'h0000_0000_0000_FFFF;
+  localparam logic[63:0] AXILiteLength  = 64'h100000; // Same on cluster side
   localparam logic[63:0] SerLinkLength  = 64'h1000; // to check
   localparam logic[63:0] CLINTLength    = 64'hC0000;
   localparam logic[63:0] PLICLength     = 64'h3FF_FFFF;
@@ -85,7 +85,7 @@ package ariane_soc;
     CLINTBase    = 64'h0200_0000,
     PLICBase     = 64'h0C00_0000,
     ClusterBase  = 64'h1000_0000,
-    TLB_CFGBase  = 64'h1040_0000,                             
+    AXILiteBase  = 64'h1040_0000,                             
     APB_SLVSBase = 64'h1A10_0000,
     L2SPMBase    = 64'h1C00_0000,
     TimerBase    = 64'h1800_0000,

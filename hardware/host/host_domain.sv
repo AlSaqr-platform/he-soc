@@ -90,8 +90,10 @@ module host_domain
   // SoC to cluster AXI
   AXI_BUS.Master              cluster_axi_master,
   AXI_BUS.Slave               cluster_axi_slave,
+  AXI_BUS.Slave               cluster_lite_slave,
   // TLB Config
-  AXI_LITE.Master             tlb_cfg_lite_master,
+  AXI_LITE.Master             h2c_tlb_cfg_lite_master,
+  AXI_LITE.Master             c2h_tlb_cfg_lite_master,
   // SPIM
   output                      qspi_to_pad_t [N_SPI-1:0] qspi_to_pad,
   input                       pad_to_qspi_t [N_SPI-1:0] pad_to_qspi,
@@ -201,16 +203,9 @@ module host_domain
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
      .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-   ) tlb_cfg_data64 ();
+   ) host_lite_bus ();
    
-   AXI_BUS #(
-     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-     .AXI_DATA_WIDTH ( AXI_LITE_DW              ),
-     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-   ) tlb_cfg_data32 ();
-   
-   
+
    XBAR_TCDM_BUS axi_bridge_2_interconnect[AXI64_2_TCDM32_N_PORTS]();
    XBAR_TCDM_BUS udma_2_tcdm_channels[NB_UDMA_TCDM_CHANNEL]();
   
@@ -236,7 +231,7 @@ module host_domain
         .StallRandomOutput ( 1'b1       ),
         .StallRandomInput  ( 1'b1       ),
         .JtagEnable        ( JtagEnable )
-   ) i_cva_subsystem (
+   ) i_cva6_subsystem (
         .clk_i(s_soc_clk),
         .rst_ni(s_synch_global_rst),
         .cva6_clk_i(s_clk_cva6),
@@ -276,46 +271,8 @@ module host_domain
 
         .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
         .cva6_uart_tx_o       ( cva6_uart_tx_o       ),
-        .tlb_cfg_master       ( tlb_cfg_data64       )
+        .axi_lite_master      ( host_lite_bus        )
     );
-
-  /*************************************************************************************************************/
-  /*                                AXI LITE XBAR FOR TLBs CONFIGURATION: START                                */
-  /*************************************************************************************************************/ 
-
-  axi_dw_converter_intf #(
-    .AXI_ID_WIDTH             ( ariane_soc::IdWidthSlave ),
-    .AXI_ADDR_WIDTH           ( AXI_ADDRESS_WIDTH        ),
-    .AXI_SLV_PORT_DATA_WIDTH  ( AXI_DATA_WIDTH           ),
-    .AXI_MST_PORT_DATA_WIDTH  ( AXI_LITE_DW              ),
-    .AXI_USER_WIDTH           ( AXI_USER_WIDTH           ),
-    .AXI_MAX_READS            ( 1                        )
-  ) i_dwc_tlb_cfg (
-    .clk_i        ( s_soc_clk           ),
-    .rst_ni       ( s_synch_soc_rst     ),
-    .slv          ( tlb_cfg_data64      ),
-    .mst          ( tlb_cfg_data32      )
-  );
-
-  axi_to_axi_lite_intf #(
-    .AXI_ADDR_WIDTH     ( AXI_ADDRESS_WIDTH        ),
-    .AXI_DATA_WIDTH     ( AXI_LITE_DW              ),
-    .AXI_ID_WIDTH       ( ariane_soc::IdWidthSlave ),
-    .AXI_USER_WIDTH     ( AXI_USER_WIDTH           ),
-    .AXI_MAX_WRITE_TXNS ( 1                        ),
-    .AXI_MAX_READ_TXNS  ( 1                        ),
-    .FALL_THROUGH       ( 1'b0                     )
-  ) i_axi_to_axi_lite_tlb_cfg (
-    .clk_i       ( s_soc_clk           ),
-    .rst_ni      ( s_synch_soc_rst     ),
-    .testmode_i  ( 1'b0                ),
-    .slv         ( tlb_cfg_data32      ),
-    .mst         ( tlb_cfg_lite_master )
-  );
-  
-  /************************************************************************************************************/
-  /*                                AXI LITE XBAR FOR TLBs CONFIGURATION: STOP                                */
-  /************************************************************************************************************/
    
    
    axi2tcdm_wrap #(
@@ -416,6 +373,19 @@ module host_domain
       );
 
 
-
+   axi_lite_subsystem #(
+       .AXI_USER_WIDTH      ( AXI_USER_WIDTH    ),
+       .AXI_ADDR_WIDTH      ( AXI_ADDRESS_WIDTH ),
+       .AXI_DATA_WIDTH      ( AXI_DATA_WIDTH    ),
+       .AXI_LITE_ADDR_WIDTH ( AXI_LITE_AW       ),
+       .AXI_LITE_DATA_WIDTH ( AXI_LITE_DW       ) 
+   ) i_axi_lite_subsystem (
+       .clk_i                  ( s_soc_clk               ),
+       .rst_ni                 ( rst_ni                  ),
+       .host_axi_lite_slave    ( host_lite_bus           ),
+       .cluster_axi_lite_slave ( cluster_lite_slave      ),
+       .c2h_tlb_cfg_master     ( c2h_tlb_cfg_lite_master ),
+       .h2c_tlb_cfg_master     ( h2c_tlb_cfg_lite_master )
+   );
                       
 endmodule
