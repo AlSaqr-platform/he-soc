@@ -119,13 +119,13 @@ module alsaqr_xilinx
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( 64        ),
      .AXI_DATA_WIDTH ( 64        ),
-     .AXI_ID_WIDTH   ( 7         ),
+     .AXI_ID_WIDTH   ( 8         ),
      .AXI_USER_WIDTH ( 1         )
              ) axi_ddr_bus_64();
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( 64        ),
      .AXI_DATA_WIDTH ( 64        ),
-     .AXI_ID_WIDTH   ( 7         ),
+     .AXI_ID_WIDTH   ( 8         ),
      .AXI_USER_WIDTH ( 1         )
              ) axi_ddr_sync();
 

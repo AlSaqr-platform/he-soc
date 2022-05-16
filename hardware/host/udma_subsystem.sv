@@ -916,8 +916,8 @@ module udma_subsystem
          assign s_rx_ch_destination[CH_ID_RX_HYPER+g_hyper] = 'h0;
          assign s_tx_ch_destination[CH_ID_TX_HYPER+g_hyper] = 'h0;
          
-         ariane_axi_soc::req_slv_t    axi_hyper_req;
-         ariane_axi_soc::resp_slv_t   axi_hyper_rsp;
+         ariane_axi_soc::req_slv_mem_t    axi_hyper_req;
+         ariane_axi_soc::resp_slv_mem_t   axi_hyper_rsp;
          `AXI_ASSIGN_TO_REQ(axi_hyper_req,hyper_axi_bus_slave)
          `AXI_ASSIGN_FROM_RESP(hyper_axi_bus_slave,axi_hyper_rsp)
          reg_req_t   reg_req;
@@ -933,16 +933,16 @@ module udma_subsystem
               .NumChips       ( ariane_soc::NumChipsPerHyperbus                          ),
               .AxiAddrWidth   ( 64                                                       ),
               .AxiDataWidth   ( 64                                                       ),
-              .AxiIdWidth     ( ariane_soc::IdWidthSlave                                 ),
+              .AxiIdWidth     ( ariane_soc::IdWidthSlave+1                               ),
               .AxiUserWidth   ( ariane_axi_soc::UserWidth                                ),
               .IsClockODelayed( 0                                                        ),
-              .axi_req_t      ( ariane_axi_soc::req_slv_t                                ),
-              .axi_rsp_t      ( ariane_axi_soc::resp_slv_t                               ),
+              .axi_req_t      ( ariane_axi_soc::req_slv_mem_t                            ),
+              .axi_rsp_t      ( ariane_axi_soc::resp_slv_mem_t                           ),
               .axi_w_chan_t   ( ariane_axi_soc::w_chan_t                                 ),
-              .axi_aw_chan_t  ( ariane_axi_soc::aw_chan_slv_t                            ),
-              .axi_b_chan_t   ( ariane_axi_soc::b_chan_slv_t                             ),
-              .axi_ar_chan_t  ( ariane_axi_soc::ar_chan_slv_t                            ),
-              .axi_r_chan_t   ( ariane_axi_soc::r_chan_slv_t                             ),
+              .axi_aw_chan_t  ( ariane_axi_soc::aw_chan_slv_mem_t                        ),
+              .axi_b_chan_t   ( ariane_axi_soc::b_chan_slv_mem_t                         ),
+              .axi_ar_chan_t  ( ariane_axi_soc::ar_chan_slv_mem_t                        ),
+              .axi_r_chan_t   ( ariane_axi_soc::r_chan_slv_mem_t                         ),
               .RegAddrWidth   ( RegAw                                                    ),
               .RegDataWidth   ( RegDw                                                    ),
               .reg_req_t      ( reg_req_t                                                ),

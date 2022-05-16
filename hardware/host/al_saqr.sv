@@ -792,13 +792,13 @@ module al_saqr
      `AXI_ASSIGN_FROM_RESP(tlb_to_cluster_axi_bus,fake_cluster_s_resp)
    
      axi_err_slv #(
-       .AxiIdWidth ( ariane_soc::IdWidth    ),
-       .req_t      ( ariane_axi::req_slv_t  ),
-       .resp_t     ( ariane_axi::resp_slv_t ),
-       .RespWidth  ( 32'd64                 ),
-       .RespData   ( 64'hdeadbeefdeadbeef   ),
-       .ATOPs      ( 1'b0                   ),
-       .MaxTrans   ( 1                      )
+       .AxiIdWidth ( ariane_soc::IdWidth        ),
+       .axi_req_t  ( ariane_axi_soc::req_slv_t  ),
+       .axi_resp_t ( ariane_axi_soc::resp_slv_t ),
+       .RespWidth  ( 32'd64                     ),
+       .RespData   ( 64'hdeadbeefdeadbeef       ),
+       .ATOPs      ( 1'b0                       ),
+       .MaxTrans   ( 1                          )
        ) clusternotimplemented (
          .clk_i      ( s_soc_clk           ),
          .rst_ni     ( s_soc_rst_n         ),
@@ -807,22 +807,7 @@ module al_saqr
          );
    `endif // !`ifndef EXCLUDE_CLUSTER
 
-  localparam int unsigned N_CLUSTERS = 1;
   localparam int unsigned ENTRIES = 32;
-
-  typedef logic [AXI_ADDRESS_WIDTH-1:0       ] addr_t;
-  typedef logic [AXI_DATA_WIDTH-1:0          ] data_t;
-  typedef logic [(AXI_DATA_WIDTH/8)-1:0      ] strb_t;
-  typedef logic [AXI_USER_WIDTH-1:0          ] id_usr_t;
-  typedef logic [ariane_soc::IdWidthSlave-1:0] id_slv_t;
-
-  `AXI_TYPEDEF_AW_CHAN_T ( aw_chan_t,  addr_t,    id_slv_t, id_usr_t  )
-  `AXI_TYPEDEF_W_CHAN_T  ( w_chan_t,   data_t,    strb_t,   id_usr_t  )
-  `AXI_TYPEDEF_B_CHAN_T  ( b_chan_t,   id_slv_t,  id_usr_t            )
-  `AXI_TYPEDEF_AR_CHAN_T ( ar_chan_t,  addr_t,    id_slv_t, id_usr_t  )
-  `AXI_TYPEDEF_R_CHAN_T  ( r_chan_t,   data_t,    id_slv_t, id_usr_t  )
-  `AXI_TYPEDEF_REQ_T     ( axi_req_t,  aw_chan_t, w_chan_t, ar_chan_t )
-  `AXI_TYPEDEF_RESP_T    ( axi_resp_t, b_chan_t,  r_chan_t            )
 
   axi_tlb_intf #(
     .AXI_SLV_PORT_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),

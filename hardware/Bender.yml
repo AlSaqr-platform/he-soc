@@ -30,11 +30,11 @@ dependencies:
   tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.7 }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", rev: "d436ab3dad8260eadc1288bdc543c79b4d7462c7" }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "0e9f142f2f11278445c953ad011fce1c7ed85b66" }
-  hyperbus: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "d729452c41fc337ce36790a3111aa75eed552d53" }
+  hyperbus: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "a811e4d3b65bf4e80b02a1a19e749f56e77443d0" }
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", version: 1.0.1 }
   register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
-  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "b516ac1b3c9b426c91b9dca5a0b3922b7338f698" }
+  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "916804e624c186994ec3976ed0651c255bb145e8" }
   ddr-link: { git: "git@github.com:AlSaqr-platform/ddr-link.git", rev: "bf77d024f7290d885601d54bf608f29be6982951"}
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", version: 0.0.1 }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
