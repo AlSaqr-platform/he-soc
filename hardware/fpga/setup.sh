@@ -1,7 +1,5 @@
 #!/bin/bash
 
-export VIVADO_HOME=/opt/xilinx/Vivado/2018.2
-source $VIVADO_HOME/settings64.sh
 export PROJECT_HOME=$(pwd)/alsaqr
 
 export VIVADO_VERSION=vitis-2020.2

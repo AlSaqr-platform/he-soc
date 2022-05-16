@@ -1060,7 +1060,7 @@ module ariane_tb;
             @(posedge rtc_i);
         @(negedge rtc_i);       
         rst_ni = 1'b1;
-        repeat(20)
+        repeat(8)
             @(posedge rtc_i);
         rst_DTM = 1'b1;
         jtag_mst.trst_n = 1'b1;       
@@ -1123,7 +1123,7 @@ module ariane_tb;
               $display("Testing cluster: %s", cluster_binary);
          end 
          
-        repeat(50)
+        repeat(20)
             @(posedge rtc_i);
            debug_module_init();
            if(!PRELOAD_HYPERRAM) begin

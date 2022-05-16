@@ -33,7 +33,6 @@ dependencies:
   hyperbus: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "d729452c41fc337ce36790a3111aa75eed552d53" }
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", version: 1.0.0 }
   register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
-  fll_behav: { git: "git@git.eees.dei.unibo.it:alsaqr-synthesis/fll_behav.git", version: 0.0.0 }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "b516ac1b3c9b426c91b9dca5a0b3922b7338f698" }
   ddr-link: { git: "git@github.com:AlSaqr-platform/ddr-link.git", rev: "bf77d024f7290d885601d54bf608f29be6982951"}
@@ -70,6 +69,7 @@ sources:
   - ../fpga/src/apb_timer/timer.sv
   - host/periph_bus_wrap.sv
   - host/freqmeter.sv
+  - host/fll_dummy.sv
   - host/alsaqr_clk_rst_gen.sv
   - host/apb_soc_control.sv
   - host/apb_subsystem.sv
