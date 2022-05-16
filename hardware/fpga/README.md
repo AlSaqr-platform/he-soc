@@ -17,26 +17,10 @@ cd fpga
 
 source setup.sh
 ```
-Select VCU118. The ZCU102 is already too small to fit ariane and the cluster. We will provide support for the ZCU102 as well in the future, with a reduced cluster.
+Select VCU118. The ZCU102 is already too small to fit ariane and the cluster. We will provide support for the ZCU102 as well in the future, with a reduced version of the cluster.
 
 ```
-cd alsaqr/tcl/ips/boot_rom/
-
-make clean all
-
-cd ../../../../
-
-cd alsaqr/tcl/ips/clk_mngr/
-
-make clean all
-
-cd ../../../../
-
-cd alsaqr/tcl/ips/ddr/
-
-cd ../../../../
-
-make clean run
+make ips
 ```
 
 ## Running code 
