@@ -70,7 +70,6 @@ module cva6_subsystem
   // CVA6 DEBUG UART
   input  logic            cva6_uart_rx_i,
   output logic            cva6_uart_tx_o,
-  input  logic [127:0]    key_i, 
 
   AXI_BUS.Master          axi_lite_master,
   AXI_BUS.Master          l2_axi_master,
@@ -399,7 +398,6 @@ module cva6_subsystem
   ) i_axi_riscv_atomicsl2 (
     .clk_i,
     .rst_ni ( ndmreset_n                ),
-    .key_i  ( key_i                     ),
     .slv    ( master[ariane_soc::L2SPM] ),
     .mst    ( l2_axi_master             )
   );
@@ -458,7 +456,6 @@ module cva6_subsystem
   ) i_axi_riscv_atomicsl3 (
     .clk_i,
     .rst_ni ( ndmreset_n                ),
-    .key_i  ( key_i                     ),
     .slv    ( master[ariane_soc::HYAXI] ),
     .mst    ( hyper_axi_master_cut      )
   );

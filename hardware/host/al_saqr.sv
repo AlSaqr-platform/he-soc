@@ -206,22 +206,8 @@ module al_saqr
   inout wire          jtag_TDI,
   inout wire          jtag_TRSTn,
   inout wire          jtag_TDO_data,
-  inout wire          jtag_TDO_driven,
+  inout wire          jtag_TDO_driven
    
-  inout wire          pad_gwt_ana0,
-  inout wire          pad_gwt_ana1,
-
-  inout wire          pad_ku_dcdc_vdd,
-  inout wire          pad_ku_dcdc_vref,
-  inout wire          pad_ku_dcdc_vout,
-
-  inout wire          pad_ku_dcdc_control_1,
-  inout wire          pad_ku_dcdc_control_2,
-  inout wire          pad_ku_dcdc_clk_ext  ,
-  inout wire          pad_ku_dcdc_sel_clk  ,
-  inout wire          pad_ku_dcdc_SM_ext   ,
-  inout wire          pad_ku_dcdc_sel_SM   ,
-  inout wire          pad_ku_dcdc_PFM_out  
 );
   // AXILITE parameters
   localparam int unsigned AXI_LITE_AW       = 32;
@@ -245,14 +231,6 @@ module al_saqr
   logic s_soc_rst_n; 
   logic s_cluster_clk  ;
   logic s_cluster_rst_n;
-
-  wire         s_gwt_b_0;
-  wire         s_gwt_r250_0;
-  wire         s_gwt_b_1;
-  wire         s_gwt_r250_1;
-  logic [31:0] s_gwt_cfg_o;   
-  logic [31:0] s_gwt_cfg_i; 
-  logic        s_gwt_cfg_ie;
 
   AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
@@ -336,8 +314,6 @@ module al_saqr
     .AXI_ADDR_WIDTH (AXI_ADDRESS_WIDTH),
     .AXI_DATA_WIDTH (AXI_LITE_DW)
   ) c2h_tlb_cfg();
-
-  logic [127:0]  s_key_1;
    
   logic s_cva6_uart_rx_i;
   logic s_cva6_uart_tx_o;
@@ -407,10 +383,6 @@ module al_saqr
       .rst_ni(s_rst_ni),
       .rtc_i(s_rtc_i),
       .bypass_clk_i(s_bypass_clk),
-      .gwt_cfg_o(s_gwt_cfg_i),
-      .gwt_cfg_i(s_gwt_cfg_o),
-      .gwt_cfg_ie(s_gwt_cfg_oe),
-      .key_1(s_key_1),
 `ifndef TARGET_SYNTHESIS
       .dmi_req_valid,
       .dmi_req_ready,
@@ -518,26 +490,8 @@ module al_saqr
       .pad_jtag_tms     ( jtag_TMS         ),
       .pad_jtag_trst    ( jtag_TRSTn       ),
       .pad_bypass       ( bypass_clk_i     ),
-      .pad_xtal_in      ( rtc_i            ),
+      .pad_xtal_in      ( rtc_i            )
 
-      .gwt_b_0          ( s_gwt_b_0        ),
-      .gwt_r250_0       ( s_gwt_r250_0     ),
-      .pad_gwt_ana0     ( pad_gwt_ana0     ),
-      .gwt_b_1          ( s_gwt_b_1        ),
-      .gwt_r250_1       ( s_gwt_r250_1     ),
-      .pad_gwt_ana1     ( pad_gwt_ana1     ),
-
-      .pad_ku_dcdc_vdd       ( pad_ku_dcdc_vdd       ),     
-      .pad_ku_dcdc_vref      ( pad_ku_dcdc_vref      ),    
-      .pad_ku_dcdc_vout      ( pad_ku_dcdc_vout      ),    
-                                                     
-      .pad_ku_dcdc_control_1 ( pad_ku_dcdc_control_1 ),
-      .pad_ku_dcdc_control_2 ( pad_ku_dcdc_control_2 ),
-      .pad_ku_dcdc_clk_ext   ( pad_ku_dcdc_clk_ext   ),
-      .pad_ku_dcdc_sel_clk   ( pad_ku_dcdc_sel_clk   ),
-      .pad_ku_dcdc_SM_ext    ( pad_ku_dcdc_SM_ext    ),
-      .pad_ku_dcdc_sel_SM    ( pad_ku_dcdc_sel_SM    ),
-      .pad_ku_dcdc_PFM_out   ( pad_ku_dcdc_PFM_out   )
      );
 
   `ifndef EXCLUDE_CLUSTER   
@@ -1106,16 +1060,5 @@ module al_saqr
 
   `endif   
 
-   `ifndef TARGET_FPGA
-   gwt_test i_gwt_test (
-         .gwt_b_0(s_gwt_b_0),
-         .gwt_r250_0(s_gwt_r250_0),
-         .gwt_b_1(s_gwt_b_1),
-         .gwt_r250_1(s_gwt_r250_1),
-         .cfg_i(s_gwt_cfg_i),
-         .cfg_o(s_gwt_cfg_o),
-         .cfg_oe(s_gwt_cfg_oe)
-         );
-   `endif
    
 endmodule

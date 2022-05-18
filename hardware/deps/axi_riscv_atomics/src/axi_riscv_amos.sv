@@ -37,7 +37,6 @@ module axi_riscv_amos #(
 ) (
     input  logic                        clk_i,
     input  logic                        rst_ni,
-    input  logic [127:0]                key_i,
     /// Slave Interface
     input  logic [AXI_ADDR_WIDTH-1:0]   slv_aw_addr_i,
     input  logic [2:0]                  slv_aw_prot_i,

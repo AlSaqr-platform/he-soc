@@ -38,51 +38,5 @@
             },
           ]
       }
-      { multireg:
-          { name: LOGIC_LOCKING_KEY_0
-            desc: '''First logic locking key'''
-            count: "4"
-            swaccess: "rw"
-            hwaccess: "hro"
-            cname: "LOGIC_LOCKING_KEY_0"
-            fields: [
-                { bits: "31:0"
-                }
-            ]
-          }
-      } 
-      { multireg:
-          { name: LOGIC_LOCKING_KEY_1
-            desc: '''Second logic locking key'''
-            count: "4"
-            swaccess: "rw"
-            hwaccess: "hro"
-            cname: "LOGIC_LOCKING_KEY_1"
-            fields: [
-                { bits: "31:0"
-                }
-            ]
-          }
-      } 
-      {   name: GWT_WRITE
-          desc: '''GWT software write reg'''
-          swaccess: "rw"
-          hwaccess: "hro"
-          fields: [
-            {
-                bits: "31:0"
-            }
-          ]
-      }
-      {   name: GWT_READ
-          desc: '''GWT software read reg'''
-          swaccess: "ro"
-          hwaccess: "hwo"
-          fields: [
-            {
-                bits: "31:0"
-            }
-          ]
-      }
   ]
 }

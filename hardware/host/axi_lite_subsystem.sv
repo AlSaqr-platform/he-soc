@@ -192,7 +192,7 @@ module axi_lite_subsystem
      .mst_ports_resp_i      ( {llc_cfg_resp, c2h_tlb_cfg_resp,  h2c_tlb_cfg_resp} ),
      .addr_map_i            ( FromHostTlbCfgXbarAddrMap                           ),
      .en_default_mst_port_i ( {1'b0, 1'b0}                                        ),
-     .default_mst_port_i    ( {1'b0, 1'b0}                                        )
+     .default_mst_port_i    ( {2'b0, 2'b0}                                        )
    );   
 
   initial assert (AXI_LITE_ADDR_WIDTH == 32)
