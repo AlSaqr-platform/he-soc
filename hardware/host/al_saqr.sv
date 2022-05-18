@@ -565,7 +565,7 @@ module al_saqr
      ) soc_to_cluster_src_cdc_fifo_i 
        (
        .src_clk_i  ( s_soc_clk                         ),
-       .src_rst_ni ( s_soc_rst_n                       ),
+       .src_rst_ni ( s_cluster_rst_n                   ),
        .src        ( serialized_soc_to_cluster_axi_bus ),
        .dst        ( async_soc_to_cluster_axi_bus      )
        );
@@ -578,7 +578,7 @@ module al_saqr
      .LOG_DEPTH      ( 3                        )
      ) cluster_to_soc_dst_cdc_fifo_i (
        .dst_clk_i  ( s_soc_clk                    ),
-       .dst_rst_ni ( s_soc_rst_n                  ),
+       .dst_rst_ni ( s_cluster_rst_n              ),
        .src        ( async_cluster_to_soc_axi_bus ),
        .dst        ( cluster_to_tlb_axi_bus       )
        );
@@ -591,7 +591,7 @@ module al_saqr
      .LOG_DEPTH           ( 3                      )
      ) cfg_dst_cdc_fifo_i (                        
        .dst_clk_i         ( s_soc_clk                ),
-       .dst_rst_ni        ( s_soc_rst_n              ),
+       .dst_rst_ni        ( s_cluster_rst_n          ),
        .src               ( async_cfg_axi_bus        ),
        .dst               ( cluster_cfg_axi_lite_bus )
        );
