@@ -18,6 +18,7 @@ int launch_cluster() {
   pulp_write32(0x1A106000,0x0);
   pulp_write32(0x1A106000,0x1);
 
+  // Enable cluster's instruction cache
   pulp_write32(0x10201400,0xffffffff);
 
   // change ris5y boot addresses
@@ -29,6 +30,7 @@ int launch_cluster() {
   pulp_write32(0x1A106000,0x3);
   pulp_write32(0x1A106000,0x7);
 
+  // Cluster control unit registers, fetch enable
   pulp_write32(0x10200008,0xff);
 
   while( ((pulp_read32(0x10001000))<<31)!=0x80000000 );
