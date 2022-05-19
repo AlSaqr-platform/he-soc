@@ -20,7 +20,8 @@
 `include "cluster_bus_defines.sv"
 `include "pulp_soc_defines.sv"
 
-module al_saqr 
+module al_saqr
+  import jtag_pkg::*;
   import axi_pkg::xbar_cfg_t;
   import apb_soc_pkg::NUM_GPIO;
   import udma_subsystem_pkg::*;
@@ -46,9 +47,9 @@ module al_saqr
   inout logic         rtc_i,
   inout logic         rst_ni,
   inout logic         bypass_clk_i, 
-
-`ifdef XILINX_DDR
-  AXI_BUS.Master      axi_ddr_master,
+                      
+                      `ifdef XILINX_DDR
+                      AXI_BUS.Master axi_ddr_master,
 `endif
 
   // HYPERBUS
@@ -210,8 +211,12 @@ module al_saqr
   inout wire          jtag_TDI,
   inout wire          jtag_TRSTn,
   inout wire          jtag_TDO_data,
-  inout wire          jtag_TDO_driven
-   
+  inout wire          jtag_TDO_driven,
+ // Opentitan Jtag
+  input               jtag_pkg::jtag_req_t jtag_ibex_i,
+  output              jtag_pkg::jtag_rsp_t jtag_ibex_o
+  
+
 );
   // AXILITE parameters
   localparam int unsigned AXI_LITE_AW       = 32;
@@ -235,7 +240,6 @@ module al_saqr
   logic s_soc_rst_n; 
   logic s_cluster_clk  ;
   logic s_cluster_rst_n;
-
   logic s_h2c_mailbox_irq;
    
   AXI_BUS #(
@@ -789,14 +793,17 @@ module al_saqr
     .cio_spi_host1_sd_p2d   (tieoff_data),
  
     .scan_rst_ni (s_rst_ni),
-    .scan_en_i   (1'b1),
-    .scanmode_i (4'b1010),
+    .scan_en_i   (1'b0),
+    .scanmode_i (lc_ctrl_pkg::Off),
     .ast_clk_byp_ack_i(4'b0101), 
 
     .ast_edn_req_i ('0),
     
     .test_reset(fake_rst),
-
+           
+    .jtag_i(jtag_ibex_i),
+    .jtag_o(jtag_ibex_o),
+           
     .axi_req(ot_axi_req),
     .axi_rsp(ot_axi_rsp),
     .irq_ibex_i(irq_ibex)

@@ -17,6 +17,7 @@
 `timescale 1ps/1ps
 
 import ariane_pkg::*;
+import jtag_pkg::*;
 import uvm_pkg::*;
 import ariane_soc::HyperbusNumPhys;
 import ariane_soc::NumChipsPerHyperbus;
@@ -51,8 +52,12 @@ module ariane_tb;
     logic s_rtc_i;
     logic s_bypass;
     logic rst_DTM;
+
     localparam NumPhys = ariane_soc::HyperbusNumPhys;
-    localparam NumChips = ariane_soc::NumChipsPerHyperbus;   
+    localparam NumChips = ariane_soc::NumChipsPerHyperbus; 
+
+    jtag_pkg::jtag_req_t jtag_ibex_i;
+    jtag_pkg::jtag_rsp_t jtag_ibex_o;
    
     localparam ENABLE_DM_TESTS = 0;
    
@@ -101,12 +106,18 @@ module ariane_tb;
     logic [31:0]  retval = 32'h0;  // Store return value
     localparam logic [31:0] dm_idcode  = (dm::DbgVersion013 << 28) | (PartNumber << 12) | 32'b1; 
     localparam AxiWideBeWidth    = ariane_axi_soc::DataWidth / 8;
+    localparam AxiWideBeWidth_ib = 4;
     localparam AxiWideByteOffset = $clog2(AxiWideBeWidth);
+    localparam AxiWideByteOffset_ib = $clog2(AxiWideBeWidth_ib);
     typedef logic [ariane_axi_soc::AddrWidth-1:0] addr_t;
     typedef logic [ariane_axi_soc::DataWidth-1:0] data_t;   
-    data_t memory [bit [31:0]];
-    int sections  [bit [31:0]];
+
+    data_t memory[bit [31:0]];
+    int sections [bit [31:0]];
    
+    logic [31:0] ibex_memory [bit [31:0]];
+    int   ibex_sections [bit [31:0]];
+    
     wire                  s_dmi_req_valid;
     wire                  s_dmi_req_ready;
     wire [ 6:0]           s_dmi_req_bits_addr;
@@ -132,6 +143,12 @@ module ariane_tb;
     logic                 s_tdi         ;
     logic                 s_trstn       ;
     logic                 s_tdo         ;
+
+    
+    logic                 s_ibex_tms         ;
+    logic                 s_ibex_tdi         ;
+    logic                 s_ibex_trstn       ;
+    logic                 s_ibex_tdo         ;
 
     wire                  s_jtag2alsaqr_tck       ;
     wire                  s_jtag2alsaqr_tms       ;
@@ -304,6 +321,7 @@ module ariane_tb;
     logic [31:0] exit_o;
 
     string        binary ;
+    string        ibex_binary;
     string        cluster_binary;
   
   assign pad_periphs_pad_gpio_b_37_pad = pad_periphs_pad_gpio_b_05_pad;
@@ -387,6 +405,8 @@ module ariane_tb;
         .dmi_resp_bits_resp   ( s_dmi_resp_bits_resp   ),
         .dmi_resp_bits_data   ( s_dmi_resp_bits_data   ),
         `endif
+        .jtag_ibex_i,
+        .jtag_ibex_o,                      
         .jtag_TCK             ( s_jtag2alsaqr_tck      ),
         .jtag_TMS             ( s_jtag2alsaqr_tms      ),
         .jtag_TDI             ( s_jtag2alsaqr_tdi      ),
@@ -1045,7 +1065,7 @@ module ariane_tb;
       .JtagSampleDelay(JtagSampleDelay   )
     ) riscv_dbg_t;
   
-    // JTAG driver
+    // JTAG driver Ariane
     JTAG_DV jtag_mst (s_tck);
     riscv_dbg_t::jtag_driver_t jtag_driver = new(jtag_mst);
     riscv_dbg_t riscv_dbg = new(jtag_driver);
@@ -1055,20 +1075,42 @@ module ariane_tb;
     assign s_tdi        = jtag_mst.tdi;
     assign jtag_mst.tdo = s_tdo;
 
+    // JTAG driver Ibex
+    JTAG_DV jtag_ibex_mst (s_tck);
+    riscv_dbg_t::jtag_driver_t jtag_ibex_driver = new(jtag_ibex_mst);
+    riscv_dbg_t riscv_ibex_dbg = new(jtag_ibex_driver);
+
+    assign jtag_ibex_i.tck    = s_tck;
+ 
+    assign jtag_ibex_i.trst_n = jtag_ibex_mst.trst_n;
+    assign jtag_ibex_i.tms    = jtag_ibex_mst.tms;
+    assign jtag_ibex_i.tdi    = jtag_ibex_mst.tdi;
+    assign jtag_ibex_mst.tdo  = jtag_ibex_o.tdo;
+
     // Clock process
     initial begin
-        rst_ni = 1'b0;
+        rst_ni  = 1'b0;
         rst_DTM = 1'b0;
-        jtag_mst.trst_n = 1'b0;
+       
+        jtag_mst.trst_n      = 1'b0;
+
+        jtag_ibex_mst.trst_n = 1'b0;
+        jtag_ibex_mst.tdi    = 1'b0;
+        jtag_ibex_mst.tms    = 1'b0;
        
         repeat(2)
             @(posedge rtc_i);
         @(negedge rtc_i);       
         rst_ni = 1'b1;
+       
         repeat(8)
+          
+        jtag_mst.trst_n      = 1'b1;   
+        jtag_ibex_mst.trst_n = 1'b1;
+        repeat(20)
+
             @(posedge rtc_i);
-        rst_DTM = 1'b1;
-        jtag_mst.trst_n = 1'b1;       
+        rst_DTM = 1'b1;    
         forever begin
             @(posedge clk_i);
             cycles++;
@@ -1090,7 +1132,7 @@ module ariane_tb;
       forever
         #(REFClockPeriod/2) s_tck=~s_tck;
    end
-      
+
     initial begin
         forever begin
 
@@ -1107,7 +1149,7 @@ module ariane_tb;
     end
 
 
-   initial  begin: local_jtag_preload
+   initial  begin: local_tag_preload
 
       logic [63:0] rdata;
       logic [32:0] addr;
@@ -1117,7 +1159,8 @@ module ariane_tb;
         sbreadondata   : 1'b1,
         default        : 1'b0
       };
-      
+
+      // Ariane jtag
       if(LOCAL_JTAG) begin
 
          if(!PRELOAD_HYPERRAM) begin
@@ -1129,6 +1172,8 @@ module ariane_tb;
          end 
          
         repeat(20)
+
+
             @(posedge rtc_i);
            debug_module_init();
            if(!PRELOAD_HYPERRAM) begin
@@ -1179,9 +1224,36 @@ module ariane_tb;
            end 
 
            #(REFClockPeriod);
+         
            jtag_ariane_wakeup(32'h80000000);
            jtag_read_eoc(32'h80000000);
          end 
+
+         
+      end // if (LOCAL_JTAG)
+
+      
+      //////////////////Ibex preload////////////////////
+
+      if ( $value$plusargs ("OT_STRING=%s", ibex_binary));
+        $display("Testing %s", ibex_binary);
+         
+      repeat(25)
+      @(posedge rtc_i);
+      
+      debug_ibex_module_init();
+      load_ibex_binary(ibex_binary);
+      
+      
+      // Call the JTAG preload task
+      jtag_ibex_data_preload();
+          
+      #(RTC_CLOCK_PERIOD)
+      jtag_ibex_wakeup(32'h 10000080);
+
+
+                 
+
    end
    
   task debug_module_init;
@@ -1416,6 +1488,197 @@ module ariane_tb;
      $finish;
      
   endtask // jtag_read_eoc
+   
+/////////////////////////////////////////////////////////////////
+                 //IBEX PROCESSES AND TASKS//
+////////////////////////////////////////////////////////////////
+  /* 
+   initial  begin : local_ibex_jtag_preload  
 
+      automatic dm::sbcs_t sbcs = '{
+        sbautoincrement: 1'b1,
+        sbreadondata   : 1'b1,
+        default        : 1'b0
+      };
+      
+      if ( $value$plusargs ("OT_STRING=%s", binary));
+         $display("Testing %s", ibex_binary);
+         
+      repeat(50)
+          @(posedge rtc_i);
+      
+      debug_ibex_module_init();
+      load_binary(binary);
+      
+      
+      // Call the JTAG preload task
+      jtag_ibex_data_preload();
+          
+      #(RTC_CLOCK_PERIOD)
+;
+      jtag_ibex_wakeup(32'h 10000080);
+      //jtag_read_eoc();
+      
+      
+   end // block: local_jtag_preload
+   */
+///////////////////////////// Tasks ///////////////////////////////
+
+   task debug_ibex_module_init;
+      
+     logic [31:0]  idcode;
+     automatic dm::sbcs_t sbcs;
+
+     $info(" JTAG Preloading start time");
+     riscv_ibex_dbg.wait_idle(300);
+
+     $info(" Start getting idcode of JTAG");
+     riscv_ibex_dbg.get_idcode(idcode);
+      
+     /*
+     // Check Idcode
+     assert (idcode == dm_idcode)
+     else $error(" Wrong IDCode, expected: %h, actual: %h", dm_idcode, idcode);
+     */
+      
+     $display(" IDCode = %h", idcode);
+
+     $info(" Activating Debug Module");
+     // Activate Debug Module
+     riscv_ibex_dbg.write_dmi(dm::DMControl, 32'h0000_0001);
+
+     $info(" SBA BUSY ");
+     // Wait until SBA is free
+     do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+     while (sbcs.sbbusy);
+     $info(" SBA FREE");      
+      
+   endtask // debug_module_init
+   
+   task jtag_ibex_data_preload;
+     logic [31:0] rdata;
+
+     automatic dm::sbcs_t sbcs = '{
+       sbautoincrement: 1'b1,
+       sbreadondata   : 1'b1,
+       default        : 1'b0
+     };
+
+     $display("======== Initializing the Debug Module ========");
+
+     debug_ibex_module_init();
+     riscv_ibex_dbg.write_dmi(dm::SBCS, sbcs);
+     do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+     while (sbcs.sbbusy);
+
+     $display("======== Preload data to SRAM ========");
+
+     // Start writing to SRAM
+     foreach (ibex_sections[addr]) begin
+       $display("Writing %h with %0d words", addr << 2, ibex_sections[addr]); // word = 8 bytes here
+       riscv_ibex_dbg.write_dmi(dm::SBAddress0, (addr << 2));
+       do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+       while (sbcs.sbbusy);
+       
+       for (int i = 0; i < ibex_sections[addr]; i++) begin
+         // $info(" Loading words to SRAM ");
+         $display(" -- Word %0d/%0d", i, ibex_sections[addr]);      
+         riscv_ibex_dbg.write_dmi(dm::SBData0, ibex_memory[addr + i]);
+         // Wait until SBA is free to write next 32 bits
+         do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+         while (sbcs.sbbusy);
+       end // for (int i = 0; i < sections[addr]; i++)
+       
+     end // foreach (sections[addr])
+      
+    $display("======== Preloading finished ========");
+   
+ 
+    // Preloading finished. Can now start executing
+    sbcs.sbreadonaddr = 0;
+    sbcs.sbreadondata = 0;
+    riscv_ibex_dbg.write_dmi(dm::SBCS, sbcs);
+
+  endtask // jtag_data_preload
+   
+  task jtag_ibex_wakeup;
+    input logic [31:0] start_addr;
+    logic [31:0] dm_status;
+     
+    automatic dm::sbcs_t sbcs = '{
+      sbautoincrement: 1'b1,
+      sbreadondata   : 1'b1,
+      default        : 1'b0
+    };
+
+    $info("======== Waking up Ibex using JTAG ========");
+    // Initialize the dm module again, otherwise it will not work
+    debug_ibex_module_init();
+    do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    // Write PC to Data0 and Data1
+    riscv_ibex_dbg.write_dmi(dm::Data0, start_addr);
+    do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    // Halt Req
+    riscv_ibex_dbg.write_dmi(dm::DMControl, 32'h8000_0001);
+    do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    // Wait for CVA6 to be halted
+    do riscv_ibex_dbg.read_dmi(dm::DMStatus, dm_status);
+    while (!dm_status[8]);
+    // Ensure haltreq, resumereq and ackhavereset all equal to 0
+    riscv_ibex_dbg.write_dmi(dm::DMControl, 32'h0000_0001);
+    do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    // Register Access Abstract Command  
+    riscv_ibex_dbg.write_dmi(dm::Command, {8'h0,1'b0,3'h2,1'b0,1'b0,1'b1,1'b1,4'h0,dm::CSR_DPC});
+    do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    // Resume req. Exiting from debug mode CVA6 will jump at the DPC address.
+    // Ensure haltreq, resumereq and ackhavereset all equal to 0
+    riscv_ibex_dbg.write_dmi(dm::DMControl, 32'h4000_0001);
+    do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    riscv_ibex_dbg.write_dmi(dm::DMControl, 32'h0000_0001);
+    do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+     
+    // Wait till end of computation
+
+    // When task completed reading the return value using JTAG
+    // Mainly used for post synthesis part
+    $info("======== Wait for Completion ========");
+
+  endtask // execute_application
+
+  task load_ibex_binary;
+    input string binary;                   // File name
+    logic [31:0] section_addr, section_len;
+    byte         buffer[];
+     
+    // Read ELF
+    void'(read_elf(binary));
+    $display("Reading %s", binary);
+     
+    while (get_section(section_addr, section_len)) begin
+      // Read Sections
+      automatic int num_words = (section_len + AxiWideBeWidth_ib - 1)/AxiWideBeWidth_ib;
+      $display("Reading section %x with %0d words", section_addr, num_words);
+
+      ibex_sections[section_addr >> AxiWideByteOffset_ib] = num_words;
+      buffer                                      = new[num_words * AxiWideBeWidth_ib];
+      void'(read_section(section_addr, buffer));
+      for (int i = 0; i < num_words; i++) begin
+        automatic logic [AxiWideBeWidth_ib-1:0][7:0] word = '0;
+        for (int j = 0; j < AxiWideBeWidth_ib; j++) begin
+          word[j] = buffer[i * AxiWideBeWidth_ib + j];
+        end
+        ibex_memory[section_addr/AxiWideBeWidth_ib + i] = word;
+      end
+    end 
+
+  endtask // load_binary
+   
 endmodule // ariane_tb
 
