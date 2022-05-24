@@ -56,7 +56,8 @@ module host_domain
   output logic                cluster_fetch_en_o,
   output logic                dma_pe_evt_ack_o,
   input  logic                dma_pe_evt_valid_i,
-                                        
+  input  logic                cluster_eoc_i,
+  output logic                h2c_irq_o,
   REG_BUS.out                 padframecfg_reg_master,
   // CVA6 DEBUG UART
   input logic                 cva6_uart_rx_i,
@@ -174,7 +175,8 @@ module host_domain
    logic [31*4-1:0]                      s_udma_events;
    logic                                 s_dma_pe_evt;
    logic [N_CAN-1:0]                     s_can_irq;
-
+   logic                                 s_c2h_irq;
+   
    logic                                 phy_clk;
    logic                                 phy_clk_90;
    
@@ -318,6 +320,8 @@ module host_domain
         .jtag_TDO_driven,
         .sync_rst_ni          ( s_synch_soc_rst      ),
         .udma_events_i        ( s_udma_events        ),
+        .cluster_eoc_i        ( cluster_eoc_i        ),
+        .c2h_irq_i            ( s_c2h_irq            ),
         .can_irq_i            ( s_can_irq            ),
         .cl_dma_pe_evt_i      ( s_dma_pe_evt         ),
         .dm_rst_o             ( s_dm_rst             ),
@@ -444,7 +448,9 @@ module host_domain
        .cluster_axi_lite_slave ( cluster_lite_slave      ),
        .c2h_tlb_cfg_master     ( c2h_tlb_cfg_lite_master ),
        .h2c_tlb_cfg_master     ( h2c_tlb_cfg_lite_master ),
-       .llc_cfg_master         ( llc_cfg_bus             )
+       .llc_cfg_master         ( llc_cfg_bus             ),
+       .h2c_irq_o              ( h2c_irq_o               ),
+       .c2h_irq_o              ( s_c2h_irq               )
    );
                       
 endmodule

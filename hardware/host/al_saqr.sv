@@ -225,13 +225,15 @@ module al_saqr
   logic                        s_jtag_TRSTn;
   logic                        s_rtc_i;
   logic                        s_bypass_clk;
-   
+  
 
   logic s_soc_clk  ;
   logic s_soc_rst_n; 
   logic s_cluster_clk  ;
   logic s_cluster_rst_n;
 
+  logic s_h2c_mailbox_irq;
+   
   AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -320,6 +322,9 @@ module al_saqr
 
   logic s_dma_pe_evt_ack;
   logic s_dma_pe_evt_valid;
+
+  logic s_cluster_eoc;
+  logic s_cluster_eoc_sync;
    
   pad_to_hyper_t [HyperbusNumPhys-1:0] s_pad_to_hyper;
   hyper_to_pad_t [HyperbusNumPhys-1:0] s_hyper_to_pad;
@@ -370,7 +375,14 @@ module al_saqr
         .DATA_WIDTH( RegDw )
     ) i_padframecfg_rbus (
         .clk_i (s_soc_clk)
-    ); 
+    );
+
+   sync i_cluster_eoc_sync (
+         .clk_i    ( s_soc_clk          ),
+         .rst_ni   ( s_soc_rst_n        ),
+         .serial_i ( s_cluster_eoc      ),
+         .serial_o ( s_cluster_eoc_sync )
+         );
       
     host_domain #(
         .NUM_WORDS         ( NUM_WORDS  ),
@@ -417,6 +429,8 @@ module al_saqr
       .cluster_lite_slave     ( cluster_cfg_axi_lite_bus        ),
       .dma_pe_evt_ack_o       ( s_dma_pe_evt_ack                ),
       .dma_pe_evt_valid_i     ( s_dma_pe_evt_valid              ),
+      .h2c_irq_o              ( s_h2c_mailbox_irq               ),
+      .cluster_eoc_i          ( s_cluster_eoc_sync              ),
       .cluster_axi_slave      ( tlb_to_soc_axi_bus              ),
       .h2c_tlb_cfg_lite_master( h2c_tlb_cfg                     ),
       .c2h_tlb_cfg_lite_master( c2h_tlb_cfg                     ),
@@ -607,6 +621,8 @@ module al_saqr
 
         .dbg_irq_valid_i              ( '0                           ),
 
+        .host_mailbox_irq_i           ( s_h2c_mailbox_irq            ),
+     
         .pf_evt_ack_i                 ( 1'b1                         ),
         .pf_evt_valid_o               (                              ),
 
@@ -617,7 +633,7 @@ module al_saqr
         .en_sa_boot_i                 ( s_cluster_en_sa_boot         ),
         .test_mode_i                  ( 1'b0                         ),
         .fetch_en_i                   ( s_cluster_fetch_en           ),
-        .eoc_o                        (                              ),
+        .eoc_o                        ( s_cluster_eoc                ),
         .busy_o                       (                              ),
         .cluster_id_i                 ( 6'b000000                    ),
 

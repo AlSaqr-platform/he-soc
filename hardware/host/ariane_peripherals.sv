@@ -30,6 +30,8 @@ module ariane_peripherals
     AXI_BUS.Slave           ethernet        ,
     AXI_BUS.Slave           timer           ,
     input  logic [31*4-1:0] udma_evt_i      ,
+    input  logic            c2h_irq_i       ,
+    input  logic            cluster_eoc_i   ,
     input  logic [N_CAN-1:0] can_irq_i      ,
     input  logic            cl_dma_pe_evt_i ,
     output logic [1:0]      irq_o           ,
@@ -75,12 +77,14 @@ module ariane_peripherals
     // ---------------
     logic [ariane_soc::NumSources-1:0] irq_sources;
 
-    // Unused interrupt sources
-    assign irq_sources[ariane_soc::NumSources-1:134] = '0;
-    assign irq_sources[130:7] = udma_evt_i[123:0];
-    assign irq_sources[131] = cl_dma_pe_evt_i;
-    assign irq_sources[132] = can_irq_i[0];
-    assign irq_sources[133] = can_irq_i[1];
+    assign irq_sources[7]                            = c2h_irq_i;
+    assign irq_sources[8]                            = cluster_eoc_i;
+    assign irq_sources[14:9]                         = '0; // reserved for future use
+    assign irq_sources[138:15]                       = udma_evt_i[123:0];
+    assign irq_sources[139]                          = cl_dma_pe_evt_i;
+    assign irq_sources[140]                          = can_irq_i[0];
+    assign irq_sources[141]                          = can_irq_i[1];
+    assign irq_sources[ariane_soc::NumSources-1:142] = '0;
 
     REG_BUS #(
         .ADDR_WIDTH ( 32 ),
