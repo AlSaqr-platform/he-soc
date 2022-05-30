@@ -4,7 +4,7 @@
 #include "utils.h"
 #include "./cluster_code.h"
 
-#define FPGA_EMULATION
+// #define FPGA_EMULATION
 
 int launch_cluster() {
   
@@ -51,12 +51,15 @@ int main(int argc, char const *argv[]) {
   #else
   set_flls();
   int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif  
+  int test_freq = 200000000;
+  #endif
+
+  launch_cluster();
 
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
-  launch_cluster();
+  printf("UART BASE: %X\n", UART_BASE_ADDR);
+  uart_wait_tx_done();
   
   printf("Hello CVA6!\n");
   uart_wait_tx_done();

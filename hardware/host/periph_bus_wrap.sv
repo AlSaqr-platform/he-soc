@@ -30,7 +30,8 @@ module periph_bus_wrap
     APB.Master socctrl_master,
     APB.Master serial_link_master,
     APB.Master apb_can0_master,
-    APB.Master apb_can1_master
+    APB.Master apb_can1_master,
+    APB.Master apb_uart_master
 );
 
     APB
@@ -83,6 +84,10 @@ module periph_bus_wrap
     `APB_ASSIGN_MASTER(s_masters[9], udma_master);
     assign s_start_addr[9] = apb_soc_pkg::UDMABase;
     assign s_end_addr[9]   = apb_soc_pkg::UDMABase + apb_soc_pkg::UDMALength - 1;
+
+   `APB_ASSIGN_MASTER(s_masters[10], apb_uart_master);
+    assign s_start_addr[10] = apb_soc_pkg::APBUARTBase;
+    assign s_end_addr[10]   = apb_soc_pkg::APBUARTBase + apb_soc_pkg::APBUARTLength - 1;
 
    
    apb_node_wrap #(

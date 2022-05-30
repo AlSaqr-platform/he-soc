@@ -33,6 +33,8 @@ set_property -dict {PACKAGE_PIN AV16 IOSTANDARD LVCMOS18} [get_ports pad_jtag_tr
 ######################################################################
 set_property -dict {PACKAGE_PIN AW25  IOSTANDARD LVCMOS18} [get_ports pad_uart_rx]
 set_property -dict {PACKAGE_PIN BB21  IOSTANDARD LVCMOS18} [get_ports pad_uart_tx]
+set_property -dict {PACKAGE_PIN N28 IOSTANDARD LVCMOS12} [get_ports pad_uart1_rx]
+set_property -dict {PACKAGE_PIN M30 IOSTANDARD LVCMOS12} [get_ports pad_uart1_tx]
 
 ####################################################################
 # Hyper Bus 0

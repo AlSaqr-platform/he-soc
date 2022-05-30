@@ -40,8 +40,10 @@ module alsaqr_xilinx
     inout [1:0]   c0_ddr4_dqs_t,
     inout [1:0]   c0_ddr4_dqs_c,
    
-    inout wire    pad_uart_rx,
-    inout wire    pad_uart_tx,
+    inout wire    pad_uart0_rx,
+    inout wire    pad_uart0_tx,
+    inout wire    pad_uart1_rx,
+    inout wire    pad_uart1_tx,
    
    
     inout         FMC_hyper0_dqio0 ,
@@ -344,8 +346,10 @@ ddr4_0 u_ddr4_0
         .jtag_TDO_data    ( pad_jtag_tdo       ),
         .jtag_TDO_driven  (                    ),
         .axi_ddr_master   ( axi_ddr_bus_64     ),
-        .cva6_uart_rx_i   ( pad_uart_rx        ),
-        .cva6_uart_tx_o   ( pad_uart_tx        ),
+        .cva6_uart_rx_i   ( pad_uart0_rx       ),
+        .cva6_uart_tx_o   ( pad_uart0_tx       ),
+        .scnduart_rx_i    ( pad_uart1_rx       ),
+        .scnduart_tx_o    ( pad_uart1_tx       ),
 
         .pad_hyper_csn    ( hyper_cs_n_wire    ),
         .pad_hyper_ck     ( hyper_ck_wire      ),

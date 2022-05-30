@@ -20,7 +20,6 @@ int main(int argc, char const *argv[]) {
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
-
   pulp_write32(0x10003010, 0);
   pulp_write32(0x10002000, 0);
 

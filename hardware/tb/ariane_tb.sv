@@ -293,6 +293,8 @@ module ariane_tb;
 
     wire                  w_cva6_uart_rx ;
     wire                  w_cva6_uart_tx ;
+    wire                  apb_uart_rx ;
+    wire                  apb_uart_tx ;
    
     wire ddr_ext_clk;
   
@@ -394,6 +396,8 @@ module ariane_tb;
 
         .cva6_uart_rx_i       ( w_cva6_uart_rx         ),
         .cva6_uart_tx_o       ( w_cva6_uart_tx         ),
+        .apb_uart_rx_i        ( apb_uart_rx            ),
+        .apb_uart_tx_o        ( apb_uart_tx            ),
         
         .pad_hyper_csn        ( hyper_cs_n_wire        ),
         .pad_hyper_ck         ( hyper_ck_wire          ),
@@ -1025,7 +1029,8 @@ module ariane_tb;
      end // block: hyperrams
    endgenerate
    
-   uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart_bus (.rx(w_cva6_uart_tx), .tx(w_cva6_uart_rx), .rx_en(1'b1));
+   uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(w_cva6_uart_tx), .tx(w_cva6_uart_rx), .rx_en(1'b1));
+   uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart1_bus (.rx(apb_uart_tx), .tx(apb_uart_rx), .rx_en(1'b1));
 
     initial begin: reset_jtag
       jtag_mst.tdi = 0;

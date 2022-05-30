@@ -286,7 +286,7 @@ module ariane_peripherals
     );
 
     if (InclUART) begin : gen_uart
-        apb_uart i_apb_uart (
+        apb_uart i_apb_uart0 (
             .CLK     ( clk_i           ),
             .RSTN    ( rst_ni          ),
             .PSEL    ( uart_psel       ),
@@ -312,7 +312,7 @@ module ariane_peripherals
     end else begin
         assign irq_sources[1] = 1'b0;
         /* pragma translate_off */
-        mock_uart i_mock_uart (
+        mock_uart i_mock_uart0 (
             .clk_i     ( clk_i        ),
             .rst_ni    ( rst_ni       ),
             .penable_i ( uart_penable ),

@@ -19,10 +19,11 @@ package apb_soc_pkg;
       logic [31:0] end_addr;
    } addr_map_rule_t;
 
-   localparam NUM_APB_SLAVES = 10;
+   localparam NUM_APB_SLAVES = 11;
 
    localparam NUM_GPIO = 64;
    
+   localparam logic [31:0] APBUARTLength  = 32'h1000;
    localparam logic [31:0] UDMALength     = 32'h22000; //4K * N_PERIPHS  (N_PERIPHS=34)
    localparam logic [31:0] GPIOSLength    = 32'h1000;
    localparam logic [31:0] FLLLength      = 32'h1000;
@@ -43,6 +44,7 @@ package apb_soc_pkg;
      SerLinkBase   = 32'h1A10_7000,
      Can0Base      = 32'h1A10_8000,
      Can1Base      = 32'h1A10_9000,
-     UDMABase      = 32'h1A20_0000
+     UDMABase      = 32'h1A20_0000,
+     APBUARTBase   = 32'h1A22_2000
     } soc_apb_bus_start_t;
 endpackage

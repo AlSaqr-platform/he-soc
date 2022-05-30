@@ -18,6 +18,7 @@ directories = . drivers/inc drivers/src string_lib/inc string_lib/src padframe/i
 
 INC=$(foreach d, $(directories), -I$(utils_dir)$d)
 
+
 inc_dir := $(SW_HOME)/common/
 
 RISCV_PREFIX ?= riscv$(XLEN)-unknown-elf-

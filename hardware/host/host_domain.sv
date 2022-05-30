@@ -62,7 +62,9 @@ module host_domain
   // CVA6 DEBUG UART
   input logic                 cva6_uart_rx_i,
   output logic                cva6_uart_tx_o, 
-
+  input  logic                apb_uart_rx_i,   
+  output logic                apb_uart_tx_o,
+  
   // FROM SimDTM
   input logic                 dmi_req_valid,
   output logic                dmi_req_ready,
@@ -379,13 +381,20 @@ module host_domain
        .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
        .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
        .AXI_USER_WIDTH ( AXI_USER_WIDTH           ),
-       .NUM_GPIO       ( NUM_GPIO                 )
+       .NUM_GPIO       ( NUM_GPIO                 ),
+     `ifdef TARGET_SYNTHESIS
+       .InclUART       ( 1'b1                     )
+     `else
+       .InclUART       ( 1'b0                     )
+     `endif
      ) i_apb_subsystem (
       .clk_i                  ( s_soc_clk                      ),
       .rtc_i                  ( rtc_i                          ),
       .rst_ni                 ( rst_ni                         ),
       .bypass_clk_i           ( bypass_clk_i                   ),  
       .rst_dm_i               ( s_dm_rst                       ),
+      .apb_uart_rx_i          ( apb_uart_rx_i                  ),
+      .apb_uart_tx_o          ( apb_uart_tx_o                  ),
       .clk_cva6_o             ( s_clk_cva6                     ),
       .clk_soc_o              ( s_soc_clk                      ),
       .rstn_soc_sync_o        ( s_synch_soc_rst                ),

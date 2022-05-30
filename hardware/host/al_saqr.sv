@@ -188,6 +188,8 @@ module al_saqr
   // CVA6 DEBUG UART
   inout wire          logic cva6_uart_rx_i,
   inout wire          logic cva6_uart_tx_o,
+  inout wire          logic apb_uart_rx_i,
+  inout wire          logic apb_uart_tx_o,
   // FROM SimDTM
 `ifndef TARGET_SYNTHESIS
   input logic         dmi_req_valid,
@@ -306,7 +308,7 @@ module al_saqr
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           ),
      .LOG_DEPTH      ( 3                        )
   ) async_cfg_axi_bus();
-   
+
   AXI_LITE #(
     .AXI_ADDR_WIDTH (AXI_ADDRESS_WIDTH),
     .AXI_DATA_WIDTH (AXI_LITE_DW)
@@ -461,6 +463,9 @@ module al_saqr
 
       .cva6_uart_rx_i         ( s_cva6_uart_rx_i                ),
       .cva6_uart_tx_o         ( s_cva6_uart_tx_o                ),
+
+      .apb_uart_rx_i          ( apb_uart_rx_i                   ),
+      .apb_uart_tx_o          ( apb_uart_tx_o                   ),
 
       .pwm_to_pad             ( s_pwm_to_pad                    ),
 

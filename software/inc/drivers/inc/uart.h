@@ -21,8 +21,11 @@
 #define _UART_H
 
 #include <stdint.h>
-
-#define UART_BASE_ADDR 0x40000000
+#ifdef CLUSTER_UART
+  #define UART_BASE_ADDR 0x1A222000
+#else
+  #define UART_BASE_ADDR 0x40000000
+#endif
 
 #define UART_REG_RBR ( UART_BASE_ADDR + 0x00) // Receiver Buffer Register (Read Only)
 #define UART_REG_DLL ( UART_BASE_ADDR + 0x00) // Divisor Latch (LS)
