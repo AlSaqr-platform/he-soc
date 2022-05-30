@@ -348,8 +348,8 @@ ddr4_0 u_ddr4_0
         .axi_ddr_master   ( axi_ddr_bus_64     ),
         .cva6_uart_rx_i   ( pad_uart0_rx       ),
         .cva6_uart_tx_o   ( pad_uart0_tx       ),
-        .scnduart_rx_i    ( pad_uart1_rx       ),
-        .scnduart_tx_o    ( pad_uart1_tx       ),
+        .apb_uart_rx_i    ( pad_uart1_rx       ),
+        .apb_uart_tx_o    ( pad_uart1_tx       ),
 
         .pad_hyper_csn    ( hyper_cs_n_wire    ),
         .pad_hyper_ck     ( hyper_ck_wire      ),
