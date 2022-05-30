@@ -239,7 +239,7 @@ module al_saqr
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
      .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-  ) soc_to_tlb_axi_bus();
+  ) soc_to_cluster_axi_bus();
   AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -306,11 +306,6 @@ module al_saqr
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           ),
      .LOG_DEPTH      ( 3                        )
   ) async_cfg_axi_bus();
-   
-  AXI_LITE #(
-    .AXI_ADDR_WIDTH (AXI_LITE_AW),
-    .AXI_DATA_WIDTH (AXI_LITE_DW)
-  ) h2c_tlb_cfg();
    
   AXI_LITE #(
     .AXI_ADDR_WIDTH (AXI_ADDRESS_WIDTH),
@@ -425,14 +420,13 @@ module al_saqr
 `ifdef XILINX_DDR
       .axi_ddr_master         ( axi_ddr_master                  ),
 `endif
-      .cluster_axi_master     ( soc_to_tlb_axi_bus              ),
+      .cluster_axi_master     ( soc_to_cluster_axi_bus          ),
       .cluster_lite_slave     ( cluster_cfg_axi_lite_bus        ),
       .dma_pe_evt_ack_o       ( s_dma_pe_evt_ack                ),
       .dma_pe_evt_valid_i     ( s_dma_pe_evt_valid              ),
       .h2c_irq_o              ( s_h2c_mailbox_irq               ),
       .cluster_eoc_i          ( s_cluster_eoc_sync              ),
       .cluster_axi_slave      ( tlb_to_soc_axi_bus              ),
-      .h2c_tlb_cfg_lite_master( h2c_tlb_cfg                     ),
       .c2h_tlb_cfg_lite_master( c2h_tlb_cfg                     ),
       .soc_clk_o              ( s_soc_clk                       ),
       .soc_rst_no             ( s_soc_rst_n                     ),
@@ -520,7 +514,7 @@ module al_saqr
       ) (
         .clk_i  ( s_soc_clk                         ),
         .rst_ni ( s_soc_rst_n                       ),
-        .slv    ( tlb_to_cluster_axi_bus            ),
+        .slv    ( soc_to_cluster_axi_bus            ),
         .mst    ( serialized_soc_to_cluster_axi_bus )
       );
 
@@ -778,26 +772,6 @@ module al_saqr
    `endif // !`ifndef EXCLUDE_CLUSTER
 
   localparam int unsigned ENTRIES = 32;
-
-  axi_tlb_intf #(
-    .AXI_SLV_PORT_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-    .AXI_MST_PORT_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-    .AXI_DATA_WIDTH          ( AXI_DATA_WIDTH           ),
-    .AXI_ID_WIDTH            ( ariane_soc::IdWidthSlave ),
-    .AXI_USER_WIDTH          ( AXI_USER_WIDTH           ),
-    .AXI_SLV_PORT_MAX_TXNS   ( 8                        ), 
-    .CFG_AXI_ADDR_WIDTH      ( AXI_LITE_AW              ),
-    .CFG_AXI_DATA_WIDTH      ( AXI_LITE_DW              ),
-    .L1_NUM_ENTRIES          ( ENTRIES                  ), 
-    .L1_CUT_AX               ( 1                        )
-  ) i_h2c_tlb                (
-    .clk_i                   ( s_soc_clk                ),
-    .rst_ni                  ( s_soc_rst_n              ),
-    .test_en_i               ( 1'b0                     ),
-    .slv                     ( soc_to_tlb_axi_bus       ),
-    .mst                     ( tlb_to_cluster_axi_bus   ),
-    .cfg                     ( h2c_tlb_cfg              )
-  ); 
    
    axi_tlb_intf #(
      .AXI_SLV_PORT_ADDR_WIDTH ( AXI_ADDRESS_WIDTH      ),

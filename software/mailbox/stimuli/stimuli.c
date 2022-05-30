@@ -16,8 +16,8 @@ int * i;
 int thread_entry(int cid, int nc) {
 
   if(core_id() == 0){
-    pulp_write32(0x1040401C,0x1);
-    pulp_write32(0x10404000,0x1);
+    pulp_write32(0x1040301C,0x1);
+    pulp_write32(0x10403000,0x1);
   }
 
   while (1) {

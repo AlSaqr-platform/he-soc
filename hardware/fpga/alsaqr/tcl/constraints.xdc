@@ -13,9 +13,6 @@ set_clock_groups -asynchronous -group [get_clocks -of_objects [get_ports c0_sys_
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  alsaqr_clk_manager/clk_out1]] 
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  u_ddr4_0/c0_ddr4_ui_clk]]
 
-set_max_delay 6.400 -from [get_pins axiddrcdc/i_axi_cdc_src/async_data_master_*_o]  -to [get_pins axiddrcdc/i_axi_cdc_dst/async_data_slave_*_i ]
-set_max_delay 6.400 -from [get_pins axiddrcdc/i_axi_cdc_dst/async_data_slave_*_o ]  -to [get_pins axiddrcdc/i_axi_cdc_src/async_data_master_*_i]
-
 #set_false_path -from [get_ports pad_reset]
 
 ## JTAG
@@ -32,14 +29,9 @@ set_max_delay -to [get_ports pad_jtag_tdo] 20.000
 set_max_delay -from [get_ports pad_jtag_tms] 20.000
 set_max_delay -from [get_ports pad_jtag_tdi] 20.000
 
-set_max_delay -datapath_only -from [get_pins i_alsaqr/i_host_domain/i_cva_subsystem/i_dmi_jtag/i_dmi_cdc/i_cdc_resp/i_src/data_src_q_reg*/C] -to [get_pins i_alsaqr/i_host_domain/i_cva_subsystem/i_dmi_jtag/i_dmi_cdc/i_cdc_resp/i_dst/data_dst_q_reg*/D] 20.000
-set_max_delay -datapath_only -from [get_pins i_alsaqr/i_host_domain/i_cva_subsystem/i_dmi_jtag/i_dmi_cdc/i_cdc_resp/i_src/req_src_q_reg/C]   -to [get_pins i_alsaqr/i_host_domain/i_cva_subsystem/i_dmi_jtag/i_dmi_cdc/i_cdc_resp/i_dst/req_dst_q_reg/D] 20.000
-set_max_delay -datapath_only -from [get_pins i_alsaqr/i_host_domain/i_cva_subsystem/i_dmi_jtag/i_dmi_cdc/i_cdc_req/i_dst/ack_dst_q_reg/C]    -to [get_pins i_alsaqr/i_host_domain/i_cva_subsystem/i_dmi_jtag/i_dmi_cdc/i_cdc_req/i_src/ack_src_q_reg/D] 20.000
 
 # reset signal
 set_false_path -from [get_ports pad_reset]
-
-set_false_path -hold -through [get_pins -hierarchical  *u_sync_clkb/serial_o ]
 
 # Set ASYNC_REG attribute for ff synchronizers to place them closer together and
 # increase MTBF
@@ -128,7 +120,3 @@ set_output_delay -clock clk_sck -max [expr $tsu + $tdata_trace_delay_max -$tclk_
 set_output_delay -clock clk_sck -min [expr $tdata_trace_delay_min -$th -$tclk_trace_delay_max] [get_pins -hierarchical *STARTUP*/DATA_OUT[*]];
 set_multicycle_path 2 -setup -start -from [get_clocks -of_objects [get_pins -hierarchical */ext_spi_clk]] -to clk_sck
 set_multicycle_path 1 -hold -from [get_clocks -of_objects [get_pins -hierarchical */ext_spi_clk]] -to clk_sck
-set_max_delay -datapath_only -from [get_pins -hier {*STARTUP*_inst/DI[*]}] 1.000
-set_max_delay -datapath_only -from [get_clocks -of_objects [get_pins -hierarchical */ext_spi_clk]] -to [get_pins -hier *STARTUP*_inst/USRCCLKO] 1.000
-set_max_delay -datapath_only -from [get_clocks -of_objects [get_pins -hierarchical */ext_spi_clk]] -to [get_pins -hier *STARTUP*_inst/DO[*]] 1.000
-set_max_delay -datapath_only -from [get_clocks -of_objects [get_pins -hierarchical */ext_spi_clk]] -to [get_pins -hier *STARTUP*_inst/DTS[*]] 1.000

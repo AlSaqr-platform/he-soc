@@ -12,9 +12,10 @@ int main(int argc, char const *argv[]) {
 
   uint32_t mb_plic_id = 8;
   int ret_value;
+  int baud_rate = 115200;
+  int test_freq = 50000000;
+  uart_set_cfg(0,(test_freq/baud_rate)>>4);
   
-  // H2C TLB configuration
-  tlb_cfg(H2C_TLB_BASE_ADDR, 0, h2c_first_va, h2c_last_va, h2c_base_pa, 0x07);
   // C2H TLB configuration
   tlb_cfg(C2H_TLB_BASE_ADDR, 0, c2h_first_va, c2h_last_va, c2h_base_pa, 0x07);
 
@@ -48,7 +49,7 @@ int main(int argc, char const *argv[]) {
   }
 
   uint32_t msg;
-  msg = pulp_read32(0x10403004);
+  msg = pulp_read32(0x10402004);
   
   if (msg!=0x1) {
     printf("Error!\n");
@@ -56,10 +57,10 @@ int main(int argc, char const *argv[]) {
   } else 
       printf("Ok!\n");
 
-  pulp_write32(0x10404018,0x1);
-  pulp_write32(0x10404018,0x0);
-  pulp_write32(0x10404024,0x1);
-  pulp_write32(0x10404024,0x0);
+  pulp_write32(0x10403018,0x1);
+  pulp_write32(0x10403018,0x0);
+  pulp_write32(0x10403024,0x1);
+  pulp_write32(0x10403024,0x0);
   uart_wait_tx_done();
     
   return ret_value;

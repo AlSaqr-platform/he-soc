@@ -90,7 +90,6 @@ module host_domain
   AXI_BUS.Slave               cluster_axi_slave,
   AXI_BUS.Slave               cluster_lite_slave,
   // TLB Config
-  AXI_LITE.Master             h2c_tlb_cfg_lite_master,
   AXI_LITE.Master             c2h_tlb_cfg_lite_master,
   // SPIM
   output                      qspi_to_pad_t [N_SPI-1:0] qspi_to_pad,
@@ -447,7 +446,6 @@ module host_domain
        .host_axi_lite_slave    ( host_lite_bus           ),
        .cluster_axi_lite_slave ( cluster_lite_slave      ),
        .c2h_tlb_cfg_master     ( c2h_tlb_cfg_lite_master ),
-       .h2c_tlb_cfg_master     ( h2c_tlb_cfg_lite_master ),
        .llc_cfg_master         ( llc_cfg_bus             ),
        .h2c_irq_o              ( h2c_irq_o               ),
        .c2h_irq_o              ( s_c2h_irq               )

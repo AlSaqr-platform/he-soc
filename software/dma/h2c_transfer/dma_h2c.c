@@ -20,10 +20,6 @@ int main(int argc, char const *argv[]) {
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
-  // H2C TLB configuration
-  tlb_cfg(H2C_TLB_BASE_ADDR, 0, h2c_first_va, h2c_last_va, h2c_base_pa, 0x07);
-  // C2H TLB configuration
-  tlb_cfg(C2H_TLB_BASE_ADDR, 0, c2h_first_va, c2h_last_va, c2h_base_pa, 0x07);
 
   pulp_write32(0x10003010, 0);
   pulp_write32(0x10002000, 0);
