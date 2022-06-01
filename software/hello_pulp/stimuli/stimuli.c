@@ -1,7 +1,6 @@
 //#include "util.h"
 #include <stdio.h>
 #include <stdlib.h>
-#define CLUSTER_UART
 #include "utils.h"
 // #define FPGA_EMULATION
 

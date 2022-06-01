@@ -234,7 +234,7 @@ module apb_subsystem
      );
    end else begin
      /* pragma translate_off */
-     mock_uart i_mock_uart1 (
+     mock_uart #( .UART_IDX (1) ) i_mock_uart1 (
          .clk_i     ( clk_i                       ),
          .rst_ni    ( rst_ni                      ),
          .penable_i ( apb_uart_master_bus.penable ),

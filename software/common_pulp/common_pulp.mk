@@ -6,6 +6,10 @@ directories = . drivers/inc drivers/src string_lib/inc string_lib/src
 
 INC=$(foreach d, $(directories), -I$(utils_dir)$d)
 
+ifdef CLUSTER_UART
+	cc-elf-y = -DCLUSTER_UART
+endif
+
 inc_dir := $(current_dir)/../../common_pulp
 
 RISCV_PREFIX ?= riscv$(XLEN)-unknown-elf-
@@ -23,7 +27,7 @@ clean:
 	rm -f *.bin
 
 build:
-	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir)/test.ld $(RISCV_LINK_OPTS) $(inc_dir)/crt.S $(inc_dir)/syscalls.c -L $(inc_dir) $(APP).c -o $(APP).riscv
+	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir)/test.ld $(RISCV_LINK_OPTS) $(cc-elf-y) $(inc_dir)/crt.S $(inc_dir)/syscalls.c -L $(inc_dir) $(APP).c -o $(APP).riscv
 
 
 dis:
