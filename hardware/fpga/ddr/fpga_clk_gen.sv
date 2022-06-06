@@ -43,14 +43,8 @@ module fpga_clk_gen (
   assign per_clk_o     = ref_clk_i;
   assign cva6_clk_o    = ref_clk_i;
    
-  assign soc_cfg_ack_o     = 1'b1; //Always acknowledge without doing anything for now
-  assign per_cfg_ack_o     = 1'b1;
-  assign cluster_cfg_ack_o = 1'b1;
-   
-
-  assign soc_cfg_r_data_o     = 32'hdeadda7a;
-  assign per_cfg_r_data_o     = 32'hdeadda7a;
-  assign cluster_cfg_r_data_o = 32'hdeadda7a;
+  assign cfg_ack_o    = 1'b1; //Always acknowledge without doing anything for now
+  assign cfg_r_data_o = 32'hdeadda7a;
    
 
 endmodule : fpga_clk_gen

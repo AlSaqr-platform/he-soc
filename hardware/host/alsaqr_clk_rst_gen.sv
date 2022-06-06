@@ -52,13 +52,17 @@ module alsaqr_clk_rst_gen (
  
 
   // currently, FLLs are not supported for FPGA emulation
-  `ifndef FPGA_EMUL
+  `ifndef TARGET_FPGA
     //synopsys translate_off
     freq_meter #(.FLL_NAME("SOC_FLL"    ), .MAX_SAMPLE(4096)) SOC_METER     (.clk(s_clk_fll_soc));
     freq_meter #(.FLL_NAME("PER_FLL"    ), .MAX_SAMPLE(4096)) PER_METER     (.clk(s_clk_fll_per));
     freq_meter #(.FLL_NAME("CLUSTER_FLL"), .MAX_SAMPLE(4096)) CLUSTER_METER (.clk(s_clk_fll_cluster));
     //synopsys translate_on
-    gf22_FLL i_gf22_fll (         // Clock & reset
+    `ifdef TARGET_ASIC
+      gf22_FLL i_gf22_fll (         // Clock & reset
+    `else
+      fll_dummy i_gf22_fll (         // Clock & reset
+    `endif
       .OUTCLK ( s_clk          ), // FLL clock outputs
       .REFCLK ( ref_clk_i      ), // Reference clock input
       .RSTB   ( rstn_glob_i    ), // Asynchronous reset (active low)

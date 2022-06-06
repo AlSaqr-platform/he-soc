@@ -12,7 +12,9 @@
 // Date: 28/09/2018
 // Description: Mock replacement for UART in testbench (not synthesiesable!)
 
-module mock_uart (
+module mock_uart  #(
+  parameter int  UART_IDX = 0
+ )(
     input  logic          clk_i,
     input  logic          rst_ni,
     input  logic          penable_i,
@@ -58,7 +60,7 @@ module mock_uart (
 
     function void uart_tx(byte ch);
         if(ch==8'h0A) begin
-          $display("Mock uart: %s\n",stringa);
+          $display("Mock uart %d: %s\n", UART_IDX, stringa);
           charnum = 0;
           stringa = '0;
         end else begin

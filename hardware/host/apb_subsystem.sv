@@ -25,13 +25,16 @@ module apb_subsystem
     parameter int unsigned AXI_ADDR_WIDTH = 64,
     parameter int unsigned AXI_DATA_WIDTH = 64,
     parameter int unsigned CAM_DATA_WIDTH = 8,
-    parameter int unsigned NUM_GPIO       = 64 
+    parameter int unsigned NUM_GPIO       = 64,
+    parameter bit InclUART = 1
 ) (
     input logic                 clk_i,
     input logic                 rst_ni,
     input logic                 bypass_clk_i,
     input logic                 rtc_i,
     input logic                 rst_dm_i,
+    input logic                 apb_uart_rx_i,
+    output logic                apb_uart_tx_o,
     output logic                rstn_soc_sync_o,
     output logic                rstn_cva6_sync_o,
     output logic                rstn_global_sync_o,
@@ -41,11 +44,6 @@ module apb_subsystem
     output logic                rstn_cluster_sync_o,
     output logic                cluster_en_sa_boot_o,
     output logic                cluster_fetch_en_o,
-    output logic [127:0]        key_0,
-    output logic [127:0]        key_1,
-    output logic [31:0]         gwt_cfg_o,
-    input  logic [31:0]         gwt_cfg_i,
-    input  logic                gwt_cfg_ie,
    
     AXI_BUS.Slave               axi_apb_slave,
     AXI_BUS.Slave               hyper_axi_bus_slave,
@@ -160,6 +158,11 @@ module apb_subsystem
                .DATA_WIDTH(32)
    ) apb_socctrl_master_bus();
 
+   APB  #(
+               .ADDR_WIDTH(32),
+               .DATA_WIDTH(32)
+   ) apb_uart_master_bus();
+   
    FLL_BUS fll_master_bus(
                           .clk_i(s_soc_clk)
                           );
@@ -201,9 +204,50 @@ module apb_subsystem
     .serial_link_master (apb_serial_link_master_bus),
     .apb_can0_master (apb_can0_master_bus),
     .apb_can1_master (apb_can1_master_bus),
-    .socctrl_master(apb_socctrl_master_bus)
+    .socctrl_master(apb_socctrl_master_bus),
+    .apb_uart_master(apb_uart_master_bus)
     );
-   
+
+   if (InclUART) begin : gen_uart
+     apb_uart i_apb_uart1 (
+       .CLK     ( clk_i                          ),
+       .RSTN    ( rst_ni                         ),
+       .PSEL    ( apb_uart_master_bus.psel       ),
+       .PENABLE ( apb_uart_master_bus.penable    ),
+       .PWRITE  ( apb_uart_master_bus.pwrite     ),
+       .PADDR   ( apb_uart_master_bus.paddr[4:2] ),
+       .PWDATA  ( apb_uart_master_bus.pwdata     ),
+       .PRDATA  ( apb_uart_master_bus.prdata     ),
+       .PREADY  ( apb_uart_master_bus.pready     ),
+       .PSLVERR ( apb_uart_master_bus.pslverr    ),
+       .INT     (                                ),
+       .OUT1N   (                                ), // keep open
+       .OUT2N   (                                ), // keep open
+       .RTSN    (                                ), // no flow control
+       .DTRN    (                                ), // no flow control
+       .CTSN    ( 1'b0                           ),
+       .DSRN    ( 1'b0                           ),
+       .DCDN    ( 1'b0                           ),
+       .RIN     ( 1'b0                           ),
+       .SIN     ( apb_uart_rx_i                  ),
+       .SOUT    ( apb_uart_tx_o                  )
+     );
+   end else begin
+     /* pragma translate_off */
+     mock_uart #( .UART_IDX (1) ) i_mock_uart1 (
+         .clk_i     ( clk_i                       ),
+         .rst_ni    ( rst_ni                      ),
+         .penable_i ( apb_uart_master_bus.penable ),
+         .pwrite_i  ( apb_uart_master_bus.pwrite  ),
+         .paddr_i   ( apb_uart_master_bus.paddr   ),
+         .psel_i    ( apb_uart_master_bus.psel    ),
+         .pwdata_i  ( apb_uart_master_bus.pwdata  ),
+         .prdata_o  ( apb_uart_master_bus.prdata  ),
+         .pready_o  ( apb_uart_master_bus.pready  ),
+         .pslverr_o ( apb_uart_master_bus.pslverr )
+     );
+     /* pragma translate_on */
+   end
 
    logic [udma_subsystem_pkg::APB_ADDR_WIDTH - 1:0]                        apb_udma_address;   
 
@@ -319,14 +363,24 @@ module apb_subsystem
         .pad_to_gpio     ( pad_to_gpio )
     );
 
-    apb_to_fll #(
-        .APB_ADDR_WIDTH (32)
-    ) i_apb_fll (
-       .clk_i    ( clk_soc_o          ),
-       .rst_ni   ( s_rstn_soc_sync    ),
-       .apb      ( apb_fll_master_bus ),
-       .fll_intf ( fll_master_bus     )
-    );
+   `ifndef TARGET_ASIC
+     assign apb_fll_master_bus.pready  = 1'b1;
+     assign apb_fll_master_bus.prdata  = 32'hdeadcaca;
+     assign apb_fll_master_bus.pslverr = 1'b0;
+     assign fll_master_bus.req = 1'b0;
+     assign fll_master_bus.web = 1'b0;
+     assign fll_master_bus.wdata = '0;
+     assign fll_master_bus.addr  = '0;
+   `else   
+     apb_to_fll #(
+         .APB_ADDR_WIDTH (32)
+     ) i_apb_fll (
+        .clk_i    ( clk_soc_o          ),
+        .rst_ni   ( s_rstn_soc_sync    ),
+        .apb      ( apb_fll_master_bus ),
+        .fll_intf ( fll_master_bus     )
+     );
+   `endif
 
     alsaqr_clk_rst_gen i_alsaqr_clk_rst_gen   
       (
@@ -508,12 +562,7 @@ module apb_subsystem
     .apb_slave (apb_socctrl_master_bus),
     .cluster_ctrl_rstn_o (s_cluster_ctrl_rstn),
     .cluster_en_sa_boot_o (cluster_en_sa_boot_o),
-    .cluster_fetch_en_o (cluster_fetch_en_o),
-    .key_0(key_0),
-    .key_1(key_1),
-    .gwt_cfg_o(gwt_cfg_o),
-    .gwt_cfg_i(gwt_cfg_i),
-    .gwt_cfg_ie(gwt_cfg_ie)
+    .cluster_fetch_en_o (cluster_fetch_en_o)
    );
    
 

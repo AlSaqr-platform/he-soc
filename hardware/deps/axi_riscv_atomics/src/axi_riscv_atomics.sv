@@ -33,7 +33,6 @@ module axi_riscv_atomics #(
 ) (
     input logic                         clk_i,
     input logic                         rst_ni,
-    input logic  [127:0]                key_i,
     /// Slave Interface
     input  logic [AXI_ADDR_WIDTH-1:0]   slv_aw_addr_i,
     input  logic [2:0]                  slv_aw_prot_i,
@@ -203,7 +202,6 @@ module axi_riscv_atomics #(
     ) i_amos (
         .clk_i              ( clk_i             ),
         .rst_ni             ( rst_ni            ),
-        .key_i              ( key_i             ),
         .slv_aw_addr_i      ( slv_aw_addr_i     ),
         .slv_aw_prot_i      ( slv_aw_prot_i     ),
         .slv_aw_region_i    ( slv_aw_region_i   ),

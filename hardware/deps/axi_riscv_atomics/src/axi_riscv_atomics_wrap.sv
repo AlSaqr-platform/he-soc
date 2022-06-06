@@ -32,7 +32,6 @@ module axi_riscv_atomics_wrap #(
 ) (
     input  logic         clk_i,
     input  logic         rst_ni,
-    input  logic [127:0] key_i,
     AXI_BUS.Master       mst,
     AXI_BUS.Slave        slv
 );
@@ -47,7 +46,6 @@ module axi_riscv_atomics_wrap #(
     ) i_atomics (
         .clk_i           ( clk_i         ),
         .rst_ni          ( rst_ni        ),
-        .key_i           ( key_i         ),
         .slv_aw_addr_i   ( slv.aw_addr   ),
         .slv_aw_prot_i   ( slv.aw_prot   ),
         .slv_aw_region_i ( slv.aw_region ),

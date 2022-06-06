@@ -56,14 +56,18 @@ int  main(int argc, char const *argv[]) {
       b[i*n+j] = (t)(s = lfsr(s));
   memset(c, 0, m*n*sizeof(c[0]));
 
-  size_t instret, cycles;
+  size_t instret, cycles, icachemiss, dcachemiss;
   for (int i = 0; i < R; i++)
   {
+    icachemiss = -read_csr(mhpmcounter3);
+    dcachemiss = -read_csr(mhpmcounter4);
     instret = -read_csr(minstret);
     cycles = -read_csr(mcycle);
     mm(m, n, p, a, p, b, n, c, n);
     instret += read_csr(minstret);
     cycles += read_csr(mcycle);
+    icachemiss += read_csr(mhpmcounter3);
+    dcachemiss += read_csr(mhpmcounter4);
   }
 
   asm volatile("fence");
@@ -75,6 +79,10 @@ int  main(int argc, char const *argv[]) {
   printf("C%d: %d instructions\n", cid, (int)(instret));
   uart_wait_tx_done();
   printf("C%d: %d cycles\n", cid, (int)(cycles));
+  uart_wait_tx_done();
+  printf("C%d: %d dcachemiss\n", cid, (int)(dcachemiss));
+  uart_wait_tx_done();
+  printf("C%d: %d icachemiss\n", cid, (int)(icachemiss));
   uart_wait_tx_done();
   printf("C%d: %d flops\n", cid, m*n*p);
   uart_wait_tx_done();

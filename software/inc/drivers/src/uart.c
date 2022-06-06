@@ -8,8 +8,9 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the
 // specific language governing permissions and limitations under the License.
 
+// #include "uart.h"
 #include "uart.h"
-#include "uart.h"
+
 /**
  * Setup UART. The UART defaults to 8 bit character mode with 1 stop bit.
  *

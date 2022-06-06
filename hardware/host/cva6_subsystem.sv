@@ -43,6 +43,8 @@ module cva6_subsystem
   input  logic             cva6_rst_ni,
   output logic             dm_rst_o,
   input  logic [31*4-1:0]  udma_events_i,
+  input  logic             c2h_irq_i,
+  input  logic             cluster_eoc_i,
   input  logic [N_CAN-1:0] can_irq_i,
   input  logic             cl_dma_pe_evt_i,
   input  logic             dmi_req_valid,
@@ -70,10 +72,8 @@ module cva6_subsystem
   // CVA6 DEBUG UART
   input  logic            cva6_uart_rx_i,
   output logic            cva6_uart_tx_o,
-  input  logic [127:0]    key_i, 
-  // TLB BUSes start here
-  AXI_BUS.Master          tlb_cfg_master,
-  // TLB BUSes end here 
+
+  AXI_BUS.Master          axi_lite_master,
   AXI_BUS.Master          l2_axi_master,
   AXI_BUS.Master          apb_axi_master,
   AXI_BUS.Master          hyper_axi_master,
@@ -152,6 +152,13 @@ module cva6_subsystem
     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
   ) hyper_axi_master_cut();
+
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+  ) hyper_axi_master_redirect();
 
   AXI_BUS #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
@@ -383,7 +390,19 @@ module cva6_subsystem
   // AXI L2 Slave
   // ---------------
 
-  `AXI_ASSIGN(l2_axi_master,master[ariane_soc::L2SPM])
+  axi_riscv_atomics_wrap #(
+    .AXI_ADDR_WIDTH     ( AXI_ADDRESS_WIDTH        ),
+    .AXI_DATA_WIDTH     ( AXI_DATA_WIDTH           ),
+    .AXI_ID_WIDTH       ( ariane_soc::IdWidthSlave ),
+    .AXI_USER_WIDTH     ( AXI_USER_WIDTH           ),
+    .AXI_MAX_WRITE_TXNS ( 1                        ),
+    .RISCV_WORD_WIDTH   ( 64                       )
+  ) i_axi_riscv_atomicsl2 (
+    .clk_i,
+    .rst_ni ( ndmreset_n                ),
+    .slv    ( master[ariane_soc::L2SPM] ),
+    .mst    ( l2_axi_master             )
+  );
 
   // ---------------
   // AXI APB Slave
@@ -406,20 +425,39 @@ module cva6_subsystem
     .clk_i,
     .rst_ni ( ndmreset_n                ),
     .in     ( hyper_axi_master_cut      ),
-    .out    ( hyper_axi_master          )
+    .out    ( hyper_axi_master_redirect )
   );
-                 
-  axi_riscv_atomics_wrap #(
+
+  `ifdef L3_TCSRAM
+  l3_onchip_subsystem # (
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-    .AXI_USER_WIDTH ( AXI_USER_WIDTH           ),
-    .AXI_MAX_WRITE_TXNS ( 1  ),
-    .RISCV_WORD_WIDTH   ( 64 )
-  ) i_axi_riscv_atomics0 (
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+    ) l3_tcsram (
+                                    .clk_i ( clk_i                     ),
+                                    .rst_ni( ndmreset_n                ),
+                                    .slv   ( hyper_axi_master_redirect )
+                                    );
+   assign hyper_axi_master.aw_valid = 1'b0;
+   assign hyper_axi_master.ar_valid = 1'b0;
+   assign hyper_axi_master.w_valid  = 1'b0;
+  `else // !`ifdef L3_TCSRAM
+    `AXI_ASSIGN(hyper_axi_master,hyper_axi_master_redirect);
+  `endif
+   
+                       
+                 
+  axi_riscv_atomics_wrap #(
+    .AXI_ADDR_WIDTH     ( AXI_ADDRESS_WIDTH        ),
+    .AXI_DATA_WIDTH     ( AXI_DATA_WIDTH           ),
+    .AXI_ID_WIDTH       ( ariane_soc::IdWidthSlave ),
+    .AXI_USER_WIDTH     ( AXI_USER_WIDTH           ),
+    .AXI_MAX_WRITE_TXNS ( 1                        ),
+    .RISCV_WORD_WIDTH   ( 64                       )
+  ) i_axi_riscv_atomicsl3 (
     .clk_i,
     .rst_ni ( ndmreset_n                ),
-    .key_i  ( key_i                     ),
     .slv    ( master[ariane_soc::HYAXI] ),
     .mst    ( hyper_axi_master_cut      )
   );
@@ -533,10 +571,10 @@ module cva6_subsystem
     start_addr: ariane_soc::HYAXIBase,
     end_addr:   ariane_soc::HYAXIBase     + ariane_soc::HYAXILength  
   }; 
-  assign addr_map[ariane_soc::TLB_CFG] = '{ 
-    idx:  ariane_soc::TLB_CFG,
-    start_addr: ariane_soc::TLB_CFGBase,
-    end_addr:   ariane_soc::TLB_CFGBase     + ariane_soc::TLB_CFGLength  
+  assign addr_map[ariane_soc::AXILiteDom] = '{ 
+    idx:  ariane_soc::AXILiteDom,
+    start_addr: ariane_soc::AXILiteBase,
+    end_addr:   ariane_soc::AXILiteBase + ariane_soc::AXILiteLength  
   }; 
 
   axi_xbar_intf #(
@@ -554,19 +592,11 @@ module cva6_subsystem
     .default_mst_port_i     ('0)
   );
 
-  /************************************************************************************************************/
-  /*                                         AXI INTF FOR TLBs: START                                         */
-  /************************************************************************************************************/ 
-
   // --------------------
-  // AXI TLB Slave (CFG)
+  // AXI Lite Slave    
   // --------------------
-  `AXI_ASSIGN(tlb_cfg_master, master[ariane_soc::TLB_CFG])
 
-
-  /***********************************************************************************************************/
-  /*                                         AXI INTF FOR TLBs: STOP                                         */
-  /***********************************************************************************************************/ 
+  `AXI_ASSIGN(axi_lite_master, master[ariane_soc::AXILiteDom])
    
   // ---------------
   // CLINT
@@ -719,7 +749,11 @@ module cva6_subsystem
 `else
     .InclUART     ( 1'b0                     ),
 `endif
+`ifdef TARGET_FPGA  
+    .InclSPI      ( 1'b1                     ),
+`else
     .InclSPI      ( 1'b0                     ),
+`endif
     .InclEthernet ( 1'b0                     )
   ) i_ariane_peripherals (
     .clk_i           ( clk_i                        ),
@@ -730,6 +764,8 @@ module cva6_subsystem
     .ethernet        ( master[ariane_soc::Ethernet] ),
     .timer           ( master[ariane_soc::Timer]    ),
     .udma_evt_i      ( udma_events_i                ),
+    .cluster_eoc_i   ( cluster_eoc_i                ),
+    .c2h_irq_i       ( c2h_irq_i                    ),
     .can_irq_i       ( can_irq_i                    ),
     .cl_dma_pe_evt_i ( cl_dma_pe_evt_i              ),
     .irq_o           ( irqs                         ),
@@ -745,11 +781,7 @@ module cva6_subsystem
     .phy_mdio        ( ),
     .eth_mdc         ( ),
     .mdio            ( ),
-    .mdc             ( ),
-    .spi_clk_o       ( ),
-    .spi_mosi        ( ),
-    .spi_miso        ( ),
-    .spi_ss          ( )
+    .mdc             ( )
   );
 
 

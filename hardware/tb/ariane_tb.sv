@@ -18,6 +18,8 @@
 
 import ariane_pkg::*;
 import uvm_pkg::*;
+import ariane_soc::HyperbusNumPhys;
+import ariane_soc::NumChipsPerHyperbus;
 
 `include "uvm_macros.svh"
 `include "axi/assign.svh"
@@ -49,7 +51,8 @@ module ariane_tb;
     logic s_rtc_i;
     logic s_bypass;
     logic rst_DTM;
-    localparam NumPhys = 2;
+    localparam NumPhys = ariane_soc::HyperbusNumPhys;
+    localparam NumChips = ariane_soc::NumChipsPerHyperbus;   
    
     localparam ENABLE_DM_TESTS = 0;
    
@@ -101,9 +104,9 @@ module ariane_tb;
     localparam AxiWideByteOffset = $clog2(AxiWideBeWidth);
     typedef logic [ariane_axi_soc::AddrWidth-1:0] addr_t;
     typedef logic [ariane_axi_soc::DataWidth-1:0] data_t;   
-    data_t memory[bit [31:0]];
-    int sections [bit [31:0]];
-    
+    data_t memory [bit [31:0]];
+    int sections  [bit [31:0]];
+   
     wire                  s_dmi_req_valid;
     wire                  s_dmi_req_ready;
     wire [ 6:0]           s_dmi_req_bits_addr;
@@ -290,6 +293,8 @@ module ariane_tb;
 
     wire                  w_cva6_uart_rx ;
     wire                  w_cva6_uart_tx ;
+    wire                  apb_uart_rx ;
+    wire                  apb_uart_tx ;
    
     wire ddr_ext_clk;
   
@@ -300,7 +305,6 @@ module ariane_tb;
 
     string        binary ;
     string        cluster_binary;
-
   
   assign pad_periphs_pad_gpio_b_37_pad = pad_periphs_pad_gpio_b_05_pad;
   assign pad_periphs_pad_gpio_b_38_pad = pad_periphs_pad_gpio_b_06_pad;
@@ -392,6 +396,8 @@ module ariane_tb;
 
         .cva6_uart_rx_i       ( w_cva6_uart_rx         ),
         .cva6_uart_tx_o       ( w_cva6_uart_tx         ),
+        .apb_uart_rx_i        ( apb_uart_rx            ),
+        .apb_uart_tx_o        ( apb_uart_tx            ),
         
         .pad_hyper_csn        ( hyper_cs_n_wire        ),
         .pad_hyper_ck         ( hyper_ck_wire          ),
@@ -955,49 +961,76 @@ module ariane_tb;
   endgenerate
 
   generate
-     for (genvar i=0; i<2; i++) begin : hyperrams
-       s27ks0641 #(
-             .TimingModel   ( "S27KS0641DPBHI020"    ),
-             .UserPreload   ( PRELOAD_HYPERRAM       ),
-             .mem_file_name ( "./hyperram0.slm"      )
-         ) i_main_hyperram0 (
-                .DQ7           ( hyper_dq_wire[0][7]      ),
-                .DQ6           ( hyper_dq_wire[0][6]      ),
-                .DQ5           ( hyper_dq_wire[0][5]      ),
-                .DQ4           ( hyper_dq_wire[0][4]      ),
-                .DQ3           ( hyper_dq_wire[0][3]      ),
-                .DQ2           ( hyper_dq_wire[0][2]      ),
-                .DQ1           ( hyper_dq_wire[0][1]      ),
-                .DQ0           ( hyper_dq_wire[0][0]      ),
-                .RWDS          ( hyper_rwds_wire[0]       ),
-                .CSNeg         ( hyper_cs_n_wire[0][i]    ),
-                .CK            ( hyper_ck_wire[0]         ),
-                .CKNeg         ( hyper_ck_n_wire[0]       ),
-                .RESETNeg      ( hyper_reset_n_wire[0]    )
-       ); 
-       s27ks0641 #(
-             .TimingModel   ( "S27KS0641DPBHI020"    ),
-             .UserPreload   ( PRELOAD_HYPERRAM       ),
-             .mem_file_name ( "./hyperram1.slm"      )
-         ) i_main_hyperram1 (
-                .DQ7           ( hyper_dq_wire[1][7]      ),
-                .DQ6           ( hyper_dq_wire[1][6]      ),
-                .DQ5           ( hyper_dq_wire[1][5]      ),
-                .DQ4           ( hyper_dq_wire[1][4]      ),
-                .DQ3           ( hyper_dq_wire[1][3]      ),
-                .DQ2           ( hyper_dq_wire[1][2]      ),
-                .DQ1           ( hyper_dq_wire[1][1]      ),
-                .DQ0           ( hyper_dq_wire[1][0]      ),
-                .RWDS          ( hyper_rwds_wire[1]       ),
-                .CSNeg         ( hyper_cs_n_wire[1][i]    ),
-                .CK            ( hyper_ck_wire[1]         ),
-                .CKNeg         ( hyper_ck_n_wire[1]       ),
-                .RESETNeg      ( hyper_reset_n_wire[1]    )
-       ); 
+     for (genvar i=0; i< NumChips ; i++) begin : hyperrams
+
+        if ( NumPhys == 2 ) begin : double
+           
+           s27ks0641 #(
+                 .TimingModel   ( "S27KS0641DPBHI020"    ),
+                 .UserPreload   ( PRELOAD_HYPERRAM       ),
+                 .mem_file_name ( "./hyperram0.slm"      )
+             ) i_main_hyperram0 (
+                    .DQ7           ( hyper_dq_wire[0][7]      ),
+                    .DQ6           ( hyper_dq_wire[0][6]      ),
+                    .DQ5           ( hyper_dq_wire[0][5]      ),
+                    .DQ4           ( hyper_dq_wire[0][4]      ),
+                    .DQ3           ( hyper_dq_wire[0][3]      ),
+                    .DQ2           ( hyper_dq_wire[0][2]      ),
+                    .DQ1           ( hyper_dq_wire[0][1]      ),
+                    .DQ0           ( hyper_dq_wire[0][0]      ),
+                    .RWDS          ( hyper_rwds_wire[0]       ),
+                    .CSNeg         ( hyper_cs_n_wire[0][i]    ),
+                    .CK            ( hyper_ck_wire[0]         ),
+                    .CKNeg         ( hyper_ck_n_wire[0]       ),
+                    .RESETNeg      ( hyper_reset_n_wire[0]    )
+           ); 
+           s27ks0641 #(
+                 .TimingModel   ( "S27KS0641DPBHI020"    ),
+                 .UserPreload   ( PRELOAD_HYPERRAM       ),
+                 .mem_file_name ( "./hyperram1.slm"      )
+             ) i_main_hyperram1 (
+                    .DQ7           ( hyper_dq_wire[1][7]      ),
+                    .DQ6           ( hyper_dq_wire[1][6]      ),
+                    .DQ5           ( hyper_dq_wire[1][5]      ),
+                    .DQ4           ( hyper_dq_wire[1][4]      ),
+                    .DQ3           ( hyper_dq_wire[1][3]      ),
+                    .DQ2           ( hyper_dq_wire[1][2]      ),
+                    .DQ1           ( hyper_dq_wire[1][1]      ),
+                    .DQ0           ( hyper_dq_wire[1][0]      ),
+                    .RWDS          ( hyper_rwds_wire[1]       ),
+                    .CSNeg         ( hyper_cs_n_wire[1][i]    ),
+                    .CK            ( hyper_ck_wire[1]         ),
+                    .CKNeg         ( hyper_ck_n_wire[1]       ),
+                    .RESETNeg      ( hyper_reset_n_wire[1]    )
+           );
+        end else begin : single          
+          
+           s27ks0641 #(
+                 .TimingModel   ( "S27KS0641DPBHI020"    ),
+                 .UserPreload   ( PRELOAD_HYPERRAM       ),
+                 .mem_file_name ( "./hyperram.slm"       )
+             ) i_main_hyperram0 (
+                    .DQ7           ( hyper_dq_wire[0][7]      ),
+                    .DQ6           ( hyper_dq_wire[0][6]      ),
+                    .DQ5           ( hyper_dq_wire[0][5]      ),
+                    .DQ4           ( hyper_dq_wire[0][4]      ),
+                    .DQ3           ( hyper_dq_wire[0][3]      ),
+                    .DQ2           ( hyper_dq_wire[0][2]      ),
+                    .DQ1           ( hyper_dq_wire[0][1]      ),
+                    .DQ0           ( hyper_dq_wire[0][0]      ),
+                    .RWDS          ( hyper_rwds_wire[0]       ),
+                    .CSNeg         ( hyper_cs_n_wire[0][i]    ),
+                    .CK            ( hyper_ck_wire[0]         ),
+                    .CKNeg         ( hyper_ck_n_wire[0]       ),
+                    .RESETNeg      ( hyper_reset_n_wire[0]    )
+           ); 
+        end // block: single
+          
      end // block: hyperrams
    endgenerate
    
-   uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart_bus (.rx(w_cva6_uart_tx), .tx(w_cva6_uart_rx), .rx_en(1'b1));
+   uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(w_cva6_uart_tx), .tx(w_cva6_uart_rx), .rx_en(1'b1));
+   uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart1_bus (.rx(apb_uart_tx), .tx(apb_uart_rx), .rx_en(1'b1));
 
     initial begin: reset_jtag
       jtag_mst.tdi = 0;
@@ -1032,7 +1065,7 @@ module ariane_tb;
             @(posedge rtc_i);
         @(negedge rtc_i);       
         rst_ni = 1'b1;
-        repeat(20)
+        repeat(8)
             @(posedge rtc_i);
         rst_DTM = 1'b1;
         jtag_mst.trst_n = 1'b1;       
@@ -1095,7 +1128,7 @@ module ariane_tb;
               $display("Testing cluster: %s", cluster_binary);
          end 
          
-        repeat(50)
+        repeat(20)
             @(posedge rtc_i);
            debug_module_init();
            if(!PRELOAD_HYPERRAM) begin
@@ -1144,10 +1177,10 @@ module ariane_tb;
                 $display("R/W sanity check ok!");
               end
            end 
-            
+
            #(REFClockPeriod);
-           jtag_ariane_wakeup();
-           jtag_read_eoc();
+           jtag_ariane_wakeup(32'h80000000);
+           jtag_read_eoc(32'h80000000);
          end 
    end
    
@@ -1262,6 +1295,7 @@ module ariane_tb;
     input string binary;                   // File name
     addr_t       section_addr, section_len;
     byte         buffer[];
+
     // Read ELF
     void'(read_elf(binary));
     $display("Reading %s", binary);
@@ -1286,14 +1320,51 @@ module ariane_tb;
 
   
   task jtag_ariane_wakeup;
+    input logic [31:0] start_addr;
+    logic [31:0] dm_status;
+     
+    automatic dm::sbcs_t sbcs = '{
+      sbautoincrement: 1'b1,
+      sbreadondata   : 1'b1,
+      default        : 1'b0
+    };
 
     $info("======== Waking up Ariane using JTAG ========");
-    // Generate the interrupt
-    riscv_dbg.write_dmi(dm::DMControl, 32'h0000_0003);
-
-    # 150ns; 
-     
+    // Initialize the dm module again, otherwise it will not work
+    debug_module_init();
+    do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    // Write PC to Data0 and Data1
+    riscv_dbg.write_dmi(dm::Data0, start_addr);
+    do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    riscv_dbg.write_dmi(dm::Data1, 32'h0000_0000);
+    do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    // Halt Req
+    riscv_dbg.write_dmi(dm::DMControl, 32'h8000_0001);
+    do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    // Wait for CVA6 to be halted
+    do riscv_dbg.read_dmi(dm::DMStatus, dm_status);
+    while (!dm_status[8]);
+    // Ensure haltreq, resumereq and ackhavereset all equal to 0
     riscv_dbg.write_dmi(dm::DMControl, 32'h0000_0001);
+    do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    // Register Access Abstract Command  
+    riscv_dbg.write_dmi(dm::Command, {8'h0,1'b0,3'h3,1'b0,1'b0,1'b1,1'b1,4'h0,dm::CSR_DPC});
+    do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    // Resume req. Exiting from debug mode CVA6 will jump at the DPC address.
+    // Ensure haltreq, resumereq and ackhavereset all equal to 0
+    riscv_dbg.write_dmi(dm::DMControl, 32'h4000_0001);
+    do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    riscv_dbg.write_dmi(dm::DMControl, 32'h0000_0001);
+    do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+     
     // Wait till end of computation
     program_loaded = 1;
 
@@ -1304,13 +1375,17 @@ module ariane_tb;
   endtask // execute_application
 
   task jtag_read_eoc;
-
+    input logic [31:0] start_addr;
+     
     automatic dm::sbcs_t sbcs = '{
       sbautoincrement: 1'b1,
       sbreadondata   : 1'b1,
       default        : 1'b0
     };
 
+    logic [31:0] to_host_addr;
+    to_host_addr = start_addr + 32'h1000;
+ 
     // Initialize the dm module again, otherwise it will not work
     debug_module_init();
     sbcs.sbreadonaddr = 1;
@@ -1319,12 +1394,12 @@ module ariane_tb;
     do riscv_dbg.read_dmi(dm::SBCS, sbcs);
     while (sbcs.sbbusy);
 
-    riscv_dbg.write_dmi(dm::SBAddress0, 32'h8000_1000); // tohost address
+    riscv_dbg.write_dmi(dm::SBAddress0, to_host_addr); // tohost address
     riscv_dbg.wait_idle(10);
     do begin 
 	     do riscv_dbg.read_dmi(dm::SBCS, sbcs);
 	     while (sbcs.sbbusy);
-       riscv_dbg.write_dmi(dm::SBAddress0, 32'h8000_1000); // tohost address
+       riscv_dbg.write_dmi(dm::SBAddress0, to_host_addr); // tohost address
 	     do riscv_dbg.read_dmi(dm::SBCS, sbcs);
 	     while (sbcs.sbbusy);
        riscv_dbg.read_dmi(dm::SBData0, retval);

@@ -128,6 +128,18 @@ ifdef preload
 	elf-bin = none
 endif
 
+ifdef l3-fake
+	questa-cmd += +L3_TCSRAM=$(l3-fake)
+  compile_flag +=  +define+L3_TCSRAM
+  compile_fpga += L3_TCSRAM
+endif
+
+ifdef exclude-cluster
+	questa-cmd += +EXCLUDE_CLUSTER=$(exclude-cluster)
+  compile_flag +=  +define+EXCLUDE_CLUSTER
+  compile_fpga += EXCLUDE_CLUSTER
+endif
+
 ifdef spike-tandem
     questa-cmd += -gblso tb/riscv-isa-sim/install/lib/libriscv.so
 endif
@@ -160,11 +172,11 @@ libbender:
 
 scripts-bender-fpga: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
-	bender script vivado -t fpga -t xilinx -t tech_cells_generic_include_xilinx_xpm > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
+	bender script vivado -t fpga -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
 scripts-bender-fpga-ddr: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
-	bender script vivado -t fpga -t ddr -t xilinx -t tech_cells_generic_include_xilinx_xpm > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
+	bender script vivado -t fpga -t ddr -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
 scripts-bender-synopsys: | Bender.lock
 	echo 'set ROOT [file normalize [file dirname [info script]]/../../../]' > $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl

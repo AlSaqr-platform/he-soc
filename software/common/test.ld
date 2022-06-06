@@ -31,7 +31,7 @@ SECTIONS
   .tohost : { *(.tohost) }
 
   .text : { *(.text) }
-
+  
   /* data segment */
   .data : { *(.data) }
 
@@ -40,6 +40,15 @@ SECTIONS
     *(.srodata.cst16) *(.srodata.cst8) *(.srodata.cst4) *(.srodata.cst2) *(.srodata*)
     *(.sdata .sdata.* .gnu.linkonce.s.*)
   }
+
+  /* Read Only Cluster Code */
+  .rodata :  {
+    *(.rodata);
+    . = ALIGN(0x10);
+    __cluster_code_start = . ;
+    KEEP(*(.clusterraw*))
+    __cluster_code_end = . ;
+    }
 
   /* bss segment */
   .sbss : {
@@ -61,6 +70,7 @@ SECTIONS
     *(.tbss)
     *(.tbss.end)
   }
+
 
   /* End of uninitalized data segement */
   _end = .;
