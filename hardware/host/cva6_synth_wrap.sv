@@ -12,6 +12,7 @@
 // Date: 13.01.2021
 // Description: Ariane synth wrapper
 
+//`include "/scratch/aibrahim/clean/he-soc/hardware/tb/common/assign.svh"
 
 module cva6_synth_wrap
  import ariane_pkg::*;
@@ -95,8 +96,11 @@ module cva6_synth_wrap
   ) cva6_axi_master_src();
 
                        
-  ariane_axi_soc::req_t    axi_ariane_req;
-  ariane_axi_soc::resp_t   axi_ariane_resp;
+  ariane_axi_soc::req_t_512    axi_ariane_req;
+  ariane_axi_soc::resp_t_512   axi_ariane_resp;
+
+  ariane_axi_soc::req_t   w_axi_ariane_req;
+  ariane_axi_soc::resp_t   w_axi_ariane_resp;
    
   /*ariane #(
     .ArianeCfg  ( ariane_soc::ArianeSocCfg )
@@ -116,6 +120,17 @@ module cva6_synth_wrap
 
 
   wire [4:0] dump_wid;
+
+  axi_dw_converter size_converter(
+    .clk_i(clk_i),
+    .rst_ni(rst_ni),
+    // Slave interface
+    .slv_req_i(axi_ariane_req),
+    .slv_resp_o(axi_ariane_resp),
+    // Master interface
+    .mst_req_o(w_axi_ariane_req),
+    .mst_resp_i(w_axi_ariane_resp)
+);
 
   cache_coherent_ariane_wrapper i_ariane (
     .core_ref_clk(clk_i),
@@ -180,8 +195,8 @@ module cva6_synth_wrap
   );
   
   axi_master_connect i_axi_master_connect_ariane (
-    .axi_req_i(axi_ariane_req),
-    .axi_resp_o(axi_ariane_resp),
+    .axi_req_i(w_axi_ariane_req),
+    .axi_resp_o(w_axi_ariane_resp),
     .master(cva6_axi_master)
   );
 
