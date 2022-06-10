@@ -121,7 +121,24 @@ module cva6_synth_wrap
 
   wire [4:0] dump_wid;
 
-  axi_dw_converter size_converter(
+  axi_dw_converter #(
+    .AxiMaxReads          (2)    , // Number of outstanding reads
+    .AxiSlvPortDataWidth  (512)    , // Data width of the slv port
+    .AxiMstPortDataWidth  (64)    , // Data width of the mst port
+    .AxiAddrWidth         (64)    , // Address width
+    .AxiIdWidth           (5)    , // ID width
+    .aw_chan_t                    (ariane_axi_soc::aw_chan_t), // AW Channel Type
+    .mst_w_chan_t                 (ariane_axi_soc::w_chan_t), //  W Channel Type for the mst port
+    .slv_w_chan_t                 (ariane_axi_soc::w_chan_t_512), //  W Channel Type for the slv port
+    .b_chan_t                    (ariane_axi_soc::b_chan_t), //  B Channel Type
+    .ar_chan_t                   (ariane_axi_soc::ar_chan_t), // AR Channel Type
+    .mst_r_chan_t                (ariane_axi_soc::r_chan_t), //  R Channel Type for the mst port
+    .slv_r_chan_t                (ariane_axi_soc::r_chan_t_512), //  R Channel Type for the slv port
+    .axi_mst_req_t               (ariane_axi_soc::req_t), // AXI Request Type for mst ports
+    .axi_mst_resp_t              (ariane_axi_soc::resp_t), // AXI Response Type for mst ports
+    .axi_slv_req_t               (ariane_axi_soc::req_t_512), // AXI Request Type for slv ports
+    .axi_slv_resp_t              (ariane_axi_soc::resp_t_512)  // AXI Response Type for slv ports
+  )size_converter(
     .clk_i(clk_i),
     .rst_ni(rst_ni),
     // Slave interface
