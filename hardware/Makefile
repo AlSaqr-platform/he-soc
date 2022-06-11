@@ -189,8 +189,8 @@ scripts:
 
 scripts_vip:
 	bender script vsim \
-		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t vip > compile.tcl
+		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 3009" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
+    -t rtl -t test -t vip --vlog-arg="-override_timescale 1ps/1ps" > compile.tcl
 
 post_synth_scripts_vip:
 	bender script vsim \
