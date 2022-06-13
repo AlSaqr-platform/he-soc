@@ -1,5 +1,5 @@
 APP := stimuli
 XLEN:=32
 
-include $(shell pwd)/../../common_pulp/common_pulp.mk
+include $(SW_HOME)/common_pulp/common_pulp.mk
 

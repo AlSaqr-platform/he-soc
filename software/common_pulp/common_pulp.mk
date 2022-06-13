@@ -1,6 +1,6 @@
 current_dir = $(shell pwd)
 
-utils_dir = $(current_dir)/../../inc/
+utils_dir = $(SW_HOME)/inc/
 
 directories = . drivers/inc drivers/src string_lib/inc string_lib/src
 
@@ -10,7 +10,7 @@ ifdef CLUSTER_UART
 	cc-elf-y = -DCLUSTER_UART
 endif
 
-inc_dir := $(current_dir)/../../common_pulp
+inc_dir := $(SW_HOME)/common_pulp
 
 RISCV_PREFIX ?= riscv$(XLEN)-unknown-elf-
 RISCV_GCC ?= $(RISCV_PREFIX)gcc
