@@ -236,7 +236,7 @@ cd hardware
 
 make update
 
-make preload=1 scripts_vips
+make preload=1 scripts_vip
 
 make sim preload=1 elf-bin=../software/hello/hello.riscv
 ```
