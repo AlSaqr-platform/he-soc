@@ -220,6 +220,9 @@ source piton/ariane_setup.sh
 
 #build OpenPiton RTL
 
+#make sure you have dtc pkg on lagrev,, you dont have the permissions to use rpm so download it manually from here
+http://mirror.centos.org/centos/7/extras/x86_64/Packages/dtc-1.4.6-1.el7.x86_64.rpm
+
 cd /build
 
 sims -sys=manycore -x_tiles=1 -y_tiles=1 -msm_build -ariane
