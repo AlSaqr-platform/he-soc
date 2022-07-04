@@ -30,9 +30,9 @@
 #define BUFFER_SIZE_READ 12
 #define N_I2C 1
 
-//#define FPGA_EMULATION
-//#define VERBOSE
-//#define PRINTF_ON
+#define FPGA_EMULATION
+#define VERBOSE
+#define PRINTF_ON
 
 int main()
 {
@@ -55,8 +55,6 @@ int main()
     uart_wait_tx_done();
   #endif 
 
-  
-
   uint8_t *expected_rx_buffer= (uint8_t*) 0x1C001000;
   
   #ifdef PRINTF_ON
@@ -71,15 +69,12 @@ int main()
     uart_wait_tx_done();   
   #endif
   
-  
-
   uint32_t *cmd_buffer_wr = (uint32_t*) 0x1C003000;
   
   #ifdef PRINTF_ON
     printf ("Declare cmd_buffer_wr..\n\r");
     uart_wait_tx_done();    
   #endif
-
 
   uint32_t *cmd_buffer_rd = (uint32_t*) 0x1C004000;
   
@@ -229,9 +224,7 @@ int main()
     printf ("Setting padmux...\n\r");
     uart_wait_tx_done();     
   #endif    
-
-                                      
-    
+                                  
   alsaqr_periph_padframe_periphs_pad_gpio_b_04_mux_set( 1 );
 
   alsaqr_periph_padframe_periphs_pad_gpio_b_05_mux_set( 1 );
@@ -240,8 +233,6 @@ int main()
     printf ("End setting padmux...\n\r");
     uart_wait_tx_done(); 
   #endif  
-
-
   
 
   for (u=0;u<N_I2C;u++) {
