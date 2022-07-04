@@ -30,16 +30,63 @@
 #define BUFFER_SIZE_READ 12
 #define N_I2C 1
 
+//#define FPGA_EMULATION
+//#define VERBOSE
+//#define PRINTF_ON
+
 int main()
 {
   int pass = 1;
   int error = 0;
   int u=0;
 
+  #ifdef FPGA_EMULATION
+  int baud_rate = 115200;
+  int test_freq = 50000000;
+  #else
+  set_flls();
+  int baud_rate = 115200;
+  int test_freq = 100000000;
+  #endif  
+  uart_set_cfg(0,(test_freq/baud_rate)>>4);
+
+  #ifdef PRINTF_ON
+    printf ("Start test i2c...\n\r");
+    uart_wait_tx_done();
+  #endif 
+
+  
+
   uint8_t *expected_rx_buffer= (uint8_t*) 0x1C001000;
+  
+  #ifdef PRINTF_ON
+    printf ("Declare expected_rx_buffer..\n\r");
+    uart_wait_tx_done();
+  #endif 
+
   uint8_t *rx_buffer= (uint8_t*) 0x1C002000;
+
+  #ifdef PRINTF_ON
+    printf ("Declare rx_buffer..\n\r");
+    uart_wait_tx_done();   
+  #endif
+  
+  
+
   uint32_t *cmd_buffer_wr = (uint32_t*) 0x1C003000;
+  
+  #ifdef PRINTF_ON
+    printf ("Declare cmd_buffer_wr..\n\r");
+    uart_wait_tx_done();    
+  #endif
+
+
   uint32_t *cmd_buffer_rd = (uint32_t*) 0x1C004000;
+  
+  #ifdef PRINTF_ON
+    printf ("Declare cmd_buffer_rd..\n\r");
+    uart_wait_tx_done(); 
+  #endif
 
   //Expected datas
   /*uint8_t expected_rx_buffer[DATA_SIZE]={ 0xCA,
@@ -176,33 +223,50 @@ int main()
       cmd_buffer_rd[i]= 0;
       break;
     }
-  }                                               
+  }  
 
-  #ifdef FPGA_EMULATION
-  int baud_rate = 9600;
-  int test_freq = 10000000;
-  #else
-  set_flls();
-  int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif  
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
+  #ifdef PRINTF_ON
+    printf ("Setting padmux...\n\r");
+    uart_wait_tx_done();     
+  #endif    
+
+                                      
     
   alsaqr_periph_padframe_periphs_pad_gpio_b_04_mux_set( 1 );
 
   alsaqr_periph_padframe_periphs_pad_gpio_b_05_mux_set( 1 );
 
+  #ifdef PRINTF_ON
+    printf ("End setting padmux...\n\r");
+    uart_wait_tx_done(); 
+  #endif  
+
+
+  
+
   for (u=0;u<N_I2C;u++) {
 
     //WRITE
 
-    //printf("[%d, %d] Start test i2c write %d\n",  get_cluster_id(), get_core_id(),u);
-
     //--- enable all the udma channels (see below for selective enable)
+
+    #ifdef PRINTF_ON
+      printf ("Enable CG peripherals...\n\r");
+      uart_wait_tx_done();
+    #endif
+    
+
     plp_udma_cg_set(plp_udma_cg_get() | (0xffffffff));
 
+    #ifdef PRINTF_ON
+      printf ("Peripherals enabled...\n\r");
+      uart_wait_tx_done();
+    #endif
+
+    
+
     //--- get the base address of the udma channels
-    unsigned int udma_i2c_channel_base = hal_udma_channel_base(UDMA_CHANNEL_ID(ARCHI_UDMA_I2C_ID(u)));
+    //unsigned int udma_i2c_channel_base = hal_udma_channel_base(UDMA_CHANNEL_ID(ARCHI_UDMA_I2C_ID(u)));
     //printf("uDMA i2c%d base channel address %8x\n", u,udma_i2c_channel_base);
 
     expected_rx_buffer[1]=u;
@@ -210,10 +274,26 @@ int main()
     cmd_buffer_wr[2] = (((uint32_t)I2C_CMD_WRB)<<24) | 0xa0 | u<<1;
     cmd_buffer_wr[6] = (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[1];
 
+    #ifdef PRINTF_ON
+      printf ("Enqueue UDMA_I2C_TX_ADDR...\n\r");
+      uart_wait_tx_done();
+    #endif
+    
     plp_udma_enqueue(UDMA_I2C_TX_ADDR(u), (int)expected_rx_buffer, 4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_8);
+    
     //--- enqueue cmds on cmd channel
+    #ifdef PRINTF_ON
+      printf ("Enqueue UDMA_I2C_CMD_ADDR Write...\n\r");
+      uart_wait_tx_done();
+    #endif
+
     plp_udma_enqueue(UDMA_I2C_CMD_ADDR(u) ,  (int)cmd_buffer_wr     , BUFFER_SIZE*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
 
+    #ifdef PRINTF_ON
+      printf ("WAIT WRITE TO BE DONE BY THE MEMORY ...\n\r");
+      uart_wait_tx_done();
+    #endif
+    
     // WAIT WRITE TO BE DONE BY THE MEMORY
     for (volatile int i = 0; i < 75000; ++i)
     {
@@ -221,6 +301,10 @@ int main()
     }
 
     //READ
+    #ifdef PRINTF_ON
+      printf ("Clear the rx buffer...\n\r");
+      uart_wait_tx_done();
+    #endif
 
     //--- clear the rx buffer
     for (int j = 0; j < DATA_SIZE; ++j)
@@ -231,7 +315,7 @@ int main()
     //printf("[%d, %d] Start test i2c read %d\n",  get_cluster_id(), get_core_id(),u);
 
     //--- enable all the udma channels (see below for selective enable)
-    plp_udma_cg_set(plp_udma_cg_get() | (0xffffffff));
+    //plp_udma_cg_set(plp_udma_cg_get() | (0xffffffff));
 
     //--- get the base address of the udma channels
     //unsigned int udma_i2c_channel_base = hal_udma_channel_base(UDMA_CHANNEL_ID(ARCHI_UDMA_I2C_ID(u)));
@@ -242,7 +326,18 @@ int main()
     cmd_buffer_rd[2] = (((uint32_t)I2C_CMD_WRB)<<24) | 0xa0 | u<<1;
     cmd_buffer_rd[6] = (((uint32_t)I2C_CMD_WRB)<<24) | 0xa1 | u<<1;
 
+    #ifdef PRINTF_ON
+      printf ("Enqueue UDMA_I2C_DATA_ADDR...\n\r");
+      uart_wait_tx_done();  
+    #endif
+
     plp_udma_enqueue(UDMA_I2C_DATA_ADDR(u) ,  (int)rx_buffer     , 4               , UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_8);
+    
+    #ifdef PRINTF_ON
+      printf ("Enqueue UDMA_I2C_CMD_ADDR Read...\n\r");
+      uart_wait_tx_done();
+    #endif
+
     plp_udma_enqueue(UDMA_I2C_CMD_ADDR(u) ,  (int)cmd_buffer_rd  , BUFFER_SIZE_READ*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
     for (volatile int i = 0; i < 10000; ++i)
     {
@@ -253,7 +348,7 @@ int main()
       if (rx_buffer[i]!=expected_rx_buffer[i])
       {
         #ifdef VERBOSE
-        printf("rx_buffer[%0d]=0x%0x different from expected 0x%0x\n", i, rx_buffer[i], expected_rx_buffer[i]);
+          printf("rx_buffer[%0d]=0x%0x different from expected 0x%0x\n", i, rx_buffer[i], expected_rx_buffer[i]);
         #endif
         error++;
       }
