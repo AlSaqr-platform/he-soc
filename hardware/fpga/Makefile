@@ -4,4 +4,5 @@ clean:
 		rm -rf alsaqr/alsaqr*
 
 run:
-		vivado-2018.2 vivado -mode gui -source run.tcl
+		vitis-2020.2 vivado -mode gui -source run.tcl
+
