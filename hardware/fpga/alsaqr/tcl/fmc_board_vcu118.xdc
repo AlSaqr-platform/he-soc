@@ -98,10 +98,46 @@ set_property -dict {PACKAGE_PIN AP15 IOSTANDARD LVCMOS18} [get_ports FMC_hyper1_
 ####################################################################
 
 set_property PACKAGE_PIN BE29 [get_ports c0_data_compare_error]
-set_property IOSTANDARD LVCMOS18 [get_ports c0_data_compare_error]
 
 set_property PACKAGE_PIN BF29 [get_ports c0_init_calib_complete]
-set_property IOSTANDARD LVCMOS18 [get_ports c0_init_calib_complete]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+####################################################################
+# PADFRAME FMC PERIPHERAL BOARD (SPI - I2C - UART - SDIO)
+####################################################################
+
+set_property -dict {PACKAGE_PIN AP12 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_00_pad]
+set_property -dict {PACKAGE_PIN AN16 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_01_pad]
+set_property -dict {PACKAGE_PIN AT14 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_02_pad]
+set_property -dict {PACKAGE_PIN AR12 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_03_pad]
+set_property -dict {PACKAGE_PIN AK15 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_04_pad]
+set_property -dict {PACKAGE_PIN AL15 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_05_pad]
+set_property -dict {PACKAGE_PIN AW10 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_06_pad]
+set_property -dict {PACKAGE_PIN AV10 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_07_pad]
+
+set_property -dict {PACKAGE_PIN AU11 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_08_pad]
+set_property -dict {PACKAGE_PIN AV11 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_09_pad]
+set_property -dict {PACKAGE_PIN AT12 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_10_pad]
+set_property -dict {PACKAGE_PIN AU12 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_11_pad]
+
+set_property -dict {PACKAGE_PIN AW13 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_12_pad]
+set_property -dict {PACKAGE_PIN AY13 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_13_pad]
+
+
+
+
 
 set_property PACKAGE_PIN K24 [get_ports {c0_ddr4_dq[0]}]
 set_property PACKAGE_PIN J24 [get_ports {c0_ddr4_dq[1]}]
@@ -119,12 +155,9 @@ set_property PACKAGE_PIN F21 [get_ports {c0_ddr4_dq[12]}]
 set_property PACKAGE_PIN E21 [get_ports {c0_ddr4_dq[13]}]
 set_property PACKAGE_PIN F24 [get_ports {c0_ddr4_dq[14]}]
 set_property PACKAGE_PIN F23 [get_ports {c0_ddr4_dq[15]}]
-
 set_property PACKAGE_PIN L23 [get_ports {c0_ddr4_dm_dbi_n[0]}]
 set_property PACKAGE_PIN G22 [get_ports {c0_ddr4_dm_dbi_n[1]}]
-
 set_property PACKAGE_PIN C8 [get_ports {c0_ddr4_odt[0]}]
-
 set_property PACKAGE_PIN D14 [get_ports {c0_ddr4_adr[0]}]
 set_property PACKAGE_PIN B15 [get_ports {c0_ddr4_adr[1]}]
 set_property PACKAGE_PIN B16 [get_ports {c0_ddr4_adr[2]}]
@@ -139,24 +172,16 @@ set_property PACKAGE_PIN C12 [get_ports {c0_ddr4_adr[10]}]
 set_property PACKAGE_PIN B13 [get_ports {c0_ddr4_adr[11]}]
 set_property PACKAGE_PIN C13 [get_ports {c0_ddr4_adr[12]}]
 set_property PACKAGE_PIN D15 [get_ports {c0_ddr4_adr[13]}]
-
 set_property PACKAGE_PIN G15 [get_ports {c0_ddr4_ba[0]}]
 set_property PACKAGE_PIN G13 [get_ports {c0_ddr4_ba[1]}]
 set_property PACKAGE_PIN H13 [get_ports {c0_ddr4_bg[0]}]
-
 set_property PACKAGE_PIN H14 [get_ports {c0_ddr4_adr[14]}]
 set_property PACKAGE_PIN H15 [get_ports {c0_ddr4_adr[15]}]
 set_property PACKAGE_PIN F15 [get_ports {c0_ddr4_adr[16]}]
-
-
 set_property PACKAGE_PIN F13 [get_ports {c0_ddr4_cs_n[0]}]
-
 set_property PACKAGE_PIN A10 [get_ports {c0_ddr4_cke[0]}]
-
 set_property PACKAGE_PIN N20 [get_ports c0_ddr4_reset_n]
-
 set_property PACKAGE_PIN E13 [get_ports c0_ddr4_act_n]
-
 set_property PACKAGE_PIN F14 [get_ports {c0_ddr4_ck_t[0]}]
 set_property PACKAGE_PIN E14 [get_ports {c0_ddr4_ck_c[0]}]
 set_property PACKAGE_PIN H24 [get_ports {c0_ddr4_dqs_t[1]}]
@@ -164,30 +189,10 @@ set_property PACKAGE_PIN G23 [get_ports {c0_ddr4_dqs_c[1]}]
 set_property PACKAGE_PIN M20 [get_ports {c0_ddr4_dqs_t[0]}]
 set_property PACKAGE_PIN L20 [get_ports {c0_ddr4_dqs_c[0]}]
 
+set_property IOSTANDARD LVCMOS18 [get_ports c0_data_compare_error]
+set_property IOSTANDARD LVCMOS18 [get_ports c0_init_calib_complete]
 
-####################################################################
-# PADFRAME FMC PERIPHERAL BOARD (SPI - I2C - UART - SDIO)
-####################################################################
-
-set_property -dict { PACKAGE_PIN AP12 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_00_pad] #SPI_CSN
-set_property -dict { PACKAGE_PIN AN16 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_01_pad] #SPI_SCK
-set_property -dict { PACKAGE_PIN AT14 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_02_pad] #SPI_MISO
-set_property -dict { PACKAGE_PIN AR12 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_03_pad] #SPI_MOSI
-
-set_property -dict { PACKAGE_PIN AK15 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_04_pad] #SI2C_CL
-set_property -dict { PACKAGE_PIN AL15 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_05_pad] #I2C_SDA
-
-set_property -dict { PACKAGE_PIN BD13 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_06_pad] #UART_TX
-set_property -dict { PACKAGE_PIN BE13 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_07_pad] #UART_RX
-
-set_property -dict { PACKAGE_PIN AU11 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_08_pad] #SDIO_D0
-set_property -dict { PACKAGE_PIN AV11 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_09_pad] #SDIO_D1
-set_property -dict { PACKAGE_PIN AT12 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_10_pad] #SDIO_D2
-set_property -dict { PACKAGE_PIN AU12 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_11_pad] #SDIO_D3
-set_property -dict { PACKAGE_PIN AW13 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_12_pad] #SDIO_CLK
-set_property -dict { PACKAGE_PIN AY13 IOSTANDARD LVDS } [get_ports pad_periphs_pad_gpio_b_13_pad] #SDIO_CMD
-
-
-
-
+####################################################################################
+# Constraints from file : 'constraints.xdc'
+####################################################################################
 
