@@ -84,8 +84,8 @@ int *tx_buffer= (int*) 0x1C001000;
 int *rx_buffer= (int*) 0x1C002000;
 
   #ifdef FPGA_EMULATION
-  int baud_rate = 9600;
-  int test_freq = 10000000;
+  int baud_rate = 115200;
+  int test_freq = 50000000;
   #else
   set_flls();
   int baud_rate = 115200;
