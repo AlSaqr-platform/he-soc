@@ -17,7 +17,15 @@ module apb_subsystem
   import apb_soc_pkg::*;
   import udma_subsystem_pkg::*;
   import gpio_pkg::*; 
-  import pkg_alsaqr_periph_padframe::*;
+ `ifndef FPGA_EMUL
+    `ifndef SIMPLE_PADFRAME
+        import pkg_alsaqr_periph_padframe::*;
+      `else
+        import pkg_alsaqr_periph_fpga_padframe::*; 
+      `endif
+  `else
+      import pkg_alsaqr_periph_fpga_padframe::*; 
+  `endif
   import ariane_soc::HyperbusNumPhys;
   import ariane_soc::NumChipsPerHyperbus;
 #( 

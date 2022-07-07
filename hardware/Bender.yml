@@ -9,6 +9,7 @@ dependencies:
   rv_plic: { path: "deps/rv_plic" }
   util: { path: "deps/util" }
   alsaqr_padframe: { path: "deps/alsaqr_periph_padframe" }
+  alsaqr_fpga_padframe: { path: "deps/alsaqr_periph_fpga_padframe" }
   apb_host_control: { path: "deps/apb_host_control_regs" }
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}

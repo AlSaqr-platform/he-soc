@@ -24,7 +24,15 @@ module host_domain
   import ariane_soc::*;
   import udma_subsystem_pkg::*;  
   import gpio_pkg::*; 
-  import pkg_alsaqr_periph_padframe::*; 
+  `ifndef FPGA_EMUL
+    `ifndef SIMPLE_PADFRAME
+        import pkg_alsaqr_periph_padframe::*;
+      `else
+        import pkg_alsaqr_periph_fpga_padframe::*; 
+      `endif
+  `else
+      import pkg_alsaqr_periph_fpga_padframe::*; 
+  `endif
 #(
   parameter int unsigned AXI_USER_WIDTH    = 1,
   parameter int unsigned AXI_ADDRESS_WIDTH = 64,
