@@ -61,8 +61,20 @@ module ariane_tb;
     parameter  USE_S25FS256S_MODEL  = 1;
     parameter  USE_UART             = 1;
     parameter  USE_SERIAL_LINK      = 0;
-    parameter  USE_SDIO_0           = 1;
-    parameter  USE_SDIO_1           = 0;
+
+
+    `ifndef FPGA_EMUL
+      `ifndef SIMPLE_PADFRAME
+        parameter  USE_SDIO_0       = 0;
+        parameter  USE_SDIO_1       = 1;
+      `else
+        parameter  USE_SDIO_0       = 1;
+        parameter  USE_SDIO_1       = 0;
+      `endif
+    `else
+      parameter  USE_SDIO_0       = 0;
+      parameter  USE_SDIO_1       = 1;
+    `endif
 
     // use camera verification IP
     parameter  USE_SDVT_CPI = 0;
@@ -178,6 +190,117 @@ module ariane_tb;
     wire    pad_periphs_pad_gpio_b_11_pad;
     wire    pad_periphs_pad_gpio_b_12_pad;
     wire    pad_periphs_pad_gpio_b_13_pad;
+    wire    pad_periphs_pad_gpio_b_14_pad;
+    wire    pad_periphs_pad_gpio_b_15_pad;
+    wire    pad_periphs_pad_gpio_b_16_pad;
+    wire    pad_periphs_pad_gpio_b_17_pad;
+    wire    pad_periphs_pad_gpio_b_18_pad;
+    wire    pad_periphs_pad_gpio_b_19_pad;
+    wire    pad_periphs_pad_gpio_b_20_pad;
+    wire    pad_periphs_pad_gpio_b_21_pad;
+    wire    pad_periphs_pad_gpio_b_22_pad;
+    wire    pad_periphs_pad_gpio_b_23_pad;
+    wire    pad_periphs_pad_gpio_b_24_pad;
+    wire    pad_periphs_pad_gpio_b_25_pad;
+    wire    pad_periphs_pad_gpio_b_26_pad;
+    wire    pad_periphs_pad_gpio_b_27_pad;
+    wire    pad_periphs_pad_gpio_b_28_pad;
+    wire    pad_periphs_pad_gpio_b_29_pad;
+    wire    pad_periphs_pad_gpio_b_30_pad;
+    wire    pad_periphs_pad_gpio_b_31_pad;
+    wire    pad_periphs_pad_gpio_b_32_pad;
+    wire    pad_periphs_pad_gpio_b_33_pad;
+    wire    pad_periphs_pad_gpio_b_34_pad;
+    wire    pad_periphs_pad_gpio_b_35_pad;
+    wire    pad_periphs_pad_gpio_b_36_pad;
+    wire    pad_periphs_pad_gpio_b_37_pad;
+    wire    pad_periphs_pad_gpio_b_38_pad;
+    wire    pad_periphs_pad_gpio_b_39_pad;
+    wire    pad_periphs_pad_gpio_b_40_pad;
+    wire    pad_periphs_pad_gpio_b_41_pad;
+    wire    pad_periphs_pad_gpio_b_42_pad;
+    wire    pad_periphs_pad_gpio_b_43_pad;
+    wire    pad_periphs_pad_gpio_b_44_pad;
+    wire    pad_periphs_pad_gpio_b_45_pad;
+    wire    pad_periphs_pad_gpio_b_46_pad;
+    wire    pad_periphs_pad_gpio_b_47_pad;
+    wire    pad_periphs_pad_gpio_b_48_pad;
+    wire    pad_periphs_pad_gpio_b_49_pad;
+    wire    pad_periphs_pad_gpio_b_50_pad;
+    wire    pad_periphs_pad_gpio_b_51_pad;
+    wire    pad_periphs_pad_gpio_b_52_pad;
+    wire    pad_periphs_pad_gpio_b_53_pad;
+    wire    pad_periphs_pad_gpio_b_54_pad;
+    wire    pad_periphs_pad_gpio_b_55_pad;
+    wire    pad_periphs_pad_gpio_b_56_pad;
+    wire    pad_periphs_pad_gpio_b_57_pad;
+    wire    pad_periphs_pad_gpio_b_58_pad;
+    wire    pad_periphs_pad_gpio_b_59_pad;
+    wire    pad_periphs_pad_gpio_b_60_pad;
+    wire    pad_periphs_pad_gpio_b_61_pad;
+    wire    pad_periphs_pad_gpio_c_00_pad;
+    wire    pad_periphs_pad_gpio_c_01_pad;
+    wire    pad_periphs_pad_gpio_c_02_pad;
+    wire    pad_periphs_pad_gpio_c_03_pad;
+    wire    pad_periphs_pad_gpio_d_00_pad;
+    wire    pad_periphs_pad_gpio_d_01_pad;
+    wire    pad_periphs_pad_gpio_d_02_pad;
+    wire    pad_periphs_pad_gpio_d_03_pad;
+    wire    pad_periphs_pad_gpio_d_04_pad;
+    wire    pad_periphs_pad_gpio_d_05_pad;
+    wire    pad_periphs_pad_gpio_d_06_pad;
+    wire    pad_periphs_pad_gpio_d_07_pad;
+    wire    pad_periphs_pad_gpio_d_08_pad;
+    wire    pad_periphs_pad_gpio_d_09_pad;
+    wire    pad_periphs_pad_gpio_d_10_pad;
+    wire    pad_periphs_pad_gpio_e_00_pad;
+    wire    pad_periphs_pad_gpio_e_01_pad;
+    wire    pad_periphs_pad_gpio_e_02_pad;
+    wire    pad_periphs_pad_gpio_e_03_pad;
+    wire    pad_periphs_pad_gpio_e_04_pad;
+    wire    pad_periphs_pad_gpio_e_05_pad;
+    wire    pad_periphs_pad_gpio_e_06_pad;
+    wire    pad_periphs_pad_gpio_e_07_pad;
+    wire    pad_periphs_pad_gpio_e_08_pad;
+    wire    pad_periphs_pad_gpio_e_09_pad;
+    wire    pad_periphs_pad_gpio_e_10_pad;
+    wire    pad_periphs_pad_gpio_e_11_pad;
+    wire    pad_periphs_pad_gpio_e_12_pad;
+    wire    pad_periphs_pad_gpio_f_00_pad;
+    wire    pad_periphs_pad_gpio_f_01_pad;
+    wire    pad_periphs_pad_gpio_f_02_pad;
+    wire    pad_periphs_pad_gpio_f_03_pad;
+    wire    pad_periphs_pad_gpio_f_04_pad;
+    wire    pad_periphs_pad_gpio_f_05_pad;
+    wire    pad_periphs_pad_gpio_f_06_pad;
+    wire    pad_periphs_pad_gpio_f_07_pad;
+    wire    pad_periphs_pad_gpio_f_08_pad;
+    wire    pad_periphs_pad_gpio_f_09_pad;
+    wire    pad_periphs_pad_gpio_f_10_pad;
+    wire    pad_periphs_pad_gpio_f_11_pad;
+    wire    pad_periphs_pad_gpio_f_12_pad;
+    wire    pad_periphs_pad_gpio_f_13_pad;
+    wire    pad_periphs_pad_gpio_f_14_pad;
+    wire    pad_periphs_pad_gpio_f_15_pad;
+    wire    pad_periphs_pad_gpio_f_16_pad;
+    wire    pad_periphs_pad_gpio_f_17_pad;
+    wire    pad_periphs_pad_gpio_f_18_pad;
+    wire    pad_periphs_pad_gpio_f_19_pad;
+    wire    pad_periphs_pad_gpio_f_20_pad;
+    wire    pad_periphs_pad_gpio_f_21_pad;
+    wire    pad_periphs_pad_gpio_f_22_pad;
+    wire    pad_periphs_pad_gpio_f_23_pad;
+    wire    pad_periphs_pad_gpio_f_24_pad;
+    wire    pad_periphs_pad_gpio_f_25_pad;
+    wire    pad_periphs_pad_gpio_pwm0_pad;
+    wire    pad_periphs_pad_gpio_pwm1_pad;
+    wire    pad_periphs_pad_gpio_pwm2_pad;
+    wire    pad_periphs_pad_gpio_pwm3_pad;
+    wire    pad_periphs_pad_gpio_pwm4_pad;
+    wire    pad_periphs_pad_gpio_pwm5_pad;
+    wire    pad_periphs_pad_gpio_pwm6_pad;
+    wire    pad_periphs_pad_gpio_pwm7_pad;
+
 
     wire                  w_cva6_uart_rx ;
     wire                  w_cva6_uart_tx ;
@@ -194,10 +317,14 @@ module ariane_tb;
     string        binary ;
     string        cluster_binary;
   
-  /* NB: This test is not used on FPGA
-  assign pad_periphs_pad_gpio_b_37_pad = pad_periphs_pad_gpio_b_05_pad;
-  assign pad_periphs_pad_gpio_b_38_pad = pad_periphs_pad_gpio_b_06_pad;
-  assign pad_periphs_pad_gpio_b_39_pad = pad_periphs_pad_gpio_b_07_pad;*/
+  // NB: This test is not used on FPGA
+  `ifndef FPGA_EMUL
+    `ifndef SIMPLE_PADFRAME
+      assign pad_periphs_pad_gpio_b_37_pad = pad_periphs_pad_gpio_b_05_pad;
+      assign pad_periphs_pad_gpio_b_38_pad = pad_periphs_pad_gpio_b_06_pad;
+      assign pad_periphs_pad_gpio_b_39_pad = pad_periphs_pad_gpio_b_07_pad; 
+    `endif
+  `endif
    
   `ifndef TEST_CLOCK_BYPASS
     assign s_bypass=1'b0;
@@ -266,88 +393,244 @@ module ariane_tb;
         .rtc_i                ( s_rtc_i                ),
         .bypass_clk_i         ( s_bypass               ),
         `ifndef TARGET_TOP_POST_SYNTH_SIM
-        .dmi_req_valid        ( s_dmi_req_valid        ),
-        .dmi_req_ready        ( s_dmi_req_ready        ),
-        .dmi_req_bits_addr    ( s_dmi_req_bits_addr    ),
-        .dmi_req_bits_op      ( s_dmi_req_bits_op      ),
-        .dmi_req_bits_data    ( s_dmi_req_bits_data    ),
-        .dmi_resp_valid       ( s_dmi_resp_valid       ),
-        .dmi_resp_ready       ( s_dmi_resp_ready       ),
-        .dmi_resp_bits_resp   ( s_dmi_resp_bits_resp   ),
-        .dmi_resp_bits_data   ( s_dmi_resp_bits_data   ),
+          .dmi_req_valid        ( s_dmi_req_valid        ),
+          .dmi_req_ready        ( s_dmi_req_ready        ),
+          .dmi_req_bits_addr    ( s_dmi_req_bits_addr    ),
+          .dmi_req_bits_op      ( s_dmi_req_bits_op      ),
+          .dmi_req_bits_data    ( s_dmi_req_bits_data    ),
+          .dmi_resp_valid       ( s_dmi_resp_valid       ),
+          .dmi_resp_ready       ( s_dmi_resp_ready       ),
+          .dmi_resp_bits_resp   ( s_dmi_resp_bits_resp   ),
+          .dmi_resp_bits_data   ( s_dmi_resp_bits_data   ),
         `endif
-        .jtag_TCK             ( s_jtag2alsaqr_tck      ),
-        .jtag_TMS             ( s_jtag2alsaqr_tms      ),
-        .jtag_TDI             ( s_jtag2alsaqr_tdi      ),
-        .jtag_TRSTn           ( s_jtag2alsaqr_trstn    ),
-        .jtag_TDO_data        ( s_jtag2alsaqr_tdo      ),
-        .jtag_TDO_driven      ( s_jtag_TDO_driven      ),
+          .jtag_TCK             ( s_jtag2alsaqr_tck      ),
+          .jtag_TMS             ( s_jtag2alsaqr_tms      ),
+          .jtag_TDI             ( s_jtag2alsaqr_tdi      ),
+          .jtag_TRSTn           ( s_jtag2alsaqr_trstn    ),
+          .jtag_TDO_data        ( s_jtag2alsaqr_tdo      ),
+          .jtag_TDO_driven      ( s_jtag_TDO_driven      ),
 
-        .cva6_uart_rx_i       ( w_cva6_uart_rx         ),
-        .cva6_uart_tx_o       ( w_cva6_uart_tx         ),
-        .apb_uart_rx_i        ( apb_uart_rx            ),
-        .apb_uart_tx_o        ( apb_uart_tx            ),
+          .cva6_uart_rx_i       ( w_cva6_uart_rx         ),
+          .cva6_uart_tx_o       ( w_cva6_uart_tx         ),
+          .apb_uart_rx_i        ( apb_uart_rx            ),
+          .apb_uart_tx_o        ( apb_uart_tx            ),
         
-        .pad_hyper_csn        ( hyper_cs_n_wire        ),
-        .pad_hyper_ck         ( hyper_ck_wire          ),
-        .pad_hyper_ckn        ( hyper_ck_n_wire        ),
-        .pad_hyper_rwds       ( hyper_rwds_wire        ),
-        .pad_hyper_reset      ( hyper_reset_n_wire     ),
-        .pad_hyper_dq         ( hyper_dq_wire          ), 
+          .pad_periphs_pad_gpio_b_00_pad(pad_periphs_pad_gpio_b_00_pad),
+          .pad_periphs_pad_gpio_b_01_pad(pad_periphs_pad_gpio_b_01_pad),
+          .pad_periphs_pad_gpio_b_02_pad(pad_periphs_pad_gpio_b_02_pad),
+          .pad_periphs_pad_gpio_b_03_pad(pad_periphs_pad_gpio_b_03_pad),
+          .pad_periphs_pad_gpio_b_04_pad(pad_periphs_pad_gpio_b_04_pad),
+          .pad_periphs_pad_gpio_b_05_pad(pad_periphs_pad_gpio_b_05_pad),
+          .pad_periphs_pad_gpio_b_06_pad(pad_periphs_pad_gpio_b_06_pad),
+          .pad_periphs_pad_gpio_b_07_pad(pad_periphs_pad_gpio_b_07_pad),
+          .pad_periphs_pad_gpio_b_08_pad(pad_periphs_pad_gpio_b_08_pad),
+          .pad_periphs_pad_gpio_b_09_pad(pad_periphs_pad_gpio_b_09_pad),
+          .pad_periphs_pad_gpio_b_10_pad(pad_periphs_pad_gpio_b_10_pad),
+          .pad_periphs_pad_gpio_b_11_pad(pad_periphs_pad_gpio_b_11_pad),
+          .pad_periphs_pad_gpio_b_12_pad(pad_periphs_pad_gpio_b_12_pad),
+          .pad_periphs_pad_gpio_b_13_pad(pad_periphs_pad_gpio_b_13_pad),
         
-        .pad_periphs_pad_gpio_b_00_pad(pad_periphs_pad_gpio_b_00_pad),
-        .pad_periphs_pad_gpio_b_01_pad(pad_periphs_pad_gpio_b_01_pad),
-        .pad_periphs_pad_gpio_b_02_pad(pad_periphs_pad_gpio_b_02_pad),
-        .pad_periphs_pad_gpio_b_03_pad(pad_periphs_pad_gpio_b_03_pad),
-        .pad_periphs_pad_gpio_b_04_pad(pad_periphs_pad_gpio_b_04_pad),
-        .pad_periphs_pad_gpio_b_05_pad(pad_periphs_pad_gpio_b_05_pad),
-        .pad_periphs_pad_gpio_b_06_pad(pad_periphs_pad_gpio_b_06_pad),
-        .pad_periphs_pad_gpio_b_07_pad(pad_periphs_pad_gpio_b_07_pad),
-        .pad_periphs_pad_gpio_b_08_pad(pad_periphs_pad_gpio_b_08_pad),
-        .pad_periphs_pad_gpio_b_09_pad(pad_periphs_pad_gpio_b_09_pad),
-        .pad_periphs_pad_gpio_b_10_pad(pad_periphs_pad_gpio_b_10_pad),
-        .pad_periphs_pad_gpio_b_11_pad(pad_periphs_pad_gpio_b_11_pad),
-        .pad_periphs_pad_gpio_b_12_pad(pad_periphs_pad_gpio_b_12_pad),
-        .pad_periphs_pad_gpio_b_13_pad(pad_periphs_pad_gpio_b_13_pad)
+          `ifndef FPGA_EMUL
+            `ifndef SIMPLE_PADFRAME
+              .pad_periphs_pad_gpio_b_14_pad(),
+              .pad_periphs_pad_gpio_b_15_pad(),
+              .pad_periphs_pad_gpio_b_16_pad(),
+              .pad_periphs_pad_gpio_b_17_pad(),
+              .pad_periphs_pad_gpio_b_18_pad(),
+              .pad_periphs_pad_gpio_b_19_pad(),
+              .pad_periphs_pad_gpio_b_20_pad(),
+              .pad_periphs_pad_gpio_b_21_pad(),
+              .pad_periphs_pad_gpio_b_22_pad(),
+              .pad_periphs_pad_gpio_b_23_pad(),
+              .pad_periphs_pad_gpio_b_24_pad(),
+              .pad_periphs_pad_gpio_b_25_pad(),
+              .pad_periphs_pad_gpio_b_26_pad(),
+              .pad_periphs_pad_gpio_b_27_pad(),
+              .pad_periphs_pad_gpio_b_28_pad(),
+              .pad_periphs_pad_gpio_b_29_pad(),
+              .pad_periphs_pad_gpio_b_30_pad(),
+              .pad_periphs_pad_gpio_b_31_pad(),
+              .pad_periphs_pad_gpio_b_32_pad(),
+              .pad_periphs_pad_gpio_b_33_pad(),
+              .pad_periphs_pad_gpio_b_34_pad(pad_periphs_pad_gpio_b_34_pad),
+              .pad_periphs_pad_gpio_b_35_pad(pad_periphs_pad_gpio_b_35_pad),
+              .pad_periphs_pad_gpio_b_36_pad(pad_periphs_pad_gpio_b_36_pad),
+              .pad_periphs_pad_gpio_b_37_pad(pad_periphs_pad_gpio_b_37_pad),
+              .pad_periphs_pad_gpio_b_38_pad(pad_periphs_pad_gpio_b_38_pad),
+              .pad_periphs_pad_gpio_b_39_pad(pad_periphs_pad_gpio_b_39_pad),
+              .pad_periphs_pad_gpio_b_40_pad(pad_periphs_pad_gpio_b_40_pad),
+              .pad_periphs_pad_gpio_b_41_pad(pad_periphs_pad_gpio_b_41_pad),
+              .pad_periphs_pad_gpio_b_42_pad(),
+              .pad_periphs_pad_gpio_b_43_pad(),
+              .pad_periphs_pad_gpio_b_44_pad(pad_periphs_pad_gpio_b_44_pad),
+              .pad_periphs_pad_gpio_b_45_pad(pad_periphs_pad_gpio_b_45_pad),
+              .pad_periphs_pad_gpio_b_46_pad(pad_periphs_pad_gpio_b_46_pad),
+              .pad_periphs_pad_gpio_b_47_pad(),
+              .pad_periphs_pad_gpio_b_48_pad(),
+              .pad_periphs_pad_gpio_b_49_pad(),
+              .pad_periphs_pad_gpio_b_50_pad(pad_periphs_pad_gpio_b_50_pad),
+              .pad_periphs_pad_gpio_b_51_pad(pad_periphs_pad_gpio_b_51_pad),
+              .pad_periphs_pad_gpio_b_52_pad(),
+              .pad_periphs_pad_gpio_b_53_pad(),
+              .pad_periphs_pad_gpio_b_54_pad(),
+              .pad_periphs_pad_gpio_b_55_pad(),
+              .pad_periphs_pad_gpio_b_56_pad(pad_periphs_pad_gpio_b_56_pad),
+              .pad_periphs_pad_gpio_b_57_pad(pad_periphs_pad_gpio_b_57_pad),
+
+              .pad_periphs_pad_gpio_c_00_pad(),
+              .pad_periphs_pad_gpio_c_01_pad(),
+              .pad_periphs_pad_gpio_c_02_pad(),
+              .pad_periphs_pad_gpio_c_03_pad(),
+
+              .pad_periphs_pad_gpio_d_00_pad(pad_periphs_pad_gpio_d_00_pad),
+              .pad_periphs_pad_gpio_d_01_pad(pad_periphs_pad_gpio_d_01_pad),
+              .pad_periphs_pad_gpio_d_02_pad(pad_periphs_pad_gpio_d_02_pad),
+              .pad_periphs_pad_gpio_d_03_pad(pad_periphs_pad_gpio_d_03_pad),
+              .pad_periphs_pad_gpio_d_04_pad(pad_periphs_pad_gpio_d_04_pad),
+              .pad_periphs_pad_gpio_d_05_pad(pad_periphs_pad_gpio_d_05_pad),
+              .pad_periphs_pad_gpio_d_06_pad(pad_periphs_pad_gpio_d_06_pad),
+              .pad_periphs_pad_gpio_d_07_pad(pad_periphs_pad_gpio_d_07_pad),
+              .pad_periphs_pad_gpio_d_08_pad(pad_periphs_pad_gpio_d_08_pad),
+              .pad_periphs_pad_gpio_d_09_pad(pad_periphs_pad_gpio_d_09_pad),
+              .pad_periphs_pad_gpio_d_10_pad(pad_periphs_pad_gpio_d_10_pad),
+
+              .pad_periphs_pad_gpio_e_00_pad(),
+              .pad_periphs_pad_gpio_e_01_pad(),
+              .pad_periphs_pad_gpio_e_02_pad(),
+              .pad_periphs_pad_gpio_e_03_pad(),
+              .pad_periphs_pad_gpio_e_04_pad(),
+              .pad_periphs_pad_gpio_e_05_pad(),
+              .pad_periphs_pad_gpio_e_06_pad(),
+              .pad_periphs_pad_gpio_e_07_pad(),
+              .pad_periphs_pad_gpio_e_08_pad(),
+              .pad_periphs_pad_gpio_e_09_pad(),
+              .pad_periphs_pad_gpio_e_10_pad(),
+              .pad_periphs_pad_gpio_e_11_pad(),
+              .pad_periphs_pad_gpio_e_12_pad(),
+
+              .pad_periphs_pad_gpio_f_00_pad(),
+              .pad_periphs_pad_gpio_f_01_pad(pad_periphs_pad_gpio_f_01_pad),
+              .pad_periphs_pad_gpio_f_02_pad(pad_periphs_pad_gpio_f_02_pad),
+              .pad_periphs_pad_gpio_f_03_pad(pad_periphs_pad_gpio_f_03_pad),
+              .pad_periphs_pad_gpio_f_04_pad(pad_periphs_pad_gpio_f_04_pad),
+              .pad_periphs_pad_gpio_f_05_pad(pad_periphs_pad_gpio_f_05_pad),
+              .pad_periphs_pad_gpio_f_06_pad(pad_periphs_pad_gpio_f_06_pad),
+              .pad_periphs_pad_gpio_f_07_pad(),
+              .pad_periphs_pad_gpio_f_08_pad(),
+              .pad_periphs_pad_gpio_f_09_pad(),
+              .pad_periphs_pad_gpio_f_10_pad(),
+              .pad_periphs_pad_gpio_f_11_pad(),
+              .pad_periphs_pad_gpio_f_12_pad(),
+              .pad_periphs_pad_gpio_f_13_pad(),
+              .pad_periphs_pad_gpio_f_14_pad(),
+              .pad_periphs_pad_gpio_f_15_pad(),
+              .pad_periphs_pad_gpio_f_16_pad(),
+              .pad_periphs_pad_gpio_f_17_pad( pad_periphs_pad_gpio_f_17_pad ),
+              .pad_periphs_pad_gpio_f_18_pad( pad_periphs_pad_gpio_f_18_pad ),
+              .pad_periphs_pad_gpio_f_19_pad( pad_periphs_pad_gpio_f_19_pad ),
+              .pad_periphs_pad_gpio_f_20_pad( pad_periphs_pad_gpio_f_20_pad ),
+              .pad_periphs_pad_gpio_f_21_pad( pad_periphs_pad_gpio_f_21_pad ),
+              .pad_periphs_pad_gpio_f_22_pad( pad_periphs_pad_gpio_f_22_pad ),
+              .pad_periphs_pad_gpio_f_23_pad( pad_periphs_pad_gpio_f_23_pad ),       
+              .pad_periphs_pad_gpio_f_24_pad( pad_periphs_pad_gpio_f_24_pad ),
+              .pad_periphs_pad_gpio_f_25_pad( pad_periphs_pad_gpio_f_25_pad ),
+
+              .pad_periphs_pad_gpio_pwm0_pad(),
+              .pad_periphs_pad_gpio_pwm1_pad(),
+              .pad_periphs_pad_gpio_pwm2_pad(),
+              .pad_periphs_pad_gpio_pwm3_pad(),
+              .pad_periphs_pad_gpio_pwm4_pad(),
+              .pad_periphs_pad_gpio_pwm5_pad(),
+              .pad_periphs_pad_gpio_pwm6_pad(),
+              .pad_periphs_pad_gpio_pwm7_pad(),
+            `endif
+          `endif
+          .pad_hyper_csn        ( hyper_cs_n_wire        ),
+          .pad_hyper_ck         ( hyper_ck_wire          ),
+          .pad_hyper_ckn        ( hyper_ck_n_wire        ),
+          .pad_hyper_rwds       ( hyper_rwds_wire        ),
+          .pad_hyper_reset      ( hyper_reset_n_wire     ),
+          .pad_hyper_dq         ( hyper_dq_wire          )   
    );
 
-   
    if (USE_UART == 1) begin
-        assign pad_periphs_pad_gpio_b_07_pad =pad_periphs_pad_gpio_b_06_pad;
+      `ifndef FPGA_EMUL
+        `ifndef SIMPLE_PADFRAME
+          assign pad_periphs_pad_gpio_b_41_pad =pad_periphs_pad_gpio_b_40_pad;         
+        `else
+          assign pad_periphs_pad_gpio_b_07_pad =pad_periphs_pad_gpio_b_06_pad;
+        `endif
+      `else
+          assign pad_periphs_pad_gpio_b_07_pad =pad_periphs_pad_gpio_b_06_pad;
+      `endif
    end
-
-   generate
-     /* I2C memory models connected on I2C0*/
+  
+  /* I2C memory models connected on I2C0*/
+   
+   generate   
      if (USE_24FC1025_MODEL == 1) begin
-        pullup scl0_pullup_i (pad_periphs_pad_gpio_b_04_pad);
-        pullup sda0_pullup_i (pad_periphs_pad_gpio_b_05_pad);
+      `ifndef FPGA_EMUL
+        `ifndef SIMPLE_PADFRAME
 
-        M24FC1025 i_i2c_mem_0 (
-           .A0    ( 1'b0       ),
-           .A1    ( 1'b0       ),
-           .A2    ( 1'b1       ),
-           .WP    ( 1'b0       ),
-           .SDA   ( pad_periphs_pad_gpio_b_05_pad ),
-           .SCL   ( pad_periphs_pad_gpio_b_04_pad ),
-           .RESET ( 1'b0       )
-        );
-       
-        M24FC1025 i_i2c_mem_1 (
-           .A0    ( 1'b1       ),
-           .A1    ( 1'b0       ),
-           .A2    ( 1'b1       ),
-           .WP    ( 1'b0       ),
-           .SDA   ( pad_periphs_pad_gpio_b_05_pad ),
-           .SCL   ( pad_periphs_pad_gpio_b_04_pad ),
-           .RESET ( 1'b0       )
-        );
+          pullup scl0_pullup_i (pad_periphs_pad_gpio_b_50_pad);
+          pullup sda0_pullup_i (pad_periphs_pad_gpio_b_51_pad);
 
+           M24FC1025 i_i2c_mem_0 (
+             .A0    ( 1'b0       ),
+             .A1    ( 1'b0       ),
+             .A2    ( 1'b1       ),
+             .WP    ( 1'b0       ),
+             .SDA   ( pad_periphs_pad_gpio_b_51_pad ),
+             .SCL   ( pad_periphs_pad_gpio_b_50_pad ),
+             .RESET ( 1'b0       )
+          );
+         
+          M24FC1025 i_i2c_mem_1 (
+             .A0    ( 1'b1       ),
+             .A1    ( 1'b0       ),
+             .A2    ( 1'b1       ),
+             .WP    ( 1'b0       ),
+             .SDA   ( pad_periphs_pad_gpio_b_51_pad ),
+             .SCL   ( pad_periphs_pad_gpio_b_50_pad ),
+             .RESET ( 1'b0       )
+          );
+
+        `else
+
+          pullup scl0_pullup_i (pad_periphs_pad_gpio_b_04_pad);
+          pullup sda0_pullup_i (pad_periphs_pad_gpio_b_05_pad);
+
+          M24FC1025 i_i2c_mem_0 (
+             .A0    ( 1'b0       ),
+             .A1    ( 1'b0       ),
+             .A2    ( 1'b1       ),
+             .WP    ( 1'b0       ),
+             .SDA   ( pad_periphs_pad_gpio_b_05_pad ),
+             .SCL   ( pad_periphs_pad_gpio_b_04_pad ),
+             .RESET ( 1'b0       )
+          );
+         
+          M24FC1025 i_i2c_mem_1 (
+             .A0    ( 1'b1       ),
+             .A1    ( 1'b0       ),
+             .A2    ( 1'b1       ),
+             .WP    ( 1'b0       ),
+             .SDA   ( pad_periphs_pad_gpio_b_05_pad ),
+             .SCL   ( pad_periphs_pad_gpio_b_04_pad ),
+             .RESET ( 1'b0       )
+          );
+
+        `endif  
+      `endif   
    end
    endgenerate
-
+   
+  
+  /* SPI flash */
   generate
-    /* SPI flash */
+    
       if(USE_S25FS256S_MODEL == 1) begin
+
          s25fs256s #(
             .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
             .mem_file_name ( "./vectors/qspi_stim.slm" ),
@@ -360,381 +643,403 @@ module ariane_tb;
             .WPNeg    (  ),
             .RESETNeg (  )
          );
+
       end
   endgenerate
+  
 
-  /*generate
+  generate
       if (USE_SDVT_CPI==1) begin
-         cam_vip #(
-            .HRES       ( 32 ), //320
-            .VRES       ( 32 ) //240
-         ) i_cam_vip (
-            .en_i        ( pad_periphs_pad_gpio_b_00_pad  ),  //GPIO B 0
-            .cam_clk_o   ( pad_periphs_pad_gpio_d_00_pad  ),
-            .cam_vsync_o ( pad_periphs_pad_gpio_d_10_pad ),
-            .cam_href_o  ( pad_periphs_pad_gpio_d_01_pad ),
-            .cam_data_o  ( w_cam_data  )
-         );
+        `ifndef FPGA_EMUL
+          `ifndef SIMPLE_PADFRAME
+             cam_vip #(
+                .HRES       ( 32 ), //320
+                .VRES       ( 32 ) //240
+             ) i_cam_vip (
+                .en_i        ( pad_periphs_pad_gpio_b_00_pad  ),  //GPIO B 0
+                .cam_clk_o   ( pad_periphs_pad_gpio_d_00_pad  ),
+                .cam_vsync_o ( pad_periphs_pad_gpio_d_10_pad ),
+                .cam_href_o  ( pad_periphs_pad_gpio_d_01_pad ),
+                .cam_data_o  ( w_cam_data  )
+             );
+
         
-        assign pad_periphs_pad_gpio_d_02_pad = w_cam_data[0];
-        assign pad_periphs_pad_gpio_d_03_pad = w_cam_data[1];
-        assign pad_periphs_pad_gpio_d_04_pad = w_cam_data[2];
-        assign pad_periphs_pad_gpio_d_05_pad = w_cam_data[3];
-        assign pad_periphs_pad_gpio_d_06_pad = w_cam_data[4];
-        assign pad_periphs_pad_gpio_d_07_pad = w_cam_data[5];
-        assign pad_periphs_pad_gpio_d_08_pad = w_cam_data[6];
-        assign pad_periphs_pad_gpio_d_09_pad = w_cam_data[7];
+              assign pad_periphs_pad_gpio_d_02_pad = w_cam_data[0];
+              assign pad_periphs_pad_gpio_d_03_pad = w_cam_data[1];
+              assign pad_periphs_pad_gpio_d_04_pad = w_cam_data[2];
+              assign pad_periphs_pad_gpio_d_05_pad = w_cam_data[3];
+              assign pad_periphs_pad_gpio_d_06_pad = w_cam_data[4];
+              assign pad_periphs_pad_gpio_d_07_pad = w_cam_data[5];
+              assign pad_periphs_pad_gpio_d_08_pad = w_cam_data[6];
+              assign pad_periphs_pad_gpio_d_09_pad = w_cam_data[7];
+          `endif  
+        `endif
       end
-  endgenerate*/
+  endgenerate
 
   generate
       if (USE_SDIO_0==1) begin
-
-        sdModel sdModelTB0(
-        .sdClk ( pad_periphs_pad_gpio_b_12_pad ),
-        .cmd   ( pad_periphs_pad_gpio_b_13_pad ),
-        .dat   ( {
-                  pad_periphs_pad_gpio_b_11_pad,
-                  pad_periphs_pad_gpio_b_10_pad,
-                  pad_periphs_pad_gpio_b_09_pad,
-                  pad_periphs_pad_gpio_b_08_pad } 
-                )
-        );
-
+        `ifndef FPGA_EMUL
+          `ifndef SIMPLE_PADFRAME
+            sdModel sdModelTB0(
+            .sdClk ( pad_periphs_pad_gpio_b_38_pad ),
+            .cmd   ( pad_periphs_pad_gpio_b_39_pad ),
+            .dat   ( {
+                      pad_periphs_pad_gpio_b_37_pad,
+                      pad_periphs_pad_gpio_b_36_pad,
+                      pad_periphs_pad_gpio_b_35_pad,
+                      pad_periphs_pad_gpio_b_34_pad } 
+                    )
+            );
+          `else
+              sdModel sdModelTB0(
+              .sdClk ( pad_periphs_pad_gpio_b_12_pad ),
+              .cmd   ( pad_periphs_pad_gpio_b_13_pad ),
+              .dat   ( {
+                        pad_periphs_pad_gpio_b_11_pad,
+                        pad_periphs_pad_gpio_b_10_pad,
+                        pad_periphs_pad_gpio_b_09_pad,
+                        pad_periphs_pad_gpio_b_08_pad } 
+                      )
+              );
+          `endif
+        `endif
       end
   endgenerate
 
-  /*generate
+  generate
       if (USE_SDIO_1==1) begin
-
-        sdModel sdModelTB1(
-        .sdClk ( pad_periphs_pad_gpio_f_05_pad ),
-        .cmd   ( pad_periphs_pad_gpio_f_06_pad ),
-        .dat   ( {
-                  pad_periphs_pad_gpio_f_04_pad,
-                  pad_periphs_pad_gpio_f_03_pad,
-                  pad_periphs_pad_gpio_f_02_pad,
-                  pad_periphs_pad_gpio_f_01_pad } 
-                )
-        );
-
+        `ifndef FPGA_EMUL
+          `ifndef SIMPLE_PADFRAME
+            sdModel sdModelTB1(
+            .sdClk ( pad_periphs_pad_gpio_f_05_pad ),
+            .cmd   ( pad_periphs_pad_gpio_f_06_pad ),
+            .dat   ( {
+                      pad_periphs_pad_gpio_f_04_pad,
+                      pad_periphs_pad_gpio_f_03_pad,
+                      pad_periphs_pad_gpio_f_02_pad,
+                      pad_periphs_pad_gpio_f_01_pad } 
+                    )
+            );
+          `endif 
+        `endif
       end
-  endgenerate*/
+  endgenerate
 
+  generate
+  `ifndef FPGA_EMUL
+    `ifndef SIMPLE_PADFRAME
+      if (USE_SERIAL_LINK==1) begin
 
+        localparam time         TckDdr           = 70ns;
+        parameter int unsigned AXI_USER_WIDTH    = 1;
+        parameter int unsigned AXI_ADDRESS_WIDTH = 64;
+        parameter int unsigned AXI_DATA_WIDTH    = 64;
+        parameter int unsigned L2_BANK_SIZE      = 4096;
+        parameter int unsigned AXI_WRITE_DATA    = 777;   //This define the write data for the write_axi task
 
-  /*generate
-    if (USE_SERIAL_LINK==1) begin
+        ariane_axi_soc::req_t ddr_1_in_req, ddr_1_out_req;
+        ariane_axi_soc::resp_t ddr_1_in_rsp, ddr_1_out_rsp;
 
-      localparam time         TckDdr           = 70ns;
-      parameter int unsigned AXI_USER_WIDTH    = 1;
-      parameter int unsigned AXI_ADDRESS_WIDTH = 64;
-      parameter int unsigned AXI_DATA_WIDTH    = 64;
-      parameter int unsigned L2_BANK_SIZE      = 4096;
-      parameter int unsigned AXI_WRITE_DATA    = 777;   //This define the write data for the write_axi task
+        wire [3:0] ddr_i, ddr_o;
+        wire ddr_clk;
 
-      ariane_axi_soc::req_t ddr_1_in_req, ddr_1_out_req;
-      ariane_axi_soc::resp_t ddr_1_in_rsp, ddr_1_out_rsp;
+        logic [63:0] mem_rdata_o, mem_wdata_o, mem_addr_o;
+        logic [7:0] mem_strb_o;
+        logic req_to_mem, mem_we_o;
+        logic clk;
 
-      wire [3:0] ddr_i, ddr_o;
-      wire ddr_clk;
+        localparam RegAw  = 32;
+        localparam RegDw  = 32;
 
-      logic [63:0] mem_rdata_o, mem_wdata_o, mem_addr_o;
-      logic [7:0] mem_strb_o;
-      logic req_to_mem, mem_we_o;
-      logic clk;
+        typedef logic [RegAw-1:0]   reg_addr_t;
+        typedef logic [RegDw-1:0]   reg_data_t;
+        typedef logic [RegDw/8-1:0] reg_strb_t;
 
-      localparam RegAw  = 32;
-      localparam RegDw  = 32;
+        `REG_BUS_TYPEDEF_REQ(reg_req_t, reg_addr_t, reg_data_t, reg_strb_t)
+        `REG_BUS_TYPEDEF_RSP(reg_rsp_t, reg_data_t)
+       
+        reg_req_t   ddr_reg_req ='0;
+        reg_rsp_t   ddr_reg_rsp ;
 
-      typedef logic [RegAw-1:0]   reg_addr_t;
-      typedef logic [RegDw-1:0]   reg_data_t;
-      typedef logic [RegDw/8-1:0] reg_strb_t;
+        assign pad_periphs_pad_gpio_f_17_pad = pad_periphs_pad_gpio_b_00_pad==1 ? ddr_clk : 0 ;
 
-      `REG_BUS_TYPEDEF_REQ(reg_req_t, reg_addr_t, reg_data_t, reg_strb_t)
-      `REG_BUS_TYPEDEF_RSP(reg_rsp_t, reg_data_t)
-     
-      reg_req_t   ddr_reg_req ='0;
-      reg_rsp_t   ddr_reg_rsp ;
+        assign pad_periphs_pad_gpio_f_18_pad = ddr_o[0];
+        assign pad_periphs_pad_gpio_f_19_pad = ddr_o[1];
+        assign pad_periphs_pad_gpio_f_20_pad = ddr_o[2];
+        assign pad_periphs_pad_gpio_f_21_pad = ddr_o[3];
 
-      assign pad_periphs_pad_gpio_f_17_pad = pad_periphs_pad_gpio_b_00_pad==1 ? ddr_clk : 0 ;
+        assign ddr_i[0] = pad_periphs_pad_gpio_f_22_pad;
+        assign ddr_i[1] = pad_periphs_pad_gpio_f_23_pad;       
+        assign ddr_i[2] = pad_periphs_pad_gpio_f_24_pad;
+        assign ddr_i[3] = pad_periphs_pad_gpio_f_25_pad;
 
-      assign pad_periphs_pad_gpio_f_18_pad = ddr_o[0];
-      assign pad_periphs_pad_gpio_f_19_pad = ddr_o[1];
-      assign pad_periphs_pad_gpio_f_20_pad = ddr_o[2];
-      assign pad_periphs_pad_gpio_f_21_pad = ddr_o[3];
+        assign ddr_clk = pad_periphs_pad_gpio_b_00_pad==1 ? ddr_ext_clk : 0; 
 
-      assign ddr_i[0] = pad_periphs_pad_gpio_f_22_pad;
-      assign ddr_i[1] = pad_periphs_pad_gpio_f_23_pad;       
-      assign ddr_i[2] = pad_periphs_pad_gpio_f_24_pad;
-      assign ddr_i[3] = pad_periphs_pad_gpio_f_25_pad;
-
-      assign ddr_clk = pad_periphs_pad_gpio_b_00_pad==1 ? ddr_ext_clk : 0; 
-
-      // DDR link ext clock
-      initial begin
-        clk = 1'b0;
-      end
-      always begin
-        // Emit rising clock edge.
-        clk = 1'b1;
-        // Wait for at most half the clock period before emitting falling clock edge.  Due to integer
-        // division, this is not always exactly half the clock period but as close as we can get.
-        #(TckDdr / 2);
-        // Emit falling clock edge.
-        clk = 1'b0;
-        // Wait for remainder of clock period before continuing with next cycle.
-        #((TckDdr + 1) / 2);
-      end
-      assign ddr_ext_clk = clk;
-
-      AXI_BUS #(
-        .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-        .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
-        .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-        .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-      ) ddr_axi_master();
-
-      AXI_BUS #(
-        .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
-        .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
-        .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
-        .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
-      ) ddr_axi_slave();
-
-      `AXI_ASSIGN_FROM_REQ(ddr_axi_slave, ddr_1_out_req)
-      `AXI_ASSIGN_TO_RESP(ddr_1_out_rsp, ddr_axi_slave)
-
-      `AXI_ASSIGN_TO_REQ(ddr_1_in_req, ddr_axi_master )
-      `AXI_ASSIGN_FROM_RESP(ddr_axi_master, ddr_1_in_rsp )
-     
-      // first serial instance
-      serial_link #(
-        .axi_req_t        ( ariane_axi_soc::req_t     ),
-        .axi_rsp_t        ( ariane_axi_soc::resp_t    ),
-        .aw_chan_t        ( ariane_axi_soc::aw_chan_t ),
-        .ar_chan_t        ( ariane_axi_soc::ar_chan_t ),
-        .cfg_req_t        ( reg_req_t ),
-        .cfg_rsp_t        ( reg_rsp_t )
-      ) i_serial_link_out (
-          .clk_i          ( s_tck ),
-          .rst_ni         ( rst_ni ),
-          .testmode_i     ( 1'b0   ),
-         
-          .axi_in_req_i   ( ddr_1_in_req ), //slv -> mst axi
-          .axi_in_rsp_o   ( ddr_1_in_rsp ), //slv -> mst axi
-
-          .axi_out_req_o  ( ddr_1_out_req ), //mst -> slv axi
-          .axi_out_rsp_i  ( ddr_1_out_rsp ), //mst -> slv axi
-
-          .cfg_req_i      ( ddr_reg_req  ), //apb slave
-          .cfg_rsp_o      ( ddr_reg_rsp  ), //apb slave
-          
-          .ddr_clk_i      ( ddr_clk ),
-          .ddr_i          ( ddr_i ),
-          .ddr_o          ( ddr_o )
-      );
-
-      axi2mem #(
-        .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-        .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH ),
-        .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
-        .AXI_USER_WIDTH ( AXI_USER_WIDTH )
-      ) i_axi2rom (
-        .clk_i  ( s_tck ),
-        .rst_ni ( rst_ni ),
-        .slave  ( ddr_axi_slave ), //from serial link mst port (slv)
-        .req_o  ( req_to_mem  ), //to mem
-        .we_o   ( mem_we_o    ),
-        .addr_o ( mem_addr_o  ),
-        .be_o   ( mem_strb_o  ),
-        .data_o ( mem_wdata_o ),
-
-        .data_i ( mem_rdata_o ) //from mem
-      );
-
-      tc_sram #(
-        .SimInit   ( "random"            ),
-        .NumWords  ( L2_BANK_SIZE        ), // 2^15 lines of 32 bits each (128kB), 4 Banks -> 512 kB total memory
-        .DataWidth ( AXI_DATA_WIDTH      ),
-        .NumPorts  ( 1                   )
-      ) slink_mem (
-        .clk_i   ( s_tck ),
-        .rst_ni  ( rst_ni      ),
-        .req_i   ( req_to_mem  ),
-        .we_i    ( mem_we_o    ),
-        .addr_i  ( mem_addr_o  ),
-        .wdata_i ( mem_wdata_o ),
-        .be_i    ( mem_strb_o  ),
-        .rdata_o ( mem_rdata_o )
-      );
-
-       // -------------------- DDR AXI drivers --------------------
-
-        localparam AxiAw  = 64;
-        localparam AxiDw  = 64;
-        localparam AxiMaxSize = $clog2(AxiDw/8);
-        localparam AxiIw  = ariane_soc::IdWidthSlave;
-
-        typedef logic [AxiAw-1:0]   axi_addr_t;
-        typedef logic [AxiDw-1:0]   axi_data_t;
-        typedef logic [AxiDw/8-1:0] axi_strb_t;
-        typedef logic [AxiIw-1:0]   axi_id_t;
-
-    
-        AXI_BUS_DV #(
-            .AXI_ADDR_WIDTH(AxiAw ),
-            .AXI_DATA_WIDTH(AxiDw ),
-            .AXI_ID_WIDTH  (AxiIw ),
-            .AXI_USER_WIDTH(1     )
-        ) axi_dv(s_tck);
-
-        `AXI_ASSIGN(ddr_axi_master, axi_dv)
-
-        typedef axi_test::axi_driver #(
-            .AW(AxiAw ),
-            .DW(AxiDw ),
-            .IW(AxiIw ),
-            .UW(1),
-            .TA(REFClockPeriod*0.1),
-            .TT(REFClockPeriod*0.9)
-        ) axi_drv_t;
-
-        axi_drv_t ddr_axi_master_drv = new(axi_dv);
-
-        axi_test::axi_ax_beat #(.AW(AxiAw ), .IW(AxiIw ), .UW(1)) ar_beat = new();
-        axi_test::axi_r_beat  #(.DW(AxiDw ), .IW(AxiIw ), .UW(1)) r_beat  = new();
-        axi_test::axi_ax_beat #(.AW(AxiAw ), .IW(AxiIw ), .UW(1)) aw_beat = new();
-        axi_test::axi_w_beat  #(.DW(AxiDw ), .UW(1))              w_beat  = new();
-        axi_test::axi_b_beat  #(.IW(AxiIw ), .UW(1))              b_beat  = new();
-
+        // DDR link ext clock
         initial begin
-            ddr_axi_master_drv.reset_master();
-            @(posedge pad_periphs_pad_gpio_b_00_pad);
-                #(1ms)
-                 write_axi('h1C000000, 4090, 3, AXI_WRITE_DATA, 'hffff);
+          clk = 1'b0;
         end
+        always begin
+          // Emit rising clock edge.
+          clk = 1'b1;
+          // Wait for at most half the clock period before emitting falling clock edge.  Due to integer
+          // division, this is not always exactly half the clock period but as close as we can get.
+          #(TckDdr / 2);
+          // Emit falling clock edge.
+          clk = 1'b0;
+          // Wait for remainder of clock period before continuing with next cycle.
+          #((TckDdr + 1) / 2);
+        end
+        assign ddr_ext_clk = clk;
 
-        // -------------------------- Regbus driver --------------------------
+        AXI_BUS #(
+          .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+          .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+          .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+          .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+        ) ddr_axi_master();
 
+        AXI_BUS #(
+          .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+          .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
+          .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+          .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
+        ) ddr_axi_slave();
 
-        logic [AxiDw-1:0] trans_wdata;
-        logic [AxiDw-1:0] trans_rdata;
-        axi_addr_t    temp_waddr;
-        axi_addr_t    temp_raddr;
-        logic [4:0]   last_waddr;
-        logic [4:0]   last_raddr;
-        typedef logic [AxiDw-1:0] data_t;   
+        `AXI_ASSIGN_FROM_REQ(ddr_axi_slave, ddr_1_out_req)
+        `AXI_ASSIGN_TO_RESP(ddr_1_out_rsp, ddr_axi_slave)
 
-        data_t        memory[bit [31:0]];
-        int           read_index = 0;
-        int           write_index = 0;
+        `AXI_ASSIGN_TO_REQ(ddr_1_in_req, ddr_axi_master )
+        `AXI_ASSIGN_FROM_RESP(ddr_axi_master, ddr_1_in_rsp )
        
-       
-        reg_req_t   reg_req;
-        reg_rsp_t   reg_rsp;
+        // first serial instance
+        serial_link #(
+          .axi_req_t        ( ariane_axi_soc::req_t     ),
+          .axi_rsp_t        ( ariane_axi_soc::resp_t    ),
+          .aw_chan_t        ( ariane_axi_soc::aw_chan_t ),
+          .ar_chan_t        ( ariane_axi_soc::ar_chan_t ),
+          .cfg_req_t        ( reg_req_t ),
+          .cfg_rsp_t        ( reg_rsp_t )
+        ) i_serial_link_out (
+            .clk_i          ( s_tck ),
+            .rst_ni         ( rst_ni ),
+            .testmode_i     ( 1'b0   ),
+           
+            .axi_in_req_i   ( ddr_1_in_req ), //slv -> mst axi
+            .axi_in_rsp_o   ( ddr_1_in_rsp ), //slv -> mst axi
 
-        REG_BUS #(
-            .ADDR_WIDTH( RegAw ),
-            .DATA_WIDTH( RegDw )
-        ) i_rbus (
-            .clk_i (s_tck)
+            .axi_out_req_o  ( ddr_1_out_req ), //mst -> slv axi
+            .axi_out_rsp_i  ( ddr_1_out_rsp ), //mst -> slv axi
+
+            .cfg_req_i      ( ddr_reg_req  ), //apb slave
+            .cfg_rsp_o      ( ddr_reg_rsp  ), //apb slave
+            
+            .ddr_clk_i      ( ddr_clk ),
+            .ddr_i          ( ddr_i ),
+            .ddr_o          ( ddr_o )
         );
-        
-        integer fr, fw;
 
-        reg_test::reg_driver #(
-            .AW ( RegAw  ),
-            .DW ( RegDw  ),
-            .TA(REFClockPeriod*0.1),
-            .TT(REFClockPeriod*0.9)
-        ) i_rmaster = new( i_rbus );
+        axi2mem #(
+          .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+          .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH ),
+          .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
+          .AXI_USER_WIDTH ( AXI_USER_WIDTH )
+        ) i_axi2rom (
+          .clk_i  ( s_tck ),
+          .rst_ni ( rst_ni ),
+          .slave  ( ddr_axi_slave ), //from serial link mst port (slv)
+          .req_o  ( req_to_mem  ), //to mem
+          .we_o   ( mem_we_o    ),
+          .addr_o ( mem_addr_o  ),
+          .be_o   ( mem_strb_o  ),
+          .data_o ( mem_wdata_o ),
 
-        assign reg_req = reg_req_t'{
-            addr:   i_rbus.addr,
-            write:  i_rbus.write,
-            wdata:  i_rbus.wdata,
-            wstrb:  i_rbus.wstrb,
-            valid:  i_rbus.valid
-        };
+          .data_i ( mem_rdata_o ) //from mem
+        );
 
-        assign i_rbus.rdata = reg_rsp.rdata;
-        assign i_rbus.ready = reg_rsp.ready;
-        assign i_rbus.error = reg_rsp.error;
+        tc_sram #(
+          .SimInit   ( "random"            ),
+          .NumWords  ( L2_BANK_SIZE        ), // 2^15 lines of 32 bits each (128kB), 4 Banks -> 512 kB total memory
+          .DataWidth ( AXI_DATA_WIDTH      ),
+          .NumPorts  ( 1                   )
+        ) slink_mem (
+          .clk_i   ( s_tck ),
+          .rst_ni  ( rst_ni      ),
+          .req_i   ( req_to_mem  ),
+          .we_i    ( mem_we_o    ),
+          .addr_i  ( mem_addr_o  ),
+          .wdata_i ( mem_wdata_o ),
+          .be_i    ( mem_strb_o  ),
+          .rdata_o ( mem_rdata_o )
+        );
 
-      //----------------------- AXI DRIVER TASKS --------------------------
+         // -------------------- DDR AXI drivers --------------------
 
-      int unsigned            k, j;
+          localparam AxiAw  = 64;
+          localparam AxiDw  = 64;
+          localparam AxiMaxSize = $clog2(AxiDw/8);
+          localparam AxiIw  = ariane_soc::IdWidthSlave;
 
-          // axi write task
-          task write_axi;
-              input axi_addr_t      waddr;
-              input axi_pkg::len_t  burst_len;
-              input axi_pkg::size_t size;
-              input logic [63:0]    data_w;
-              input axi_strb_t      wstrb;
+          typedef logic [AxiAw-1:0]   axi_addr_t;
+          typedef logic [AxiDw-1:0]   axi_data_t;
+          typedef logic [AxiDw/8-1:0] axi_strb_t;
+          typedef logic [AxiIw-1:0]   axi_id_t;
 
-              @(posedge s_tck);
+      
+          AXI_BUS_DV #(
+              .AXI_ADDR_WIDTH(AxiAw ),
+              .AXI_DATA_WIDTH(AxiDw ),
+              .AXI_ID_WIDTH  (AxiIw ),
+              .AXI_USER_WIDTH(1     )
+          ) axi_dv(s_tck);
 
-              temp_waddr = waddr;
-              aw_beat.ax_addr  = waddr;
-              aw_beat.ax_len   = burst_len;
-              aw_beat.ax_burst = axi_pkg::BURST_INCR;
-              aw_beat.ax_size  = size;
-             
-              w_beat.w_strb   = wstrb;
-              w_beat.w_last   = 1'b0;
-              last_waddr = '0;
+          `AXI_ASSIGN(ddr_axi_master, axi_dv)
 
-              if(aw_beat.ax_size>AxiMaxSize) begin
-                $display("Not supported");
-              end else begin
-                $display("%p", aw_beat);
+          typedef axi_test::axi_driver #(
+              .AW(AxiAw ),
+              .DW(AxiDw ),
+              .IW(AxiIw ),
+              .UW(1),
+              .TA(REFClockPeriod*0.1),
+              .TT(REFClockPeriod*0.9)
+          ) axi_drv_t;
 
-                ddr_axi_master_drv.send_aw(aw_beat);
-                
-                
-                for(int unsigned i = 0; i < burst_len + 1; i++) begin
-                    if (i == burst_len) begin
-                        w_beat.w_last = 1'b1;
-                    end
-                    w_beat.w_data = data_w;
-                    ddr_axi_master_drv.send_w(w_beat);
-                    trans_wdata = '1; //the memory regions where we do not write are have all ones in the hyperram.
-                    `ifdef AXI_VERBOSE
-                    $display("%p", w_beat);
-                    $display("%x", w_beat.w_data);
-                    `endif
-                    if (i==0) begin
-                       for (k = temp_waddr[AxiMaxSize-1:0]; k<(((temp_waddr[AxiMaxSize-1:0]>>size)<<size) + (2**size)) ; k++)  begin
-                         trans_wdata[k*8 +:8] = (wstrb[k]) ? w_beat.w_data[(k*8) +: 8] : '1;
-                       end
-                    end else begin
-                       for(j=temp_waddr[AxiMaxSize-1:0]; j<temp_waddr[AxiMaxSize-1:0]+(2**size); j++) begin
-                          trans_wdata[j*8 +:8] = (wstrb[j]) ? w_beat.w_data[(j*8) +: 8] : '1;
-                       end
-                    end
-                    $fwrite(fw, "%x %x %x %d %d \n",  w_beat.w_data, trans_wdata, temp_waddr, (((temp_waddr[AxiMaxSize-1:0]>>size)<<size) + (2**size)), write_index);
-                    memory[write_index]=trans_wdata;
-                    if($isunknown(trans_wdata)) begin
-                       $fatal(1,"Xs @%x\n",temp_waddr);
-                    end   
-                    write_index++;
-                    if(i==0)
-                      temp_waddr = ((temp_waddr>>size)<<size) + (2**size);
-                    else
-                      temp_waddr = temp_waddr + (2**size);
-                    last_waddr = temp_waddr[AxiMaxSize-1:0] + (2**size);
-                end // for (int unsigned i = 0; i < burst_len + 1; i++)
-                
-                ddr_axi_master_drv.recv_b(b_beat);
-              end 
-             
-          endtask
+          axi_drv_t ddr_axi_master_drv = new(axi_dv);
+
+          axi_test::axi_ax_beat #(.AW(AxiAw ), .IW(AxiIw ), .UW(1)) ar_beat = new();
+          axi_test::axi_r_beat  #(.DW(AxiDw ), .IW(AxiIw ), .UW(1)) r_beat  = new();
+          axi_test::axi_ax_beat #(.AW(AxiAw ), .IW(AxiIw ), .UW(1)) aw_beat = new();
+          axi_test::axi_w_beat  #(.DW(AxiDw ), .UW(1))              w_beat  = new();
+          axi_test::axi_b_beat  #(.IW(AxiIw ), .UW(1))              b_beat  = new();
+
+          initial begin
+              ddr_axi_master_drv.reset_master();
+              @(posedge pad_periphs_pad_gpio_b_00_pad);
+                  #(1ms)
+                   write_axi('h1C000000, 4090, 3, AXI_WRITE_DATA, 'hffff);
+          end
+
+          // -------------------------- Regbus driver --------------------------
 
 
-    end  
-  endgenerate*/
+          logic [AxiDw-1:0] trans_wdata;
+          logic [AxiDw-1:0] trans_rdata;
+          axi_addr_t    temp_waddr;
+          axi_addr_t    temp_raddr;
+          logic [4:0]   last_waddr;
+          logic [4:0]   last_raddr;
+          typedef logic [AxiDw-1:0] data_t;   
+
+          data_t        memory[bit [31:0]];
+          int           read_index = 0;
+          int           write_index = 0;
+         
+         
+          reg_req_t   reg_req;
+          reg_rsp_t   reg_rsp;
+
+          REG_BUS #(
+              .ADDR_WIDTH( RegAw ),
+              .DATA_WIDTH( RegDw )
+          ) i_rbus (
+              .clk_i (s_tck)
+          );
+          
+          integer fr, fw;
+
+          reg_test::reg_driver #(
+              .AW ( RegAw  ),
+              .DW ( RegDw  ),
+              .TA(REFClockPeriod*0.1),
+              .TT(REFClockPeriod*0.9)
+          ) i_rmaster = new( i_rbus );
+
+          assign reg_req = reg_req_t'{
+              addr:   i_rbus.addr,
+              write:  i_rbus.write,
+              wdata:  i_rbus.wdata,
+              wstrb:  i_rbus.wstrb,
+              valid:  i_rbus.valid
+          };
+
+          assign i_rbus.rdata = reg_rsp.rdata;
+          assign i_rbus.ready = reg_rsp.ready;
+          assign i_rbus.error = reg_rsp.error;
+
+        //----------------------- AXI DRIVER TASKS --------------------------
+
+        int unsigned            k, j;
+
+            // axi write task
+            task write_axi;
+                input axi_addr_t      waddr;
+                input axi_pkg::len_t  burst_len;
+                input axi_pkg::size_t size;
+                input logic [63:0]    data_w;
+                input axi_strb_t      wstrb;
+
+                @(posedge s_tck);
+
+                temp_waddr = waddr;
+                aw_beat.ax_addr  = waddr;
+                aw_beat.ax_len   = burst_len;
+                aw_beat.ax_burst = axi_pkg::BURST_INCR;
+                aw_beat.ax_size  = size;
+               
+                w_beat.w_strb   = wstrb;
+                w_beat.w_last   = 1'b0;
+                last_waddr = '0;
+
+                if(aw_beat.ax_size>AxiMaxSize) begin
+                  $display("Not supported");
+                end else begin
+                  $display("%p", aw_beat);
+
+                  ddr_axi_master_drv.send_aw(aw_beat);
+                  
+                  
+                  for(int unsigned i = 0; i < burst_len + 1; i++) begin
+                      if (i == burst_len) begin
+                          w_beat.w_last = 1'b1;
+                      end
+                      w_beat.w_data = data_w;
+                      ddr_axi_master_drv.send_w(w_beat);
+                      trans_wdata = '1; //the memory regions where we do not write are have all ones in the hyperram.
+                      `ifdef AXI_VERBOSE
+                      $display("%p", w_beat);
+                      $display("%x", w_beat.w_data);
+                      `endif
+                      if (i==0) begin
+                         for (k = temp_waddr[AxiMaxSize-1:0]; k<(((temp_waddr[AxiMaxSize-1:0]>>size)<<size) + (2**size)) ; k++)  begin
+                           trans_wdata[k*8 +:8] = (wstrb[k]) ? w_beat.w_data[(k*8) +: 8] : '1;
+                         end
+                      end else begin
+                         for(j=temp_waddr[AxiMaxSize-1:0]; j<temp_waddr[AxiMaxSize-1:0]+(2**size); j++) begin
+                            trans_wdata[j*8 +:8] = (wstrb[j]) ? w_beat.w_data[(j*8) +: 8] : '1;
+                         end
+                      end
+                      $fwrite(fw, "%x %x %x %d %d \n",  w_beat.w_data, trans_wdata, temp_waddr, (((temp_waddr[AxiMaxSize-1:0]>>size)<<size) + (2**size)), write_index);
+                      memory[write_index]=trans_wdata;
+                      if($isunknown(trans_wdata)) begin
+                         $fatal(1,"Xs @%x\n",temp_waddr);
+                      end   
+                      write_index++;
+                      if(i==0)
+                        temp_waddr = ((temp_waddr>>size)<<size) + (2**size);
+                      else
+                        temp_waddr = temp_waddr + (2**size);
+                      last_waddr = temp_waddr[AxiMaxSize-1:0] + (2**size);
+                  end // for (int unsigned i = 0; i < burst_len + 1; i++)
+                  
+                  ddr_axi_master_drv.recv_b(b_beat);
+                end 
+            endtask
+      end  
+    `endif
+  `endif
+  endgenerate
+  
 
   generate
      for (genvar i=0; i< NumChips ; i++) begin : hyperrams

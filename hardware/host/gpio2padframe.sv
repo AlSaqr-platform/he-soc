@@ -16,7 +16,15 @@
 module gpio2padframe
   import udma_subsystem_pkg::*;
   import gpio_pkg::*; 
-  import pkg_alsaqr_periph_padframe::*; 
+  `ifndef FPGA_EMUL
+    `ifndef SIMPLE_PADFRAME
+        import pkg_alsaqr_periph_padframe::*;
+      `else
+        import pkg_alsaqr_periph_fpga_padframe::*; 
+      `endif
+  `else
+      import pkg_alsaqr_periph_fpga_padframe::*; 
+  `endif
   #( 
     parameter int unsigned NUM_GPIO   = 64 
   )(

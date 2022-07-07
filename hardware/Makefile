@@ -146,6 +146,12 @@ ifdef exclude-llc
   compile_fpga += EXCLUDE_LLC
 endif
 
+ifdef simple-padframe
+	questa-cmd   += +SIMPLE_PADFRAME=$(simple-padframe)
+ 	compile_flag +=  +define+SIMPLE_PADFRAME
+ 	compile_fpga += SIMPLE_PADFRAME
+endif
+
 ifdef spike-tandem
     questa-cmd += -gblso tb/riscv-isa-sim/install/lib/libriscv.so
 endif
