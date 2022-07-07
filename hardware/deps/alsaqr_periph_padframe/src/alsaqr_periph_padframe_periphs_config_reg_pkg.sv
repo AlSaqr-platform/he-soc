@@ -7,7 +7,7 @@
 package alsaqr_periph_padframe_periphs_config_reg_pkg;
 
   // Address widths within the block
-  parameter int BlockAw = 7;
+  parameter int BlockAw = 10;
 
   ////////////////////////////
   // Typedefs for registers //
@@ -35,7 +35,7 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_00_cfg_reg_t;
 
   typedef struct packed {
-    logic        q;
+    logic [1:0]  q;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_00_mux_sel_reg_t;
 
   typedef struct packed {
@@ -60,7 +60,7 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_01_cfg_reg_t;
 
   typedef struct packed {
-    logic        q;
+    logic [1:0]  q;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_01_mux_sel_reg_t;
 
   typedef struct packed {
@@ -85,7 +85,7 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_02_cfg_reg_t;
 
   typedef struct packed {
-    logic        q;
+    logic [1:0]  q;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_02_mux_sel_reg_t;
 
   typedef struct packed {
@@ -110,7 +110,7 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_03_cfg_reg_t;
 
   typedef struct packed {
-    logic        q;
+    logic [1:0]  q;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_03_mux_sel_reg_t;
 
   typedef struct packed {
@@ -135,7 +135,7 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_04_cfg_reg_t;
 
   typedef struct packed {
-    logic        q;
+    logic [1:0]  q;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_04_mux_sel_reg_t;
 
   typedef struct packed {
@@ -160,7 +160,7 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_05_cfg_reg_t;
 
   typedef struct packed {
-    logic        q;
+    logic [1:0]  q;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_05_mux_sel_reg_t;
 
   typedef struct packed {
@@ -185,7 +185,7 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_06_cfg_reg_t;
 
   typedef struct packed {
-    logic        q;
+    logic [1:0]  q;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_06_mux_sel_reg_t;
 
   typedef struct packed {
@@ -210,7 +210,7 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_07_cfg_reg_t;
 
   typedef struct packed {
-    logic        q;
+    logic [1:0]  q;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_07_mux_sel_reg_t;
 
   typedef struct packed {
@@ -235,7 +235,7 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_08_cfg_reg_t;
 
   typedef struct packed {
-    logic        q;
+    logic [1:0]  q;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_08_mux_sel_reg_t;
 
   typedef struct packed {
@@ -260,7 +260,7 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_09_cfg_reg_t;
 
   typedef struct packed {
-    logic        q;
+    logic [1:0]  q;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_09_mux_sel_reg_t;
 
   typedef struct packed {
@@ -285,7 +285,7 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_10_cfg_reg_t;
 
   typedef struct packed {
-    logic        q;
+    logic [1:0]  q;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_10_mux_sel_reg_t;
 
   typedef struct packed {
@@ -310,7 +310,7 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_11_cfg_reg_t;
 
   typedef struct packed {
-    logic        q;
+    logic [1:0]  q;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_11_mux_sel_reg_t;
 
   typedef struct packed {
@@ -335,7 +335,7 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_12_cfg_reg_t;
 
   typedef struct packed {
-    logic        q;
+    logic [1:0]  q;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_12_mux_sel_reg_t;
 
   typedef struct packed {
@@ -360,70 +360,3144 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_13_cfg_reg_t;
 
   typedef struct packed {
-    logic        q;
+    logic [1:0]  q;
   } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_13_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_14_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_14_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_15_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_15_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_16_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_16_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_17_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_17_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_18_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_18_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_19_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_19_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_20_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_20_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_21_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_21_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_22_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_22_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_23_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_23_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_24_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_24_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_25_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_25_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_26_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_26_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_27_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_27_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_28_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_28_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_29_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_29_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_30_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_30_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_31_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_31_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_32_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_32_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_33_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_33_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_34_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_34_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_35_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_35_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_36_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_36_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_37_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_37_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_38_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_38_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_39_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_39_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_40_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_40_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_41_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_41_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_42_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_42_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_43_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_43_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_44_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_44_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_45_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_45_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_46_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_46_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_47_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_47_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_48_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_48_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_49_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_49_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_50_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_50_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_51_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_51_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_52_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_52_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_53_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_53_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_54_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_54_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_55_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_55_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_56_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_56_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_57_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_57_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_c_00_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_c_00_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_c_01_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_c_01_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_c_02_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_c_02_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_c_03_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_c_03_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_00_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_00_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_01_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_01_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_02_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_02_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_03_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_03_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_04_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_04_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_05_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_05_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_06_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_06_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_07_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_07_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_08_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_08_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_09_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_09_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_10_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_10_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_00_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_00_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_01_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_01_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_02_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_02_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_03_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_03_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_04_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_04_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_05_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_05_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_06_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_06_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_07_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_07_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_08_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_08_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_09_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_09_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_10_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_10_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_11_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_11_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_12_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_12_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_00_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_00_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_01_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_01_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_02_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_02_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_03_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_03_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_04_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_04_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_05_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_05_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_06_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_06_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_07_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_07_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_08_cfg_reg_t;
+
+  typedef struct packed {
+    logic [1:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_08_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_09_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_09_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_10_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_10_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_11_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_11_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_12_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_12_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_13_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_13_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_14_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_14_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_15_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_15_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_16_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_16_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_17_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_17_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_18_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_18_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_19_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_19_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_20_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_20_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_21_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_21_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_22_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_22_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_23_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_23_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_24_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_24_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_25_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_25_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm0_cfg_reg_t;
+
+  typedef struct packed {
+    logic [3:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm0_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm1_cfg_reg_t;
+
+  typedef struct packed {
+    logic [3:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm1_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm2_cfg_reg_t;
+
+  typedef struct packed {
+    logic [3:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm2_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm3_cfg_reg_t;
+
+  typedef struct packed {
+    logic [3:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm3_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm4_cfg_reg_t;
+
+  typedef struct packed {
+    logic [3:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm4_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm5_cfg_reg_t;
+
+  typedef struct packed {
+    logic [3:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm5_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm6_cfg_reg_t;
+
+  typedef struct packed {
+    logic [3:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm6_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm7_cfg_reg_t;
+
+  typedef struct packed {
+    logic [3:0]  q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm7_mux_sel_reg_t;
 
   // Register -> HW type
   typedef struct packed {
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_00_cfg_reg_t pad_gpio_b_00_cfg; // [111:105]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_00_mux_sel_reg_t pad_gpio_b_00_mux_sel; // [104:104]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_01_cfg_reg_t pad_gpio_b_01_cfg; // [103:97]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_01_mux_sel_reg_t pad_gpio_b_01_mux_sel; // [96:96]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_02_cfg_reg_t pad_gpio_b_02_cfg; // [95:89]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_02_mux_sel_reg_t pad_gpio_b_02_mux_sel; // [88:88]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_03_cfg_reg_t pad_gpio_b_03_cfg; // [87:81]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_03_mux_sel_reg_t pad_gpio_b_03_mux_sel; // [80:80]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_04_cfg_reg_t pad_gpio_b_04_cfg; // [79:73]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_04_mux_sel_reg_t pad_gpio_b_04_mux_sel; // [72:72]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_05_cfg_reg_t pad_gpio_b_05_cfg; // [71:65]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_05_mux_sel_reg_t pad_gpio_b_05_mux_sel; // [64:64]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_06_cfg_reg_t pad_gpio_b_06_cfg; // [63:57]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_06_mux_sel_reg_t pad_gpio_b_06_mux_sel; // [56:56]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_07_cfg_reg_t pad_gpio_b_07_cfg; // [55:49]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_07_mux_sel_reg_t pad_gpio_b_07_mux_sel; // [48:48]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_08_cfg_reg_t pad_gpio_b_08_cfg; // [47:41]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_08_mux_sel_reg_t pad_gpio_b_08_mux_sel; // [40:40]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_09_cfg_reg_t pad_gpio_b_09_cfg; // [39:33]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_09_mux_sel_reg_t pad_gpio_b_09_mux_sel; // [32:32]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_10_cfg_reg_t pad_gpio_b_10_cfg; // [31:25]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_10_mux_sel_reg_t pad_gpio_b_10_mux_sel; // [24:24]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_11_cfg_reg_t pad_gpio_b_11_cfg; // [23:17]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_11_mux_sel_reg_t pad_gpio_b_11_mux_sel; // [16:16]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_12_cfg_reg_t pad_gpio_b_12_cfg; // [15:9]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_12_mux_sel_reg_t pad_gpio_b_12_mux_sel; // [8:8]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_13_cfg_reg_t pad_gpio_b_13_cfg; // [7:1]
-    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_13_mux_sel_reg_t pad_gpio_b_13_mux_sel; // [0:0]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_00_cfg_reg_t pad_gpio_b_00_cfg; // [1066:1060]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_00_mux_sel_reg_t pad_gpio_b_00_mux_sel; // [1059:1058]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_01_cfg_reg_t pad_gpio_b_01_cfg; // [1057:1051]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_01_mux_sel_reg_t pad_gpio_b_01_mux_sel; // [1050:1049]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_02_cfg_reg_t pad_gpio_b_02_cfg; // [1048:1042]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_02_mux_sel_reg_t pad_gpio_b_02_mux_sel; // [1041:1040]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_03_cfg_reg_t pad_gpio_b_03_cfg; // [1039:1033]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_03_mux_sel_reg_t pad_gpio_b_03_mux_sel; // [1032:1031]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_04_cfg_reg_t pad_gpio_b_04_cfg; // [1030:1024]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_04_mux_sel_reg_t pad_gpio_b_04_mux_sel; // [1023:1022]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_05_cfg_reg_t pad_gpio_b_05_cfg; // [1021:1015]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_05_mux_sel_reg_t pad_gpio_b_05_mux_sel; // [1014:1013]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_06_cfg_reg_t pad_gpio_b_06_cfg; // [1012:1006]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_06_mux_sel_reg_t pad_gpio_b_06_mux_sel; // [1005:1004]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_07_cfg_reg_t pad_gpio_b_07_cfg; // [1003:997]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_07_mux_sel_reg_t pad_gpio_b_07_mux_sel; // [996:995]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_08_cfg_reg_t pad_gpio_b_08_cfg; // [994:988]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_08_mux_sel_reg_t pad_gpio_b_08_mux_sel; // [987:986]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_09_cfg_reg_t pad_gpio_b_09_cfg; // [985:979]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_09_mux_sel_reg_t pad_gpio_b_09_mux_sel; // [978:977]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_10_cfg_reg_t pad_gpio_b_10_cfg; // [976:970]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_10_mux_sel_reg_t pad_gpio_b_10_mux_sel; // [969:968]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_11_cfg_reg_t pad_gpio_b_11_cfg; // [967:961]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_11_mux_sel_reg_t pad_gpio_b_11_mux_sel; // [960:959]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_12_cfg_reg_t pad_gpio_b_12_cfg; // [958:952]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_12_mux_sel_reg_t pad_gpio_b_12_mux_sel; // [951:950]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_13_cfg_reg_t pad_gpio_b_13_cfg; // [949:943]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_13_mux_sel_reg_t pad_gpio_b_13_mux_sel; // [942:941]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_14_cfg_reg_t pad_gpio_b_14_cfg; // [940:934]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_14_mux_sel_reg_t pad_gpio_b_14_mux_sel; // [933:932]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_15_cfg_reg_t pad_gpio_b_15_cfg; // [931:925]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_15_mux_sel_reg_t pad_gpio_b_15_mux_sel; // [924:923]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_16_cfg_reg_t pad_gpio_b_16_cfg; // [922:916]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_16_mux_sel_reg_t pad_gpio_b_16_mux_sel; // [915:914]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_17_cfg_reg_t pad_gpio_b_17_cfg; // [913:907]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_17_mux_sel_reg_t pad_gpio_b_17_mux_sel; // [906:905]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_18_cfg_reg_t pad_gpio_b_18_cfg; // [904:898]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_18_mux_sel_reg_t pad_gpio_b_18_mux_sel; // [897:896]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_19_cfg_reg_t pad_gpio_b_19_cfg; // [895:889]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_19_mux_sel_reg_t pad_gpio_b_19_mux_sel; // [888:887]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_20_cfg_reg_t pad_gpio_b_20_cfg; // [886:880]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_20_mux_sel_reg_t pad_gpio_b_20_mux_sel; // [879:878]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_21_cfg_reg_t pad_gpio_b_21_cfg; // [877:871]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_21_mux_sel_reg_t pad_gpio_b_21_mux_sel; // [870:869]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_22_cfg_reg_t pad_gpio_b_22_cfg; // [868:862]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_22_mux_sel_reg_t pad_gpio_b_22_mux_sel; // [861:860]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_23_cfg_reg_t pad_gpio_b_23_cfg; // [859:853]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_23_mux_sel_reg_t pad_gpio_b_23_mux_sel; // [852:851]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_24_cfg_reg_t pad_gpio_b_24_cfg; // [850:844]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_24_mux_sel_reg_t pad_gpio_b_24_mux_sel; // [843:842]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_25_cfg_reg_t pad_gpio_b_25_cfg; // [841:835]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_25_mux_sel_reg_t pad_gpio_b_25_mux_sel; // [834:833]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_26_cfg_reg_t pad_gpio_b_26_cfg; // [832:826]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_26_mux_sel_reg_t pad_gpio_b_26_mux_sel; // [825:824]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_27_cfg_reg_t pad_gpio_b_27_cfg; // [823:817]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_27_mux_sel_reg_t pad_gpio_b_27_mux_sel; // [816:815]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_28_cfg_reg_t pad_gpio_b_28_cfg; // [814:808]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_28_mux_sel_reg_t pad_gpio_b_28_mux_sel; // [807:806]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_29_cfg_reg_t pad_gpio_b_29_cfg; // [805:799]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_29_mux_sel_reg_t pad_gpio_b_29_mux_sel; // [798:797]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_30_cfg_reg_t pad_gpio_b_30_cfg; // [796:790]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_30_mux_sel_reg_t pad_gpio_b_30_mux_sel; // [789:788]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_31_cfg_reg_t pad_gpio_b_31_cfg; // [787:781]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_31_mux_sel_reg_t pad_gpio_b_31_mux_sel; // [780:779]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_32_cfg_reg_t pad_gpio_b_32_cfg; // [778:772]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_32_mux_sel_reg_t pad_gpio_b_32_mux_sel; // [771:770]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_33_cfg_reg_t pad_gpio_b_33_cfg; // [769:763]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_33_mux_sel_reg_t pad_gpio_b_33_mux_sel; // [762:761]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_34_cfg_reg_t pad_gpio_b_34_cfg; // [760:754]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_34_mux_sel_reg_t pad_gpio_b_34_mux_sel; // [753:752]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_35_cfg_reg_t pad_gpio_b_35_cfg; // [751:745]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_35_mux_sel_reg_t pad_gpio_b_35_mux_sel; // [744:743]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_36_cfg_reg_t pad_gpio_b_36_cfg; // [742:736]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_36_mux_sel_reg_t pad_gpio_b_36_mux_sel; // [735:734]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_37_cfg_reg_t pad_gpio_b_37_cfg; // [733:727]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_37_mux_sel_reg_t pad_gpio_b_37_mux_sel; // [726:725]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_38_cfg_reg_t pad_gpio_b_38_cfg; // [724:718]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_38_mux_sel_reg_t pad_gpio_b_38_mux_sel; // [717:716]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_39_cfg_reg_t pad_gpio_b_39_cfg; // [715:709]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_39_mux_sel_reg_t pad_gpio_b_39_mux_sel; // [708:707]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_40_cfg_reg_t pad_gpio_b_40_cfg; // [706:700]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_40_mux_sel_reg_t pad_gpio_b_40_mux_sel; // [699:698]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_41_cfg_reg_t pad_gpio_b_41_cfg; // [697:691]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_41_mux_sel_reg_t pad_gpio_b_41_mux_sel; // [690:689]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_42_cfg_reg_t pad_gpio_b_42_cfg; // [688:682]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_42_mux_sel_reg_t pad_gpio_b_42_mux_sel; // [681:680]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_43_cfg_reg_t pad_gpio_b_43_cfg; // [679:673]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_43_mux_sel_reg_t pad_gpio_b_43_mux_sel; // [672:671]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_44_cfg_reg_t pad_gpio_b_44_cfg; // [670:664]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_44_mux_sel_reg_t pad_gpio_b_44_mux_sel; // [663:662]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_45_cfg_reg_t pad_gpio_b_45_cfg; // [661:655]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_45_mux_sel_reg_t pad_gpio_b_45_mux_sel; // [654:653]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_46_cfg_reg_t pad_gpio_b_46_cfg; // [652:646]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_46_mux_sel_reg_t pad_gpio_b_46_mux_sel; // [645:644]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_47_cfg_reg_t pad_gpio_b_47_cfg; // [643:637]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_47_mux_sel_reg_t pad_gpio_b_47_mux_sel; // [636:635]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_48_cfg_reg_t pad_gpio_b_48_cfg; // [634:628]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_48_mux_sel_reg_t pad_gpio_b_48_mux_sel; // [627:626]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_49_cfg_reg_t pad_gpio_b_49_cfg; // [625:619]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_49_mux_sel_reg_t pad_gpio_b_49_mux_sel; // [618:617]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_50_cfg_reg_t pad_gpio_b_50_cfg; // [616:610]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_50_mux_sel_reg_t pad_gpio_b_50_mux_sel; // [609:608]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_51_cfg_reg_t pad_gpio_b_51_cfg; // [607:601]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_51_mux_sel_reg_t pad_gpio_b_51_mux_sel; // [600:599]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_52_cfg_reg_t pad_gpio_b_52_cfg; // [598:592]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_52_mux_sel_reg_t pad_gpio_b_52_mux_sel; // [591:590]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_53_cfg_reg_t pad_gpio_b_53_cfg; // [589:583]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_53_mux_sel_reg_t pad_gpio_b_53_mux_sel; // [582:581]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_54_cfg_reg_t pad_gpio_b_54_cfg; // [580:574]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_54_mux_sel_reg_t pad_gpio_b_54_mux_sel; // [573:572]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_55_cfg_reg_t pad_gpio_b_55_cfg; // [571:565]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_55_mux_sel_reg_t pad_gpio_b_55_mux_sel; // [564:563]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_56_cfg_reg_t pad_gpio_b_56_cfg; // [562:556]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_56_mux_sel_reg_t pad_gpio_b_56_mux_sel; // [555:555]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_57_cfg_reg_t pad_gpio_b_57_cfg; // [554:548]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_b_57_mux_sel_reg_t pad_gpio_b_57_mux_sel; // [547:547]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_c_00_cfg_reg_t pad_gpio_c_00_cfg; // [546:540]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_c_00_mux_sel_reg_t pad_gpio_c_00_mux_sel; // [539:538]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_c_01_cfg_reg_t pad_gpio_c_01_cfg; // [537:531]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_c_01_mux_sel_reg_t pad_gpio_c_01_mux_sel; // [530:529]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_c_02_cfg_reg_t pad_gpio_c_02_cfg; // [528:522]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_c_02_mux_sel_reg_t pad_gpio_c_02_mux_sel; // [521:520]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_c_03_cfg_reg_t pad_gpio_c_03_cfg; // [519:513]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_c_03_mux_sel_reg_t pad_gpio_c_03_mux_sel; // [512:511]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_00_cfg_reg_t pad_gpio_d_00_cfg; // [510:504]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_00_mux_sel_reg_t pad_gpio_d_00_mux_sel; // [503:502]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_01_cfg_reg_t pad_gpio_d_01_cfg; // [501:495]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_01_mux_sel_reg_t pad_gpio_d_01_mux_sel; // [494:493]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_02_cfg_reg_t pad_gpio_d_02_cfg; // [492:486]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_02_mux_sel_reg_t pad_gpio_d_02_mux_sel; // [485:484]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_03_cfg_reg_t pad_gpio_d_03_cfg; // [483:477]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_03_mux_sel_reg_t pad_gpio_d_03_mux_sel; // [476:475]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_04_cfg_reg_t pad_gpio_d_04_cfg; // [474:468]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_04_mux_sel_reg_t pad_gpio_d_04_mux_sel; // [467:466]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_05_cfg_reg_t pad_gpio_d_05_cfg; // [465:459]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_05_mux_sel_reg_t pad_gpio_d_05_mux_sel; // [458:457]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_06_cfg_reg_t pad_gpio_d_06_cfg; // [456:450]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_06_mux_sel_reg_t pad_gpio_d_06_mux_sel; // [449:448]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_07_cfg_reg_t pad_gpio_d_07_cfg; // [447:441]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_07_mux_sel_reg_t pad_gpio_d_07_mux_sel; // [440:439]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_08_cfg_reg_t pad_gpio_d_08_cfg; // [438:432]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_08_mux_sel_reg_t pad_gpio_d_08_mux_sel; // [431:431]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_09_cfg_reg_t pad_gpio_d_09_cfg; // [430:424]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_09_mux_sel_reg_t pad_gpio_d_09_mux_sel; // [423:423]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_10_cfg_reg_t pad_gpio_d_10_cfg; // [422:416]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_d_10_mux_sel_reg_t pad_gpio_d_10_mux_sel; // [415:415]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_00_cfg_reg_t pad_gpio_e_00_cfg; // [414:408]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_00_mux_sel_reg_t pad_gpio_e_00_mux_sel; // [407:406]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_01_cfg_reg_t pad_gpio_e_01_cfg; // [405:399]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_01_mux_sel_reg_t pad_gpio_e_01_mux_sel; // [398:397]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_02_cfg_reg_t pad_gpio_e_02_cfg; // [396:390]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_02_mux_sel_reg_t pad_gpio_e_02_mux_sel; // [389:388]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_03_cfg_reg_t pad_gpio_e_03_cfg; // [387:381]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_03_mux_sel_reg_t pad_gpio_e_03_mux_sel; // [380:379]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_04_cfg_reg_t pad_gpio_e_04_cfg; // [378:372]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_04_mux_sel_reg_t pad_gpio_e_04_mux_sel; // [371:371]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_05_cfg_reg_t pad_gpio_e_05_cfg; // [370:364]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_05_mux_sel_reg_t pad_gpio_e_05_mux_sel; // [363:363]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_06_cfg_reg_t pad_gpio_e_06_cfg; // [362:356]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_06_mux_sel_reg_t pad_gpio_e_06_mux_sel; // [355:355]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_07_cfg_reg_t pad_gpio_e_07_cfg; // [354:348]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_07_mux_sel_reg_t pad_gpio_e_07_mux_sel; // [347:347]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_08_cfg_reg_t pad_gpio_e_08_cfg; // [346:340]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_08_mux_sel_reg_t pad_gpio_e_08_mux_sel; // [339:338]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_09_cfg_reg_t pad_gpio_e_09_cfg; // [337:331]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_09_mux_sel_reg_t pad_gpio_e_09_mux_sel; // [330:329]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_10_cfg_reg_t pad_gpio_e_10_cfg; // [328:322]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_10_mux_sel_reg_t pad_gpio_e_10_mux_sel; // [321:320]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_11_cfg_reg_t pad_gpio_e_11_cfg; // [319:313]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_11_mux_sel_reg_t pad_gpio_e_11_mux_sel; // [312:312]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_12_cfg_reg_t pad_gpio_e_12_cfg; // [311:305]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_e_12_mux_sel_reg_t pad_gpio_e_12_mux_sel; // [304:304]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_00_cfg_reg_t pad_gpio_f_00_cfg; // [303:297]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_00_mux_sel_reg_t pad_gpio_f_00_mux_sel; // [296:296]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_01_cfg_reg_t pad_gpio_f_01_cfg; // [295:289]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_01_mux_sel_reg_t pad_gpio_f_01_mux_sel; // [288:287]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_02_cfg_reg_t pad_gpio_f_02_cfg; // [286:280]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_02_mux_sel_reg_t pad_gpio_f_02_mux_sel; // [279:278]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_03_cfg_reg_t pad_gpio_f_03_cfg; // [277:271]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_03_mux_sel_reg_t pad_gpio_f_03_mux_sel; // [270:269]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_04_cfg_reg_t pad_gpio_f_04_cfg; // [268:262]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_04_mux_sel_reg_t pad_gpio_f_04_mux_sel; // [261:260]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_05_cfg_reg_t pad_gpio_f_05_cfg; // [259:253]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_05_mux_sel_reg_t pad_gpio_f_05_mux_sel; // [252:251]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_06_cfg_reg_t pad_gpio_f_06_cfg; // [250:244]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_06_mux_sel_reg_t pad_gpio_f_06_mux_sel; // [243:242]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_07_cfg_reg_t pad_gpio_f_07_cfg; // [241:235]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_07_mux_sel_reg_t pad_gpio_f_07_mux_sel; // [234:233]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_08_cfg_reg_t pad_gpio_f_08_cfg; // [232:226]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_08_mux_sel_reg_t pad_gpio_f_08_mux_sel; // [225:224]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_09_cfg_reg_t pad_gpio_f_09_cfg; // [223:217]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_09_mux_sel_reg_t pad_gpio_f_09_mux_sel; // [216:216]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_10_cfg_reg_t pad_gpio_f_10_cfg; // [215:209]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_10_mux_sel_reg_t pad_gpio_f_10_mux_sel; // [208:208]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_11_cfg_reg_t pad_gpio_f_11_cfg; // [207:201]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_11_mux_sel_reg_t pad_gpio_f_11_mux_sel; // [200:200]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_12_cfg_reg_t pad_gpio_f_12_cfg; // [199:193]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_12_mux_sel_reg_t pad_gpio_f_12_mux_sel; // [192:192]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_13_cfg_reg_t pad_gpio_f_13_cfg; // [191:185]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_13_mux_sel_reg_t pad_gpio_f_13_mux_sel; // [184:184]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_14_cfg_reg_t pad_gpio_f_14_cfg; // [183:177]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_14_mux_sel_reg_t pad_gpio_f_14_mux_sel; // [176:176]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_15_cfg_reg_t pad_gpio_f_15_cfg; // [175:169]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_15_mux_sel_reg_t pad_gpio_f_15_mux_sel; // [168:168]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_16_cfg_reg_t pad_gpio_f_16_cfg; // [167:161]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_16_mux_sel_reg_t pad_gpio_f_16_mux_sel; // [160:160]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_17_cfg_reg_t pad_gpio_f_17_cfg; // [159:153]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_17_mux_sel_reg_t pad_gpio_f_17_mux_sel; // [152:152]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_18_cfg_reg_t pad_gpio_f_18_cfg; // [151:145]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_18_mux_sel_reg_t pad_gpio_f_18_mux_sel; // [144:144]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_19_cfg_reg_t pad_gpio_f_19_cfg; // [143:137]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_19_mux_sel_reg_t pad_gpio_f_19_mux_sel; // [136:136]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_20_cfg_reg_t pad_gpio_f_20_cfg; // [135:129]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_20_mux_sel_reg_t pad_gpio_f_20_mux_sel; // [128:128]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_21_cfg_reg_t pad_gpio_f_21_cfg; // [127:121]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_21_mux_sel_reg_t pad_gpio_f_21_mux_sel; // [120:120]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_22_cfg_reg_t pad_gpio_f_22_cfg; // [119:113]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_22_mux_sel_reg_t pad_gpio_f_22_mux_sel; // [112:112]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_23_cfg_reg_t pad_gpio_f_23_cfg; // [111:105]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_23_mux_sel_reg_t pad_gpio_f_23_mux_sel; // [104:104]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_24_cfg_reg_t pad_gpio_f_24_cfg; // [103:97]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_24_mux_sel_reg_t pad_gpio_f_24_mux_sel; // [96:96]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_25_cfg_reg_t pad_gpio_f_25_cfg; // [95:89]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_f_25_mux_sel_reg_t pad_gpio_f_25_mux_sel; // [88:88]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm0_cfg_reg_t pad_gpio_pwm0_cfg; // [87:81]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm0_mux_sel_reg_t pad_gpio_pwm0_mux_sel; // [80:77]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm1_cfg_reg_t pad_gpio_pwm1_cfg; // [76:70]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm1_mux_sel_reg_t pad_gpio_pwm1_mux_sel; // [69:66]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm2_cfg_reg_t pad_gpio_pwm2_cfg; // [65:59]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm2_mux_sel_reg_t pad_gpio_pwm2_mux_sel; // [58:55]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm3_cfg_reg_t pad_gpio_pwm3_cfg; // [54:48]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm3_mux_sel_reg_t pad_gpio_pwm3_mux_sel; // [47:44]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm4_cfg_reg_t pad_gpio_pwm4_cfg; // [43:37]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm4_mux_sel_reg_t pad_gpio_pwm4_mux_sel; // [36:33]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm5_cfg_reg_t pad_gpio_pwm5_cfg; // [32:26]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm5_mux_sel_reg_t pad_gpio_pwm5_mux_sel; // [25:22]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm6_cfg_reg_t pad_gpio_pwm6_cfg; // [21:15]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm6_mux_sel_reg_t pad_gpio_pwm6_mux_sel; // [14:11]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm7_cfg_reg_t pad_gpio_pwm7_cfg; // [10:4]
+    alsaqr_periph_padframe_periphs_config_reg2hw_pad_gpio_pwm7_mux_sel_reg_t pad_gpio_pwm7_mux_sel; // [3:0]
   } alsaqr_periph_padframe_periphs_config_reg2hw_t;
 
   // Register offsets
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_00_CFG_OFFSET = 7'h 0;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_00_MUX_SEL_OFFSET = 7'h 4;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_01_CFG_OFFSET = 7'h 8;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_01_MUX_SEL_OFFSET = 7'h c;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_02_CFG_OFFSET = 7'h 10;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_02_MUX_SEL_OFFSET = 7'h 14;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_03_CFG_OFFSET = 7'h 18;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_03_MUX_SEL_OFFSET = 7'h 1c;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_04_CFG_OFFSET = 7'h 20;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_04_MUX_SEL_OFFSET = 7'h 24;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_05_CFG_OFFSET = 7'h 28;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_05_MUX_SEL_OFFSET = 7'h 2c;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_06_CFG_OFFSET = 7'h 30;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_06_MUX_SEL_OFFSET = 7'h 34;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_07_CFG_OFFSET = 7'h 38;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_07_MUX_SEL_OFFSET = 7'h 3c;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_08_CFG_OFFSET = 7'h 40;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_08_MUX_SEL_OFFSET = 7'h 44;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_09_CFG_OFFSET = 7'h 48;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_09_MUX_SEL_OFFSET = 7'h 4c;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_10_CFG_OFFSET = 7'h 50;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_10_MUX_SEL_OFFSET = 7'h 54;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_11_CFG_OFFSET = 7'h 58;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_11_MUX_SEL_OFFSET = 7'h 5c;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_12_CFG_OFFSET = 7'h 60;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_12_MUX_SEL_OFFSET = 7'h 64;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_13_CFG_OFFSET = 7'h 68;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_13_MUX_SEL_OFFSET = 7'h 6c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_00_CFG_OFFSET = 10'h 0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_00_MUX_SEL_OFFSET = 10'h 4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_01_CFG_OFFSET = 10'h 8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_01_MUX_SEL_OFFSET = 10'h c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_02_CFG_OFFSET = 10'h 10;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_02_MUX_SEL_OFFSET = 10'h 14;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_03_CFG_OFFSET = 10'h 18;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_03_MUX_SEL_OFFSET = 10'h 1c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_04_CFG_OFFSET = 10'h 20;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_04_MUX_SEL_OFFSET = 10'h 24;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_05_CFG_OFFSET = 10'h 28;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_05_MUX_SEL_OFFSET = 10'h 2c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_06_CFG_OFFSET = 10'h 30;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_06_MUX_SEL_OFFSET = 10'h 34;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_07_CFG_OFFSET = 10'h 38;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_07_MUX_SEL_OFFSET = 10'h 3c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_08_CFG_OFFSET = 10'h 40;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_08_MUX_SEL_OFFSET = 10'h 44;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_09_CFG_OFFSET = 10'h 48;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_09_MUX_SEL_OFFSET = 10'h 4c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_10_CFG_OFFSET = 10'h 50;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_10_MUX_SEL_OFFSET = 10'h 54;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_11_CFG_OFFSET = 10'h 58;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_11_MUX_SEL_OFFSET = 10'h 5c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_12_CFG_OFFSET = 10'h 60;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_12_MUX_SEL_OFFSET = 10'h 64;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_13_CFG_OFFSET = 10'h 68;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_13_MUX_SEL_OFFSET = 10'h 6c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_OFFSET = 10'h 70;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_MUX_SEL_OFFSET = 10'h 74;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_OFFSET = 10'h 78;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_MUX_SEL_OFFSET = 10'h 7c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_OFFSET = 10'h 80;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_MUX_SEL_OFFSET = 10'h 84;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_OFFSET = 10'h 88;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_MUX_SEL_OFFSET = 10'h 8c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_OFFSET = 10'h 90;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_MUX_SEL_OFFSET = 10'h 94;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_OFFSET = 10'h 98;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_MUX_SEL_OFFSET = 10'h 9c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_OFFSET = 10'h a0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_MUX_SEL_OFFSET = 10'h a4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_OFFSET = 10'h a8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_MUX_SEL_OFFSET = 10'h ac;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_OFFSET = 10'h b0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_MUX_SEL_OFFSET = 10'h b4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_OFFSET = 10'h b8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_MUX_SEL_OFFSET = 10'h bc;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_OFFSET = 10'h c0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_MUX_SEL_OFFSET = 10'h c4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_OFFSET = 10'h c8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_MUX_SEL_OFFSET = 10'h cc;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_26_CFG_OFFSET = 10'h d0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_26_MUX_SEL_OFFSET = 10'h d4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_27_CFG_OFFSET = 10'h d8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_27_MUX_SEL_OFFSET = 10'h dc;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_28_CFG_OFFSET = 10'h e0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_28_MUX_SEL_OFFSET = 10'h e4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_29_CFG_OFFSET = 10'h e8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_29_MUX_SEL_OFFSET = 10'h ec;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_30_CFG_OFFSET = 10'h f0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_30_MUX_SEL_OFFSET = 10'h f4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_31_CFG_OFFSET = 10'h f8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_31_MUX_SEL_OFFSET = 10'h fc;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_32_CFG_OFFSET = 10'h 100;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_32_MUX_SEL_OFFSET = 10'h 104;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_33_CFG_OFFSET = 10'h 108;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_33_MUX_SEL_OFFSET = 10'h 10c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_34_CFG_OFFSET = 10'h 110;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_34_MUX_SEL_OFFSET = 10'h 114;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_35_CFG_OFFSET = 10'h 118;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_35_MUX_SEL_OFFSET = 10'h 11c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_36_CFG_OFFSET = 10'h 120;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_36_MUX_SEL_OFFSET = 10'h 124;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_37_CFG_OFFSET = 10'h 128;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_37_MUX_SEL_OFFSET = 10'h 12c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_38_CFG_OFFSET = 10'h 130;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_38_MUX_SEL_OFFSET = 10'h 134;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_39_CFG_OFFSET = 10'h 138;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_39_MUX_SEL_OFFSET = 10'h 13c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_40_CFG_OFFSET = 10'h 140;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_40_MUX_SEL_OFFSET = 10'h 144;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_41_CFG_OFFSET = 10'h 148;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_41_MUX_SEL_OFFSET = 10'h 14c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_42_CFG_OFFSET = 10'h 150;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_42_MUX_SEL_OFFSET = 10'h 154;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_43_CFG_OFFSET = 10'h 158;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_43_MUX_SEL_OFFSET = 10'h 15c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_44_CFG_OFFSET = 10'h 160;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_44_MUX_SEL_OFFSET = 10'h 164;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_45_CFG_OFFSET = 10'h 168;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_45_MUX_SEL_OFFSET = 10'h 16c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_46_CFG_OFFSET = 10'h 170;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_46_MUX_SEL_OFFSET = 10'h 174;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_47_CFG_OFFSET = 10'h 178;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_47_MUX_SEL_OFFSET = 10'h 17c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_48_CFG_OFFSET = 10'h 180;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_48_MUX_SEL_OFFSET = 10'h 184;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_49_CFG_OFFSET = 10'h 188;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_49_MUX_SEL_OFFSET = 10'h 18c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_50_CFG_OFFSET = 10'h 190;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_50_MUX_SEL_OFFSET = 10'h 194;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_51_CFG_OFFSET = 10'h 198;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_51_MUX_SEL_OFFSET = 10'h 19c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_52_CFG_OFFSET = 10'h 1a0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_52_MUX_SEL_OFFSET = 10'h 1a4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_53_CFG_OFFSET = 10'h 1a8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_53_MUX_SEL_OFFSET = 10'h 1ac;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_54_CFG_OFFSET = 10'h 1b0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_54_MUX_SEL_OFFSET = 10'h 1b4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_55_CFG_OFFSET = 10'h 1b8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_55_MUX_SEL_OFFSET = 10'h 1bc;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_56_CFG_OFFSET = 10'h 1c0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_56_MUX_SEL_OFFSET = 10'h 1c4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_57_CFG_OFFSET = 10'h 1c8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_57_MUX_SEL_OFFSET = 10'h 1cc;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_00_CFG_OFFSET = 10'h 1d0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_00_MUX_SEL_OFFSET = 10'h 1d4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_01_CFG_OFFSET = 10'h 1d8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_01_MUX_SEL_OFFSET = 10'h 1dc;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_02_CFG_OFFSET = 10'h 1e0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_02_MUX_SEL_OFFSET = 10'h 1e4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_03_CFG_OFFSET = 10'h 1e8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_03_MUX_SEL_OFFSET = 10'h 1ec;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_00_CFG_OFFSET = 10'h 1f0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_00_MUX_SEL_OFFSET = 10'h 1f4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_01_CFG_OFFSET = 10'h 1f8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_01_MUX_SEL_OFFSET = 10'h 1fc;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_02_CFG_OFFSET = 10'h 200;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_02_MUX_SEL_OFFSET = 10'h 204;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_03_CFG_OFFSET = 10'h 208;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_03_MUX_SEL_OFFSET = 10'h 20c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_04_CFG_OFFSET = 10'h 210;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_04_MUX_SEL_OFFSET = 10'h 214;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_05_CFG_OFFSET = 10'h 218;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_05_MUX_SEL_OFFSET = 10'h 21c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_06_CFG_OFFSET = 10'h 220;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_06_MUX_SEL_OFFSET = 10'h 224;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_07_CFG_OFFSET = 10'h 228;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_07_MUX_SEL_OFFSET = 10'h 22c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_08_CFG_OFFSET = 10'h 230;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_08_MUX_SEL_OFFSET = 10'h 234;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_09_CFG_OFFSET = 10'h 238;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_09_MUX_SEL_OFFSET = 10'h 23c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_10_CFG_OFFSET = 10'h 240;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_10_MUX_SEL_OFFSET = 10'h 244;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_00_CFG_OFFSET = 10'h 248;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_00_MUX_SEL_OFFSET = 10'h 24c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_01_CFG_OFFSET = 10'h 250;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_01_MUX_SEL_OFFSET = 10'h 254;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_02_CFG_OFFSET = 10'h 258;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_02_MUX_SEL_OFFSET = 10'h 25c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_03_CFG_OFFSET = 10'h 260;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_03_MUX_SEL_OFFSET = 10'h 264;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_04_CFG_OFFSET = 10'h 268;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_04_MUX_SEL_OFFSET = 10'h 26c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_05_CFG_OFFSET = 10'h 270;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_05_MUX_SEL_OFFSET = 10'h 274;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_06_CFG_OFFSET = 10'h 278;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_06_MUX_SEL_OFFSET = 10'h 27c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_07_CFG_OFFSET = 10'h 280;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_07_MUX_SEL_OFFSET = 10'h 284;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_08_CFG_OFFSET = 10'h 288;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_08_MUX_SEL_OFFSET = 10'h 28c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_09_CFG_OFFSET = 10'h 290;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_09_MUX_SEL_OFFSET = 10'h 294;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_10_CFG_OFFSET = 10'h 298;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_10_MUX_SEL_OFFSET = 10'h 29c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_11_CFG_OFFSET = 10'h 2a0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_11_MUX_SEL_OFFSET = 10'h 2a4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_12_CFG_OFFSET = 10'h 2a8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_12_MUX_SEL_OFFSET = 10'h 2ac;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_00_CFG_OFFSET = 10'h 2b0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_00_MUX_SEL_OFFSET = 10'h 2b4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_01_CFG_OFFSET = 10'h 2b8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_01_MUX_SEL_OFFSET = 10'h 2bc;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_02_CFG_OFFSET = 10'h 2c0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_02_MUX_SEL_OFFSET = 10'h 2c4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_03_CFG_OFFSET = 10'h 2c8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_03_MUX_SEL_OFFSET = 10'h 2cc;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_04_CFG_OFFSET = 10'h 2d0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_04_MUX_SEL_OFFSET = 10'h 2d4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_05_CFG_OFFSET = 10'h 2d8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_05_MUX_SEL_OFFSET = 10'h 2dc;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_06_CFG_OFFSET = 10'h 2e0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_06_MUX_SEL_OFFSET = 10'h 2e4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_07_CFG_OFFSET = 10'h 2e8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_07_MUX_SEL_OFFSET = 10'h 2ec;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_08_CFG_OFFSET = 10'h 2f0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_08_MUX_SEL_OFFSET = 10'h 2f4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_09_CFG_OFFSET = 10'h 2f8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_09_MUX_SEL_OFFSET = 10'h 2fc;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_10_CFG_OFFSET = 10'h 300;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_10_MUX_SEL_OFFSET = 10'h 304;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_11_CFG_OFFSET = 10'h 308;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_11_MUX_SEL_OFFSET = 10'h 30c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_12_CFG_OFFSET = 10'h 310;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_12_MUX_SEL_OFFSET = 10'h 314;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_13_CFG_OFFSET = 10'h 318;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_13_MUX_SEL_OFFSET = 10'h 31c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_14_CFG_OFFSET = 10'h 320;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_14_MUX_SEL_OFFSET = 10'h 324;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_15_CFG_OFFSET = 10'h 328;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_15_MUX_SEL_OFFSET = 10'h 32c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_16_CFG_OFFSET = 10'h 330;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_16_MUX_SEL_OFFSET = 10'h 334;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_17_CFG_OFFSET = 10'h 338;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_17_MUX_SEL_OFFSET = 10'h 33c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_18_CFG_OFFSET = 10'h 340;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_18_MUX_SEL_OFFSET = 10'h 344;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_19_CFG_OFFSET = 10'h 348;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_19_MUX_SEL_OFFSET = 10'h 34c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_20_CFG_OFFSET = 10'h 350;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_20_MUX_SEL_OFFSET = 10'h 354;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_21_CFG_OFFSET = 10'h 358;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_21_MUX_SEL_OFFSET = 10'h 35c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_22_CFG_OFFSET = 10'h 360;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_22_MUX_SEL_OFFSET = 10'h 364;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_23_CFG_OFFSET = 10'h 368;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_23_MUX_SEL_OFFSET = 10'h 36c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_24_CFG_OFFSET = 10'h 370;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_24_MUX_SEL_OFFSET = 10'h 374;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_25_CFG_OFFSET = 10'h 378;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_25_MUX_SEL_OFFSET = 10'h 37c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM0_CFG_OFFSET = 10'h 380;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM0_MUX_SEL_OFFSET = 10'h 384;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM1_CFG_OFFSET = 10'h 388;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM1_MUX_SEL_OFFSET = 10'h 38c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM2_CFG_OFFSET = 10'h 390;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM2_MUX_SEL_OFFSET = 10'h 394;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM3_CFG_OFFSET = 10'h 398;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM3_MUX_SEL_OFFSET = 10'h 39c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM4_CFG_OFFSET = 10'h 3a0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM4_MUX_SEL_OFFSET = 10'h 3a4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM5_CFG_OFFSET = 10'h 3a8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM5_MUX_SEL_OFFSET = 10'h 3ac;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM6_CFG_OFFSET = 10'h 3b0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM6_MUX_SEL_OFFSET = 10'h 3b4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM7_CFG_OFFSET = 10'h 3b8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM7_MUX_SEL_OFFSET = 10'h 3bc;
 
   // Register index
   typedef enum int {
@@ -454,39 +3528,463 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
     ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_12_CFG,
     ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_12_MUX_SEL,
     ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_13_CFG,
-    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_13_MUX_SEL
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_13_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_26_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_26_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_27_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_27_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_28_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_28_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_29_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_29_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_30_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_30_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_31_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_31_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_32_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_32_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_33_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_33_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_34_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_34_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_35_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_35_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_36_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_36_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_37_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_37_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_38_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_38_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_39_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_39_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_40_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_40_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_41_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_41_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_42_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_42_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_43_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_43_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_44_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_44_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_45_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_45_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_46_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_46_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_47_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_47_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_48_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_48_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_49_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_49_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_50_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_50_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_51_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_51_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_52_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_52_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_53_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_53_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_54_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_54_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_55_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_55_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_56_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_56_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_57_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_57_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_00_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_00_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_01_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_01_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_02_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_02_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_03_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_03_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_00_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_00_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_01_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_01_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_02_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_02_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_03_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_03_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_04_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_04_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_05_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_05_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_06_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_06_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_07_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_07_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_08_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_08_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_09_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_09_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_10_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_10_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_00_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_00_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_01_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_01_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_02_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_02_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_03_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_03_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_04_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_04_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_05_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_05_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_06_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_06_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_07_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_07_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_08_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_08_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_09_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_09_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_10_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_10_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_11_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_11_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_12_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_12_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_00_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_00_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_01_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_01_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_02_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_02_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_03_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_03_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_04_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_04_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_05_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_05_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_06_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_06_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_07_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_07_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_08_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_08_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_09_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_09_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_10_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_10_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_11_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_11_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_12_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_12_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_13_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_13_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_14_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_14_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_15_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_15_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_16_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_16_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_17_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_17_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_18_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_18_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_19_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_19_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_20_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_20_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_21_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_21_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_22_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_22_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_23_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_23_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_24_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_24_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_25_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_25_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM0_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM0_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM1_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM1_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM2_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM2_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM3_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM3_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM4_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM4_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM5_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM5_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM6_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM6_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM7_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM7_MUX_SEL
   } alsaqr_periph_padframe_periphs_config_id_e;
 
   // Register width information to check illegal writes
-  parameter logic [3:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT [28] = '{
-    4'b 0001, // index[ 0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_00_CFG
-    4'b 0001, // index[ 1] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_00_MUX_SEL
-    4'b 0001, // index[ 2] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_01_CFG
-    4'b 0001, // index[ 3] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_01_MUX_SEL
-    4'b 0001, // index[ 4] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_02_CFG
-    4'b 0001, // index[ 5] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_02_MUX_SEL
-    4'b 0001, // index[ 6] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_03_CFG
-    4'b 0001, // index[ 7] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_03_MUX_SEL
-    4'b 0001, // index[ 8] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_04_CFG
-    4'b 0001, // index[ 9] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_04_MUX_SEL
-    4'b 0001, // index[10] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_05_CFG
-    4'b 0001, // index[11] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_05_MUX_SEL
-    4'b 0001, // index[12] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_06_CFG
-    4'b 0001, // index[13] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_06_MUX_SEL
-    4'b 0001, // index[14] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_07_CFG
-    4'b 0001, // index[15] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_07_MUX_SEL
-    4'b 0001, // index[16] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_08_CFG
-    4'b 0001, // index[17] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_08_MUX_SEL
-    4'b 0001, // index[18] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_09_CFG
-    4'b 0001, // index[19] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_09_MUX_SEL
-    4'b 0001, // index[20] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_10_CFG
-    4'b 0001, // index[21] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_10_MUX_SEL
-    4'b 0001, // index[22] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_11_CFG
-    4'b 0001, // index[23] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_11_MUX_SEL
-    4'b 0001, // index[24] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_12_CFG
-    4'b 0001, // index[25] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_12_MUX_SEL
-    4'b 0001, // index[26] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_13_CFG
-    4'b 0001  // index[27] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_13_MUX_SEL
+  parameter logic [3:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT [240] = '{
+    4'b 0001, // index[  0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_00_CFG
+    4'b 0001, // index[  1] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_00_MUX_SEL
+    4'b 0001, // index[  2] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_01_CFG
+    4'b 0001, // index[  3] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_01_MUX_SEL
+    4'b 0001, // index[  4] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_02_CFG
+    4'b 0001, // index[  5] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_02_MUX_SEL
+    4'b 0001, // index[  6] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_03_CFG
+    4'b 0001, // index[  7] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_03_MUX_SEL
+    4'b 0001, // index[  8] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_04_CFG
+    4'b 0001, // index[  9] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_04_MUX_SEL
+    4'b 0001, // index[ 10] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_05_CFG
+    4'b 0001, // index[ 11] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_05_MUX_SEL
+    4'b 0001, // index[ 12] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_06_CFG
+    4'b 0001, // index[ 13] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_06_MUX_SEL
+    4'b 0001, // index[ 14] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_07_CFG
+    4'b 0001, // index[ 15] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_07_MUX_SEL
+    4'b 0001, // index[ 16] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_08_CFG
+    4'b 0001, // index[ 17] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_08_MUX_SEL
+    4'b 0001, // index[ 18] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_09_CFG
+    4'b 0001, // index[ 19] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_09_MUX_SEL
+    4'b 0001, // index[ 20] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_10_CFG
+    4'b 0001, // index[ 21] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_10_MUX_SEL
+    4'b 0001, // index[ 22] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_11_CFG
+    4'b 0001, // index[ 23] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_11_MUX_SEL
+    4'b 0001, // index[ 24] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_12_CFG
+    4'b 0001, // index[ 25] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_12_MUX_SEL
+    4'b 0001, // index[ 26] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_13_CFG
+    4'b 0001, // index[ 27] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_13_MUX_SEL
+    4'b 0001, // index[ 28] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG
+    4'b 0001, // index[ 29] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_MUX_SEL
+    4'b 0001, // index[ 30] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG
+    4'b 0001, // index[ 31] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_MUX_SEL
+    4'b 0001, // index[ 32] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG
+    4'b 0001, // index[ 33] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_MUX_SEL
+    4'b 0001, // index[ 34] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG
+    4'b 0001, // index[ 35] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_MUX_SEL
+    4'b 0001, // index[ 36] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG
+    4'b 0001, // index[ 37] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_MUX_SEL
+    4'b 0001, // index[ 38] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG
+    4'b 0001, // index[ 39] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_MUX_SEL
+    4'b 0001, // index[ 40] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG
+    4'b 0001, // index[ 41] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_MUX_SEL
+    4'b 0001, // index[ 42] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG
+    4'b 0001, // index[ 43] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_MUX_SEL
+    4'b 0001, // index[ 44] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG
+    4'b 0001, // index[ 45] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_MUX_SEL
+    4'b 0001, // index[ 46] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG
+    4'b 0001, // index[ 47] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_MUX_SEL
+    4'b 0001, // index[ 48] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG
+    4'b 0001, // index[ 49] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_MUX_SEL
+    4'b 0001, // index[ 50] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG
+    4'b 0001, // index[ 51] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_MUX_SEL
+    4'b 0001, // index[ 52] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_26_CFG
+    4'b 0001, // index[ 53] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_26_MUX_SEL
+    4'b 0001, // index[ 54] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_27_CFG
+    4'b 0001, // index[ 55] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_27_MUX_SEL
+    4'b 0001, // index[ 56] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_28_CFG
+    4'b 0001, // index[ 57] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_28_MUX_SEL
+    4'b 0001, // index[ 58] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_29_CFG
+    4'b 0001, // index[ 59] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_29_MUX_SEL
+    4'b 0001, // index[ 60] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_30_CFG
+    4'b 0001, // index[ 61] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_30_MUX_SEL
+    4'b 0001, // index[ 62] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_31_CFG
+    4'b 0001, // index[ 63] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_31_MUX_SEL
+    4'b 0001, // index[ 64] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_32_CFG
+    4'b 0001, // index[ 65] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_32_MUX_SEL
+    4'b 0001, // index[ 66] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_33_CFG
+    4'b 0001, // index[ 67] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_33_MUX_SEL
+    4'b 0001, // index[ 68] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_34_CFG
+    4'b 0001, // index[ 69] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_34_MUX_SEL
+    4'b 0001, // index[ 70] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_35_CFG
+    4'b 0001, // index[ 71] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_35_MUX_SEL
+    4'b 0001, // index[ 72] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_36_CFG
+    4'b 0001, // index[ 73] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_36_MUX_SEL
+    4'b 0001, // index[ 74] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_37_CFG
+    4'b 0001, // index[ 75] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_37_MUX_SEL
+    4'b 0001, // index[ 76] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_38_CFG
+    4'b 0001, // index[ 77] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_38_MUX_SEL
+    4'b 0001, // index[ 78] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_39_CFG
+    4'b 0001, // index[ 79] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_39_MUX_SEL
+    4'b 0001, // index[ 80] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_40_CFG
+    4'b 0001, // index[ 81] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_40_MUX_SEL
+    4'b 0001, // index[ 82] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_41_CFG
+    4'b 0001, // index[ 83] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_41_MUX_SEL
+    4'b 0001, // index[ 84] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_42_CFG
+    4'b 0001, // index[ 85] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_42_MUX_SEL
+    4'b 0001, // index[ 86] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_43_CFG
+    4'b 0001, // index[ 87] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_43_MUX_SEL
+    4'b 0001, // index[ 88] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_44_CFG
+    4'b 0001, // index[ 89] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_44_MUX_SEL
+    4'b 0001, // index[ 90] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_45_CFG
+    4'b 0001, // index[ 91] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_45_MUX_SEL
+    4'b 0001, // index[ 92] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_46_CFG
+    4'b 0001, // index[ 93] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_46_MUX_SEL
+    4'b 0001, // index[ 94] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_47_CFG
+    4'b 0001, // index[ 95] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_47_MUX_SEL
+    4'b 0001, // index[ 96] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_48_CFG
+    4'b 0001, // index[ 97] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_48_MUX_SEL
+    4'b 0001, // index[ 98] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_49_CFG
+    4'b 0001, // index[ 99] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_49_MUX_SEL
+    4'b 0001, // index[100] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_50_CFG
+    4'b 0001, // index[101] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_50_MUX_SEL
+    4'b 0001, // index[102] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_51_CFG
+    4'b 0001, // index[103] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_51_MUX_SEL
+    4'b 0001, // index[104] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_52_CFG
+    4'b 0001, // index[105] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_52_MUX_SEL
+    4'b 0001, // index[106] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_53_CFG
+    4'b 0001, // index[107] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_53_MUX_SEL
+    4'b 0001, // index[108] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_54_CFG
+    4'b 0001, // index[109] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_54_MUX_SEL
+    4'b 0001, // index[110] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_55_CFG
+    4'b 0001, // index[111] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_55_MUX_SEL
+    4'b 0001, // index[112] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_56_CFG
+    4'b 0001, // index[113] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_56_MUX_SEL
+    4'b 0001, // index[114] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_57_CFG
+    4'b 0001, // index[115] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_57_MUX_SEL
+    4'b 0001, // index[116] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_00_CFG
+    4'b 0001, // index[117] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_00_MUX_SEL
+    4'b 0001, // index[118] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_01_CFG
+    4'b 0001, // index[119] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_01_MUX_SEL
+    4'b 0001, // index[120] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_02_CFG
+    4'b 0001, // index[121] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_02_MUX_SEL
+    4'b 0001, // index[122] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_03_CFG
+    4'b 0001, // index[123] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_03_MUX_SEL
+    4'b 0001, // index[124] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_00_CFG
+    4'b 0001, // index[125] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_00_MUX_SEL
+    4'b 0001, // index[126] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_01_CFG
+    4'b 0001, // index[127] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_01_MUX_SEL
+    4'b 0001, // index[128] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_02_CFG
+    4'b 0001, // index[129] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_02_MUX_SEL
+    4'b 0001, // index[130] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_03_CFG
+    4'b 0001, // index[131] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_03_MUX_SEL
+    4'b 0001, // index[132] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_04_CFG
+    4'b 0001, // index[133] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_04_MUX_SEL
+    4'b 0001, // index[134] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_05_CFG
+    4'b 0001, // index[135] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_05_MUX_SEL
+    4'b 0001, // index[136] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_06_CFG
+    4'b 0001, // index[137] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_06_MUX_SEL
+    4'b 0001, // index[138] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_07_CFG
+    4'b 0001, // index[139] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_07_MUX_SEL
+    4'b 0001, // index[140] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_08_CFG
+    4'b 0001, // index[141] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_08_MUX_SEL
+    4'b 0001, // index[142] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_09_CFG
+    4'b 0001, // index[143] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_09_MUX_SEL
+    4'b 0001, // index[144] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_10_CFG
+    4'b 0001, // index[145] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_10_MUX_SEL
+    4'b 0001, // index[146] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_00_CFG
+    4'b 0001, // index[147] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_00_MUX_SEL
+    4'b 0001, // index[148] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_01_CFG
+    4'b 0001, // index[149] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_01_MUX_SEL
+    4'b 0001, // index[150] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_02_CFG
+    4'b 0001, // index[151] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_02_MUX_SEL
+    4'b 0001, // index[152] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_03_CFG
+    4'b 0001, // index[153] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_03_MUX_SEL
+    4'b 0001, // index[154] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_04_CFG
+    4'b 0001, // index[155] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_04_MUX_SEL
+    4'b 0001, // index[156] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_05_CFG
+    4'b 0001, // index[157] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_05_MUX_SEL
+    4'b 0001, // index[158] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_06_CFG
+    4'b 0001, // index[159] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_06_MUX_SEL
+    4'b 0001, // index[160] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_07_CFG
+    4'b 0001, // index[161] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_07_MUX_SEL
+    4'b 0001, // index[162] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_08_CFG
+    4'b 0001, // index[163] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_08_MUX_SEL
+    4'b 0001, // index[164] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_09_CFG
+    4'b 0001, // index[165] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_09_MUX_SEL
+    4'b 0001, // index[166] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_10_CFG
+    4'b 0001, // index[167] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_10_MUX_SEL
+    4'b 0001, // index[168] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_11_CFG
+    4'b 0001, // index[169] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_11_MUX_SEL
+    4'b 0001, // index[170] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_12_CFG
+    4'b 0001, // index[171] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_12_MUX_SEL
+    4'b 0001, // index[172] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_00_CFG
+    4'b 0001, // index[173] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_00_MUX_SEL
+    4'b 0001, // index[174] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_01_CFG
+    4'b 0001, // index[175] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_01_MUX_SEL
+    4'b 0001, // index[176] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_02_CFG
+    4'b 0001, // index[177] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_02_MUX_SEL
+    4'b 0001, // index[178] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_03_CFG
+    4'b 0001, // index[179] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_03_MUX_SEL
+    4'b 0001, // index[180] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_04_CFG
+    4'b 0001, // index[181] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_04_MUX_SEL
+    4'b 0001, // index[182] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_05_CFG
+    4'b 0001, // index[183] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_05_MUX_SEL
+    4'b 0001, // index[184] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_06_CFG
+    4'b 0001, // index[185] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_06_MUX_SEL
+    4'b 0001, // index[186] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_07_CFG
+    4'b 0001, // index[187] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_07_MUX_SEL
+    4'b 0001, // index[188] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_08_CFG
+    4'b 0001, // index[189] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_08_MUX_SEL
+    4'b 0001, // index[190] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_09_CFG
+    4'b 0001, // index[191] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_09_MUX_SEL
+    4'b 0001, // index[192] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_10_CFG
+    4'b 0001, // index[193] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_10_MUX_SEL
+    4'b 0001, // index[194] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_11_CFG
+    4'b 0001, // index[195] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_11_MUX_SEL
+    4'b 0001, // index[196] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_12_CFG
+    4'b 0001, // index[197] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_12_MUX_SEL
+    4'b 0001, // index[198] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_13_CFG
+    4'b 0001, // index[199] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_13_MUX_SEL
+    4'b 0001, // index[200] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_14_CFG
+    4'b 0001, // index[201] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_14_MUX_SEL
+    4'b 0001, // index[202] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_15_CFG
+    4'b 0001, // index[203] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_15_MUX_SEL
+    4'b 0001, // index[204] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_16_CFG
+    4'b 0001, // index[205] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_16_MUX_SEL
+    4'b 0001, // index[206] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_17_CFG
+    4'b 0001, // index[207] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_17_MUX_SEL
+    4'b 0001, // index[208] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_18_CFG
+    4'b 0001, // index[209] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_18_MUX_SEL
+    4'b 0001, // index[210] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_19_CFG
+    4'b 0001, // index[211] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_19_MUX_SEL
+    4'b 0001, // index[212] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_20_CFG
+    4'b 0001, // index[213] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_20_MUX_SEL
+    4'b 0001, // index[214] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_21_CFG
+    4'b 0001, // index[215] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_21_MUX_SEL
+    4'b 0001, // index[216] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_22_CFG
+    4'b 0001, // index[217] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_22_MUX_SEL
+    4'b 0001, // index[218] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_23_CFG
+    4'b 0001, // index[219] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_23_MUX_SEL
+    4'b 0001, // index[220] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_24_CFG
+    4'b 0001, // index[221] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_24_MUX_SEL
+    4'b 0001, // index[222] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_25_CFG
+    4'b 0001, // index[223] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_25_MUX_SEL
+    4'b 0001, // index[224] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM0_CFG
+    4'b 0001, // index[225] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM0_MUX_SEL
+    4'b 0001, // index[226] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM1_CFG
+    4'b 0001, // index[227] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM1_MUX_SEL
+    4'b 0001, // index[228] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM2_CFG
+    4'b 0001, // index[229] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM2_MUX_SEL
+    4'b 0001, // index[230] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM3_CFG
+    4'b 0001, // index[231] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM3_MUX_SEL
+    4'b 0001, // index[232] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM4_CFG
+    4'b 0001, // index[233] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM4_MUX_SEL
+    4'b 0001, // index[234] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM5_CFG
+    4'b 0001, // index[235] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM5_MUX_SEL
+    4'b 0001, // index[236] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM6_CFG
+    4'b 0001, // index[237] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM6_MUX_SEL
+    4'b 0001, // index[238] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM7_CFG
+    4'b 0001  // index[239] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM7_MUX_SEL
   };
 
 endpackage
