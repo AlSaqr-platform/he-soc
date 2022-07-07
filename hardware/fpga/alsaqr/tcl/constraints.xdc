@@ -56,10 +56,10 @@ set_false_path -from [get_ports pad_reset]
 #Hyper bus
 
 # Create RWDS clock
-create_clock -period 100.000 -name rwds_clk [get_ports FMC_hyper0_rwds]
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets i_alsaqr/i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/pad_gen[0].padinst_hyper_rwds0/iobuf_i/O] 
-create_clock -period 100.000 -name rwds_clk [get_ports FMC_hyper1_rwds]
-set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets i_alsaqr/i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/pad_gen[1].padinst_hyper_rwds0/iobuf_i/O] 
+#create_clock -period 100.000 -name rwds0_clk [get_ports FMC_hyper0_rwds]
+#set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets i_alsaqr/i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/pad_gen[0].padinst_hyper_rwds0/iobuf_i/O] 
+#create_clock -period 100.000 -name rwds1_clk [get_ports FMC_hyper1_rwds]
+#set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets i_alsaqr/i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/pad_gen[1].padinst_hyper_rwds0/iobuf_i/O] 
 
 
 ## Create the PHY clock

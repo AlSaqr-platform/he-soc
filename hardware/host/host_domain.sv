@@ -121,12 +121,14 @@ module host_domain
   input                       pad_to_can_t [N_CAN-1 : 0] pad_to_can,
  
   // HYPERBUS
+  `ifndef XILINX_DDR
   inout  [HyperbusNumPhys-1:0][NumChipsPerHyperbus-1:0] pad_hyper_csn,
   inout  [HyperbusNumPhys-1:0]                          pad_hyper_ck,
   inout  [HyperbusNumPhys-1:0]                          pad_hyper_ckn,
   inout  [HyperbusNumPhys-1:0]                          pad_hyper_rwds,
   inout  [HyperbusNumPhys-1:0]                          pad_hyper_reset,
   inout  [HyperbusNumPhys-1:0][7:0]                     pad_hyper_dq,
+  `endif
 
   output                      pwm_to_pad_t pwm_to_pad,
 
@@ -431,15 +433,17 @@ module host_domain
       .can_to_pad             ( can_to_pad                     ),
       .pad_to_can             ( pad_to_can                     ),
 
-      .gpio_to_pad            ( gpio_to_pad                    ),
-      .pad_to_gpio            ( pad_to_gpio                    ),
-
+      `ifndef XILINX_DDR
       .pad_hyper_csn,
       .pad_hyper_ck,
       .pad_hyper_ckn,
       .pad_hyper_rwds,
       .pad_hyper_reset,
-      .pad_hyper_dq
+      .pad_hyper_dq,
+      `endif
+
+      .gpio_to_pad            ( gpio_to_pad                    ),
+      .pad_to_gpio            ( pad_to_gpio                    )
       );
 
 

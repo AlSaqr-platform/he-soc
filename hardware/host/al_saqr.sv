@@ -52,12 +52,14 @@ module al_saqr
 `endif
 
   // HYPERBUS
+  `ifndef XILINX_DDR
   inout  [HyperbusNumPhys-1:0][NumChipsPerHyperbus-1:0] pad_hyper_csn,
   inout  [HyperbusNumPhys-1:0]                          pad_hyper_ck,
   inout  [HyperbusNumPhys-1:0]                          pad_hyper_ckn,
   inout  [HyperbusNumPhys-1:0]                          pad_hyper_rwds,
   inout  [HyperbusNumPhys-1:0]                          pad_hyper_reset,
   inout  [HyperbusNumPhys-1:0][7:0]                     pad_hyper_dq,
+  `endif
 
   inout wire logic    pad_periphs_pad_gpio_b_00_pad,
   inout wire logic    pad_periphs_pad_gpio_b_01_pad,
@@ -467,14 +469,16 @@ module al_saqr
       .apb_uart_rx_i          ( apb_uart_rx_i                   ),
       .apb_uart_tx_o          ( apb_uart_tx_o                   ),
 
-      .pwm_to_pad             ( s_pwm_to_pad                    ),
-
-      .pad_hyper_csn,
-      .pad_hyper_ck,
-      .pad_hyper_ckn,
-      .pad_hyper_rwds,
-      .pad_hyper_reset,
-      .pad_hyper_dq
+       `ifndef XILINX_DDR
+       .pad_hyper_csn,
+       .pad_hyper_ck,
+       .pad_hyper_ckn,
+       .pad_hyper_rwds,
+       .pad_hyper_reset,
+       .pad_hyper_dq,
+       `endif
+        
+      .pwm_to_pad             ( s_pwm_to_pad                    )
 
     );
    
@@ -652,21 +656,21 @@ module al_saqr
         .async_data_master_b_rptr_o      ( async_cluster_to_soc_axi_bus.b_rptr  ),
         .async_data_master_b_data_i      ( async_cluster_to_soc_axi_bus.b_data  ),
 
-        .async_axi2lite_master_aw_wptr_o ( async_cfg_axi_bus.aw_wptr            ),
-        .async_axi2lite_master_aw_rptr_i ( async_cfg_axi_bus.aw_rptr            ),
-        .async_axi2lite_master_aw_data_o ( async_cfg_axi_bus.aw_data            ),
-        .async_axi2lite_master_ar_wptr_o ( async_cfg_axi_bus.ar_wptr            ),
-        .async_axi2lite_master_ar_rptr_i ( async_cfg_axi_bus.ar_rptr            ),
-        .async_axi2lite_master_ar_data_o ( async_cfg_axi_bus.ar_data            ),
-        .async_axi2lite_master_w_data_o  ( async_cfg_axi_bus.w_data             ),
-        .async_axi2lite_master_w_wptr_o  ( async_cfg_axi_bus.w_wptr             ),
-        .async_axi2lite_master_w_rptr_i  ( async_cfg_axi_bus.w_rptr             ),
-        .async_axi2lite_master_r_wptr_i  ( async_cfg_axi_bus.r_wptr             ),
-        .async_axi2lite_master_r_rptr_o  ( async_cfg_axi_bus.r_rptr             ),
-        .async_axi2lite_master_r_data_i  ( async_cfg_axi_bus.r_data             ),
-        .async_axi2lite_master_b_wptr_i  ( async_cfg_axi_bus.b_wptr             ),
-        .async_axi2lite_master_b_rptr_o  ( async_cfg_axi_bus.b_rptr             ),
-        .async_axi2lite_master_b_data_i  ( async_cfg_axi_bus.b_data             ),
+        .async_cfg_master_aw_wptr_o      ( async_cfg_axi_bus.aw_wptr            ),
+        .async_cfg_master_aw_rptr_i      ( async_cfg_axi_bus.aw_rptr            ),
+        .async_cfg_master_aw_data_o      ( async_cfg_axi_bus.aw_data            ),
+        .async_cfg_master_ar_wptr_o      ( async_cfg_axi_bus.ar_wptr            ),
+        .async_cfg_master_ar_rptr_i      ( async_cfg_axi_bus.ar_rptr            ),
+        .async_cfg_master_ar_data_o      ( async_cfg_axi_bus.ar_data            ),
+        .async_cfg_master_w_data_o       ( async_cfg_axi_bus.w_data             ),
+        .async_cfg_master_w_wptr_o       ( async_cfg_axi_bus.w_wptr             ),
+        .async_cfg_master_w_rptr_i       ( async_cfg_axi_bus.w_rptr             ),
+        .async_cfg_master_r_wptr_i       ( async_cfg_axi_bus.r_wptr             ),
+        .async_cfg_master_r_rptr_o       ( async_cfg_axi_bus.r_rptr             ),
+        .async_cfg_master_r_data_i       ( async_cfg_axi_bus.r_data             ),
+        .async_cfg_master_b_wptr_i       ( async_cfg_axi_bus.b_wptr             ),
+        .async_cfg_master_b_rptr_o       ( async_cfg_axi_bus.b_rptr             ),
+        .async_cfg_master_b_data_i       ( async_cfg_axi_bus.b_data             ),
      
         .async_data_slave_aw_wptr_i      ( async_soc_to_cluster_axi_bus.aw_wptr ),
         .async_data_slave_aw_rptr_o      ( async_soc_to_cluster_axi_bus.aw_rptr ),

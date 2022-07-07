@@ -39,40 +39,39 @@ set_property -dict {PACKAGE_PIN M30   IOSTANDARD LVCMOS12} [get_ports pad_uart1_
 ####################################################################
 # Hyper Bus 0
 ####################################################################
-
-set_property -dict {PACKAGE_PIN BF10 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_ck]
-set_property -dict {PACKAGE_PIN BF9  IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_ckn]
-set_property -dict {PACKAGE_PIN BE14 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_dqio0]
-set_property -dict {PACKAGE_PIN BF14 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_dqio1]
-set_property -dict {PACKAGE_PIN BA14 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_dqio2]
-set_property -dict {PACKAGE_PIN BB14 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_dqio3]
-set_property -dict {PACKAGE_PIN AY8  IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_rwds]
-set_property -dict {PACKAGE_PIN AV9  IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_dqio4]
-set_property -dict {PACKAGE_PIN AV8  IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_dqio5]
-set_property -dict {PACKAGE_PIN AW11 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_dqio6]
-set_property -dict {PACKAGE_PIN AY10 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_dqio7]
-set_property -dict {PACKAGE_PIN AW13 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_csn1]
-set_property -dict {PACKAGE_PIN AY13 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_csn0]
-set_property -dict {PACKAGE_PIN AT12 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_reset]
-
-####################################################################
-# Hyper Bus 1
-####################################################################
-
-set_property -dict {PACKAGE_PIN AY9  IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_ck]
-set_property -dict {PACKAGE_PIN BA9  IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_ckn]
-set_property -dict {PACKAGE_PIN BD12 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_dqio0]
-set_property -dict {PACKAGE_PIN BE12 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_dqio1]
-set_property -dict {PACKAGE_PIN BE15 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_dqio2]
-set_property -dict {PACKAGE_PIN BF15 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_dqio3]
-set_property -dict {PACKAGE_PIN BC14 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_rwds]
-set_property -dict {PACKAGE_PIN BA16 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_dqio4]
-set_property -dict {PACKAGE_PIN BA15 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_dqio5]
-set_property -dict {PACKAGE_PIN BB16 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_dqio6]
-set_property -dict {PACKAGE_PIN BC16 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_dqio7]
-set_property -dict {PACKAGE_PIN AW12 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_csn1]
-set_property -dict {PACKAGE_PIN AY12 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_csn0]
-set_property -dict {PACKAGE_PIN AU11 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_reset]
+###set_property -dict {PACKAGE_PIN BF10 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_ck]
+###set_property -dict {PACKAGE_PIN BF9  IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_ckn]
+###set_property -dict {PACKAGE_PIN BE14 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_dqio0]
+###set_property -dict {PACKAGE_PIN BF14 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_dqio1]
+###set_property -dict {PACKAGE_PIN BA14 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_dqio2]
+###set_property -dict {PACKAGE_PIN BB14 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_dqio3]
+###set_property -dict {PACKAGE_PIN AY8  IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_rwds]
+###set_property -dict {PACKAGE_PIN AV9  IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_dqio4]
+###set_property -dict {PACKAGE_PIN AV8  IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_dqio5]
+###set_property -dict {PACKAGE_PIN AW11 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_dqio6]
+###set_property -dict {PACKAGE_PIN AY10 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_dqio7]
+###set_property -dict {PACKAGE_PIN AW13 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_csn1]
+###set_property -dict {PACKAGE_PIN AY13 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_csn0]
+###set_property -dict {PACKAGE_PIN AT12 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper0_reset]
+###
+#######################################################################
+#### Hyper Bus 1
+#######################################################################
+###
+###set_property -dict {PACKAGE_PIN AY9  IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_ck]
+###set_property -dict {PACKAGE_PIN BA9  IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_ckn]
+###set_property -dict {PACKAGE_PIN BD12 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_dqio0]
+###set_property -dict {PACKAGE_PIN BE12 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_dqio1]
+###set_property -dict {PACKAGE_PIN BE15 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_dqio2]
+###set_property -dict {PACKAGE_PIN BF15 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_dqio3]
+###set_property -dict {PACKAGE_PIN BC14 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_rwds]
+###set_property -dict {PACKAGE_PIN BA16 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_dqio4]
+###set_property -dict {PACKAGE_PIN BA15 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_dqio5]
+###set_property -dict {PACKAGE_PIN BB16 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_dqio6]
+###set_property -dict {PACKAGE_PIN BC16 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_dqio7]
+###set_property -dict {PACKAGE_PIN AW12 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_csn1]
+###set_property -dict {PACKAGE_PIN AY12 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_csn0]
+###set_property -dict {PACKAGE_PIN AU11 IOSTANDARD LVCMOS18}  [get_ports FMC_hyper1_reset]
 
 
 #Pin LOC constraints for the status signals init_calib_complete and data_compare_error
