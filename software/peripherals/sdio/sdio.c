@@ -25,30 +25,45 @@
 #include "udma.h"
 #include "udma_sdio.h"
 
-#define ACMD41_HCS           0x40000000
-#define ACMD41_SDXC_POWER    0x10000000
-#define ACMD41_S18R          0x04000000
-#define ACMD41_VOLTAGE       0x00ff8000
-#define ACMD41_ARG_HC        (ACMD41_HCS|ACMD41_SDXC_POWER|ACMD41_VOLTAGE)
-
 #define BLOCK_SIZE 512
 #define BLOCK_COUNT 0x0
 
 //#define PRINTF_ON
 
 #define BLOCK_COUNT_MUL 2
-#define SDIO_QUAD_EN 0
-#define USE_PLIC 0
+#define SDIO_QUAD_EN 1
+#define USE_PLIC 1
 
-#define N_SDIO 1
-#define FPGA_EMULATION
-#define FPGA_EMUL 1
+/*******************************************************************************
+**                             IMPORTANT                                      **
+**  FPGA_EMULATION AND SIMPLE_PAD MUST BE DEFINED IN MUTUAL EXCLUSION         **
+**  IF NOT DEFINED, THE CODE IS SUPPOSED TO BE EXECUTED ON THE FULL PADFRAME  **                                                                        **
+**  - FPGA_EMULATION: MUST BE SETTED ONLY WHEN THE CODE RUNS ON FPGA          **
+**  - SIMPLE_PAD: MUST BE SETTED ONLY TO SIMULATE THE FPGA PAD ON RTL         **
+*******************************************************************************/
+
+//#define FPGA_EMULATION
+//#define SIMPLE_PAD
+
+#ifdef FPGA_EMULATION
+    #define N_SDIO 1
+#else
+    #ifdef SIMPLE_PAD
+      #define N_SDIO 1
+    #else
+      #define N_SDIO 2
+    #endif
+#endif
+
+#define FPGA_CLK_DIV 1920
 
 
 #define PLIC_BASE 0x0C000000
 #define PLIC_CHECK PLIC_BASE + 0x201004
 //enable bits for sources 0-31
 #define PLIC_EN_BITS  PLIC_BASE + 0x2080
+
+
 
 void init_sdio (int32_t u, uint32_t * response, int32_t eot_sdio_plic_id, int32_t err_sdio_plic_id){
 
@@ -64,11 +79,14 @@ void init_sdio (int32_t u, uint32_t * response, int32_t eot_sdio_plic_id, int32_
   
   // CMD 8. Get voltage (Only 2.0 Card response to this) - Resp R7
   //0x1AA tell the uSD that the host power supply is between 2.7 - 3.3 Volt
-  if (FPGA_EMUL==1){
+  #ifdef FPGA_EMULATION
     sdio_send_cmd(u, CMD8 | RSP_48_CRC, 0x1AA, response, eot_sdio_plic_id, err_sdio_plic_id);
     arg|= 0x5<<28 | 0<<24 | 0xF<<20;
-  }else 
+  #else
     arg= 0xC0100000;
+  #endif
+
+  
 
   // Wait until busy is clear into the card
   do {
@@ -95,8 +113,9 @@ void init_sdio (int32_t u, uint32_t * response, int32_t eot_sdio_plic_id, int32_
   printf ("Card Class = %x\n\r", response[2] >> 20);
   uart_wait_tx_done();
 
-  if (FPGA_EMUL==1)
+  #ifdef FPGA_EMULATION
     sdio_send_cmd (u, CMD13 | RSP_48_CRC , (rca<<16) , response, eot_sdio_plic_id, err_sdio_plic_id);
+  #endif
 
   // setup_card_to_transfer
   // Send CMD 7 - Resp R1b
@@ -143,8 +162,8 @@ int sdio_send_cmd(uint32_t u, uint32_t cmd_op, uint32_t cmd_arg, uint32_t *respo
 
   if (USE_PLIC==1){
 
-    //printf("Set EOT and ERR PLIC interrupt..\n\r");
-    //uart_wait_tx_done();
+    printf("Set EOT and ERR PLIC interrupt..\n\r");
+    uart_wait_tx_done();
 
     //set EOT interrupt
     pulp_write32(PLIC_BASE+eot_sdio_plic_id*4, 1); // set eot interrupt priority to 1
@@ -154,8 +173,8 @@ int sdio_send_cmd(uint32_t u, uint32_t cmd_op, uint32_t cmd_arg, uint32_t *respo
     pulp_write32(PLIC_BASE+err_sdio_plic_id*4, 1); // set eot interrupt priority to 1
     pulp_write32(PLIC_EN_BITS+(((int)(err_sdio_plic_id/32))*4), pulp_read32(PLIC_EN_BITS+(((int)(err_sdio_plic_id/32))*4)) | 1<<(err_sdio_plic_id%32)); //enable interrupt
 
-    //printf("Interrupt setted..\n\r");
-    //uart_wait_tx_done();
+    printf("Interrupt setted..\n\r");
+    uart_wait_tx_done();
 
   }
 
@@ -222,16 +241,16 @@ int sdio_send_cmd(uint32_t u, uint32_t cmd_op, uint32_t cmd_arg, uint32_t *respo
   }else{
 
     //PLIC
-    //printf("Wait For Interrupt\n\r");
-    //uart_wait_tx_done();
+    printf("Wait For Interrupt\n\r");
+    uart_wait_tx_done();
 
     //  wfi until reading the EOT id from the PLIC
     while(pulp_read32(PLIC_CHECK)!=eot_sdio_plic_id && pulp_read32(PLIC_CHECK)!=err_sdio_plic_id) {
       asm volatile ("wfi");
     }
 
-    //printf("Interrupt received...\n\r");
-    //uart_wait_tx_done();
+    printf("Interrupt received...\n\r");
+    uart_wait_tx_done();
 
     //Set completed EOT Interrupt
     pulp_write32(PLIC_CHECK,eot_sdio_plic_id);
@@ -273,25 +292,22 @@ void test_single_block_write (uint32_t u, uint32_t *tx_buffer, uint32_t *respons
 
   }else{
 
-    //printf("Set TX PLIC interrupt..\n\r");
-    //uart_wait_tx_done();
+    printf("Set TX PLIC interrupt..\n\r");
+    uart_wait_tx_done();
 
     //Set TX interrupt
     pulp_write32(PLIC_BASE+tx_sdio_plic_id*4, 1); // set tx interrupt priority to 1
     pulp_write32(PLIC_EN_BITS+(((int)(tx_sdio_plic_id/32))*4), 1<<(tx_sdio_plic_id%32)); //enable interrupt
 
-    //printf("TX Interrupt setted..\n\r");
-    //uart_wait_tx_done();
-
-    //printf("Wait For TX Interrupt ...\n\r");
-    //uart_wait_tx_done();
+    printf("TX Interrupt setted..\n\r");
+    uart_wait_tx_done();
 
     //  wfi until reading the EOT id from the PLIC
     while(pulp_read32(PLIC_CHECK)!=tx_sdio_plic_id) {
       asm volatile ("wfi");
     }
-    //printf("Received TX Interrupt ...\n\r");
-    //uart_wait_tx_done();
+    printf("Received TX Interrupt ...\n\r");
+    uart_wait_tx_done();
 
     //Set completed Interrupt
     pulp_write32(PLIC_CHECK,tx_sdio_plic_id);
@@ -326,33 +342,30 @@ void test_single_block_read (uint32_t u, uint32_t *rx_buffer , uint32_t *respons
     } while(poll_var != 0);
   }else{
 
-    //printf("Set RX PLIC interrupt..\n\r");
-    //uart_wait_tx_done();
+    printf("Set RX PLIC interrupt..\n\r");
+    uart_wait_tx_done();
 
     //Set RX interrupt
     pulp_write32(PLIC_BASE+rx_sdio_plic_id*4, 1); // set rx interrupt priority to 1
     pulp_write32(PLIC_EN_BITS+(((int)(rx_sdio_plic_id/32))*4), 1<<(rx_sdio_plic_id%32)); //enable interrupt
 
-    //printf("RX Interrupt setted..\n\r");
-    //uart_wait_tx_done();
-
-    //printf("Wait For RX Interrupt ...\n\r");
-    //uart_wait_tx_done();
+    printf("RX Interrupt setted..\n\r");
+    uart_wait_tx_done();
 
     //  wfi until reading the EOT id from the PLIC
     while(pulp_read32(PLIC_CHECK)!=rx_sdio_plic_id) {
       asm volatile ("wfi");
     }
 
-    //printf("Received RX Interrupt ...\n\r");
-    //uart_wait_tx_done();
+    printf("Received RX Interrupt ...\n\r");
+    uart_wait_tx_done();
 
     //Set completed Interrupt
     pulp_write32(PLIC_CHECK,rx_sdio_plic_id);
   }
 
-  //printf("End reading...\n\r");
-  //uart_wait_tx_done();
+  printf("End reading...\n\r");
+  uart_wait_tx_done();
 
   //Clear Data Setup
   pulp_write32(UDMA_SDIO_DATA_SETUP(u), 0x0 );   
@@ -362,6 +375,7 @@ void test_single_block_read (uint32_t u, uint32_t *rx_buffer , uint32_t *respons
 int main(){
   
   int error = 0;
+  int clk_div=0;
   int u=0;
 
   uint32_t *tx_buffer= (uint32_t*) 0x1C001000;
@@ -376,7 +390,11 @@ int main(){
   // 1920 200KHz FPGA
   // 1920 200KHz FPGA
 
-  int clk_div= (1<<8) | 4000; //200KHz FPGA
+  #ifdef FPGA_EMULATION
+    clk_div= (1<<8) | FPGA_CLK_DIV; //200KHz FPGA
+  #else
+    clk_div= (1<<8) | 3;
+  #endif
 
 
   #ifdef FPGA_EMULATION
@@ -388,15 +406,35 @@ int main(){
   int test_freq = 100000000;
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
-    
-  alsaqr_periph_padframe_periphs_pad_gpio_b_08_mux_set( 1 );
-  alsaqr_periph_padframe_periphs_pad_gpio_b_09_mux_set( 1 );
-  alsaqr_periph_padframe_periphs_pad_gpio_b_10_mux_set( 1 );
-  alsaqr_periph_padframe_periphs_pad_gpio_b_11_mux_set( 1 );
-  alsaqr_periph_padframe_periphs_pad_gpio_b_12_mux_set( 1 );
-  alsaqr_periph_padframe_periphs_pad_gpio_b_13_mux_set( 1 );
 
-for (int u = 0; u<N_SDIO; u++){
+
+
+  #ifdef FPGA_EMULATION
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 1 );
+  #else
+    #ifdef SIMPLE_PAD
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 1 );
+    #else
+      alsaqr_periph_padframe_periphs_pad_gpio_f_01_mux_set( 2 );
+      alsaqr_periph_padframe_periphs_pad_gpio_f_02_mux_set( 2 );
+      alsaqr_periph_padframe_periphs_pad_gpio_f_03_mux_set( 2 );
+      alsaqr_periph_padframe_periphs_pad_gpio_f_04_mux_set( 2 );
+      alsaqr_periph_padframe_periphs_pad_gpio_f_05_mux_set( 2 );
+      alsaqr_periph_padframe_periphs_pad_gpio_f_06_mux_set( 2 );
+    #endif 
+  #endif 
+    
+for (int u = N_SDIO-1; u<N_SDIO; u++){
 
     for(int i = 0; i < BLOCK_SIZE*2 ; i++) {
         tx_buffer[i] = i+349;

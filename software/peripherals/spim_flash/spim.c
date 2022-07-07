@@ -51,9 +51,19 @@
 #define OUT 1
 #define IN  0
 
-#define PRINTF_ON
+//#define PRINTF_ON
 
-#define FPGA_EMULATION
+/*******************************************************************************
+**                             IMPORTANT                                      **
+**  FPGA_EMULATION AND SIMPLE_PAD MUST BE DEFINED IN MUTUAL EXCLUSION         **
+**  IF NOT DEFINED, THE CODE IS SUPPOSED TO BE EXECUTED ON THE FULL PADFRAME  **                                                                        **
+**  - FPGA_EMULATION: MUST BE SETTED ONLY WHEN THE CODE RUNS ON FPGA          **
+**  - SIMPLE_PAD: MUST BE SETTED ONLY TO SIMULATE THE FPGA PAD ON RTL         **
+*******************************************************************************/
+
+//#define SIMPLE_PAD
+//#define FPGA_EMULATION
+
 #define CLOCK_DIV 2
 
 #define N_SPI 1
@@ -68,9 +78,6 @@
 #define PLIC_EN_BITS  PLIC_BASE + 0x2080
 
 #define USE_PLIC 1
-
-#define ERASE 1
-
 
 int pad_fun_offset[4] = {REG_PADFUN0_OFFSET,REG_PADFUN1_OFFSET,REG_PADFUN2_OFFSET,REG_PADFUN3_OFFSET};
 int pad_cfg_offset[16] = {REG_PADCFG0_OFFSET,REG_PADCFG1_OFFSET,REG_PADCFG2_OFFSET,REG_PADCFG3_OFFSET,REG_PADCFG4_OFFSET,REG_PADCFG5_OFFSET,REG_PADCFG6_OFFSET,REG_PADCFG7_OFFSET,REG_PADCFG8_OFFSET,REG_PADCFG9_OFFSET,REG_PADCFG10_OFFSET,REG_PADCFG11_OFFSET,REG_PADCFG12_OFFSET,REG_PADCFG13_OFFSET,REG_PADCFG14_OFFSET,REG_PADCFG15_OFFSET};
@@ -167,7 +174,7 @@ int main(){
     /*if(i<4)
       memory_page[i] = 0x00;
     else
-      memory_page[i] = i+69;*/
+      memory_page[i] = i-4;*/
   }
 
   #ifdef PRINTF_ON
@@ -356,10 +363,24 @@ int main(){
     uart_wait_tx_done();    
   #endif 
 
-  alsaqr_periph_padframe_periphs_pad_gpio_b_00_mux_set( 1 );
-  alsaqr_periph_padframe_periphs_pad_gpio_b_01_mux_set( 1 );
-  alsaqr_periph_padframe_periphs_pad_gpio_b_02_mux_set( 1 );
-  alsaqr_periph_padframe_periphs_pad_gpio_b_03_mux_set( 1 );
+  #ifdef FPGA_EMULATION
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set( 1 );
+  #else
+    #ifdef SIMPLE_PAD
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set( 1 );
+    #else
+      alsaqr_periph_padframe_periphs_pad_gpio_b_00_mux_set( 2 );
+    alsaqr_periph_padframe_periphs_pad_gpio_b_01_mux_set( 2 );
+    alsaqr_periph_padframe_periphs_pad_gpio_b_02_mux_set( 2 );
+    alsaqr_periph_padframe_periphs_pad_gpio_b_03_mux_set( 2 );
+    #endif    
+  #endif  
 
   for (int u = 0; u<N_SPI; u++){
 
@@ -453,7 +474,7 @@ int main(){
       pulp_write32(PLIC_CHECK,rx_spi_plic_id);
     }
 
-    if (ERASE==1) {
+    #ifdef FPGA_EMULATION {
 
       #ifdef PRINTF_ON
         printf ("ERASE THE FLASH...\n\r");
@@ -521,7 +542,7 @@ int main(){
         barrier();
       } while( temp != 0);
 
-    }
+    #endif
 
 
     #ifdef PRINTF_ON
@@ -707,10 +728,10 @@ int main(){
       //printf("Index %d: read %8x, expected %8x \n\r",i,rx_page[i],memory_page[i+4]);
       if (rx_page[i] != memory_page[i+4])
       {
-        printf("Index %d: read %8x, expected %8x -- ERROR\n\r",i,rx_page[i],memory_page[i+4]);
+        //printf("Index %d: read %8x, expected %8x -- ERROR\n\r",i,rx_page[i],memory_page[i+4]);
         error[u]++;
       }else
-        printf("Index %d: read %8x, expected %8x \n\r",i,rx_page[i],memory_page[i+4]);
+        //printf("Index %d: read %8x, expected %8x \n\r",i,rx_page[i],memory_page[i+4]);
       uart_wait_tx_done();
     }
 

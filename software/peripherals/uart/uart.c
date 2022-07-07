@@ -31,6 +31,17 @@
 #define UART_BAUDRATE 115200
 #define N_UART 1
 
+/*******************************************************************************
+**                             IMPORTANT                                      **
+**  FPGA_EMULATION AND SIMPLE_PAD MUST BE DEFINED IN MUTUAL EXCLUSION         **
+**  IF NOT DEFINED, THE CODE IS SUPPOSED TO BE EXECUTED ON THE FULL PADFRAME  **                                                                        **
+**  - FPGA_EMULATION: MUST BE SETTED ONLY WHEN THE CODE RUNS ON FPGA          **
+**  - SIMPLE_PAD: MUST BE SETTED ONLY TO SIMULATE THE FPGA PAD ON RTL         **
+*******************************************************************************/
+
+//#define FPGA_EMULATION
+//#define SIMPLE_PAD
+
 
 int uart_read_nb(int uart_id, void *buffer, uint32_t size)
 {
@@ -82,9 +93,18 @@ int *rx_buffer= (int*) 0x1C002000;
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
-alsaqr_periph_padframe_periphs_pad_gpio_b_06_mux_set( 1 ); //tx
-alsaqr_periph_padframe_periphs_pad_gpio_b_07_mux_set( 1 );  //rx
-
+  #ifdef FPGA_EMULATION
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set( 1 ); //tx
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 1 ); //rx
+  #else
+    #ifdef SIMPLE_PAD
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set( 1 ); //tx
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 1 ); //rx
+    #else
+      alsaqr_periph_padframe_periphs_pad_gpio_b_40_mux_set( 2 ); //tx
+      alsaqr_periph_padframe_periphs_pad_gpio_b_41_mux_set( 2 );  //rx
+    #endif    
+  #endif 
 
 
 printf("uart start\n");
