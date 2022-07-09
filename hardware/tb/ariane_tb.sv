@@ -77,7 +77,15 @@ module ariane_tb;
     `endif
 
     // use camera verification IP
-    parameter  USE_SDVT_CPI = 0;
+    `ifndef FPGA_EMUL
+      `ifndef SIMPLE_PADFRAME
+        parameter  USE_SDVT_CPI = 1;
+      `else
+        parameter  USE_SDVT_CPI = 0;
+      `endif
+    `else
+      parameter  USE_SDVT_CPI = 0;
+    `endif
 
   `ifdef PRELOAD
     parameter  PRELOAD_HYPERRAM    = 1;
