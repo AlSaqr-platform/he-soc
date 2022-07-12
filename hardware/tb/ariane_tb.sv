@@ -1384,7 +1384,8 @@ module ariane_tb;
     };
 
     logic [31:0] to_host_addr;
-    to_host_addr = start_addr + 32'h1000;
+//    to_host_addr = start_addr + 32'h1000;
+     to_host_addr = 32'h1C00_0000;
  
     // Initialize the dm module again, otherwise it will not work
     debug_module_init();

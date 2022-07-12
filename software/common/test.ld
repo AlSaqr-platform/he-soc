@@ -22,13 +22,12 @@ ENTRY(_start)
 
 SECTIONS
 {
+  . = 0x1C000000;
+  .tohost : { *(.tohost) }
 
   /* text: test code section */
   . = 0x80000000;
   .text.init : { *(.text.init) }
-
-  . = ALIGN(0x1000);
-  .tohost : { *(.tohost) }
 
   .text : { *(.text) }
   
