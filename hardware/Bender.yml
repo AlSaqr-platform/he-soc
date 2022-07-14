@@ -4,6 +4,7 @@ package:
     - "Luca Valente"
 
 dependencies:
+  axi_scmi_mailbox: { path: "deps/axi_scmi_mailbox" }
   axi_riscv_atomics: { path: "deps/axi_riscv_atomics" }
   clint: { path: "deps/clint" }
   rv_plic: { path: "deps/rv_plic" }
@@ -38,7 +39,8 @@ dependencies:
   ddr-link: { git: "git@github.com:AlSaqr-platform/ddr-link.git", rev: "bf77d024f7290d885601d54bf608f29be6982951"}
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", version: 0.0.1 }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
-  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "425169c3f131912712260782dde8765142a72171" }
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "mciani" }
+
 
 
 export_include_dirs:
