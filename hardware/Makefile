@@ -28,7 +28,7 @@ test-location  ?= output/test
 torture-logs   :=
 # custom elf bin to run with sim or sim-verilator
 elf-bin        ?= ../software/hello/hello.riscv
-ibex_elf_bin   ?= /home/mciani/Workspace/cva6/hardware/working_dir/opentitan/hw/top_titangrey/examples/sw/simple_system/hello_test/hello_test.elf
+ibex_elf_bin   ?= /scratch/mciani/cva6/hardware/working_dir/opentitan/hw/top_titangrey/examples/sw/simple_system/hello_test/hello_test.elf
 #cl-bin         ?= ../software/pulp/mm.riscv
 cl-bin         ?= none
 # root pathelf-bin

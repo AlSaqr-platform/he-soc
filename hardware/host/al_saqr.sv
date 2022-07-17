@@ -755,14 +755,72 @@ module al_saqr
   `AXI_LITE_TYPEDEF_REQ_T     ( axi_lite_req_t , aw_chan_lite_t, w_chan_lite_t, ar_chan_lite_t )
   `AXI_LITE_TYPEDEF_RESP_T    ( axi_lite_resp_t, b_chan_lite_t , r_chan_lite_t                 )
 
+   axi_to_axi_lite_intf #(
+     .AXI_ADDR_WIDTH     ( AXI_ADDRESS_WIDTH      ),
+     .AXI_DATA_WIDTH     ( AXI_LITE_DW            ),
+     .AXI_ID_WIDTH       ( ariane_soc::IdWidth    ),
+     .AXI_USER_WIDTH     ( AXI_USER_WIDTH         ),
+     .AXI_MAX_WRITE_TXNS ( 1                      ),
+     .AXI_MAX_READ_TXNS  ( 1                      ),
+     .FALL_THROUGH       ( 0                      )
+   ) i_axi2lite_tlb_cfg  (                        
+     .clk_i              ( s_soc_clk              ),
+     .rst_ni             ( s_soc_rst_n            ),
+     .testmode_i         ( 1'b0                   ),
+     .slv                ( c2h_tlb_cfg_axi_bus_32 ),
+     .mst                ( c2h_tlb_cfg_lite       )
+   );
+  
+  parameter int   AW = 64;   
+  parameter int   DW = 64;  
+  parameter int   IW = 8;   
+  parameter int   UW = 1;
+
+  parameter int unsigned SW = DW / 8;
+       
+  typedef   logic [AW-1:0] axi_ot_addr_t;
+  typedef   logic [DW-1:0] axi_ot_data_t;
+  typedef   logic [IW-1:0] axi_ot_id_t;
+  typedef   logic [SW-1:0] axi_ot_strb_t;
+  typedef   logic [UW-1:0] axi_ot_user_t;
+
+  typedef   logic [31:0] data32_t;
+  typedef   logic [3:0]  strb32_t;
+>>>>>>> fixed some errors with ot
 
   `AXI_TYPEDEF_AW_CHAN_T (axi_ot_aw_t, axi_ot_addr_t, axi_ot_id_t, axi_ot_user_t)
   `AXI_TYPEDEF_W_CHAN_T  (axi_ot_w_t, axi_ot_data_t, axi_ot_strb_t, axi_ot_user_t)
   `AXI_TYPEDEF_B_CHAN_T  (axi_ot_b_t, axi_ot_id_t, axi_ot_user_t)
   `AXI_TYPEDEF_AR_CHAN_T (axi_ot_ar_t, axi_ot_addr_t, axi_ot_id_t, axi_ot_user_t)
   `AXI_TYPEDEF_R_CHAN_T  (axi_ot_r_t, axi_ot_data_t, axi_ot_id_t, axi_ot_user_t)
+   
   `AXI_TYPEDEF_REQ_T     (axi_ot_req_t, axi_ot_aw_t, axi_ot_w_t, axi_ot_ar_t)
   `AXI_TYPEDEF_RESP_T    (axi_ot_resp_t, axi_ot_b_t, axi_ot_r_t)
+
+  `AXI_TYPEDEF_AW_CHAN_T (axi32_aw_t, axi_ot_addr_t, axi_ot_id_t, axi_ot_user_t)
+  `AXI_TYPEDEF_W_CHAN_T  (axi32_w_t, data32_t, strb32_t, axi_ot_user_t)
+  `AXI_TYPEDEF_B_CHAN_T  (axi32_b_t, axi_ot_id_t, axi_ot_user_t)
+  `AXI_TYPEDEF_AR_CHAN_T (axi32_ar_t, axi_ot_addr_t, axi_ot_id_t, axi_ot_user_t)
+  `AXI_TYPEDEF_R_CHAN_T  (axi32_r_t, data32_t, axi_ot_id_t, axi_ot_user_t)
+  
+  `AXI_TYPEDEF_REQ_T     (axi_req32_t, axi32_aw_t, axi32_w_t, axi32_ar_t)
+  `AXI_TYPEDEF_RESP_T    (axi_resp32_t, axi32_b_t, axi32_r_t)
+
+  
+  `AXI_LITE_TYPEDEF_AW_CHAN_T (axi_lite_aw_t, axi_ot_addr_t)
+  `AXI_LITE_TYPEDEF_W_CHAN_T  (axi_lite_w_t, data32_t, strb32_t)
+  `AXI_LITE_TYPEDEF_B_CHAN_T  (axi_lite_b_t)
+  `AXI_LITE_TYPEDEF_AR_CHAN_T (axi_lite_ar_t, axi_ot_addr_t)
+  `AXI_LITE_TYPEDEF_R_CHAN_T  (axi_lite_r_t, data32_t)
+  
+  `AXI_LITE_TYPEDEF_REQ_T     (axi_lite_mbox_req_t, axi_lite_aw_t, axi_lite_w_t, axi_lite_ar_t)
+  `AXI_LITE_TYPEDEF_RESP_T    (axi_lite_mbox_resp_t, axi_lite_b_t, axi_lite_r_t)
+
+  axi_lite_mbox_req_t  axi_lite_mbox_req;
+  axi_lite_mbox_resp_t axi_lite_mbox_rsp;
+
+  axi_req32_t axi_req32;
+  axi_resp32_t axi_rsp32;
    
   axi_ot_req_t  ot_axi_req, axi_mbox_req;
   axi_ot_resp_t ot_axi_rsp, axi_mbox_rsp;
@@ -809,20 +867,6 @@ module al_saqr
     .irq_ibex_i(irq_ibex)
   );
 
-    
-  axi_scmi_mailbox #(
-      .AxiAddrWidth(64),
-      .AxiDataWidth(64),
-      .axi_req_t(axi_ot_req_t),
-      .axi_resp_t(axi_ot_resp_t)
-  ) u_scmi_shared_memory (
-      .clk_i(s_soc_clk),
-      .rst_ni(s_rst_ni),
-      .axi_mbox_req,
-      .axi_mbox_rsp,
-      .irq_ibex_o(irq_ibex),
-      .irq_ariane_o(irq_ariane)
-  );
    
    
   host_domain #(
@@ -1027,7 +1071,76 @@ module al_saqr
      .mst                     ( tlb_to_soc_axi_bus     ),
      .cfg                     ( c2h_tlb_cfg            )
    );
-  
+ 
+  /**************************************************************************************************/
+  /*                                       END AXI TLB REGION                                       */
+  /**************************************************************************************************/
+
+   
+   axi_dw_converter #(
+       .AxiMaxReads        ( 1 ),
+       .AxiSlvPortDataWidth( DW   ),
+       .AxiMstPortDataWidth( 32   ),
+       .AxiAddrWidth       ( AW   ),
+       .AxiIdWidth         ( IW   ),
+       .aw_chan_t          ( axi_ot_aw_t   ),
+       .mst_w_chan_t       ( axi32_w_t     ),
+       .slv_w_chan_t       ( axi_ot_w_t    ),
+       .b_chan_t           ( axi_ot_b_t    ),
+       .ar_chan_t          ( axi_ot_ar_t   ),
+       .mst_r_chan_t       ( axi32_r_t     ),
+       .slv_r_chan_t       ( axi_ot_r_t    ),
+       .axi_mst_req_t      ( axi_req32_t   ),
+       .axi_mst_resp_t     ( axi_resp32_t  ),
+       .axi_slv_req_t      ( axi_ot_req_t  ),
+       .axi_slv_resp_t     ( axi_ot_resp_t )
+   ) i_axi_dw_converter (
+       .clk_i      ( s_soc_clk  ),
+       .rst_ni     ( s_rst_ni   ),
+       // slave port
+       .slv_req_i  ( axi_mbox_req    ),
+       .slv_resp_o ( axi_mbox_rsp    ),
+       // master port
+       .mst_req_o  ( axi_req32  ),
+       .mst_resp_i ( axi_rsp32  )
+   );
+
+   axi_to_axi_lite #( 
+       .AxiAddrWidth(AW),
+       .AxiDataWidth(32),
+       .AxiIdWidth(IW),
+       .AxiUserWidth(UW),
+       .AxiMaxWriteTxns(1),
+       .AxiMaxReadTxns(1),
+       .FallThrough(1'b0),
+       .full_req_t(axi_req32_t),
+       .full_resp_t(axi_resp32_t),
+       .lite_req_t(axi_lite_mbox_req_t),
+       .lite_resp_t(axi_lite_mbox_resp_t)  
+   ) axi_converter (
+       .clk_i(s_soc_clk),       
+       .rst_ni(s_rst_ni),       
+       .test_i('0),      
+       .slv_req_i(axi_req32),
+       .slv_resp_o(axi_rsp32),
+       .mst_req_o(axi_lite_mbox_req),
+       .mst_resp_i(axi_lite_mbox_rsp)
+   );
+   
+    
+   axi_scmi_mailbox #(
+       .axi_lite_req_t(axi_lite_mbox_req_t),
+       .axi_lite_resp_t(axi_lite_mbox_resp_t)
+   ) u_scmi_shared_memory (
+       .clk_i(s_soc_clk),
+       .rst_ni(s_rst_ni),
+       .axi_mbox_req(axi_lite_mbox_req),
+       .axi_mbox_rsp(axi_lite_mbox_rsp),
+       .doorbell_irq_o(irq_ibex),
+       .completion_irq_o(irq_ariane)
+   );
+
+   
   `REG_BUS_ASSIGN_TO_REQ(reg_req,i_padframecfg_rbus)
   `REG_BUS_ASSIGN_FROM_RSP(i_padframecfg_rbus,reg_rsp)
 
