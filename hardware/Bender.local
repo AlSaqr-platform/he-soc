@@ -1,2 +1,5 @@
 overrides:
   axi: { git: "https://github.com/pulp-platform/axi.git" , rev: "9b72c4491f09d599ce2fabb1ee1597692a1ea683" } 
+  cva6: { path: "working_dir/cva6" } # Temporary override by Bender using `bender clone` command
+  opentitan: { path: "working_dir/opentitan" } # Temporary override by Bender using `bender clone` command
+

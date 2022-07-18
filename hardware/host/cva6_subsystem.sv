@@ -799,7 +799,7 @@ module cva6_subsystem
     .phy_mdio        ( ),
     .eth_mdc         ( ),
     .mdio            ( ),
-    .mdc             ( )
+    .mdc             ( ),
     .irq_ariane_i
   );
 

@@ -18,9 +18,9 @@ int main(int argc, char const *argv[]) {  // Agent example code with interrupt
   
    ////////////////////// uart and intr setup //////////////////////
   
-  #ifdef FPGA_EMULATION                   // Not our case
+  #ifdef FPGA_EMULATION                  
   int baud_rate = 9600;
-  int test_freq = 10000000;
+  int test_freq = 50000000;
   #else
   set_flls();
   int baud_rate = 115200;
@@ -34,7 +34,7 @@ int main(int argc, char const *argv[]) {  // Agent example code with interrupt
   #define PLIC_EN_BITS  PLIC_BASE + 0x2080
 
   int a, b, c, d, e;
-  int mbox_id = 133;
+  int mbox_id = 143;
 
   // Initialazing the uart
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
@@ -58,6 +58,7 @@ int main(int argc, char const *argv[]) {  // Agent example code with interrupt
   e = pulp_read32(0x5000001C); 
 
   if( a == 0xBAADC0DE && b == 0xBAADC0DE && c == 0xBAADC0DE && d == 0xBAADC0DE && e == 0xBAADC0DE){
+     printf("Populating mbox memory and ringing doorbell: hello ibex :)\n");
      pulp_write32(0x50000020, 0x00000001); // ring doorbell 
      while(pulp_read32(PLIC_CHECK)!=mbox_id) 
        asm volatile ("wfi"); // the handler just returns here + 4
@@ -69,7 +70,7 @@ int main(int argc, char const *argv[]) {  // Agent example code with interrupt
   }
   
   // Start of """Interrupt Service Routine""" (this code should be into an IRQ Handler)  
-  
+  printf("Irq recieved from ibex: hello cva6 :)\n");
   pulp_write32(0x50000024, 0x00000000); // Cleaning the irq source
   pulp_write32(PLIC_CHECK, mbox_id);    // Completing irq (according to riscv specs)
 

@@ -1230,13 +1230,11 @@ module ariane_tb;
          end 
 
          
-      end // if (LOCAL_JTAG)
-
-      
       //////////////////Ibex preload////////////////////
 
-      if ( $value$plusargs ("OT_STRING=%s", ibex_binary));
+      if ( $value$plusargs ("OT_STRING=%s", ibex_binary)) begin
         $display("Testing %s", ibex_binary);
+      end
          
       repeat(25)
       @(posedge rtc_i);
@@ -1249,10 +1247,7 @@ module ariane_tb;
       jtag_ibex_data_preload();
           
       #(RTC_CLOCK_PERIOD)
-      jtag_ibex_wakeup(32'h 10000080);
-
-
-                 
+      jtag_ibex_wakeup(32'h 10000080);            
 
    end
    
@@ -1492,7 +1487,7 @@ module ariane_tb;
 /////////////////////////////////////////////////////////////////
                  //IBEX PROCESSES AND TASKS//
 ////////////////////////////////////////////////////////////////
-  /* 
+   /*
    initial  begin : local_ibex_jtag_preload  
 
       automatic dm::sbcs_t sbcs = '{
@@ -1521,7 +1516,7 @@ module ariane_tb;
       
       
    end // block: local_jtag_preload
-   */
+*/   
 ///////////////////////////// Tasks ///////////////////////////////
 
    task debug_ibex_module_init;
@@ -1529,10 +1524,10 @@ module ariane_tb;
      logic [31:0]  idcode;
      automatic dm::sbcs_t sbcs;
 
-     $info(" JTAG Preloading start time");
+     //$info(" JTAG Preloading start time");
      riscv_ibex_dbg.wait_idle(300);
 
-     $info(" Start getting idcode of JTAG");
+     //$info(" Start getting idcode of JTAG");
      riscv_ibex_dbg.get_idcode(idcode);
       
      /*
@@ -1541,17 +1536,17 @@ module ariane_tb;
      else $error(" Wrong IDCode, expected: %h, actual: %h", dm_idcode, idcode);
      */
       
-     $display(" IDCode = %h", idcode);
+     //$display(" IDCode = %h", idcode);
 
-     $info(" Activating Debug Module");
+     //$info(" Activating Debug Module");
      // Activate Debug Module
      riscv_ibex_dbg.write_dmi(dm::DMControl, 32'h0000_0001);
 
-     $info(" SBA BUSY ");
+     //$info(" SBA BUSY ");
      // Wait until SBA is free
      do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
      while (sbcs.sbbusy);
-     $info(" SBA FREE");      
+     //$info(" SBA FREE");      
       
    endtask // debug_module_init
    
@@ -1579,10 +1574,8 @@ module ariane_tb;
        riscv_ibex_dbg.write_dmi(dm::SBAddress0, (addr << 2));
        do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
        while (sbcs.sbbusy);
-       
-       for (int i = 0; i < ibex_sections[addr]; i++) begin
-         // $info(" Loading words to SRAM ");
-         $display(" -- Word %0d/%0d", i, ibex_sections[addr]);      
+       for (int i = 0; i < ibex_sections[addr]; i++) begin  
+         //$display(" -- Word %0d/%0d", i, ibex_sections[addr]);      
          riscv_ibex_dbg.write_dmi(dm::SBData0, ibex_memory[addr + i]);
          // Wait until SBA is free to write next 32 bits
          do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
