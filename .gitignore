@@ -24,6 +24,11 @@ build/
 *.out
 *.jou
 *.o
+*.riscv
+*.slm
+*.dump
+hardware/compile.tcl
+hardware/work
 uart
 work-ver/*
 fpga/work-fpga

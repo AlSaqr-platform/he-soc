@@ -155,10 +155,10 @@ module cva6_synth_wrap
     // Debug
     .debug_req_i(debug_req_i),   // async debug request
     // CLINT
-    .timer_irq_i(time_irq_i),   // Timer interrupts
+    .timer_irq_i(timer_irq_i),   // Timer interrupts
     .ipi_i(ipi_i),         // software interrupt (a.k.a inter-process-interrupt)
     // PLIC
-    .irq_i(time_irq_i),          // level sensitive IR lines, mip & sip (async)
+    .irq_i(irq_i),          // level sensitive IR lines, mip & sip (async)
 
     .m_axi_awid(axi_ariane_req.aw.id),
     .m_axi_awaddr(axi_ariane_req.aw.addr),
