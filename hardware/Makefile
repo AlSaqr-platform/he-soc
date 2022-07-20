@@ -175,8 +175,8 @@ update:
 	bender update
 
 libbender:
-	@$(questa_cmd) vlib work
-	$(questa_cmd) vmap work ./openpiton/build//manycore/rel-0.1/work
+	@vlib work
+	vmap work ./openpiton/build//manycore/rel-0.1/work
 
 scripts-bender-fpga: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
