@@ -45,8 +45,8 @@ int main(int argc, char const *argv[]) {
   // C2H TLB configuration
   tlb_cfg(C2H_TLB_BASE_ADDR, 0, c2h_first_va, c2h_last_va, c2h_base_pa, 0x07);
 
-  load_cluster_code();
   perf_c = -read_csr(mcycle);
+  load_cluster_code();
   
   pulp_write32(PLIC_BASE+(mb_plic_id*4),0x1);
   pulp_write32(PLIC_BASE+0x2000,1<<mb_plic_id);
@@ -55,6 +55,10 @@ int main(int argc, char const *argv[]) {
   pulp_write32(0x1A106000,0x1);
   pulp_write32(0x1A106000,0x0);
   pulp_write32(0x1A106000,0x1);
+
+  pulp_write32(0x10402000,m_a);
+  pulp_write32(0x10402000,m_b);
+  pulp_write32(0x10402000,g_mC);
 
   // change ris5y boot addresses
   int boot_addr_core=0x10200040;
@@ -67,10 +71,6 @@ int main(int argc, char const *argv[]) {
 
   // Cluster control unit registers, fetch enable
   pulp_write32(0x10200008,0xff);
-
-  pulp_write32(0x10402000,m_a);
-  pulp_write32(0x10402000,m_b);
-  pulp_write32(0x10402000,g_mC);
 
   if( ( pulp_read32(0x10402008) & 0x2 ) == 0 )
     pulp_write32(0x10402000,0xabbaabba);

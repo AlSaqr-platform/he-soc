@@ -22,7 +22,7 @@ def write_res(f, name, arr):
 f = open('data.h', 'w')
 
 
-SIZE = 64
+SIZE = 128
 RANGE = 2**15/SIZE
 
 m_a   = []
