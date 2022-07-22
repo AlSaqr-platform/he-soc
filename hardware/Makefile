@@ -176,7 +176,7 @@ update:
 
 libbender:
 	@$(questa_cmd) vlib work
-	$(questa_cmd) vmap work work
+#	$(questa_cmd) vmap work work
 
 scripts-bender-fpga: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
