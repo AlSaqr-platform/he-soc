@@ -11,13 +11,14 @@ static inline unsigned int core_id() {
   return hart_id & 0x01f;
 }
 
-int * i;
-
 int thread_entry(int cid, int nc) {
 
+  int read_value;
   if(core_id() == 0){
-    pulp_write32(0x1040301C,0x1);
-    pulp_write32(0x10403000,0x1);
+    while( (pulp_read32(0x10403008) & 0x1) != 0 );
+    read_value = pulp_read32(0x10403004);
+    printf("[PULP Cluster] : %x\n",read_value);
+    pulp_write32(0x10403000,read_value);
   }
 
   while (1) {
