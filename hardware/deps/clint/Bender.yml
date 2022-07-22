@@ -3,7 +3,10 @@ package:
   authors:
 
 dependencies:
+    openpiton_coherent_cluster: { path: "../openpiton_coherent_cluster" }
     
 sources:
+  - ../../include/ariane_soc_pkg.sv
+  - ../../include/ariane_axi_soc_pkg.sv
   - ./axi_lite_interface.sv
   - ./clint.sv

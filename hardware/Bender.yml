@@ -4,6 +4,7 @@ package:
     - "Luca Valente"
 
 dependencies:
+  openpiton_coherent_cluster: { path: "deps/openpiton_coherent_cluster" }
   axi_riscv_atomics: { path: "deps/axi_riscv_atomics" }
   clint: { path: "deps/clint" }
   rv_plic: { path: "deps/rv_plic" }

@@ -176,7 +176,7 @@ update:
 
 libbender:
 	@$(questa_cmd) vlib work
-	$(questa_cmd) vmap work openpiton/build/manycore/rel-0.1/work
+	$(questa_cmd) vmap work work
 
 scripts-bender-fpga: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
@@ -194,16 +194,19 @@ scripts:
 	bender script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t rtl -t test > compile.tcl
+	python3 flagger.py
 
 scripts_vip:
 	bender script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t rtl -t test -t vip > compile.tcl
+	python3 flagger.py
 
 post_synth_scripts_vip:
 	bender script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t rtl -t test -t top_post_synth_sim -t vip > post_synth_compile.tcl
+	python3 flagger.py
 
 benderrun: libbender $(util) $(library)
 	@test -f Bender.lock || { echo "ERROR: Bender.lock file does not exist. Did you run make checkout in bender mode?"; exit 1; }
