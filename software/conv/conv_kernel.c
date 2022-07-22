@@ -1,7 +1,7 @@
-void Conv5x5_Scalar  (int cid, unsigned int * In_Img, unsigned int * Out_Img, int ROW, int COL, unsigned int  * Kernel)
+void Conv5x5_Scalar  (int cid, int * In_Img, int * Out_Img, int ROW, int COL, int  * Kernel)
 {
   int k, w, t;
-  unsigned int acc;
+  int acc;
 
   int blockSize = ((ROW-4)+NUM_CORES-1) / NUM_CORES;
   int start = cid*blockSize + 2;
@@ -32,6 +32,7 @@ void Conv5x5_Scalar  (int cid, unsigned int * In_Img, unsigned int * Out_Img, in
           coeff = Kernel[w];
 
           acc += coeff * data;
+
         }
       }
 

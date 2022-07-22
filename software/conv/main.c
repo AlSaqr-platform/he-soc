@@ -19,21 +19,25 @@
 #define CHECK
 #define VERBOSE
 
-void __attribute ((noinline)) check_result(int cid, unsigned int * result, int SIZE) {
+void __attribute ((noinline)) check_result(int cid, int * result, int SIZE) {
 
   if(cid == 0) {
     float diff;
     int err = 0;
 
-    for (int i = 0; i < SIZE; i++) {
-      if(result[i]!=ref[i] && result[i]!=0 && ref[i]!=0) {
-        err++;
-        #ifdef VERBOSE
-        if(err<40)
-          printf("Error at index %u:\t expected %u\t real %u\t \r\n", i, ref[i], result[i]);
-        #endif
+    for (int i = 2; i < ROWS-2; i++) {
+      for (int j = 2; j < COLS -2 ; j++) {
+        
+        if(result[i*ROWS+j]!=ref[i*ROWS+j]) {
+          err++;
+          #ifdef VERBOSE
+          if(err<40)
+            printf("Error at index %u:\t expected %u\t real %u\t \r\n", i, ref[i], result[i]);
+          #endif
+        }
       }
     }
+  
   
     if(err != 0)
       printf("TEST FAILED with %d errors!!\n", err);
@@ -49,7 +53,7 @@ int main(int argc, char const *argv[]) {
   int m, n;
   int baud_rate = 115200;
   int test_freq = 50000000;
-  unsigned int Out[IMG_DIM];  
+  int Out[IMG_DIM];  
 
   int cid=0;
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
