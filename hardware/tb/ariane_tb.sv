@@ -338,12 +338,21 @@ module ariane_tb;
   assign s_rtc_i=rtc_i;
 
   assign exit_o              = (jtag_enable[0]) ? s_jtag_exit          : s_dmi_exit;
-
-  assign s_jtag2alsaqr_tck    = LOCAL_JTAG  ?  s_tck   : s_jtag_TCK   ;
-  assign s_jtag2alsaqr_tms    = LOCAL_JTAG  ?  s_tms   : s_jtag_TMS   ;
-  assign s_jtag2alsaqr_tdi    = LOCAL_JTAG  ?  s_tdi   : s_jtag_TDI   ;
-  assign s_jtag2alsaqr_trstn  = LOCAL_JTAG  ?  s_trstn : s_jtag_TRSTn ;
+/*
+  assign s_jtag2alsaqr_tck    = LOCAL_JTAG  ? s_tck   : s_jtag_TCK   ;
+  assign s_jtag2alsaqr_tms    = LOCAL_JTAG  ? s_tms   : s_jtag_TMS   ;
+  assign s_jtag2alsaqr_tdi    = LOCAL_JTAG  ? s_tdi   : s_jtag_TDI   ;
+  assign s_jtag2alsaqr_trstn  = LOCAL_JTAG  ? s_trstn : s_jtag_TRSTn ;
   assign s_jtag_TDO_data      = s_jtag2alsaqr_tdo       ;
+  assign s_tdo                = s_jtag2alsaqr_tdo       ;
+*/
+  assign s_jtag2alsaqr_tck    = LOCAL_JTAG  ? s_tck   : s_jtag_TCK   ;
+  assign s_jtag2alsaqr_tms    = LOCAL_JTAG  ? jtag_ibex_mst.tms : s_jtag_TMS   ;
+  assign s_jtag2alsaqr_tdi    = LOCAL_JTAG  ? jtag_ibex_mst.tdi : s_jtag_TDI   ;
+  assign s_jtag2alsaqr_trstn  = LOCAL_JTAG  ? jtag_ibex_mst.trst_n : s_jtag_TRSTn ;
+   
+  assign jtag_ibex_mst.tdo    = s_jtag2alsaqr_tdo       ;
+   
   assign s_tdo                = s_jtag2alsaqr_tdo       ;
   
   if (~jtag_enable[0] & !LOCAL_JTAG) begin
@@ -405,8 +414,8 @@ module ariane_tb;
         .dmi_resp_bits_resp   ( s_dmi_resp_bits_resp   ),
         .dmi_resp_bits_data   ( s_dmi_resp_bits_data   ),
         `endif
-        .jtag_ibex_i,
-        .jtag_ibex_o,                      
+        //.jtag_ibex_i,
+        //.jtag_ibex_o,                      
         .jtag_TCK             ( s_jtag2alsaqr_tck      ),
         .jtag_TMS             ( s_jtag2alsaqr_tms      ),
         .jtag_TDI             ( s_jtag2alsaqr_tdi      ),
@@ -1079,14 +1088,14 @@ module ariane_tb;
     JTAG_DV jtag_ibex_mst (s_tck);
     riscv_dbg_t::jtag_driver_t jtag_ibex_driver = new(jtag_ibex_mst);
     riscv_dbg_t riscv_ibex_dbg = new(jtag_ibex_driver);
-
+/*
     assign jtag_ibex_i.tck    = s_tck;
  
     assign jtag_ibex_i.trst_n = jtag_ibex_mst.trst_n;
     assign jtag_ibex_i.tms    = jtag_ibex_mst.tms;
     assign jtag_ibex_i.tdi    = jtag_ibex_mst.tdi;
     assign jtag_ibex_mst.tdo  = jtag_ibex_o.tdo;
-
+*/
     // Clock process
     initial begin
         rst_ni  = 1'b0;
@@ -1161,7 +1170,7 @@ module ariane_tb;
       };
 
       // Ariane jtag
-      if(LOCAL_JTAG) begin
+      /*if(LOCAL_JTAG) begin
 
          if(!PRELOAD_HYPERRAM) begin
            if ( $value$plusargs ("CVA6_STRING=%s", binary));
@@ -1186,7 +1195,7 @@ module ariane_tb;
               jtag_data_preload();
            end else begin
               $display("Sanity write/read at 0x1C000000"); // word = 8 bytes here
-              addr = 32'h1c000000;
+              addr = 32'h40001000;
               do riscv_dbg.read_dmi(dm::SBCS, sbcs);
               while (sbcs.sbbusy);
               riscv_dbg.write_dmi(dm::SBCS, sbcs);
@@ -1227,7 +1236,7 @@ module ariane_tb;
          
            jtag_ariane_wakeup(32'h80000000);
            jtag_read_eoc(32'h80000000);
-         end 
+         end */
 
          
       //////////////////Ibex preload////////////////////
@@ -1524,21 +1533,21 @@ module ariane_tb;
      logic [31:0]  idcode;
      automatic dm::sbcs_t sbcs;
 
-     //$info(" JTAG Preloading start time");
+     $info(" JTAG Preloading start time");
      riscv_ibex_dbg.wait_idle(300);
 
-     //$info(" Start getting idcode of JTAG");
+     $info(" Start getting idcode of JTAG");
      riscv_ibex_dbg.get_idcode(idcode);
       
-     /*
+     
      // Check Idcode
      assert (idcode == dm_idcode)
      else $error(" Wrong IDCode, expected: %h, actual: %h", dm_idcode, idcode);
-     */
+     
       
-     //$display(" IDCode = %h", idcode);
+     $display(" IDCode = %h", idcode);
 
-     //$info(" Activating Debug Module");
+     $info(" Activating Debug Module");
      // Activate Debug Module
      riscv_ibex_dbg.write_dmi(dm::DMControl, 32'h0000_0001);
 
@@ -1575,7 +1584,7 @@ module ariane_tb;
        do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
        while (sbcs.sbbusy);
        for (int i = 0; i < ibex_sections[addr]; i++) begin  
-         //$display(" -- Word %0d/%0d", i, ibex_sections[addr]);      
+         $display(" -- Word %0d/%0d", i, ibex_sections[addr]);      
          riscv_ibex_dbg.write_dmi(dm::SBData0, ibex_memory[addr + i]);
          // Wait until SBA is free to write next 32 bits
          do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);

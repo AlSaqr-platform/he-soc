@@ -210,11 +210,16 @@ module al_saqr
   inout wire          jtag_TDI,
   inout wire          jtag_TRSTn,
   inout wire          jtag_TDO_data,
-  inout wire          jtag_TDO_driven,
+  inout wire          jtag_TDO_driven
    // Opentitan Jtag
-  input               jtag_pkg::jtag_req_t jtag_ibex_i,
-  output              jtag_pkg::jtag_rsp_t jtag_ibex_o
+
+  //input               jtag_pkg::jtag_req_t jtag_ibex_i,
+  //output              jtag_pkg::jtag_rsp_t jtag_ibex_o
+   
 );
+  jtag_pkg::jtag_req_t jtag_ibex_i;
+  jtag_pkg::jtag_rsp_t jtag_ibex_o;
+   
   // AXILITE parameters
   localparam int unsigned AXI_LITE_AW       = 32;
   localparam int unsigned AXI_LITE_DW       = 32;
@@ -233,6 +238,12 @@ module al_saqr
   logic                        s_bypass_clk;
   
 
+  assign jtag_ibex_i.tck     = s_jtag_TCK;  
+  assign jtag_ibex_i.trst_n  = s_jtag_TRSTn;
+  assign jtag_ibex_i.tms     = s_jtag_TMS;
+  assign jtag_ibex_i.tdi     = s_jtag_TDI;
+  assign s_jtag_TDO          = jtag_ibex_o.tdo;
+   
   logic s_soc_clk  ;
   logic s_soc_rst_n; 
   logic s_cluster_clk  ;
@@ -485,11 +496,11 @@ module al_saqr
       .dmi_resp_bits_resp   (    ),
       .dmi_resp_bits_data   (    ), 
 `endif
-      .jtag_TCK               ( s_jtag_TCK                      ),
-      .jtag_TMS               ( s_jtag_TMS                      ),
-      .jtag_TDI               ( s_jtag_TDI                      ),
-      .jtag_TRSTn             ( s_jtag_TRSTn                    ),
-      .jtag_TDO_data          ( s_jtag_TDO                      ),
+      .jtag_TCK               ( '0 ),//s_jtag_TCK                      ),
+      .jtag_TMS               ( '0 ),//s_jtag_TMS                      ),
+      .jtag_TDI               ( '0 ),//s_jtag_TDI                      ),
+      .jtag_TRSTn             ( '0 ),//s_jtag_TRSTn                    ),
+      .jtag_TDO_data          ( ),//s_jtag_TDO                      ),
       .jtag_TDO_driven        (                                 ),
 `ifdef XILINX_DDR
       .axi_ddr_master         ( axi_ddr_master                  ),

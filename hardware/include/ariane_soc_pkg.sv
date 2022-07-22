@@ -92,7 +92,8 @@ package ariane_soc;
     EthernetBase = 64'h3000_0000,
     UARTBase     = 64'h4000_0000,
     SerLink_Base = 64'h6000_0000,
-    HYAXIBase    = 64'h8000_0000
+    HYAXIBase    = 64'h8000_0000,
+    MboxBase     = 64'h4000_2000
   } soc_bus_start_t; 
   // Let x = NB_PERIPHERALS: as long as Base(xth slave)+Length(xth slave) is < 1_0000_0000 we can cut the 32 MSBs addresses without any worries. 
 

@@ -13,11 +13,33 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
+#define FPGA_EMULATION = 1
 
 int main(int argc, char const *argv[]) {  // Agent example code with interrupt
   
    ////////////////////// uart and intr setup //////////////////////
   
+  #ifdef FPGA_EMULATION
+  int baud_rate = 115200;
+  int test_freq = 50000000;
+  #else
+  set_flls();
+  int baud_rate = 115200;
+  int test_freq = 100000000;
+  #endif  
+  uart_set_cfg(0,(test_freq/baud_rate)>>4);
+  uint32_t * hyaxicfg_reg_mask = 0x1A101018;
+  pulp_write32(hyaxicfg_reg_mask,26); //128MB addressable
+  uint32_t * hyaxicfg_reg_memspace_end_addr1 = 0x1A10102C;
+  pulp_write32(hyaxicfg_reg_memspace_end_addr1,0x88000000);
+  uint32_t * hyaxicfg_reg_memspace_start_addr1 = 0x1A101028;
+  pulp_write32(hyaxicfg_reg_memspace_start_addr1,0x84000000);
+  uint32_t * hyaxicfg_reg_memspace_end_addr0 = 0x1A101024;
+  pulp_write32(hyaxicfg_reg_memspace_end_addr0,0x84000000); 
+  printf("Hello CVA6!\n");
+  uart_wait_tx_done();
+  return 0;
+  /*
   #ifdef FPGA_EMULATION                  
   int baud_rate = 9600;
   int test_freq = 50000000;
@@ -58,7 +80,7 @@ int main(int argc, char const *argv[]) {  // Agent example code with interrupt
   e = pulp_read32(0x5000001C); 
 
   if( a == 0xBAADC0DE && b == 0xBAADC0DE && c == 0xBAADC0DE && d == 0xBAADC0DE && e == 0xBAADC0DE){
-     printf("Populating mbox memory and ringing doorbell: hello ibex :)\n");
+     printf("Ariane => Populating mbox memory and ringing doorbell: hello ibex :)\n");
      pulp_write32(0x50000020, 0x00000001); // ring doorbell 
      while(pulp_read32(PLIC_CHECK)!=mbox_id) 
        asm volatile ("wfi"); // the handler just returns here + 4
@@ -70,14 +92,16 @@ int main(int argc, char const *argv[]) {  // Agent example code with interrupt
   }
   
   // Start of """Interrupt Service Routine""" (this code should be into an IRQ Handler)  
-  printf("Irq recieved from ibex: hello cva6 :)\n");
+  printf("Ibex => Irq recieved!\n");
+  printf("Ibex => Checking mbox memory and raising completion irq: Hello Ariane :)\n");
   pulp_write32(0x50000024, 0x00000000); // Cleaning the irq source
   pulp_write32(PLIC_CHECK, mbox_id);    // Completing irq (according to riscv specs)
 
   // end of """Interrupt Service Routine"""
   
-  printf("Test succeeded!\n");
+  printf("Ariane => Irq received\n");
+  printf("Test Succeeded!!!\n");
   uart_wait_tx_done();
   
-  return 0;
+  return 0;*/
 }
