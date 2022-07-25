@@ -28,8 +28,6 @@ int main(int argc, char const *argv[]) {
 
   perf_c = -read_csr(mcycle);
   load_cluster_code();
-
-  printf("code loaded\r\n");
   
   pulp_write32(PLIC_BASE+(mb_plic_id*4),0x1);
   pulp_write32(PLIC_BASE+0x2000,1<<mb_plic_id);

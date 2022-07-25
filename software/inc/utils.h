@@ -117,3 +117,13 @@ void dma_wait_trnf_done (uint32_t trnf_id) {
     _c += read_csr(mcycle), _i += read_csr(minstret); \
     printf("@ Iter %d : %d cycles, %d instructions\r\n",  __k, _c, _i); \
   } 
+
+void apb_timer_start() {
+  pulp_write32(0x18000000,0);
+  pulp_write32(0x18000004,1);
+  return;
+}
+
+unsigned int apb_timer_get(){
+  return pulp_read32(0x18000000);
+}
