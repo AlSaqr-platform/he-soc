@@ -3,8 +3,6 @@
 
 #define PARALLEL
 
-#define LOG2_FFT_LEN_RADIX2     11
-#define FFT_LEN_RADIX2          (1 << LOG2_FFT_LEN_RADIX2)
 
 #define SORT_OUTPUT
 #define BITREV_LUT

@@ -1,4 +1,4 @@
-#define LOG2_FFT_LEN_RADIX2     11
+#define LOG2_FFT_LEN_RADIX2     12
 #define FFT_LEN_RADIX2          (1 << LOG2_FFT_LEN_RADIX2)
 
 #include <stdio.h>                                                                               
@@ -10,7 +10,7 @@ int main ()
   int i = 0;
   int j = 0;
   
-  printf("#define LOG2_FFT_LEN_RADIX2     11 \n");
+  printf("#define LOG2_FFT_LEN_RADIX2   %d   \n", LOG2_FFT_LEN_RADIX2);
   printf("#define FFT_LEN_RADIX2          (1 << LOG2_FFT_LEN_RADIX2) \n");
   printf("#define THR 0.1f  \n");
   printf("typedef struct {\n");

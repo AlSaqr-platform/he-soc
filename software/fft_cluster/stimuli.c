@@ -38,9 +38,9 @@ int main(int argc, char const *argv[]) {
   pulp_write32(0x1A106000,0x1);
   
   pulp_write32(0x10402000,Input_Signal);
-  pulp_write32(0x10402000,Buffer_Signal_Out);
   pulp_write32(0x10402000,twiddle_factors);
   pulp_write32(0x10402000,bit_rev_radix2_LUT);
+  pulp_write32(0x10402000,Buffer_Signal_Out);
 
   int boot_addr_core=0x10200040;
   for (int i=0; i<8; i++)
@@ -57,6 +57,8 @@ int main(int argc, char const *argv[]) {
    asm volatile ("wfi");
   }  
   perf_c += read_csr(mcycle);
+  uint32_t msg;
+  msg = pulp_read32(0x10402004);
     
   #ifdef CHECK    
   int re_err = 0;
@@ -88,9 +90,16 @@ int main(int argc, char const *argv[]) {
     printf("TEST PASSED in %d\r\n", perf_c);
   #endif
     
-    uart_wait_tx_done();
+  uart_wait_tx_done();
+
+  printf("Cycles cluster %x\r\n", msg);
   
   #endif
+
+  pulp_write32(0x10403018,0x1);
+  pulp_write32(0x10403024,0x1);
+  pulp_write32(0x10402018,0x1);
+  pulp_write32(0x10402024,0x1);
 
   return 0;
 
