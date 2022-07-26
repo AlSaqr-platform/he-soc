@@ -30,6 +30,9 @@
 #define BUFFER_SIZE_READ 12
 #define N_I2C 1
 
+#define I2C_MEM0 0x50
+#define I2C_MEM1 0x51
+
 /*******************************************************************************
 **                             IMPORTANT                                      **
 **  FPGA_EMULATION AND SIMPLE_PAD MUST BE DEFINED IN MUTUAL EXCLUSION         **
@@ -41,12 +44,11 @@
 //#define SIMPLE_PAD
 //#define FPGA_EMULATION
 
-//#define VERBOSE
-//#define PRINTF_ON
+#define VERBOSE
+#define PRINTF_ON
 
 int main()
 {
-  int pass = 1;
   int error = 0;
   int u=0;
 
@@ -61,7 +63,7 @@ int main()
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
   #ifdef PRINTF_ON
-    printf ("Start test i2c...\n\r");
+    printf ("I2C Variable Declaration...\n\r");
     uart_wait_tx_done();
   #endif 
 
@@ -93,170 +95,160 @@ int main()
     uart_wait_tx_done(); 
   #endif
 
-  //Expected datas
-  /*uint8_t expected_rx_buffer[DATA_SIZE]={ 0xCA,
-                                      0x00,
-                                      0xDE,
-                                      0xCA};*/
-   for (int i=0; i <4; i++){
-    switch (i) {
-      case 0: 
-      expected_rx_buffer[i]= 0xCA;
-      break;
-      case 1: 
-      expected_rx_buffer[i]= 0x00;
-      break;
-      case 2: 
-      expected_rx_buffer[i]= 0xDE;
-      break;
-      case 3: 
-      expected_rx_buffer[i]= 0xCA;
-      break;
-      default:
-      expected_rx_buffer[i]= 0;
-      break;
+  for (u=0;u<N_I2C;u++) {
+
+    #ifdef PRINTF_ON
+    printf ("Test I2C: %d \n\r", u);
+    uart_wait_tx_done(); 
+    #endif
+
+    //Expected datas
+     for (int i=0; i <4; i++){
+      switch (i) {
+        case 0: 
+        expected_rx_buffer[i]= 0xCA;
+        break;
+        case 1: 
+        expected_rx_buffer[i]= u; // this value change for each I2C selected by u
+        break;
+        case 2: 
+        expected_rx_buffer[i]= 0xDE;
+        break;
+        case 3: 
+        expected_rx_buffer[i]= 0xCA;
+        break;
+        default:
+        expected_rx_buffer[i]= 0;
+        break;
+      }
     }
-  }
 
+    /*
+      - I2C_CMD_WRB
+        This command requires that each byte must be attached to each sequence of commands (divider, address+dir, data0...)
+        The IP automatically sends the data to the i2c device selected by the address.
+        To do so you only need to write the cmd_buffer into the UDMA_I2C_CMD_ADDR register of the I2C peripheral
+    */
 
-  //--- rx buffer
-  //volatile uint8_t rx_buffer[DATA_SIZE];
-  //--- CMD buffer for WRITE command
-  /*volatile uint32_t cmd_buffer_wr[BUFFER_SIZE] = {(((uint32_t)I2C_CMD_CFG) << 24) | 0x40,
-                                                 (((uint32_t)I2C_CMD_START)<<24),
-                                                 (((uint32_t)I2C_CMD_WRB)<<24) | 0xa0, //Control-->write
-                                                 (((uint32_t)I2C_CMD_WRB)<<24), //Addr MSB
-                                                 (((uint32_t)I2C_CMD_WRB)<<24), //ADDR LSB
-                                                 (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[0], //DATA0
-                                                 (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[1], //DATA1
-                                                 (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[2], //DATA2
-                                                 (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[3], //DATA3
-                                                 (((uint32_t)I2C_CMD_STOP)<<24)};*/
-
-   for (int i=0; i <10; i++){
-    switch (i) {
-      case 0: 
-      cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_CFG) << 24) | 0x40;
-      break;
-      case 1: 
-      cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_START)<<24);
-      break;
-      case 2: 
-      cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa0;
-      break;
-      case 3: 
-      cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24);
-      break;
-      case 4: 
-      cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24);
-      break;
-      case 5: 
-      cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[0];
-      break;
-      case 6: 
-      cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[1];
-      break;
-      case 7: 
-      cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[2];
-      break;
-      case 8: 
-      cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[3];
-      break;
-      case 9: 
-      cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_STOP)<<24);
-      break;
-      default:
-      cmd_buffer_wr[i]= 0;
-      break;
+     for (int i=0; i <10; i++){
+      switch (i) {
+        case 0: 
+        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_CFG) << 24) | 0x40; // sets 16 bit clock divider
+        break;
+        case 1: 
+        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_START)<<24); //cmd start
+        break;
+        case 2: 
+        if (u==0)
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa0;  // write I2C_MEM0 address + direction bit
+        else
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa2; // write I2C_MEM1 address + direction bit
+        break;
+        case 3: 
+        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24); 
+        break;
+        case 4: 
+        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24);
+        break;
+        case 5: 
+        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[0]; //DATA0
+        break;
+        case 6: 
+        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[1]; //DATA1
+        break;
+        case 7: 
+        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[2]; //DATA2
+        break;
+        case 8: 
+        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[3]; //DATA3
+        break;
+        case 9: 
+        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_STOP)<<24);
+        break;
+        default:
+        cmd_buffer_wr[i]= 0;
+        break;
+      }
     }
-  }
+
+    for (int i=0; i <12; i++){
+      switch (i) {
+        case 0: 
+        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_CFG)<<24) | 0x40; // set 16bit clock divider
+        break;
+        case 1: 
+        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_START)<<24);
+        break;
+        case 2: 
+        if (u==0)
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa0;
+        else
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa2;
+        break;
+        case 3: 
+        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24);
+        break;
+        case 4: 
+        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24);
+        break;
+        case 5: 
+        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_START)<<24);
+        break;
+        case 6:
+        if (u==0)
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa1; //write addr+dir (0xa1) on bus
+        else
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa3;
+        break;
+        case 7: 
+        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
+        break;
+        case 8: 
+        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
+        break;
+        case 9: 
+        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
+        break;
+        case 10: 
+        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_NACK)<<24);
+        break;
+        case 11: 
+        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_STOP)<<24);
+        break;
+        default:
+        cmd_buffer_rd[i]= 0;
+        break;
+      }
+    }  
+
+    #ifdef PRINTF_ON
+      printf ("Setting padmux...\n\r");
+      uart_wait_tx_done();     
+    #endif   
 
 
- //--- CMD buffer for READ command
-  /*volatile uint32_t cmd_buffer_rd[BUFFER_SIZE_READ] = {(((uint32_t)I2C_CMD_CFG)<<24) | 0x40,
-                                                 (((uint32_t)I2C_CMD_START)<<24),
-                                                 (((uint32_t)I2C_CMD_WRB)<<24 | 0xa0), //Control-->write (the address)
-                                                 (((uint32_t)I2C_CMD_WRB)<<24), //Addr MSB
-                                                 (((uint32_t)I2C_CMD_WRB)<<24), //ADDR LSB
-                                                 (((uint32_t)I2C_CMD_START)<<24),
-                                                 (((uint32_t)I2C_CMD_WRB)<<24 | 0xa1), //Control--> read
-                                                 (((uint32_t)I2C_CMD_RD_ACK)<<24), //DATA0
-                                                 (((uint32_t)I2C_CMD_RD_ACK)<<24), //DATA1
-                                                 (((uint32_t)I2C_CMD_RD_ACK)<<24), //DATA2
-                                                 (((uint32_t)I2C_CMD_RD_NACK)<<24), //DATA3
-                                                 (((uint32_t)I2C_CMD_STOP)<<24)};*/
-
-  for (int i=0; i <12; i++){
-    switch (i) {
-      case 0: 
-      cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_CFG)<<24) | 0x40;
-      break;
-      case 1: 
-      cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_START)<<24);
-      break;
-      case 2: 
-      cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24 | 0xa0);
-      break;
-      case 3: 
-      cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24);
-      break;
-      case 4: 
-      cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24);
-      break;
-      case 5: 
-      cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_START)<<24);
-      break;
-      case 6: 
-      cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24 | 0xa1);
-      break;
-      case 7: 
-      cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
-      break;
-      case 8: 
-      cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
-      break;
-      case 9: 
-      cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
-      break;
-      case 10: 
-      cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_NACK)<<24);
-      break;
-      case 11: 
-      cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_STOP)<<24);
-      break;
-      default:
-      cmd_buffer_rd[i]= 0;
-      break;
-    }
-  }  
-
-  #ifdef PRINTF_ON
-    printf ("Setting padmux...\n\r");
-    uart_wait_tx_done();     
-  #endif   
-
-
-  #ifdef FPGA_EMULATION
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 1 );
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 1 );
-  #else
-    #ifdef SIMPLE_PAD
+    #ifdef FPGA_EMULATION
       alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 1 );
       alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 1 );
     #else
-      alsaqr_periph_padframe_periphs_pad_gpio_b_50_mux_set( 2 );
-      alsaqr_periph_padframe_periphs_pad_gpio_b_51_mux_set( 2 );
-    #endif    
-  #endif 
+      #ifdef SIMPLE_PAD
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 1 );
+      #else
+        alsaqr_periph_padframe_periphs_pad_gpio_b_50_mux_set( 2 );
+        alsaqr_periph_padframe_periphs_pad_gpio_b_51_mux_set( 2 );
 
-  #ifdef PRINTF_ON
-    printf ("End setting padmux...\n\r");
-    uart_wait_tx_done(); 
-  #endif  
-  
+        // Uncomment this two lines to test the i2c1 in RTL
+        //alsaqr_periph_padframe_periphs_pad_gpio_d_00_mux_set( 2 );
+        //alsaqr_periph_padframe_periphs_pad_gpio_d_01_mux_set( 2 );
+      #endif    
+    #endif 
 
-  for (u=0;u<N_I2C;u++) {
-
+    #ifdef PRINTF_ON
+      printf ("End setting padmux...\n\r");
+      uart_wait_tx_done(); 
+    #endif  
+    
     //WRITE
 
     //--- enable all the udma channels (see below for selective enable)
@@ -274,23 +266,10 @@ int main()
       uart_wait_tx_done();
     #endif
 
-    
-
-    //--- get the base address of the udma channels
-    //unsigned int udma_i2c_channel_base = hal_udma_channel_base(UDMA_CHANNEL_ID(ARCHI_UDMA_I2C_ID(u)));
-    //printf("uDMA i2c%d base channel address %8x\n", u,udma_i2c_channel_base);
-
-    expected_rx_buffer[1]=u;
-
-    cmd_buffer_wr[2] = (((uint32_t)I2C_CMD_WRB)<<24) | 0xa0 | u<<1;
-    cmd_buffer_wr[6] = (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[1];
-
     #ifdef PRINTF_ON
       printf ("Enqueue UDMA_I2C_TX_ADDR...\n\r");
       uart_wait_tx_done();
     #endif
-    
-    plp_udma_enqueue(UDMA_I2C_TX_ADDR(u), (int)expected_rx_buffer, 4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_8);
     
     //--- enqueue cmds on cmd channel
     #ifdef PRINTF_ON
@@ -298,7 +277,7 @@ int main()
       uart_wait_tx_done();
     #endif
 
-    plp_udma_enqueue(UDMA_I2C_CMD_ADDR(u) ,  (int)cmd_buffer_wr     , BUFFER_SIZE*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
+    plp_udma_enqueue(UDMA_I2C_CMD_ADDR(u) ,  (int)cmd_buffer_wr , BUFFER_SIZE*4, 0);
 
     #ifdef PRINTF_ON
       printf ("WAIT WRITE TO BE DONE BY THE MEMORY ...\n\r");
@@ -306,7 +285,7 @@ int main()
     #endif
     
     // WAIT WRITE TO BE DONE BY THE MEMORY
-    for (volatile int i = 0; i < 75000; ++i)
+    for (volatile int i = 0; i < 45000; ++i) //75000
     {
       i++;
     }
@@ -323,33 +302,20 @@ int main()
       rx_buffer[j] = 0;
     }
 
-    //printf("[%d, %d] Start test i2c read %d\n",  get_cluster_id(), get_core_id(),u);
-
-    //--- enable all the udma channels (see below for selective enable)
-    //plp_udma_cg_set(plp_udma_cg_get() | (0xffffffff));
-
-    //--- get the base address of the udma channels
-    //unsigned int udma_i2c_channel_base = hal_udma_channel_base(UDMA_CHANNEL_ID(ARCHI_UDMA_I2C_ID(u)));
-    //printf("uDMA i2c%d base channel address %8x\n", u,udma_i2c_channel_base);
-
-    //--- enqueue cmds on cmd channel and set the rx channel
-
-    cmd_buffer_rd[2] = (((uint32_t)I2C_CMD_WRB)<<24) | 0xa0 | u<<1;
-    cmd_buffer_rd[6] = (((uint32_t)I2C_CMD_WRB)<<24) | 0xa1 | u<<1;
-
     #ifdef PRINTF_ON
       printf ("Enqueue UDMA_I2C_DATA_ADDR...\n\r");
       uart_wait_tx_done();  
     #endif
 
-    plp_udma_enqueue(UDMA_I2C_DATA_ADDR(u) ,  (int)rx_buffer     , 4               , UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_8);
-    
+    plp_udma_enqueue(UDMA_I2C_DATA_ADDR(u) ,  (int)rx_buffer  , 4   , 0);
+
     #ifdef PRINTF_ON
       printf ("Enqueue UDMA_I2C_CMD_ADDR Read...\n\r");
       uart_wait_tx_done();
     #endif
 
-    plp_udma_enqueue(UDMA_I2C_CMD_ADDR(u) ,  (int)cmd_buffer_rd  , BUFFER_SIZE_READ*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
+    plp_udma_enqueue(UDMA_I2C_CMD_ADDR(u) ,  (int)cmd_buffer_rd  , BUFFER_SIZE_READ*4, 0);
+
     for (volatile int i = 0; i < 10000; ++i)
     {
       i++;
@@ -366,9 +332,8 @@ int main()
       uart_wait_tx_done();
     }
     
-      
-    
   }
+
   if(error!=0)
     printf("Test FAILED\n");
   else
