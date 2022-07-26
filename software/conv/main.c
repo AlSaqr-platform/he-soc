@@ -32,7 +32,7 @@ void __attribute ((noinline)) check_result(int cid, int * result, int SIZE) {
           err++;
           #ifdef VERBOSE
           if(err<40)
-            printf("Error at index %u:\t expected %u\t real %u\t \r\n", i, ref[i], result[i]);
+            printf("Error at index %d,:\t expected %u\t real %u\t \r\n", i, ref[i], result[i]);
           #endif
         }
       }
@@ -42,7 +42,7 @@ void __attribute ((noinline)) check_result(int cid, int * result, int SIZE) {
     if(err != 0)
       printf("TEST FAILED with %d errors!!\n", err);
     else
-      printf("TEST PASSED!!\n");
+      printf("TEST PASSED!!\r\n");
 
     return;
   }
@@ -57,11 +57,9 @@ int main(int argc, char const *argv[]) {
 
   int cid=0;
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
-  
 
   stats(Conv5x5_Scalar(cid,In_Img,Out,ROWS,COLS,Filter_Kern),10);
-
-
+  
   #ifdef CHECK
    check_result(cid, Out, IMG_DIM);
   #endif

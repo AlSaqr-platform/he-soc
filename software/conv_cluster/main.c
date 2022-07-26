@@ -103,7 +103,7 @@ int main(int argc, char const *argv[]) {
    msg = pulp_read32(0x10402004);
 
    printf("Cycles %d\r\n", perf_c);
-   printf("Cycles cluster %x\r\n", msg);
+   printf("Cycles cluster %d\r\n", msg);
 
   pulp_write32(0x10403018,0x1);
   pulp_write32(0x10403024,0x1);

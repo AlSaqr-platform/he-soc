@@ -1,5 +1,5 @@
-#define ROWS 32   
-#define COLS 32 
+#define ROWS 128   
+#define COLS 128 
 #define IMG_DIM ROWS * COLS
 #define FILT_WIN 5
 #define FILT_DIM FILT_WIN*FILT_WIN
