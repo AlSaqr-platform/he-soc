@@ -140,6 +140,12 @@ ifdef exclude-cluster
   compile_fpga += EXCLUDE_CLUSTER
 endif
 
+ifdef exclude-llc
+	questa-cmd += +EXCLUDE_LLC=$(exclude-llc)
+  compile_flag +=  +define+EXCLUDE_LLC
+  compile_fpga += EXCLUDE_LLC
+endif
+
 ifdef spike-tandem
     questa-cmd += -gblso tb/riscv-isa-sim/install/lib/libriscv.so
 endif

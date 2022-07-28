@@ -61,7 +61,13 @@ module alsaqr_xilinx
    localparam  ECC              = "OFF";
    localparam  APP_DATA_WIDTH   = 512; // This parameter is controllerwise
    localparam  APP_MASK_WIDTH   = 64;  // This parameter is controllerwise
- 
+
+  `ifdef EXCLUDE_LLC
+   localparam AXI_ID_WIDTH = 7;
+  `else
+   localparam AXI_ID_WIDTH = 8;
+  `endif
+   
    wire        ref_clk;
    wire        ddr_ref_clk;
    logic       s_locked;
@@ -82,16 +88,16 @@ module alsaqr_xilinx
 
    
    AXI_BUS #(
-     .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 64        ),
-     .AXI_ID_WIDTH   ( 8         ),
-     .AXI_USER_WIDTH ( 1         )
+     .AXI_ADDR_WIDTH ( 64           ),
+     .AXI_DATA_WIDTH ( 64           ),
+     .AXI_ID_WIDTH   ( AXI_ID_WIDTH ),
+     .AXI_USER_WIDTH ( 1            )
              ) axi_ddr_bus_64();
    AXI_BUS #(
-     .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 64        ),
-     .AXI_ID_WIDTH   ( 8         ),
-     .AXI_USER_WIDTH ( 1         )
+     .AXI_ADDR_WIDTH ( 64           ),
+     .AXI_DATA_WIDTH ( 64           ),
+     .AXI_ID_WIDTH   ( AXI_ID_WIDTH ),
+     .AXI_USER_WIDTH ( 1            )
              ) axi_ddr_sync();
 
   wire [APP_ADDR_WIDTH-1:0] c0_ddr4_app_addr;
@@ -251,11 +257,11 @@ ddr4_0 u_ddr4_0
 // ALSAQR
 //***************************************************************************
    axi_cdc_intf #(
-     .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 64        ),
-     .AXI_ID_WIDTH   ( 7         ),
-     .AXI_USER_WIDTH ( 1         ),
-     .LOG_DEPTH      ( 4         )
+     .AXI_ADDR_WIDTH ( 64           ),
+     .AXI_DATA_WIDTH ( 64           ),
+     .AXI_ID_WIDTH   ( AXI_ID_WIDTH ),
+     .AXI_USER_WIDTH ( 1            ),
+     .LOG_DEPTH      ( 4            )
                   ) axiddrcdc (
                                .src_clk_i (ref_clk),
                                .src_rst_ni(reset_n),

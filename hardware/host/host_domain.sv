@@ -17,6 +17,7 @@
 `include "register_interface/assign.svh"
 `include "axi/assign.svh"
 `include "axi/typedef.svh"
+`include "common_cells/registers.svh"
 
 module host_domain 
   import axi_pkg::xbar_cfg_t;
@@ -226,7 +227,11 @@ module host_domain
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH          ),
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH             ),
+     `ifdef EXCLUDE_LLC
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave   ),
+     `else
      .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave+1 ),
+     `endif
      .AXI_USER_WIDTH ( AXI_USER_WIDTH             )
    ) mem_axi_bus ();    
 
@@ -254,45 +259,80 @@ module host_domain
    `AXI_ASSIGN(axi_ddr_master,mem_axi_bus)
   `endif
 
-  `AXI_ASSIGN_TO_REQ(axi_cpu_req,hyper_axi_bus)
-  `AXI_ASSIGN_FROM_RESP(hyper_axi_bus,axi_cpu_res)
-  `AXI_ASSIGN_FROM_REQ(mem_axi_bus,axi_mem_req)
-  `AXI_ASSIGN_TO_RESP(axi_mem_res,mem_axi_bus)
-  `AXI_LITE_ASSIGN_TO_REQ(axi_llc_cfg_req,llc_cfg_bus)
-  `AXI_LITE_ASSIGN_FROM_RESP(llc_cfg_bus,axi_llc_cfg_res)
+  `ifdef EXCLUDE_LLC
+   `AXI_ASSIGN(mem_axi_bus,hyper_axi_bus)
+
+   logic r_valid_d, r_valid_q;
+   logic b_valid_d, b_valid_q;
+
+   assign llc_cfg_bus.aw_ready = 1'b1;
+   assign llc_cfg_bus.w_ready  = 1'b1;
+   assign llc_cfg_bus.b_valid  = b_valid_q;
+   assign llc_cfg_bus.b_resp   = 2'b0;
+   assign llc_cfg_bus.ar_ready = 1'b1;
+   assign llc_cfg_bus.r_data   = 32'hdeadf000;
+   assign llc_cfg_bus.r_valid  = r_valid_q;
    
-   axi_llc_top #(
-     .SetAssociativity ( 32'd8                          ),
-     .NumLines         ( 32'd256                        ),
-     .NumBlocks        ( 32'd8                          ),
-     .AxiIdWidth       ( ariane_soc::IdWidthSlave       ),
-     .AxiAddrWidth     ( AXI_ADDRESS_WIDTH              ),
-     .AxiDataWidth     ( AXI_DATA_WIDTH                 ),
-     .AxiUserWidth     ( AXI_USER_WIDTH                 ),
-     .AxiLiteAddrWidth ( AXI_LITE_AW                    ),
-     .AxiLiteDataWidth ( AXI_LITE_DW                    ),
-     .slv_req_t        ( ariane_axi_soc::req_slv_t      ),
-     .slv_resp_t       ( ariane_axi_soc::resp_slv_t     ),
-     .mst_req_t        ( ariane_axi_soc::req_slv_mem_t  ),
-     .mst_resp_t       ( ariane_axi_soc::resp_slv_mem_t ),
-     .lite_req_t       ( ariane_axi_soc::req_lite_t     ),
-     .lite_resp_t      ( ariane_axi_soc::resp_lite_t    ),
-     .rule_full_t      ( rule_full_t                    )
-   ) i_axi_llc (
-     .clk_i               ( s_soc_clk                                       ),
-     .rst_ni              ( s_synch_soc_rst                                 ),
-     .test_i              ( 1'b0                                            ),
-     .slv_req_i           ( axi_cpu_req                                     ),
-     .slv_resp_o          ( axi_cpu_res                                     ),
-     .mst_req_o           ( axi_mem_req                                     ),
-     .mst_resp_i          ( axi_mem_res                                     ),
-     .conf_req_i          ( axi_llc_cfg_req                                 ),
-     .conf_resp_o         ( axi_llc_cfg_res                                 ),
-     .cached_start_addr_i ( ariane_soc::HYAXIBase                           ),
-     .cached_end_addr_i   ( ariane_soc::HYAXIBase + ariane_soc::HYAXILength ),
-     .spm_start_addr_i    ( '0                                              ),
-     .axi_llc_events_o    (                                                 )
-   );
+   always_comb begin
+      r_valid_d = r_valid_q;
+      if(!r_valid_q && llc_cfg_bus.ar_valid)
+        r_valid_d = 1'b1;
+      else if(r_valid_q && llc_cfg_bus.r_ready)
+        r_valid_d = 1'b0;
+   end
+   `FFARN(r_valid_q, r_valid_d, '0, s_soc_clk, s_synch_soc_rst)
+      
+   always_comb begin
+      b_valid_d = b_valid_q;
+      if(!b_valid_q && llc_cfg_bus.w_valid)
+        b_valid_d = 1'b1;
+      else if(b_valid_q && llc_cfg_bus.b_ready)
+        b_valid_d = 1'b0;
+   end
+   `FFARN(b_valid_q, b_valid_d, '0, s_soc_clk, s_synch_soc_rst)
+
+  `else
+
+   `AXI_ASSIGN_TO_REQ(axi_cpu_req,hyper_axi_bus)
+   `AXI_ASSIGN_FROM_RESP(hyper_axi_bus,axi_cpu_res)
+   `AXI_ASSIGN_FROM_REQ(mem_axi_bus,axi_mem_req)
+   `AXI_ASSIGN_TO_RESP(axi_mem_res,mem_axi_bus)
+   `AXI_LITE_ASSIGN_TO_REQ(axi_llc_cfg_req,llc_cfg_bus)
+   `AXI_LITE_ASSIGN_FROM_RESP(llc_cfg_bus,axi_llc_cfg_res)
+    
+    axi_llc_top #(
+      .SetAssociativity ( 32'd8                          ),
+      .NumLines         ( 32'd256                        ),
+      .NumBlocks        ( 32'd8                          ),
+      .AxiIdWidth       ( ariane_soc::IdWidthSlave       ),
+      .AxiAddrWidth     ( AXI_ADDRESS_WIDTH              ),
+      .AxiDataWidth     ( AXI_DATA_WIDTH                 ),
+      .AxiUserWidth     ( AXI_USER_WIDTH                 ),
+      .AxiLiteAddrWidth ( AXI_LITE_AW                    ),
+      .AxiLiteDataWidth ( AXI_LITE_DW                    ),
+      .slv_req_t        ( ariane_axi_soc::req_slv_t      ),
+      .slv_resp_t       ( ariane_axi_soc::resp_slv_t     ),
+      .mst_req_t        ( ariane_axi_soc::req_slv_mem_t  ),
+      .mst_resp_t       ( ariane_axi_soc::resp_slv_mem_t ),
+      .lite_req_t       ( ariane_axi_soc::req_lite_t     ),
+      .lite_resp_t      ( ariane_axi_soc::resp_lite_t    ),
+      .rule_full_t      ( rule_full_t                    )
+    ) i_axi_llc (
+      .clk_i               ( s_soc_clk                                       ),
+      .rst_ni              ( s_synch_soc_rst                                 ),
+      .test_i              ( 1'b0                                            ),
+      .slv_req_i           ( axi_cpu_req                                     ),
+      .slv_resp_o          ( axi_cpu_res                                     ),
+      .mst_req_o           ( axi_mem_req                                     ),
+      .mst_resp_i          ( axi_mem_res                                     ),
+      .conf_req_i          ( axi_llc_cfg_req                                 ),
+      .conf_resp_o         ( axi_llc_cfg_res                                 ),
+      .cached_start_addr_i ( ariane_soc::HYAXIBase                           ),
+      .cached_end_addr_i   ( ariane_soc::HYAXIBase + ariane_soc::HYAXILength ),
+      .spm_start_addr_i    ( '0                                              ),
+      .axi_llc_events_o    (                                                 )
+    );
+  `endif   
      
    cva6_subsystem # (
         .NUM_WORDS         ( NUM_WORDS  ),
