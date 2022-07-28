@@ -69,7 +69,6 @@ sources:
   - ../fpga/src/apb_timer/timer.sv
   - host/periph_bus_wrap.sv
   - host/freqmeter.sv
-  - host/fll_dummy.sv
   - host/alsaqr_clk_rst_gen.sv
   - host/apb_soc_control.sv
   - host/apb_subsystem.sv
@@ -115,9 +114,9 @@ sources:
       WT_DCACHE: ~
     files:
       - ../bootrom/bootrom.sv
-      - host/memwrap_gf22.sv
-      - host/tc_sram_gf22.sv
-      - host/tc_clk_gf22.sv
+      - gf22/macro_wrap/memwrap_gf22.sv
+      - gf22/macro_wrap/tc_sram_gf22.sv
+      - gf22/macro_wrap/tc_clk_gf22.sv
 
   - target: top_post_synth_sim
     files:
@@ -138,6 +137,7 @@ sources:
       
   - target: test
     files:
+      - host/fll_dummy.sv
       - tb/common/uart.sv                                                     
       - tb/common/SimDTM.sv                                                   
       - tb/common/SimJTAG.sv
