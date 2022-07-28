@@ -75,12 +75,14 @@ module apb_subsystem
     input                       pad_to_sdio_t [N_SDIO-1:0] pad_to_sdio,
  
     // HYPERBUS
+    `ifndef XILINX_DDR
     inout  [HyperbusNumPhys-1:0][NumChipsPerHyperbus-1:0] pad_hyper_csn,
     inout  [HyperbusNumPhys-1:0]                          pad_hyper_ck,
     inout  [HyperbusNumPhys-1:0]                          pad_hyper_ckn,
     inout  [HyperbusNumPhys-1:0]                          pad_hyper_rwds,
     inout  [HyperbusNumPhys-1:0]                          pad_hyper_reset,
     inout  [HyperbusNumPhys-1:0][7:0]                     pad_hyper_dq, 
+    `endif
    
     // GPIOs
     output                      gpio_to_pad_t gpio_to_pad,
@@ -299,7 +301,16 @@ module apb_subsystem
          .udma_apb_prdata ( apb_udma_master_bus.prdata     ),
          .udma_apb_pready ( apb_udma_master_bus.pready     ),
          .udma_apb_pslverr( apb_udma_master_bus.pslverr    ),
-            
+
+         `ifndef XILINX_DDR
+         .pad_hyper_csn,
+         .pad_hyper_ck,
+         .pad_hyper_ckn,
+         .pad_hyper_rwds,
+         .pad_hyper_reset,
+         .pad_hyper_dq,
+         `endif
+
          .qspi_to_pad     ( qspi_to_pad                    ),
          .pad_to_qspi     ( pad_to_qspi                    ),
          .i2c_to_pad      ( i2c_to_pad                     ),
@@ -308,14 +319,7 @@ module apb_subsystem
          .pad_to_uart     ( pad_to_uart                    ),
          .uart_to_pad     ( uart_to_pad                    ),
          .sdio_to_pad     ( sdio_to_pad                    ),
-         .pad_to_sdio     ( pad_to_sdio                    ),
-
-         .pad_hyper_csn,
-         .pad_hyper_ck,
-         .pad_hyper_ckn,
-         .pad_hyper_rwds,
-         .pad_hyper_reset,
-         .pad_hyper_dq
+         .pad_to_sdio     ( pad_to_sdio                    )
       );
    
     logic [63:0] s_gpio_sync; 

@@ -44,38 +44,7 @@ module alsaqr_xilinx
     inout wire    pad_uart0_tx,
     inout wire    pad_uart1_rx,
     inout wire    pad_uart1_tx,
-   
-   
-    inout         FMC_hyper0_dqio0 ,
-    inout         FMC_hyper0_dqio1 ,
-    inout         FMC_hyper0_dqio2 ,
-    inout         FMC_hyper0_dqio3 ,
-    inout         FMC_hyper0_dqio4 ,
-    inout         FMC_hyper0_dqio5 ,
-    inout         FMC_hyper0_dqio6 ,
-    inout         FMC_hyper0_dqio7 ,
-    inout         FMC_hyper0_ck ,
-    inout         FMC_hyper0_ckn ,
-    inout         FMC_hyper0_csn0 ,
-    inout         FMC_hyper0_csn1 ,
-    inout         FMC_hyper0_rwds ,
-    inout         FMC_hyper0_reset ,
-
-    inout         FMC_hyper1_dqio0 ,
-    inout         FMC_hyper1_dqio1 ,
-    inout         FMC_hyper1_dqio2 ,
-    inout         FMC_hyper1_dqio3 ,
-    inout         FMC_hyper1_dqio4 ,
-    inout         FMC_hyper1_dqio5 ,
-    inout         FMC_hyper1_dqio6 ,
-    inout         FMC_hyper1_dqio7 ,
-    inout         FMC_hyper1_ck ,
-    inout         FMC_hyper1_ckn ,
-    inout         FMC_hyper1_csn0 ,
-    inout         FMC_hyper1_csn1 ,
-    inout         FMC_hyper1_rwds ,
-    inout         FMC_hyper1_reset ,
-
+      
     input wire    pad_reset,
 
     input wire    pad_jtag_trst,
@@ -92,7 +61,13 @@ module alsaqr_xilinx
    localparam  ECC              = "OFF";
    localparam  APP_DATA_WIDTH   = 512; // This parameter is controllerwise
    localparam  APP_MASK_WIDTH   = 64;  // This parameter is controllerwise
- 
+
+  `ifdef EXCLUDE_LLC
+   localparam AXI_ID_WIDTH = 7;
+  `else
+   localparam AXI_ID_WIDTH = 8;
+  `endif
+   
    wire        ref_clk;
    wire        ddr_ref_clk;
    logic       s_locked;
@@ -111,24 +86,18 @@ module alsaqr_xilinx
      
    assign reset_n = ~pad_reset & pad_jtag_trst;
 
-   wire  [1:0][1:0] hyper_cs_n_wire;
-   wire  [1:0]      hyper_ck_wire;
-   wire  [1:0]      hyper_ck_n_wire;
-   wire  [1:0]      hyper_rwds_wire;
-   wire  [1:0][7:0] hyper_dq_wire;
-   wire  [1:0]      hyper_reset_n_wire;
    
    AXI_BUS #(
-     .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 64        ),
-     .AXI_ID_WIDTH   ( 8         ),
-     .AXI_USER_WIDTH ( 1         )
+     .AXI_ADDR_WIDTH ( 64           ),
+     .AXI_DATA_WIDTH ( 64           ),
+     .AXI_ID_WIDTH   ( AXI_ID_WIDTH ),
+     .AXI_USER_WIDTH ( 1            )
              ) axi_ddr_bus_64();
    AXI_BUS #(
-     .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 64        ),
-     .AXI_ID_WIDTH   ( 8         ),
-     .AXI_USER_WIDTH ( 1         )
+     .AXI_ADDR_WIDTH ( 64           ),
+     .AXI_DATA_WIDTH ( 64           ),
+     .AXI_ID_WIDTH   ( AXI_ID_WIDTH ),
+     .AXI_USER_WIDTH ( 1            )
              ) axi_ddr_sync();
 
   wire [APP_ADDR_WIDTH-1:0] c0_ddr4_app_addr;
@@ -288,11 +257,11 @@ ddr4_0 u_ddr4_0
 // ALSAQR
 //***************************************************************************
    axi_cdc_intf #(
-     .AXI_ADDR_WIDTH ( 64        ),
-     .AXI_DATA_WIDTH ( 64        ),
-     .AXI_ID_WIDTH   ( 7         ),
-     .AXI_USER_WIDTH ( 1         ),
-     .LOG_DEPTH      ( 4         )
+     .AXI_ADDR_WIDTH ( 64           ),
+     .AXI_DATA_WIDTH ( 64           ),
+     .AXI_ID_WIDTH   ( AXI_ID_WIDTH ),
+     .AXI_USER_WIDTH ( 1            ),
+     .LOG_DEPTH      ( 4            )
                   ) axiddrcdc (
                                .src_clk_i (ref_clk),
                                .src_rst_ni(reset_n),
@@ -301,38 +270,6 @@ ddr4_0 u_ddr4_0
                                .dst_rst_ni(c0_ddr4_aresetn),
                                .dst(axi_ddr_sync)
                                );   
-      
-   assign hyper_cs_n_wire[0][0] = FMC_hyper0_csn0;
-   assign hyper_cs_n_wire[0][1] = FMC_hyper0_csn1;   
-   assign hyper_dq_wire[0][0]   = FMC_hyper0_dqio0;
-   assign hyper_dq_wire[0][1]   = FMC_hyper0_dqio1;
-   assign hyper_dq_wire[0][2]   = FMC_hyper0_dqio2;
-   assign hyper_dq_wire[0][3]   = FMC_hyper0_dqio3;
-   assign hyper_dq_wire[0][4]   = FMC_hyper0_dqio4;
-   assign hyper_dq_wire[0][5]   = FMC_hyper0_dqio5;
-   assign hyper_dq_wire[0][6]   = FMC_hyper0_dqio6;
-   assign hyper_dq_wire[0][7]   = FMC_hyper0_dqio7;
-   assign hyper_rwds_wire[0]    = FMC_hyper0_rwds;
-   assign hyper_ck_wire[0]      = FMC_hyper0_ck;
-   assign hyper_ck_n_wire[0]    = FMC_hyper0_ckn;
-   assign hyper_reset_n_wire[0] = FMC_hyper0_reset;
-   
-   
-   assign hyper_cs_n_wire[1][0] = FMC_hyper1_csn0;
-   assign hyper_cs_n_wire[1][1] = FMC_hyper1_csn1;   
-   assign hyper_dq_wire[1][0]   = FMC_hyper1_dqio0;
-   assign hyper_dq_wire[1][1]   = FMC_hyper1_dqio1;
-   assign hyper_dq_wire[1][2]   = FMC_hyper1_dqio2;
-   assign hyper_dq_wire[1][3]   = FMC_hyper1_dqio3;
-   assign hyper_dq_wire[1][4]   = FMC_hyper1_dqio4;
-   assign hyper_dq_wire[1][5]   = FMC_hyper1_dqio5;
-   assign hyper_dq_wire[1][6]   = FMC_hyper1_dqio6;
-   assign hyper_dq_wire[1][7]   = FMC_hyper1_dqio7;
-   assign hyper_rwds_wire[1]    = FMC_hyper1_rwds;
-   assign hyper_ck_wire[1]      = FMC_hyper1_ck;
-   assign hyper_ck_n_wire[1]    = FMC_hyper1_ckn;
-   assign hyper_reset_n_wire[1] = FMC_hyper1_reset;
-
    
     al_saqr #(
         .JtagEnable        ( 1'b1          )
@@ -349,14 +286,7 @@ ddr4_0 u_ddr4_0
         .cva6_uart_rx_i   ( pad_uart0_rx       ),
         .cva6_uart_tx_o   ( pad_uart0_tx       ),
         .apb_uart_rx_i    ( pad_uart1_rx       ),
-        .apb_uart_tx_o    ( pad_uart1_tx       ),
-
-        .pad_hyper_csn    ( hyper_cs_n_wire    ),
-        .pad_hyper_ck     ( hyper_ck_wire      ),
-        .pad_hyper_ckn    ( hyper_ck_n_wire    ),
-        .pad_hyper_rwds   ( hyper_rwds_wire    ),
-        .pad_hyper_reset  ( hyper_reset_n_wire ),
-        .pad_hyper_dq     ( hyper_dq_wire      )
+        .apb_uart_tx_o    ( pad_uart1_tx       )
                 
    );
 

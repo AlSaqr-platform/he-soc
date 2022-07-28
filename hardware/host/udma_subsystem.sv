@@ -78,15 +78,18 @@ module udma_subsystem
     
     // SDIO
     output                             sdio_to_pad_t [N_SDIO-1:0] sdio_to_pad,
-    input                              pad_to_sdio_t [N_SDIO-1:0] pad_to_sdio,
+    input                              pad_to_sdio_t [N_SDIO-1:0] pad_to_sdio
  
     // HYPERBUS
+    `ifndef XILINX_DDR
+    ,
     inout  [HyperbusNumPhys-1:0][NumChipsPerHyperbus-1:0] pad_hyper_csn,
     inout  [HyperbusNumPhys-1:0]                          pad_hyper_ck,
     inout  [HyperbusNumPhys-1:0]                          pad_hyper_ckn,
     inout  [HyperbusNumPhys-1:0]                          pad_hyper_rwds,
     inout  [HyperbusNumPhys-1:0]                          pad_hyper_reset,
     inout  [HyperbusNumPhys-1:0][7:0]                     pad_hyper_dq 
+   `endif
 );
 
 
@@ -866,6 +869,7 @@ module udma_subsystem
     `REG_BUS_TYPEDEF_REQ(reg_req_t, reg_addr_t, reg_data_t, reg_strb_t)
     `REG_BUS_TYPEDEF_RSP(reg_rsp_t, reg_data_t)   
 
+    `ifndef XILINX_DDR
     generate
        for (genvar g_hyper=0;g_hyper<N_HYPER;g_hyper++) begin: i_hyper_gen
 
@@ -916,8 +920,13 @@ module udma_subsystem
          assign s_rx_ch_destination[CH_ID_RX_HYPER+g_hyper] = 'h0;
          assign s_tx_ch_destination[CH_ID_TX_HYPER+g_hyper] = 'h0;
          
+        `ifdef EXCLUDE_LLC
+         ariane_axi_soc::req_slv_t    axi_hyper_req;
+         ariane_axi_soc::resp_slv_t   axi_hyper_rsp;
+        `else
          ariane_axi_soc::req_slv_mem_t    axi_hyper_req;
          ariane_axi_soc::resp_slv_mem_t   axi_hyper_rsp;
+        `endif
          `AXI_ASSIGN_TO_REQ(axi_hyper_req,hyper_axi_bus_slave)
          `AXI_ASSIGN_FROM_RESP(hyper_axi_bus_slave,axi_hyper_rsp)
          reg_req_t   reg_req;
@@ -933,9 +942,17 @@ module udma_subsystem
               .NumChips       ( ariane_soc::NumChipsPerHyperbus                          ),
               .AxiAddrWidth   ( 64                                                       ),
               .AxiDataWidth   ( 64                                                       ),
+              `ifdef EXCLUDE_LLC
+              .AxiIdWidth     ( ariane_soc::IdWidthSlave                                 ),
+              .axi_req_t      ( ariane_axi_soc::req_slv_t                                ),
+              .axi_rsp_t      ( ariane_axi_soc::resp_slv_t                               ),
+              .axi_w_chan_t   ( ariane_axi_soc::w_chan_t                                 ),
+              .axi_aw_chan_t  ( ariane_axi_soc::aw_chan_slv_t                            ),
+              .axi_b_chan_t   ( ariane_axi_soc::b_chan_slv_t                             ),
+              .axi_ar_chan_t  ( ariane_axi_soc::ar_chan_slv_t                            ),
+              .axi_r_chan_t   ( ariane_axi_soc::r_chan_slv_t                             ),
+              `else
               .AxiIdWidth     ( ariane_soc::IdWidthSlave+1                               ),
-              .AxiUserWidth   ( ariane_axi_soc::UserWidth                                ),
-              .IsClockODelayed( 0                                                        ),
               .axi_req_t      ( ariane_axi_soc::req_slv_mem_t                            ),
               .axi_rsp_t      ( ariane_axi_soc::resp_slv_mem_t                           ),
               .axi_w_chan_t   ( ariane_axi_soc::w_chan_t                                 ),
@@ -943,6 +960,9 @@ module udma_subsystem
               .axi_b_chan_t   ( ariane_axi_soc::b_chan_slv_mem_t                         ),
               .axi_ar_chan_t  ( ariane_axi_soc::ar_chan_slv_mem_t                        ),
               .axi_r_chan_t   ( ariane_axi_soc::r_chan_slv_mem_t                         ),
+              `endif
+              .AxiUserWidth   ( ariane_axi_soc::UserWidth                                ),
+              .IsClockODelayed( 0                                                        ),
               .RegAddrWidth   ( RegAw                                                    ),
               .RegDataWidth   ( RegDw                                                    ),
               .reg_req_t      ( reg_req_t                                                ),
@@ -1013,5 +1033,33 @@ module udma_subsystem
 
        end // block: i_hyper_gen
    endgenerate
+    `else // !`ifndef XILINX_DDR
+
+   assign hyper_reg_cfg_slave.ready     = 1'b1;
+   assign hyper_reg_cfg_slave.error     = '0;
+   
+   assign cfg_ready_o         = 1'b1;
+   assign cfg_data_o          = '0;
+   assign cfg_rx_startaddr_o  = '0;
+   assign cfg_rx_size_o       = '0;
+   assign cfg_rx_continuous_o = '0;
+   assign cfg_rx_en_o         = '0;
+   assign cfg_rx_clr_o        = '0;
+   assign cfg_tx_startaddr_o  = '0;
+   assign cfg_tx_size_o       = '0;
+   assign cfg_tx_continuous_o = '0;
+   assign cfg_tx_en_o         = '0;
+   assign cfg_tx_clr_o        = '0;
+   assign evt_eot_hyper_o     = '0;
+         
+   assign data_tx_req_o       = '0;
+   assign data_tx_datasize_o  = '0;
+   assign data_tx_ready_o     = 1'b1;
+
+   assign data_rx_datasize_o  = '0;
+   assign data_rx_o           = '0;
+   assign data_rx_valid_o     = '0;         
+
+   `endif
    
 endmodule
