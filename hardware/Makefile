@@ -162,6 +162,12 @@ ifdef localjtag
 	questa-cmd += +define+USE_LOCAL_JTAG 
 endif
 
+ifdef exclude_otp_rom
+	compile_flag += +define+EXCLUDE_OTP_ROM
+	questa-cmd += +define+EXCLUDE_OTP_ROM
+  compile_fpga += +define+EXCLUDE_OTP_ROM
+endif
+
 ifdef preload
 	compile_flag += +define+PRELOAD
 	questa-cmd += +define+PRELOAD 

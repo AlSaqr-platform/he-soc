@@ -1256,7 +1256,7 @@ module ariane_tb;
       jtag_ibex_data_preload();
           
       #(RTC_CLOCK_PERIOD)
-      jtag_ibex_wakeup(32'h 10000080);            
+      jtag_ibex_wakeup(32'h E0000080);            
 
    end
    

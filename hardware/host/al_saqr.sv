@@ -250,6 +250,35 @@ module al_saqr
   logic s_cluster_rst_n;
 
   logic s_h2c_mailbox_irq;
+
+  localparam int   AW = 64;   
+  localparam int   DW = 64;  
+  localparam int   IW = 8;   
+  localparam int   UW = 1;
+
+  localparam int unsigned SW = DW / 8;
+       
+  typedef   logic [AW-1:0] axi_ot_addr_t;
+  typedef   logic [DW-1:0] axi_ot_data_t;
+  typedef   logic [IW-1:0] axi_ot_id_t;
+  typedef   logic [SW-1:0] axi_ot_strb_t;
+  typedef   logic [UW-1:0] axi_ot_user_t;
+
+  typedef   logic [31:0] data32_t;
+  typedef   logic [3:0]  strb32_t;
+
+  `AXI_TYPEDEF_AW_CHAN_T (axi_ot_aw_t, axi_ot_addr_t, axi_ot_id_t, axi_ot_user_t)
+  `AXI_TYPEDEF_W_CHAN_T  (axi_ot_w_t, axi_ot_data_t, axi_ot_strb_t, axi_ot_user_t)
+  `AXI_TYPEDEF_B_CHAN_T  (axi_ot_b_t, axi_ot_id_t, axi_ot_user_t)
+  `AXI_TYPEDEF_AR_CHAN_T (axi_ot_ar_t, axi_ot_addr_t, axi_ot_id_t, axi_ot_user_t)
+  `AXI_TYPEDEF_R_CHAN_T  (axi_ot_r_t, axi_ot_data_t, axi_ot_id_t, axi_ot_user_t)
+   
+  `AXI_TYPEDEF_REQ_T     (axi_ot_req_t, axi_ot_aw_t, axi_ot_w_t, axi_ot_ar_t)
+  `AXI_TYPEDEF_RESP_T    (axi_ot_resp_t, axi_ot_b_t, axi_ot_r_t)
+
+  axi_ot_req_t  ot_axi_req;
+  axi_ot_resp_t ot_axi_rsp;
+ 
    
   AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
@@ -345,6 +374,8 @@ module al_saqr
 
   logic s_cluster_eoc;
   logic s_cluster_eoc_sync;
+
+  logic doorbell_irq_o; 
    
   pad_to_hyper_t [HyperbusNumPhys-1:0] s_pad_to_hyper;
   hyper_to_pad_t [HyperbusNumPhys-1:0] s_hyper_to_pad;
@@ -390,63 +421,7 @@ module al_saqr
   reg_req_t   reg_req;
   reg_rsp_t   reg_rsp;
 
-     
-  parameter int   AW = 64;   
-  parameter int   DW = 64;  
-  parameter int   IW = 8;   
-  parameter int   UW = 1;
-
-  parameter int unsigned SW = DW / 8;
-       
-  typedef   logic [AW-1:0] axi_ot_addr_t;
-  typedef   logic [DW-1:0] axi_ot_data_t;
-  typedef   logic [IW-1:0] axi_ot_id_t;
-  typedef   logic [SW-1:0] axi_ot_strb_t;
-  typedef   logic [UW-1:0] axi_ot_user_t;
-
-  typedef   logic [31:0] data32_t;
-  typedef   logic [3:0]  strb32_t;
-
-  `AXI_TYPEDEF_AW_CHAN_T (axi_ot_aw_t, axi_ot_addr_t, axi_ot_id_t, axi_ot_user_t)
-  `AXI_TYPEDEF_W_CHAN_T  (axi_ot_w_t, axi_ot_data_t, axi_ot_strb_t, axi_ot_user_t)
-  `AXI_TYPEDEF_B_CHAN_T  (axi_ot_b_t, axi_ot_id_t, axi_ot_user_t)
-  `AXI_TYPEDEF_AR_CHAN_T (axi_ot_ar_t, axi_ot_addr_t, axi_ot_id_t, axi_ot_user_t)
-  `AXI_TYPEDEF_R_CHAN_T  (axi_ot_r_t, axi_ot_data_t, axi_ot_id_t, axi_ot_user_t)
-   
-  `AXI_TYPEDEF_REQ_T     (axi_ot_req_t, axi_ot_aw_t, axi_ot_w_t, axi_ot_ar_t)
-  `AXI_TYPEDEF_RESP_T    (axi_ot_resp_t, axi_ot_b_t, axi_ot_r_t)
-
-  `AXI_TYPEDEF_AW_CHAN_T (axi32_aw_t, axi_ot_addr_t, axi_ot_id_t, axi_ot_user_t)
-  `AXI_TYPEDEF_W_CHAN_T  (axi32_w_t, data32_t, strb32_t, axi_ot_user_t)
-  `AXI_TYPEDEF_B_CHAN_T  (axi32_b_t, axi_ot_id_t, axi_ot_user_t)
-  `AXI_TYPEDEF_AR_CHAN_T (axi32_ar_t, axi_ot_addr_t, axi_ot_id_t, axi_ot_user_t)
-  `AXI_TYPEDEF_R_CHAN_T  (axi32_r_t, data32_t, axi_ot_id_t, axi_ot_user_t)
   
-  `AXI_TYPEDEF_REQ_T     (axi_req32_t, axi32_aw_t, axi32_w_t, axi32_ar_t)
-  `AXI_TYPEDEF_RESP_T    (axi_resp32_t, axi32_b_t, axi32_r_t)
-
-  
-  `AXI_LITE_TYPEDEF_AW_CHAN_T (axi_lite_aw_t, axi_ot_addr_t)
-  `AXI_LITE_TYPEDEF_W_CHAN_T  (axi_lite_w_t, data32_t, strb32_t)
-  `AXI_LITE_TYPEDEF_B_CHAN_T  (axi_lite_b_t)
-  `AXI_LITE_TYPEDEF_AR_CHAN_T (axi_lite_ar_t, axi_ot_addr_t)
-  `AXI_LITE_TYPEDEF_R_CHAN_T  (axi_lite_r_t, data32_t)
-  
-  `AXI_LITE_TYPEDEF_REQ_T     (axi_lite_mbox_req_t, axi_lite_aw_t, axi_lite_w_t, axi_lite_ar_t)
-  `AXI_LITE_TYPEDEF_RESP_T    (axi_lite_mbox_resp_t, axi_lite_b_t, axi_lite_r_t)
-
-  axi_lite_mbox_req_t  axi_lite_mbox_req;
-  axi_lite_mbox_resp_t axi_lite_mbox_rsp;
-
-  axi_req32_t axi_req32;
-  axi_resp32_t axi_rsp32;
-   
-  axi_ot_req_t  ot_axi_req, axi_mbox_req;
-  axi_ot_resp_t ot_axi_rsp, axi_mbox_rsp;
-
-  logic irq_ariane, irq_ibex;
-
-
    REG_BUS #(
         .ADDR_WIDTH( RegAw ),
         .DATA_WIDTH( RegDw )
@@ -555,9 +530,7 @@ module al_saqr
       .ot_axi_req             ( ot_axi_req                      ),
       .ot_axi_rsp             ( ot_axi_rsp                      ),
 
-      .axi_mbox_req           ( axi_mbox_req                    ),
-      .axi_mbox_rsp           ( axi_mbox_rsp                    ),
-      .irq_ariane_i           ( irq_ariane                      ),
+      .doorbell_irq_o,
 
       .pad_hyper_csn,
       .pad_hyper_ck,
@@ -807,7 +780,7 @@ module al_saqr
      assign cluster_cfg_axi_lite_bus.ar_region = 'h0;
      assign cluster_cfg_axi_lite_bus.ar_user = 'h0;
      assign cluster_cfg_axi_lite_bus.ar_valid = 'h0;
-     assign cluster_cfg_axi_lite_bus.ar_ready = 'h0;
+     //assign cluster_cfg_axi_lite_bus.ar_ready = 'h0;
      assign cluster_cfg_axi_lite_bus.r_ready = 1'b1;
 
      assign cluster_to_tlb_axi_bus.aw_id = 'h0;
@@ -841,7 +814,7 @@ module al_saqr
      assign cluster_to_tlb_axi_bus.ar_region = 'h0;
      assign cluster_to_tlb_axi_bus.ar_user = 'h0;
      assign cluster_to_tlb_axi_bus.ar_valid = 'h0;
-     assign cluster_to_tlb_axi_bus.ar_ready = 'h0;
+     //assign cluster_to_tlb_axi_bus.ar_ready = 'h0;
      assign cluster_to_tlb_axi_bus.r_ready = 1'b1;
 
      ariane_axi_soc::req_slv_t    fake_cluster_s_req;
@@ -903,74 +876,9 @@ module al_saqr
            
     .axi_req(ot_axi_req),
     .axi_rsp(ot_axi_rsp),
-    .irq_ibex_i(irq_ibex)
+    .irq_ibex_i(doorbell_irq_o)
   );
-
- 
-   axi_dw_converter #(
-       .AxiMaxReads        ( 1 ),
-       .AxiSlvPortDataWidth( DW   ),
-       .AxiMstPortDataWidth( 32   ),
-       .AxiAddrWidth       ( AW   ),
-       .AxiIdWidth         ( IW   ),
-       .aw_chan_t          ( axi_ot_aw_t   ),
-       .mst_w_chan_t       ( axi32_w_t     ),
-       .slv_w_chan_t       ( axi_ot_w_t    ),
-       .b_chan_t           ( axi_ot_b_t    ),
-       .ar_chan_t          ( axi_ot_ar_t   ),
-       .mst_r_chan_t       ( axi32_r_t     ),
-       .slv_r_chan_t       ( axi_ot_r_t    ),
-       .axi_mst_req_t      ( axi_req32_t   ),
-       .axi_mst_resp_t     ( axi_resp32_t  ),
-       .axi_slv_req_t      ( axi_ot_req_t  ),
-       .axi_slv_resp_t     ( axi_ot_resp_t )
-   ) i_axi_dw_converter (
-       .clk_i      ( s_soc_clk  ),
-       .rst_ni     ( s_rst_ni   ),
-       // slave port
-       .slv_req_i  ( axi_mbox_req    ),
-       .slv_resp_o ( axi_mbox_rsp    ),
-       // master port
-       .mst_req_o  ( axi_req32  ),
-       .mst_resp_i ( axi_rsp32  )
-   );
-
-   axi_to_axi_lite #( 
-       .AxiAddrWidth(AW),
-       .AxiDataWidth(32),
-       .AxiIdWidth(IW),
-       .AxiUserWidth(UW),
-       .AxiMaxWriteTxns(1),
-       .AxiMaxReadTxns(1),
-       .FallThrough(1'b0),
-       .full_req_t(axi_req32_t),
-       .full_resp_t(axi_resp32_t),
-       .lite_req_t(axi_lite_mbox_req_t),
-       .lite_resp_t(axi_lite_mbox_resp_t)  
-   ) axi_converter (
-       .clk_i(s_soc_clk),       
-       .rst_ni(s_rst_ni),       
-       .test_i('0),      
-       .slv_req_i(axi_req32),
-       .slv_resp_o(axi_rsp32),
-       .mst_req_o(axi_lite_mbox_req),
-       .mst_resp_i(axi_lite_mbox_rsp)
-   );
    
-    
-   axi_scmi_mailbox #(
-       .axi_lite_req_t(axi_lite_mbox_req_t),
-       .axi_lite_resp_t(axi_lite_mbox_resp_t)
-   ) u_scmi_shared_memory (
-       .clk_i(s_soc_clk),
-       .rst_ni(s_rst_ni),
-       .axi_mbox_req(axi_lite_mbox_req),
-       .axi_mbox_rsp(axi_lite_mbox_rsp),
-       .doorbell_irq_o(irq_ibex),
-       .completion_irq_o(irq_ariane)
-   );
-
-
   localparam int unsigned ENTRIES = 32;
  
    axi_tlb_intf #(

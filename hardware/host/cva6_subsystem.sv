@@ -84,10 +84,6 @@ module cva6_subsystem
   // axi slave interface piloted by opentitan
   input  axi_req_t        ot_axi_req,
   output axi_resp_t       ot_axi_rsp,
- 
-  input  axi_resp_t       axi_mbox_rsp,  
-  output axi_req_t        axi_mbox_req,
-
   input  logic            irq_ariane_i
    
 );
@@ -403,7 +399,7 @@ module cva6_subsystem
 
   `AXI_ASSIGN_FROM_REQ(slave[4], ot_axi_req)
   `AXI_ASSIGN_TO_RESP (ot_axi_rsp, slave[4])
-   
+
   // ---------------
   // AXI L2 Slave
   // ---------------
@@ -800,7 +796,7 @@ module cva6_subsystem
     .eth_mdc         ( ),
     .mdio            ( ),
     .mdc             ( ),
-    .irq_ariane_i
+    .irq_ariane_i   
   );
 
 

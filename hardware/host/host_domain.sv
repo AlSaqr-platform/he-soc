@@ -140,13 +140,10 @@ module host_domain
 
   // axi slave interface piloted by opentitan
   input  axi_req_t            ot_axi_req,
-  output axi_resp_t           ot_axi_rsp,
- 
-  input  axi_resp_t           axi_mbox_rsp,
-  output axi_req_t            axi_mbox_req,
+  output axi_resp_t           ot_axi_rsp, 
   
   // Mbox interrupt
-  input  logic                irq_ariane_i
+  output  logic               doorbell_irq_o
    
 );
 
@@ -159,6 +156,9 @@ module host_domain
    
    ariane_axi_soc::req_lite_t  axi_llc_cfg_req;
    ariane_axi_soc::resp_lite_t axi_llc_cfg_res;
+
+   logic completion_irq_o;
+   
    
    // rule definitions
    typedef struct packed {
@@ -377,9 +377,7 @@ module host_domain
         .jtag_TDO_driven,
         .ot_axi_req,
         .ot_axi_rsp,
-        .axi_mbox_req,
-        .axi_mbox_rsp,
-        .irq_ariane_i,
+        .irq_ariane_i         ( completion_irq_o     ),
         .sync_rst_ni          ( s_synch_soc_rst      ),
         .udma_events_i        ( s_udma_events        ),
         .cluster_eoc_i        ( cluster_eoc_i        ),
@@ -520,7 +518,9 @@ module host_domain
        .c2h_tlb_cfg_master     ( c2h_tlb_cfg_lite_master ),
        .llc_cfg_master         ( llc_cfg_bus             ),
        .h2c_irq_o              ( h2c_irq_o               ),
-       .c2h_irq_o              ( s_c2h_irq               )
+       .c2h_irq_o              ( s_c2h_irq               ),
+       .doorbell_irq_o,
+       .completion_irq_o
    );
                       
 endmodule

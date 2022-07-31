@@ -72,8 +72,8 @@ package ariane_soc;
   localparam logic[63:0] SPILength      = 64'h800000;
   localparam logic[63:0] EthernetLength = 64'h10000;
   localparam logic[63:0] HYAXILength    = 64'h20000000;  //HyperRamSize*NumChipsPerHyperbus*HyperbusNumPhys;  // 256MB of hyperrams
-  localparam logic[63:0] L2SPMLength    = 64'h80000;     // 512KB of scratchpad memory 
-  localparam logic[63:0] APB_SLVSLength = 64'h123000;
+  localparam logic[63:0] L2SPMLength    = 64'h100000;   // 1MB of scratchpad memory 
+  localparam logic[63:0] APB_SLVSLength = 64'h122000;
    
   // Instantiate AXI protocol checkers
   localparam bit GenProtocolChecker = 1'b0;
@@ -92,8 +92,7 @@ package ariane_soc;
     EthernetBase = 64'h3000_0000,
     UARTBase     = 64'h4000_0000,
     SerLink_Base = 64'h6000_0000,
-    HYAXIBase    = 64'h8000_0000,
-    MboxBase     = 64'h4000_2000
+    HYAXIBase    = 64'h8000_0000 
   } soc_bus_start_t; 
   // Let x = NB_PERIPHERALS: as long as Base(xth slave)+Length(xth slave) is < 1_0000_0000 we can cut the 32 MSBs addresses without any worries. 
 
