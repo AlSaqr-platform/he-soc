@@ -44,6 +44,7 @@ module apb_subsystem
     output logic                rstn_cluster_sync_o,
     output logic                cluster_en_sa_boot_o,
     output logic                cluster_fetch_en_o,
+    input logic                 ot_rst_ni,
    
     AXI_BUS.Slave               axi_apb_slave,
     AXI_BUS.Slave               hyper_axi_bus_slave,
@@ -391,6 +392,7 @@ module apb_subsystem
         .ref_clk_i          ( rtc_i               ),
         .rstn_glob_i        ( rst_ni              ),
         .rst_dm_i           ( rst_dm_i            ),
+        .ot_rst_ni          ( ot_rst_ni           ),
         .test_clk_i         ( 1'b0                ),
         .test_mode_i        ( 1'b0                ),
         .sel_fll_clk_i      ( bypass_clk_i        ), 

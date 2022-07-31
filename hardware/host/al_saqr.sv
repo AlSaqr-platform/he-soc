@@ -840,8 +840,8 @@ module al_saqr
    `endif // !`ifndef EXCLUDE_CLUSTER
 
   opentitan #(
-    .axi_req_t  (axi_req_t),
-    .axi_resp_t (axi_resp_t)
+    .axi_req_t  (axi_ot_req_t),
+    .axi_resp_t (axi_ot_resp_t)
   ) u_RoT (
                   
     .clk_main_i (s_soc_clk),

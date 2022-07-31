@@ -14,7 +14,8 @@ module alsaqr_clk_rst_gen (
   input  logic test_clk_i,
   input  logic rstn_glob_i,
   input  logic rst_dm_i,
-
+  input  logic ot_rst_ni,
+  
   input  logic test_mode_i,
   input  logic sel_fll_clk_i,
   input  logic shift_enable_i,
@@ -118,7 +119,7 @@ module alsaqr_clk_rst_gen (
 
     rstgen i_cva6_rstgen (
       .clk_i       ( s_clk_cva6               ),
-      .rst_ni      ( s_rstn_soc & (~rst_dm_i) ),
+      .rst_ni      ( s_rstn_soc & (~rst_dm_i) & ot_rst_ni ),
       .test_mode_i ( test_mode_i              ),
       .rst_no      ( s_rstn_cva6_sync         ), //to be used by logic clocked with ref clock in AO domain
       .init_no     (                          )                    //not used
@@ -126,7 +127,7 @@ module alsaqr_clk_rst_gen (
  
     rstgen i_soc_rstgen (
       .clk_i       ( s_clk_soc                ),
-      .rst_ni      ( s_rstn_soc & (~rst_dm_i) ),
+      .rst_ni      ( s_rstn_soc & (~rst_dm_i) & ot_rst_ni  ),
       .test_mode_i ( test_mode_i              ),
       .rst_no      ( s_rstn_soc_sync          ), //to be used by logic clocked with ref clock in AO domain
       .init_no     (                          )                    //not used
@@ -134,7 +135,7 @@ module alsaqr_clk_rst_gen (
 
     rstgen i_soc_dm_rstgen (
       .clk_i       ( s_clk_soc                ),
-      .rst_ni      ( s_rstn_soc               ),
+      .rst_ni      ( s_rstn_soc & ot_rst_ni                ),
       .test_mode_i ( test_mode_i              ),
       .rst_no      ( s_rst_glob_sync          ), //to be used by logic clocked with ref clock in AO domain
       .init_no     (                          )                    //not used
@@ -142,7 +143,7 @@ module alsaqr_clk_rst_gen (
  
     rstgen i_cluster_rstgen (
       .clk_i       ( s_clk_cluster            ),
-      .rst_ni      ( s_rstn_soc & (~rst_dm_i) ),
+      .rst_ni      ( s_rstn_soc & (~rst_dm_i) & ot_rst_ni  ),
       .test_mode_i ( test_mode_i              ),
       .rst_no      ( s_rstn_cluster_sync      ), //to be used by logic clocked with ref clock in AO domain
       .init_no     (                          )                    //not used

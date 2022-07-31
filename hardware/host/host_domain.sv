@@ -53,6 +53,7 @@ module host_domain
   input logic                 bypass_clk_i,
   output logic                soc_clk_o,
   output logic                soc_rst_no,
+  input logic                 ot_rst_ni,
   output logic                clk_cluster_o,
   output logic                rstn_cluster_sync_o,
   output logic                cluster_en_sa_boot_o,
@@ -463,6 +464,7 @@ module host_domain
       .clk_cluster_o          ( clk_cluster_o                  ),
       .cluster_en_sa_boot_o   ( cluster_en_sa_boot_o           ),
       .cluster_fetch_en_o     ( cluster_fetch_en_o             ),
+      .ot_rst_ni              ( ot_rst_ni                      ),
                         
       `ifdef XILINX_DDR
       .hyper_axi_bus_slave    ( dummyaxibus                    ),                 
