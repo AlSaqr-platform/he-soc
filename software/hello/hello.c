@@ -10,38 +10,17 @@
 //
 //
 
+//#include "util.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
-#define FPGA_EMULATION = 1
+#define FPGA_EMULATION
 
-int main(int argc, char const *argv[]) {  // Agent example code with interrupt
-  
-   ////////////////////// uart and intr setup //////////////////////
-  
-  #ifdef FPGA_EMULATION
-  int baud_rate = 115200;
-  int test_freq = 50000000;
-  #else
-  set_flls();
-  int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif  
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
-  uint32_t * hyaxicfg_reg_mask = 0x1A101018;
-  pulp_write32(hyaxicfg_reg_mask,26); //128MB addressable
-  uint32_t * hyaxicfg_reg_memspace_end_addr1 = 0x1A10102C;
-  pulp_write32(hyaxicfg_reg_memspace_end_addr1,0x88000000);
-  uint32_t * hyaxicfg_reg_memspace_start_addr1 = 0x1A101028;
-  pulp_write32(hyaxicfg_reg_memspace_start_addr1,0x84000000);
-  uint32_t * hyaxicfg_reg_memspace_end_addr0 = 0x1A101024;
-  pulp_write32(hyaxicfg_reg_memspace_end_addr0,0x84000000); 
-  printf("Hello CVA6!\n");
-  uart_wait_tx_done();
-  return 0;
-  /*
+
+int main(int argc, char const *argv[]) {
+
   #ifdef FPGA_EMULATION                  
-  int baud_rate = 9600;
+  int baud_rate = 115200;
   int test_freq = 50000000;
   #else
   set_flls();
@@ -67,21 +46,21 @@ int main(int argc, char const *argv[]) {  // Agent example code with interrupt
   
   ////////////////////// start memory test //////////////////////
 
-  pulp_write32(0x50000008, 0xBAADC0DE); // implements pointer based write (addr,data)
-  pulp_write32(0x50000010, 0xBAADC0DE);
-  pulp_write32(0x50000014, 0xBAADC0DE);
-  pulp_write32(0x50000018, 0xBAADC0DE);
-  pulp_write32(0x5000001C, 0xBAADC0DE);
+  pulp_write32(0x10404008, 0xBAADC0DE); // implements pointer based write (addr,data)
+  pulp_write32(0x10404010, 0xBAADC0DE);
+  pulp_write32(0x10404014, 0xBAADC0DE);
+  pulp_write32(0x10404018, 0xBAADC0DE);
+  pulp_write32(0x1040401C, 0xBAADC0DE);
  
-  a = pulp_read32(0x50000008);          // implements pointer based read  (addr)
-  b = pulp_read32(0x50000010);
-  c = pulp_read32(0x50000014);
-  d = pulp_read32(0x50000018);
-  e = pulp_read32(0x5000001C); 
+  a = pulp_read32(0x10404008);          // implements pointer based read  (addr)
+  b = pulp_read32(0x10404010);
+  c = pulp_read32(0x10404014);
+  d = pulp_read32(0x10404018);
+  e = pulp_read32(0x1040401C); 
 
   if( a == 0xBAADC0DE && b == 0xBAADC0DE && c == 0xBAADC0DE && d == 0xBAADC0DE && e == 0xBAADC0DE){
-     printf("Ariane => Populating mbox memory and ringing doorbell: hello ibex :)\n");
-     pulp_write32(0x50000020, 0x00000001); // ring doorbell 
+     printf("Ariane => Populating mbox memory and ringing doorbell: hello ibex :)\r\n");
+     pulp_write32(0x10404020, 0x00000001); // ring doorbell 
      while(pulp_read32(PLIC_CHECK)!=mbox_id) 
        asm volatile ("wfi"); // the handler just returns here + 4
   }
@@ -92,16 +71,17 @@ int main(int argc, char const *argv[]) {  // Agent example code with interrupt
   }
   
   // Start of """Interrupt Service Routine""" (this code should be into an IRQ Handler)  
-  printf("Ibex => Irq recieved!\n");
-  printf("Ibex => Checking mbox memory and raising completion irq: Hello Ariane :)\n");
-  pulp_write32(0x50000024, 0x00000000); // Cleaning the irq source
+  printf("Ibex => Irq recieved!\r\n");
+  printf("Ibex => Checking mbox memory and raising completion irq: Hello Ariane :)\r\n");
+  pulp_write32(0x10404024, 0x00000000); // Cleaning the irq source
   pulp_write32(PLIC_CHECK, mbox_id);    // Completing irq (according to riscv specs)
 
   // end of """Interrupt Service Routine"""
   
-  printf("Ariane => Irq received\n");
-  printf("Test Succeeded!!!\n");
+  printf("Ariane => Irq received\r\n");
+  printf("Test Succeeded!!!\r\n");
   uart_wait_tx_done();
   
-  return 0;*/
+  return 0;
 }
+

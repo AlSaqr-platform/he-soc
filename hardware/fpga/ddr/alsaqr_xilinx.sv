@@ -51,7 +51,14 @@ module alsaqr_xilinx
     input wire    pad_jtag_tck,
     input wire    pad_jtag_tdi,
     output wire   pad_jtag_tdo,
-    input wire    pad_jtag_tms
+    input wire    pad_jtag_tms,
+
+    // opentitan jtag port
+    input wire    pad_jtag_ot_trst,
+    input wire    pad_jtag_ot_tck,
+    input wire    pad_jtag_ot_tdi,
+    output wire   pad_jtag_ot_tdo,
+    input wire    pad_jtag_ot_tms
   );
 
    localparam  APP_ADDR_WIDTH   = 28;
@@ -84,7 +91,7 @@ module alsaqr_xilinx
                                       .clk_out1(ref_clk)
                                       );
      
-   assign reset_n = ~pad_reset & pad_jtag_trst;
+   assign reset_n = ~pad_reset & pad_jtag_trst;//& pad_jtag_ot_trst;
 
    
    AXI_BUS #(
@@ -286,7 +293,13 @@ ddr4_0 u_ddr4_0
         .cva6_uart_rx_i   ( pad_uart0_rx       ),
         .cva6_uart_tx_o   ( pad_uart0_tx       ),
         .apb_uart_rx_i    ( pad_uart1_rx       ),
-        .apb_uart_tx_o    ( pad_uart1_tx       )
+        .apb_uart_tx_o    ( pad_uart1_tx       ),
+        // ibex jtag port
+        .jtag_ot_TCK      ( pad_jtag_ot_tck    ),
+        .jtag_ot_TMS      ( pad_jtag_ot_tms    ),
+        .jtag_ot_TDI      ( pad_jtag_ot_tdi    ),
+        .jtag_ot_TRSTn    ( 1'b1               ),
+        .jtag_ot_TDO_data ( pad_jtag_ot_tdo    )
                 
    );
 

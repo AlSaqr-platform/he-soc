@@ -18,13 +18,23 @@ set_property -dict {PACKAGE_PIN L19 IOSTANDARD LVCMOS12} [get_ports pad_reset]
 
 ## PMOD 0   --- JTAG
 ######################################################################
-# JTAG mapping
+# Ariane JTAG mapping
 ######################################################################
 set_property -dict {PACKAGE_PIN AY14 IOSTANDARD LVCMOS18} [get_ports pad_jtag_tms]
 set_property -dict {PACKAGE_PIN AY15 IOSTANDARD LVCMOS18} [get_ports pad_jtag_tdi]
 set_property -dict {PACKAGE_PIN AW15 IOSTANDARD LVCMOS18} [get_ports pad_jtag_tdo]
 set_property -dict {PACKAGE_PIN AV15 IOSTANDARD LVCMOS18} [get_ports pad_jtag_tck]
 set_property -dict {PACKAGE_PIN AV16 IOSTANDARD LVCMOS18} [get_ports pad_jtag_trst]
+
+## PMOD 1   --- JTAG
+######################################################################
+# Ibex JTAG mapping
+######################################################################
+set_property -dict {PACKAGE_PIN N30 IOSTANDARD LVCMOS12} [get_ports pad_jtag_ot_tms]
+set_property -dict {PACKAGE_PIN P30 IOSTANDARD LVCMOS12} [get_ports pad_jtag_ot_tdi]
+set_property -dict {PACKAGE_PIN P29 IOSTANDARD LVCMOS12} [get_ports pad_jtag_ot_tdo]
+set_property -dict {PACKAGE_PIN L31 IOSTANDARD LVCMOS12} [get_ports pad_jtag_ot_tck]
+set_property -dict {PACKAGE_PIN M31 IOSTANDARD LVCMOS12} [get_ports pad_jtag_ot_trst]
 
 
 ## UART

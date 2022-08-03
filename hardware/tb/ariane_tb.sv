@@ -56,9 +56,6 @@ module ariane_tb;
     localparam NumPhys = ariane_soc::HyperbusNumPhys;
     localparam NumChips = ariane_soc::NumChipsPerHyperbus; 
 
-    jtag_pkg::jtag_req_t jtag_ibex_i;
-    jtag_pkg::jtag_rsp_t jtag_ibex_o;
-   
     localparam ENABLE_DM_TESTS = 0;
    
     parameter  USE_HYPER_MODELS     = 1;
@@ -143,12 +140,18 @@ module ariane_tb;
     logic                 s_tdi         ;
     logic                 s_trstn       ;
     logic                 s_tdo         ;
-
     
-    logic                 s_ibex_tms         ;
-    logic                 s_ibex_tdi         ;
-    logic                 s_ibex_trstn       ;
-    logic                 s_ibex_tdo         ;
+    logic                 s_ot_tms         ;
+    logic                 s_ot_tdi         ;
+    logic                 s_ot_trstn       ;
+    logic                 s_ot_tdo         ;
+
+
+    wire                  s_jtag2ot_tck       ;
+    wire                  s_jtag2ot_tms       ;
+    wire                  s_jtag2ot_tdi       ;
+    wire                  s_jtag2ot_trstn     ;
+    wire                  s_jtag2ot_tdo       ;
 
     wire                  s_jtag2alsaqr_tck       ;
     wire                  s_jtag2alsaqr_tms       ;
@@ -338,23 +341,20 @@ module ariane_tb;
   assign s_rtc_i=rtc_i;
 
   assign exit_o              = (jtag_enable[0]) ? s_jtag_exit          : s_dmi_exit;
-/*
+
   assign s_jtag2alsaqr_tck    = LOCAL_JTAG  ? s_tck   : s_jtag_TCK   ;
   assign s_jtag2alsaqr_tms    = LOCAL_JTAG  ? s_tms   : s_jtag_TMS   ;
   assign s_jtag2alsaqr_tdi    = LOCAL_JTAG  ? s_tdi   : s_jtag_TDI   ;
   assign s_jtag2alsaqr_trstn  = LOCAL_JTAG  ? s_trstn : s_jtag_TRSTn ;
   assign s_jtag_TDO_data      = s_jtag2alsaqr_tdo       ;
   assign s_tdo                = s_jtag2alsaqr_tdo       ;
-*/
-  assign s_jtag2alsaqr_tck    = LOCAL_JTAG  ? s_tck   : s_jtag_TCK   ;
-  assign s_jtag2alsaqr_tms    = LOCAL_JTAG  ? jtag_ibex_mst.tms : s_jtag_TMS   ;
-  assign s_jtag2alsaqr_tdi    = LOCAL_JTAG  ? jtag_ibex_mst.tdi : s_jtag_TDI   ;
-  assign s_jtag2alsaqr_trstn  = LOCAL_JTAG  ? jtag_ibex_mst.trst_n : s_jtag_TRSTn ;
-   
-  assign jtag_ibex_mst.tdo    = s_jtag2alsaqr_tdo       ;
-   
-  assign s_tdo                = s_jtag2alsaqr_tdo       ;
-  
+
+  assign s_jtag2ot_tck    = s_tck      ;
+  assign s_jtag2ot_tms    = s_ot_tms   ;
+  assign s_jtag2ot_tdi    = s_ot_tdi   ;
+  assign s_jtag2ot_trstn  = s_ot_trstn ;
+  assign s_ot_tdo         = s_jtag2ot_tdo ;
+
   if (~jtag_enable[0] & !LOCAL_JTAG) begin
     SimDTM i_SimDTM (
       .clk                  ( clk_i                 ),
@@ -423,6 +423,12 @@ module ariane_tb;
         .jtag_TDO_data        ( s_jtag2alsaqr_tdo      ),
         .jtag_TDO_driven      ( s_jtag_TDO_driven      ),
 
+        .jtag_ot_TCK          ( s_jtag2ot_tck          ),
+        .jtag_ot_TMS          ( s_jtag2ot_tms          ),
+        .jtag_ot_TDI          ( s_jtag2ot_tdi          ),
+        .jtag_ot_TRSTn        ( s_jtag2ot_trstn        ),
+        .jtag_ot_TDO_data     ( s_jtag2ot_tdo          ),
+        
         .cva6_uart_rx_i       ( w_cva6_uart_rx         ),
         .cva6_uart_tx_o       ( w_cva6_uart_tx         ),
         .apb_uart_rx_i        ( apb_uart_rx            ),
@@ -1088,14 +1094,13 @@ module ariane_tb;
     JTAG_DV jtag_ibex_mst (s_tck);
     riscv_dbg_t::jtag_driver_t jtag_ibex_driver = new(jtag_ibex_mst);
     riscv_dbg_t riscv_ibex_dbg = new(jtag_ibex_driver);
-/*
-    assign jtag_ibex_i.tck    = s_tck;
+
  
-    assign jtag_ibex_i.trst_n = jtag_ibex_mst.trst_n;
-    assign jtag_ibex_i.tms    = jtag_ibex_mst.tms;
-    assign jtag_ibex_i.tdi    = jtag_ibex_mst.tdi;
-    assign jtag_ibex_mst.tdo  = jtag_ibex_o.tdo;
-*/
+    assign s_ot_trstn = jtag_ibex_mst.trst_n;
+    assign s_ot_tms   = jtag_ibex_mst.tms;
+    assign s_ot_tdi   = jtag_ibex_mst.tdi;
+    assign jtag_ibex_mst.tdo  = s_ot_tdo;
+
     // Clock process
     initial begin
         rst_ni  = 1'b0;
@@ -1170,7 +1175,7 @@ module ariane_tb;
       };
 
       // Ariane jtag
-      /*if(LOCAL_JTAG) begin
+      if(LOCAL_JTAG) begin
 
          if(!PRELOAD_HYPERRAM) begin
            if ( $value$plusargs ("CVA6_STRING=%s", binary));
@@ -1236,11 +1241,11 @@ module ariane_tb;
          
            jtag_ariane_wakeup(32'h80000000);
            jtag_read_eoc(32'h80000000);
-         end */
+         end 
 
          
       //////////////////Ibex preload////////////////////
-
+/*
       if ( $value$plusargs ("OT_STRING=%s", ibex_binary)) begin
         $display("Testing %s", ibex_binary);
       end
@@ -1257,7 +1262,7 @@ module ariane_tb;
           
       #(RTC_CLOCK_PERIOD)
       jtag_ibex_wakeup(32'h E0000080);            
-
+*/
    end
    
   task debug_module_init;
@@ -1494,10 +1499,10 @@ module ariane_tb;
   endtask // jtag_read_eoc
    
 /////////////////////////////////////////////////////////////////
-                 //IBEX PROCESSES AND TASKS//
+                 //IBEX PROCESS AND TASKS//
 ////////////////////////////////////////////////////////////////
    /*
-   initial  begin : local_ibex_jtag_preload  
+   initial  begin : ibex_jtag_preload  
 
       automatic dm::sbcs_t sbcs = '{
         sbautoincrement: 1'b1,
@@ -1505,14 +1510,14 @@ module ariane_tb;
         default        : 1'b0
       };
       
-      if ( $value$plusargs ("OT_STRING=%s", binary));
+      if ( $value$plusargs ("OT_STRING=%s", ibex_binary));
          $display("Testing %s", ibex_binary);
          
-      repeat(50)
+      repeat(5)
           @(posedge rtc_i);
       
       debug_ibex_module_init();
-      load_binary(binary);
+      load_ibex_binary(ibex_binary);
       
       
       // Call the JTAG preload task
@@ -1520,12 +1525,12 @@ module ariane_tb;
           
       #(RTC_CLOCK_PERIOD)
 ;
-      jtag_ibex_wakeup(32'h 10000080);
+      jtag_ibex_wakeup(32'h E0000080);
       //jtag_read_eoc();
       
       
    end // block: local_jtag_preload
-*/   
+   */
 ///////////////////////////// Tasks ///////////////////////////////
 
    task debug_ibex_module_init;

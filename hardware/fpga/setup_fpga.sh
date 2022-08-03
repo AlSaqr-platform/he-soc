@@ -21,8 +21,16 @@ if [ -z "$BOARD"  ]; then
     fi
 fi
 
+read -p "Are you instantiating the LLC? y/n " LLC
+if [ "$LLC" = "y" ]; then
+    export AXI_ID_DDR_WIDTH="8"
+elif [ "$LLC" = "n" ]; then
+    export AXI_ID_DDR_WIDTH="7"
+fi
+
 echo "$BOARD"
 echo "XILINX_PART=$XILINX_PART"
 echo "XILINX_BOARD=$XILINX_BOARD"
+echo "AXI_ID_DDR_WIDTH=$AXI_ID_DDR_WIDTH"
 
 export VSIM_PATH=$PWD/sim

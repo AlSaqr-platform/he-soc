@@ -12,30 +12,44 @@
 module pad_frame
   import udma_subsystem_pkg::*;
     (
-     input logic         cva6_uart_tx,
-     output logic        cva6_uart_rx,
+     input logic  cva6_uart_tx,
+     output logic cva6_uart_rx,
      
-     inout wire          pad_cva6_uart_rx ,
-     inout wire          pad_cva6_uart_tx ,
+     inout wire   pad_cva6_uart_rx ,
+     inout wire   pad_cva6_uart_tx ,
 
-     output logic        ref_clk_o,
-     output logic        rstn_o,
-     output logic        bypass_o,
-     output logic        jtag_tck_o,
-     output logic        jtag_tdi_o,
-     input logic         jtag_tdo_i,
-     output logic        jtag_tms_o,
-     output logic        jtag_trst_o,
+     output logic ref_clk_o,
+     output logic rstn_o,
+     output logic bypass_o,
+     output logic jtag_tck_o,
+     output logic jtag_tdi_o,
+     input logic  jtag_tdo_i,
+     output logic jtag_tms_o,
+     output logic jtag_trst_o,
      
-     inout wire          pad_reset_n,
-     inout wire          pad_jtag_tck,
-     inout wire          pad_jtag_tdi,
-     inout wire          pad_jtag_tdo,
-     inout wire          pad_jtag_tms,
-     inout wire          pad_jtag_trst,
+     inout wire   pad_reset_n,
+     inout wire   pad_jtag_tck,
+     inout wire   pad_jtag_tdi,
+     inout wire   pad_jtag_tdo,
+     inout wire   pad_jtag_tms,
+     inout wire   pad_jtag_trst,
 
-     inout wire          pad_bypass,
-     inout wire          pad_xtal_in
+     inout wire   pad_bypass,
+     inout wire   pad_xtal_in,
+
+     // jtag port for Ibex - from pads
+     inout wire   pad_jtag_ot_tck,
+     inout wire   pad_jtag_ot_tdi,
+     inout wire   pad_jtag_ot_tdo,
+     inout wire   pad_jtag_ot_tms,
+     inout wire   pad_jtag_ot_trst,
+
+     // jtag port for Ibex - to Alsaqr
+     output logic jtag_tck_ot_o,
+     output logic jtag_tdi_ot_o,
+     input logic  jtag_tdo_ot_i,
+     output logic jtag_tms_ot_o,
+     output logic jtag_trst_ot_o
       );
    
     wire PWROK_S, IOPWROK_S, BIAS_S, RETC_S;
@@ -54,16 +68,30 @@ module pad_frame
     pad_alsaqr_pu padinst_jtag_trstn (.OEN( 1'b1   ), .I(            ), .O( jtag_trst_o ), .PAD( pad_jtag_trst ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
     pad_alsaqr_pd padinst_jtag_tdo   (.OEN( 1'b0   ), .I( jtag_tdo_i ), .O(             ), .PAD( pad_jtag_tdo  ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
 
+    // jtag port for Ibex
+    pad_alsaqr_pu padinst_jtag_ot_tck   (.OEN( 1'b1   ), .I(               ), .O( jtag_tck_ot_o  ), .PAD( pad_jtag_ot_tck  ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+    pad_alsaqr_pu padinst_jtag_ot_tms   (.OEN( 1'b1   ), .I(               ), .O( jtag_tms_ot_o  ), .PAD( pad_jtag_ot_tms  ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+    pad_alsaqr_pu padinst_jtag_ot_tdi   (.OEN( 1'b1   ), .I(               ), .O( jtag_tdi_ot_o  ), .PAD( pad_jtag_ot_tdi  ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+    pad_alsaqr_pu padinst_jtag_ot_trstn (.OEN( 1'b1   ), .I(               ), .O( jtag_trst_ot_o ), .PAD( pad_jtag_ot_trst ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+    pad_alsaqr_pd padinst_jtag_ot_tdo   (.OEN( 1'b0   ), .I( jtag_tdo_ot_i ), .O(                ), .PAD( pad_jtag_ot_tdo  ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+
 `else
     assign ref_clk_o = pad_xtal_in;
     assign rstn_o = pad_reset_n;
     assign bypass_o = pad_bypass;    
-    //JTAG signals
+    //JTAG signals - Ariane
     assign pad_jtag_tdo = jtag_tdo_i;
     assign jtag_trst_o = pad_jtag_trst;
     assign jtag_tms_o = pad_jtag_tms;
     assign jtag_tck_o = pad_jtag_tck;
     assign jtag_tdi_o = pad_jtag_tdi;
+
+    //JTAG signals - Ibex
+    assign pad_jtag_ot_tdo = jtag_tdo_ot_i;
+    assign jtag_trst_ot_o = pad_jtag_ot_trst;
+    assign jtag_tms_ot_o = pad_jtag_ot_tms;
+    assign jtag_tck_ot_o = pad_jtag_ot_tck;
+    assign jtag_tdi_ot_o = pad_jtag_ot_tdi;
 
 `endif // !`ifndef FPGA_EMUL
   

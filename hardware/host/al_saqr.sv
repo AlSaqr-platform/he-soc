@@ -204,17 +204,20 @@ module al_saqr
   output logic [ 1:0] dmi_resp_bits_resp,
   output logic [31:0] dmi_resp_bits_data, 
 `endif
-  // JTAG
+  // Ariane JTAG
   inout wire          jtag_TCK,
   inout wire          jtag_TMS,
   inout wire          jtag_TDI,
   inout wire          jtag_TRSTn,
   inout wire          jtag_TDO_data,
-  inout wire          jtag_TDO_driven
-   // Opentitan Jtag
+  inout wire          jtag_TDO_driven,
+  // Opentitan Jtag
+  inout wire          jtag_ot_TCK,
+  inout wire          jtag_ot_TMS,
+  inout wire          jtag_ot_TDI,
+  inout wire          jtag_ot_TRSTn,
+  inout wire          jtag_ot_TDO_data
 
-  //input               jtag_pkg::jtag_req_t jtag_ibex_i,
-  //output              jtag_pkg::jtag_rsp_t jtag_ibex_o
    
 );
   jtag_pkg::jtag_req_t jtag_ibex_i;
@@ -236,14 +239,20 @@ module al_saqr
   logic                        s_jtag_TRSTn;
   logic                        s_rtc_i;
   logic                        s_bypass_clk;
+
+  logic                        s_jtag_ot_TCK;
+  logic                        s_jtag_ot_TDI;
+  logic                        s_jtag_ot_TDO;
+  logic                        s_jtag_ot_TMS;
+  logic                        s_jtag_ot_TRSTn;
   
 
-  assign jtag_ibex_i.tck     = s_jtag_TCK;  
-  assign jtag_ibex_i.trst_n  = s_jtag_TRSTn;
-  assign jtag_ibex_i.tms     = s_jtag_TMS;
-  assign jtag_ibex_i.tdi     = s_jtag_TDI;
-  assign s_jtag_TDO          = jtag_ibex_o.tdo;
-   
+  assign jtag_ibex_i.tck        = s_jtag_ot_TCK;  
+  assign jtag_ibex_i.trst_n     = s_jtag_ot_TRSTn;
+  assign jtag_ibex_i.tms        = s_jtag_ot_TMS;
+  assign jtag_ibex_i.tdi        = s_jtag_ot_TDI;
+  assign s_jtag_ot_TDO          = jtag_ibex_o.tdo;
+ 
   logic s_soc_clk  ;
   logic s_soc_rst_n; 
   logic s_cluster_clk  ;
@@ -471,11 +480,11 @@ module al_saqr
       .dmi_resp_bits_resp   (    ),
       .dmi_resp_bits_data   (    ), 
 `endif
-      .jtag_TCK               ( '0 ),//s_jtag_TCK                      ),
-      .jtag_TMS               ( '0 ),//s_jtag_TMS                      ),
-      .jtag_TDI               ( '0 ),//s_jtag_TDI                      ),
-      .jtag_TRSTn             ( '0 ),//s_jtag_TRSTn                    ),
-      .jtag_TDO_data          ( ),//s_jtag_TDO                      ),
+      .jtag_TCK               ( s_jtag_TCK                      ),
+      .jtag_TMS               ( s_jtag_TMS                      ),
+      .jtag_TDI               ( s_jtag_TDI                      ),
+      .jtag_TRSTn             ( s_jtag_TRSTn                    ),
+      .jtag_TDO_data          ( s_jtag_TDO                      ),
       .jtag_TDO_driven        (                                 ),
 `ifdef XILINX_DDR
       .axi_ddr_master         ( axi_ddr_master                  ),
@@ -524,21 +533,22 @@ module al_saqr
 
       .apb_uart_rx_i          ( apb_uart_rx_i                   ),
       .apb_uart_tx_o          ( apb_uart_tx_o                   ),
-
+      
+       `ifndef XILINX_DDR
+       .pad_hyper_csn,
+       .pad_hyper_ck,
+       .pad_hyper_ckn,
+       .pad_hyper_rwds,
+       .pad_hyper_reset,
+       .pad_hyper_dq,
+       `endif
+       
       .pwm_to_pad             ( s_pwm_to_pad                    ),
       
       .ot_axi_req             ( ot_axi_req                      ),
       .ot_axi_rsp             ( ot_axi_rsp                      ),
 
-      .doorbell_irq_o,
-
-      .pad_hyper_csn,
-      .pad_hyper_ck,
-      .pad_hyper_ckn,
-      .pad_hyper_rwds,
-      .pad_hyper_reset,
-      .pad_hyper_dq
-
+      .doorbell_irq_o
     );
    
    pad_frame #()
@@ -566,7 +576,21 @@ module al_saqr
       .pad_jtag_tms     ( jtag_TMS         ),
       .pad_jtag_trst    ( jtag_TRSTn       ),
       .pad_bypass       ( bypass_clk_i     ),
-      .pad_xtal_in      ( rtc_i            )
+      .pad_xtal_in      ( rtc_i            ),
+
+      // jtag port for Ibex : from pad
+      .pad_jtag_ot_tck     ( jtag_ot_TCK         ),
+      .pad_jtag_ot_tdi     ( jtag_ot_TDI         ),
+      .pad_jtag_ot_tdo     ( jtag_ot_TDO_data    ),
+      .pad_jtag_ot_tms     ( jtag_ot_TMS         ),
+      .pad_jtag_ot_trst    ( jtag_ot_TRSTn       ),
+
+      // jtag port for Ibex: to Ibex
+      .jtag_tck_ot_o       ( s_jtag_ot_TCK       ),
+      .jtag_tdi_ot_o       ( s_jtag_ot_TDI       ),
+      .jtag_tdo_ot_i       ( s_jtag_ot_TDO       ),
+      .jtag_tms_ot_o       ( s_jtag_ot_TMS       ),
+      .jtag_trst_ot_o      ( s_jtag_ot_TRSTn     )
 
      );
 
