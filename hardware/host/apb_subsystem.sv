@@ -52,7 +52,11 @@ module apb_subsystem
     output logic                rstn_cluster_sync_o,
     output logic                cluster_en_sa_boot_o,
     output logic                cluster_fetch_en_o,
-   
+    input logic                 llc_read_hit_cache_i,
+    input logic                 llc_read_miss_cache_i,
+    input logic                 llc_write_hit_cache_i,
+    input logic                 llc_write_miss_cache_i, 
+  
     AXI_BUS.Slave               axi_apb_slave,
     AXI_BUS.Slave               hyper_axi_bus_slave,
     XBAR_TCDM_BUS.Master        udma_tcdm_channels[1:0],
@@ -574,7 +578,11 @@ module apb_subsystem
     .apb_slave (apb_socctrl_master_bus),
     .cluster_ctrl_rstn_o (s_cluster_ctrl_rstn),
     .cluster_en_sa_boot_o (cluster_en_sa_boot_o),
-    .cluster_fetch_en_o (cluster_fetch_en_o)
+    .cluster_fetch_en_o (cluster_fetch_en_o),
+    .llc_read_hit_cache_i(llc_read_hit_cache_i),
+    .llc_read_miss_cache_i(llc_read_miss_cache_i), 
+    .llc_write_hit_cache_i(llc_write_hit_cache_i),
+    .llc_write_miss_cache_i(llc_write_miss_cache_i)
    );
    
 

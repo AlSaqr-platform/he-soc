@@ -3,6 +3,7 @@
 #include "./string_lib/src/string_lib.c"
 #include "./archi_tlb/archi_tlb.h"
 #include "./archi_dma/archi_dma.h"
+#include "llc.c"
 
 #define pulp_write32(add, val_) (*(volatile unsigned int *)(long)(add) = val_)
 #define pulp_read32(add) (*(volatile unsigned int *)(long)(add))

@@ -38,5 +38,72 @@
             },
           ]
       }
+      {
+           name: ENABLE_LLC_COUNTERS
+           desc: "Enable LLC performance counters"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "0"
+                 name: llc_counter_en
+                 desc: ''' LLC counters enable'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      }
+      {
+           name: LLC_READ_MISS_CACHE
+           desc: "LLC read miss counter cached accesses"
+           swaccess: "ro"
+           hwaccess: "hwo"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: llc_read_miss_cache
+                 desc: ''' Number of miss read'''
+              }
+            ]
+      }
+      {
+           name: LLC_READ_HIT_CACHE
+           desc: "LLC read hit counter cached accesses"
+           swaccess: "ro"
+           hwaccess: "hwo"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: llc_read_hit_cache
+                 desc: ''' Number of hit read'''
+              }
+            ]
+      }
+      {
+           name: LLC_WRITE_MISS_CACHE
+           desc: "LLC write miss counter cached accesses"
+           swaccess: "ro"
+           hwaccess: "hwo"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: llc_write_miss_cache
+                 desc: ''' Number of miss write'''
+              }
+            ]
+      }
+      {
+           name: LLC_WRITE_HIT_CACHE
+           desc: "LLC write hit counter cached accesses"
+           swaccess: "ro"
+           hwaccess: "hwo"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: llc_write_hit_cache
+                 desc: ''' Number of miss write'''
+              }
+            ]
+      }
   ]
 }

@@ -7,7 +7,7 @@
 package control_register_config_reg_pkg;
 
   // Address widths within the block
-  parameter int BlockAw = 2;
+  parameter int BlockAw = 5;
 
   ////////////////////////////
   // Typedefs for registers //
@@ -25,22 +25,70 @@ package control_register_config_reg_pkg;
     } fetch_en;
   } control_register_config_reg2hw_control_cluster_reg_t;
 
+  typedef struct packed {
+    logic        q;
+  } control_register_config_reg2hw_enable_llc_counters_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } control_register_config_hw2reg_llc_read_miss_cache_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } control_register_config_hw2reg_llc_read_hit_cache_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } control_register_config_hw2reg_llc_write_miss_cache_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } control_register_config_hw2reg_llc_write_hit_cache_reg_t;
+
   // Register -> HW type
   typedef struct packed {
-    control_register_config_reg2hw_control_cluster_reg_t control_cluster; // [2:0]
+    control_register_config_reg2hw_control_cluster_reg_t control_cluster; // [3:1]
+    control_register_config_reg2hw_enable_llc_counters_reg_t enable_llc_counters; // [0:0]
   } control_register_config_reg2hw_t;
 
+  // HW -> register type
+  typedef struct packed {
+    control_register_config_hw2reg_llc_read_miss_cache_reg_t llc_read_miss_cache; // [131:99]
+    control_register_config_hw2reg_llc_read_hit_cache_reg_t llc_read_hit_cache; // [98:66]
+    control_register_config_hw2reg_llc_write_miss_cache_reg_t llc_write_miss_cache; // [65:33]
+    control_register_config_hw2reg_llc_write_hit_cache_reg_t llc_write_hit_cache; // [32:0]
+  } control_register_config_hw2reg_t;
+
   // Register offsets
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER_OFFSET = 2'h 0;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER_OFFSET = 5'h 0;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_ENABLE_LLC_COUNTERS_OFFSET = 5'h 4;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_READ_MISS_CACHE_OFFSET = 5'h 8;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_READ_HIT_CACHE_OFFSET = 5'h c;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_WRITE_MISS_CACHE_OFFSET = 5'h 10;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_WRITE_HIT_CACHE_OFFSET = 5'h 14;
 
   // Register index
   typedef enum int {
-    CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER
+    CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER,
+    CONTROL_REGISTER_CONFIG_ENABLE_LLC_COUNTERS,
+    CONTROL_REGISTER_CONFIG_LLC_READ_MISS_CACHE,
+    CONTROL_REGISTER_CONFIG_LLC_READ_HIT_CACHE,
+    CONTROL_REGISTER_CONFIG_LLC_WRITE_MISS_CACHE,
+    CONTROL_REGISTER_CONFIG_LLC_WRITE_HIT_CACHE
   } control_register_config_id_e;
 
   // Register width information to check illegal writes
-  parameter logic [3:0] CONTROL_REGISTER_CONFIG_PERMIT [1] = '{
-    4'b 0001  // index[0] CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER
+  parameter logic [3:0] CONTROL_REGISTER_CONFIG_PERMIT [6] = '{
+    4'b 0001, // index[0] CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER
+    4'b 0001, // index[1] CONTROL_REGISTER_CONFIG_ENABLE_LLC_COUNTERS
+    4'b 1111, // index[2] CONTROL_REGISTER_CONFIG_LLC_READ_MISS_CACHE
+    4'b 1111, // index[3] CONTROL_REGISTER_CONFIG_LLC_READ_HIT_CACHE
+    4'b 1111, // index[4] CONTROL_REGISTER_CONFIG_LLC_WRITE_MISS_CACHE
+    4'b 1111  // index[5] CONTROL_REGISTER_CONFIG_LLC_WRITE_HIT_CACHE
   };
 
 endpackage

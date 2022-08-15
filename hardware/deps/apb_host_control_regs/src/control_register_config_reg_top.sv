@@ -10,7 +10,7 @@
 module control_register_config_reg_top #(
     parameter type reg_req_t = logic,
     parameter type reg_rsp_t = logic,
-    parameter int AW = 2
+    parameter int AW = 5
 ) (
   input clk_i,
   input rst_ni,
@@ -18,6 +18,7 @@ module control_register_config_reg_top #(
   output reg_rsp_t reg_rsp_o,
   // To HW
   output control_register_config_reg_pkg::control_register_config_reg2hw_t reg2hw, // Write
+  input  control_register_config_reg_pkg::control_register_config_hw2reg_t hw2reg, // Read
 
 
   // Config
@@ -76,6 +77,13 @@ module control_register_config_reg_top #(
   logic control_cluster_fetch_en_qs;
   logic control_cluster_fetch_en_wd;
   logic control_cluster_fetch_en_we;
+  logic enable_llc_counters_qs;
+  logic enable_llc_counters_wd;
+  logic enable_llc_counters_we;
+  logic [31:0] llc_read_miss_cache_qs;
+  logic [31:0] llc_read_hit_cache_qs;
+  logic [31:0] llc_write_miss_cache_qs;
+  logic [31:0] llc_write_hit_cache_qs;
 
   // Register instances
   // R[control_cluster]: V(False)
@@ -158,12 +166,148 @@ module control_register_config_reg_top #(
   );
 
 
+  // R[enable_llc_counters]: V(False)
+
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h0)
+  ) u_enable_llc_counters (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (enable_llc_counters_we),
+    .wd     (enable_llc_counters_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.enable_llc_counters.q ),
+
+    // to register interface (read)
+    .qs     (enable_llc_counters_qs)
+  );
 
 
-  logic [0:0] addr_hit;
+  // R[llc_read_miss_cache]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RO"),
+    .RESVAL  (32'h0)
+  ) u_llc_read_miss_cache (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    .we     (1'b0),
+    .wd     ('0  ),
+
+    // from internal hardware
+    .de     (hw2reg.llc_read_miss_cache.de),
+    .d      (hw2reg.llc_read_miss_cache.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (),
+
+    // to register interface (read)
+    .qs     (llc_read_miss_cache_qs)
+  );
+
+
+  // R[llc_read_hit_cache]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RO"),
+    .RESVAL  (32'h0)
+  ) u_llc_read_hit_cache (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    .we     (1'b0),
+    .wd     ('0  ),
+
+    // from internal hardware
+    .de     (hw2reg.llc_read_hit_cache.de),
+    .d      (hw2reg.llc_read_hit_cache.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (),
+
+    // to register interface (read)
+    .qs     (llc_read_hit_cache_qs)
+  );
+
+
+  // R[llc_write_miss_cache]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RO"),
+    .RESVAL  (32'h0)
+  ) u_llc_write_miss_cache (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    .we     (1'b0),
+    .wd     ('0  ),
+
+    // from internal hardware
+    .de     (hw2reg.llc_write_miss_cache.de),
+    .d      (hw2reg.llc_write_miss_cache.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (),
+
+    // to register interface (read)
+    .qs     (llc_write_miss_cache_qs)
+  );
+
+
+  // R[llc_write_hit_cache]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RO"),
+    .RESVAL  (32'h0)
+  ) u_llc_write_hit_cache (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    .we     (1'b0),
+    .wd     ('0  ),
+
+    // from internal hardware
+    .de     (hw2reg.llc_write_hit_cache.de),
+    .d      (hw2reg.llc_write_hit_cache.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (),
+
+    // to register interface (read)
+    .qs     (llc_write_hit_cache_qs)
+  );
+
+
+
+
+  logic [5:0] addr_hit;
   always_comb begin
     addr_hit = '0;
     addr_hit[0] = (reg_addr == CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER_OFFSET);
+    addr_hit[1] = (reg_addr == CONTROL_REGISTER_CONFIG_ENABLE_LLC_COUNTERS_OFFSET);
+    addr_hit[2] = (reg_addr == CONTROL_REGISTER_CONFIG_LLC_READ_MISS_CACHE_OFFSET);
+    addr_hit[3] = (reg_addr == CONTROL_REGISTER_CONFIG_LLC_READ_HIT_CACHE_OFFSET);
+    addr_hit[4] = (reg_addr == CONTROL_REGISTER_CONFIG_LLC_WRITE_MISS_CACHE_OFFSET);
+    addr_hit[5] = (reg_addr == CONTROL_REGISTER_CONFIG_LLC_WRITE_HIT_CACHE_OFFSET);
   end
 
   assign addrmiss = (reg_re || reg_we) ? ~|addr_hit : 1'b0 ;
@@ -171,7 +315,12 @@ module control_register_config_reg_top #(
   // Check sub-word write is permitted
   always_comb begin
     wr_err = (reg_we &
-              ((addr_hit[0] & (|(CONTROL_REGISTER_CONFIG_PERMIT[0] & ~reg_be)))));
+              ((addr_hit[0] & (|(CONTROL_REGISTER_CONFIG_PERMIT[0] & ~reg_be))) |
+               (addr_hit[1] & (|(CONTROL_REGISTER_CONFIG_PERMIT[1] & ~reg_be))) |
+               (addr_hit[2] & (|(CONTROL_REGISTER_CONFIG_PERMIT[2] & ~reg_be))) |
+               (addr_hit[3] & (|(CONTROL_REGISTER_CONFIG_PERMIT[3] & ~reg_be))) |
+               (addr_hit[4] & (|(CONTROL_REGISTER_CONFIG_PERMIT[4] & ~reg_be))) |
+               (addr_hit[5] & (|(CONTROL_REGISTER_CONFIG_PERMIT[5] & ~reg_be)))));
   end
 
   assign control_cluster_reset_n_we = addr_hit[0] & reg_we & !reg_error;
@@ -183,6 +332,9 @@ module control_register_config_reg_top #(
   assign control_cluster_fetch_en_we = addr_hit[0] & reg_we & !reg_error;
   assign control_cluster_fetch_en_wd = reg_wdata[2];
 
+  assign enable_llc_counters_we = addr_hit[1] & reg_we & !reg_error;
+  assign enable_llc_counters_wd = reg_wdata[0];
+
   // Read data return
   always_comb begin
     reg_rdata_next = '0;
@@ -191,6 +343,26 @@ module control_register_config_reg_top #(
         reg_rdata_next[0] = control_cluster_reset_n_qs;
         reg_rdata_next[1] = control_cluster_en_sa_boot_qs;
         reg_rdata_next[2] = control_cluster_fetch_en_qs;
+      end
+
+      addr_hit[1]: begin
+        reg_rdata_next[0] = enable_llc_counters_qs;
+      end
+
+      addr_hit[2]: begin
+        reg_rdata_next[31:0] = llc_read_miss_cache_qs;
+      end
+
+      addr_hit[3]: begin
+        reg_rdata_next[31:0] = llc_read_hit_cache_qs;
+      end
+
+      addr_hit[4]: begin
+        reg_rdata_next[31:0] = llc_write_miss_cache_qs;
+      end
+
+      addr_hit[5]: begin
+        reg_rdata_next[31:0] = llc_write_hit_cache_qs;
       end
 
       default: begin
