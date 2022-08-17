@@ -11,17 +11,11 @@ void read_from_cache(int l1_way_size, int stride) {
     for(int j = 0; j < l1_way_size; j++)
     {
       * ( ( volatile long int * ) &buffer[j] );
-      * ( ( volatile long int * ) &buffer[j+1] );
-      * ( ( volatile long int * ) &buffer[j+2] );
-      * ( ( volatile long int * ) &buffer[j+3] );
     }
     asm volatile("": : :"memory");    
     for(int j = 0; j < l1_way_size; j++)
     {
       * ( ( volatile long int * ) &buffer[(j+0)*stride]);
-      * ( ( volatile long int * ) &buffer[(j+1)*stride]);
-      * ( ( volatile long int * ) &buffer[(j+2)*stride]);
-      * ( ( volatile long int * ) &buffer[(j+3)*stride]);
     }
     asm volatile("": : :"memory");    
 }
