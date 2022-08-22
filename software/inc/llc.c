@@ -22,3 +22,15 @@ int write_llc_reg(uint32_t LLC_REG, uint32_t val) {
 unsigned int read_llc_reg(uint32_t  LLC_REG) {
   return  *(volatile unsigned int*)(0x1A106004 + LLC_REG);
 }
+
+void enable_llc_counters(){
+  write_llc_reg(LLC_REG_CYCLE_CNT,0x1);
+}
+
+unsigned int get_llc_hit() {
+  return (read_llc_reg(LLC_REG_READ_HIT) + read_llc_reg(LLC_REG_WRITE_HIT));
+}
+
+unsigned int get_llc_miss() {
+  return (read_llc_reg(LLC_REG_READ_MISS) + read_llc_reg(LLC_REG_WRITE_MISS));
+}

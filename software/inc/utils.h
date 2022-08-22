@@ -112,11 +112,13 @@ void dma_wait_trnf_done (uint32_t trnf_id) {
   while (pulp_read32(CL_DMA_BASE + DONE_ID_OFFS) <= trnf_id);
 }
 
-#define stats(code, iter) for(int __k = 0; __k < iter; __k++) {           \
+#define stats(code, iter) enable_llc_counters(); for(int __k = 0; __k < iter; __k++) { \
     unsigned long _c = -read_csr(mcycle), _i = -read_csr(minstret); \
+    unsigned int _llc_hit = get_llc_hit(), _llc_miss = get_llc_miss(); \
     code; \
     _c += read_csr(mcycle), _i += read_csr(minstret); \
-    printf("@ Iter %d : %d cycles, %d instructions\r\n",  __k, _c, _i); \
+    _llc_hit = get_llc_hit() - _llc_hit; _llc_miss = get_llc_miss() - _llc_miss; \
+    printf("@ Iter %d : %d cycles, %d instructions, LLC hit ratio: %d / %d\r\n",  __k, _c, _i, _llc_hit, _llc_hit + _llc_miss); \
   } 
 
 void apb_timer_start() {

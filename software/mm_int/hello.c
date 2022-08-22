@@ -55,7 +55,7 @@ int main(int argc, char const *argv[]) {
   unsigned int i, j, k;
   unsigned int chunk;
   unsigned int lb, ub;
-  unsigned int errors;
+  unsigned int errors = 0;
 
   chunk = SIZE / num_cores;
   // lower bound
@@ -66,14 +66,19 @@ int main(int argc, char const *argv[]) {
   if(core_id == 0) {
     matrix_init();
   }
-  printf("SIZE: %d\r\n",SIZE);
   size_t instret, cycles, icachemiss, dcachemiss;
-
+  unsigned int llc_hit;
+  unsigned int llc_miss;
+  
   asm volatile("": : :"memory");
   long unsigned int start = read_csr(mcycle);
   icachemiss = -read_csr(mhpmcounter3);
   dcachemiss = -read_csr(mhpmcounter4);
   instret = -read_csr(minstret);
+  enable_llc_counters();
+  llc_miss = get_llc_miss();
+  llc_hit = get_llc_hit();
+  
   asm volatile("": : :"memory");
 
   for(i = lb; i < ub; i++) {
@@ -83,12 +88,10 @@ int main(int argc, char const *argv[]) {
       }
     }
   }
-
-  printf("%x\r\n",g_mA);
-  printf("%x\r\n",g_mB);
-  printf("%x\r\n",g_mC);
   
   asm volatile("": : :"memory");
+  llc_miss = get_llc_miss() - llc_miss;
+  llc_hit = get_llc_hit() - llc_hit;
   long unsigned int end = read_csr(mcycle);
   instret = -read_csr(minstret);
   icachemiss += read_csr(mhpmcounter3);
@@ -97,10 +100,8 @@ int main(int argc, char const *argv[]) {
 
   long unsigned int perfc = end -start;
   
-  if(core_id == 0) {
-    errors = matrix_check();
-  }
 
+  printf("g_mA @ %x g_mB @ %x\r\n", &g_mA, &g_mB);
   if(errors==0)
     printf("success in %d\r\n", (uint32_t)(perfc) );
 
@@ -110,7 +111,10 @@ int main(int argc, char const *argv[]) {
   uart_wait_tx_done();
   printf("C%d: %d icachemiss\r\n", cid, (int)(icachemiss));
   uart_wait_tx_done();
+  printf("C%d: LLC hit %d miss %d tot %d \r\n", cid, (int)(llc_hit), (int)(llc_miss), (int)(llc_miss+llc_hit));
+  uart_wait_tx_done();
 
+  
   uart_wait_tx_done();
   return 0;
 }

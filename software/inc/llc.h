@@ -19,5 +19,8 @@
 
 int write_llc_reg(uint32_t LLC_REG, uint32_t val);
 unsigned int read_llc_reg(uint32_t  LLC_REG);
+void enable_llc_counters();
+unsigned int get_llc_hit();
+unsigned int get_llc_miss();
 
 #endif
