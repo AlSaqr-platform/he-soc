@@ -59,29 +59,28 @@ int main(int argc, char const *argv[]) {
   e = pulp_read32(0x1040401C); 
 
   if( a == 0xBAADC0DE && b == 0xBAADC0DE && c == 0xBAADC0DE && d == 0xBAADC0DE && e == 0xBAADC0DE){
-     printf("Ariane => Populating mbox memory and ringing doorbell: hello ibex :)\r\n");
+     printf("Ariane: Populating mbox memory and ringing doorbell, Hello Ibex :)\r\n");
      pulp_write32(0x10404020, 0x00000001); // ring doorbell 
      while(pulp_read32(PLIC_CHECK)!=mbox_id) 
        asm volatile ("wfi"); // the handler just returns here + 4
   }
   else{
-     printf("Test failed!\n");
+     printf("Mailbox failure!\n");
      uart_wait_tx_done();
      return 0;
   }
   
   // Start of """Interrupt Service Routine""" (this code should be into an IRQ Handler)  
-  printf("Ibex => Irq recieved!\r\n");
-  printf("Ibex => Checking mbox memory and raising completion irq: Hello Ariane :)\r\n");
+  printf("Ibex: the mbox irq has been received and processed.\r\nIbex: raising the completion irq, Hello Ariane :)\r\n");
   pulp_write32(0x10404024, 0x00000000); // Cleaning the irq source
   pulp_write32(PLIC_CHECK, mbox_id);    // Completing irq (according to riscv specs)
+  printf("Ariane: completion irq received\r\n");
 
   // end of """Interrupt Service Routine"""
-  
-  printf("Ariane => Irq received\r\n");
+
   printf("Test Succeeded!!!\r\n");
   uart_wait_tx_done();
-  
+
   return 0;
 }
 

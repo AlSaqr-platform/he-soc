@@ -1501,7 +1501,7 @@ module ariane_tb;
 /////////////////////////////////////////////////////////////////
                  //IBEX PROCESS AND TASKS//
 ////////////////////////////////////////////////////////////////
-   /*
+   
    initial  begin : ibex_jtag_preload  
 
       automatic dm::sbcs_t sbcs = '{
@@ -1530,7 +1530,7 @@ module ariane_tb;
       
       
    end // block: local_jtag_preload
-   */
+   
 ///////////////////////////// Tasks ///////////////////////////////
 
    task debug_ibex_module_init;

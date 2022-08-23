@@ -458,7 +458,7 @@ module al_saqr
       .rst_ni(s_rst_ni),
       .rtc_i(s_rtc_i),
       .bypass_clk_i(s_bypass_clk),
-      .ot_rst_ni(fake_rst),
+      .ot_rst_ni(1'b1),
 `ifndef TARGET_SYNTHESIS
       .dmi_req_valid,
       .dmi_req_ready,

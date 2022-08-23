@@ -91,7 +91,7 @@ module alsaqr_xilinx
                                       .clk_out1(ref_clk)
                                       );
      
-   assign reset_n = ~pad_reset & pad_jtag_trst;//& pad_jtag_ot_trst;
+   assign reset_n = ~pad_reset  & pad_jtag_ot_trst & pad_jtag_trst;
 
    
    AXI_BUS #(

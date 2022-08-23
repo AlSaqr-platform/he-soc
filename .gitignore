@@ -87,3 +87,9 @@ y
 /hardware/fpga/vivado_pid107607.str
 /hardware/fpga/xilinx_rom_bank_1024x64.mif
 /hardware/fpga/mode_2_memory_1_wb.mif
+/hardware/fpga/bitstreams/
+/hardware/compile_hello.sh
+/hardware/compile_ot.sh
+/hardware/fpga/board_readme.md
+/hardware/fpga/vivado_pid132899.str
+/software/hello/hello.riscv~
