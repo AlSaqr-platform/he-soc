@@ -11,39 +11,39 @@ it is easy to figure out which is the serial of each Olimex, that will have to b
 
 ## Running the Test
 
-The code for Ariane is in the location <root-of-cva6-repo>/software/hello/hello.riscv while the code for Ibex is located at <root-of-cva6-repo>/sw/mailbox_test/hello_test.elf
+The code for Ariane is in the location "root-of-cva6-repo"/software/hello/hello.riscv while the code for Ibex is located at "root-of-cva6-repo"/sw/mailbox_test/hello_test.elf
 To run the test it is needed to open the hw manager (vivado) and load the bitstream. Then open 5 terminals and:
 
-###Terminal 1: openOCD for Ariane
+### Terminal 1: openOCD for Ariane
 ```
 openocd -f <path-to-cfg-files>/ariane.cfg
 ```
-###Terminal 2: openOCD for Ibex
+### Terminal 2: openOCD for Ibex
 ```
 openocd -f <path-to-cfg-files>/ibex.cfg
 ```
-###Termianl 3: gdb for Ariane
+### Termianl 3: gdb for Ariane
 ```
 riscv64-unknown-elf-gdb <path-to-compiled-elf>/hello.riscv
 ```
-###Terminal 4: gdb for Ibex
-``
+### Terminal 4: gdb for Ibex
+```
 riscv64-unknown-elf-gdb <path-to-compiled-elf>/hello_test.elf
 ```
-###Terminal 5: screen for the prints
+### Terminal 5: screen for the prints
 ```
 screen -L /dev/ttyUSBi 115200
 ```
 
 At this point, both the openocd processes should be connected to the JTAG ports and should be ready to accept the gdb connection at the ports :1111 for Ibex and :3333 for Ariane. Then:
 
-###Terminal 3: connecting gdb to Ariane
+### Terminal 3: connecting gdb to Ariane
 ```
 target remote :3333
 monitor reset halt
 load
 ```
-###Temrinal 4: connecting gdb to Ibex
+### Temrinal 4: connecting gdb to Ibex
 ```
 target remote :1111
 monitor reset halt
@@ -56,14 +56,14 @@ it the readback values correspond to the ones written, rings the doorbell and go
 is in charge to read the mailbox regs and compare the values with the ones Ariane has written. If they match, Ibex raises the completion interrupt writing the correspondent register of the mailbox and goes back to wfi.
 Ariane receives the completion interrupt, whose IRQ Handler prints out a message and return. At this point the test is over and it also succeded. If some communication error between the cores or with tha mailbox,
 the code never arrives to the final "test succeeded" print.
-To launch the test so:
+To launch the test:
 
 
-###Terminal 4: connecting gdb to Ibex
+### Terminal 4: run Ibex
 ```
 continue
 ```
-###Temrinal 3: connecting gdb to Ariane
+### Temrinal 3: run Ariane
 ```
 continue
 
