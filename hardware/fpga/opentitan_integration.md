@@ -9,9 +9,16 @@ The .cfg files to be used in openocd are the same for both the cores with the ex
 Those cfg file have to be changed according to the Olimex ids and the ports for the remote connection to gdb. The command usb-devices shows information about the usb peripherals connected to the PC hosting the board. Connecting one Olimex by time and launching usb-devices
 it is easy to figure out which is the serial of each Olimex, that will have to be replaced in the cfg files according to where each Olimex is connected (J52 for Ariane or J2 FMC for Ibex).
 
+## Ariane JTAG - Olimex Connections
+![alt text](./Ariane_JTAG_connection.png)
+
+## Ibex JTAG - Olimex Connections
+![alt text](./olimex_ibex_connections.jpg)
+
+
 ## Running the Test
 
-The code for Ariane is in the location "root-of-cva6-repo"/software/hello/hello.riscv while the code for Ibex is located at "root-of-cva6-repo"/sw/mailbox_test/hello_test.elf
+The code for Ariane is in the location "root-of-cva6-repo"/software/hello/hello.riscv while the code for Ibex is located at "root-of-cva6-repo"/hardware/.bender/git/checkouts/opentitan/sw/mailbox_test/hello_test.elf
 To run the test it is needed to open the hw manager (vivado) and load the bitstream. Then open 5 terminals and:
 
 ### Terminal 1: openOCD for Ariane
