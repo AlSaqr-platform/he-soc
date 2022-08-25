@@ -24,20 +24,6 @@ The repository is organized as follows
 
  * `software` contains the bare metals tests you can run on the SoC
 
-## Integration of OT:
-
-This flow is going to set up the environment for the simulation of AlSaqr whit OT integrated. Alsaqr il programmed with the usual hello world of the original repo.
-OT is porgrammed as well with the test software present in the benderized branch of OT.
-
-```
-git clone -b opentitan_integration https://github.com/AlSaqr-platform/cva6.git
-
-cd cva6
-
-source setup.sh
-
-```
-please change the setup to point to you toolchains and Questasim installations.
 
 ### RTL BUILD
 
