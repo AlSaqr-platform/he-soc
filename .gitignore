@@ -72,13 +72,8 @@ tb/riscv-isa-sim/
 work-*/*
 install/
 xrun_results/
-yes
-y
-y
 /hardware/fpga/mode_1_memory_0_mixed.mif
 /hardware/fpga/mode_1_memory_1_wb.mif
-yes
-y
 /hardware/fpga/mode_1_memory_2_nm.mif
 /hardware/fpga/mode_1_memory_3_sp.mif
 /hardware/fpga/mode_2_memory_0_mixed.mif
