@@ -28,6 +28,7 @@
 #define DATA_SIZE 4
 #define BUFFER_SIZE 10
 #define BUFFER_SIZE_READ 12
+
 #define N_I2C 1
 
 #define I2C_MEM0 0x50
@@ -44,8 +45,8 @@
 //#define SIMPLE_PAD
 //#define FPGA_EMULATION
 
-#define VERBOSE
-#define PRINTF_ON
+//#define VERBOSE
+//#define PRINTF_ON
 
 int main()
 {
