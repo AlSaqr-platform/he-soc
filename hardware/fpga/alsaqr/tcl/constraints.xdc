@@ -221,7 +221,6 @@ create_clock -period 100.000 -name rwds_clk [get_ports FMC_hyper0_rwds]
 create_clock -period 100.000 -name rwds_clk [get_ports FMC_hyper1_rwds]
 
 
-
 set_property CLOCK_DEDICATED_ROUTE ANY_CMT_COLUMN [get_nets u_ibufg_sys_clk/O]
 set_property C_CLK_INPUT_FREQ_HZ 300000000 [get_debug_cores dbg_hub]
 set_property C_ENABLE_CLK_DIVIDER false [get_debug_cores dbg_hub]
