@@ -162,7 +162,7 @@
         frame1_path = {vsim_path, "./tb/vip/camera/img/frame1.img"};
         $readmemh(frame0_path, pixel_array0);
         $readmemh(frame1_path, pixel_array1);
-        #30ms s_rstn = 1'b1;
+        #1ms s_rstn = 1'b1;
     end
 
     always_comb begin : proc_sm

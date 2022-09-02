@@ -60,7 +60,16 @@ module ariane_tb;
     parameter  USE_24FC1025_MODEL   = 1;
     parameter  USE_S25FS256S_MODEL  = 1;
     parameter  USE_UART             = 1;
-    parameter  USE_SERIAL_LINK      = 0;
+
+     `ifndef FPGA_EMUL
+      `ifndef SIMPLE_PADFRAME
+        parameter  USE_SERIAL_LINK  = 1;
+      `else
+        parameter  USE_SERIAL_LINK  = 0;
+      `endif
+    `else
+      parameter  USE_SERIAL_LINK    = 0;
+    `endif
 
 
     `ifndef FPGA_EMUL
@@ -79,7 +88,7 @@ module ariane_tb;
     // use camera verification IP
     `ifndef FPGA_EMUL
       `ifndef SIMPLE_PADFRAME
-        parameter  USE_SDVT_CPI = 1;
+        parameter  USE_SDVT_CPI = 1; /// IMPORTANT, SET IT BACK TO 1
       `else
         parameter  USE_SDVT_CPI = 0;
       `endif
@@ -589,14 +598,27 @@ module ariane_tb;
              .SCL   ( pad_periphs_pad_gpio_b_50_pad ),
              .RESET ( 1'b0       )
           );
+
+          pullup scl1_pullup_i (pad_periphs_pad_gpio_d_00_pad);
+          pullup sda1_pullup_i (pad_periphs_pad_gpio_d_01_pad);
+
+          /*M24FC1025 i_i2c_mem_1 (
+             .A0    ( 1'b0       ),
+             .A1    ( 1'b0       ),
+             .A2    ( 1'b1       ),
+             .WP    ( 1'b0       ),
+             .SDA   ( pad_periphs_pad_gpio_d_01_pad ),
+             .SCL   ( pad_periphs_pad_gpio_d_00_pad ),
+             .RESET ( 1'b0       )
+          );*/
          
           M24FC1025 i_i2c_mem_1 (
              .A0    ( 1'b1       ),
              .A1    ( 1'b0       ),
              .A2    ( 1'b1       ),
              .WP    ( 1'b0       ),
-             .SDA   ( pad_periphs_pad_gpio_b_51_pad ),
-             .SCL   ( pad_periphs_pad_gpio_b_50_pad ),
+             .SDA   ( pad_periphs_pad_gpio_d_01_pad ),
+             .SCL   ( pad_periphs_pad_gpio_d_00_pad ),
              .RESET ( 1'b0       )
           );
 
@@ -714,26 +736,20 @@ module ariane_tb;
 
   generate
       if (USE_SDIO_1==1) begin
-        `ifndef FPGA_EMUL
-          `ifndef SIMPLE_PADFRAME
-            sdModel sdModelTB1(
-            .sdClk ( pad_periphs_pad_gpio_f_05_pad ),
-            .cmd   ( pad_periphs_pad_gpio_f_06_pad ),
-            .dat   ( {
-                      pad_periphs_pad_gpio_f_04_pad,
-                      pad_periphs_pad_gpio_f_03_pad,
-                      pad_periphs_pad_gpio_f_02_pad,
-                      pad_periphs_pad_gpio_f_01_pad } 
-                    )
-            );
-          `endif 
-        `endif
+        sdModel sdModelTB1(
+        .sdClk ( pad_periphs_pad_gpio_f_05_pad ),
+        .cmd   ( pad_periphs_pad_gpio_f_06_pad ),
+        .dat   ( {
+                  pad_periphs_pad_gpio_f_04_pad,
+                  pad_periphs_pad_gpio_f_03_pad,
+                  pad_periphs_pad_gpio_f_02_pad,
+                  pad_periphs_pad_gpio_f_01_pad } 
+               )
+        );
       end
   endgenerate
 
   generate
-  `ifndef FPGA_EMUL
-    `ifndef SIMPLE_PADFRAME
       if (USE_SERIAL_LINK==1) begin
 
         localparam time         TckDdr           = 70ns;
@@ -1041,8 +1057,6 @@ module ariane_tb;
                 end 
             endtask
       end  
-    `endif
-  `endif
   endgenerate
   
 
