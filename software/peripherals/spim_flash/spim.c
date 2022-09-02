@@ -78,6 +78,7 @@
 #define PLIC_EN_BITS  PLIC_BASE + 0x2080
 
 #define USE_PLIC 1
+/*TEST PLIC OK*/
 
 int pad_fun_offset[4] = {REG_PADFUN0_OFFSET,REG_PADFUN1_OFFSET,REG_PADFUN2_OFFSET,REG_PADFUN3_OFFSET};
 int pad_cfg_offset[16] = {REG_PADCFG0_OFFSET,REG_PADCFG1_OFFSET,REG_PADCFG2_OFFSET,REG_PADCFG3_OFFSET,REG_PADCFG4_OFFSET,REG_PADCFG5_OFFSET,REG_PADCFG6_OFFSET,REG_PADCFG7_OFFSET,REG_PADCFG8_OFFSET,REG_PADCFG9_OFFSET,REG_PADCFG10_OFFSET,REG_PADCFG11_OFFSET,REG_PADCFG12_OFFSET,REG_PADCFG13_OFFSET,REG_PADCFG14_OFFSET,REG_PADCFG15_OFFSET};
@@ -170,11 +171,14 @@ int main(){
 
   // Reading address
   for (int i=0; i <260; i++){
-    memory_page[i] = page[i];
-    /*if(i<4)
-      memory_page[i] = 0x00;
-    else
-      memory_page[i] = i-4;*/
+    #ifdef FPGA_EMULATION
+      memory_page[i] = page[i];
+    #else
+      if(i<4)
+        memory_page[i] = 0x00;
+      else
+        memory_page[i] = i-4;
+    #endif
   }
 
   #ifdef PRINTF_ON
@@ -376,9 +380,9 @@ int main(){
       alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set( 1 );
     #else
       alsaqr_periph_padframe_periphs_pad_gpio_b_00_mux_set( 2 );
-    alsaqr_periph_padframe_periphs_pad_gpio_b_01_mux_set( 2 );
-    alsaqr_periph_padframe_periphs_pad_gpio_b_02_mux_set( 2 );
-    alsaqr_periph_padframe_periphs_pad_gpio_b_03_mux_set( 2 );
+      alsaqr_periph_padframe_periphs_pad_gpio_b_01_mux_set( 2 );
+      alsaqr_periph_padframe_periphs_pad_gpio_b_02_mux_set( 2 );
+      alsaqr_periph_padframe_periphs_pad_gpio_b_03_mux_set( 2 );
     #endif    
   #endif  
 

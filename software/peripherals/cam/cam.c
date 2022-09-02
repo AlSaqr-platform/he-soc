@@ -34,12 +34,14 @@
 #define BUFFER_SIZE_READ 12
 #define N_CAM 1
 
-
 #define GPIO_PADDIR_0_31_OFFSET 0x0
 #define GPIO_PADEN_0_31_OFFSET 0x4
 #define GPIO_PADOUT_0_31_OFFSET 0xC
 #define GPIO_GPIOEN_32_63_OFFSET 0x3C
 #define GPIO_PADIN_32_63_OFFSET 0x40
+
+
+//#define PRINTF_ON
 
 int main(){
   int error=0;
@@ -54,57 +56,39 @@ int main(){
 
   int j;
 
-  alsaqr_periph_padframe_periphs_pad_gpio_b_00_mux_sel_t mux_b00=1;
+   #ifdef FPGA_EMULATION
+    return 0;
+  #else
+    #ifdef SIMPLE_PAD
+      return 0;
+    #else
+       //Config pad_gpio_b_00 as GPIO
+      alsaqr_periph_padframe_periphs_pad_gpio_b_00_mux_set( 1 );
 
-  alsaqr_periph_padframe_periphs_pad_gpio_d_00_mux_sel_t mux_d00=1;
-  alsaqr_periph_padframe_periphs_pad_gpio_d_01_mux_sel_t mux_d01=1;
-  alsaqr_periph_padframe_periphs_pad_gpio_d_02_mux_sel_t mux_d02=1;
-  alsaqr_periph_padframe_periphs_pad_gpio_d_03_mux_sel_t mux_d03=1;
-  alsaqr_periph_padframe_periphs_pad_gpio_d_04_mux_sel_t mux_d04=1;
-  alsaqr_periph_padframe_periphs_pad_gpio_d_05_mux_sel_t mux_d05=1;
-  alsaqr_periph_padframe_periphs_pad_gpio_d_06_mux_sel_t mux_d06=1;
-  alsaqr_periph_padframe_periphs_pad_gpio_d_07_mux_sel_t mux_d07=1;
-  alsaqr_periph_padframe_periphs_pad_gpio_d_08_mux_sel_t mux_d08=1;
-  alsaqr_periph_padframe_periphs_pad_gpio_d_09_mux_sel_t mux_d09=1;
-  alsaqr_periph_padframe_periphs_pad_gpio_d_10_mux_sel_t mux_d10=1;
+      //Config padframe on CAM0
+      alsaqr_periph_padframe_periphs_pad_gpio_d_00_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_pad_gpio_d_01_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_pad_gpio_d_02_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_pad_gpio_d_03_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_pad_gpio_d_04_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_pad_gpio_d_05_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_pad_gpio_d_06_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_pad_gpio_d_07_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_pad_gpio_d_08_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_pad_gpio_d_09_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_pad_gpio_d_10_mux_set( 1 );
+    #endif    
+  #endif 
 
   #ifdef FPGA_EMULATION
-  int baud_rate = 9600;
-  int test_freq = 10000000;
+  int baud_rate = 115200;
+  int test_freq = 50000000;
   #else
   set_flls();
   int baud_rate = 115200;
   int test_freq = 100000000;
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
-
-   //Config pad_gpio_b_00 as GPIO
-  alsaqr_periph_padframe_periphs_pad_gpio_b_00_mux_set( mux_b00 );
-  //barrier();
-
-  //Config padframe on CAM0
-  alsaqr_periph_padframe_periphs_pad_gpio_d_00_mux_set( mux_d00 );
-  //barrier();
-  alsaqr_periph_padframe_periphs_pad_gpio_d_01_mux_set( mux_d01 );
-  //barrier();
-  alsaqr_periph_padframe_periphs_pad_gpio_d_02_mux_set( mux_d02 );
-  //barrier();
-  alsaqr_periph_padframe_periphs_pad_gpio_d_03_mux_set( mux_d03 );
-  //barrier();
-  alsaqr_periph_padframe_periphs_pad_gpio_d_04_mux_set( mux_d04 );
-  //barrier();
-  alsaqr_periph_padframe_periphs_pad_gpio_d_05_mux_set( mux_d05 );
-  //barrier();
-  alsaqr_periph_padframe_periphs_pad_gpio_d_06_mux_set( mux_d06 );
-  //barrier();
-  alsaqr_periph_padframe_periphs_pad_gpio_d_07_mux_set( mux_d07 );
-  //barrier();
-  alsaqr_periph_padframe_periphs_pad_gpio_d_08_mux_set( mux_d08 );
-  //barrier();
-  alsaqr_periph_padframe_periphs_pad_gpio_d_09_mux_set( mux_d09 );
-  //barrier();
-  alsaqr_periph_padframe_periphs_pad_gpio_d_10_mux_set( mux_d10 );
-  //barrier();
 
   //Set GPIO 0 direction as OUT
   address = ARCHI_GPIO_ADDR + GPIO_PADDIR_0_31_OFFSET;
@@ -117,7 +101,11 @@ int main(){
   val_wr = 0x0;
   pulp_write32(address, val_wr);
   while(pulp_read32(address) != val_wr);
-  printf("Camera Vip Disabled\n");
+  
+  #ifdef PRINTF_ON
+    printf("Camera Vip Disabled\n");
+    uart_wait_tx_done();
+  #endif
 
   //clear rx buffer
   for(int i=0; i< HRES * VRES; i++){
@@ -126,10 +114,18 @@ int main(){
 
   uint32_t udma_cam_channel_base = hal_udma_channel_base(UDMA_CHANNEL_ID(ARCHI_UDMA_CAM_ID(0))); //select the camera ID=0
   barrier();
-  printf("Channel base: %x\n", udma_cam_channel_base);
+
+  #ifdef PRINTF_ON
+    printf("Channel base: %x\n", udma_cam_channel_base);
+    uart_wait_tx_done();
+  #endif
+  
 
   plp_udma_cg_set(plp_udma_cg_get() | (0xffffffff));
-  printf("Enable all CG\n");
+  #ifdef PRINTF_ON
+    printf("Enable all CG\n");
+    uart_wait_tx_done();
+  #endif
   barrier();
 
   //write RX_SADDR register: it sets the L2 start address 
@@ -157,21 +153,35 @@ int main(){
   udma_cpi_cam_rx_cfg_set(udma_cam_channel_base,reg);
   barrier();
 
-  printf("End Of Config\n");
+  #ifdef PRINTF_ON
+    printf("End Of Config\n");
+    uart_wait_tx_done();
+  #endif
 
   //Enable Camera VIP by GPIO 0 -> 1
   address = ARCHI_GPIO_ADDR + GPIO_PADOUT_0_31_OFFSET;
   val_wr = 0x1;
   pulp_write32(address, val_wr);
   while(pulp_read32(address) != val_wr);
-  printf("Camera Vip Enabled\n");
+
+  #ifdef PRINTF_ON
+    printf("Camera Vip Enabled\n");
+    uart_wait_tx_done();
+  #endif
+  
 
   //wait_cycles(70000);
   do{
-    printf("Still writing...\n");
+    #ifdef PRINTF_ON
+      printf("Still writing...\n");
+      uart_wait_tx_done();
+    #endif
   }while(udma_cpi_cam_rx_size_get(udma_cam_channel_base)!=0);
 
-  printf("End Transaction\n");
+  #ifdef PRINTF_ON
+      printf("End Transaction\n");
+      uart_wait_tx_done();
+    #endif
 
   for (int i=0; i<N_PIXEL; i+=2){
     concat= frame_0[i]<<8 | frame_0[i+1];

@@ -108,6 +108,7 @@ int *rx_buffer= (int*) 0x1C002000;
 
 
 printf("uart start\n");
+uart_wait_tx_done();
 
 
 for (int i=0; i <BUFFER_SIZE; i++){

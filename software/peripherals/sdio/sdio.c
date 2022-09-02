@@ -32,7 +32,9 @@
 
 #define BLOCK_COUNT_MUL 2
 #define SDIO_QUAD_EN 1
-#define USE_PLIC 1
+
+#define USE_PLIC 0
+/*TEST PLIC FAIL*/
 
 /*******************************************************************************
 **                             IMPORTANT                                      **
@@ -73,10 +75,11 @@ void init_sdio (int32_t u, uint32_t * response, int32_t eot_sdio_plic_id, int32_
 
   sdio_send_cmd (u, CMD0 , 0, response, eot_sdio_plic_id, err_sdio_plic_id);
 
-  
-  printf("---------- INIT ----------\n\r");
-  uart_wait_tx_done();
-  
+  #ifdef PRINTF_ON
+    printf("---------- INIT ----------\n\r");
+    uart_wait_tx_done();
+  #endif
+
   // CMD 8. Get voltage (Only 2.0 Card response to this) - Resp R7
   //0x1AA tell the uSD that the host power supply is between 2.7 - 3.3 Volt
   #ifdef FPGA_EMULATION
@@ -101,17 +104,23 @@ void init_sdio (int32_t u, uint32_t * response, int32_t eot_sdio_plic_id, int32_
   sdio_send_cmd (u, CMD2 | RSP_136 , 0, response, eot_sdio_plic_id, err_sdio_plic_id);
 
   //CMD3 - Resp R6
-  //printf ("CMD3\n\r");
   sdio_send_cmd (u, CMD3 | RSP_48_CRC , 0, response, eot_sdio_plic_id, err_sdio_plic_id);
   rca= (response[0] >> 16) & 0xFFFF;
 
-  printf ("RCA: %x\n\r", rca);
-  uart_wait_tx_done();
+  #ifdef PRINTF_ON
+    printf ("RCA: %x\n\r", rca);
+    uart_wait_tx_done();
+  #endif
+  
 
   //CMD9 - Resp R2
   err=sdio_send_cmd (u, CMD9 | RSP_136 , (rca<<16) , response, eot_sdio_plic_id, err_sdio_plic_id);
-  printf ("Card Class = %x\n\r", response[2] >> 20);
-  uart_wait_tx_done();
+
+  #ifdef PRINTF_ON
+    printf ("Card Class = %x\n\r", response[2] >> 20);
+    uart_wait_tx_done();
+  #endif
+  
 
   #ifdef FPGA_EMULATION
     sdio_send_cmd (u, CMD13 | RSP_48_CRC , (rca<<16) , response, eot_sdio_plic_id, err_sdio_plic_id);
@@ -125,8 +134,12 @@ void init_sdio (int32_t u, uint32_t * response, int32_t eot_sdio_plic_id, int32_
   // Set Block Size 512
   // Send CMD 16 - Resp R1
   sdio_send_cmd (u, CMD16 | RSP_48_CRC , BLOCK_SIZE , response, eot_sdio_plic_id, err_sdio_plic_id);
-  printf("Card status after Block Size set = %x\n\r", response[0]);
-  uart_wait_tx_done();
+  
+  #ifdef PRINTF_ON
+    printf("Card status after Block Size set = %x\n\r", response[0]);
+    uart_wait_tx_done();
+  #endif
+
 
 
   // Set bus width
@@ -135,9 +148,12 @@ void init_sdio (int32_t u, uint32_t * response, int32_t eot_sdio_plic_id, int32_
 
   // Send ACMD 6 - Resp R1
   sdio_send_cmd (u, ACMD6 | RSP_48_CRC , SDIO_QUAD_EN ? 2 : 0 , response, eot_sdio_plic_id, err_sdio_plic_id);
-    
-  printf ("---------- END INIT ----------\n\r");
-  uart_wait_tx_done();
+  
+  #ifdef PRINTF_ON
+    printf ("---------- END INIT ----------\n\r");
+    uart_wait_tx_done();
+  #endif
+  
 }
 
 void sdio_read_response( uint32_t *response, int32_t u){
@@ -162,8 +178,10 @@ int sdio_send_cmd(uint32_t u, uint32_t cmd_op, uint32_t cmd_arg, uint32_t *respo
 
   if (USE_PLIC==1){
 
-    printf("Set EOT and ERR PLIC interrupt..\n\r");
-    uart_wait_tx_done();
+    #ifdef PRINTF_ON
+      printf("Set EOT and ERR PLIC interrupt..\n\r");
+      uart_wait_tx_done();
+    #endif
 
     //set EOT interrupt
     pulp_write32(PLIC_BASE+eot_sdio_plic_id*4, 1); // set eot interrupt priority to 1
@@ -173,8 +191,12 @@ int sdio_send_cmd(uint32_t u, uint32_t cmd_op, uint32_t cmd_arg, uint32_t *respo
     pulp_write32(PLIC_BASE+err_sdio_plic_id*4, 1); // set eot interrupt priority to 1
     pulp_write32(PLIC_EN_BITS+(((int)(err_sdio_plic_id/32))*4), pulp_read32(PLIC_EN_BITS+(((int)(err_sdio_plic_id/32))*4)) | 1<<(err_sdio_plic_id%32)); //enable interrupt
 
-    printf("Interrupt setted..\n\r");
-    uart_wait_tx_done();
+    #ifdef PRINTF_ON
+      printf("Interrupt setted..\n\r");
+      uart_wait_tx_done(); 
+    #endif
+
+    
 
   }
 
@@ -241,16 +263,20 @@ int sdio_send_cmd(uint32_t u, uint32_t cmd_op, uint32_t cmd_arg, uint32_t *respo
   }else{
 
     //PLIC
-    printf("Wait For Interrupt\n\r");
-    uart_wait_tx_done();
-
+    #ifdef PRINTF_ON
+      printf("Wait For Interrupt\n\r");
+      uart_wait_tx_done();
+    #endif
+    
     //  wfi until reading the EOT id from the PLIC
     while(pulp_read32(PLIC_CHECK)!=eot_sdio_plic_id && pulp_read32(PLIC_CHECK)!=err_sdio_plic_id) {
       asm volatile ("wfi");
     }
 
-    printf("Interrupt received...\n\r");
-    uart_wait_tx_done();
+    #ifdef PRINTF_ON
+      printf("Interrupt received...\n\r");
+      uart_wait_tx_done(); 
+    #endif
 
     //Set completed EOT Interrupt
     pulp_write32(PLIC_CHECK,eot_sdio_plic_id);
@@ -274,8 +300,10 @@ int sdio_send_cmd(uint32_t u, uint32_t cmd_op, uint32_t cmd_arg, uint32_t *respo
 void test_single_block_write (uint32_t u, uint32_t *tx_buffer, uint32_t *response, uint32_t eot_sdio_plic_id, uint32_t err_sdio_plic_id, uint32_t tx_sdio_plic_id ){
   int poll_var=0;
 
-  printf ("Write on the SD...\n\r");
-  uart_wait_tx_done();
+  #ifdef PRINTF_ON
+    printf ("Write on the SD...\n\r");
+    uart_wait_tx_done(); 
+  #endif
 
   plp_udma_enqueue(UDMA_SDIO_TX_ADDR(u), (int)tx_buffer, BLOCK_SIZE, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
   
@@ -292,29 +320,38 @@ void test_single_block_write (uint32_t u, uint32_t *tx_buffer, uint32_t *respons
 
   }else{
 
-    printf("Set TX PLIC interrupt..\n\r");
-    uart_wait_tx_done();
+    #ifdef PRINTF_ON
+      printf("Set TX PLIC interrupt..\n\r");
+      uart_wait_tx_done(); 
+    #endif
 
     //Set TX interrupt
     pulp_write32(PLIC_BASE+tx_sdio_plic_id*4, 1); // set tx interrupt priority to 1
     pulp_write32(PLIC_EN_BITS+(((int)(tx_sdio_plic_id/32))*4), 1<<(tx_sdio_plic_id%32)); //enable interrupt
 
-    printf("TX Interrupt setted..\n\r");
-    uart_wait_tx_done();
+    #ifdef PRINTF_ON
+      printf("TX Interrupt setted..\n\r");
+      uart_wait_tx_done();  
+    #endif
 
     //  wfi until reading the EOT id from the PLIC
     while(pulp_read32(PLIC_CHECK)!=tx_sdio_plic_id) {
       asm volatile ("wfi");
     }
-    printf("Received TX Interrupt ...\n\r");
-    uart_wait_tx_done();
+
+    #ifdef PRINTF_ON
+      printf("Received TX Interrupt ...\n\r");
+      uart_wait_tx_done();  
+    #endif
 
     //Set completed Interrupt
     pulp_write32(PLIC_CHECK,tx_sdio_plic_id);
   }
 
-  printf("End writing...\n\r");
-  uart_wait_tx_done(); 
+  #ifdef PRINTF_ON
+    printf("End writing...\n\r");
+    uart_wait_tx_done();  
+  #endif
 
   //Clear Data Setup
   pulp_write32(UDMA_SDIO_DATA_SETUP(u), 0x0 );
@@ -323,8 +360,10 @@ void test_single_block_write (uint32_t u, uint32_t *tx_buffer, uint32_t *respons
 void test_single_block_read (uint32_t u, uint32_t *rx_buffer , uint32_t *response, uint32_t eot_sdio_plic_id, uint32_t err_sdio_plic_id, uint32_t rx_sdio_plic_id){
   int poll_var=0;
 
-  printf ("Read from the SD...\n\r");
-  uart_wait_tx_done();
+  #ifdef PRINTF_ON
+    printf ("Read from the SD...\n\r");
+    uart_wait_tx_done();  
+  #endif
 
   plp_udma_enqueue(UDMA_SDIO_RX_ADDR(u), (int)rx_buffer, BLOCK_SIZE, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
  
@@ -341,31 +380,39 @@ void test_single_block_read (uint32_t u, uint32_t *rx_buffer , uint32_t *respons
       barrier();
     } while(poll_var != 0);
   }else{
-
-    printf("Set RX PLIC interrupt..\n\r");
-    uart_wait_tx_done();
+    
+    #ifdef PRINTF_ON
+      printf("Set RX PLIC interrupt..\n\r");
+      uart_wait_tx_done();  
+    #endif
 
     //Set RX interrupt
     pulp_write32(PLIC_BASE+rx_sdio_plic_id*4, 1); // set rx interrupt priority to 1
     pulp_write32(PLIC_EN_BITS+(((int)(rx_sdio_plic_id/32))*4), 1<<(rx_sdio_plic_id%32)); //enable interrupt
 
-    printf("RX Interrupt setted..\n\r");
-    uart_wait_tx_done();
-
+    #ifdef PRINTF_ON
+      printf("RX Interrupt setted..\n\r");
+      uart_wait_tx_done();  
+    #endif
+    
     //  wfi until reading the EOT id from the PLIC
     while(pulp_read32(PLIC_CHECK)!=rx_sdio_plic_id) {
       asm volatile ("wfi");
     }
 
-    printf("Received RX Interrupt ...\n\r");
-    uart_wait_tx_done();
+    #ifdef PRINTF_ON
+      printf("Received RX Interrupt ...\n\r");
+      uart_wait_tx_done();  
+    #endif
 
     //Set completed Interrupt
     pulp_write32(PLIC_CHECK,rx_sdio_plic_id);
   }
 
-  printf("End reading...\n\r");
-  uart_wait_tx_done();
+  #ifdef PRINTF_ON
+    printf("End reading...\n\r");
+    uart_wait_tx_done();  
+  #endif
 
   //Clear Data Setup
   pulp_write32(UDMA_SDIO_DATA_SETUP(u), 0x0 );   
