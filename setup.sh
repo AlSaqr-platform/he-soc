@@ -21,4 +21,4 @@ echo "cloning submodules"
 
 git submodule update --init --recursive
 
-git clone git@github.com:AlSaqr-platform/cluster_runtime -b fc0a2be7910e3a9df6ac1594c575f174a336070d
+git clone git@github.com:AlSaqr-platform/cluster-runtime.git
