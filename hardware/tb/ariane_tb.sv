@@ -61,7 +61,7 @@ module ariane_tb;
     parameter  USE_S25FS256S_MODEL  = 1;
     parameter  USE_UART             = 1;
 
-     `ifndef FPGA_EMUL
+    `ifndef FPGA_EMUL
       `ifndef SIMPLE_PADFRAME
         parameter  USE_SERIAL_LINK  = 1;
       `else
@@ -70,7 +70,6 @@ module ariane_tb;
     `else
       parameter  USE_SERIAL_LINK    = 0;
     `endif
-
 
     `ifndef FPGA_EMUL
       `ifndef SIMPLE_PADFRAME
