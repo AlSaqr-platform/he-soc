@@ -51,7 +51,7 @@
 #define OUT 1
 #define IN  0
 
-//#define PRINTF_ON
+#define PRINTF_ON
 
 /*******************************************************************************
 **                             IMPORTANT                                      **
@@ -77,7 +77,7 @@
 //enable bits for sources 0-31
 #define PLIC_EN_BITS  PLIC_BASE + 0x2080
 
-#define USE_PLIC 1
+#define USE_PLIC 0
 /*TEST PLIC OK*/
 
 int pad_fun_offset[4] = {REG_PADFUN0_OFFSET,REG_PADFUN1_OFFSET,REG_PADFUN2_OFFSET,REG_PADFUN3_OFFSET};
@@ -388,10 +388,10 @@ int main(){
 
   for (int u = 0; u<N_SPI; u++){
 
-    rx_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +8 ; //32
-    tx_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +8 +1; //33
-    cmd_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +8 +2; //34
-    eot_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +8 +3; //35
+    rx_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +16 ; //40
+    tx_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +16 +1; //41
+    cmd_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +16 +2; //42
+    eot_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +16 +3; //43
 
     //printf("[%d, %d] Start test flash page programming over qspi %d\n",  0, 0,u);
 

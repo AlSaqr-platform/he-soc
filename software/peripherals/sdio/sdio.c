@@ -495,10 +495,10 @@ for (int u = N_SDIO-1; u<N_SDIO; u++){
     8 events are already mapped to other non-udma signals.
    */
 
-    rx_sdio_plic_id = ARCHI_UDMA_SDIO_ID(u)*4 +8 ; //107
-    tx_sdio_plic_id = ARCHI_UDMA_SDIO_ID(u)*4 +8 +1; //108
-    eot_sdio_plic_id = ARCHI_UDMA_SDIO_ID(u)*4 +8 +2; //109
-    err_sdio_plic_id = ARCHI_UDMA_SDIO_ID(u)*4 +8 +3; //110
+    rx_sdio_plic_id = ARCHI_UDMA_SDIO_ID(u)*4 +16 ; //115
+    tx_sdio_plic_id = ARCHI_UDMA_SDIO_ID(u)*4 +16 +1; //116
+    eot_sdio_plic_id = ARCHI_UDMA_SDIO_ID(u)*4 +16 +2; //117
+    err_sdio_plic_id = ARCHI_UDMA_SDIO_ID(u)*4 +16 +3; //118
 
     //--- enable all the udma channels (see below for selective enable)
     plp_udma_cg_set(plp_udma_cg_get() | (0xffffffff));
