@@ -107,20 +107,20 @@ int main()
      for (int i=0; i <4; i++){
       switch (i) {
         case 0: 
-        expected_rx_buffer[i]= 0xCA;
-        break;
+          expected_rx_buffer[i]= 0xCA;
+          break;
         case 1: 
-        expected_rx_buffer[i]= u; // this value change for each I2C selected by u
-        break;
+          expected_rx_buffer[i]= u; // this value change for each I2C selected by u
+          break;
         case 2: 
-        expected_rx_buffer[i]= 0xDE;
-        break;
+          expected_rx_buffer[i]= 0xDE;
+          break;
         case 3: 
-        expected_rx_buffer[i]= 0xCA;
-        break;
+          expected_rx_buffer[i]= 0xCA;
+          break;
         default:
-        expected_rx_buffer[i]= 0;
-        break;
+          expected_rx_buffer[i]= 0;
+          break;
       }
     }
 
@@ -131,94 +131,97 @@ int main()
         To do so you only need to write the cmd_buffer into the UDMA_I2C_CMD_ADDR register of the I2C peripheral
     */
 
-     for (int i=0; i <10; i++){
+     for (int i=0; i <BUFFER_SIZE; i++){
       switch (i) {
         case 0: 
-        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_CFG) << 24) | 0x40; // sets 16 bit clock divider
-        break;
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_CFG) << 24) | 0x40; // sets 16 bit clock divider
+          break;
         case 1: 
-        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_START)<<24); //cmd start
-        break;
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_START)<<24); //cmd start
+          break;
         case 2: 
-        if (u==0)
-          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa0;  // write I2C_MEM0 address + direction bit
-        else
-          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa2; // write I2C_MEM1 address + direction bit
-        break;
+          if (u==0){
+            cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa0;  // write I2C_MEM0 address + direction bit
+          }else{
+            cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa2; // write I2C_MEM1 address + direction bit
+          }
+          break;
         case 3: 
-        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24); 
-        break;
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24); 
+          break;
         case 4: 
-        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24);
-        break;
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24);
+          break;
         case 5: 
-        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[0]; //DATA0
-        break;
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[0]; //DATA0
+          break;
         case 6: 
-        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[1]; //DATA1
-        break;
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[1]; //DATA1
+          break;
         case 7: 
-        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[2]; //DATA2
-        break;
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[2]; //DATA2
+          break;
         case 8: 
-        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[3]; //DATA3
-        break;
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[3]; //DATA3
+          break;
         case 9: 
-        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_STOP)<<24);
-        break;
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_STOP)<<24);
+          break;
         default:
-        cmd_buffer_wr[i]= 0;
-        break;
+          cmd_buffer_wr[i]= 0;
+          break;
       }
     }
 
-    for (int i=0; i <12; i++){
+    for (int i=0; i <BUFFER_SIZE_READ; i++){
       switch (i) {
         case 0: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_CFG)<<24) | 0x40; // set 16bit clock divider
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_CFG)<<24) | 0x40; // set 16bit clock divider
+          break;
         case 1: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_START)<<24);
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_START)<<24);
+          break;
         case 2: 
-        if (u==0)
-          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa0;
-        else
-          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa2;
-        break;
+          if (u==0){
+            cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa0;
+          }else{
+            cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa2;
+          }
+          break;
         case 3: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24);
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24);
+          break;
         case 4: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24);
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24);
+          break;
         case 5: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_START)<<24);
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_START)<<24);
+          break;
         case 6:
-        if (u==0)
-          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa1; //write addr+dir (0xa1) on bus
-        else
-          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa3;
-        break;
+          if (u==0){
+            cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa1; //write addr+dir (0xa1) on bus
+          }else{
+            cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa3;
+          }
+          break;
         case 7: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
+          break;
         case 8: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
+          break;
         case 9: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
+          break;
         case 10: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_NACK)<<24);
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_NACK)<<24);
+          break;
         case 11: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_STOP)<<24);
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_STOP)<<24);
+          break;
         default:
-        cmd_buffer_rd[i]= 0;
-        break;
+          cmd_buffer_rd[i]= 0;
+          break;
       }
     }  
 
@@ -259,7 +262,6 @@ int main()
       uart_wait_tx_done();
     #endif
     
-
     plp_udma_cg_set(plp_udma_cg_get() | (0xffffffff));
 
     #ifdef PRINTF_ON
@@ -286,7 +288,7 @@ int main()
     #endif
     
     // WAIT WRITE TO BE DONE BY THE MEMORY
-    for (volatile int i = 0; i < 45000; ++i) //75000
+    for (volatile int i = 0; i < 90000; ++i) //75000
     {
       i++;
     }
@@ -308,7 +310,7 @@ int main()
       uart_wait_tx_done();  
     #endif
 
-    plp_udma_enqueue(UDMA_I2C_DATA_ADDR(u) ,  (int)rx_buffer  , 4   , 0);
+    plp_udma_enqueue(UDMA_I2C_DATA_ADDR(u) ,  (int)rx_buffer  , 4  , 0);
 
     #ifdef PRINTF_ON
       printf ("Enqueue UDMA_I2C_CMD_ADDR Read...\n\r");

@@ -87,7 +87,7 @@ module ariane_tb;
     // use camera verification IP
     `ifndef FPGA_EMUL
       `ifndef SIMPLE_PADFRAME
-        parameter  USE_SDVT_CPI = 1; /// IMPORTANT, SET IT BACK TO 1
+        parameter  USE_SDVT_CPI = 1; /// IMPORTANT, SET IT BACK TO 1 AFTER TEST I2C MEM1
       `else
         parameter  USE_SDVT_CPI = 0;
       `endif
@@ -581,7 +581,10 @@ module ariane_tb;
       `endif
    end
   
-  /* I2C memory models connected on I2C0*/
+  /* I2C memory models connected on I2C0
+      I2C_MEM0 ADDRESS 0x50
+      I2C_MEM1 ADDRESS 0x51
+  */
    
    generate   
      if (USE_24FC1025_MODEL == 1) begin
@@ -603,16 +606,6 @@ module ariane_tb;
 
           pullup scl1_pullup_i (pad_periphs_pad_gpio_d_00_pad);
           pullup sda1_pullup_i (pad_periphs_pad_gpio_d_01_pad);
-
-          /*M24FC1025 i_i2c_mem_1 (
-             .A0    ( 1'b0       ),
-             .A1    ( 1'b0       ),
-             .A2    ( 1'b1       ),
-             .WP    ( 1'b0       ),
-             .SDA   ( pad_periphs_pad_gpio_d_01_pad ),
-             .SCL   ( pad_periphs_pad_gpio_d_00_pad ),
-             .RESET ( 1'b0       )
-          );*/
          
           M24FC1025 i_i2c_mem_1 (
              .A0    ( 1'b1       ),
