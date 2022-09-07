@@ -24,8 +24,8 @@
 #include "hyperbus_test.h"
 #include "encoding.h"
 #define BUFFER_SIZE 64
-#define VERBOSE
-#define EXTRA_VERBOSE
+//#define VERBOSE
+//#define EXTRA_VERBOSE
 
 int main() {
 
