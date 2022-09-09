@@ -514,14 +514,19 @@ int main(){
         if (USE_PLIC==0){
           //--- polling to check if the transfer is completed (when the "SADDR" register of the SPI channel is equal to 0)
           do {
-            //printf ("Polling on UDMA_SPIM_RX_ADDR until != 0...\n\r");
-            uart_wait_tx_done();
+            #ifdef PRINTF_ON
+              printf ("Polling on UDMA_SPIM_RX_ADDR until != 0...\n\r");
+              uart_wait_tx_done();
+            #endif 
             poll_var = pulp_read32(UDMA_CHANNEL_SIZE_OFFSET + UDMA_SPIM_RX_ADDR(u));
             barrier();
           } while(poll_var != 0);
         }else {
-          //printf ("Set interrupt on rx_spi_plic_id...\n\r");
-          uart_wait_tx_done();
+          #ifdef PRINTF_ON
+            printf ("Set interrupt on rx_spi_plic_id...\n\r");
+            uart_wait_tx_done();
+          #endif 
+          
           //Set RX interrupt
           pulp_write32(PLIC_BASE+rx_spi_plic_id*4, 1); // set tx interrupt priority to 1
           //printf ("Enable interrupt on rx_spi_plic_id...\n\r");
@@ -532,8 +537,12 @@ int main(){
           while(pulp_read32(PLIC_CHECK)!=rx_spi_plic_id) {
             asm volatile ("wfi");
           }
-          //printf ("Interrupt received and clear...\n\r");
-          uart_wait_tx_done();
+          
+          #ifdef PRINTF_ON
+            printf ("Interrupt received and clear...\n\r");
+            uart_wait_tx_done();
+          #endif
+          
           //Set completed Interrupt
           pulp_write32(PLIC_CHECK,rx_spi_plic_id);
         }
