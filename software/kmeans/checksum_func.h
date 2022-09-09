@@ -1,0 +1,1 @@
+void checksum_f_vect(FLOAT *x, int r);
