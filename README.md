@@ -63,7 +63,7 @@ cd hardware
 
 make update
 
-make scripts_vips
+make scripts_vip
 
 ```
 
@@ -81,7 +81,7 @@ cd hardware
 
 make update
 
-make preload=1 scripts_vips
+make preload=1 scripts_vip
 
 ```
 This will generate the compile.tcl with the right defines. Go to the test you want to run.
