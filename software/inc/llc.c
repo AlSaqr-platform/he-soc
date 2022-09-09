@@ -23,6 +23,10 @@ unsigned int read_llc_reg(uint32_t  LLC_REG) {
   return  *(volatile unsigned int*)(0x1A106004 + LLC_REG);
 }
 
+void disable_llc_counters(){
+  write_llc_reg(LLC_REG_CYCLE_CNT,0x0);
+}
+
 void enable_llc_counters(){
   write_llc_reg(LLC_REG_CYCLE_CNT,0x1);
 }
