@@ -862,7 +862,7 @@ module al_saqr
          .slv_resp_o ( fake_cluster_s_resp )
          );
    `endif // !`ifndef EXCLUDE_CLUSTER
-
+/*
   opentitan #(
     .axi_req_t  (axi_ot_req_t),
     .axi_resp_t (axi_ot_resp_t)
@@ -902,7 +902,83 @@ module al_saqr
     .axi_rsp(ot_axi_rsp),
     .irq_ibex_i(doorbell_irq_o)
   );
-   
+  */
+
+    opentitan_synth_wrap #(
+    .axi_req_t  (axi_ot_req_t),
+    .axi_resp_t (axi_ot_resp_t)
+  ) u_Root_of_Trust (
+                  
+    .clk_i(s_soc_clk),
+    .por_n_i(s_rst_ni),
+    
+    .irq_ibex_i(doorbell_irq_o),
+   // JTAG port
+    .jtag_tck_i    (jtag_ibex_i.tck),
+    .jtag_tms_i    (jtag_ibex_i.tms),
+    .jtag_trst_n_i (jtag_ibex_i.trst_n),
+    .jtag_tdi_i    (jtag_ibex_i.tdi),
+    .jtag_tdo_o    (jtag_ibex_o.tdo),
+    .jtag_tdo_oe_o (jtag_ibex_o.tdo_oe),
+
+   //AXI AR channel
+    .ar_id_o       (ot_axi_req.ar.id),
+    .ar_addr_o     (ot_axi_req.ar.addr),
+    .ar_len_o      (ot_axi_req.ar.len),
+    .ar_size_o     (ot_axi_req.ar.size),
+    .ar_burst_o    (ot_axi_req.ar.burst),
+    .ar_lock_o     (ot_axi_req.ar.lock),
+    .ar_cache_o    (ot_axi_req.ar.cache),
+    .ar_prot_o     (ot_axi_req.ar.prot),
+    .ar_qos_o      (ot_axi_req.ar.qos),
+    .ar_region_o   (ot_axi_req.ar.region),
+    .ar_user_o     (ot_axi_req.ar.user),
+    .ar_valid_o    (ot_axi_req.ar_valid),
+    .ar_ready_i    (ot_axi_rsp.ar_ready),
+
+   //AXI AW channel
+    .aw_id_o       (ot_axi_req.aw.id),
+    .aw_addr_o     (ot_axi_req.aw.addr),
+    .aw_len_o      (ot_axi_req.aw.len),
+    .aw_size_o     (ot_axi_req.aw.size),
+    .aw_burst_o    (ot_axi_req.aw.burst),
+    .aw_lock_o     (ot_axi_req.aw.lock),
+    .aw_cache_o    (ot_axi_req.aw.cache),
+    .aw_prot_o     (ot_axi_req.aw.prot),
+    .aw_qos_o      (ot_axi_req.aw.qos),
+    .aw_region_o   (ot_axi_req.aw.region),
+    .aw_atop_o     (ot_axi_req.aw.atop),
+    .aw_user_o     (ot_axi_req.aw.user),
+    .aw_valid_o    (ot_axi_req.aw_valid),
+    .aw_ready_i    (ot_axi_rsp.aw_ready),
+		     
+
+   //AXI W channel
+    .w_data_o      (ot_axi_req.w.data),
+    .w_strb_o      (ot_axi_req.w.strb),
+    .w_last_o      (ot_axi_req.w.last),
+    .w_user_o      (ot_axi_req.w.user),
+    .w_valid_o     (ot_axi_req.w_valid),
+    .w_ready_i     (ot_axi_rsp.w_ready),
+
+   //AXI B channel
+    .b_id_i        (ot_axi_rsp.b.id),
+    .b_resp_i      (ot_axi_rsp.b.resp),
+    .b_user_i      (ot_axi_rsp.b.user),
+    .b_valid_i     (ot_axi_rsp.b_valid),
+    .b_ready_o     (ot_axi_req.b_ready),
+
+   //AXI R channel
+    .r_id_i        (ot_axi_rsp.r.id),
+    .r_data_i      (ot_axi_rsp.r.data),
+    .r_resp_i      (ot_axi_rsp.r.resp),
+    .r_last_i      (ot_axi_rsp.r.last),
+    .r_user_i      (ot_axi_rsp.r.user),
+    .r_valid_i     (ot_axi_rsp.r_valid),
+    .r_ready_o     (ot_axi_req.r_ready)
+  );
+
+ 
   localparam int unsigned ENTRIES = 32;
  
    axi_tlb_intf #(

@@ -88,3 +88,4 @@ xrun_results/
 /hardware/fpga/board_readme.md
 /hardware/fpga/vivado_pid132899.str
 /software/hello/hello.riscv~
+/hardware/gf22/
