@@ -905,9 +905,9 @@ module al_saqr
   */
 
     opentitan_synth_wrap #(
-    .axi_req_t  (axi_ot_req_t),
-    .axi_resp_t (axi_ot_resp_t)
-  ) u_Root_of_Trust (
+    //.axi_req_t  (axi_ot_req_t),
+    //.axi_resp_t (axi_ot_resp_t)
+  ) i_RoT_wrap (
                   
     .clk_i(s_soc_clk),
     .por_n_i(s_rst_ni),

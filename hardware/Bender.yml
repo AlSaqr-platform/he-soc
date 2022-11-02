@@ -123,10 +123,12 @@ sources:
 
   - target: top_post_synth_sim
     files:
-      - gf22/synopsys/hyperbus/trial4_08_03_2022/netlists/hyperbus_async_macro.v
-      - gf22/synopsys/cva6/trial4_08_03_2022/netlists/cva6_synth_wrap.v
-      - gf22/synopsys/cluster/trial4_08_03_2022/netlists/pulp_cluster.v
-      - gf22/synopsys/trial_hier/netlists/alsaqr_chip.v
+      - gf22/synopsys/hyperbus/trial/netlists/hyperbus_async_macro.v
+      - gf22/synopsys/cva6/trial/netlists/cva6_synth_wrap.v
+      - gf22/synopsys/opentitan/trial/netlists/opentitan_synth_wrap.v
+      - gf22/synopsys/cluster/trial/netlists/pulp_cluster.v
+      - gf22/synopsys/top/trial/netlists/alsaqr_chip.v
+   
       
   - target: vip
     files:
