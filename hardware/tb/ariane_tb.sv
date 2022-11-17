@@ -935,196 +935,59 @@ module ariane_tb;
         axi_test::axi_w_beat  #(.DW(AxiDw ), .UW(1))              w_beat  = new();
         axi_test::axi_b_beat  #(.IW(AxiIw ), .UW(1))              b_beat  = new();
 
-        // DDR link ext clock
         initial begin
-          clk = 1'b0;
+            ddr_axi_master_drv.reset_master();
+            @(posedge pad_periphs_pad_gpio_b_00_pad);
+                #(1ms)
+                 write_axi('h1C000000, 4090, 3, AXI_WRITE_DATA, 'hffff);
         end
-        always begin
-          // Emit rising clock edge.
-          clk = 1'b1;
-          // Wait for at most half the clock period before emitting falling clock edge.  Due to integer
-          // division, this is not always exactly half the clock period but as close as we can get.
-          #(TckDdr / 2);
-          // Emit falling clock edge.
-          clk = 1'b0;
-          // Wait for remainder of clock period before continuing with next cycle.
-          #((TckDdr + 1) / 2);
-        end
-        assign ddr_ext_clk = clk;
 
-        AXI_BUS #(
-          .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-          .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
-          .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-          .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-        ) ddr_axi_master();
+        // -------------------------- Regbus driver --------------------------
 
-        AXI_BUS #(
-          .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
-          .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
-          .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
-          .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
-        ) ddr_axi_slave();
 
-        `AXI_ASSIGN_FROM_REQ(ddr_axi_slave, ddr_1_out_req)
-        `AXI_ASSIGN_TO_RESP(ddr_1_out_rsp, ddr_axi_slave)
+        logic [AxiDw-1:0] trans_wdata;
+        logic [AxiDw-1:0] trans_rdata;
+        axi_addr_t    temp_waddr;
+        axi_addr_t    temp_raddr;
+        logic [4:0]   last_waddr;
+        logic [4:0]   last_raddr;
+        typedef logic [AxiDw-1:0] data_t;   
 
-        `AXI_ASSIGN_TO_REQ(ddr_1_in_req, ddr_axi_master )
-        `AXI_ASSIGN_FROM_RESP(ddr_axi_master, ddr_1_in_rsp )
-       
-        // first serial instance
-        serial_link #(
-          .axi_req_t        ( ariane_axi_soc::req_t     ),
-          .axi_rsp_t        ( ariane_axi_soc::resp_t    ),
-          .aw_chan_t        ( ariane_axi_soc::aw_chan_t ),
-          .ar_chan_t        ( ariane_axi_soc::ar_chan_t ),
-          .cfg_req_t        ( reg_req_t ),
-          .cfg_rsp_t        ( reg_rsp_t )
-        ) i_serial_link_out (
-            .clk_i          ( s_tck ),
-            .rst_ni         ( rst_ni ),
-            .testmode_i     ( 1'b0   ),
-           
-            .axi_in_req_i   ( ddr_1_in_req ), //slv -> mst axi
-            .axi_in_rsp_o   ( ddr_1_in_rsp ), //slv -> mst axi
+        data_t        memory[bit [31:0]];
+        int           read_index = 0;
+        int           write_index = 0;
+        
+        
+        reg_req_t   reg_req;
+        reg_rsp_t   reg_rsp;
 
-            .axi_out_req_o  ( ddr_1_out_req ), //mst -> slv axi
-            .axi_out_rsp_i  ( ddr_1_out_rsp ), //mst -> slv axi
-
-            .cfg_req_i      ( ddr_reg_req  ), //apb slave
-            .cfg_rsp_o      ( ddr_reg_rsp  ), //apb slave
-            
-            .ddr_clk_i      ( ddr_clk ),
-            .ddr_i          ( ddr_i ),
-            .ddr_o          ( ddr_o )
+        REG_BUS #(
+            .ADDR_WIDTH( RegAw ),
+            .DATA_WIDTH( RegDw )
+        ) i_rbus (
+            .clk_i (s_tck)
         );
+        
+        integer fr, fw;
 
-        axi2mem #(
-          .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-          .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH ),
-          .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
-          .AXI_USER_WIDTH ( AXI_USER_WIDTH )
-        ) i_axi2rom (
-          .clk_i  ( s_tck ),
-          .rst_ni ( rst_ni ),
-          .slave  ( ddr_axi_slave ), //from serial link mst port (slv)
-          .req_o  ( req_to_mem  ), //to mem
-          .we_o   ( mem_we_o    ),
-          .addr_o ( mem_addr_o  ),
-          .be_o   ( mem_strb_o  ),
-          .data_o ( mem_wdata_o ),
+        reg_test::reg_driver #(
+            .AW ( RegAw  ),
+            .DW ( RegDw  ),
+            .TA(REFClockPeriod*0.1),
+            .TT(REFClockPeriod*0.9)
+        ) i_rmaster = new( i_rbus );
 
-          .data_i ( mem_rdata_o ) //from mem
-        );
+        assign reg_req = reg_req_t'{
+            addr:   i_rbus.addr,
+            write:  i_rbus.write,
+            wdata:  i_rbus.wdata,
+            wstrb:  i_rbus.wstrb,
+            valid:  i_rbus.valid
+        };
 
-        tc_sram #(
-          .SimInit   ( "random"            ),
-          .NumWords  ( L2_BANK_SIZE        ), // 2^15 lines of 32 bits each (128kB), 4 Banks -> 512 kB total memory
-          .DataWidth ( AXI_DATA_WIDTH      ),
-          .NumPorts  ( 1                   )
-        ) slink_mem (
-          .clk_i   ( s_tck ),
-          .rst_ni  ( rst_ni      ),
-          .req_i   ( req_to_mem  ),
-          .we_i    ( mem_we_o    ),
-          .addr_i  ( mem_addr_o  ),
-          .wdata_i ( mem_wdata_o ),
-          .be_i    ( mem_strb_o  ),
-          .rdata_o ( mem_rdata_o )
-        );
-
-         // -------------------- DDR AXI drivers --------------------
-
-          localparam AxiAw  = 64;
-          localparam AxiDw  = 64;
-          localparam AxiMaxSize = $clog2(AxiDw/8);
-          localparam AxiIw  = ariane_soc::IdWidthSlave;
-
-          typedef logic [AxiAw-1:0]   axi_addr_t;
-          typedef logic [AxiDw-1:0]   axi_data_t;
-          typedef logic [AxiDw/8-1:0] axi_strb_t;
-          typedef logic [AxiIw-1:0]   axi_id_t;
-
-      
-          AXI_BUS_DV #(
-              .AXI_ADDR_WIDTH(AxiAw ),
-              .AXI_DATA_WIDTH(AxiDw ),
-              .AXI_ID_WIDTH  (AxiIw ),
-              .AXI_USER_WIDTH(1     )
-          ) axi_dv(s_tck);
-
-          `AXI_ASSIGN(ddr_axi_master, axi_dv)
-
-          typedef axi_test::axi_driver #(
-              .AW(AxiAw ),
-              .DW(AxiDw ),
-              .IW(AxiIw ),
-              .UW(1),
-              .TA(REFClockPeriod*0.1),
-              .TT(REFClockPeriod*0.9)
-          ) axi_drv_t;
-
-          axi_drv_t ddr_axi_master_drv = new(axi_dv);
-
-          axi_test::axi_ax_beat #(.AW(AxiAw ), .IW(AxiIw ), .UW(1)) ar_beat = new();
-          axi_test::axi_r_beat  #(.DW(AxiDw ), .IW(AxiIw ), .UW(1)) r_beat  = new();
-          axi_test::axi_ax_beat #(.AW(AxiAw ), .IW(AxiIw ), .UW(1)) aw_beat = new();
-          axi_test::axi_w_beat  #(.DW(AxiDw ), .UW(1))              w_beat  = new();
-          axi_test::axi_b_beat  #(.IW(AxiIw ), .UW(1))              b_beat  = new();
-
-          initial begin
-              ddr_axi_master_drv.reset_master();
-              @(posedge pad_periphs_pad_gpio_b_00_pad);
-                  #(1ms)
-                   write_axi('h1C000000, 4090, 3, AXI_WRITE_DATA, 'hffff);
-          end
-
-          // -------------------------- Regbus driver --------------------------
-
-
-          logic [AxiDw-1:0] trans_wdata;
-          logic [AxiDw-1:0] trans_rdata;
-          axi_addr_t    temp_waddr;
-          axi_addr_t    temp_raddr;
-          logic [4:0]   last_waddr;
-          logic [4:0]   last_raddr;
-          typedef logic [AxiDw-1:0] data_t;   
-
-          data_t        memory[bit [31:0]];
-          int           read_index = 0;
-          int           write_index = 0;
-         
-         
-          reg_req_t   reg_req;
-          reg_rsp_t   reg_rsp;
-
-          REG_BUS #(
-              .ADDR_WIDTH( RegAw ),
-              .DATA_WIDTH( RegDw )
-          ) i_rbus (
-              .clk_i (s_tck)
-          );
-          
-          integer fr, fw;
-
-          reg_test::reg_driver #(
-              .AW ( RegAw  ),
-              .DW ( RegDw  ),
-              .TA(REFClockPeriod*0.1),
-              .TT(REFClockPeriod*0.9)
-          ) i_rmaster = new( i_rbus );
-
-          assign reg_req = reg_req_t'{
-              addr:   i_rbus.addr,
-              write:  i_rbus.write,
-              wdata:  i_rbus.wdata,
-              wstrb:  i_rbus.wstrb,
-              valid:  i_rbus.valid
-          };
-
-          assign i_rbus.rdata = reg_rsp.rdata;
-          assign i_rbus.ready = reg_rsp.ready;
-          assign i_rbus.error = reg_rsp.error;
+        assign i_rbus.rdata = reg_rsp.rdata;
+        assign i_rbus.ready = reg_rsp.ready;
+        assign i_rbus.error = reg_rsp.error;
 
         //----------------------- AXI DRIVER TASKS --------------------------
 
