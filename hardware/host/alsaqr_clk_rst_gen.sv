@@ -58,7 +58,7 @@ module alsaqr_clk_rst_gen (
     freq_meter #(.FLL_NAME("PER_FLL"    ), .MAX_SAMPLE(4096)) PER_METER     (.clk(s_clk_fll_per));
     freq_meter #(.FLL_NAME("CLUSTER_FLL"), .MAX_SAMPLE(4096)) CLUSTER_METER (.clk(s_clk_fll_cluster));
     //synopsys translate_on
-    `ifdef TARGET_ASIC
+    `ifdef GF22_FLL
       gf22_FLL i_gf22_fll (         // Clock & reset
     `else
       fll_dummy i_gf22_fll (         // Clock & reset

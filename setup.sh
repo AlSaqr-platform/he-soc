@@ -20,5 +20,3 @@ export PATH=/usr/pack/pulpsdk-1.0-kgf/artifactory/pulp-sdk-release/pkg/pulp_risc
 echo "cloning submodules"
 
 git submodule update --init --recursive
-
-git clone git@github.com:AlSaqr-platform/cluster-runtime.git

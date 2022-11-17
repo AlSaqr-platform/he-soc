@@ -192,7 +192,7 @@ scripts-bender-fpga-ddr: | Bender.lock
 
 scripts-bender-synopsys: | Bender.lock
 	echo 'set ROOT [file normalize [file dirname [info script]]/../../../]' > $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
-	bender script synopsys -t rtl -t synthesis -t asic -t top_level | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
+	bender script synopsys -t rtl -t synthesis -t asic -t top_level --define="EXCLUDE_PADFRAME" | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
 
 scripts:
 	bender script vsim \
@@ -206,8 +206,10 @@ scripts_vip:
 
 post_synth_scripts_vip:
 	bender script vsim \
-		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t top_post_synth_sim -t vip > post_synth_compile.tcl
+		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
+    -t rtl -t test -t asic -t top_post_synth_sim -t vip --define="EXCLUDE_PADFRAME" > post_synth_compile.tcl
+
+## -sdfnoerror -sdfnowarn -sdfmin ./gf22/innovus/cva6/out
 
 benderrun: libbender $(util) $(library)
 	@test -f Bender.lock || { echo "ERROR: Bender.lock file does not exist. Did you run make checkout in bender mode?"; exit 1; }
@@ -244,10 +246,12 @@ generate-trace-vsim:
 	make generate-trace
 
 run:
-	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -lib $(library) +notimingchecks +nospecify +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) -t 1ps \
+	vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -lib $(library)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi  \
 	${top_level}_optimized +permissive-off ++$(elf-bin) ++$(target-options) ++$(cl-bin) | tee sim.log
 
+#	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -lib $(library) +notimingchecks +nospecify +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) -t 1ps \
+#	-sdfnoerror -sdfnowarn  -sdfmin /ariane_tb/dut/i_host_domain/i_cva6_subsystem/i_ariane_wrap=./gf22/innovus/cva6/out/cva6_synth_wrap.sdf.gz +sdf_verbose \
 
 sim: build run
 

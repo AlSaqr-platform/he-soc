@@ -375,15 +375,7 @@ module apb_subsystem
         .pad_to_gpio     ( pad_to_gpio )
     );
 
-   `ifndef TARGET_ASIC
-     assign apb_fll_master_bus.pready  = 1'b1;
-     assign apb_fll_master_bus.prdata  = 32'hdeadcaca;
-     assign apb_fll_master_bus.pslverr = 1'b0;
-     assign fll_master_bus.req = 1'b0;
-     assign fll_master_bus.web = 1'b0;
-     assign fll_master_bus.wdata = '0;
-     assign fll_master_bus.addr  = '0;
-   `else   
+   `ifdef GF22_FLL
      apb_to_fll #(
          .APB_ADDR_WIDTH (32)
      ) i_apb_fll (
@@ -392,6 +384,14 @@ module apb_subsystem
         .apb      ( apb_fll_master_bus ),
         .fll_intf ( fll_master_bus     )
      );
+   `else
+     assign apb_fll_master_bus.pready  = 1'b1;
+     assign apb_fll_master_bus.prdata  = 32'hdeadcaca;
+     assign apb_fll_master_bus.pslverr = 1'b0;
+     assign fll_master_bus.req = 1'b0;
+     assign fll_master_bus.web = 1'b0;
+     assign fll_master_bus.wdata = '0;
+     assign fll_master_bus.addr  = '0;
    `endif
 
     alsaqr_clk_rst_gen i_alsaqr_clk_rst_gen   

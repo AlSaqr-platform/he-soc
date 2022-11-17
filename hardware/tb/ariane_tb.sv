@@ -26,6 +26,9 @@ import ariane_soc::NumChipsPerHyperbus;
 `include "register_interface/typedef.svh"
 `include "register_interface/assign.svh"
 
+`define POWER_PROFILE
+`define POWER_CVA6
+
 import "DPI-C" function read_elf(input string filename);
 import "DPI-C" function byte get_section(output longint address, output longint len);
 import "DPI-C" context function byte read_section(input longint address, inout byte buffer[]);
@@ -431,142 +434,145 @@ module ariane_tb;
           .apb_uart_rx_i        ( apb_uart_rx            ),
           .apb_uart_tx_o        ( apb_uart_tx            ),
         
-          .pad_periphs_pad_gpio_b_00_pad(pad_periphs_pad_gpio_b_00_pad),
-          .pad_periphs_pad_gpio_b_01_pad(pad_periphs_pad_gpio_b_01_pad),
-          .pad_periphs_pad_gpio_b_02_pad(pad_periphs_pad_gpio_b_02_pad),
-          .pad_periphs_pad_gpio_b_03_pad(pad_periphs_pad_gpio_b_03_pad),
-          .pad_periphs_pad_gpio_b_04_pad(pad_periphs_pad_gpio_b_04_pad),
-          .pad_periphs_pad_gpio_b_05_pad(pad_periphs_pad_gpio_b_05_pad),
-          .pad_periphs_pad_gpio_b_06_pad(pad_periphs_pad_gpio_b_06_pad),
-          .pad_periphs_pad_gpio_b_07_pad(pad_periphs_pad_gpio_b_07_pad),
-          .pad_periphs_pad_gpio_b_08_pad(pad_periphs_pad_gpio_b_08_pad),
-          .pad_periphs_pad_gpio_b_09_pad(pad_periphs_pad_gpio_b_09_pad),
-          .pad_periphs_pad_gpio_b_10_pad(pad_periphs_pad_gpio_b_10_pad),
-          .pad_periphs_pad_gpio_b_11_pad(pad_periphs_pad_gpio_b_11_pad),
-          .pad_periphs_pad_gpio_b_12_pad(pad_periphs_pad_gpio_b_12_pad),
-          .pad_periphs_pad_gpio_b_13_pad(pad_periphs_pad_gpio_b_13_pad),
+        .pad_hyper_csn        ( hyper_cs_n_wire        ),
+        .pad_hyper_ck         ( hyper_ck_wire          ),
+        .pad_hyper_ckn        ( hyper_ck_n_wire        ),
+        .pad_hyper_rwds       ( hyper_rwds_wire        ),
+        .pad_hyper_reset      ( hyper_reset_n_wire     ),
+        .pad_hyper_dq         ( hyper_dq_wire          )
+        `ifndef EXCLUDE_PADFRAME
+        ,
+        .pad_periphs_pad_gpio_b_00_pad(pad_periphs_pad_gpio_b_00_pad),
+        .pad_periphs_pad_gpio_b_01_pad(pad_periphs_pad_gpio_b_01_pad),
+        .pad_periphs_pad_gpio_b_02_pad(pad_periphs_pad_gpio_b_02_pad),
+        .pad_periphs_pad_gpio_b_03_pad(pad_periphs_pad_gpio_b_03_pad),
+        .pad_periphs_pad_gpio_b_04_pad(pad_periphs_pad_gpio_b_04_pad),
+        .pad_periphs_pad_gpio_b_05_pad(pad_periphs_pad_gpio_b_05_pad),
+        .pad_periphs_pad_gpio_b_06_pad(pad_periphs_pad_gpio_b_06_pad),
+        .pad_periphs_pad_gpio_b_07_pad(pad_periphs_pad_gpio_b_07_pad),
+        .pad_periphs_pad_gpio_b_08_pad(pad_periphs_pad_gpio_b_08_pad),
+        .pad_periphs_pad_gpio_b_09_pad(pad_periphs_pad_gpio_b_09_pad),
+        .pad_periphs_pad_gpio_b_10_pad(pad_periphs_pad_gpio_b_10_pad),
+        .pad_periphs_pad_gpio_b_11_pad(pad_periphs_pad_gpio_b_11_pad),
+        .pad_periphs_pad_gpio_b_12_pad(pad_periphs_pad_gpio_b_12_pad),
+        .pad_periphs_pad_gpio_b_13_pad(pad_periphs_pad_gpio_b_13_pad),
         
-          `ifndef FPGA_EMUL
-            `ifndef SIMPLE_PADFRAME
-              .pad_periphs_pad_gpio_b_14_pad(),
-              .pad_periphs_pad_gpio_b_15_pad(),
-              .pad_periphs_pad_gpio_b_16_pad(),
-              .pad_periphs_pad_gpio_b_17_pad(),
-              .pad_periphs_pad_gpio_b_18_pad(),
-              .pad_periphs_pad_gpio_b_19_pad(),
-              .pad_periphs_pad_gpio_b_20_pad(),
-              .pad_periphs_pad_gpio_b_21_pad(),
-              .pad_periphs_pad_gpio_b_22_pad(),
-              .pad_periphs_pad_gpio_b_23_pad(),
-              .pad_periphs_pad_gpio_b_24_pad(),
-              .pad_periphs_pad_gpio_b_25_pad(),
-              .pad_periphs_pad_gpio_b_26_pad(),
-              .pad_periphs_pad_gpio_b_27_pad(),
-              .pad_periphs_pad_gpio_b_28_pad(),
-              .pad_periphs_pad_gpio_b_29_pad(),
-              .pad_periphs_pad_gpio_b_30_pad(),
-              .pad_periphs_pad_gpio_b_31_pad(),
-              .pad_periphs_pad_gpio_b_32_pad(),
-              .pad_periphs_pad_gpio_b_33_pad(),
-              .pad_periphs_pad_gpio_b_34_pad(pad_periphs_pad_gpio_b_34_pad),
-              .pad_periphs_pad_gpio_b_35_pad(pad_periphs_pad_gpio_b_35_pad),
-              .pad_periphs_pad_gpio_b_36_pad(pad_periphs_pad_gpio_b_36_pad),
-              .pad_periphs_pad_gpio_b_37_pad(pad_periphs_pad_gpio_b_37_pad),
-              .pad_periphs_pad_gpio_b_38_pad(pad_periphs_pad_gpio_b_38_pad),
-              .pad_periphs_pad_gpio_b_39_pad(pad_periphs_pad_gpio_b_39_pad),
-              .pad_periphs_pad_gpio_b_40_pad(pad_periphs_pad_gpio_b_40_pad),
-              .pad_periphs_pad_gpio_b_41_pad(pad_periphs_pad_gpio_b_41_pad),
-              .pad_periphs_pad_gpio_b_42_pad(),
-              .pad_periphs_pad_gpio_b_43_pad(),
-              .pad_periphs_pad_gpio_b_44_pad(pad_periphs_pad_gpio_b_44_pad),
-              .pad_periphs_pad_gpio_b_45_pad(pad_periphs_pad_gpio_b_45_pad),
-              .pad_periphs_pad_gpio_b_46_pad(pad_periphs_pad_gpio_b_46_pad),
-              .pad_periphs_pad_gpio_b_47_pad(),
-              .pad_periphs_pad_gpio_b_48_pad(),
-              .pad_periphs_pad_gpio_b_49_pad(),
-              .pad_periphs_pad_gpio_b_50_pad(pad_periphs_pad_gpio_b_50_pad),
-              .pad_periphs_pad_gpio_b_51_pad(pad_periphs_pad_gpio_b_51_pad),
-              .pad_periphs_pad_gpio_b_52_pad(),
-              .pad_periphs_pad_gpio_b_53_pad(),
-              .pad_periphs_pad_gpio_b_54_pad(),
-              .pad_periphs_pad_gpio_b_55_pad(),
-              .pad_periphs_pad_gpio_b_56_pad(pad_periphs_pad_gpio_b_56_pad),
-              .pad_periphs_pad_gpio_b_57_pad(pad_periphs_pad_gpio_b_57_pad),
+        `ifndef FPGA_EMUL
+          `ifndef SIMPLE_PADFRAME
+            .pad_periphs_pad_gpio_b_14_pad(),
+            .pad_periphs_pad_gpio_b_15_pad(),
+            .pad_periphs_pad_gpio_b_16_pad(),
+            .pad_periphs_pad_gpio_b_17_pad(),
+            .pad_periphs_pad_gpio_b_18_pad(),
+            .pad_periphs_pad_gpio_b_19_pad(),
+            .pad_periphs_pad_gpio_b_20_pad(),
+            .pad_periphs_pad_gpio_b_21_pad(),
+            .pad_periphs_pad_gpio_b_22_pad(),
+            .pad_periphs_pad_gpio_b_23_pad(),
+            .pad_periphs_pad_gpio_b_24_pad(),
+            .pad_periphs_pad_gpio_b_25_pad(),
+            .pad_periphs_pad_gpio_b_26_pad(),
+            .pad_periphs_pad_gpio_b_27_pad(),
+            .pad_periphs_pad_gpio_b_28_pad(),
+            .pad_periphs_pad_gpio_b_29_pad(),
+            .pad_periphs_pad_gpio_b_30_pad(),
+            .pad_periphs_pad_gpio_b_31_pad(),
+            .pad_periphs_pad_gpio_b_32_pad(),
+            .pad_periphs_pad_gpio_b_33_pad(),
+            .pad_periphs_pad_gpio_b_34_pad(pad_periphs_pad_gpio_b_34_pad),
+            .pad_periphs_pad_gpio_b_35_pad(pad_periphs_pad_gpio_b_35_pad),
+            .pad_periphs_pad_gpio_b_36_pad(pad_periphs_pad_gpio_b_36_pad),
+            .pad_periphs_pad_gpio_b_37_pad(pad_periphs_pad_gpio_b_37_pad),
+            .pad_periphs_pad_gpio_b_38_pad(pad_periphs_pad_gpio_b_38_pad),
+            .pad_periphs_pad_gpio_b_39_pad(pad_periphs_pad_gpio_b_39_pad),
+            .pad_periphs_pad_gpio_b_40_pad(pad_periphs_pad_gpio_b_40_pad),
+            .pad_periphs_pad_gpio_b_41_pad(pad_periphs_pad_gpio_b_41_pad),
+            .pad_periphs_pad_gpio_b_42_pad(),
+            .pad_periphs_pad_gpio_b_43_pad(),
+            .pad_periphs_pad_gpio_b_44_pad(pad_periphs_pad_gpio_b_44_pad),
+            .pad_periphs_pad_gpio_b_45_pad(pad_periphs_pad_gpio_b_45_pad),
+            .pad_periphs_pad_gpio_b_46_pad(pad_periphs_pad_gpio_b_46_pad),
+            .pad_periphs_pad_gpio_b_47_pad(),
+            .pad_periphs_pad_gpio_b_48_pad(),
+            .pad_periphs_pad_gpio_b_49_pad(),
+            .pad_periphs_pad_gpio_b_50_pad(pad_periphs_pad_gpio_b_50_pad),
+            .pad_periphs_pad_gpio_b_51_pad(pad_periphs_pad_gpio_b_51_pad),
+            .pad_periphs_pad_gpio_b_52_pad(),
+            .pad_periphs_pad_gpio_b_53_pad(),
+            .pad_periphs_pad_gpio_b_54_pad(),
+            .pad_periphs_pad_gpio_b_55_pad(),
+            .pad_periphs_pad_gpio_b_56_pad(pad_periphs_pad_gpio_b_56_pad),
+            .pad_periphs_pad_gpio_b_57_pad(pad_periphs_pad_gpio_b_57_pad),
 
-              .pad_periphs_pad_gpio_c_00_pad(),
-              .pad_periphs_pad_gpio_c_01_pad(),
-              .pad_periphs_pad_gpio_c_02_pad(),
-              .pad_periphs_pad_gpio_c_03_pad(),
+            .pad_periphs_pad_gpio_c_00_pad(),
+            .pad_periphs_pad_gpio_c_01_pad(),
+            .pad_periphs_pad_gpio_c_02_pad(),
+            .pad_periphs_pad_gpio_c_03_pad(),
 
-              .pad_periphs_pad_gpio_d_00_pad(pad_periphs_pad_gpio_d_00_pad),
-              .pad_periphs_pad_gpio_d_01_pad(pad_periphs_pad_gpio_d_01_pad),
-              .pad_periphs_pad_gpio_d_02_pad(pad_periphs_pad_gpio_d_02_pad),
-              .pad_periphs_pad_gpio_d_03_pad(pad_periphs_pad_gpio_d_03_pad),
-              .pad_periphs_pad_gpio_d_04_pad(pad_periphs_pad_gpio_d_04_pad),
-              .pad_periphs_pad_gpio_d_05_pad(pad_periphs_pad_gpio_d_05_pad),
-              .pad_periphs_pad_gpio_d_06_pad(pad_periphs_pad_gpio_d_06_pad),
-              .pad_periphs_pad_gpio_d_07_pad(pad_periphs_pad_gpio_d_07_pad),
-              .pad_periphs_pad_gpio_d_08_pad(pad_periphs_pad_gpio_d_08_pad),
-              .pad_periphs_pad_gpio_d_09_pad(pad_periphs_pad_gpio_d_09_pad),
-              .pad_periphs_pad_gpio_d_10_pad(pad_periphs_pad_gpio_d_10_pad),
+            .pad_periphs_pad_gpio_d_00_pad(pad_periphs_pad_gpio_d_00_pad),
+            .pad_periphs_pad_gpio_d_01_pad(pad_periphs_pad_gpio_d_01_pad),
+            .pad_periphs_pad_gpio_d_02_pad(pad_periphs_pad_gpio_d_02_pad),
+            .pad_periphs_pad_gpio_d_03_pad(pad_periphs_pad_gpio_d_03_pad),
+            .pad_periphs_pad_gpio_d_04_pad(pad_periphs_pad_gpio_d_04_pad),
+            .pad_periphs_pad_gpio_d_05_pad(pad_periphs_pad_gpio_d_05_pad),
+            .pad_periphs_pad_gpio_d_06_pad(pad_periphs_pad_gpio_d_06_pad),
+            .pad_periphs_pad_gpio_d_07_pad(pad_periphs_pad_gpio_d_07_pad),
+            .pad_periphs_pad_gpio_d_08_pad(pad_periphs_pad_gpio_d_08_pad),
+            .pad_periphs_pad_gpio_d_09_pad(pad_periphs_pad_gpio_d_09_pad),
+            .pad_periphs_pad_gpio_d_10_pad(pad_periphs_pad_gpio_d_10_pad),
 
-              .pad_periphs_pad_gpio_e_00_pad(),
-              .pad_periphs_pad_gpio_e_01_pad(),
-              .pad_periphs_pad_gpio_e_02_pad(),
-              .pad_periphs_pad_gpio_e_03_pad(),
-              .pad_periphs_pad_gpio_e_04_pad(),
-              .pad_periphs_pad_gpio_e_05_pad(),
-              .pad_periphs_pad_gpio_e_06_pad(),
-              .pad_periphs_pad_gpio_e_07_pad(),
-              .pad_periphs_pad_gpio_e_08_pad(),
-              .pad_periphs_pad_gpio_e_09_pad(),
-              .pad_periphs_pad_gpio_e_10_pad(),
-              .pad_periphs_pad_gpio_e_11_pad(),
-              .pad_periphs_pad_gpio_e_12_pad(),
+            .pad_periphs_pad_gpio_e_00_pad(),
+            .pad_periphs_pad_gpio_e_01_pad(),
+            .pad_periphs_pad_gpio_e_02_pad(),
+            .pad_periphs_pad_gpio_e_03_pad(),
+            .pad_periphs_pad_gpio_e_04_pad(),
+            .pad_periphs_pad_gpio_e_05_pad(),
+            .pad_periphs_pad_gpio_e_06_pad(),
+            .pad_periphs_pad_gpio_e_07_pad(),
+            .pad_periphs_pad_gpio_e_08_pad(),
+            .pad_periphs_pad_gpio_e_09_pad(),
+            .pad_periphs_pad_gpio_e_10_pad(),
+            .pad_periphs_pad_gpio_e_11_pad(),
+            .pad_periphs_pad_gpio_e_12_pad(),
 
-              .pad_periphs_pad_gpio_f_00_pad(),
-              .pad_periphs_pad_gpio_f_01_pad(pad_periphs_pad_gpio_f_01_pad),
-              .pad_periphs_pad_gpio_f_02_pad(pad_periphs_pad_gpio_f_02_pad),
-              .pad_periphs_pad_gpio_f_03_pad(pad_periphs_pad_gpio_f_03_pad),
-              .pad_periphs_pad_gpio_f_04_pad(pad_periphs_pad_gpio_f_04_pad),
-              .pad_periphs_pad_gpio_f_05_pad(pad_periphs_pad_gpio_f_05_pad),
-              .pad_periphs_pad_gpio_f_06_pad(pad_periphs_pad_gpio_f_06_pad),
-              .pad_periphs_pad_gpio_f_07_pad(),
-              .pad_periphs_pad_gpio_f_08_pad(),
-              .pad_periphs_pad_gpio_f_09_pad(),
-              .pad_periphs_pad_gpio_f_10_pad(),
-              .pad_periphs_pad_gpio_f_11_pad(),
-              .pad_periphs_pad_gpio_f_12_pad(),
-              .pad_periphs_pad_gpio_f_13_pad(),
-              .pad_periphs_pad_gpio_f_14_pad(),
-              .pad_periphs_pad_gpio_f_15_pad(),
-              .pad_periphs_pad_gpio_f_16_pad(),
-              .pad_periphs_pad_gpio_f_17_pad( pad_periphs_pad_gpio_f_17_pad ),
-              .pad_periphs_pad_gpio_f_18_pad( pad_periphs_pad_gpio_f_18_pad ),
-              .pad_periphs_pad_gpio_f_19_pad( pad_periphs_pad_gpio_f_19_pad ),
-              .pad_periphs_pad_gpio_f_20_pad( pad_periphs_pad_gpio_f_20_pad ),
-              .pad_periphs_pad_gpio_f_21_pad( pad_periphs_pad_gpio_f_21_pad ),
-              .pad_periphs_pad_gpio_f_22_pad( pad_periphs_pad_gpio_f_22_pad ),
-              .pad_periphs_pad_gpio_f_23_pad( pad_periphs_pad_gpio_f_23_pad ),       
-              .pad_periphs_pad_gpio_f_24_pad( pad_periphs_pad_gpio_f_24_pad ),
-              .pad_periphs_pad_gpio_f_25_pad( pad_periphs_pad_gpio_f_25_pad ),
+            .pad_periphs_pad_gpio_f_00_pad(),
+            .pad_periphs_pad_gpio_f_01_pad(pad_periphs_pad_gpio_f_01_pad),
+            .pad_periphs_pad_gpio_f_02_pad(pad_periphs_pad_gpio_f_02_pad),
+            .pad_periphs_pad_gpio_f_03_pad(pad_periphs_pad_gpio_f_03_pad),
+            .pad_periphs_pad_gpio_f_04_pad(pad_periphs_pad_gpio_f_04_pad),
+            .pad_periphs_pad_gpio_f_05_pad(pad_periphs_pad_gpio_f_05_pad),
+            .pad_periphs_pad_gpio_f_06_pad(pad_periphs_pad_gpio_f_06_pad),
+            .pad_periphs_pad_gpio_f_07_pad(),
+            .pad_periphs_pad_gpio_f_08_pad(),
+            .pad_periphs_pad_gpio_f_09_pad(),
+            .pad_periphs_pad_gpio_f_10_pad(),
+            .pad_periphs_pad_gpio_f_11_pad(),
+            .pad_periphs_pad_gpio_f_12_pad(),
+            .pad_periphs_pad_gpio_f_13_pad(),
+            .pad_periphs_pad_gpio_f_14_pad(),
+            .pad_periphs_pad_gpio_f_15_pad(),
+            .pad_periphs_pad_gpio_f_16_pad(),
+            .pad_periphs_pad_gpio_f_17_pad( pad_periphs_pad_gpio_f_17_pad ),
+            .pad_periphs_pad_gpio_f_18_pad( pad_periphs_pad_gpio_f_18_pad ),
+            .pad_periphs_pad_gpio_f_19_pad( pad_periphs_pad_gpio_f_19_pad ),
+            .pad_periphs_pad_gpio_f_20_pad( pad_periphs_pad_gpio_f_20_pad ),
+            .pad_periphs_pad_gpio_f_21_pad( pad_periphs_pad_gpio_f_21_pad ),
+            .pad_periphs_pad_gpio_f_22_pad( pad_periphs_pad_gpio_f_22_pad ),
+            .pad_periphs_pad_gpio_f_23_pad( pad_periphs_pad_gpio_f_23_pad ),       
+            .pad_periphs_pad_gpio_f_24_pad( pad_periphs_pad_gpio_f_24_pad ),
+            .pad_periphs_pad_gpio_f_25_pad( pad_periphs_pad_gpio_f_25_pad ),
 
-              .pad_periphs_pad_gpio_pwm0_pad(),
-              .pad_periphs_pad_gpio_pwm1_pad(),
-              .pad_periphs_pad_gpio_pwm2_pad(),
-              .pad_periphs_pad_gpio_pwm3_pad(),
-              .pad_periphs_pad_gpio_pwm4_pad(),
-              .pad_periphs_pad_gpio_pwm5_pad(),
-              .pad_periphs_pad_gpio_pwm6_pad(),
-              .pad_periphs_pad_gpio_pwm7_pad(),
+            .pad_periphs_pad_gpio_pwm0_pad(),
+            .pad_periphs_pad_gpio_pwm1_pad(),
+            .pad_periphs_pad_gpio_pwm2_pad(),
+            .pad_periphs_pad_gpio_pwm3_pad(),
+            .pad_periphs_pad_gpio_pwm4_pad(),
+            .pad_periphs_pad_gpio_pwm5_pad(),
+            .pad_periphs_pad_gpio_pwm6_pad(),
+            .pad_periphs_pad_gpio_pwm7_pad()
             `endif
           `endif
-          .pad_hyper_csn        ( hyper_cs_n_wire        ),
-          .pad_hyper_ck         ( hyper_ck_wire          ),
-          .pad_hyper_ckn        ( hyper_ck_n_wire        ),
-          .pad_hyper_rwds       ( hyper_rwds_wire        ),
-          .pad_hyper_reset      ( hyper_reset_n_wire     ),
-          .pad_hyper_dq         ( hyper_dq_wire          )   
+        `endif
    );
 
    if (USE_UART == 1) begin
@@ -791,6 +797,143 @@ module ariane_tb;
         assign ddr_i[3] = pad_periphs_pad_gpio_f_25_pad;
 
         assign ddr_clk = pad_periphs_pad_gpio_b_00_pad==1 ? ddr_ext_clk : 0; 
+
+      // DDR link ext clock
+      initial begin
+        clk = 1'b0;
+      end
+      always begin
+        // Emit rising clock edge.
+        clk = 1'b1;
+        // Wait for at most half the clock period before emitting falling clock edge.  Due to integer
+        // division, this is not always exactly half the clock period but as close as we can get.
+        #(TckDdr / 2);
+        // Emit falling clock edge.
+        clk = 1'b0;
+        // Wait for remainder of clock period before continuing with next cycle.
+        #((TckDdr + 1) / 2);
+      end
+      assign ddr_ext_clk = clk;
+
+      AXI_BUS #(
+        .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+        .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+        .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+        .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+      ) ddr_axi_master();
+
+      AXI_BUS #(
+        .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+        .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
+        .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+        .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
+      ) ddr_axi_slave();
+
+      `AXI_ASSIGN_FROM_REQ(ddr_axi_slave, ddr_1_out_req)
+      `AXI_ASSIGN_TO_RESP(ddr_1_out_rsp, ddr_axi_slave)
+
+      `AXI_ASSIGN_TO_REQ(ddr_1_in_req, ddr_axi_master )
+      `AXI_ASSIGN_FROM_RESP(ddr_axi_master, ddr_1_in_rsp )
+     
+      // first serial instance
+      serial_link #(
+        .axi_req_t        ( ariane_axi_soc::req_t     ),
+        .axi_rsp_t        ( ariane_axi_soc::resp_t    ),
+        .aw_chan_t        ( ariane_axi_soc::aw_chan_t ),
+        .ar_chan_t        ( ariane_axi_soc::ar_chan_t ),
+        .cfg_req_t        ( reg_req_t ),
+        .cfg_rsp_t        ( reg_rsp_t )
+      ) i_serial_link_out (
+          .clk_i          ( s_tck ),
+          .rst_ni         ( rst_ni ),
+          .testmode_i     ( 1'b0   ),
+         
+          .axi_in_req_i   ( ddr_1_in_req ), //slv -> mst axi
+          .axi_in_rsp_o   ( ddr_1_in_rsp ), //slv -> mst axi
+
+          .axi_out_req_o  ( ddr_1_out_req ), //mst -> slv axi
+          .axi_out_rsp_i  ( ddr_1_out_rsp ), //mst -> slv axi
+
+          .cfg_req_i      ( ddr_reg_req  ), //apb slave
+          .cfg_rsp_o      ( ddr_reg_rsp  ), //apb slave
+          
+          .ddr_clk_i      ( ddr_clk ),
+          .ddr_i          ( ddr_i ),
+          .ddr_o          ( ddr_o )
+      );
+
+      axi2mem #(
+        .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+        .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH ),
+        .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
+        .AXI_USER_WIDTH ( AXI_USER_WIDTH )
+      ) i_axi2rom (
+        .clk_i  ( s_tck ),
+        .rst_ni ( rst_ni ),
+        .slave  ( ddr_axi_slave ), //from serial link mst port (slv)
+        .req_o  ( req_to_mem  ), //to mem
+        .we_o   ( mem_we_o    ),
+        .addr_o ( mem_addr_o  ),
+        .be_o   ( mem_strb_o  ),
+        .data_o ( mem_wdata_o ),
+
+        .data_i ( mem_rdata_o ) //from mem
+      );
+
+      tc_sram #(
+        .SimInit   ( "random"            ),
+        .NumWords  ( L2_BANK_SIZE        ), // 2^15 lines of 32 bits each (128kB), 4 Banks -> 512 kB total memory
+        .DataWidth ( AXI_DATA_WIDTH      ),
+        .NumPorts  ( 1                   )
+      ) slink_mem (
+        .clk_i   ( s_tck            ),
+        .rst_ni  ( rst_ni           ),
+        .req_i   ( req_to_mem       ),
+        .we_i    ( mem_we_o         ),
+        .addr_i  ( mem_addr_o[10:0] ),
+        .wdata_i ( mem_wdata_o      ),
+        .be_i    ( mem_strb_o       ),
+        .rdata_o ( mem_rdata_o      )
+      );
+
+       // -------------------- DDR AXI drivers --------------------
+
+        localparam AxiAw  = 64;
+        localparam AxiDw  = 64;
+        localparam AxiMaxSize = $clog2(AxiDw/8);
+        localparam AxiIw  = ariane_soc::IdWidthSlave;
+
+        typedef logic [AxiAw-1:0]   axi_addr_t;
+        typedef logic [AxiDw-1:0]   axi_data_t;
+        typedef logic [AxiDw/8-1:0] axi_strb_t;
+        typedef logic [AxiIw-1:0]   axi_id_t;
+
+    
+        AXI_BUS_DV #(
+            .AXI_ADDR_WIDTH(AxiAw ),
+            .AXI_DATA_WIDTH(AxiDw ),
+            .AXI_ID_WIDTH  (AxiIw ),
+            .AXI_USER_WIDTH(1     )
+        ) axi_dv(s_tck);
+
+        `AXI_ASSIGN(ddr_axi_master, axi_dv)
+
+        typedef axi_test::axi_driver #(
+            .AW(AxiAw ),
+            .DW(AxiDw ),
+            .IW(AxiIw ),
+            .UW(1),
+            .TA(REFClockPeriod*0.1),
+            .TT(REFClockPeriod*0.9)
+        ) axi_drv_t;
+
+        axi_drv_t ddr_axi_master_drv = new(axi_dv);
+
+        axi_test::axi_ax_beat #(.AW(AxiAw ), .IW(AxiIw ), .UW(1)) ar_beat = new();
+        axi_test::axi_r_beat  #(.DW(AxiDw ), .IW(AxiIw ), .UW(1)) r_beat  = new();
+        axi_test::axi_ax_beat #(.AW(AxiAw ), .IW(AxiIw ), .UW(1)) aw_beat = new();
+        axi_test::axi_w_beat  #(.DW(AxiDw ), .UW(1))              w_beat  = new();
+        axi_test::axi_b_beat  #(.IW(AxiIw ), .UW(1))              b_beat  = new();
 
         // DDR link ext clock
         initial begin
@@ -1123,6 +1266,33 @@ module ariane_tb;
           
      end // block: hyperrams
    endgenerate
+
+   `ifdef POWER_PROFILE
+   initial begin
+      @( posedge dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o &&
+         dut.i_host_domain.i_l2_subsystem.CUTS[0].bank_i.req_i && 
+         dut.i_host_domain.i_l2_subsystem.CUTS[0].bank_i.addr_i =='0 &&
+         dut.i_host_domain.i_l2_subsystem.CUTS[0].bank_i.wdata_i ==32'heeeeeeee );
+      `ifdef POWER_CVA6
+      $dumpfile("cva6.vcd");
+    	$dumpvars(0, dut.i_host_domain.i_cva6_subsystem.i_ariane_wrap);
+      `elsif POWER_CL
+      $dumpfile("cl.vcd");
+    	$dumpvars(0, dut.cluster_i);
+      `elsif POWER_TOP
+      $dumpfile("top.vcd");
+    	$dumpvars(0, dut);
+      `endif
+    	$dumpon;
+      @( posedge dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o &&
+         dut.i_host_domain.i_l2_subsystem.CUTS[0].bank_i.req_i && 
+         dut.i_host_domain.i_l2_subsystem.CUTS[0].bank_i.addr_i =='0 &&
+         dut.i_host_domain.i_l2_subsystem.CUTS[0].bank_i.wdata_i ==32'heeeeeeee );
+	  $dumpoff;
+   	$dumpflush;
+   end // initial begin
+   `endif //  `ifdef POWER_PROFILE
+   
    
    uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(w_cva6_uart_tx), .tx(w_cva6_uart_rx), .rx_en(1'b1));
    uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart1_bus (.rx(apb_uart_tx), .tx(apb_uart_rx), .rx_en(1'b1));
