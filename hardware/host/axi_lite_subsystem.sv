@@ -163,6 +163,7 @@ module axi_lite_subsystem
     MaxSlvTrans: 4,
     FallThrough: 0,
     LatencyMode: axi_pkg::CUT_SLV_AX,
+    PipelineStages: 32'd0,
     AxiIdWidthSlvPorts: 1,
     AxiIdUsedSlvPorts: 1, 
     UniqueIds   : 0,

@@ -1,2 +1,3 @@
 overrides:
-  axi: { git: "https://github.com/pulp-platform/axi.git" , rev: "9b72c4491f09d599ce2fabb1ee1597692a1ea683" } 
+  axi: { git: "https://github.com/AlSaqr-platform/axi.git" , rev: "8e29e19d31582e7f10259fb429235b6fd563e166" }
+  hyperbus: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "48290f8f44e61c5e51db3f046ef0f23d4bd4e2dc" }
