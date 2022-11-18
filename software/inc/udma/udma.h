@@ -4,6 +4,7 @@
 #include "../../inc/properties.h"
 #include "../memory_map.h"
 #include "../padframe/src/alsaqr_periph_padframe.c"
+#include "../fpga_padframe/src/alsaqr_periph_fpga_padframe.c"
 /*
  * Global register map
  */

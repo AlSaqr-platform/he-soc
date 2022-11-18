@@ -5,8 +5,8 @@ set_property CLOCK_DEDICATED_ROUTE ANY_CMT_COLUMN [get_nets u_ibufg_sys_clk/O]
 
 create_clock -period 6.400 [get_pins u_ddr4_0/c0_ddr4_ui_clk]
 
-#alsaqr clock
-create_clock -period 20  [get_pins  alsaqr_clk_manager/clk_out1]
+#alsaqr FPGA input clock
+create_clock -period 20.000 -name FPGA_ALSQR_CLK [get_pins alsaqr_clk_manager/clk_out1]
 
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  u_ddr4_0/c0_ddr4_ui_clk]]
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_ports c0_sys_clk_p]] 
@@ -120,3 +120,91 @@ set_output_delay -clock clk_sck -max [expr $tsu + $tdata_trace_delay_max -$tclk_
 set_output_delay -clock clk_sck -min [expr $tdata_trace_delay_min -$th -$tclk_trace_delay_max] [get_pins -hierarchical *STARTUP*/DATA_OUT[*]];
 set_multicycle_path 2 -setup -start -from [get_clocks -of_objects [get_pins -hierarchical */ext_spi_clk]] -to clk_sck
 set_multicycle_path 1 -hold -from [get_clocks -of_objects [get_pins -hierarchical */ext_spi_clk]] -to clk_sck
+
+#Constraints defined only for SPI 0 - I2C 0 - UART 0
+
+#######################
+# QSPI MASTER 0       #
+#######################
+
+#define the clocks at the peripheral output
+# SPI MASTER  50MHz
+
+set_dont_touch         [get_cells i_alsaqr/i_host_domain/i_apb_subsystem/i_udma_subsystem/i_spim_gen[0].i_spim/u_clockgen/clk_mux_i]
+set_case_analysis 0    [get_pins  i_alsaqr/i_host_domain/i_apb_subsystem/i_udma_subsystem/i_spim_gen[0].i_spim/u_clockgen/r_clockout_mux_reg/Q]
+create_generated_clock [get_pins  i_alsaqr/i_host_domain/i_apb_subsystem/i_udma_subsystem/i_spim_gen[0].i_spim/u_clockgen/i_clkdiv_cnt/clk_o_reg/Q] -name SPIM_CLK_0 -source [get_pins i_host_domain/i_apb_subsystem/i_alsaqr_clk_rst_gen/i_fpga_clk_gen/per_clk_o] -divide_by 1
+
+set_input_delay  -min -clock SPIM_CLK_0 [ expr 20 * 0.10 ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*spi0*sd* ]
+set_input_delay  -max -clock SPIM_CLK_0 [ expr 20 * 0.20 ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*spi0*sd* ]
+
+set_output_delay -min -clock SPIM_CLK_0 [ expr 20 * 0.10 ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*spi0*sd* ]
+set_output_delay -max -clock SPIM_CLK_0 [ expr 20 * 0.35 ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*spi0*sd* ]
+
+set_output_delay -min -clock SPIM_CLK_0 [ expr 20 * 0.10 ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*spi0*cs* ]
+set_output_delay -max -clock SPIM_CLK_0 [ expr 20 * 0.35 ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*spi0*cs* ]
+
+#################
+## SDIO        ##
+#################
+
+create_generated_clock [get_pins  i_alsaqr/i_host_domain/i_apb_subsystem/i_udma_subsystem/i_sdio_gen[0].i_sdio/u_clockgen/i_clkdiv_cnt/clk_o_reg/Q] \
+                       -name SDIO_CLK_0 \
+                       -source [get_pins i_host_domain/i_apb_subsystem/i_alsaqr_clk_rst_gen/i_fpga_clk_gen/per_clk_o] \
+                       -divide_by 1
+
+# SDIO CLK : OUT
+set_output_delay -min -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*sdio0*clk* ]
+set_output_delay -max -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*sdio0*clk* ]
+
+# SDIO CMD : IN/OUT
+set_output_delay -min -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*sdio0*cmd* ]
+set_output_delay -max -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*sdio0*cmd* ]
+
+set_input_delay -min -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*sdio0*cmd* ]
+set_input_delay -max -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*sdio0*cmd* ]
+
+# SDIO D0-D3 : IN/OUT
+set_output_delay -min -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*sdio0*data0* ]
+set_output_delay -max -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*sdio0*data0* ]
+
+set_input_delay -min -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*sdio0*data0* ]
+set_input_delay -max -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*sdio0*data0* ]
+
+set_output_delay -min -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*sdio0*data1* ]
+set_output_delay -max -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*sdio0*data1* ]
+
+set_input_delay -min -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*sdio0*data1* ]
+set_input_delay -max -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*sdio0*data1* ]
+
+set_output_delay -min -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*sdio0*data2* ]
+set_output_delay -max -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*sdio0*data2* ]
+
+set_input_delay -min -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*sdio0*data2* ]
+set_input_delay -max -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*sdio0*data2* ]
+
+set_output_delay -min -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*sdio0*data3* ]
+set_output_delay -max -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*sdio0*data3* ]
+
+set_input_delay -min -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*sdio0*data3* ]
+set_input_delay -max -clock SDIO_CLK_0 10.000 [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*sdio0*data3* ]
+
+#################
+## I2C 0       ##
+#################
+
+set_output_delay -min -clock FPGA_ALSQR_CLK [ expr 20 * 0.10 ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*i2c0*scl* ]
+set_output_delay -max -clock FPGA_ALSQR_CLK [ expr 20 * 0.35 ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*i2c0*scl* ]
+
+set_output_delay -min -clock FPGA_ALSQR_CLK [ expr 20 * 0.10 ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*i2c0*sda* ]
+set_output_delay -max -clock FPGA_ALSQR_CLK [ expr 20 * 0.35 ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*i2c0*sda* ]
+set_max_delay    [ expr 20 * 0.20 ] -from  [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*i2c0*sda* ]
+
+
+################
+## UART 0     ##
+################
+
+
+set_output_delay -min -clock FPGA_ALSQR_CLK [ expr 20 * 0.10 ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*uart*0*tx* ]
+set_output_delay -max -clock FPGA_ALSQR_CLK [ expr 20 * 0.35 ] [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_soc2pad*uart*0*tx* ]
+set_max_delay    [ expr 20 * 0.50 ] -from  [ get_pins i_alsaqr_periph_padframe/i_periphs/port_signals_pad2soc*uart*0*rx* ]

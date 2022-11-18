@@ -9,12 +9,14 @@ dependencies:
   rv_plic: { path: "deps/rv_plic" }
   util: { path: "deps/util" }
   alsaqr_padframe: { path: "deps/alsaqr_periph_padframe" }
+  alsaqr_fpga_padframe: { path: "deps/alsaqr_periph_fpga_padframe" }
   apb_host_control: { path: "deps/apb_host_control_regs" }
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
   cva6: { git: "git@github.com:minho-pulp/cva6.git", rev: "f2aec221764d935091942edd37c6de2480a41457" }
   riscv-dbg: { git: "git@github.com:Alsaqr-platform/riscv-dbg.git", version: 0.4.1 }
-  axi: { git: "https://github.com/pulp-platform/axi.git", version: "0.29.1" } 
+  axi: { git: "https://github.com/pulp-platform/axi.git", version: "0.29.1" }
+  axi_llc: { git: "https://github.com/AlSaqr-platform/axi_llc.git", rev: "29fd76fb438c91c692108c1f93ab221931653c5d" }
   fpnew: { git: "https://github.com/pulp-platform/fpnew.git", version: 0.6.5 }
   tcdm_interconnect: { git: "https://github.com/pulp-platform/cluster_interconnect.git", version: "1.1.2" }
   axi2tcdm: { git: "https://github.com/AlSaqr-platform/axi2mem.git", rev: "master" }
@@ -30,11 +32,11 @@ dependencies:
   tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.7 }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", rev: "d436ab3dad8260eadc1288bdc543c79b4d7462c7" }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "0e9f142f2f11278445c953ad011fce1c7ed85b66" }
-  hyperbus: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "c1f9a8ceb149896fa3bb90bda7e5f6623667cb86" }
+  hyperbus: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "48290f8f44e61c5e51db3f046ef0f23d4bd4e2dc" }
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", version: 1.0.1 }
   register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
-  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "46fc1b3fa891e193ba256b36ab98a21e90be5768" }
+  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "3a4df2f9709bcf0af396548b603fd15f2d59029d" }
   ddr-link: { git: "git@github.com:AlSaqr-platform/ddr-link.git", rev: "bf77d024f7290d885601d54bf608f29be6982951"}
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", version: 0.0.1 }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
@@ -69,6 +71,7 @@ sources:
   - ../fpga/src/apb_timer/timer.sv
   - host/periph_bus_wrap.sv
   - host/freqmeter.sv
+  - host/fll_dummy.sv
   - host/alsaqr_clk_rst_gen.sv
   - host/apb_soc_control.sv
   - host/apb_subsystem.sv
@@ -120,10 +123,10 @@ sources:
 
   - target: top_post_synth_sim
     files:
-      - gf22/synopsys/hyperbus/trial4_08_03_2022/netlists/hyperbus_async_macro.v
-      - gf22/synopsys/cva6/trial4_08_03_2022/netlists/cva6_synth_wrap.v
-      - gf22/synopsys/cluster/trial4_08_03_2022/netlists/pulp_cluster.v
-      - gf22/synopsys/trial_hier/netlists/alsaqr_chip.v
+      - gf22/innovus/hyperbus/out/hyperbus_async_macro.v
+      - gf22/innovus/cva6/out/cva6_synth_wrap.v
+      - gf22/innovus/cluster/out/pulp_cluster.v
+      - gf22/innovus/trial_hier/out/alsaqr_chip.v
       
   - target: vip
     files:
@@ -137,7 +140,6 @@ sources:
       
   - target: test
     files:
-      - host/fll_dummy.sv
       - tb/common/uart.sv                                                     
       - tb/common/SimDTM.sv                                                   
       - tb/common/SimJTAG.sv

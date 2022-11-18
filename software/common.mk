@@ -2,6 +2,11 @@ ifdef nogui
 	sim_flags = batch-mode=1 
 endif
 
+#ifdef simple_pad
+#	rtl_flags = simple-padframe=1
+#	sim_flags += simple-padframe=1 
+#endif
+
 current_dir = $(shell pwd)
 
 ifdef CLUSTER_BIN
@@ -14,7 +19,7 @@ endif
 
 utils_dir = $(SW_HOME)/inc/
 
-directories = . drivers/inc drivers/src string_lib/inc string_lib/src padframe/inc padframe/src udma udma/cpi udma/i2c udma/spim udma/uart udma/sdio
+directories = . drivers/inc drivers/src string_lib/inc string_lib/src padframe/inc padframe/src fpga_padframe/inc fpga_padframe/src udma udma/cpi udma/i2c udma/spim udma/uart udma/sdio
 
 INC=$(foreach d, $(directories), -I$(utils_dir)$d)
 
@@ -49,7 +54,7 @@ dump:
 all: clean build dis dump
 
 rtl: 
-	 $(MAKE) -C  $(SW_HOME)/../hardware/ all
+	 $(MAKE) -C  $(SW_HOME)/../hardware/ all 
 
 sim:
 	$(MAKE) -C  $(SW_HOME)/../hardware/ sim $(sim_flags) elf-bin=$(shell pwd)/$(APP).riscv

@@ -21,6 +21,7 @@ Select VCU118. The ZCU102 is already too small to fit ariane and the cluster. We
 
 ```
 make ips
+make clean run
 ```
 
 ## Running code 

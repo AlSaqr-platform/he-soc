@@ -26,7 +26,16 @@ module host_domain
   import ariane_soc::*;
   import udma_subsystem_pkg::*;  
   import gpio_pkg::*; 
-  import pkg_alsaqr_periph_padframe::*; 
+  `ifndef FPGA_EMUL
+    `ifndef SIMPLE_PADFRAME
+        import pkg_alsaqr_periph_padframe::*;
+      `else
+        import pkg_alsaqr_periph_fpga_padframe::*; 
+      `endif
+  `else
+      import pkg_alsaqr_periph_fpga_padframe::*; 
+  `endif
+  import axi_llc_pkg::events_t;
 #(
   parameter int unsigned AXI_USER_WIDTH    = 1,
   parameter int unsigned AXI_ADDRESS_WIDTH = 64,
@@ -183,6 +192,13 @@ module host_domain
    
    logic                                 phy_clk;
    logic                                 phy_clk_90;
+
+   logic                                 s_llc_read_hit_cache;
+   logic                                 s_llc_read_miss_cache;
+   logic                                 s_llc_write_hit_cache;
+   logic                                 s_llc_write_miss_cache;
+
+   axi_llc_pkg::events_t llc_events;
    
    REG_BUS #(
         .ADDR_WIDTH( 32 ),
@@ -272,6 +288,11 @@ module host_domain
    assign llc_cfg_bus.ar_ready = 1'b1;
    assign llc_cfg_bus.r_data   = 32'hdeadf000;
    assign llc_cfg_bus.r_valid  = r_valid_q;
+
+   assign s_llc_read_hit_cache   = 1'b0;
+   assign s_llc_read_miss_cache  = 1'b0;
+   assign s_llc_write_hit_cache  = 1'b0;
+   assign s_llc_write_miss_cache = 1'b0;
    
    always_comb begin
       r_valid_d = r_valid_q;
@@ -330,8 +351,14 @@ module host_domain
       .cached_start_addr_i ( ariane_soc::HYAXIBase                           ),
       .cached_end_addr_i   ( ariane_soc::HYAXIBase + ariane_soc::HYAXILength ),
       .spm_start_addr_i    ( '0                                              ),
-      .axi_llc_events_o    (                                                 )
+      .axi_llc_events_o    ( llc_events                                      )
     );
+
+   assign s_llc_read_hit_cache = llc_events.hit_read_cache.active;
+   assign s_llc_read_miss_cache = llc_events.miss_read_cache.active;
+   assign s_llc_write_hit_cache = llc_events.hit_write_cache.active;
+   assign s_llc_write_miss_cache = llc_events.miss_write_cache.active;
+   
   `endif   
      
    cva6_subsystem # (
@@ -446,6 +473,10 @@ module host_domain
       .clk_cluster_o          ( clk_cluster_o                  ),
       .cluster_en_sa_boot_o   ( cluster_en_sa_boot_o           ),
       .cluster_fetch_en_o     ( cluster_fetch_en_o             ),
+      .llc_read_hit_cache_i   ( s_llc_read_hit_cache           ), 
+      .llc_read_miss_cache_i  ( s_llc_read_miss_cache          ), 
+      .llc_write_hit_cache_i  ( s_llc_write_hit_cache          ), 
+      .llc_write_miss_cache_i ( s_llc_write_miss_cache         ),
                         
       `ifdef XILINX_DDR
       .hyper_axi_bus_slave    ( dummyaxibus                    ),                 

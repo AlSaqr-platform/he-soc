@@ -44,6 +44,15 @@ module fll_dummy #(
     output  logic                       JTQ     // Scan data out 5
 );
 
+ `ifdef TARGET_ASIC
+  `ifdef TARGET_TOP_POST_SYNTH_SIM
+   `define GENERATE_CLOCK
+  `endif
+ `else
+   `define GENERATE_CLOCK
+ `endif
+
+   `ifdef GENERATE_CLOCK
    logic  clk;
    parameter time ClkPeriod = 5ns;
    
@@ -75,6 +84,8 @@ module fll_dummy #(
      end
    `endif
 
+  `endif //  `ifdef GENERATE_CLOCK
+   
 endmodule: fll_dummy
 
    

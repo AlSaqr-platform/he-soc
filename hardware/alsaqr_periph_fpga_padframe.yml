@@ -1,0 +1,206 @@
+name: alsaqr_periph_fpga_padframe
+
+manifest_version: 2
+pad_domains:
+  - name: periphs
+    pad_types: # behavioural pads as of now
+      - name: pad_alsaqr
+        description: "behavioural PU_PD pad"
+        template: |
+          pad_alsaqr ${instance_name} (
+            .OEN(${conn["oen"]}),
+            .I(${conn["chip2pad"]}),
+            .O(${conn["pad2chip"]}),
+            .PUEN(${conn["puen"]}),
+            .PAD(${conn["pad"]}),
+            .DRV(${conn["drv"]}),
+            .SLW(${conn["slw"]}),
+            .SMT(${conn["smt"]}),
+            .PWROK(PWROK_S),
+            .IOPWROK(IOPWROK_S),
+            .BIAS(BIAS_S),
+            .RETC(RETC_S)
+          );
+        pad_signals: &BEHAV_SIGNALS
+          - name: pad
+            size: 1
+            kind: pad
+          - name: chip2pad
+            description: "The signal that connects to the pads TX driver"
+            size: 1
+            kind: input
+            conn_type: dynamic
+            default_reset_value: 0
+            default_static_value: 1'b0
+          - name: pad2chip
+            description: "The signal that connects to the pads RX buffer"
+            size: 1
+            kind: output
+            conn_type: dynamic
+          - name: oen
+            size: 1
+            kind: input
+            description: "Output enable signal, active low"
+            conn_type: dynamic
+            default_reset_value: 1
+            default_static_value: 1'b1
+          - name: puen
+            size: 1
+            kind: input
+            description: "Pull-Up enable signal, active low"
+            conn_type: dynamic
+            default_reset_value: 1
+            default_static_value: 1'b1
+          - name: drv
+            description: "Driving strength"
+            size: 2
+            kind: input
+            conn_type: dynamic
+            default_reset_value: 0
+            default_static_value: 2'b00
+          - name: slw
+            size: 1
+            kind: input
+            conn_type: dynamic
+            default_reset_value: 0
+            default_static_value: 1'b0
+          - name: smt
+            description: "Schmit trigger enable"
+            size: 1
+            kind: input
+            conn_type: dynamic
+            default_reset_value: 0
+            default_static_value: 1'b0
+      - name: IN22FDX_GPIO18_10M19S40PI_PWRDET_TIE_H
+        description: ""
+        template: |
+          wire PWROK_S, IOPWROK_S, BIAS_S, RETC_S;
+
+          `ifdef TARGET_ASIC
+          IN22FDX_GPIO18_10M19S40PI_PWRDET_TIE_H ${instance_name} (
+            .RETCOUT (RETC_S),
+            .PWROKOUT (PWROK_S),
+            .IOPWROKOUT (IOPWROK_S),
+            .RETCIN(1'b0),
+            .BIAS(BIAS_S)
+          );
+          `endif
+
+
+    pad_list:     # padframe physical pad instances
+    
+      - name: pwrdet
+        description: "pwrdet pad"
+        pad_type: IN22FDX_GPIO18_10M19S40PI_PWRDET_TIE_H
+        is_static: true
+        
+        ##  __  __                    _ 
+        ## |  \/  |                  | |
+        ## | \  / |_   ___  _____  __| |
+        ## | |\/| | | | \ \/ / _ \/ _` |
+        ## | |  | | |_| |>  <  __/ (_| |
+        ## |_|  |_|\__,_/_/\_\___|\__,_|
+        
+      - name: pad_gpio_b_{i:2d}
+        mux_groups: [self]
+        description: "pads for FPGA testing"
+        multiple: 14
+        pad_type: pad_alsaqr
+        is_static: false
+        
+      ##  _____           _       
+      ## |  __ \         | |      
+      ## | |__) |__  _ __| |_ ___ 
+      ## |  ___/ _ \| '__| __/ __|
+      ## | |  | (_) | |  | |_\__ \
+      ## |_|   \___/|_|   \__|___/    
+    port_groups:
+
+      #PAD_GPIO_B
+      - name: spi0
+        output_defaults: 1'b0
+        ports:
+          - name: spi_cs0
+            mux_groups: [pad_gpio_b_00]
+            connections:
+              chip2pad: csn0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_sck
+            mux_groups: [pad_gpio_b_01]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_miso
+            mux_groups: [pad_gpio_b_02]
+            connections:
+              sd1_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: spi_mosi
+            mux_groups: [pad_gpio_b_03]
+            connections:
+              chip2pad: sd0_i
+              oen: 1'b0
+              puen: 1'b1
+        
+      - name: i2c0
+        output_defaults: 1'b1
+        ports:
+          - name: i2c_scl
+            mux_groups: [pad_gpio_b_04]
+            connections:
+              chip2pad: scl_i
+              scl_o: pad2chip
+              oen: ~scl_oe_i
+              puen: 1'b0
+          - name: i2c_sda
+            mux_groups: [pad_gpio_b_05]
+            description: "Bidirectional I2C SDA signal"
+            connections:
+              chip2pad: sda_i
+              sda_o: pad2chip
+              oen: ~sda_oe_i
+              puen: 1'b0
+
+      - name: uart0
+        output_defaults: 1'b1
+        ports:
+          - name: uart_tx
+            mux_groups: [pad_gpio_b_06]
+            connections:
+              chip2pad: tx_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: uart_rx
+            mux_groups: [pad_gpio_b_07]
+            connections:
+              rx_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+
+      - name: sdio0
+        output_defaults: 1'b1
+        ports:
+          - name: sdio_data{i}
+            multiple: 4
+            mux_groups: ["pad_gpio_b_{08+i:2d}"]
+            connections:
+              chip2pad: data{i}_i
+              data{i}_o: pad2chip
+              oen: data{i}_oen_i
+              puen: 1'b0
+          - name: sdio_clk
+            mux_groups: [pad_gpio_b_12]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: sdio_cmd
+            mux_groups: [pad_gpio_b_13]
+            connections:
+              chip2pad: cmd_i
+              cmd_o: pad2chip
+              oen: cmd_oen_i  
+              puen: 1'b0        

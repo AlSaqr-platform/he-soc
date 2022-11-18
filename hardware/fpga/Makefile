@@ -10,4 +10,5 @@ ips:
 		$(MAKE) -C alsaqr/tcl/ips/qspi     clean all
 
 run:
-		$(VIVADO_VERSION) vivado -mode gui -source run.tcl
+		vitis-2020.2 vivado -mode gui -source run.tcl
+

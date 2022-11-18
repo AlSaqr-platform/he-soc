@@ -92,7 +92,7 @@ int main (int argc, char** argv)
 
   set_flls();
   int baud_rate = 115200;
-  int test_freq = 100000000;
+  int test_freq = 50000000;
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
   printf("\r\n");
@@ -115,14 +115,19 @@ int main (int argc, char** argv)
   uart_wait_tx_done();
 
   Done = false;
+  unsigned int _llc_hit ;
+  unsigned int _llc_miss;
   while (!Done) {
     printf("Trying %d runs through Dhrystone:\r\n", Number_Of_Runs);
-  uart_wait_tx_done();
+    uart_wait_tx_done();
 
     /***************/
     /* Start timer */
     /***************/
 
+    enable_llc_counters();
+    _llc_hit = get_llc_hit();
+    _llc_miss = get_llc_miss(); 
     Begin_Time = read_csr(mcycle);
 
     for (Run_Index = 1; Run_Index <= Number_Of_Runs; ++Run_Index)
@@ -176,6 +181,7 @@ int main (int argc, char** argv)
     /**************/
 
     End_Time = read_csr(mcycle);
+    _llc_hit = get_llc_hit() - _llc_hit; _llc_miss = get_llc_miss() - _llc_miss;
 
     User_Time = End_Time - Begin_Time;
 
@@ -290,6 +296,8 @@ int main (int argc, char** argv)
 
 
   printf("Cycles for one run through Dhrystone: %d\r\n", User_Time/Number_Of_Runs);
+  uart_wait_tx_done();
+  printf("LLC hit ratio: %d %d / %d\r\n",  _llc_miss, _llc_hit, _llc_hit + _llc_miss); 
   uart_wait_tx_done();
 
   return 0;

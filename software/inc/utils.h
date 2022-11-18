@@ -3,6 +3,7 @@
 #include "./string_lib/src/string_lib.c"
 #include "./archi_tlb/archi_tlb.h"
 #include "./archi_dma/archi_dma.h"
+#include "llc.c"
 
 #define pulp_write32(add, val_) (*(volatile unsigned int *)(long)(add) = val_)
 #define pulp_read32(add) (*(volatile unsigned int *)(long)(add))
@@ -111,11 +112,17 @@ void dma_wait_trnf_done (uint32_t trnf_id) {
   while (pulp_read32(CL_DMA_BASE + DONE_ID_OFFS) <= trnf_id);
 }
 
-#define stats(code, iter) for(int __k = 0; __k < iter; __k++) {           \
+#define stats(code, iter) enable_llc_counters(); for(int __k = 0; __k < iter; __k++) { \
     unsigned long _c = -read_csr(mcycle), _i = -read_csr(minstret); \
+    unsigned long int _l1d_miss = -read_csr(mhpmcounter4); \
+    unsigned long int _l1i_miss = -read_csr(mhpmcounter3); \
+    unsigned int _llc_hit = get_llc_hit(), _llc_miss = get_llc_miss(); \
     code; \
     _c += read_csr(mcycle), _i += read_csr(minstret); \
-    printf("@ Iter %d : %d cycles, %d instructions\r\n",  __k, _c, _i); \
+    _l1d_miss += read_csr(mhpmcounter4); \
+    _l1i_miss += read_csr(mhpmcounter3); \
+    _llc_hit = get_llc_hit() - _llc_hit; _llc_miss = get_llc_miss() - _llc_miss; \
+    printf("@ Iter %d : %d cycles, %d instructions, L1D miss %d, L1I miss %d, LLC hit ratio: %d / %d\r\n",  __k, _c, _i, _l1d_miss, _l1i_miss,_llc_hit, _llc_hit + _llc_miss); \
   } 
 
 void apb_timer_start() {
@@ -127,3 +134,26 @@ void apb_timer_start() {
 unsigned int apb_timer_get(){
   return pulp_read32(0x18000000);
 }
+
+static inline void synch_barrier() {
+    __sync_synchronize();
+}
+
+static inline void pi_cl_team_barrier() {
+    __sync_synchronize();
+}
+  
+#define pi_core_id() 0
+
+#define START_STATS(iter) enable_llc_counters(); for(int __k = 0; __k < iter; __k++) { \
+    unsigned long _c = -read_csr(mcycle), _i = -read_csr(minstret); \
+    unsigned long int _l1d_miss = -read_csr(mhpmcounter4); \
+    unsigned long int _l1i_miss = -read_csr(mhpmcounter3); \
+    unsigned int _llc_hit = get_llc_hit(), _llc_miss = get_llc_miss(); \
+
+#define STOP_STATS()     _c += read_csr(mcycle), _i += read_csr(minstret); \
+    _l1d_miss += read_csr(mhpmcounter4); \
+    _l1i_miss += read_csr(mhpmcounter3); \
+    _llc_hit = get_llc_hit() - _llc_hit; _llc_miss = get_llc_miss() - _llc_miss; \
+    printf("@ Iter %d : %d cycles, %d instructions, L1D miss %d, L1I miss %d, LLC hit ratio: %d / %d\r\n",  __k, _c, _i, _l1d_miss, _l1i_miss,_llc_hit, _llc_hit + _llc_miss); \
+  } 

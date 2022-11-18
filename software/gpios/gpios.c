@@ -21,7 +21,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "utils.h"
-#include "../common/encoding.h"
+#include "../common_pulp/encoding.h"
 #include "../padframe/src/alsaqr_periph_padframe.c"
 #define BUFFER_SIZE 32
 #define ARCHI_GPIO_ADDR 0x1A105000
