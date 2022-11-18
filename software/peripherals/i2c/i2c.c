@@ -24,6 +24,7 @@
 #include "utils.h"
 #include "udma.h"
 #include "udma_i2c_v2.h"
+#include "apb_timer.h"
 
 #define DATA_SIZE 4
 #define BUFFER_SIZE 10
@@ -33,6 +34,16 @@
 
 #define I2C_MEM0 0x50
 #define I2C_MEM1 0x51
+
+#define PLIC_BASE 0x0C000000
+#define PLIC_CHECK PLIC_BASE + 0x201004
+//enable bits for sources 0-31
+#define PLIC_EN_BITS  PLIC_BASE + 0x2080
+
+//2 TIMER APB
+#define N_TIMER 1
+
+#define USE_PLIC 1
 
 /*******************************************************************************
 **                             IMPORTANT                                      **
@@ -45,13 +56,21 @@
 //#define SIMPLE_PAD
 //#define FPGA_EMULATION
 
-//#define VERBOSE
-//#define PRINTF_ON
+#define VERBOSE
+#define PRINTF_ON
 
 int main()
 {
   int error = 0;
   int u=0;
+
+  uint32_t tx_i2c_plic_id ;
+  uint32_t rx_i2c_plic_id ; 
+  uint32_t cmd_i2c_plic_id ; 
+  uint32_t eot_i2c_plic_id ; 
+
+  uint32_t timer_0_plic_id ; // 3 e 4
+
 
   #ifdef FPGA_EMULATION
   int baud_rate = 115200;
@@ -107,20 +126,20 @@ int main()
      for (int i=0; i <4; i++){
       switch (i) {
         case 0: 
-        expected_rx_buffer[i]= 0xCA;
-        break;
+          expected_rx_buffer[i]= 0xCA;
+          break;
         case 1: 
-        expected_rx_buffer[i]= u; // this value change for each I2C selected by u
-        break;
+          expected_rx_buffer[i]= u; // this value change for each I2C selected by u
+          break;
         case 2: 
-        expected_rx_buffer[i]= 0xDE;
-        break;
+          expected_rx_buffer[i]= 0xDE;
+          break;
         case 3: 
-        expected_rx_buffer[i]= 0xCA;
-        break;
+          expected_rx_buffer[i]= 0xCA;
+          break;
         default:
-        expected_rx_buffer[i]= 0;
-        break;
+          expected_rx_buffer[i]= 0;
+          break;
       }
     }
 
@@ -131,94 +150,97 @@ int main()
         To do so you only need to write the cmd_buffer into the UDMA_I2C_CMD_ADDR register of the I2C peripheral
     */
 
-     for (int i=0; i <10; i++){
+     for (int i=0; i <BUFFER_SIZE; i++){
       switch (i) {
         case 0: 
-        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_CFG) << 24) | 0x40; // sets 16 bit clock divider
-        break;
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_CFG) << 24) | 0x40; // sets 16 bit clock divider
+          break;
         case 1: 
-        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_START)<<24); //cmd start
-        break;
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_START)<<24); //cmd start
+          break;
         case 2: 
-        if (u==0)
-          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa0;  // write I2C_MEM0 address + direction bit
-        else
-          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa2; // write I2C_MEM1 address + direction bit
-        break;
+          if (u==0){
+            cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa0;  // write I2C_MEM0 address + direction bit
+          }else{
+            cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa2; // write I2C_MEM1 address + direction bit
+          }
+          break;
         case 3: 
-        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24); 
-        break;
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24); 
+          break;
         case 4: 
-        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24);
-        break;
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24);
+          break;
         case 5: 
-        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[0]; //DATA0
-        break;
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[0]; //DATA0
+          break;
         case 6: 
-        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[1]; //DATA1
-        break;
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[1]; //DATA1
+          break;
         case 7: 
-        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[2]; //DATA2
-        break;
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[2]; //DATA2
+          break;
         case 8: 
-        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[3]; //DATA3
-        break;
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[3]; //DATA3
+          break;
         case 9: 
-        cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_STOP)<<24);
-        break;
+          cmd_buffer_wr[i]= (((uint32_t)I2C_CMD_STOP)<<24);
+          break;
         default:
-        cmd_buffer_wr[i]= 0;
-        break;
+          cmd_buffer_wr[i]= 0;
+          break;
       }
     }
 
-    for (int i=0; i <12; i++){
+    for (int i=0; i <BUFFER_SIZE_READ; i++){
       switch (i) {
         case 0: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_CFG)<<24) | 0x40; // set 16bit clock divider
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_CFG)<<24) | 0x40; // set 16bit clock divider
+          break;
         case 1: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_START)<<24);
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_START)<<24);
+          break;
         case 2: 
-        if (u==0)
-          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa0;
-        else
-          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa2;
-        break;
+          if (u==0){
+            cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa0;
+          }else{
+            cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa2;
+          }
+          break;
         case 3: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24);
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24);
+          break;
         case 4: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24);
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24);
+          break;
         case 5: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_START)<<24);
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_START)<<24);
+          break;
         case 6:
-        if (u==0)
-          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa1; //write addr+dir (0xa1) on bus
-        else
-          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa3;
-        break;
+          if (u==0){
+            cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa1; //write addr+dir (0xa1) on bus
+          }else{
+            cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa3;
+          }
+          break;
         case 7: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
+          break;
         case 8: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
+          break;
         case 9: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
+          break;
         case 10: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_NACK)<<24);
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_RD_NACK)<<24);
+          break;
         case 11: 
-        cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_STOP)<<24);
-        break;
+          cmd_buffer_rd[i]= (((uint32_t)I2C_CMD_STOP)<<24);
+          break;
         default:
-        cmd_buffer_rd[i]= 0;
-        break;
+          cmd_buffer_rd[i]= 0;
+          break;
       }
     }  
 
@@ -259,7 +281,6 @@ int main()
       uart_wait_tx_done();
     #endif
     
-
     plp_udma_cg_set(plp_udma_cg_get() | (0xffffffff));
 
     #ifdef PRINTF_ON
@@ -267,16 +288,18 @@ int main()
       uart_wait_tx_done();
     #endif
 
-    #ifdef PRINTF_ON
-      printf ("Enqueue UDMA_I2C_TX_ADDR...\n\r");
-      uart_wait_tx_done();
-    #endif
-    
     //--- enqueue cmds on cmd channel
     #ifdef PRINTF_ON
       printf ("Enqueue UDMA_I2C_CMD_ADDR Write...\n\r");
       uart_wait_tx_done();
     #endif
+
+    rx_i2c_plic_id = ARCHI_UDMA_I2C_ID(u)*4 +8 ; //88
+    tx_i2c_plic_id = ARCHI_UDMA_I2C_ID(u)*4 +8 +1; //89
+    cmd_i2c_plic_id = ARCHI_UDMA_I2C_ID(u)*4 +8 +2; //90
+    eot_i2c_plic_id = ARCHI_UDMA_I2C_ID(u)*4 +8 +3; //91
+
+    timer_0_plic_id=5;
 
     plp_udma_enqueue(UDMA_I2C_CMD_ADDR(u) ,  (int)cmd_buffer_wr , BUFFER_SIZE*4, 0);
 
@@ -284,14 +307,71 @@ int main()
       printf ("WAIT WRITE TO BE DONE BY THE MEMORY ...\n\r");
       uart_wait_tx_done();
     #endif
-    
-    // WAIT WRITE TO BE DONE BY THE MEMORY
-    for (volatile int i = 0; i < 45000; ++i) //75000
-    {
-      i++;
+
+    if (USE_PLIC==0){
+      // WAIT WRITE TO BE DONE BY THE MEMORY
+      for (volatile int i = 0; i < 45000; ++i) //75000
+      {
+        i++;
+      }
+
+    }else {
+
+      #ifdef PRINTF_ON
+        printf ("Set interrupt on cmd_i2c_plic_id...\n\r");
+        uart_wait_tx_done();    
+      #endif 
+      
+      //Set CMD interrupt
+      pulp_write32(PLIC_BASE+cmd_i2c_plic_id*4, 1); // set rx interrupt priority to 1
+      
+      #ifdef PRINTF_ON
+        printf ("Enable interrupt on rx_spi_plic_id...\n\r");
+        uart_wait_tx_done();
+      #endif 
+      
+      pulp_write32(PLIC_EN_BITS+(((int)(cmd_i2c_plic_id/32))*4), 1<<(cmd_i2c_plic_id%32)); //enable interrupt
+
+      //  wfi until reading the rx id from the PLIC
+      while(pulp_read32(PLIC_CHECK)!=cmd_i2c_plic_id) {
+        asm volatile ("wfi");
+      }
+
+      #ifdef PRINTF_ON
+        printf ("Interrupt received and clear...\n\r");
+        uart_wait_tx_done();
+      #endif 
+
+      //Set completed Interrupt
+      pulp_write32(PLIC_CHECK,cmd_i2c_plic_id);
+
+      // WRITE COMMAND COMPLETED
+
+      //SET TIMER INTERRUPT FOR MEMORY CONSTRAINT (BEFORE TO STORE THE DATA IT REQUIRES SOME TIME)
+      apb_timer_set_value(N_TIMER-1,0);
+      apb_timer_set_compare(N_TIMER-1,600000);
+
+      apb_timer_enable(N_TIMER-1,8); //it count every 8 cycles
+      
+      pulp_write32(PLIC_BASE+timer_0_plic_id*4, 1); 
+      pulp_write32(PLIC_EN_BITS+(((int)(timer_0_plic_id/32))*4), 1<<(timer_0_plic_id%32)); //enable interrupt
+      //  wfi until reading the rx id from the PLIC
+      while(pulp_read32(PLIC_CHECK)!=timer_0_plic_id) {
+        asm volatile ("wfi");
+      }
+      //Set completed Interrupt
+      pulp_write32(PLIC_CHECK,timer_0_plic_id);
+
+      apb_timer_disable(N_TIMER-1);
+
+      //Timer EXPIRED
+      #ifdef PRINTF_ON
+        printf ("Interrupt received from TIMER 0...\n\r");
+        uart_wait_tx_done();    
+      #endif 
     }
 
-    //READ
+    //READ FROM MEMORY
     #ifdef PRINTF_ON
       printf ("Clear the rx buffer...\n\r");
       uart_wait_tx_done();
@@ -308,7 +388,7 @@ int main()
       uart_wait_tx_done();  
     #endif
 
-    plp_udma_enqueue(UDMA_I2C_DATA_ADDR(u) ,  (int)rx_buffer  , 4   , 0);
+    plp_udma_enqueue(UDMA_I2C_DATA_ADDR(u) ,  (int)rx_buffer  , 4  , 0);
 
     #ifdef PRINTF_ON
       printf ("Enqueue UDMA_I2C_CMD_ADDR Read...\n\r");
@@ -316,11 +396,101 @@ int main()
     #endif
 
     plp_udma_enqueue(UDMA_I2C_CMD_ADDR(u) ,  (int)cmd_buffer_rd  , BUFFER_SIZE_READ*4, 0);
+    
+    /*for (int i=0; i<BUFFER_SIZE_READ; i++){
+      printf ("cmd_buffer_rd[%d]=0x%0x ..\n\r",i, cmd_buffer_rd[i]);
+      uart_wait_tx_done();
+    }*/
 
-    for (volatile int i = 0; i < 10000; ++i)
-    {
-      i++;
+    if (USE_PLIC==0){
+      for (volatile int i = 0; i < 10000; ++i) //75000
+      {
+        i++;
+      }
+
+    }else {
+
+      #ifdef PRINTF_ON
+        printf ("Set interrupt on cmd_i2c_plic_id...\n\r");
+        uart_wait_tx_done();    
+      #endif 
+      
+      //Set CMD interrupt
+      pulp_write32(PLIC_BASE+cmd_i2c_plic_id*4, 1); // set rx interrupt priority to 1
+      
+      #ifdef PRINTF_ON
+        printf ("Enable interrupt on rx_spi_plic_id...\n\r");
+        uart_wait_tx_done();
+      #endif 
+      
+      pulp_write32(PLIC_EN_BITS+(((int)(cmd_i2c_plic_id/32))*4), 1<<(cmd_i2c_plic_id%32)); //enable interrupt
+
+      //  wfi until reading the rx id from the PLIC
+      while(pulp_read32(PLIC_CHECK)!=cmd_i2c_plic_id) {
+        asm volatile ("wfi");
+      }
+
+      #ifdef PRINTF_ON
+        printf ("Interrupt received and clear...\n\r");
+        uart_wait_tx_done();
+      #endif 
+
+      //Set completed Interrupt
+      pulp_write32(PLIC_CHECK,cmd_i2c_plic_id);
+
+      //SET TIMER INTERRUPT FOR MEMORY CONSTRAINT (BEFORE TO STORE THE DATA IT REQUIRES SOME TIME)
+      /*apb_timer_set_value(N_TIMER-1,0);
+      apb_timer_set_compare(N_TIMER-1,10000);
+
+      apb_timer_enable(N_TIMER-1,8); //it count every 8 cycles
+      
+      pulp_write32(PLIC_BASE+timer_0_plic_id*4, 1); 
+      pulp_write32(PLIC_EN_BITS+(((int)(timer_0_plic_id/32))*4), 1<<(timer_0_plic_id%32)); //enable interrupt
+      //  wfi until reading the rx id from the PLIC
+      while(pulp_read32(PLIC_CHECK)!=timer_0_plic_id) {
+        asm volatile ("wfi");
+      }
+
+      //Set completed Interrupt
+      pulp_write32(PLIC_CHECK,timer_0_plic_id);
+
+      apb_timer_disable(N_TIMER-1);
+
+      //Timer EXPIRED
+      #ifdef PRINTF_ON
+        printf ("Interrupt received from TIMER 0...\n\r");
+        uart_wait_tx_done();    
+      #endif */
+
+      #ifdef PRINTF_ON
+        printf ("Set interrupt on rx_i2c_plic_id...\n\r");
+        uart_wait_tx_done();    
+      #endif 
+      
+      //Set CMD interrupt
+      pulp_write32(PLIC_BASE+rx_i2c_plic_id*4, 1); // set rx interrupt priority to 1
+      
+      #ifdef PRINTF_ON
+        printf ("Enable interrupt on rx_spi_plic_id...\n\r");
+        uart_wait_tx_done();
+      #endif 
+      
+      pulp_write32(PLIC_EN_BITS+(((int)(rx_i2c_plic_id/32))*4), 1<<(rx_i2c_plic_id%32)); //enable interrupt
+
+      //  wfi until reading the rx id from the PLIC
+      while(pulp_read32(PLIC_CHECK)!=rx_i2c_plic_id) {
+        asm volatile ("wfi");
+      }
+
+      #ifdef PRINTF_ON
+        printf ("Interrupt received and clear...\n\r");
+        uart_wait_tx_done();
+      #endif 
+
+      //Set completed Interrupt
+      pulp_write32(PLIC_CHECK,rx_i2c_plic_id);
     }
+
     for (int i = 0; i < DATA_SIZE; ++i)
     {
       if (rx_buffer[i]!=expected_rx_buffer[i])
