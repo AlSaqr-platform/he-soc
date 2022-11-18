@@ -45,9 +45,7 @@ module alsaqr_xilinx
     inout wire    pad_uart1_rx,
     inout wire    pad_uart1_tx,
       
-    /************************************/
-    /*********** PADFRAME ***************/
-    /************************************/
+    `ifdef SIMPLE_PADFRAME
     inout wire  pad_periphs_pad_gpio_b_00_pad,
     inout wire  pad_periphs_pad_gpio_b_01_pad,
     inout wire  pad_periphs_pad_gpio_b_02_pad,
@@ -62,6 +60,7 @@ module alsaqr_xilinx
     inout wire  pad_periphs_pad_gpio_b_11_pad,
     inout wire  pad_periphs_pad_gpio_b_12_pad,
     inout wire  pad_periphs_pad_gpio_b_13_pad,
+    `endif
 
     input wire    pad_reset,
 
@@ -303,6 +302,8 @@ ddr4_0 u_ddr4_0
         .axi_ddr_master   ( axi_ddr_bus_64     ),
         .cva6_uart_rx_i   ( pad_uart0_rx       ),
         .cva6_uart_tx_o   ( pad_uart0_tx       ),
+
+        `ifdef SIMPLE_PADFRAME
         .pad_periphs_pad_gpio_b_00_pad(pad_periphs_pad_gpio_b_00_pad),
         .pad_periphs_pad_gpio_b_01_pad(pad_periphs_pad_gpio_b_01_pad),
         .pad_periphs_pad_gpio_b_02_pad(pad_periphs_pad_gpio_b_02_pad),
@@ -317,6 +318,7 @@ ddr4_0 u_ddr4_0
         .pad_periphs_pad_gpio_b_11_pad(pad_periphs_pad_gpio_b_11_pad),
         .pad_periphs_pad_gpio_b_12_pad(pad_periphs_pad_gpio_b_12_pad),
         .pad_periphs_pad_gpio_b_13_pad(pad_periphs_pad_gpio_b_13_pad),
+        `endif
 
         .apb_uart_rx_i    ( pad_uart1_rx       ),
         .apb_uart_tx_o    ( pad_uart1_tx       )
