@@ -7,10 +7,11 @@ if [info exists ::env(BOARD)] {
     error "BOARD is not defined. Please source the sourceme.sh file."
     exit
 }
-if [info exists ::env(XILINX_BOARD)] {
-	set boardName  $::env(XILINX_BOARD)
+if {$::env(MAIN_MEM)=="HYPER"} {
+    set CLK_FREQ_MHZ 10
+} elseif {$::env(MAIN_MEM)=="DDR4"} {
+    set CLK_FREQ_MHZ 50
 }
-
 
 set ipName xilinx_clk_mngr
 
@@ -19,7 +20,7 @@ set_property board_part $boardName [current_project]
 
 create_ip -name clk_wiz -vendor xilinx.com -library ip -module_name $ipName
 set_property -dict [list CONFIG.PRIM_IN_FREQ {250.000} \
-                        CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {50.000} \
+                        CONFIG.CLKOUT1_REQUESTED_OUT_FREQ "$CLK_FREQ_MHZ" \
                         CONFIG.RESET_TYPE {ACTIVE_LOW} \
                         CONFIG.CLKIN1_JITTER_PS {40.0} \
                         CONFIG.MMCM_DIVCLK_DIVIDE {25} \

@@ -9,9 +9,21 @@ read_ip ./alsaqr/tcl/ips/clk_mngr/ip/xilinx_clk_mngr.xci
 read_ip ./alsaqr/tcl/ips/ddr/ip/ddr4_0.xci
 read_ip ./alsaqr/tcl/ips/qspi/ip/xilinx_qspi.xci
 add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_$::env(BOARD).xdc"
+if {$::env(MAIN_MEM)=="HYPER"} {
+    add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_hyper_$::env(BOARD).xdc"
+} elseif {$::env(MAIN_MEM)=="DDR4"} {
+    add_files -fileset constrs_1 -norecurse "alsaqr/tcl/ddr_$::env(BOARD).xdc"
+    if {$::env(SIMPLE_PAD)=="1"} {
+        add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_validation_$::env(BOARD).xdc"
+    }
+}
 update_compile_order -fileset sources_1
 auto_detect_xpm
 read_xdc ./alsaqr/tcl/constraints.xdc
+if {$::env(MAIN_MEM)=="HYPER"} {
+    read_xdc "alsaqr/tcl/constraints_hyper.xdc"
+}
+add_files -fileset constrs_1 -norecurse "alsaqr/tcl/constraints_peripherals.xdc"
 synth_design
 update_compile_order -fileset sources_1
 opt_design

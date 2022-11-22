@@ -106,10 +106,11 @@ sources:
       WT_DCACHE: ~
       FPGA_EMUL: ~
       PULP_FPGA_EMUL: ~
+      EXCLUDE_DDR: ~
     files:
       - ../fpga/src/pad_functional_xilinx/pad_functional_xilinx.sv
-      - ./fpga/fpga_clk_gen.sv
-      - ./fpga/boot_rom.sv
+      - ./fpga/ddr/fpga_clk_gen.sv
+      - ./fpga/ddr/boot_rom.sv
       - ./fpga/alsaqr_xilinx.sv
       
   - target: all(asic, not(all(fpga, xilinx)))
