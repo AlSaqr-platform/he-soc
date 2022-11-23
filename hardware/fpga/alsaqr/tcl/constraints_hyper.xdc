@@ -15,7 +15,7 @@ create_generated_clock -name clk_phy_90 -source [get_pins  alsaqr_clk_manager/cl
 ## Inform tool that system and PHY-derived clocks are asynchronous, but may have timed arcs between them
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  alsaqr_clk_manager/clk_out1]] -group [get_clocks -of_objects [get_pins i_alsaqr/i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/clock_generator.ddr_clk/clk90_o]] -group [get_clocks -of_objects [get_pins i_alsaqr/i_host_domain/i_apb_subsystem/i_udma_subsystem/i_hyper_gen[0].i_hyper/i_hyperbus_macro/clock_generator.ddr_clk/clk0_o]]
 set_false_path -from [get_clocks clk_phy_90] -to [get_clocks clk_phy]
-set_false_path -from [get_clocks clk_phy_90] -to [get_clocks rwds_clk]
+set_false_path -from [get_clocks clk_phy_90] -to [get_clocks rwds0_clk]
 
 set clk_rx_shift [expr $period_hyperbus/10]
 set rwds_input_delay [expr $period_hyperbus/4]

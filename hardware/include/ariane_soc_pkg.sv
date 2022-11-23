@@ -56,8 +56,13 @@ package ariane_soc;
    
   localparam NB_PERIPHERALS = HYAXI + 1;
 
+  `ifdef FPGA_EMUL 
+  localparam HyperbusNumPhys          = 1;
+  localparam NumChipsPerHyperbus      = 2;
+  `else
   localparam HyperbusNumPhys          = 2;
   localparam NumChipsPerHyperbus      = 2;
+  `endif
   localparam logic[63:0] HyperRamSize = 64'h4000000; // 64MB
    
 
