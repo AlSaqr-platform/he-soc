@@ -14,7 +14,6 @@ bender update
 ```
 then `make simple-padframe=1 scripts-bender-fpga-ddr` to use the 1GHz DDR4 or `make scripts-bender-fpga` to use the hyperbus.
 
-```
 You can also use the `exclude-cluster=1` option, in case you don't want to emulate the cluster as well.
 
 ```
