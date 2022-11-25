@@ -2,6 +2,8 @@
 
 We now support emulation on the VCU118. For fpga emulation, you can choose if you want to plug which `axi_slave` you prefer to the `axi_xbar`: either the `hyperbus memory controller` or the `Xilinx DDR4 AXI IP` that uses the onboard DDR4.
 
+To rely on the hyperbus, you need a [special FMC carrier board](https://ieeexplore.ieee.org/document/9607006). Also, when using the DDR we can push the design to 50MHz. When relying on the Hyperbus, our upper limit is 10MHz.
+
 ## Bitstream generation
 
 To generate the bitstream do the following:
@@ -9,18 +11,26 @@ To generate the bitstream do the following:
 ```
 bender update
 
-make exclude-cluster=1 scripts-bender-fpga-ddr
+make simple-padframe=1 scripts-bender-fpga-ddr
+
+make scripts-bender-fpga (to use the hyperbus)
+
 ```
-You can actually remove the `exclude-cluster` option, in case you want to emulate the cluster as well. Please be aware that the bitstream generation will take much more time in that case.
+You can also use the `exclude-cluster=1` option, in case you don't want to emulate the cluster as well.
+
 ```
 cd fpga
 
 source setup.sh
 ```
-Select VCU118. The ZCU102 is already too small to fit ariane and the cluster. We will provide support for the ZCU102 as well in the future, with a reduced version of the cluster.
+ * Select VCU118. The ZCU102 is already too small to fit ariane and the cluster. We will provide support for the ZCU102 as well in the future, with a reduced version of the cluster.
+ * Unless you specified the `exclude-llc` when generating the compile script, you are instantiating it!
+ * Choose the memory
+ * If you choose the hyperram, you can't validate the peripherals. Otherwise you can. Apparently, it's better to instantiate the padframe: it help Vivado with placement, so just say you are also validating the peripherals if you are using the DDR4. 
 
 ```
 make ips
+
 make clean run
 ```
 
@@ -46,7 +56,7 @@ screen -L /dev/ttyUSBi 115200
 ```
 riscv64-unknown-elf-gdb <path-to-compiled-elf>
 from gdb terminal
-(a) target remote 127.0.0.1:3333
+(a) target remote :3333
 (b) monitor reset halt
 (c) load
 (d) c
