@@ -46,9 +46,11 @@ int cl_start(unsigned int boot_addr) {
 
 int rst_mbox() {
   pulp_write32(0x10403018,0x1);
-  pulp_write32(0x10403024,0x1);
+  pulp_write32(0x10403024,0x3);
+  pulp_write32(0x10403024,0x0);
   pulp_write32(0x10402018,0x1);
-  pulp_write32(0x10402024,0x1);
+  pulp_write32(0x10402024,0x3);
+  pulp_write32(0x10402024,0x0);
 }
 
 int launch_cluster() {
@@ -142,16 +144,12 @@ int sweep(int stride)
 
 int main()
 {
-//  int baud_rate = 115200;
-//  int test_freq = 50000000;
   int baud_rate = 4800;
   int test_freq = 10000000;
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
   enable_llc_counters();
 
   int cycles[5];
-//  printf("Working_set  , instructions , cycles     , num loads  , l1 dmiss    , LLC miss    , LLC hit\r\n");
-//  uart_wait_tx_done();
 
   launch_cluster();  
 
@@ -160,7 +158,7 @@ int main()
     cycles[j] = sweep(i);
     j++;
   }
-
+  
   for(int i=0;i<5;i++)
     printf("%d\r\n",cycles[i]);
 
