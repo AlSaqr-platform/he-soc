@@ -94,12 +94,12 @@ int *rx_buffer= (int*) 0x1C002000;
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
   #ifdef FPGA_EMULATION
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set( 1 ); //tx
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 1 ); //rx
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set( 2 ); //tx
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 2 ); //rx
   #else
     #ifdef SIMPLE_PAD
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set( 1 ); //tx
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 1 ); //rx
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set( 2 ); //tx
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 2 ); //rx
     #else
       alsaqr_periph_padframe_periphs_pad_gpio_b_40_mux_set( 2 ); //tx
       alsaqr_periph_padframe_periphs_pad_gpio_b_41_mux_set( 2 );  //rx

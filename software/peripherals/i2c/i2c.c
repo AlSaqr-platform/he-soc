@@ -251,12 +251,12 @@ int main()
 
 
     #ifdef FPGA_EMULATION
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 1 );
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 2 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 2 );
     #else
       #ifdef SIMPLE_PAD
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 1 );
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 2 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 2 );
       #else
         alsaqr_periph_padframe_periphs_pad_gpio_b_50_mux_set( 2 );
         alsaqr_periph_padframe_periphs_pad_gpio_b_51_mux_set( 2 );
