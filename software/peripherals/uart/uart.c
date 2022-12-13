@@ -176,7 +176,7 @@ for (int u = 0; u < N_UART; ++u)
   }
 
   //printf("[%d, %d] Start test uart %d\n",  get_cluster_id(), get_core_id(), u);
-  udma_uart_open(u,UART_BAUDRATE);
+  udma_uart_open(u,test_freq,UART_BAUDRATE);
 
   for (int i = 0; i < BUFFER_SIZE; ++i)
   {
