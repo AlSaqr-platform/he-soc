@@ -203,4 +203,17 @@ pad_domains:
               chip2pad: cmd_i
               cmd_o: pad2chip
               oen: cmd_oen_i  
-              puen: 1'b0        
+              puen: 1'b0
+
+      - name: gpio_b
+        output_defaults: 1'b0
+        ports:
+          - name: gpio{i}
+            multiple: 14
+            mux_groups: ["pad_gpio_b_{i:2d}"]
+            description: "Bidirectional GPIO {i} signal"
+            connections:
+              chip2pad: gpio{i}_i
+              gpio{i}_o: pad2chip
+              oen: ~gpio{i}_d_i
+              puen: 1'b1

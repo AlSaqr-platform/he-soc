@@ -47,4 +47,50 @@
   assign load.data3_i = driver.data3_o; \
   assign load.data3_oen_i = driver.data3_oen_o; \
 
+`define ASSIGN_PERIPHS_GPIO_B_PAD2SOC(load, driver) \
+  assign load.gpio0_i = driver.gpio0_o; \
+  assign load.gpio1_i = driver.gpio1_o; \
+  assign load.gpio2_i = driver.gpio2_o; \
+  assign load.gpio3_i = driver.gpio3_o; \
+  assign load.gpio4_i = driver.gpio4_o; \
+  assign load.gpio5_i = driver.gpio5_o; \
+  assign load.gpio6_i = driver.gpio6_o; \
+  assign load.gpio7_i = driver.gpio7_o; \
+  assign load.gpio8_i = driver.gpio8_o; \
+  assign load.gpio9_i = driver.gpio9_o; \
+  assign load.gpio10_i = driver.gpio10_o; \
+  assign load.gpio11_i = driver.gpio11_o; \
+  assign load.gpio12_i = driver.gpio12_o; \
+  assign load.gpio13_i = driver.gpio13_o; \
+
+`define ASSIGN_PERIPHS_GPIO_B_SOC2PAD(load, driver) \
+  assign load.gpio0_d_i = driver.gpio0_d_o; \
+  assign load.gpio0_i = driver.gpio0_o; \
+  assign load.gpio1_d_i = driver.gpio1_d_o; \
+  assign load.gpio1_i = driver.gpio1_o; \
+  assign load.gpio2_d_i = driver.gpio2_d_o; \
+  assign load.gpio2_i = driver.gpio2_o; \
+  assign load.gpio3_d_i = driver.gpio3_d_o; \
+  assign load.gpio3_i = driver.gpio3_o; \
+  assign load.gpio4_d_i = driver.gpio4_d_o; \
+  assign load.gpio4_i = driver.gpio4_o; \
+  assign load.gpio5_d_i = driver.gpio5_d_o; \
+  assign load.gpio5_i = driver.gpio5_o; \
+  assign load.gpio6_d_i = driver.gpio6_d_o; \
+  assign load.gpio6_i = driver.gpio6_o; \
+  assign load.gpio7_d_i = driver.gpio7_d_o; \
+  assign load.gpio7_i = driver.gpio7_o; \
+  assign load.gpio8_d_i = driver.gpio8_d_o; \
+  assign load.gpio8_i = driver.gpio8_o; \
+  assign load.gpio9_d_i = driver.gpio9_d_o; \
+  assign load.gpio9_i = driver.gpio9_o; \
+  assign load.gpio10_d_i = driver.gpio10_d_o; \
+  assign load.gpio10_i = driver.gpio10_o; \
+  assign load.gpio11_d_i = driver.gpio11_d_o; \
+  assign load.gpio11_i = driver.gpio11_o; \
+  assign load.gpio12_d_i = driver.gpio12_d_o; \
+  assign load.gpio12_i = driver.gpio12_o; \
+  assign load.gpio13_d_i = driver.gpio13_d_o; \
+  assign load.gpio13_i = driver.gpio13_o; \
+
 
