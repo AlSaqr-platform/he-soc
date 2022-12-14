@@ -384,6 +384,8 @@ module al_saqr
   logic s_cluster_eoc;
   logic s_cluster_eoc_sync;
 
+  logic fake_rst;
+   
   logic doorbell_irq_o; 
    
   pad_to_hyper_t [HyperbusNumPhys-1:0] s_pad_to_hyper;
@@ -911,7 +913,7 @@ module al_saqr
                   
     .clk_i(s_soc_clk),
     .por_n_i(s_rst_ni),
-    
+    .test_rst_o(fake_rst),
     .irq_ibex_i(doorbell_irq_o),
    // JTAG port
     .jtag_tck_i    (jtag_ibex_i.tck),

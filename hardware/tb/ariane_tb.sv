@@ -1079,6 +1079,13 @@ module ariane_tb;
       .TT             (REFClockPeriod*0.9),
       .JtagSampleDelay(JtagSampleDelay   )
     ) riscv_dbg_t;
+
+    typedef jtag_ot_test::riscv_dbg #(
+      .IrLength       (5                 ),
+      .TA             (REFClockPeriod*0.1),
+      .TT             (REFClockPeriod*0.9),
+      .JtagSampleDelay(JtagSampleDelay   )
+    ) riscv_ot_dbg_t;
   
     // JTAG driver Ariane
     JTAG_DV jtag_mst (s_tck);
@@ -1092,8 +1099,8 @@ module ariane_tb;
 
     // JTAG driver Ibex
     JTAG_DV jtag_ibex_mst (s_tck);
-    riscv_dbg_t::jtag_driver_t jtag_ibex_driver = new(jtag_ibex_mst);
-    riscv_dbg_t riscv_ibex_dbg = new(jtag_ibex_driver);
+    riscv_ot_dbg_t::jtag_driver_t jtag_ibex_driver = new(jtag_ibex_mst);
+    riscv_ot_dbg_t riscv_ibex_dbg = new(jtag_ibex_driver);
 
  
     assign s_ot_trstn = jtag_ibex_mst.trst_n;
@@ -1504,7 +1511,7 @@ module ariane_tb;
    
    initial  begin : ibex_jtag_preload  
 
-      automatic dm::sbcs_t sbcs = '{
+      automatic dm_ot::sbcs_t sbcs = '{
         sbautoincrement: 1'b1,
         sbreadondata   : 1'b1,
         default        : 1'b0
@@ -1536,7 +1543,7 @@ module ariane_tb;
    task debug_ibex_module_init;
       
      logic [31:0]  idcode;
-     automatic dm::sbcs_t sbcs;
+     automatic dm_ot::sbcs_t sbcs;
 
      $info(" JTAG Preloading start time");
      riscv_ibex_dbg.wait_idle(300);
@@ -1554,11 +1561,11 @@ module ariane_tb;
 
      $info(" Activating Debug Module");
      // Activate Debug Module
-     riscv_ibex_dbg.write_dmi(dm::DMControl, 32'h0000_0001);
+     riscv_ibex_dbg.write_dmi(dm_ot::DMControl, 32'h0000_0001);
 
      //$info(" SBA BUSY ");
      // Wait until SBA is free
-     do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+     do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs);
      while (sbcs.sbbusy);
      //$info(" SBA FREE");      
       
@@ -1567,7 +1574,7 @@ module ariane_tb;
    task jtag_ibex_data_preload;
      logic [31:0] rdata;
 
-     automatic dm::sbcs_t sbcs = '{
+     automatic dm_ot::sbcs_t sbcs = '{
        sbautoincrement: 1'b1,
        sbreadondata   : 1'b1,
        default        : 1'b0
@@ -1576,8 +1583,8 @@ module ariane_tb;
      $display("======== Initializing the Debug Module ========");
 
      debug_ibex_module_init();
-     riscv_ibex_dbg.write_dmi(dm::SBCS, sbcs);
-     do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+     riscv_ibex_dbg.write_dmi(dm_ot::SBCS, sbcs);
+     do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs);
      while (sbcs.sbbusy);
 
      $display("======== Preload data to SRAM ========");
@@ -1585,14 +1592,14 @@ module ariane_tb;
      // Start writing to SRAM
      foreach (ibex_sections[addr]) begin
        $display("Writing %h with %0d words", addr << 2, ibex_sections[addr]); // word = 8 bytes here
-       riscv_ibex_dbg.write_dmi(dm::SBAddress0, (addr << 2));
-       do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+       riscv_ibex_dbg.write_dmi(dm_ot::SBAddress0, (addr << 2));
+       do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs);
        while (sbcs.sbbusy);
        for (int i = 0; i < ibex_sections[addr]; i++) begin  
          $display(" -- Word %0d/%0d", i, ibex_sections[addr]);      
-         riscv_ibex_dbg.write_dmi(dm::SBData0, ibex_memory[addr + i]);
+         riscv_ibex_dbg.write_dmi(dm_ot::SBData0, ibex_memory[addr + i]);
          // Wait until SBA is free to write next 32 bits
-         do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+         do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs);
          while (sbcs.sbbusy);
        end // for (int i = 0; i < sections[addr]; i++)
        
@@ -1604,7 +1611,7 @@ module ariane_tb;
     // Preloading finished. Can now start executing
     sbcs.sbreadonaddr = 0;
     sbcs.sbreadondata = 0;
-    riscv_ibex_dbg.write_dmi(dm::SBCS, sbcs);
+    riscv_ibex_dbg.write_dmi(dm_ot::SBCS, sbcs);
 
   endtask // jtag_data_preload
    
@@ -1612,7 +1619,7 @@ module ariane_tb;
     input logic [31:0] start_addr;
     logic [31:0] dm_status;
      
-    automatic dm::sbcs_t sbcs = '{
+    automatic dm_ot::sbcs_t sbcs = '{
       sbautoincrement: 1'b1,
       sbreadondata   : 1'b1,
       default        : 1'b0
@@ -1621,34 +1628,34 @@ module ariane_tb;
     $info("======== Waking up Ibex using JTAG ========");
     // Initialize the dm module again, otherwise it will not work
     debug_ibex_module_init();
-    do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+    do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs);
     while (sbcs.sbbusy);
     // Write PC to Data0 and Data1
-    riscv_ibex_dbg.write_dmi(dm::Data0, start_addr);
-    do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+    riscv_ibex_dbg.write_dmi(dm_ot::Data0, start_addr);
+    do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs);
     while (sbcs.sbbusy);
     // Halt Req
-    riscv_ibex_dbg.write_dmi(dm::DMControl, 32'h8000_0001);
-    do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+    riscv_ibex_dbg.write_dmi(dm_ot::DMControl, 32'h8000_0001);
+    do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs);
     while (sbcs.sbbusy);
     // Wait for CVA6 to be halted
-    do riscv_ibex_dbg.read_dmi(dm::DMStatus, dm_status);
+    do riscv_ibex_dbg.read_dmi(dm_ot::DMStatus, dm_status);
     while (!dm_status[8]);
     // Ensure haltreq, resumereq and ackhavereset all equal to 0
-    riscv_ibex_dbg.write_dmi(dm::DMControl, 32'h0000_0001);
-    do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+    riscv_ibex_dbg.write_dmi(dm_ot::DMControl, 32'h0000_0001);
+    do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs);
     while (sbcs.sbbusy);
     // Register Access Abstract Command  
-    riscv_ibex_dbg.write_dmi(dm::Command, {8'h0,1'b0,3'h2,1'b0,1'b0,1'b1,1'b1,4'h0,dm::CSR_DPC});
-    do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+    riscv_ibex_dbg.write_dmi(dm_ot::Command, {8'h0,1'b0,3'h2,1'b0,1'b0,1'b1,1'b1,4'h0,dm_ot::CSR_DPC});
+    do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs);
     while (sbcs.sbbusy);
     // Resume req. Exiting from debug mode CVA6 will jump at the DPC address.
     // Ensure haltreq, resumereq and ackhavereset all equal to 0
-    riscv_ibex_dbg.write_dmi(dm::DMControl, 32'h4000_0001);
-    do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+    riscv_ibex_dbg.write_dmi(dm_ot::DMControl, 32'h4000_0001);
+    do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs);
     while (sbcs.sbbusy);
-    riscv_ibex_dbg.write_dmi(dm::DMControl, 32'h0000_0001);
-    do riscv_ibex_dbg.read_dmi(dm::SBCS, sbcs);
+    riscv_ibex_dbg.write_dmi(dm_ot::DMControl, 32'h0000_0001);
+    do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs);
     while (sbcs.sbbusy);
      
     // Wait till end of computation
