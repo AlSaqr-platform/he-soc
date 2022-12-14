@@ -31,8 +31,8 @@
 #define OUT 1
 #define IN  0
 
-#define FPGA_EMULATION
-#define SIMPLE_PAD
+//#define FPGA_EMULATION
+//#define SIMPLE_PAD
 
 //#define VERBOSE
 //#define EXTRA_VERBOSE

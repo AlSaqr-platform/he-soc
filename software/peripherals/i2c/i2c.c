@@ -251,12 +251,12 @@ int main()
 
 
     #ifdef FPGA_EMULATION
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 1 );
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 2 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 2 );
     #else
       #ifdef SIMPLE_PAD
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 1 );
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 2 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 2 );
       #else
         alsaqr_periph_padframe_periphs_pad_gpio_b_50_mux_set( 2 );
         alsaqr_periph_padframe_periphs_pad_gpio_b_51_mux_set( 2 );
@@ -349,7 +349,7 @@ int main()
 
       //SET TIMER INTERRUPT FOR MEMORY CONSTRAINT (BEFORE TO STORE THE DATA IT REQUIRES SOME TIME)
       apb_timer_set_value(N_TIMER-1,0);
-      apb_timer_set_compare(N_TIMER-1,1500000); //600000
+      apb_timer_set_compare(N_TIMER-1,1500000);
 
       apb_timer_enable(N_TIMER-1,8); //it count every 8 cycles
       
@@ -437,6 +437,30 @@ int main()
 
       //Set completed Interrupt
       pulp_write32(PLIC_CHECK,cmd_i2c_plic_id);
+
+      //SET TIMER INTERRUPT FOR MEMORY CONSTRAINT (BEFORE TO STORE THE DATA IT REQUIRES SOME TIME)
+      /*apb_timer_set_value(N_TIMER-1,0);
+      apb_timer_set_compare(N_TIMER-1,10000);
+
+      apb_timer_enable(N_TIMER-1,8); //it count every 8 cycles
+      
+      pulp_write32(PLIC_BASE+timer_0_plic_id*4, 1); 
+      pulp_write32(PLIC_EN_BITS+(((int)(timer_0_plic_id/32))*4), 1<<(timer_0_plic_id%32)); //enable interrupt
+      //  wfi until reading the rx id from the PLIC
+      while(pulp_read32(PLIC_CHECK)!=timer_0_plic_id) {
+        asm volatile ("wfi");
+      }
+
+      //Set completed Interrupt
+      pulp_write32(PLIC_CHECK,timer_0_plic_id);
+
+      apb_timer_disable(N_TIMER-1);
+
+      //Timer EXPIRED
+      #ifdef PRINTF_ON
+        printf ("Interrupt received from TIMER 0...\n\r");
+        uart_wait_tx_done();    
+      #endif */
 
       #ifdef PRINTF_ON
         printf ("Set interrupt on rx_i2c_plic_id...\n\r");
