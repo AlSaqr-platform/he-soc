@@ -377,10 +377,6 @@ module host_domain
     .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
   ) dma_slv_bus();
 
-   // ariane_axi_soc::req_slv_t  dma_slv_req;
-   // ariane_axi_soc::resp_slv_t dma_slv_rsp;
-   // ariane_axi_soc::req_t      dma_mst_req;
-   // ariane_axi_soc::resp_t     dma_mst_rsp;
    `AXI_TYPEDEF_ALL_CT(dma_mst                             ,
                        dma_mst_req_t                       ,
                        dma_mst_rsp_t                       ,
@@ -447,8 +443,8 @@ module host_domain
         .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
         .cva6_uart_tx_o       ( cva6_uart_tx_o       ),
         .axi_lite_master      ( host_lite_bus        ),
-        .dma_axi_slv ( dma_slv_bus ),
-        .dma_axi_mst ( dma_mst_bus )
+        .dma_axi_slv          ( dma_slv_bus          ), // DMA Slave Port
+        .dma_axi_mst          ( dma_mst_bus          )  // DMA Master Port
     );
 
   logic dma_irq;
@@ -487,7 +483,6 @@ module host_domain
     .dma_slv_req_i     ( dma_slv_req              ),
     .dma_slv_rsp_o     ( dma_slv_rsp              )
   );
-   
    
    axi2tcdm_wrap #(
       .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),

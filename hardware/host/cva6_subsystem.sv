@@ -79,8 +79,10 @@ module cva6_subsystem
   AXI_BUS.Master          hyper_axi_master,
   AXI_BUS.Master          cluster_axi_master,
   AXI_BUS.Slave           cluster_axi_slave,
-  AXI_BUS.Master   dma_axi_slv,
-  AXI_BUS.Slave   dma_axi_mst
+  // XBAR (Master) -> DMA (Slave)
+  AXI_BUS.Master          dma_axi_slv,
+  // DMA (Master) -> XBAR (Slave)
+  AXI_BUS.Slave           dma_axi_mst
 );
      // disable test-enable
   logic        test_en;
@@ -494,7 +496,7 @@ module cva6_subsystem
   `AXI_ASSIGN(slave[4], dma_axi_mst)
 
   // ---------------
-  // AXI CLUSTER Slave
+  // AXI DMA Slave
   // ---------------
   `AXI_ASSIGN(dma_axi_slv, master[ariane_soc::DMA])
    
