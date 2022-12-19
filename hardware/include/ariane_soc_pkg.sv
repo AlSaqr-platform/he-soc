@@ -17,7 +17,7 @@ package ariane_soc;
   localparam int unsigned NumSources = 255;
   localparam int unsigned MaxPriority = 7;
 
-  localparam NrSlaves = 4; // actually masters, but slaves on the crossbar: Debug module, CVA6, Cluster
+  localparam NrSlaves = 5; // actually masters, but slaves on the crossbar: Debug module, CVA6, Cluster
 
    
   typedef struct packed {
@@ -35,10 +35,13 @@ package ariane_soc;
   localparam IdWidthSlave = IdWidth + $clog2(NrSlaves); 
 
   // Ensure that SocToClusterIdWidth + $clog2(ClusterNrSlaves) = IdWidth 
-  localparam SocToClusterIdWidth = 3;   
+  localparam SocToClusterIdWidth = 3;
+
+  localparam int unsigned DMA_GEN = 1;
    
   typedef enum int unsigned {
-    HYAXI       = 13,
+    HYAXI       = 14,
+    DMA         = 13,
     SERIAL_LINK = 12,
     AXILiteDom  = 11, 
     UART        = 10,
@@ -67,6 +70,7 @@ package ariane_soc;
    
 
   localparam logic[63:0] DebugLength    = 64'h1000;
+  localparam logic [63:0] DMALength      = 64'h1000;
   localparam logic[63:0] ROMLength      = 64'h10000;
   localparam logic[63:0] UARTLength     = 64'h1000;
   localparam logic[63:0] AXILiteLength  = 64'h100000; // Same on cluster side
@@ -97,6 +101,7 @@ package ariane_soc;
     SPIBase      = 64'h2000_0000,
     EthernetBase = 64'h3000_0000,
     UARTBase     = 64'h4000_0000,
+    DMABase      = 64'h5000_0000,
     SerLink_Base = 64'h6000_0000,
     HYAXIBase    = 64'h8000_0000
   } soc_bus_start_t; 

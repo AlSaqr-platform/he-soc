@@ -78,7 +78,9 @@ module cva6_subsystem
   AXI_BUS.Master          apb_axi_master,
   AXI_BUS.Master          hyper_axi_master,
   AXI_BUS.Master          cluster_axi_master,
-  AXI_BUS.Slave           cluster_axi_slave
+  AXI_BUS.Slave           cluster_axi_slave,
+  AXI_BUS.Master   dma_axi_slv,
+  AXI_BUS.Slave   dma_axi_mst
 );
      // disable test-enable
   logic        test_en;
@@ -485,6 +487,16 @@ module cva6_subsystem
   // AXI CLUSTER Master
   // ---------------
   `AXI_ASSIGN(slave[2],cluster_axi_slave)
+
+  // ---------------
+  // AXI DMA Master
+  // ---------------
+  `AXI_ASSIGN(slave[4], dma_axi_mst)
+
+  // ---------------
+  // AXI CLUSTER Slave
+  // ---------------
+  `AXI_ASSIGN(dma_axi_slv, master[ariane_soc::DMA])
    
   // ---------------
   // AXI Xbar
@@ -576,7 +588,12 @@ module cva6_subsystem
     idx:  ariane_soc::AXILiteDom,
     start_addr: ariane_soc::AXILiteBase,
     end_addr:   ariane_soc::AXILiteBase + ariane_soc::AXILiteLength  
-  }; 
+  };
+  assign addr_map[ariane_soc::DMA] = '{ 
+    idx:  ariane_soc::DMA,
+    start_addr: ariane_soc::DMABase,
+    end_addr:   ariane_soc::DMABase + ariane_soc::DMALength  
+  };
 
   axi_xbar_intf #(
     .AXI_USER_WIDTH         ( AXI_USER_WIDTH                        ),

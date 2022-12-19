@@ -40,6 +40,7 @@ dependencies:
   ddr-link: { git: "git@github.com:AlSaqr-platform/ddr-link.git", rev: "bf77d024f7290d885601d54bf608f29be6982951"}
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", version: 0.0.1 }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
+  iDMA: { git: git@github.com:pulp-platform/iDMA.git, rev: "feature/desc64_dataflow-tbenz" }
 
 
 export_include_dirs:
@@ -79,6 +80,7 @@ sources:
   - host/cva6_synth_wrap.sv
   - host/l3_onchip_subsystem.sv
   - host/cva6_subsystem.sv
+  - host/dma_subsystem.sv
   - host/l2_subsystem.sv
   - host/clk_gen_hyper.sv
   - host/axi_lite_subsystem.sv

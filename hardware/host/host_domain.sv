@@ -360,7 +360,45 @@ module host_domain
    assign s_llc_write_miss_cache = llc_events.miss_write_cache.active;
    
   `endif   
-     
+
+  // XBAR -> DMA
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+  ) dma_mst_bus();
+
+  // DMA -> XBAR
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
+  ) dma_slv_bus();
+
+   // ariane_axi_soc::req_slv_t  dma_slv_req;
+   // ariane_axi_soc::resp_slv_t dma_slv_rsp;
+   // ariane_axi_soc::req_t      dma_mst_req;
+   // ariane_axi_soc::resp_t     dma_mst_rsp;
+   `AXI_TYPEDEF_ALL_CT(dma_mst                             ,
+                       dma_mst_req_t                       ,
+                       dma_mst_rsp_t                       ,
+                       logic [AXI_ADDRESS_WIDTH-1:0]       , // addr_t
+                       logic [ariane_soc::IdWidthSlave-1:0], // id_t
+                       logic [AXI_DATA_WIDTH-1:0]          , // data_t 
+                       logic [(AXI_DATA_WIDTH/8)-1:0]      , // strb_t
+                       logic [AXI_USER_WIDTH-1:0]          ) // user_t
+
+   `AXI_TYPEDEF_ALL_CT(dma_slv                        ,
+                       dma_slv_req_t                  ,
+                       dma_slv_rsp_t                  ,
+                       logic [AXI_ADDRESS_WIDTH-1:0]  , // addr_t
+                       logic [ariane_soc::IdWidth-1:0], // id_t
+                       logic [AXI_DATA_WIDTH-1:0]     , // data_t 
+                       logic [(AXI_DATA_WIDTH/8)-1:0] , // strb_t
+                       logic [AXI_USER_WIDTH-1:0]     ) // user_t
+
    cva6_subsystem # (
         .NUM_WORDS         ( NUM_WORDS  ),
         .InclSimDTM        ( 1'b1       ),
@@ -408,8 +446,47 @@ module host_domain
 
         .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
         .cva6_uart_tx_o       ( cva6_uart_tx_o       ),
-        .axi_lite_master      ( host_lite_bus        )
+        .axi_lite_master      ( host_lite_bus        ),
+        .dma_axi_slv ( dma_slv_bus ),
+        .dma_axi_mst ( dma_mst_bus )
     );
+
+  logic dma_irq;
+  dma_slv_req_t dma_slv_req;
+  dma_slv_rsp_t dma_slv_rsp;
+  dma_mst_req_t dma_mst_req;
+  dma_mst_rsp_t dma_mst_rsp;
+ `AXI_ASSIGN_TO_REQ(dma_slv_req, dma_slv_bus)
+ `AXI_ASSIGN_FROM_RESP(dma_slv_bus, dma_slv_rsp)
+
+ `AXI_ASSIGN_FROM_REQ(dma_mst_bus, dma_mst_req)
+ `AXI_ASSIGN_TO_RESP(dma_mst_rsp, dma_mst_bus)
+
+  dma_subsystem       #(
+    .AxiAddrWidth      ( AXI_ADDRESS_WIDTH          ),
+    .AxiDataWidth      ( AXI_DATA_WIDTH             ),
+    .AxiUserWidth      ( AXI_USER_WIDTH             ),
+    .AxiIdWidth        ( ariane_soc::IdWidthSlave   ),
+    .AxiSlvIdWidth     ( ariane_soc::IdWidth        ),
+    .dma_mst_aw_chan_t ( dma_mst_aw_chan_t  ), // AW Channel Type, master port
+    .dma_mst_w_chan_t  ( dma_mst_w_chan_t   ), //  W Channel Type, all ports
+    .dma_mst_b_chan_t  ( dma_mst_b_chan_t   ), //  B Channel Type, master port
+    .dma_mst_ar_chan_t ( dma_mst_ar_chan_t  ), // AR Channel Type, master port
+    .dma_mst_r_chan_t  ( dma_mst_r_chan_t   ), //  R Channel Type, master port
+    .dma_mst_req_t     ( dma_mst_req_t      ),
+    .dma_mst_rsp_t     ( dma_mst_rsp_t      ),
+    .dma_slv_req_t     ( dma_slv_req_t      ),
+    .dma_slv_rsp_t     ( dma_slv_rsp_t      )
+  ) dma_subsystem_i    (
+    .clk_i             ( s_soc_clk                ),
+    .rst_ni            ( s_synch_soc_rst          ),
+    .testmode_i        ( test_en                  ),
+    .irq_o             ( dma_irq                  ),
+    .dma_mst_req_o     ( dma_mst_req              ),
+    .dma_mst_rsp_i     ( dma_mst_rsp              ),
+    .dma_slv_req_i     ( dma_slv_req              ),
+    .dma_slv_rsp_o     ( dma_slv_rsp              )
+  );
    
    
    axi2tcdm_wrap #(
