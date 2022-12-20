@@ -377,6 +377,8 @@ module host_domain
     .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
   ) dma_mst_bus();
 
+  logic dma_irq;
+
    `AXI_TYPEDEF_ALL_CT(dma_mst                        ,
                        dma_mst_req_t                  ,
                        dma_mst_rsp_t                  ,
@@ -428,6 +430,7 @@ module host_domain
         .c2h_irq_i            ( s_c2h_irq            ),
         .can_irq_i            ( s_can_irq            ),
         .cl_dma_pe_evt_i      ( s_dma_pe_evt         ),
+        .host_dma_irq_i       ( dma_irq              ),
         .dm_rst_o             ( s_dm_rst             ),
         .l2_axi_master        ( l2_axi_bus           ),
         .apb_axi_master       ( apb_axi_bus          ),
@@ -447,7 +450,6 @@ module host_domain
         .dma_axi_mst          ( dma_mst_bus          )  // DMA Master Port
     );
 
-  logic dma_irq;
   dma_slv_req_t dma_slv_req;
   dma_slv_rsp_t dma_slv_rsp;
   dma_mst_req_t dma_mst_req;

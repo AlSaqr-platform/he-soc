@@ -34,6 +34,7 @@ module ariane_peripherals
     input  logic            cluster_eoc_i   ,
     input  logic [N_CAN-1:0] can_irq_i      ,
     input  logic            cl_dma_pe_evt_i ,
+    input  logic            host_dma_irq_i  ,
     output logic [1:0]      irq_o           ,
     // UART
     input  logic            rx_i            ,
@@ -84,7 +85,8 @@ module ariane_peripherals
     assign irq_sources[139]                          = cl_dma_pe_evt_i;
     assign irq_sources[140]                          = can_irq_i[0];
     assign irq_sources[141]                          = can_irq_i[1];
-    assign irq_sources[ariane_soc::NumSources-1:142] = '0;
+    assign irq_sources[142]                          = host_dma_irq_i;
+    assign irq_sources[ariane_soc::NumSources-1:143] = '0;
 
     REG_BUS #(
         .ADDR_WIDTH ( 32 ),
