@@ -19,7 +19,7 @@ endif
 
 utils_dir = $(SW_HOME)/inc/
 
-directories = . drivers/inc drivers/src string_lib/inc string_lib/src padframe/inc padframe/src fpga_padframe/inc fpga_padframe/src udma udma/cpi udma/i2c udma/spim udma/uart udma/sdio
+directories = . drivers/inc drivers/src string_lib/inc string_lib/src padframe/inc padframe/src fpga_padframe/inc fpga_padframe/src udma udma/cpi udma/i2c udma/spim udma/uart udma/sdio apb_timer gpio
 
 INC=$(foreach d, $(directories), -I$(utils_dir)$d)
 

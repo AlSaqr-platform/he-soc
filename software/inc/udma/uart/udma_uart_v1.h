@@ -88,7 +88,7 @@
 #define ARCHI_SOC_EVENT_UART_RX(id)    (ARCHI_SOC_EVENT_PERIPH_FIRST_EVT(ARCHI_UDMA_UART_ID(id)) + ARCHI_UDMA_UART_RX_EVT)
 #define ARCHI_SOC_EVENT_UART_TX(id)    (ARCHI_SOC_EVENT_PERIPH_FIRST_EVT(ARCHI_UDMA_UART_ID(id)) + ARCHI_UDMA_UART_TX_EVT)
 
-int udma_uart_open(int uart_id, int baudrate);
+int udma_uart_open(int uart_id, int test_freq, int baudrate);
 void udma_uart_close(int uart_id);
 int udma_uart_write(int uart_id, void *buffer, uint32_t size);
 int udma_uart_read(int uart_id, void *buffer, uint32_t size);

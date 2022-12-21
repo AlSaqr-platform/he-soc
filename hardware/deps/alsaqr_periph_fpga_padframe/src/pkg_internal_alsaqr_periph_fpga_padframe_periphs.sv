@@ -220,61 +220,75 @@ package pkg_internal_alsaqr_periph_fpga_padframe_periphs;
 
   // Indices definitions
 
-  parameter PAD_MUX_GROUP_PAD_GPIO_B_00_SEL_WIDTH = 1;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_00_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_00_SEL_SPI0_SPI_CS0 = 1'd1;
+  parameter PAD_MUX_GROUP_PAD_GPIO_B_00_SEL_WIDTH = 2;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_00_SEL_DEFAULT = 2'd0;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_00_SEL_GPIO_B_GPIO0 = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_00_SEL_SPI0_SPI_CS0 = 2'd2;
 
-  parameter PAD_MUX_GROUP_PAD_GPIO_B_01_SEL_WIDTH = 1;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_01_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_01_SEL_SPI0_SPI_SCK = 1'd1;
+  parameter PAD_MUX_GROUP_PAD_GPIO_B_01_SEL_WIDTH = 2;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_01_SEL_DEFAULT = 2'd0;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_01_SEL_GPIO_B_GPIO1 = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_01_SEL_SPI0_SPI_SCK = 2'd2;
 
-  parameter PAD_MUX_GROUP_PAD_GPIO_B_02_SEL_WIDTH = 1;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_02_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_02_SEL_SPI0_SPI_MISO = 1'd1;
+  parameter PAD_MUX_GROUP_PAD_GPIO_B_02_SEL_WIDTH = 2;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_02_SEL_DEFAULT = 2'd0;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_02_SEL_GPIO_B_GPIO2 = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_02_SEL_SPI0_SPI_MISO = 2'd2;
 
-  parameter PAD_MUX_GROUP_PAD_GPIO_B_03_SEL_WIDTH = 1;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_03_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_03_SEL_SPI0_SPI_MOSI = 1'd1;
+  parameter PAD_MUX_GROUP_PAD_GPIO_B_03_SEL_WIDTH = 2;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_03_SEL_DEFAULT = 2'd0;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_03_SEL_GPIO_B_GPIO3 = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_03_SEL_SPI0_SPI_MOSI = 2'd2;
 
-  parameter PAD_MUX_GROUP_PAD_GPIO_B_04_SEL_WIDTH = 1;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_04_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_04_SEL_I2C0_I2C_SCL = 1'd1;
+  parameter PAD_MUX_GROUP_PAD_GPIO_B_04_SEL_WIDTH = 2;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_04_SEL_DEFAULT = 2'd0;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_04_SEL_GPIO_B_GPIO4 = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_04_SEL_I2C0_I2C_SCL = 2'd2;
 
-  parameter PAD_MUX_GROUP_PAD_GPIO_B_05_SEL_WIDTH = 1;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_05_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_05_SEL_I2C0_I2C_SDA = 1'd1;
+  parameter PAD_MUX_GROUP_PAD_GPIO_B_05_SEL_WIDTH = 2;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_05_SEL_DEFAULT = 2'd0;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_05_SEL_GPIO_B_GPIO5 = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_05_SEL_I2C0_I2C_SDA = 2'd2;
 
-  parameter PAD_MUX_GROUP_PAD_GPIO_B_06_SEL_WIDTH = 1;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_06_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_06_SEL_UART0_UART_TX = 1'd1;
+  parameter PAD_MUX_GROUP_PAD_GPIO_B_06_SEL_WIDTH = 2;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_06_SEL_DEFAULT = 2'd0;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_06_SEL_GPIO_B_GPIO6 = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_06_SEL_UART0_UART_TX = 2'd2;
 
-  parameter PAD_MUX_GROUP_PAD_GPIO_B_07_SEL_WIDTH = 1;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_07_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_07_SEL_UART0_UART_RX = 1'd1;
+  parameter PAD_MUX_GROUP_PAD_GPIO_B_07_SEL_WIDTH = 2;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_07_SEL_DEFAULT = 2'd0;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_07_SEL_GPIO_B_GPIO7 = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_07_SEL_UART0_UART_RX = 2'd2;
 
-  parameter PAD_MUX_GROUP_PAD_GPIO_B_08_SEL_WIDTH = 1;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_08_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_08_SEL_SDIO0_SDIO_DATA0 = 1'd1;
+  parameter PAD_MUX_GROUP_PAD_GPIO_B_08_SEL_WIDTH = 2;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_08_SEL_DEFAULT = 2'd0;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_08_SEL_GPIO_B_GPIO8 = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_08_SEL_SDIO0_SDIO_DATA0 = 2'd2;
 
-  parameter PAD_MUX_GROUP_PAD_GPIO_B_09_SEL_WIDTH = 1;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_09_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_09_SEL_SDIO0_SDIO_DATA1 = 1'd1;
+  parameter PAD_MUX_GROUP_PAD_GPIO_B_09_SEL_WIDTH = 2;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_09_SEL_DEFAULT = 2'd0;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_09_SEL_GPIO_B_GPIO9 = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_09_SEL_SDIO0_SDIO_DATA1 = 2'd2;
 
-  parameter PAD_MUX_GROUP_PAD_GPIO_B_10_SEL_WIDTH = 1;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_10_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_10_SEL_SDIO0_SDIO_DATA2 = 1'd1;
+  parameter PAD_MUX_GROUP_PAD_GPIO_B_10_SEL_WIDTH = 2;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_10_SEL_DEFAULT = 2'd0;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_10_SEL_GPIO_B_GPIO10 = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_10_SEL_SDIO0_SDIO_DATA2 = 2'd2;
 
-  parameter PAD_MUX_GROUP_PAD_GPIO_B_11_SEL_WIDTH = 1;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_11_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_11_SEL_SDIO0_SDIO_DATA3 = 1'd1;
+  parameter PAD_MUX_GROUP_PAD_GPIO_B_11_SEL_WIDTH = 2;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_11_SEL_DEFAULT = 2'd0;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_11_SEL_GPIO_B_GPIO11 = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_11_SEL_SDIO0_SDIO_DATA3 = 2'd2;
 
-  parameter PAD_MUX_GROUP_PAD_GPIO_B_12_SEL_WIDTH = 1;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_12_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_12_SEL_SDIO0_SDIO_CLK = 1'd1;
+  parameter PAD_MUX_GROUP_PAD_GPIO_B_12_SEL_WIDTH = 2;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_12_SEL_DEFAULT = 2'd0;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_12_SEL_GPIO_B_GPIO12 = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_12_SEL_SDIO0_SDIO_CLK = 2'd2;
 
-  parameter PAD_MUX_GROUP_PAD_GPIO_B_13_SEL_WIDTH = 1;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_13_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_PAD_GPIO_B_13_SEL_SDIO0_SDIO_CMD = 1'd1;
+  parameter PAD_MUX_GROUP_PAD_GPIO_B_13_SEL_WIDTH = 2;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_13_SEL_DEFAULT = 2'd0;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_13_SEL_GPIO_B_GPIO13 = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_13_SEL_SDIO0_SDIO_CMD = 2'd2;
 
   // Dynamic Pad  instance index
 

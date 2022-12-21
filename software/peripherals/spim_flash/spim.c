@@ -51,7 +51,7 @@
 #define OUT 1
 #define IN  0
 
-#define PRINTF_ON
+//#define PRINTF_ON
 
 /*******************************************************************************
 **                             IMPORTANT                                      **
@@ -77,7 +77,7 @@
 //enable bits for sources 0-31
 #define PLIC_EN_BITS  PLIC_BASE + 0x2080
 
-#define USE_PLIC 0
+#define USE_PLIC 1
 /*TEST PLIC OK*/
 
 int pad_fun_offset[4] = {REG_PADFUN0_OFFSET,REG_PADFUN1_OFFSET,REG_PADFUN2_OFFSET,REG_PADFUN3_OFFSET};
@@ -368,16 +368,16 @@ int main(){
   #endif 
 
   #ifdef FPGA_EMULATION
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 1 );
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set( 1 );
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set( 1 );
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 2 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set( 2 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set( 2 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set( 2 );
   #else
     #ifdef SIMPLE_PAD
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 1 );
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set( 1 );
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set( 1 );
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 2 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set( 2 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set( 2 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set( 2 );
     #else
       alsaqr_periph_padframe_periphs_pad_gpio_b_00_mux_set( 2 );
       alsaqr_periph_padframe_periphs_pad_gpio_b_01_mux_set( 2 );
@@ -388,10 +388,10 @@ int main(){
 
   for (int u = 0; u<N_SPI; u++){
 
-    rx_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +16 ; //40
-    tx_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +16 +1; //41
-    cmd_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +16 +2; //42
-    eot_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +16 +3; //43
+    rx_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +16 ; //32
+    tx_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +16 +1; //33
+    cmd_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +16 +2; //34
+    eot_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +16 +3; //35
 
     //printf("[%d, %d] Start test flash page programming over qspi %d\n",  0, 0,u);
 
@@ -514,19 +514,14 @@ int main(){
         if (USE_PLIC==0){
           //--- polling to check if the transfer is completed (when the "SADDR" register of the SPI channel is equal to 0)
           do {
-            #ifdef PRINTF_ON
-              printf ("Polling on UDMA_SPIM_RX_ADDR until != 0...\n\r");
-              uart_wait_tx_done();
-            #endif 
+            //printf ("Polling on UDMA_SPIM_RX_ADDR until != 0...\n\r");
+            uart_wait_tx_done();
             poll_var = pulp_read32(UDMA_CHANNEL_SIZE_OFFSET + UDMA_SPIM_RX_ADDR(u));
             barrier();
           } while(poll_var != 0);
         }else {
-          #ifdef PRINTF_ON
-            printf ("Set interrupt on rx_spi_plic_id...\n\r");
-            uart_wait_tx_done();
-          #endif 
-          
+          //printf ("Set interrupt on rx_spi_plic_id...\n\r");
+          uart_wait_tx_done();
           //Set RX interrupt
           pulp_write32(PLIC_BASE+rx_spi_plic_id*4, 1); // set tx interrupt priority to 1
           //printf ("Enable interrupt on rx_spi_plic_id...\n\r");
@@ -537,12 +532,8 @@ int main(){
           while(pulp_read32(PLIC_CHECK)!=rx_spi_plic_id) {
             asm volatile ("wfi");
           }
-          
-          #ifdef PRINTF_ON
-            printf ("Interrupt received and clear...\n\r");
-            uart_wait_tx_done();
-          #endif
-          
+          //printf ("Interrupt received and clear...\n\r");
+          uart_wait_tx_done();
           //Set completed Interrupt
           pulp_write32(PLIC_CHECK,rx_spi_plic_id);
         }

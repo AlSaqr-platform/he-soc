@@ -4,7 +4,7 @@
 #include "utils.h"
 #include "./cluster_code.h"
 
-#define FPGA_EMULATION
+//#define FPGA_EMULATION
 #define PLIC_BASE 0x0C000000
 
 int launch_cluster() {

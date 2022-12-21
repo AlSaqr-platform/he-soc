@@ -41,9 +41,9 @@ static void udma_uart_wait_rx_done(int periph)
 
 
 
-static void udma_uart_setup(int channel, int baudrate)
+static void udma_uart_setup(int channel, int test_freq, int baudrate)
 {
-  int div =  (17825792 + baudrate/2) / baudrate;
+  int div =  (test_freq + baudrate/2) / baudrate;
 
   plp_uart_setup(channel - ARCHI_UDMA_UART_ID(0), 0, div-1);
 }
@@ -51,7 +51,7 @@ static void udma_uart_setup(int channel, int baudrate)
 
 
 
-int udma_uart_open(int uart_id, int baudrate)
+int udma_uart_open(int uart_id, int test_freq, int baudrate)
 {
   int periph_id = ARCHI_UDMA_UART_ID(uart_id);
   int channel = UDMA_EVENT_ID(periph_id);
@@ -61,7 +61,7 @@ int udma_uart_open(int uart_id, int baudrate)
   //soc_eu_fcEventMask_setEvent(channel);
   //soc_eu_fcEventMask_setEvent(channel+1);
 
-  udma_uart_setup(periph_id, baudrate);
+  udma_uart_setup(periph_id, test_freq, baudrate);
 
   return 0;
 }

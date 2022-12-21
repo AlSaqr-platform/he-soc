@@ -97,7 +97,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_00_REGISTER = 0,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_00_group_SPI0_port_SPI_CS0 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_00_group_GPIO_B_port_GPIO0 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_00_group_SPI0_port_SPI_CS0 = 2,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_sel_t;
 
 /**
@@ -202,7 +203,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_01_REGISTER = 0,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_01_group_SPI0_port_SPI_SCK = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_01_group_GPIO_B_port_GPIO1 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_01_group_SPI0_port_SPI_SCK = 2,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_sel_t;
 
 /**
@@ -307,7 +309,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_02_REGISTER = 0,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_02_group_SPI0_port_SPI_MISO = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_02_group_GPIO_B_port_GPIO2 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_02_group_SPI0_port_SPI_MISO = 2,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_sel_t;
 
 /**
@@ -412,7 +415,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_03_REGISTER = 0,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_03_group_SPI0_port_SPI_MOSI = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_03_group_GPIO_B_port_GPIO3 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_03_group_SPI0_port_SPI_MOSI = 2,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_sel_t;
 
 /**
@@ -517,7 +521,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_04_REGISTER = 0,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_04_group_I2C0_port_I2C_SCL = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_04_group_GPIO_B_port_GPIO4 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_04_group_I2C0_port_I2C_SCL = 2,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_sel_t;
 
 /**
@@ -622,7 +627,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_05_REGISTER = 0,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_05_group_I2C0_port_I2C_SDA = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_05_group_GPIO_B_port_GPIO5 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_05_group_I2C0_port_I2C_SDA = 2,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_sel_t;
 
 /**
@@ -727,7 +733,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_06_REGISTER = 0,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_06_group_UART0_port_UART_TX = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_06_group_GPIO_B_port_GPIO6 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_06_group_UART0_port_UART_TX = 2,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_sel_t;
 
 /**
@@ -832,7 +839,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_07_REGISTER = 0,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_07_group_UART0_port_UART_RX = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_07_group_GPIO_B_port_GPIO7 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_07_group_UART0_port_UART_RX = 2,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_sel_t;
 
 /**
@@ -937,7 +945,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_08_REGISTER = 0,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_08_group_SDIO0_port_SDIO_DATA0 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_08_group_GPIO_B_port_GPIO8 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_08_group_SDIO0_port_SDIO_DATA0 = 2,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_sel_t;
 
 /**
@@ -1042,7 +1051,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_09_REGISTER = 0,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_09_group_SDIO0_port_SDIO_DATA1 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_09_group_GPIO_B_port_GPIO9 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_09_group_SDIO0_port_SDIO_DATA1 = 2,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_sel_t;
 
 /**
@@ -1147,7 +1157,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_10_REGISTER = 0,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_10_group_SDIO0_port_SDIO_DATA2 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_10_group_GPIO_B_port_GPIO10 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_10_group_SDIO0_port_SDIO_DATA2 = 2,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_sel_t;
 
 /**
@@ -1252,7 +1263,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_11_REGISTER = 0,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_11_group_SDIO0_port_SDIO_DATA3 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_11_group_GPIO_B_port_GPIO11 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_11_group_SDIO0_port_SDIO_DATA3 = 2,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_sel_t;
 
 /**
@@ -1357,7 +1369,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_12_REGISTER = 0,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_12_group_SDIO0_port_SDIO_CLK = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_12_group_GPIO_B_port_GPIO12 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_12_group_SDIO0_port_SDIO_CLK = 2,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_sel_t;
 
 /**
@@ -1462,7 +1475,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_13_REGISTER = 0,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_13_group_SDIO0_port_SDIO_CMD = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_13_group_GPIO_B_port_GPIO13 = 1,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_13_group_SDIO0_port_SDIO_CMD = 2,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_sel_t;
 
 /**

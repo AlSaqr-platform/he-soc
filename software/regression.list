@@ -4,8 +4,8 @@ hello_pulp
 hello
 hyperbus
 l2_test
-peripherals/cam
 peripherals/i2c
+peripherals/cam
 peripherals/spim_flash
 peripherals/uart
 gpios
