@@ -22,6 +22,7 @@ utils_dir = $(SW_HOME)/inc/
 directories = . drivers/inc drivers/src string_lib/inc string_lib/src padframe/inc padframe/src fpga_padframe/inc fpga_padframe/src udma udma/cpi udma/i2c udma/spim udma/uart udma/sdio
 
 INC=$(foreach d, $(directories), -I$(utils_dir)$d)
+INC += $(utils_dir)/hal_dma/hal_dma.c
 
 
 inc_dir := $(SW_HOME)/common/
