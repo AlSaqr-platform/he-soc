@@ -157,17 +157,3 @@ static inline void pi_cl_team_barrier() {
     _llc_hit = get_llc_hit() - _llc_hit; _llc_miss = get_llc_miss() - _llc_miss; \
     printf("@ Iter %d : %d cycles, %d instructions, L1D miss %d, L1I miss %d, LLC hit ratio: %d / %d\r\n",  __k, _c, _i, _l1d_miss, _l1i_miss,_llc_hit, _llc_hit + _llc_miss); \
   }
-
-void dma_setup_regions(volatile uint8_t *src_ptr, volatile uint8_t *dst_ptr, uint32_t transfer_length) {
-    // clear a bit before as well
-    printf("Zeroing region!\n");
-    for (int64_t i = -0x10; i < transfer_length + 0x10; ++i) {
-        src_ptr[i] = 0;
-        dst_ptr[i] = 0;
-    }
-    printf("Filling region with pattern!\n");
-    for (int64_t i = 0; i < transfer_length; ++i) {
-        src_ptr[i] = i % 256;
-        printf("%d\n", pulp_read32(src_ptr[i]) );
-    }
-}

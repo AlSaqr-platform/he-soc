@@ -6,7 +6,7 @@
 #include "../archi_dma/archi_dma.h"
 
 struct descriptor descriptors[10] __attribute__((section(".descriptors")));
-bool tx_done;
+bool tx_done = false;
 
 void dma_setup_transfer(uint64_t src           ,
                         uint64_t dst           ,
@@ -25,7 +25,7 @@ void dma_setup_transfer(uint64_t src           ,
     desc->dst    = dst;
 
     // flags: id: 0xff, cache: 0, deburst: 0, serialize: 1, decouple_rw: 1bit, incr (src/dst): 0101, irq: 1bit
-    desc->flags  = 0xff << 16 | (1 << 6) | (decouple_rw << 5) | (0x5 << 1) | do_irq;
+    desc->flags  = 0xff << 16 | (0 << 7) | (1 << 6) | (decouple_rw << 5) | (0x5 << 1) | do_irq;
 }
 
 void dma_submit_transfer(struct descriptor *desc) {
@@ -52,6 +52,7 @@ void dma_wait_for_transfer(volatile struct descriptor *desc) {
                 desc->length != ~0);
     }
 }
+
 void dma_setup_interrupts(void) {
     // set source 8 priority to 3
     ((volatile uint32_t*)0x0c000000)[8] = 3;
