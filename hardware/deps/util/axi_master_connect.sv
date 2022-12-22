@@ -12,8 +12,8 @@
 // Author: Florian Zaruba <zarubaf@iis.ee.ethz.ch>
 
 module axi_master_connect (
-    input  ariane_axi::req_t    axi_req_i,
-    output ariane_axi::resp_t   axi_resp_o,
+    input  ariane_axi_soc::req_t    axi_req_i,
+    output ariane_axi_soc::resp_t   axi_resp_o,
     AXI_BUS.Master master
 );
 

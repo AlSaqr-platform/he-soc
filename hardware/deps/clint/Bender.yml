@@ -6,5 +6,7 @@ dependencies:
   cva6: { git: "git@github.com:minho-pulp/cva6.git", rev: "f2aec221764d935091942edd37c6de2480a41457" }
     
 sources:
+  - ../../include/ariane_soc_pkg.sv
+  - ../../include/ariane_axi_soc_pkg.sv
   - ./axi_lite_interface.sv
   - ./clint.sv
