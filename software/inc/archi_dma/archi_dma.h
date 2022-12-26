@@ -17,8 +17,8 @@
 
 /* DMA Descriptor */
 struct descriptor {
-  uint32_t flags;
   uint32_t length;
+  uint32_t flags;
   uint64_t next;
   uint64_t src;
   uint64_t dst;
