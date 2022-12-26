@@ -30,12 +30,18 @@ void dma_setup_transfer(uint64_t src           ,
 
 void dma_submit_transfer(struct descriptor *desc) {
     tx_done = false;
-    printf("Just before fence\n");
+    #ifdef VERBOSE
+      printf("Just before fence\n");
+    #endif
     asm volatile ("fence");
     struct descriptor * volatile* desc_reg = (struct descriptor**)HOST_DMA_BASE;
-    printf("Writing...\n");
+    #ifdef VERBOSE
+      printf("Writing...\n");
+    #endif
     *desc_reg = desc;
-    printf("After writing\n");
+    #ifdef VERBOSE
+      printf("After writing\n");
+    #endif
 }
 
 void dma_wait_for_transfer(volatile struct descriptor *desc) {

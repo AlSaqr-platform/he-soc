@@ -61,12 +61,12 @@ int main(int argc, char const *argv[]) {
 
   printf("DMA test started.\n");
   int error = 0;
-  uint32_t transfer_len = 16; // 512 byte transfer
+  uint32_t transfer_len = 512; // 512 byte transfer
   bool     irq = true;
   struct descriptor *dma_descriptor;
   
   uint64_t src_addr = 0x1c004000;
-  uint64_t dst_addr = 0x88000000;
+  uint64_t dst_addr = 0x86000000;
   printf("Configuring DMA descriptor to move data between L3 and L2...\n");
   printf("Transfering %d bytes from %x to %x.\n", transfer_len, src_addr, dst_addr);
   dma_setup_regions(src_addr    ,
@@ -88,11 +88,13 @@ int main(int argc, char const *argv[]) {
 
   if (error == 0)
     printf("L2 -> L3 test succeded!\n");
-  else
+  else {
     printf("L2 -> L3 test failed with %d errors..\n", error);
+    return error;
+  }
 
-  src_addr = 0x88000000;
-  dst_addr = 0x1c004000;
+  src_addr = 0x87000000;
+  dst_addr = 0x1c005000;
   printf("Transfering %d bytes from %x to %x.\n", transfer_len, src_addr, dst_addr);
   dma_setup_regions(src_addr    ,
                     dst_addr    ,
@@ -113,11 +115,13 @@ int main(int argc, char const *argv[]) {
   
   if (error == 0)
     printf("L3 -> L2 test succeded!\n");
-  else
+  else {
     printf("L3 -> L2 test failed with %d errors..\n", error);
+    return error;
+  }
 
   src_addr = 0x10000100;
-  dst_addr = 0x89000000;
+  dst_addr = 0x88000000;
   printf("Configuring DMA descriptor to move data between L1 and L3...\n");
   printf("Transfering %d bytes from %x to %x.\n", transfer_len, src_addr, dst_addr);
   dma_setup_regions(src_addr    ,
@@ -139,11 +143,13 @@ int main(int argc, char const *argv[]) {
 
   if (error == 0)
     printf("L1 -> L3 test succeded!\n");
-  else
+  else {
     printf("L1 -> L3 test failed with %d errors..\n", error);
+    return error;
+  }
 
   src_addr = 0x89000000;
-  dst_addr = 0x10000100;
+  dst_addr = 0x10000200;
   printf("Transfering %d bytes from %x to %x.\n", transfer_len, src_addr, dst_addr);
   dma_setup_regions(src_addr    ,
                     dst_addr    ,
@@ -164,8 +170,10 @@ int main(int argc, char const *argv[]) {
   
   if (error == 0)
     printf("L3 -> L1 test succeded!\n");
-  else
+  else {
     printf("L3 -> L1 test failed with %d errors..\n", error);
+    return error;
+  }
     
   uart_wait_tx_done();
   
