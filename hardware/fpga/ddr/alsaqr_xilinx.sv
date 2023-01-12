@@ -91,7 +91,8 @@ module alsaqr_xilinx
                                       .clk_out1(ref_clk)
                                       );
      
-   assign reset_n = ~pad_reset  & pad_jtag_ot_trst & pad_jtag_trst;
+   assign reset_n = ~pad_reset  & pad_jtag_trst;
+// & pad_jtag_ot_trst;
 
    
    AXI_BUS #(
@@ -298,7 +299,7 @@ ddr4_0 u_ddr4_0
         .jtag_ot_TCK      ( pad_jtag_ot_tck    ),
         .jtag_ot_TMS      ( pad_jtag_ot_tms    ),
         .jtag_ot_TDI      ( pad_jtag_ot_tdi    ),
-        .jtag_ot_TRSTn    ( 1'b1               ),
+        .jtag_ot_TRSTn    ( pad_jtag_ot_trst   ), //1'b1               ),
         .jtag_ot_TDO_data ( pad_jtag_ot_tdo    )
                 
    );

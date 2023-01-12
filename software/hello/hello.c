@@ -21,7 +21,7 @@ int main(int argc, char const *argv[]) {
 
   #ifdef FPGA_EMULATION                  
   int baud_rate = 115200;
-  int test_freq = 50000000;
+  int test_freq = 40000000;
   #else
   set_flls();
   int baud_rate = 115200;

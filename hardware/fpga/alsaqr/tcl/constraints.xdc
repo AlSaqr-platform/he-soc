@@ -7,17 +7,17 @@ create_clock -period 6.400 [get_pins u_ddr4_0/c0_ddr4_ui_clk]
 
 #alsaqr clock
 create_clock -period 20  [get_pins  alsaqr_clk_manager/clk_out1]
-create_generated_clock -name opentitan_div4_clk -source [get_pins  alsaqr_clk_manager/clk_out1] -divide_by 4 [get_pins i_alsaqr/u_RoT/u_clkmgr_aon/u_no_scan_io_div4_div/gen_div.clk_int_reg/Q]
-create_generated_clock -name opentitan_div2_clk -source [get_pins  alsaqr_clk_manager/clk_out1] -divide_by 2 [get_pins i_alsaqr/u_RoT/u_clkmgr_aon/u_no_scan_io_div2_div/gen_div2.u_div2/q_o_reg[0]/Q]
-create_generated_clock -name opentitan_spi1 -source [get_pins  alsaqr_clk_manager/clk_out1] -divide_by 1 [get_pins i_alsaqr/u_RoT/u_spi_device/u_reg/u_cfg_cpha/q_reg[0]/Q]
+create_generated_clock -name opentitan_div4_clk -source [get_pins  alsaqr_clk_manager/clk_out1] -divide_by 4 [get_pins i_alsaqr/i_RoT_wrap/u_RoT/u_clkmgr_aon/u_no_scan_io_div4_div/gen_div.clk_int_reg/Q]
+create_generated_clock -name opentitan_div2_clk -source [get_pins  alsaqr_clk_manager/clk_out1] -divide_by 2 [get_pins i_alsaqr/i_RoT_wrap/u_RoT/u_clkmgr_aon/u_no_scan_io_div2_div/gen_div2.u_div2/q_o_reg[0]/Q]
+create_generated_clock -name opentitan_spi1 -source [get_pins  alsaqr_clk_manager/clk_out1] -divide_by 1 [get_pins i_alsaqr/i_RoT_wrap/u_RoT/u_spi_device/u_reg/u_cfg_cpha/q_reg[0]/Q]
 
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  u_ddr4_0/c0_ddr4_ui_clk]]
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_ports c0_sys_clk_p]] 
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  alsaqr_clk_manager/clk_out1]] 
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  u_ddr4_0/c0_ddr4_ui_clk]]
-set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  i_alsaqr/u_RoT/u_clkmgr_aon/u_no_scan_io_div4_div/gen_div.clk_int_reg/Q]]
-set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  i_alsaqr/u_RoT/u_clkmgr_aon/u_no_scan_io_div2_div/gen_div2.u_div2/q_o_reg[0]/Q]]
-set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  i_alsaqr/u_RoT/u_spi_device/u_reg/u_cfg_cpha/q_reg[0]/Q]]
+set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  i_alsaqr/i_RoT_wrap/u_RoT/u_clkmgr_aon/u_no_scan_io_div4_div/gen_div.clk_int_reg/Q]]
+set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  i_alsaqr/i_RoT_wrap/u_RoT/u_clkmgr_aon/u_no_scan_io_div2_div/gen_div2.u_div2/q_o_reg[0]/Q]]
+set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  i_alsaqr/i_RoT_wrap/u_RoT/u_spi_device/u_reg/u_cfg_cpha/q_reg[0]/Q]]
 
 #set_false_path -from [get_ports pad_reset]
 

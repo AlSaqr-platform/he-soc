@@ -355,7 +355,7 @@ module host_domain
         .JtagEnable        ( JtagEnable ),
         .axi_req_t         ( axi_req_t  ),
         .axi_resp_t        ( axi_resp_t )
-   ) i_cva_subsystem (
+   ) i_cva6_subsystem (
         .clk_i(s_soc_clk),
         .rst_ni(s_synch_global_rst),
         .cva6_clk_i(s_clk_cva6),

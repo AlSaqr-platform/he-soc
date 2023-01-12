@@ -4,9 +4,9 @@ source he-soc/setup.sh
 
 TEST_REMOTE_PATH=/home/pulpone/maicol/tests
 TEST_LOCAL_PATH=/scratch/mciani/test/he-soc/software
-TEST_LOCAL_PATH_IBEX=/scratch/mciani/test/he-soc/hardware/working_dir/opentitan/hw/top_titangrey/examples/sw/simple_system
+TEST_LOCAL_PATH_IBEX=/scratch/mciani/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/
 
-BITSTREAM_LOCAL_NAME=/scratch/mciani/test/he-soc/hardware/fpga/reports/alsaqr_xilinx.bit
+BITSTREAM_LOCAL_NAME=/scratch/mciani/he-soc/hardware/fpga/reports/alsaqr_xilinx.bit
 BITSTREAM_REMOTE_NAME=/home/pulpone/maicol/bitstream
 
 TEST_PATH_IBEX=hello_test/hello_test.elf
@@ -22,11 +22,11 @@ TEST_LOCAL_NAME_IBEX=$TEST_LOCAL_PATH_IBEX/$TEST_IBEX
 TEST_REMOTE_NAME_IBEX=$TEST_REMOTE_PATH_IBEX/$TEST_IBEX
 
 echo "Tranfser $TEST to remote host..."
-scp_ariane
-scp_ibex
+#scp_ariane
+#scp_ibex
 
-#scp $TEST_LOCAL_NAME pulpone@137.204.213.243:$TEST_REMOTE_NAME
-#scp $TEST_LOCAL_NAME_IBEX pulpone@137.204.213.243:$TEST_REMOTE_NAME_IBEX
+scp $TEST_LOCAL_NAME pulpone@137.204.213.243:$TEST_REMOTE_NAME
+scp $TEST_LOCAL_NAME_IBEX pulpone@137.204.213.243:$TEST_REMOTE_NAME_IBEX
 scp $BITSTREAM_LOCAL_NAME pulpone@137.204.213.243:$BITSTREAM_REMOTE_NAME
 
 echo "Upload the bitstream..."
