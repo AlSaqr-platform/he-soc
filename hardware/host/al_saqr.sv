@@ -393,6 +393,8 @@ module al_saqr
   logic s_cluster_eoc;
   logic s_cluster_eoc_sync;
 
+  logic fake_rst;
+   
   logic doorbell_irq_o; 
    
   pad_to_hyper_t [HyperbusNumPhys-1:0] s_pad_to_hyper;

@@ -19,7 +19,7 @@ set_property board_part $boardName [current_project]
 
 create_ip -name clk_wiz -vendor xilinx.com -library ip -module_name $ipName
 set_property -dict [list CONFIG.PRIM_IN_FREQ {250.000} \
-                        CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {50.000} \
+                        CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {40.000} \
                         CONFIG.RESET_TYPE {ACTIVE_LOW} \
                         CONFIG.CLKIN1_JITTER_PS {40.0} \
                         CONFIG.MMCM_DIVCLK_DIVIDE {25} \
