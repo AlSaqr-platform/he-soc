@@ -27,8 +27,8 @@ test-location  ?= output/test
 # set to either nothing or -log
 torture-logs   :=
 # custom elf bin to run with sim or sim-verilator
-elf-bin        ?= ../software/hello/hello.riscv
-ibex_elf_bin   ?= /scratch/mciani/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/hello_test/hello_test.elf
+elf-bin        ?= ../software/mbox_test/mbox_test.riscv
+ibex_elf_bin   ?= /scratch/mciani/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/mbox_test/mbox_test.elf
 #cl-bin         ?= ../software/pulp/mm.riscv
 cl-bin         ?= none
 # root pathelf-bin
@@ -126,7 +126,7 @@ endif
 ifdef preload
 	questa-cmd += +PRELOAD=$(preload)
   compile_flag +=  +PRELOAD=$(preload)
-	elf-bin = ../software/hello/hello.riscv
+	elf-bin = ../software/mbox_test/mbox_test.riscv
 endif
 
 ifdef l3-fake

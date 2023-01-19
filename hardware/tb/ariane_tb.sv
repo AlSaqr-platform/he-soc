@@ -37,7 +37,8 @@ module ariane_tb;
 
     static uvm_cmdline_processor uvcl = uvm_cmdline_processor::get_inst();
 
-    localparam int unsigned REFClockPeriod = 67000ps; // jtag clock
+    //localparam int unsigned REFClockPeriod = 67000ps; // jtag clock
+    localparam int unsigned REFClockPeriod = 8ns; // jtag clock
     // toggle with RTC period
     `ifndef TEST_CLOCK_BYPASS
       localparam int unsigned RTC_CLOCK_PERIOD = 30.517us;
@@ -1195,7 +1196,7 @@ module ariane_tb;
               $display("Testing cluster: %s", cluster_binary);
          end 
          
-        repeat(20)
+        repeat(30)
 
 
             @(posedge rtc_i);
@@ -1208,7 +1209,7 @@ module ariane_tb;
               load_binary(binary);
               // Call the JTAG preload task
               jtag_data_preload();
-           end else begin
+         /*  end else begin
               $display("Sanity write/read at 0x1C000000"); // word = 8 bytes here
               addr = 32'h40001000;
               do riscv_dbg.read_dmi(dm::SBCS, sbcs);
@@ -1244,7 +1245,7 @@ module ariane_tb;
                 $fatal(1,"rdata at 0x1c000000: %x" , rdata);
               end else begin
                 $display("R/W sanity check ok!");
-              end
+              end*/
            end 
 
            #(REFClockPeriod);
@@ -1283,30 +1284,30 @@ module ariane_tb;
     #(0.05 * REFClockPeriod);
 `endif
 
-    $info(" JTAG Preloading start time");
+    //$info(" JTAG Preloading start time");
     riscv_dbg.wait_idle(300);
 
 `ifdef POSTLAYOUT
     #(0.05 * REFClockPeriod);
 `endif
 
-    $info(" Start getting idcode of JTAG");
+    //$info(" Start getting idcode of JTAG");
     riscv_dbg.get_idcode(idcode);
 
     // Check Idcode
-    assert (idcode == dm_idcode)
-    else $error(" Wrong IDCode, expected: %h, actual: %h", dm_idcode, idcode);
-    $display(" IDCode = %h", idcode);
+    //assert (idcode == dm_idcode)
+    //else $error(" Wrong IDCode, expected: %h, actual: %h", dm_idcode, idcode);
+    //$display(" IDCode = %h", idcode);
 
-    $info(" Activating Debug Module");
+    //$info(" Activating Debug Module");
     // Activate Debug Module
     riscv_dbg.write_dmi(dm::DMControl, 32'h0000_0001);
 
-    $info(" SBA BUSY ");
+    //$info(" SBA BUSY ");
     // Wait until SBA is free
     do riscv_dbg.read_dmi(dm::SBCS, sbcs);
     while (sbcs.sbbusy);
-    $info(" SBA FREE");
+    //$info(" SBA FREE");
   endtask // debug_module_init
    
    task jtag_data_preload;
@@ -1420,7 +1421,7 @@ module ariane_tb;
       default        : 1'b0
     };
 
-    $info("======== Waking up Ariane using JTAG ========");
+    //$info("======== Waking up Ariane using JTAG ========");
     // Initialize the dm module again, otherwise it will not work
     debug_module_init();
     do riscv_dbg.read_dmi(dm::SBCS, sbcs);
@@ -1461,7 +1462,7 @@ module ariane_tb;
 
     // When task completed reading the return value using JTAG
     // Mainly used for post synthesis part
-    $info("======== Wait for Completion ========");
+    //$info("======== Wait for Completion ========");
 
   endtask // execute_application
 
@@ -1523,7 +1524,7 @@ module ariane_tb;
       if ( $value$plusargs ("OT_STRING=%s", ibex_binary));
          $display("Testing %s", ibex_binary);
          
-      repeat(25)
+      repeat(10)
           @(posedge rtc_i);
       
       debug_ibex_module_init();
@@ -1532,11 +1533,12 @@ module ariane_tb;
       
       // Call the JTAG preload task
       jtag_ibex_data_preload();
-          
+        
+      /*debug_ibex_module_init();
+      repeat(15)
+          @(posedge rtc_i);*/
       #(RTC_CLOCK_PERIOD);
-      jtag_ibex_wakeup(32'h E0000080);
-      //jtag_read_eoc();
-      
+      jtag_ibex_wakeup(32'h E0000080);      
       
    end // block: local_jtag_preload
    

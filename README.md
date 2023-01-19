@@ -26,11 +26,15 @@ The repository is organized as follows
 
 
 ### RTL BUILD
-
+Modify the setup.sh script, it should point to your pathes to the SOFTWARE/HARDWARE/RISCV paths
 A working version for bender is already present in the root dir of the repo, it is needed to export the path to it as follows:
 
 ```
-export PATH=<path-to-root-dir-cva6>:$PATH
+cd <path-to-root-dir-he-soc>
+
+source setup.sh 
+
+export PATH=<path-to-root-dir-he-soc>:$PATH
 
 ulimit -n 2048
 ```
@@ -38,49 +42,31 @@ ulimit -n 2048
 You also need to download the vip RTL modules ( [HYPERRAM](https://www.cypress.com/documentation/models/verilog/s27kl0641-s27ks0641-verilog), [HYPERFLASH](https://www.cypress.com/verilog/s26ks512s-verilog), [SPI](http://www.cypress.com/file/260016) and [I2C](http://ww1.microchip.com/downloads/en/DeviceDoc/24xx1025_Verilog_Model.zip) ).
 
 
+Into he-soc/hardware/tb , create the directory he-soc/hardware/tb/vip and clone into it the vips RTL modules.
+
 ```
 cd hardware
 
-*clone the vips RTL modules into tb dir*
-
 make update
 
-make scripts_vip 
+bender clone opentitan
+```
+here conflicts will appear: for "tech cells generics" and "axi" select the hashed version, for "riscv_dbg" select "`>=0.4.1, <0.5.0`"
 
-make sim
+### SOFTWARE BUILD
+```
+make -C ../software/mbox_test clean all
 
+make -C working_dir/opentitan/hw/top_earlgrey/sw/tests/mbox_test clean all
+```
+### RUN THE TEST
 ```
 
-```
-Then,
+make exclude-cluster=1 exclude-llc=1 scripts_vip 
+
+make clean sim
 
 ```
-cd ../cluster
-
-make clean all
-
-make sim elf-bin=../software/cluster/launch_cluster.riscv 
-
-```
-### Run regressions
-
-Before merging any modification into the master it is important to run the regression tests to check we did not break anything. To do so, execute the following commands:
-
-```
-cd software
-
-source compile_all.sh
-
-cd ../hardware
-
-make scripts_vip
-
-mkdir tmp
-
-make batch-mode=1 run-regressions
-```
-
-The tests that will be executed are the one listed in `software/regression.list`
 
 ### FPGA Emulation
 
