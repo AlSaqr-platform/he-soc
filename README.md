@@ -26,6 +26,10 @@ The repository is organized as follows
 
 
 ### RTL BUILD
+As first. clone the repository (opentitan-rebase branch):
+```
+git clone -b opentitan-rebase git@github.com:AlSaqr-platform/he-soc.git
+```
 Modify the setup.sh script, it should point to your RISCV and QUESTASIM paths
 A working version for bender is already present in the root dir of the repo, it is needed to export the path to it as follows:
 
