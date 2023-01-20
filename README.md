@@ -26,7 +26,7 @@ The repository is organized as follows
 
 
 ### RTL BUILD
-Modify the setup.sh script, it should point to your pathes to the SOFTWARE/HARDWARE/RISCV paths
+Modify the setup.sh script, it should point to your RISCV and QUESTASIM paths
 A working version for bender is already present in the root dir of the repo, it is needed to export the path to it as follows:
 
 ```
@@ -62,7 +62,7 @@ make -C working_dir/opentitan/hw/top_earlgrey/sw/tests/mbox_test clean all
 ### RUN THE TEST
 ```
 
-make exclude-cluster=1 exclude-llc=1 scripts_vip 
+make exclude-cluster=1 exclude-llc=1 preload=1 scripts_vip 
 
 make clean sim
 
