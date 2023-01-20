@@ -95,8 +95,6 @@ module udma_subsystem
 
     localparam DEST_SIZE = 2;
 
-    localparam L2_AWIDTH_NOAL = L2_ADDR_WIDTH + 2;
-
     localparam N_FILTER   = 1;
     localparam N_CH_HYPER = 1;
    
