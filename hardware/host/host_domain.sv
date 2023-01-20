@@ -240,6 +240,22 @@ module host_domain
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
    ) host_lite_bus ();
    
+   //uDMA -> XBAR
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidth      ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+   ) udma_rx_l3_axi_bus();
+
+   //uDMA -> XBAR
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidth      ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+   ) udma_tx_l3_axi_bus();
+
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH          ),
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH             ),
@@ -257,8 +273,7 @@ module host_domain
    ) llc_cfg_bus();
    
    XBAR_TCDM_BUS axi_bridge_2_interconnect[AXI64_2_TCDM32_N_PORTS]();
-   XBAR_TCDM_BUS udma_2_tcdm_channels[NB_UDMA_TCDM_CHANNEL]();
-  
+   XBAR_TCDM_BUS udma_2_tcdm_channels[NB_UDMA_TCDM_CHANNEL]();  
 
   `ifdef XILINX_DDR
    AXI_BUS #(
@@ -443,6 +458,9 @@ module host_domain
         .cluster_axi_master   ( cluster_axi_master   ),
         .cluster_axi_slave    ( cluster_axi_slave    ),
 
+        .udma_rx_l3_axi_slave ( udma_rx_l3_axi_bus   ),
+        .udma_tx_l3_axi_slave ( udma_tx_l3_axi_bus   ),
+
         .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
         .cva6_uart_tx_o       ( cva6_uart_tx_o       ),
         .axi_lite_master      ( host_lite_bus        ),
@@ -509,7 +527,7 @@ module host_domain
       .clk_i                     ( s_soc_clk                 ),
       .rst_ni                    ( s_synch_soc_rst           ),
       .axi_bridge_2_interconnect ( axi_bridge_2_interconnect ),
-      .udma_tcdm_channels        ( udma_2_tcdm_channels      )
+      .udma_tcdm_channels        ( udma_2_tcdm_channels )
      );
    
     edge_propagator_rx ep_dma_pe_evt_i (
@@ -559,6 +577,8 @@ module host_domain
       `endif                        
       .axi_apb_slave          ( apb_axi_bus                    ),
       .udma_tcdm_channels     ( udma_2_tcdm_channels           ),
+      .udma_rx_l3_axi_master  ( udma_rx_l3_axi_bus             ),
+      .udma_tx_l3_axi_master  ( udma_tx_l3_axi_bus             ),
       .padframecfg_reg_master ( padframecfg_reg_master         ),
       .serial_linkcfg_reg_master ( serial_linkcfg_reg_master   ),
 
