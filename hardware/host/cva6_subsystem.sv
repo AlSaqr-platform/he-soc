@@ -80,6 +80,10 @@ module cva6_subsystem
   AXI_BUS.Master          hyper_axi_master,
   AXI_BUS.Master          cluster_axi_master,
   AXI_BUS.Slave           cluster_axi_slave,
+
+  AXI_BUS.Slave           udma_rx_l3_axi_slave,
+  AXI_BUS.Slave           udma_tx_l3_axi_slave,
+
   // XBAR (Master) -> DMA (Slave)
   AXI_BUS.Master          dma_axi_slv,
   // DMA (Master) -> XBAR (Slave)
@@ -501,6 +505,17 @@ module cva6_subsystem
   // ---------------
   `AXI_ASSIGN(dma_axi_slv, master[ariane_soc::DMA])
    
+
+  // ---------------
+  // AXI uDMA TX L3 Master (READ ONLY from MEM)
+  // ---------------
+  `AXI_ASSIGN(slave[5],udma_tx_l3_axi_slave)
+
+  // ---------------
+  // AXI uDMA RX L3 Master (WRITE ONLY to MEM)
+  // ---------------
+  `AXI_ASSIGN(slave[6],udma_rx_l3_axi_slave)
+
   // ---------------
   // AXI Xbar
   // ---------------
