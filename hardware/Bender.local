@@ -1,2 +1,0 @@
-overrides:
-  opentitan: { path: "working_dir/opentitan" } # Temporary override by Bender using `bender clone` command
