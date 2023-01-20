@@ -21,7 +21,7 @@ dependencies:
   tcdm_interconnect: { git: "https://github.com/pulp-platform/cluster_interconnect.git", version: "1.1.2" }
   axi2tcdm: { git: "https://github.com/AlSaqr-platform/axi2mem.git", rev: "master" }
   apb: { git: "https://github.com/pulp-platform/apb.git", version: 0.2.1 }
-  udma_core: { git: "https://github.com/Alsaqr-platform/udma_core.git", version: 2.0.0 }
+  udma_core: { git: "https://github.com/Alsaqr-platform/udma_core.git", rev: "udma_32awidth_noal" }
   udma_uart: { git: "https://github.com/Alsaqr-platform/udma_uart.git", rev: "28fe46e2571679762d759890007d11721e89c308" }
   udma_i2c: { git: "https://github.com/Alsaqr-platform/udma_i2c.git", rev: "a0713d439e11b3b85f0071dc6b59d9fb758633ca" }
   udma_qspi: { git: "https://github.com/Alsaqr-platform/udma_qspi.git", rev: "2d0f67acfcdc5a3ee1c0a925db745f0daffb33cb" }
