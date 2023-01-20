@@ -54,7 +54,9 @@ sources:
   - include/udma_subsystem_pkg.sv
   - include/gpio_pkg.sv
   - include/tcdm_macros.sv
+  - host/lint_2_axi_wrap.sv
   - host/axi2tcdm_wrap.sv
+  - host/tcdm_demux.sv
   - host/ariane_peripherals.sv
   - host/udma_subsystem.sv
   - ../fpga/src/axi2apb/src/axi2apb.sv
