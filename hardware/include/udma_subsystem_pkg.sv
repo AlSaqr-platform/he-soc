@@ -142,7 +142,8 @@ package udma_subsystem_pkg;
 	localparam CAM_DATA_WIDTH   = 8;
 	localparam APB_ADDR_WIDTH   = 18;  //APB slaves are 4KB by default
 	localparam TRANS_SIZE       = 20;  //max uDMA transaction size of 1MB
-	localparam L2_AWIDTH_NOAL   = L2_ADDR_WIDTH + 2;
+	//localparam L2_AWIDTH_NOAL   = L2_ADDR_WIDTH + 2;
+	localparam L2_AWIDTH_NOAL   = 32;
 	localparam DEST_SIZE        = 2;
 	localparam STREAM_ID_WIDTH  = 4;
 
