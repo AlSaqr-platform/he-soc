@@ -30,7 +30,7 @@ int main(int argc, char const *argv[])
   
 	#define PLIC_BASE     0x0C000000
 	#define PLIC_CHECK    PLIC_BASE + 0x201004
-  
+	#define PLIC_EN_BITS  PLIC_BASE + 0x2080
 	uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
 	// JAL  x1, 10
