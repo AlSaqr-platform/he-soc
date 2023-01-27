@@ -32,26 +32,25 @@ int main(int argc, char const *argv[])
 
 	int mbox_id = 143;
 
-	// Initialazing the interrupt controller
-	pulp_write32(PLIC_BASE+mbox_id*4, 1);                                // set mbox interrupt priority to 1
-	pulp_write32(PLIC_EN_BITS+(((int)(mbox_id/32))*4), 1<<(mbox_id%32)); // enable interrupt
+	// Set MailBox interrupt priority and enable interrupts.
+	pulp_write32(PLIC_BASE+mbox_id*4, 1);
+	pulp_write32(PLIC_EN_BITS+(((int)(mbox_id/32))*4), 1<<(mbox_id%32));
 
-	////////////////////// start memory test //////////////////////
-
-	printf("Ariane: JAL\r\n");
-	uart_wait_tx_done();
-	pulp_write32(0x10404008, call_opcode);
+	// Test call.
+	pulp_write32(0x10404000, call_opcode);
 	pulp_write32(0x10404020, 0x00000001); // ring doorbell 
 	asm volatile ("wfi"); // the handler just returns here + 4
 	pulp_write32(0x10404024, 0x00000000); // Cleaning the irq source
 	pulp_write32(PLIC_CHECK, mbox_id);    // Completing irq (according to riscv specs)
 
-	uart_wait_tx_done();
-	pulp_write32(0x10404008, return_opcode);
+	// Test return.
+	pulp_write32(0x10404000, return_opcode);
 	pulp_write32(0x10404020, 0x00000001); // ring doorbell 
 	asm volatile ("wfi"); // the handler just returns here + 4
 	pulp_write32(0x10404024, 0x00000000); // Cleaning the irq source
-	pulp_write32(PLIC_CHECK, mbox_id);    // Completing irq (according to riscv specs)
+
+	// Complete IRQ.
+	pulp_write32(PLIC_CHECK, mbox_id);
 
 	return 0;
 }
