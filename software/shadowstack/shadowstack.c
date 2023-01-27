@@ -19,11 +19,19 @@
 
 int main(int argc, char const *argv[])
 {
+#ifdef FPGA_EMULATION                  
+	int baud_rate = 115200;
+	int test_freq = 40000000;
+#else
+	set_flls();
+	int baud_rate = 115200;
+	int test_freq = 100000000;
+#endif
+  
 	#define PLIC_BASE     0x0C000000
 	#define PLIC_CHECK    PLIC_BASE + 0x201004
   
-	//enable bits for sources 0-31
-	#define PLIC_EN_BITS  PLIC_BASE + 0x2080
+	uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
 	// JAL  x1, 10
 	uint32_t call_opcode   = 0x00a000ef;
@@ -32,11 +40,16 @@ int main(int argc, char const *argv[])
 
 	int mbox_id = 143;
 
+	printf("[CVA6] Start Shadow Stack testbench\n");
+	uart_wait_tx_done();
+
 	// Set MailBox interrupt priority and enable interrupts.
 	pulp_write32(PLIC_BASE+mbox_id*4, 1);
 	pulp_write32(PLIC_EN_BITS+(((int)(mbox_id/32))*4), 1<<(mbox_id%32));
 
 	// Test call.
+	printf("[CVA6] \ttest RV32I call\n");
+	uart_wait_tx_done();
 	pulp_write32(0x10404000, call_opcode);
 	pulp_write32(0x10404020, 0x00000001); // ring doorbell 
 	asm volatile ("wfi"); // the handler just returns here + 4
@@ -44,6 +57,8 @@ int main(int argc, char const *argv[])
 	pulp_write32(PLIC_CHECK, mbox_id);    // Completing irq (according to riscv specs)
 
 	// Test return.
+	printf("[CVA6] \ttest RV32I return\n");
+	uart_wait_tx_done();
 	pulp_write32(0x10404000, return_opcode);
 	pulp_write32(0x10404020, 0x00000001); // ring doorbell 
 	asm volatile ("wfi"); // the handler just returns here + 4
