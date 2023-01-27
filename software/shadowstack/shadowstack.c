@@ -48,7 +48,7 @@ int main(int argc, char const *argv[])
 	pulp_write32(PLIC_EN_BITS+(((int)(mbox_id/32))*4), 1<<(mbox_id%32));
 
 	// Test call.
-	printf("[CVA6] \ttest RV32I call\n");
+	printf("[CVA6] Test RV32I call\n");
 	uart_wait_tx_done();
 	pulp_write32(0x10404000, call_opcode);
 	pulp_write32(0x10404020, 0x00000001); // ring doorbell 
@@ -57,7 +57,7 @@ int main(int argc, char const *argv[])
 	pulp_write32(PLIC_CHECK, mbox_id);    // Completing irq (according to riscv specs)
 
 	// Test return.
-	printf("[CVA6] \ttest RV32I return\n");
+	printf("[CVA6] Test RV32I return\n");
 	uart_wait_tx_done();
 	pulp_write32(0x10404000, return_opcode);
 	pulp_write32(0x10404020, 0x00000001); // ring doorbell 
