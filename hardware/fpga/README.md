@@ -6,15 +6,22 @@ To rely on the hyperbus, you need a [special FMC carrier board](https://ieeexplo
 
 ## Bitstream generation
 
-To generate the bitstream do the following
+To generate the bitstream, from the `hardware` folder run:
 
 ```
 bender update
 
 ```
-then `make simple-padframe=1 scripts-bender-fpga-ddr` to use the 1GHz DDR4 or `make scripts-bender-fpga` to use the hyperbus.
+If you want to use the 1 GHz DDR4 available on the board, run:
+```
+make simple-padframe=1 scripts-bender-fpga-ddr
+```
+On the other hand, if you want to instantiate the hyperbus, run:
+```
+make scripts-bender-fpga
+```
 
-You can also use the `exclude-cluster=1` option, in case you don't want to emulate the cluster as well.
+You can also append the `exclude-cluster=1` flag to the previouse commands if you don't want to emulate the cluster. At this point proceed with the following:
 
 ```
 cd fpga
