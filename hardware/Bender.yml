@@ -13,11 +13,18 @@ dependencies:
   apb_host_control: { path: "deps/apb_host_control_regs" }
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
+<<<<<<< HEAD
   cva6: { git: "git@github.com:minho-pulp/cva6.git", rev: "5f5d4decb256f485cfdb6e1c773c9f6771d09ea5" }
   riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0  }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.39.1-beta }
   axi_llc: { git: "https://github.com/AlSaqr-platform/axi_llc.git", rev: "29fd76fb438c91c692108c1f93ab221931653c5d" }
   fpnew: { git: "https://github.com/pulp-platform/cvfpu.git", rev: pulp-v0.1.3 }
+=======
+  cva6: { git: "git@github.com:AlSaqr-platform/cva6.git", rev: "feature/cfi" }
+  riscv-dbg: { git: "git@github.com:Alsaqr-platform/riscv-dbg.git", version: 0.4.1 }
+  axi: { git: "https://github.com/pulp-platform/axi.git", rev: "9b72c4491f09d599ce2fabb1ee1597692a1ea683" } 
+  fpnew: { git: "https://github.com/pulp-platform/fpnew.git", version: 0.6.5 }
+>>>>>>> 459a3c89... Integrate CFI enhanced CVA6 and add a CFI test
   tcdm_interconnect: { git: "https://github.com/pulp-platform/cluster_interconnect.git", version: "1.1.2" }
   axi2tcdm: { git: "https://github.com/AlSaqr-platform/axi2mem.git", rev: "master" }
   apb: { git: "https://github.com/pulp-platform/apb.git", version: 0.2.1 }
@@ -40,8 +47,8 @@ dependencies:
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "eb04acfcab0914ef6bf497898b0c0d84e9bc8e81" } #branch  sm/sync_stages_intf from redmule
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "0ec0bf8b7dab6d5e4b3f7ec58338a8efee066379" }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
-  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "7972faa1eb22b4a16a5f08aa72f11d881a12be12" }
-  axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "feature/cfi" }
+  axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "165d04341f80ccbf1e1a7d9cd2c78ced9702084e" }
 
 
 export_include_dirs:

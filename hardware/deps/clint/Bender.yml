@@ -3,8 +3,8 @@ package:
   authors:
 
 dependencies:
-  cva6: { git: "git@github.com:minho-pulp/cva6.git", rev: "5f5d4decb256f485cfdb6e1c773c9f6771d09ea5" } # update fpu
-
+  cva6: { git: "git@github.com:AlSaqr-platform/cva6.git", rev: "feature/cfi" }
+    
 sources:
   - ./axi_lite_interface.sv
   - ./clint.sv

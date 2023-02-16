@@ -36,10 +36,18 @@ SECTIONS
   . = ALIGN(0x1000);
   .tohost : { *(.tohost) } > L3
 
+<<<<<<< HEAD
   .text : { *(.text) } > L3
 
   /* data: for initialized data */
   .data : { *(.data) } > L3
+=======
+  . = ALIGN(0x1000);
+  .text : { *(.text) }
+  
+  /* data segment */
+  .data : { *(.data) }
+>>>>>>> 459a3c89... Integrate CFI enhanced CVA6 and add a CFI test
 
   .sdata : {
     __global_pointer$ = . + 0x800;

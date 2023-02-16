@@ -16,8 +16,7 @@ package ariane_soc;
   // Uart, SPI, Ethernet, reserved
   localparam int unsigned NumSources = 255;
   localparam int unsigned MaxPriority = 7;
-
-  localparam NrSlaves = 4; // actually masters, but slaves on the crossbar: Debug module, CVA6, Cluster
+  localparam NrSlaves = 6; //4; // actually masters, but slaves on the crossbar: Debug module, CVA6, Cluster
 
   typedef struct packed {
       logic [31:0] idx;
