@@ -15,7 +15,7 @@ export QUESTASIM_HOME=/usr/pack/modelsim-10.7b-kgf/questasim/
 
 echo "exporting RISCV 32 bit with zfinx"
 
-export PATH=/usr/pack/pulpsdk-1.0-kgf/artifactory/pulp-sdk-release/pkg/pulp_riscv_gcc/1.0.16/bin:$PATH
+export PATH=/usr/pack/pulpsdk-1.0-kgf/artifactory/pulp-sdk-release/pkg/pulp_riscv_gcc/1.0.16/bin:/scratch/eparisi/he-soc:$PATH
 
 echo "cloning submodules"
 

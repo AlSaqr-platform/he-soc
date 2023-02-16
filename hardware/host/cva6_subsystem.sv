@@ -124,6 +124,16 @@ module cva6_subsystem
     .AXI_USER_WIDTH ( AXI_USER_WIDTH      ),
     .LOG_DEPTH      ( 1                   )
   ) cva6_axi_master_dst();
+ 
+//-- Added for CFI
+  AXI_BUS_ASYNC_GRAY #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH      ),
+    .LOG_DEPTH      ( 1                   )
+  ) cfi_axi_master_dst();
+//-----------------------------------------
 
   AXI_BUS #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
@@ -827,7 +837,23 @@ module cva6_subsystem
     .data_master_r_rptr_o ( cva6_axi_master_dst.r_rptr  ),
     .data_master_b_wptr_i ( cva6_axi_master_dst.b_wptr  ),
     .data_master_b_data_i ( cva6_axi_master_dst.b_data  ),
-    .data_master_b_rptr_o ( cva6_axi_master_dst.b_rptr  )
+    .data_master_b_rptr_o ( cva6_axi_master_dst.b_rptr  ),
+    //-- Added for CFI  
+    .cfi_data_master_aw_wptr_o( cfi_axi_master_dst.aw_wptr ),
+    .cfi_data_master_aw_data_o( cfi_axi_master_dst.aw_data ), 
+    .cfi_data_master_aw_rptr_i( cfi_axi_master_dst.aw_rptr ),
+    .cfi_data_master_ar_wptr_o( cfi_axi_master_dst.ar_wptr ),
+    .cfi_data_master_ar_data_o( cfi_axi_master_dst.ar_data ),
+    .cfi_data_master_ar_rptr_i( cfi_axi_master_dst.ar_rptr ),
+    .cfi_data_master_w_wptr_o ( cfi_axi_master_dst.w_wptr  ),
+    .cfi_data_master_w_data_o ( cfi_axi_master_dst.w_data  ),
+    .cfi_data_master_w_rptr_i ( cfi_axi_master_dst.w_rptr  ),
+    .cfi_data_master_r_wptr_i ( cfi_axi_master_dst.r_wptr  ),
+    .cfi_data_master_r_data_i ( cfi_axi_master_dst.r_data  ),
+    .cfi_data_master_r_rptr_o ( cfi_axi_master_dst.r_rptr  ),
+    .cfi_data_master_b_wptr_i ( cfi_axi_master_dst.b_wptr  ),
+    .cfi_data_master_b_data_i ( cfi_axi_master_dst.b_data  ),
+    .cfi_data_master_b_rptr_o ( cfi_axi_master_dst.b_rptr  )
   );
 
   axi_cdc_dst_intf #(
@@ -836,11 +862,25 @@ module cva6_subsystem
     .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH      ),
     .LOG_DEPTH      ( 1                   )
-    ) cva6_to_xbar (
+  ) cva6_to_xbar (
       .src(cva6_axi_master_dst),
       .dst_clk_i(clk_i),
       .dst_rst_ni(ndmreset_n),
       .dst(slave[0])
-      );
-   
+  );
+
+  //-- Added for CFI
+  axi_cdc_dst_intf #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH      ),
+    .LOG_DEPTH      ( 1                   )
+  ) cfi_to_xbar (
+    .src(cfi_axi_master_dst),
+    .dst_clk_i(clk_i),
+    .dst_rst_ni(ndmreset_n),
+    .dst(slave[5])
+  ); 
+
 endmodule

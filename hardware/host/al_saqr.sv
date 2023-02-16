@@ -904,8 +904,8 @@ module al_saqr
 
   
    opentitan_synth_wrap #(
-      .RomCtrlBootRomInitFile("/scratch/mciani/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/bootrom.vmem"),
-      .OtpCtrlMemInitFile("/scratch/mciani/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/otp-img.mem")
+      .RomCtrlBootRomInitFile("/scratch/eparisi/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/bootrom.vmem"),
+      .OtpCtrlMemInitFile("/scratch/eparisi/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/otp-img.mem")
       //.SramCtrlMainMemInitFile("/scratch/mciani/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/mbox_test/mbox_test.vmem")
     ) i_RoT_wrap (
                   
