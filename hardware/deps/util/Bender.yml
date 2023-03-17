@@ -4,7 +4,7 @@ package:
     - "Florian Zaruba <zarubaf@iis.ee.ethz.ch>"
 
 dependencies:
-  cva6: { git: "git@github.com:AlSaqr-platform/cva6.git", rev: "feature/cfi" }
+  cva6: { git: "git@github.com:AlSaqr-platform/cva6.git", rev: "feature/cfi-backend" }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.29.1 } 
   common_cells: { git: "https://github.com/pulp-platform/common_cells.git", version: 1.21.0 }
     

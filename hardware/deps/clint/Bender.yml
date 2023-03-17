@@ -3,7 +3,7 @@ package:
   authors:
 
 dependencies:
-  cva6: { git: "git@github.com:AlSaqr-platform/cva6.git", rev: "feature/cfi" }
+  cva6: { git: "git@github.com:AlSaqr-platform/cva6.git", rev: "feature/cfi-backend" }
     
 sources:
   - ./axi_lite_interface.sv
