@@ -119,63 +119,23 @@ uint32_t rx_uart_plic_id ;
 printf("uart start\n");
 uart_wait_tx_done();
 
+tx_buffer[0]= 'S';
+tx_buffer[1]= 't';
+tx_buffer[2]= 'a';
+tx_buffer[3]= 'y';
+tx_buffer[4]= ' ';
+tx_buffer[5]= 'a';
+tx_buffer[6]= 't';
+tx_buffer[7]= ' ';
+tx_buffer[8]= 'h';
+tx_buffer[9]= 'o';
+tx_buffer[10]= 'm';
+tx_buffer[11]= 'e';
+tx_buffer[12]= '!';
+tx_buffer[13]= '!';
+tx_buffer[14]= '!';
+tx_buffer[15]= '!';
 
-for (int i=0; i <BUFFER_SIZE; i++){
-    switch (i) {
-      case 0: 
-      tx_buffer[i]= 'S';
-      break;
-      case 1: 
-      tx_buffer[i]= 't';
-      break;
-      case 2: 
-      tx_buffer[i]= 'a';
-      break;
-      case 3: 
-      tx_buffer[i]= 'y';
-      break;
-      case 4: 
-      tx_buffer[i]= ' ';
-      break;
-      case 5: 
-      tx_buffer[i]= 'a';
-      break;
-      case 6: 
-      tx_buffer[i]= 't';
-      break;
-      case 7: 
-      tx_buffer[i]= ' ';
-      break;
-      case 8: 
-      tx_buffer[i]= 'h';
-      break;
-      case 9: 
-      tx_buffer[i]= 'o';
-      break;
-      case 10: 
-      tx_buffer[i]= 'm';
-      break;
-      case 11: 
-      tx_buffer[i]= 'e';
-      break;
-      case 12: 
-      tx_buffer[i]= '!';
-      break;
-      case 13: 
-      tx_buffer[i]= '!';
-      break;
-      case 14: 
-      tx_buffer[i]= '!';
-      break;
-      case 15: 
-      tx_buffer[i]= '!';
-      break;
-
-      default:
-      tx_buffer[i]= 0;
-      break;
-    }
-  }
 
 for (int u = 0; u < N_UART; ++u)
 {
@@ -208,7 +168,7 @@ for (int u = 0; u < N_UART; ++u)
     //Set completed Interrupt
     pulp_write32(PLIC_CHECK,tx_uart_plic_id);
 
-    printf("TX Interrupt received\n\r");
+    //printf("TX Interrupt received\n\r");
 
     udma_uart_read(u,rx_buffer + i,1);     //--- blocking read
 
@@ -226,7 +186,7 @@ for (int u = 0; u < N_UART; ++u)
     //Set completed Interrupt
     pulp_write32(PLIC_CHECK,rx_uart_plic_id);
 
-    printf("RX Interrupt received\n\r");
+    //printf("RX Interrupt received\n\r");
     
     if (tx_buffer[i] == rx_buffer[i])
     {

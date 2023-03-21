@@ -187,40 +187,16 @@ int main(){
   #endif   
 
   //--- TX command sequence
-  for (int i=0; i <9; i++){
-    switch (i) {
-      case 0: 
-      tx_buffer_cmd_program[i]= SPI_CMD_CFG(CLOCK_DIV,0,0);
-      break;
-      case 1: 
-      tx_buffer_cmd_program[i]= SPI_CMD_SOT(0);
-      break;
-      case 2: 
-      tx_buffer_cmd_program[i]= SPI_CMD_SEND_CMD(0x06,8,0); //Write enable
-      break;
-      case 3: 
-      tx_buffer_cmd_program[i]= SPI_CMD_EOT(0,0);
-      break;
-      case 4: 
-      tx_buffer_cmd_program[i]= SPI_CMD_SOT(0);
-      break;
-      case 5: 
-      tx_buffer_cmd_program[i]= SPI_CMD_SEND_CMD(0x12,8,0); //Page program to write 4bytes on he flash
-      break;
-      case 6: 
-      tx_buffer_cmd_program[i]= SPI_CMD_TX_DATA(4,4,8,0,0); //SPI_CMD_TX_DATA(4,0,8,0,0); 
-      break;
-      case 7: 
-      tx_buffer_cmd_program[i]= SPI_CMD_TX_DATA(TEST_PAGE_SIZE,TEST_PAGE_SIZE,8,0,0);
-      break;
-      case 8: 
-      tx_buffer_cmd_program[i]= SPI_CMD_EOT(0,0);
-      break;
-      default:
-      tx_buffer_cmd_program[i]= 0;
-      break;
-    }
-  }
+  tx_buffer_cmd_program[0]= SPI_CMD_CFG(CLOCK_DIV,0,0);
+  tx_buffer_cmd_program[1]= SPI_CMD_SOT(0);
+  tx_buffer_cmd_program[2]= SPI_CMD_SEND_CMD(0x06,8,0); //Write enable
+  tx_buffer_cmd_program[3]= SPI_CMD_EOT(0,0);
+  tx_buffer_cmd_program[4]= SPI_CMD_SOT(0);
+  tx_buffer_cmd_program[5]= SPI_CMD_SEND_CMD(0x12,8,0); //Page program to write 4bytes on he flash
+  tx_buffer_cmd_program[6]= SPI_CMD_TX_DATA(4,4,8,0,0); //SPI_CMD_TX_DATA(4,0,8,0,0); 
+  tx_buffer_cmd_program[7]= SPI_CMD_TX_DATA(TEST_PAGE_SIZE,TEST_PAGE_SIZE,8,0,0);
+  tx_buffer_cmd_program[8]= SPI_CMD_EOT(0,0);
+
 
   #ifdef PRINTF_ON
     printf ("Reset addr_buffer...\n\r");
@@ -240,31 +216,13 @@ int main(){
   #endif 
 
   // Command sequence to read from SPI flash
-  for (int i=0; i <6; i++){
-    switch (i) {
-      case 0: 
-      tx_buffer_cmd_read[i]= SPI_CMD_CFG(CLOCK_DIV,0,0);
-      break;
-      case 1: 
-      tx_buffer_cmd_read[i]= SPI_CMD_SOT(0);
-      break;
-      case 2: 
-      tx_buffer_cmd_read[i]= SPI_CMD_SEND_CMD(0x13,8,0); //--- read command
-      break;
-      case 3: 
-      tx_buffer_cmd_read[i]= SPI_CMD_TX_DATA(4,4,8,0,0); //SPI_CMD_TX_DATA(4,0,8,0,0); //--- send the read address
-      break;
-      case 4: 
-      tx_buffer_cmd_read[i]= SPI_CMD_RX_DATA(TEST_PAGE_SIZE,TEST_PAGE_SIZE,8,0,0); //SPI_CMD_RX_DATA(TEST_PAGE_SIZE,0,8,0,0); //
-      break;  
-      case 5:
-      tx_buffer_cmd_read[i]= SPI_CMD_EOT(0,0);
-      break;
-      default:
-      tx_buffer_cmd_read[i]= 0;
-      break;
-    }
-  }
+  tx_buffer_cmd_read[0]= SPI_CMD_CFG(CLOCK_DIV,0,0);
+  tx_buffer_cmd_read[1]= SPI_CMD_SOT(0);
+  tx_buffer_cmd_read[2]= SPI_CMD_SEND_CMD(0x13,8,0); //--- read command
+  tx_buffer_cmd_read[3]= SPI_CMD_TX_DATA(4,4,8,0,0); //SPI_CMD_TX_DATA(4,0,8,0,0); //--- send the read address
+  tx_buffer_cmd_read[4]= SPI_CMD_RX_DATA(TEST_PAGE_SIZE,TEST_PAGE_SIZE,8,0,0); //SPI_CMD_RX_DATA(TEST_PAGE_SIZE,0,8,0,0); //
+  tx_buffer_cmd_read[5]= SPI_CMD_EOT(0,0);
+
 
   #ifdef PRINTF_ON
     printf ("Write tx_buffer_cmd_read_WIP...\n\r");
@@ -272,28 +230,12 @@ int main(){
   #endif 
  
   // Command sequence to read the Work-In-Progress satus from FLASH
-  for (int i=0; i <5; i++){
-    switch (i) {
-      case 0: 
-      tx_buffer_cmd_read_WIP[i]= SPI_CMD_CFG(CLOCK_DIV,0,0);
-      break;
-      case 1: 
-      tx_buffer_cmd_read_WIP[i]= SPI_CMD_SOT(0);
-      break;
-      case 2: 
-      tx_buffer_cmd_read_WIP[i]= SPI_CMD_SEND_CMD(0x05,8,0);
-      break;
-      case 3: 
-      tx_buffer_cmd_read_WIP[i]= SPI_CMD_RX_DATA(1,0,8,0,0);//SPI_CMD_RX_DATA(1,TEST_PAGE_SIZE,8,0,0); 
-      break;
-      case 4: 
-      tx_buffer_cmd_read_WIP[i]= SPI_CMD_EOT(0,0);
-      break;  
-      default:
-      tx_buffer_cmd_read_WIP[i]= 0;
-      break;
-    }
-  }
+  tx_buffer_cmd_read_WIP[0]= SPI_CMD_CFG(CLOCK_DIV,0,0); 
+  tx_buffer_cmd_read_WIP[1]= SPI_CMD_SOT(0);
+  tx_buffer_cmd_read_WIP[2]= SPI_CMD_SEND_CMD(0x05,8,0);
+  tx_buffer_cmd_read_WIP[3]= SPI_CMD_RX_DATA(1,0,8,0,0);//SPI_CMD_RX_DATA(1,TEST_PAGE_SIZE,8,0,0); 
+  tx_buffer_cmd_read_WIP[4]= SPI_CMD_EOT(0,0);
+
 
   #ifdef PRINTF_ON
     printf ("Write tx_buffer_cmd_read_ID...\n\r");
@@ -302,29 +244,11 @@ int main(){
 
   
   // Read ID command from FLASH
-  for (int i=0; i <5; i++){
-    switch (i) {
-      case 0: 
-      tx_buffer_cmd_read_ID[i]= SPI_CMD_CFG(CLOCK_DIV,0,0);
-      break;
-      case 1: 
-      tx_buffer_cmd_read_ID[i]= SPI_CMD_SOT(0);
-      break;
-      case 2: 
-      tx_buffer_cmd_read_ID[i]= SPI_CMD_SEND_CMD(0x9F,8,0); // read command
-      break;
-      case 3: 
-      tx_buffer_cmd_read_ID[i]= SPI_CMD_RX_DATA(6,0,8,0,0);
-      break;
-      case 4: 
-      tx_buffer_cmd_read_ID[i]= SPI_CMD_EOT(0,0);
-      break;  
-      default:
-      tx_buffer_cmd_read_ID[i]= 0;
-      break;
-    }
-  }
-
+  tx_buffer_cmd_read_ID[0]= SPI_CMD_CFG(CLOCK_DIV,0,0);
+  tx_buffer_cmd_read_ID[1]= SPI_CMD_SOT(0);
+  tx_buffer_cmd_read_ID[2]= SPI_CMD_SEND_CMD(0x9F,8,0); // read command
+  tx_buffer_cmd_read_ID[3]= SPI_CMD_RX_DATA(6,0,8,0,0);
+  tx_buffer_cmd_read_ID[4]= SPI_CMD_EOT(0,0);
   
 
   #ifdef PRINTF_ON
@@ -332,35 +256,13 @@ int main(){
     uart_wait_tx_done();     
   #endif 
 
-  for (int i=0; i <7; i++){
-    switch (i) {
-      case 0: 
-      tx_buffer_cmd_erase[i] =SPI_CMD_CFG(CLOCK_DIV,0,0);
-      break;
-      case 1: 
-      tx_buffer_cmd_erase[i] = SPI_CMD_SOT(0);
-      break;
-      case 2: 
-      tx_buffer_cmd_erase[i] =SPI_CMD_SEND_CMD(0x06,8,0);
-      break;
-      case 3: 
-      tx_buffer_cmd_erase[i] =SPI_CMD_EOT(0,0);
-      break;
-      case 4: 
-      tx_buffer_cmd_erase[i] =SPI_CMD_SOT(0);
-      break;
-      case 5: 
-      tx_buffer_cmd_erase[i] =SPI_CMD_SEND_CMD(0x60,8,0);
-      break;
-      case 6: 
-      tx_buffer_cmd_erase[i] =SPI_CMD_EOT(0,0);
-      break;    
-      default:
-      tx_buffer_cmd_erase[i] = 0;
-
-      break;
-    }
-  }
+  tx_buffer_cmd_erase[0] =SPI_CMD_CFG(CLOCK_DIV,0,0);
+  tx_buffer_cmd_erase[1] = SPI_CMD_SOT(0);
+  tx_buffer_cmd_erase[2] =SPI_CMD_SEND_CMD(0x06,8,0);
+  tx_buffer_cmd_erase[3] =SPI_CMD_EOT(0,0);
+  tx_buffer_cmd_erase[4] =SPI_CMD_SOT(0);
+  tx_buffer_cmd_erase[5] =SPI_CMD_SEND_CMD(0x60,8,0);
+  tx_buffer_cmd_erase[6] =SPI_CMD_EOT(0,0);
 
   #ifdef PRINTF_ON
     printf ("Setup padframe...\n\r");
