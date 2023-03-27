@@ -128,7 +128,7 @@ pad_domains:
       - name: pad_gpio_f_{i:2d}
         mux_groups: [self]
         description: "pads for 1 camera, 2 uart, 1 spi, 1 i2c"
-        multiple: 26
+        multiple: 17
         pad_type: pad_alsaqr
         is_static: false
       - name: pad_gpio_pwm{i}
@@ -951,28 +951,4 @@ pad_domains:
             connections:
               rx_o: pad2chip
               oen: 1'b1
-              puen: 1'b1
-
-      - name: ddr_link
-        output_defaults: 1'b0
-        ports:
-          - name: clk_i
-            mux_groups: [pad_gpio_f_17]
-            connections:
-              ddr_clk_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: ddr{i}_in
-            multiple: 4
-            mux_groups: ["pad_gpio_f_{i+18:2d}"]
-            connections:
-              ddr{i}_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: ddr{i}_out
-            multiple: 4
-            mux_groups: ["pad_gpio_f_{i+22:2d}"]
-            connections:
-              chip2pad: ddr{i}_i
-              oen: 1'b0
               puen: 1'b1
