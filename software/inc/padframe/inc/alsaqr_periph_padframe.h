@@ -3,6 +3,8 @@
 #define ALSAQR_PERIPH_PADFRAME_H
 #include <stdint.h>
 
+#define ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS 0x1A104000
+
 #ifndef ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS
 #error "ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS is not defined. Set this token to the configuration base address of your padframe before you include this header file."
 #endif
