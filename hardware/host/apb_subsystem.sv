@@ -62,7 +62,6 @@ module apb_subsystem
     XBAR_TCDM_BUS.Master        udma_tcdm_channels[1:0],
     
     REG_BUS.out                 padframecfg_reg_master,
-    REG_BUS.out                 serial_linkcfg_reg_master,
 
     output logic [31*4-1:0]     events_o,
     output logic                [N_CAN-1 : 0] can_irq_o,
@@ -155,11 +154,6 @@ module apb_subsystem
    APB  #(
                .ADDR_WIDTH(32),
                .DATA_WIDTH(32)
-   ) apb_serial_link_master_bus();
-
-   APB  #(
-               .ADDR_WIDTH(32),
-               .DATA_WIDTH(32)
    ) apb_can0_master_bus();
 
    APB  #(
@@ -178,8 +172,8 @@ module apb_subsystem
    ) apb_uart_master_bus();
    
    FLL_BUS fll_master_bus(
-                          .clk_i(s_soc_clk)
-                          );
+                .clk_i(s_soc_clk)
+    );
    
    REG_BUS #(
         .ADDR_WIDTH( 32 ),
@@ -215,7 +209,6 @@ module apb_subsystem
     .hyaxicfg_master(apb_hyaxicfg_master_bus),
     .advtimer_master(apb_advtimer_master_bus),
     .padframe_master(apb_padframe_master_bus),
-    .serial_link_master (apb_serial_link_master_bus),
     .apb_can0_master (apb_can0_master_bus),
     .apb_can1_master (apb_can1_master_bus),
     .socctrl_master(apb_socctrl_master_bus),
@@ -494,23 +487,6 @@ module apb_subsystem
 
       .reg_o     ( padframecfg_reg_master          )
      );
-
-    apb_to_reg i_apb_to_serial_link_cfg
-     (
-      .clk_i     ( clk_soc_o       ),
-      .rst_ni    ( s_rstn_soc_sync ),
- 
-      .penable_i ( apb_serial_link_master_bus.penable ),
-      .pwrite_i  ( apb_serial_link_master_bus.pwrite  ),
-      .paddr_i   ( apb_serial_link_master_bus.paddr   ),
-      .psel_i    ( apb_serial_link_master_bus.psel    ),
-      .pwdata_i  ( apb_serial_link_master_bus.pwdata  ),
-      .prdata_o  ( apb_serial_link_master_bus.prdata  ),
-      .pready_o  ( apb_serial_link_master_bus.pready  ),
-      .pslverr_o ( apb_serial_link_master_bus.pslverr ),
-
-      .reg_o     ( serial_linkcfg_reg_master          )
-     );      
 
      assign can_timestamp = '1;
 

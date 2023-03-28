@@ -122,10 +122,6 @@ module host_domain
   output                      sdio_to_pad_t [N_SDIO-1:0] sdio_to_pad,
   input                       pad_to_sdio_t [N_SDIO-1:0] pad_to_sdio,
 
-  //SERIAL LINK
-  output                      ser_link_to_pad serial_link_to_pad,
-  input                       pad_to_ser_link pad_to_serial_link,
-
   //CAN
   output                      can_to_pad_t [N_CAN-1 : 0] can_to_pad,
   input                       pad_to_can_t [N_CAN-1 : 0] pad_to_can,
@@ -199,14 +195,6 @@ module host_domain
    logic                                 s_llc_write_miss_cache;
 
    axi_llc_pkg::events_t llc_events;
-   
-   REG_BUS #(
-        .ADDR_WIDTH( 32 ),
-        .DATA_WIDTH( 32 )
-    ) serial_linkcfg_reg_master (
-        .clk_i (s_soc_clk)
-    ); 
-
 
    assign   soc_clk_o  = s_soc_clk;
    assign   soc_rst_no = s_synch_soc_rst;
@@ -398,10 +386,6 @@ module host_domain
         .l2_axi_master        ( l2_axi_bus           ),
         .apb_axi_master       ( apb_axi_bus          ),
         .hyper_axi_master     ( hyper_axi_bus        ),
-
-        .serial_link_to_pad   ( serial_link_to_pad   ),
-        .pad_to_serial_link   ( pad_to_serial_link   ),
-        .serial_linkcfg_reg_master ( serial_linkcfg_reg_master ),   
         
         .cluster_axi_master   ( cluster_axi_master   ),
         .cluster_axi_slave    ( cluster_axi_slave    ),
@@ -486,7 +470,6 @@ module host_domain
       .axi_apb_slave          ( apb_axi_bus                    ),
       .udma_tcdm_channels     ( udma_2_tcdm_channels           ),
       .padframecfg_reg_master ( padframecfg_reg_master         ),
-      .serial_linkcfg_reg_master ( serial_linkcfg_reg_master   ),
 
       .events_o               ( s_udma_events                  ),
       .can_irq_o              ( s_can_irq                      ),
