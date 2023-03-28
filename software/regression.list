@@ -9,5 +9,4 @@ peripherals/cam
 peripherals/spim_flash
 peripherals/uart
 gpios
-serial_link
 can
