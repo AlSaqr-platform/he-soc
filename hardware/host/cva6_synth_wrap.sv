@@ -75,7 +75,34 @@ module cva6_synth_wrap
   // WRITE RESPONSE CHANNEL                      
   input logic [LOG_DEPTH:0]                   data_master_b_wptr_i,
   input logic [ASYNC_B_DATA_WIDTH-1:0]        data_master_b_data_i,
-  output logic [LOG_DEPTH:0]                  data_master_b_rptr_o
+  output logic [LOG_DEPTH:0]                  data_master_b_rptr_o,
+
+    // AXI4 MASTER
+  //***************************************
+  // WRITE ADDRESS CHANNEL
+  output logic [LOG_DEPTH:0]                  cfi_data_master_aw_wptr_o,
+  output logic [ASYNC_AW_DATA_WIDTH-1:0]      cfi_data_master_aw_data_o, 
+  input logic [LOG_DEPTH:0]                   cfi_data_master_aw_rptr_i,
+                                                 
+  // READ ADDRESS CHANNEL                        
+  output logic [LOG_DEPTH:0]                  cfi_data_master_ar_wptr_o,
+  output logic [ASYNC_AR_DATA_WIDTH-1:0]      cfi_data_master_ar_data_o,
+  input logic [LOG_DEPTH:0]                   cfi_data_master_ar_rptr_i,
+                                                 
+  // WRITE DATA CHANNEL                          
+  output logic [LOG_DEPTH:0]                  cfi_data_master_w_wptr_o,
+  output logic [ASYNC_W_DATA_WIDTH-1:0]       cfi_data_master_w_data_o,
+  input logic [LOG_DEPTH:0]                   cfi_data_master_w_rptr_i,
+                                                 
+  // READ DATA CHANNEL                           
+  input logic [LOG_DEPTH:0]                   cfi_data_master_r_wptr_i,
+  input logic [ASYNC_R_DATA_WIDTH-1:0]        cfi_data_master_r_data_i,
+  output logic [LOG_DEPTH:0]                  cfi_data_master_r_rptr_o,
+                                                 
+  // WRITE RESPONSE CHANNEL                      
+  input logic [LOG_DEPTH:0]                   cfi_data_master_b_wptr_i,
+  input logic [ASYNC_B_DATA_WIDTH-1:0]        cfi_data_master_b_data_i,
+  output logic [LOG_DEPTH:0]                  cfi_data_master_b_rptr_o
 
 );
    
@@ -94,9 +121,26 @@ module cva6_synth_wrap
     .LOG_DEPTH      ( 1    )
   ) cva6_axi_master_src();
 
-                       
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH ( 64   ),
+    .AXI_DATA_WIDTH ( 64   ),
+    .AXI_ID_WIDTH   ( 5    ),
+    .AXI_USER_WIDTH ( 1    )
+  ) cfi_axi_master();
+
+  AXI_BUS_ASYNC_GRAY #(
+    .AXI_ADDR_WIDTH ( 64   ),
+    .AXI_DATA_WIDTH ( 64   ),
+    .AXI_ID_WIDTH   ( 5    ),
+    .AXI_USER_WIDTH ( 1    ),
+    .LOG_DEPTH      ( 1    )
+  ) cfi_axi_master_src();
+                     
   ariane_axi_soc::req_t    axi_ariane_req;
   ariane_axi_soc::resp_t   axi_ariane_resp;
+  ariane_axi_soc::req_t    axi_cfi_req;
+  ariane_axi_soc::resp_t   axi_cfi_resp;
+
    
   ariane #(
     .ArianeCfg  ( ariane_soc::ArianeSocCfg )
@@ -110,7 +154,9 @@ module cva6_synth_wrap
     .time_irq_i           ( time_irq_i          ), // async signal
     .debug_req_i          ( debug_req_i         ), // async signal
     .axi_req_o            ( axi_ariane_req      ),
-    .axi_resp_i           ( axi_ariane_resp     )
+    .axi_resp_i           ( axi_ariane_resp     ),
+    .cfi_axi_req_o        ( axi_cfi_req         ),
+    .cfi_axi_rsp_i        ( axi_cfi_resp        )
   );
   
   axi_master_connect i_axi_master_connect_ariane (
@@ -118,8 +164,15 @@ module cva6_synth_wrap
     .axi_resp_o(axi_ariane_resp),
     .master(cva6_axi_master)
   );
+  
+  //-- Added for CFI
+  axi_master_connect i_axi_master_connect_cfi (
+    .axi_req_i(axi_cfi_req),
+    .axi_resp_o(axi_cfi_resp),
+    .master(cfi_axi_master)
+  );
 
-   axi_cdc_src_intf #(
+  axi_cdc_src_intf #(
                       .AXI_ID_WIDTH(5),
                       .AXI_ADDR_WIDTH(64),
                       .AXI_DATA_WIDTH(64),
@@ -131,6 +184,20 @@ module cva6_synth_wrap
                         .src_rst_ni ( rst_ni              ),
                         .src        ( cva6_axi_master     ),
                         .dst        ( cva6_axi_master_src )
+                        );
+  //-- Added for CFI
+  axi_cdc_src_intf #(
+                      .AXI_ID_WIDTH(5),
+                      .AXI_ADDR_WIDTH(64),
+                      .AXI_DATA_WIDTH(64),
+                      .AXI_USER_WIDTH(1),
+                      .LOG_DEPTH(1)
+                      )
+   cfitosocdomainfifo (
+                        .src_clk_i  ( clk_i               ),
+                        .src_rst_ni ( rst_ni              ),
+                        .src        ( cfi_axi_master     ),
+                        .dst        ( cfi_axi_master_src )
                         );
 
    assign data_master_aw_wptr_o = cva6_axi_master_src.aw_wptr;
@@ -153,6 +220,27 @@ module cva6_synth_wrap
    assign cva6_axi_master_src.b_data = data_master_b_data_i;
    assign data_master_b_rptr_o = cva6_axi_master_src.b_rptr;
 
+  //-- Added for CFI
+   assign cfi_data_master_aw_wptr_o  = cfi_axi_master_src.aw_wptr;
+   assign cfi_data_master_aw_data_o  = cfi_axi_master_src.aw_data;
+   assign cfi_axi_master_src.aw_rptr = cfi_data_master_aw_rptr_i ;
+
+   assign cfi_data_master_ar_wptr_o  = cfi_axi_master_src.ar_wptr;
+   assign cfi_data_master_ar_data_o  = cfi_axi_master_src.ar_data;
+   assign cfi_axi_master_src.ar_rptr = data_master_ar_rptr_i ;
+
+   assign cfi_data_master_w_wptr_o  = cfi_axi_master_src.w_wptr;
+   assign cfi_data_master_w_data_o  = cfi_axi_master_src.w_data;
+   assign cfi_axi_master_src.w_rptr = cfi_data_master_w_rptr_i ;
+   
+   assign cfi_axi_master_src.r_wptr = cfi_data_master_r_wptr_i;
+   assign cfi_axi_master_src.r_data = cfi_data_master_r_data_i;
+   assign cfi_data_master_r_rptr_o  = cfi_axi_master_src.r_rptr;
+
+   assign cfi_axi_master_src.b_wptr = cfi_data_master_b_wptr_i;
+   assign cfi_axi_master_src.b_data = cfi_data_master_b_data_i;
+   assign cfi_data_master_b_rptr_o  = cfi_axi_master_src.b_rptr;
+
   // -------------
   // Simulation Helper Functions
   // -------------
@@ -169,5 +257,19 @@ module cva6_synth_wrap
       $warning("B Response Errored");
     end
   end
-   
+ 
+  //-- added for CFI
+  always_ff @(posedge clk_i) begin : er_assert
+    if (axi_cfi_req.r_ready &&
+      axi_cfi_resp.r_valid &&
+      axi_cfi_resp.r.resp inside {axi_pkg::RESP_DECERR, axi_pkg::RESP_SLVERR}) begin
+      $warning("R Response Errored");
+    end
+    if (axi_cfi_req.b_ready &&
+      axi_cfi_resp.b_valid &&
+      axi_cfi_resp.b.resp inside {axi_pkg::RESP_DECERR, axi_pkg::RESP_SLVERR}) begin
+      $warning("B Response Errored");
+    end
+  end
+
 endmodule // cva6_synth_wrap

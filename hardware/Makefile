@@ -27,8 +27,8 @@ test-location  ?= output/test
 # set to either nothing or -log
 torture-logs   :=
 # custom elf bin to run with sim or sim-verilator
-elf-bin        ?= /scratch/eparisi/he-soc/software/cfi_null/cfi_null.riscv
-ibex_elf_bin   ?= /scratch/eparisi/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/mbox_test/mbox_test.elf
+elf-bin        ?= /scratch/smanoni/he-soc/software/mbox_test/mbox_test.riscv
+ibex_elf_bin   ?= /scratch/smanoni/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/mbox_test/mbox_test.elf
 #cl-bin         ?= ../software/pulp/mm.riscv
 cl-bin         ?= none
 # root pathelf-bin
