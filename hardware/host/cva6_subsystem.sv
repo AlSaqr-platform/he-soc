@@ -33,7 +33,9 @@ module cva6_subsystem
   parameter int unsigned NUM_WORDS         = 2**25,         // memory size
   parameter bit          StallRandomOutput = 1'b0,
   parameter bit          StallRandomInput  = 1'b0,
-  parameter bit          JtagEnable        = 1'b1
+  parameter bit          JtagEnable        = 1'b1,
+  parameter type         axi_req_t         = logic,
+  parameter type         axi_rsp_t        = logic
 ) (
   input  logic             clk_i,
   input  logic             rtc_i,
@@ -73,7 +75,11 @@ module cva6_subsystem
   AXI_BUS.Master          apb_axi_master,
   AXI_BUS.Master          hyper_axi_master,
   AXI_BUS.Master          cluster_axi_master,
-  AXI_BUS.Slave           cluster_axi_slave
+  AXI_BUS.Slave           cluster_axi_slave,
+
+  input  axi_req_t        ot_axi_req,
+  output axi_rsp_t        ot_axi_rsp,
+  input  logic            irq_ariane_i
 );
      // disable test-enable
   logic        test_en;
@@ -390,7 +396,13 @@ module cva6_subsystem
 
   `AXI_ASSIGN(apb_axi_master,master[ariane_soc::APB_SLVS])
 
+  // ---------------
+  // AXI OT Master
+  // ---------------
 
+  `AXI_ASSIGN_FROM_REQ(slave[4], ot_axi_req)
+  `AXI_ASSIGN_TO_RESP (ot_axi_rsp, slave[4])
+   
   // ---------------
   // AXI hyperbus Slave 
   // ---------------
@@ -609,7 +621,9 @@ module cva6_subsystem
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-    .NR_CORES       ( 1                        )
+    .NR_CORES       ( 1                        ),
+    .axi_req_t      ( ariane_axi_soc::req_slv_t  ),
+    .axi_rsp_t      ( ariane_axi_soc::resp_slv_t )
   ) i_clint (
     .clk_i       ( clk_i          ),
     .rst_ni      ( ndmreset_n     ),
@@ -672,7 +686,8 @@ module cva6_subsystem
     .phy_mdio        ( ),
     .eth_mdc         ( ),
     .mdio            ( ),
-    .mdc             ( )
+    .mdc             ( ),
+    .irq_ariane_i
   );
 
   // ---------------

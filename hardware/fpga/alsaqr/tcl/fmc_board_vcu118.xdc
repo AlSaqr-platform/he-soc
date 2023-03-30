@@ -16,16 +16,48 @@ set_property -dict {PACKAGE_PIN E12 IOSTANDARD LVDS} [get_ports "c0_sys_clk_p"]
 set_property -dict {PACKAGE_PIN L19 IOSTANDARD LVCMOS12} [get_ports pad_reset]
 
 
-## PMOD 0   --- JTAG
+# Ibex JTAG mapping to J52
 ######################################################################
-# JTAG mapping
-######################################################################
+#set_property -dict {PACKAGE_PIN AY14 IOSTANDARD LVCMOS18} [get_ports pad_jtag_ot_tms]
+#set_property -dict {PACKAGE_PIN AY15 IOSTANDARD LVCMOS18} [get_ports pad_jtag_ot_tdi]
+#set_property -dict {PACKAGE_PIN AW15 IOSTANDARD LVCMOS18} [get_ports pad_jtag_ot_tdo]
+#set_property -dict {PACKAGE_PIN AV15 IOSTANDARD LVCMOS18} [get_ports pad_jtag_ot_tck]
+#set_property -dict {PACKAGE_PIN AV16 IOSTANDARD LVCMOS18} [get_ports pad_jtag_ot_trst]
+
+#######################################################################
+## Ibex JTAG mapping FMC
+#######################################################################
+set_property -dict {PACKAGE_PIN BF11 IOSTANDARD LVCMOS18} [get_ports pad_jtag_ot_tms]
+set_property -dict {PACKAGE_PIN BC15 IOSTANDARD LVCMOS18} [get_ports pad_jtag_ot_tdi]
+set_property -dict {PACKAGE_PIN BA9  IOSTANDARD LVCMOS18} [get_ports pad_jtag_ot_tdo]
+set_property -dict {PACKAGE_PIN BA15 IOSTANDARD LVCMOS18} [get_ports pad_jtag_ot_tck]
+set_property -dict {PACKAGE_PIN BC11 IOSTANDARD LVCMOS18} [get_ports pad_jtag_ot_trst]
+
+#######################################################################
+## Ariane JTAG mapping to J52
+#######################################################################
 set_property -dict {PACKAGE_PIN AY14 IOSTANDARD LVCMOS18} [get_ports pad_jtag_tms]
 set_property -dict {PACKAGE_PIN AY15 IOSTANDARD LVCMOS18} [get_ports pad_jtag_tdi]
 set_property -dict {PACKAGE_PIN AW15 IOSTANDARD LVCMOS18} [get_ports pad_jtag_tdo]
 set_property -dict {PACKAGE_PIN AV15 IOSTANDARD LVCMOS18} [get_ports pad_jtag_tck]
 set_property -dict {PACKAGE_PIN AV16 IOSTANDARD LVCMOS18} [get_ports pad_jtag_trst]
 
+#######################################################################
+## Ariane JTAG mapping to FMC
+#######################################################################
+#set_property -dict {PACKAGE_PIN BF11 IOSTANDARD LVCMOS18} [get_ports pad_jtag_tms]
+#set_property -dict {PACKAGE_PIN BC15 IOSTANDARD LVCMOS18} [get_ports pad_jtag_tdi]
+#set_property -dict {PACKAGE_PIN BA9  IOSTANDARD LVCMOS18} [get_ports pad_jtag_tdo]
+#set_property -dict {PACKAGE_PIN BA15 IOSTANDARD LVCMOS18} [get_ports pad_jtag_tck]
+#set_property -dict {PACKAGE_PIN BC11 IOSTANDARD LVCMOS18} [get_ports pad_jtag_trst]
+
+#######################################################################
+## OpenTitan SPI connections to the VCU118 SPI Flash 1
+#######################################################################
+#set_property -dict {PACKAGE_PIN AR12 IOSTANDARD LVCMOS18} [get_ports spi_ot_S0]
+#set_property -dict {PACKAGE_PIN AT14 IOSTANDARD LVCMOS18} [get_ports spi_ot_S1]
+#set_property -dict {PACKAGE_PIN AN16 IOSTANDARD LVCMOS18} [get_ports spi_ot_SCK]
+#set_property -dict {PACKAGE_PIN AP12 IOSTANDARD LVCMOS18} [get_ports spi_ot_CSNeg]
 
 ######################################################################
 # UART mapping

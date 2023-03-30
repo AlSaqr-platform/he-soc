@@ -27,7 +27,8 @@ test-location  ?= output/test
 # set to either nothing or -log
 torture-logs   :=
 # custom elf bin to run with sim or sim-verilator
-elf-bin        ?= ../software/hello/hello.riscv
+elf-bin        ?= ../software/mbox_test/mbox_test.riscv
+ibex_elf_bin   ?= /scratch/mciani/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/mbox_test/mbox_test.elf
 #cl-bin         ?= ../software/pulp/mm.riscv
 cl-bin         ?= none
 # root pathelf-bin
@@ -101,9 +102,9 @@ ifdef spike-tandem
 endif
 
 # Compile and sim flags
-compile_flag     += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 13262 -permissive +define+$(defines)
+compile_flag     += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 3999 -suppress 7063 -suppress 3009 -suppress 13262 -permissive +define+$(defines)
 uvm-flags        += +UVM_NO_RELNOTES +UVM_VERBOSITY=LOW
-questa-flags     += -t 1ns -64 -coverage -classdebug $(gui-sim) $(QUESTASIM_FLAGS)
+questa-flags     += -t 1ns -64 -coverage -classdebug $(gui-sim) $(QUESTASIM_FLAGS) -suppress 7063 -suppress 3009 -suppress 3999
 compile_flag_vhd += -64 -nologo -quiet -2008
 
 compile_flag_bender   += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 13262 -permissive 
@@ -128,6 +129,12 @@ ifdef preload
 	elf-bin = none
 endif
 
+ifdef fake
+	questa-cmd += +FAKE=$(fake)  
+  compile_flag +=  +define+FAKE 
+  compile_fpga += FAKE
+endif
+
 ifdef l3-fake
 	questa-cmd += +L3_TCSRAM=$(l3-fake)
   compile_flag +=  +define+L3_TCSRAM
@@ -148,8 +155,8 @@ endif
 
 ifdef simple-padframe
 	questa-cmd   += +SIMPLE_PADFRAME=$(simple-padframe)
- 	compile_flag +=  +define+SIMPLE_PADFRAME
- 	compile_fpga += SIMPLE_PADFRAME
+	compile_flag +=  +define+SIMPLE_PADFRAME
+	compile_fpga += SIMPLE_PADFRAME
 endif
 
 ifdef spike-tandem
@@ -246,7 +253,7 @@ generate-trace-vsim:
 	make generate-trace
 
 run:
-	vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -lib $(library)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
+	vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3999 -suppress 3053 -suppress 7033  -suppress 8885 -lib $(library)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +OT_STRING=$(ibex_elf_bin)  +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi  \
 	${top_level}_optimized +permissive-off ++$(elf-bin) ++$(target-options) ++$(cl-bin) | tee sim.log
 
@@ -258,7 +265,7 @@ sim: build run
 $(alsaqr-regression): build
 	mkdir -p tmp
 	../software/elf_to_slm.py --binary=$@ --vectors=hyperram0.slm
-	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library)  -suppress 3053 -suppress 8885 +max-cycles=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$@ +CL_STRING=$(cl-bin) -t 1ps \
+	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library)  -suppress 3053 -suppress 7033 -suppress 8885 +max-cycles=$(max_cycles) +UVM_TESTNAME=$(test_case) +OT_STRING=$(ibex_elf_bin) +CVA6_STRING=$@ +CL_STRING=$(cl-bin) -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi   \
 	${top_level}_optimized $(QUESTASIM_FLAGS) +permissive-off ++$(alsaqr-regression-dir)/$@ ++$(target-options) | tee tmp/alsaqr-regression-$@.log
 

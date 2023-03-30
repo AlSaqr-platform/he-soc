@@ -63,12 +63,25 @@ module alsaqr_xilinx
     `endif
 
     input wire    pad_reset,
-
+    // CVA6 jtag port
     input wire    pad_jtag_trst,
     input wire    pad_jtag_tck,
     input wire    pad_jtag_tdi,
-    output wire   pad_jtag_tdo,
-    input wire    pad_jtag_tms
+    output wire   pad_jtag_tdo,    
+    input wire    pad_jtag_tms,
+
+    // OpenTitan jtag port
+    input wire    pad_jtag_ot_trst,
+    input wire    pad_jtag_ot_tck,
+    input wire    pad_jtag_ot_tdi,
+    output wire   pad_jtag_ot_tdo,
+    input wire    pad_jtag_ot_tms,
+
+       // OpenTitan SPI
+    /* inout wire    spi_ot_S0,
+    inout wire    spi_ot_S1,
+    output logic  spi_ot_SCK,
+    output logic  spi_ot_CSNeg*/
   );
 
    localparam  APP_ADDR_WIDTH   = 28;
@@ -101,7 +114,7 @@ module alsaqr_xilinx
                                       .clk_out1(ref_clk)
                                       );
      
-   assign reset_n = ~pad_reset & pad_jtag_trst;
+   assign reset_n = ~pad_reset & pad_jtag_trst & pad_jtag_ot_trst;
 
    
    AXI_BUS #(
@@ -299,6 +312,11 @@ ddr4_0 u_ddr4_0
         .jtag_TRSTn       ( 1'b1               ),
         .jtag_TDO_data    ( pad_jtag_tdo       ),
         .jtag_TDO_driven  (                    ),
+        .jtag_ot_TCK      ( pad_jtag_ot_tck    ),
+        .jtag_ot_TMS      ( pad_jtag_ot_tms    ),
+        .jtag_ot_TDI      ( pad_jtag_ot_tdi    ),
+        .jtag_ot_TRSTn    ( 1'b1               ),
+        .jtag_ot_TDO_data ( pad_jtag_ot_tdo    )
         .axi_ddr_master   ( axi_ddr_bus_64     ),
         .cva6_uart_rx_i   ( pad_uart0_rx       ),
         .cva6_uart_tx_o   ( pad_uart0_tx       ),
@@ -318,7 +336,11 @@ ddr4_0 u_ddr4_0
         .pad_periphs_pad_gpio_b_11_pad(pad_periphs_pad_gpio_b_11_pad),
         .pad_periphs_pad_gpio_b_12_pad(pad_periphs_pad_gpio_b_12_pad),
         .pad_periphs_pad_gpio_b_13_pad(pad_periphs_pad_gpio_b_13_pad),
-        `endif
+        `endif 
+        /* .spi_ot_S0        ( spi_ot_S0          ),
+        .spi_ot_S1        ( spi_ot_S1          ),
+        .spi_ot_SCK       ( spi_ot_SCK         ),
+        .spi_ot_CSNeg     ( spi_ot_CSNeg       )*/
 
         .apb_uart_rx_i    ( pad_uart1_rx       ),
         .apb_uart_tx_o    ( pad_uart1_tx       )

@@ -39,7 +39,8 @@ dependencies:
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "3a4df2f9709bcf0af396548b603fd15f2d59029d" }
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", version: 0.0.1 }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
-
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "lowRISC-rebase" }
+  axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "master" }
 
 export_include_dirs:
   - include/

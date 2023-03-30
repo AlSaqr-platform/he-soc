@@ -283,8 +283,43 @@ module al_saqr
   inout wire          jtag_TDI,
   inout wire          jtag_TRSTn,
   inout wire          jtag_TDO_data,
+  inout wire          jtag_TDO_driven,
+
+  inout wire          jtag_ot_TCK,
+  inout wire          jtag_ot_TMS,
+  inout wire          jtag_ot_TDI,
+  inout wire          jtag_ot_TRSTn,
+  inout wire          jtag_ot_TDO_data
    
 );
+  import lc_ctrl_pkg::*;
+  import edn_pkg::*;
+  import top_earlgrey_pkg::*;
+
+  jtag_pkg::jtag_req_t jtag_ibex_i;
+  jtag_pkg::jtag_rsp_t jtag_ibex_o;
+
+  logic                         s_jtag_ot_TCK;
+  logic                         s_jtag_ot_TDI;
+  logic                         s_jtag_ot_TDO;
+  logic                         s_jtag_ot_TMS;
+  logic                         s_jtag_ot_TRSTn;
+  
+  logic                         doorbell_irq;
+   
+
+  assign jtag_ibex_i.tck        = s_jtag_ot_TCK;  
+  assign jtag_ibex_i.trst_n     = s_jtag_ot_TRSTn;
+  assign jtag_ibex_i.tms        = s_jtag_ot_TMS;
+  assign jtag_ibex_i.tdi        = s_jtag_ot_TDI;
+  assign s_jtag_ot_TDO          = jtag_ibex_o.tdo;
+
+  tlul2axi_pkg::slv_req_t ot_axi_req;
+  tlul2axi_pkg::slv_rsp_t ot_axi_rsp;
+
+  tlul2axi_pkg::mst_req_t axi_req64;
+  tlul2axi_pkg::mst_rsp_t axi_rsp64;
+   
   // AXILITE parameters
   localparam int unsigned AXI_LITE_AW       = 32;
   localparam int unsigned AXI_LITE_DW       = 32;
@@ -466,7 +501,9 @@ module al_saqr
         .StallRandomOutput ( 1'b1       ),
         .StallRandomInput  ( 1'b1       ),
         .NUM_GPIO          ( NUM_GPIO   ),
-        .JtagEnable        ( JtagEnable )
+        .JtagEnable        ( JtagEnable ),
+        .axi_req_t         ( tlul2axi_pkg::mst_req_t ),
+        .axi_rsp_t         ( tlul2axi_pkg::mst_rsp_t ) 
     ) i_host_domain (
       .rst_ni(s_rst_ni),
       .rtc_i(s_rtc_i),
@@ -552,8 +589,12 @@ module al_saqr
        .pad_hyper_dq,
        `endif
         
-      .pwm_to_pad             ( s_pwm_to_pad                    )
-
+      .pwm_to_pad             ( s_pwm_to_pad                    ),
+ 
+      .ot_axi_req             ( axi_req64                       ),
+      .ot_axi_rsp             ( axi_rsp64                       ),
+                     
+      .doorbell_irq_o         ( doorbell_irq                    )
     );
    
    pad_frame #()
@@ -573,6 +614,18 @@ module al_saqr
       .jtag_tdo_i       ( s_jtag_TDO       ),
       .jtag_tms_o       ( s_jtag_TMS       ),
       .jtag_trst_o      ( s_jtag_TRSTn     ),
+
+      .pad_jtag_ot_tck  ( jtag_ot_TCK      ),
+      .pad_jtag_ot_tdi  ( jtag_ot_TDI      ),
+      .pad_jtag_ot_tdo  ( jtag_ot_TDO_data ),
+      .pad_jtag_ot_tms  ( jtag_ot_TMS      ),
+      .pad_jtag_ot_trst ( jtag_ot_TRSTn    ),
+              
+      .jtag_tck_ot_o    ( s_jtag_ot_TCK    ),
+      .jtag_tdi_ot_o    ( s_jtag_ot_TDI    ),
+      .jtag_tdo_ot_i    ( s_jtag_ot_TDO    ),
+      .jtag_tms_ot_o    ( s_jtag_ot_TMS    ),
+      .jtag_trst_ot_o   ( s_jtag_ot_TRSTn  ),
       
       .pad_reset_n      ( rst_ni           ),
       .pad_jtag_tck     ( jtag_TCK         ),
@@ -584,6 +637,113 @@ module al_saqr
       .pad_xtal_in      ( rtc_i            )
 
      );
+
+     axi_dw_converter #(
+       .AxiMaxReads        ( tlul2axi_pkg::AXI_MAX_READS           ),
+       .AxiSlvPortDataWidth( tlul2axi_pkg::AXI_SLV_PORT_DATA_WIDTH ),
+       .AxiMstPortDataWidth( tlul2axi_pkg::AXI_MST_PORT_DATA_WIDTH ),
+       .AxiAddrWidth       ( tlul2axi_pkg::AXI_ADDR_WIDTH          ),
+       .AxiIdWidth         ( tlul2axi_pkg::AXI_ID_WIDTH            ),
+       .aw_chan_t          ( tlul2axi_pkg::aw_chan_t               ),
+       .mst_w_chan_t       ( tlul2axi_pkg::mst_w_chan_t            ),
+       .slv_w_chan_t       ( tlul2axi_pkg::slv_w_chan_t            ),
+       .b_chan_t           ( tlul2axi_pkg::b_chan_t                ),
+       .ar_chan_t          ( tlul2axi_pkg::ar_chan_t               ),
+       .mst_r_chan_t       ( tlul2axi_pkg::mst_r_chan_t            ),
+       .slv_r_chan_t       ( tlul2axi_pkg::slv_r_chan_t            ),
+       .axi_mst_req_t      ( tlul2axi_pkg::mst_req_t               ),
+       .axi_mst_resp_t     ( tlul2axi_pkg::mst_rsp_t              ),
+       .axi_slv_req_t      ( tlul2axi_pkg::slv_req_t               ),
+       .axi_slv_resp_t     ( tlul2axi_pkg::slv_rsp_t              )
+    )   i_axi_dw_converter (
+      .clk_i      ( s_soc_clk   ),
+      .rst_ni     ( s_rst_ni   ),
+      // slave port
+      .slv_req_i  ( ot_axi_req  ),
+      .slv_resp_o ( ot_axi_rsp  ),
+      // master port
+      .mst_req_o  ( axi_req64  ),
+      .mst_resp_i ( axi_rsp64  )
+   );
+
+   
+
+   opentitan_synth_wrap #(
+      .RomCtrlBootRomInitFile("/scratch/mciani/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/bootrom/fake_rom.vmem"),
+      .OtpCtrlMemInitFile("/scratch/mciani/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/otp/otp-img.mem"),
+      .FlashCtrlMemInitFile("/scratch/mciani/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/hmac_test/hmac_smoketest.vmem")
+   ) i_RoT_wrap (
+
+      .clk_i(s_soc_clk),
+      .por_n_i(s_rst_ni),
+
+      .irq_ibex_i(doorbell_irq),
+   // JTAG port
+      .jtag_tck_i    (jtag_ibex_i.tck),
+      .jtag_tms_i    (jtag_ibex_i.tms),
+      .jtag_trst_n_i (jtag_ibex_i.trst_n),
+      .jtag_tdi_i    (jtag_ibex_i.tdi),
+      .jtag_tdo_o    (jtag_ibex_o.tdo),
+      .jtag_tdo_oe_o (jtag_ibex_o.tdo_oe),
+
+   //AXI AR channel
+      .ar_id_o       (ot_axi_req.ar.id),
+      .ar_addr_o     (ot_axi_req.ar.addr),
+      .ar_len_o      (ot_axi_req.ar.len),
+      .ar_size_o     (ot_axi_req.ar.size),
+      .ar_burst_o    (ot_axi_req.ar.burst),
+      .ar_lock_o     (ot_axi_req.ar.lock),
+      .ar_cache_o    (ot_axi_req.ar.cache),
+      .ar_prot_o     (ot_axi_req.ar.prot),
+      .ar_qos_o      (ot_axi_req.ar.qos),
+      .ar_region_o   (ot_axi_req.ar.region),
+      .ar_user_o     (ot_axi_req.ar.user),
+      .ar_valid_o    (ot_axi_req.ar_valid),
+      .ar_ready_i    (ot_axi_rsp.ar_ready),
+
+   //AXI AW channel
+      .aw_id_o       (ot_axi_req.aw.id),
+      .aw_addr_o     (ot_axi_req.aw.addr),
+      .aw_len_o      (ot_axi_req.aw.len),
+      .aw_size_o     (ot_axi_req.aw.size),
+      .aw_burst_o    (ot_axi_req.aw.burst),
+      .aw_lock_o     (ot_axi_req.aw.lock),
+      .aw_cache_o    (ot_axi_req.aw.cache),
+      .aw_prot_o     (ot_axi_req.aw.prot),
+      .aw_qos_o      (ot_axi_req.aw.qos),
+      .aw_region_o   (ot_axi_req.aw.region),
+      .aw_atop_o     (ot_axi_req.aw.atop),
+      .aw_user_o     (ot_axi_req.aw.user),
+      .aw_valid_o    (ot_axi_req.aw_valid),
+      .aw_ready_i    (ot_axi_rsp.aw_ready),
+
+
+   //AXI W channel
+      .w_data_o      (ot_axi_req.w.data),
+      .w_strb_o      (ot_axi_req.w.strb),
+      .w_last_o      (ot_axi_req.w.last),
+      .w_user_o      (ot_axi_req.w.user),
+      .w_valid_o     (ot_axi_req.w_valid),
+      .w_ready_i     (ot_axi_rsp.w_ready),
+
+   //AXI B channel
+      .b_id_i        (ot_axi_rsp.b.id),
+      .b_resp_i      (ot_axi_rsp.b.resp),
+      .b_user_i      (ot_axi_rsp.b.user),
+      .b_valid_i     (ot_axi_rsp.b_valid),
+      .b_ready_o     (ot_axi_req.b_ready),
+
+   //AXI R channel
+      .r_id_i        (ot_axi_rsp.r.id),
+      .r_data_i      (ot_axi_rsp.r.data),
+      .r_resp_i      (ot_axi_rsp.r.resp),
+      .r_last_i      (ot_axi_rsp.r.last),
+      .r_user_i      (ot_axi_rsp.r.user),
+      .r_valid_i     (ot_axi_rsp.r_valid),
+      .r_ready_o     (ot_axi_req.r_ready),
+
+      .dio_in_i      ('0)
+   );
 
   `ifndef EXCLUDE_CLUSTER   
 
@@ -795,7 +955,7 @@ module al_saqr
      assign cluster_cfg_axi_lite_bus.ar_region = 'h0;
      assign cluster_cfg_axi_lite_bus.ar_user = 'h0;
      assign cluster_cfg_axi_lite_bus.ar_valid = 'h0;
-     assign cluster_cfg_axi_lite_bus.ar_ready = 'h0;
+     //assign cluster_cfg_axi_lite_bus.ar_ready = 'h0;
      assign cluster_cfg_axi_lite_bus.r_ready = 1'b1;
 
      assign cluster_to_tlb_axi_bus.aw_id = 'h0;
@@ -829,7 +989,7 @@ module al_saqr
      assign cluster_to_tlb_axi_bus.ar_region = 'h0;
      assign cluster_to_tlb_axi_bus.ar_user = 'h0;
      assign cluster_to_tlb_axi_bus.ar_valid = 'h0;
-     assign cluster_to_tlb_axi_bus.ar_ready = 'h0;
+     //assign cluster_to_tlb_axi_bus.ar_ready = 'h0;
      assign cluster_to_tlb_axi_bus.r_ready = 1'b1;
 
      ariane_axi_soc::req_slv_t    fake_cluster_s_req;

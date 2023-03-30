@@ -53,7 +53,9 @@ module host_domain
   parameter bit          StallRandomInput  = 1'b0,
   parameter bit          JtagEnable        = 1'b1,
   parameter int unsigned CAM_DATA_WIDTH    = 8,
-  parameter int unsigned NUM_GPIO          = 64
+  parameter int unsigned NUM_GPIO          = 64,
+  parameter type         axi_req_t         = logic,
+  parameter type         axi_rsp_t         = logic
 ) (
   input logic                 rtc_i,
   input logic                 rst_ni,
@@ -139,7 +141,13 @@ module host_domain
   output                      pwm_to_pad_t pwm_to_pad,
 
   output gpio_to_pad_t        gpio_to_pad,
-  input  pad_to_gpio_t        pad_to_gpio
+  input  pad_to_gpio_t        pad_to_gpio,
+
+  input  axi_req_t            ot_axi_req,
+  output axi_rsp_t            ot_axi_rsp, 
+  
+  // Mbox interrupt
+  output  logic               doorbell_irq_o
 
 );
 
@@ -152,6 +160,8 @@ module host_domain
    
    ariane_axi_soc::req_lite_t  axi_llc_cfg_req;
    ariane_axi_soc::resp_lite_t axi_llc_cfg_res;
+
+   logic completion_irq_o;
    
    // rule definitions
    typedef struct packed {
@@ -354,7 +364,9 @@ module host_domain
         .InclSimDTM        ( 1'b1       ),
         .StallRandomOutput ( 1'b1       ),
         .StallRandomInput  ( 1'b1       ),
-        .JtagEnable        ( JtagEnable )
+        .JtagEnable        ( JtagEnable ),
+        .axi_req_t         ( axi_req_t  ),
+        .axi_rsp_t         ( axi_rsp_t  )
    ) i_cva6_subsystem (
         .clk_i(s_soc_clk),
         .rst_ni(s_synch_global_rst),
@@ -376,6 +388,9 @@ module host_domain
         .jtag_TRSTn,
         .jtag_TDO_data,
         .jtag_TDO_driven,
+        .ot_axi_req,
+        .ot_axi_rsp,
+        .irq_ariane_i         ( completion_irq_o     ),
         .sync_rst_ni          ( s_synch_soc_rst      ),
         .udma_events_i        ( s_udma_events        ),
         .cluster_eoc_i        ( cluster_eoc_i        ),
@@ -515,7 +530,9 @@ module host_domain
        .c2h_tlb_cfg_master     ( c2h_tlb_cfg_lite_master ),
        .llc_cfg_master         ( llc_cfg_bus             ),
        .h2c_irq_o              ( h2c_irq_o               ),
-       .c2h_irq_o              ( s_c2h_irq               )
+       .c2h_irq_o              ( s_c2h_irq               ),
+       .doorbell_irq_o,
+       .completion_irq_o                
    );
                       
 endmodule
