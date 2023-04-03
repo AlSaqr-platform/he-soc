@@ -64,11 +64,6 @@ module cva6_subsystem
   output logic             jtag_TDO_data,
   output logic             jtag_TDO_driven,
 
-  //SERIAL LINK
-  output ser_link_to_pad serial_link_to_pad,
-  input  pad_to_ser_link pad_to_serial_link,
-  REG_BUS.in             serial_linkcfg_reg_master,
-
   // CVA6 DEBUG UART
   input  logic            cva6_uart_rx_i,
   output logic            cva6_uart_tx_o,
@@ -124,20 +119,6 @@ module cva6_subsystem
     .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
   ) slave[ariane_soc::NrSlaves-1:0]();
- 
-  AXI_BUS #(
-    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
-    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
-    .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
-    .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
-  ) serial_link_master();
-
-  AXI_BUS #(
-    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
-    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
-    .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
-    .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
-  ) serial_link_cut();
    
   AXI_BUS #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
@@ -314,7 +295,6 @@ module cva6_subsystem
 
   `AXI_ASSIGN_FROM_REQ(slave[1],dm_axi_m_req)
   `AXI_ASSIGN_TO_RESP(dm_axi_m_resp,slave[1])
-
    
   axi_adapter #(
     .DATA_WIDTH            ( AXI_DATA_WIDTH            ),
@@ -512,66 +492,73 @@ module cva6_subsystem
     start_addr: ariane_soc::DebugBase,
     end_addr:   ariane_soc::DebugBase    + ariane_soc::DebugLength  
   };
+
   assign addr_map[ariane_soc::ROM] = '{ 
     idx:  ariane_soc::ROM,
     start_addr: ariane_soc::ROMBase,
     end_addr:   ariane_soc::ROMBase      + ariane_soc::ROMLength  
   };
+
   assign addr_map[ariane_soc::UART] = '{ 
     idx:  ariane_soc::UART,
     start_addr: ariane_soc::UARTBase,
     end_addr:   ariane_soc::UARTBase     + ariane_soc::UARTLength  
   };
-  assign addr_map[ariane_soc::SERIAL_LINK] = '{ 
-    idx:  ariane_soc::SERIAL_LINK,
-    start_addr: ariane_soc::SerLink_Base,
-    end_addr:   ariane_soc::SerLink_Base + ariane_soc::SerLinkLength  
-  };
+
   assign addr_map[ariane_soc::CLINT] = '{ 
     idx:  ariane_soc::CLINT,
     start_addr: ariane_soc::CLINTBase,
     end_addr:   ariane_soc::CLINTBase    + ariane_soc::CLINTLength  
   };
+
   assign addr_map[ariane_soc::PLIC] = '{
     idx:  ariane_soc::PLIC,
     start_addr: ariane_soc::PLICBase,
     end_addr:   ariane_soc::PLICBase     + ariane_soc::PLICLength  
   };
+
   assign addr_map[ariane_soc::Cluster] = '{
     idx:  ariane_soc::Cluster,
     start_addr: ariane_soc::ClusterBase,
     end_addr:   ariane_soc::ClusterBase     + ariane_soc::ClusterLength  
   };
+
   assign addr_map[ariane_soc::L2SPM] = '{ 
     idx:  ariane_soc::L2SPM,
     start_addr: ariane_soc::L2SPMBase,
     end_addr:   ariane_soc::L2SPMBase     + ariane_soc::L2SPMLength  
   };
+
   assign addr_map[ariane_soc::APB_SLVS] = '{ 
     idx:  ariane_soc::APB_SLVS,
     start_addr: ariane_soc::APB_SLVSBase,
     end_addr:   ariane_soc::APB_SLVSBase     + ariane_soc::APB_SLVSLength  
   };
+
   assign addr_map[ariane_soc::Timer] = '{ 
     idx:  ariane_soc::Timer,
     start_addr: ariane_soc::TimerBase,
     end_addr:   ariane_soc::TimerBase    + ariane_soc::TimerLength  
   };
+
   assign addr_map[ariane_soc::SPI] = '{
     idx:  ariane_soc::SPI,
     start_addr: ariane_soc::SPIBase,
     end_addr:   ariane_soc::SPIBase      + ariane_soc::SPILength  
   };
+
   assign addr_map[ariane_soc::Ethernet] = '{ 
     idx:  ariane_soc::Ethernet,
     start_addr: ariane_soc::EthernetBase,
     end_addr:   ariane_soc::EthernetBase + ariane_soc::EthernetLength  
   };
+
   assign addr_map[ariane_soc::HYAXI] = '{ 
     idx:  ariane_soc::HYAXI,
     start_addr: ariane_soc::HYAXIBase,
     end_addr:   ariane_soc::HYAXIBase     + ariane_soc::HYAXILength  
   }; 
+
   assign addr_map[ariane_soc::AXILiteDom] = '{ 
     idx:  ariane_soc::AXILiteDom,
     start_addr: ariane_soc::AXILiteBase,
@@ -638,103 +625,6 @@ module cva6_subsystem
   `AXI_ASSIGN_TO_REQ(axi_clint_req,master[ariane_soc::CLINT])
   `AXI_ASSIGN_FROM_RESP(master[ariane_soc::CLINT],axi_clint_resp)
 
-
-  // ---------------
-  // DDR SERIAL LINK
-  // ---------------
-
-  ariane_axi_soc::req_t ddr_1_in_req, ddr_1_out_req;
-  ariane_axi_soc::resp_t ddr_1_in_rsp, ddr_1_out_rsp;
-
-  logic [3:0] ddr_i, ddr_o;
-
-  localparam RegAw  = 32;
-  localparam RegDw  = 32;
-
-  typedef logic [RegAw-1:0]   reg_addr_t;
-  typedef logic [RegDw-1:0]   reg_data_t;
-  typedef logic [RegDw/8-1:0] reg_strb_t;
-
-  `REG_BUS_TYPEDEF_REQ(reg_req_t, reg_addr_t, reg_data_t, reg_strb_t)
-  `REG_BUS_TYPEDEF_RSP(reg_rsp_t, reg_data_t)
- 
-  reg_req_t   reg_req;
-  reg_rsp_t   reg_rsp;
-
-  axi_serializer_intf #(
-    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-    .MAX_READ_TXNS  ( ariane_soc::NrSlaves     ),
-    .MAX_WRITE_TXNS ( ariane_soc::NrSlaves     ),
-    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
-    .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-     )serial_link_serializer (
-       .clk_i  ( clk_i                           ),
-       .rst_ni ( ndmreset_n                      ),
-       .slv    ( master[ariane_soc::SERIAL_LINK] ),
-       .mst    ( serial_link_cut                 )
-     );
-
-  axi_cut_intf #(
-    .BYPASS     ( 1'b0                ),
-    .ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
-    .DATA_WIDTH ( AXI_DATA_WIDTH      ),
-    .ID_WIDTH   ( ariane_soc::IdWidth ),
-    .USER_WIDTH ( AXI_USER_WIDTH      )
-  ) serial_link_cutter (
-    .clk_i,
-    .rst_ni ( ndmreset_n                ),
-    .in     ( serial_link_cut           ),
-    .out    ( serial_link_master        )
-  );
-   
-  `AXI_ASSIGN_TO_REQ(ddr_1_in_req,serial_link_master)
-  `AXI_ASSIGN_FROM_RESP(serial_link_master, ddr_1_in_rsp)
-
-  `AXI_ASSIGN_FROM_REQ(slave[3], ddr_1_out_req)
-  `AXI_ASSIGN_TO_RESP(ddr_1_out_rsp, slave[3])
-
-  `REG_BUS_ASSIGN_TO_REQ(reg_req,serial_linkcfg_reg_master)
-  `REG_BUS_ASSIGN_FROM_RSP(serial_linkcfg_reg_master,reg_rsp)
-
-  assign ddr_i[0] = pad_to_serial_link.ddr0_i;
-  assign ddr_i[1] = pad_to_serial_link.ddr1_i;
-  assign ddr_i[2] = pad_to_serial_link.ddr2_i;
-  assign ddr_i[3] = pad_to_serial_link.ddr3_i;
-
-  assign serial_link_to_pad.ddr0_o = ddr_o[0];
-  assign serial_link_to_pad.ddr1_o = ddr_o[1];
-  assign serial_link_to_pad.ddr2_o = ddr_o[2];
-  assign serial_link_to_pad.ddr3_o = ddr_o[3];
-
-   // first serial instance
-  serial_link #(
-    .axi_req_t        ( ariane_axi_soc::req_t       ),
-    .axi_rsp_t        ( ariane_axi_soc::resp_t      ),
-    .aw_chan_t        ( ariane_axi_soc::aw_chan_t   ),
-    .ar_chan_t        ( ariane_axi_soc::ar_chan_t   ),
-    .cfg_req_t        ( reg_req_t   ),
-    .cfg_rsp_t        ( reg_rsp_t   )
-  ) i_serial_link_1 (
-      .clk_i          ( clk_i           ),
-      .rst_ni         ( ndmreset_n      ),
-      .testmode_i     ( 1'b0            ),
-      .axi_in_req_i   ( ddr_1_in_req    ), //slv -> mst axi
-      .axi_in_rsp_o   ( ddr_1_in_rsp    ), //slv -> mst axi
-
-      .axi_out_req_o  ( ddr_1_out_req   ), //mst -> slv axi
-      .axi_out_rsp_i  ( ddr_1_out_rsp   ), //mst -> slv axi
-
-      .cfg_req_i      ( reg_req ), //reg_req from apb slave
-      .cfg_rsp_o      ( reg_rsp ), //reg_rsp apb slave
-      
-      .ddr_clk_i      ( pad_to_serial_link.ddr_clk_i ),
-      .ddr_i          ( ddr_i ),
-      .ddr_o          ( ddr_o )
-  );
-
-
-
   // ---------------
   // Peripherals
   // ---------------
@@ -784,7 +674,6 @@ module cva6_subsystem
     .mdio            ( ),
     .mdc             ( )
   );
-
 
   // ---------------
   // Core

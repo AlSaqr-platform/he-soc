@@ -11,7 +11,7 @@
 //  Also, modify the linker script to have the stack in L2, if you
 //  want to check the whole memory.
 #define STRIDE 0x8
-#define FPGA_EMULATION
+//#define FPGA_EMULATION
 uint64_t *lfsr_byte_feedback;
 
 uint32_t lfsr_iter_bit(uint64_t lfsr) {

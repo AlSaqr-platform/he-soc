@@ -2230,195 +2230,6 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic pad_gpio_f_16_mux_sel_qs;
   logic pad_gpio_f_16_mux_sel_wd;
   logic pad_gpio_f_16_mux_sel_we;
-  logic pad_gpio_f_17_cfg_chip2pad_qs;
-  logic pad_gpio_f_17_cfg_chip2pad_wd;
-  logic pad_gpio_f_17_cfg_chip2pad_we;
-  logic [1:0] pad_gpio_f_17_cfg_drv_qs;
-  logic [1:0] pad_gpio_f_17_cfg_drv_wd;
-  logic pad_gpio_f_17_cfg_drv_we;
-  logic pad_gpio_f_17_cfg_oen_qs;
-  logic pad_gpio_f_17_cfg_oen_wd;
-  logic pad_gpio_f_17_cfg_oen_we;
-  logic pad_gpio_f_17_cfg_puen_qs;
-  logic pad_gpio_f_17_cfg_puen_wd;
-  logic pad_gpio_f_17_cfg_puen_we;
-  logic pad_gpio_f_17_cfg_slw_qs;
-  logic pad_gpio_f_17_cfg_slw_wd;
-  logic pad_gpio_f_17_cfg_slw_we;
-  logic pad_gpio_f_17_cfg_smt_qs;
-  logic pad_gpio_f_17_cfg_smt_wd;
-  logic pad_gpio_f_17_cfg_smt_we;
-  logic pad_gpio_f_17_mux_sel_qs;
-  logic pad_gpio_f_17_mux_sel_wd;
-  logic pad_gpio_f_17_mux_sel_we;
-  logic pad_gpio_f_18_cfg_chip2pad_qs;
-  logic pad_gpio_f_18_cfg_chip2pad_wd;
-  logic pad_gpio_f_18_cfg_chip2pad_we;
-  logic [1:0] pad_gpio_f_18_cfg_drv_qs;
-  logic [1:0] pad_gpio_f_18_cfg_drv_wd;
-  logic pad_gpio_f_18_cfg_drv_we;
-  logic pad_gpio_f_18_cfg_oen_qs;
-  logic pad_gpio_f_18_cfg_oen_wd;
-  logic pad_gpio_f_18_cfg_oen_we;
-  logic pad_gpio_f_18_cfg_puen_qs;
-  logic pad_gpio_f_18_cfg_puen_wd;
-  logic pad_gpio_f_18_cfg_puen_we;
-  logic pad_gpio_f_18_cfg_slw_qs;
-  logic pad_gpio_f_18_cfg_slw_wd;
-  logic pad_gpio_f_18_cfg_slw_we;
-  logic pad_gpio_f_18_cfg_smt_qs;
-  logic pad_gpio_f_18_cfg_smt_wd;
-  logic pad_gpio_f_18_cfg_smt_we;
-  logic pad_gpio_f_18_mux_sel_qs;
-  logic pad_gpio_f_18_mux_sel_wd;
-  logic pad_gpio_f_18_mux_sel_we;
-  logic pad_gpio_f_19_cfg_chip2pad_qs;
-  logic pad_gpio_f_19_cfg_chip2pad_wd;
-  logic pad_gpio_f_19_cfg_chip2pad_we;
-  logic [1:0] pad_gpio_f_19_cfg_drv_qs;
-  logic [1:0] pad_gpio_f_19_cfg_drv_wd;
-  logic pad_gpio_f_19_cfg_drv_we;
-  logic pad_gpio_f_19_cfg_oen_qs;
-  logic pad_gpio_f_19_cfg_oen_wd;
-  logic pad_gpio_f_19_cfg_oen_we;
-  logic pad_gpio_f_19_cfg_puen_qs;
-  logic pad_gpio_f_19_cfg_puen_wd;
-  logic pad_gpio_f_19_cfg_puen_we;
-  logic pad_gpio_f_19_cfg_slw_qs;
-  logic pad_gpio_f_19_cfg_slw_wd;
-  logic pad_gpio_f_19_cfg_slw_we;
-  logic pad_gpio_f_19_cfg_smt_qs;
-  logic pad_gpio_f_19_cfg_smt_wd;
-  logic pad_gpio_f_19_cfg_smt_we;
-  logic pad_gpio_f_19_mux_sel_qs;
-  logic pad_gpio_f_19_mux_sel_wd;
-  logic pad_gpio_f_19_mux_sel_we;
-  logic pad_gpio_f_20_cfg_chip2pad_qs;
-  logic pad_gpio_f_20_cfg_chip2pad_wd;
-  logic pad_gpio_f_20_cfg_chip2pad_we;
-  logic [1:0] pad_gpio_f_20_cfg_drv_qs;
-  logic [1:0] pad_gpio_f_20_cfg_drv_wd;
-  logic pad_gpio_f_20_cfg_drv_we;
-  logic pad_gpio_f_20_cfg_oen_qs;
-  logic pad_gpio_f_20_cfg_oen_wd;
-  logic pad_gpio_f_20_cfg_oen_we;
-  logic pad_gpio_f_20_cfg_puen_qs;
-  logic pad_gpio_f_20_cfg_puen_wd;
-  logic pad_gpio_f_20_cfg_puen_we;
-  logic pad_gpio_f_20_cfg_slw_qs;
-  logic pad_gpio_f_20_cfg_slw_wd;
-  logic pad_gpio_f_20_cfg_slw_we;
-  logic pad_gpio_f_20_cfg_smt_qs;
-  logic pad_gpio_f_20_cfg_smt_wd;
-  logic pad_gpio_f_20_cfg_smt_we;
-  logic pad_gpio_f_20_mux_sel_qs;
-  logic pad_gpio_f_20_mux_sel_wd;
-  logic pad_gpio_f_20_mux_sel_we;
-  logic pad_gpio_f_21_cfg_chip2pad_qs;
-  logic pad_gpio_f_21_cfg_chip2pad_wd;
-  logic pad_gpio_f_21_cfg_chip2pad_we;
-  logic [1:0] pad_gpio_f_21_cfg_drv_qs;
-  logic [1:0] pad_gpio_f_21_cfg_drv_wd;
-  logic pad_gpio_f_21_cfg_drv_we;
-  logic pad_gpio_f_21_cfg_oen_qs;
-  logic pad_gpio_f_21_cfg_oen_wd;
-  logic pad_gpio_f_21_cfg_oen_we;
-  logic pad_gpio_f_21_cfg_puen_qs;
-  logic pad_gpio_f_21_cfg_puen_wd;
-  logic pad_gpio_f_21_cfg_puen_we;
-  logic pad_gpio_f_21_cfg_slw_qs;
-  logic pad_gpio_f_21_cfg_slw_wd;
-  logic pad_gpio_f_21_cfg_slw_we;
-  logic pad_gpio_f_21_cfg_smt_qs;
-  logic pad_gpio_f_21_cfg_smt_wd;
-  logic pad_gpio_f_21_cfg_smt_we;
-  logic pad_gpio_f_21_mux_sel_qs;
-  logic pad_gpio_f_21_mux_sel_wd;
-  logic pad_gpio_f_21_mux_sel_we;
-  logic pad_gpio_f_22_cfg_chip2pad_qs;
-  logic pad_gpio_f_22_cfg_chip2pad_wd;
-  logic pad_gpio_f_22_cfg_chip2pad_we;
-  logic [1:0] pad_gpio_f_22_cfg_drv_qs;
-  logic [1:0] pad_gpio_f_22_cfg_drv_wd;
-  logic pad_gpio_f_22_cfg_drv_we;
-  logic pad_gpio_f_22_cfg_oen_qs;
-  logic pad_gpio_f_22_cfg_oen_wd;
-  logic pad_gpio_f_22_cfg_oen_we;
-  logic pad_gpio_f_22_cfg_puen_qs;
-  logic pad_gpio_f_22_cfg_puen_wd;
-  logic pad_gpio_f_22_cfg_puen_we;
-  logic pad_gpio_f_22_cfg_slw_qs;
-  logic pad_gpio_f_22_cfg_slw_wd;
-  logic pad_gpio_f_22_cfg_slw_we;
-  logic pad_gpio_f_22_cfg_smt_qs;
-  logic pad_gpio_f_22_cfg_smt_wd;
-  logic pad_gpio_f_22_cfg_smt_we;
-  logic pad_gpio_f_22_mux_sel_qs;
-  logic pad_gpio_f_22_mux_sel_wd;
-  logic pad_gpio_f_22_mux_sel_we;
-  logic pad_gpio_f_23_cfg_chip2pad_qs;
-  logic pad_gpio_f_23_cfg_chip2pad_wd;
-  logic pad_gpio_f_23_cfg_chip2pad_we;
-  logic [1:0] pad_gpio_f_23_cfg_drv_qs;
-  logic [1:0] pad_gpio_f_23_cfg_drv_wd;
-  logic pad_gpio_f_23_cfg_drv_we;
-  logic pad_gpio_f_23_cfg_oen_qs;
-  logic pad_gpio_f_23_cfg_oen_wd;
-  logic pad_gpio_f_23_cfg_oen_we;
-  logic pad_gpio_f_23_cfg_puen_qs;
-  logic pad_gpio_f_23_cfg_puen_wd;
-  logic pad_gpio_f_23_cfg_puen_we;
-  logic pad_gpio_f_23_cfg_slw_qs;
-  logic pad_gpio_f_23_cfg_slw_wd;
-  logic pad_gpio_f_23_cfg_slw_we;
-  logic pad_gpio_f_23_cfg_smt_qs;
-  logic pad_gpio_f_23_cfg_smt_wd;
-  logic pad_gpio_f_23_cfg_smt_we;
-  logic pad_gpio_f_23_mux_sel_qs;
-  logic pad_gpio_f_23_mux_sel_wd;
-  logic pad_gpio_f_23_mux_sel_we;
-  logic pad_gpio_f_24_cfg_chip2pad_qs;
-  logic pad_gpio_f_24_cfg_chip2pad_wd;
-  logic pad_gpio_f_24_cfg_chip2pad_we;
-  logic [1:0] pad_gpio_f_24_cfg_drv_qs;
-  logic [1:0] pad_gpio_f_24_cfg_drv_wd;
-  logic pad_gpio_f_24_cfg_drv_we;
-  logic pad_gpio_f_24_cfg_oen_qs;
-  logic pad_gpio_f_24_cfg_oen_wd;
-  logic pad_gpio_f_24_cfg_oen_we;
-  logic pad_gpio_f_24_cfg_puen_qs;
-  logic pad_gpio_f_24_cfg_puen_wd;
-  logic pad_gpio_f_24_cfg_puen_we;
-  logic pad_gpio_f_24_cfg_slw_qs;
-  logic pad_gpio_f_24_cfg_slw_wd;
-  logic pad_gpio_f_24_cfg_slw_we;
-  logic pad_gpio_f_24_cfg_smt_qs;
-  logic pad_gpio_f_24_cfg_smt_wd;
-  logic pad_gpio_f_24_cfg_smt_we;
-  logic pad_gpio_f_24_mux_sel_qs;
-  logic pad_gpio_f_24_mux_sel_wd;
-  logic pad_gpio_f_24_mux_sel_we;
-  logic pad_gpio_f_25_cfg_chip2pad_qs;
-  logic pad_gpio_f_25_cfg_chip2pad_wd;
-  logic pad_gpio_f_25_cfg_chip2pad_we;
-  logic [1:0] pad_gpio_f_25_cfg_drv_qs;
-  logic [1:0] pad_gpio_f_25_cfg_drv_wd;
-  logic pad_gpio_f_25_cfg_drv_we;
-  logic pad_gpio_f_25_cfg_oen_qs;
-  logic pad_gpio_f_25_cfg_oen_wd;
-  logic pad_gpio_f_25_cfg_oen_we;
-  logic pad_gpio_f_25_cfg_puen_qs;
-  logic pad_gpio_f_25_cfg_puen_wd;
-  logic pad_gpio_f_25_cfg_puen_we;
-  logic pad_gpio_f_25_cfg_slw_qs;
-  logic pad_gpio_f_25_cfg_slw_wd;
-  logic pad_gpio_f_25_cfg_slw_we;
-  logic pad_gpio_f_25_cfg_smt_qs;
-  logic pad_gpio_f_25_cfg_smt_wd;
-  logic pad_gpio_f_25_cfg_smt_we;
-  logic pad_gpio_f_25_mux_sel_qs;
-  logic pad_gpio_f_25_mux_sel_wd;
-  logic pad_gpio_f_25_mux_sel_we;
   logic pad_gpio_pwm0_cfg_chip2pad_qs;
   logic pad_gpio_pwm0_cfg_chip2pad_wd;
   logic pad_gpio_pwm0_cfg_chip2pad_we;
@@ -21644,1671 +21455,6 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   );
 
 
-  // R[pad_gpio_f_17_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_17_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_17_cfg_chip2pad_we),
-    .wd     (pad_gpio_f_17_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_17_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_17_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_pad_gpio_f_17_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_17_cfg_drv_we),
-    .wd     (pad_gpio_f_17_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_17_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_17_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_pad_gpio_f_17_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_17_cfg_oen_we),
-    .wd     (pad_gpio_f_17_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_17_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_17_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_pad_gpio_f_17_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_17_cfg_puen_we),
-    .wd     (pad_gpio_f_17_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_17_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_17_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_17_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_17_cfg_slw_we),
-    .wd     (pad_gpio_f_17_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_17_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_17_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_17_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_17_cfg_smt_we),
-    .wd     (pad_gpio_f_17_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_17_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_17_cfg_smt_qs)
-  );
-
-
-  // R[pad_gpio_f_17_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_17_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_17_mux_sel_we),
-    .wd     (pad_gpio_f_17_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_17_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_17_mux_sel_qs)
-  );
-
-
-  // R[pad_gpio_f_18_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_18_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_18_cfg_chip2pad_we),
-    .wd     (pad_gpio_f_18_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_18_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_18_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_pad_gpio_f_18_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_18_cfg_drv_we),
-    .wd     (pad_gpio_f_18_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_18_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_18_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_pad_gpio_f_18_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_18_cfg_oen_we),
-    .wd     (pad_gpio_f_18_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_18_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_18_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_pad_gpio_f_18_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_18_cfg_puen_we),
-    .wd     (pad_gpio_f_18_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_18_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_18_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_18_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_18_cfg_slw_we),
-    .wd     (pad_gpio_f_18_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_18_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_18_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_18_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_18_cfg_smt_we),
-    .wd     (pad_gpio_f_18_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_18_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_18_cfg_smt_qs)
-  );
-
-
-  // R[pad_gpio_f_18_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_18_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_18_mux_sel_we),
-    .wd     (pad_gpio_f_18_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_18_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_18_mux_sel_qs)
-  );
-
-
-  // R[pad_gpio_f_19_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_19_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_19_cfg_chip2pad_we),
-    .wd     (pad_gpio_f_19_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_19_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_19_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_pad_gpio_f_19_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_19_cfg_drv_we),
-    .wd     (pad_gpio_f_19_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_19_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_19_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_pad_gpio_f_19_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_19_cfg_oen_we),
-    .wd     (pad_gpio_f_19_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_19_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_19_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_pad_gpio_f_19_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_19_cfg_puen_we),
-    .wd     (pad_gpio_f_19_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_19_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_19_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_19_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_19_cfg_slw_we),
-    .wd     (pad_gpio_f_19_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_19_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_19_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_19_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_19_cfg_smt_we),
-    .wd     (pad_gpio_f_19_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_19_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_19_cfg_smt_qs)
-  );
-
-
-  // R[pad_gpio_f_19_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_19_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_19_mux_sel_we),
-    .wd     (pad_gpio_f_19_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_19_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_19_mux_sel_qs)
-  );
-
-
-  // R[pad_gpio_f_20_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_20_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_20_cfg_chip2pad_we),
-    .wd     (pad_gpio_f_20_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_20_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_20_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_pad_gpio_f_20_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_20_cfg_drv_we),
-    .wd     (pad_gpio_f_20_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_20_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_20_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_pad_gpio_f_20_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_20_cfg_oen_we),
-    .wd     (pad_gpio_f_20_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_20_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_20_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_pad_gpio_f_20_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_20_cfg_puen_we),
-    .wd     (pad_gpio_f_20_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_20_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_20_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_20_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_20_cfg_slw_we),
-    .wd     (pad_gpio_f_20_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_20_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_20_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_20_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_20_cfg_smt_we),
-    .wd     (pad_gpio_f_20_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_20_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_20_cfg_smt_qs)
-  );
-
-
-  // R[pad_gpio_f_20_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_20_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_20_mux_sel_we),
-    .wd     (pad_gpio_f_20_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_20_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_20_mux_sel_qs)
-  );
-
-
-  // R[pad_gpio_f_21_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_21_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_21_cfg_chip2pad_we),
-    .wd     (pad_gpio_f_21_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_21_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_21_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_pad_gpio_f_21_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_21_cfg_drv_we),
-    .wd     (pad_gpio_f_21_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_21_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_21_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_pad_gpio_f_21_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_21_cfg_oen_we),
-    .wd     (pad_gpio_f_21_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_21_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_21_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_pad_gpio_f_21_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_21_cfg_puen_we),
-    .wd     (pad_gpio_f_21_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_21_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_21_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_21_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_21_cfg_slw_we),
-    .wd     (pad_gpio_f_21_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_21_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_21_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_21_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_21_cfg_smt_we),
-    .wd     (pad_gpio_f_21_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_21_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_21_cfg_smt_qs)
-  );
-
-
-  // R[pad_gpio_f_21_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_21_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_21_mux_sel_we),
-    .wd     (pad_gpio_f_21_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_21_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_21_mux_sel_qs)
-  );
-
-
-  // R[pad_gpio_f_22_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_22_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_22_cfg_chip2pad_we),
-    .wd     (pad_gpio_f_22_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_22_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_22_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_pad_gpio_f_22_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_22_cfg_drv_we),
-    .wd     (pad_gpio_f_22_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_22_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_22_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_pad_gpio_f_22_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_22_cfg_oen_we),
-    .wd     (pad_gpio_f_22_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_22_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_22_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_pad_gpio_f_22_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_22_cfg_puen_we),
-    .wd     (pad_gpio_f_22_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_22_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_22_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_22_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_22_cfg_slw_we),
-    .wd     (pad_gpio_f_22_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_22_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_22_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_22_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_22_cfg_smt_we),
-    .wd     (pad_gpio_f_22_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_22_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_22_cfg_smt_qs)
-  );
-
-
-  // R[pad_gpio_f_22_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_22_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_22_mux_sel_we),
-    .wd     (pad_gpio_f_22_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_22_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_22_mux_sel_qs)
-  );
-
-
-  // R[pad_gpio_f_23_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_23_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_23_cfg_chip2pad_we),
-    .wd     (pad_gpio_f_23_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_23_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_23_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_pad_gpio_f_23_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_23_cfg_drv_we),
-    .wd     (pad_gpio_f_23_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_23_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_23_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_pad_gpio_f_23_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_23_cfg_oen_we),
-    .wd     (pad_gpio_f_23_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_23_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_23_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_pad_gpio_f_23_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_23_cfg_puen_we),
-    .wd     (pad_gpio_f_23_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_23_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_23_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_23_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_23_cfg_slw_we),
-    .wd     (pad_gpio_f_23_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_23_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_23_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_23_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_23_cfg_smt_we),
-    .wd     (pad_gpio_f_23_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_23_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_23_cfg_smt_qs)
-  );
-
-
-  // R[pad_gpio_f_23_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_23_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_23_mux_sel_we),
-    .wd     (pad_gpio_f_23_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_23_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_23_mux_sel_qs)
-  );
-
-
-  // R[pad_gpio_f_24_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_24_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_24_cfg_chip2pad_we),
-    .wd     (pad_gpio_f_24_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_24_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_24_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_pad_gpio_f_24_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_24_cfg_drv_we),
-    .wd     (pad_gpio_f_24_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_24_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_24_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_pad_gpio_f_24_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_24_cfg_oen_we),
-    .wd     (pad_gpio_f_24_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_24_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_24_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_pad_gpio_f_24_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_24_cfg_puen_we),
-    .wd     (pad_gpio_f_24_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_24_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_24_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_24_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_24_cfg_slw_we),
-    .wd     (pad_gpio_f_24_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_24_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_24_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_24_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_24_cfg_smt_we),
-    .wd     (pad_gpio_f_24_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_24_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_24_cfg_smt_qs)
-  );
-
-
-  // R[pad_gpio_f_24_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_24_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_24_mux_sel_we),
-    .wd     (pad_gpio_f_24_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_24_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_24_mux_sel_qs)
-  );
-
-
-  // R[pad_gpio_f_25_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_25_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_25_cfg_chip2pad_we),
-    .wd     (pad_gpio_f_25_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_25_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_25_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_pad_gpio_f_25_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_25_cfg_drv_we),
-    .wd     (pad_gpio_f_25_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_25_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_25_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_pad_gpio_f_25_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_25_cfg_oen_we),
-    .wd     (pad_gpio_f_25_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_25_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_25_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_pad_gpio_f_25_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_25_cfg_puen_we),
-    .wd     (pad_gpio_f_25_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_25_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_25_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_25_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_25_cfg_slw_we),
-    .wd     (pad_gpio_f_25_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_25_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_25_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_25_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_25_cfg_smt_we),
-    .wd     (pad_gpio_f_25_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_25_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_25_cfg_smt_qs)
-  );
-
-
-  // R[pad_gpio_f_25_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_pad_gpio_f_25_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (pad_gpio_f_25_mux_sel_we),
-    .wd     (pad_gpio_f_25_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.pad_gpio_f_25_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (pad_gpio_f_25_mux_sel_qs)
-  );
-
-
   // R[pad_gpio_pwm0_cfg]: V(False)
 
   //   F[chip2pad]: 0:0
@@ -24791,7 +22937,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
 
 
-  logic [239:0] addr_hit;
+  logic [221:0] addr_hit;
   always_comb begin
     addr_hit = '0;
     addr_hit[  0] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_00_CFG_OFFSET);
@@ -25000,40 +23146,22 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     addr_hit[203] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_15_MUX_SEL_OFFSET);
     addr_hit[204] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_16_CFG_OFFSET);
     addr_hit[205] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_16_MUX_SEL_OFFSET);
-    addr_hit[206] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_17_CFG_OFFSET);
-    addr_hit[207] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_17_MUX_SEL_OFFSET);
-    addr_hit[208] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_18_CFG_OFFSET);
-    addr_hit[209] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_18_MUX_SEL_OFFSET);
-    addr_hit[210] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_19_CFG_OFFSET);
-    addr_hit[211] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_19_MUX_SEL_OFFSET);
-    addr_hit[212] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_20_CFG_OFFSET);
-    addr_hit[213] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_20_MUX_SEL_OFFSET);
-    addr_hit[214] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_21_CFG_OFFSET);
-    addr_hit[215] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_21_MUX_SEL_OFFSET);
-    addr_hit[216] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_22_CFG_OFFSET);
-    addr_hit[217] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_22_MUX_SEL_OFFSET);
-    addr_hit[218] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_23_CFG_OFFSET);
-    addr_hit[219] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_23_MUX_SEL_OFFSET);
-    addr_hit[220] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_24_CFG_OFFSET);
-    addr_hit[221] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_24_MUX_SEL_OFFSET);
-    addr_hit[222] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_25_CFG_OFFSET);
-    addr_hit[223] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_25_MUX_SEL_OFFSET);
-    addr_hit[224] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM0_CFG_OFFSET);
-    addr_hit[225] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM0_MUX_SEL_OFFSET);
-    addr_hit[226] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM1_CFG_OFFSET);
-    addr_hit[227] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM1_MUX_SEL_OFFSET);
-    addr_hit[228] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM2_CFG_OFFSET);
-    addr_hit[229] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM2_MUX_SEL_OFFSET);
-    addr_hit[230] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM3_CFG_OFFSET);
-    addr_hit[231] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM3_MUX_SEL_OFFSET);
-    addr_hit[232] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM4_CFG_OFFSET);
-    addr_hit[233] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM4_MUX_SEL_OFFSET);
-    addr_hit[234] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM5_CFG_OFFSET);
-    addr_hit[235] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM5_MUX_SEL_OFFSET);
-    addr_hit[236] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM6_CFG_OFFSET);
-    addr_hit[237] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM6_MUX_SEL_OFFSET);
-    addr_hit[238] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM7_CFG_OFFSET);
-    addr_hit[239] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM7_MUX_SEL_OFFSET);
+    addr_hit[206] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM0_CFG_OFFSET);
+    addr_hit[207] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM0_MUX_SEL_OFFSET);
+    addr_hit[208] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM1_CFG_OFFSET);
+    addr_hit[209] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM1_MUX_SEL_OFFSET);
+    addr_hit[210] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM2_CFG_OFFSET);
+    addr_hit[211] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM2_MUX_SEL_OFFSET);
+    addr_hit[212] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM3_CFG_OFFSET);
+    addr_hit[213] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM3_MUX_SEL_OFFSET);
+    addr_hit[214] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM4_CFG_OFFSET);
+    addr_hit[215] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM4_MUX_SEL_OFFSET);
+    addr_hit[216] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM5_CFG_OFFSET);
+    addr_hit[217] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM5_MUX_SEL_OFFSET);
+    addr_hit[218] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM6_CFG_OFFSET);
+    addr_hit[219] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM6_MUX_SEL_OFFSET);
+    addr_hit[220] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM7_CFG_OFFSET);
+    addr_hit[221] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM7_MUX_SEL_OFFSET);
   end
 
   assign addrmiss = (reg_re || reg_we) ? ~|addr_hit : 1'b0 ;
@@ -25262,25 +23390,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
                (addr_hit[218] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[218] & ~reg_be))) |
                (addr_hit[219] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[219] & ~reg_be))) |
                (addr_hit[220] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[220] & ~reg_be))) |
-               (addr_hit[221] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[221] & ~reg_be))) |
-               (addr_hit[222] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[222] & ~reg_be))) |
-               (addr_hit[223] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[223] & ~reg_be))) |
-               (addr_hit[224] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[224] & ~reg_be))) |
-               (addr_hit[225] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[225] & ~reg_be))) |
-               (addr_hit[226] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[226] & ~reg_be))) |
-               (addr_hit[227] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[227] & ~reg_be))) |
-               (addr_hit[228] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[228] & ~reg_be))) |
-               (addr_hit[229] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[229] & ~reg_be))) |
-               (addr_hit[230] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[230] & ~reg_be))) |
-               (addr_hit[231] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[231] & ~reg_be))) |
-               (addr_hit[232] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[232] & ~reg_be))) |
-               (addr_hit[233] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[233] & ~reg_be))) |
-               (addr_hit[234] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[234] & ~reg_be))) |
-               (addr_hit[235] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[235] & ~reg_be))) |
-               (addr_hit[236] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[236] & ~reg_be))) |
-               (addr_hit[237] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[237] & ~reg_be))) |
-               (addr_hit[238] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[238] & ~reg_be))) |
-               (addr_hit[239] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[239] & ~reg_be)))));
+               (addr_hit[221] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[221] & ~reg_be)))));
   end
 
   assign pad_gpio_b_00_cfg_chip2pad_we = addr_hit[0] & reg_we & !reg_error;
@@ -27446,361 +25556,172 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign pad_gpio_f_16_mux_sel_we = addr_hit[205] & reg_we & !reg_error;
   assign pad_gpio_f_16_mux_sel_wd = reg_wdata[0];
 
-  assign pad_gpio_f_17_cfg_chip2pad_we = addr_hit[206] & reg_we & !reg_error;
-  assign pad_gpio_f_17_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign pad_gpio_f_17_cfg_drv_we = addr_hit[206] & reg_we & !reg_error;
-  assign pad_gpio_f_17_cfg_drv_wd = reg_wdata[2:1];
-
-  assign pad_gpio_f_17_cfg_oen_we = addr_hit[206] & reg_we & !reg_error;
-  assign pad_gpio_f_17_cfg_oen_wd = reg_wdata[3];
-
-  assign pad_gpio_f_17_cfg_puen_we = addr_hit[206] & reg_we & !reg_error;
-  assign pad_gpio_f_17_cfg_puen_wd = reg_wdata[4];
-
-  assign pad_gpio_f_17_cfg_slw_we = addr_hit[206] & reg_we & !reg_error;
-  assign pad_gpio_f_17_cfg_slw_wd = reg_wdata[5];
-
-  assign pad_gpio_f_17_cfg_smt_we = addr_hit[206] & reg_we & !reg_error;
-  assign pad_gpio_f_17_cfg_smt_wd = reg_wdata[6];
-
-  assign pad_gpio_f_17_mux_sel_we = addr_hit[207] & reg_we & !reg_error;
-  assign pad_gpio_f_17_mux_sel_wd = reg_wdata[0];
-
-  assign pad_gpio_f_18_cfg_chip2pad_we = addr_hit[208] & reg_we & !reg_error;
-  assign pad_gpio_f_18_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign pad_gpio_f_18_cfg_drv_we = addr_hit[208] & reg_we & !reg_error;
-  assign pad_gpio_f_18_cfg_drv_wd = reg_wdata[2:1];
-
-  assign pad_gpio_f_18_cfg_oen_we = addr_hit[208] & reg_we & !reg_error;
-  assign pad_gpio_f_18_cfg_oen_wd = reg_wdata[3];
-
-  assign pad_gpio_f_18_cfg_puen_we = addr_hit[208] & reg_we & !reg_error;
-  assign pad_gpio_f_18_cfg_puen_wd = reg_wdata[4];
-
-  assign pad_gpio_f_18_cfg_slw_we = addr_hit[208] & reg_we & !reg_error;
-  assign pad_gpio_f_18_cfg_slw_wd = reg_wdata[5];
-
-  assign pad_gpio_f_18_cfg_smt_we = addr_hit[208] & reg_we & !reg_error;
-  assign pad_gpio_f_18_cfg_smt_wd = reg_wdata[6];
-
-  assign pad_gpio_f_18_mux_sel_we = addr_hit[209] & reg_we & !reg_error;
-  assign pad_gpio_f_18_mux_sel_wd = reg_wdata[0];
-
-  assign pad_gpio_f_19_cfg_chip2pad_we = addr_hit[210] & reg_we & !reg_error;
-  assign pad_gpio_f_19_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign pad_gpio_f_19_cfg_drv_we = addr_hit[210] & reg_we & !reg_error;
-  assign pad_gpio_f_19_cfg_drv_wd = reg_wdata[2:1];
-
-  assign pad_gpio_f_19_cfg_oen_we = addr_hit[210] & reg_we & !reg_error;
-  assign pad_gpio_f_19_cfg_oen_wd = reg_wdata[3];
-
-  assign pad_gpio_f_19_cfg_puen_we = addr_hit[210] & reg_we & !reg_error;
-  assign pad_gpio_f_19_cfg_puen_wd = reg_wdata[4];
-
-  assign pad_gpio_f_19_cfg_slw_we = addr_hit[210] & reg_we & !reg_error;
-  assign pad_gpio_f_19_cfg_slw_wd = reg_wdata[5];
-
-  assign pad_gpio_f_19_cfg_smt_we = addr_hit[210] & reg_we & !reg_error;
-  assign pad_gpio_f_19_cfg_smt_wd = reg_wdata[6];
-
-  assign pad_gpio_f_19_mux_sel_we = addr_hit[211] & reg_we & !reg_error;
-  assign pad_gpio_f_19_mux_sel_wd = reg_wdata[0];
-
-  assign pad_gpio_f_20_cfg_chip2pad_we = addr_hit[212] & reg_we & !reg_error;
-  assign pad_gpio_f_20_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign pad_gpio_f_20_cfg_drv_we = addr_hit[212] & reg_we & !reg_error;
-  assign pad_gpio_f_20_cfg_drv_wd = reg_wdata[2:1];
-
-  assign pad_gpio_f_20_cfg_oen_we = addr_hit[212] & reg_we & !reg_error;
-  assign pad_gpio_f_20_cfg_oen_wd = reg_wdata[3];
-
-  assign pad_gpio_f_20_cfg_puen_we = addr_hit[212] & reg_we & !reg_error;
-  assign pad_gpio_f_20_cfg_puen_wd = reg_wdata[4];
-
-  assign pad_gpio_f_20_cfg_slw_we = addr_hit[212] & reg_we & !reg_error;
-  assign pad_gpio_f_20_cfg_slw_wd = reg_wdata[5];
-
-  assign pad_gpio_f_20_cfg_smt_we = addr_hit[212] & reg_we & !reg_error;
-  assign pad_gpio_f_20_cfg_smt_wd = reg_wdata[6];
-
-  assign pad_gpio_f_20_mux_sel_we = addr_hit[213] & reg_we & !reg_error;
-  assign pad_gpio_f_20_mux_sel_wd = reg_wdata[0];
-
-  assign pad_gpio_f_21_cfg_chip2pad_we = addr_hit[214] & reg_we & !reg_error;
-  assign pad_gpio_f_21_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign pad_gpio_f_21_cfg_drv_we = addr_hit[214] & reg_we & !reg_error;
-  assign pad_gpio_f_21_cfg_drv_wd = reg_wdata[2:1];
-
-  assign pad_gpio_f_21_cfg_oen_we = addr_hit[214] & reg_we & !reg_error;
-  assign pad_gpio_f_21_cfg_oen_wd = reg_wdata[3];
-
-  assign pad_gpio_f_21_cfg_puen_we = addr_hit[214] & reg_we & !reg_error;
-  assign pad_gpio_f_21_cfg_puen_wd = reg_wdata[4];
-
-  assign pad_gpio_f_21_cfg_slw_we = addr_hit[214] & reg_we & !reg_error;
-  assign pad_gpio_f_21_cfg_slw_wd = reg_wdata[5];
-
-  assign pad_gpio_f_21_cfg_smt_we = addr_hit[214] & reg_we & !reg_error;
-  assign pad_gpio_f_21_cfg_smt_wd = reg_wdata[6];
-
-  assign pad_gpio_f_21_mux_sel_we = addr_hit[215] & reg_we & !reg_error;
-  assign pad_gpio_f_21_mux_sel_wd = reg_wdata[0];
-
-  assign pad_gpio_f_22_cfg_chip2pad_we = addr_hit[216] & reg_we & !reg_error;
-  assign pad_gpio_f_22_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign pad_gpio_f_22_cfg_drv_we = addr_hit[216] & reg_we & !reg_error;
-  assign pad_gpio_f_22_cfg_drv_wd = reg_wdata[2:1];
-
-  assign pad_gpio_f_22_cfg_oen_we = addr_hit[216] & reg_we & !reg_error;
-  assign pad_gpio_f_22_cfg_oen_wd = reg_wdata[3];
-
-  assign pad_gpio_f_22_cfg_puen_we = addr_hit[216] & reg_we & !reg_error;
-  assign pad_gpio_f_22_cfg_puen_wd = reg_wdata[4];
-
-  assign pad_gpio_f_22_cfg_slw_we = addr_hit[216] & reg_we & !reg_error;
-  assign pad_gpio_f_22_cfg_slw_wd = reg_wdata[5];
-
-  assign pad_gpio_f_22_cfg_smt_we = addr_hit[216] & reg_we & !reg_error;
-  assign pad_gpio_f_22_cfg_smt_wd = reg_wdata[6];
-
-  assign pad_gpio_f_22_mux_sel_we = addr_hit[217] & reg_we & !reg_error;
-  assign pad_gpio_f_22_mux_sel_wd = reg_wdata[0];
-
-  assign pad_gpio_f_23_cfg_chip2pad_we = addr_hit[218] & reg_we & !reg_error;
-  assign pad_gpio_f_23_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign pad_gpio_f_23_cfg_drv_we = addr_hit[218] & reg_we & !reg_error;
-  assign pad_gpio_f_23_cfg_drv_wd = reg_wdata[2:1];
-
-  assign pad_gpio_f_23_cfg_oen_we = addr_hit[218] & reg_we & !reg_error;
-  assign pad_gpio_f_23_cfg_oen_wd = reg_wdata[3];
-
-  assign pad_gpio_f_23_cfg_puen_we = addr_hit[218] & reg_we & !reg_error;
-  assign pad_gpio_f_23_cfg_puen_wd = reg_wdata[4];
-
-  assign pad_gpio_f_23_cfg_slw_we = addr_hit[218] & reg_we & !reg_error;
-  assign pad_gpio_f_23_cfg_slw_wd = reg_wdata[5];
-
-  assign pad_gpio_f_23_cfg_smt_we = addr_hit[218] & reg_we & !reg_error;
-  assign pad_gpio_f_23_cfg_smt_wd = reg_wdata[6];
-
-  assign pad_gpio_f_23_mux_sel_we = addr_hit[219] & reg_we & !reg_error;
-  assign pad_gpio_f_23_mux_sel_wd = reg_wdata[0];
-
-  assign pad_gpio_f_24_cfg_chip2pad_we = addr_hit[220] & reg_we & !reg_error;
-  assign pad_gpio_f_24_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign pad_gpio_f_24_cfg_drv_we = addr_hit[220] & reg_we & !reg_error;
-  assign pad_gpio_f_24_cfg_drv_wd = reg_wdata[2:1];
-
-  assign pad_gpio_f_24_cfg_oen_we = addr_hit[220] & reg_we & !reg_error;
-  assign pad_gpio_f_24_cfg_oen_wd = reg_wdata[3];
-
-  assign pad_gpio_f_24_cfg_puen_we = addr_hit[220] & reg_we & !reg_error;
-  assign pad_gpio_f_24_cfg_puen_wd = reg_wdata[4];
-
-  assign pad_gpio_f_24_cfg_slw_we = addr_hit[220] & reg_we & !reg_error;
-  assign pad_gpio_f_24_cfg_slw_wd = reg_wdata[5];
-
-  assign pad_gpio_f_24_cfg_smt_we = addr_hit[220] & reg_we & !reg_error;
-  assign pad_gpio_f_24_cfg_smt_wd = reg_wdata[6];
-
-  assign pad_gpio_f_24_mux_sel_we = addr_hit[221] & reg_we & !reg_error;
-  assign pad_gpio_f_24_mux_sel_wd = reg_wdata[0];
-
-  assign pad_gpio_f_25_cfg_chip2pad_we = addr_hit[222] & reg_we & !reg_error;
-  assign pad_gpio_f_25_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign pad_gpio_f_25_cfg_drv_we = addr_hit[222] & reg_we & !reg_error;
-  assign pad_gpio_f_25_cfg_drv_wd = reg_wdata[2:1];
-
-  assign pad_gpio_f_25_cfg_oen_we = addr_hit[222] & reg_we & !reg_error;
-  assign pad_gpio_f_25_cfg_oen_wd = reg_wdata[3];
-
-  assign pad_gpio_f_25_cfg_puen_we = addr_hit[222] & reg_we & !reg_error;
-  assign pad_gpio_f_25_cfg_puen_wd = reg_wdata[4];
-
-  assign pad_gpio_f_25_cfg_slw_we = addr_hit[222] & reg_we & !reg_error;
-  assign pad_gpio_f_25_cfg_slw_wd = reg_wdata[5];
-
-  assign pad_gpio_f_25_cfg_smt_we = addr_hit[222] & reg_we & !reg_error;
-  assign pad_gpio_f_25_cfg_smt_wd = reg_wdata[6];
-
-  assign pad_gpio_f_25_mux_sel_we = addr_hit[223] & reg_we & !reg_error;
-  assign pad_gpio_f_25_mux_sel_wd = reg_wdata[0];
-
-  assign pad_gpio_pwm0_cfg_chip2pad_we = addr_hit[224] & reg_we & !reg_error;
+  assign pad_gpio_pwm0_cfg_chip2pad_we = addr_hit[206] & reg_we & !reg_error;
   assign pad_gpio_pwm0_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign pad_gpio_pwm0_cfg_drv_we = addr_hit[224] & reg_we & !reg_error;
+  assign pad_gpio_pwm0_cfg_drv_we = addr_hit[206] & reg_we & !reg_error;
   assign pad_gpio_pwm0_cfg_drv_wd = reg_wdata[2:1];
 
-  assign pad_gpio_pwm0_cfg_oen_we = addr_hit[224] & reg_we & !reg_error;
+  assign pad_gpio_pwm0_cfg_oen_we = addr_hit[206] & reg_we & !reg_error;
   assign pad_gpio_pwm0_cfg_oen_wd = reg_wdata[3];
 
-  assign pad_gpio_pwm0_cfg_puen_we = addr_hit[224] & reg_we & !reg_error;
+  assign pad_gpio_pwm0_cfg_puen_we = addr_hit[206] & reg_we & !reg_error;
   assign pad_gpio_pwm0_cfg_puen_wd = reg_wdata[4];
 
-  assign pad_gpio_pwm0_cfg_slw_we = addr_hit[224] & reg_we & !reg_error;
+  assign pad_gpio_pwm0_cfg_slw_we = addr_hit[206] & reg_we & !reg_error;
   assign pad_gpio_pwm0_cfg_slw_wd = reg_wdata[5];
 
-  assign pad_gpio_pwm0_cfg_smt_we = addr_hit[224] & reg_we & !reg_error;
+  assign pad_gpio_pwm0_cfg_smt_we = addr_hit[206] & reg_we & !reg_error;
   assign pad_gpio_pwm0_cfg_smt_wd = reg_wdata[6];
 
-  assign pad_gpio_pwm0_mux_sel_we = addr_hit[225] & reg_we & !reg_error;
+  assign pad_gpio_pwm0_mux_sel_we = addr_hit[207] & reg_we & !reg_error;
   assign pad_gpio_pwm0_mux_sel_wd = reg_wdata[3:0];
 
-  assign pad_gpio_pwm1_cfg_chip2pad_we = addr_hit[226] & reg_we & !reg_error;
+  assign pad_gpio_pwm1_cfg_chip2pad_we = addr_hit[208] & reg_we & !reg_error;
   assign pad_gpio_pwm1_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign pad_gpio_pwm1_cfg_drv_we = addr_hit[226] & reg_we & !reg_error;
+  assign pad_gpio_pwm1_cfg_drv_we = addr_hit[208] & reg_we & !reg_error;
   assign pad_gpio_pwm1_cfg_drv_wd = reg_wdata[2:1];
 
-  assign pad_gpio_pwm1_cfg_oen_we = addr_hit[226] & reg_we & !reg_error;
+  assign pad_gpio_pwm1_cfg_oen_we = addr_hit[208] & reg_we & !reg_error;
   assign pad_gpio_pwm1_cfg_oen_wd = reg_wdata[3];
 
-  assign pad_gpio_pwm1_cfg_puen_we = addr_hit[226] & reg_we & !reg_error;
+  assign pad_gpio_pwm1_cfg_puen_we = addr_hit[208] & reg_we & !reg_error;
   assign pad_gpio_pwm1_cfg_puen_wd = reg_wdata[4];
 
-  assign pad_gpio_pwm1_cfg_slw_we = addr_hit[226] & reg_we & !reg_error;
+  assign pad_gpio_pwm1_cfg_slw_we = addr_hit[208] & reg_we & !reg_error;
   assign pad_gpio_pwm1_cfg_slw_wd = reg_wdata[5];
 
-  assign pad_gpio_pwm1_cfg_smt_we = addr_hit[226] & reg_we & !reg_error;
+  assign pad_gpio_pwm1_cfg_smt_we = addr_hit[208] & reg_we & !reg_error;
   assign pad_gpio_pwm1_cfg_smt_wd = reg_wdata[6];
 
-  assign pad_gpio_pwm1_mux_sel_we = addr_hit[227] & reg_we & !reg_error;
+  assign pad_gpio_pwm1_mux_sel_we = addr_hit[209] & reg_we & !reg_error;
   assign pad_gpio_pwm1_mux_sel_wd = reg_wdata[3:0];
 
-  assign pad_gpio_pwm2_cfg_chip2pad_we = addr_hit[228] & reg_we & !reg_error;
+  assign pad_gpio_pwm2_cfg_chip2pad_we = addr_hit[210] & reg_we & !reg_error;
   assign pad_gpio_pwm2_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign pad_gpio_pwm2_cfg_drv_we = addr_hit[228] & reg_we & !reg_error;
+  assign pad_gpio_pwm2_cfg_drv_we = addr_hit[210] & reg_we & !reg_error;
   assign pad_gpio_pwm2_cfg_drv_wd = reg_wdata[2:1];
 
-  assign pad_gpio_pwm2_cfg_oen_we = addr_hit[228] & reg_we & !reg_error;
+  assign pad_gpio_pwm2_cfg_oen_we = addr_hit[210] & reg_we & !reg_error;
   assign pad_gpio_pwm2_cfg_oen_wd = reg_wdata[3];
 
-  assign pad_gpio_pwm2_cfg_puen_we = addr_hit[228] & reg_we & !reg_error;
+  assign pad_gpio_pwm2_cfg_puen_we = addr_hit[210] & reg_we & !reg_error;
   assign pad_gpio_pwm2_cfg_puen_wd = reg_wdata[4];
 
-  assign pad_gpio_pwm2_cfg_slw_we = addr_hit[228] & reg_we & !reg_error;
+  assign pad_gpio_pwm2_cfg_slw_we = addr_hit[210] & reg_we & !reg_error;
   assign pad_gpio_pwm2_cfg_slw_wd = reg_wdata[5];
 
-  assign pad_gpio_pwm2_cfg_smt_we = addr_hit[228] & reg_we & !reg_error;
+  assign pad_gpio_pwm2_cfg_smt_we = addr_hit[210] & reg_we & !reg_error;
   assign pad_gpio_pwm2_cfg_smt_wd = reg_wdata[6];
 
-  assign pad_gpio_pwm2_mux_sel_we = addr_hit[229] & reg_we & !reg_error;
+  assign pad_gpio_pwm2_mux_sel_we = addr_hit[211] & reg_we & !reg_error;
   assign pad_gpio_pwm2_mux_sel_wd = reg_wdata[3:0];
 
-  assign pad_gpio_pwm3_cfg_chip2pad_we = addr_hit[230] & reg_we & !reg_error;
+  assign pad_gpio_pwm3_cfg_chip2pad_we = addr_hit[212] & reg_we & !reg_error;
   assign pad_gpio_pwm3_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign pad_gpio_pwm3_cfg_drv_we = addr_hit[230] & reg_we & !reg_error;
+  assign pad_gpio_pwm3_cfg_drv_we = addr_hit[212] & reg_we & !reg_error;
   assign pad_gpio_pwm3_cfg_drv_wd = reg_wdata[2:1];
 
-  assign pad_gpio_pwm3_cfg_oen_we = addr_hit[230] & reg_we & !reg_error;
+  assign pad_gpio_pwm3_cfg_oen_we = addr_hit[212] & reg_we & !reg_error;
   assign pad_gpio_pwm3_cfg_oen_wd = reg_wdata[3];
 
-  assign pad_gpio_pwm3_cfg_puen_we = addr_hit[230] & reg_we & !reg_error;
+  assign pad_gpio_pwm3_cfg_puen_we = addr_hit[212] & reg_we & !reg_error;
   assign pad_gpio_pwm3_cfg_puen_wd = reg_wdata[4];
 
-  assign pad_gpio_pwm3_cfg_slw_we = addr_hit[230] & reg_we & !reg_error;
+  assign pad_gpio_pwm3_cfg_slw_we = addr_hit[212] & reg_we & !reg_error;
   assign pad_gpio_pwm3_cfg_slw_wd = reg_wdata[5];
 
-  assign pad_gpio_pwm3_cfg_smt_we = addr_hit[230] & reg_we & !reg_error;
+  assign pad_gpio_pwm3_cfg_smt_we = addr_hit[212] & reg_we & !reg_error;
   assign pad_gpio_pwm3_cfg_smt_wd = reg_wdata[6];
 
-  assign pad_gpio_pwm3_mux_sel_we = addr_hit[231] & reg_we & !reg_error;
+  assign pad_gpio_pwm3_mux_sel_we = addr_hit[213] & reg_we & !reg_error;
   assign pad_gpio_pwm3_mux_sel_wd = reg_wdata[3:0];
 
-  assign pad_gpio_pwm4_cfg_chip2pad_we = addr_hit[232] & reg_we & !reg_error;
+  assign pad_gpio_pwm4_cfg_chip2pad_we = addr_hit[214] & reg_we & !reg_error;
   assign pad_gpio_pwm4_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign pad_gpio_pwm4_cfg_drv_we = addr_hit[232] & reg_we & !reg_error;
+  assign pad_gpio_pwm4_cfg_drv_we = addr_hit[214] & reg_we & !reg_error;
   assign pad_gpio_pwm4_cfg_drv_wd = reg_wdata[2:1];
 
-  assign pad_gpio_pwm4_cfg_oen_we = addr_hit[232] & reg_we & !reg_error;
+  assign pad_gpio_pwm4_cfg_oen_we = addr_hit[214] & reg_we & !reg_error;
   assign pad_gpio_pwm4_cfg_oen_wd = reg_wdata[3];
 
-  assign pad_gpio_pwm4_cfg_puen_we = addr_hit[232] & reg_we & !reg_error;
+  assign pad_gpio_pwm4_cfg_puen_we = addr_hit[214] & reg_we & !reg_error;
   assign pad_gpio_pwm4_cfg_puen_wd = reg_wdata[4];
 
-  assign pad_gpio_pwm4_cfg_slw_we = addr_hit[232] & reg_we & !reg_error;
+  assign pad_gpio_pwm4_cfg_slw_we = addr_hit[214] & reg_we & !reg_error;
   assign pad_gpio_pwm4_cfg_slw_wd = reg_wdata[5];
 
-  assign pad_gpio_pwm4_cfg_smt_we = addr_hit[232] & reg_we & !reg_error;
+  assign pad_gpio_pwm4_cfg_smt_we = addr_hit[214] & reg_we & !reg_error;
   assign pad_gpio_pwm4_cfg_smt_wd = reg_wdata[6];
 
-  assign pad_gpio_pwm4_mux_sel_we = addr_hit[233] & reg_we & !reg_error;
+  assign pad_gpio_pwm4_mux_sel_we = addr_hit[215] & reg_we & !reg_error;
   assign pad_gpio_pwm4_mux_sel_wd = reg_wdata[3:0];
 
-  assign pad_gpio_pwm5_cfg_chip2pad_we = addr_hit[234] & reg_we & !reg_error;
+  assign pad_gpio_pwm5_cfg_chip2pad_we = addr_hit[216] & reg_we & !reg_error;
   assign pad_gpio_pwm5_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign pad_gpio_pwm5_cfg_drv_we = addr_hit[234] & reg_we & !reg_error;
+  assign pad_gpio_pwm5_cfg_drv_we = addr_hit[216] & reg_we & !reg_error;
   assign pad_gpio_pwm5_cfg_drv_wd = reg_wdata[2:1];
 
-  assign pad_gpio_pwm5_cfg_oen_we = addr_hit[234] & reg_we & !reg_error;
+  assign pad_gpio_pwm5_cfg_oen_we = addr_hit[216] & reg_we & !reg_error;
   assign pad_gpio_pwm5_cfg_oen_wd = reg_wdata[3];
 
-  assign pad_gpio_pwm5_cfg_puen_we = addr_hit[234] & reg_we & !reg_error;
+  assign pad_gpio_pwm5_cfg_puen_we = addr_hit[216] & reg_we & !reg_error;
   assign pad_gpio_pwm5_cfg_puen_wd = reg_wdata[4];
 
-  assign pad_gpio_pwm5_cfg_slw_we = addr_hit[234] & reg_we & !reg_error;
+  assign pad_gpio_pwm5_cfg_slw_we = addr_hit[216] & reg_we & !reg_error;
   assign pad_gpio_pwm5_cfg_slw_wd = reg_wdata[5];
 
-  assign pad_gpio_pwm5_cfg_smt_we = addr_hit[234] & reg_we & !reg_error;
+  assign pad_gpio_pwm5_cfg_smt_we = addr_hit[216] & reg_we & !reg_error;
   assign pad_gpio_pwm5_cfg_smt_wd = reg_wdata[6];
 
-  assign pad_gpio_pwm5_mux_sel_we = addr_hit[235] & reg_we & !reg_error;
+  assign pad_gpio_pwm5_mux_sel_we = addr_hit[217] & reg_we & !reg_error;
   assign pad_gpio_pwm5_mux_sel_wd = reg_wdata[3:0];
 
-  assign pad_gpio_pwm6_cfg_chip2pad_we = addr_hit[236] & reg_we & !reg_error;
+  assign pad_gpio_pwm6_cfg_chip2pad_we = addr_hit[218] & reg_we & !reg_error;
   assign pad_gpio_pwm6_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign pad_gpio_pwm6_cfg_drv_we = addr_hit[236] & reg_we & !reg_error;
+  assign pad_gpio_pwm6_cfg_drv_we = addr_hit[218] & reg_we & !reg_error;
   assign pad_gpio_pwm6_cfg_drv_wd = reg_wdata[2:1];
 
-  assign pad_gpio_pwm6_cfg_oen_we = addr_hit[236] & reg_we & !reg_error;
+  assign pad_gpio_pwm6_cfg_oen_we = addr_hit[218] & reg_we & !reg_error;
   assign pad_gpio_pwm6_cfg_oen_wd = reg_wdata[3];
 
-  assign pad_gpio_pwm6_cfg_puen_we = addr_hit[236] & reg_we & !reg_error;
+  assign pad_gpio_pwm6_cfg_puen_we = addr_hit[218] & reg_we & !reg_error;
   assign pad_gpio_pwm6_cfg_puen_wd = reg_wdata[4];
 
-  assign pad_gpio_pwm6_cfg_slw_we = addr_hit[236] & reg_we & !reg_error;
+  assign pad_gpio_pwm6_cfg_slw_we = addr_hit[218] & reg_we & !reg_error;
   assign pad_gpio_pwm6_cfg_slw_wd = reg_wdata[5];
 
-  assign pad_gpio_pwm6_cfg_smt_we = addr_hit[236] & reg_we & !reg_error;
+  assign pad_gpio_pwm6_cfg_smt_we = addr_hit[218] & reg_we & !reg_error;
   assign pad_gpio_pwm6_cfg_smt_wd = reg_wdata[6];
 
-  assign pad_gpio_pwm6_mux_sel_we = addr_hit[237] & reg_we & !reg_error;
+  assign pad_gpio_pwm6_mux_sel_we = addr_hit[219] & reg_we & !reg_error;
   assign pad_gpio_pwm6_mux_sel_wd = reg_wdata[3:0];
 
-  assign pad_gpio_pwm7_cfg_chip2pad_we = addr_hit[238] & reg_we & !reg_error;
+  assign pad_gpio_pwm7_cfg_chip2pad_we = addr_hit[220] & reg_we & !reg_error;
   assign pad_gpio_pwm7_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign pad_gpio_pwm7_cfg_drv_we = addr_hit[238] & reg_we & !reg_error;
+  assign pad_gpio_pwm7_cfg_drv_we = addr_hit[220] & reg_we & !reg_error;
   assign pad_gpio_pwm7_cfg_drv_wd = reg_wdata[2:1];
 
-  assign pad_gpio_pwm7_cfg_oen_we = addr_hit[238] & reg_we & !reg_error;
+  assign pad_gpio_pwm7_cfg_oen_we = addr_hit[220] & reg_we & !reg_error;
   assign pad_gpio_pwm7_cfg_oen_wd = reg_wdata[3];
 
-  assign pad_gpio_pwm7_cfg_puen_we = addr_hit[238] & reg_we & !reg_error;
+  assign pad_gpio_pwm7_cfg_puen_we = addr_hit[220] & reg_we & !reg_error;
   assign pad_gpio_pwm7_cfg_puen_wd = reg_wdata[4];
 
-  assign pad_gpio_pwm7_cfg_slw_we = addr_hit[238] & reg_we & !reg_error;
+  assign pad_gpio_pwm7_cfg_slw_we = addr_hit[220] & reg_we & !reg_error;
   assign pad_gpio_pwm7_cfg_slw_wd = reg_wdata[5];
 
-  assign pad_gpio_pwm7_cfg_smt_we = addr_hit[238] & reg_we & !reg_error;
+  assign pad_gpio_pwm7_cfg_smt_we = addr_hit[220] & reg_we & !reg_error;
   assign pad_gpio_pwm7_cfg_smt_wd = reg_wdata[6];
 
-  assign pad_gpio_pwm7_mux_sel_we = addr_hit[239] & reg_we & !reg_error;
+  assign pad_gpio_pwm7_mux_sel_we = addr_hit[221] & reg_we & !reg_error;
   assign pad_gpio_pwm7_mux_sel_wd = reg_wdata[3:0];
 
   // Read data return
@@ -29147,123 +27068,6 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[206]: begin
-        reg_rdata_next[0] = pad_gpio_f_17_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = pad_gpio_f_17_cfg_drv_qs;
-        reg_rdata_next[3] = pad_gpio_f_17_cfg_oen_qs;
-        reg_rdata_next[4] = pad_gpio_f_17_cfg_puen_qs;
-        reg_rdata_next[5] = pad_gpio_f_17_cfg_slw_qs;
-        reg_rdata_next[6] = pad_gpio_f_17_cfg_smt_qs;
-      end
-
-      addr_hit[207]: begin
-        reg_rdata_next[0] = pad_gpio_f_17_mux_sel_qs;
-      end
-
-      addr_hit[208]: begin
-        reg_rdata_next[0] = pad_gpio_f_18_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = pad_gpio_f_18_cfg_drv_qs;
-        reg_rdata_next[3] = pad_gpio_f_18_cfg_oen_qs;
-        reg_rdata_next[4] = pad_gpio_f_18_cfg_puen_qs;
-        reg_rdata_next[5] = pad_gpio_f_18_cfg_slw_qs;
-        reg_rdata_next[6] = pad_gpio_f_18_cfg_smt_qs;
-      end
-
-      addr_hit[209]: begin
-        reg_rdata_next[0] = pad_gpio_f_18_mux_sel_qs;
-      end
-
-      addr_hit[210]: begin
-        reg_rdata_next[0] = pad_gpio_f_19_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = pad_gpio_f_19_cfg_drv_qs;
-        reg_rdata_next[3] = pad_gpio_f_19_cfg_oen_qs;
-        reg_rdata_next[4] = pad_gpio_f_19_cfg_puen_qs;
-        reg_rdata_next[5] = pad_gpio_f_19_cfg_slw_qs;
-        reg_rdata_next[6] = pad_gpio_f_19_cfg_smt_qs;
-      end
-
-      addr_hit[211]: begin
-        reg_rdata_next[0] = pad_gpio_f_19_mux_sel_qs;
-      end
-
-      addr_hit[212]: begin
-        reg_rdata_next[0] = pad_gpio_f_20_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = pad_gpio_f_20_cfg_drv_qs;
-        reg_rdata_next[3] = pad_gpio_f_20_cfg_oen_qs;
-        reg_rdata_next[4] = pad_gpio_f_20_cfg_puen_qs;
-        reg_rdata_next[5] = pad_gpio_f_20_cfg_slw_qs;
-        reg_rdata_next[6] = pad_gpio_f_20_cfg_smt_qs;
-      end
-
-      addr_hit[213]: begin
-        reg_rdata_next[0] = pad_gpio_f_20_mux_sel_qs;
-      end
-
-      addr_hit[214]: begin
-        reg_rdata_next[0] = pad_gpio_f_21_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = pad_gpio_f_21_cfg_drv_qs;
-        reg_rdata_next[3] = pad_gpio_f_21_cfg_oen_qs;
-        reg_rdata_next[4] = pad_gpio_f_21_cfg_puen_qs;
-        reg_rdata_next[5] = pad_gpio_f_21_cfg_slw_qs;
-        reg_rdata_next[6] = pad_gpio_f_21_cfg_smt_qs;
-      end
-
-      addr_hit[215]: begin
-        reg_rdata_next[0] = pad_gpio_f_21_mux_sel_qs;
-      end
-
-      addr_hit[216]: begin
-        reg_rdata_next[0] = pad_gpio_f_22_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = pad_gpio_f_22_cfg_drv_qs;
-        reg_rdata_next[3] = pad_gpio_f_22_cfg_oen_qs;
-        reg_rdata_next[4] = pad_gpio_f_22_cfg_puen_qs;
-        reg_rdata_next[5] = pad_gpio_f_22_cfg_slw_qs;
-        reg_rdata_next[6] = pad_gpio_f_22_cfg_smt_qs;
-      end
-
-      addr_hit[217]: begin
-        reg_rdata_next[0] = pad_gpio_f_22_mux_sel_qs;
-      end
-
-      addr_hit[218]: begin
-        reg_rdata_next[0] = pad_gpio_f_23_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = pad_gpio_f_23_cfg_drv_qs;
-        reg_rdata_next[3] = pad_gpio_f_23_cfg_oen_qs;
-        reg_rdata_next[4] = pad_gpio_f_23_cfg_puen_qs;
-        reg_rdata_next[5] = pad_gpio_f_23_cfg_slw_qs;
-        reg_rdata_next[6] = pad_gpio_f_23_cfg_smt_qs;
-      end
-
-      addr_hit[219]: begin
-        reg_rdata_next[0] = pad_gpio_f_23_mux_sel_qs;
-      end
-
-      addr_hit[220]: begin
-        reg_rdata_next[0] = pad_gpio_f_24_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = pad_gpio_f_24_cfg_drv_qs;
-        reg_rdata_next[3] = pad_gpio_f_24_cfg_oen_qs;
-        reg_rdata_next[4] = pad_gpio_f_24_cfg_puen_qs;
-        reg_rdata_next[5] = pad_gpio_f_24_cfg_slw_qs;
-        reg_rdata_next[6] = pad_gpio_f_24_cfg_smt_qs;
-      end
-
-      addr_hit[221]: begin
-        reg_rdata_next[0] = pad_gpio_f_24_mux_sel_qs;
-      end
-
-      addr_hit[222]: begin
-        reg_rdata_next[0] = pad_gpio_f_25_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = pad_gpio_f_25_cfg_drv_qs;
-        reg_rdata_next[3] = pad_gpio_f_25_cfg_oen_qs;
-        reg_rdata_next[4] = pad_gpio_f_25_cfg_puen_qs;
-        reg_rdata_next[5] = pad_gpio_f_25_cfg_slw_qs;
-        reg_rdata_next[6] = pad_gpio_f_25_cfg_smt_qs;
-      end
-
-      addr_hit[223]: begin
-        reg_rdata_next[0] = pad_gpio_f_25_mux_sel_qs;
-      end
-
-      addr_hit[224]: begin
         reg_rdata_next[0] = pad_gpio_pwm0_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = pad_gpio_pwm0_cfg_drv_qs;
         reg_rdata_next[3] = pad_gpio_pwm0_cfg_oen_qs;
@@ -29272,11 +27076,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = pad_gpio_pwm0_cfg_smt_qs;
       end
 
-      addr_hit[225]: begin
+      addr_hit[207]: begin
         reg_rdata_next[3:0] = pad_gpio_pwm0_mux_sel_qs;
       end
 
-      addr_hit[226]: begin
+      addr_hit[208]: begin
         reg_rdata_next[0] = pad_gpio_pwm1_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = pad_gpio_pwm1_cfg_drv_qs;
         reg_rdata_next[3] = pad_gpio_pwm1_cfg_oen_qs;
@@ -29285,11 +27089,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = pad_gpio_pwm1_cfg_smt_qs;
       end
 
-      addr_hit[227]: begin
+      addr_hit[209]: begin
         reg_rdata_next[3:0] = pad_gpio_pwm1_mux_sel_qs;
       end
 
-      addr_hit[228]: begin
+      addr_hit[210]: begin
         reg_rdata_next[0] = pad_gpio_pwm2_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = pad_gpio_pwm2_cfg_drv_qs;
         reg_rdata_next[3] = pad_gpio_pwm2_cfg_oen_qs;
@@ -29298,11 +27102,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = pad_gpio_pwm2_cfg_smt_qs;
       end
 
-      addr_hit[229]: begin
+      addr_hit[211]: begin
         reg_rdata_next[3:0] = pad_gpio_pwm2_mux_sel_qs;
       end
 
-      addr_hit[230]: begin
+      addr_hit[212]: begin
         reg_rdata_next[0] = pad_gpio_pwm3_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = pad_gpio_pwm3_cfg_drv_qs;
         reg_rdata_next[3] = pad_gpio_pwm3_cfg_oen_qs;
@@ -29311,11 +27115,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = pad_gpio_pwm3_cfg_smt_qs;
       end
 
-      addr_hit[231]: begin
+      addr_hit[213]: begin
         reg_rdata_next[3:0] = pad_gpio_pwm3_mux_sel_qs;
       end
 
-      addr_hit[232]: begin
+      addr_hit[214]: begin
         reg_rdata_next[0] = pad_gpio_pwm4_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = pad_gpio_pwm4_cfg_drv_qs;
         reg_rdata_next[3] = pad_gpio_pwm4_cfg_oen_qs;
@@ -29324,11 +27128,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = pad_gpio_pwm4_cfg_smt_qs;
       end
 
-      addr_hit[233]: begin
+      addr_hit[215]: begin
         reg_rdata_next[3:0] = pad_gpio_pwm4_mux_sel_qs;
       end
 
-      addr_hit[234]: begin
+      addr_hit[216]: begin
         reg_rdata_next[0] = pad_gpio_pwm5_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = pad_gpio_pwm5_cfg_drv_qs;
         reg_rdata_next[3] = pad_gpio_pwm5_cfg_oen_qs;
@@ -29337,11 +27141,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = pad_gpio_pwm5_cfg_smt_qs;
       end
 
-      addr_hit[235]: begin
+      addr_hit[217]: begin
         reg_rdata_next[3:0] = pad_gpio_pwm5_mux_sel_qs;
       end
 
-      addr_hit[236]: begin
+      addr_hit[218]: begin
         reg_rdata_next[0] = pad_gpio_pwm6_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = pad_gpio_pwm6_cfg_drv_qs;
         reg_rdata_next[3] = pad_gpio_pwm6_cfg_oen_qs;
@@ -29350,11 +27154,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = pad_gpio_pwm6_cfg_smt_qs;
       end
 
-      addr_hit[237]: begin
+      addr_hit[219]: begin
         reg_rdata_next[3:0] = pad_gpio_pwm6_mux_sel_qs;
       end
 
-      addr_hit[238]: begin
+      addr_hit[220]: begin
         reg_rdata_next[0] = pad_gpio_pwm7_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = pad_gpio_pwm7_cfg_drv_qs;
         reg_rdata_next[3] = pad_gpio_pwm7_cfg_oen_qs;
@@ -29363,7 +27167,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = pad_gpio_pwm7_cfg_smt_qs;
       end
 
-      addr_hit[239]: begin
+      addr_hit[221]: begin
         reg_rdata_next[3:0] = pad_gpio_pwm7_mux_sel_qs;
       end
 

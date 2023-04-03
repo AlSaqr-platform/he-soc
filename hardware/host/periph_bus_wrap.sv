@@ -28,7 +28,6 @@ module periph_bus_wrap
     APB.Master advtimer_master,
     APB.Master padframe_master,
     APB.Master socctrl_master,
-    APB.Master serial_link_master,
     APB.Master apb_can0_master,
     APB.Master apb_can1_master,
     APB.Master apb_uart_master
@@ -69,25 +68,21 @@ module periph_bus_wrap
     assign s_start_addr[5] = apb_soc_pkg::SOCCTRLBase;
     assign s_end_addr[5]   = apb_soc_pkg::SOCCTRLBase + apb_soc_pkg::SOCCTRLLength - 1 ;   
 
-    `APB_ASSIGN_MASTER(s_masters[6], serial_link_master);
-    assign s_start_addr[6] = apb_soc_pkg::SerLinkBase;
-    assign s_end_addr[6]   = apb_soc_pkg::SerLinkBase + apb_soc_pkg::SerLinkLength - 1;
+    `APB_ASSIGN_MASTER(s_masters[6], apb_can0_master);
+    assign s_start_addr[6] = apb_soc_pkg::Can0Base;
+    assign s_end_addr[6]   = apb_soc_pkg::Can0Base + apb_soc_pkg::CanLength - 1;
 
-    `APB_ASSIGN_MASTER(s_masters[7], apb_can0_master);
-    assign s_start_addr[7] = apb_soc_pkg::Can0Base;
-    assign s_end_addr[7]   = apb_soc_pkg::Can0Base + apb_soc_pkg::CanLength - 1;
-
-    `APB_ASSIGN_MASTER(s_masters[8], apb_can1_master);
-    assign s_start_addr[8] = apb_soc_pkg::Can1Base;
-    assign s_end_addr[8]   = apb_soc_pkg::Can1Base + apb_soc_pkg::CanLength - 1;
+    `APB_ASSIGN_MASTER(s_masters[7], apb_can1_master);
+    assign s_start_addr[7] = apb_soc_pkg::Can1Base;
+    assign s_end_addr[7]   = apb_soc_pkg::Can1Base + apb_soc_pkg::CanLength - 1;
     
-    `APB_ASSIGN_MASTER(s_masters[9], udma_master);
-    assign s_start_addr[9] = apb_soc_pkg::UDMABase;
-    assign s_end_addr[9]   = apb_soc_pkg::UDMABase + apb_soc_pkg::UDMALength - 1;
+    `APB_ASSIGN_MASTER(s_masters[8], udma_master);
+    assign s_start_addr[8] = apb_soc_pkg::UDMABase;
+    assign s_end_addr[8]   = apb_soc_pkg::UDMABase + apb_soc_pkg::UDMALength - 1;
 
-   `APB_ASSIGN_MASTER(s_masters[10], apb_uart_master);
-    assign s_start_addr[10] = apb_soc_pkg::APBUARTBase;
-    assign s_end_addr[10]   = apb_soc_pkg::APBUARTBase + apb_soc_pkg::APBUARTLength - 1;
+   `APB_ASSIGN_MASTER(s_masters[9], apb_uart_master);
+    assign s_start_addr[9] = apb_soc_pkg::APBUARTBase;
+    assign s_end_addr[9]   = apb_soc_pkg::APBUARTBase + apb_soc_pkg::APBUARTLength - 1;
 
    
    apb_node_wrap #(

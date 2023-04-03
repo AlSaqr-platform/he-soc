@@ -508,17 +508,4 @@
 `define ASSIGN_PERIPHS_UART5_SOC2PAD(load, driver) \
   assign load.tx_i = driver.tx_o; \
 
-`define ASSIGN_PERIPHS_DDR_LINK_PAD2SOC(load, driver) \
-  assign load.ddr0_i = driver.ddr0_o; \
-  assign load.ddr1_i = driver.ddr1_o; \
-  assign load.ddr2_i = driver.ddr2_o; \
-  assign load.ddr3_i = driver.ddr3_o; \
-  assign load.ddr_clk_i = driver.ddr_clk_o; \
-
-`define ASSIGN_PERIPHS_DDR_LINK_SOC2PAD(load, driver) \
-  assign load.ddr0_i = driver.ddr0_o; \
-  assign load.ddr1_i = driver.ddr1_o; \
-  assign load.ddr2_i = driver.ddr2_o; \
-  assign load.ddr3_i = driver.ddr3_o; \
-
 

@@ -37,7 +37,6 @@ dependencies:
   register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "3a4df2f9709bcf0af396548b603fd15f2d59029d" }
-  ddr-link: { git: "git@github.com:AlSaqr-platform/ddr-link.git", rev: "bf77d024f7290d885601d54bf608f29be6982951"}
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", version: 0.0.1 }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
 

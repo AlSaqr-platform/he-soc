@@ -116,15 +116,6 @@ module alsaqr_periph_padframe
   inout wire logic                           pad_periphs_pad_gpio_f_14_pad,
   inout wire logic                           pad_periphs_pad_gpio_f_15_pad,
   inout wire logic                           pad_periphs_pad_gpio_f_16_pad,
-  inout wire logic                           pad_periphs_pad_gpio_f_17_pad,
-  inout wire logic                           pad_periphs_pad_gpio_f_18_pad,
-  inout wire logic                           pad_periphs_pad_gpio_f_19_pad,
-  inout wire logic                           pad_periphs_pad_gpio_f_20_pad,
-  inout wire logic                           pad_periphs_pad_gpio_f_21_pad,
-  inout wire logic                           pad_periphs_pad_gpio_f_22_pad,
-  inout wire logic                           pad_periphs_pad_gpio_f_23_pad,
-  inout wire logic                           pad_periphs_pad_gpio_f_24_pad,
-  inout wire logic                           pad_periphs_pad_gpio_f_25_pad,
   inout wire logic                           pad_periphs_pad_gpio_pwm0_pad,
   inout wire logic                           pad_periphs_pad_gpio_pwm1_pad,
   inout wire logic                           pad_periphs_pad_gpio_pwm2_pad,
@@ -252,15 +243,6 @@ module alsaqr_periph_padframe
    .pad_pad_gpio_f_14_pad(pad_periphs_pad_gpio_f_14_pad),
    .pad_pad_gpio_f_15_pad(pad_periphs_pad_gpio_f_15_pad),
    .pad_pad_gpio_f_16_pad(pad_periphs_pad_gpio_f_16_pad),
-   .pad_pad_gpio_f_17_pad(pad_periphs_pad_gpio_f_17_pad),
-   .pad_pad_gpio_f_18_pad(pad_periphs_pad_gpio_f_18_pad),
-   .pad_pad_gpio_f_19_pad(pad_periphs_pad_gpio_f_19_pad),
-   .pad_pad_gpio_f_20_pad(pad_periphs_pad_gpio_f_20_pad),
-   .pad_pad_gpio_f_21_pad(pad_periphs_pad_gpio_f_21_pad),
-   .pad_pad_gpio_f_22_pad(pad_periphs_pad_gpio_f_22_pad),
-   .pad_pad_gpio_f_23_pad(pad_periphs_pad_gpio_f_23_pad),
-   .pad_pad_gpio_f_24_pad(pad_periphs_pad_gpio_f_24_pad),
-   .pad_pad_gpio_f_25_pad(pad_periphs_pad_gpio_f_25_pad),
    .pad_pad_gpio_pwm0_pad(pad_periphs_pad_gpio_pwm0_pad),
    .pad_pad_gpio_pwm1_pad(pad_periphs_pad_gpio_pwm1_pad),
    .pad_pad_gpio_pwm2_pad(pad_periphs_pad_gpio_pwm2_pad),
@@ -283,7 +265,7 @@ module alsaqr_periph_padframe
    } addr_rule_t;
 
    localparam addr_rule_t[NUM_PAD_DOMAINS-1:0] ADDR_DEMUX_RULES = '{
-     '{ idx: 0, start_addr: 10'd0,  end_addr: 10'd960}
+     '{ idx: 0, start_addr: 10'd0,  end_addr: 10'd888}
      };
    logic[$clog2(NUM_PAD_DOMAINS+1)-1:0] pad_domain_sel; // +1 since there is an additional error slave
    addr_decode #(

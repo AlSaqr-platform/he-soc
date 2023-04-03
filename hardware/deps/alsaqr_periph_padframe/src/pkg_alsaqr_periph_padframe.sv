@@ -574,21 +574,6 @@ package pkg_alsaqr_periph_padframe;
      } pad_domain_periphs_port_group_uart5_pad2soc_t;
 
    typedef struct packed {
-      logic        ddr0_i;
-      logic        ddr1_i;
-      logic        ddr2_i;
-      logic        ddr3_i;
-     } pad_domain_periphs_port_group_ddr_link_soc2pad_t;
-
-   typedef struct packed {
-      logic        ddr0_o;
-      logic        ddr1_o;
-      logic        ddr2_o;
-      logic        ddr3_o;
-      logic        ddr_clk_o;
-     } pad_domain_periphs_port_group_ddr_link_pad2soc_t;
-
-   typedef struct packed {
      pad_domain_periphs_port_group_spi0_soc2pad_t spi0;
      pad_domain_periphs_port_group_spi1_soc2pad_t spi1;
      pad_domain_periphs_port_group_spi2_soc2pad_t spi2;
@@ -622,7 +607,6 @@ package pkg_alsaqr_periph_padframe;
      pad_domain_periphs_port_group_sdio1_soc2pad_t sdio1;
      pad_domain_periphs_port_group_uart6_soc2pad_t uart6;
      pad_domain_periphs_port_group_uart5_soc2pad_t uart5;
-     pad_domain_periphs_port_group_ddr_link_soc2pad_t ddr_link;
      } pad_domain_periphs_ports_soc2pad_t;
 
    typedef struct packed {
@@ -660,7 +644,6 @@ package pkg_alsaqr_periph_padframe;
      pad_domain_periphs_port_group_sdio1_pad2soc_t sdio1;
      pad_domain_periphs_port_group_uart6_pad2soc_t uart6;
      pad_domain_periphs_port_group_uart5_pad2soc_t uart5;
-     pad_domain_periphs_port_group_ddr_link_pad2soc_t ddr_link;
      } pad_domain_periphs_ports_pad2soc_t;
 
 

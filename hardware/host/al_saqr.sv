@@ -192,15 +192,6 @@ module al_saqr
         inout wire logic    pad_periphs_pad_gpio_f_14_pad,
         inout wire logic    pad_periphs_pad_gpio_f_15_pad,
         inout wire logic    pad_periphs_pad_gpio_f_16_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_17_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_18_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_19_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_20_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_21_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_22_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_23_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_24_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_25_pad,
 
         inout wire logic    pad_periphs_pad_gpio_pwm0_pad,
         inout wire logic    pad_periphs_pad_gpio_pwm1_pad,
@@ -374,9 +365,6 @@ module al_saqr
   
   pwm_to_pad_t s_pwm_to_pad;
 
-  pad_to_ser_link s_pad_to_serial_link;
-  ser_link_to_pad s_serial_link_to_pad;
-
   gpio_to_pad_t s_gpio_b_to_pad;
   pad_to_gpio_t s_pad_to_gpio_b;
    
@@ -480,9 +468,6 @@ module al_saqr
 
       .sdio_to_pad            ( s_sdio_to_pad                   ),
       .pad_to_sdio            ( s_pad_to_sdio                   ),
-
-      .serial_link_to_pad     ( s_serial_link_to_pad            ),
-      .pad_to_serial_link     ( s_pad_to_serial_link            ),                     
 
       .gpio_to_pad            ( s_gpio_b_to_pad                 ),
       .pad_to_gpio            ( s_pad_to_gpio_b                 ),
@@ -1013,15 +998,6 @@ module al_saqr
           .pad_periphs_pad_gpio_f_14_pad(pad_periphs_pad_gpio_f_14_pad),
           .pad_periphs_pad_gpio_f_15_pad(pad_periphs_pad_gpio_f_15_pad),
           .pad_periphs_pad_gpio_f_16_pad(pad_periphs_pad_gpio_f_16_pad),
-          .pad_periphs_pad_gpio_f_17_pad(pad_periphs_pad_gpio_f_17_pad),
-          .pad_periphs_pad_gpio_f_18_pad(pad_periphs_pad_gpio_f_18_pad),
-          .pad_periphs_pad_gpio_f_19_pad(pad_periphs_pad_gpio_f_19_pad),
-          .pad_periphs_pad_gpio_f_20_pad(pad_periphs_pad_gpio_f_20_pad),
-          .pad_periphs_pad_gpio_f_21_pad(pad_periphs_pad_gpio_f_21_pad),
-          .pad_periphs_pad_gpio_f_22_pad(pad_periphs_pad_gpio_f_22_pad),
-          .pad_periphs_pad_gpio_f_23_pad(pad_periphs_pad_gpio_f_23_pad),
-          .pad_periphs_pad_gpio_f_24_pad(pad_periphs_pad_gpio_f_24_pad),
-          .pad_periphs_pad_gpio_f_25_pad(pad_periphs_pad_gpio_f_25_pad),
           
           .pad_periphs_pad_gpio_pwm0_pad(pad_periphs_pad_gpio_pwm0_pad),
           .pad_periphs_pad_gpio_pwm1_pad(pad_periphs_pad_gpio_pwm1_pad),
@@ -1138,10 +1114,6 @@ module al_saqr
           
           `ASSIGN_PERIPHS_UART6_PAD2SOC(s_pad_to_uart[6],s_port_signals_pad2soc.periphs.uart6)
           `ASSIGN_PERIPHS_UART6_SOC2PAD(s_port_signals_soc2pad.periphs.uart6,s_uart_to_pad[6])
-       
-          //SERIAL LINK
-          `ASSIGN_PERIPHS_DDR_LINK_PAD2SOC(s_pad_to_serial_link,s_port_signals_pad2soc.periphs.ddr_link)
-          `ASSIGN_PERIPHS_DDR_LINK_SOC2PAD(s_port_signals_soc2pad.periphs.ddr_link,s_serial_link_to_pad)
 
     `else // !`ifndef FPGA_EMUL
            assign reg_rsp.ready = 1'b0;
