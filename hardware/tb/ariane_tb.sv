@@ -39,7 +39,7 @@ module ariane_tb;
 
     static uvm_cmdline_processor uvcl = uvm_cmdline_processor::get_inst();
 
-    localparam int unsigned REFClockPeriod = 67000ps; // jtag clock
+    localparam int unsigned REFClockPeriod = 8ns; //67000ps; // jtag clock
     // toggle with RTC period
     `ifndef TEST_CLOCK_BYPASS
       localparam int unsigned RTC_CLOCK_PERIOD = 30.517us;

@@ -28,7 +28,7 @@ test-location  ?= output/test
 torture-logs   :=
 # custom elf bin to run with sim or sim-verilator
 elf-bin        ?= ../software/mbox_test/mbox_test.riscv
-ibex_elf_bin   ?= /scratch/mciani/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/mbox_test/mbox_test.elf
+ibex_elf_bin   ?= ./opentitan/sw/bare-metal/alsaqr/mbox_test/mbox_test.elf
 #cl-bin         ?= ../software/pulp/mm.riscv
 cl-bin         ?= none
 # root pathelf-bin
@@ -290,3 +290,12 @@ clean_regs:
 
 
 all: clean build
+
+hw-tcl:
+		make exclude-cluster=1 exclude-llc=1 scripts_vip 
+
+hw-tcl-fpga:
+		make exclude-cluster=1 exclude-llc=1 scripts-bender-fpga-ddr 
+
+hw-tcl-fpga-norom:
+		make exclude-cluster=1 fake=1 exclude-llc=1 scripts-bender-fpga-ddr 

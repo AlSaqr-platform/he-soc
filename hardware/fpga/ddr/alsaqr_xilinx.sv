@@ -75,7 +75,7 @@ module alsaqr_xilinx
     input wire    pad_jtag_ot_tck,
     input wire    pad_jtag_ot_tdi,
     output wire   pad_jtag_ot_tdo,
-    input wire    pad_jtag_ot_tms,
+    input wire    pad_jtag_ot_tms
 
        // OpenTitan SPI
     /* inout wire    spi_ot_S0,
@@ -114,7 +114,7 @@ module alsaqr_xilinx
                                       .clk_out1(ref_clk)
                                       );
      
-   assign reset_n = ~pad_reset & pad_jtag_trst & pad_jtag_ot_trst;
+   assign reset_n = ~pad_reset & pad_jtag_trst  & pad_jtag_ot_trst;//
 
    
    AXI_BUS #(
@@ -316,7 +316,7 @@ ddr4_0 u_ddr4_0
         .jtag_ot_TMS      ( pad_jtag_ot_tms    ),
         .jtag_ot_TDI      ( pad_jtag_ot_tdi    ),
         .jtag_ot_TRSTn    ( 1'b1               ),
-        .jtag_ot_TDO_data ( pad_jtag_ot_tdo    )
+        .jtag_ot_TDO_data ( pad_jtag_ot_tdo    ),
         .axi_ddr_master   ( axi_ddr_bus_64     ),
         .cva6_uart_rx_i   ( pad_uart0_rx       ),
         .cva6_uart_tx_o   ( pad_uart0_tx       ),

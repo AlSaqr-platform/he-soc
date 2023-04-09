@@ -61,7 +61,10 @@ module al_saqr
   parameter int unsigned NUM_WORDS         = 2**25,         // memory size
   parameter bit          StallRandomOutput = 1'b0,
   parameter bit          StallRandomInput  = 1'b0,
-  parameter bit          JtagEnable        = 1'b1
+  parameter bit          JtagEnable        = 1'b1,
+  parameter              RomCtrlBootRomInitFile = "./opentitan/sw/bare-metal/opentitan/bootrom/boot_rom.vmem",
+  parameter              OtpCtrlMemInitFile     = "./opentitan/sw/bare-metal/opentitan/otp/otp-img.mem",
+  parameter              FlashCtrlMemInitFile   = "" //./opentitan/sw/bare-metal/alsaqr/hmac_test/hmac_smoketest.vmem"
 ) (
   inout logic         rtc_i,
   inout logic         rst_ni,
@@ -668,12 +671,15 @@ module al_saqr
 
    
 
-   opentitan_synth_wrap #(
-      .RomCtrlBootRomInitFile("/scratch/mciani/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/bootrom/fake_rom.vmem"),
-      .OtpCtrlMemInitFile("/scratch/mciani/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/otp/otp-img.mem"),
-      .FlashCtrlMemInitFile("/scratch/mciani/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/hmac_test/hmac_smoketest.vmem")
+   secure_subsystem #(
+      .RomCtrlBootRomInitFile ( RomCtrlBootRomInitFile ),
+      .OtpCtrlMemInitFile     ( OtpCtrlMemInitFile     ),
+      .FlashCtrlMemInitFile   ( FlashCtrlMemInitFile   ),
+      .AXI_ADDR_WIDTH         ( tlul2axi_pkg::AXI_ADDR_WIDTH          ),
+      .AXI_DATA_WIDTH         ( tlul2axi_pkg::AXI_SLV_PORT_DATA_WIDTH ),
+      .AXI_ID_WIDTH           ( tlul2axi_pkg::AXI_ID_WIDTH            ),
+      .AXI_USER_WIDTH         ( tlul2axi_pkg::AXI_USER_WIDTH          )
    ) i_RoT_wrap (
-
       .clk_i(s_soc_clk),
       .por_n_i(s_rst_ni),
 
