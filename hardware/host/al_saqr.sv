@@ -316,13 +316,22 @@ module al_saqr
   assign jtag_ibex_i.tms        = s_jtag_ot_TMS;
   assign jtag_ibex_i.tdi        = s_jtag_ot_TDI;
   assign s_jtag_ot_TDO          = jtag_ibex_o.tdo;
-
-  tlul2axi_pkg::slv_req_t ot_axi_req;
-  tlul2axi_pkg::slv_rsp_t ot_axi_rsp;
-
-  tlul2axi_pkg::mst_req_t axi_req64;
-  tlul2axi_pkg::mst_rsp_t axi_rsp64;
    
+  localparam int unsigned AsyncAxiOutAwWidth    = secure_subsystem_synth_pkg::SynthAsyncAxiOutAwWidth;
+  localparam int unsigned AsyncAxiOutWWidth     = secure_subsystem_synth_pkg::SynthAsyncAxiOutWWidth;
+  localparam int unsigned AsyncAxiOutBWidth     = secure_subsystem_synth_pkg::SynthAsyncAxiOutBWidth;
+  localparam int unsigned AsyncAxiOutArWidth    = secure_subsystem_synth_pkg::SynthAsyncAxiOutArWidth;
+  localparam int unsigned AsyncAxiOutRWidth     = secure_subsystem_synth_pkg::SynthAsyncAxiOutRWidth;
+  localparam int unsigned LogDepth              = secure_subsystem_synth_pkg::SynthLogDepth;
+  
+  localparam type         axi_out_aw_chan_t     = secure_subsystem_synth_pkg::synth_axi_out_aw_chan_t;
+  localparam type         axi_out_w_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_w_chan_t;
+  localparam type         axi_out_b_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_b_chan_t;
+  localparam type         axi_out_ar_chan_t     = secure_subsystem_synth_pkg::synth_axi_out_ar_chan_t;
+  localparam type         axi_out_r_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_r_chan_t;
+  localparam type         axi_out_req_t         = secure_subsystem_synth_pkg::synth_axi_out_req_t;
+  localparam type         axi_out_resp_t        = secure_subsystem_synth_pkg::synth_axi_out_resp_t;
+
   // AXILITE parameters
   localparam int unsigned AXI_LITE_AW       = 32;
   localparam int unsigned AXI_LITE_DW       = 32;
@@ -347,7 +356,23 @@ module al_saqr
   logic s_cluster_rst_n;
 
   logic s_h2c_mailbox_irq;
-   
+  
+  logic [AsyncAxiOutAwWidth-1:0] async_axi_out_aw_data_o;
+  logic             [LogDepth:0] async_axi_out_aw_wptr_o;
+  logic             [LogDepth:0] async_axi_out_aw_rptr_i;
+  logic [ AsyncAxiOutWWidth-1:0] async_axi_out_w_data_o;
+  logic             [LogDepth:0] async_axi_out_w_wptr_o;
+  logic             [LogDepth:0] async_axi_out_w_rptr_i;
+  logic [ AsyncAxiOutBWidth-1:0] async_axi_out_b_data_i;
+  logic             [LogDepth:0] async_axi_out_b_wptr_i;
+  logic             [LogDepth:0] async_axi_out_b_rptr_o;
+  logic [AsyncAxiOutArWidth-1:0] async_axi_out_ar_data_o;
+  logic             [LogDepth:0] async_axi_out_ar_wptr_o;
+  logic             [LogDepth:0] async_axi_out_ar_rptr_i;
+  logic [ AsyncAxiOutRWidth-1:0] async_axi_out_r_data_i;
+  logic             [LogDepth:0] async_axi_out_r_wptr_i;
+  logic             [LogDepth:0] async_axi_out_r_rptr_o;
+  
   AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -470,7 +495,10 @@ module al_saqr
    
   port_signals_pad2soc_t              s_port_signals_pad2soc;
   port_signals_soc2pad_t              s_port_signals_soc2pad;
-      
+
+  axi_out_req_t  ot_axi_req;
+  axi_out_resp_t ot_axi_rsp;
+   
   localparam RegAw  = 32;
   localparam RegDw  = 32;
 
@@ -594,8 +622,8 @@ module al_saqr
         
       .pwm_to_pad             ( s_pwm_to_pad                    ),
  
-      .ot_axi_req             ( axi_req64                       ),
-      .ot_axi_rsp             ( axi_rsp64                       ),
+      .ot_axi_req             ( ot_axi_req                      ),
+      .ot_axi_rsp             ( ot_axi_rsp                      ),
                      
       .doorbell_irq_o         ( doorbell_irq                    )
     );
@@ -641,114 +669,82 @@ module al_saqr
 
      );
 
-     axi_dw_converter #(
-       .AxiMaxReads        ( tlul2axi_pkg::AXI_MAX_READS           ),
-       .AxiSlvPortDataWidth( tlul2axi_pkg::AXI_SLV_PORT_DATA_WIDTH ),
-       .AxiMstPortDataWidth( tlul2axi_pkg::AXI_MST_PORT_DATA_WIDTH ),
-       .AxiAddrWidth       ( tlul2axi_pkg::AXI_ADDR_WIDTH          ),
-       .AxiIdWidth         ( tlul2axi_pkg::AXI_ID_WIDTH            ),
-       .aw_chan_t          ( tlul2axi_pkg::aw_chan_t               ),
-       .mst_w_chan_t       ( tlul2axi_pkg::mst_w_chan_t            ),
-       .slv_w_chan_t       ( tlul2axi_pkg::slv_w_chan_t            ),
-       .b_chan_t           ( tlul2axi_pkg::b_chan_t                ),
-       .ar_chan_t          ( tlul2axi_pkg::ar_chan_t               ),
-       .mst_r_chan_t       ( tlul2axi_pkg::mst_r_chan_t            ),
-       .slv_r_chan_t       ( tlul2axi_pkg::slv_r_chan_t            ),
-       .axi_mst_req_t      ( tlul2axi_pkg::mst_req_t               ),
-       .axi_mst_resp_t     ( tlul2axi_pkg::mst_rsp_t              ),
-       .axi_slv_req_t      ( tlul2axi_pkg::slv_req_t               ),
-       .axi_slv_resp_t     ( tlul2axi_pkg::slv_rsp_t              )
-    )   i_axi_dw_converter (
-      .clk_i      ( s_soc_clk   ),
-      .rst_ni     ( s_rst_ni   ),
-      // slave port
-      .slv_req_i  ( ot_axi_req  ),
-      .slv_resp_o ( ot_axi_rsp  ),
-      // master port
-      .mst_req_o  ( axi_req64  ),
-      .mst_resp_i ( axi_rsp64  )
+   axi_cdc_dst #(
+      .LogDepth   ( LogDepth          ),
+      .aw_chan_t  ( axi_out_aw_chan_t ),
+      .w_chan_t   ( axi_out_w_chan_t  ),
+      .b_chan_t   ( axi_out_b_chan_t  ),
+      .ar_chan_t  ( axi_out_ar_chan_t ),
+      .r_chan_t   ( axi_out_r_chan_t  ),
+      .axi_req_t  ( axi_out_req_t     ),
+      .axi_resp_t ( axi_out_resp_t    )
+   ) i_cdc_in (
+      .async_data_slave_aw_data_i( async_axi_out_aw_data_o ),
+      .async_data_slave_aw_wptr_i( async_axi_out_aw_wptr_o ),
+      .async_data_slave_aw_rptr_o( async_axi_out_aw_rptr_i ),
+      .async_data_slave_w_data_i ( async_axi_out_w_data_o  ),
+      .async_data_slave_w_wptr_i ( async_axi_out_w_wptr_o  ),
+      .async_data_slave_w_rptr_o ( async_axi_out_w_rptr_i  ),
+      .async_data_slave_b_data_o ( async_axi_out_b_data_i  ),
+      .async_data_slave_b_wptr_o ( async_axi_out_b_wptr_i  ),
+      .async_data_slave_b_rptr_i ( async_axi_out_b_rptr_o  ),
+      .async_data_slave_ar_data_i( async_axi_out_ar_data_o ),
+      .async_data_slave_ar_wptr_i( async_axi_out_ar_wptr_o ),
+      .async_data_slave_ar_rptr_o( async_axi_out_ar_rptr_i ),
+      .async_data_slave_r_data_o ( async_axi_out_r_data_i  ),
+      .async_data_slave_r_wptr_o ( async_axi_out_r_wptr_i  ),
+      .async_data_slave_r_rptr_i ( async_axi_out_r_rptr_o  ),
+      .dst_clk_i                 ( s_soc_clk  ),
+      .dst_rst_ni                ( rst_ni     ),
+      .dst_req_o                 ( ot_axi_req ),
+      .dst_resp_i                ( ot_axi_rsp )
    );
 
-   
-
-   secure_subsystem #(
+   secure_subsystem_synth_wrap #(
       .RomCtrlBootRomInitFile ( RomCtrlBootRomInitFile ),
       .OtpCtrlMemInitFile     ( OtpCtrlMemInitFile     ),
-      .FlashCtrlMemInitFile   ( FlashCtrlMemInitFile   ),
-      .AXI_ADDR_WIDTH         ( tlul2axi_pkg::AXI_ADDR_WIDTH          ),
-      .AXI_DATA_WIDTH         ( tlul2axi_pkg::AXI_SLV_PORT_DATA_WIDTH ),
-      .AXI_ID_WIDTH           ( tlul2axi_pkg::AXI_ID_WIDTH            ),
-      .AXI_USER_WIDTH         ( tlul2axi_pkg::AXI_USER_WIDTH          )
+      .FlashCtrlMemInitFile   ( FlashCtrlMemInitFile   )
    ) i_RoT_wrap (
-      .clk_i(s_soc_clk),
-      .por_n_i(s_rst_ni),
-
-      .irq_ibex_i(doorbell_irq),
+     .clk_i            ( s_soc_clk          ),
+     .clk_ref_i        ( s_soc_clk          ),
+     .rst_ni           ( rst_ni             ),
+     .fetch_en_i       ( '0                 ),
+     .bootmode_i       ( '0                 ),
+     .test_enable_i    ( '0                 ),
+     .irq_ibex_i       ( doorbell_irq       ),
    // JTAG port
-      .jtag_tck_i    (jtag_ibex_i.tck),
-      .jtag_tms_i    (jtag_ibex_i.tms),
-      .jtag_trst_n_i (jtag_ibex_i.trst_n),
-      .jtag_tdi_i    (jtag_ibex_i.tdi),
-      .jtag_tdo_o    (jtag_ibex_o.tdo),
-      .jtag_tdo_oe_o (jtag_ibex_o.tdo_oe),
-
-   //AXI AR channel
-      .ar_id_o       (ot_axi_req.ar.id),
-      .ar_addr_o     (ot_axi_req.ar.addr),
-      .ar_len_o      (ot_axi_req.ar.len),
-      .ar_size_o     (ot_axi_req.ar.size),
-      .ar_burst_o    (ot_axi_req.ar.burst),
-      .ar_lock_o     (ot_axi_req.ar.lock),
-      .ar_cache_o    (ot_axi_req.ar.cache),
-      .ar_prot_o     (ot_axi_req.ar.prot),
-      .ar_qos_o      (ot_axi_req.ar.qos),
-      .ar_region_o   (ot_axi_req.ar.region),
-      .ar_user_o     (ot_axi_req.ar.user),
-      .ar_valid_o    (ot_axi_req.ar_valid),
-      .ar_ready_i    (ot_axi_rsp.ar_ready),
-
-   //AXI AW channel
-      .aw_id_o       (ot_axi_req.aw.id),
-      .aw_addr_o     (ot_axi_req.aw.addr),
-      .aw_len_o      (ot_axi_req.aw.len),
-      .aw_size_o     (ot_axi_req.aw.size),
-      .aw_burst_o    (ot_axi_req.aw.burst),
-      .aw_lock_o     (ot_axi_req.aw.lock),
-      .aw_cache_o    (ot_axi_req.aw.cache),
-      .aw_prot_o     (ot_axi_req.aw.prot),
-      .aw_qos_o      (ot_axi_req.aw.qos),
-      .aw_region_o   (ot_axi_req.aw.region),
-      .aw_atop_o     (ot_axi_req.aw.atop),
-      .aw_user_o     (ot_axi_req.aw.user),
-      .aw_valid_o    (ot_axi_req.aw_valid),
-      .aw_ready_i    (ot_axi_rsp.aw_ready),
-
-
-   //AXI W channel
-      .w_data_o      (ot_axi_req.w.data),
-      .w_strb_o      (ot_axi_req.w.strb),
-      .w_last_o      (ot_axi_req.w.last),
-      .w_user_o      (ot_axi_req.w.user),
-      .w_valid_o     (ot_axi_req.w_valid),
-      .w_ready_i     (ot_axi_rsp.w_ready),
-
-   //AXI B channel
-      .b_id_i        (ot_axi_rsp.b.id),
-      .b_resp_i      (ot_axi_rsp.b.resp),
-      .b_user_i      (ot_axi_rsp.b.user),
-      .b_valid_i     (ot_axi_rsp.b_valid),
-      .b_ready_o     (ot_axi_req.b_ready),
-
-   //AXI R channel
-      .r_id_i        (ot_axi_rsp.r.id),
-      .r_data_i      (ot_axi_rsp.r.data),
-      .r_resp_i      (ot_axi_rsp.r.resp),
-      .r_last_i      (ot_axi_rsp.r.last),
-      .r_user_i      (ot_axi_rsp.r.user),
-      .r_valid_i     (ot_axi_rsp.r_valid),
-      .r_ready_o     (ot_axi_req.r_ready),
-
-      .dio_in_i      ('0)
+     .jtag_tck_i       ( jtag_ibex_i.tck    ),
+     .jtag_tms_i       ( jtag_ibex_i.tms    ),
+     .jtag_trst_n_i    ( jtag_ibex_i.trst_n ),
+     .jtag_tdi_i       ( jtag_ibex_i.tdi    ),
+     .jtag_tdo_o       ( jtag_ibex_o.tdo    ),
+     .jtag_tdo_oe_o    (                    ),
+   // Asynch axi port
+     .async_axi_out_aw_data_o,
+     .async_axi_out_aw_wptr_o,
+     .async_axi_out_aw_rptr_i,
+     .async_axi_out_w_data_o,
+     .async_axi_out_w_wptr_o,
+     .async_axi_out_w_rptr_i,
+     .async_axi_out_b_data_i,
+     .async_axi_out_b_wptr_i,
+     .async_axi_out_b_rptr_o,
+     .async_axi_out_ar_data_o,
+     .async_axi_out_ar_wptr_o,
+     .async_axi_out_ar_rptr_i,
+     .async_axi_out_r_data_i,
+     .async_axi_out_r_wptr_i,
+     .async_axi_out_r_rptr_o,      
+   // Uart   
+     .ibex_uart_rx_i   ( '0            ),
+     .ibex_uart_tx_o   (               ),
+   // SPI host 
+     .spi_host_SCK_o   (               ),
+     .spi_host_CSB_o   (               ),
+     .spi_host_SD_o    (               ),
+     .spi_host_SD_i    ( '0            ),
+     .spi_host_SD_en_o (               )        
+   
    );
 
   `ifndef EXCLUDE_CLUSTER   

@@ -400,8 +400,8 @@ module cva6_subsystem
   // AXI OT Master
   // ---------------
 
-  `AXI_ASSIGN_FROM_REQ(slave[4], ot_axi_req)
-  `AXI_ASSIGN_TO_RESP (ot_axi_rsp, slave[4])
+  `AXI_ASSIGN_FROM_REQ(slave[3], ot_axi_req)
+  `AXI_ASSIGN_TO_RESP (ot_axi_rsp, slave[3])
    
   // ---------------
   // AXI hyperbus Slave 
