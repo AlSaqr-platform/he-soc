@@ -50,6 +50,26 @@ package udma_subsystem_pkg;
 	} pad_to_qspi_t;
 
 	typedef struct packed {
+		logic csn0_o;
+		logic clk_o;
+		logic sd0_o;
+		logic sd1_o;
+		logic sd2_o;
+		logic sd3_o;
+		logic sd0_oen_o;
+		logic sd1_oen_o;
+		logic sd2_oen_o;
+		logic sd3_oen_o;
+	} qspi_to_pad_ot_t;
+	
+	typedef struct packed {
+		logic sd0_i;
+		logic sd1_i;
+		logic sd2_i;
+		logic sd3_i;
+	} pad_to_qspi_ot_t;  
+
+	typedef struct packed {
 	  logic sda_o;
 	  logic sda_oe_o;
 	  logic scl_o;

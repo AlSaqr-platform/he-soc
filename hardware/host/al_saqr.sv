@@ -292,7 +292,13 @@ module al_saqr
   inout wire          jtag_ot_TMS,
   inout wire          jtag_ot_TDI,
   inout wire          jtag_ot_TRSTn,
-  inout wire          jtag_ot_TDO_data
+  inout wire          jtag_ot_TDO_data,
+
+  // Boot Select
+
+  inout wire          bootmode_0,
+  inout wire          bootmode_1
+   
    
 );
   import lc_ctrl_pkg::*;
@@ -309,6 +315,13 @@ module al_saqr
   logic                         s_jtag_ot_TRSTn;
   
   logic                         doorbell_irq;
+
+  logic                         bootmode_0_i;
+  logic                         bootmode_1_i;
+
+  logic [1:0]                   bootmode_i;
+   
+  assign bootmode_i = { bootmode_1_i , bootmode_0_i };
    
 
   assign jtag_ibex_i.tck        = s_jtag_ot_TCK;  
@@ -496,8 +509,11 @@ module al_saqr
   port_signals_pad2soc_t              s_port_signals_pad2soc;
   port_signals_soc2pad_t              s_port_signals_soc2pad;
 
-  axi_out_req_t  ot_axi_req;
-  axi_out_resp_t ot_axi_rsp;
+  qspi_to_pad_ot_t                    s_ot_qspi_to_pad;
+  pad_to_qspi_ot_t                    s_ot_pad_to_qspi;
+    
+  axi_out_req_t                       ot_axi_req;
+  axi_out_resp_t                      ot_axi_rsp;
    
   localparam RegAw  = 32;
   localparam RegDw  = 32;
@@ -645,7 +661,9 @@ module al_saqr
       .jtag_tdo_i       ( s_jtag_TDO       ),
       .jtag_tms_o       ( s_jtag_TMS       ),
       .jtag_trst_o      ( s_jtag_TRSTn     ),
-
+      .bootmode_0_i     ( bootmode_0_i     ),     
+      .bootmode_1_i     ( bootmode_1_i     ),
+              
       .pad_jtag_ot_tck  ( jtag_ot_TCK      ),
       .pad_jtag_ot_tdi  ( jtag_ot_TDI      ),
       .pad_jtag_ot_tdo  ( jtag_ot_TDO_data ),
@@ -665,7 +683,12 @@ module al_saqr
       .pad_jtag_tms     ( jtag_TMS         ),
       .pad_jtag_trst    ( jtag_TRSTn       ),
       .pad_bypass       ( bypass_clk_i     ),
-      .pad_xtal_in      ( rtc_i            )
+      .pad_xtal_in      ( rtc_i            ),
+
+      .bootmode_0       ( bootmode_0       ),
+      .bootmode_1       ( bootmode_1       )
+            
+       
 
      );
 
@@ -709,7 +732,7 @@ module al_saqr
      .clk_ref_i        ( s_soc_clk          ),
      .rst_ni           ( rst_ni             ),
      .fetch_en_i       ( '0                 ),
-     .bootmode_i       ( '0                 ),
+     .bootmode_i       ( bootmode_i         ),
      .test_enable_i    ( '0                 ),
      .irq_ibex_i       ( doorbell_irq       ),
    // JTAG port
@@ -739,11 +762,11 @@ module al_saqr
      .ibex_uart_rx_i   ( '0            ),
      .ibex_uart_tx_o   (               ),
    // SPI host 
-     .spi_host_SCK_o   (               ),
-     .spi_host_CSB_o   (               ),
-     .spi_host_SD_o    (               ),
-     .spi_host_SD_i    ( '0            ),
-     .spi_host_SD_en_o (               )        
+     .spi_host_SCK_o   ( s_ot_qspi_to_pad[0:0] ),
+     .spi_host_CSB_o   ( s_ot_qspi_to_pad[1:1] ),
+     .spi_host_SD_o    ( s_ot_qspi_to_pad[5:2] ),
+     .spi_host_SD_i    ( s_ot_pad_to_qspi[3:0] ),
+     .spi_host_SD_en_o ( s_ot_qspi_to_pad[9:6] )        
    
    );
 

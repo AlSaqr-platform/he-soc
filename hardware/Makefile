@@ -102,7 +102,7 @@ ifdef spike-tandem
 endif
 
 # Compile and sim flags
-compile_flag     += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 3999 -suppress 7063 -suppress 3009 -suppress 13262 -permissive +define+$(defines) +define+ALSAQR
+compile_flag     += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 3999 -suppress 7063 -suppress 3009 -suppress 13262 -permissive +define+$(defines)
 uvm-flags        += +UVM_NO_RELNOTES +UVM_VERBOSITY=LOW
 questa-flags     += -t 1ns -64 -coverage -classdebug $(gui-sim) $(QUESTASIM_FLAGS) -suppress 7063 -suppress 3009 -suppress 3999
 compile_flag_vhd += -64 -nologo -quiet -2008

@@ -553,4 +553,20 @@
   assign load.sd3_i = driver.sd3_o; \
   assign load.sd3_oen_i = driver.sd3_oen_o; \
 
+`define ASSIGN_PERIPHS_QSPI_OT_PAD2SOC(load, driver) \
+  assign load.sd0_i = driver.sd0_o; \
+  assign load.sd1_i = driver.sd1_o; \
+  assign load.sd2_i = driver.sd2_o; \
+  assign load.sd3_i = driver.sd3_o; \
 
+`define ASSIGN_PERIPHS_QSPI_OT_SOC2PAD(load, driver) \
+  assign load.clk_i = driver.clk_o; \
+  assign load.csn0_i = driver.csn0_o; \
+  assign load.sd0_i = driver.sd0_o; \
+  assign load.sd0_oen_i = driver.sd0_oen_o; \
+  assign load.sd1_i = driver.sd1_o; \
+  assign load.sd1_oen_i = driver.sd1_oen_o; \
+  assign load.sd2_i = driver.sd2_o; \
+  assign load.sd2_oen_i = driver.sd2_oen_o; \
+  assign load.sd3_i = driver.sd3_o; \
+  assign load.sd3_oen_i = driver.sd3_oen_o; \
