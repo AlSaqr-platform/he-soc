@@ -1235,7 +1235,7 @@ module al_saqr
           .pad_periphs_a_90_pad(pad_periphs_a_90_pad),
           .pad_periphs_a_91_pad(pad_periphs_a_91_pad),
           .pad_periphs_a_92_pad(pad_periphs_a_92_pad),
-          
+  
           .pad_periphs_b_00_pad(pad_periphs_b_00_pad),
           .pad_periphs_b_01_pad(pad_periphs_b_01_pad),
           .pad_periphs_b_02_pad(pad_periphs_b_02_pad),
@@ -1315,7 +1315,6 @@ module al_saqr
           .pad_periphs_linux_qspi_03_pad(pad_periphs_linux_qspi_03_pad),
           .pad_periphs_linux_qspi_04_pad(pad_periphs_linux_qspi_04_pad),
           .pad_periphs_linux_qspi_05_pad(pad_periphs_linux_qspi_05_pad),                    
-        
        
           .config_req_i   ( reg_req     ),
           .config_rsp_o   ( reg_rsp     )      
