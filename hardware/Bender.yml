@@ -42,10 +42,6 @@ dependencies:
   opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "lowRISC-rebase" }
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
 
-workspace:
-  package_links:
-    opentitan: opentitan
-    
 export_include_dirs:
   - include/
 

@@ -28,7 +28,7 @@ test-location  ?= output/test
 torture-logs   :=
 # custom elf bin to run with sim or sim-verilator
 elf-bin        ?= ../software/mbox_test/mbox_test.riscv
-ibex_elf_bin   ?= ./opentitan/sw/bare-metal/alsaqr/mbox_test/mbox_test.elf
+ibex_elf_bin   ?= ../software/mbox_test/mbox_test_ibex.elf
 #cl-bin         ?= ../software/pulp/mm.riscv
 cl-bin         ?= none
 # root pathelf-bin

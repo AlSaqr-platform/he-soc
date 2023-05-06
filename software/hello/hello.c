@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
-//#define FPGA_EMULATION
+#define FPGA_EMULATION
 
 int main(int argc, char const *argv[]) {
 

@@ -40,7 +40,7 @@ set_input_delay -clock tck -clock_fall 5.000 [get_ports pad_jtag_tms]
 set_output_delay -clock tck 5.000 [get_ports pad_jtag_tdo]
 
 set_input_delay -clock ot_tck -clock_fall 5.000 [get_ports pad_jtag_ot_tdi]
-set_input_delay -clock ot_ck -clock_fall 5.000 [get_ports pad_jtag_ot_tms]
+set_input_delay -clock ot_tck -clock_fall 5.000 [get_ports pad_jtag_ot_tms]
 set_output_delay -clock ot_tck 5.000 [get_ports pad_jtag_ot_tdo]
 
 set_max_delay -to [get_ports pad_jtag_tdo] 20.000

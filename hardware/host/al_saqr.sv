@@ -305,8 +305,8 @@ module al_saqr
   import edn_pkg::*;
   import top_earlgrey_pkg::*;
 
-  jtag_pkg::jtag_req_t jtag_ibex_i;
-  jtag_pkg::jtag_rsp_t jtag_ibex_o;
+  jtag_ot_pkg::jtag_req_t jtag_ibex_i;
+  jtag_ot_pkg::jtag_rsp_t jtag_ibex_o;
 
   logic                         s_jtag_ot_TCK;
   logic                         s_jtag_ot_TDI;

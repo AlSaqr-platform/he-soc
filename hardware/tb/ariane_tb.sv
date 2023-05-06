@@ -18,7 +18,7 @@
 
 import ariane_pkg::*;
 import uvm_pkg::*;
-import jtag_pkg::*;
+import jtag_ot_pkg::*;
 import ariane_soc::HyperbusNumPhys;
 import ariane_soc::NumChipsPerHyperbus;
 
