@@ -39,7 +39,7 @@ dependencies:
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", version: 0.0.1 }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
   opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "feature/cfi" }
-  axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "165d04341f80ccbf1e1a7d9cd2c78ced9702084e" }
+  axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "feature/cfi" }
 
 
 
