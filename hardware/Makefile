@@ -2,6 +2,8 @@
 # Date: 03/19/2017
 # Description: Makefile for linting and testing Ariane.
 
+ROOT_PATH       = $(shell pwd)
+
 # questa library
 library        ?= work
 # verilator lib
@@ -27,8 +29,8 @@ test-location  ?= output/test
 # set to either nothing or -log
 torture-logs   :=
 # custom elf bin to run with sim or sim-verilator
-elf-bin        ?= /scratch/eparisi/he-soc/software/cfi_jump/cfi_jump.riscv
-ibex_elf_bin   ?= /scratch/eparisi/he-soc/hardware/working_dir/opentitan/hw/top_earlgrey/sw/tests/mbox_test/mbox_test.elf
+elf-bin        ?= $(ROOT_PATH)/../software/cfi_jump/cfi_jump.riscv
+ibex_elf_bin   ?= $(ROOT_PATH)/working_dir/opentitan/hw/top_earlgrey/sw/tests/mbox_test/mbox_test.elf
 #cl-bin         ?= ../software/pulp/mm.riscv
 cl-bin         ?= none
 # root pathelf-bin
