@@ -42,8 +42,10 @@ package ariane_soc;
   localparam logic [31:0] DbgIdCode= 32'h20001001;
 
   typedef enum int unsigned {
-    HYAXI       = 12,
-    AXILiteDom  = 11,
+    CFI         = 14, // added for CFI feature
+    HYAXI       = 13,
+    SERIAL_LINK = 12,
+    AXILiteDom  = 11, 
     UART        = 10,
     Ethernet    = 9,
     SPI         = 8,
@@ -56,8 +58,10 @@ package ariane_soc;
     ROM         = 1,
     Debug       = 0
   } axi_slaves_t;
-
-  localparam NB_PERIPHERALS = HYAXI + 1;
+   
+  // Added one more 1 for the AXI4 CFI mailbox, original version was:
+  //localparam NB_PERIPHERALS = HYAXI + 1;  
+  localparam NB_PERIPHERALS = HYAXI + 1 + 1; 
 
   `ifdef FPGA_EMUL
   localparam HyperbusNumPhys          = 1;
@@ -80,9 +84,10 @@ package ariane_soc;
   localparam logic[63:0] SPILength      = 64'h800000;
   localparam logic[63:0] EthernetLength = 64'h10000;
   localparam logic[63:0] HYAXILength    = 64'h20000000;  //HyperRamSize*NumChipsPerHyperbus*HyperbusNumPhys;  // 256MB of hyperrams
-  localparam logic[63:0] L2SPMLength    = 64'h10000;     // 64KB of scratchpad memory
-  localparam logic[63:0] APB_SLVSLength = 64'h123000;
-
+  localparam logic[63:0] L2SPMLength    = 64'h100000;   // 1MB of scratchpad memory 
+  localparam logic[63:0] APB_SLVSLength = 64'h122000;
+  localparam logic[63:0] CFILenght      = 64'h100000;  // added for CFI feature
+   
   // Instantiate AXI protocol checkers
   localparam bit GenProtocolChecker = 1'b0;
 
@@ -99,10 +104,11 @@ package ariane_soc;
     SPIBase      = 64'h2000_0000,
     EthernetBase = 64'h3000_0000,
     UARTBase     = 64'h4000_0000,
-    HYAXIBase    = 64'h8000_0000
-  } soc_bus_start_t;
-  // Let x = NB_PERIPHERALS: as long as Base(xth slave)+Length(xth slave) is < 1_0000_0000 we can cut the 32 MSBs addresses without any worries.
-
+    SerLink_Base = 64'h6000_0000,
+    HYAXIBase    = 64'h8000_0000,
+    CFIBase      = 64'hA000_0000  // added for CFI feature
+  } soc_bus_start_t; 
+  // Let x = NB_PERIPHERALS: as long as Base(xth slave)+Length(xth slave) is < 1_0000_0000 we can cut the 32 MSBs addresses without any worries. 
 
   localparam NrRegion = 1;
   localparam logic [NrRegion-1:0][NB_PERIPHERALS-1:0] ValidRule = {{NrRegion * NB_PERIPHERALS}{1'b1}};

@@ -588,8 +588,13 @@ module cva6_subsystem
   assign addr_map[ariane_soc::AXILiteDom] = '{
     idx:  ariane_soc::AXILiteDom,
     start_addr: ariane_soc::AXILiteBase,
-    end_addr:   ariane_soc::AXILiteBase + ariane_soc::AXILiteLength
-  };
+    end_addr:   ariane_soc::AXILiteBase + ariane_soc::AXILiteLength  
+  }; 
+  assign addr_map[ariane_soc::CFI] = '{ 
+    idx:  ariane_soc::CFI,
+    start_addr: ariane_soc::CFIBase,
+    end_addr:   ariane_soc::CFIBase + ariane_soc::AXILiteLength  
+  }; 
 
   axi_xbar_intf #(
     .AXI_USER_WIDTH         ( AXI_USER_WIDTH                        ),
@@ -647,9 +652,34 @@ module cva6_subsystem
     .ipi_o       ( ipi            )
   );
 
-
   `AXI_ASSIGN_TO_REQ(axi_clint_req,master[ariane_soc::CLINT])
   `AXI_ASSIGN_FROM_RESP(master[ariane_soc::CLINT],axi_clint_resp)
+
+  //----------------
+  // CFI AXI4 Mailbox
+  //----------------
+
+  ariane_axi_soc::req_slv_t    axi_cfi_mbox_req;
+  ariane_axi_soc::resp_slv_t   axi_cfi_mbox_resp;
+
+  axi_scmi_mailbox #(
+    .AXI_ADDR_WIDTH       (AXI_ADDRESS_WIDTH         ),
+    .AXI_MST_DATA_WIDTH   (AXI_DATA_WIDTH            ),
+    .AXI_ID_WIDTH         (ariane_soc::IdWidthSlave  ),
+    .AXI_USER_WIDTH       (AXI_USER_WIDTH            ),
+    .axi_req_t            (ariane_axi_soc::req_slv_t ),
+    .axi_resp_t           (ariane_axi_soc::resp_slv_t)
+  ) i_cfi_axi_mailbox (
+    .clk_i                (clk_i            ), 
+    .rst_ni               (ndmreset_n       ), 
+    .axi_mbox_req         (axi_cfi_mbox_req ), 
+    .axi_mbox_rsp         (axi_cfi_mbox_resp),
+    .doorbell_irq_o       (                 ), 
+    .completion_irq_o     (                 )    
+  );
+
+  `AXI_ASSIGN_TO_REQ(axi_cfi_mbox_req, master[ariane_soc::CFI])
+  `AXI_ASSIGN_FROM_RESP(master[ariane_soc::CFI], axi_cfi_mbox_resp)
 
   // ---------------
   // Peripherals

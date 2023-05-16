@@ -64,7 +64,6 @@ module axi_lite_subsystem
                                c2hmailbox_lite_resp,
                                axi_lite_mbox_rsp;
 
-
   AXI_LITE #(
     .AXI_ADDR_WIDTH (AXI_LITE_ADDR_WIDTH),
     .AXI_DATA_WIDTH (AXI_LITE_DATA_WIDTH)
@@ -253,6 +252,18 @@ module axi_lite_subsystem
               .serial_o (           )
               );
 
+  axi_lite_scmi_mailbox #(
+       .axi_lite_req_t(ariane_axi_soc::req_lite_t ),
+       .axi_lite_resp_t(ariane_axi_soc::resp_lite_t )
+   ) u_scmi_shared_memory (
+       .clk_i,
+       .rst_ni,
+       .axi_lite_mbox_req,
+       .axi_lite_mbox_rsp,
+       .doorbell_irq_o,
+       .completion_irq_o
+   );
+   
   initial assert (AXI_LITE_ADDR_WIDTH == 32)
     else $fatal(1, "Change `tlb_cfg_xbar_rule_t` for address width other than 32 bit!");
 
