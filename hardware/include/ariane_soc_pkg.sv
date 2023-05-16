@@ -37,6 +37,7 @@ package ariane_soc;
   localparam SocToClusterIdWidth = 3;   
    
   typedef enum int unsigned {
+    CFI         = 14, // added for CFI feature
     HYAXI       = 13,
     SERIAL_LINK = 12,
     AXILiteDom  = 11, 
@@ -53,7 +54,9 @@ package ariane_soc;
     Debug       = 0
   } axi_slaves_t;
    
-  localparam NB_PERIPHERALS = HYAXI + 1;
+  // Added one more 1 for the AXI4 CFI mailbox, original version was:
+  //localparam NB_PERIPHERALS = HYAXI + 1;  
+  localparam NB_PERIPHERALS = HYAXI + 1 + 1; 
 
   localparam HyperbusNumPhys          = 2;
   localparam NumChipsPerHyperbus      = 2;
@@ -74,6 +77,7 @@ package ariane_soc;
   localparam logic[63:0] HYAXILength    = 64'h20000000;  //HyperRamSize*NumChipsPerHyperbus*HyperbusNumPhys;  // 256MB of hyperrams
   localparam logic[63:0] L2SPMLength    = 64'h100000;   // 1MB of scratchpad memory 
   localparam logic[63:0] APB_SLVSLength = 64'h122000;
+  localparam logic[63:0] CFILenght      = 64'h100000;  // added for CFI feature
    
   // Instantiate AXI protocol checkers
   localparam bit GenProtocolChecker = 1'b0;
@@ -92,7 +96,8 @@ package ariane_soc;
     EthernetBase = 64'h3000_0000,
     UARTBase     = 64'h4000_0000,
     SerLink_Base = 64'h6000_0000,
-    HYAXIBase    = 64'h8000_0000 
+    HYAXIBase    = 64'h8000_0000,
+    CFIBase      = 64'hA000_0000  // added for CFI feature
   } soc_bus_start_t; 
   // Let x = NB_PERIPHERALS: as long as Base(xth slave)+Length(xth slave) is < 1_0000_0000 we can cut the 32 MSBs addresses without any worries. 
 
