@@ -104,10 +104,10 @@ pad_domains:
       - name: pad_gpio_b_{i:2d}
         mux_groups: [self]
         description: "pads for FPGA testing"
-        multiple: 14
+        multiple: 26
         pad_type: pad_alsaqr
         is_static: false
-        
+
       ##  _____           _       
       ## |  __ \         | |      
       ## | |__) |__  _ __| |_ ___ 
@@ -205,11 +205,59 @@ pad_domains:
               oen: cmd_oen_i  
               puen: 1'b0
 
+      - name: qspi_ot
+        output_defaults: 1'b0
+        ports:
+          - name: qspi_sck
+            mux_groups: [pad_gpio_b_14]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: qspi_csn
+            mux_groups: [pad_gpio_b_15]
+            connections:
+              chip2pad: csn0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: qspi_sd{i}
+            multiple: 4
+            mux_groups: ["pad_gpio_b_{16+i:2d}"]
+            connections:
+              chip2pad: sd{i}_i
+              sd{i}_o: pad2chip
+              oen: sd{i}_oen_i
+              puen: 1'b1
+
+      - name: qspi
+        output_defaults: 1'b0
+        ports:
+          - name: qspi_sck
+            mux_groups: [pad_gpio_b_20]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: qspi_csn
+            mux_groups: [pad_gpio_b_21]
+            connections:
+              chip2pad: csn0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: qspi_sd{i}
+            multiple: 4
+            mux_groups: ["pad_gpio_b_{22+i:2d}"]
+            connections:
+              chip2pad: sd{i}_i
+              sd{i}_o: pad2chip
+              oen: sd{i}_oen_i
+              puen: 1'b1
+
       - name: gpio_b
         output_defaults: 1'b0
         ports:
           - name: gpio{i}
-            multiple: 14
+            multiple: 26
             mux_groups: ["pad_gpio_b_{i:2d}"]
             description: "Bidirectional GPIO {i} signal"
             connections:

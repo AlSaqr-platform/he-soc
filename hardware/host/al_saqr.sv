@@ -61,10 +61,7 @@ module al_saqr
   parameter int unsigned NUM_WORDS         = 2**25,         // memory size
   parameter bit          StallRandomOutput = 1'b0,
   parameter bit          StallRandomInput  = 1'b0,
-  parameter bit          JtagEnable        = 1'b1,
-  parameter              RomCtrlBootRomInitFile = "./opentitan/sw/bare-metal/opentitan/bootrom/boot_rom.vmem",
-  parameter              OtpCtrlMemInitFile     = "./opentitan/sw/bare-metal/opentitan/otp/otp-img.mem",
-  parameter              FlashCtrlMemInitFile   = "" //./opentitan/sw/bare-metal/alsaqr/hmac_test/hmac_smoketest.vmem"
+  parameter bit          JtagEnable        = 1'b1
 ) (
   inout logic         rtc_i,
   inout logic         rst_ni,
@@ -723,14 +720,11 @@ module al_saqr
       .dst_resp_i                ( ot_axi_rsp )
    );
 
-   secure_subsystem_synth_wrap #(
-      .RomCtrlBootRomInitFile ( RomCtrlBootRomInitFile ),
-      .OtpCtrlMemInitFile     ( OtpCtrlMemInitFile     ),
-      .FlashCtrlMemInitFile   ( FlashCtrlMemInitFile   )
-   ) i_RoT_wrap (
+   secure_subsystem_synth_wrap i_RoT_wrap (
      .clk_i            ( s_soc_clk          ),
      .clk_ref_i        ( s_soc_clk          ),
      .rst_ni           ( rst_ni             ),
+     .pwr_on_rst_ni    ( rst_ni             ),
      .fetch_en_i       ( '0                 ),
      .bootmode_i       ( bootmode_i         ),
      .test_enable_i    ( '0                 ),
@@ -757,7 +751,9 @@ module al_saqr
      .async_axi_out_ar_rptr_i,
      .async_axi_out_r_data_i,
      .async_axi_out_r_wptr_i,
-     .async_axi_out_r_rptr_o,      
+     .async_axi_out_r_rptr_o,
+     .axi_isolate_i(1'b0),
+     .axi_isolated_o(    ),
    // Uart   
      .ibex_uart_rx_i   ( '0            ),
      .ibex_uart_tx_o   (               ),
@@ -1100,6 +1096,18 @@ module al_saqr
         .pad_periphs_pad_gpio_b_11_pad(pad_periphs_pad_gpio_b_11_pad),
         .pad_periphs_pad_gpio_b_12_pad(pad_periphs_pad_gpio_b_12_pad),
         .pad_periphs_pad_gpio_b_13_pad(pad_periphs_pad_gpio_b_13_pad),
+        .pad_periphs_pad_gpio_b_14_pad(pad_periphs_pad_gpio_b_14_pad),
+        .pad_periphs_pad_gpio_b_15_pad(pad_periphs_pad_gpio_b_15_pad),
+        .pad_periphs_pad_gpio_b_16_pad(pad_periphs_pad_gpio_b_16_pad),
+        .pad_periphs_pad_gpio_b_17_pad(pad_periphs_pad_gpio_b_17_pad),
+        .pad_periphs_pad_gpio_b_18_pad(pad_periphs_pad_gpio_b_18_pad),
+        .pad_periphs_pad_gpio_b_19_pad(pad_periphs_pad_gpio_b_19_pad),
+        .pad_periphs_pad_gpio_b_20_pad(pad_periphs_pad_gpio_b_20_pad),
+        .pad_periphs_pad_gpio_b_21_pad(pad_periphs_pad_gpio_b_21_pad),
+        .pad_periphs_pad_gpio_b_22_pad(pad_periphs_pad_gpio_b_22_pad),
+        .pad_periphs_pad_gpio_b_23_pad(pad_periphs_pad_gpio_b_23_pad),
+        .pad_periphs_pad_gpio_b_24_pad(pad_periphs_pad_gpio_b_24_pad),
+        .pad_periphs_pad_gpio_b_25_pad(pad_periphs_pad_gpio_b_25_pad),
         
 
         .config_req_i   ( reg_req     ),
@@ -1120,11 +1128,12 @@ module al_saqr
 
       `ASSIGN_PERIPHS_GPIO_B_PAD2SOC(s_pad_to_gpio_b,s_port_signals_pad2soc.periphs.gpio_b)
       `ASSIGN_PERIPHS_GPIO_B_SOC2PAD(s_port_signals_soc2pad.periphs.gpio_b,s_gpio_b_to_pad)
+
 */
    
-       logic DUMMY;
-       assign DUMMY = 1'b0;
-   
+      logic DUMMY;
+      assign DUMMY = 1'b0;
+  
    `else // !`ifdef SIMPLE_PADFRAME
     `ifndef FPGA_EMUL
 

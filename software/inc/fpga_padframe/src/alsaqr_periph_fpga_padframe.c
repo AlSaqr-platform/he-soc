@@ -1309,3 +1309,1119 @@ alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_sel_t alsaqr_periph_fpga_p
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;
 }
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_14_cfg_chip2pad_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_CHIP2PAD_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_14_cfg_chip2pad_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_CHIP2PAD_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_14_cfg_drv_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_field32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_DRV_FIELD, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_14_cfg_drv_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_field32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_DRV_FIELD);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_14_cfg_oen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_OEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_14_cfg_oen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_OEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_14_cfg_puen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_PUEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_14_cfg_puen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_PUEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_14_cfg_slw_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_SLW_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_14_cfg_slw_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_SLW_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_14_cfg_smt_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_SMT_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_14_cfg_smt_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_SMT_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_14_mux_set(alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_14_mux_sel_t mux_sel) {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+  uint32_t field_mask = (1<<sel_size)-1;
+  REG_WRITE32(address, mux_sel & field_mask);
+}
+
+alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_14_mux_sel_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_14_mux_get() {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+
+  uint32_t field_mask = (1<<sel_size)-1;
+  return REG_READ32(address) & field_mask;
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_15_cfg_chip2pad_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_CHIP2PAD_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_15_cfg_chip2pad_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_CHIP2PAD_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_15_cfg_drv_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_field32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_DRV_FIELD, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_15_cfg_drv_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_field32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_DRV_FIELD);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_15_cfg_oen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_OEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_15_cfg_oen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_OEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_15_cfg_puen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_PUEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_15_cfg_puen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_PUEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_15_cfg_slw_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_SLW_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_15_cfg_slw_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_SLW_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_15_cfg_smt_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_SMT_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_15_cfg_smt_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_SMT_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_15_mux_set(alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_15_mux_sel_t mux_sel) {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+  uint32_t field_mask = (1<<sel_size)-1;
+  REG_WRITE32(address, mux_sel & field_mask);
+}
+
+alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_15_mux_sel_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_15_mux_get() {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+
+  uint32_t field_mask = (1<<sel_size)-1;
+  return REG_READ32(address) & field_mask;
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_16_cfg_chip2pad_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_CHIP2PAD_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_16_cfg_chip2pad_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_CHIP2PAD_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_16_cfg_drv_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_field32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_DRV_FIELD, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_16_cfg_drv_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_field32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_DRV_FIELD);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_16_cfg_oen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_OEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_16_cfg_oen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_OEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_16_cfg_puen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_PUEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_16_cfg_puen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_PUEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_16_cfg_slw_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_SLW_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_16_cfg_slw_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_SLW_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_16_cfg_smt_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_SMT_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_16_cfg_smt_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_SMT_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_16_mux_set(alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_16_mux_sel_t mux_sel) {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+  uint32_t field_mask = (1<<sel_size)-1;
+  REG_WRITE32(address, mux_sel & field_mask);
+}
+
+alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_16_mux_sel_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_16_mux_get() {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+
+  uint32_t field_mask = (1<<sel_size)-1;
+  return REG_READ32(address) & field_mask;
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_17_cfg_chip2pad_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_CHIP2PAD_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_17_cfg_chip2pad_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_CHIP2PAD_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_17_cfg_drv_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_field32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_DRV_FIELD, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_17_cfg_drv_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_field32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_DRV_FIELD);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_17_cfg_oen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_OEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_17_cfg_oen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_OEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_17_cfg_puen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_PUEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_17_cfg_puen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_PUEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_17_cfg_slw_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_SLW_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_17_cfg_slw_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_SLW_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_17_cfg_smt_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_SMT_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_17_cfg_smt_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_SMT_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_17_mux_set(alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_17_mux_sel_t mux_sel) {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+  uint32_t field_mask = (1<<sel_size)-1;
+  REG_WRITE32(address, mux_sel & field_mask);
+}
+
+alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_17_mux_sel_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_17_mux_get() {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+
+  uint32_t field_mask = (1<<sel_size)-1;
+  return REG_READ32(address) & field_mask;
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_18_cfg_chip2pad_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_CHIP2PAD_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_18_cfg_chip2pad_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_CHIP2PAD_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_18_cfg_drv_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_field32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_DRV_FIELD, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_18_cfg_drv_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_field32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_DRV_FIELD);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_18_cfg_oen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_OEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_18_cfg_oen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_OEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_18_cfg_puen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_PUEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_18_cfg_puen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_PUEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_18_cfg_slw_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_SLW_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_18_cfg_slw_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_SLW_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_18_cfg_smt_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_SMT_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_18_cfg_smt_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_SMT_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_18_mux_set(alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_18_mux_sel_t mux_sel) {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+  uint32_t field_mask = (1<<sel_size)-1;
+  REG_WRITE32(address, mux_sel & field_mask);
+}
+
+alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_18_mux_sel_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_18_mux_get() {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+
+  uint32_t field_mask = (1<<sel_size)-1;
+  return REG_READ32(address) & field_mask;
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_19_cfg_chip2pad_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_CHIP2PAD_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_19_cfg_chip2pad_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_CHIP2PAD_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_19_cfg_drv_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_field32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_DRV_FIELD, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_19_cfg_drv_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_field32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_DRV_FIELD);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_19_cfg_oen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_OEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_19_cfg_oen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_OEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_19_cfg_puen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_PUEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_19_cfg_puen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_PUEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_19_cfg_slw_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_SLW_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_19_cfg_slw_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_SLW_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_19_cfg_smt_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_SMT_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_19_cfg_smt_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_SMT_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_19_mux_set(alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_19_mux_sel_t mux_sel) {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+  uint32_t field_mask = (1<<sel_size)-1;
+  REG_WRITE32(address, mux_sel & field_mask);
+}
+
+alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_19_mux_sel_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_19_mux_get() {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+
+  uint32_t field_mask = (1<<sel_size)-1;
+  return REG_READ32(address) & field_mask;
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_20_cfg_chip2pad_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_CHIP2PAD_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_20_cfg_chip2pad_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_CHIP2PAD_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_20_cfg_drv_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_field32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_DRV_FIELD, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_20_cfg_drv_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_field32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_DRV_FIELD);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_20_cfg_oen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_OEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_20_cfg_oen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_OEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_20_cfg_puen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_PUEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_20_cfg_puen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_PUEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_20_cfg_slw_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_SLW_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_20_cfg_slw_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_SLW_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_20_cfg_smt_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_SMT_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_20_cfg_smt_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_SMT_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_20_mux_set(alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_20_mux_sel_t mux_sel) {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+  uint32_t field_mask = (1<<sel_size)-1;
+  REG_WRITE32(address, mux_sel & field_mask);
+}
+
+alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_20_mux_sel_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_20_mux_get() {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+
+  uint32_t field_mask = (1<<sel_size)-1;
+  return REG_READ32(address) & field_mask;
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_21_cfg_chip2pad_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_CHIP2PAD_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_21_cfg_chip2pad_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_CHIP2PAD_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_21_cfg_drv_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_field32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_DRV_FIELD, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_21_cfg_drv_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_field32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_DRV_FIELD);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_21_cfg_oen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_OEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_21_cfg_oen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_OEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_21_cfg_puen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_PUEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_21_cfg_puen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_PUEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_21_cfg_slw_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_SLW_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_21_cfg_slw_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_SLW_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_21_cfg_smt_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_SMT_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_21_cfg_smt_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_SMT_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_21_mux_set(alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_21_mux_sel_t mux_sel) {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+  uint32_t field_mask = (1<<sel_size)-1;
+  REG_WRITE32(address, mux_sel & field_mask);
+}
+
+alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_21_mux_sel_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_21_mux_get() {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+
+  uint32_t field_mask = (1<<sel_size)-1;
+  return REG_READ32(address) & field_mask;
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_22_cfg_chip2pad_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_CHIP2PAD_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_22_cfg_chip2pad_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_CHIP2PAD_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_22_cfg_drv_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_field32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_DRV_FIELD, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_22_cfg_drv_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_field32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_DRV_FIELD);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_22_cfg_oen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_OEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_22_cfg_oen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_OEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_22_cfg_puen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_PUEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_22_cfg_puen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_PUEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_22_cfg_slw_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_SLW_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_22_cfg_slw_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_SLW_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_22_cfg_smt_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_SMT_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_22_cfg_smt_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_SMT_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_22_mux_set(alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_22_mux_sel_t mux_sel) {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+  uint32_t field_mask = (1<<sel_size)-1;
+  REG_WRITE32(address, mux_sel & field_mask);
+}
+
+alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_22_mux_sel_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_22_mux_get() {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+
+  uint32_t field_mask = (1<<sel_size)-1;
+  return REG_READ32(address) & field_mask;
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_23_cfg_chip2pad_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_CHIP2PAD_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_23_cfg_chip2pad_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_CHIP2PAD_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_23_cfg_drv_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_field32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_DRV_FIELD, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_23_cfg_drv_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_field32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_DRV_FIELD);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_23_cfg_oen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_OEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_23_cfg_oen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_OEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_23_cfg_puen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_PUEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_23_cfg_puen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_PUEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_23_cfg_slw_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_SLW_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_23_cfg_slw_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_SLW_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_23_cfg_smt_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_SMT_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_23_cfg_smt_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_SMT_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_23_mux_set(alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_23_mux_sel_t mux_sel) {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+  uint32_t field_mask = (1<<sel_size)-1;
+  REG_WRITE32(address, mux_sel & field_mask);
+}
+
+alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_23_mux_sel_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_23_mux_get() {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+
+  uint32_t field_mask = (1<<sel_size)-1;
+  return REG_READ32(address) & field_mask;
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_24_cfg_chip2pad_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_CHIP2PAD_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_24_cfg_chip2pad_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_CHIP2PAD_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_24_cfg_drv_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_field32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_DRV_FIELD, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_24_cfg_drv_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_field32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_DRV_FIELD);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_24_cfg_oen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_OEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_24_cfg_oen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_OEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_24_cfg_puen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_PUEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_24_cfg_puen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_PUEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_24_cfg_slw_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_SLW_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_24_cfg_slw_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_SLW_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_24_cfg_smt_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_SMT_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_24_cfg_smt_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_SMT_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_24_mux_set(alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_24_mux_sel_t mux_sel) {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+  uint32_t field_mask = (1<<sel_size)-1;
+  REG_WRITE32(address, mux_sel & field_mask);
+}
+
+alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_24_mux_sel_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_24_mux_get() {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+
+  uint32_t field_mask = (1<<sel_size)-1;
+  return REG_READ32(address) & field_mask;
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_25_cfg_chip2pad_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_CHIP2PAD_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_25_cfg_chip2pad_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_CHIP2PAD_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_25_cfg_drv_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_field32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_DRV_FIELD, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_25_cfg_drv_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_field32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_DRV_FIELD);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_25_cfg_oen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_OEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_25_cfg_oen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_OEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_25_cfg_puen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_PUEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_25_cfg_puen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_PUEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_25_cfg_slw_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_SLW_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_25_cfg_slw_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_SLW_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_25_cfg_smt_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_SMT_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_25_cfg_smt_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_SMT_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_25_mux_set(alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_25_mux_sel_t mux_sel) {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+  uint32_t field_mask = (1<<sel_size)-1;
+  REG_WRITE32(address, mux_sel & field_mask);
+}
+
+alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_25_mux_sel_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_25_mux_get() {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 2;
+
+  uint32_t field_mask = (1<<sel_size)-1;
+  return REG_READ32(address) & field_mask;
+}

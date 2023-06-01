@@ -127,8 +127,8 @@ pad_domains:
         is_static: false
       - name: pad_gpio_f_{i:2d}
         mux_groups: [self]
-        description: "pads for 1 camera, 2 uart, 1 spi, 1 i2c"
-        multiple: 17
+        description: "pads for 1 camera, 2 uart, 1 spi, 1 i2c, OT qspi, linux qspi"
+        multiple: 29
         pad_type: pad_alsaqr
         is_static: false
       - name: pad_gpio_pwm{i}
@@ -341,30 +341,6 @@ pad_domains:
             connections:
               chip2pad: csn0_i
               oen: 1'b0
-              puen: 1'b1
-
-      - name: qspi
-        output_defaults: 1'b0
-        ports:
-          - name: qspi_sck
-            mux_groups: [pad_gpio_b_28]
-            connections:
-              chip2pad: clk_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: qspi_csn
-            mux_groups: [pad_gpio_b_29]
-            connections:
-              chip2pad: csn0_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: qspi_sd{i}
-            multiple: 4
-            mux_groups: ["pad_gpio_b_{30+i:2d}"]
-            connections:
-              chip2pad: sd{i}_i
-              sd{i}_o: pad2chip
-              oen: sd{i}_oen_i
               puen: 1'b1
       
       - name: sdio0
@@ -951,4 +927,52 @@ pad_domains:
             connections:
               rx_o: pad2chip
               oen: 1'b1
+              puen: 1'b1
+              
+      - name: qspi_ot
+        output_defaults: 1'b0
+        ports:
+          - name: qspi_sck
+            mux_groups: [pad_gpio_f_17]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: qspi_csn
+            mux_groups: [pad_gpio_f_18]
+            connections:
+              chip2pad: csn0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: qspi_sd{i}
+            multiple: 4
+            mux_groups: ["pad_gpio_f_{19+i:2d}"]
+            connections:
+              chip2pad: sd{i}_i
+              sd{i}_o: pad2chip
+              oen: sd{i}_oen_i
+              puen: 1'b1
+
+      - name: qspi
+        output_defaults: 1'b0
+        ports:
+          - name: qspi_sck
+            mux_groups: [pad_gpio_f_23]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: qspi_csn
+            mux_groups: [pad_gpio_f_24]
+            connections:
+              chip2pad: csn0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: qspi_sd{i}
+            multiple: 4
+            mux_groups: ["pad_gpio_f_{25+i:2d}"]
+            connections:
+              chip2pad: sd{i}_i
+              sd{i}_o: pad2chip
+              oen: sd{i}_oen_i
               puen: 1'b1

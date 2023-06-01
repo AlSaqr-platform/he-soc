@@ -1398,7 +1398,7 @@ module ariane_tb;
 
       debug_ibex_module_init();
       load_ibex_binary(ibex_binary);   
-      // Call the JTAG preload task
+     // // Call the JTAG preload task
       jtag_ibex_data_preload(); 
       jtag_ibex_wakeup(32'h E0000080);
 

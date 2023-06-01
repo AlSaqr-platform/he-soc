@@ -60,6 +60,18 @@ module alsaqr_xilinx
     inout wire  pad_periphs_pad_gpio_b_11_pad,
     inout wire  pad_periphs_pad_gpio_b_12_pad,
     inout wire  pad_periphs_pad_gpio_b_13_pad,
+    inout wire  pad_periphs_pad_gpio_b_14_pad,
+    inout wire  pad_periphs_pad_gpio_b_15_pad,
+    inout wire  pad_periphs_pad_gpio_b_16_pad,
+    inout wire  pad_periphs_pad_gpio_b_17_pad,
+    inout wire  pad_periphs_pad_gpio_b_18_pad,
+    inout wire  pad_periphs_pad_gpio_b_19_pad,
+    inout wire  pad_periphs_pad_gpio_b_20_pad,
+    inout wire  pad_periphs_pad_gpio_b_21_pad,
+    inout wire  pad_periphs_pad_gpio_b_22_pad,
+    inout wire  pad_periphs_pad_gpio_b_23_pad,
+    inout wire  pad_periphs_pad_gpio_b_24_pad,
+    inout wire  pad_periphs_pad_gpio_b_25_pad,
     `endif
 
     input wire    pad_reset,
@@ -114,7 +126,7 @@ module alsaqr_xilinx
                                       .clk_out1(ref_clk)
                                       );
      
-   assign reset_n = ~pad_reset & pad_jtag_trst  & pad_jtag_ot_trst;//
+   assign reset_n = ~pad_reset & pad_jtag_trst & pad_jtag_ot_trst;// 
 
    
    AXI_BUS #(
@@ -336,11 +348,19 @@ ddr4_0 u_ddr4_0
         .pad_periphs_pad_gpio_b_11_pad(pad_periphs_pad_gpio_b_11_pad),
         .pad_periphs_pad_gpio_b_12_pad(pad_periphs_pad_gpio_b_12_pad),
         .pad_periphs_pad_gpio_b_13_pad(pad_periphs_pad_gpio_b_13_pad),
+        .pad_periphs_pad_gpio_b_14_pad(pad_periphs_pad_gpio_b_14_pad),
+        .pad_periphs_pad_gpio_b_15_pad(pad_periphs_pad_gpio_b_15_pad),
+        .pad_periphs_pad_gpio_b_16_pad(pad_periphs_pad_gpio_b_16_pad),
+        .pad_periphs_pad_gpio_b_17_pad(pad_periphs_pad_gpio_b_17_pad),
+        .pad_periphs_pad_gpio_b_18_pad(pad_periphs_pad_gpio_b_18_pad),
+        .pad_periphs_pad_gpio_b_19_pad(pad_periphs_pad_gpio_b_19_pad),
+        .pad_periphs_pad_gpio_b_20_pad(pad_periphs_pad_gpio_b_20_pad),
+        .pad_periphs_pad_gpio_b_21_pad(pad_periphs_pad_gpio_b_21_pad),
+        .pad_periphs_pad_gpio_b_22_pad(pad_periphs_pad_gpio_b_22_pad),
+        .pad_periphs_pad_gpio_b_23_pad(pad_periphs_pad_gpio_b_23_pad),
+        .pad_periphs_pad_gpio_b_24_pad(pad_periphs_pad_gpio_b_24_pad),
+        .pad_periphs_pad_gpio_b_25_pad(pad_periphs_pad_gpio_b_25_pad),
         `endif 
-        /* .spi_ot_S0        ( spi_ot_S0          ),
-        .spi_ot_S1        ( spi_ot_S1          ),
-        .spi_ot_SCK       ( spi_ot_SCK         ),
-        .spi_ot_CSNeg     ( spi_ot_CSNeg       )*/
 
         .apb_uart_rx_i    ( pad_uart1_rx       ),
         .apb_uart_tx_o    ( pad_uart1_tx       )
