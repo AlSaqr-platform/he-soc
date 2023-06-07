@@ -153,11 +153,20 @@ module host_domain
 
   // OpenTitan axi master
   input  axi_req_t            ot_axi_req,
+<<<<<<< HEAD
   output axi_rsp_t            ot_axi_rsp,
 
   // SCMI mailbox interrupt to Ibex
   output  logic               doorbell_irq_o
 
+=======
+  output axi_resp_t           ot_axi_rsp, 
+  
+  // Mbox interrupt
+  output  logic               doorbell_irq_o,
+  output  logic               cfi_doorbell_o
+   
+>>>>>>> 4bd9aa42... irq extended
 );
 
 
@@ -416,7 +425,8 @@ module host_domain
 
         .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
         .cva6_uart_tx_o       ( cva6_uart_tx_o       ),
-        .axi_lite_master      ( host_lite_bus        )
+        .axi_lite_master      ( host_lite_bus        ),
+        .cfi_doorbell_o       ( cfi_doorbell_o       )
     );
 
 

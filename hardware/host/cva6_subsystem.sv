@@ -76,8 +76,13 @@ module cva6_subsystem
   AXI_BUS.Master          hyper_axi_master,
   AXI_BUS.Master          cluster_axi_master,
   AXI_BUS.Slave           cluster_axi_slave,
+<<<<<<< HEAD
 
   // OpenTitan axi master
+=======
+  // axi slave interface piloted by opentitan
+  output logic            cfi_doorbell_o,
+>>>>>>> 4bd9aa42... irq extended
   input  axi_req_t        ot_axi_req,
   output axi_rsp_t        ot_axi_rsp,
 
@@ -662,6 +667,8 @@ module cva6_subsystem
   ariane_axi_soc::req_slv_t    axi_cfi_mbox_req;
   ariane_axi_soc::resp_slv_t   axi_cfi_mbox_resp;
 
+  logic                        cfi_completion;
+
   axi_scmi_mailbox #(
     .AXI_ADDR_WIDTH       (AXI_ADDRESS_WIDTH         ),
     .AXI_MST_DATA_WIDTH   (AXI_DATA_WIDTH            ),
@@ -674,8 +681,8 @@ module cva6_subsystem
     .rst_ni               (ndmreset_n       ), 
     .axi_mbox_req         (axi_cfi_mbox_req ), 
     .axi_mbox_rsp         (axi_cfi_mbox_resp),
-    .doorbell_irq_o       (                 ), 
-    .completion_irq_o     (                 )    
+    .doorbell_irq_o       (cfi_doorbell_o   ), 
+    .completion_irq_o     (cfi_completion   )    
   );
 
   `AXI_ASSIGN_TO_REQ(axi_cfi_mbox_req, master[ariane_soc::CFI])
@@ -745,6 +752,7 @@ module cva6_subsystem
     .ipi_i                ( ipi                         ), // async signal
     .time_irq_i           ( timer_irq                   ), // async signal
     .debug_req_i          ( debug_req_core              ), // async signal
+    .cfi_completion_i     ( cfi_completion              ),
     .data_master_aw_wptr_o( cva6_axi_master_dst.aw_wptr ),
     .data_master_aw_data_o( cva6_axi_master_dst.aw_data ),
     .data_master_aw_rptr_i( cva6_axi_master_dst.aw_rptr ),

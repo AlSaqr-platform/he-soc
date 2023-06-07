@@ -454,6 +454,12 @@ module al_saqr
   logic s_cluster_eoc;
   logic s_cluster_eoc_sync;
 
+  logic fake_rst;
+   
+  logic doorbell_irq_o; 
+
+  logic cfi_doorbell;
+   
   pad_to_hyper_t [HyperbusNumPhys-1:0] s_pad_to_hyper;
   hyper_to_pad_t [HyperbusNumPhys-1:0] s_hyper_to_pad;
 
@@ -647,7 +653,8 @@ module al_saqr
       .ot_axi_req             ( ot_axi_req                      ),
       .ot_axi_rsp             ( ot_axi_rsp                      ),
 
-      .doorbell_irq_o         ( doorbell_irq                    )
+      .doorbell_irq_o         ( doorbell_irq                    ),
+      .cfi_doorbell_o         ( cfi_doorbell                    )
     );
 
    pad_frame #()
@@ -1089,7 +1096,8 @@ module al_saqr
                   
       .clk_i(s_soc_clk),
       .por_n_i(s_rst_ni),
-    
+
+      .cfi_doorbell_i (cfi_doorbell),
       .irq_ibex_i(doorbell_irq_o),
    // JTAG port
       .jtag_tck_i    (jtag_ibex_i.tck),
