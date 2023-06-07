@@ -144,7 +144,8 @@ module host_domain
   output axi_resp_t           ot_axi_rsp, 
   
   // Mbox interrupt
-  output  logic               doorbell_irq_o
+  output  logic               doorbell_irq_o,
+  output  logic               cfi_doorbell_o
    
 );
 
@@ -399,7 +400,8 @@ module host_domain
 
         .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
         .cva6_uart_tx_o       ( cva6_uart_tx_o       ),
-        .axi_lite_master      ( host_lite_bus        )
+        .axi_lite_master      ( host_lite_bus        ),
+        .cfi_doorbell_o       ( cfi_doorbell_o       )
     );
    
    

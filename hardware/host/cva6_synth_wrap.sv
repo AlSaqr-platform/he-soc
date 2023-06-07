@@ -49,6 +49,9 @@ module cva6_synth_wrap
   input  logic                         time_irq_i,   // timer interrupt in (async)
   input  logic                         debug_req_i,  // debug request (async)
 
+  // Added for CFI feature
+  input  logic                         cfi_completion_i,
+
   // memory side, AXI Master
   // AXI4 MASTER
   //***************************************
@@ -147,6 +150,7 @@ module cva6_synth_wrap
     .rst_ni               ( rst_ni              ),
     .boot_addr_i          ( ariane_soc::ROMBase ), // start fetching from ROM
     .hart_id_i            ( '0                  ),
+    .cfi_completion_i     ( cfi_completion_i    ),
     .irq_i                ( irq_i               ), // async signal
     .ipi_i                ( ipi_i               ), // async signal
     .time_irq_i           ( time_irq_i          ), // async signal
