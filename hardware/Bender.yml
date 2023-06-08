@@ -13,7 +13,7 @@ dependencies:
   apb_host_control: { path: "deps/apb_host_control_regs" }
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
-  cva6: { git: "git@github.com:minho-pulp/cva6.git", rev: "f2aec221764d935091942edd37c6de2480a41457" }
+  #culsans: { git: "git@github.com:alsaqr-platform/culsans.git", rev: "1399cfd096055ebefa3c264db3d92fd3b1b0882a" }
   riscv-dbg: { git: "git@github.com:Alsaqr-platform/riscv-dbg.git", version: 0.4.1 }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: "0.29.1" }
   axi_llc: { git: "https://github.com/AlSaqr-platform/axi_llc.git", rev: "29fd76fb438c91c692108c1f93ab221931653c5d" }
@@ -115,7 +115,7 @@ sources:
       
   - target: all(asic, not(all(fpga, xilinx)))
     defines:
-      WT_DCACHE: ~
+     # WT_DCACHE: ~
     files:
       - ../bootrom/bootrom.sv
       - gf22/macro_wrap/memwrap_gf22.sv

@@ -119,6 +119,12 @@ package ariane_soc;
     NrCachedRegionRules:    1,
     CachedRegionAddrBase:  {HYAXIBase},
     CachedRegionLength:    {HYAXILength},
+`ifdef DUAL_CORE
+    // shared region
+    NrSharedRegionRules:    1,
+    SharedRegionAddrBase:  {HYAXIBase}, 
+    SharedRegionLength:    {HYAXILength},                                                         
+`endif                                                       
     //  cache config
     Axi64BitCompliant:      1'b1,
     SwapEndianess:          1'b0,

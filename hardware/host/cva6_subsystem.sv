@@ -301,7 +301,8 @@ module cva6_subsystem
 
   `AXI_ASSIGN_FROM_REQ(slave[1],dm_axi_m_req)
   `AXI_ASSIGN_TO_RESP(dm_axi_m_resp,slave[1])
-   
+
+`ifndef DUAL_CORE   
   axi_adapter #(
     .DATA_WIDTH            ( AXI_DATA_WIDTH            ),
     .AXI_ID_WIDTH          ( ariane_soc::IdWidth       )
@@ -328,6 +329,39 @@ module cva6_subsystem
     .axi_resp_i            ( dm_axi_m_resp             )
   );
 
+`else // !`ifndef DUAL_CORE
+
+ axi_adapter #(
+    .DATA_WIDTH            ( AXI_DATA_WIDTH            ),
+    .AXI_ID_WIDTH          ( ariane_soc::IdWidth       ),
+    .mst_req_t             ( ariane_axi_soc::req_t     ),
+    .mst_resp_t            ( ariane_axi_soc::resp_t    )
+  ) i_dm_axi_master (
+    .clk_i                 ( clk_i                     ),
+    .rst_ni                ( rst_ni                    ),
+    .req_i                 ( dm_master_req             ),
+    .type_i                ( ariane_axi::SINGLE_REQ    ),
+    .gnt_o                 ( dm_master_gnt             ),
+    .addr_i                ( dm_master_add             ),
+    .we_i                  ( dm_master_we              ),
+    .wdata_i               ( dm_master_wdata           ),
+    .be_i                  ( dm_master_be              ),
+    .size_i                ( 2'b11                     ), // always do 64bit here and use byte enables to gate
+    .id_i                  ( '0                        ),
+    .valid_o               ( dm_master_r_valid         ),
+    .rdata_o               ( dm_master_r_rdata         ),
+    .dirty_o               (                           ),
+    .shared_o              (                           ),
+    .trans_type_i          ( ariane_ace::READ_SHARED   ),
+    .amo_i                 ( ariane_pkg::AMO_NONE      ),
+    .id_o                  (                           ),
+    .critical_word_o       (                           ),
+    .critical_word_valid_o (                           ),
+    .axi_req_o             ( dm_axi_m_req              ),
+    .axi_resp_i            ( dm_axi_m_resp             )
+  );
+
+`endif
 
   // ---------------
   // ROM
@@ -693,7 +727,34 @@ module cva6_subsystem
   // ---------------
   // Core
   // ---------------
-
+`ifdef DUAL_CORE
+  culsans_synth_wrap #(
+    .ArianeCfg(ariane_soc::ArianeSocCfg)
+  ) i_ariane_wrap (
+    .clk_i                ( cva6_clk_i                  ),
+    .rst_ni               ( cva6_rst_ni                 ),
+    .boot_addr_i          ( ariane_soc::ROMBase         ), // start fetching from ROM
+    .irq_i                ( { '0, '0, irqs       }      ), // async signal
+    .ipi_i                ( { '0, ipi            }      ), // async signal
+    .debug_req_i          ( { '0, debug_req_core }      ), // async signal
+    .timer_irq_i          ( { '0, timer_irq_o    }      ),
+    .data_master_aw_wptr_o( cva6_axi_master_dst.aw_wptr ),
+    .data_master_aw_data_o( cva6_axi_master_dst.aw_data ), 
+    .data_master_aw_rptr_i( cva6_axi_master_dst.aw_rptr ),
+    .data_master_ar_wptr_o( cva6_axi_master_dst.ar_wptr ),
+    .data_master_ar_data_o( cva6_axi_master_dst.ar_data ),
+    .data_master_ar_rptr_i( cva6_axi_master_dst.ar_rptr ),
+    .data_master_w_wptr_o ( cva6_axi_master_dst.w_wptr  ),
+    .data_master_w_data_o ( cva6_axi_master_dst.w_data  ),
+    .data_master_w_rptr_i ( cva6_axi_master_dst.w_rptr  ),
+    .data_master_r_wptr_i ( cva6_axi_master_dst.r_wptr  ),
+    .data_master_r_data_i ( cva6_axi_master_dst.r_data  ),
+    .data_master_r_rptr_o ( cva6_axi_master_dst.r_rptr  ),
+    .data_master_b_wptr_i ( cva6_axi_master_dst.b_wptr  ),
+    .data_master_b_data_i ( cva6_axi_master_dst.b_data  ),
+    .data_master_b_rptr_o ( cva6_axi_master_dst.b_rptr  )
+  );
+`else
   cva6_synth_wrap i_ariane_wrap (
     .clk_i                ( cva6_clk_i                  ),
     .rst_ni               ( cva6_rst_ni                 ),
@@ -719,7 +780,8 @@ module cva6_subsystem
     .data_master_b_data_i ( cva6_axi_master_dst.b_data  ),
     .data_master_b_rptr_o ( cva6_axi_master_dst.b_rptr  )
   );
-
+`endif // !`ifdef DUAL_CORE
+   
   axi_cdc_dst_intf #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),

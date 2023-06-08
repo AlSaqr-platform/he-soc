@@ -21,14 +21,14 @@ verilator      ?= verilator
 # traget option
 target-options ?=
 # additional definess
-defines        ?= WT_DCACHE
+#defines        ?= WT_DCACHE
 # test name for torture runs (binary name)
 test-location  ?= output/test
 # set to either nothing or -log
 torture-logs   :=
 # custom elf bin to run with sim or sim-verilator
 elf-bin        ?= ../software/mbox_test/mbox_test.riscv
-ibex_elf_bin   ?= ../software/mbox_test/mbox_test_ibex.elf
+ibex_elf_bin   ?= ../software/mbox_test/mbox_test_ibex.elf #../software/hello/hello.riscv #
 #cl-bin         ?= ../software/pulp/mm.riscv
 cl-bin         ?= none
 # root pathelf-bin
@@ -199,7 +199,7 @@ scripts-bender-fpga-ddr: | Bender.lock
 
 scripts-bender-synopsys: | Bender.lock
 	echo 'set ROOT [file normalize [file dirname [info script]]/../../../]' > $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
-	bender script synopsys -t rtl -t synthesis -t asic -t top_level --define="EXCLUDE_PADFRAME" | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
+	bender script synopsys -t rtl -t synthesis -t asic -t top_level - cva6 --define="DUAL_CORE" | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
 
 scripts:
 	bender script vsim \
@@ -209,12 +209,17 @@ scripts:
 scripts_vip:
 	bender script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t vip > compile.tcl
+    -t rtl -t test -t vip  > compile.tcl
+
+scripts_vip_dual_core:
+	bender script vsim  \
+		--vlog-arg="$(compile_flag) -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
+    -t rtl -t test -t vip --define="DUAL_CORE" > compile.tcl
 
 post_synth_scripts_vip:
 	bender script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t asic -t top_post_synth_sim -t vip --define="EXCLUDE_PADFRAME" > post_synth_compile.tcl
+    -t rtl -t test -t asic -t top_post_synth_sim -t vip  > post_synth_compile.tcl
 
 ## -sdfnoerror -sdfnowarn -sdfmin ./gf22/innovus/cva6/out
 
