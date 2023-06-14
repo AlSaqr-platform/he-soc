@@ -13,7 +13,8 @@ dependencies:
   apb_host_control: { path: "deps/apb_host_control_regs" }
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
-  #culsans: { git: "git@github.com:alsaqr-platform/culsans.git", rev: "1399cfd096055ebefa3c264db3d92fd3b1b0882a" }
+  #cva6: { git: "git@github.com:minho-pulp/cva6.git", rev: "f2aec221764d935091942edd37c6de2480a41457" }
+  culsans: { git: "git@github.com:alsaqr-platform/culsans.git", rev: "348ee15e333dccf3b132b50d12b3b1ac16ec7023" }
   riscv-dbg: { git: "git@github.com:Alsaqr-platform/riscv-dbg.git", version: 0.4.1 }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: "0.29.1" }
   axi_llc: { git: "https://github.com/AlSaqr-platform/axi_llc.git", rev: "29fd76fb438c91c692108c1f93ab221931653c5d" }
@@ -124,11 +125,11 @@ sources:
 
   - target: top_post_synth_sim
     files:
-      - gf22/innovus/hyperbus/out/hyperbus_async_macro.v
-      - gf22/innovus/cva6/out/cva6_synth_wrap.v
-      - gf22/innovus/cluster/out/pulp_cluster.v
-      - gf22/innovus/trial_hier/out/alsaqr_chip.v
-      
+      #- gf22/innovus/hyperbus/out/hyperbus_async_macro.v
+      #- gf22/innovus/cva6/out/cva6_synth_wrap.v
+      #- gf22/innovus/cluster/out/pulp_cluster.v
+      - gf22/synopsys/opentitan/trial/netlists/secure_subsystem_synth_wrap.v
+      #- gf22/innovus/trial_hier/out/alsaqr_chip.v
   - target: vip
     files:
       - tb/vip/hyperflash_model/s26ks512s.v
