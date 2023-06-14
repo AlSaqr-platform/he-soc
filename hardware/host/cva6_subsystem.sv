@@ -728,16 +728,14 @@ module cva6_subsystem
   // Core
   // ---------------
 `ifdef DUAL_CORE
-  culsans_synth_wrap #(
-    .ArianeCfg(ariane_soc::ArianeSocCfg)
-  ) i_ariane_wrap (
+  culsans_synth_wrap i_ariane_wrap (
     .clk_i                ( cva6_clk_i                  ),
     .rst_ni               ( cva6_rst_ni                 ),
     .boot_addr_i          ( ariane_soc::ROMBase         ), // start fetching from ROM
     .irq_i                ( { '0, '0, irqs       }      ), // async signal
     .ipi_i                ( { '0, ipi            }      ), // async signal
     .debug_req_i          ( { '0, debug_req_core }      ), // async signal
-    .timer_irq_i          ( { '0, timer_irq_o    }      ),
+    .timer_irq_i          ( { '0, timer_irq      }      ),
     .data_master_aw_wptr_o( cva6_axi_master_dst.aw_wptr ),
     .data_master_aw_data_o( cva6_axi_master_dst.aw_data ), 
     .data_master_aw_rptr_i( cva6_axi_master_dst.aw_rptr ),
