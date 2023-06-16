@@ -933,8 +933,8 @@ module udma_subsystem
          reg_rsp_t   reg_rsp;
          `REG_BUS_ASSIGN_TO_REQ(reg_req,hyper_reg_cfg_slave)
          `REG_BUS_ASSIGN_FROM_RSP(hyper_reg_cfg_slave,reg_rsp)
-
-         hyperbus #(
+    
+         hyperbus_udma #(
               .L2_AWIDTH_NOAL ( L2_AWIDTH_NOAL                                           ),
               .TRANS_SIZE     ( TRANS_SIZE                                               ),
               .NB_CH          ( N_CH_HYPER                                               ),
