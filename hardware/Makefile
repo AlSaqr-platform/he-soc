@@ -9,7 +9,11 @@ ver-library    ?= work-ver
 # library for DPI
 dpi-library    ?= work-dpi
 # Top level module to compile
-top_level      ?= ariane_tb
+ifndef ot
+	top_level      ?= ariane_tb
+else
+	top_level      ?= testbench_asynch
+endif
 # Maximum amount of cycles for a successful simulation run
 max_cycles     ?= 10000000
 # Test case to run
@@ -26,8 +30,10 @@ target-options ?=
 test-location  ?= output/test
 # set to either nothing or -log
 torture-logs   :=
+# tech lib dir
+techlib        := gf22/modelsim/libraries.sh
 # custom elf bin to run with sim or sim-verilator
-elf-bin        ?= ../software/mbox_test/mbox_test.riscv
+elf-bin        ?= ../software/hello/hello.riscv #../software/mbox_test/mbox_test.riscv
 ibex_elf_bin   ?= ../software/mbox_test/mbox_test_ibex.elf #../software/hello/hello.riscv #
 #cl-bin         ?= ../software/pulp/mm.riscv
 cl-bin         ?= none
@@ -199,7 +205,7 @@ scripts-bender-fpga-ddr: | Bender.lock
 
 scripts-bender-synopsys: | Bender.lock
 	echo 'set ROOT [file normalize [file dirname [info script]]/../../../]' > $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
-	bender script synopsys -t rtl -t synthesis -t asic -t top_level - cva6 --define="DUAL_CORE" | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
+	bender script synopsys -t rtl -t synthesis -t asic -t top_level --define="DUAL_CORE" | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
 
 scripts:
 	bender script vsim \
@@ -227,7 +233,7 @@ benderrun: libbender $(util) $(library)
 	@test -f Bender.lock || { echo "ERROR: Bender.lock file does not exist. Did you run make checkout in bender mode?"; exit 1; }
 	vsim -c -do 'source $(compile_script); quit'
 	touch $(library)/.build-srcs
-
+# source $(techlib);
 bendertb: benderrun $(dpi)
 	touch $(library)/.build-tb
 
