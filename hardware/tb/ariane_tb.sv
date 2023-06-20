@@ -185,124 +185,177 @@ module ariane_tb;
     wire                  w_cam_vsync;
 
     //NEW PAD PERIPHERALS SIGNALS
-    wire    pad_periphs_pad_gpio_b_00_pad;
-    wire    pad_periphs_pad_gpio_b_01_pad;
-    wire    pad_periphs_pad_gpio_b_02_pad;
-    wire    pad_periphs_pad_gpio_b_03_pad;
-    wire    pad_periphs_pad_gpio_b_04_pad;
-    wire    pad_periphs_pad_gpio_b_05_pad;
-    wire    pad_periphs_pad_gpio_b_06_pad;
-    wire    pad_periphs_pad_gpio_b_07_pad;
-    wire    pad_periphs_pad_gpio_b_08_pad;
-    wire    pad_periphs_pad_gpio_b_09_pad;
-    wire    pad_periphs_pad_gpio_b_10_pad;
-    wire    pad_periphs_pad_gpio_b_11_pad;
-    wire    pad_periphs_pad_gpio_b_12_pad;
-    wire    pad_periphs_pad_gpio_b_13_pad;
-    wire    pad_periphs_pad_gpio_b_14_pad;
-    wire    pad_periphs_pad_gpio_b_15_pad;
-    wire    pad_periphs_pad_gpio_b_16_pad;
-    wire    pad_periphs_pad_gpio_b_17_pad;
-    wire    pad_periphs_pad_gpio_b_18_pad;
-    wire    pad_periphs_pad_gpio_b_19_pad;
-    wire    pad_periphs_pad_gpio_b_20_pad;
-    wire    pad_periphs_pad_gpio_b_21_pad;
-    wire    pad_periphs_pad_gpio_b_22_pad;
-    wire    pad_periphs_pad_gpio_b_23_pad;
-    wire    pad_periphs_pad_gpio_b_24_pad;
-    wire    pad_periphs_pad_gpio_b_25_pad;
-    wire    pad_periphs_pad_gpio_b_26_pad;
-    wire    pad_periphs_pad_gpio_b_27_pad;
-    wire    pad_periphs_pad_gpio_b_28_pad;
-    wire    pad_periphs_pad_gpio_b_29_pad;
-    wire    pad_periphs_pad_gpio_b_30_pad;
-    wire    pad_periphs_pad_gpio_b_31_pad;
-    wire    pad_periphs_pad_gpio_b_32_pad;
-    wire    pad_periphs_pad_gpio_b_33_pad;
-    wire    pad_periphs_pad_gpio_b_34_pad;
-    wire    pad_periphs_pad_gpio_b_35_pad;
-    wire    pad_periphs_pad_gpio_b_36_pad;
-    wire    pad_periphs_pad_gpio_b_37_pad;
-    wire    pad_periphs_pad_gpio_b_38_pad;
-    wire    pad_periphs_pad_gpio_b_39_pad;
-    wire    pad_periphs_pad_gpio_b_40_pad;
-    wire    pad_periphs_pad_gpio_b_41_pad;
-    wire    pad_periphs_pad_gpio_b_42_pad;
-    wire    pad_periphs_pad_gpio_b_43_pad;
-    wire    pad_periphs_pad_gpio_b_44_pad;
-    wire    pad_periphs_pad_gpio_b_45_pad;
-    wire    pad_periphs_pad_gpio_b_46_pad;
-    wire    pad_periphs_pad_gpio_b_47_pad;
-    wire    pad_periphs_pad_gpio_b_48_pad;
-    wire    pad_periphs_pad_gpio_b_49_pad;
-    wire    pad_periphs_pad_gpio_b_50_pad;
-    wire    pad_periphs_pad_gpio_b_51_pad;
-    wire    pad_periphs_pad_gpio_b_52_pad;
-    wire    pad_periphs_pad_gpio_b_53_pad;
-    wire    pad_periphs_pad_gpio_b_54_pad;
-    wire    pad_periphs_pad_gpio_b_55_pad;
-    wire    pad_periphs_pad_gpio_b_56_pad;
-    wire    pad_periphs_pad_gpio_b_57_pad;
-    wire    pad_periphs_pad_gpio_b_58_pad;
-    wire    pad_periphs_pad_gpio_b_59_pad;
-    wire    pad_periphs_pad_gpio_b_60_pad;
-    wire    pad_periphs_pad_gpio_b_61_pad;
-    wire    pad_periphs_pad_gpio_c_00_pad;
-    wire    pad_periphs_pad_gpio_c_01_pad;
-    wire    pad_periphs_pad_gpio_c_02_pad;
-    wire    pad_periphs_pad_gpio_c_03_pad;
-    wire    pad_periphs_pad_gpio_d_00_pad;
-    wire    pad_periphs_pad_gpio_d_01_pad;
-    wire    pad_periphs_pad_gpio_d_02_pad;
-    wire    pad_periphs_pad_gpio_d_03_pad;
-    wire    pad_periphs_pad_gpio_d_04_pad;
-    wire    pad_periphs_pad_gpio_d_05_pad;
-    wire    pad_periphs_pad_gpio_d_06_pad;
-    wire    pad_periphs_pad_gpio_d_07_pad;
-    wire    pad_periphs_pad_gpio_d_08_pad;
-    wire    pad_periphs_pad_gpio_d_09_pad;
-    wire    pad_periphs_pad_gpio_d_10_pad;
-    wire    pad_periphs_pad_gpio_e_00_pad;
-    wire    pad_periphs_pad_gpio_e_01_pad;
-    wire    pad_periphs_pad_gpio_e_02_pad;
-    wire    pad_periphs_pad_gpio_e_03_pad;
-    wire    pad_periphs_pad_gpio_e_04_pad;
-    wire    pad_periphs_pad_gpio_e_05_pad;
-    wire    pad_periphs_pad_gpio_e_06_pad;
-    wire    pad_periphs_pad_gpio_e_07_pad;
-    wire    pad_periphs_pad_gpio_e_08_pad;
-    wire    pad_periphs_pad_gpio_e_09_pad;
-    wire    pad_periphs_pad_gpio_e_10_pad;
-    wire    pad_periphs_pad_gpio_e_11_pad;
-    wire    pad_periphs_pad_gpio_e_12_pad;
-    wire    pad_periphs_pad_gpio_f_00_pad;
-    wire    pad_periphs_pad_gpio_f_01_pad;
-    wire    pad_periphs_pad_gpio_f_02_pad;
-    wire    pad_periphs_pad_gpio_f_03_pad;
-    wire    pad_periphs_pad_gpio_f_04_pad;
-    wire    pad_periphs_pad_gpio_f_05_pad;
-    wire    pad_periphs_pad_gpio_f_06_pad;
-    wire    pad_periphs_pad_gpio_f_07_pad;
-    wire    pad_periphs_pad_gpio_f_08_pad;
-    wire    pad_periphs_pad_gpio_f_09_pad;
-    wire    pad_periphs_pad_gpio_f_10_pad;
-    wire    pad_periphs_pad_gpio_f_11_pad;
-    wire    pad_periphs_pad_gpio_f_12_pad;
-    wire    pad_periphs_pad_gpio_f_13_pad;
-    wire    pad_periphs_pad_gpio_f_14_pad;
-    wire    pad_periphs_pad_gpio_f_15_pad;
-    wire    pad_periphs_pad_gpio_f_16_pad;
+    wire    pad_periphs_a_00_pad;
+    wire    pad_periphs_a_01_pad;
+    wire    pad_periphs_a_02_pad;
+    wire    pad_periphs_a_03_pad;
+    wire    pad_periphs_a_04_pad;
+    wire    pad_periphs_a_05_pad;
+    wire    pad_periphs_a_06_pad;
+    wire    pad_periphs_a_07_pad;
+    wire    pad_periphs_a_08_pad;
+    wire    pad_periphs_a_09_pad;
+    wire    pad_periphs_a_10_pad;
+    wire    pad_periphs_a_11_pad;
+    wire    pad_periphs_a_12_pad;
+    wire    pad_periphs_a_13_pad;
+    wire    pad_periphs_a_14_pad;
+    wire    pad_periphs_a_15_pad;
+    wire    pad_periphs_a_16_pad;
+    wire    pad_periphs_a_17_pad;
+    wire    pad_periphs_a_18_pad;
+    wire    pad_periphs_a_19_pad;
+    wire    pad_periphs_a_20_pad;
+    wire    pad_periphs_a_21_pad;
+    wire    pad_periphs_a_22_pad;
+    wire    pad_periphs_a_23_pad;
+    wire    pad_periphs_a_24_pad;
+    wire    pad_periphs_a_25_pad;
+    wire    pad_periphs_a_26_pad;
+    wire    pad_periphs_a_27_pad;
+    wire    pad_periphs_a_28_pad;
+    wire    pad_periphs_a_29_pad;
+    wire    pad_periphs_a_30_pad;
+    wire    pad_periphs_a_31_pad;
+    wire    pad_periphs_a_32_pad;
+    wire    pad_periphs_a_33_pad;
+    wire    pad_periphs_a_34_pad;
+    wire    pad_periphs_a_35_pad;
+    wire    pad_periphs_a_36_pad;
+    wire    pad_periphs_a_37_pad;
+    wire    pad_periphs_a_38_pad;
+    wire    pad_periphs_a_39_pad;
+    wire    pad_periphs_a_40_pad;
+    wire    pad_periphs_a_41_pad;
+    wire    pad_periphs_a_42_pad;
+    wire    pad_periphs_a_43_pad;
+    wire    pad_periphs_a_44_pad;
+    wire    pad_periphs_a_45_pad;
+    wire    pad_periphs_a_46_pad;
+    wire    pad_periphs_a_47_pad;
+    wire    pad_periphs_a_48_pad;
+    wire    pad_periphs_a_49_pad;
+    wire    pad_periphs_a_50_pad;
+    wire    pad_periphs_a_51_pad;
+    wire    pad_periphs_a_52_pad;
+    wire    pad_periphs_a_53_pad;
+    wire    pad_periphs_a_54_pad;
+    wire    pad_periphs_a_55_pad;
+    wire    pad_periphs_a_56_pad;
+    wire    pad_periphs_a_57_pad;
+    wire    pad_periphs_a_58_pad;
+    wire    pad_periphs_a_59_pad;
+    wire    pad_periphs_a_60_pad;
+    wire    pad_periphs_a_61_pad;
+    wire    pad_periphs_a_62_pad;
+    wire    pad_periphs_a_64_pad;
+    wire    pad_periphs_a_65_pad;
+    wire    pad_periphs_a_66_pad;
+    wire    pad_periphs_a_67_pad;
+    wire    pad_periphs_a_68_pad;
+    wire    pad_periphs_a_69_pad;
+    wire    pad_periphs_a_70_pad;
+    wire    pad_periphs_a_71_pad;
+    wire    pad_periphs_a_72_pad;
+    wire    pad_periphs_a_73_pad;
+    wire    pad_periphs_a_74_pad;
+    wire    pad_periphs_a_75_pad;
+    wire    pad_periphs_a_76_pad;
+    wire    pad_periphs_a_77_pad;
+    wire    pad_periphs_a_78_pad;
+    wire    pad_periphs_a_79_pad;
+    wire    pad_periphs_a_80_pad;
+    wire    pad_periphs_a_81_pad;
+    wire    pad_periphs_a_82_pad;
+    wire    pad_periphs_a_83_pad;
+    wire    pad_periphs_a_84_pad;
+    wire    pad_periphs_a_85_pad;
+    wire    pad_periphs_a_86_pad;
+    wire    pad_periphs_a_87_pad;
+    wire    pad_periphs_a_88_pad;
+    wire    pad_periphs_a_89_pad;
+    wire    pad_periphs_a_90_pad;
+    wire    pad_periphs_a_91_pad;
+    wire    pad_periphs_a_92_pad;
+   
+    wire    pad_periphs_b_00_pad;
+    wire    pad_periphs_b_01_pad;
+    wire    pad_periphs_b_02_pad;
+    wire    pad_periphs_b_03_pad;
+    wire    pad_periphs_b_04_pad;
+    wire    pad_periphs_b_05_pad;
+    wire    pad_periphs_b_06_pad;
+    wire    pad_periphs_b_07_pad;
+    wire    pad_periphs_b_08_pad;
+    wire    pad_periphs_b_09_pad;
+    wire    pad_periphs_b_10_pad;
+    wire    pad_periphs_b_11_pad;
+    wire    pad_periphs_b_12_pad;
+    wire    pad_periphs_b_13_pad;
+    wire    pad_periphs_b_14_pad;
+    wire    pad_periphs_b_15_pad;
+    wire    pad_periphs_b_16_pad;
+    wire    pad_periphs_b_17_pad;
+    wire    pad_periphs_b_18_pad;
+    wire    pad_periphs_b_19_pad;
+    wire    pad_periphs_b_20_pad;
+    wire    pad_periphs_b_21_pad;
+    wire    pad_periphs_b_22_pad;
+    wire    pad_periphs_b_23_pad;
+    wire    pad_periphs_b_24_pad;
+    wire    pad_periphs_b_25_pad;
+    wire    pad_periphs_b_26_pad;
+    wire    pad_periphs_b_27_pad;
+    wire    pad_periphs_b_28_pad;
+    wire    pad_periphs_b_29_pad;
+    wire    pad_periphs_b_30_pad;
+    wire    pad_periphs_b_31_pad;
+    wire    pad_periphs_b_32_pad;
+    wire    pad_periphs_b_33_pad;
+    wire    pad_periphs_b_34_pad;
+    wire    pad_periphs_b_35_pad;
+    wire    pad_periphs_b_36_pad;
+    wire    pad_periphs_b_37_pad;
+    wire    pad_periphs_b_38_pad;
+    wire    pad_periphs_b_39_pad;
+    wire    pad_periphs_b_40_pad;
+    wire    pad_periphs_b_41_pad;
+    wire    pad_periphs_b_42_pad;
+    wire    pad_periphs_b_43_pad;
+    wire    pad_periphs_b_44_pad;
+    wire    pad_periphs_b_45_pad;
+    wire    pad_periphs_b_46_pad;
+    wire    pad_periphs_b_47_pad;
+    wire    pad_periphs_b_48_pad;
+    wire    pad_periphs_b_49_pad;
+    wire    pad_periphs_b_50_pad;
+    wire    pad_periphs_b_51_pad;
+    wire    pad_periphs_b_52_pad;
+    wire    pad_periphs_b_53_pad;
+    wire    pad_periphs_b_54_pad;
+    wire    pad_periphs_b_55_pad;
+    wire    pad_periphs_b_56_pad;
+    wire    pad_periphs_b_57_pad;
+    wire    pad_periphs_b_58_pad;
+    wire    pad_periphs_b_59_pad;
+    wire    pad_periphs_b_60_pad;
+    wire    pad_periphs_b_61_pad;
+    wire    pad_periphs_b_62_pad;
 
-    wire    pad_periphs_pad_gpio_pwm0_pad;
-    wire    pad_periphs_pad_gpio_pwm1_pad;
-    wire    pad_periphs_pad_gpio_pwm2_pad;
-    wire    pad_periphs_pad_gpio_pwm3_pad;
-    wire    pad_periphs_pad_gpio_pwm4_pad;
-    wire    pad_periphs_pad_gpio_pwm5_pad;
-    wire    pad_periphs_pad_gpio_pwm6_pad;
-    wire    pad_periphs_pad_gpio_pwm7_pad;
-
-
+    wire    pad_periphs_ot_qspi_00_pad;
+    wire    pad_periphs_ot_qspi_01_pad;
+    wire    pad_periphs_ot_qspi_02_pad;
+    wire    pad_periphs_ot_qspi_03_pad;
+    wire    pad_periphs_ot_qspi_04_pad;
+    wire    pad_periphs_ot_qspi_05_pad;
+   
+    wire    pad_periphs_linux_qspi_00_pad;
+    wire    pad_periphs_linux_qspi_01_pad;
+    wire    pad_periphs_linux_qspi_02_pad;
+    wire    pad_periphs_linux_qspi_03_pad;
+    wire    pad_periphs_linux_qspi_04_pad;
+    wire    pad_periphs_linux_qspi_05_pad;
+   
     wire                  w_cva6_uart_rx ;
     wire                  w_cva6_uart_tx ;
     wire                  apb_uart_rx ;
@@ -319,13 +372,13 @@ module ariane_tb;
     string        cluster_binary;
   
   // NB: This test is not used on FPGA
-  `ifndef FPGA_EMUL
+ /* `ifndef FPGA_EMUL
     `ifndef SIMPLE_PADFRAME
       assign pad_periphs_pad_gpio_b_37_pad = pad_periphs_pad_gpio_b_05_pad;
       assign pad_periphs_pad_gpio_b_38_pad = pad_periphs_pad_gpio_b_06_pad;
       assign pad_periphs_pad_gpio_b_39_pad = pad_periphs_pad_gpio_b_07_pad; 
     `endif
-  `endif
+  `endif*/
    
   `ifndef TEST_CLOCK_BYPASS
     assign s_bypass=1'b0;
@@ -417,125 +470,182 @@ module ariane_tb;
           .apb_uart_tx_o        ( apb_uart_tx            ),
         
         `ifndef EXCLUDE_PADFRAME
-          .pad_periphs_pad_gpio_b_00_pad(pad_periphs_pad_gpio_b_00_pad),
-          .pad_periphs_pad_gpio_b_01_pad(pad_periphs_pad_gpio_b_01_pad),
-          .pad_periphs_pad_gpio_b_02_pad(pad_periphs_pad_gpio_b_02_pad),
-          .pad_periphs_pad_gpio_b_03_pad(pad_periphs_pad_gpio_b_03_pad),
-          .pad_periphs_pad_gpio_b_04_pad(pad_periphs_pad_gpio_b_04_pad),
-          .pad_periphs_pad_gpio_b_05_pad(pad_periphs_pad_gpio_b_05_pad),
-          .pad_periphs_pad_gpio_b_06_pad(pad_periphs_pad_gpio_b_06_pad),
-          .pad_periphs_pad_gpio_b_07_pad(pad_periphs_pad_gpio_b_07_pad),
-          .pad_periphs_pad_gpio_b_08_pad(pad_periphs_pad_gpio_b_08_pad),
-          .pad_periphs_pad_gpio_b_09_pad(pad_periphs_pad_gpio_b_09_pad),
-          .pad_periphs_pad_gpio_b_10_pad(pad_periphs_pad_gpio_b_10_pad),
-          .pad_periphs_pad_gpio_b_11_pad(pad_periphs_pad_gpio_b_11_pad),
-          .pad_periphs_pad_gpio_b_12_pad(pad_periphs_pad_gpio_b_12_pad),
-          .pad_periphs_pad_gpio_b_13_pad(pad_periphs_pad_gpio_b_13_pad),
+ 
+          .pad_periphs_a_00_pad(pad_periphs_a_00_pad),
+          .pad_periphs_a_01_pad(pad_periphs_a_01_pad),
+          .pad_periphs_a_02_pad(pad_periphs_a_02_pad),
+          .pad_periphs_a_03_pad(pad_periphs_a_03_pad),
+          .pad_periphs_a_04_pad(pad_periphs_a_04_pad),
+          .pad_periphs_a_05_pad(pad_periphs_a_05_pad),
+          .pad_periphs_a_06_pad(pad_periphs_a_06_pad),
+          .pad_periphs_a_07_pad(pad_periphs_a_07_pad),
+          .pad_periphs_a_08_pad(pad_periphs_a_08_pad),
+          .pad_periphs_a_09_pad(pad_periphs_a_09_pad),
+          .pad_periphs_a_10_pad(pad_periphs_a_10_pad),
+          .pad_periphs_a_11_pad(pad_periphs_a_11_pad),
+          .pad_periphs_a_12_pad(pad_periphs_a_12_pad),
+          .pad_periphs_a_13_pad(pad_periphs_a_13_pad),
         
           `ifndef FPGA_EMUL
             `ifndef SIMPLE_PADFRAME
-              .pad_periphs_pad_gpio_b_14_pad(),
-              .pad_periphs_pad_gpio_b_15_pad(),
-              .pad_periphs_pad_gpio_b_16_pad(),
-              .pad_periphs_pad_gpio_b_17_pad(),
-              .pad_periphs_pad_gpio_b_18_pad(),
-              .pad_periphs_pad_gpio_b_19_pad(),
-              .pad_periphs_pad_gpio_b_20_pad(),
-              .pad_periphs_pad_gpio_b_21_pad(),
-              .pad_periphs_pad_gpio_b_22_pad(),
-              .pad_periphs_pad_gpio_b_23_pad(),
-              .pad_periphs_pad_gpio_b_24_pad(),
-              .pad_periphs_pad_gpio_b_25_pad(),
-              .pad_periphs_pad_gpio_b_26_pad(),
-              .pad_periphs_pad_gpio_b_27_pad(),
-              .pad_periphs_pad_gpio_b_28_pad(),
-              .pad_periphs_pad_gpio_b_29_pad(),
-              .pad_periphs_pad_gpio_b_30_pad(),
-              .pad_periphs_pad_gpio_b_31_pad(),
-              .pad_periphs_pad_gpio_b_32_pad(),
-              .pad_periphs_pad_gpio_b_33_pad(),
-              .pad_periphs_pad_gpio_b_34_pad(pad_periphs_pad_gpio_b_34_pad),
-              .pad_periphs_pad_gpio_b_35_pad(pad_periphs_pad_gpio_b_35_pad),
-              .pad_periphs_pad_gpio_b_36_pad(pad_periphs_pad_gpio_b_36_pad),
-              .pad_periphs_pad_gpio_b_37_pad(pad_periphs_pad_gpio_b_37_pad),
-              .pad_periphs_pad_gpio_b_38_pad(pad_periphs_pad_gpio_b_38_pad),
-              .pad_periphs_pad_gpio_b_39_pad(pad_periphs_pad_gpio_b_39_pad),
-              .pad_periphs_pad_gpio_b_40_pad(pad_periphs_pad_gpio_b_40_pad),
-              .pad_periphs_pad_gpio_b_41_pad(pad_periphs_pad_gpio_b_41_pad),
-              .pad_periphs_pad_gpio_b_42_pad(),
-              .pad_periphs_pad_gpio_b_43_pad(),
-              .pad_periphs_pad_gpio_b_44_pad(pad_periphs_pad_gpio_b_44_pad),
-              .pad_periphs_pad_gpio_b_45_pad(pad_periphs_pad_gpio_b_45_pad),
-              .pad_periphs_pad_gpio_b_46_pad(pad_periphs_pad_gpio_b_46_pad),
-              .pad_periphs_pad_gpio_b_47_pad(),
-              .pad_periphs_pad_gpio_b_48_pad(),
-              .pad_periphs_pad_gpio_b_49_pad(),
-              .pad_periphs_pad_gpio_b_50_pad(pad_periphs_pad_gpio_b_50_pad),
-              .pad_periphs_pad_gpio_b_51_pad(pad_periphs_pad_gpio_b_51_pad),
-              .pad_periphs_pad_gpio_b_52_pad(),
-              .pad_periphs_pad_gpio_b_53_pad(),
-              .pad_periphs_pad_gpio_b_54_pad(),
-              .pad_periphs_pad_gpio_b_55_pad(),
-              .pad_periphs_pad_gpio_b_56_pad(pad_periphs_pad_gpio_b_56_pad),
-              .pad_periphs_pad_gpio_b_57_pad(pad_periphs_pad_gpio_b_57_pad),
-
-              .pad_periphs_pad_gpio_c_00_pad(),
-              .pad_periphs_pad_gpio_c_01_pad(),
-              .pad_periphs_pad_gpio_c_02_pad(),
-              .pad_periphs_pad_gpio_c_03_pad(),
-
-              .pad_periphs_pad_gpio_d_00_pad(pad_periphs_pad_gpio_d_00_pad),
-              .pad_periphs_pad_gpio_d_01_pad(pad_periphs_pad_gpio_d_01_pad),
-              .pad_periphs_pad_gpio_d_02_pad(pad_periphs_pad_gpio_d_02_pad),
-              .pad_periphs_pad_gpio_d_03_pad(pad_periphs_pad_gpio_d_03_pad),
-              .pad_periphs_pad_gpio_d_04_pad(pad_periphs_pad_gpio_d_04_pad),
-              .pad_periphs_pad_gpio_d_05_pad(pad_periphs_pad_gpio_d_05_pad),
-              .pad_periphs_pad_gpio_d_06_pad(pad_periphs_pad_gpio_d_06_pad),
-              .pad_periphs_pad_gpio_d_07_pad(pad_periphs_pad_gpio_d_07_pad),
-              .pad_periphs_pad_gpio_d_08_pad(pad_periphs_pad_gpio_d_08_pad),
-              .pad_periphs_pad_gpio_d_09_pad(pad_periphs_pad_gpio_d_09_pad),
-              .pad_periphs_pad_gpio_d_10_pad(pad_periphs_pad_gpio_d_10_pad),
-
-              .pad_periphs_pad_gpio_e_00_pad(),
-              .pad_periphs_pad_gpio_e_01_pad(),
-              .pad_periphs_pad_gpio_e_02_pad(),
-              .pad_periphs_pad_gpio_e_03_pad(),
-              .pad_periphs_pad_gpio_e_04_pad(),
-              .pad_periphs_pad_gpio_e_05_pad(),
-              .pad_periphs_pad_gpio_e_06_pad(),
-              .pad_periphs_pad_gpio_e_07_pad(),
-              .pad_periphs_pad_gpio_e_08_pad(),
-              .pad_periphs_pad_gpio_e_09_pad(),
-              .pad_periphs_pad_gpio_e_10_pad(),
-              .pad_periphs_pad_gpio_e_11_pad(),
-              .pad_periphs_pad_gpio_e_12_pad(),
-
-              .pad_periphs_pad_gpio_f_00_pad(),
-              .pad_periphs_pad_gpio_f_01_pad(pad_periphs_pad_gpio_f_01_pad),
-              .pad_periphs_pad_gpio_f_02_pad(pad_periphs_pad_gpio_f_02_pad),
-              .pad_periphs_pad_gpio_f_03_pad(pad_periphs_pad_gpio_f_03_pad),
-              .pad_periphs_pad_gpio_f_04_pad(pad_periphs_pad_gpio_f_04_pad),
-              .pad_periphs_pad_gpio_f_05_pad(pad_periphs_pad_gpio_f_05_pad),
-              .pad_periphs_pad_gpio_f_06_pad(pad_periphs_pad_gpio_f_06_pad),
-              .pad_periphs_pad_gpio_f_07_pad(),
-              .pad_periphs_pad_gpio_f_08_pad(),
-              .pad_periphs_pad_gpio_f_09_pad(),
-              .pad_periphs_pad_gpio_f_10_pad(),
-              .pad_periphs_pad_gpio_f_11_pad(),
-              .pad_periphs_pad_gpio_f_12_pad(),
-              .pad_periphs_pad_gpio_f_13_pad(),
-              .pad_periphs_pad_gpio_f_14_pad(),
-              .pad_periphs_pad_gpio_f_15_pad(),
-              .pad_periphs_pad_gpio_f_16_pad(),
-
-              .pad_periphs_pad_gpio_pwm0_pad(),
-              .pad_periphs_pad_gpio_pwm1_pad(),
-              .pad_periphs_pad_gpio_pwm2_pad(),
-              .pad_periphs_pad_gpio_pwm3_pad(),
-              .pad_periphs_pad_gpio_pwm4_pad(),
-              .pad_periphs_pad_gpio_pwm5_pad(),
-              .pad_periphs_pad_gpio_pwm6_pad(),
-              .pad_periphs_pad_gpio_pwm7_pad(),
+               .pad_periphs_a_14_pad(pad_periphs_a_14_pad),
+               .pad_periphs_a_15_pad(pad_periphs_a_15_pad),
+               .pad_periphs_a_16_pad(pad_periphs_a_16_pad),
+               .pad_periphs_a_17_pad(pad_periphs_a_17_pad),
+               .pad_periphs_a_18_pad(pad_periphs_a_18_pad),
+               .pad_periphs_a_19_pad(pad_periphs_a_19_pad),
+               .pad_periphs_a_20_pad(pad_periphs_a_20_pad),
+               .pad_periphs_a_21_pad(pad_periphs_a_21_pad),
+               .pad_periphs_a_22_pad(pad_periphs_a_22_pad),
+               .pad_periphs_a_23_pad(pad_periphs_a_23_pad),
+               .pad_periphs_a_24_pad(pad_periphs_a_24_pad),
+               .pad_periphs_a_25_pad(pad_periphs_a_25_pad),
+               .pad_periphs_a_26_pad(pad_periphs_a_26_pad),
+               .pad_periphs_a_27_pad(pad_periphs_a_27_pad),
+               .pad_periphs_a_28_pad(pad_periphs_a_28_pad),
+               .pad_periphs_a_29_pad(pad_periphs_a_29_pad), 
+               .pad_periphs_a_30_pad(pad_periphs_a_30_pad),
+               .pad_periphs_a_31_pad(pad_periphs_a_31_pad),
+               .pad_periphs_a_32_pad(pad_periphs_a_32_pad),
+               .pad_periphs_a_33_pad(pad_periphs_a_33_pad),
+               .pad_periphs_a_34_pad(pad_periphs_a_34_pad),
+               .pad_periphs_a_35_pad(pad_periphs_a_35_pad),
+               .pad_periphs_a_36_pad(pad_periphs_a_36_pad),
+               .pad_periphs_a_37_pad(pad_periphs_a_37_pad),
+               .pad_periphs_a_38_pad(pad_periphs_a_38_pad),
+               .pad_periphs_a_39_pad(pad_periphs_a_39_pad),
+               .pad_periphs_a_40_pad(pad_periphs_a_40_pad),
+               .pad_periphs_a_41_pad(pad_periphs_a_41_pad),
+               .pad_periphs_a_42_pad(pad_periphs_a_42_pad),
+               .pad_periphs_a_43_pad(pad_periphs_a_43_pad),
+               .pad_periphs_a_44_pad(pad_periphs_a_44_pad),
+               .pad_periphs_a_45_pad(pad_periphs_a_45_pad),
+               .pad_periphs_a_46_pad(pad_periphs_a_46_pad),
+               .pad_periphs_a_47_pad(pad_periphs_a_47_pad),
+               .pad_periphs_a_48_pad(pad_periphs_a_48_pad),
+               .pad_periphs_a_49_pad(pad_periphs_a_49_pad),
+               .pad_periphs_a_50_pad(pad_periphs_a_50_pad),
+               .pad_periphs_a_51_pad(pad_periphs_a_51_pad),
+               .pad_periphs_a_52_pad(pad_periphs_a_52_pad),
+               .pad_periphs_a_53_pad(pad_periphs_a_53_pad),
+               .pad_periphs_a_54_pad(pad_periphs_a_54_pad),
+               .pad_periphs_a_55_pad(pad_periphs_a_55_pad),
+               .pad_periphs_a_56_pad(pad_periphs_a_56_pad),
+               .pad_periphs_a_57_pad(pad_periphs_a_57_pad),
+               .pad_periphs_a_58_pad(pad_periphs_a_58_pad),
+               .pad_periphs_a_59_pad(pad_periphs_a_59_pad),
+               .pad_periphs_a_60_pad(pad_periphs_a_60_pad),
+               .pad_periphs_a_61_pad(pad_periphs_a_61_pad),
+               .pad_periphs_a_62_pad(pad_periphs_a_62_pad),
+               .pad_periphs_a_63_pad(pad_periphs_a_63_pad),
+               .pad_periphs_a_64_pad(pad_periphs_a_64_pad),
+               .pad_periphs_a_65_pad(pad_periphs_a_65_pad),
+               .pad_periphs_a_66_pad(pad_periphs_a_66_pad),
+               .pad_periphs_a_67_pad(pad_periphs_a_67_pad),
+               .pad_periphs_a_68_pad(pad_periphs_a_68_pad),
+               .pad_periphs_a_69_pad(pad_periphs_a_69_pad),
+               .pad_periphs_a_70_pad(pad_periphs_a_70_pad),
+               .pad_periphs_a_71_pad(pad_periphs_a_71_pad),
+               .pad_periphs_a_72_pad(pad_periphs_a_72_pad),
+               .pad_periphs_a_73_pad(pad_periphs_a_73_pad),
+               .pad_periphs_a_74_pad(pad_periphs_a_74_pad),
+               .pad_periphs_a_75_pad(pad_periphs_a_75_pad),
+               .pad_periphs_a_76_pad(pad_periphs_a_76_pad),
+               .pad_periphs_a_77_pad(pad_periphs_a_77_pad),
+               .pad_periphs_a_78_pad(pad_periphs_a_78_pad),
+               .pad_periphs_a_79_pad(pad_periphs_a_79_pad),
+               .pad_periphs_a_80_pad(pad_periphs_a_80_pad),
+               .pad_periphs_a_81_pad(pad_periphs_a_81_pad),
+               .pad_periphs_a_82_pad(pad_periphs_a_82_pad),
+               .pad_periphs_a_83_pad(pad_periphs_a_83_pad),
+               .pad_periphs_a_84_pad(pad_periphs_a_84_pad),
+               .pad_periphs_a_85_pad(pad_periphs_a_85_pad),
+               .pad_periphs_a_86_pad(pad_periphs_a_86_pad),
+               .pad_periphs_a_87_pad(pad_periphs_a_87_pad),
+               .pad_periphs_a_88_pad(pad_periphs_a_88_pad),
+               .pad_periphs_a_89_pad(pad_periphs_a_89_pad),
+               .pad_periphs_a_90_pad(pad_periphs_a_90_pad),
+               .pad_periphs_a_91_pad(pad_periphs_a_91_pad),
+               .pad_periphs_a_92_pad(pad_periphs_a_92_pad),
+               
+               .pad_periphs_b_00_pad(pad_periphs_b_00_pad),
+               .pad_periphs_b_01_pad(pad_periphs_b_01_pad),
+               .pad_periphs_b_02_pad(pad_periphs_b_02_pad),
+               .pad_periphs_b_03_pad(pad_periphs_b_03_pad),
+               .pad_periphs_b_04_pad(pad_periphs_b_04_pad),
+               .pad_periphs_b_05_pad(pad_periphs_b_05_pad),
+               .pad_periphs_b_06_pad(pad_periphs_b_06_pad),
+               .pad_periphs_b_07_pad(pad_periphs_b_07_pad),
+               .pad_periphs_b_08_pad(pad_periphs_b_08_pad),
+               .pad_periphs_b_09_pad(pad_periphs_b_09_pad),
+               .pad_periphs_b_10_pad(pad_periphs_b_10_pad),
+               .pad_periphs_b_11_pad(pad_periphs_b_11_pad),
+               .pad_periphs_b_12_pad(pad_periphs_b_12_pad),
+               .pad_periphs_b_13_pad(pad_periphs_b_13_pad),
+               .pad_periphs_b_14_pad(pad_periphs_b_14_pad),
+               .pad_periphs_b_15_pad(pad_periphs_b_15_pad),
+               .pad_periphs_b_16_pad(pad_periphs_b_16_pad),
+               .pad_periphs_b_17_pad(pad_periphs_b_17_pad),
+               .pad_periphs_b_18_pad(pad_periphs_b_18_pad),
+               .pad_periphs_b_19_pad(pad_periphs_b_19_pad),
+               .pad_periphs_b_20_pad(pad_periphs_b_20_pad),
+               .pad_periphs_b_21_pad(pad_periphs_b_21_pad),
+               .pad_periphs_b_22_pad(pad_periphs_b_22_pad),
+               .pad_periphs_b_23_pad(pad_periphs_b_23_pad),
+               .pad_periphs_b_24_pad(pad_periphs_b_24_pad),
+               .pad_periphs_b_25_pad(pad_periphs_b_25_pad),
+               .pad_periphs_b_26_pad(pad_periphs_b_26_pad),
+               .pad_periphs_b_27_pad(pad_periphs_b_27_pad),
+               .pad_periphs_b_28_pad(pad_periphs_b_28_pad),
+               .pad_periphs_b_29_pad(pad_periphs_b_29_pad), 
+               .pad_periphs_b_30_pad(pad_periphs_b_30_pad),
+               .pad_periphs_b_31_pad(pad_periphs_b_31_pad),
+               .pad_periphs_b_32_pad(pad_periphs_b_32_pad),
+               .pad_periphs_b_33_pad(pad_periphs_b_33_pad),
+               .pad_periphs_b_34_pad(pad_periphs_b_34_pad),
+               .pad_periphs_b_35_pad(pad_periphs_b_35_pad),
+               .pad_periphs_b_36_pad(pad_periphs_b_36_pad),
+               .pad_periphs_b_37_pad(pad_periphs_b_37_pad),
+               .pad_periphs_b_38_pad(pad_periphs_b_38_pad),
+               .pad_periphs_b_39_pad(pad_periphs_b_39_pad),
+               .pad_periphs_b_40_pad(pad_periphs_b_40_pad),
+               .pad_periphs_b_41_pad(pad_periphs_b_41_pad),
+               .pad_periphs_b_42_pad(pad_periphs_b_42_pad),
+               .pad_periphs_b_43_pad(pad_periphs_b_43_pad),
+               .pad_periphs_b_44_pad(pad_periphs_b_44_pad),
+               .pad_periphs_b_45_pad(pad_periphs_b_45_pad),
+               .pad_periphs_b_46_pad(pad_periphs_b_46_pad),
+               .pad_periphs_b_47_pad(pad_periphs_b_47_pad),
+               .pad_periphs_b_48_pad(pad_periphs_b_48_pad),
+               .pad_periphs_b_49_pad(pad_periphs_b_49_pad),
+               .pad_periphs_b_50_pad(pad_periphs_b_50_pad),
+               .pad_periphs_b_51_pad(pad_periphs_b_51_pad),
+               .pad_periphs_b_52_pad(pad_periphs_b_52_pad),
+               .pad_periphs_b_53_pad(pad_periphs_b_53_pad),
+               .pad_periphs_b_54_pad(pad_periphs_b_54_pad),
+               .pad_periphs_b_55_pad(pad_periphs_b_55_pad),
+               .pad_periphs_b_56_pad(pad_periphs_b_56_pad),
+               .pad_periphs_b_57_pad(pad_periphs_b_57_pad),
+               .pad_periphs_b_58_pad(pad_periphs_b_58_pad),
+               .pad_periphs_b_59_pad(pad_periphs_b_59_pad),
+               .pad_periphs_b_60_pad(pad_periphs_b_60_pad),
+               .pad_periphs_b_61_pad(pad_periphs_b_61_pad),
+               .pad_periphs_b_62_pad(pad_periphs_b_62_pad),
+     
+               .pad_periphs_ot_qspi_00_pad(pad_periphs_ot_qspi_00_pad),
+               .pad_periphs_ot_qspi_01_pad(pad_periphs_ot_qspi_01_pad),
+               .pad_periphs_ot_qspi_02_pad(pad_periphs_ot_qspi_02_pad),
+               .pad_periphs_ot_qspi_03_pad(pad_periphs_ot_qspi_03_pad),
+               .pad_periphs_ot_qspi_04_pad(pad_periphs_ot_qspi_04_pad),
+               .pad_periphs_ot_qspi_05_pad(pad_periphs_ot_qspi_05_pad),
+     
+               .pad_periphs_linux_qspi_00_pad(pad_periphs_linux_qspi_00_pad),
+               .pad_periphs_linux_qspi_01_pad(pad_periphs_linux_qspi_01_pad),
+               .pad_periphs_linux_qspi_02_pad(pad_periphs_linux_qspi_02_pad),
+               .pad_periphs_linux_qspi_03_pad(pad_periphs_linux_qspi_03_pad),
+               .pad_periphs_linux_qspi_04_pad(pad_periphs_linux_qspi_04_pad),
+               .pad_periphs_linux_qspi_05_pad(pad_periphs_linux_qspi_05_pad),                    
+     
             `endif //simple pad
           `endif //fpga_emul
         `endif //exclude
@@ -551,12 +661,15 @@ module ariane_tb;
    if (USE_UART == 1) begin
       `ifndef FPGA_EMUL
         `ifndef SIMPLE_PADFRAME
-          assign pad_periphs_pad_gpio_b_41_pad =pad_periphs_pad_gpio_b_40_pad;         
+          //UART0
+          assign pad_periphs_a_25_pad =pad_periphs_a_24_pad;            
         `else
-          assign pad_periphs_pad_gpio_b_07_pad =pad_periphs_pad_gpio_b_06_pad;
+          //SPI1
+          assign pad_periphs_a_08_pad =pad_periphs_a_09_pad;
         `endif
       `else
-          assign pad_periphs_pad_gpio_b_07_pad =pad_periphs_pad_gpio_b_06_pad;
+          //SPI1 
+          assign pad_periphs_a_08_pad =pad_periphs_a_09_pad;
       `endif
    end
   
@@ -570,21 +683,21 @@ module ariane_tb;
       `ifndef FPGA_EMUL
         `ifndef SIMPLE_PADFRAME
 
-          pullup scl0_pullup_i (pad_periphs_pad_gpio_b_50_pad);
-          pullup sda0_pullup_i (pad_periphs_pad_gpio_b_51_pad);
+          pullup scl0_pullup_i (pad_periphs_a_00_pad);
+          pullup sda0_pullup_i (pad_periphs_a_01_pad);
 
            M24FC1025 i_i2c_mem_0 (
              .A0    ( 1'b0       ),
              .A1    ( 1'b0       ),
              .A2    ( 1'b1       ),
              .WP    ( 1'b0       ),
-             .SDA   ( pad_periphs_pad_gpio_b_51_pad ),
-             .SCL   ( pad_periphs_pad_gpio_b_50_pad ),
+             .SDA   ( pad_periphs_a_01_pad ),
+             .SCL   ( pad_periphs_a_00_pad ),
              .RESET ( 1'b0       )
           );
-
+/*
           pullup scl1_pullup_i (pad_periphs_pad_gpio_d_00_pad);
-          pullup sda1_pullup_i (pad_periphs_pad_gpio_d_01_pad);
+          pullup sda1_pullup_i (pad_periphs_pad_gpio_d_01_pad); perche connettiamo una i2c mem alla cam0?
          
           M24FC1025 i_i2c_mem_1 (
              .A0    ( 1'b1       ),
@@ -594,10 +707,13 @@ module ariane_tb;
              .SDA   ( pad_periphs_pad_gpio_d_01_pad ),
              .SCL   ( pad_periphs_pad_gpio_d_00_pad ),
              .RESET ( 1'b0       )
-          );
+          );*/
 
-        `else
-
+        `else // !`ifndef SIMPLE_PADFRAME
+        
+          logic DUMMY;
+          assign DUMMY = 1'b0;
+        /*
           pullup scl0_pullup_i (pad_periphs_pad_gpio_b_04_pad);
           pullup sda0_pullup_i (pad_periphs_pad_gpio_b_05_pad);
 
@@ -606,8 +722,8 @@ module ariane_tb;
              .A1    ( 1'b0       ),
              .A2    ( 1'b1       ),
              .WP    ( 1'b0       ),
-             .SDA   ( pad_periphs_pad_gpio_b_05_pad ),
-             .SCL   ( pad_periphs_pad_gpio_b_04_pad ),
+             .SDA   ( pad_periphs_pad_gpio_b_05_pad ),    perche connettiamo due i2c mem allo stesso dispisitivo?
+             .SCL   ( pad_periphs_pad_gpio_b_04_pad ),    non è multiply driven l' SCL o l' SDA?
              .RESET ( 1'b0       )
           );
          
@@ -620,7 +736,7 @@ module ariane_tb;
              .SCL   ( pad_periphs_pad_gpio_b_04_pad ),
              .RESET ( 1'b0       )
           );
-
+*/
         `endif  
       `endif   
    end
@@ -637,10 +753,10 @@ module ariane_tb;
             .mem_file_name ( "./vectors/qspi_stim.slm" ),
             .UserPreload   ( 0 )
          ) i_spi_flash_csn0 (
-            .SI       ( pad_periphs_pad_gpio_b_03_pad  ),
-            .SO       ( pad_periphs_pad_gpio_b_02_pad  ),
-            .SCK      ( pad_periphs_pad_gpio_b_01_pad  ),
-            .CSNeg    ( pad_periphs_pad_gpio_b_00_pad  ),
+            .SI       ( pad_periphs_a_05_pad  ),
+            .SO       ( pad_periphs_a_04_pad  ),
+            .SCK      ( pad_periphs_a_02_pad  ),
+            .CSNeg    ( pad_periphs_a_03_pad  ),
             .WPNeg    (  ),
             .RESETNeg (  )
          );
@@ -648,7 +764,7 @@ module ariane_tb;
       end
   endgenerate
   
-
+/*
   generate
       if (USE_SDVT_CPI==1) begin
         `ifndef FPGA_EMUL
@@ -677,22 +793,26 @@ module ariane_tb;
         `endif
       end
   endgenerate
-
+*/
   generate
       if (USE_SDIO_0==1) begin
         `ifndef FPGA_EMUL
           `ifndef SIMPLE_PADFRAME
             sdModel sdModelTB0(
-            .sdClk ( pad_periphs_pad_gpio_b_38_pad ),
-            .cmd   ( pad_periphs_pad_gpio_b_39_pad ),
+            .sdClk ( pad_periphs_a_22_pad ),
+            .cmd   ( pad_periphs_a_23_pad ),
             .dat   ( {
-                      pad_periphs_pad_gpio_b_37_pad,
-                      pad_periphs_pad_gpio_b_36_pad,
-                      pad_periphs_pad_gpio_b_35_pad,
-                      pad_periphs_pad_gpio_b_34_pad } 
+                      pad_periphs_a_21_pad,
+                      pad_periphs_a_20_pad,
+                      pad_periphs_a_19_pad,
+                      pad_periphs_a_18_pad } 
                     )
             );
-          `else
+          `else // !`ifndef SIMPLE_PADFRAME
+         
+              logic DUMMY;
+              assign DUMMY = 1'b0;
+         /*
               sdModel sdModelTB0(
               .sdClk ( pad_periphs_pad_gpio_b_12_pad ),
               .cmd   ( pad_periphs_pad_gpio_b_13_pad ),
@@ -702,7 +822,7 @@ module ariane_tb;
                         pad_periphs_pad_gpio_b_09_pad,
                         pad_periphs_pad_gpio_b_08_pad } 
                       )
-              );
+              );*/
           `endif
         `endif
       end
@@ -711,13 +831,13 @@ module ariane_tb;
   generate
       if (USE_SDIO_1==1) begin
         sdModel sdModelTB1(
-        .sdClk ( pad_periphs_pad_gpio_f_05_pad ),
-        .cmd   ( pad_periphs_pad_gpio_f_06_pad ),
+        .sdClk ( pad_periphs_a_61_pad ),
+        .cmd   ( pad_periphs_a_62_pad ),
         .dat   ( {
-                  pad_periphs_pad_gpio_f_04_pad,
-                  pad_periphs_pad_gpio_f_03_pad,
-                  pad_periphs_pad_gpio_f_02_pad,
-                  pad_periphs_pad_gpio_f_01_pad } 
+                  pad_periphs_a_58_pad,
+                  pad_periphs_b_25_pad,
+                  pad_periphs_a_59_pad,
+                  pad_periphs_a_60_pad } 
                )
         );
       end

@@ -1,10 +1,11 @@
 package udma_subsystem_pkg;
 
   localparam N_SPI          = 12; 
-  localparam N_UART         = 8;
+  localparam N_USART        = 4;
+  localparam N_UART         = 3;
   localparam N_SDIO         = 2;
   localparam N_CAM          = 2;
-  localparam N_I2C          = 5;
+  localparam N_I2C          = 6;
   localparam N_HYPER        = 1; // Do not change unless you know what you are doing.
   localparam N_CAN          = 2;
 
@@ -14,7 +15,17 @@ package udma_subsystem_pkg;
  	typedef struct packed {
  		logic rx_i;
  	} pad_to_uart_t;
+   
+  typedef struct packed {
+ 		logic tx_o;
+    logic rts_o;
+ 	} usart_to_pad_t;
 
+ 	typedef struct packed {
+ 		logic rx_i;
+    logic cts_i;
+ 	} pad_to_usart_t;
+   
 	typedef struct packed {
 		logic sd0_o;
 		logic sd0_oen_o;
@@ -127,7 +138,14 @@ package udma_subsystem_pkg;
 		logic pwm6_o;
 		logic pwm7_o;
 	} pwm_to_pad_t;
-
+   
+  typedef struct packed {
+		logic pwm0_o;
+		logic pwm1_o;
+		logic pwm2_o;
+		logic pwm3_o;
+	} pwm_nano_to_pad_t;
+    
 	typedef struct packed {
 	  logic rx_i;
 	} pad_to_can_t;
