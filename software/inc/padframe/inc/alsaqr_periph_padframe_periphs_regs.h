@@ -3149,18 +3149,7 @@ extern "C" {
   0
 
 // Pad signal configuration.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 #define ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_CFG_REG_OFFSET 0x4f8
-=======
-=======
->>>>>>> 7ab4797b (Updated padframe with qspi linux, now compliant with specs)
-<<<<<<< HEAD
-=======
->>>>>>> 1478496d (Updated padframe.)
-#define ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_CFG_REG_OFFSET 0x4e8
->>>>>>> ebe8100e (Updated padframe with QSPI OT signals and bootselet signals)
 #define ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_CFG_CHIP2PAD_BIT 0
 #define ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_CFG_DRV_MASK 0x3
 #define ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_CFG_DRV_OFFSET 1
@@ -3179,18 +3168,7 @@ extern "C" {
   0
 
 // Pad signal configuration.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 #define ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_02_CFG_REG_OFFSET 0x500
-=======
-=======
->>>>>>> 7ab4797b (Updated padframe with qspi linux, now compliant with specs)
-<<<<<<< HEAD
-=======
->>>>>>> 1478496d (Updated padframe.)
-#define ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_02_CFG_REG_OFFSET 0x4f0
->>>>>>> ebe8100e (Updated padframe with QSPI OT signals and bootselet signals)
 #define ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_02_CFG_CHIP2PAD_BIT 0
 #define ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_02_CFG_DRV_MASK 0x3
 #define ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_02_CFG_DRV_OFFSET 1
@@ -3209,18 +3187,7 @@ extern "C" {
   0
 
 // Pad signal configuration.
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
 #define ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_03_CFG_REG_OFFSET 0x508
-=======
-=======
->>>>>>> 7ab4797b (Updated padframe with qspi linux, now compliant with specs)
-<<<<<<< HEAD
-=======
->>>>>>> 1478496d (Updated padframe.)
-#define ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_03_CFG_REG_OFFSET 0x4f8
->>>>>>> ebe8100e (Updated padframe with QSPI OT signals and bootselet signals)
 #define ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_03_CFG_CHIP2PAD_BIT 0
 #define ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_03_CFG_DRV_MASK 0x3
 #define ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_03_CFG_DRV_OFFSET 1
