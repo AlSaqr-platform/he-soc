@@ -27,7 +27,6 @@ The repository is organized as follows
 ## NOTE:
 Hints to solve compilation issues:
 * Follow the insctuctions from https://github.com/pulp-platform/hyperbus/tree/main/models (copy `s27ks0641`)
-* Suppress error 2733 in `hardware/compile.tcl`
 * Copy the `vip` folder in `hardware/tb`
 ### TODO: Fix these
 
