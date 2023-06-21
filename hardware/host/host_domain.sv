@@ -172,7 +172,7 @@ module host_domain
    
    // When changing these parameters, change the L2 size accordingly in ariane_soc_pkg
    localparam NB_L2_BANKS = 8;
-   localparam L2_BANK_SIZE = 16384; // 2^14 words (32 bits)
+   localparam L2_BANK_SIZE = 2048; // 2^11 words (32 bits)
 
    localparam L2_BANK_ADDR_WIDTH = $clog2(L2_BANK_SIZE);
    localparam L2_MEM_ADDR_WIDTH = $clog2(L2_BANK_SIZE * NB_L2_BANKS) - $clog2(NB_L2_BANKS); 
@@ -182,6 +182,11 @@ module host_domain
                                           // It is hardcoded in the axi2tcdm_wrap module.
 
    localparam NB_UDMA_TCDM_CHANNEL = 2;
+
+   // parameters for the LLC
+   localparam NUM_WAYS   = 32'd16;
+   localparam NUM_LINES  = 32'd512;
+   localparam NUM_BLOCKS = 32'd8;
 
    logic                                 s_clk_cva6;
    logic                                 s_rstn_cva6_sync;
@@ -320,9 +325,9 @@ module host_domain
    `AXI_LITE_ASSIGN_FROM_RESP(llc_cfg_bus,axi_llc_cfg_res)
     
     axi_llc_top #(
-      .SetAssociativity ( 32'd8                          ),
-      .NumLines         ( 32'd256                        ),
-      .NumBlocks        ( 32'd8                          ),
+      .SetAssociativity ( NUM_WAYS                       ),
+      .NumLines         ( NUM_LINES                      ),
+      .NumBlocks        ( NUM_BLOCKS                     ),
       .AxiIdWidth       ( ariane_soc::IdWidthSlave       ),
       .AxiAddrWidth     ( AXI_ADDRESS_WIDTH              ),
       .AxiDataWidth     ( AXI_DATA_WIDTH                 ),
