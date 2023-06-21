@@ -26,7 +26,7 @@ module gpio2padframe
       import pkg_alsaqr_periph_fpga_padframe::*; 
   `endif
   #( 
-    parameter int unsigned NUM_GPIO   = 64 
+    parameter int unsigned NUM_GPIO   = 65 
   )(
 
     output logic [NUM_GPIO-1:0] gpio_in,
@@ -289,6 +289,14 @@ module gpio2padframe
     assign gpio_to_pad.gpio62_d_o = gpio_dir[62];
     assign gpio_to_pad.gpio62_o = gpio_out[62];
 
-    assign gpio_in[63] = '0;
+
+    assign gpio_in[63] =  pad_to_gpio.gpio63_i;
+    assign gpio_to_pad.gpio63_d_o = gpio_dir[63];
+    assign gpio_to_pad.gpio63_o = gpio_out[63];
+
+    assign gpio_in[64] =  pad_to_gpio.gpio64_i;
+    assign gpio_to_pad.gpio64_d_o = gpio_dir[64];
+    assign gpio_to_pad.gpio64_o = gpio_out[64];
+
   
 endmodule

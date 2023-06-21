@@ -359,6 +359,8 @@ module ariane_tb;
     wire    pad_periphs_b_60_pad;
     wire    pad_periphs_b_61_pad;
     wire    pad_periphs_b_62_pad;
+    wire    pad_periphs_b_63_pad;
+    wire    pad_periphs_b_64_pad;
 
     wire    pad_periphs_ot_qspi_00_pad;
     wire    pad_periphs_ot_qspi_01_pad;
@@ -446,7 +448,7 @@ module ariane_tb;
    
   // SiFive's SimJTAG Module
   // Converts to DPI calls
-  SimJTAG i_SimJTAG (
+/*  SimJTAG i_SimJTAG (
     .clock                ( clk_i                ),
     .reset                ( ~rst_ni              ),
     .enable               ( jtag_enable[0]       ),
@@ -459,6 +461,8 @@ module ariane_tb;
     .jtag_TDO_driven      ( s_jtag_TDO_driven    ),
     .exit                 ( s_jtag_exit          )
   );
+   
+  */
   
     al_saqr 
     `ifndef TARGET_TOP_POST_SYNTH_SIM #(
@@ -487,7 +491,7 @@ module ariane_tb;
           .jtag_TDI             ( s_jtag2alsaqr_tdi      ),
           .jtag_TRSTn           ( s_jtag2alsaqr_trstn    ),
           .jtag_TDO_data        ( s_jtag2alsaqr_tdo      ),
-          .jtag_TDO_driven      ( s_jtag_TDO_driven      ),
+         // .jtag_TDO_driven      ( s_jtag_TDO_driven      ),
 
           .jtag_ot_TCK          ( s_jtag2ot_tck          ),
           .jtag_ot_TMS          ( s_jtag2ot_tms          ),
@@ -662,7 +666,9 @@ module ariane_tb;
                .pad_periphs_b_60_pad(pad_periphs_b_60_pad),
                .pad_periphs_b_61_pad(pad_periphs_b_61_pad),
                .pad_periphs_b_62_pad(pad_periphs_b_62_pad),
-     
+               .pad_periphs_b_63_pad(pad_periphs_b_63_pad),
+               .pad_periphs_b_64_pad(pad_periphs_b_64_pad),
+
                .pad_periphs_ot_qspi_00_pad(pad_periphs_ot_qspi_00_pad),
                .pad_periphs_ot_qspi_01_pad(pad_periphs_ot_qspi_01_pad),
                .pad_periphs_ot_qspi_02_pad(pad_periphs_ot_qspi_02_pad),

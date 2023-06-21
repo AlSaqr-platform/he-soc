@@ -21,7 +21,7 @@ package apb_soc_pkg;
 
    localparam NUM_APB_SLAVES = 10;
 
-   localparam NUM_GPIO = 64;
+   localparam NUM_GPIO = 65;
    
    localparam logic [31:0] APBUARTLength  = 32'h1000;
    localparam logic [31:0] UDMALength     = 32'h22000; //4K * N_PERIPHS  (N_PERIPHS=34)

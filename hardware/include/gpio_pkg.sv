@@ -127,6 +127,10 @@ typedef struct packed {
 	logic gpio61_o;
   logic gpio62_d_o;
   logic gpio62_o;
+  logic gpio63_d_o;
+  logic gpio63_o;
+  logic gpio64_d_o;
+  logic gpio64_o;
 } gpio_to_pad_t;
 
 typedef struct packed {
@@ -193,6 +197,8 @@ typedef struct packed {
 	logic gpio60_i;
 	logic gpio61_i;
   logic gpio62_i;
+	logic gpio63_i;
+  logic gpio64_i;
 } pad_to_gpio_t;
 
 

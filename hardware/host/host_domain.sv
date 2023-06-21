@@ -53,7 +53,7 @@ module host_domain
   parameter bit          StallRandomInput  = 1'b0,
   parameter bit          JtagEnable        = 1'b1,
   parameter int unsigned CAM_DATA_WIDTH    = 8,
-  parameter int unsigned NUM_GPIO          = 64,
+  parameter int unsigned NUM_GPIO          = 65,
   parameter type         axi_req_t         = logic,
   parameter type         axi_rsp_t         = logic
 ) (
