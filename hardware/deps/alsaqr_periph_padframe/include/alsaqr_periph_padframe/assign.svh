@@ -149,11 +149,11 @@
   assign load.csn1_i = driver.csn1_o; \
   assign load.sd0_i = driver.sd0_o; \
 
-`define ASSIGN_PERIPHS_I2C5_PAD2SOC(load, driver) \
+`define ASSIGN_PERIPHS_I2C4_PAD2SOC(load, driver) \
   assign load.scl_i = driver.scl_o; \
   assign load.sda_i = driver.sda_o; \
 
-`define ASSIGN_PERIPHS_I2C5_SOC2PAD(load, driver) \
+`define ASSIGN_PERIPHS_I2C4_SOC2PAD(load, driver) \
   assign load.scl_i = driver.scl_o; \
   assign load.scl_oe_i = driver.scl_oe_o; \
   assign load.sda_i = driver.sda_o; \
@@ -179,11 +179,11 @@
 `define ASSIGN_PERIPHS_UART2_SOC2PAD(load, driver) \
   assign load.tx_i = driver.tx_o; \
 
-`define ASSIGN_PERIPHS_I2C6_PAD2SOC(load, driver) \
+`define ASSIGN_PERIPHS_I2C5_PAD2SOC(load, driver) \
   assign load.scl_i = driver.scl_o; \
   assign load.sda_i = driver.sda_o; \
 
-`define ASSIGN_PERIPHS_I2C6_SOC2PAD(load, driver) \
+`define ASSIGN_PERIPHS_I2C5_SOC2PAD(load, driver) \
   assign load.scl_i = driver.scl_o; \
   assign load.scl_oe_i = driver.scl_oe_o; \
   assign load.sda_i = driver.sda_o; \
@@ -246,17 +246,9 @@
   assign load.data5_i = driver.data5_o; \
   assign load.data6_i = driver.data6_o; \
   assign load.data7_i = driver.data7_o; \
+  assign load.hsync_i = driver.hsync_o; \
+  assign load.vsync_i = driver.vsync_o; \
 
-
-`define ASSIGN_PERIPHS_I2C4_PAD2SOC(load, driver) \
-  assign load.scl_i = driver.scl_o; \
-  assign load.sda_i = driver.sda_o; \
-
-`define ASSIGN_PERIPHS_I2C4_SOC2PAD(load, driver) \
-  assign load.scl_i = driver.scl_o; \
-  assign load.scl_oe_i = driver.scl_oe_o; \
-  assign load.sda_i = driver.sda_o; \
-  assign load.sda_oe_i = driver.sda_oe_o; \
 
 `define ASSIGN_PERIPHS_CAM1_PAD2SOC(load, driver) \
   assign load.clk_i = driver.clk_o; \
@@ -268,6 +260,8 @@
   assign load.data5_i = driver.data5_o; \
   assign load.data6_i = driver.data6_o; \
   assign load.data7_i = driver.data7_o; \
+  assign load.hsync_i = driver.hsync_o; \
+  assign load.vsync_i = driver.vsync_o; \
 
 
 `define ASSIGN_PERIPHS_SDIO1_PAD2SOC(load, driver) \
@@ -366,6 +360,8 @@
   assign load.gpio60_i = driver.gpio60_o; \
   assign load.gpio61_i = driver.gpio61_o; \
   assign load.gpio62_i = driver.gpio62_o; \
+  assign load.gpio63_i = driver.gpio63_o; \
+  assign load.gpio64_i = driver.gpio64_o; \
 
 `define ASSIGN_PERIPHS_GPIO_B_SOC2PAD(load, driver) \
   assign load.gpio0_d_i = driver.gpio0_d_o; \
@@ -494,6 +490,10 @@
   assign load.gpio61_i = driver.gpio61_o; \
   assign load.gpio62_d_i = driver.gpio62_d_o; \
   assign load.gpio62_i = driver.gpio62_o; \
+  assign load.gpio63_d_i = driver.gpio63_d_o; \
+  assign load.gpio63_i = driver.gpio63_o; \
+  assign load.gpio64_d_i = driver.gpio64_d_o; \
+  assign load.gpio64_i = driver.gpio64_o; \
 
 `define ASSIGN_PERIPHS_ETH_PAD2SOC(load, driver) \
   assign load.eth_intb_i = driver.eth_intb_o; \

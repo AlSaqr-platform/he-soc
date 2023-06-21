@@ -242,6 +242,8 @@ module al_saqr
         inout wire logic    pad_periphs_b_60_pad,
         inout wire logic    pad_periphs_b_61_pad,
         inout wire logic    pad_periphs_b_62_pad,
+        inout wire logic    pad_periphs_b_63_pad,
+        inout wire logic    pad_periphs_b_64_pad,
         
         inout wire logic    pad_periphs_ot_qspi_00_pad,
         inout wire logic    pad_periphs_ot_qspi_01_pad,
@@ -263,8 +265,6 @@ module al_saqr
   // CVA6 DEBUG UART
   inout wire          logic cva6_uart_rx_i,
   inout wire          logic cva6_uart_tx_o,
-  inout wire          logic apb_uart_rx_i,
-  inout wire          logic apb_uart_tx_o,
   // FROM SimDTM
 `ifndef TARGET_SYNTHESIS
   input logic         dmi_req_valid,
@@ -283,7 +283,6 @@ module al_saqr
   inout wire          jtag_TDI,
   inout wire          jtag_TRSTn,
   inout wire          jtag_TDO_data,
-  inout wire          jtag_TDO_driven
    
 );
   // AXILITE parameters
@@ -541,8 +540,8 @@ module al_saqr
       .cva6_uart_rx_i         ( s_cva6_uart_rx_i                ),
       .cva6_uart_tx_o         ( s_cva6_uart_tx_o                ),
 
-      .apb_uart_rx_i          ( apb_uart_rx_i                   ),
-      .apb_uart_tx_o          ( apb_uart_tx_o                   ),
+      .apb_uart_rx_i          ( 1'b0                            ),
+      .apb_uart_tx_o          (                                 ),
 
        `ifndef XILINX_DDR
        .pad_hyper_csn,
@@ -1115,6 +1114,8 @@ module al_saqr
           .pad_periphs_b_60_pad(pad_periphs_b_60_pad),
           .pad_periphs_b_61_pad(pad_periphs_b_61_pad),
           .pad_periphs_b_62_pad(pad_periphs_b_62_pad),
+          .pad_periphs_b_61_pad(pad_periphs_b_63_pad),
+          .pad_periphs_b_62_pad(pad_periphs_b_64_pad),
 
           .pad_periphs_ot_qspi_00_pad(pad_periphs_ot_qspi_00_pad),
           .pad_periphs_ot_qspi_01_pad(pad_periphs_ot_qspi_01_pad),
@@ -1191,8 +1192,6 @@ module al_saqr
           `ASSIGN_PERIPHS_I2C5_PAD2SOC(s_pad_to_i2c[5],s_port_signals_pad2soc.periphs.i2c5)
           `ASSIGN_PERIPHS_I2C5_SOC2PAD(s_port_signals_soc2pad.periphs.i2c5,s_i2c_to_pad[5])
        
-          `ASSIGN_PERIPHS_I2C6_PAD2SOC(s_pad_to_i2c[6],s_port_signals_pad2soc.periphs.i2c6)
-          `ASSIGN_PERIPHS_I2C6_SOC2PAD(s_port_signals_soc2pad.periphs.i2c6,s_i2c_to_pad[6])
           // UARTs
           `ASSIGN_PERIPHS_UART0_PAD2SOC(s_pad_to_uart[0],s_port_signals_pad2soc.periphs.uart0)
           `ASSIGN_PERIPHS_UART0_SOC2PAD(s_port_signals_soc2pad.periphs.uart0,s_uart_to_pad[0])

@@ -4507,7 +4507,8 @@ uint8_t alsaqr_periph_padframe_periphs_a_42_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_42_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_42_group_I2C3_port_I2C_SCL = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_42_group_CAM0_port_CAM_PCLK = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_42_group_I2C3_port_I2C_SCL = 2,
 } alsaqr_periph_padframe_periphs_a_42_mux_sel_t;
 
 /**
@@ -4612,7 +4613,8 @@ uint8_t alsaqr_periph_padframe_periphs_a_43_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_43_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_43_group_I2C3_port_I2C_SDA = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_43_group_CAM0_port_CAM_VSYNC = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_43_group_I2C3_port_I2C_SDA = 2,
 } alsaqr_periph_padframe_periphs_a_43_mux_sel_t;
 
 /**
@@ -4717,7 +4719,7 @@ uint8_t alsaqr_periph_padframe_periphs_a_44_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_44_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_44_group_CAM0_port_CAM_DATA7_I = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_44_group_CAM0_port_CAM_DATA0_I = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_44_group_SPI5_port_SPI_SCK = 2,
 } alsaqr_periph_padframe_periphs_a_44_mux_sel_t;
 
@@ -4823,7 +4825,7 @@ uint8_t alsaqr_periph_padframe_periphs_a_45_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_45_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_45_group_CAM0_port_CAM_DATA6_I = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_45_group_CAM0_port_CAM_DATA1_I = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_45_group_SPI5_port_SPI_CS0 = 2,
 } alsaqr_periph_padframe_periphs_a_45_mux_sel_t;
 
@@ -4929,7 +4931,7 @@ uint8_t alsaqr_periph_padframe_periphs_a_46_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_46_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_46_group_CAM0_port_CAM_DATA5_I = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_46_group_CAM0_port_CAM_DATA2_I = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_46_group_SPI5_port_SPI_MISO = 2,
 } alsaqr_periph_padframe_periphs_a_46_mux_sel_t;
 
@@ -5035,7 +5037,7 @@ uint8_t alsaqr_periph_padframe_periphs_a_47_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_47_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_47_group_CAM0_port_CAM_DATA4_I = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_47_group_CAM0_port_CAM_DATA3_I = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_47_group_SPI5_port_SPI_MOSI = 2,
 } alsaqr_periph_padframe_periphs_a_47_mux_sel_t;
 
@@ -5141,7 +5143,7 @@ uint8_t alsaqr_periph_padframe_periphs_a_48_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_48_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_48_group_CAM0_port_CAM_DATA2_I = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_48_group_CAM0_port_CAM_DATA5_I = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_48_group_SPI6_port_SPI_SCK = 2,
 } alsaqr_periph_padframe_periphs_a_48_mux_sel_t;
 
@@ -5247,7 +5249,7 @@ uint8_t alsaqr_periph_padframe_periphs_a_49_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_49_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_49_group_CAM0_port_CAM_DATA1_I = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_49_group_CAM0_port_CAM_DATA6_I = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_49_group_SPI6_port_SPI_CS0 = 2,
 } alsaqr_periph_padframe_periphs_a_49_mux_sel_t;
 
@@ -5353,7 +5355,7 @@ uint8_t alsaqr_periph_padframe_periphs_a_50_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_50_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_50_group_CAM0_port_CAM_DATA0_I = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_50_group_CAM0_port_CAM_DATA7_I = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_50_group_SPI6_port_SPI_MISO = 2,
 } alsaqr_periph_padframe_periphs_a_50_mux_sel_t;
 
@@ -5459,7 +5461,7 @@ uint8_t alsaqr_periph_padframe_periphs_a_51_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_51_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_51_group_I2C4_port_I2C_SCL = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_51_group_CAM1_port_CAM_PCLK = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_51_group_SPI6_port_SPI_MOSI = 2,
 } alsaqr_periph_padframe_periphs_a_51_mux_sel_t;
 
@@ -5565,7 +5567,7 @@ uint8_t alsaqr_periph_padframe_periphs_a_52_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_52_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_52_group_CAM1_port_CAM_PCLK = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_52_group_CAM1_port_CAM_HSYNC = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_52_group_SPI7_port_SPI_SCK = 2,
 } alsaqr_periph_padframe_periphs_a_52_mux_sel_t;
 
@@ -5671,7 +5673,7 @@ uint8_t alsaqr_periph_padframe_periphs_a_53_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_53_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_53_group_CAM1_port_CAM_DATA7_I = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_53_group_CAM1_port_CAM_DATA0_I = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_53_group_SPI7_port_SPI_MISO = 2,
 } alsaqr_periph_padframe_periphs_a_53_mux_sel_t;
 
@@ -5777,7 +5779,7 @@ uint8_t alsaqr_periph_padframe_periphs_a_54_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_54_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_54_group_CAM1_port_CAM_DATA6_I = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_54_group_CAM1_port_CAM_DATA1_I = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_54_group_SPI7_port_SPI_MOSI = 2,
 } alsaqr_periph_padframe_periphs_a_54_mux_sel_t;
 
@@ -5883,7 +5885,7 @@ uint8_t alsaqr_periph_padframe_periphs_a_55_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_55_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_55_group_CAM1_port_CAM_DATA2_I = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_55_group_CAM1_port_CAM_DATA5_I = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_55_group_SPI7_port_SPI_CS0 = 2,
 } alsaqr_periph_padframe_periphs_a_55_mux_sel_t;
 
@@ -5989,7 +5991,7 @@ uint8_t alsaqr_periph_padframe_periphs_a_56_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_56_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_56_group_CAM1_port_CAM_DATA1_I = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_56_group_CAM1_port_CAM_DATA6_I = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_56_group_SPI7_port_SPI_CS1 = 2,
 } alsaqr_periph_padframe_periphs_a_56_mux_sel_t;
 
@@ -6095,8 +6097,8 @@ uint8_t alsaqr_periph_padframe_periphs_a_57_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_57_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_57_group_CAM1_port_CAM_DATA0_I = 1,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_57_group_I2C5_port_I2C_SCL = 2,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_57_group_CAM1_port_CAM_DATA7_I = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_57_group_I2C4_port_I2C_SCL = 2,
 } alsaqr_periph_padframe_periphs_a_57_mux_sel_t;
 
 /**
@@ -6201,8 +6203,8 @@ uint8_t alsaqr_periph_padframe_periphs_a_58_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_58_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_58_group_I2C5_port_I2C_SDA = 1,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_58_group_SDIO1_port_SDIO_DATA3 = 2,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_58_group_I2C4_port_I2C_SDA = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_58_group_SDIO1_port_SDIO_DATA0 = 2,
 } alsaqr_periph_padframe_periphs_a_58_mux_sel_t;
 
 /**
@@ -6307,7 +6309,7 @@ uint8_t alsaqr_periph_padframe_periphs_a_59_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_59_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_59_group_SDIO1_port_SDIO_DATA1 = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_59_group_SDIO1_port_SDIO_DATA2 = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_59_group_UART1_port_UART_TX = 2,
 } alsaqr_periph_padframe_periphs_a_59_mux_sel_t;
 
@@ -6413,7 +6415,7 @@ uint8_t alsaqr_periph_padframe_periphs_a_60_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_60_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_60_group_SDIO1_port_SDIO_DATA0 = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_60_group_SDIO1_port_SDIO_DATA3 = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_60_group_UART1_port_UART_RX = 2,
 } alsaqr_periph_padframe_periphs_a_60_mux_sel_t;
 
@@ -7151,7 +7153,7 @@ uint8_t alsaqr_periph_padframe_periphs_a_67_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_67_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_67_group_I2C6_port_I2C_SCL = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_67_group_I2C5_port_I2C_SCL = 1,
 } alsaqr_periph_padframe_periphs_a_67_mux_sel_t;
 
 /**
@@ -7256,7 +7258,7 @@ uint8_t alsaqr_periph_padframe_periphs_a_68_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_A_68_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_68_group_I2C6_port_I2C_SDA = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_A_68_group_I2C5_port_I2C_SDA = 1,
 } alsaqr_periph_padframe_periphs_a_68_mux_sel_t;
 
 /**
@@ -11880,7 +11882,7 @@ uint8_t alsaqr_periph_padframe_periphs_b_19_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_B_19_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_19_group_CAM0_port_CAM_PCLK = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_19_group_CAM0_port_CAM_HSYNC = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_B_19_group_GPIO_B_port_GPIO19 = 2,
 } alsaqr_periph_padframe_periphs_b_19_mux_sel_t;
 
@@ -11986,7 +11988,7 @@ uint8_t alsaqr_periph_padframe_periphs_b_20_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_B_20_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_20_group_CAM0_port_CAM_DATA3_I = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_20_group_CAM0_port_CAM_DATA4_I = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_B_20_group_GPIO_B_port_GPIO20 = 2,
 } alsaqr_periph_padframe_periphs_b_20_mux_sel_t;
 
@@ -12092,8 +12094,8 @@ uint8_t alsaqr_periph_padframe_periphs_b_21_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_B_21_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_21_group_GPIO_B_port_GPIO21 = 1,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_21_group_I2C4_port_I2C_SDA = 2,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_21_group_CAM1_port_CAM_VSYNC = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_21_group_GPIO_B_port_GPIO21 = 2,
 } alsaqr_periph_padframe_periphs_b_21_mux_sel_t;
 
 /**
@@ -12198,7 +12200,7 @@ uint8_t alsaqr_periph_padframe_periphs_b_22_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_B_22_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_22_group_CAM1_port_CAM_DATA5_I = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_22_group_CAM1_port_CAM_DATA2_I = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_B_22_group_GPIO_B_port_GPIO22 = 2,
 } alsaqr_periph_padframe_periphs_b_22_mux_sel_t;
 
@@ -12304,7 +12306,7 @@ uint8_t alsaqr_periph_padframe_periphs_b_23_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_B_23_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_23_group_CAM1_port_CAM_DATA4_I = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_23_group_CAM1_port_CAM_DATA3_I = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_B_23_group_GPIO_B_port_GPIO23 = 2,
 } alsaqr_periph_padframe_periphs_b_23_mux_sel_t;
 
@@ -12410,7 +12412,7 @@ uint8_t alsaqr_periph_padframe_periphs_b_24_cfg_smt_get();
 
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_B_24_REGISTER = 0,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_24_group_CAM1_port_CAM_DATA3_I = 1,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_24_group_CAM1_port_CAM_DATA4_I = 1,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_B_24_group_GPIO_B_port_GPIO24 = 2,
 } alsaqr_periph_padframe_periphs_b_24_mux_sel_t;
 
@@ -12517,7 +12519,7 @@ uint8_t alsaqr_periph_padframe_periphs_b_25_cfg_smt_get();
 typedef enum {
   ALSAQR_PERIPH_PADFRAME_PERIPHS_B_25_REGISTER = 0,
   ALSAQR_PERIPH_PADFRAME_PERIPHS_B_25_group_GPIO_B_port_GPIO25 = 1,
-  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_25_group_SDIO1_port_SDIO_DATA2 = 2,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_25_group_SDIO1_port_SDIO_DATA1 = 2,
 } alsaqr_periph_padframe_periphs_b_25_mux_sel_t;
 
 /**
@@ -16434,6 +16436,216 @@ void alsaqr_periph_padframe_periphs_b_62_mux_set(alsaqr_periph_padframe_periphs_
  * @return Port or configuration register currently connected to the pad.
  */
  alsaqr_periph_padframe_periphs_b_62_mux_sel_t alsaqr_periph_padframe_periphs_b_62_mux_get();
+
+
+
+/**
+ * Sets the chip2pad pad signal for the pad: b_63
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_b_63_cfg_chip2pad_set(uint8_t value);
+
+/**
+ * Get the currently configured chip2pad value for the pad: b_63
+ *
+ * @return The value of the chip2pad field
+ */
+uint8_t alsaqr_periph_padframe_periphs_b_63_cfg_chip2pad_get();
+
+/**
+ * Sets the drv pad signal for the pad: b_63
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_b_63_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: b_63
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_b_63_cfg_drv_get();
+
+/**
+ * Sets the oen pad signal for the pad: b_63
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_b_63_cfg_oen_set(uint8_t value);
+
+/**
+ * Get the currently configured oen value for the pad: b_63
+ *
+ * @return The value of the oen field
+ */
+uint8_t alsaqr_periph_padframe_periphs_b_63_cfg_oen_get();
+
+/**
+ * Sets the puen pad signal for the pad: b_63
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_b_63_cfg_puen_set(uint8_t value);
+
+/**
+ * Get the currently configured puen value for the pad: b_63
+ *
+ * @return The value of the puen field
+ */
+uint8_t alsaqr_periph_padframe_periphs_b_63_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: b_63
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_b_63_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: b_63
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_b_63_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: b_63
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_b_63_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: b_63
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_b_63_cfg_smt_get();
+
+typedef enum {
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_63_REGISTER = 0,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_63_group_GPIO_B_port_GPIO63 = 1,
+} alsaqr_periph_padframe_periphs_b_63_mux_sel_t;
+
+/**
+   * Choose the entity (a port or the dedicated configuration register) that controls b_63.
+   *
+   * @param mux_sel Port or configuration register to connect to the pad.
+ */
+void alsaqr_periph_padframe_periphs_b_63_mux_set(alsaqr_periph_padframe_periphs_b_63_mux_sel_t mux_sel);
+
+/**
+ * Read the current multiplexer select value configured for b_63.
+ *
+ * @return Port or configuration register currently connected to the pad.
+ */
+ alsaqr_periph_padframe_periphs_b_63_mux_sel_t alsaqr_periph_padframe_periphs_b_63_mux_get();
+
+
+
+/**
+ * Sets the chip2pad pad signal for the pad: b_64
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_b_64_cfg_chip2pad_set(uint8_t value);
+
+/**
+ * Get the currently configured chip2pad value for the pad: b_64
+ *
+ * @return The value of the chip2pad field
+ */
+uint8_t alsaqr_periph_padframe_periphs_b_64_cfg_chip2pad_get();
+
+/**
+ * Sets the drv pad signal for the pad: b_64
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_padframe_periphs_b_64_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: b_64
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_padframe_periphs_b_64_cfg_drv_get();
+
+/**
+ * Sets the oen pad signal for the pad: b_64
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_b_64_cfg_oen_set(uint8_t value);
+
+/**
+ * Get the currently configured oen value for the pad: b_64
+ *
+ * @return The value of the oen field
+ */
+uint8_t alsaqr_periph_padframe_periphs_b_64_cfg_oen_get();
+
+/**
+ * Sets the puen pad signal for the pad: b_64
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_b_64_cfg_puen_set(uint8_t value);
+
+/**
+ * Get the currently configured puen value for the pad: b_64
+ *
+ * @return The value of the puen field
+ */
+uint8_t alsaqr_periph_padframe_periphs_b_64_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: b_64
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_b_64_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: b_64
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_padframe_periphs_b_64_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: b_64
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_padframe_periphs_b_64_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: b_64
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_padframe_periphs_b_64_cfg_smt_get();
+
+typedef enum {
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_64_REGISTER = 0,
+  ALSAQR_PERIPH_PADFRAME_PERIPHS_B_64_group_GPIO_B_port_GPIO64 = 1,
+} alsaqr_periph_padframe_periphs_b_64_mux_sel_t;
+
+/**
+   * Choose the entity (a port or the dedicated configuration register) that controls b_64.
+   *
+   * @param mux_sel Port or configuration register to connect to the pad.
+ */
+void alsaqr_periph_padframe_periphs_b_64_mux_set(alsaqr_periph_padframe_periphs_b_64_mux_sel_t mux_sel);
+
+/**
+ * Read the current multiplexer select value configured for b_64.
+ *
+ * @return Port or configuration register currently connected to the pad.
+ */
+ alsaqr_periph_padframe_periphs_b_64_mux_sel_t alsaqr_periph_padframe_periphs_b_64_mux_get();
 
 
 

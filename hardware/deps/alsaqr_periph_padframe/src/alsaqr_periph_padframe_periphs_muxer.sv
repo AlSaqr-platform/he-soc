@@ -1314,6 +1314,14 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.a_42.slw = s_reg2hw.a_42_cfg.slw.q;
           mux_to_pads_o.a_42.smt = s_reg2hw.a_42_cfg.smt.q;
        end
+       PAD_MUX_GROUP_A_42_SEL_CAM0_CAM_PCLK: begin
+          mux_to_pads_o.a_42.chip2pad = s_reg2hw.a_42_cfg.chip2pad.q;
+          mux_to_pads_o.a_42.drv = s_reg2hw.a_42_cfg.drv.q;
+          mux_to_pads_o.a_42.oen = 1'b1;
+          mux_to_pads_o.a_42.puen = 1'b1;
+          mux_to_pads_o.a_42.slw = s_reg2hw.a_42_cfg.slw.q;
+          mux_to_pads_o.a_42.smt = s_reg2hw.a_42_cfg.smt.q;
+       end
        default: begin
          mux_to_pads_o.a_42.chip2pad = s_reg2hw.a_42_cfg.chip2pad.q;
          mux_to_pads_o.a_42.drv = s_reg2hw.a_42_cfg.drv.q;
@@ -1341,6 +1349,14 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.a_43.drv = s_reg2hw.a_43_cfg.drv.q;
           mux_to_pads_o.a_43.oen = ~port_signals_soc2pad_i.i2c3.sda_oe_i;
           mux_to_pads_o.a_43.puen = 1'b0;
+          mux_to_pads_o.a_43.slw = s_reg2hw.a_43_cfg.slw.q;
+          mux_to_pads_o.a_43.smt = s_reg2hw.a_43_cfg.smt.q;
+       end
+       PAD_MUX_GROUP_A_43_SEL_CAM0_CAM_VSYNC: begin
+          mux_to_pads_o.a_43.chip2pad = s_reg2hw.a_43_cfg.chip2pad.q;
+          mux_to_pads_o.a_43.drv = s_reg2hw.a_43_cfg.drv.q;
+          mux_to_pads_o.a_43.oen = 1'b1;
+          mux_to_pads_o.a_43.puen = 1'b1;
           mux_to_pads_o.a_43.slw = s_reg2hw.a_43_cfg.slw.q;
           mux_to_pads_o.a_43.smt = s_reg2hw.a_43_cfg.smt.q;
        end
@@ -1374,7 +1390,7 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.a_44.slw = s_reg2hw.a_44_cfg.slw.q;
           mux_to_pads_o.a_44.smt = s_reg2hw.a_44_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_44_SEL_CAM0_CAM_DATA7_I: begin
+       PAD_MUX_GROUP_A_44_SEL_CAM0_CAM_DATA0_I: begin
           mux_to_pads_o.a_44.chip2pad = s_reg2hw.a_44_cfg.chip2pad.q;
           mux_to_pads_o.a_44.drv = s_reg2hw.a_44_cfg.drv.q;
           mux_to_pads_o.a_44.oen = 1'b1;
@@ -1412,7 +1428,7 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.a_45.slw = s_reg2hw.a_45_cfg.slw.q;
           mux_to_pads_o.a_45.smt = s_reg2hw.a_45_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_45_SEL_CAM0_CAM_DATA6_I: begin
+       PAD_MUX_GROUP_A_45_SEL_CAM0_CAM_DATA1_I: begin
           mux_to_pads_o.a_45.chip2pad = s_reg2hw.a_45_cfg.chip2pad.q;
           mux_to_pads_o.a_45.drv = s_reg2hw.a_45_cfg.drv.q;
           mux_to_pads_o.a_45.oen = 1'b1;
@@ -1450,7 +1466,7 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.a_46.slw = s_reg2hw.a_46_cfg.slw.q;
           mux_to_pads_o.a_46.smt = s_reg2hw.a_46_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_46_SEL_CAM0_CAM_DATA5_I: begin
+       PAD_MUX_GROUP_A_46_SEL_CAM0_CAM_DATA2_I: begin
           mux_to_pads_o.a_46.chip2pad = s_reg2hw.a_46_cfg.chip2pad.q;
           mux_to_pads_o.a_46.drv = s_reg2hw.a_46_cfg.drv.q;
           mux_to_pads_o.a_46.oen = 1'b1;
@@ -1488,7 +1504,7 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.a_47.slw = s_reg2hw.a_47_cfg.slw.q;
           mux_to_pads_o.a_47.smt = s_reg2hw.a_47_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_47_SEL_CAM0_CAM_DATA4_I: begin
+       PAD_MUX_GROUP_A_47_SEL_CAM0_CAM_DATA3_I: begin
           mux_to_pads_o.a_47.chip2pad = s_reg2hw.a_47_cfg.chip2pad.q;
           mux_to_pads_o.a_47.drv = s_reg2hw.a_47_cfg.drv.q;
           mux_to_pads_o.a_47.oen = 1'b1;
@@ -1526,7 +1542,7 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.a_48.slw = s_reg2hw.a_48_cfg.slw.q;
           mux_to_pads_o.a_48.smt = s_reg2hw.a_48_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_48_SEL_CAM0_CAM_DATA2_I: begin
+       PAD_MUX_GROUP_A_48_SEL_CAM0_CAM_DATA5_I: begin
           mux_to_pads_o.a_48.chip2pad = s_reg2hw.a_48_cfg.chip2pad.q;
           mux_to_pads_o.a_48.drv = s_reg2hw.a_48_cfg.drv.q;
           mux_to_pads_o.a_48.oen = 1'b1;
@@ -1564,7 +1580,7 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.a_49.slw = s_reg2hw.a_49_cfg.slw.q;
           mux_to_pads_o.a_49.smt = s_reg2hw.a_49_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_49_SEL_CAM0_CAM_DATA1_I: begin
+       PAD_MUX_GROUP_A_49_SEL_CAM0_CAM_DATA6_I: begin
           mux_to_pads_o.a_49.chip2pad = s_reg2hw.a_49_cfg.chip2pad.q;
           mux_to_pads_o.a_49.drv = s_reg2hw.a_49_cfg.drv.q;
           mux_to_pads_o.a_49.oen = 1'b1;
@@ -1602,7 +1618,7 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.a_50.slw = s_reg2hw.a_50_cfg.slw.q;
           mux_to_pads_o.a_50.smt = s_reg2hw.a_50_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_50_SEL_CAM0_CAM_DATA0_I: begin
+       PAD_MUX_GROUP_A_50_SEL_CAM0_CAM_DATA7_I: begin
           mux_to_pads_o.a_50.chip2pad = s_reg2hw.a_50_cfg.chip2pad.q;
           mux_to_pads_o.a_50.drv = s_reg2hw.a_50_cfg.drv.q;
           mux_to_pads_o.a_50.oen = 1'b1;
@@ -1640,11 +1656,11 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.a_51.slw = s_reg2hw.a_51_cfg.slw.q;
           mux_to_pads_o.a_51.smt = s_reg2hw.a_51_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_51_SEL_I2C4_I2C_SCL: begin
-          mux_to_pads_o.a_51.chip2pad = port_signals_soc2pad_i.i2c4.scl_i;
+       PAD_MUX_GROUP_A_51_SEL_CAM1_CAM_PCLK: begin
+          mux_to_pads_o.a_51.chip2pad = s_reg2hw.a_51_cfg.chip2pad.q;
           mux_to_pads_o.a_51.drv = s_reg2hw.a_51_cfg.drv.q;
-          mux_to_pads_o.a_51.oen = ~port_signals_soc2pad_i.i2c4.scl_oe_i;
-          mux_to_pads_o.a_51.puen = 1'b0;
+          mux_to_pads_o.a_51.oen = 1'b1;
+          mux_to_pads_o.a_51.puen = 1'b1;
           mux_to_pads_o.a_51.slw = s_reg2hw.a_51_cfg.slw.q;
           mux_to_pads_o.a_51.smt = s_reg2hw.a_51_cfg.smt.q;
        end
@@ -1678,7 +1694,7 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.a_52.slw = s_reg2hw.a_52_cfg.slw.q;
           mux_to_pads_o.a_52.smt = s_reg2hw.a_52_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_52_SEL_CAM1_CAM_PCLK: begin
+       PAD_MUX_GROUP_A_52_SEL_CAM1_CAM_HSYNC: begin
           mux_to_pads_o.a_52.chip2pad = s_reg2hw.a_52_cfg.chip2pad.q;
           mux_to_pads_o.a_52.drv = s_reg2hw.a_52_cfg.drv.q;
           mux_to_pads_o.a_52.oen = 1'b1;
@@ -1716,7 +1732,7 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.a_53.slw = s_reg2hw.a_53_cfg.slw.q;
           mux_to_pads_o.a_53.smt = s_reg2hw.a_53_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_53_SEL_CAM1_CAM_DATA7_I: begin
+       PAD_MUX_GROUP_A_53_SEL_CAM1_CAM_DATA0_I: begin
           mux_to_pads_o.a_53.chip2pad = s_reg2hw.a_53_cfg.chip2pad.q;
           mux_to_pads_o.a_53.drv = s_reg2hw.a_53_cfg.drv.q;
           mux_to_pads_o.a_53.oen = 1'b1;
@@ -1754,7 +1770,7 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.a_54.slw = s_reg2hw.a_54_cfg.slw.q;
           mux_to_pads_o.a_54.smt = s_reg2hw.a_54_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_54_SEL_CAM1_CAM_DATA6_I: begin
+       PAD_MUX_GROUP_A_54_SEL_CAM1_CAM_DATA1_I: begin
           mux_to_pads_o.a_54.chip2pad = s_reg2hw.a_54_cfg.chip2pad.q;
           mux_to_pads_o.a_54.drv = s_reg2hw.a_54_cfg.drv.q;
           mux_to_pads_o.a_54.oen = 1'b1;
@@ -1792,7 +1808,7 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.a_55.slw = s_reg2hw.a_55_cfg.slw.q;
           mux_to_pads_o.a_55.smt = s_reg2hw.a_55_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_55_SEL_CAM1_CAM_DATA2_I: begin
+       PAD_MUX_GROUP_A_55_SEL_CAM1_CAM_DATA5_I: begin
           mux_to_pads_o.a_55.chip2pad = s_reg2hw.a_55_cfg.chip2pad.q;
           mux_to_pads_o.a_55.drv = s_reg2hw.a_55_cfg.drv.q;
           mux_to_pads_o.a_55.oen = 1'b1;
@@ -1830,7 +1846,7 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.a_56.slw = s_reg2hw.a_56_cfg.slw.q;
           mux_to_pads_o.a_56.smt = s_reg2hw.a_56_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_56_SEL_CAM1_CAM_DATA1_I: begin
+       PAD_MUX_GROUP_A_56_SEL_CAM1_CAM_DATA6_I: begin
           mux_to_pads_o.a_56.chip2pad = s_reg2hw.a_56_cfg.chip2pad.q;
           mux_to_pads_o.a_56.drv = s_reg2hw.a_56_cfg.drv.q;
           mux_to_pads_o.a_56.oen = 1'b1;
@@ -1860,15 +1876,15 @@ module alsaqr_periph_padframe_periphs_muxer
          mux_to_pads_o.a_57.slw = s_reg2hw.a_57_cfg.slw.q;
          mux_to_pads_o.a_57.smt = s_reg2hw.a_57_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_57_SEL_I2C5_I2C_SCL: begin
-          mux_to_pads_o.a_57.chip2pad = port_signals_soc2pad_i.i2c5.scl_i;
+       PAD_MUX_GROUP_A_57_SEL_I2C4_I2C_SCL: begin
+          mux_to_pads_o.a_57.chip2pad = port_signals_soc2pad_i.i2c4.scl_i;
           mux_to_pads_o.a_57.drv = s_reg2hw.a_57_cfg.drv.q;
-          mux_to_pads_o.a_57.oen = ~port_signals_soc2pad_i.i2c5.scl_oe_i;
+          mux_to_pads_o.a_57.oen = ~port_signals_soc2pad_i.i2c4.scl_oe_i;
           mux_to_pads_o.a_57.puen = 1'b0;
           mux_to_pads_o.a_57.slw = s_reg2hw.a_57_cfg.slw.q;
           mux_to_pads_o.a_57.smt = s_reg2hw.a_57_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_57_SEL_CAM1_CAM_DATA0_I: begin
+       PAD_MUX_GROUP_A_57_SEL_CAM1_CAM_DATA7_I: begin
           mux_to_pads_o.a_57.chip2pad = s_reg2hw.a_57_cfg.chip2pad.q;
           mux_to_pads_o.a_57.drv = s_reg2hw.a_57_cfg.drv.q;
           mux_to_pads_o.a_57.oen = 1'b1;
@@ -1898,16 +1914,16 @@ module alsaqr_periph_padframe_periphs_muxer
          mux_to_pads_o.a_58.slw = s_reg2hw.a_58_cfg.slw.q;
          mux_to_pads_o.a_58.smt = s_reg2hw.a_58_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_58_SEL_I2C5_I2C_SDA: begin
-          mux_to_pads_o.a_58.chip2pad = port_signals_soc2pad_i.i2c5.sda_i;
+       PAD_MUX_GROUP_A_58_SEL_I2C4_I2C_SDA: begin
+          mux_to_pads_o.a_58.chip2pad = port_signals_soc2pad_i.i2c4.sda_i;
           mux_to_pads_o.a_58.drv = s_reg2hw.a_58_cfg.drv.q;
-          mux_to_pads_o.a_58.oen = ~port_signals_soc2pad_i.i2c5.sda_oe_i;
+          mux_to_pads_o.a_58.oen = ~port_signals_soc2pad_i.i2c4.sda_oe_i;
           mux_to_pads_o.a_58.puen = 1'b0;
           mux_to_pads_o.a_58.slw = s_reg2hw.a_58_cfg.slw.q;
           mux_to_pads_o.a_58.smt = s_reg2hw.a_58_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_58_SEL_SDIO1_SDIO_DATA3: begin
-          mux_to_pads_o.a_58.chip2pad = port_signals_soc2pad_i.sdio1.data3_i;
+       PAD_MUX_GROUP_A_58_SEL_SDIO1_SDIO_DATA0: begin
+          mux_to_pads_o.a_58.chip2pad = port_signals_soc2pad_i.sdio1.data0_i;
           mux_to_pads_o.a_58.drv = s_reg2hw.a_58_cfg.drv.q;
           mux_to_pads_o.a_58.oen = port_signals_soc2pad_i.sdio1.data3_oen_i;
           mux_to_pads_o.a_58.puen = 1'b0;
@@ -1944,8 +1960,8 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.a_59.slw = s_reg2hw.a_59_cfg.slw.q;
           mux_to_pads_o.a_59.smt = s_reg2hw.a_59_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_59_SEL_SDIO1_SDIO_DATA1: begin
-          mux_to_pads_o.a_59.chip2pad = port_signals_soc2pad_i.sdio1.data1_i;
+       PAD_MUX_GROUP_A_59_SEL_SDIO1_SDIO_DATA2: begin
+          mux_to_pads_o.a_59.chip2pad = port_signals_soc2pad_i.sdio1.data2_i;
           mux_to_pads_o.a_59.drv = s_reg2hw.a_59_cfg.drv.q;
           mux_to_pads_o.a_59.oen = port_signals_soc2pad_i.sdio1.data1_oen_i;
           mux_to_pads_o.a_59.puen = 1'b0;
@@ -1982,8 +1998,8 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.a_60.slw = s_reg2hw.a_60_cfg.slw.q;
           mux_to_pads_o.a_60.smt = s_reg2hw.a_60_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_60_SEL_SDIO1_SDIO_DATA0: begin
-          mux_to_pads_o.a_60.chip2pad = port_signals_soc2pad_i.sdio1.data0_i;
+       PAD_MUX_GROUP_A_60_SEL_SDIO1_SDIO_DATA3: begin
+          mux_to_pads_o.a_60.chip2pad = port_signals_soc2pad_i.sdio1.data3_i;
           mux_to_pads_o.a_60.drv = s_reg2hw.a_60_cfg.drv.q;
           mux_to_pads_o.a_60.oen = port_signals_soc2pad_i.sdio1.data0_oen_i;
           mux_to_pads_o.a_60.puen = 1'b0;
@@ -2208,10 +2224,10 @@ module alsaqr_periph_padframe_periphs_muxer
          mux_to_pads_o.a_67.slw = s_reg2hw.a_67_cfg.slw.q;
          mux_to_pads_o.a_67.smt = s_reg2hw.a_67_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_67_SEL_I2C6_I2C_SCL: begin
-          mux_to_pads_o.a_67.chip2pad = port_signals_soc2pad_i.i2c6.scl_i;
+       PAD_MUX_GROUP_A_67_SEL_I2C5_I2C_SCL: begin
+          mux_to_pads_o.a_67.chip2pad = port_signals_soc2pad_i.i2c5.scl_i;
           mux_to_pads_o.a_67.drv = s_reg2hw.a_67_cfg.drv.q;
-          mux_to_pads_o.a_67.oen = ~port_signals_soc2pad_i.i2c6.scl_oe_i;
+          mux_to_pads_o.a_67.oen = ~port_signals_soc2pad_i.i2c5.scl_oe_i;
           mux_to_pads_o.a_67.puen = 1'b0;
           mux_to_pads_o.a_67.slw = s_reg2hw.a_67_cfg.slw.q;
           mux_to_pads_o.a_67.smt = s_reg2hw.a_67_cfg.smt.q;
@@ -2238,10 +2254,10 @@ module alsaqr_periph_padframe_periphs_muxer
          mux_to_pads_o.a_68.slw = s_reg2hw.a_68_cfg.slw.q;
          mux_to_pads_o.a_68.smt = s_reg2hw.a_68_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_68_SEL_I2C6_I2C_SDA: begin
-          mux_to_pads_o.a_68.chip2pad = port_signals_soc2pad_i.i2c6.sda_i;
+       PAD_MUX_GROUP_A_68_SEL_I2C5_I2C_SDA: begin
+          mux_to_pads_o.a_68.chip2pad = port_signals_soc2pad_i.i2c5.sda_i;
           mux_to_pads_o.a_68.drv = s_reg2hw.a_68_cfg.drv.q;
-          mux_to_pads_o.a_68.oen = ~port_signals_soc2pad_i.i2c6.sda_oe_i;
+          mux_to_pads_o.a_68.oen = ~port_signals_soc2pad_i.i2c5.sda_oe_i;
           mux_to_pads_o.a_68.puen = 1'b0;
           mux_to_pads_o.a_68.slw = s_reg2hw.a_68_cfg.slw.q;
           mux_to_pads_o.a_68.smt = s_reg2hw.a_68_cfg.smt.q;
@@ -3590,7 +3606,7 @@ module alsaqr_periph_padframe_periphs_muxer
          mux_to_pads_o.b_19.slw = s_reg2hw.b_19_cfg.slw.q;
          mux_to_pads_o.b_19.smt = s_reg2hw.b_19_cfg.smt.q;
        end
-       PAD_MUX_GROUP_B_19_SEL_CAM0_CAM_PCLK: begin
+       PAD_MUX_GROUP_B_19_SEL_CAM0_CAM_HSYNC: begin
           mux_to_pads_o.b_19.chip2pad = s_reg2hw.b_19_cfg.chip2pad.q;
           mux_to_pads_o.b_19.drv = s_reg2hw.b_19_cfg.drv.q;
           mux_to_pads_o.b_19.oen = 1'b1;
@@ -3628,7 +3644,7 @@ module alsaqr_periph_padframe_periphs_muxer
          mux_to_pads_o.b_20.slw = s_reg2hw.b_20_cfg.slw.q;
          mux_to_pads_o.b_20.smt = s_reg2hw.b_20_cfg.smt.q;
        end
-       PAD_MUX_GROUP_B_20_SEL_CAM0_CAM_DATA3_I: begin
+       PAD_MUX_GROUP_B_20_SEL_CAM0_CAM_DATA4_I: begin
           mux_to_pads_o.b_20.chip2pad = s_reg2hw.b_20_cfg.chip2pad.q;
           mux_to_pads_o.b_20.drv = s_reg2hw.b_20_cfg.drv.q;
           mux_to_pads_o.b_20.oen = 1'b1;
@@ -3666,11 +3682,11 @@ module alsaqr_periph_padframe_periphs_muxer
          mux_to_pads_o.b_21.slw = s_reg2hw.b_21_cfg.slw.q;
          mux_to_pads_o.b_21.smt = s_reg2hw.b_21_cfg.smt.q;
        end
-       PAD_MUX_GROUP_B_21_SEL_I2C4_I2C_SDA: begin
-          mux_to_pads_o.b_21.chip2pad = port_signals_soc2pad_i.i2c4.sda_i;
+       PAD_MUX_GROUP_B_21_SEL_CAM1_CAM_VSYNC: begin
+          mux_to_pads_o.b_21.chip2pad = s_reg2hw.b_21_cfg.chip2pad.q;
           mux_to_pads_o.b_21.drv = s_reg2hw.b_21_cfg.drv.q;
-          mux_to_pads_o.b_21.oen = ~port_signals_soc2pad_i.i2c4.sda_oe_i;
-          mux_to_pads_o.b_21.puen = 1'b0;
+          mux_to_pads_o.b_21.oen = 1'b1;
+          mux_to_pads_o.b_21.puen = 1'b1;
           mux_to_pads_o.b_21.slw = s_reg2hw.b_21_cfg.slw.q;
           mux_to_pads_o.b_21.smt = s_reg2hw.b_21_cfg.smt.q;
        end
@@ -3704,7 +3720,7 @@ module alsaqr_periph_padframe_periphs_muxer
          mux_to_pads_o.b_22.slw = s_reg2hw.b_22_cfg.slw.q;
          mux_to_pads_o.b_22.smt = s_reg2hw.b_22_cfg.smt.q;
        end
-       PAD_MUX_GROUP_B_22_SEL_CAM1_CAM_DATA5_I: begin
+       PAD_MUX_GROUP_B_22_SEL_CAM1_CAM_DATA2_I: begin
           mux_to_pads_o.b_22.chip2pad = s_reg2hw.b_22_cfg.chip2pad.q;
           mux_to_pads_o.b_22.drv = s_reg2hw.b_22_cfg.drv.q;
           mux_to_pads_o.b_22.oen = 1'b1;
@@ -3742,7 +3758,7 @@ module alsaqr_periph_padframe_periphs_muxer
          mux_to_pads_o.b_23.slw = s_reg2hw.b_23_cfg.slw.q;
          mux_to_pads_o.b_23.smt = s_reg2hw.b_23_cfg.smt.q;
        end
-       PAD_MUX_GROUP_B_23_SEL_CAM1_CAM_DATA4_I: begin
+       PAD_MUX_GROUP_B_23_SEL_CAM1_CAM_DATA3_I: begin
           mux_to_pads_o.b_23.chip2pad = s_reg2hw.b_23_cfg.chip2pad.q;
           mux_to_pads_o.b_23.drv = s_reg2hw.b_23_cfg.drv.q;
           mux_to_pads_o.b_23.oen = 1'b1;
@@ -3780,7 +3796,7 @@ module alsaqr_periph_padframe_periphs_muxer
          mux_to_pads_o.b_24.slw = s_reg2hw.b_24_cfg.slw.q;
          mux_to_pads_o.b_24.smt = s_reg2hw.b_24_cfg.smt.q;
        end
-       PAD_MUX_GROUP_B_24_SEL_CAM1_CAM_DATA3_I: begin
+       PAD_MUX_GROUP_B_24_SEL_CAM1_CAM_DATA4_I: begin
           mux_to_pads_o.b_24.chip2pad = s_reg2hw.b_24_cfg.chip2pad.q;
           mux_to_pads_o.b_24.drv = s_reg2hw.b_24_cfg.drv.q;
           mux_to_pads_o.b_24.oen = 1'b1;
@@ -3818,8 +3834,8 @@ module alsaqr_periph_padframe_periphs_muxer
          mux_to_pads_o.b_25.slw = s_reg2hw.b_25_cfg.slw.q;
          mux_to_pads_o.b_25.smt = s_reg2hw.b_25_cfg.smt.q;
        end
-       PAD_MUX_GROUP_B_25_SEL_SDIO1_SDIO_DATA2: begin
-          mux_to_pads_o.b_25.chip2pad = port_signals_soc2pad_i.sdio1.data2_i;
+       PAD_MUX_GROUP_B_25_SEL_SDIO1_SDIO_DATA1: begin
+          mux_to_pads_o.b_25.chip2pad = port_signals_soc2pad_i.sdio1.data1_i;
           mux_to_pads_o.b_25.drv = s_reg2hw.b_25_cfg.drv.q;
           mux_to_pads_o.b_25.oen = port_signals_soc2pad_i.sdio1.data2_oen_i;
           mux_to_pads_o.b_25.puen = 1'b0;
@@ -5083,6 +5099,66 @@ module alsaqr_periph_padframe_periphs_muxer
      endcase
    end // always_comb
 
+   // Pad b_63
+   always_comb begin
+     unique case (s_reg2hw.b_63_mux_sel.q)
+       PAD_MUX_GROUP_B_63_SEL_DEFAULT: begin
+         mux_to_pads_o.b_63.chip2pad = s_reg2hw.b_63_cfg.chip2pad.q;
+         mux_to_pads_o.b_63.drv = s_reg2hw.b_63_cfg.drv.q;
+         mux_to_pads_o.b_63.oen = s_reg2hw.b_63_cfg.oen.q;
+         mux_to_pads_o.b_63.puen = s_reg2hw.b_63_cfg.puen.q;
+         mux_to_pads_o.b_63.slw = s_reg2hw.b_63_cfg.slw.q;
+         mux_to_pads_o.b_63.smt = s_reg2hw.b_63_cfg.smt.q;
+       end
+       PAD_MUX_GROUP_B_63_SEL_GPIO_B_GPIO63: begin
+          mux_to_pads_o.b_63.chip2pad = port_signals_soc2pad_i.gpio_b.gpio63_i;
+          mux_to_pads_o.b_63.drv = s_reg2hw.b_63_cfg.drv.q;
+          mux_to_pads_o.b_63.oen = ~port_signals_soc2pad_i.gpio_b.gpio63_d_i;
+          mux_to_pads_o.b_63.puen = 1'b1;
+          mux_to_pads_o.b_63.slw = s_reg2hw.b_63_cfg.slw.q;
+          mux_to_pads_o.b_63.smt = s_reg2hw.b_63_cfg.smt.q;
+       end
+       default: begin
+         mux_to_pads_o.b_63.chip2pad = s_reg2hw.b_63_cfg.chip2pad.q;
+         mux_to_pads_o.b_63.drv = s_reg2hw.b_63_cfg.drv.q;
+         mux_to_pads_o.b_63.oen = s_reg2hw.b_63_cfg.oen.q;
+         mux_to_pads_o.b_63.puen = s_reg2hw.b_63_cfg.puen.q;
+         mux_to_pads_o.b_63.slw = s_reg2hw.b_63_cfg.slw.q;
+         mux_to_pads_o.b_63.smt = s_reg2hw.b_63_cfg.smt.q;
+       end
+     endcase
+   end // always_comb
+
+   // Pad b_64
+   always_comb begin
+     unique case (s_reg2hw.b_64_mux_sel.q)
+       PAD_MUX_GROUP_B_64_SEL_DEFAULT: begin
+         mux_to_pads_o.b_64.chip2pad = s_reg2hw.b_64_cfg.chip2pad.q;
+         mux_to_pads_o.b_64.drv = s_reg2hw.b_64_cfg.drv.q;
+         mux_to_pads_o.b_64.oen = s_reg2hw.b_64_cfg.oen.q;
+         mux_to_pads_o.b_64.puen = s_reg2hw.b_64_cfg.puen.q;
+         mux_to_pads_o.b_64.slw = s_reg2hw.b_64_cfg.slw.q;
+         mux_to_pads_o.b_64.smt = s_reg2hw.b_64_cfg.smt.q;
+       end
+       PAD_MUX_GROUP_B_64_SEL_GPIO_B_GPIO64: begin
+          mux_to_pads_o.b_64.chip2pad = port_signals_soc2pad_i.gpio_b.gpio64_i;
+          mux_to_pads_o.b_64.drv = s_reg2hw.b_64_cfg.drv.q;
+          mux_to_pads_o.b_64.oen = ~port_signals_soc2pad_i.gpio_b.gpio64_d_i;
+          mux_to_pads_o.b_64.puen = 1'b1;
+          mux_to_pads_o.b_64.slw = s_reg2hw.b_64_cfg.slw.q;
+          mux_to_pads_o.b_64.smt = s_reg2hw.b_64_cfg.smt.q;
+       end
+       default: begin
+         mux_to_pads_o.b_64.chip2pad = s_reg2hw.b_64_cfg.chip2pad.q;
+         mux_to_pads_o.b_64.drv = s_reg2hw.b_64_cfg.drv.q;
+         mux_to_pads_o.b_64.oen = s_reg2hw.b_64_cfg.oen.q;
+         mux_to_pads_o.b_64.puen = s_reg2hw.b_64_cfg.puen.q;
+         mux_to_pads_o.b_64.slw = s_reg2hw.b_64_cfg.slw.q;
+         mux_to_pads_o.b_64.smt = s_reg2hw.b_64_cfg.smt.q;
+       end
+     endcase
+   end // always_comb
+
    // Pad ot_qspi_00
    always_comb begin
      unique case (s_reg2hw.ot_qspi_00_mux_sel.q)
@@ -6257,34 +6333,34 @@ module alsaqr_periph_padframe_periphs_muxer
 
 
 
-  // Port Group i2c5
+  // Port Group i2c4
 
   // Port Signal scl_o
-  logic [0:0] port_mux_sel_i2c5_scl_o_req;
-  logic [PORT_MUX_GROUP_A_57_SEL_WIDTH-1:0] port_mux_sel_i2c5_scl_o_arbitrated;
-  logic port_mux_sel_i2c5_scl_o_no_connection;
+  logic [0:0] port_mux_sel_i2c4_scl_o_req;
+  logic [PORT_MUX_GROUP_A_57_SEL_WIDTH-1:0] port_mux_sel_i2c4_scl_o_arbitrated;
+  logic port_mux_sel_i2c4_scl_o_no_connection;
 
-   assign port_mux_sel_i2c5_scl_o_req[PORT_MUX_GROUP_A_57_SEL_A_57] = s_reg2hw.a_57_mux_sel.q == PAD_MUX_GROUP_A_57_SEL_I2C5_I2C_SCL ? 1'b1 : 1'b0;
+   assign port_mux_sel_i2c4_scl_o_req[PORT_MUX_GROUP_A_57_SEL_A_57] = s_reg2hw.a_57_mux_sel.q == PAD_MUX_GROUP_A_57_SEL_I2C4_I2C_SCL ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
      .MODE(1'b0)
-   ) i_port_muxsel_i2c5_scl_o_arbiter (
-     .in_i(port_mux_sel_i2c5_scl_o_req),
-     .cnt_o(port_mux_sel_i2c5_scl_o_arbitrated),
-     .empty_o(port_mux_sel_i2c5_scl_o_no_connection)
+   ) i_port_muxsel_i2c4_scl_o_arbiter (
+     .in_i(port_mux_sel_i2c4_scl_o_req),
+     .cnt_o(port_mux_sel_i2c4_scl_o_arbitrated),
+     .empty_o(port_mux_sel_i2c4_scl_o_no_connection)
    );
 
    always_comb begin
-     if (port_mux_sel_i2c5_scl_o_no_connection) begin
-        port_signals_pad2soc_o.i2c5.scl_o = 1'b1;
+     if (port_mux_sel_i2c4_scl_o_no_connection) begin
+        port_signals_pad2soc_o.i2c4.scl_o = 1'b1;
      end else begin
-        unique case (port_mux_sel_i2c5_scl_o_arbitrated)
+        unique case (port_mux_sel_i2c4_scl_o_arbitrated)
           PORT_MUX_GROUP_A_57_SEL_A_57: begin
-            port_signals_pad2soc_o.i2c5.scl_o = pads_to_mux_i.a_57.pad2chip;
+            port_signals_pad2soc_o.i2c4.scl_o = pads_to_mux_i.a_57.pad2chip;
           end
           default: begin
-            port_signals_pad2soc_o.i2c5.scl_o = 1'b1;
+            port_signals_pad2soc_o.i2c4.scl_o = 1'b1;
           end
        endcase
      end
@@ -6292,31 +6368,31 @@ module alsaqr_periph_padframe_periphs_muxer
 
 
   // Port Signal sda_o
-  logic [0:0] port_mux_sel_i2c5_sda_o_req;
-  logic [PORT_MUX_GROUP_A_58_SEL_WIDTH-1:0] port_mux_sel_i2c5_sda_o_arbitrated;
-  logic port_mux_sel_i2c5_sda_o_no_connection;
+  logic [0:0] port_mux_sel_i2c4_sda_o_req;
+  logic [PORT_MUX_GROUP_A_58_SEL_WIDTH-1:0] port_mux_sel_i2c4_sda_o_arbitrated;
+  logic port_mux_sel_i2c4_sda_o_no_connection;
 
-   assign port_mux_sel_i2c5_sda_o_req[PORT_MUX_GROUP_A_58_SEL_A_58] = s_reg2hw.a_58_mux_sel.q == PAD_MUX_GROUP_A_58_SEL_I2C5_I2C_SDA ? 1'b1 : 1'b0;
+   assign port_mux_sel_i2c4_sda_o_req[PORT_MUX_GROUP_A_58_SEL_A_58] = s_reg2hw.a_58_mux_sel.q == PAD_MUX_GROUP_A_58_SEL_I2C4_I2C_SDA ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
      .MODE(1'b0)
-   ) i_port_muxsel_i2c5_sda_o_arbiter (
-     .in_i(port_mux_sel_i2c5_sda_o_req),
-     .cnt_o(port_mux_sel_i2c5_sda_o_arbitrated),
-     .empty_o(port_mux_sel_i2c5_sda_o_no_connection)
+   ) i_port_muxsel_i2c4_sda_o_arbiter (
+     .in_i(port_mux_sel_i2c4_sda_o_req),
+     .cnt_o(port_mux_sel_i2c4_sda_o_arbitrated),
+     .empty_o(port_mux_sel_i2c4_sda_o_no_connection)
    );
 
    always_comb begin
-     if (port_mux_sel_i2c5_sda_o_no_connection) begin
-        port_signals_pad2soc_o.i2c5.sda_o = 1'b1;
+     if (port_mux_sel_i2c4_sda_o_no_connection) begin
+        port_signals_pad2soc_o.i2c4.sda_o = 1'b1;
      end else begin
-        unique case (port_mux_sel_i2c5_sda_o_arbitrated)
+        unique case (port_mux_sel_i2c4_sda_o_arbitrated)
           PORT_MUX_GROUP_A_58_SEL_A_58: begin
-            port_signals_pad2soc_o.i2c5.sda_o = pads_to_mux_i.a_58.pad2chip;
+            port_signals_pad2soc_o.i2c4.sda_o = pads_to_mux_i.a_58.pad2chip;
           end
           default: begin
-            port_signals_pad2soc_o.i2c5.sda_o = 1'b1;
+            port_signals_pad2soc_o.i2c4.sda_o = 1'b1;
           end
        endcase
      end
@@ -6457,34 +6533,34 @@ module alsaqr_periph_padframe_periphs_muxer
      end
    end
 
-  // Port Group i2c6
+  // Port Group i2c5
 
   // Port Signal scl_o
-  logic [0:0] port_mux_sel_i2c6_scl_o_req;
-  logic [PORT_MUX_GROUP_A_67_SEL_WIDTH-1:0] port_mux_sel_i2c6_scl_o_arbitrated;
-  logic port_mux_sel_i2c6_scl_o_no_connection;
+  logic [0:0] port_mux_sel_i2c5_scl_o_req;
+  logic [PORT_MUX_GROUP_A_67_SEL_WIDTH-1:0] port_mux_sel_i2c5_scl_o_arbitrated;
+  logic port_mux_sel_i2c5_scl_o_no_connection;
 
-   assign port_mux_sel_i2c6_scl_o_req[PORT_MUX_GROUP_A_67_SEL_A_67] = s_reg2hw.a_67_mux_sel.q == PAD_MUX_GROUP_A_67_SEL_I2C6_I2C_SCL ? 1'b1 : 1'b0;
+   assign port_mux_sel_i2c5_scl_o_req[PORT_MUX_GROUP_A_67_SEL_A_67] = s_reg2hw.a_67_mux_sel.q == PAD_MUX_GROUP_A_67_SEL_I2C5_I2C_SCL ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
      .MODE(1'b0)
-   ) i_port_muxsel_i2c6_scl_o_arbiter (
-     .in_i(port_mux_sel_i2c6_scl_o_req),
-     .cnt_o(port_mux_sel_i2c6_scl_o_arbitrated),
-     .empty_o(port_mux_sel_i2c6_scl_o_no_connection)
+   ) i_port_muxsel_i2c5_scl_o_arbiter (
+     .in_i(port_mux_sel_i2c5_scl_o_req),
+     .cnt_o(port_mux_sel_i2c5_scl_o_arbitrated),
+     .empty_o(port_mux_sel_i2c5_scl_o_no_connection)
    );
 
    always_comb begin
-     if (port_mux_sel_i2c6_scl_o_no_connection) begin
-        port_signals_pad2soc_o.i2c6.scl_o = 1'b1;
+     if (port_mux_sel_i2c5_scl_o_no_connection) begin
+        port_signals_pad2soc_o.i2c5.scl_o = 1'b1;
      end else begin
-        unique case (port_mux_sel_i2c6_scl_o_arbitrated)
+        unique case (port_mux_sel_i2c5_scl_o_arbitrated)
           PORT_MUX_GROUP_A_67_SEL_A_67: begin
-            port_signals_pad2soc_o.i2c6.scl_o = pads_to_mux_i.a_67.pad2chip;
+            port_signals_pad2soc_o.i2c5.scl_o = pads_to_mux_i.a_67.pad2chip;
           end
           default: begin
-            port_signals_pad2soc_o.i2c6.scl_o = 1'b1;
+            port_signals_pad2soc_o.i2c5.scl_o = 1'b1;
           end
        endcase
      end
@@ -6492,31 +6568,31 @@ module alsaqr_periph_padframe_periphs_muxer
 
 
   // Port Signal sda_o
-  logic [0:0] port_mux_sel_i2c6_sda_o_req;
-  logic [PORT_MUX_GROUP_A_68_SEL_WIDTH-1:0] port_mux_sel_i2c6_sda_o_arbitrated;
-  logic port_mux_sel_i2c6_sda_o_no_connection;
+  logic [0:0] port_mux_sel_i2c5_sda_o_req;
+  logic [PORT_MUX_GROUP_A_68_SEL_WIDTH-1:0] port_mux_sel_i2c5_sda_o_arbitrated;
+  logic port_mux_sel_i2c5_sda_o_no_connection;
 
-   assign port_mux_sel_i2c6_sda_o_req[PORT_MUX_GROUP_A_68_SEL_A_68] = s_reg2hw.a_68_mux_sel.q == PAD_MUX_GROUP_A_68_SEL_I2C6_I2C_SDA ? 1'b1 : 1'b0;
+   assign port_mux_sel_i2c5_sda_o_req[PORT_MUX_GROUP_A_68_SEL_A_68] = s_reg2hw.a_68_mux_sel.q == PAD_MUX_GROUP_A_68_SEL_I2C5_I2C_SDA ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
      .MODE(1'b0)
-   ) i_port_muxsel_i2c6_sda_o_arbiter (
-     .in_i(port_mux_sel_i2c6_sda_o_req),
-     .cnt_o(port_mux_sel_i2c6_sda_o_arbitrated),
-     .empty_o(port_mux_sel_i2c6_sda_o_no_connection)
+   ) i_port_muxsel_i2c5_sda_o_arbiter (
+     .in_i(port_mux_sel_i2c5_sda_o_req),
+     .cnt_o(port_mux_sel_i2c5_sda_o_arbitrated),
+     .empty_o(port_mux_sel_i2c5_sda_o_no_connection)
    );
 
    always_comb begin
-     if (port_mux_sel_i2c6_sda_o_no_connection) begin
-        port_signals_pad2soc_o.i2c6.sda_o = 1'b1;
+     if (port_mux_sel_i2c5_sda_o_no_connection) begin
+        port_signals_pad2soc_o.i2c5.sda_o = 1'b1;
      end else begin
-        unique case (port_mux_sel_i2c6_sda_o_arbitrated)
+        unique case (port_mux_sel_i2c5_sda_o_arbitrated)
           PORT_MUX_GROUP_A_68_SEL_A_68: begin
-            port_signals_pad2soc_o.i2c6.sda_o = pads_to_mux_i.a_68.pad2chip;
+            port_signals_pad2soc_o.i2c5.sda_o = pads_to_mux_i.a_68.pad2chip;
           end
           default: begin
-            port_signals_pad2soc_o.i2c6.sda_o = 1'b1;
+            port_signals_pad2soc_o.i2c5.sda_o = 1'b1;
           end
        endcase
      end
@@ -6768,10 +6844,10 @@ module alsaqr_periph_padframe_periphs_muxer
 
   // Port Signal clk_o
   logic [0:0] port_mux_sel_cam0_clk_o_req;
-  logic [PORT_MUX_GROUP_B_19_SEL_WIDTH-1:0] port_mux_sel_cam0_clk_o_arbitrated;
+  logic [PORT_MUX_GROUP_A_42_SEL_WIDTH-1:0] port_mux_sel_cam0_clk_o_arbitrated;
   logic port_mux_sel_cam0_clk_o_no_connection;
 
-   assign port_mux_sel_cam0_clk_o_req[PORT_MUX_GROUP_B_19_SEL_B_19] = s_reg2hw.b_19_mux_sel.q == PAD_MUX_GROUP_B_19_SEL_CAM0_CAM_PCLK ? 1'b1 : 1'b0;
+   assign port_mux_sel_cam0_clk_o_req[PORT_MUX_GROUP_A_42_SEL_A_42] = s_reg2hw.a_42_mux_sel.q == PAD_MUX_GROUP_A_42_SEL_CAM0_CAM_PCLK ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
@@ -6787,8 +6863,8 @@ module alsaqr_periph_padframe_periphs_muxer
         port_signals_pad2soc_o.cam0.clk_o = 1'b1;
      end else begin
         unique case (port_mux_sel_cam0_clk_o_arbitrated)
-          PORT_MUX_GROUP_B_19_SEL_B_19: begin
-            port_signals_pad2soc_o.cam0.clk_o = pads_to_mux_i.b_19.pad2chip;
+          PORT_MUX_GROUP_A_42_SEL_A_42: begin
+            port_signals_pad2soc_o.cam0.clk_o = pads_to_mux_i.a_42.pad2chip;
           end
           default: begin
             port_signals_pad2soc_o.cam0.clk_o = 1'b1;
@@ -6798,224 +6874,64 @@ module alsaqr_periph_padframe_periphs_muxer
    end
 
 
-  // Port Signal data7_o
-  logic [0:0] port_mux_sel_cam0_data7_o_req;
-  logic [PORT_MUX_GROUP_A_44_SEL_WIDTH-1:0] port_mux_sel_cam0_data7_o_arbitrated;
-  logic port_mux_sel_cam0_data7_o_no_connection;
+  // Port Signal vsync_o
+  logic [0:0] port_mux_sel_cam0_vsync_o_req;
+  logic [PORT_MUX_GROUP_A_43_SEL_WIDTH-1:0] port_mux_sel_cam0_vsync_o_arbitrated;
+  logic port_mux_sel_cam0_vsync_o_no_connection;
 
-   assign port_mux_sel_cam0_data7_o_req[PORT_MUX_GROUP_A_44_SEL_A_44] = s_reg2hw.a_44_mux_sel.q == PAD_MUX_GROUP_A_44_SEL_CAM0_CAM_DATA7_I ? 1'b1 : 1'b0;
+   assign port_mux_sel_cam0_vsync_o_req[PORT_MUX_GROUP_A_43_SEL_A_43] = s_reg2hw.a_43_mux_sel.q == PAD_MUX_GROUP_A_43_SEL_CAM0_CAM_VSYNC ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
      .MODE(1'b0)
-   ) i_port_muxsel_cam0_data7_o_arbiter (
-     .in_i(port_mux_sel_cam0_data7_o_req),
-     .cnt_o(port_mux_sel_cam0_data7_o_arbitrated),
-     .empty_o(port_mux_sel_cam0_data7_o_no_connection)
+   ) i_port_muxsel_cam0_vsync_o_arbiter (
+     .in_i(port_mux_sel_cam0_vsync_o_req),
+     .cnt_o(port_mux_sel_cam0_vsync_o_arbitrated),
+     .empty_o(port_mux_sel_cam0_vsync_o_no_connection)
    );
 
    always_comb begin
-     if (port_mux_sel_cam0_data7_o_no_connection) begin
-        port_signals_pad2soc_o.cam0.data7_o = 1'b1;
+     if (port_mux_sel_cam0_vsync_o_no_connection) begin
+        port_signals_pad2soc_o.cam0.vsync_o = 1'b1;
      end else begin
-        unique case (port_mux_sel_cam0_data7_o_arbitrated)
-          PORT_MUX_GROUP_A_44_SEL_A_44: begin
-            port_signals_pad2soc_o.cam0.data7_o = pads_to_mux_i.a_44.pad2chip;
+        unique case (port_mux_sel_cam0_vsync_o_arbitrated)
+          PORT_MUX_GROUP_A_43_SEL_A_43: begin
+            port_signals_pad2soc_o.cam0.vsync_o = pads_to_mux_i.a_43.pad2chip;
           end
           default: begin
-            port_signals_pad2soc_o.cam0.data7_o = 1'b1;
+            port_signals_pad2soc_o.cam0.vsync_o = 1'b1;
           end
        endcase
      end
    end
 
 
-  // Port Signal data6_o
-  logic [0:0] port_mux_sel_cam0_data6_o_req;
-  logic [PORT_MUX_GROUP_A_45_SEL_WIDTH-1:0] port_mux_sel_cam0_data6_o_arbitrated;
-  logic port_mux_sel_cam0_data6_o_no_connection;
+  // Port Signal hsync_o
+  logic [0:0] port_mux_sel_cam0_hsync_o_req;
+  logic [PORT_MUX_GROUP_B_19_SEL_WIDTH-1:0] port_mux_sel_cam0_hsync_o_arbitrated;
+  logic port_mux_sel_cam0_hsync_o_no_connection;
 
-   assign port_mux_sel_cam0_data6_o_req[PORT_MUX_GROUP_A_45_SEL_A_45] = s_reg2hw.a_45_mux_sel.q == PAD_MUX_GROUP_A_45_SEL_CAM0_CAM_DATA6_I ? 1'b1 : 1'b0;
-
-   lzc #(
-     .WIDTH(1),
-     .MODE(1'b0)
-   ) i_port_muxsel_cam0_data6_o_arbiter (
-     .in_i(port_mux_sel_cam0_data6_o_req),
-     .cnt_o(port_mux_sel_cam0_data6_o_arbitrated),
-     .empty_o(port_mux_sel_cam0_data6_o_no_connection)
-   );
-
-   always_comb begin
-     if (port_mux_sel_cam0_data6_o_no_connection) begin
-        port_signals_pad2soc_o.cam0.data6_o = 1'b1;
-     end else begin
-        unique case (port_mux_sel_cam0_data6_o_arbitrated)
-          PORT_MUX_GROUP_A_45_SEL_A_45: begin
-            port_signals_pad2soc_o.cam0.data6_o = pads_to_mux_i.a_45.pad2chip;
-          end
-          default: begin
-            port_signals_pad2soc_o.cam0.data6_o = 1'b1;
-          end
-       endcase
-     end
-   end
-
-
-  // Port Signal data5_o
-  logic [0:0] port_mux_sel_cam0_data5_o_req;
-  logic [PORT_MUX_GROUP_A_46_SEL_WIDTH-1:0] port_mux_sel_cam0_data5_o_arbitrated;
-  logic port_mux_sel_cam0_data5_o_no_connection;
-
-   assign port_mux_sel_cam0_data5_o_req[PORT_MUX_GROUP_A_46_SEL_A_46] = s_reg2hw.a_46_mux_sel.q == PAD_MUX_GROUP_A_46_SEL_CAM0_CAM_DATA5_I ? 1'b1 : 1'b0;
+   assign port_mux_sel_cam0_hsync_o_req[PORT_MUX_GROUP_B_19_SEL_B_19] = s_reg2hw.b_19_mux_sel.q == PAD_MUX_GROUP_B_19_SEL_CAM0_CAM_HSYNC ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
      .MODE(1'b0)
-   ) i_port_muxsel_cam0_data5_o_arbiter (
-     .in_i(port_mux_sel_cam0_data5_o_req),
-     .cnt_o(port_mux_sel_cam0_data5_o_arbitrated),
-     .empty_o(port_mux_sel_cam0_data5_o_no_connection)
+   ) i_port_muxsel_cam0_hsync_o_arbiter (
+     .in_i(port_mux_sel_cam0_hsync_o_req),
+     .cnt_o(port_mux_sel_cam0_hsync_o_arbitrated),
+     .empty_o(port_mux_sel_cam0_hsync_o_no_connection)
    );
 
    always_comb begin
-     if (port_mux_sel_cam0_data5_o_no_connection) begin
-        port_signals_pad2soc_o.cam0.data5_o = 1'b1;
+     if (port_mux_sel_cam0_hsync_o_no_connection) begin
+        port_signals_pad2soc_o.cam0.hsync_o = 1'b1;
      end else begin
-        unique case (port_mux_sel_cam0_data5_o_arbitrated)
-          PORT_MUX_GROUP_A_46_SEL_A_46: begin
-            port_signals_pad2soc_o.cam0.data5_o = pads_to_mux_i.a_46.pad2chip;
+        unique case (port_mux_sel_cam0_hsync_o_arbitrated)
+          PORT_MUX_GROUP_B_19_SEL_B_19: begin
+            port_signals_pad2soc_o.cam0.hsync_o = pads_to_mux_i.b_19.pad2chip;
           end
           default: begin
-            port_signals_pad2soc_o.cam0.data5_o = 1'b1;
-          end
-       endcase
-     end
-   end
-
-
-  // Port Signal data4_o
-  logic [0:0] port_mux_sel_cam0_data4_o_req;
-  logic [PORT_MUX_GROUP_A_47_SEL_WIDTH-1:0] port_mux_sel_cam0_data4_o_arbitrated;
-  logic port_mux_sel_cam0_data4_o_no_connection;
-
-   assign port_mux_sel_cam0_data4_o_req[PORT_MUX_GROUP_A_47_SEL_A_47] = s_reg2hw.a_47_mux_sel.q == PAD_MUX_GROUP_A_47_SEL_CAM0_CAM_DATA4_I ? 1'b1 : 1'b0;
-
-   lzc #(
-     .WIDTH(1),
-     .MODE(1'b0)
-   ) i_port_muxsel_cam0_data4_o_arbiter (
-     .in_i(port_mux_sel_cam0_data4_o_req),
-     .cnt_o(port_mux_sel_cam0_data4_o_arbitrated),
-     .empty_o(port_mux_sel_cam0_data4_o_no_connection)
-   );
-
-   always_comb begin
-     if (port_mux_sel_cam0_data4_o_no_connection) begin
-        port_signals_pad2soc_o.cam0.data4_o = 1'b1;
-     end else begin
-        unique case (port_mux_sel_cam0_data4_o_arbitrated)
-          PORT_MUX_GROUP_A_47_SEL_A_47: begin
-            port_signals_pad2soc_o.cam0.data4_o = pads_to_mux_i.a_47.pad2chip;
-          end
-          default: begin
-            port_signals_pad2soc_o.cam0.data4_o = 1'b1;
-          end
-       endcase
-     end
-   end
-
-
-  // Port Signal data3_o
-  logic [0:0] port_mux_sel_cam0_data3_o_req;
-  logic [PORT_MUX_GROUP_B_20_SEL_WIDTH-1:0] port_mux_sel_cam0_data3_o_arbitrated;
-  logic port_mux_sel_cam0_data3_o_no_connection;
-
-   assign port_mux_sel_cam0_data3_o_req[PORT_MUX_GROUP_B_20_SEL_B_20] = s_reg2hw.b_20_mux_sel.q == PAD_MUX_GROUP_B_20_SEL_CAM0_CAM_DATA3_I ? 1'b1 : 1'b0;
-
-   lzc #(
-     .WIDTH(1),
-     .MODE(1'b0)
-   ) i_port_muxsel_cam0_data3_o_arbiter (
-     .in_i(port_mux_sel_cam0_data3_o_req),
-     .cnt_o(port_mux_sel_cam0_data3_o_arbitrated),
-     .empty_o(port_mux_sel_cam0_data3_o_no_connection)
-   );
-
-   always_comb begin
-     if (port_mux_sel_cam0_data3_o_no_connection) begin
-        port_signals_pad2soc_o.cam0.data3_o = 1'b1;
-     end else begin
-        unique case (port_mux_sel_cam0_data3_o_arbitrated)
-          PORT_MUX_GROUP_B_20_SEL_B_20: begin
-            port_signals_pad2soc_o.cam0.data3_o = pads_to_mux_i.b_20.pad2chip;
-          end
-          default: begin
-            port_signals_pad2soc_o.cam0.data3_o = 1'b1;
-          end
-       endcase
-     end
-   end
-
-
-  // Port Signal data2_o
-  logic [0:0] port_mux_sel_cam0_data2_o_req;
-  logic [PORT_MUX_GROUP_A_48_SEL_WIDTH-1:0] port_mux_sel_cam0_data2_o_arbitrated;
-  logic port_mux_sel_cam0_data2_o_no_connection;
-
-   assign port_mux_sel_cam0_data2_o_req[PORT_MUX_GROUP_A_48_SEL_A_48] = s_reg2hw.a_48_mux_sel.q == PAD_MUX_GROUP_A_48_SEL_CAM0_CAM_DATA2_I ? 1'b1 : 1'b0;
-
-   lzc #(
-     .WIDTH(1),
-     .MODE(1'b0)
-   ) i_port_muxsel_cam0_data2_o_arbiter (
-     .in_i(port_mux_sel_cam0_data2_o_req),
-     .cnt_o(port_mux_sel_cam0_data2_o_arbitrated),
-     .empty_o(port_mux_sel_cam0_data2_o_no_connection)
-   );
-
-   always_comb begin
-     if (port_mux_sel_cam0_data2_o_no_connection) begin
-        port_signals_pad2soc_o.cam0.data2_o = 1'b1;
-     end else begin
-        unique case (port_mux_sel_cam0_data2_o_arbitrated)
-          PORT_MUX_GROUP_A_48_SEL_A_48: begin
-            port_signals_pad2soc_o.cam0.data2_o = pads_to_mux_i.a_48.pad2chip;
-          end
-          default: begin
-            port_signals_pad2soc_o.cam0.data2_o = 1'b1;
-          end
-       endcase
-     end
-   end
-
-
-  // Port Signal data1_o
-  logic [0:0] port_mux_sel_cam0_data1_o_req;
-  logic [PORT_MUX_GROUP_A_49_SEL_WIDTH-1:0] port_mux_sel_cam0_data1_o_arbitrated;
-  logic port_mux_sel_cam0_data1_o_no_connection;
-
-   assign port_mux_sel_cam0_data1_o_req[PORT_MUX_GROUP_A_49_SEL_A_49] = s_reg2hw.a_49_mux_sel.q == PAD_MUX_GROUP_A_49_SEL_CAM0_CAM_DATA1_I ? 1'b1 : 1'b0;
-
-   lzc #(
-     .WIDTH(1),
-     .MODE(1'b0)
-   ) i_port_muxsel_cam0_data1_o_arbiter (
-     .in_i(port_mux_sel_cam0_data1_o_req),
-     .cnt_o(port_mux_sel_cam0_data1_o_arbitrated),
-     .empty_o(port_mux_sel_cam0_data1_o_no_connection)
-   );
-
-   always_comb begin
-     if (port_mux_sel_cam0_data1_o_no_connection) begin
-        port_signals_pad2soc_o.cam0.data1_o = 1'b1;
-     end else begin
-        unique case (port_mux_sel_cam0_data1_o_arbitrated)
-          PORT_MUX_GROUP_A_49_SEL_A_49: begin
-            port_signals_pad2soc_o.cam0.data1_o = pads_to_mux_i.a_49.pad2chip;
-          end
-          default: begin
-            port_signals_pad2soc_o.cam0.data1_o = 1'b1;
+            port_signals_pad2soc_o.cam0.hsync_o = 1'b1;
           end
        endcase
      end
@@ -7024,10 +6940,10 @@ module alsaqr_periph_padframe_periphs_muxer
 
   // Port Signal data0_o
   logic [0:0] port_mux_sel_cam0_data0_o_req;
-  logic [PORT_MUX_GROUP_A_50_SEL_WIDTH-1:0] port_mux_sel_cam0_data0_o_arbitrated;
+  logic [PORT_MUX_GROUP_A_44_SEL_WIDTH-1:0] port_mux_sel_cam0_data0_o_arbitrated;
   logic port_mux_sel_cam0_data0_o_no_connection;
 
-   assign port_mux_sel_cam0_data0_o_req[PORT_MUX_GROUP_A_50_SEL_A_50] = s_reg2hw.a_50_mux_sel.q == PAD_MUX_GROUP_A_50_SEL_CAM0_CAM_DATA0_I ? 1'b1 : 1'b0;
+   assign port_mux_sel_cam0_data0_o_req[PORT_MUX_GROUP_A_44_SEL_A_44] = s_reg2hw.a_44_mux_sel.q == PAD_MUX_GROUP_A_44_SEL_CAM0_CAM_DATA0_I ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
@@ -7043,8 +6959,8 @@ module alsaqr_periph_padframe_periphs_muxer
         port_signals_pad2soc_o.cam0.data0_o = 1'b1;
      end else begin
         unique case (port_mux_sel_cam0_data0_o_arbitrated)
-          PORT_MUX_GROUP_A_50_SEL_A_50: begin
-            port_signals_pad2soc_o.cam0.data0_o = pads_to_mux_i.a_50.pad2chip;
+          PORT_MUX_GROUP_A_44_SEL_A_44: begin
+            port_signals_pad2soc_o.cam0.data0_o = pads_to_mux_i.a_44.pad2chip;
           end
           default: begin
             port_signals_pad2soc_o.cam0.data0_o = 1'b1;
@@ -7053,66 +6969,225 @@ module alsaqr_periph_padframe_periphs_muxer
      end
    end
 
-  // Port Group i2c4
 
-  // Port Signal scl_o
-  logic [0:0] port_mux_sel_i2c4_scl_o_req;
-  logic [PORT_MUX_GROUP_A_51_SEL_WIDTH-1:0] port_mux_sel_i2c4_scl_o_arbitrated;
-  logic port_mux_sel_i2c4_scl_o_no_connection;
+  // Port Signal data1_o
+  logic [0:0] port_mux_sel_cam0_data1_o_req;
+  logic [PORT_MUX_GROUP_A_45_SEL_WIDTH-1:0] port_mux_sel_cam0_data1_o_arbitrated;
+  logic port_mux_sel_cam0_data1_o_no_connection;
 
-   assign port_mux_sel_i2c4_scl_o_req[PORT_MUX_GROUP_A_51_SEL_A_51] = s_reg2hw.a_51_mux_sel.q == PAD_MUX_GROUP_A_51_SEL_I2C4_I2C_SCL ? 1'b1 : 1'b0;
+   assign port_mux_sel_cam0_data1_o_req[PORT_MUX_GROUP_A_45_SEL_A_45] = s_reg2hw.a_45_mux_sel.q == PAD_MUX_GROUP_A_45_SEL_CAM0_CAM_DATA1_I ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
      .MODE(1'b0)
-   ) i_port_muxsel_i2c4_scl_o_arbiter (
-     .in_i(port_mux_sel_i2c4_scl_o_req),
-     .cnt_o(port_mux_sel_i2c4_scl_o_arbitrated),
-     .empty_o(port_mux_sel_i2c4_scl_o_no_connection)
+   ) i_port_muxsel_cam0_data1_o_arbiter (
+     .in_i(port_mux_sel_cam0_data1_o_req),
+     .cnt_o(port_mux_sel_cam0_data1_o_arbitrated),
+     .empty_o(port_mux_sel_cam0_data1_o_no_connection)
    );
 
    always_comb begin
-     if (port_mux_sel_i2c4_scl_o_no_connection) begin
-        port_signals_pad2soc_o.i2c4.scl_o = 1'b1;
+     if (port_mux_sel_cam0_data1_o_no_connection) begin
+        port_signals_pad2soc_o.cam0.data1_o = 1'b1;
      end else begin
-        unique case (port_mux_sel_i2c4_scl_o_arbitrated)
-          PORT_MUX_GROUP_A_51_SEL_A_51: begin
-            port_signals_pad2soc_o.i2c4.scl_o = pads_to_mux_i.a_51.pad2chip;
+        unique case (port_mux_sel_cam0_data1_o_arbitrated)
+          PORT_MUX_GROUP_A_45_SEL_A_45: begin
+            port_signals_pad2soc_o.cam0.data1_o = pads_to_mux_i.a_45.pad2chip;
           end
           default: begin
-            port_signals_pad2soc_o.i2c4.scl_o = 1'b1;
+            port_signals_pad2soc_o.cam0.data1_o = 1'b1;
           end
        endcase
      end
    end
 
 
-  // Port Signal sda_o
-  logic [0:0] port_mux_sel_i2c4_sda_o_req;
-  logic [PORT_MUX_GROUP_B_21_SEL_WIDTH-1:0] port_mux_sel_i2c4_sda_o_arbitrated;
-  logic port_mux_sel_i2c4_sda_o_no_connection;
+  // Port Signal data2_o
+  logic [0:0] port_mux_sel_cam0_data2_o_req;
+  logic [PORT_MUX_GROUP_A_46_SEL_WIDTH-1:0] port_mux_sel_cam0_data2_o_arbitrated;
+  logic port_mux_sel_cam0_data2_o_no_connection;
 
-   assign port_mux_sel_i2c4_sda_o_req[PORT_MUX_GROUP_B_21_SEL_B_21] = s_reg2hw.b_21_mux_sel.q == PAD_MUX_GROUP_B_21_SEL_I2C4_I2C_SDA ? 1'b1 : 1'b0;
+   assign port_mux_sel_cam0_data2_o_req[PORT_MUX_GROUP_A_46_SEL_A_46] = s_reg2hw.a_46_mux_sel.q == PAD_MUX_GROUP_A_46_SEL_CAM0_CAM_DATA2_I ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
      .MODE(1'b0)
-   ) i_port_muxsel_i2c4_sda_o_arbiter (
-     .in_i(port_mux_sel_i2c4_sda_o_req),
-     .cnt_o(port_mux_sel_i2c4_sda_o_arbitrated),
-     .empty_o(port_mux_sel_i2c4_sda_o_no_connection)
+   ) i_port_muxsel_cam0_data2_o_arbiter (
+     .in_i(port_mux_sel_cam0_data2_o_req),
+     .cnt_o(port_mux_sel_cam0_data2_o_arbitrated),
+     .empty_o(port_mux_sel_cam0_data2_o_no_connection)
    );
 
    always_comb begin
-     if (port_mux_sel_i2c4_sda_o_no_connection) begin
-        port_signals_pad2soc_o.i2c4.sda_o = 1'b1;
+     if (port_mux_sel_cam0_data2_o_no_connection) begin
+        port_signals_pad2soc_o.cam0.data2_o = 1'b1;
      end else begin
-        unique case (port_mux_sel_i2c4_sda_o_arbitrated)
-          PORT_MUX_GROUP_B_21_SEL_B_21: begin
-            port_signals_pad2soc_o.i2c4.sda_o = pads_to_mux_i.b_21.pad2chip;
+        unique case (port_mux_sel_cam0_data2_o_arbitrated)
+          PORT_MUX_GROUP_A_46_SEL_A_46: begin
+            port_signals_pad2soc_o.cam0.data2_o = pads_to_mux_i.a_46.pad2chip;
           end
           default: begin
-            port_signals_pad2soc_o.i2c4.sda_o = 1'b1;
+            port_signals_pad2soc_o.cam0.data2_o = 1'b1;
+          end
+       endcase
+     end
+   end
+
+
+  // Port Signal data3_o
+  logic [0:0] port_mux_sel_cam0_data3_o_req;
+  logic [PORT_MUX_GROUP_A_47_SEL_WIDTH-1:0] port_mux_sel_cam0_data3_o_arbitrated;
+  logic port_mux_sel_cam0_data3_o_no_connection;
+
+   assign port_mux_sel_cam0_data3_o_req[PORT_MUX_GROUP_A_47_SEL_A_47] = s_reg2hw.a_47_mux_sel.q == PAD_MUX_GROUP_A_47_SEL_CAM0_CAM_DATA3_I ? 1'b1 : 1'b0;
+
+   lzc #(
+     .WIDTH(1),
+     .MODE(1'b0)
+   ) i_port_muxsel_cam0_data3_o_arbiter (
+     .in_i(port_mux_sel_cam0_data3_o_req),
+     .cnt_o(port_mux_sel_cam0_data3_o_arbitrated),
+     .empty_o(port_mux_sel_cam0_data3_o_no_connection)
+   );
+
+   always_comb begin
+     if (port_mux_sel_cam0_data3_o_no_connection) begin
+        port_signals_pad2soc_o.cam0.data3_o = 1'b1;
+     end else begin
+        unique case (port_mux_sel_cam0_data3_o_arbitrated)
+          PORT_MUX_GROUP_A_47_SEL_A_47: begin
+            port_signals_pad2soc_o.cam0.data3_o = pads_to_mux_i.a_47.pad2chip;
+          end
+          default: begin
+            port_signals_pad2soc_o.cam0.data3_o = 1'b1;
+          end
+       endcase
+     end
+   end
+
+
+  // Port Signal data4_o
+  logic [0:0] port_mux_sel_cam0_data4_o_req;
+  logic [PORT_MUX_GROUP_B_20_SEL_WIDTH-1:0] port_mux_sel_cam0_data4_o_arbitrated;
+  logic port_mux_sel_cam0_data4_o_no_connection;
+
+   assign port_mux_sel_cam0_data4_o_req[PORT_MUX_GROUP_B_20_SEL_B_20] = s_reg2hw.b_20_mux_sel.q == PAD_MUX_GROUP_B_20_SEL_CAM0_CAM_DATA4_I ? 1'b1 : 1'b0;
+
+   lzc #(
+     .WIDTH(1),
+     .MODE(1'b0)
+   ) i_port_muxsel_cam0_data4_o_arbiter (
+     .in_i(port_mux_sel_cam0_data4_o_req),
+     .cnt_o(port_mux_sel_cam0_data4_o_arbitrated),
+     .empty_o(port_mux_sel_cam0_data4_o_no_connection)
+   );
+
+   always_comb begin
+     if (port_mux_sel_cam0_data4_o_no_connection) begin
+        port_signals_pad2soc_o.cam0.data4_o = 1'b1;
+     end else begin
+        unique case (port_mux_sel_cam0_data4_o_arbitrated)
+          PORT_MUX_GROUP_B_20_SEL_B_20: begin
+            port_signals_pad2soc_o.cam0.data4_o = pads_to_mux_i.b_20.pad2chip;
+          end
+          default: begin
+            port_signals_pad2soc_o.cam0.data4_o = 1'b1;
+          end
+       endcase
+     end
+   end
+
+
+  // Port Signal data5_o
+  logic [0:0] port_mux_sel_cam0_data5_o_req;
+  logic [PORT_MUX_GROUP_A_48_SEL_WIDTH-1:0] port_mux_sel_cam0_data5_o_arbitrated;
+  logic port_mux_sel_cam0_data5_o_no_connection;
+
+   assign port_mux_sel_cam0_data5_o_req[PORT_MUX_GROUP_A_48_SEL_A_48] = s_reg2hw.a_48_mux_sel.q == PAD_MUX_GROUP_A_48_SEL_CAM0_CAM_DATA5_I ? 1'b1 : 1'b0;
+
+   lzc #(
+     .WIDTH(1),
+     .MODE(1'b0)
+   ) i_port_muxsel_cam0_data5_o_arbiter (
+     .in_i(port_mux_sel_cam0_data5_o_req),
+     .cnt_o(port_mux_sel_cam0_data5_o_arbitrated),
+     .empty_o(port_mux_sel_cam0_data5_o_no_connection)
+   );
+
+   always_comb begin
+     if (port_mux_sel_cam0_data5_o_no_connection) begin
+        port_signals_pad2soc_o.cam0.data5_o = 1'b1;
+     end else begin
+        unique case (port_mux_sel_cam0_data5_o_arbitrated)
+          PORT_MUX_GROUP_A_48_SEL_A_48: begin
+            port_signals_pad2soc_o.cam0.data5_o = pads_to_mux_i.a_48.pad2chip;
+          end
+          default: begin
+            port_signals_pad2soc_o.cam0.data5_o = 1'b1;
+          end
+       endcase
+     end
+   end
+
+
+  // Port Signal data6_o
+  logic [0:0] port_mux_sel_cam0_data6_o_req;
+  logic [PORT_MUX_GROUP_A_49_SEL_WIDTH-1:0] port_mux_sel_cam0_data6_o_arbitrated;
+  logic port_mux_sel_cam0_data6_o_no_connection;
+
+   assign port_mux_sel_cam0_data6_o_req[PORT_MUX_GROUP_A_49_SEL_A_49] = s_reg2hw.a_49_mux_sel.q == PAD_MUX_GROUP_A_49_SEL_CAM0_CAM_DATA6_I ? 1'b1 : 1'b0;
+
+   lzc #(
+     .WIDTH(1),
+     .MODE(1'b0)
+   ) i_port_muxsel_cam0_data6_o_arbiter (
+     .in_i(port_mux_sel_cam0_data6_o_req),
+     .cnt_o(port_mux_sel_cam0_data6_o_arbitrated),
+     .empty_o(port_mux_sel_cam0_data6_o_no_connection)
+   );
+
+   always_comb begin
+     if (port_mux_sel_cam0_data6_o_no_connection) begin
+        port_signals_pad2soc_o.cam0.data6_o = 1'b1;
+     end else begin
+        unique case (port_mux_sel_cam0_data6_o_arbitrated)
+          PORT_MUX_GROUP_A_49_SEL_A_49: begin
+            port_signals_pad2soc_o.cam0.data6_o = pads_to_mux_i.a_49.pad2chip;
+          end
+          default: begin
+            port_signals_pad2soc_o.cam0.data6_o = 1'b1;
+          end
+       endcase
+     end
+   end
+
+
+  // Port Signal data7_o
+  logic [0:0] port_mux_sel_cam0_data7_o_req;
+  logic [PORT_MUX_GROUP_A_50_SEL_WIDTH-1:0] port_mux_sel_cam0_data7_o_arbitrated;
+  logic port_mux_sel_cam0_data7_o_no_connection;
+
+   assign port_mux_sel_cam0_data7_o_req[PORT_MUX_GROUP_A_50_SEL_A_50] = s_reg2hw.a_50_mux_sel.q == PAD_MUX_GROUP_A_50_SEL_CAM0_CAM_DATA7_I ? 1'b1 : 1'b0;
+
+   lzc #(
+     .WIDTH(1),
+     .MODE(1'b0)
+   ) i_port_muxsel_cam0_data7_o_arbiter (
+     .in_i(port_mux_sel_cam0_data7_o_req),
+     .cnt_o(port_mux_sel_cam0_data7_o_arbitrated),
+     .empty_o(port_mux_sel_cam0_data7_o_no_connection)
+   );
+
+   always_comb begin
+     if (port_mux_sel_cam0_data7_o_no_connection) begin
+        port_signals_pad2soc_o.cam0.data7_o = 1'b1;
+     end else begin
+        unique case (port_mux_sel_cam0_data7_o_arbitrated)
+          PORT_MUX_GROUP_A_50_SEL_A_50: begin
+            port_signals_pad2soc_o.cam0.data7_o = pads_to_mux_i.a_50.pad2chip;
+          end
+          default: begin
+            port_signals_pad2soc_o.cam0.data7_o = 1'b1;
           end
        endcase
      end
@@ -7122,10 +7197,10 @@ module alsaqr_periph_padframe_periphs_muxer
 
   // Port Signal clk_o
   logic [0:0] port_mux_sel_cam1_clk_o_req;
-  logic [PORT_MUX_GROUP_A_52_SEL_WIDTH-1:0] port_mux_sel_cam1_clk_o_arbitrated;
+  logic [PORT_MUX_GROUP_A_51_SEL_WIDTH-1:0] port_mux_sel_cam1_clk_o_arbitrated;
   logic port_mux_sel_cam1_clk_o_no_connection;
 
-   assign port_mux_sel_cam1_clk_o_req[PORT_MUX_GROUP_A_52_SEL_A_52] = s_reg2hw.a_52_mux_sel.q == PAD_MUX_GROUP_A_52_SEL_CAM1_CAM_PCLK ? 1'b1 : 1'b0;
+   assign port_mux_sel_cam1_clk_o_req[PORT_MUX_GROUP_A_51_SEL_A_51] = s_reg2hw.a_51_mux_sel.q == PAD_MUX_GROUP_A_51_SEL_CAM1_CAM_PCLK ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
@@ -7141,8 +7216,8 @@ module alsaqr_periph_padframe_periphs_muxer
         port_signals_pad2soc_o.cam1.clk_o = 1'b1;
      end else begin
         unique case (port_mux_sel_cam1_clk_o_arbitrated)
-          PORT_MUX_GROUP_A_52_SEL_A_52: begin
-            port_signals_pad2soc_o.cam1.clk_o = pads_to_mux_i.a_52.pad2chip;
+          PORT_MUX_GROUP_A_51_SEL_A_51: begin
+            port_signals_pad2soc_o.cam1.clk_o = pads_to_mux_i.a_51.pad2chip;
           end
           default: begin
             port_signals_pad2soc_o.cam1.clk_o = 1'b1;
@@ -7152,224 +7227,64 @@ module alsaqr_periph_padframe_periphs_muxer
    end
 
 
-  // Port Signal data7_o
-  logic [0:0] port_mux_sel_cam1_data7_o_req;
-  logic [PORT_MUX_GROUP_A_53_SEL_WIDTH-1:0] port_mux_sel_cam1_data7_o_arbitrated;
-  logic port_mux_sel_cam1_data7_o_no_connection;
+  // Port Signal vsync_o
+  logic [0:0] port_mux_sel_cam1_vsync_o_req;
+  logic [PORT_MUX_GROUP_B_21_SEL_WIDTH-1:0] port_mux_sel_cam1_vsync_o_arbitrated;
+  logic port_mux_sel_cam1_vsync_o_no_connection;
 
-   assign port_mux_sel_cam1_data7_o_req[PORT_MUX_GROUP_A_53_SEL_A_53] = s_reg2hw.a_53_mux_sel.q == PAD_MUX_GROUP_A_53_SEL_CAM1_CAM_DATA7_I ? 1'b1 : 1'b0;
+   assign port_mux_sel_cam1_vsync_o_req[PORT_MUX_GROUP_B_21_SEL_B_21] = s_reg2hw.b_21_mux_sel.q == PAD_MUX_GROUP_B_21_SEL_CAM1_CAM_VSYNC ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
      .MODE(1'b0)
-   ) i_port_muxsel_cam1_data7_o_arbiter (
-     .in_i(port_mux_sel_cam1_data7_o_req),
-     .cnt_o(port_mux_sel_cam1_data7_o_arbitrated),
-     .empty_o(port_mux_sel_cam1_data7_o_no_connection)
+   ) i_port_muxsel_cam1_vsync_o_arbiter (
+     .in_i(port_mux_sel_cam1_vsync_o_req),
+     .cnt_o(port_mux_sel_cam1_vsync_o_arbitrated),
+     .empty_o(port_mux_sel_cam1_vsync_o_no_connection)
    );
 
    always_comb begin
-     if (port_mux_sel_cam1_data7_o_no_connection) begin
-        port_signals_pad2soc_o.cam1.data7_o = 1'b1;
+     if (port_mux_sel_cam1_vsync_o_no_connection) begin
+        port_signals_pad2soc_o.cam1.vsync_o = 1'b1;
      end else begin
-        unique case (port_mux_sel_cam1_data7_o_arbitrated)
-          PORT_MUX_GROUP_A_53_SEL_A_53: begin
-            port_signals_pad2soc_o.cam1.data7_o = pads_to_mux_i.a_53.pad2chip;
+        unique case (port_mux_sel_cam1_vsync_o_arbitrated)
+          PORT_MUX_GROUP_B_21_SEL_B_21: begin
+            port_signals_pad2soc_o.cam1.vsync_o = pads_to_mux_i.b_21.pad2chip;
           end
           default: begin
-            port_signals_pad2soc_o.cam1.data7_o = 1'b1;
+            port_signals_pad2soc_o.cam1.vsync_o = 1'b1;
           end
        endcase
      end
    end
 
 
-  // Port Signal data6_o
-  logic [0:0] port_mux_sel_cam1_data6_o_req;
-  logic [PORT_MUX_GROUP_A_54_SEL_WIDTH-1:0] port_mux_sel_cam1_data6_o_arbitrated;
-  logic port_mux_sel_cam1_data6_o_no_connection;
+  // Port Signal hsync_o
+  logic [0:0] port_mux_sel_cam1_hsync_o_req;
+  logic [PORT_MUX_GROUP_A_52_SEL_WIDTH-1:0] port_mux_sel_cam1_hsync_o_arbitrated;
+  logic port_mux_sel_cam1_hsync_o_no_connection;
 
-   assign port_mux_sel_cam1_data6_o_req[PORT_MUX_GROUP_A_54_SEL_A_54] = s_reg2hw.a_54_mux_sel.q == PAD_MUX_GROUP_A_54_SEL_CAM1_CAM_DATA6_I ? 1'b1 : 1'b0;
-
-   lzc #(
-     .WIDTH(1),
-     .MODE(1'b0)
-   ) i_port_muxsel_cam1_data6_o_arbiter (
-     .in_i(port_mux_sel_cam1_data6_o_req),
-     .cnt_o(port_mux_sel_cam1_data6_o_arbitrated),
-     .empty_o(port_mux_sel_cam1_data6_o_no_connection)
-   );
-
-   always_comb begin
-     if (port_mux_sel_cam1_data6_o_no_connection) begin
-        port_signals_pad2soc_o.cam1.data6_o = 1'b1;
-     end else begin
-        unique case (port_mux_sel_cam1_data6_o_arbitrated)
-          PORT_MUX_GROUP_A_54_SEL_A_54: begin
-            port_signals_pad2soc_o.cam1.data6_o = pads_to_mux_i.a_54.pad2chip;
-          end
-          default: begin
-            port_signals_pad2soc_o.cam1.data6_o = 1'b1;
-          end
-       endcase
-     end
-   end
-
-
-  // Port Signal data5_o
-  logic [0:0] port_mux_sel_cam1_data5_o_req;
-  logic [PORT_MUX_GROUP_B_22_SEL_WIDTH-1:0] port_mux_sel_cam1_data5_o_arbitrated;
-  logic port_mux_sel_cam1_data5_o_no_connection;
-
-   assign port_mux_sel_cam1_data5_o_req[PORT_MUX_GROUP_B_22_SEL_B_22] = s_reg2hw.b_22_mux_sel.q == PAD_MUX_GROUP_B_22_SEL_CAM1_CAM_DATA5_I ? 1'b1 : 1'b0;
+   assign port_mux_sel_cam1_hsync_o_req[PORT_MUX_GROUP_A_52_SEL_A_52] = s_reg2hw.a_52_mux_sel.q == PAD_MUX_GROUP_A_52_SEL_CAM1_CAM_HSYNC ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
      .MODE(1'b0)
-   ) i_port_muxsel_cam1_data5_o_arbiter (
-     .in_i(port_mux_sel_cam1_data5_o_req),
-     .cnt_o(port_mux_sel_cam1_data5_o_arbitrated),
-     .empty_o(port_mux_sel_cam1_data5_o_no_connection)
+   ) i_port_muxsel_cam1_hsync_o_arbiter (
+     .in_i(port_mux_sel_cam1_hsync_o_req),
+     .cnt_o(port_mux_sel_cam1_hsync_o_arbitrated),
+     .empty_o(port_mux_sel_cam1_hsync_o_no_connection)
    );
 
    always_comb begin
-     if (port_mux_sel_cam1_data5_o_no_connection) begin
-        port_signals_pad2soc_o.cam1.data5_o = 1'b1;
+     if (port_mux_sel_cam1_hsync_o_no_connection) begin
+        port_signals_pad2soc_o.cam1.hsync_o = 1'b1;
      end else begin
-        unique case (port_mux_sel_cam1_data5_o_arbitrated)
-          PORT_MUX_GROUP_B_22_SEL_B_22: begin
-            port_signals_pad2soc_o.cam1.data5_o = pads_to_mux_i.b_22.pad2chip;
+        unique case (port_mux_sel_cam1_hsync_o_arbitrated)
+          PORT_MUX_GROUP_A_52_SEL_A_52: begin
+            port_signals_pad2soc_o.cam1.hsync_o = pads_to_mux_i.a_52.pad2chip;
           end
           default: begin
-            port_signals_pad2soc_o.cam1.data5_o = 1'b1;
-          end
-       endcase
-     end
-   end
-
-
-  // Port Signal data4_o
-  logic [0:0] port_mux_sel_cam1_data4_o_req;
-  logic [PORT_MUX_GROUP_B_23_SEL_WIDTH-1:0] port_mux_sel_cam1_data4_o_arbitrated;
-  logic port_mux_sel_cam1_data4_o_no_connection;
-
-   assign port_mux_sel_cam1_data4_o_req[PORT_MUX_GROUP_B_23_SEL_B_23] = s_reg2hw.b_23_mux_sel.q == PAD_MUX_GROUP_B_23_SEL_CAM1_CAM_DATA4_I ? 1'b1 : 1'b0;
-
-   lzc #(
-     .WIDTH(1),
-     .MODE(1'b0)
-   ) i_port_muxsel_cam1_data4_o_arbiter (
-     .in_i(port_mux_sel_cam1_data4_o_req),
-     .cnt_o(port_mux_sel_cam1_data4_o_arbitrated),
-     .empty_o(port_mux_sel_cam1_data4_o_no_connection)
-   );
-
-   always_comb begin
-     if (port_mux_sel_cam1_data4_o_no_connection) begin
-        port_signals_pad2soc_o.cam1.data4_o = 1'b1;
-     end else begin
-        unique case (port_mux_sel_cam1_data4_o_arbitrated)
-          PORT_MUX_GROUP_B_23_SEL_B_23: begin
-            port_signals_pad2soc_o.cam1.data4_o = pads_to_mux_i.b_23.pad2chip;
-          end
-          default: begin
-            port_signals_pad2soc_o.cam1.data4_o = 1'b1;
-          end
-       endcase
-     end
-   end
-
-
-  // Port Signal data3_o
-  logic [0:0] port_mux_sel_cam1_data3_o_req;
-  logic [PORT_MUX_GROUP_B_24_SEL_WIDTH-1:0] port_mux_sel_cam1_data3_o_arbitrated;
-  logic port_mux_sel_cam1_data3_o_no_connection;
-
-   assign port_mux_sel_cam1_data3_o_req[PORT_MUX_GROUP_B_24_SEL_B_24] = s_reg2hw.b_24_mux_sel.q == PAD_MUX_GROUP_B_24_SEL_CAM1_CAM_DATA3_I ? 1'b1 : 1'b0;
-
-   lzc #(
-     .WIDTH(1),
-     .MODE(1'b0)
-   ) i_port_muxsel_cam1_data3_o_arbiter (
-     .in_i(port_mux_sel_cam1_data3_o_req),
-     .cnt_o(port_mux_sel_cam1_data3_o_arbitrated),
-     .empty_o(port_mux_sel_cam1_data3_o_no_connection)
-   );
-
-   always_comb begin
-     if (port_mux_sel_cam1_data3_o_no_connection) begin
-        port_signals_pad2soc_o.cam1.data3_o = 1'b1;
-     end else begin
-        unique case (port_mux_sel_cam1_data3_o_arbitrated)
-          PORT_MUX_GROUP_B_24_SEL_B_24: begin
-            port_signals_pad2soc_o.cam1.data3_o = pads_to_mux_i.b_24.pad2chip;
-          end
-          default: begin
-            port_signals_pad2soc_o.cam1.data3_o = 1'b1;
-          end
-       endcase
-     end
-   end
-
-
-  // Port Signal data2_o
-  logic [0:0] port_mux_sel_cam1_data2_o_req;
-  logic [PORT_MUX_GROUP_A_55_SEL_WIDTH-1:0] port_mux_sel_cam1_data2_o_arbitrated;
-  logic port_mux_sel_cam1_data2_o_no_connection;
-
-   assign port_mux_sel_cam1_data2_o_req[PORT_MUX_GROUP_A_55_SEL_A_55] = s_reg2hw.a_55_mux_sel.q == PAD_MUX_GROUP_A_55_SEL_CAM1_CAM_DATA2_I ? 1'b1 : 1'b0;
-
-   lzc #(
-     .WIDTH(1),
-     .MODE(1'b0)
-   ) i_port_muxsel_cam1_data2_o_arbiter (
-     .in_i(port_mux_sel_cam1_data2_o_req),
-     .cnt_o(port_mux_sel_cam1_data2_o_arbitrated),
-     .empty_o(port_mux_sel_cam1_data2_o_no_connection)
-   );
-
-   always_comb begin
-     if (port_mux_sel_cam1_data2_o_no_connection) begin
-        port_signals_pad2soc_o.cam1.data2_o = 1'b1;
-     end else begin
-        unique case (port_mux_sel_cam1_data2_o_arbitrated)
-          PORT_MUX_GROUP_A_55_SEL_A_55: begin
-            port_signals_pad2soc_o.cam1.data2_o = pads_to_mux_i.a_55.pad2chip;
-          end
-          default: begin
-            port_signals_pad2soc_o.cam1.data2_o = 1'b1;
-          end
-       endcase
-     end
-   end
-
-
-  // Port Signal data1_o
-  logic [0:0] port_mux_sel_cam1_data1_o_req;
-  logic [PORT_MUX_GROUP_A_56_SEL_WIDTH-1:0] port_mux_sel_cam1_data1_o_arbitrated;
-  logic port_mux_sel_cam1_data1_o_no_connection;
-
-   assign port_mux_sel_cam1_data1_o_req[PORT_MUX_GROUP_A_56_SEL_A_56] = s_reg2hw.a_56_mux_sel.q == PAD_MUX_GROUP_A_56_SEL_CAM1_CAM_DATA1_I ? 1'b1 : 1'b0;
-
-   lzc #(
-     .WIDTH(1),
-     .MODE(1'b0)
-   ) i_port_muxsel_cam1_data1_o_arbiter (
-     .in_i(port_mux_sel_cam1_data1_o_req),
-     .cnt_o(port_mux_sel_cam1_data1_o_arbitrated),
-     .empty_o(port_mux_sel_cam1_data1_o_no_connection)
-   );
-
-   always_comb begin
-     if (port_mux_sel_cam1_data1_o_no_connection) begin
-        port_signals_pad2soc_o.cam1.data1_o = 1'b1;
-     end else begin
-        unique case (port_mux_sel_cam1_data1_o_arbitrated)
-          PORT_MUX_GROUP_A_56_SEL_A_56: begin
-            port_signals_pad2soc_o.cam1.data1_o = pads_to_mux_i.a_56.pad2chip;
-          end
-          default: begin
-            port_signals_pad2soc_o.cam1.data1_o = 1'b1;
+            port_signals_pad2soc_o.cam1.hsync_o = 1'b1;
           end
        endcase
      end
@@ -7378,10 +7293,10 @@ module alsaqr_periph_padframe_periphs_muxer
 
   // Port Signal data0_o
   logic [0:0] port_mux_sel_cam1_data0_o_req;
-  logic [PORT_MUX_GROUP_A_57_SEL_WIDTH-1:0] port_mux_sel_cam1_data0_o_arbitrated;
+  logic [PORT_MUX_GROUP_A_53_SEL_WIDTH-1:0] port_mux_sel_cam1_data0_o_arbitrated;
   logic port_mux_sel_cam1_data0_o_no_connection;
 
-   assign port_mux_sel_cam1_data0_o_req[PORT_MUX_GROUP_A_57_SEL_A_57] = s_reg2hw.a_57_mux_sel.q == PAD_MUX_GROUP_A_57_SEL_CAM1_CAM_DATA0_I ? 1'b1 : 1'b0;
+   assign port_mux_sel_cam1_data0_o_req[PORT_MUX_GROUP_A_53_SEL_A_53] = s_reg2hw.a_53_mux_sel.q == PAD_MUX_GROUP_A_53_SEL_CAM1_CAM_DATA0_I ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
@@ -7397,8 +7312,8 @@ module alsaqr_periph_padframe_periphs_muxer
         port_signals_pad2soc_o.cam1.data0_o = 1'b1;
      end else begin
         unique case (port_mux_sel_cam1_data0_o_arbitrated)
-          PORT_MUX_GROUP_A_57_SEL_A_57: begin
-            port_signals_pad2soc_o.cam1.data0_o = pads_to_mux_i.a_57.pad2chip;
+          PORT_MUX_GROUP_A_53_SEL_A_53: begin
+            port_signals_pad2soc_o.cam1.data0_o = pads_to_mux_i.a_53.pad2chip;
           end
           default: begin
             port_signals_pad2soc_o.cam1.data0_o = 1'b1;
@@ -7407,34 +7322,33 @@ module alsaqr_periph_padframe_periphs_muxer
      end
    end
 
-  // Port Group sdio1
 
-  // Port Signal data3_o
-  logic [0:0] port_mux_sel_sdio1_data3_o_req;
-  logic [PORT_MUX_GROUP_A_58_SEL_WIDTH-1:0] port_mux_sel_sdio1_data3_o_arbitrated;
-  logic port_mux_sel_sdio1_data3_o_no_connection;
+  // Port Signal data1_o
+  logic [0:0] port_mux_sel_cam1_data1_o_req;
+  logic [PORT_MUX_GROUP_A_54_SEL_WIDTH-1:0] port_mux_sel_cam1_data1_o_arbitrated;
+  logic port_mux_sel_cam1_data1_o_no_connection;
 
-   assign port_mux_sel_sdio1_data3_o_req[PORT_MUX_GROUP_A_58_SEL_A_58] = s_reg2hw.a_58_mux_sel.q == PAD_MUX_GROUP_A_58_SEL_SDIO1_SDIO_DATA3 ? 1'b1 : 1'b0;
+   assign port_mux_sel_cam1_data1_o_req[PORT_MUX_GROUP_A_54_SEL_A_54] = s_reg2hw.a_54_mux_sel.q == PAD_MUX_GROUP_A_54_SEL_CAM1_CAM_DATA1_I ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
      .MODE(1'b0)
-   ) i_port_muxsel_sdio1_data3_o_arbiter (
-     .in_i(port_mux_sel_sdio1_data3_o_req),
-     .cnt_o(port_mux_sel_sdio1_data3_o_arbitrated),
-     .empty_o(port_mux_sel_sdio1_data3_o_no_connection)
+   ) i_port_muxsel_cam1_data1_o_arbiter (
+     .in_i(port_mux_sel_cam1_data1_o_req),
+     .cnt_o(port_mux_sel_cam1_data1_o_arbitrated),
+     .empty_o(port_mux_sel_cam1_data1_o_no_connection)
    );
 
    always_comb begin
-     if (port_mux_sel_sdio1_data3_o_no_connection) begin
-        port_signals_pad2soc_o.sdio1.data3_o = 1'b1;
+     if (port_mux_sel_cam1_data1_o_no_connection) begin
+        port_signals_pad2soc_o.cam1.data1_o = 1'b1;
      end else begin
-        unique case (port_mux_sel_sdio1_data3_o_arbitrated)
-          PORT_MUX_GROUP_A_58_SEL_A_58: begin
-            port_signals_pad2soc_o.sdio1.data3_o = pads_to_mux_i.a_58.pad2chip;
+        unique case (port_mux_sel_cam1_data1_o_arbitrated)
+          PORT_MUX_GROUP_A_54_SEL_A_54: begin
+            port_signals_pad2soc_o.cam1.data1_o = pads_to_mux_i.a_54.pad2chip;
           end
           default: begin
-            port_signals_pad2soc_o.sdio1.data3_o = 1'b1;
+            port_signals_pad2soc_o.cam1.data1_o = 1'b1;
           end
        endcase
      end
@@ -7442,75 +7356,204 @@ module alsaqr_periph_padframe_periphs_muxer
 
 
   // Port Signal data2_o
-  logic [0:0] port_mux_sel_sdio1_data2_o_req;
-  logic [PORT_MUX_GROUP_B_25_SEL_WIDTH-1:0] port_mux_sel_sdio1_data2_o_arbitrated;
-  logic port_mux_sel_sdio1_data2_o_no_connection;
+  logic [0:0] port_mux_sel_cam1_data2_o_req;
+  logic [PORT_MUX_GROUP_B_22_SEL_WIDTH-1:0] port_mux_sel_cam1_data2_o_arbitrated;
+  logic port_mux_sel_cam1_data2_o_no_connection;
 
-   assign port_mux_sel_sdio1_data2_o_req[PORT_MUX_GROUP_B_25_SEL_B_25] = s_reg2hw.b_25_mux_sel.q == PAD_MUX_GROUP_B_25_SEL_SDIO1_SDIO_DATA2 ? 1'b1 : 1'b0;
+   assign port_mux_sel_cam1_data2_o_req[PORT_MUX_GROUP_B_22_SEL_B_22] = s_reg2hw.b_22_mux_sel.q == PAD_MUX_GROUP_B_22_SEL_CAM1_CAM_DATA2_I ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
      .MODE(1'b0)
-   ) i_port_muxsel_sdio1_data2_o_arbiter (
-     .in_i(port_mux_sel_sdio1_data2_o_req),
-     .cnt_o(port_mux_sel_sdio1_data2_o_arbitrated),
-     .empty_o(port_mux_sel_sdio1_data2_o_no_connection)
+   ) i_port_muxsel_cam1_data2_o_arbiter (
+     .in_i(port_mux_sel_cam1_data2_o_req),
+     .cnt_o(port_mux_sel_cam1_data2_o_arbitrated),
+     .empty_o(port_mux_sel_cam1_data2_o_no_connection)
    );
 
    always_comb begin
-     if (port_mux_sel_sdio1_data2_o_no_connection) begin
-        port_signals_pad2soc_o.sdio1.data2_o = 1'b1;
+     if (port_mux_sel_cam1_data2_o_no_connection) begin
+        port_signals_pad2soc_o.cam1.data2_o = 1'b1;
      end else begin
-        unique case (port_mux_sel_sdio1_data2_o_arbitrated)
-          PORT_MUX_GROUP_B_25_SEL_B_25: begin
-            port_signals_pad2soc_o.sdio1.data2_o = pads_to_mux_i.b_25.pad2chip;
+        unique case (port_mux_sel_cam1_data2_o_arbitrated)
+          PORT_MUX_GROUP_B_22_SEL_B_22: begin
+            port_signals_pad2soc_o.cam1.data2_o = pads_to_mux_i.b_22.pad2chip;
           end
           default: begin
-            port_signals_pad2soc_o.sdio1.data2_o = 1'b1;
+            port_signals_pad2soc_o.cam1.data2_o = 1'b1;
           end
        endcase
      end
    end
 
 
-  // Port Signal data1_o
-  logic [0:0] port_mux_sel_sdio1_data1_o_req;
-  logic [PORT_MUX_GROUP_A_59_SEL_WIDTH-1:0] port_mux_sel_sdio1_data1_o_arbitrated;
-  logic port_mux_sel_sdio1_data1_o_no_connection;
+  // Port Signal data3_o
+  logic [0:0] port_mux_sel_cam1_data3_o_req;
+  logic [PORT_MUX_GROUP_B_23_SEL_WIDTH-1:0] port_mux_sel_cam1_data3_o_arbitrated;
+  logic port_mux_sel_cam1_data3_o_no_connection;
 
-   assign port_mux_sel_sdio1_data1_o_req[PORT_MUX_GROUP_A_59_SEL_A_59] = s_reg2hw.a_59_mux_sel.q == PAD_MUX_GROUP_A_59_SEL_SDIO1_SDIO_DATA1 ? 1'b1 : 1'b0;
+   assign port_mux_sel_cam1_data3_o_req[PORT_MUX_GROUP_B_23_SEL_B_23] = s_reg2hw.b_23_mux_sel.q == PAD_MUX_GROUP_B_23_SEL_CAM1_CAM_DATA3_I ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
      .MODE(1'b0)
-   ) i_port_muxsel_sdio1_data1_o_arbiter (
-     .in_i(port_mux_sel_sdio1_data1_o_req),
-     .cnt_o(port_mux_sel_sdio1_data1_o_arbitrated),
-     .empty_o(port_mux_sel_sdio1_data1_o_no_connection)
+   ) i_port_muxsel_cam1_data3_o_arbiter (
+     .in_i(port_mux_sel_cam1_data3_o_req),
+     .cnt_o(port_mux_sel_cam1_data3_o_arbitrated),
+     .empty_o(port_mux_sel_cam1_data3_o_no_connection)
    );
 
    always_comb begin
-     if (port_mux_sel_sdio1_data1_o_no_connection) begin
-        port_signals_pad2soc_o.sdio1.data1_o = 1'b1;
+     if (port_mux_sel_cam1_data3_o_no_connection) begin
+        port_signals_pad2soc_o.cam1.data3_o = 1'b1;
      end else begin
-        unique case (port_mux_sel_sdio1_data1_o_arbitrated)
-          PORT_MUX_GROUP_A_59_SEL_A_59: begin
-            port_signals_pad2soc_o.sdio1.data1_o = pads_to_mux_i.a_59.pad2chip;
+        unique case (port_mux_sel_cam1_data3_o_arbitrated)
+          PORT_MUX_GROUP_B_23_SEL_B_23: begin
+            port_signals_pad2soc_o.cam1.data3_o = pads_to_mux_i.b_23.pad2chip;
           end
           default: begin
-            port_signals_pad2soc_o.sdio1.data1_o = 1'b1;
+            port_signals_pad2soc_o.cam1.data3_o = 1'b1;
           end
        endcase
      end
    end
 
+
+  // Port Signal data4_o
+  logic [0:0] port_mux_sel_cam1_data4_o_req;
+  logic [PORT_MUX_GROUP_B_24_SEL_WIDTH-1:0] port_mux_sel_cam1_data4_o_arbitrated;
+  logic port_mux_sel_cam1_data4_o_no_connection;
+
+   assign port_mux_sel_cam1_data4_o_req[PORT_MUX_GROUP_B_24_SEL_B_24] = s_reg2hw.b_24_mux_sel.q == PAD_MUX_GROUP_B_24_SEL_CAM1_CAM_DATA4_I ? 1'b1 : 1'b0;
+
+   lzc #(
+     .WIDTH(1),
+     .MODE(1'b0)
+   ) i_port_muxsel_cam1_data4_o_arbiter (
+     .in_i(port_mux_sel_cam1_data4_o_req),
+     .cnt_o(port_mux_sel_cam1_data4_o_arbitrated),
+     .empty_o(port_mux_sel_cam1_data4_o_no_connection)
+   );
+
+   always_comb begin
+     if (port_mux_sel_cam1_data4_o_no_connection) begin
+        port_signals_pad2soc_o.cam1.data4_o = 1'b1;
+     end else begin
+        unique case (port_mux_sel_cam1_data4_o_arbitrated)
+          PORT_MUX_GROUP_B_24_SEL_B_24: begin
+            port_signals_pad2soc_o.cam1.data4_o = pads_to_mux_i.b_24.pad2chip;
+          end
+          default: begin
+            port_signals_pad2soc_o.cam1.data4_o = 1'b1;
+          end
+       endcase
+     end
+   end
+
+
+  // Port Signal data5_o
+  logic [0:0] port_mux_sel_cam1_data5_o_req;
+  logic [PORT_MUX_GROUP_A_55_SEL_WIDTH-1:0] port_mux_sel_cam1_data5_o_arbitrated;
+  logic port_mux_sel_cam1_data5_o_no_connection;
+
+   assign port_mux_sel_cam1_data5_o_req[PORT_MUX_GROUP_A_55_SEL_A_55] = s_reg2hw.a_55_mux_sel.q == PAD_MUX_GROUP_A_55_SEL_CAM1_CAM_DATA5_I ? 1'b1 : 1'b0;
+
+   lzc #(
+     .WIDTH(1),
+     .MODE(1'b0)
+   ) i_port_muxsel_cam1_data5_o_arbiter (
+     .in_i(port_mux_sel_cam1_data5_o_req),
+     .cnt_o(port_mux_sel_cam1_data5_o_arbitrated),
+     .empty_o(port_mux_sel_cam1_data5_o_no_connection)
+   );
+
+   always_comb begin
+     if (port_mux_sel_cam1_data5_o_no_connection) begin
+        port_signals_pad2soc_o.cam1.data5_o = 1'b1;
+     end else begin
+        unique case (port_mux_sel_cam1_data5_o_arbitrated)
+          PORT_MUX_GROUP_A_55_SEL_A_55: begin
+            port_signals_pad2soc_o.cam1.data5_o = pads_to_mux_i.a_55.pad2chip;
+          end
+          default: begin
+            port_signals_pad2soc_o.cam1.data5_o = 1'b1;
+          end
+       endcase
+     end
+   end
+
+
+  // Port Signal data6_o
+  logic [0:0] port_mux_sel_cam1_data6_o_req;
+  logic [PORT_MUX_GROUP_A_56_SEL_WIDTH-1:0] port_mux_sel_cam1_data6_o_arbitrated;
+  logic port_mux_sel_cam1_data6_o_no_connection;
+
+   assign port_mux_sel_cam1_data6_o_req[PORT_MUX_GROUP_A_56_SEL_A_56] = s_reg2hw.a_56_mux_sel.q == PAD_MUX_GROUP_A_56_SEL_CAM1_CAM_DATA6_I ? 1'b1 : 1'b0;
+
+   lzc #(
+     .WIDTH(1),
+     .MODE(1'b0)
+   ) i_port_muxsel_cam1_data6_o_arbiter (
+     .in_i(port_mux_sel_cam1_data6_o_req),
+     .cnt_o(port_mux_sel_cam1_data6_o_arbitrated),
+     .empty_o(port_mux_sel_cam1_data6_o_no_connection)
+   );
+
+   always_comb begin
+     if (port_mux_sel_cam1_data6_o_no_connection) begin
+        port_signals_pad2soc_o.cam1.data6_o = 1'b1;
+     end else begin
+        unique case (port_mux_sel_cam1_data6_o_arbitrated)
+          PORT_MUX_GROUP_A_56_SEL_A_56: begin
+            port_signals_pad2soc_o.cam1.data6_o = pads_to_mux_i.a_56.pad2chip;
+          end
+          default: begin
+            port_signals_pad2soc_o.cam1.data6_o = 1'b1;
+          end
+       endcase
+     end
+   end
+
+
+  // Port Signal data7_o
+  logic [0:0] port_mux_sel_cam1_data7_o_req;
+  logic [PORT_MUX_GROUP_A_57_SEL_WIDTH-1:0] port_mux_sel_cam1_data7_o_arbitrated;
+  logic port_mux_sel_cam1_data7_o_no_connection;
+
+   assign port_mux_sel_cam1_data7_o_req[PORT_MUX_GROUP_A_57_SEL_A_57] = s_reg2hw.a_57_mux_sel.q == PAD_MUX_GROUP_A_57_SEL_CAM1_CAM_DATA7_I ? 1'b1 : 1'b0;
+
+   lzc #(
+     .WIDTH(1),
+     .MODE(1'b0)
+   ) i_port_muxsel_cam1_data7_o_arbiter (
+     .in_i(port_mux_sel_cam1_data7_o_req),
+     .cnt_o(port_mux_sel_cam1_data7_o_arbitrated),
+     .empty_o(port_mux_sel_cam1_data7_o_no_connection)
+   );
+
+   always_comb begin
+     if (port_mux_sel_cam1_data7_o_no_connection) begin
+        port_signals_pad2soc_o.cam1.data7_o = 1'b1;
+     end else begin
+        unique case (port_mux_sel_cam1_data7_o_arbitrated)
+          PORT_MUX_GROUP_A_57_SEL_A_57: begin
+            port_signals_pad2soc_o.cam1.data7_o = pads_to_mux_i.a_57.pad2chip;
+          end
+          default: begin
+            port_signals_pad2soc_o.cam1.data7_o = 1'b1;
+          end
+       endcase
+     end
+   end
+
+  // Port Group sdio1
 
   // Port Signal data0_o
   logic [0:0] port_mux_sel_sdio1_data0_o_req;
-  logic [PORT_MUX_GROUP_A_60_SEL_WIDTH-1:0] port_mux_sel_sdio1_data0_o_arbitrated;
+  logic [PORT_MUX_GROUP_A_58_SEL_WIDTH-1:0] port_mux_sel_sdio1_data0_o_arbitrated;
   logic port_mux_sel_sdio1_data0_o_no_connection;
 
-   assign port_mux_sel_sdio1_data0_o_req[PORT_MUX_GROUP_A_60_SEL_A_60] = s_reg2hw.a_60_mux_sel.q == PAD_MUX_GROUP_A_60_SEL_SDIO1_SDIO_DATA0 ? 1'b1 : 1'b0;
+   assign port_mux_sel_sdio1_data0_o_req[PORT_MUX_GROUP_A_58_SEL_A_58] = s_reg2hw.a_58_mux_sel.q == PAD_MUX_GROUP_A_58_SEL_SDIO1_SDIO_DATA0 ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
@@ -7526,11 +7569,107 @@ module alsaqr_periph_padframe_periphs_muxer
         port_signals_pad2soc_o.sdio1.data0_o = 1'b1;
      end else begin
         unique case (port_mux_sel_sdio1_data0_o_arbitrated)
-          PORT_MUX_GROUP_A_60_SEL_A_60: begin
-            port_signals_pad2soc_o.sdio1.data0_o = pads_to_mux_i.a_60.pad2chip;
+          PORT_MUX_GROUP_A_58_SEL_A_58: begin
+            port_signals_pad2soc_o.sdio1.data0_o = pads_to_mux_i.a_58.pad2chip;
           end
           default: begin
             port_signals_pad2soc_o.sdio1.data0_o = 1'b1;
+          end
+       endcase
+     end
+   end
+
+
+  // Port Signal data1_o
+  logic [0:0] port_mux_sel_sdio1_data1_o_req;
+  logic [PORT_MUX_GROUP_B_25_SEL_WIDTH-1:0] port_mux_sel_sdio1_data1_o_arbitrated;
+  logic port_mux_sel_sdio1_data1_o_no_connection;
+
+   assign port_mux_sel_sdio1_data1_o_req[PORT_MUX_GROUP_B_25_SEL_B_25] = s_reg2hw.b_25_mux_sel.q == PAD_MUX_GROUP_B_25_SEL_SDIO1_SDIO_DATA1 ? 1'b1 : 1'b0;
+
+   lzc #(
+     .WIDTH(1),
+     .MODE(1'b0)
+   ) i_port_muxsel_sdio1_data1_o_arbiter (
+     .in_i(port_mux_sel_sdio1_data1_o_req),
+     .cnt_o(port_mux_sel_sdio1_data1_o_arbitrated),
+     .empty_o(port_mux_sel_sdio1_data1_o_no_connection)
+   );
+
+   always_comb begin
+     if (port_mux_sel_sdio1_data1_o_no_connection) begin
+        port_signals_pad2soc_o.sdio1.data1_o = 1'b1;
+     end else begin
+        unique case (port_mux_sel_sdio1_data1_o_arbitrated)
+          PORT_MUX_GROUP_B_25_SEL_B_25: begin
+            port_signals_pad2soc_o.sdio1.data1_o = pads_to_mux_i.b_25.pad2chip;
+          end
+          default: begin
+            port_signals_pad2soc_o.sdio1.data1_o = 1'b1;
+          end
+       endcase
+     end
+   end
+
+
+  // Port Signal data2_o
+  logic [0:0] port_mux_sel_sdio1_data2_o_req;
+  logic [PORT_MUX_GROUP_A_59_SEL_WIDTH-1:0] port_mux_sel_sdio1_data2_o_arbitrated;
+  logic port_mux_sel_sdio1_data2_o_no_connection;
+
+   assign port_mux_sel_sdio1_data2_o_req[PORT_MUX_GROUP_A_59_SEL_A_59] = s_reg2hw.a_59_mux_sel.q == PAD_MUX_GROUP_A_59_SEL_SDIO1_SDIO_DATA2 ? 1'b1 : 1'b0;
+
+   lzc #(
+     .WIDTH(1),
+     .MODE(1'b0)
+   ) i_port_muxsel_sdio1_data2_o_arbiter (
+     .in_i(port_mux_sel_sdio1_data2_o_req),
+     .cnt_o(port_mux_sel_sdio1_data2_o_arbitrated),
+     .empty_o(port_mux_sel_sdio1_data2_o_no_connection)
+   );
+
+   always_comb begin
+     if (port_mux_sel_sdio1_data2_o_no_connection) begin
+        port_signals_pad2soc_o.sdio1.data2_o = 1'b1;
+     end else begin
+        unique case (port_mux_sel_sdio1_data2_o_arbitrated)
+          PORT_MUX_GROUP_A_59_SEL_A_59: begin
+            port_signals_pad2soc_o.sdio1.data2_o = pads_to_mux_i.a_59.pad2chip;
+          end
+          default: begin
+            port_signals_pad2soc_o.sdio1.data2_o = 1'b1;
+          end
+       endcase
+     end
+   end
+
+
+  // Port Signal data3_o
+  logic [0:0] port_mux_sel_sdio1_data3_o_req;
+  logic [PORT_MUX_GROUP_A_60_SEL_WIDTH-1:0] port_mux_sel_sdio1_data3_o_arbitrated;
+  logic port_mux_sel_sdio1_data3_o_no_connection;
+
+   assign port_mux_sel_sdio1_data3_o_req[PORT_MUX_GROUP_A_60_SEL_A_60] = s_reg2hw.a_60_mux_sel.q == PAD_MUX_GROUP_A_60_SEL_SDIO1_SDIO_DATA3 ? 1'b1 : 1'b0;
+
+   lzc #(
+     .WIDTH(1),
+     .MODE(1'b0)
+   ) i_port_muxsel_sdio1_data3_o_arbiter (
+     .in_i(port_mux_sel_sdio1_data3_o_req),
+     .cnt_o(port_mux_sel_sdio1_data3_o_arbitrated),
+     .empty_o(port_mux_sel_sdio1_data3_o_no_connection)
+   );
+
+   always_comb begin
+     if (port_mux_sel_sdio1_data3_o_no_connection) begin
+        port_signals_pad2soc_o.sdio1.data3_o = 1'b1;
+     end else begin
+        unique case (port_mux_sel_sdio1_data3_o_arbitrated)
+          PORT_MUX_GROUP_A_60_SEL_A_60: begin
+            port_signals_pad2soc_o.sdio1.data3_o = pads_to_mux_i.a_60.pad2chip;
+          end
+          default: begin
+            port_signals_pad2soc_o.sdio1.data3_o = 1'b1;
           end
        endcase
      end
@@ -9649,6 +9788,70 @@ module alsaqr_periph_padframe_periphs_muxer
           end
           default: begin
             port_signals_pad2soc_o.gpio_b.gpio62_o = 1'b0;
+          end
+       endcase
+     end
+   end
+
+
+  // Port Signal gpio63_o
+  logic [0:0] port_mux_sel_gpio_b_gpio63_o_req;
+  logic [PORT_MUX_GROUP_B_63_SEL_WIDTH-1:0] port_mux_sel_gpio_b_gpio63_o_arbitrated;
+  logic port_mux_sel_gpio_b_gpio63_o_no_connection;
+
+   assign port_mux_sel_gpio_b_gpio63_o_req[PORT_MUX_GROUP_B_63_SEL_B_63] = s_reg2hw.b_63_mux_sel.q == PAD_MUX_GROUP_B_63_SEL_GPIO_B_GPIO63 ? 1'b1 : 1'b0;
+
+   lzc #(
+     .WIDTH(1),
+     .MODE(1'b0)
+   ) i_port_muxsel_gpio_b_gpio63_o_arbiter (
+     .in_i(port_mux_sel_gpio_b_gpio63_o_req),
+     .cnt_o(port_mux_sel_gpio_b_gpio63_o_arbitrated),
+     .empty_o(port_mux_sel_gpio_b_gpio63_o_no_connection)
+   );
+
+   always_comb begin
+     if (port_mux_sel_gpio_b_gpio63_o_no_connection) begin
+        port_signals_pad2soc_o.gpio_b.gpio63_o = 1'b0;
+     end else begin
+        unique case (port_mux_sel_gpio_b_gpio63_o_arbitrated)
+          PORT_MUX_GROUP_B_63_SEL_B_63: begin
+            port_signals_pad2soc_o.gpio_b.gpio63_o = pads_to_mux_i.b_63.pad2chip;
+          end
+          default: begin
+            port_signals_pad2soc_o.gpio_b.gpio63_o = 1'b0;
+          end
+       endcase
+     end
+   end
+
+
+  // Port Signal gpio64_o
+  logic [0:0] port_mux_sel_gpio_b_gpio64_o_req;
+  logic [PORT_MUX_GROUP_B_64_SEL_WIDTH-1:0] port_mux_sel_gpio_b_gpio64_o_arbitrated;
+  logic port_mux_sel_gpio_b_gpio64_o_no_connection;
+
+   assign port_mux_sel_gpio_b_gpio64_o_req[PORT_MUX_GROUP_B_64_SEL_B_64] = s_reg2hw.b_64_mux_sel.q == PAD_MUX_GROUP_B_64_SEL_GPIO_B_GPIO64 ? 1'b1 : 1'b0;
+
+   lzc #(
+     .WIDTH(1),
+     .MODE(1'b0)
+   ) i_port_muxsel_gpio_b_gpio64_o_arbiter (
+     .in_i(port_mux_sel_gpio_b_gpio64_o_req),
+     .cnt_o(port_mux_sel_gpio_b_gpio64_o_arbitrated),
+     .empty_o(port_mux_sel_gpio_b_gpio64_o_no_connection)
+   );
+
+   always_comb begin
+     if (port_mux_sel_gpio_b_gpio64_o_no_connection) begin
+        port_signals_pad2soc_o.gpio_b.gpio64_o = 1'b0;
+     end else begin
+        unique case (port_mux_sel_gpio_b_gpio64_o_arbitrated)
+          PORT_MUX_GROUP_B_64_SEL_B_64: begin
+            port_signals_pad2soc_o.gpio_b.gpio64_o = pads_to_mux_i.b_64.pad2chip;
+          end
+          default: begin
+            port_signals_pad2soc_o.gpio_b.gpio64_o = 1'b0;
           end
        endcase
      end

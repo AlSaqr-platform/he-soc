@@ -163,6 +163,8 @@ module alsaqr_periph_padframe_periphs_pads
   inout wire logic pad_b_60_pad,
   inout wire logic pad_b_61_pad,
   inout wire logic pad_b_62_pad,
+  inout wire logic pad_b_63_pad,
+  inout wire logic pad_b_64_pad,
   inout wire logic pad_ot_qspi_00_pad,
   inout wire logic pad_ot_qspi_01_pad,
   inout wire logic pad_ot_qspi_02_pad,
@@ -2368,6 +2370,34 @@ module alsaqr_periph_padframe_periphs_pads
     .DRV(mux_to_pads_i.b_62.drv),
     .SLW(mux_to_pads_i.b_62.slw),
     .SMT(mux_to_pads_i.b_62.smt),
+    .PWROK(PWROK_S),
+    .IOPWROK(IOPWROK_S),
+    .BIAS(BIAS_S),
+    .RETC(RETC_S)
+  );
+   pad_alsaqr i_b_63 (
+    .OEN(mux_to_pads_i.b_63.oen),
+    .I(mux_to_pads_i.b_63.chip2pad),
+    .O(pads_to_mux_o.b_63.pad2chip),
+    .PUEN(mux_to_pads_i.b_63.puen),
+    .PAD(pad_b_63_pad),
+    .DRV(mux_to_pads_i.b_63.drv),
+    .SLW(mux_to_pads_i.b_63.slw),
+    .SMT(mux_to_pads_i.b_63.smt),
+    .PWROK(PWROK_S),
+    .IOPWROK(IOPWROK_S),
+    .BIAS(BIAS_S),
+    .RETC(RETC_S)
+  );
+   pad_alsaqr i_b_64 (
+    .OEN(mux_to_pads_i.b_64.oen),
+    .I(mux_to_pads_i.b_64.chip2pad),
+    .O(pads_to_mux_o.b_64.pad2chip),
+    .PUEN(mux_to_pads_i.b_64.puen),
+    .PAD(pad_b_64_pad),
+    .DRV(mux_to_pads_i.b_64.drv),
+    .SLW(mux_to_pads_i.b_64.slw),
+    .SMT(mux_to_pads_i.b_64.smt),
     .PWROK(PWROK_S),
     .IOPWROK(IOPWROK_S),
     .BIAS(BIAS_S),

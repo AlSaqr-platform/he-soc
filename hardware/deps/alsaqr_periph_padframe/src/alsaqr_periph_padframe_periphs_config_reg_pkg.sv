@@ -1085,7 +1085,7 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
   } alsaqr_periph_padframe_periphs_config_reg2hw_a_42_cfg_reg_t;
 
   typedef struct packed {
-    logic        q;
+    logic [1:0]  q;
   } alsaqr_periph_padframe_periphs_config_reg2hw_a_42_mux_sel_reg_t;
 
   typedef struct packed {
@@ -1110,7 +1110,7 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
   } alsaqr_periph_padframe_periphs_config_reg2hw_a_43_cfg_reg_t;
 
   typedef struct packed {
-    logic        q;
+    logic [1:0]  q;
   } alsaqr_periph_padframe_periphs_config_reg2hw_a_43_mux_sel_reg_t;
 
   typedef struct packed {
@@ -3932,6 +3932,56 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
     struct packed {
       logic        q;
     } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_b_63_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_b_63_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_b_64_cfg_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } alsaqr_periph_padframe_periphs_config_reg2hw_b_64_mux_sel_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } chip2pad;
+    struct packed {
+      logic [1:0]  q;
+    } drv;
+    struct packed {
+      logic        q;
+    } oen;
+    struct packed {
+      logic        q;
+    } puen;
+    struct packed {
+      logic        q;
+    } slw;
+    struct packed {
+      logic        q;
+    } smt;
   } alsaqr_periph_padframe_periphs_config_reg2hw_ot_qspi_00_cfg_reg_t;
 
   typedef struct packed {
@@ -4215,318 +4265,322 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
 
   // Register -> HW type
   typedef struct packed {
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_00_cfg_reg_t a_00_cfg; // [1389:1383]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_00_mux_sel_reg_t a_00_mux_sel; // [1382:1382]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_01_cfg_reg_t a_01_cfg; // [1381:1375]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_01_mux_sel_reg_t a_01_mux_sel; // [1374:1374]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_02_cfg_reg_t a_02_cfg; // [1373:1367]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_02_mux_sel_reg_t a_02_mux_sel; // [1366:1366]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_03_cfg_reg_t a_03_cfg; // [1365:1359]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_03_mux_sel_reg_t a_03_mux_sel; // [1358:1358]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_04_cfg_reg_t a_04_cfg; // [1357:1351]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_04_mux_sel_reg_t a_04_mux_sel; // [1350:1350]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_05_cfg_reg_t a_05_cfg; // [1349:1343]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_05_mux_sel_reg_t a_05_mux_sel; // [1342:1342]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_06_cfg_reg_t a_06_cfg; // [1341:1335]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_06_mux_sel_reg_t a_06_mux_sel; // [1334:1334]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_07_cfg_reg_t a_07_cfg; // [1333:1327]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_07_mux_sel_reg_t a_07_mux_sel; // [1326:1326]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_08_cfg_reg_t a_08_cfg; // [1325:1319]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_08_mux_sel_reg_t a_08_mux_sel; // [1318:1318]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_09_cfg_reg_t a_09_cfg; // [1317:1311]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_09_mux_sel_reg_t a_09_mux_sel; // [1310:1310]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_10_cfg_reg_t a_10_cfg; // [1309:1303]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_10_mux_sel_reg_t a_10_mux_sel; // [1302:1302]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_11_cfg_reg_t a_11_cfg; // [1301:1295]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_11_mux_sel_reg_t a_11_mux_sel; // [1294:1294]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_12_cfg_reg_t a_12_cfg; // [1293:1287]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_12_mux_sel_reg_t a_12_mux_sel; // [1286:1286]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_13_cfg_reg_t a_13_cfg; // [1285:1279]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_13_mux_sel_reg_t a_13_mux_sel; // [1278:1278]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_14_cfg_reg_t a_14_cfg; // [1277:1271]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_14_mux_sel_reg_t a_14_mux_sel; // [1270:1270]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_15_cfg_reg_t a_15_cfg; // [1269:1263]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_15_mux_sel_reg_t a_15_mux_sel; // [1262:1262]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_16_cfg_reg_t a_16_cfg; // [1261:1255]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_16_mux_sel_reg_t a_16_mux_sel; // [1254:1254]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_17_cfg_reg_t a_17_cfg; // [1253:1247]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_17_mux_sel_reg_t a_17_mux_sel; // [1246:1246]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_18_cfg_reg_t a_18_cfg; // [1245:1239]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_18_mux_sel_reg_t a_18_mux_sel; // [1238:1238]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_19_cfg_reg_t a_19_cfg; // [1237:1231]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_19_mux_sel_reg_t a_19_mux_sel; // [1230:1230]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_20_cfg_reg_t a_20_cfg; // [1229:1223]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_20_mux_sel_reg_t a_20_mux_sel; // [1222:1222]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_21_cfg_reg_t a_21_cfg; // [1221:1215]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_21_mux_sel_reg_t a_21_mux_sel; // [1214:1214]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_22_cfg_reg_t a_22_cfg; // [1213:1207]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_22_mux_sel_reg_t a_22_mux_sel; // [1206:1206]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_23_cfg_reg_t a_23_cfg; // [1205:1199]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_23_mux_sel_reg_t a_23_mux_sel; // [1198:1198]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_24_cfg_reg_t a_24_cfg; // [1197:1191]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_24_mux_sel_reg_t a_24_mux_sel; // [1190:1190]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_25_cfg_reg_t a_25_cfg; // [1189:1183]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_25_mux_sel_reg_t a_25_mux_sel; // [1182:1182]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_26_cfg_reg_t a_26_cfg; // [1181:1175]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_26_mux_sel_reg_t a_26_mux_sel; // [1174:1174]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_27_cfg_reg_t a_27_cfg; // [1173:1167]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_27_mux_sel_reg_t a_27_mux_sel; // [1166:1166]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_28_cfg_reg_t a_28_cfg; // [1165:1159]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_28_mux_sel_reg_t a_28_mux_sel; // [1158:1158]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_29_cfg_reg_t a_29_cfg; // [1157:1151]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_29_mux_sel_reg_t a_29_mux_sel; // [1150:1150]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_30_cfg_reg_t a_30_cfg; // [1149:1143]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_30_mux_sel_reg_t a_30_mux_sel; // [1142:1142]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_31_cfg_reg_t a_31_cfg; // [1141:1135]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_31_mux_sel_reg_t a_31_mux_sel; // [1134:1134]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_32_cfg_reg_t a_32_cfg; // [1133:1127]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_32_mux_sel_reg_t a_32_mux_sel; // [1126:1126]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_33_cfg_reg_t a_33_cfg; // [1125:1119]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_33_mux_sel_reg_t a_33_mux_sel; // [1118:1118]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_34_cfg_reg_t a_34_cfg; // [1117:1111]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_34_mux_sel_reg_t a_34_mux_sel; // [1110:1110]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_35_cfg_reg_t a_35_cfg; // [1109:1103]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_35_mux_sel_reg_t a_35_mux_sel; // [1102:1102]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_36_cfg_reg_t a_36_cfg; // [1101:1095]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_36_mux_sel_reg_t a_36_mux_sel; // [1094:1094]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_37_cfg_reg_t a_37_cfg; // [1093:1087]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_37_mux_sel_reg_t a_37_mux_sel; // [1086:1086]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_38_cfg_reg_t a_38_cfg; // [1085:1079]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_38_mux_sel_reg_t a_38_mux_sel; // [1078:1078]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_39_cfg_reg_t a_39_cfg; // [1077:1071]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_39_mux_sel_reg_t a_39_mux_sel; // [1070:1070]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_40_cfg_reg_t a_40_cfg; // [1069:1063]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_40_mux_sel_reg_t a_40_mux_sel; // [1062:1062]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_41_cfg_reg_t a_41_cfg; // [1061:1055]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_41_mux_sel_reg_t a_41_mux_sel; // [1054:1054]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_42_cfg_reg_t a_42_cfg; // [1053:1047]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_42_mux_sel_reg_t a_42_mux_sel; // [1046:1046]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_43_cfg_reg_t a_43_cfg; // [1045:1039]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_43_mux_sel_reg_t a_43_mux_sel; // [1038:1038]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_44_cfg_reg_t a_44_cfg; // [1037:1031]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_44_mux_sel_reg_t a_44_mux_sel; // [1030:1029]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_45_cfg_reg_t a_45_cfg; // [1028:1022]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_45_mux_sel_reg_t a_45_mux_sel; // [1021:1020]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_46_cfg_reg_t a_46_cfg; // [1019:1013]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_46_mux_sel_reg_t a_46_mux_sel; // [1012:1011]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_47_cfg_reg_t a_47_cfg; // [1010:1004]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_47_mux_sel_reg_t a_47_mux_sel; // [1003:1002]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_48_cfg_reg_t a_48_cfg; // [1001:995]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_48_mux_sel_reg_t a_48_mux_sel; // [994:993]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_49_cfg_reg_t a_49_cfg; // [992:986]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_49_mux_sel_reg_t a_49_mux_sel; // [985:984]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_50_cfg_reg_t a_50_cfg; // [983:977]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_50_mux_sel_reg_t a_50_mux_sel; // [976:975]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_51_cfg_reg_t a_51_cfg; // [974:968]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_51_mux_sel_reg_t a_51_mux_sel; // [967:966]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_52_cfg_reg_t a_52_cfg; // [965:959]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_52_mux_sel_reg_t a_52_mux_sel; // [958:957]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_53_cfg_reg_t a_53_cfg; // [956:950]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_53_mux_sel_reg_t a_53_mux_sel; // [949:948]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_54_cfg_reg_t a_54_cfg; // [947:941]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_54_mux_sel_reg_t a_54_mux_sel; // [940:939]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_55_cfg_reg_t a_55_cfg; // [938:932]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_55_mux_sel_reg_t a_55_mux_sel; // [931:930]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_56_cfg_reg_t a_56_cfg; // [929:923]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_56_mux_sel_reg_t a_56_mux_sel; // [922:921]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_57_cfg_reg_t a_57_cfg; // [920:914]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_57_mux_sel_reg_t a_57_mux_sel; // [913:912]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_58_cfg_reg_t a_58_cfg; // [911:905]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_58_mux_sel_reg_t a_58_mux_sel; // [904:903]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_59_cfg_reg_t a_59_cfg; // [902:896]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_59_mux_sel_reg_t a_59_mux_sel; // [895:894]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_60_cfg_reg_t a_60_cfg; // [893:887]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_60_mux_sel_reg_t a_60_mux_sel; // [886:885]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_61_cfg_reg_t a_61_cfg; // [884:878]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_61_mux_sel_reg_t a_61_mux_sel; // [877:876]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_62_cfg_reg_t a_62_cfg; // [875:869]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_62_mux_sel_reg_t a_62_mux_sel; // [868:867]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_63_cfg_reg_t a_63_cfg; // [866:860]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_63_mux_sel_reg_t a_63_mux_sel; // [859:859]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_64_cfg_reg_t a_64_cfg; // [858:852]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_64_mux_sel_reg_t a_64_mux_sel; // [851:851]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_65_cfg_reg_t a_65_cfg; // [850:844]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_65_mux_sel_reg_t a_65_mux_sel; // [843:843]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_66_cfg_reg_t a_66_cfg; // [842:836]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_66_mux_sel_reg_t a_66_mux_sel; // [835:835]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_67_cfg_reg_t a_67_cfg; // [834:828]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_67_mux_sel_reg_t a_67_mux_sel; // [827:827]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_68_cfg_reg_t a_68_cfg; // [826:820]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_68_mux_sel_reg_t a_68_mux_sel; // [819:819]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_69_cfg_reg_t a_69_cfg; // [818:812]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_69_mux_sel_reg_t a_69_mux_sel; // [811:811]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_70_cfg_reg_t a_70_cfg; // [810:804]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_70_mux_sel_reg_t a_70_mux_sel; // [803:803]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_71_cfg_reg_t a_71_cfg; // [802:796]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_71_mux_sel_reg_t a_71_mux_sel; // [795:795]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_72_cfg_reg_t a_72_cfg; // [794:788]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_72_mux_sel_reg_t a_72_mux_sel; // [787:787]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_73_cfg_reg_t a_73_cfg; // [786:780]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_73_mux_sel_reg_t a_73_mux_sel; // [779:779]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_74_cfg_reg_t a_74_cfg; // [778:772]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_74_mux_sel_reg_t a_74_mux_sel; // [771:771]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_75_cfg_reg_t a_75_cfg; // [770:764]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_75_mux_sel_reg_t a_75_mux_sel; // [763:763]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_76_cfg_reg_t a_76_cfg; // [762:756]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_76_mux_sel_reg_t a_76_mux_sel; // [755:755]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_77_cfg_reg_t a_77_cfg; // [754:748]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_77_mux_sel_reg_t a_77_mux_sel; // [747:747]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_78_cfg_reg_t a_78_cfg; // [746:740]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_78_mux_sel_reg_t a_78_mux_sel; // [739:739]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_79_cfg_reg_t a_79_cfg; // [738:732]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_79_mux_sel_reg_t a_79_mux_sel; // [731:731]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_80_cfg_reg_t a_80_cfg; // [730:724]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_80_mux_sel_reg_t a_80_mux_sel; // [723:723]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_81_cfg_reg_t a_81_cfg; // [722:716]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_81_mux_sel_reg_t a_81_mux_sel; // [715:714]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_82_cfg_reg_t a_82_cfg; // [713:707]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_82_mux_sel_reg_t a_82_mux_sel; // [706:705]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_83_cfg_reg_t a_83_cfg; // [704:698]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_83_mux_sel_reg_t a_83_mux_sel; // [697:696]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_84_cfg_reg_t a_84_cfg; // [695:689]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_84_mux_sel_reg_t a_84_mux_sel; // [688:687]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_85_cfg_reg_t a_85_cfg; // [686:680]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_85_mux_sel_reg_t a_85_mux_sel; // [679:679]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_86_cfg_reg_t a_86_cfg; // [678:672]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_86_mux_sel_reg_t a_86_mux_sel; // [671:671]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_87_cfg_reg_t a_87_cfg; // [670:664]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_87_mux_sel_reg_t a_87_mux_sel; // [663:663]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_88_cfg_reg_t a_88_cfg; // [662:656]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_88_mux_sel_reg_t a_88_mux_sel; // [655:655]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_89_cfg_reg_t a_89_cfg; // [654:648]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_89_mux_sel_reg_t a_89_mux_sel; // [647:647]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_90_cfg_reg_t a_90_cfg; // [646:640]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_90_mux_sel_reg_t a_90_mux_sel; // [639:639]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_91_cfg_reg_t a_91_cfg; // [638:632]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_91_mux_sel_reg_t a_91_mux_sel; // [631:631]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_92_cfg_reg_t a_92_cfg; // [630:624]
-    alsaqr_periph_padframe_periphs_config_reg2hw_a_92_mux_sel_reg_t a_92_mux_sel; // [623:623]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_00_cfg_reg_t b_00_cfg; // [622:616]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_00_mux_sel_reg_t b_00_mux_sel; // [615:615]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_01_cfg_reg_t b_01_cfg; // [614:608]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_01_mux_sel_reg_t b_01_mux_sel; // [607:607]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_02_cfg_reg_t b_02_cfg; // [606:600]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_02_mux_sel_reg_t b_02_mux_sel; // [599:599]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_03_cfg_reg_t b_03_cfg; // [598:592]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_03_mux_sel_reg_t b_03_mux_sel; // [591:591]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_04_cfg_reg_t b_04_cfg; // [590:584]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_04_mux_sel_reg_t b_04_mux_sel; // [583:583]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_05_cfg_reg_t b_05_cfg; // [582:576]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_05_mux_sel_reg_t b_05_mux_sel; // [575:575]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_06_cfg_reg_t b_06_cfg; // [574:568]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_06_mux_sel_reg_t b_06_mux_sel; // [567:567]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_07_cfg_reg_t b_07_cfg; // [566:560]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_07_mux_sel_reg_t b_07_mux_sel; // [559:559]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_08_cfg_reg_t b_08_cfg; // [558:552]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_08_mux_sel_reg_t b_08_mux_sel; // [551:551]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_09_cfg_reg_t b_09_cfg; // [550:544]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_09_mux_sel_reg_t b_09_mux_sel; // [543:543]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_10_cfg_reg_t b_10_cfg; // [542:536]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_10_mux_sel_reg_t b_10_mux_sel; // [535:535]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_11_cfg_reg_t b_11_cfg; // [534:528]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_11_mux_sel_reg_t b_11_mux_sel; // [527:527]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_12_cfg_reg_t b_12_cfg; // [526:520]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_12_mux_sel_reg_t b_12_mux_sel; // [519:519]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_13_cfg_reg_t b_13_cfg; // [518:512]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_13_mux_sel_reg_t b_13_mux_sel; // [511:511]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_14_cfg_reg_t b_14_cfg; // [510:504]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_14_mux_sel_reg_t b_14_mux_sel; // [503:503]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_15_cfg_reg_t b_15_cfg; // [502:496]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_15_mux_sel_reg_t b_15_mux_sel; // [495:495]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_16_cfg_reg_t b_16_cfg; // [494:488]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_16_mux_sel_reg_t b_16_mux_sel; // [487:487]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_17_cfg_reg_t b_17_cfg; // [486:480]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_17_mux_sel_reg_t b_17_mux_sel; // [479:479]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_18_cfg_reg_t b_18_cfg; // [478:472]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_18_mux_sel_reg_t b_18_mux_sel; // [471:471]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_19_cfg_reg_t b_19_cfg; // [470:464]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_19_mux_sel_reg_t b_19_mux_sel; // [463:462]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_20_cfg_reg_t b_20_cfg; // [461:455]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_20_mux_sel_reg_t b_20_mux_sel; // [454:453]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_21_cfg_reg_t b_21_cfg; // [452:446]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_21_mux_sel_reg_t b_21_mux_sel; // [445:444]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_22_cfg_reg_t b_22_cfg; // [443:437]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_22_mux_sel_reg_t b_22_mux_sel; // [436:435]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_23_cfg_reg_t b_23_cfg; // [434:428]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_23_mux_sel_reg_t b_23_mux_sel; // [427:426]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_24_cfg_reg_t b_24_cfg; // [425:419]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_24_mux_sel_reg_t b_24_mux_sel; // [418:417]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_25_cfg_reg_t b_25_cfg; // [416:410]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_25_mux_sel_reg_t b_25_mux_sel; // [409:408]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_26_cfg_reg_t b_26_cfg; // [407:401]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_26_mux_sel_reg_t b_26_mux_sel; // [400:400]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_27_cfg_reg_t b_27_cfg; // [399:393]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_27_mux_sel_reg_t b_27_mux_sel; // [392:392]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_28_cfg_reg_t b_28_cfg; // [391:385]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_28_mux_sel_reg_t b_28_mux_sel; // [384:384]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_29_cfg_reg_t b_29_cfg; // [383:377]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_29_mux_sel_reg_t b_29_mux_sel; // [376:376]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_30_cfg_reg_t b_30_cfg; // [375:369]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_30_mux_sel_reg_t b_30_mux_sel; // [368:368]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_31_cfg_reg_t b_31_cfg; // [367:361]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_31_mux_sel_reg_t b_31_mux_sel; // [360:360]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_32_cfg_reg_t b_32_cfg; // [359:353]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_32_mux_sel_reg_t b_32_mux_sel; // [352:352]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_33_cfg_reg_t b_33_cfg; // [351:345]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_33_mux_sel_reg_t b_33_mux_sel; // [344:344]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_34_cfg_reg_t b_34_cfg; // [343:337]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_34_mux_sel_reg_t b_34_mux_sel; // [336:336]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_35_cfg_reg_t b_35_cfg; // [335:329]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_35_mux_sel_reg_t b_35_mux_sel; // [328:328]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_36_cfg_reg_t b_36_cfg; // [327:321]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_36_mux_sel_reg_t b_36_mux_sel; // [320:320]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_37_cfg_reg_t b_37_cfg; // [319:313]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_37_mux_sel_reg_t b_37_mux_sel; // [312:312]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_38_cfg_reg_t b_38_cfg; // [311:305]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_38_mux_sel_reg_t b_38_mux_sel; // [304:304]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_39_cfg_reg_t b_39_cfg; // [303:297]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_39_mux_sel_reg_t b_39_mux_sel; // [296:296]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_40_cfg_reg_t b_40_cfg; // [295:289]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_40_mux_sel_reg_t b_40_mux_sel; // [288:288]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_41_cfg_reg_t b_41_cfg; // [287:281]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_41_mux_sel_reg_t b_41_mux_sel; // [280:280]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_42_cfg_reg_t b_42_cfg; // [279:273]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_42_mux_sel_reg_t b_42_mux_sel; // [272:272]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_43_cfg_reg_t b_43_cfg; // [271:265]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_43_mux_sel_reg_t b_43_mux_sel; // [264:264]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_44_cfg_reg_t b_44_cfg; // [263:257]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_44_mux_sel_reg_t b_44_mux_sel; // [256:256]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_45_cfg_reg_t b_45_cfg; // [255:249]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_45_mux_sel_reg_t b_45_mux_sel; // [248:248]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_46_cfg_reg_t b_46_cfg; // [247:241]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_46_mux_sel_reg_t b_46_mux_sel; // [240:240]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_47_cfg_reg_t b_47_cfg; // [239:233]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_47_mux_sel_reg_t b_47_mux_sel; // [232:231]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_48_cfg_reg_t b_48_cfg; // [230:224]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_48_mux_sel_reg_t b_48_mux_sel; // [223:222]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_49_cfg_reg_t b_49_cfg; // [221:215]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_49_mux_sel_reg_t b_49_mux_sel; // [214:213]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_50_cfg_reg_t b_50_cfg; // [212:206]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_50_mux_sel_reg_t b_50_mux_sel; // [205:204]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_51_cfg_reg_t b_51_cfg; // [203:197]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_51_mux_sel_reg_t b_51_mux_sel; // [196:195]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_52_cfg_reg_t b_52_cfg; // [194:188]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_52_mux_sel_reg_t b_52_mux_sel; // [187:186]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_53_cfg_reg_t b_53_cfg; // [185:179]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_53_mux_sel_reg_t b_53_mux_sel; // [178:177]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_54_cfg_reg_t b_54_cfg; // [176:170]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_54_mux_sel_reg_t b_54_mux_sel; // [169:168]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_55_cfg_reg_t b_55_cfg; // [167:161]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_55_mux_sel_reg_t b_55_mux_sel; // [160:159]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_56_cfg_reg_t b_56_cfg; // [158:152]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_56_mux_sel_reg_t b_56_mux_sel; // [151:150]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_57_cfg_reg_t b_57_cfg; // [149:143]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_57_mux_sel_reg_t b_57_mux_sel; // [142:141]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_58_cfg_reg_t b_58_cfg; // [140:134]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_58_mux_sel_reg_t b_58_mux_sel; // [133:132]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_59_cfg_reg_t b_59_cfg; // [131:125]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_59_mux_sel_reg_t b_59_mux_sel; // [124:123]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_60_cfg_reg_t b_60_cfg; // [122:116]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_60_mux_sel_reg_t b_60_mux_sel; // [115:114]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_61_cfg_reg_t b_61_cfg; // [113:107]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_61_mux_sel_reg_t b_61_mux_sel; // [106:105]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_62_cfg_reg_t b_62_cfg; // [104:98]
-    alsaqr_periph_padframe_periphs_config_reg2hw_b_62_mux_sel_reg_t b_62_mux_sel; // [97:96]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_00_cfg_reg_t a_00_cfg; // [1407:1401]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_00_mux_sel_reg_t a_00_mux_sel; // [1400:1400]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_01_cfg_reg_t a_01_cfg; // [1399:1393]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_01_mux_sel_reg_t a_01_mux_sel; // [1392:1392]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_02_cfg_reg_t a_02_cfg; // [1391:1385]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_02_mux_sel_reg_t a_02_mux_sel; // [1384:1384]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_03_cfg_reg_t a_03_cfg; // [1383:1377]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_03_mux_sel_reg_t a_03_mux_sel; // [1376:1376]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_04_cfg_reg_t a_04_cfg; // [1375:1369]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_04_mux_sel_reg_t a_04_mux_sel; // [1368:1368]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_05_cfg_reg_t a_05_cfg; // [1367:1361]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_05_mux_sel_reg_t a_05_mux_sel; // [1360:1360]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_06_cfg_reg_t a_06_cfg; // [1359:1353]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_06_mux_sel_reg_t a_06_mux_sel; // [1352:1352]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_07_cfg_reg_t a_07_cfg; // [1351:1345]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_07_mux_sel_reg_t a_07_mux_sel; // [1344:1344]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_08_cfg_reg_t a_08_cfg; // [1343:1337]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_08_mux_sel_reg_t a_08_mux_sel; // [1336:1336]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_09_cfg_reg_t a_09_cfg; // [1335:1329]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_09_mux_sel_reg_t a_09_mux_sel; // [1328:1328]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_10_cfg_reg_t a_10_cfg; // [1327:1321]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_10_mux_sel_reg_t a_10_mux_sel; // [1320:1320]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_11_cfg_reg_t a_11_cfg; // [1319:1313]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_11_mux_sel_reg_t a_11_mux_sel; // [1312:1312]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_12_cfg_reg_t a_12_cfg; // [1311:1305]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_12_mux_sel_reg_t a_12_mux_sel; // [1304:1304]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_13_cfg_reg_t a_13_cfg; // [1303:1297]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_13_mux_sel_reg_t a_13_mux_sel; // [1296:1296]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_14_cfg_reg_t a_14_cfg; // [1295:1289]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_14_mux_sel_reg_t a_14_mux_sel; // [1288:1288]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_15_cfg_reg_t a_15_cfg; // [1287:1281]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_15_mux_sel_reg_t a_15_mux_sel; // [1280:1280]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_16_cfg_reg_t a_16_cfg; // [1279:1273]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_16_mux_sel_reg_t a_16_mux_sel; // [1272:1272]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_17_cfg_reg_t a_17_cfg; // [1271:1265]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_17_mux_sel_reg_t a_17_mux_sel; // [1264:1264]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_18_cfg_reg_t a_18_cfg; // [1263:1257]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_18_mux_sel_reg_t a_18_mux_sel; // [1256:1256]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_19_cfg_reg_t a_19_cfg; // [1255:1249]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_19_mux_sel_reg_t a_19_mux_sel; // [1248:1248]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_20_cfg_reg_t a_20_cfg; // [1247:1241]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_20_mux_sel_reg_t a_20_mux_sel; // [1240:1240]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_21_cfg_reg_t a_21_cfg; // [1239:1233]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_21_mux_sel_reg_t a_21_mux_sel; // [1232:1232]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_22_cfg_reg_t a_22_cfg; // [1231:1225]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_22_mux_sel_reg_t a_22_mux_sel; // [1224:1224]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_23_cfg_reg_t a_23_cfg; // [1223:1217]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_23_mux_sel_reg_t a_23_mux_sel; // [1216:1216]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_24_cfg_reg_t a_24_cfg; // [1215:1209]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_24_mux_sel_reg_t a_24_mux_sel; // [1208:1208]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_25_cfg_reg_t a_25_cfg; // [1207:1201]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_25_mux_sel_reg_t a_25_mux_sel; // [1200:1200]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_26_cfg_reg_t a_26_cfg; // [1199:1193]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_26_mux_sel_reg_t a_26_mux_sel; // [1192:1192]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_27_cfg_reg_t a_27_cfg; // [1191:1185]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_27_mux_sel_reg_t a_27_mux_sel; // [1184:1184]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_28_cfg_reg_t a_28_cfg; // [1183:1177]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_28_mux_sel_reg_t a_28_mux_sel; // [1176:1176]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_29_cfg_reg_t a_29_cfg; // [1175:1169]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_29_mux_sel_reg_t a_29_mux_sel; // [1168:1168]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_30_cfg_reg_t a_30_cfg; // [1167:1161]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_30_mux_sel_reg_t a_30_mux_sel; // [1160:1160]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_31_cfg_reg_t a_31_cfg; // [1159:1153]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_31_mux_sel_reg_t a_31_mux_sel; // [1152:1152]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_32_cfg_reg_t a_32_cfg; // [1151:1145]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_32_mux_sel_reg_t a_32_mux_sel; // [1144:1144]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_33_cfg_reg_t a_33_cfg; // [1143:1137]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_33_mux_sel_reg_t a_33_mux_sel; // [1136:1136]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_34_cfg_reg_t a_34_cfg; // [1135:1129]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_34_mux_sel_reg_t a_34_mux_sel; // [1128:1128]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_35_cfg_reg_t a_35_cfg; // [1127:1121]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_35_mux_sel_reg_t a_35_mux_sel; // [1120:1120]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_36_cfg_reg_t a_36_cfg; // [1119:1113]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_36_mux_sel_reg_t a_36_mux_sel; // [1112:1112]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_37_cfg_reg_t a_37_cfg; // [1111:1105]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_37_mux_sel_reg_t a_37_mux_sel; // [1104:1104]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_38_cfg_reg_t a_38_cfg; // [1103:1097]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_38_mux_sel_reg_t a_38_mux_sel; // [1096:1096]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_39_cfg_reg_t a_39_cfg; // [1095:1089]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_39_mux_sel_reg_t a_39_mux_sel; // [1088:1088]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_40_cfg_reg_t a_40_cfg; // [1087:1081]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_40_mux_sel_reg_t a_40_mux_sel; // [1080:1080]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_41_cfg_reg_t a_41_cfg; // [1079:1073]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_41_mux_sel_reg_t a_41_mux_sel; // [1072:1072]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_42_cfg_reg_t a_42_cfg; // [1071:1065]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_42_mux_sel_reg_t a_42_mux_sel; // [1064:1063]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_43_cfg_reg_t a_43_cfg; // [1062:1056]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_43_mux_sel_reg_t a_43_mux_sel; // [1055:1054]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_44_cfg_reg_t a_44_cfg; // [1053:1047]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_44_mux_sel_reg_t a_44_mux_sel; // [1046:1045]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_45_cfg_reg_t a_45_cfg; // [1044:1038]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_45_mux_sel_reg_t a_45_mux_sel; // [1037:1036]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_46_cfg_reg_t a_46_cfg; // [1035:1029]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_46_mux_sel_reg_t a_46_mux_sel; // [1028:1027]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_47_cfg_reg_t a_47_cfg; // [1026:1020]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_47_mux_sel_reg_t a_47_mux_sel; // [1019:1018]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_48_cfg_reg_t a_48_cfg; // [1017:1011]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_48_mux_sel_reg_t a_48_mux_sel; // [1010:1009]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_49_cfg_reg_t a_49_cfg; // [1008:1002]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_49_mux_sel_reg_t a_49_mux_sel; // [1001:1000]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_50_cfg_reg_t a_50_cfg; // [999:993]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_50_mux_sel_reg_t a_50_mux_sel; // [992:991]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_51_cfg_reg_t a_51_cfg; // [990:984]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_51_mux_sel_reg_t a_51_mux_sel; // [983:982]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_52_cfg_reg_t a_52_cfg; // [981:975]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_52_mux_sel_reg_t a_52_mux_sel; // [974:973]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_53_cfg_reg_t a_53_cfg; // [972:966]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_53_mux_sel_reg_t a_53_mux_sel; // [965:964]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_54_cfg_reg_t a_54_cfg; // [963:957]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_54_mux_sel_reg_t a_54_mux_sel; // [956:955]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_55_cfg_reg_t a_55_cfg; // [954:948]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_55_mux_sel_reg_t a_55_mux_sel; // [947:946]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_56_cfg_reg_t a_56_cfg; // [945:939]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_56_mux_sel_reg_t a_56_mux_sel; // [938:937]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_57_cfg_reg_t a_57_cfg; // [936:930]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_57_mux_sel_reg_t a_57_mux_sel; // [929:928]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_58_cfg_reg_t a_58_cfg; // [927:921]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_58_mux_sel_reg_t a_58_mux_sel; // [920:919]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_59_cfg_reg_t a_59_cfg; // [918:912]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_59_mux_sel_reg_t a_59_mux_sel; // [911:910]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_60_cfg_reg_t a_60_cfg; // [909:903]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_60_mux_sel_reg_t a_60_mux_sel; // [902:901]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_61_cfg_reg_t a_61_cfg; // [900:894]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_61_mux_sel_reg_t a_61_mux_sel; // [893:892]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_62_cfg_reg_t a_62_cfg; // [891:885]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_62_mux_sel_reg_t a_62_mux_sel; // [884:883]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_63_cfg_reg_t a_63_cfg; // [882:876]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_63_mux_sel_reg_t a_63_mux_sel; // [875:875]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_64_cfg_reg_t a_64_cfg; // [874:868]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_64_mux_sel_reg_t a_64_mux_sel; // [867:867]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_65_cfg_reg_t a_65_cfg; // [866:860]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_65_mux_sel_reg_t a_65_mux_sel; // [859:859]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_66_cfg_reg_t a_66_cfg; // [858:852]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_66_mux_sel_reg_t a_66_mux_sel; // [851:851]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_67_cfg_reg_t a_67_cfg; // [850:844]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_67_mux_sel_reg_t a_67_mux_sel; // [843:843]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_68_cfg_reg_t a_68_cfg; // [842:836]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_68_mux_sel_reg_t a_68_mux_sel; // [835:835]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_69_cfg_reg_t a_69_cfg; // [834:828]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_69_mux_sel_reg_t a_69_mux_sel; // [827:827]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_70_cfg_reg_t a_70_cfg; // [826:820]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_70_mux_sel_reg_t a_70_mux_sel; // [819:819]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_71_cfg_reg_t a_71_cfg; // [818:812]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_71_mux_sel_reg_t a_71_mux_sel; // [811:811]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_72_cfg_reg_t a_72_cfg; // [810:804]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_72_mux_sel_reg_t a_72_mux_sel; // [803:803]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_73_cfg_reg_t a_73_cfg; // [802:796]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_73_mux_sel_reg_t a_73_mux_sel; // [795:795]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_74_cfg_reg_t a_74_cfg; // [794:788]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_74_mux_sel_reg_t a_74_mux_sel; // [787:787]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_75_cfg_reg_t a_75_cfg; // [786:780]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_75_mux_sel_reg_t a_75_mux_sel; // [779:779]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_76_cfg_reg_t a_76_cfg; // [778:772]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_76_mux_sel_reg_t a_76_mux_sel; // [771:771]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_77_cfg_reg_t a_77_cfg; // [770:764]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_77_mux_sel_reg_t a_77_mux_sel; // [763:763]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_78_cfg_reg_t a_78_cfg; // [762:756]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_78_mux_sel_reg_t a_78_mux_sel; // [755:755]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_79_cfg_reg_t a_79_cfg; // [754:748]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_79_mux_sel_reg_t a_79_mux_sel; // [747:747]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_80_cfg_reg_t a_80_cfg; // [746:740]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_80_mux_sel_reg_t a_80_mux_sel; // [739:739]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_81_cfg_reg_t a_81_cfg; // [738:732]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_81_mux_sel_reg_t a_81_mux_sel; // [731:730]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_82_cfg_reg_t a_82_cfg; // [729:723]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_82_mux_sel_reg_t a_82_mux_sel; // [722:721]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_83_cfg_reg_t a_83_cfg; // [720:714]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_83_mux_sel_reg_t a_83_mux_sel; // [713:712]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_84_cfg_reg_t a_84_cfg; // [711:705]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_84_mux_sel_reg_t a_84_mux_sel; // [704:703]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_85_cfg_reg_t a_85_cfg; // [702:696]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_85_mux_sel_reg_t a_85_mux_sel; // [695:695]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_86_cfg_reg_t a_86_cfg; // [694:688]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_86_mux_sel_reg_t a_86_mux_sel; // [687:687]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_87_cfg_reg_t a_87_cfg; // [686:680]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_87_mux_sel_reg_t a_87_mux_sel; // [679:679]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_88_cfg_reg_t a_88_cfg; // [678:672]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_88_mux_sel_reg_t a_88_mux_sel; // [671:671]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_89_cfg_reg_t a_89_cfg; // [670:664]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_89_mux_sel_reg_t a_89_mux_sel; // [663:663]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_90_cfg_reg_t a_90_cfg; // [662:656]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_90_mux_sel_reg_t a_90_mux_sel; // [655:655]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_91_cfg_reg_t a_91_cfg; // [654:648]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_91_mux_sel_reg_t a_91_mux_sel; // [647:647]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_92_cfg_reg_t a_92_cfg; // [646:640]
+    alsaqr_periph_padframe_periphs_config_reg2hw_a_92_mux_sel_reg_t a_92_mux_sel; // [639:639]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_00_cfg_reg_t b_00_cfg; // [638:632]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_00_mux_sel_reg_t b_00_mux_sel; // [631:631]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_01_cfg_reg_t b_01_cfg; // [630:624]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_01_mux_sel_reg_t b_01_mux_sel; // [623:623]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_02_cfg_reg_t b_02_cfg; // [622:616]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_02_mux_sel_reg_t b_02_mux_sel; // [615:615]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_03_cfg_reg_t b_03_cfg; // [614:608]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_03_mux_sel_reg_t b_03_mux_sel; // [607:607]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_04_cfg_reg_t b_04_cfg; // [606:600]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_04_mux_sel_reg_t b_04_mux_sel; // [599:599]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_05_cfg_reg_t b_05_cfg; // [598:592]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_05_mux_sel_reg_t b_05_mux_sel; // [591:591]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_06_cfg_reg_t b_06_cfg; // [590:584]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_06_mux_sel_reg_t b_06_mux_sel; // [583:583]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_07_cfg_reg_t b_07_cfg; // [582:576]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_07_mux_sel_reg_t b_07_mux_sel; // [575:575]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_08_cfg_reg_t b_08_cfg; // [574:568]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_08_mux_sel_reg_t b_08_mux_sel; // [567:567]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_09_cfg_reg_t b_09_cfg; // [566:560]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_09_mux_sel_reg_t b_09_mux_sel; // [559:559]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_10_cfg_reg_t b_10_cfg; // [558:552]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_10_mux_sel_reg_t b_10_mux_sel; // [551:551]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_11_cfg_reg_t b_11_cfg; // [550:544]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_11_mux_sel_reg_t b_11_mux_sel; // [543:543]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_12_cfg_reg_t b_12_cfg; // [542:536]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_12_mux_sel_reg_t b_12_mux_sel; // [535:535]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_13_cfg_reg_t b_13_cfg; // [534:528]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_13_mux_sel_reg_t b_13_mux_sel; // [527:527]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_14_cfg_reg_t b_14_cfg; // [526:520]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_14_mux_sel_reg_t b_14_mux_sel; // [519:519]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_15_cfg_reg_t b_15_cfg; // [518:512]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_15_mux_sel_reg_t b_15_mux_sel; // [511:511]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_16_cfg_reg_t b_16_cfg; // [510:504]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_16_mux_sel_reg_t b_16_mux_sel; // [503:503]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_17_cfg_reg_t b_17_cfg; // [502:496]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_17_mux_sel_reg_t b_17_mux_sel; // [495:495]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_18_cfg_reg_t b_18_cfg; // [494:488]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_18_mux_sel_reg_t b_18_mux_sel; // [487:487]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_19_cfg_reg_t b_19_cfg; // [486:480]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_19_mux_sel_reg_t b_19_mux_sel; // [479:478]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_20_cfg_reg_t b_20_cfg; // [477:471]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_20_mux_sel_reg_t b_20_mux_sel; // [470:469]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_21_cfg_reg_t b_21_cfg; // [468:462]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_21_mux_sel_reg_t b_21_mux_sel; // [461:460]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_22_cfg_reg_t b_22_cfg; // [459:453]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_22_mux_sel_reg_t b_22_mux_sel; // [452:451]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_23_cfg_reg_t b_23_cfg; // [450:444]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_23_mux_sel_reg_t b_23_mux_sel; // [443:442]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_24_cfg_reg_t b_24_cfg; // [441:435]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_24_mux_sel_reg_t b_24_mux_sel; // [434:433]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_25_cfg_reg_t b_25_cfg; // [432:426]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_25_mux_sel_reg_t b_25_mux_sel; // [425:424]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_26_cfg_reg_t b_26_cfg; // [423:417]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_26_mux_sel_reg_t b_26_mux_sel; // [416:416]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_27_cfg_reg_t b_27_cfg; // [415:409]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_27_mux_sel_reg_t b_27_mux_sel; // [408:408]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_28_cfg_reg_t b_28_cfg; // [407:401]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_28_mux_sel_reg_t b_28_mux_sel; // [400:400]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_29_cfg_reg_t b_29_cfg; // [399:393]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_29_mux_sel_reg_t b_29_mux_sel; // [392:392]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_30_cfg_reg_t b_30_cfg; // [391:385]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_30_mux_sel_reg_t b_30_mux_sel; // [384:384]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_31_cfg_reg_t b_31_cfg; // [383:377]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_31_mux_sel_reg_t b_31_mux_sel; // [376:376]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_32_cfg_reg_t b_32_cfg; // [375:369]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_32_mux_sel_reg_t b_32_mux_sel; // [368:368]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_33_cfg_reg_t b_33_cfg; // [367:361]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_33_mux_sel_reg_t b_33_mux_sel; // [360:360]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_34_cfg_reg_t b_34_cfg; // [359:353]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_34_mux_sel_reg_t b_34_mux_sel; // [352:352]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_35_cfg_reg_t b_35_cfg; // [351:345]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_35_mux_sel_reg_t b_35_mux_sel; // [344:344]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_36_cfg_reg_t b_36_cfg; // [343:337]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_36_mux_sel_reg_t b_36_mux_sel; // [336:336]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_37_cfg_reg_t b_37_cfg; // [335:329]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_37_mux_sel_reg_t b_37_mux_sel; // [328:328]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_38_cfg_reg_t b_38_cfg; // [327:321]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_38_mux_sel_reg_t b_38_mux_sel; // [320:320]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_39_cfg_reg_t b_39_cfg; // [319:313]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_39_mux_sel_reg_t b_39_mux_sel; // [312:312]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_40_cfg_reg_t b_40_cfg; // [311:305]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_40_mux_sel_reg_t b_40_mux_sel; // [304:304]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_41_cfg_reg_t b_41_cfg; // [303:297]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_41_mux_sel_reg_t b_41_mux_sel; // [296:296]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_42_cfg_reg_t b_42_cfg; // [295:289]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_42_mux_sel_reg_t b_42_mux_sel; // [288:288]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_43_cfg_reg_t b_43_cfg; // [287:281]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_43_mux_sel_reg_t b_43_mux_sel; // [280:280]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_44_cfg_reg_t b_44_cfg; // [279:273]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_44_mux_sel_reg_t b_44_mux_sel; // [272:272]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_45_cfg_reg_t b_45_cfg; // [271:265]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_45_mux_sel_reg_t b_45_mux_sel; // [264:264]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_46_cfg_reg_t b_46_cfg; // [263:257]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_46_mux_sel_reg_t b_46_mux_sel; // [256:256]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_47_cfg_reg_t b_47_cfg; // [255:249]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_47_mux_sel_reg_t b_47_mux_sel; // [248:247]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_48_cfg_reg_t b_48_cfg; // [246:240]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_48_mux_sel_reg_t b_48_mux_sel; // [239:238]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_49_cfg_reg_t b_49_cfg; // [237:231]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_49_mux_sel_reg_t b_49_mux_sel; // [230:229]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_50_cfg_reg_t b_50_cfg; // [228:222]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_50_mux_sel_reg_t b_50_mux_sel; // [221:220]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_51_cfg_reg_t b_51_cfg; // [219:213]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_51_mux_sel_reg_t b_51_mux_sel; // [212:211]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_52_cfg_reg_t b_52_cfg; // [210:204]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_52_mux_sel_reg_t b_52_mux_sel; // [203:202]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_53_cfg_reg_t b_53_cfg; // [201:195]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_53_mux_sel_reg_t b_53_mux_sel; // [194:193]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_54_cfg_reg_t b_54_cfg; // [192:186]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_54_mux_sel_reg_t b_54_mux_sel; // [185:184]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_55_cfg_reg_t b_55_cfg; // [183:177]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_55_mux_sel_reg_t b_55_mux_sel; // [176:175]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_56_cfg_reg_t b_56_cfg; // [174:168]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_56_mux_sel_reg_t b_56_mux_sel; // [167:166]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_57_cfg_reg_t b_57_cfg; // [165:159]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_57_mux_sel_reg_t b_57_mux_sel; // [158:157]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_58_cfg_reg_t b_58_cfg; // [156:150]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_58_mux_sel_reg_t b_58_mux_sel; // [149:148]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_59_cfg_reg_t b_59_cfg; // [147:141]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_59_mux_sel_reg_t b_59_mux_sel; // [140:139]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_60_cfg_reg_t b_60_cfg; // [138:132]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_60_mux_sel_reg_t b_60_mux_sel; // [131:130]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_61_cfg_reg_t b_61_cfg; // [129:123]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_61_mux_sel_reg_t b_61_mux_sel; // [122:121]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_62_cfg_reg_t b_62_cfg; // [120:114]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_62_mux_sel_reg_t b_62_mux_sel; // [113:112]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_63_cfg_reg_t b_63_cfg; // [111:105]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_63_mux_sel_reg_t b_63_mux_sel; // [104:104]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_64_cfg_reg_t b_64_cfg; // [103:97]
+    alsaqr_periph_padframe_periphs_config_reg2hw_b_64_mux_sel_reg_t b_64_mux_sel; // [96:96]
     alsaqr_periph_padframe_periphs_config_reg2hw_ot_qspi_00_cfg_reg_t ot_qspi_00_cfg; // [95:89]
     alsaqr_periph_padframe_periphs_config_reg2hw_ot_qspi_00_mux_sel_reg_t ot_qspi_00_mux_sel; // [88:88]
     alsaqr_periph_padframe_periphs_config_reg2hw_ot_qspi_01_cfg_reg_t ot_qspi_01_cfg; // [87:81]
@@ -4866,30 +4920,34 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
   parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_61_MUX_SEL_OFFSET = 11'h 4d4;
   parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_62_CFG_OFFSET = 11'h 4d8;
   parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_62_MUX_SEL_OFFSET = 11'h 4dc;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_00_CFG_OFFSET = 11'h 4e0;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_00_MUX_SEL_OFFSET = 11'h 4e4;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_CFG_OFFSET = 11'h 4e8;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_MUX_SEL_OFFSET = 11'h 4ec;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_02_CFG_OFFSET = 11'h 4f0;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_02_MUX_SEL_OFFSET = 11'h 4f4;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_03_CFG_OFFSET = 11'h 4f8;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_03_MUX_SEL_OFFSET = 11'h 4fc;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_04_CFG_OFFSET = 11'h 500;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_04_MUX_SEL_OFFSET = 11'h 504;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_05_CFG_OFFSET = 11'h 508;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_05_MUX_SEL_OFFSET = 11'h 50c;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_00_CFG_OFFSET = 11'h 510;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_00_MUX_SEL_OFFSET = 11'h 514;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_01_CFG_OFFSET = 11'h 518;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_01_MUX_SEL_OFFSET = 11'h 51c;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_02_CFG_OFFSET = 11'h 520;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_02_MUX_SEL_OFFSET = 11'h 524;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_03_CFG_OFFSET = 11'h 528;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_03_MUX_SEL_OFFSET = 11'h 52c;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_04_CFG_OFFSET = 11'h 530;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_04_MUX_SEL_OFFSET = 11'h 534;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_05_CFG_OFFSET = 11'h 538;
-  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_05_MUX_SEL_OFFSET = 11'h 53c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_63_CFG_OFFSET = 11'h 4e0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_63_MUX_SEL_OFFSET = 11'h 4e4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_64_CFG_OFFSET = 11'h 4e8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_64_MUX_SEL_OFFSET = 11'h 4ec;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_00_CFG_OFFSET = 11'h 4f0;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_00_MUX_SEL_OFFSET = 11'h 4f4;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_CFG_OFFSET = 11'h 4f8;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_MUX_SEL_OFFSET = 11'h 4fc;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_02_CFG_OFFSET = 11'h 500;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_02_MUX_SEL_OFFSET = 11'h 504;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_03_CFG_OFFSET = 11'h 508;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_03_MUX_SEL_OFFSET = 11'h 50c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_04_CFG_OFFSET = 11'h 510;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_04_MUX_SEL_OFFSET = 11'h 514;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_05_CFG_OFFSET = 11'h 518;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_05_MUX_SEL_OFFSET = 11'h 51c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_00_CFG_OFFSET = 11'h 520;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_00_MUX_SEL_OFFSET = 11'h 524;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_01_CFG_OFFSET = 11'h 528;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_01_MUX_SEL_OFFSET = 11'h 52c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_02_CFG_OFFSET = 11'h 530;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_02_MUX_SEL_OFFSET = 11'h 534;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_03_CFG_OFFSET = 11'h 538;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_03_MUX_SEL_OFFSET = 11'h 53c;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_04_CFG_OFFSET = 11'h 540;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_04_MUX_SEL_OFFSET = 11'h 544;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_05_CFG_OFFSET = 11'h 548;
+  parameter logic [BlockAw-1:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_05_MUX_SEL_OFFSET = 11'h 54c;
 
   // Register index
   typedef enum int {
@@ -5205,6 +5263,10 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
     ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_61_MUX_SEL,
     ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_62_CFG,
     ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_62_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_63_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_63_MUX_SEL,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_64_CFG,
+    ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_64_MUX_SEL,
     ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_00_CFG,
     ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_00_MUX_SEL,
     ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_CFG,
@@ -5232,7 +5294,7 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
   } alsaqr_periph_padframe_periphs_config_id_e;
 
   // Register width information to check illegal writes
-  parameter logic [3:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT [336] = '{
+  parameter logic [3:0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT [340] = '{
     4'b 0001, // index[  0] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_00_CFG
     4'b 0001, // index[  1] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_00_MUX_SEL
     4'b 0001, // index[  2] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_01_CFG
@@ -5545,30 +5607,34 @@ package alsaqr_periph_padframe_periphs_config_reg_pkg;
     4'b 0001, // index[309] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_61_MUX_SEL
     4'b 0001, // index[310] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_62_CFG
     4'b 0001, // index[311] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_62_MUX_SEL
-    4'b 0001, // index[312] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_00_CFG
-    4'b 0001, // index[313] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_00_MUX_SEL
-    4'b 0001, // index[314] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_CFG
-    4'b 0001, // index[315] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_MUX_SEL
-    4'b 0001, // index[316] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_02_CFG
-    4'b 0001, // index[317] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_02_MUX_SEL
-    4'b 0001, // index[318] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_03_CFG
-    4'b 0001, // index[319] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_03_MUX_SEL
-    4'b 0001, // index[320] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_04_CFG
-    4'b 0001, // index[321] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_04_MUX_SEL
-    4'b 0001, // index[322] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_05_CFG
-    4'b 0001, // index[323] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_05_MUX_SEL
-    4'b 0001, // index[324] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_00_CFG
-    4'b 0001, // index[325] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_00_MUX_SEL
-    4'b 0001, // index[326] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_01_CFG
-    4'b 0001, // index[327] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_01_MUX_SEL
-    4'b 0001, // index[328] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_02_CFG
-    4'b 0001, // index[329] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_02_MUX_SEL
-    4'b 0001, // index[330] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_03_CFG
-    4'b 0001, // index[331] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_03_MUX_SEL
-    4'b 0001, // index[332] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_04_CFG
-    4'b 0001, // index[333] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_04_MUX_SEL
-    4'b 0001, // index[334] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_05_CFG
-    4'b 0001  // index[335] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_05_MUX_SEL
+    4'b 0001, // index[312] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_63_CFG
+    4'b 0001, // index[313] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_63_MUX_SEL
+    4'b 0001, // index[314] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_64_CFG
+    4'b 0001, // index[315] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_64_MUX_SEL
+    4'b 0001, // index[316] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_00_CFG
+    4'b 0001, // index[317] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_00_MUX_SEL
+    4'b 0001, // index[318] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_CFG
+    4'b 0001, // index[319] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_MUX_SEL
+    4'b 0001, // index[320] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_02_CFG
+    4'b 0001, // index[321] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_02_MUX_SEL
+    4'b 0001, // index[322] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_03_CFG
+    4'b 0001, // index[323] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_03_MUX_SEL
+    4'b 0001, // index[324] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_04_CFG
+    4'b 0001, // index[325] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_04_MUX_SEL
+    4'b 0001, // index[326] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_05_CFG
+    4'b 0001, // index[327] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_05_MUX_SEL
+    4'b 0001, // index[328] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_00_CFG
+    4'b 0001, // index[329] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_00_MUX_SEL
+    4'b 0001, // index[330] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_01_CFG
+    4'b 0001, // index[331] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_01_MUX_SEL
+    4'b 0001, // index[332] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_02_CFG
+    4'b 0001, // index[333] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_02_MUX_SEL
+    4'b 0001, // index[334] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_03_CFG
+    4'b 0001, // index[335] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_03_MUX_SEL
+    4'b 0001, // index[336] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_04_CFG
+    4'b 0001, // index[337] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_04_MUX_SEL
+    4'b 0001, // index[338] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_05_CFG
+    4'b 0001  // index[339] ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_05_MUX_SEL
   };
 
 endpackage

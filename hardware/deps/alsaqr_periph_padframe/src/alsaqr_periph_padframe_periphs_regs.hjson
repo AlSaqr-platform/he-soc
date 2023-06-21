@@ -3872,10 +3872,11 @@
           resval: 0
           fields: [
               {
-                  bits: "0:0"
+                  bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_i2c3_i2c_scl", desc: "Connect port i2c_scl from port group i2c3 to this pad." }
+                      { value: "1", name: "port_cam0_cam_pclk", desc: "Connect port cam_pclk from port group cam0 to this pad." }
+                      { value: "2", name: "port_i2c3_i2c_scl", desc: "Connect port i2c_scl from port group i2c3 to this pad." }
                   ]
               }
           ]
@@ -3962,10 +3963,11 @@
           resval: 0
           fields: [
               {
-                  bits: "0:0"
+                  bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_i2c3_i2c_sda", desc: "Connect port i2c_sda from port group i2c3 to this pad." }
+                      { value: "1", name: "port_cam0_cam_vsync", desc: "Connect port cam_vsync from port group cam0 to this pad." }
+                      { value: "2", name: "port_i2c3_i2c_sda", desc: "Connect port i2c_sda from port group i2c3 to this pad." }
                   ]
               }
           ]
@@ -4055,7 +4057,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_cam0_cam_data7_i", desc: "Connect port cam_data7_i from port group cam0 to this pad." }
+                      { value: "1", name: "port_cam0_cam_data0_i", desc: "Connect port cam_data0_i from port group cam0 to this pad." }
                       { value: "2", name: "port_spi5_spi_sck", desc: "Connect port spi_sck from port group spi5 to this pad." }
                   ]
               }
@@ -4146,7 +4148,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_cam0_cam_data6_i", desc: "Connect port cam_data6_i from port group cam0 to this pad." }
+                      { value: "1", name: "port_cam0_cam_data1_i", desc: "Connect port cam_data1_i from port group cam0 to this pad." }
                       { value: "2", name: "port_spi5_spi_cs0", desc: "Connect port spi_cs0 from port group spi5 to this pad." }
                   ]
               }
@@ -4237,7 +4239,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_cam0_cam_data5_i", desc: "Connect port cam_data5_i from port group cam0 to this pad." }
+                      { value: "1", name: "port_cam0_cam_data2_i", desc: "Connect port cam_data2_i from port group cam0 to this pad." }
                       { value: "2", name: "port_spi5_spi_miso", desc: "Connect port spi_miso from port group spi5 to this pad." }
                   ]
               }
@@ -4328,7 +4330,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_cam0_cam_data4_i", desc: "Connect port cam_data4_i from port group cam0 to this pad." }
+                      { value: "1", name: "port_cam0_cam_data3_i", desc: "Connect port cam_data3_i from port group cam0 to this pad." }
                       { value: "2", name: "port_spi5_spi_mosi", desc: "Connect port spi_mosi from port group spi5 to this pad." }
                   ]
               }
@@ -4419,7 +4421,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_cam0_cam_data2_i", desc: "Connect port cam_data2_i from port group cam0 to this pad." }
+                      { value: "1", name: "port_cam0_cam_data5_i", desc: "Connect port cam_data5_i from port group cam0 to this pad." }
                       { value: "2", name: "port_spi6_spi_sck", desc: "Connect port spi_sck from port group spi6 to this pad." }
                   ]
               }
@@ -4510,7 +4512,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_cam0_cam_data1_i", desc: "Connect port cam_data1_i from port group cam0 to this pad." }
+                      { value: "1", name: "port_cam0_cam_data6_i", desc: "Connect port cam_data6_i from port group cam0 to this pad." }
                       { value: "2", name: "port_spi6_spi_cs0", desc: "Connect port spi_cs0 from port group spi6 to this pad." }
                   ]
               }
@@ -4601,7 +4603,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_cam0_cam_data0_i", desc: "Connect port cam_data0_i from port group cam0 to this pad." }
+                      { value: "1", name: "port_cam0_cam_data7_i", desc: "Connect port cam_data7_i from port group cam0 to this pad." }
                       { value: "2", name: "port_spi6_spi_miso", desc: "Connect port spi_miso from port group spi6 to this pad." }
                   ]
               }
@@ -4692,7 +4694,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_i2c4_i2c_scl", desc: "Connect port i2c_scl from port group i2c4 to this pad." }
+                      { value: "1", name: "port_cam1_cam_pclk", desc: "Connect port cam_pclk from port group cam1 to this pad." }
                       { value: "2", name: "port_spi6_spi_mosi", desc: "Connect port spi_mosi from port group spi6 to this pad." }
                   ]
               }
@@ -4783,7 +4785,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_cam1_cam_pclk", desc: "Connect port cam_pclk from port group cam1 to this pad." }
+                      { value: "1", name: "port_cam1_cam_hsync", desc: "Connect port cam_hsync from port group cam1 to this pad." }
                       { value: "2", name: "port_spi7_spi_sck", desc: "Connect port spi_sck from port group spi7 to this pad." }
                   ]
               }
@@ -4874,7 +4876,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_cam1_cam_data7_i", desc: "Connect port cam_data7_i from port group cam1 to this pad." }
+                      { value: "1", name: "port_cam1_cam_data0_i", desc: "Connect port cam_data0_i from port group cam1 to this pad." }
                       { value: "2", name: "port_spi7_spi_miso", desc: "Connect port spi_miso from port group spi7 to this pad." }
                   ]
               }
@@ -4965,7 +4967,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_cam1_cam_data6_i", desc: "Connect port cam_data6_i from port group cam1 to this pad." }
+                      { value: "1", name: "port_cam1_cam_data1_i", desc: "Connect port cam_data1_i from port group cam1 to this pad." }
                       { value: "2", name: "port_spi7_spi_mosi", desc: "Connect port spi_mosi from port group spi7 to this pad." }
                   ]
               }
@@ -5056,7 +5058,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_cam1_cam_data2_i", desc: "Connect port cam_data2_i from port group cam1 to this pad." }
+                      { value: "1", name: "port_cam1_cam_data5_i", desc: "Connect port cam_data5_i from port group cam1 to this pad." }
                       { value: "2", name: "port_spi7_spi_cs0", desc: "Connect port spi_cs0 from port group spi7 to this pad." }
                   ]
               }
@@ -5147,7 +5149,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_cam1_cam_data1_i", desc: "Connect port cam_data1_i from port group cam1 to this pad." }
+                      { value: "1", name: "port_cam1_cam_data6_i", desc: "Connect port cam_data6_i from port group cam1 to this pad." }
                       { value: "2", name: "port_spi7_spi_cs1", desc: "Connect port spi_cs1 from port group spi7 to this pad." }
                   ]
               }
@@ -5238,8 +5240,8 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_cam1_cam_data0_i", desc: "Connect port cam_data0_i from port group cam1 to this pad." }
-                      { value: "2", name: "port_i2c5_i2c_scl", desc: "Connect port i2c_scl from port group i2c5 to this pad." }
+                      { value: "1", name: "port_cam1_cam_data7_i", desc: "Connect port cam_data7_i from port group cam1 to this pad." }
+                      { value: "2", name: "port_i2c4_i2c_scl", desc: "Connect port i2c_scl from port group i2c4 to this pad." }
                   ]
               }
           ]
@@ -5329,8 +5331,8 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_i2c5_i2c_sda", desc: "Connect port i2c_sda from port group i2c5 to this pad." }
-                      { value: "2", name: "port_sdio1_sdio_data3", desc: "Connect port sdio_data3 from port group sdio1 to this pad." }
+                      { value: "1", name: "port_i2c4_i2c_sda", desc: "Connect port i2c_sda from port group i2c4 to this pad." }
+                      { value: "2", name: "port_sdio1_sdio_data0", desc: "Connect port sdio_data0 from port group sdio1 to this pad." }
                   ]
               }
           ]
@@ -5420,7 +5422,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_sdio1_sdio_data1", desc: "Connect port sdio_data1 from port group sdio1 to this pad." }
+                      { value: "1", name: "port_sdio1_sdio_data2", desc: "Connect port sdio_data2 from port group sdio1 to this pad." }
                       { value: "2", name: "port_uart1_uart_tx", desc: "Connect port uart_tx from port group uart1 to this pad." }
                   ]
               }
@@ -5511,7 +5513,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_sdio1_sdio_data0", desc: "Connect port sdio_data0 from port group sdio1 to this pad." }
+                      { value: "1", name: "port_sdio1_sdio_data3", desc: "Connect port sdio_data3 from port group sdio1 to this pad." }
                       { value: "2", name: "port_uart1_uart_rx", desc: "Connect port uart_rx from port group uart1 to this pad." }
                   ]
               }
@@ -6144,7 +6146,7 @@
                   bits: "0:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_i2c6_i2c_scl", desc: "Connect port i2c_scl from port group i2c6 to this pad." }
+                      { value: "1", name: "port_i2c5_i2c_scl", desc: "Connect port i2c_scl from port group i2c5 to this pad." }
                   ]
               }
           ]
@@ -6234,7 +6236,7 @@
                   bits: "0:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_i2c6_i2c_sda", desc: "Connect port i2c_sda from port group i2c6 to this pad." }
+                      { value: "1", name: "port_i2c5_i2c_sda", desc: "Connect port i2c_sda from port group i2c5 to this pad." }
                   ]
               }
           ]
@@ -10198,7 +10200,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_cam0_cam_pclk", desc: "Connect port cam_pclk from port group cam0 to this pad." }
+                      { value: "1", name: "port_cam0_cam_hsync", desc: "Connect port cam_hsync from port group cam0 to this pad." }
                       { value: "2", name: "port_gpio_b_gpio19", desc: "Connect port gpio19 from port group gpio_b to this pad." }
                   ]
               }
@@ -10289,7 +10291,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_cam0_cam_data3_i", desc: "Connect port cam_data3_i from port group cam0 to this pad." }
+                      { value: "1", name: "port_cam0_cam_data4_i", desc: "Connect port cam_data4_i from port group cam0 to this pad." }
                       { value: "2", name: "port_gpio_b_gpio20", desc: "Connect port gpio20 from port group gpio_b to this pad." }
                   ]
               }
@@ -10380,8 +10382,8 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_gpio_b_gpio21", desc: "Connect port gpio21 from port group gpio_b to this pad." }
-                      { value: "2", name: "port_i2c4_i2c_sda", desc: "Connect port i2c_sda from port group i2c4 to this pad." }
+                      { value: "1", name: "port_cam1_cam_vsync", desc: "Connect port cam_vsync from port group cam1 to this pad." }
+                      { value: "2", name: "port_gpio_b_gpio21", desc: "Connect port gpio21 from port group gpio_b to this pad." }
                   ]
               }
           ]
@@ -10471,7 +10473,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_cam1_cam_data5_i", desc: "Connect port cam_data5_i from port group cam1 to this pad." }
+                      { value: "1", name: "port_cam1_cam_data2_i", desc: "Connect port cam_data2_i from port group cam1 to this pad." }
                       { value: "2", name: "port_gpio_b_gpio22", desc: "Connect port gpio22 from port group gpio_b to this pad." }
                   ]
               }
@@ -10562,7 +10564,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_cam1_cam_data4_i", desc: "Connect port cam_data4_i from port group cam1 to this pad." }
+                      { value: "1", name: "port_cam1_cam_data3_i", desc: "Connect port cam_data3_i from port group cam1 to this pad." }
                       { value: "2", name: "port_gpio_b_gpio23", desc: "Connect port gpio23 from port group gpio_b to this pad." }
                   ]
               }
@@ -10653,7 +10655,7 @@
                   bits: "1:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_cam1_cam_data3_i", desc: "Connect port cam_data3_i from port group cam1 to this pad." }
+                      { value: "1", name: "port_cam1_cam_data4_i", desc: "Connect port cam_data4_i from port group cam1 to this pad." }
                       { value: "2", name: "port_gpio_b_gpio24", desc: "Connect port gpio24 from port group gpio_b to this pad." }
                   ]
               }
@@ -10745,7 +10747,7 @@
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
                       { value: "1", name: "port_gpio_b_gpio25", desc: "Connect port gpio25 from port group gpio_b to this pad." }
-                      { value: "2", name: "port_sdio1_sdio_data2", desc: "Connect port sdio_data2 from port group sdio1 to this pad." }
+                      { value: "2", name: "port_sdio1_sdio_data1", desc: "Connect port sdio_data1 from port group sdio1 to this pad." }
                   ]
               }
           ]
@@ -14092,6 +14094,186 @@
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
                       { value: "1", name: "port_eth_eth_intb", desc: "Connect port eth_intb from port group eth to this pad." }
                       { value: "2", name: "port_gpio_b_gpio62", desc: "Connect port gpio62 from port group gpio_b to this pad." }
+                  ]
+              }
+          ]
+      }
+
+      {
+          name: B_63_CFG
+          desc: '''
+            Pad signal configuration.
+          '''
+          swaccess: "rw"
+          fields: [
+            {
+                bits: "0"
+                name: chip2pad
+                desc: '''
+                     The signal that connects to the pads TX driver
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "2:1"
+                name: drv
+                desc: '''
+                     Driving strength
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "3"
+                name: oen
+                desc: '''
+                     Output enable signal, active low
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "1"
+            },
+            {
+                bits: "4"
+                name: puen
+                desc: '''
+                     Pull-Up enable signal, active low
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "1"
+            },
+            {
+                bits: "5"
+                name: slw
+                desc: '''
+                     
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "6"
+                name: smt
+                desc: '''
+                     Schmit trigger enable
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+          ]
+      }
+
+       {
+          name: B_63_MUX_SEL
+          desc: '''
+              Pad signal port multiplex selection for pad b_63. The programmed value defines which port
+              is connected to the pad.
+          '''
+          swaccess: "rw"
+          hwaccess: "hro"
+          resval: 0
+          fields: [
+              {
+                  bits: "0:0"
+                  enum: [
+                      { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
+                      { value: "1", name: "port_gpio_b_gpio63", desc: "Connect port gpio63 from port group gpio_b to this pad." }
+                  ]
+              }
+          ]
+      }
+
+      {
+          name: B_64_CFG
+          desc: '''
+            Pad signal configuration.
+          '''
+          swaccess: "rw"
+          fields: [
+            {
+                bits: "0"
+                name: chip2pad
+                desc: '''
+                     The signal that connects to the pads TX driver
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "2:1"
+                name: drv
+                desc: '''
+                     Driving strength
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "3"
+                name: oen
+                desc: '''
+                     Output enable signal, active low
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "1"
+            },
+            {
+                bits: "4"
+                name: puen
+                desc: '''
+                     Pull-Up enable signal, active low
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "1"
+            },
+            {
+                bits: "5"
+                name: slw
+                desc: '''
+                     
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "6"
+                name: smt
+                desc: '''
+                     Schmit trigger enable
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+          ]
+      }
+
+       {
+          name: B_64_MUX_SEL
+          desc: '''
+              Pad signal port multiplex selection for pad b_64. The programmed value defines which port
+              is connected to the pad.
+          '''
+          swaccess: "rw"
+          hwaccess: "hro"
+          resval: 0
+          fields: [
+              {
+                  bits: "0:0"
+                  enum: [
+                      { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
+                      { value: "1", name: "port_gpio_b_gpio64", desc: "Connect port gpio64 from port group gpio_b to this pad." }
                   ]
               }
           ]

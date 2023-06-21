@@ -2035,6 +2035,32 @@ package pkg_internal_alsaqr_periph_padframe_periphs;
     logic  puen;
     logic  slw;
     logic  smt;
+  } mux_to_pad_b_63_t;
+
+  typedef struct packed{
+    logic  pad2chip;
+  } pad_to_mux_b_63_t;
+
+  typedef struct packed{
+    logic  chip2pad;
+    logic [1:0] drv;
+    logic  oen;
+    logic  puen;
+    logic  slw;
+    logic  smt;
+  } mux_to_pad_b_64_t;
+
+  typedef struct packed{
+    logic  pad2chip;
+  } pad_to_mux_b_64_t;
+
+  typedef struct packed{
+    logic  chip2pad;
+    logic [1:0] drv;
+    logic  oen;
+    logic  puen;
+    logic  slw;
+    logic  smt;
   } mux_to_pad_ot_qspi_00_t;
 
   typedef struct packed{
@@ -2341,6 +2367,8 @@ package pkg_internal_alsaqr_periph_padframe_periphs;
     mux_to_pad_b_60_t b_60;
     mux_to_pad_b_61_t b_61;
     mux_to_pad_b_62_t b_62;
+    mux_to_pad_b_63_t b_63;
+    mux_to_pad_b_64_t b_64;
     mux_to_pad_ot_qspi_00_t ot_qspi_00;
     mux_to_pad_ot_qspi_01_t ot_qspi_01;
     mux_to_pad_ot_qspi_02_t ot_qspi_02;
@@ -2512,6 +2540,8 @@ package pkg_internal_alsaqr_periph_padframe_periphs;
     pad_to_mux_b_60_t b_60;
     pad_to_mux_b_61_t b_61;
     pad_to_mux_b_62_t b_62;
+    pad_to_mux_b_63_t b_63;
+    pad_to_mux_b_64_t b_64;
     pad_to_mux_ot_qspi_00_t ot_qspi_00;
     pad_to_mux_ot_qspi_01_t ot_qspi_01;
     pad_to_mux_ot_qspi_02_t ot_qspi_02;
@@ -2698,97 +2728,99 @@ package pkg_internal_alsaqr_periph_padframe_periphs;
   parameter logic[0:0] PAD_MUX_GROUP_A_41_SEL_DEFAULT = 1'd0;
   parameter logic[0:0] PAD_MUX_GROUP_A_41_SEL_PWM0_PWM3 = 1'd1;
 
-  parameter PAD_MUX_GROUP_A_42_SEL_WIDTH = 1;
-  parameter logic[0:0] PAD_MUX_GROUP_A_42_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_A_42_SEL_I2C3_I2C_SCL = 1'd1;
+  parameter PAD_MUX_GROUP_A_42_SEL_WIDTH = 2;
+  parameter logic[1:0] PAD_MUX_GROUP_A_42_SEL_DEFAULT = 2'd0;
+  parameter logic[1:0] PAD_MUX_GROUP_A_42_SEL_CAM0_CAM_PCLK = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_42_SEL_I2C3_I2C_SCL = 2'd2;
 
-  parameter PAD_MUX_GROUP_A_43_SEL_WIDTH = 1;
-  parameter logic[0:0] PAD_MUX_GROUP_A_43_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_A_43_SEL_I2C3_I2C_SDA = 1'd1;
+  parameter PAD_MUX_GROUP_A_43_SEL_WIDTH = 2;
+  parameter logic[1:0] PAD_MUX_GROUP_A_43_SEL_DEFAULT = 2'd0;
+  parameter logic[1:0] PAD_MUX_GROUP_A_43_SEL_CAM0_CAM_VSYNC = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_43_SEL_I2C3_I2C_SDA = 2'd2;
 
   parameter PAD_MUX_GROUP_A_44_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_A_44_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_A_44_SEL_CAM0_CAM_DATA7_I = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_44_SEL_CAM0_CAM_DATA0_I = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_A_44_SEL_SPI5_SPI_SCK = 2'd2;
 
   parameter PAD_MUX_GROUP_A_45_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_A_45_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_A_45_SEL_CAM0_CAM_DATA6_I = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_45_SEL_CAM0_CAM_DATA1_I = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_A_45_SEL_SPI5_SPI_CS0 = 2'd2;
 
   parameter PAD_MUX_GROUP_A_46_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_A_46_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_A_46_SEL_CAM0_CAM_DATA5_I = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_46_SEL_CAM0_CAM_DATA2_I = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_A_46_SEL_SPI5_SPI_MISO = 2'd2;
 
   parameter PAD_MUX_GROUP_A_47_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_A_47_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_A_47_SEL_CAM0_CAM_DATA4_I = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_47_SEL_CAM0_CAM_DATA3_I = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_A_47_SEL_SPI5_SPI_MOSI = 2'd2;
 
   parameter PAD_MUX_GROUP_A_48_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_A_48_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_A_48_SEL_CAM0_CAM_DATA2_I = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_48_SEL_CAM0_CAM_DATA5_I = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_A_48_SEL_SPI6_SPI_SCK = 2'd2;
 
   parameter PAD_MUX_GROUP_A_49_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_A_49_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_A_49_SEL_CAM0_CAM_DATA1_I = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_49_SEL_CAM0_CAM_DATA6_I = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_A_49_SEL_SPI6_SPI_CS0 = 2'd2;
 
   parameter PAD_MUX_GROUP_A_50_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_A_50_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_A_50_SEL_CAM0_CAM_DATA0_I = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_50_SEL_CAM0_CAM_DATA7_I = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_A_50_SEL_SPI6_SPI_MISO = 2'd2;
 
   parameter PAD_MUX_GROUP_A_51_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_A_51_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_A_51_SEL_I2C4_I2C_SCL = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_51_SEL_CAM1_CAM_PCLK = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_A_51_SEL_SPI6_SPI_MOSI = 2'd2;
 
   parameter PAD_MUX_GROUP_A_52_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_A_52_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_A_52_SEL_CAM1_CAM_PCLK = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_52_SEL_CAM1_CAM_HSYNC = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_A_52_SEL_SPI7_SPI_SCK = 2'd2;
 
   parameter PAD_MUX_GROUP_A_53_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_A_53_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_A_53_SEL_CAM1_CAM_DATA7_I = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_53_SEL_CAM1_CAM_DATA0_I = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_A_53_SEL_SPI7_SPI_MISO = 2'd2;
 
   parameter PAD_MUX_GROUP_A_54_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_A_54_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_A_54_SEL_CAM1_CAM_DATA6_I = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_54_SEL_CAM1_CAM_DATA1_I = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_A_54_SEL_SPI7_SPI_MOSI = 2'd2;
 
   parameter PAD_MUX_GROUP_A_55_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_A_55_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_A_55_SEL_CAM1_CAM_DATA2_I = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_55_SEL_CAM1_CAM_DATA5_I = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_A_55_SEL_SPI7_SPI_CS0 = 2'd2;
 
   parameter PAD_MUX_GROUP_A_56_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_A_56_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_A_56_SEL_CAM1_CAM_DATA1_I = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_56_SEL_CAM1_CAM_DATA6_I = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_A_56_SEL_SPI7_SPI_CS1 = 2'd2;
 
   parameter PAD_MUX_GROUP_A_57_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_A_57_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_A_57_SEL_CAM1_CAM_DATA0_I = 2'd1;
-  parameter logic[1:0] PAD_MUX_GROUP_A_57_SEL_I2C5_I2C_SCL = 2'd2;
+  parameter logic[1:0] PAD_MUX_GROUP_A_57_SEL_CAM1_CAM_DATA7_I = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_57_SEL_I2C4_I2C_SCL = 2'd2;
 
   parameter PAD_MUX_GROUP_A_58_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_A_58_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_A_58_SEL_I2C5_I2C_SDA = 2'd1;
-  parameter logic[1:0] PAD_MUX_GROUP_A_58_SEL_SDIO1_SDIO_DATA3 = 2'd2;
+  parameter logic[1:0] PAD_MUX_GROUP_A_58_SEL_I2C4_I2C_SDA = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_58_SEL_SDIO1_SDIO_DATA0 = 2'd2;
 
   parameter PAD_MUX_GROUP_A_59_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_A_59_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_A_59_SEL_SDIO1_SDIO_DATA1 = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_59_SEL_SDIO1_SDIO_DATA2 = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_A_59_SEL_UART1_UART_TX = 2'd2;
 
   parameter PAD_MUX_GROUP_A_60_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_A_60_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_A_60_SEL_SDIO1_SDIO_DATA0 = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_A_60_SEL_SDIO1_SDIO_DATA3 = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_A_60_SEL_UART1_UART_RX = 2'd2;
 
   parameter PAD_MUX_GROUP_A_61_SEL_WIDTH = 2;
@@ -2819,11 +2851,11 @@ package pkg_internal_alsaqr_periph_padframe_periphs;
 
   parameter PAD_MUX_GROUP_A_67_SEL_WIDTH = 1;
   parameter logic[0:0] PAD_MUX_GROUP_A_67_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_A_67_SEL_I2C6_I2C_SCL = 1'd1;
+  parameter logic[0:0] PAD_MUX_GROUP_A_67_SEL_I2C5_I2C_SCL = 1'd1;
 
   parameter PAD_MUX_GROUP_A_68_SEL_WIDTH = 1;
   parameter logic[0:0] PAD_MUX_GROUP_A_68_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_A_68_SEL_I2C6_I2C_SDA = 1'd1;
+  parameter logic[0:0] PAD_MUX_GROUP_A_68_SEL_I2C5_I2C_SDA = 1'd1;
 
   parameter PAD_MUX_GROUP_A_69_SEL_WIDTH = 1;
   parameter logic[0:0] PAD_MUX_GROUP_A_69_SEL_DEFAULT = 1'd0;
@@ -3003,38 +3035,38 @@ package pkg_internal_alsaqr_periph_padframe_periphs;
 
   parameter PAD_MUX_GROUP_B_19_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_B_19_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_B_19_SEL_CAM0_CAM_PCLK = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_B_19_SEL_CAM0_CAM_HSYNC = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_B_19_SEL_GPIO_B_GPIO19 = 2'd2;
 
   parameter PAD_MUX_GROUP_B_20_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_B_20_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_B_20_SEL_CAM0_CAM_DATA3_I = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_B_20_SEL_CAM0_CAM_DATA4_I = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_B_20_SEL_GPIO_B_GPIO20 = 2'd2;
 
   parameter PAD_MUX_GROUP_B_21_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_B_21_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_B_21_SEL_GPIO_B_GPIO21 = 2'd1;
-  parameter logic[1:0] PAD_MUX_GROUP_B_21_SEL_I2C4_I2C_SDA = 2'd2;
+  parameter logic[1:0] PAD_MUX_GROUP_B_21_SEL_CAM1_CAM_VSYNC = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_B_21_SEL_GPIO_B_GPIO21 = 2'd2;
 
   parameter PAD_MUX_GROUP_B_22_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_B_22_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_B_22_SEL_CAM1_CAM_DATA5_I = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_B_22_SEL_CAM1_CAM_DATA2_I = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_B_22_SEL_GPIO_B_GPIO22 = 2'd2;
 
   parameter PAD_MUX_GROUP_B_23_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_B_23_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_B_23_SEL_CAM1_CAM_DATA4_I = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_B_23_SEL_CAM1_CAM_DATA3_I = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_B_23_SEL_GPIO_B_GPIO23 = 2'd2;
 
   parameter PAD_MUX_GROUP_B_24_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_B_24_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_B_24_SEL_CAM1_CAM_DATA3_I = 2'd1;
+  parameter logic[1:0] PAD_MUX_GROUP_B_24_SEL_CAM1_CAM_DATA4_I = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_B_24_SEL_GPIO_B_GPIO24 = 2'd2;
 
   parameter PAD_MUX_GROUP_B_25_SEL_WIDTH = 2;
   parameter logic[1:0] PAD_MUX_GROUP_B_25_SEL_DEFAULT = 2'd0;
   parameter logic[1:0] PAD_MUX_GROUP_B_25_SEL_GPIO_B_GPIO25 = 2'd1;
-  parameter logic[1:0] PAD_MUX_GROUP_B_25_SEL_SDIO1_SDIO_DATA2 = 2'd2;
+  parameter logic[1:0] PAD_MUX_GROUP_B_25_SEL_SDIO1_SDIO_DATA1 = 2'd2;
 
   parameter PAD_MUX_GROUP_B_26_SEL_WIDTH = 1;
   parameter logic[0:0] PAD_MUX_GROUP_B_26_SEL_DEFAULT = 1'd0;
@@ -3199,6 +3231,14 @@ package pkg_internal_alsaqr_periph_padframe_periphs;
   parameter logic[1:0] PAD_MUX_GROUP_B_62_SEL_DEFAULT = 2'd0;
   parameter logic[1:0] PAD_MUX_GROUP_B_62_SEL_ETH_ETH_INTB = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_B_62_SEL_GPIO_B_GPIO62 = 2'd2;
+
+  parameter PAD_MUX_GROUP_B_63_SEL_WIDTH = 1;
+  parameter logic[0:0] PAD_MUX_GROUP_B_63_SEL_DEFAULT = 1'd0;
+  parameter logic[0:0] PAD_MUX_GROUP_B_63_SEL_GPIO_B_GPIO63 = 1'd1;
+
+  parameter PAD_MUX_GROUP_B_64_SEL_WIDTH = 1;
+  parameter logic[0:0] PAD_MUX_GROUP_B_64_SEL_DEFAULT = 1'd0;
+  parameter logic[0:0] PAD_MUX_GROUP_B_64_SEL_GPIO_B_GPIO64 = 1'd1;
 
   parameter PAD_MUX_GROUP_LINUX_QSPI_00_SEL_WIDTH = 1;
   parameter logic[0:0] PAD_MUX_GROUP_LINUX_QSPI_00_SEL_DEFAULT = 1'd0;
@@ -3717,6 +3757,12 @@ package pkg_internal_alsaqr_periph_padframe_periphs;
 
   parameter PORT_MUX_GROUP_B_62_SEL_WIDTH = 1;
   parameter logic[0:0] PORT_MUX_GROUP_B_62_SEL_B_62 = 1'd0;
+
+  parameter PORT_MUX_GROUP_B_63_SEL_WIDTH = 1;
+  parameter logic[0:0] PORT_MUX_GROUP_B_63_SEL_B_63 = 1'd0;
+
+  parameter PORT_MUX_GROUP_B_64_SEL_WIDTH = 1;
+  parameter logic[0:0] PORT_MUX_GROUP_B_64_SEL_B_64 = 1'd0;
 
   parameter PORT_MUX_GROUP_LINUX_QSPI_00_SEL_WIDTH = 1;
   parameter logic[0:0] PORT_MUX_GROUP_LINUX_QSPI_00_SEL_LINUX_QSPI_00 = 1'd0;
