@@ -2035,32 +2035,6 @@ package pkg_internal_alsaqr_periph_padframe_periphs;
     logic  puen;
     logic  slw;
     logic  smt;
-  } mux_to_pad_b_63_t;
-
-  typedef struct packed{
-    logic  pad2chip;
-  } pad_to_mux_b_63_t;
-
-  typedef struct packed{
-    logic  chip2pad;
-    logic [1:0] drv;
-    logic  oen;
-    logic  puen;
-    logic  slw;
-    logic  smt;
-  } mux_to_pad_b_64_t;
-
-  typedef struct packed{
-    logic  pad2chip;
-  } pad_to_mux_b_64_t;
-
-  typedef struct packed{
-    logic  chip2pad;
-    logic [1:0] drv;
-    logic  oen;
-    logic  puen;
-    logic  slw;
-    logic  smt;
   } mux_to_pad_ot_qspi_00_t;
 
   typedef struct packed{
@@ -2367,8 +2341,6 @@ package pkg_internal_alsaqr_periph_padframe_periphs;
     mux_to_pad_b_60_t b_60;
     mux_to_pad_b_61_t b_61;
     mux_to_pad_b_62_t b_62;
-    mux_to_pad_b_63_t b_63;
-    mux_to_pad_b_64_t b_64;
     mux_to_pad_ot_qspi_00_t ot_qspi_00;
     mux_to_pad_ot_qspi_01_t ot_qspi_01;
     mux_to_pad_ot_qspi_02_t ot_qspi_02;
@@ -2540,8 +2512,6 @@ package pkg_internal_alsaqr_periph_padframe_periphs;
     pad_to_mux_b_60_t b_60;
     pad_to_mux_b_61_t b_61;
     pad_to_mux_b_62_t b_62;
-    pad_to_mux_b_63_t b_63;
-    pad_to_mux_b_64_t b_64;
     pad_to_mux_ot_qspi_00_t ot_qspi_00;
     pad_to_mux_ot_qspi_01_t ot_qspi_01;
     pad_to_mux_ot_qspi_02_t ot_qspi_02;
@@ -3232,14 +3202,6 @@ package pkg_internal_alsaqr_periph_padframe_periphs;
   parameter logic[1:0] PAD_MUX_GROUP_B_62_SEL_ETH_ETH_INTB = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_B_62_SEL_GPIO_B_GPIO62 = 2'd2;
 
-  parameter PAD_MUX_GROUP_B_63_SEL_WIDTH = 1;
-  parameter logic[0:0] PAD_MUX_GROUP_B_63_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_B_63_SEL_GPIO_B_GPIO63 = 1'd1;
-
-  parameter PAD_MUX_GROUP_B_64_SEL_WIDTH = 1;
-  parameter logic[0:0] PAD_MUX_GROUP_B_64_SEL_DEFAULT = 1'd0;
-  parameter logic[0:0] PAD_MUX_GROUP_B_64_SEL_GPIO_B_GPIO64 = 1'd1;
-
   parameter PAD_MUX_GROUP_LINUX_QSPI_00_SEL_WIDTH = 1;
   parameter logic[0:0] PAD_MUX_GROUP_LINUX_QSPI_00_SEL_DEFAULT = 1'd0;
   parameter logic[0:0] PAD_MUX_GROUP_LINUX_QSPI_00_SEL_QSPI_LINUX_QSPI_SCK = 1'd1;
@@ -3757,12 +3719,6 @@ package pkg_internal_alsaqr_periph_padframe_periphs;
 
   parameter PORT_MUX_GROUP_B_62_SEL_WIDTH = 1;
   parameter logic[0:0] PORT_MUX_GROUP_B_62_SEL_B_62 = 1'd0;
-
-  parameter PORT_MUX_GROUP_B_63_SEL_WIDTH = 1;
-  parameter logic[0:0] PORT_MUX_GROUP_B_63_SEL_B_63 = 1'd0;
-
-  parameter PORT_MUX_GROUP_B_64_SEL_WIDTH = 1;
-  parameter logic[0:0] PORT_MUX_GROUP_B_64_SEL_B_64 = 1'd0;
 
   parameter PORT_MUX_GROUP_LINUX_QSPI_00_SEL_WIDTH = 1;
   parameter logic[0:0] PORT_MUX_GROUP_LINUX_QSPI_00_SEL_LINUX_QSPI_00 = 1'd0;

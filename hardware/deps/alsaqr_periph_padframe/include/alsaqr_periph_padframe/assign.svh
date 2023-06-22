@@ -360,8 +360,6 @@
   assign load.gpio60_i = driver.gpio60_o; \
   assign load.gpio61_i = driver.gpio61_o; \
   assign load.gpio62_i = driver.gpio62_o; \
-  assign load.gpio63_i = driver.gpio63_o; \
-  assign load.gpio64_i = driver.gpio64_o; \
 
 `define ASSIGN_PERIPHS_GPIO_B_SOC2PAD(load, driver) \
   assign load.gpio0_d_i = driver.gpio0_d_o; \
@@ -490,10 +488,6 @@
   assign load.gpio61_i = driver.gpio61_o; \
   assign load.gpio62_d_i = driver.gpio62_d_o; \
   assign load.gpio62_i = driver.gpio62_o; \
-  assign load.gpio63_d_i = driver.gpio63_d_o; \
-  assign load.gpio63_i = driver.gpio63_o; \
-  assign load.gpio64_d_i = driver.gpio64_d_o; \
-  assign load.gpio64_i = driver.gpio64_o; \
 
 `define ASSIGN_PERIPHS_ETH_PAD2SOC(load, driver) \
   assign load.eth_intb_i = driver.eth_intb_o; \

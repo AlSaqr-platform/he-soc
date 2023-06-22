@@ -446,7 +446,7 @@ module ariane_tb;
    
   // SiFive's SimJTAG Module
   // Converts to DPI calls
-  SimJTAG i_SimJTAG (
+  /*SimJTAG i_SimJTAG (
     .clock                ( clk_i                ),
     .reset                ( ~rst_ni              ),
     .enable               ( jtag_enable[0]       ),
@@ -459,7 +459,7 @@ module ariane_tb;
     .jtag_TDO_driven      ( s_jtag_TDO_driven    ),
     .exit                 ( s_jtag_exit          )
   );
-  
+  */
     al_saqr 
     `ifndef TARGET_TOP_POST_SYNTH_SIM #(
         .NUM_WORDS         ( NUM_WORDS                   ),
@@ -487,7 +487,6 @@ module ariane_tb;
           .jtag_TDI             ( s_jtag2alsaqr_tdi      ),
           .jtag_TRSTn           ( s_jtag2alsaqr_trstn    ),
           .jtag_TDO_data        ( s_jtag2alsaqr_tdo      ),
-          .jtag_TDO_driven      ( s_jtag_TDO_driven      ),
 
           .jtag_ot_TCK          ( s_jtag2ot_tck          ),
           .jtag_ot_TMS          ( s_jtag2ot_tms          ),
@@ -497,8 +496,6 @@ module ariane_tb;
                   
           .cva6_uart_rx_i       ( w_cva6_uart_rx         ),
           .cva6_uart_tx_o       ( w_cva6_uart_tx         ),
-          .apb_uart_rx_i        ( apb_uart_rx            ),
-          .apb_uart_tx_o        ( apb_uart_tx            ),
         
         `ifndef EXCLUDE_PADFRAME
  

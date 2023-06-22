@@ -3343,48 +3343,6 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic [1:0] b_62_mux_sel_qs;
   logic [1:0] b_62_mux_sel_wd;
   logic b_62_mux_sel_we;
-  logic b_63_cfg_chip2pad_qs;
-  logic b_63_cfg_chip2pad_wd;
-  logic b_63_cfg_chip2pad_we;
-  logic [1:0] b_63_cfg_drv_qs;
-  logic [1:0] b_63_cfg_drv_wd;
-  logic b_63_cfg_drv_we;
-  logic b_63_cfg_oen_qs;
-  logic b_63_cfg_oen_wd;
-  logic b_63_cfg_oen_we;
-  logic b_63_cfg_puen_qs;
-  logic b_63_cfg_puen_wd;
-  logic b_63_cfg_puen_we;
-  logic b_63_cfg_slw_qs;
-  logic b_63_cfg_slw_wd;
-  logic b_63_cfg_slw_we;
-  logic b_63_cfg_smt_qs;
-  logic b_63_cfg_smt_wd;
-  logic b_63_cfg_smt_we;
-  logic b_63_mux_sel_qs;
-  logic b_63_mux_sel_wd;
-  logic b_63_mux_sel_we;
-  logic b_64_cfg_chip2pad_qs;
-  logic b_64_cfg_chip2pad_wd;
-  logic b_64_cfg_chip2pad_we;
-  logic [1:0] b_64_cfg_drv_qs;
-  logic [1:0] b_64_cfg_drv_wd;
-  logic b_64_cfg_drv_we;
-  logic b_64_cfg_oen_qs;
-  logic b_64_cfg_oen_wd;
-  logic b_64_cfg_oen_we;
-  logic b_64_cfg_puen_qs;
-  logic b_64_cfg_puen_wd;
-  logic b_64_cfg_puen_we;
-  logic b_64_cfg_slw_qs;
-  logic b_64_cfg_slw_wd;
-  logic b_64_cfg_slw_we;
-  logic b_64_cfg_smt_qs;
-  logic b_64_cfg_smt_wd;
-  logic b_64_cfg_smt_we;
-  logic b_64_mux_sel_qs;
-  logic b_64_mux_sel_wd;
-  logic b_64_mux_sel_we;
   logic ot_qspi_00_cfg_chip2pad_qs;
   logic ot_qspi_00_cfg_chip2pad_wd;
   logic ot_qspi_00_cfg_chip2pad_we;
@@ -32499,376 +32457,6 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   );
 
 
-  // R[b_63_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_63_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_63_cfg_chip2pad_we),
-    .wd     (b_63_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_63_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (b_63_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_63_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_63_cfg_drv_we),
-    .wd     (b_63_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_63_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (b_63_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_63_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_63_cfg_oen_we),
-    .wd     (b_63_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_63_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (b_63_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_63_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_63_cfg_puen_we),
-    .wd     (b_63_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_63_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (b_63_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_63_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_63_cfg_slw_we),
-    .wd     (b_63_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_63_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (b_63_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_63_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_63_cfg_smt_we),
-    .wd     (b_63_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_63_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (b_63_cfg_smt_qs)
-  );
-
-
-  // R[b_63_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_63_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_63_mux_sel_we),
-    .wd     (b_63_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_63_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (b_63_mux_sel_qs)
-  );
-
-
-  // R[b_64_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_64_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_64_cfg_chip2pad_we),
-    .wd     (b_64_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_64_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (b_64_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_64_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_64_cfg_drv_we),
-    .wd     (b_64_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_64_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (b_64_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_64_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_64_cfg_oen_we),
-    .wd     (b_64_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_64_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (b_64_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_64_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_64_cfg_puen_we),
-    .wd     (b_64_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_64_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (b_64_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_64_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_64_cfg_slw_we),
-    .wd     (b_64_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_64_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (b_64_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_64_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_64_cfg_smt_we),
-    .wd     (b_64_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_64_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (b_64_cfg_smt_qs)
-  );
-
-
-  // R[b_64_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_64_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_64_mux_sel_we),
-    .wd     (b_64_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_64_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (b_64_mux_sel_qs)
-  );
-
-
   // R[ot_qspi_00_cfg]: V(False)
 
   //   F[chip2pad]: 0:0
@@ -35091,18 +34679,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
 
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  logic [339:0] addr_hit;
-=======
-=======
->>>>>>> 7ab4797b (Updated padframe with qspi linux, now compliant with specs)
-<<<<<<< HEAD
-=======
->>>>>>> 1478496d (Updated padframe.)
   logic [335:0] addr_hit;
->>>>>>> ebe8100e (Updated padframe with QSPI OT signals and bootselet signals)
   always_comb begin
     addr_hit = '0;
     addr_hit[  0] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_00_CFG_OFFSET);
@@ -35417,36 +34994,6 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     addr_hit[309] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_61_MUX_SEL_OFFSET);
     addr_hit[310] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_62_CFG_OFFSET);
     addr_hit[311] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_62_MUX_SEL_OFFSET);
-<<<<<<< HEAD
-    addr_hit[312] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_63_CFG_OFFSET);
-    addr_hit[313] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_63_MUX_SEL_OFFSET);
-    addr_hit[314] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_64_CFG_OFFSET);
-    addr_hit[315] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_64_MUX_SEL_OFFSET);
-    addr_hit[316] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_00_CFG_OFFSET);
-    addr_hit[317] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_00_MUX_SEL_OFFSET);
-    addr_hit[318] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_CFG_OFFSET);
-    addr_hit[319] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_MUX_SEL_OFFSET);
-    addr_hit[320] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_02_CFG_OFFSET);
-    addr_hit[321] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_02_MUX_SEL_OFFSET);
-    addr_hit[322] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_03_CFG_OFFSET);
-    addr_hit[323] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_03_MUX_SEL_OFFSET);
-    addr_hit[324] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_04_CFG_OFFSET);
-    addr_hit[325] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_04_MUX_SEL_OFFSET);
-    addr_hit[326] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_05_CFG_OFFSET);
-    addr_hit[327] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_05_MUX_SEL_OFFSET);
-    addr_hit[328] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_00_CFG_OFFSET);
-    addr_hit[329] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_00_MUX_SEL_OFFSET);
-    addr_hit[330] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_01_CFG_OFFSET);
-    addr_hit[331] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_01_MUX_SEL_OFFSET);
-    addr_hit[332] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_02_CFG_OFFSET);
-    addr_hit[333] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_02_MUX_SEL_OFFSET);
-    addr_hit[334] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_03_CFG_OFFSET);
-    addr_hit[335] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_03_MUX_SEL_OFFSET);
-    addr_hit[336] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_04_CFG_OFFSET);
-    addr_hit[337] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_04_MUX_SEL_OFFSET);
-    addr_hit[338] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_05_CFG_OFFSET);
-    addr_hit[339] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_05_MUX_SEL_OFFSET);
-=======
     addr_hit[312] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_00_CFG_OFFSET);
     addr_hit[313] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_00_MUX_SEL_OFFSET);
     addr_hit[314] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_CFG_OFFSET);
@@ -35471,504 +35018,6 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     addr_hit[333] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_04_MUX_SEL_OFFSET);
     addr_hit[334] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_05_CFG_OFFSET);
     addr_hit[335] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_05_MUX_SEL_OFFSET);
-<<<<<<< HEAD
-=======
-  logic [234:0] addr_hit;
-  always_comb begin
-    addr_hit = '0;
-    addr_hit[  0] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_INFO_OFFSET);
-    addr_hit[  1] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_00_CFG_OFFSET);
-    addr_hit[  2] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_00_MUX_SEL_OFFSET);
-    addr_hit[  3] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_01_CFG_OFFSET);
-    addr_hit[  4] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_01_MUX_SEL_OFFSET);
-    addr_hit[  5] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_02_CFG_OFFSET);
-    addr_hit[  6] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_02_MUX_SEL_OFFSET);
-    addr_hit[  7] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_03_CFG_OFFSET);
-    addr_hit[  8] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_03_MUX_SEL_OFFSET);
-    addr_hit[  9] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_04_CFG_OFFSET);
-    addr_hit[ 10] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_04_MUX_SEL_OFFSET);
-    addr_hit[ 11] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_05_CFG_OFFSET);
-    addr_hit[ 12] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_05_MUX_SEL_OFFSET);
-    addr_hit[ 13] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_06_CFG_OFFSET);
-    addr_hit[ 14] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_06_MUX_SEL_OFFSET);
-    addr_hit[ 15] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_07_CFG_OFFSET);
-    addr_hit[ 16] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_07_MUX_SEL_OFFSET);
-    addr_hit[ 17] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_08_CFG_OFFSET);
-    addr_hit[ 18] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_08_MUX_SEL_OFFSET);
-    addr_hit[ 19] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_09_CFG_OFFSET);
-    addr_hit[ 20] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_09_MUX_SEL_OFFSET);
-    addr_hit[ 21] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_10_CFG_OFFSET);
-    addr_hit[ 22] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_10_MUX_SEL_OFFSET);
-    addr_hit[ 23] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_11_CFG_OFFSET);
-    addr_hit[ 24] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_11_MUX_SEL_OFFSET);
-    addr_hit[ 25] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_12_CFG_OFFSET);
-    addr_hit[ 26] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_12_MUX_SEL_OFFSET);
-    addr_hit[ 27] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_13_CFG_OFFSET);
-    addr_hit[ 28] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_13_MUX_SEL_OFFSET);
-    addr_hit[ 29] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_OFFSET);
-    addr_hit[ 30] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_MUX_SEL_OFFSET);
-    addr_hit[ 31] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_OFFSET);
-    addr_hit[ 32] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_MUX_SEL_OFFSET);
-    addr_hit[ 33] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_OFFSET);
-    addr_hit[ 34] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_MUX_SEL_OFFSET);
-    addr_hit[ 35] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_OFFSET);
-    addr_hit[ 36] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_MUX_SEL_OFFSET);
-    addr_hit[ 37] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_OFFSET);
-    addr_hit[ 38] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_MUX_SEL_OFFSET);
-    addr_hit[ 39] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_OFFSET);
-    addr_hit[ 40] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_MUX_SEL_OFFSET);
-    addr_hit[ 41] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_OFFSET);
-    addr_hit[ 42] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_MUX_SEL_OFFSET);
-    addr_hit[ 43] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_OFFSET);
-    addr_hit[ 44] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_MUX_SEL_OFFSET);
-    addr_hit[ 45] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_OFFSET);
-    addr_hit[ 46] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_MUX_SEL_OFFSET);
-    addr_hit[ 47] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_OFFSET);
-    addr_hit[ 48] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_MUX_SEL_OFFSET);
-    addr_hit[ 49] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_OFFSET);
-    addr_hit[ 50] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_MUX_SEL_OFFSET);
-    addr_hit[ 51] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_OFFSET);
-    addr_hit[ 52] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_MUX_SEL_OFFSET);
-    addr_hit[ 53] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_26_CFG_OFFSET);
-    addr_hit[ 54] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_26_MUX_SEL_OFFSET);
-    addr_hit[ 55] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_27_CFG_OFFSET);
-    addr_hit[ 56] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_27_MUX_SEL_OFFSET);
-    addr_hit[ 57] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_28_CFG_OFFSET);
-    addr_hit[ 58] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_28_MUX_SEL_OFFSET);
-    addr_hit[ 59] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_29_CFG_OFFSET);
-    addr_hit[ 60] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_29_MUX_SEL_OFFSET);
-    addr_hit[ 61] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_30_CFG_OFFSET);
-    addr_hit[ 62] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_30_MUX_SEL_OFFSET);
-    addr_hit[ 63] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_31_CFG_OFFSET);
-    addr_hit[ 64] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_31_MUX_SEL_OFFSET);
-    addr_hit[ 65] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_32_CFG_OFFSET);
-    addr_hit[ 66] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_32_MUX_SEL_OFFSET);
-    addr_hit[ 67] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_33_CFG_OFFSET);
-    addr_hit[ 68] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_33_MUX_SEL_OFFSET);
-    addr_hit[ 69] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_34_CFG_OFFSET);
-    addr_hit[ 70] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_34_MUX_SEL_OFFSET);
-    addr_hit[ 71] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_35_CFG_OFFSET);
-    addr_hit[ 72] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_35_MUX_SEL_OFFSET);
-    addr_hit[ 73] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_36_CFG_OFFSET);
-    addr_hit[ 74] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_36_MUX_SEL_OFFSET);
-    addr_hit[ 75] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_37_CFG_OFFSET);
-    addr_hit[ 76] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_37_MUX_SEL_OFFSET);
-    addr_hit[ 77] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_38_CFG_OFFSET);
-    addr_hit[ 78] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_38_MUX_SEL_OFFSET);
-    addr_hit[ 79] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_39_CFG_OFFSET);
-    addr_hit[ 80] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_39_MUX_SEL_OFFSET);
-    addr_hit[ 81] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_40_CFG_OFFSET);
-    addr_hit[ 82] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_40_MUX_SEL_OFFSET);
-    addr_hit[ 83] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_41_CFG_OFFSET);
-    addr_hit[ 84] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_41_MUX_SEL_OFFSET);
-    addr_hit[ 85] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_42_CFG_OFFSET);
-    addr_hit[ 86] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_42_MUX_SEL_OFFSET);
-    addr_hit[ 87] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_43_CFG_OFFSET);
-    addr_hit[ 88] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_43_MUX_SEL_OFFSET);
-    addr_hit[ 89] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_44_CFG_OFFSET);
-    addr_hit[ 90] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_44_MUX_SEL_OFFSET);
-    addr_hit[ 91] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_45_CFG_OFFSET);
-    addr_hit[ 92] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_45_MUX_SEL_OFFSET);
-    addr_hit[ 93] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_46_CFG_OFFSET);
-    addr_hit[ 94] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_46_MUX_SEL_OFFSET);
-    addr_hit[ 95] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_47_CFG_OFFSET);
-    addr_hit[ 96] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_47_MUX_SEL_OFFSET);
-    addr_hit[ 97] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_48_CFG_OFFSET);
-    addr_hit[ 98] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_48_MUX_SEL_OFFSET);
-    addr_hit[ 99] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_49_CFG_OFFSET);
-    addr_hit[100] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_49_MUX_SEL_OFFSET);
-    addr_hit[101] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_50_CFG_OFFSET);
-    addr_hit[102] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_50_MUX_SEL_OFFSET);
-    addr_hit[103] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_51_CFG_OFFSET);
-    addr_hit[104] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_51_MUX_SEL_OFFSET);
-    addr_hit[105] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_52_CFG_OFFSET);
-    addr_hit[106] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_52_MUX_SEL_OFFSET);
-    addr_hit[107] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_53_CFG_OFFSET);
-    addr_hit[108] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_53_MUX_SEL_OFFSET);
-    addr_hit[109] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_54_CFG_OFFSET);
-    addr_hit[110] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_54_MUX_SEL_OFFSET);
-    addr_hit[111] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_55_CFG_OFFSET);
-    addr_hit[112] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_55_MUX_SEL_OFFSET);
-    addr_hit[113] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_56_CFG_OFFSET);
-    addr_hit[114] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_56_MUX_SEL_OFFSET);
-    addr_hit[115] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_57_CFG_OFFSET);
-    addr_hit[116] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_57_MUX_SEL_OFFSET);
-    addr_hit[117] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_00_CFG_OFFSET);
-    addr_hit[118] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_00_MUX_SEL_OFFSET);
-    addr_hit[119] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_01_CFG_OFFSET);
-    addr_hit[120] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_01_MUX_SEL_OFFSET);
-    addr_hit[121] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_02_CFG_OFFSET);
-    addr_hit[122] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_02_MUX_SEL_OFFSET);
-    addr_hit[123] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_03_CFG_OFFSET);
-    addr_hit[124] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_03_MUX_SEL_OFFSET);
-    addr_hit[125] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_00_CFG_OFFSET);
-    addr_hit[126] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_00_MUX_SEL_OFFSET);
-    addr_hit[127] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_01_CFG_OFFSET);
-    addr_hit[128] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_01_MUX_SEL_OFFSET);
-    addr_hit[129] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_02_CFG_OFFSET);
-    addr_hit[130] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_02_MUX_SEL_OFFSET);
-    addr_hit[131] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_03_CFG_OFFSET);
-    addr_hit[132] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_03_MUX_SEL_OFFSET);
-    addr_hit[133] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_04_CFG_OFFSET);
-    addr_hit[134] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_04_MUX_SEL_OFFSET);
-    addr_hit[135] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_05_CFG_OFFSET);
-    addr_hit[136] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_05_MUX_SEL_OFFSET);
-    addr_hit[137] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_06_CFG_OFFSET);
-    addr_hit[138] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_06_MUX_SEL_OFFSET);
-    addr_hit[139] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_07_CFG_OFFSET);
-    addr_hit[140] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_07_MUX_SEL_OFFSET);
-    addr_hit[141] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_08_CFG_OFFSET);
-    addr_hit[142] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_08_MUX_SEL_OFFSET);
-    addr_hit[143] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_09_CFG_OFFSET);
-    addr_hit[144] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_09_MUX_SEL_OFFSET);
-    addr_hit[145] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_10_CFG_OFFSET);
-    addr_hit[146] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_10_MUX_SEL_OFFSET);
-    addr_hit[147] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_00_CFG_OFFSET);
-    addr_hit[148] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_00_MUX_SEL_OFFSET);
-    addr_hit[149] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_01_CFG_OFFSET);
-    addr_hit[150] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_01_MUX_SEL_OFFSET);
-    addr_hit[151] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_02_CFG_OFFSET);
-    addr_hit[152] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_02_MUX_SEL_OFFSET);
-    addr_hit[153] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_03_CFG_OFFSET);
-    addr_hit[154] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_03_MUX_SEL_OFFSET);
-    addr_hit[155] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_04_CFG_OFFSET);
-    addr_hit[156] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_04_MUX_SEL_OFFSET);
-    addr_hit[157] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_05_CFG_OFFSET);
-    addr_hit[158] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_05_MUX_SEL_OFFSET);
-    addr_hit[159] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_06_CFG_OFFSET);
-    addr_hit[160] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_06_MUX_SEL_OFFSET);
-    addr_hit[161] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_07_CFG_OFFSET);
-    addr_hit[162] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_07_MUX_SEL_OFFSET);
-    addr_hit[163] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_08_CFG_OFFSET);
-    addr_hit[164] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_08_MUX_SEL_OFFSET);
-    addr_hit[165] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_09_CFG_OFFSET);
-    addr_hit[166] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_09_MUX_SEL_OFFSET);
-    addr_hit[167] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_10_CFG_OFFSET);
-    addr_hit[168] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_10_MUX_SEL_OFFSET);
-    addr_hit[169] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_11_CFG_OFFSET);
-    addr_hit[170] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_11_MUX_SEL_OFFSET);
-    addr_hit[171] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_12_CFG_OFFSET);
-    addr_hit[172] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_12_MUX_SEL_OFFSET);
-    addr_hit[173] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_00_CFG_OFFSET);
-    addr_hit[174] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_00_MUX_SEL_OFFSET);
-    addr_hit[175] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_01_CFG_OFFSET);
-    addr_hit[176] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_01_MUX_SEL_OFFSET);
-    addr_hit[177] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_02_CFG_OFFSET);
-    addr_hit[178] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_02_MUX_SEL_OFFSET);
-    addr_hit[179] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_03_CFG_OFFSET);
-    addr_hit[180] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_03_MUX_SEL_OFFSET);
-    addr_hit[181] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_04_CFG_OFFSET);
-    addr_hit[182] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_04_MUX_SEL_OFFSET);
-    addr_hit[183] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_05_CFG_OFFSET);
-    addr_hit[184] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_05_MUX_SEL_OFFSET);
-    addr_hit[185] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_06_CFG_OFFSET);
-    addr_hit[186] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_06_MUX_SEL_OFFSET);
-    addr_hit[187] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_07_CFG_OFFSET);
-    addr_hit[188] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_07_MUX_SEL_OFFSET);
-    addr_hit[189] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_08_CFG_OFFSET);
-    addr_hit[190] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_08_MUX_SEL_OFFSET);
-    addr_hit[191] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_09_CFG_OFFSET);
-    addr_hit[192] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_09_MUX_SEL_OFFSET);
-    addr_hit[193] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_10_CFG_OFFSET);
-    addr_hit[194] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_10_MUX_SEL_OFFSET);
-    addr_hit[195] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_11_CFG_OFFSET);
-    addr_hit[196] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_11_MUX_SEL_OFFSET);
-    addr_hit[197] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_12_CFG_OFFSET);
-    addr_hit[198] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_12_MUX_SEL_OFFSET);
-    addr_hit[199] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_13_CFG_OFFSET);
-    addr_hit[200] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_13_MUX_SEL_OFFSET);
-    addr_hit[201] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_14_CFG_OFFSET);
-    addr_hit[202] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_14_MUX_SEL_OFFSET);
-    addr_hit[203] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_15_CFG_OFFSET);
-    addr_hit[204] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_15_MUX_SEL_OFFSET);
-    addr_hit[205] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_16_CFG_OFFSET);
-    addr_hit[206] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_16_MUX_SEL_OFFSET);
-    addr_hit[207] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_17_CFG_OFFSET);
-    addr_hit[208] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_17_MUX_SEL_OFFSET);
-    addr_hit[209] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_18_CFG_OFFSET);
-    addr_hit[210] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_18_MUX_SEL_OFFSET);
-    addr_hit[211] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_19_CFG_OFFSET);
-    addr_hit[212] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_19_MUX_SEL_OFFSET);
-    addr_hit[213] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_20_CFG_OFFSET);
-    addr_hit[214] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_20_MUX_SEL_OFFSET);
-    addr_hit[215] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_21_CFG_OFFSET);
-    addr_hit[216] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_21_MUX_SEL_OFFSET);
-    addr_hit[217] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_22_CFG_OFFSET);
-    addr_hit[218] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_22_MUX_SEL_OFFSET);
-    addr_hit[219] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM0_CFG_OFFSET);
-    addr_hit[220] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM0_MUX_SEL_OFFSET);
-    addr_hit[221] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM1_CFG_OFFSET);
-    addr_hit[222] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM1_MUX_SEL_OFFSET);
-    addr_hit[223] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM2_CFG_OFFSET);
-    addr_hit[224] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM2_MUX_SEL_OFFSET);
-    addr_hit[225] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM3_CFG_OFFSET);
-    addr_hit[226] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM3_MUX_SEL_OFFSET);
-    addr_hit[227] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM4_CFG_OFFSET);
-    addr_hit[228] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM4_MUX_SEL_OFFSET);
-    addr_hit[229] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM5_CFG_OFFSET);
-    addr_hit[230] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM5_MUX_SEL_OFFSET);
-    addr_hit[231] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM6_CFG_OFFSET);
-    addr_hit[232] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM6_MUX_SEL_OFFSET);
-    addr_hit[233] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM7_CFG_OFFSET);
-    addr_hit[234] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM7_MUX_SEL_OFFSET);
->>>>>>> d61477d7 (Updated padframe with QSPI OT signals and bootselet signals)
-<<<<<<< HEAD
->>>>>>> ebe8100e (Updated padframe with QSPI OT signals and bootselet signals)
-=======
-=======
-  logic [245:0] addr_hit;
-  always_comb begin
-    addr_hit = '0;
-    addr_hit[  0] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_00_CFG_OFFSET);
-    addr_hit[  1] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_00_MUX_SEL_OFFSET);
-    addr_hit[  2] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_01_CFG_OFFSET);
-    addr_hit[  3] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_01_MUX_SEL_OFFSET);
-    addr_hit[  4] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_02_CFG_OFFSET);
-    addr_hit[  5] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_02_MUX_SEL_OFFSET);
-    addr_hit[  6] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_03_CFG_OFFSET);
-    addr_hit[  7] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_03_MUX_SEL_OFFSET);
-    addr_hit[  8] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_04_CFG_OFFSET);
-    addr_hit[  9] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_04_MUX_SEL_OFFSET);
-    addr_hit[ 10] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_05_CFG_OFFSET);
-    addr_hit[ 11] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_05_MUX_SEL_OFFSET);
-    addr_hit[ 12] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_06_CFG_OFFSET);
-    addr_hit[ 13] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_06_MUX_SEL_OFFSET);
-    addr_hit[ 14] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_07_CFG_OFFSET);
-    addr_hit[ 15] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_07_MUX_SEL_OFFSET);
-    addr_hit[ 16] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_08_CFG_OFFSET);
-    addr_hit[ 17] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_08_MUX_SEL_OFFSET);
-    addr_hit[ 18] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_09_CFG_OFFSET);
-    addr_hit[ 19] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_09_MUX_SEL_OFFSET);
-    addr_hit[ 20] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_10_CFG_OFFSET);
-    addr_hit[ 21] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_10_MUX_SEL_OFFSET);
-    addr_hit[ 22] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_11_CFG_OFFSET);
-    addr_hit[ 23] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_11_MUX_SEL_OFFSET);
-    addr_hit[ 24] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_12_CFG_OFFSET);
-    addr_hit[ 25] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_12_MUX_SEL_OFFSET);
-    addr_hit[ 26] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_13_CFG_OFFSET);
-    addr_hit[ 27] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_13_MUX_SEL_OFFSET);
-    addr_hit[ 28] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_CFG_OFFSET);
-    addr_hit[ 29] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_14_MUX_SEL_OFFSET);
-    addr_hit[ 30] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_CFG_OFFSET);
-    addr_hit[ 31] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_15_MUX_SEL_OFFSET);
-    addr_hit[ 32] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_CFG_OFFSET);
-    addr_hit[ 33] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_16_MUX_SEL_OFFSET);
-    addr_hit[ 34] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_CFG_OFFSET);
-    addr_hit[ 35] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_17_MUX_SEL_OFFSET);
-    addr_hit[ 36] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_CFG_OFFSET);
-    addr_hit[ 37] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_18_MUX_SEL_OFFSET);
-    addr_hit[ 38] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_CFG_OFFSET);
-    addr_hit[ 39] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_19_MUX_SEL_OFFSET);
-    addr_hit[ 40] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_CFG_OFFSET);
-    addr_hit[ 41] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_20_MUX_SEL_OFFSET);
-    addr_hit[ 42] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_CFG_OFFSET);
-    addr_hit[ 43] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_21_MUX_SEL_OFFSET);
-    addr_hit[ 44] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_CFG_OFFSET);
-    addr_hit[ 45] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_22_MUX_SEL_OFFSET);
-    addr_hit[ 46] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_CFG_OFFSET);
-    addr_hit[ 47] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_23_MUX_SEL_OFFSET);
-    addr_hit[ 48] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_CFG_OFFSET);
-    addr_hit[ 49] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_24_MUX_SEL_OFFSET);
-    addr_hit[ 50] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_CFG_OFFSET);
-    addr_hit[ 51] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_25_MUX_SEL_OFFSET);
-    addr_hit[ 52] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_26_CFG_OFFSET);
-    addr_hit[ 53] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_26_MUX_SEL_OFFSET);
-    addr_hit[ 54] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_27_CFG_OFFSET);
-    addr_hit[ 55] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_27_MUX_SEL_OFFSET);
-    addr_hit[ 56] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_28_CFG_OFFSET);
-    addr_hit[ 57] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_28_MUX_SEL_OFFSET);
-    addr_hit[ 58] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_29_CFG_OFFSET);
-    addr_hit[ 59] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_29_MUX_SEL_OFFSET);
-    addr_hit[ 60] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_30_CFG_OFFSET);
-    addr_hit[ 61] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_30_MUX_SEL_OFFSET);
-    addr_hit[ 62] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_31_CFG_OFFSET);
-    addr_hit[ 63] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_31_MUX_SEL_OFFSET);
-    addr_hit[ 64] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_32_CFG_OFFSET);
-    addr_hit[ 65] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_32_MUX_SEL_OFFSET);
-    addr_hit[ 66] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_33_CFG_OFFSET);
-    addr_hit[ 67] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_33_MUX_SEL_OFFSET);
-    addr_hit[ 68] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_34_CFG_OFFSET);
-    addr_hit[ 69] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_34_MUX_SEL_OFFSET);
-    addr_hit[ 70] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_35_CFG_OFFSET);
-    addr_hit[ 71] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_35_MUX_SEL_OFFSET);
-    addr_hit[ 72] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_36_CFG_OFFSET);
-    addr_hit[ 73] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_36_MUX_SEL_OFFSET);
-    addr_hit[ 74] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_37_CFG_OFFSET);
-    addr_hit[ 75] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_37_MUX_SEL_OFFSET);
-    addr_hit[ 76] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_38_CFG_OFFSET);
-    addr_hit[ 77] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_38_MUX_SEL_OFFSET);
-    addr_hit[ 78] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_39_CFG_OFFSET);
-    addr_hit[ 79] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_39_MUX_SEL_OFFSET);
-    addr_hit[ 80] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_40_CFG_OFFSET);
-    addr_hit[ 81] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_40_MUX_SEL_OFFSET);
-    addr_hit[ 82] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_41_CFG_OFFSET);
-    addr_hit[ 83] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_41_MUX_SEL_OFFSET);
-    addr_hit[ 84] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_42_CFG_OFFSET);
-    addr_hit[ 85] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_42_MUX_SEL_OFFSET);
-    addr_hit[ 86] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_43_CFG_OFFSET);
-    addr_hit[ 87] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_43_MUX_SEL_OFFSET);
-    addr_hit[ 88] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_44_CFG_OFFSET);
-    addr_hit[ 89] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_44_MUX_SEL_OFFSET);
-    addr_hit[ 90] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_45_CFG_OFFSET);
-    addr_hit[ 91] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_45_MUX_SEL_OFFSET);
-    addr_hit[ 92] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_46_CFG_OFFSET);
-    addr_hit[ 93] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_46_MUX_SEL_OFFSET);
-    addr_hit[ 94] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_47_CFG_OFFSET);
-    addr_hit[ 95] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_47_MUX_SEL_OFFSET);
-    addr_hit[ 96] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_48_CFG_OFFSET);
-    addr_hit[ 97] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_48_MUX_SEL_OFFSET);
-    addr_hit[ 98] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_49_CFG_OFFSET);
-    addr_hit[ 99] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_49_MUX_SEL_OFFSET);
-    addr_hit[100] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_50_CFG_OFFSET);
-    addr_hit[101] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_50_MUX_SEL_OFFSET);
-    addr_hit[102] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_51_CFG_OFFSET);
-    addr_hit[103] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_51_MUX_SEL_OFFSET);
-    addr_hit[104] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_52_CFG_OFFSET);
-    addr_hit[105] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_52_MUX_SEL_OFFSET);
-    addr_hit[106] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_53_CFG_OFFSET);
-    addr_hit[107] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_53_MUX_SEL_OFFSET);
-    addr_hit[108] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_54_CFG_OFFSET);
-    addr_hit[109] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_54_MUX_SEL_OFFSET);
-    addr_hit[110] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_55_CFG_OFFSET);
-    addr_hit[111] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_55_MUX_SEL_OFFSET);
-    addr_hit[112] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_56_CFG_OFFSET);
-    addr_hit[113] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_56_MUX_SEL_OFFSET);
-    addr_hit[114] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_57_CFG_OFFSET);
-    addr_hit[115] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_B_57_MUX_SEL_OFFSET);
-    addr_hit[116] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_00_CFG_OFFSET);
-    addr_hit[117] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_00_MUX_SEL_OFFSET);
-    addr_hit[118] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_01_CFG_OFFSET);
-    addr_hit[119] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_01_MUX_SEL_OFFSET);
-    addr_hit[120] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_02_CFG_OFFSET);
-    addr_hit[121] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_02_MUX_SEL_OFFSET);
-    addr_hit[122] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_03_CFG_OFFSET);
-    addr_hit[123] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_C_03_MUX_SEL_OFFSET);
-    addr_hit[124] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_00_CFG_OFFSET);
-    addr_hit[125] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_00_MUX_SEL_OFFSET);
-    addr_hit[126] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_01_CFG_OFFSET);
-    addr_hit[127] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_01_MUX_SEL_OFFSET);
-    addr_hit[128] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_02_CFG_OFFSET);
-    addr_hit[129] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_02_MUX_SEL_OFFSET);
-    addr_hit[130] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_03_CFG_OFFSET);
-    addr_hit[131] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_03_MUX_SEL_OFFSET);
-    addr_hit[132] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_04_CFG_OFFSET);
-    addr_hit[133] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_04_MUX_SEL_OFFSET);
-    addr_hit[134] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_05_CFG_OFFSET);
-    addr_hit[135] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_05_MUX_SEL_OFFSET);
-    addr_hit[136] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_06_CFG_OFFSET);
-    addr_hit[137] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_06_MUX_SEL_OFFSET);
-    addr_hit[138] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_07_CFG_OFFSET);
-    addr_hit[139] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_07_MUX_SEL_OFFSET);
-    addr_hit[140] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_08_CFG_OFFSET);
-    addr_hit[141] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_08_MUX_SEL_OFFSET);
-    addr_hit[142] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_09_CFG_OFFSET);
-    addr_hit[143] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_09_MUX_SEL_OFFSET);
-    addr_hit[144] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_10_CFG_OFFSET);
-    addr_hit[145] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_D_10_MUX_SEL_OFFSET);
-    addr_hit[146] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_00_CFG_OFFSET);
-    addr_hit[147] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_00_MUX_SEL_OFFSET);
-    addr_hit[148] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_01_CFG_OFFSET);
-    addr_hit[149] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_01_MUX_SEL_OFFSET);
-    addr_hit[150] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_02_CFG_OFFSET);
-    addr_hit[151] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_02_MUX_SEL_OFFSET);
-    addr_hit[152] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_03_CFG_OFFSET);
-    addr_hit[153] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_03_MUX_SEL_OFFSET);
-    addr_hit[154] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_04_CFG_OFFSET);
-    addr_hit[155] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_04_MUX_SEL_OFFSET);
-    addr_hit[156] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_05_CFG_OFFSET);
-    addr_hit[157] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_05_MUX_SEL_OFFSET);
-    addr_hit[158] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_06_CFG_OFFSET);
-    addr_hit[159] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_06_MUX_SEL_OFFSET);
-    addr_hit[160] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_07_CFG_OFFSET);
-    addr_hit[161] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_07_MUX_SEL_OFFSET);
-    addr_hit[162] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_08_CFG_OFFSET);
-    addr_hit[163] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_08_MUX_SEL_OFFSET);
-    addr_hit[164] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_09_CFG_OFFSET);
-    addr_hit[165] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_09_MUX_SEL_OFFSET);
-    addr_hit[166] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_10_CFG_OFFSET);
-    addr_hit[167] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_10_MUX_SEL_OFFSET);
-    addr_hit[168] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_11_CFG_OFFSET);
-    addr_hit[169] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_11_MUX_SEL_OFFSET);
-    addr_hit[170] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_12_CFG_OFFSET);
-    addr_hit[171] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_E_12_MUX_SEL_OFFSET);
-    addr_hit[172] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_00_CFG_OFFSET);
-    addr_hit[173] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_00_MUX_SEL_OFFSET);
-    addr_hit[174] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_01_CFG_OFFSET);
-    addr_hit[175] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_01_MUX_SEL_OFFSET);
-    addr_hit[176] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_02_CFG_OFFSET);
-    addr_hit[177] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_02_MUX_SEL_OFFSET);
-    addr_hit[178] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_03_CFG_OFFSET);
-    addr_hit[179] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_03_MUX_SEL_OFFSET);
-    addr_hit[180] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_04_CFG_OFFSET);
-    addr_hit[181] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_04_MUX_SEL_OFFSET);
-    addr_hit[182] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_05_CFG_OFFSET);
-    addr_hit[183] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_05_MUX_SEL_OFFSET);
-    addr_hit[184] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_06_CFG_OFFSET);
-    addr_hit[185] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_06_MUX_SEL_OFFSET);
-    addr_hit[186] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_07_CFG_OFFSET);
-    addr_hit[187] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_07_MUX_SEL_OFFSET);
-    addr_hit[188] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_08_CFG_OFFSET);
-    addr_hit[189] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_08_MUX_SEL_OFFSET);
-    addr_hit[190] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_09_CFG_OFFSET);
-    addr_hit[191] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_09_MUX_SEL_OFFSET);
-    addr_hit[192] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_10_CFG_OFFSET);
-    addr_hit[193] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_10_MUX_SEL_OFFSET);
-    addr_hit[194] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_11_CFG_OFFSET);
-    addr_hit[195] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_11_MUX_SEL_OFFSET);
-    addr_hit[196] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_12_CFG_OFFSET);
-    addr_hit[197] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_12_MUX_SEL_OFFSET);
-    addr_hit[198] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_13_CFG_OFFSET);
-    addr_hit[199] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_13_MUX_SEL_OFFSET);
-    addr_hit[200] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_14_CFG_OFFSET);
-    addr_hit[201] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_14_MUX_SEL_OFFSET);
-    addr_hit[202] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_15_CFG_OFFSET);
-    addr_hit[203] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_15_MUX_SEL_OFFSET);
-    addr_hit[204] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_16_CFG_OFFSET);
-    addr_hit[205] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_16_MUX_SEL_OFFSET);
-    addr_hit[206] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_17_CFG_OFFSET);
-    addr_hit[207] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_17_MUX_SEL_OFFSET);
-    addr_hit[208] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_18_CFG_OFFSET);
-    addr_hit[209] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_18_MUX_SEL_OFFSET);
-    addr_hit[210] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_19_CFG_OFFSET);
-    addr_hit[211] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_19_MUX_SEL_OFFSET);
-    addr_hit[212] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_20_CFG_OFFSET);
-    addr_hit[213] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_20_MUX_SEL_OFFSET);
-    addr_hit[214] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_21_CFG_OFFSET);
-    addr_hit[215] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_21_MUX_SEL_OFFSET);
-    addr_hit[216] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_22_CFG_OFFSET);
-    addr_hit[217] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_22_MUX_SEL_OFFSET);
-    addr_hit[218] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_23_CFG_OFFSET);
-    addr_hit[219] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_23_MUX_SEL_OFFSET);
-    addr_hit[220] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_24_CFG_OFFSET);
-    addr_hit[221] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_24_MUX_SEL_OFFSET);
-    addr_hit[222] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_25_CFG_OFFSET);
-    addr_hit[223] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_25_MUX_SEL_OFFSET);
-    addr_hit[224] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_26_CFG_OFFSET);
-    addr_hit[225] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_26_MUX_SEL_OFFSET);
-    addr_hit[226] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_27_CFG_OFFSET);
-    addr_hit[227] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_27_MUX_SEL_OFFSET);
-    addr_hit[228] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_28_CFG_OFFSET);
-    addr_hit[229] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_F_28_MUX_SEL_OFFSET);
-    addr_hit[230] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM0_CFG_OFFSET);
-    addr_hit[231] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM0_MUX_SEL_OFFSET);
-    addr_hit[232] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM1_CFG_OFFSET);
-    addr_hit[233] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM1_MUX_SEL_OFFSET);
-    addr_hit[234] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM2_CFG_OFFSET);
-    addr_hit[235] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM2_MUX_SEL_OFFSET);
-    addr_hit[236] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM3_CFG_OFFSET);
-    addr_hit[237] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM3_MUX_SEL_OFFSET);
-    addr_hit[238] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM4_CFG_OFFSET);
-    addr_hit[239] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM4_MUX_SEL_OFFSET);
-    addr_hit[240] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM5_CFG_OFFSET);
-    addr_hit[241] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM5_MUX_SEL_OFFSET);
-    addr_hit[242] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM6_CFG_OFFSET);
-    addr_hit[243] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM6_MUX_SEL_OFFSET);
-    addr_hit[244] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM7_CFG_OFFSET);
-    addr_hit[245] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PAD_GPIO_PWM7_MUX_SEL_OFFSET);
->>>>>>> 2f33e148 (Updated padframe with qspi linux, now compliant with specs)
->>>>>>> 7ab4797b (Updated padframe with qspi linux, now compliant with specs)
-=======
->>>>>>> 1478496d (Updated padframe.)
   end
 
   assign addrmiss = (reg_re || reg_we) ? ~|addr_hit : 1'b0 ;
@@ -36311,11 +35360,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
                (addr_hit[332] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[332] & ~reg_be))) |
                (addr_hit[333] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[333] & ~reg_be))) |
                (addr_hit[334] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[334] & ~reg_be))) |
-               (addr_hit[335] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[335] & ~reg_be))) |
-               (addr_hit[336] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[336] & ~reg_be))) |
-               (addr_hit[337] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[337] & ~reg_be))) |
-               (addr_hit[338] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[338] & ~reg_be))) |
-               (addr_hit[339] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[339] & ~reg_be)))));
+               (addr_hit[335] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[335] & ~reg_be)))));
   end
 
   assign a_00_cfg_chip2pad_we = addr_hit[0] & reg_we & !reg_error;
@@ -39594,298 +38639,256 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_62_mux_sel_we = addr_hit[311] & reg_we & !reg_error;
   assign b_62_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_63_cfg_chip2pad_we = addr_hit[312] & reg_we & !reg_error;
-  assign b_63_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign b_63_cfg_drv_we = addr_hit[312] & reg_we & !reg_error;
-  assign b_63_cfg_drv_wd = reg_wdata[2:1];
-
-  assign b_63_cfg_oen_we = addr_hit[312] & reg_we & !reg_error;
-  assign b_63_cfg_oen_wd = reg_wdata[3];
-
-  assign b_63_cfg_puen_we = addr_hit[312] & reg_we & !reg_error;
-  assign b_63_cfg_puen_wd = reg_wdata[4];
-
-  assign b_63_cfg_slw_we = addr_hit[312] & reg_we & !reg_error;
-  assign b_63_cfg_slw_wd = reg_wdata[5];
-
-  assign b_63_cfg_smt_we = addr_hit[312] & reg_we & !reg_error;
-  assign b_63_cfg_smt_wd = reg_wdata[6];
-
-  assign b_63_mux_sel_we = addr_hit[313] & reg_we & !reg_error;
-  assign b_63_mux_sel_wd = reg_wdata[0];
-
-  assign b_64_cfg_chip2pad_we = addr_hit[314] & reg_we & !reg_error;
-  assign b_64_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign b_64_cfg_drv_we = addr_hit[314] & reg_we & !reg_error;
-  assign b_64_cfg_drv_wd = reg_wdata[2:1];
-
-  assign b_64_cfg_oen_we = addr_hit[314] & reg_we & !reg_error;
-  assign b_64_cfg_oen_wd = reg_wdata[3];
-
-  assign b_64_cfg_puen_we = addr_hit[314] & reg_we & !reg_error;
-  assign b_64_cfg_puen_wd = reg_wdata[4];
-
-  assign b_64_cfg_slw_we = addr_hit[314] & reg_we & !reg_error;
-  assign b_64_cfg_slw_wd = reg_wdata[5];
-
-  assign b_64_cfg_smt_we = addr_hit[314] & reg_we & !reg_error;
-  assign b_64_cfg_smt_wd = reg_wdata[6];
-
-  assign b_64_mux_sel_we = addr_hit[315] & reg_we & !reg_error;
-  assign b_64_mux_sel_wd = reg_wdata[0];
-
-  assign ot_qspi_00_cfg_chip2pad_we = addr_hit[316] & reg_we & !reg_error;
+  assign ot_qspi_00_cfg_chip2pad_we = addr_hit[312] & reg_we & !reg_error;
   assign ot_qspi_00_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign ot_qspi_00_cfg_drv_we = addr_hit[316] & reg_we & !reg_error;
+  assign ot_qspi_00_cfg_drv_we = addr_hit[312] & reg_we & !reg_error;
   assign ot_qspi_00_cfg_drv_wd = reg_wdata[2:1];
 
-  assign ot_qspi_00_cfg_oen_we = addr_hit[316] & reg_we & !reg_error;
+  assign ot_qspi_00_cfg_oen_we = addr_hit[312] & reg_we & !reg_error;
   assign ot_qspi_00_cfg_oen_wd = reg_wdata[3];
 
-  assign ot_qspi_00_cfg_puen_we = addr_hit[316] & reg_we & !reg_error;
+  assign ot_qspi_00_cfg_puen_we = addr_hit[312] & reg_we & !reg_error;
   assign ot_qspi_00_cfg_puen_wd = reg_wdata[4];
 
-  assign ot_qspi_00_cfg_slw_we = addr_hit[316] & reg_we & !reg_error;
+  assign ot_qspi_00_cfg_slw_we = addr_hit[312] & reg_we & !reg_error;
   assign ot_qspi_00_cfg_slw_wd = reg_wdata[5];
 
-  assign ot_qspi_00_cfg_smt_we = addr_hit[316] & reg_we & !reg_error;
+  assign ot_qspi_00_cfg_smt_we = addr_hit[312] & reg_we & !reg_error;
   assign ot_qspi_00_cfg_smt_wd = reg_wdata[6];
 
-  assign ot_qspi_00_mux_sel_we = addr_hit[317] & reg_we & !reg_error;
+  assign ot_qspi_00_mux_sel_we = addr_hit[313] & reg_we & !reg_error;
   assign ot_qspi_00_mux_sel_wd = reg_wdata[0];
 
-  assign ot_qspi_01_cfg_chip2pad_we = addr_hit[318] & reg_we & !reg_error;
+  assign ot_qspi_01_cfg_chip2pad_we = addr_hit[314] & reg_we & !reg_error;
   assign ot_qspi_01_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign ot_qspi_01_cfg_drv_we = addr_hit[318] & reg_we & !reg_error;
+  assign ot_qspi_01_cfg_drv_we = addr_hit[314] & reg_we & !reg_error;
   assign ot_qspi_01_cfg_drv_wd = reg_wdata[2:1];
 
-  assign ot_qspi_01_cfg_oen_we = addr_hit[318] & reg_we & !reg_error;
+  assign ot_qspi_01_cfg_oen_we = addr_hit[314] & reg_we & !reg_error;
   assign ot_qspi_01_cfg_oen_wd = reg_wdata[3];
 
-  assign ot_qspi_01_cfg_puen_we = addr_hit[318] & reg_we & !reg_error;
+  assign ot_qspi_01_cfg_puen_we = addr_hit[314] & reg_we & !reg_error;
   assign ot_qspi_01_cfg_puen_wd = reg_wdata[4];
 
-  assign ot_qspi_01_cfg_slw_we = addr_hit[318] & reg_we & !reg_error;
+  assign ot_qspi_01_cfg_slw_we = addr_hit[314] & reg_we & !reg_error;
   assign ot_qspi_01_cfg_slw_wd = reg_wdata[5];
 
-  assign ot_qspi_01_cfg_smt_we = addr_hit[318] & reg_we & !reg_error;
+  assign ot_qspi_01_cfg_smt_we = addr_hit[314] & reg_we & !reg_error;
   assign ot_qspi_01_cfg_smt_wd = reg_wdata[6];
 
-  assign ot_qspi_01_mux_sel_we = addr_hit[319] & reg_we & !reg_error;
+  assign ot_qspi_01_mux_sel_we = addr_hit[315] & reg_we & !reg_error;
   assign ot_qspi_01_mux_sel_wd = reg_wdata[0];
 
-  assign ot_qspi_02_cfg_chip2pad_we = addr_hit[320] & reg_we & !reg_error;
+  assign ot_qspi_02_cfg_chip2pad_we = addr_hit[316] & reg_we & !reg_error;
   assign ot_qspi_02_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign ot_qspi_02_cfg_drv_we = addr_hit[320] & reg_we & !reg_error;
+  assign ot_qspi_02_cfg_drv_we = addr_hit[316] & reg_we & !reg_error;
   assign ot_qspi_02_cfg_drv_wd = reg_wdata[2:1];
 
-  assign ot_qspi_02_cfg_oen_we = addr_hit[320] & reg_we & !reg_error;
+  assign ot_qspi_02_cfg_oen_we = addr_hit[316] & reg_we & !reg_error;
   assign ot_qspi_02_cfg_oen_wd = reg_wdata[3];
 
-  assign ot_qspi_02_cfg_puen_we = addr_hit[320] & reg_we & !reg_error;
+  assign ot_qspi_02_cfg_puen_we = addr_hit[316] & reg_we & !reg_error;
   assign ot_qspi_02_cfg_puen_wd = reg_wdata[4];
 
-  assign ot_qspi_02_cfg_slw_we = addr_hit[320] & reg_we & !reg_error;
+  assign ot_qspi_02_cfg_slw_we = addr_hit[316] & reg_we & !reg_error;
   assign ot_qspi_02_cfg_slw_wd = reg_wdata[5];
 
-  assign ot_qspi_02_cfg_smt_we = addr_hit[320] & reg_we & !reg_error;
+  assign ot_qspi_02_cfg_smt_we = addr_hit[316] & reg_we & !reg_error;
   assign ot_qspi_02_cfg_smt_wd = reg_wdata[6];
 
-  assign ot_qspi_02_mux_sel_we = addr_hit[321] & reg_we & !reg_error;
+  assign ot_qspi_02_mux_sel_we = addr_hit[317] & reg_we & !reg_error;
   assign ot_qspi_02_mux_sel_wd = reg_wdata[0];
 
-  assign ot_qspi_03_cfg_chip2pad_we = addr_hit[322] & reg_we & !reg_error;
+  assign ot_qspi_03_cfg_chip2pad_we = addr_hit[318] & reg_we & !reg_error;
   assign ot_qspi_03_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign ot_qspi_03_cfg_drv_we = addr_hit[322] & reg_we & !reg_error;
+  assign ot_qspi_03_cfg_drv_we = addr_hit[318] & reg_we & !reg_error;
   assign ot_qspi_03_cfg_drv_wd = reg_wdata[2:1];
 
-  assign ot_qspi_03_cfg_oen_we = addr_hit[322] & reg_we & !reg_error;
+  assign ot_qspi_03_cfg_oen_we = addr_hit[318] & reg_we & !reg_error;
   assign ot_qspi_03_cfg_oen_wd = reg_wdata[3];
 
-  assign ot_qspi_03_cfg_puen_we = addr_hit[322] & reg_we & !reg_error;
+  assign ot_qspi_03_cfg_puen_we = addr_hit[318] & reg_we & !reg_error;
   assign ot_qspi_03_cfg_puen_wd = reg_wdata[4];
 
-  assign ot_qspi_03_cfg_slw_we = addr_hit[322] & reg_we & !reg_error;
+  assign ot_qspi_03_cfg_slw_we = addr_hit[318] & reg_we & !reg_error;
   assign ot_qspi_03_cfg_slw_wd = reg_wdata[5];
 
-  assign ot_qspi_03_cfg_smt_we = addr_hit[322] & reg_we & !reg_error;
+  assign ot_qspi_03_cfg_smt_we = addr_hit[318] & reg_we & !reg_error;
   assign ot_qspi_03_cfg_smt_wd = reg_wdata[6];
 
-  assign ot_qspi_03_mux_sel_we = addr_hit[323] & reg_we & !reg_error;
+  assign ot_qspi_03_mux_sel_we = addr_hit[319] & reg_we & !reg_error;
   assign ot_qspi_03_mux_sel_wd = reg_wdata[0];
 
-  assign ot_qspi_04_cfg_chip2pad_we = addr_hit[324] & reg_we & !reg_error;
+  assign ot_qspi_04_cfg_chip2pad_we = addr_hit[320] & reg_we & !reg_error;
   assign ot_qspi_04_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign ot_qspi_04_cfg_drv_we = addr_hit[324] & reg_we & !reg_error;
+  assign ot_qspi_04_cfg_drv_we = addr_hit[320] & reg_we & !reg_error;
   assign ot_qspi_04_cfg_drv_wd = reg_wdata[2:1];
 
-  assign ot_qspi_04_cfg_oen_we = addr_hit[324] & reg_we & !reg_error;
+  assign ot_qspi_04_cfg_oen_we = addr_hit[320] & reg_we & !reg_error;
   assign ot_qspi_04_cfg_oen_wd = reg_wdata[3];
 
-  assign ot_qspi_04_cfg_puen_we = addr_hit[324] & reg_we & !reg_error;
+  assign ot_qspi_04_cfg_puen_we = addr_hit[320] & reg_we & !reg_error;
   assign ot_qspi_04_cfg_puen_wd = reg_wdata[4];
 
-  assign ot_qspi_04_cfg_slw_we = addr_hit[324] & reg_we & !reg_error;
+  assign ot_qspi_04_cfg_slw_we = addr_hit[320] & reg_we & !reg_error;
   assign ot_qspi_04_cfg_slw_wd = reg_wdata[5];
 
-  assign ot_qspi_04_cfg_smt_we = addr_hit[324] & reg_we & !reg_error;
+  assign ot_qspi_04_cfg_smt_we = addr_hit[320] & reg_we & !reg_error;
   assign ot_qspi_04_cfg_smt_wd = reg_wdata[6];
 
-  assign ot_qspi_04_mux_sel_we = addr_hit[325] & reg_we & !reg_error;
+  assign ot_qspi_04_mux_sel_we = addr_hit[321] & reg_we & !reg_error;
   assign ot_qspi_04_mux_sel_wd = reg_wdata[0];
 
-  assign ot_qspi_05_cfg_chip2pad_we = addr_hit[326] & reg_we & !reg_error;
+  assign ot_qspi_05_cfg_chip2pad_we = addr_hit[322] & reg_we & !reg_error;
   assign ot_qspi_05_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign ot_qspi_05_cfg_drv_we = addr_hit[326] & reg_we & !reg_error;
+  assign ot_qspi_05_cfg_drv_we = addr_hit[322] & reg_we & !reg_error;
   assign ot_qspi_05_cfg_drv_wd = reg_wdata[2:1];
 
-  assign ot_qspi_05_cfg_oen_we = addr_hit[326] & reg_we & !reg_error;
+  assign ot_qspi_05_cfg_oen_we = addr_hit[322] & reg_we & !reg_error;
   assign ot_qspi_05_cfg_oen_wd = reg_wdata[3];
 
-  assign ot_qspi_05_cfg_puen_we = addr_hit[326] & reg_we & !reg_error;
+  assign ot_qspi_05_cfg_puen_we = addr_hit[322] & reg_we & !reg_error;
   assign ot_qspi_05_cfg_puen_wd = reg_wdata[4];
 
-  assign ot_qspi_05_cfg_slw_we = addr_hit[326] & reg_we & !reg_error;
+  assign ot_qspi_05_cfg_slw_we = addr_hit[322] & reg_we & !reg_error;
   assign ot_qspi_05_cfg_slw_wd = reg_wdata[5];
 
-  assign ot_qspi_05_cfg_smt_we = addr_hit[326] & reg_we & !reg_error;
+  assign ot_qspi_05_cfg_smt_we = addr_hit[322] & reg_we & !reg_error;
   assign ot_qspi_05_cfg_smt_wd = reg_wdata[6];
 
-  assign ot_qspi_05_mux_sel_we = addr_hit[327] & reg_we & !reg_error;
+  assign ot_qspi_05_mux_sel_we = addr_hit[323] & reg_we & !reg_error;
   assign ot_qspi_05_mux_sel_wd = reg_wdata[0];
 
-  assign linux_qspi_00_cfg_chip2pad_we = addr_hit[328] & reg_we & !reg_error;
+  assign linux_qspi_00_cfg_chip2pad_we = addr_hit[324] & reg_we & !reg_error;
   assign linux_qspi_00_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign linux_qspi_00_cfg_drv_we = addr_hit[328] & reg_we & !reg_error;
+  assign linux_qspi_00_cfg_drv_we = addr_hit[324] & reg_we & !reg_error;
   assign linux_qspi_00_cfg_drv_wd = reg_wdata[2:1];
 
-  assign linux_qspi_00_cfg_oen_we = addr_hit[328] & reg_we & !reg_error;
+  assign linux_qspi_00_cfg_oen_we = addr_hit[324] & reg_we & !reg_error;
   assign linux_qspi_00_cfg_oen_wd = reg_wdata[3];
 
-  assign linux_qspi_00_cfg_puen_we = addr_hit[328] & reg_we & !reg_error;
+  assign linux_qspi_00_cfg_puen_we = addr_hit[324] & reg_we & !reg_error;
   assign linux_qspi_00_cfg_puen_wd = reg_wdata[4];
 
-  assign linux_qspi_00_cfg_slw_we = addr_hit[328] & reg_we & !reg_error;
+  assign linux_qspi_00_cfg_slw_we = addr_hit[324] & reg_we & !reg_error;
   assign linux_qspi_00_cfg_slw_wd = reg_wdata[5];
 
-  assign linux_qspi_00_cfg_smt_we = addr_hit[328] & reg_we & !reg_error;
+  assign linux_qspi_00_cfg_smt_we = addr_hit[324] & reg_we & !reg_error;
   assign linux_qspi_00_cfg_smt_wd = reg_wdata[6];
 
-  assign linux_qspi_00_mux_sel_we = addr_hit[329] & reg_we & !reg_error;
+  assign linux_qspi_00_mux_sel_we = addr_hit[325] & reg_we & !reg_error;
   assign linux_qspi_00_mux_sel_wd = reg_wdata[0];
 
-  assign linux_qspi_01_cfg_chip2pad_we = addr_hit[330] & reg_we & !reg_error;
+  assign linux_qspi_01_cfg_chip2pad_we = addr_hit[326] & reg_we & !reg_error;
   assign linux_qspi_01_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign linux_qspi_01_cfg_drv_we = addr_hit[330] & reg_we & !reg_error;
+  assign linux_qspi_01_cfg_drv_we = addr_hit[326] & reg_we & !reg_error;
   assign linux_qspi_01_cfg_drv_wd = reg_wdata[2:1];
 
-  assign linux_qspi_01_cfg_oen_we = addr_hit[330] & reg_we & !reg_error;
+  assign linux_qspi_01_cfg_oen_we = addr_hit[326] & reg_we & !reg_error;
   assign linux_qspi_01_cfg_oen_wd = reg_wdata[3];
 
-  assign linux_qspi_01_cfg_puen_we = addr_hit[330] & reg_we & !reg_error;
+  assign linux_qspi_01_cfg_puen_we = addr_hit[326] & reg_we & !reg_error;
   assign linux_qspi_01_cfg_puen_wd = reg_wdata[4];
 
-  assign linux_qspi_01_cfg_slw_we = addr_hit[330] & reg_we & !reg_error;
+  assign linux_qspi_01_cfg_slw_we = addr_hit[326] & reg_we & !reg_error;
   assign linux_qspi_01_cfg_slw_wd = reg_wdata[5];
 
-  assign linux_qspi_01_cfg_smt_we = addr_hit[330] & reg_we & !reg_error;
+  assign linux_qspi_01_cfg_smt_we = addr_hit[326] & reg_we & !reg_error;
   assign linux_qspi_01_cfg_smt_wd = reg_wdata[6];
 
-  assign linux_qspi_01_mux_sel_we = addr_hit[331] & reg_we & !reg_error;
+  assign linux_qspi_01_mux_sel_we = addr_hit[327] & reg_we & !reg_error;
   assign linux_qspi_01_mux_sel_wd = reg_wdata[0];
 
-  assign linux_qspi_02_cfg_chip2pad_we = addr_hit[332] & reg_we & !reg_error;
+  assign linux_qspi_02_cfg_chip2pad_we = addr_hit[328] & reg_we & !reg_error;
   assign linux_qspi_02_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign linux_qspi_02_cfg_drv_we = addr_hit[332] & reg_we & !reg_error;
+  assign linux_qspi_02_cfg_drv_we = addr_hit[328] & reg_we & !reg_error;
   assign linux_qspi_02_cfg_drv_wd = reg_wdata[2:1];
 
-  assign linux_qspi_02_cfg_oen_we = addr_hit[332] & reg_we & !reg_error;
+  assign linux_qspi_02_cfg_oen_we = addr_hit[328] & reg_we & !reg_error;
   assign linux_qspi_02_cfg_oen_wd = reg_wdata[3];
 
-  assign linux_qspi_02_cfg_puen_we = addr_hit[332] & reg_we & !reg_error;
+  assign linux_qspi_02_cfg_puen_we = addr_hit[328] & reg_we & !reg_error;
   assign linux_qspi_02_cfg_puen_wd = reg_wdata[4];
 
-  assign linux_qspi_02_cfg_slw_we = addr_hit[332] & reg_we & !reg_error;
+  assign linux_qspi_02_cfg_slw_we = addr_hit[328] & reg_we & !reg_error;
   assign linux_qspi_02_cfg_slw_wd = reg_wdata[5];
 
-  assign linux_qspi_02_cfg_smt_we = addr_hit[332] & reg_we & !reg_error;
+  assign linux_qspi_02_cfg_smt_we = addr_hit[328] & reg_we & !reg_error;
   assign linux_qspi_02_cfg_smt_wd = reg_wdata[6];
 
-  assign linux_qspi_02_mux_sel_we = addr_hit[333] & reg_we & !reg_error;
+  assign linux_qspi_02_mux_sel_we = addr_hit[329] & reg_we & !reg_error;
   assign linux_qspi_02_mux_sel_wd = reg_wdata[0];
 
-  assign linux_qspi_03_cfg_chip2pad_we = addr_hit[334] & reg_we & !reg_error;
+  assign linux_qspi_03_cfg_chip2pad_we = addr_hit[330] & reg_we & !reg_error;
   assign linux_qspi_03_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign linux_qspi_03_cfg_drv_we = addr_hit[334] & reg_we & !reg_error;
+  assign linux_qspi_03_cfg_drv_we = addr_hit[330] & reg_we & !reg_error;
   assign linux_qspi_03_cfg_drv_wd = reg_wdata[2:1];
 
-  assign linux_qspi_03_cfg_oen_we = addr_hit[334] & reg_we & !reg_error;
+  assign linux_qspi_03_cfg_oen_we = addr_hit[330] & reg_we & !reg_error;
   assign linux_qspi_03_cfg_oen_wd = reg_wdata[3];
 
-  assign linux_qspi_03_cfg_puen_we = addr_hit[334] & reg_we & !reg_error;
+  assign linux_qspi_03_cfg_puen_we = addr_hit[330] & reg_we & !reg_error;
   assign linux_qspi_03_cfg_puen_wd = reg_wdata[4];
 
-  assign linux_qspi_03_cfg_slw_we = addr_hit[334] & reg_we & !reg_error;
+  assign linux_qspi_03_cfg_slw_we = addr_hit[330] & reg_we & !reg_error;
   assign linux_qspi_03_cfg_slw_wd = reg_wdata[5];
 
-  assign linux_qspi_03_cfg_smt_we = addr_hit[334] & reg_we & !reg_error;
+  assign linux_qspi_03_cfg_smt_we = addr_hit[330] & reg_we & !reg_error;
   assign linux_qspi_03_cfg_smt_wd = reg_wdata[6];
 
-  assign linux_qspi_03_mux_sel_we = addr_hit[335] & reg_we & !reg_error;
+  assign linux_qspi_03_mux_sel_we = addr_hit[331] & reg_we & !reg_error;
   assign linux_qspi_03_mux_sel_wd = reg_wdata[0];
 
-  assign linux_qspi_04_cfg_chip2pad_we = addr_hit[336] & reg_we & !reg_error;
+  assign linux_qspi_04_cfg_chip2pad_we = addr_hit[332] & reg_we & !reg_error;
   assign linux_qspi_04_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign linux_qspi_04_cfg_drv_we = addr_hit[336] & reg_we & !reg_error;
+  assign linux_qspi_04_cfg_drv_we = addr_hit[332] & reg_we & !reg_error;
   assign linux_qspi_04_cfg_drv_wd = reg_wdata[2:1];
 
-  assign linux_qspi_04_cfg_oen_we = addr_hit[336] & reg_we & !reg_error;
+  assign linux_qspi_04_cfg_oen_we = addr_hit[332] & reg_we & !reg_error;
   assign linux_qspi_04_cfg_oen_wd = reg_wdata[3];
 
-  assign linux_qspi_04_cfg_puen_we = addr_hit[336] & reg_we & !reg_error;
+  assign linux_qspi_04_cfg_puen_we = addr_hit[332] & reg_we & !reg_error;
   assign linux_qspi_04_cfg_puen_wd = reg_wdata[4];
 
-  assign linux_qspi_04_cfg_slw_we = addr_hit[336] & reg_we & !reg_error;
+  assign linux_qspi_04_cfg_slw_we = addr_hit[332] & reg_we & !reg_error;
   assign linux_qspi_04_cfg_slw_wd = reg_wdata[5];
 
-  assign linux_qspi_04_cfg_smt_we = addr_hit[336] & reg_we & !reg_error;
+  assign linux_qspi_04_cfg_smt_we = addr_hit[332] & reg_we & !reg_error;
   assign linux_qspi_04_cfg_smt_wd = reg_wdata[6];
 
-  assign linux_qspi_04_mux_sel_we = addr_hit[337] & reg_we & !reg_error;
+  assign linux_qspi_04_mux_sel_we = addr_hit[333] & reg_we & !reg_error;
   assign linux_qspi_04_mux_sel_wd = reg_wdata[0];
 
-  assign linux_qspi_05_cfg_chip2pad_we = addr_hit[338] & reg_we & !reg_error;
+  assign linux_qspi_05_cfg_chip2pad_we = addr_hit[334] & reg_we & !reg_error;
   assign linux_qspi_05_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign linux_qspi_05_cfg_drv_we = addr_hit[338] & reg_we & !reg_error;
+  assign linux_qspi_05_cfg_drv_we = addr_hit[334] & reg_we & !reg_error;
   assign linux_qspi_05_cfg_drv_wd = reg_wdata[2:1];
 
-  assign linux_qspi_05_cfg_oen_we = addr_hit[338] & reg_we & !reg_error;
+  assign linux_qspi_05_cfg_oen_we = addr_hit[334] & reg_we & !reg_error;
   assign linux_qspi_05_cfg_oen_wd = reg_wdata[3];
 
-  assign linux_qspi_05_cfg_puen_we = addr_hit[338] & reg_we & !reg_error;
+  assign linux_qspi_05_cfg_puen_we = addr_hit[334] & reg_we & !reg_error;
   assign linux_qspi_05_cfg_puen_wd = reg_wdata[4];
 
-  assign linux_qspi_05_cfg_slw_we = addr_hit[338] & reg_we & !reg_error;
+  assign linux_qspi_05_cfg_slw_we = addr_hit[334] & reg_we & !reg_error;
   assign linux_qspi_05_cfg_slw_wd = reg_wdata[5];
 
-  assign linux_qspi_05_cfg_smt_we = addr_hit[338] & reg_we & !reg_error;
+  assign linux_qspi_05_cfg_smt_we = addr_hit[334] & reg_we & !reg_error;
   assign linux_qspi_05_cfg_smt_wd = reg_wdata[6];
 
-  assign linux_qspi_05_mux_sel_we = addr_hit[339] & reg_we & !reg_error;
+  assign linux_qspi_05_mux_sel_we = addr_hit[335] & reg_we & !reg_error;
   assign linux_qspi_05_mux_sel_wd = reg_wdata[0];
 
   // Read data return
@@ -41921,32 +40924,6 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[312]: begin
-        reg_rdata_next[0] = b_63_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = b_63_cfg_drv_qs;
-        reg_rdata_next[3] = b_63_cfg_oen_qs;
-        reg_rdata_next[4] = b_63_cfg_puen_qs;
-        reg_rdata_next[5] = b_63_cfg_slw_qs;
-        reg_rdata_next[6] = b_63_cfg_smt_qs;
-      end
-
-      addr_hit[313]: begin
-        reg_rdata_next[0] = b_63_mux_sel_qs;
-      end
-
-      addr_hit[314]: begin
-        reg_rdata_next[0] = b_64_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = b_64_cfg_drv_qs;
-        reg_rdata_next[3] = b_64_cfg_oen_qs;
-        reg_rdata_next[4] = b_64_cfg_puen_qs;
-        reg_rdata_next[5] = b_64_cfg_slw_qs;
-        reg_rdata_next[6] = b_64_cfg_smt_qs;
-      end
-
-      addr_hit[315]: begin
-        reg_rdata_next[0] = b_64_mux_sel_qs;
-      end
-
-      addr_hit[316]: begin
         reg_rdata_next[0] = ot_qspi_00_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = ot_qspi_00_cfg_drv_qs;
         reg_rdata_next[3] = ot_qspi_00_cfg_oen_qs;
@@ -41955,11 +40932,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = ot_qspi_00_cfg_smt_qs;
       end
 
-      addr_hit[317]: begin
+      addr_hit[313]: begin
         reg_rdata_next[0] = ot_qspi_00_mux_sel_qs;
       end
 
-      addr_hit[318]: begin
+      addr_hit[314]: begin
         reg_rdata_next[0] = ot_qspi_01_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = ot_qspi_01_cfg_drv_qs;
         reg_rdata_next[3] = ot_qspi_01_cfg_oen_qs;
@@ -41968,11 +40945,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = ot_qspi_01_cfg_smt_qs;
       end
 
-      addr_hit[319]: begin
+      addr_hit[315]: begin
         reg_rdata_next[0] = ot_qspi_01_mux_sel_qs;
       end
 
-      addr_hit[320]: begin
+      addr_hit[316]: begin
         reg_rdata_next[0] = ot_qspi_02_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = ot_qspi_02_cfg_drv_qs;
         reg_rdata_next[3] = ot_qspi_02_cfg_oen_qs;
@@ -41981,11 +40958,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = ot_qspi_02_cfg_smt_qs;
       end
 
-      addr_hit[321]: begin
+      addr_hit[317]: begin
         reg_rdata_next[0] = ot_qspi_02_mux_sel_qs;
       end
 
-      addr_hit[322]: begin
+      addr_hit[318]: begin
         reg_rdata_next[0] = ot_qspi_03_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = ot_qspi_03_cfg_drv_qs;
         reg_rdata_next[3] = ot_qspi_03_cfg_oen_qs;
@@ -41994,11 +40971,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = ot_qspi_03_cfg_smt_qs;
       end
 
-      addr_hit[323]: begin
+      addr_hit[319]: begin
         reg_rdata_next[0] = ot_qspi_03_mux_sel_qs;
       end
 
-      addr_hit[324]: begin
+      addr_hit[320]: begin
         reg_rdata_next[0] = ot_qspi_04_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = ot_qspi_04_cfg_drv_qs;
         reg_rdata_next[3] = ot_qspi_04_cfg_oen_qs;
@@ -42007,11 +40984,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = ot_qspi_04_cfg_smt_qs;
       end
 
-      addr_hit[325]: begin
+      addr_hit[321]: begin
         reg_rdata_next[0] = ot_qspi_04_mux_sel_qs;
       end
 
-      addr_hit[326]: begin
+      addr_hit[322]: begin
         reg_rdata_next[0] = ot_qspi_05_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = ot_qspi_05_cfg_drv_qs;
         reg_rdata_next[3] = ot_qspi_05_cfg_oen_qs;
@@ -42020,11 +40997,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = ot_qspi_05_cfg_smt_qs;
       end
 
-      addr_hit[327]: begin
+      addr_hit[323]: begin
         reg_rdata_next[0] = ot_qspi_05_mux_sel_qs;
       end
 
-      addr_hit[328]: begin
+      addr_hit[324]: begin
         reg_rdata_next[0] = linux_qspi_00_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = linux_qspi_00_cfg_drv_qs;
         reg_rdata_next[3] = linux_qspi_00_cfg_oen_qs;
@@ -42033,11 +41010,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = linux_qspi_00_cfg_smt_qs;
       end
 
-      addr_hit[329]: begin
+      addr_hit[325]: begin
         reg_rdata_next[0] = linux_qspi_00_mux_sel_qs;
       end
 
-      addr_hit[330]: begin
+      addr_hit[326]: begin
         reg_rdata_next[0] = linux_qspi_01_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = linux_qspi_01_cfg_drv_qs;
         reg_rdata_next[3] = linux_qspi_01_cfg_oen_qs;
@@ -42046,11 +41023,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = linux_qspi_01_cfg_smt_qs;
       end
 
-      addr_hit[331]: begin
+      addr_hit[327]: begin
         reg_rdata_next[0] = linux_qspi_01_mux_sel_qs;
       end
 
-      addr_hit[332]: begin
+      addr_hit[328]: begin
         reg_rdata_next[0] = linux_qspi_02_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = linux_qspi_02_cfg_drv_qs;
         reg_rdata_next[3] = linux_qspi_02_cfg_oen_qs;
@@ -42059,11 +41036,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = linux_qspi_02_cfg_smt_qs;
       end
 
-      addr_hit[333]: begin
+      addr_hit[329]: begin
         reg_rdata_next[0] = linux_qspi_02_mux_sel_qs;
       end
 
-      addr_hit[334]: begin
+      addr_hit[330]: begin
         reg_rdata_next[0] = linux_qspi_03_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = linux_qspi_03_cfg_drv_qs;
         reg_rdata_next[3] = linux_qspi_03_cfg_oen_qs;
@@ -42072,11 +41049,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = linux_qspi_03_cfg_smt_qs;
       end
 
-      addr_hit[335]: begin
+      addr_hit[331]: begin
         reg_rdata_next[0] = linux_qspi_03_mux_sel_qs;
       end
 
-      addr_hit[336]: begin
+      addr_hit[332]: begin
         reg_rdata_next[0] = linux_qspi_04_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = linux_qspi_04_cfg_drv_qs;
         reg_rdata_next[3] = linux_qspi_04_cfg_oen_qs;
@@ -42085,11 +41062,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = linux_qspi_04_cfg_smt_qs;
       end
 
-      addr_hit[337]: begin
+      addr_hit[333]: begin
         reg_rdata_next[0] = linux_qspi_04_mux_sel_qs;
       end
 
-      addr_hit[338]: begin
+      addr_hit[334]: begin
         reg_rdata_next[0] = linux_qspi_05_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = linux_qspi_05_cfg_drv_qs;
         reg_rdata_next[3] = linux_qspi_05_cfg_oen_qs;
@@ -42098,7 +41075,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = linux_qspi_05_cfg_smt_qs;
       end
 
-      addr_hit[339]: begin
+      addr_hit[335]: begin
         reg_rdata_next[0] = linux_qspi_05_mux_sel_qs;
       end
 

@@ -169,8 +169,6 @@ module alsaqr_periph_padframe
   inout wire logic                           pad_periphs_b_60_pad,
   inout wire logic                           pad_periphs_b_61_pad,
   inout wire logic                           pad_periphs_b_62_pad,
-  inout wire logic                           pad_periphs_b_63_pad,
-  inout wire logic                           pad_periphs_b_64_pad,
   inout wire logic                           pad_periphs_ot_qspi_00_pad,
   inout wire logic                           pad_periphs_ot_qspi_01_pad,
   inout wire logic                           pad_periphs_ot_qspi_02_pad,
@@ -355,8 +353,6 @@ module alsaqr_periph_padframe
    .pad_b_60_pad(pad_periphs_b_60_pad),
    .pad_b_61_pad(pad_periphs_b_61_pad),
    .pad_b_62_pad(pad_periphs_b_62_pad),
-   .pad_b_63_pad(pad_periphs_b_63_pad),
-   .pad_b_64_pad(pad_periphs_b_64_pad),
    .pad_ot_qspi_00_pad(pad_periphs_ot_qspi_00_pad),
    .pad_ot_qspi_01_pad(pad_periphs_ot_qspi_01_pad),
    .pad_ot_qspi_02_pad(pad_periphs_ot_qspi_02_pad),
@@ -383,28 +379,7 @@ module alsaqr_periph_padframe
    } addr_rule_t;
 
    localparam addr_rule_t[NUM_PAD_DOMAINS-1:0] ADDR_DEMUX_RULES = '{
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-     '{ idx: 0, start_addr: 11'd0,  end_addr: 11'd1360}
-=======
-=======
->>>>>>> 7ab4797b (Updated padframe with qspi linux, now compliant with specs)
-<<<<<<< HEAD
      '{ idx: 0, start_addr: 11'd0,  end_addr: 11'd1344}
-=======
-     '{ idx: 0, start_addr: 10'd0,  end_addr: 10'd940}
->>>>>>> d61477d7 (Updated padframe with QSPI OT signals and bootselet signals)
-<<<<<<< HEAD
->>>>>>> ebe8100e (Updated padframe with QSPI OT signals and bootselet signals)
-=======
-=======
-     '{ idx: 0, start_addr: 10'd0,  end_addr: 10'd984}
->>>>>>> 2f33e148 (Updated padframe with qspi linux, now compliant with specs)
->>>>>>> 7ab4797b (Updated padframe with qspi linux, now compliant with specs)
-=======
-     '{ idx: 0, start_addr: 11'd0,  end_addr: 11'd1344}
->>>>>>> 1478496d (Updated padframe.)
      };
    logic[$clog2(NUM_PAD_DOMAINS+1)-1:0] pad_domain_sel; // +1 since there is an additional error slave
    addr_decode #(

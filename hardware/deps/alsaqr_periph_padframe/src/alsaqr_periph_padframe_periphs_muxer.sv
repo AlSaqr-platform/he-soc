@@ -5099,66 +5099,6 @@ module alsaqr_periph_padframe_periphs_muxer
      endcase
    end // always_comb
 
-   // Pad b_63
-   always_comb begin
-     unique case (s_reg2hw.b_63_mux_sel.q)
-       PAD_MUX_GROUP_B_63_SEL_DEFAULT: begin
-         mux_to_pads_o.b_63.chip2pad = s_reg2hw.b_63_cfg.chip2pad.q;
-         mux_to_pads_o.b_63.drv = s_reg2hw.b_63_cfg.drv.q;
-         mux_to_pads_o.b_63.oen = s_reg2hw.b_63_cfg.oen.q;
-         mux_to_pads_o.b_63.puen = s_reg2hw.b_63_cfg.puen.q;
-         mux_to_pads_o.b_63.slw = s_reg2hw.b_63_cfg.slw.q;
-         mux_to_pads_o.b_63.smt = s_reg2hw.b_63_cfg.smt.q;
-       end
-       PAD_MUX_GROUP_B_63_SEL_GPIO_B_GPIO63: begin
-          mux_to_pads_o.b_63.chip2pad = port_signals_soc2pad_i.gpio_b.gpio63_i;
-          mux_to_pads_o.b_63.drv = s_reg2hw.b_63_cfg.drv.q;
-          mux_to_pads_o.b_63.oen = ~port_signals_soc2pad_i.gpio_b.gpio63_d_i;
-          mux_to_pads_o.b_63.puen = 1'b1;
-          mux_to_pads_o.b_63.slw = s_reg2hw.b_63_cfg.slw.q;
-          mux_to_pads_o.b_63.smt = s_reg2hw.b_63_cfg.smt.q;
-       end
-       default: begin
-         mux_to_pads_o.b_63.chip2pad = s_reg2hw.b_63_cfg.chip2pad.q;
-         mux_to_pads_o.b_63.drv = s_reg2hw.b_63_cfg.drv.q;
-         mux_to_pads_o.b_63.oen = s_reg2hw.b_63_cfg.oen.q;
-         mux_to_pads_o.b_63.puen = s_reg2hw.b_63_cfg.puen.q;
-         mux_to_pads_o.b_63.slw = s_reg2hw.b_63_cfg.slw.q;
-         mux_to_pads_o.b_63.smt = s_reg2hw.b_63_cfg.smt.q;
-       end
-     endcase
-   end // always_comb
-
-   // Pad b_64
-   always_comb begin
-     unique case (s_reg2hw.b_64_mux_sel.q)
-       PAD_MUX_GROUP_B_64_SEL_DEFAULT: begin
-         mux_to_pads_o.b_64.chip2pad = s_reg2hw.b_64_cfg.chip2pad.q;
-         mux_to_pads_o.b_64.drv = s_reg2hw.b_64_cfg.drv.q;
-         mux_to_pads_o.b_64.oen = s_reg2hw.b_64_cfg.oen.q;
-         mux_to_pads_o.b_64.puen = s_reg2hw.b_64_cfg.puen.q;
-         mux_to_pads_o.b_64.slw = s_reg2hw.b_64_cfg.slw.q;
-         mux_to_pads_o.b_64.smt = s_reg2hw.b_64_cfg.smt.q;
-       end
-       PAD_MUX_GROUP_B_64_SEL_GPIO_B_GPIO64: begin
-          mux_to_pads_o.b_64.chip2pad = port_signals_soc2pad_i.gpio_b.gpio64_i;
-          mux_to_pads_o.b_64.drv = s_reg2hw.b_64_cfg.drv.q;
-          mux_to_pads_o.b_64.oen = ~port_signals_soc2pad_i.gpio_b.gpio64_d_i;
-          mux_to_pads_o.b_64.puen = 1'b1;
-          mux_to_pads_o.b_64.slw = s_reg2hw.b_64_cfg.slw.q;
-          mux_to_pads_o.b_64.smt = s_reg2hw.b_64_cfg.smt.q;
-       end
-       default: begin
-         mux_to_pads_o.b_64.chip2pad = s_reg2hw.b_64_cfg.chip2pad.q;
-         mux_to_pads_o.b_64.drv = s_reg2hw.b_64_cfg.drv.q;
-         mux_to_pads_o.b_64.oen = s_reg2hw.b_64_cfg.oen.q;
-         mux_to_pads_o.b_64.puen = s_reg2hw.b_64_cfg.puen.q;
-         mux_to_pads_o.b_64.slw = s_reg2hw.b_64_cfg.slw.q;
-         mux_to_pads_o.b_64.smt = s_reg2hw.b_64_cfg.smt.q;
-       end
-     endcase
-   end // always_comb
-
    // Pad ot_qspi_00
    always_comb begin
      unique case (s_reg2hw.ot_qspi_00_mux_sel.q)
@@ -9788,70 +9728,6 @@ module alsaqr_periph_padframe_periphs_muxer
           end
           default: begin
             port_signals_pad2soc_o.gpio_b.gpio62_o = 1'b0;
-          end
-       endcase
-     end
-   end
-
-
-  // Port Signal gpio63_o
-  logic [0:0] port_mux_sel_gpio_b_gpio63_o_req;
-  logic [PORT_MUX_GROUP_B_63_SEL_WIDTH-1:0] port_mux_sel_gpio_b_gpio63_o_arbitrated;
-  logic port_mux_sel_gpio_b_gpio63_o_no_connection;
-
-   assign port_mux_sel_gpio_b_gpio63_o_req[PORT_MUX_GROUP_B_63_SEL_B_63] = s_reg2hw.b_63_mux_sel.q == PAD_MUX_GROUP_B_63_SEL_GPIO_B_GPIO63 ? 1'b1 : 1'b0;
-
-   lzc #(
-     .WIDTH(1),
-     .MODE(1'b0)
-   ) i_port_muxsel_gpio_b_gpio63_o_arbiter (
-     .in_i(port_mux_sel_gpio_b_gpio63_o_req),
-     .cnt_o(port_mux_sel_gpio_b_gpio63_o_arbitrated),
-     .empty_o(port_mux_sel_gpio_b_gpio63_o_no_connection)
-   );
-
-   always_comb begin
-     if (port_mux_sel_gpio_b_gpio63_o_no_connection) begin
-        port_signals_pad2soc_o.gpio_b.gpio63_o = 1'b0;
-     end else begin
-        unique case (port_mux_sel_gpio_b_gpio63_o_arbitrated)
-          PORT_MUX_GROUP_B_63_SEL_B_63: begin
-            port_signals_pad2soc_o.gpio_b.gpio63_o = pads_to_mux_i.b_63.pad2chip;
-          end
-          default: begin
-            port_signals_pad2soc_o.gpio_b.gpio63_o = 1'b0;
-          end
-       endcase
-     end
-   end
-
-
-  // Port Signal gpio64_o
-  logic [0:0] port_mux_sel_gpio_b_gpio64_o_req;
-  logic [PORT_MUX_GROUP_B_64_SEL_WIDTH-1:0] port_mux_sel_gpio_b_gpio64_o_arbitrated;
-  logic port_mux_sel_gpio_b_gpio64_o_no_connection;
-
-   assign port_mux_sel_gpio_b_gpio64_o_req[PORT_MUX_GROUP_B_64_SEL_B_64] = s_reg2hw.b_64_mux_sel.q == PAD_MUX_GROUP_B_64_SEL_GPIO_B_GPIO64 ? 1'b1 : 1'b0;
-
-   lzc #(
-     .WIDTH(1),
-     .MODE(1'b0)
-   ) i_port_muxsel_gpio_b_gpio64_o_arbiter (
-     .in_i(port_mux_sel_gpio_b_gpio64_o_req),
-     .cnt_o(port_mux_sel_gpio_b_gpio64_o_arbitrated),
-     .empty_o(port_mux_sel_gpio_b_gpio64_o_no_connection)
-   );
-
-   always_comb begin
-     if (port_mux_sel_gpio_b_gpio64_o_no_connection) begin
-        port_signals_pad2soc_o.gpio_b.gpio64_o = 1'b0;
-     end else begin
-        unique case (port_mux_sel_gpio_b_gpio64_o_arbitrated)
-          PORT_MUX_GROUP_B_64_SEL_B_64: begin
-            port_signals_pad2soc_o.gpio_b.gpio64_o = pads_to_mux_i.b_64.pad2chip;
-          end
-          default: begin
-            port_signals_pad2soc_o.gpio_b.gpio64_o = 1'b0;
           end
        endcase
      end

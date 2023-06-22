@@ -480,10 +480,6 @@ package pkg_alsaqr_periph_padframe;
       logic        gpio61_i;
       logic        gpio62_d_i;
       logic        gpio62_i;
-      logic        gpio63_d_i;
-      logic        gpio63_i;
-      logic        gpio64_d_i;
-      logic        gpio64_i;
      } pad_domain_periphs_port_group_gpio_b_soc2pad_t;
 
    typedef struct packed {
@@ -550,8 +546,6 @@ package pkg_alsaqr_periph_padframe;
       logic        gpio60_o;
       logic        gpio61_o;
       logic        gpio62_o;
-      logic        gpio63_o;
-      logic        gpio64_o;
      } pad_domain_periphs_port_group_gpio_b_pad2soc_t;
 
    typedef struct packed {

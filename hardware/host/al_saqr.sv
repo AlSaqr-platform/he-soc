@@ -242,8 +242,6 @@ module al_saqr
         inout wire logic    pad_periphs_b_60_pad,
         inout wire logic    pad_periphs_b_61_pad,
         inout wire logic    pad_periphs_b_62_pad,
-        inout wire logic    pad_periphs_b_63_pad,
-        inout wire logic    pad_periphs_b_64_pad,
         
         inout wire logic    pad_periphs_ot_qspi_00_pad,
         inout wire logic    pad_periphs_ot_qspi_01_pad,
@@ -283,7 +281,6 @@ module al_saqr
   inout wire          jtag_TDI,
   inout wire          jtag_TRSTn,
   inout wire          jtag_TDO_data,
-  inout wire          jtag_TDO_driven,
 
   inout wire          jtag_ot_TCK,
   inout wire          jtag_ot_TMS,
@@ -758,8 +755,10 @@ module al_saqr
      .ibex_uart_rx_i   ( '0            ),
      .ibex_uart_tx_o   (               ),
    // SPI host 
-     .spi_host_SCK_o   ( s_ot_qspi_to_pad[0:0] ),
-     .spi_host_CSB_o   ( s_ot_qspi_to_pad[1:1] ),
+     .spi_host_SCK_o   ( s_ot_qspi_to_pad[1:1] ),
+     .spi_host_SCK_en_o(                       ),
+     .spi_host_CSB_o   ( s_ot_qspi_to_pad[0:0] ),
+     .spi_host_CSB_en_o(                       ),
      .spi_host_SD_o    ( s_ot_qspi_to_pad[5:2] ),
      .spi_host_SD_i    ( s_ot_pad_to_qspi[3:0] ),
      .spi_host_SD_en_o ( s_ot_qspi_to_pad[9:6] )        
@@ -1308,8 +1307,6 @@ module al_saqr
           .pad_periphs_b_60_pad(pad_periphs_b_60_pad),
           .pad_periphs_b_61_pad(pad_periphs_b_61_pad),
           .pad_periphs_b_62_pad(pad_periphs_b_62_pad),
-          .pad_periphs_b_61_pad(pad_periphs_b_63_pad),
-          .pad_periphs_b_62_pad(pad_periphs_b_64_pad),
 
           .pad_periphs_ot_qspi_00_pad(pad_periphs_ot_qspi_00_pad),
           .pad_periphs_ot_qspi_01_pad(pad_periphs_ot_qspi_01_pad),
