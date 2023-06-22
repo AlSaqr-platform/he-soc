@@ -1398,7 +1398,7 @@ module ariane_tb;
         sbreadondata   : 1'b1,
         default        : 1'b0
       };
-
+`ifdef OT_ON
       if ( $value$plusargs ("OT_STRING=%s", ibex_binary));
          $display("Testing %s", ibex_binary);
 
@@ -1410,7 +1410,7 @@ module ariane_tb;
      // // Call the JTAG preload task
       jtag_ibex_data_preload(); 
       jtag_ibex_wakeup(32'h E0000080);
-
+`endif
 
    end // block: local_jtag_preload
 

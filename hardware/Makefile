@@ -72,7 +72,6 @@ ifdef spike-tandem
     endif
 endif
 
-
 ifdef spike-tandem
     util += tb/common/spike.sv
 endif
@@ -135,10 +134,9 @@ ifdef preload
 	elf-bin = none
 endif
 
-ifdef fake
-	questa-cmd += +FAKE=$(fake)  
-  compile_flag +=  +define+FAKE 
-  compile_fpga += FAKE
+ifdef ot_on
+	questa-cmd += +OT_ON=$(ot_on)  
+  compile_flag +=  +define+OT_ON 
 endif
 
 ifdef l3-fake
