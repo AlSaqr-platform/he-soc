@@ -256,6 +256,9 @@ module al_saqr
         inout wire logic    pad_periphs_linux_qspi_03_pad,
         inout wire logic    pad_periphs_linux_qspi_04_pad,
         inout wire logic    pad_periphs_linux_qspi_05_pad,
+
+        inout wire logic    pad_periphs_ot_gpio_00_pad,
+        inout wire logic    pad_periphs_ot_gpio_01_pad,
       `endif
     `endif
  `endif
@@ -499,6 +502,9 @@ module al_saqr
    
   gpio_to_pad_t s_gpio_b_to_pad;
   pad_to_gpio_t s_pad_to_gpio_b;
+
+  ot_gpio_to_pad_t s_ot_gpio_to_pad;
+  pad_to_ot_gpio_t s_pad_to_ot_gpio; 
    
   port_signals_pad2soc_t              s_port_signals_pad2soc;
   port_signals_soc2pad_t              s_port_signals_soc2pad;
@@ -733,6 +739,12 @@ module al_saqr
      .jtag_tdi_i       ( jtag_ibex_i.tdi    ),
      .jtag_tdo_o       ( jtag_ibex_o.tdo    ),
      .jtag_tdo_oe_o    (                    ),
+     .gpio_0_o         ( s_ot_gpio_to_pad.ot_gpio0_o   ),
+     .gpio_0_oe_o      ( s_ot_gpio_to_pad.ot_gpio0_d_o ),
+     .gpio_1_o         ( s_ot_gpio_to_pad.ot_gpio1_o   ),
+     .gpio_1_oe_o      ( s_ot_gpio_to_pad.ot_gpio1_d_o ),
+     .gpio_0_i         ( s_pad_to_ot_gpio.ot_gpio0_i   ),
+     .gpio_1_i         ( s_pad_to_ot_gpio.ot_gpio1_i   ),              
    // Asynch axi port
      .async_axi_out_aw_data_o,
      .async_axi_out_aw_wptr_o,
@@ -1320,7 +1332,10 @@ module al_saqr
           .pad_periphs_linux_qspi_02_pad(pad_periphs_linux_qspi_02_pad),
           .pad_periphs_linux_qspi_03_pad(pad_periphs_linux_qspi_03_pad),
           .pad_periphs_linux_qspi_04_pad(pad_periphs_linux_qspi_04_pad),
-          .pad_periphs_linux_qspi_05_pad(pad_periphs_linux_qspi_05_pad),                    
+          .pad_periphs_linux_qspi_05_pad(pad_periphs_linux_qspi_05_pad),  
+      
+          .pad_periphs_ot_gpio_00_pad(pad_periphs_ot_gpio_00_pad),
+          .pad_periphs_ot_gpio_01_pad(pad_periphs_ot_gpio_01_pad),                  
        
           .config_req_i   ( reg_req     ),
           .config_rsp_o   ( reg_rsp     )      
@@ -1412,6 +1427,10 @@ module al_saqr
           // PWMs
           `ASSIGN_PERIPHS_PWM0_SOC2PAD(s_port_signals_soc2pad.periphs.pwm0,s_pwm_nano_to_pad[0])
           `ASSIGN_PERIPHS_PWM1_SOC2PAD(s_port_signals_soc2pad.periphs.pwm1,s_pwm_nano_to_pad[1])
+
+          // OT GPIO
+          `ASSIGN_PERIPHS_OT_GPIO_PAD2SOC(s_pad_to_ot_gpio,s_port_signals_pad2soc.periphs.ot_gpio)
+          `ASSIGN_PERIPHS_OT_GPIO_SOC2PAD(s_port_signals_soc2pad.periphs.ot_gpio,s_ot_gpio_to_pad)
         
           // CANs
           `ASSIGN_PERIPHS_CAN0_PAD2SOC(s_pad_to_can[0],s_port_signals_pad2soc.periphs.can0)

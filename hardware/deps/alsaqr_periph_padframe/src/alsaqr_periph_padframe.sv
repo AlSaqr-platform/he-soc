@@ -181,6 +181,8 @@ module alsaqr_periph_padframe
   inout wire logic                           pad_periphs_linux_qspi_03_pad,
   inout wire logic                           pad_periphs_linux_qspi_04_pad,
   inout wire logic                           pad_periphs_linux_qspi_05_pad,
+  inout wire logic                           pad_periphs_ot_gpio_00_pad,
+  inout wire logic                           pad_periphs_ot_gpio_01_pad,
   // Config Interface
   input req_t                                config_req_i,
   output resp_t                              config_rsp_o
@@ -365,6 +367,8 @@ module alsaqr_periph_padframe
    .pad_linux_qspi_03_pad(pad_periphs_linux_qspi_03_pad),
    .pad_linux_qspi_04_pad(pad_periphs_linux_qspi_04_pad),
    .pad_linux_qspi_05_pad(pad_periphs_linux_qspi_05_pad),
+   .pad_ot_gpio_00_pad(pad_periphs_ot_gpio_00_pad),
+   .pad_ot_gpio_01_pad(pad_periphs_ot_gpio_01_pad),
    .config_req_i(periphs_config_req),
    .config_rsp_o(periphs_config_resp)
   );
@@ -379,7 +383,7 @@ module alsaqr_periph_padframe
    } addr_rule_t;
 
    localparam addr_rule_t[NUM_PAD_DOMAINS-1:0] ADDR_DEMUX_RULES = '{
-     '{ idx: 0, start_addr: 11'd0,  end_addr: 11'd1344}
+     '{ idx: 0, start_addr: 11'd0,  end_addr: 11'd1360}
      };
    logic[$clog2(NUM_PAD_DOMAINS+1)-1:0] pad_domain_sel; // +1 since there is an additional error slave
    addr_decode #(

@@ -174,6 +174,18 @@ package udma_subsystem_pkg;
 	  logic tx_o;
 	} can_to_pad_t;
 
+  typedef struct packed {
+    logic        ot_gpio0_d_o;
+    logic        ot_gpio0_o;
+    logic        ot_gpio1_d_o;
+    logic        ot_gpio1_o;
+  } ot_gpio_to_pad_t;
+
+  typedef struct packed {
+    logic        ot_gpio0_i;
+    logic        ot_gpio1_i;
+  } pad_to_ot_gpio_t;
+    
 	// system related bitwidths
 	localparam L2_DATA_WIDTH    = 32;
 	localparam L2_ADDR_WIDTH    = 19;   //L2 addr space of 2MB

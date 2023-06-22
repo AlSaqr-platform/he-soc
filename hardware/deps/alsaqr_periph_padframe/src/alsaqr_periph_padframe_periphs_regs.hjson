@@ -15179,5 +15179,185 @@
           ]
       }
 
+      {
+          name: OT_GPIO_00_CFG
+          desc: '''
+            Pad signal configuration.
+          '''
+          swaccess: "rw"
+          fields: [
+            {
+                bits: "0"
+                name: chip2pad
+                desc: '''
+                     The signal that connects to the pads TX driver
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "2:1"
+                name: drv
+                desc: '''
+                     Driving strength
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "3"
+                name: oen
+                desc: '''
+                     Output enable signal, active low
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "1"
+            },
+            {
+                bits: "4"
+                name: puen
+                desc: '''
+                     Pull-Up enable signal, active low
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "1"
+            },
+            {
+                bits: "5"
+                name: slw
+                desc: '''
+                     
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "6"
+                name: smt
+                desc: '''
+                     Schmit trigger enable
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+          ]
+      }
+
+       {
+          name: OT_GPIO_00_MUX_SEL
+          desc: '''
+              Pad signal port multiplex selection for pad ot_gpio_00. The programmed value defines which port
+              is connected to the pad.
+          '''
+          swaccess: "rw"
+          hwaccess: "hro"
+          resval: 0
+          fields: [
+              {
+                  bits: "0:0"
+                  enum: [
+                      { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
+                      { value: "1", name: "port_ot_gpio_op_gpio0", desc: "Connect port op_gpio0 from port group ot_gpio to this pad." }
+                  ]
+              }
+          ]
+      }
+
+      {
+          name: OT_GPIO_01_CFG
+          desc: '''
+            Pad signal configuration.
+          '''
+          swaccess: "rw"
+          fields: [
+            {
+                bits: "0"
+                name: chip2pad
+                desc: '''
+                     The signal that connects to the pads TX driver
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "2:1"
+                name: drv
+                desc: '''
+                     Driving strength
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "3"
+                name: oen
+                desc: '''
+                     Output enable signal, active low
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "1"
+            },
+            {
+                bits: "4"
+                name: puen
+                desc: '''
+                     Pull-Up enable signal, active low
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "1"
+            },
+            {
+                bits: "5"
+                name: slw
+                desc: '''
+                     
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "6"
+                name: smt
+                desc: '''
+                     Schmit trigger enable
+                '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+          ]
+      }
+
+       {
+          name: OT_GPIO_01_MUX_SEL
+          desc: '''
+              Pad signal port multiplex selection for pad ot_gpio_01. The programmed value defines which port
+              is connected to the pad.
+          '''
+          swaccess: "rw"
+          hwaccess: "hro"
+          resval: 0
+          fields: [
+              {
+                  bits: "0:0"
+                  enum: [
+                      { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
+                      { value: "1", name: "port_ot_gpio_op_gpio1", desc: "Connect port op_gpio1 from port group ot_gpio to this pad." }
+                  ]
+              }
+          ]
+      }
+
     ]
 }

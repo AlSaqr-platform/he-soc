@@ -125,6 +125,12 @@ pad_domains:
         multiple: 6
         pad_type: pad_alsaqr
         is_static: false
+      - name: ot_gpio_{i:2d}
+        mux_groups: [self]
+        description: "opentitan dedicated gpios"
+        multiple: 2
+        pad_type: pad_alsaqr
+        is_static: false
          
       ##  _____           _       
       ## |  __ \         | |      
@@ -1113,4 +1119,17 @@ pad_domains:
               chip2pad: sd{i}_i
               sd{i}_o: pad2chip
               oen: sd{i}_oen_i
+              puen: 1'b1
+
+      - name: ot_gpio
+        output_defaults: 1'b0
+        ports:
+          - name: op_gpio{i}
+            multiple: 2
+            mux_groups: ["ot_gpio_{i:2d}"]
+            description: "Bidirectional GPIO {i} signal"
+            connections:
+              chip2pad: ot_gpio{i}_i
+              ot_gpio{i}_o: pad2chip
+              oen: ~ot_gpio{i}_d_i
               puen: 1'b1

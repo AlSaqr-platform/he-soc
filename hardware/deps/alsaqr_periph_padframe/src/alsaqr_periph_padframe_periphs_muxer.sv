@@ -5459,6 +5459,66 @@ module alsaqr_periph_padframe_periphs_muxer
      endcase
    end // always_comb
 
+   // Pad ot_gpio_00
+   always_comb begin
+     unique case (s_reg2hw.ot_gpio_00_mux_sel.q)
+       PAD_MUX_GROUP_OT_GPIO_00_SEL_DEFAULT: begin
+         mux_to_pads_o.ot_gpio_00.chip2pad = s_reg2hw.ot_gpio_00_cfg.chip2pad.q;
+         mux_to_pads_o.ot_gpio_00.drv = s_reg2hw.ot_gpio_00_cfg.drv.q;
+         mux_to_pads_o.ot_gpio_00.oen = s_reg2hw.ot_gpio_00_cfg.oen.q;
+         mux_to_pads_o.ot_gpio_00.puen = s_reg2hw.ot_gpio_00_cfg.puen.q;
+         mux_to_pads_o.ot_gpio_00.slw = s_reg2hw.ot_gpio_00_cfg.slw.q;
+         mux_to_pads_o.ot_gpio_00.smt = s_reg2hw.ot_gpio_00_cfg.smt.q;
+       end
+       PAD_MUX_GROUP_OT_GPIO_00_SEL_OT_GPIO_OP_GPIO0: begin
+          mux_to_pads_o.ot_gpio_00.chip2pad = port_signals_soc2pad_i.ot_gpio.ot_gpio0_i;
+          mux_to_pads_o.ot_gpio_00.drv = s_reg2hw.ot_gpio_00_cfg.drv.q;
+          mux_to_pads_o.ot_gpio_00.oen = ~port_signals_soc2pad_i.ot_gpio.ot_gpio0_d_i;
+          mux_to_pads_o.ot_gpio_00.puen = 1'b1;
+          mux_to_pads_o.ot_gpio_00.slw = s_reg2hw.ot_gpio_00_cfg.slw.q;
+          mux_to_pads_o.ot_gpio_00.smt = s_reg2hw.ot_gpio_00_cfg.smt.q;
+       end
+       default: begin
+         mux_to_pads_o.ot_gpio_00.chip2pad = s_reg2hw.ot_gpio_00_cfg.chip2pad.q;
+         mux_to_pads_o.ot_gpio_00.drv = s_reg2hw.ot_gpio_00_cfg.drv.q;
+         mux_to_pads_o.ot_gpio_00.oen = s_reg2hw.ot_gpio_00_cfg.oen.q;
+         mux_to_pads_o.ot_gpio_00.puen = s_reg2hw.ot_gpio_00_cfg.puen.q;
+         mux_to_pads_o.ot_gpio_00.slw = s_reg2hw.ot_gpio_00_cfg.slw.q;
+         mux_to_pads_o.ot_gpio_00.smt = s_reg2hw.ot_gpio_00_cfg.smt.q;
+       end
+     endcase
+   end // always_comb
+
+   // Pad ot_gpio_01
+   always_comb begin
+     unique case (s_reg2hw.ot_gpio_01_mux_sel.q)
+       PAD_MUX_GROUP_OT_GPIO_01_SEL_DEFAULT: begin
+         mux_to_pads_o.ot_gpio_01.chip2pad = s_reg2hw.ot_gpio_01_cfg.chip2pad.q;
+         mux_to_pads_o.ot_gpio_01.drv = s_reg2hw.ot_gpio_01_cfg.drv.q;
+         mux_to_pads_o.ot_gpio_01.oen = s_reg2hw.ot_gpio_01_cfg.oen.q;
+         mux_to_pads_o.ot_gpio_01.puen = s_reg2hw.ot_gpio_01_cfg.puen.q;
+         mux_to_pads_o.ot_gpio_01.slw = s_reg2hw.ot_gpio_01_cfg.slw.q;
+         mux_to_pads_o.ot_gpio_01.smt = s_reg2hw.ot_gpio_01_cfg.smt.q;
+       end
+       PAD_MUX_GROUP_OT_GPIO_01_SEL_OT_GPIO_OP_GPIO1: begin
+          mux_to_pads_o.ot_gpio_01.chip2pad = port_signals_soc2pad_i.ot_gpio.ot_gpio1_i;
+          mux_to_pads_o.ot_gpio_01.drv = s_reg2hw.ot_gpio_01_cfg.drv.q;
+          mux_to_pads_o.ot_gpio_01.oen = ~port_signals_soc2pad_i.ot_gpio.ot_gpio1_d_i;
+          mux_to_pads_o.ot_gpio_01.puen = 1'b1;
+          mux_to_pads_o.ot_gpio_01.slw = s_reg2hw.ot_gpio_01_cfg.slw.q;
+          mux_to_pads_o.ot_gpio_01.smt = s_reg2hw.ot_gpio_01_cfg.smt.q;
+       end
+       default: begin
+         mux_to_pads_o.ot_gpio_01.chip2pad = s_reg2hw.ot_gpio_01_cfg.chip2pad.q;
+         mux_to_pads_o.ot_gpio_01.drv = s_reg2hw.ot_gpio_01_cfg.drv.q;
+         mux_to_pads_o.ot_gpio_01.oen = s_reg2hw.ot_gpio_01_cfg.oen.q;
+         mux_to_pads_o.ot_gpio_01.puen = s_reg2hw.ot_gpio_01_cfg.puen.q;
+         mux_to_pads_o.ot_gpio_01.slw = s_reg2hw.ot_gpio_01_cfg.slw.q;
+         mux_to_pads_o.ot_gpio_01.smt = s_reg2hw.ot_gpio_01_cfg.smt.q;
+       end
+     endcase
+   end // always_comb
+
 
   // Pad -> SoC Multiplex Logic
   // Port Group i2c0
@@ -10255,6 +10315,71 @@ module alsaqr_periph_padframe_periphs_muxer
           end
           default: begin
             port_signals_pad2soc_o.qspi_linux.sd3_o = 1'b0;
+          end
+       endcase
+     end
+   end
+
+  // Port Group ot_gpio
+
+  // Port Signal ot_gpio0_o
+  logic [0:0] port_mux_sel_ot_gpio_ot_gpio0_o_req;
+  logic [PORT_MUX_GROUP_OT_GPIO_00_SEL_WIDTH-1:0] port_mux_sel_ot_gpio_ot_gpio0_o_arbitrated;
+  logic port_mux_sel_ot_gpio_ot_gpio0_o_no_connection;
+
+   assign port_mux_sel_ot_gpio_ot_gpio0_o_req[PORT_MUX_GROUP_OT_GPIO_00_SEL_OT_GPIO_00] = s_reg2hw.ot_gpio_00_mux_sel.q == PAD_MUX_GROUP_OT_GPIO_00_SEL_OT_GPIO_OP_GPIO0 ? 1'b1 : 1'b0;
+
+   lzc #(
+     .WIDTH(1),
+     .MODE(1'b0)
+   ) i_port_muxsel_ot_gpio_ot_gpio0_o_arbiter (
+     .in_i(port_mux_sel_ot_gpio_ot_gpio0_o_req),
+     .cnt_o(port_mux_sel_ot_gpio_ot_gpio0_o_arbitrated),
+     .empty_o(port_mux_sel_ot_gpio_ot_gpio0_o_no_connection)
+   );
+
+   always_comb begin
+     if (port_mux_sel_ot_gpio_ot_gpio0_o_no_connection) begin
+        port_signals_pad2soc_o.ot_gpio.ot_gpio0_o = 1'b0;
+     end else begin
+        unique case (port_mux_sel_ot_gpio_ot_gpio0_o_arbitrated)
+          PORT_MUX_GROUP_OT_GPIO_00_SEL_OT_GPIO_00: begin
+            port_signals_pad2soc_o.ot_gpio.ot_gpio0_o = pads_to_mux_i.ot_gpio_00.pad2chip;
+          end
+          default: begin
+            port_signals_pad2soc_o.ot_gpio.ot_gpio0_o = 1'b0;
+          end
+       endcase
+     end
+   end
+
+
+  // Port Signal ot_gpio1_o
+  logic [0:0] port_mux_sel_ot_gpio_ot_gpio1_o_req;
+  logic [PORT_MUX_GROUP_OT_GPIO_01_SEL_WIDTH-1:0] port_mux_sel_ot_gpio_ot_gpio1_o_arbitrated;
+  logic port_mux_sel_ot_gpio_ot_gpio1_o_no_connection;
+
+   assign port_mux_sel_ot_gpio_ot_gpio1_o_req[PORT_MUX_GROUP_OT_GPIO_01_SEL_OT_GPIO_01] = s_reg2hw.ot_gpio_01_mux_sel.q == PAD_MUX_GROUP_OT_GPIO_01_SEL_OT_GPIO_OP_GPIO1 ? 1'b1 : 1'b0;
+
+   lzc #(
+     .WIDTH(1),
+     .MODE(1'b0)
+   ) i_port_muxsel_ot_gpio_ot_gpio1_o_arbiter (
+     .in_i(port_mux_sel_ot_gpio_ot_gpio1_o_req),
+     .cnt_o(port_mux_sel_ot_gpio_ot_gpio1_o_arbitrated),
+     .empty_o(port_mux_sel_ot_gpio_ot_gpio1_o_no_connection)
+   );
+
+   always_comb begin
+     if (port_mux_sel_ot_gpio_ot_gpio1_o_no_connection) begin
+        port_signals_pad2soc_o.ot_gpio.ot_gpio1_o = 1'b0;
+     end else begin
+        unique case (port_mux_sel_ot_gpio_ot_gpio1_o_arbitrated)
+          PORT_MUX_GROUP_OT_GPIO_01_SEL_OT_GPIO_01: begin
+            port_signals_pad2soc_o.ot_gpio.ot_gpio1_o = pads_to_mux_i.ot_gpio_01.pad2chip;
+          end
+          default: begin
+            port_signals_pad2soc_o.ot_gpio.ot_gpio1_o = 1'b0;
           end
        endcase
      end

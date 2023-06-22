@@ -174,7 +174,9 @@ module alsaqr_periph_padframe_periphs_pads
   inout wire logic pad_linux_qspi_02_pad,
   inout wire logic pad_linux_qspi_03_pad,
   inout wire logic pad_linux_qspi_04_pad,
-  inout wire logic pad_linux_qspi_05_pad
+  inout wire logic pad_linux_qspi_05_pad,
+  inout wire logic pad_ot_gpio_00_pad,
+  inout wire logic pad_ot_gpio_01_pad
   );
 
    // Pad instantiations
@@ -2536,6 +2538,34 @@ module alsaqr_periph_padframe_periphs_pads
     .DRV(mux_to_pads_i.linux_qspi_05.drv),
     .SLW(mux_to_pads_i.linux_qspi_05.slw),
     .SMT(mux_to_pads_i.linux_qspi_05.smt),
+    .PWROK(PWROK_S),
+    .IOPWROK(IOPWROK_S),
+    .BIAS(BIAS_S),
+    .RETC(RETC_S)
+  );
+   pad_alsaqr i_ot_gpio_00 (
+    .OEN(mux_to_pads_i.ot_gpio_00.oen),
+    .I(mux_to_pads_i.ot_gpio_00.chip2pad),
+    .O(pads_to_mux_o.ot_gpio_00.pad2chip),
+    .PUEN(mux_to_pads_i.ot_gpio_00.puen),
+    .PAD(pad_ot_gpio_00_pad),
+    .DRV(mux_to_pads_i.ot_gpio_00.drv),
+    .SLW(mux_to_pads_i.ot_gpio_00.slw),
+    .SMT(mux_to_pads_i.ot_gpio_00.smt),
+    .PWROK(PWROK_S),
+    .IOPWROK(IOPWROK_S),
+    .BIAS(BIAS_S),
+    .RETC(RETC_S)
+  );
+   pad_alsaqr i_ot_gpio_01 (
+    .OEN(mux_to_pads_i.ot_gpio_01.oen),
+    .I(mux_to_pads_i.ot_gpio_01.chip2pad),
+    .O(pads_to_mux_o.ot_gpio_01.pad2chip),
+    .PUEN(mux_to_pads_i.ot_gpio_01.puen),
+    .PAD(pad_ot_gpio_01_pad),
+    .DRV(mux_to_pads_i.ot_gpio_01.drv),
+    .SLW(mux_to_pads_i.ot_gpio_01.slw),
+    .SMT(mux_to_pads_i.ot_gpio_01.smt),
     .PWROK(PWROK_S),
     .IOPWROK(IOPWROK_S),
     .BIAS(BIAS_S),

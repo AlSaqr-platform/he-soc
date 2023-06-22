@@ -373,11 +373,17 @@ module ariane_tb;
     wire    pad_periphs_linux_qspi_03_pad;
     wire    pad_periphs_linux_qspi_04_pad;
     wire    pad_periphs_linux_qspi_05_pad;
+
+    wire    pad_periphs_ot_gpio_00_pad;
+    wire    pad_periphs_ot_gpio_01_pad;
    
     wire                  w_cva6_uart_rx ;
     wire                  w_cva6_uart_tx ;
     wire                  apb_uart_rx ;
     wire                  apb_uart_tx ;
+
+    wire                  bootmode_0;
+    wire                  bootmode_1;                 
    
     wire ddr_ext_clk;
   
@@ -672,7 +678,10 @@ module ariane_tb;
                .pad_periphs_linux_qspi_02_pad(pad_periphs_linux_qspi_02_pad),
                .pad_periphs_linux_qspi_03_pad(pad_periphs_linux_qspi_03_pad),
                .pad_periphs_linux_qspi_04_pad(pad_periphs_linux_qspi_04_pad),
-               .pad_periphs_linux_qspi_05_pad(pad_periphs_linux_qspi_05_pad),                    
+               .pad_periphs_linux_qspi_05_pad(pad_periphs_linux_qspi_05_pad),    
+
+               .pad_periphs_ot_gpio_00_pad(pad_periphs_ot_gpio_00_pad),
+               .pad_periphs_ot_gpio_01_pad(pad_periphs_ot_gpio_01_pad),                
      
             `endif //simple pad
           `endif //fpga_emul
@@ -683,7 +692,10 @@ module ariane_tb;
         .pad_hyper_ckn        ( hyper_ck_n_wire        ),
         .pad_hyper_rwds       ( hyper_rwds_wire        ),
         .pad_hyper_reset      ( hyper_reset_n_wire     ),
-        .pad_hyper_dq         ( hyper_dq_wire          )
+        .pad_hyper_dq         ( hyper_dq_wire          ),
+
+        .bootmode_0           ( bootmode_0             ),
+        .bootmode_1           ( bootmode_1             ) 
       );
 
    if (USE_UART == 1) begin

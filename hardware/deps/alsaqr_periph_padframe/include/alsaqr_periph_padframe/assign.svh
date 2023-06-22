@@ -547,4 +547,14 @@
   assign load.sd3_i = driver.sd3_o; \
   assign load.sd3_oen_i = driver.sd3_oen_o; \
 
+`define ASSIGN_PERIPHS_OT_GPIO_PAD2SOC(load, driver) \
+  assign load.ot_gpio0_i = driver.ot_gpio0_o; \
+  assign load.ot_gpio1_i = driver.ot_gpio1_o; \
+
+`define ASSIGN_PERIPHS_OT_GPIO_SOC2PAD(load, driver) \
+  assign load.ot_gpio0_d_i = driver.ot_gpio0_d_o; \
+  assign load.ot_gpio0_i = driver.ot_gpio0_o; \
+  assign load.ot_gpio1_d_i = driver.ot_gpio1_d_o; \
+  assign load.ot_gpio1_i = driver.ot_gpio1_o; \
+
 

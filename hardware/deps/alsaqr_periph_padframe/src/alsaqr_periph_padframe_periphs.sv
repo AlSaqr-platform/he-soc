@@ -178,6 +178,8 @@ module alsaqr_periph_padframe_periphs
   inout wire logic pad_linux_qspi_03_pad,
   inout wire logic pad_linux_qspi_04_pad,
   inout wire logic pad_linux_qspi_05_pad,
+  inout wire logic pad_ot_gpio_00_pad,
+  inout wire logic pad_ot_gpio_01_pad,
   input req_t config_req_i,
   output resp_t config_rsp_o
 );
@@ -355,7 +357,9 @@ module alsaqr_periph_padframe_periphs
      .pad_linux_qspi_02_pad,
      .pad_linux_qspi_03_pad,
      .pad_linux_qspi_04_pad,
-     .pad_linux_qspi_05_pad
+     .pad_linux_qspi_05_pad,
+     .pad_ot_gpio_00_pad,
+     .pad_ot_gpio_01_pad
 
   );
 
