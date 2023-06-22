@@ -33,7 +33,7 @@ module apb_subsystem
     parameter int unsigned AXI_ADDR_WIDTH = 64,
     parameter int unsigned AXI_DATA_WIDTH = 64,
     parameter int unsigned CAM_DATA_WIDTH = 8,
-    parameter int unsigned NUM_GPIO       = 65,
+    parameter int unsigned NUM_GPIO       = 64,
     parameter bit InclUART = 1
 ) (
     input logic                 clk_i,
@@ -327,7 +327,7 @@ module apb_subsystem
          .pad_to_sdio     ( pad_to_sdio                    )
       );
    
-    logic [64:0] s_gpio_sync; 
+    logic [63:0] s_gpio_sync; 
     logic [NUM_GPIO-1:0] s_gpio_in;
     logic [NUM_GPIO-1:0] s_gpio_out;
     logic [NUM_GPIO-1:0] s_gpio_dir;
