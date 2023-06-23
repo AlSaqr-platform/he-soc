@@ -497,8 +497,8 @@ module ariane_tb;
                   
           .cva6_uart_rx_i       ( w_cva6_uart_rx         ),
           .cva6_uart_tx_o       ( w_cva6_uart_tx         ),
-          .apb_uart_rx_i        ( apb_uart_rx            ),
-          .apb_uart_tx_o        ( apb_uart_tx            ),
+          // .apb_uart_rx_i        ( apb_uart_rx            ),
+          // .apb_uart_tx_o        ( apb_uart_tx            ),
         
         `ifndef EXCLUDE_PADFRAME
  

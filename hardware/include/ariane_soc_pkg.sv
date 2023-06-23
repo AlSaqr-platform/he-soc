@@ -122,8 +122,12 @@ package ariane_soc;
 `ifdef DUAL_CORE
     // shared region
     NrSharedRegionRules:    1,
-    SharedRegionAddrBase:  {HYAXIBase}, 
-    SharedRegionLength:    {HYAXILength},                                                         
+    SharedRegionAddrBase:  {HYAXIBase},
+    SharedRegionLength:    {HYAXILength},
+`else
+    NrSharedRegionRules:    0,
+    SharedRegionAddrBase:  '0,
+    SharedRegionLength:    '0,
 `endif                                                       
     //  cache config
     Axi64BitCompliant:      1'b1,
