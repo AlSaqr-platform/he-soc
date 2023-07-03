@@ -228,9 +228,37 @@ module al_saqr
   inout wire          jtag_TDI,
   inout wire          jtag_TRSTn,
   inout wire          jtag_TDO_data,
-  inout wire          jtag_TDO_driven
+  inout wire          jtag_TDO_driven,  
+
+  inout wire          jtag_ot_TCK,
+  inout wire          jtag_ot_TMS,
+  inout wire          jtag_ot_TDI,
+  inout wire          jtag_ot_TRSTn,
+  inout wire          jtag_ot_TDO_data,
+  // Boot Select
+  inout wire          pad_bootmode_0,
+  inout wire          pad_bootmode_1
    
 );
+  import lc_ctrl_pkg::*;
+  import edn_pkg::*;
+  import top_earlgrey_pkg::*;
+   
+  localparam int unsigned AsyncAxiOutAwWidth    = secure_subsystem_synth_pkg::SynthAsyncAxiOutAwWidth;
+  localparam int unsigned AsyncAxiOutWWidth     = secure_subsystem_synth_pkg::SynthAsyncAxiOutWWidth;
+  localparam int unsigned AsyncAxiOutBWidth     = secure_subsystem_synth_pkg::SynthAsyncAxiOutBWidth;
+  localparam int unsigned AsyncAxiOutArWidth    = secure_subsystem_synth_pkg::SynthAsyncAxiOutArWidth;
+  localparam int unsigned AsyncAxiOutRWidth     = secure_subsystem_synth_pkg::SynthAsyncAxiOutRWidth;
+  localparam int unsigned LogDepth              = secure_subsystem_synth_pkg::SynthLogDepth;
+
+  localparam type         axi_out_aw_chan_t     = secure_subsystem_synth_pkg::synth_axi_out_aw_chan_t;
+  localparam type         axi_out_w_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_w_chan_t;
+  localparam type         axi_out_b_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_b_chan_t;
+  localparam type         axi_out_ar_chan_t     = secure_subsystem_synth_pkg::synth_axi_out_ar_chan_t;
+  localparam type         axi_out_r_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_r_chan_t;
+  localparam type         axi_out_req_t         = secure_subsystem_synth_pkg::synth_axi_out_req_t;
+  localparam type         axi_out_resp_t        = secure_subsystem_synth_pkg::synth_axi_out_resp_t;
+   
   // AXILITE parameters
   localparam int unsigned AXI_LITE_AW       = 32;
   localparam int unsigned AXI_LITE_DW       = 32;
@@ -247,8 +275,35 @@ module al_saqr
   logic                        s_jtag_TRSTn;
   logic                        s_rtc_i;
   logic                        s_bypass_clk;
-  
 
+  logic [AsyncAxiOutAwWidth-1:0] async_axi_out_aw_data_o;
+  logic             [LogDepth:0] async_axi_out_aw_wptr_o;
+  logic             [LogDepth:0] async_axi_out_aw_rptr_i;
+  logic [ AsyncAxiOutWWidth-1:0] async_axi_out_w_data_o;
+  logic             [LogDepth:0] async_axi_out_w_wptr_o;
+  logic             [LogDepth:0] async_axi_out_w_rptr_i;
+  logic [ AsyncAxiOutBWidth-1:0] async_axi_out_b_data_i;
+  logic             [LogDepth:0] async_axi_out_b_wptr_i;
+  logic             [LogDepth:0] async_axi_out_b_rptr_o;
+  logic [AsyncAxiOutArWidth-1:0] async_axi_out_ar_data_o;
+  logic             [LogDepth:0] async_axi_out_ar_wptr_o;
+  logic             [LogDepth:0] async_axi_out_ar_rptr_i;
+  logic [ AsyncAxiOutRWidth-1:0] async_axi_out_r_data_i;
+  logic             [LogDepth:0] async_axi_out_r_wptr_i;
+  logic             [LogDepth:0] async_axi_out_r_rptr_o;
+
+  logic                          s_jtag_ot_TCK;
+  logic                          s_jtag_ot_TDI;
+  logic                          s_jtag_ot_TDO;
+  logic                          s_jtag_ot_TMS;
+  logic                          s_jtag_ot_TRSTn;
+
+  logic                          doorbell_irq;
+    
+  logic                          bootmode_0_i;
+  logic                          bootmode_1_i;
+  logic [1:0]                    bootmode_i;
+  
   logic s_soc_clk  ;
   logic s_soc_rst_n; 
   logic s_cluster_clk  ;
@@ -370,7 +425,20 @@ module al_saqr
    
   port_signals_pad2soc_t              s_port_signals_pad2soc;
   port_signals_soc2pad_t              s_port_signals_soc2pad;
+
+  axi_out_req_t                       ot_axi_req;
+  axi_out_resp_t                      ot_axi_rsp;
       
+  jtag_ot_pkg::jtag_req_t jtag_ibex_i;
+  jtag_ot_pkg::jtag_rsp_t jtag_ibex_o;
+   
+  assign bootmode_i             = { bootmode_1_i , bootmode_0_i };
+  assign jtag_ibex_i.tck        = s_jtag_ot_TCK;  
+  assign jtag_ibex_i.trst_n     = s_jtag_ot_TRSTn;
+  assign jtag_ibex_i.tms        = s_jtag_ot_TMS;
+  assign jtag_ibex_i.tdi        = s_jtag_ot_TDI;
+  assign s_jtag_ot_TDO          = jtag_ibex_o.tdo;
+   
   localparam RegAw  = 32;
   localparam RegDw  = 32;
 
@@ -404,7 +472,9 @@ module al_saqr
         .StallRandomOutput ( 1'b1       ),
         .StallRandomInput  ( 1'b1       ),
         .NUM_GPIO          ( NUM_GPIO   ),
-        .JtagEnable        ( JtagEnable )
+        .JtagEnable        ( JtagEnable ),
+        .axi_req_t         ( tlul2axi_pkg::mst_req_t ),
+        .axi_rsp_t         ( tlul2axi_pkg::mst_rsp_t ) 
     ) i_host_domain (
       .rst_ni(s_rst_ni),
       .rtc_i(s_rtc_i),
@@ -490,7 +560,12 @@ module al_saqr
        .pad_hyper_dq,
        `endif
         
-      .pwm_to_pad             ( s_pwm_to_pad                    )
+      .pwm_to_pad             ( s_pwm_to_pad                    ),
+                     
+      .ot_axi_req             ( ot_axi_req                      ),
+      .ot_axi_rsp             ( ot_axi_rsp                      ),
+
+      .doorbell_irq_o         ( doorbell_irq                    )
 
     );
    
@@ -511,6 +586,14 @@ module al_saqr
       .jtag_tdo_i       ( s_jtag_TDO       ),
       .jtag_tms_o       ( s_jtag_TMS       ),
       .jtag_trst_o      ( s_jtag_TRSTn     ),
+      // opentitan JTAG and bootselect signals
+      .jtag_tck_ot_o    ( s_jtag_ot_TCK    ),
+      .jtag_tdi_ot_o    ( s_jtag_ot_TDI    ),
+      .jtag_tdo_ot_i    ( s_jtag_ot_TDO    ),
+      .jtag_tms_ot_o    ( s_jtag_ot_TMS    ),
+      .jtag_trst_ot_o   ( s_jtag_ot_TRSTn  ),
+      .bootmode_0_i     ( bootmode_0_i     ),     
+      .bootmode_1_i     ( bootmode_1_i     ),
       
       .pad_reset_n      ( rst_ni           ),
       .pad_jtag_tck     ( jtag_TCK         ),
@@ -519,9 +602,116 @@ module al_saqr
       .pad_jtag_tms     ( jtag_TMS         ),
       .pad_jtag_trst    ( jtag_TRSTn       ),
       .pad_bypass       ( bypass_clk_i     ),
-      .pad_xtal_in      ( rtc_i            )
+      .pad_xtal_in      ( rtc_i            ),
+      // opentitan JTAG and bootselect pads
+      .pad_jtag_ot_tck  ( jtag_ot_TCK      ),
+      .pad_jtag_ot_tdi  ( jtag_ot_TDI      ),
+      .pad_jtag_ot_tdo  ( jtag_ot_TDO_data ),
+      .pad_jtag_ot_tms  ( jtag_ot_TMS      ),
+      .pad_jtag_ot_trst ( jtag_ot_TRSTn    ),
+      .pad_bootmode_0   ( pad_bootmode_0   ),
+      .pad_bootmode_1   ( pad_bootmode_1   )
 
      );
+   axi_cdc_dst #(
+      .LogDepth   ( LogDepth          ),
+      .aw_chan_t  ( axi_out_aw_chan_t ),
+      .w_chan_t   ( axi_out_w_chan_t  ),
+      .b_chan_t   ( axi_out_b_chan_t  ),
+      .ar_chan_t  ( axi_out_ar_chan_t ),
+      .r_chan_t   ( axi_out_r_chan_t  ),
+      .axi_req_t  ( axi_out_req_t     ),
+      .axi_resp_t ( axi_out_resp_t    )
+   ) i_cdc_in (
+      .async_data_slave_aw_data_i( async_axi_out_aw_data_o ),
+      .async_data_slave_aw_wptr_i( async_axi_out_aw_wptr_o ),
+      .async_data_slave_aw_rptr_o( async_axi_out_aw_rptr_i ),
+      .async_data_slave_w_data_i ( async_axi_out_w_data_o  ),
+      .async_data_slave_w_wptr_i ( async_axi_out_w_wptr_o  ),
+      .async_data_slave_w_rptr_o ( async_axi_out_w_rptr_i  ),
+      .async_data_slave_b_data_o ( async_axi_out_b_data_i  ),
+      .async_data_slave_b_wptr_o ( async_axi_out_b_wptr_i  ),
+      .async_data_slave_b_rptr_i ( async_axi_out_b_rptr_o  ),
+      .async_data_slave_ar_data_i( async_axi_out_ar_data_o ),
+      .async_data_slave_ar_wptr_i( async_axi_out_ar_wptr_o ),
+      .async_data_slave_ar_rptr_o( async_axi_out_ar_rptr_i ),
+      .async_data_slave_r_data_o ( async_axi_out_r_data_i  ),
+      .async_data_slave_r_wptr_o ( async_axi_out_r_wptr_i  ),
+      .async_data_slave_r_rptr_i ( async_axi_out_r_rptr_o  ),
+      .dst_clk_i                 ( s_soc_clk  ),
+      .dst_rst_ni                ( rst_ni     ),
+      .dst_req_o                 ( ot_axi_req ),
+      .dst_resp_i                ( ot_axi_rsp )
+   );
+
+   secure_subsystem_synth_wrap i_RoT_wrap (
+     .clk_i            ( s_soc_clk          ),
+     .clk_ref_i        ( s_soc_clk          ),
+     .rst_ni           ( rst_ni             ),
+     .pwr_on_rst_ni    ( rst_ni             ),
+     .fetch_en_i       ( '0                 ),
+     .bootmode_i       ( bootmode_i         ),
+     .test_enable_i    ( '0                 ),
+     .irq_ibex_i       ( doorbell_irq       ),
+   // JTAG port
+     .jtag_tck_i       ( jtag_ibex_i.tck    ),
+     .jtag_tms_i       ( jtag_ibex_i.tms    ),
+     .jtag_trst_n_i    ( jtag_ibex_i.trst_n ),
+     .jtag_tdi_i       ( jtag_ibex_i.tdi    ),
+     .jtag_tdo_o       ( jtag_ibex_o.tdo    ),
+     .jtag_tdo_oe_o    (                    ),
+   // GPIOs - will be connected with new padframe
+     .gpio_0_o         (               ),
+     .gpio_0_oe_o      (               ),
+     .gpio_1_o         (               ),
+     .gpio_1_oe_o      (               ),
+     .gpio_0_i         ( '0            ),
+     .gpio_1_i         ( '0            ),
+/*     .gpio_0_o         ( s_ot_gpio_to_pad.ot_gpio0_o   ), //will be connected with new padframe
+     .gpio_0_oe_o      ( s_ot_gpio_to_pad.ot_gpio0_d_o ),
+     .gpio_1_o         ( s_ot_gpio_to_pad.ot_gpio1_o   ),
+     .gpio_1_oe_o      ( s_ot_gpio_to_pad.ot_gpio1_d_o ),
+     .gpio_0_i         ( s_pad_to_ot_gpio.ot_gpio0_i   ),
+     .gpio_1_i         ( s_pad_to_ot_gpio.ot_gpio1_i   ),  */
+   // axi isolated - not implemented
+     .axi_isolate_i    ( 1'b0          ),
+     .axi_isolated_o   (               ),
+   // Uart - not implemented 
+     .ibex_uart_rx_i   ( '0            ),
+     .ibex_uart_tx_o   (               ),
+   // SPI host -  will be connected with new padframe
+     .spi_host_SCK_o   (               ),
+     .spi_host_SCK_en_o(               ),
+     .spi_host_CSB_o   (               ),
+     .spi_host_CSB_en_o(               ),
+     .spi_host_SD_o    (               ),
+     .spi_host_SD_i    ( '0            ),
+     .spi_host_SD_en_o (               ),
+/*     .spi_host_SCK_o   ( s_ot_qspi_to_pad[1:1] ),
+     .spi_host_SCK_en_o(                       ),
+     .spi_host_CSB_o   ( s_ot_qspi_to_pad[0:0] ),
+     .spi_host_CSB_en_o(                       ),
+     .spi_host_SD_o    ( s_ot_qspi_to_pad[5:2] ),
+     .spi_host_SD_i    ( s_ot_pad_to_qspi[3:0] ),
+     .spi_host_SD_en_o ( s_ot_qspi_to_pad[9:6] )        */                            
+   // Asynch axi port
+     .async_axi_out_aw_data_o,
+     .async_axi_out_aw_wptr_o,
+     .async_axi_out_aw_rptr_i,
+     .async_axi_out_w_data_o,
+     .async_axi_out_w_wptr_o,
+     .async_axi_out_w_rptr_i,
+     .async_axi_out_b_data_i,
+     .async_axi_out_b_wptr_i,
+     .async_axi_out_b_rptr_o,
+     .async_axi_out_ar_data_o,
+     .async_axi_out_ar_wptr_o,
+     .async_axi_out_ar_rptr_i,
+     .async_axi_out_r_data_i,
+     .async_axi_out_r_wptr_i,
+     .async_axi_out_r_rptr_o
+   );
+
 
   `ifndef EXCLUDE_CLUSTER   
 
@@ -733,7 +923,6 @@ module al_saqr
      assign cluster_cfg_axi_lite_bus.ar_region = 'h0;
      assign cluster_cfg_axi_lite_bus.ar_user = 'h0;
      assign cluster_cfg_axi_lite_bus.ar_valid = 'h0;
-     assign cluster_cfg_axi_lite_bus.ar_ready = 'h0;
      assign cluster_cfg_axi_lite_bus.r_ready = 1'b1;
 
      assign cluster_to_tlb_axi_bus.aw_id = 'h0;
@@ -767,7 +956,6 @@ module al_saqr
      assign cluster_to_tlb_axi_bus.ar_region = 'h0;
      assign cluster_to_tlb_axi_bus.ar_user = 'h0;
      assign cluster_to_tlb_axi_bus.ar_valid = 'h0;
-     assign cluster_to_tlb_axi_bus.ar_ready = 'h0;
      assign cluster_to_tlb_axi_bus.r_ready = 1'b1;
 
      ariane_axi_soc::req_slv_t    fake_cluster_s_req;
