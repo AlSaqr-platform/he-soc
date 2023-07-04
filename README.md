@@ -27,8 +27,7 @@ The repository is organized as follows
 ## NOTE:
 Hints to solve compilation issues:
 * Follow the insctuctions from https://github.com/pulp-platform/hyperbus/tree/main/models
-* Suppress error 2733 in `compile.tcl`
-* Copy the `vip` folder
+* You might need to suppress error 2733
 ### TODO: Fix these
 
 ## Hello World:
