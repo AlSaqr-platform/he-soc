@@ -13,8 +13,8 @@ dependencies:
   apb_host_control: { path: "deps/apb_host_control_regs" }
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
-  cva6: { git: "git@github.com:minho-pulp/cva6.git", rev: "f2aec221764d935091942edd37c6de2480a41457" }
-  riscv-dbg: { git: "git@github.com:Alsaqr-platform/riscv-dbg.git", version: 0.4.1 }
+  cva6: { git: "git@github.com:minho-pulp/cva6.git", rev: "5f5d4decb256f485cfdb6e1c773c9f6771d09ea5" }
+  riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0  }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: "0.29.1" }
   axi_llc: { git: "https://github.com/AlSaqr-platform/axi_llc.git", rev: "29fd76fb438c91c692108c1f93ab221931653c5d" }
   fpnew: { git: "https://github.com/pulp-platform/fpnew.git", version: 0.6.5 }
@@ -29,7 +29,8 @@ dependencies:
   udma_camera: { git: "https://github.com/Alsaqr-platform/udma_camera.git", rev: "0339ff06f0b62310d9c6c4b095d46b83064e0a23" }
   udma_filter: { git: "https://github.com/Alsaqr-platform/udma_filter.git", rev: "3e1fe269bcb70a7eef115ca8dc7e668229f04b46" }
   udma_external_per: { git: "https://github.com/Alsaqr-platform/udma_external_per.git", rev: "2b43a6a5b1c6d11dc7a6a6ada5233682adb76447" }
-  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.7 }
+  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.11 }
+  common_cells: { git: "https://github.com/pulp-platform/common_cells.git", version: 1.30.0 }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", rev: "d436ab3dad8260eadc1288bdc543c79b4d7462c7" }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "0e9f142f2f11278445c953ad011fce1c7ed85b66" }
   hyperbus: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "48290f8f44e61c5e51db3f046ef0f23d4bd4e2dc" }
@@ -98,7 +99,7 @@ sources:
       - ./fpga/ddr/boot_rom.sv
       - ./fpga/ddr/axi_flat.sv
       - ./fpga/ddr/alsaqr_xilinx.sv
-        
+
   - target: all(fpga,xilinx, not(asic), not(ddr))
     defines:
       FPGA_TARGET_XILINX: ~
@@ -111,7 +112,7 @@ sources:
       - ./fpga/ddr/fpga_clk_gen.sv
       - ./fpga/ddr/boot_rom.sv
       - ./fpga/alsaqr_xilinx.sv
-      
+
   - target: all(asic, not(all(fpga, xilinx)))
     defines:
       WT_DCACHE: ~
@@ -127,7 +128,7 @@ sources:
       - gf22/innovus/cva6/out/cva6_synth_wrap.v
       - gf22/innovus/cluster/out/pulp_cluster.v
       - gf22/innovus/trial_hier/out/alsaqr_chip.v
-      
+
   - target: vip
     files:
       - tb/vip/hyperflash_model/s26ks512s.v
@@ -136,12 +137,12 @@ sources:
       - tb/vip/spi_flash/S25fs256s/model/s25fs256s.v
       - tb/vip/camera/cam_vip.sv
       - tb/vip/sdio/sdModel.v
-    
-      
+
+
   - target: test
     files:
-      - tb/common/uart.sv                                                     
-      - tb/common/SimDTM.sv                                                   
+      - tb/common/uart.sv
+      - tb/common/SimDTM.sv
       - tb/common/SimJTAG.sv
       - ../bootrom/bootrom.sv
       - tb/common/jtag_pkg.sv
