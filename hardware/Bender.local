@@ -1,2 +1,4 @@
 overrides:
   axi: { git: "https://github.com/AlSaqr-platform/axi.git" , rev: "hyper-snoop" }
+  hyperbus: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "48290f8f44e61c5e51db3f046ef0f23d4bd4e2dc" }
+  hci: { git: "https://github.com/pulp-platform/hci.git", rev: b2e6f391aa6c10c03f45b693d80a0aaddecf169b }
