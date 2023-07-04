@@ -24,11 +24,6 @@ The repository is organized as follows
 
  * `software` contains the bare metals tests you can run on the SoC
 
-## NOTE:
-* Follow the insctuctions from https://github.com/pulp-platform/hyperbus/tree/main/models
-* You might need to suppress error 2733
-### TODO: Fix these issues
-
 ## Hello World:
 
 ```
