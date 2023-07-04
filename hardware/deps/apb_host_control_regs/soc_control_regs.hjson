@@ -105,5 +105,47 @@
               }
             ]
       }
+      {
+           name: LLC_CACHE_ADDR_START
+           desc: '''Start address of the LLC cache region'''
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: llc_cache_addr_start
+                 desc: '''Start address of the LLC cache region'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+              }
+            ]
+      }
+      {
+           name: LLC_CACHE_ADDR_END
+           desc: '''End address of the LLC cache region'''
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: llc_cache_addr_end
+                 desc: '''End address of the LLC cache region'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+              }
+            ]
+      }
+      {
+           name: LLC_SPM_ADDR_START
+           desc: '''Start address of the LLC SPM region'''
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: llc_spm_addr_start
+                 desc: '''Start address of the LLC SPM region'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+              }
+            ]
+      }
   ]
 }
