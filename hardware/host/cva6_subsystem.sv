@@ -17,10 +17,10 @@
 `include "register_interface/typedef.svh"
 `include "register_interface/assign.svh"
 
-module cva6_subsystem 
+module cva6_subsystem
   import axi_pkg::xbar_cfg_t;
   import ariane_soc::*;
-  import udma_subsystem_pkg::N_CAN;  
+  import udma_subsystem_pkg::N_CAN;
 #(
   parameter int unsigned AXI_USER_WIDTH    = 1,
   parameter int unsigned AXI_ADDRESS_WIDTH = 64,
@@ -80,7 +80,7 @@ module cva6_subsystem
   logic        ndmreset;
   logic        ndmreset_n;
   logic        debug_req_core;
-  
+
   logic        jtag_enable;
   logic        init_done;
 
@@ -104,7 +104,7 @@ module cva6_subsystem
 
   assign test_en = 1'b0;
   assign jtag_enable = JtagEnable;
-   
+
   AXI_BUS_ASYNC_GRAY #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
@@ -119,7 +119,7 @@ module cva6_subsystem
     .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
   ) slave[ariane_soc::NrSlaves-1:0]();
-   
+
   AXI_BUS #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -148,14 +148,14 @@ module cva6_subsystem
     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
   ) cluster_axi_master_cut();
 
-   
+
   assign ndmreset_n = sync_rst_ni;
-   
+
   // ---------------
   // Debug
   // ---------------
   assign init_done = rst_ni;
-   
+
   initial begin
     if (riscv::XLEN != 32 & riscv::XLEN != 64) $error("XLEN different from 32 and 64");
   end
@@ -168,7 +168,7 @@ module cva6_subsystem
   assign dmi_resp_valid      = (jtag_enable) ? 1'b0               : debug_resp_valid;
 
   dmi_jtag  #(
-    .IdcodeValue ( 32'h20001001)
+    .IdcodeValue ( ariane_soc::DbgIdCode)
     ) i_dmi_jtag (
     .clk_i            ( clk_i           ),
     .rst_ni           ( rst_ni          ),
@@ -188,7 +188,7 @@ module cva6_subsystem
     .tdo_oe_o         ( jtag_TDO_driven )
   );
 
-  assign dmi_req_ready = debug_req_ready ;    
+  assign dmi_req_ready = debug_req_ready ;
   assign dmi_req.addr = dmi_req_bits_addr;
   assign dmi_req.data = dmi_req_bits_data;
   // SiFive's SimDTM Module
@@ -295,7 +295,7 @@ module cva6_subsystem
 
   `AXI_ASSIGN_FROM_REQ(slave[1],dm_axi_m_req)
   `AXI_ASSIGN_TO_RESP(dm_axi_m_resp,slave[1])
-   
+
   axi_adapter #(
     .DATA_WIDTH            ( AXI_DATA_WIDTH            ),
     .AXI_ID_WIDTH          ( ariane_soc::IdWidth       )
@@ -360,7 +360,7 @@ module cva6_subsystem
     .req_i      ( rom_req   ),
  `ifdef FPGA_EMUL
     .rst        ( ndmreset_n),
- `endif                   
+ `endif
     .addr_i     ( rom_addr  ),
     .rdata_o    ( rom_rdata )
   );
@@ -392,7 +392,7 @@ module cva6_subsystem
 
 
   // ---------------
-  // AXI hyperbus Slave 
+  // AXI hyperbus Slave
   // ---------------
 
   axi_cut_intf #(
@@ -425,9 +425,9 @@ module cva6_subsystem
   `else // !`ifdef L3_TCSRAM
     `AXI_ASSIGN(hyper_axi_master,hyper_axi_master_redirect);
   `endif
-   
-                       
-                 
+
+
+
   axi_riscv_atomics_wrap #(
     .AXI_ADDR_WIDTH     ( AXI_ADDRESS_WIDTH        ),
     .AXI_DATA_WIDTH     ( AXI_DATA_WIDTH           ),
@@ -441,7 +441,7 @@ module cva6_subsystem
     .slv    ( master[ariane_soc::HYAXI] ),
     .mst    ( hyper_axi_master_cut      )
   );
-   
+
   // ---------------
   // AXI CLUSTER Slave
   // ---------------
@@ -460,12 +460,12 @@ module cva6_subsystem
     .in     ( cluster_axi_master_cut    ),
     .out    ( cluster_axi_master        )
   );
-   
+
   // ---------------
   // AXI CLUSTER Master
   // ---------------
   `AXI_ASSIGN(slave[2],cluster_axi_slave)
-   
+
   // ---------------
   // AXI Xbar
   // ---------------
@@ -474,7 +474,7 @@ module cva6_subsystem
                                          NoMstPorts: ariane_soc::NB_PERIPHERALS,
                                          MaxMstTrans: ariane_soc::NB_PERIPHERALS,
                                          MaxSlvTrans: ariane_soc::NrSlaves,
-                                         FallThrough: 1'b0,        
+                                         FallThrough: 1'b0,
                                          LatencyMode: axi_pkg::NO_LATENCY, // If you cut anything, you might want to remove the soc2cluster_cut.
                                          PipelineStages: 32'd0,
                                          AxiIdWidthSlvPorts: ariane_soc::IdWidth,
@@ -490,80 +490,80 @@ module cva6_subsystem
  assign addr_map[ariane_soc::Debug] = '{
     idx:  ariane_soc::Debug,
     start_addr: ariane_soc::DebugBase,
-    end_addr:   ariane_soc::DebugBase    + ariane_soc::DebugLength  
+    end_addr:   ariane_soc::DebugBase    + ariane_soc::DebugLength
   };
 
-  assign addr_map[ariane_soc::ROM] = '{ 
+  assign addr_map[ariane_soc::ROM] = '{
     idx:  ariane_soc::ROM,
     start_addr: ariane_soc::ROMBase,
-    end_addr:   ariane_soc::ROMBase      + ariane_soc::ROMLength  
+    end_addr:   ariane_soc::ROMBase      + ariane_soc::ROMLength
   };
 
-  assign addr_map[ariane_soc::UART] = '{ 
+  assign addr_map[ariane_soc::UART] = '{
     idx:  ariane_soc::UART,
     start_addr: ariane_soc::UARTBase,
-    end_addr:   ariane_soc::UARTBase     + ariane_soc::UARTLength  
+    end_addr:   ariane_soc::UARTBase     + ariane_soc::UARTLength
   };
 
-  assign addr_map[ariane_soc::CLINT] = '{ 
+  assign addr_map[ariane_soc::CLINT] = '{
     idx:  ariane_soc::CLINT,
     start_addr: ariane_soc::CLINTBase,
-    end_addr:   ariane_soc::CLINTBase    + ariane_soc::CLINTLength  
+    end_addr:   ariane_soc::CLINTBase    + ariane_soc::CLINTLength
   };
 
   assign addr_map[ariane_soc::PLIC] = '{
     idx:  ariane_soc::PLIC,
     start_addr: ariane_soc::PLICBase,
-    end_addr:   ariane_soc::PLICBase     + ariane_soc::PLICLength  
+    end_addr:   ariane_soc::PLICBase     + ariane_soc::PLICLength
   };
 
   assign addr_map[ariane_soc::Cluster] = '{
     idx:  ariane_soc::Cluster,
     start_addr: ariane_soc::ClusterBase,
-    end_addr:   ariane_soc::ClusterBase     + ariane_soc::ClusterLength  
+    end_addr:   ariane_soc::ClusterBase     + ariane_soc::ClusterLength
   };
 
-  assign addr_map[ariane_soc::L2SPM] = '{ 
+  assign addr_map[ariane_soc::L2SPM] = '{
     idx:  ariane_soc::L2SPM,
     start_addr: ariane_soc::L2SPMBase,
-    end_addr:   ariane_soc::L2SPMBase     + ariane_soc::L2SPMLength  
+    end_addr:   ariane_soc::L2SPMBase     + ariane_soc::L2SPMLength
   };
 
-  assign addr_map[ariane_soc::APB_SLVS] = '{ 
+  assign addr_map[ariane_soc::APB_SLVS] = '{
     idx:  ariane_soc::APB_SLVS,
     start_addr: ariane_soc::APB_SLVSBase,
-    end_addr:   ariane_soc::APB_SLVSBase     + ariane_soc::APB_SLVSLength  
+    end_addr:   ariane_soc::APB_SLVSBase     + ariane_soc::APB_SLVSLength
   };
 
-  assign addr_map[ariane_soc::Timer] = '{ 
+  assign addr_map[ariane_soc::Timer] = '{
     idx:  ariane_soc::Timer,
     start_addr: ariane_soc::TimerBase,
-    end_addr:   ariane_soc::TimerBase    + ariane_soc::TimerLength  
+    end_addr:   ariane_soc::TimerBase    + ariane_soc::TimerLength
   };
 
   assign addr_map[ariane_soc::SPI] = '{
     idx:  ariane_soc::SPI,
     start_addr: ariane_soc::SPIBase,
-    end_addr:   ariane_soc::SPIBase      + ariane_soc::SPILength  
+    end_addr:   ariane_soc::SPIBase      + ariane_soc::SPILength
   };
 
-  assign addr_map[ariane_soc::Ethernet] = '{ 
+  assign addr_map[ariane_soc::Ethernet] = '{
     idx:  ariane_soc::Ethernet,
     start_addr: ariane_soc::EthernetBase,
-    end_addr:   ariane_soc::EthernetBase + ariane_soc::EthernetLength  
+    end_addr:   ariane_soc::EthernetBase + ariane_soc::EthernetLength
   };
 
-  assign addr_map[ariane_soc::HYAXI] = '{ 
+  assign addr_map[ariane_soc::HYAXI] = '{
     idx:  ariane_soc::HYAXI,
     start_addr: ariane_soc::HYAXIBase,
-    end_addr:   ariane_soc::HYAXIBase     + ariane_soc::HYAXILength  
-  }; 
+    end_addr:   ariane_soc::HYAXIBase     + ariane_soc::HYAXILength
+  };
 
-  assign addr_map[ariane_soc::AXILiteDom] = '{ 
+  assign addr_map[ariane_soc::AXILiteDom] = '{
     idx:  ariane_soc::AXILiteDom,
     start_addr: ariane_soc::AXILiteBase,
-    end_addr:   ariane_soc::AXILiteBase + ariane_soc::AXILiteLength  
-  }; 
+    end_addr:   ariane_soc::AXILiteBase + ariane_soc::AXILiteLength
+  };
 
   axi_xbar_intf #(
     .AXI_USER_WIDTH         ( AXI_USER_WIDTH                        ),
@@ -581,11 +581,11 @@ module cva6_subsystem
   );
 
   // --------------------
-  // AXI Lite Slave    
+  // AXI Lite Slave
   // --------------------
 
   `AXI_ASSIGN(axi_lite_master, master[ariane_soc::AXILiteDom])
-   
+
   // ---------------
   // CLINT
   // ---------------
@@ -593,7 +593,7 @@ module cva6_subsystem
   logic ipi;
   logic timer_irq;
   logic rtc_clint;
-   
+
   ariane_axi_soc::req_slv_t    axi_clint_req;
   ariane_axi_soc::resp_slv_t   axi_clint_resp;
 
@@ -604,7 +604,7 @@ module cva6_subsystem
       rtc_clint <= rtc_clint ^ 1'b1;
     end
   end
-   
+
   clint #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -640,7 +640,7 @@ module cva6_subsystem
 `else
     .InclUART     ( 1'b0                     ),
 `endif
-`ifdef TARGET_FPGA  
+`ifdef TARGET_FPGA
     .InclSPI      ( 1'b1                     ),
 `else
     .InclSPI      ( 1'b0                     ),
@@ -689,7 +689,7 @@ module cva6_subsystem
     .time_irq_i           ( timer_irq                   ), // async signal
     .debug_req_i          ( debug_req_core              ), // async signal
     .data_master_aw_wptr_o( cva6_axi_master_dst.aw_wptr ),
-    .data_master_aw_data_o( cva6_axi_master_dst.aw_data ), 
+    .data_master_aw_data_o( cva6_axi_master_dst.aw_data ),
     .data_master_aw_rptr_i( cva6_axi_master_dst.aw_rptr ),
     .data_master_ar_wptr_o( cva6_axi_master_dst.ar_wptr ),
     .data_master_ar_data_o( cva6_axi_master_dst.ar_data ),
@@ -717,5 +717,5 @@ module cva6_subsystem
       .dst_rst_ni(ndmreset_n),
       .dst(slave[0])
       );
-   
+
 endmodule
