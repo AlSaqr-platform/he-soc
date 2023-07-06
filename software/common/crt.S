@@ -12,8 +12,6 @@
 # define REGBYTES 4
 #endif
 
-#.word pippo
-
   .section ".text.init"
   .globl _start
 _start:
@@ -118,10 +116,6 @@ _start:
   la gp, __global_pointer$
 .option pop
 
-#  la  tp, _end + 63
-#  and tp, tp, -64
-
-# Beppe
   la  tp, _tls_data
 
   # get core id
@@ -130,16 +124,7 @@ _start:
   li a1, 1
 1:bgeu a0, a1, 1b
 
-# Beppe
   la  sp, _stack
-
-  # give each core 256KB of stack + TLS
-#define STKSHIFT 18
-#  sll a2, a0, STKSHIFT
-#  add tp, tp, a2
-#  add sp, a0, 1
-#  sll sp, sp, STKSHIFT
-#  add sp, sp, tp
 
   j _init
 
