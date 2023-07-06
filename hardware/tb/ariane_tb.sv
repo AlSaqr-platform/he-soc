@@ -407,11 +407,11 @@ module ariane_tb;
           .dmi_resp_bits_resp   ( s_dmi_resp_bits_resp   ),
           .dmi_resp_bits_data   ( s_dmi_resp_bits_data   ),
         `endif
-          .jtag_TCK             ( s_jtag_to_alsaqr_tck      ),
-          .jtag_TMS             ( s_jtag_to_alsaqr_tms      ),
-          .jtag_TDI             ( s_jtag_to_alsaqr_tdi      ),
-          .jtag_TRSTn           ( s_jtag_to_alsaqr_trstn    ),
-          .jtag_TDO_data        ( s_jtag_to_alsaqr_tdo      ),
+          .jtag_TCK             ( s_jtag_to_alsaqr_tck   ),
+          .jtag_TMS             ( s_jtag_to_alsaqr_tms   ),
+          .jtag_TDI             ( s_jtag_to_alsaqr_tdi   ),
+          .jtag_TRSTn           ( s_jtag_to_alsaqr_trstn ),
+          .jtag_TDO_data        ( s_jtag_to_alsaqr_tdo   ),
           .jtag_TDO_driven      ( s_jtag_TDO_driven      ),
 
           .cva6_uart_rx_i       ( w_cva6_uart_rx         ),
@@ -921,6 +921,7 @@ module ariane_tb;
 
     logic [31:0] linker_addr;
     logic [63:0] binary_entry;
+    dm::sbcs_t sbcs;
 
     if(LOCAL_JTAG==1) begin
       $display("LOCAL_JTAG : %d", LOCAL_JTAG);
@@ -942,21 +943,6 @@ module ariane_tb;
         if(cluster_binary!="none")
           jtag_elf_load(cluster_binary, binary_entry);
 
-        /*$display("Amos KEY: FFFFFFFFFFFF327F000000000000EEBA");
-        $display("DW KEY  : FFFFFFFFFFFEEE6E00000000000212FF");
-        key0=128'hFFFFFFFFFFFF327F000000000000EEBA; //amos
-        key1=128'hFFFFFFFFFFFEEE6E00000000000212FF; //dw
-        $display("Write key0[31:0] %x", key0[31:0]); // insert the keys here
-        jtag_write_reg(32'h1A106000,{key0[31:0],32'h00000001});
-        $display("Write key0[95:32] %x", key0[95:32]);
-        jtag_write_reg(32'h1A106008,key0[95:32]);
-        $display("Write key1[31:0] %x; key0[127:96] %x", key1[31:0], key0[127:96]);
-        jtag_write_reg(32'h1A106010,{key1[31:0],key0[127:96]});
-        $display("Write key1[95:32] %x", key1[95:32]);
-        jtag_write_reg(32'h1A106018,key1[95:32]);
-        $display("Write key1[127:96] %x", key1[127:96]);
-        jtag_write_reg(32'h1A106020,{32'h0,key1[127:96]});*/
-
         $display("Load binary...");
         // Load host code
         jtag_elf_load(binary, binary_entry);
@@ -966,42 +952,10 @@ module ariane_tb;
         jtag_wait_for_eoc (exit_code, binary_entry);
       end else begin
 
-        /*$display("Sanity write/read at 0x1C000000"); // word = 8 bytes here
+        $display("Sanity write/read at 0x1C000000"); // word = 8 bytes here
         addr = 32'h1c000000;
-        do jtag_dbg.read_dmi(dm::SBCS, sbcs);
-        while (sbcs.sbbusy);
-        jtag_dbg.write_dmi(dm::SBCS, sbcs);
-        do jtag_dbg.read_dmi(dm::SBCS, sbcs);
-        while (sbcs.sbbusy);
-        jtag_dbg.write_dmi(dm::SBAddress0, addr);
-        do jtag_dbg.read_dmi(dm::SBCS, sbcs);
-        while (sbcs.sbbusy);
-        jtag_dbg.write_dmi(dm::SBData1, 32'hdeadcaca);
-        do jtag_dbg.read_dmi(dm::SBCS, sbcs);
-        while (sbcs.sbbusy);
-        jtag_dbg.write_dmi(dm::SBData0, 32'habbaabba);
-        do jtag_dbg.read_dmi(dm::SBCS, sbcs);
-        while (sbcs.sbbusy);
-        sbcs.sbreadonaddr = 1;
-        jtag_dbg.write_dmi(dm::SBCS, sbcs);
-        do jtag_dbg.read_dmi(dm::SBCS, sbcs);
-        while (sbcs.sbbusy);
-        jtag_dbg.write_dmi(dm::SBAddress0, addr);
-        do jtag_dbg.read_dmi(dm::SBCS, sbcs);
-        while (sbcs.sbbusy);
-        jtag_dbg.read_dmi(dm::SBData1, rdata[63:32]);
-        // Wait until SBA is free to read another 32 bits
-        do jtag_dbg.read_dmi(dm::SBCS, sbcs);
-        while (sbcs.sbbusy);
-        jtag_dbg.read_dmi(dm::SBData0, rdata[32:0]);
-        // Wait until SBA is free to read another 32 bits
-        do jtag_dbg.read_dmi(dm::SBCS, sbcs);
-        while (sbcs.sbbusy);
-        if(rdata!=64'hdeadcacaabbaabba) begin
-          $fatal(1,"rdata at 0x1c000000: %x" , rdata);
-        end else begin
-          $display("R/W sanity check ok!");
-        end*/
+
+        jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
 
         binary_entry={32'h00000000,LINKER_ENTRY};
         #(REFClockPeriod);
@@ -1026,30 +980,41 @@ module ariane_tb;
     };
 
     addr = start_addr;
-
-    jtag_write(dm::SBCS, sbcs);
-    jtag_write(dm::SBAddress0, addr);
-    jtag_write(dm::SBData1, value[63:32]);
-    jtag_write(dm::SBData0, value[31:0]);
+    do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    jtag_dbg.write_dmi(dm::SBCS, sbcs);
+    do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    jtag_dbg.write_dmi(dm::SBAddress0, addr);
+    do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    jtag_dbg.write_dmi(dm::SBData1, value[63:32]);
+    do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    jtag_dbg.write_dmi(dm::SBData0, value[31:0]);
+    do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
     sbcs.sbreadonaddr = 1;
-    jtag_write(dm::SBCS, sbcs);
-    jtag_write(dm::SBAddress0, addr);
-
-    riscv_dbg.read_dmi_exp_backoff(dm::SBData1, rdata[63:32]);
-    // Wait until SBA is free to read another 32 bits
-    do riscv_dbg.read_dmi(dm::SBCS, sbcs);
+    jtag_dbg.write_dmi(dm::SBCS, sbcs);
+    do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
     while (sbcs.sbbusy);
-
-    riscv_dbg.read_dmi_exp_backoff(dm::SBData0, rdata[31:0]);
-    // Wait until SBA is free to read another 32 bits
-    do riscv_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
+    jtag_dbg.write_dmi(dm::SBAddress0, addr);
+    do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
     while (sbcs.sbbusy);
-
+    jtag_dbg.read_dmi_exp_backoff(dm::SBData1, rdata[63:32]);
+    // Wait until SBA is free to read another 32 bits
+    do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    jtag_dbg.read_dmi_exp_backoff(dm::SBData0, rdata[31:0]);
+    // Wait until SBA is free to read another 32 bits
+    do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
     if(rdata!=value) begin
       $fatal(1,"rdata at %x: %x" , addr, rdata);
     end else begin
-      $display("R/W sanity check ok!");
+      $display("W/R sanity check at %x ok! : %x", addr, rdata);
     end
+
 
   endtask // execute_application
 
