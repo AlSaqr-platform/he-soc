@@ -9,7 +9,7 @@
 
 /* The OUTPUT_ARCH command specifies the machine architecture where the
    argument is one of the names used in the BFD library. More
-   specifically one of the entires in bfd/cpu-mips.c 
+   specifically one of the entires in bfd/cpu-mips.c
    See LICENSE for license details.
 */
 
@@ -23,7 +23,7 @@ ENTRY(_start)
 SECTIONS
 {
 
-  /* text: test code section */
+  /* text: for code & constants */
   . = 0x80000000;
   .text.init : { *(.text.init) }
 
@@ -31,8 +31,8 @@ SECTIONS
   .tohost : { *(.tohost) }
 
   .text : { *(.text) }
-  
-  /* data segment */
+
+  /* data: for initialized data */
   .data : { *(.data) }
 
   .sdata : {
@@ -50,12 +50,14 @@ SECTIONS
     __cluster_code_end = . ;
     }
 
-  /* bss segment */
+  /* bss: for uninitialized data */
   .sbss : {
     *(.sbss .sbss.* .gnu.linkonce.sb.*)
     *(.scommon)
   }
-  .bss : { *(.bss) }
+  .bss : {
+    *(.bss)
+  }
 
   /* thread-local data segment */
   .tdata :
@@ -71,8 +73,13 @@ SECTIONS
     *(.tbss.end)
   }
 
+  /* stack 256K */
+  .stack :
+  {
+    . = . + 0x8000;
+    _stack = .;
+  }
 
   /* End of uninitalized data segement */
   _end = .;
 }
-

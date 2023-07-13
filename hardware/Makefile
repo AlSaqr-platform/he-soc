@@ -42,6 +42,7 @@ BENDER_FPGA_SCRIPTS_DIR = fpga/alsaqr/tcl/generated
 BENDER_SYNTH_DIR = gf22
 BENDER_BUILD_DIR:=.
 
+QUESTA = questa-2022.3
 
 ifndef RISCV
 $(error RISCV not set - please point your RISCV variable to your RISCV installation)
@@ -106,7 +107,7 @@ uvm-flags        += +UVM_NO_RELNOTES +UVM_VERBOSITY=LOW
 questa-flags     += -t 1ns -64 -coverage -classdebug $(gui-sim) $(QUESTASIM_FLAGS)
 compile_flag_vhd += -64 -nologo -quiet -2008
 
-compile_flag_bender   += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 13262 -permissive 
+compile_flag_bender   += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 13262 -permissive
 
 
 # Iterate over all include directories and write them with +incdir+ prefixed
@@ -120,7 +121,7 @@ ifdef batch-mode
 	questa-cmd   += -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; run -all;"
 else
 	questa-cmd   := -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; log -r /*; run -all;"
-endif 
+endif
 # we want to preload the memories
 ifdef preload
 	questa-cmd += +PRELOAD=$(preload)
@@ -164,12 +165,12 @@ endif
 
 ifdef localjtag
 	compile_flag += +define+USE_LOCAL_JTAG
-	questa-cmd += +define+USE_LOCAL_JTAG 
+	questa-cmd += +define+USE_LOCAL_JTAG
 endif
 
 ifdef preload
 	compile_flag += +define+PRELOAD
-	questa-cmd += +define+PRELOAD 
+	questa-cmd += +define+PRELOAD
 endif
 
 bender:
@@ -179,8 +180,8 @@ update:
 	bender update
 
 libbender:
-	@vlib work
-	vmap work ./work
+	$(QUESTA) vlib work
+	$(QUESTA) vmap work ./work
 
 scripts-bender-fpga: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
@@ -213,18 +214,18 @@ post_synth_scripts_vip:
 
 benderrun: libbender $(util) $(library)
 	@test -f Bender.lock || { echo "ERROR: Bender.lock file does not exist. Did you run make checkout in bender mode?"; exit 1; }
-	vsim -c -do 'source $(compile_script); quit'
+	$(QUESTA) vsim -c -do 'source $(compile_script); quit'
 	touch $(library)/.build-srcs
 
 bendertb: benderrun $(dpi)
 	touch $(library)/.build-tb
 
 build: bendertb 	$(dpi-library)/ariane_dpi.so
-	vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc -check_synthesis
+	$(QUESTA) vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc -check_synthesis
 
 
 $(library):
-	vlib${questa_version} $(library)
+	$(QUESTA) vlib${questa_version} $(library)
 
 # compile DPIs
 $(dpi-library)/%.o: tb/dpi/%.cc $(dpi_hdr)
@@ -239,14 +240,14 @@ $(dpi-library)/ariane_dpi.so: $(dpi)
 # single test runs on Questa can be started by calling make <testname>, e.g. make towers.riscv
 # the test names are defined in ci/riscv-asm-tests.list, and in ci/riscv-benchmarks.list
 # if you want to run in batch mode, use make <testname> batch-mode=1
-# alternatively you can call make sim elf-bin=<path/to/elf-bin> in order to load an arbitrary binary		
- 
+# alternatively you can call make sim elf-bin=<path/to/elf-bin> in order to load an arbitrary binary
+
 generate-trace-vsim:
 	make sim preload=$(preload) elf-bin= batch-mode=1
 	make generate-trace
 
 run:
-	vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -lib $(library)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
+	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -lib $(library)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi  \
 	${top_level}_optimized +permissive-off ++$(elf-bin) ++$(target-options) ++$(cl-bin) | tee sim.log
 
@@ -258,13 +259,13 @@ sim: build run
 $(alsaqr-regression): build
 	mkdir -p tmp
 	../software/elf_to_slm.py --binary=$@ --vectors=hyperram0.slm
-	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library)  -suppress 3053 -suppress 8885 +max-cycles=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$@ +CL_STRING=$(cl-bin) -t 1ps \
+	$(QUESTA) vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library)  -suppress 3053 -suppress 8885 +max-cycles=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$@ +CL_STRING=$(cl-bin) -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi   \
 	${top_level}_optimized $(QUESTASIM_FLAGS) +permissive-off ++$(alsaqr-regression-dir)/$@ ++$(target-options) | tee tmp/alsaqr-regression-$@.log
 
 check-benchmarks:
 	echo $(alsaqr-regression)
-	./check-regs.sh 
+	./check-regs.sh
 
 run-regressions:	$(alsaqr-regression)
 	$(MAKE) check-benchmarks

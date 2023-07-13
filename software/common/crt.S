@@ -116,8 +116,7 @@ _start:
   la gp, __global_pointer$
 .option pop
 
-  la  tp, _end + 63
-  and tp, tp, -64
+  la  tp, _tls_data
 
   # get core id
   csrr a0, mhartid
@@ -125,13 +124,7 @@ _start:
   li a1, 1
 1:bgeu a0, a1, 1b
 
-  # give each core 128KB of stack + TLS
-#define STKSHIFT 17
-  sll a2, a0, STKSHIFT
-  add tp, tp, a2
-  add sp, a0, 1
-  sll sp, sp, STKSHIFT
-  add sp, sp, tp
+  la  sp, _stack
 
   j _init
 
@@ -216,11 +209,11 @@ trap_entry:
   addi sp, sp, 272
   mret
 
-#ifdef CLUSTER_BIN  
+#ifdef CLUSTER_BIN
 .section .clusterraw
 .incbin CLUSTER_BIN_PATH
 #endif
-  
+
 .section ".tdata.begin"
 .globl _tdata_begin
 _tdata_begin:
@@ -240,4 +233,3 @@ tohost: .dword 0
 .align 6
 .globl fromhost
 fromhost: .dword 0
-

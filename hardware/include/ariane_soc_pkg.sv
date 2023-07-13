@@ -18,7 +18,7 @@ package ariane_soc;
   localparam int unsigned MaxPriority = 7;
 
   localparam NrSlaves = 3; // actually masters, but slaves on the crossbar: Debug module, CVA6, Cluster
-   
+
   typedef struct packed {
       logic [31:0] idx;
       logic [63:0] start_addr;
@@ -27,18 +27,21 @@ package ariane_soc;
 
   // 4 is recommended by AXI standard, so lets stick to it, do not change
   // The ID width of the master ports is wider than that of the slave ports.
-  // The additional ID bits are used by the internal multiplexers to route responses. 
+  // The additional ID bits are used by the internal multiplexers to route responses.
   // The ID width of the master ports must be AxiIdWidthSlvPorts + $clog_2(NoSlvPorts).
   // The same parameters in cva6/include/ariane_axi need to match with the values below!
   localparam IdWidth   = 5; // Do not change
-  localparam IdWidthSlave = IdWidth + $clog2(NrSlaves); 
+  localparam IdWidthSlave = IdWidth + $clog2(NrSlaves);
 
-  // Ensure that SocToClusterIdWidth + $clog2(ClusterNrSlaves) = IdWidth 
-  localparam SocToClusterIdWidth = 3;   
-   
+  // Ensure that SocToClusterIdWidth + $clog2(ClusterNrSlaves) = IdWidth
+  localparam SocToClusterIdWidth = 3;
+
+  //DebugModule ID
+  localparam logic [31:0] DbgIdCode= 32'h20001001;
+
   typedef enum int unsigned {
     HYAXI       = 12,
-    AXILiteDom  = 11, 
+    AXILiteDom  = 11,
     UART        = 10,
     Ethernet    = 9,
     SPI         = 8,
@@ -51,10 +54,10 @@ package ariane_soc;
     ROM         = 1,
     Debug       = 0
   } axi_slaves_t;
-   
+
   localparam NB_PERIPHERALS = HYAXI + 1;
 
-  `ifdef FPGA_EMUL 
+  `ifdef FPGA_EMUL
   localparam HyperbusNumPhys          = 1;
   localparam NumChipsPerHyperbus      = 2;
   `else
@@ -62,7 +65,7 @@ package ariane_soc;
   localparam NumChipsPerHyperbus      = 2;
   `endif
   localparam logic[63:0] HyperRamSize = 64'h4000000; // 64MB
-   
+
 
   localparam logic[63:0] DebugLength    = 64'h1000;
   localparam logic[63:0] ROMLength      = 64'h10000;
@@ -75,9 +78,9 @@ package ariane_soc;
   localparam logic[63:0] SPILength      = 64'h800000;
   localparam logic[63:0] EthernetLength = 64'h10000;
   localparam logic[63:0] HYAXILength    = 64'h20000000;  //HyperRamSize*NumChipsPerHyperbus*HyperbusNumPhys;  // 256MB of hyperrams
-  localparam logic[63:0] L2SPMLength    = 64'h80000;     // 512KB of scratchpad memory 
+  localparam logic[63:0] L2SPMLength    = 64'h80000;     // 512KB of scratchpad memory
   localparam logic[63:0] APB_SLVSLength = 64'h123000;
-   
+
   // Instantiate AXI protocol checkers
   localparam bit GenProtocolChecker = 1'b0;
 
@@ -87,7 +90,7 @@ package ariane_soc;
     CLINTBase    = 64'h0200_0000,
     PLICBase     = 64'h0C00_0000,
     ClusterBase  = 64'h1000_0000,
-    AXILiteBase  = 64'h1040_0000,                             
+    AXILiteBase  = 64'h1040_0000,
     APB_SLVSBase = 64'h1A10_0000,
     L2SPMBase    = 64'h1C00_0000,
     TimerBase    = 64'h1800_0000,
@@ -95,10 +98,10 @@ package ariane_soc;
     EthernetBase = 64'h3000_0000,
     UARTBase     = 64'h4000_0000,
     HYAXIBase    = 64'h8000_0000
-  } soc_bus_start_t; 
-  // Let x = NB_PERIPHERALS: as long as Base(xth slave)+Length(xth slave) is < 1_0000_0000 we can cut the 32 MSBs addresses without any worries. 
+  } soc_bus_start_t;
+  // Let x = NB_PERIPHERALS: as long as Base(xth slave)+Length(xth slave) is < 1_0000_0000 we can cut the 32 MSBs addresses without any worries.
 
-  
+
   localparam NrRegion = 1;
   localparam logic [NrRegion-1:0][NB_PERIPHERALS-1:0] ValidRule = {{NrRegion * NB_PERIPHERALS}{1'b1}};
 
