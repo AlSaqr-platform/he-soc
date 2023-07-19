@@ -33,8 +33,7 @@ module pad_frame
      input logic         jtag_tdo_ot_i,
      output logic        jtag_tms_ot_o,
      output logic        jtag_trst_ot_o,
-     output logic        bootmode_0_i,
-     output logic        bootmode_1_i,
+     output logic        bootmode_o,
 
      inout wire          pad_reset_n,
      inout wire          pad_jtag_tck,
@@ -49,8 +48,7 @@ module pad_frame
      inout wire          pad_jtag_ot_tdo,
      inout wire          pad_jtag_ot_tms,
      inout wire          pad_jtag_ot_trst,
-     inout wire          pad_bootmode_0,
-     inout wire          pad_bootmode_1,
+     inout wire          pad_bootmode,
 
      inout wire          pad_bypass,
      inout wire          pad_xtal_in
@@ -78,9 +76,8 @@ module pad_frame
     pad_alsaqr_pu padinst_jtag_ot_tdi   (.OEN( 1'b1   ), .I(               ), .O( jtag_tdi_ot_o  ), .PAD( pad_jtag_ot_tdi  ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
     pad_alsaqr_pu padinst_jtag_ot_trstn (.OEN( 1'b1   ), .I(               ), .O( jtag_trst_ot_o ), .PAD( pad_jtag_ot_trst ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
     pad_alsaqr_pd padinst_jtag_ot_tdo   (.OEN( 1'b0   ), .I( jtag_tdo_ot_i ), .O(                ), .PAD( pad_jtag_ot_tdo  ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
-    pad_alsaqr_pd padinst_bootmode_0    (.OEN( 1'b0   ), .I( bootmode_0_i  ), .O(                ), .PAD( pad_bootmode_0       ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
-    pad_alsaqr_pd padinst_bootmode_1    (.OEN( 1'b0   ), .I( bootmode_1_i  ), .O(                ), .PAD( pad_bootmode_1       ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
-
+    pad_alsaqr_pd padinst_bootmode      (.OEN( 1'b1   ), .I(               ), .O( bootmode_o     ), .PAD( pad_bootmode     ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
+   
 `else
     assign ref_clk_o = pad_xtal_in;
     assign rstn_o = pad_reset_n;
@@ -98,8 +95,7 @@ module pad_frame
     assign jtag_tck_ot_o = pad_jtag_ot_tck;
     assign jtag_tdi_ot_o = pad_jtag_ot_tdi;
     //BOOTMODE
-    assign pad_bootmode_0 = bootmode_0_i;
-    assign pad_bootmode_1 = bootmode_1_i;
+    assign bootmode_o = pad_bootmode;
 
 `endif // !`ifndef FPGA_EMUL
   

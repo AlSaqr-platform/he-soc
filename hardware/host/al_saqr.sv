@@ -236,8 +236,7 @@ module al_saqr
   inout wire          jtag_ot_TRSTn,
   inout wire          jtag_ot_TDO_data,
   // Boot Select
-  inout wire          pad_bootmode_0,
-  inout wire          pad_bootmode_1
+  inout wire          pad_bootmode
    
 );
   import lc_ctrl_pkg::*;
@@ -300,8 +299,7 @@ module al_saqr
 
   logic                          doorbell_irq;
     
-  logic                          bootmode_0_i;
-  logic                          bootmode_1_i;
+  logic                          bootmode_o;
   logic [1:0]                    bootmode_i;
   
   logic s_soc_clk  ;
@@ -432,7 +430,7 @@ module al_saqr
   jtag_ot_pkg::jtag_req_t jtag_ibex_i;
   jtag_ot_pkg::jtag_rsp_t jtag_ibex_o;
    
-  assign bootmode_i             = { bootmode_1_i , bootmode_0_i };
+  assign bootmode_i             = { 1'b0 , bootmode_o };
   assign jtag_ibex_i.tck        = s_jtag_ot_TCK;  
   assign jtag_ibex_i.trst_n     = s_jtag_ot_TRSTn;
   assign jtag_ibex_i.tms        = s_jtag_ot_TMS;
@@ -523,8 +521,8 @@ module al_saqr
       .cluster_en_sa_boot_o   ( s_cluster_en_sa_boot            ),
       .cluster_fetch_en_o     ( s_cluster_fetch_en              ),
       .clk_cluster_o          ( s_cluster_clk                   ),                 
-      .padframecfg_reg_master ( i_padframecfg_rbus              ), 
-
+      .padframecfg_reg_master ( i_padframecfg_rbus              ),
+                     
       .qspi_to_pad            ( s_qspi_to_pad                   ),
       .pad_to_qspi            ( s_pad_to_qspi                   ),
 
@@ -592,8 +590,7 @@ module al_saqr
       .jtag_tdo_ot_i    ( s_jtag_ot_TDO    ),
       .jtag_tms_ot_o    ( s_jtag_ot_TMS    ),
       .jtag_trst_ot_o   ( s_jtag_ot_TRSTn  ),
-      .bootmode_0_i     ( bootmode_0_i     ),     
-      .bootmode_1_i     ( bootmode_1_i     ),
+      .bootmode_o       ( bootmode_o       ),
       
       .pad_reset_n      ( rst_ni           ),
       .pad_jtag_tck     ( jtag_TCK         ),
@@ -609,9 +606,7 @@ module al_saqr
       .pad_jtag_ot_tdo  ( jtag_ot_TDO_data ),
       .pad_jtag_ot_tms  ( jtag_ot_TMS      ),
       .pad_jtag_ot_trst ( jtag_ot_TRSTn    ),
-      .pad_bootmode_0   ( pad_bootmode_0   ),
-      .pad_bootmode_1   ( pad_bootmode_1   )
-
+      .pad_bootmode     ( pad_bootmode     )
      );
    axi_cdc_dst #(
       .LogDepth   ( LogDepth          ),

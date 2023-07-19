@@ -88,22 +88,29 @@ module ariane_tb;
     `else
       parameter  USE_SDVT_CPI = 0;
     `endif
-
-  `ifdef PRELOAD
-    parameter  PRELOAD_HYPERRAM    = 1;
-    parameter  LOCAL_JTAG          = 1;
-    parameter  CHECK_LOCAL_JTAG    = 0; 
-  `else 
-    parameter PRELOAD_HYPERRAM = 0;
-    `ifdef USE_LOCAL_JTAG 
+   
+  `ifdef SECURE
+    parameter  PRELOAD_HYPERRAM = 1;
+    parameter  SECURE = 1;
+    parameter  LOCAL_JTAG       = 0;
+    parameter  CHECK_LOCAL_JTAG = 0; 
+  `else
+   parameter   SECURE = 0;
+    `ifdef PRELOAD
+      parameter  PRELOAD_HYPERRAM    = 1;
       parameter  LOCAL_JTAG          = 1;
       parameter  CHECK_LOCAL_JTAG    = 0; 
-    `else
-      parameter  LOCAL_JTAG          = 0;
-      parameter  CHECK_LOCAL_JTAG    = 0; 
+    `else 
+      parameter PRELOAD_HYPERRAM = 0;
+      `ifdef USE_LOCAL_JTAG 
+        parameter  LOCAL_JTAG          = 1;
+        parameter  CHECK_LOCAL_JTAG    = 0; 
+      `else
+        parameter  LOCAL_JTAG          = 0;
+        parameter  CHECK_LOCAL_JTAG    = 0; 
+      `endif
     `endif
   `endif
-   
 
   `ifdef POSTLAYOUT
     localparam int unsigned JtagSampleDelay = (REFClockPeriod < 10ns) ? 2 : 1;
@@ -202,11 +209,9 @@ module ariane_tb;
     wire                  s_jtag2ot_trstn  ;
     wire                  s_jtag2ot_tdo    ;
     
-    wire                  bootmode_0;
-    wire                  bootmode_1;   
-
-    assign bootmode_0 = '0;
-    assign bootmode_1 = '0;
+    logic                 bootmode;
+    logic                 boot_mode;
+   
    
     //NEW PAD PERIPHERALS SIGNALS
     wire    pad_periphs_pad_gpio_b_00_pad;
@@ -341,7 +346,7 @@ module ariane_tb;
 
     string        binary ;
     string        cluster_binary;
-    string        ibex_binary;
+    string        ot_sram;
    
   // NB: This test is not used on FPGA
   `ifndef FPGA_EMUL
@@ -376,7 +381,7 @@ module ariane_tb;
   assign s_jtag2ot_trstn      = s_ot_trstn    ;
   assign s_ot_tdo             = s_jtag2ot_tdo ;
   
-  if (~jtag_enable[0] & !LOCAL_JTAG) begin
+  if (~jtag_enable[0] & !LOCAL_JTAG & !SECURE) begin
     SimDTM i_SimDTM (
       .clk                  ( clk_i                 ),
       .reset                ( ~rst_DTM              ),
@@ -584,8 +589,7 @@ module ariane_tb;
         .pad_hyper_reset      ( hyper_reset_n_wire     ),
         .pad_hyper_dq         ( hyper_dq_wire          ),
 
-        .pad_bootmode_0       ( bootmode_0             ),
-        .pad_bootmode_1       ( bootmode_1             ) 
+        .pad_bootmode         ( bootmode               )
       );
 
    if (USE_UART == 1) begin
@@ -1271,32 +1275,48 @@ module ariane_tb;
                  //IBEX PROCESS AND TASKS//
 ////////////////////////////////////////////////////////////////
 
-   initial  begin : ibex_jtag_preload  
-
-      automatic dm_ot::sbcs_t sbcs = '{
-        sbautoincrement: 1'b1,
-        sbreadondata   : 1'b1,
-        default        : 1'b0
-      };
-`ifdef OT_JTAG
-      if ( $value$plusargs ("OT_STRING=%s", ibex_binary));
-         $display("Testing %s", ibex_binary);
-
-      repeat(12)
-          @(posedge rtc_i);
-
-      debug_ibex_module_init();
-      load_ibex_binary(ibex_binary);   
-     // // Call the JTAG preload task
-      jtag_ibex_data_preload(); 
-      jtag_ibex_wakeup(32'h E0000080);
-`endif
-
-   end // block: local_jtag_preload
+   initial  begin : bootmodes
+   
+     if(!$value$plusargs("BOOTMODE=%d", boot_mode)) begin
+        boot_mode=0;
+        $display("BOOTMODE: %d", boot_mode);
+     end
+     if(!$value$plusargs("OT_SRAM=%s", ot_sram)) begin
+        ot_sram="";
+        $display("Loading to SRAM: %s", ot_sram);
+     end
+     case(boot_mode)
+         0:begin
+           bootmode = 1'b0;
+           riscv_ibex_dbg.reset_master();
+           if (ot_sram != "") begin
+                repeat(8)
+                  @(posedge rtc_i);
+                debug_secd_module_init();
+                load_secd_binary(ot_sram);
+                jtag_secd_data_preload();
+                jtag_secd_wakeup(32'h e0000080); //preload the flashif
+           `ifdef JTAG_SEC_BOOT
+                repeat(500)
+                  @(posedge rtc_i);
+                jtag_secd_wakeup(32'h d0008080); //secure boot
+           `endif
+           end
+         end
+         1:begin
+           bootmode = 1'b1;
+           riscv_ibex_dbg.reset_master();
+         end
+         default:begin
+           bootmode = 1'b0;
+           $fatal("Unsupported bootmode");
+         end
+     endcase // case (bootmode)
+   end // block: bootmodes
 
 ///////////////////////////// Tasks ///////////////////////////////
 
-   task debug_ibex_module_init;
+   task debug_secd_module_init;
 
      logic [31:0]  idcode;
 
@@ -1321,7 +1341,7 @@ module ariane_tb;
 
    endtask // debug_module_init
 
-   task jtag_ibex_data_preload;
+   task jtag_secd_data_preload;
      logic [31:0] rdata;
 
      automatic dm_ot::sbcs_t sbcs = '{
@@ -1335,7 +1355,7 @@ module ariane_tb;
 
 
      $display("[JTAG SECD] Initializing the Debug Module");
-     debug_ibex_module_init();
+     debug_secd_module_init();
      riscv_ibex_dbg.write_dmi(dm_ot::SBCS, sbcs);
 
      do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs, dmi_wait_cycles);
@@ -1359,9 +1379,8 @@ module ariane_tb;
          // Wait until SBA is free to write next 32 bits
          do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs, dmi_wait_cycles);
          while (sbcs.sbbusy);
-         $display("[JTAG SECD] Preloading: 100/100%%"); 
-       end // for (int i = 0; i < sections[addr]; i++)
-
+       end // for (int i = 0; i < sections[addr]; i++
+       $display("[JTAG SECD] Preloading: 100/100%%"); 
      end // foreach (sections[addr])
 
     $display("[JTAG SECD] Preloading finished");
@@ -1374,7 +1393,7 @@ module ariane_tb;
 
   endtask // jtag_data_preload
 
-  task jtag_ibex_wakeup;
+  task jtag_secd_wakeup;
     input logic [31:0] start_addr;
     logic [31:0] dm_status;
 
@@ -1388,7 +1407,7 @@ module ariane_tb;
     automatic int dmi_wait_cycles = 10; 
     $display("[JTAG SECD] Waking up Ibex");
     // Initialize the dm module again, otherwise it will not work
-    debug_ibex_module_init();
+    debug_secd_module_init();
     do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs, dmi_wait_cycles);
     while (sbcs.sbbusy);
     // Write PC to Data0 and Data1
@@ -1424,7 +1443,7 @@ module ariane_tb;
 
   endtask // execute_application
 
-  task load_ibex_binary;
+  task load_secd_binary;
     input string binary;                   // File name
     logic [31:0] section_addr, section_len;
     byte         buffer[];
