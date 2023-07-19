@@ -39,7 +39,7 @@ dependencies:
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "3a4df2f9709bcf0af396548b603fd15f2d59029d" }
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", version: 0.0.1 }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
-  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "53134fed1422536849d7a5425e80389af71170e0" }
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "63151fe7607f81d7056343205362aeb3eacce8ff" }
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
 
 export_include_dirs:
@@ -117,7 +117,7 @@ sources:
     defines:
       WT_DCACHE: ~
     files:
-      - ../bootrom/bootrom.sv
+      - ../fpga/src/bootrom/bootrom.sv
       - gf22/macro_wrap/memwrap_gf22.sv
       - gf22/macro_wrap/tc_sram_gf22.sv
       - gf22/macro_wrap/tc_clk_gf22.sv
@@ -144,7 +144,7 @@ sources:
       - tb/common/uart.sv                                                     
       - tb/common/SimDTM.sv                                                   
       - tb/common/SimJTAG.sv
-      - ../bootrom/bootrom.sv
+      - ../fpga/src/bootrom/bootrom.sv
       - tb/common/jtag_pkg.sv
       - tb/common/jtag_intf.sv
       - tb/common/mock_uart.sv

@@ -29,7 +29,9 @@ test-location  ?= output/test
 torture-logs   :=
 # custom elf bin to run with sim or sim-verilator
 elf-bin        ?= ../software/hello/hello.riscv
-ibex_elf_bin   ?= $(shell $(BENDER) path opentitan)/hw/top_earlgrey/sw/tests/mbox_test/mbox_test.elf
+ot-test        ?=
+ibex_elf_bin   ?= 
+BOOTMODE       ?= 0
 #cl-bin         ?= ../software/pulp/mm.riscv
 cl-bin         ?= none
 # root pathelf-bin
@@ -44,7 +46,6 @@ BENDER_FPGA_SCRIPTS_DIR = fpga/alsaqr/tcl/generated
 BENDER_SYNTH_DIR = gf22
 BENDER_BUILD_DIR:=.
 
-
 ifndef RISCV
 $(error RISCV not set - please point your RISCV variable to your RISCV installation)
 endif
@@ -57,11 +58,6 @@ ifndef post_synth
     compile_script := compile.tcl
 else
     compile_script := post_synth_compile.tcl
-endif
-
-ifdef ot_jtag
-	questa-cmd += +OT_JTAG=$(ot_jtag)  
-  compile_flag +=  +define+OT_JTAG 
 endif
 
 # spike tandem verification
@@ -179,6 +175,15 @@ ifdef preload
 	questa-cmd += +define+PRELOAD 
 endif
 
+ifdef ot-test
+ibex_elf_bin   ?= $(shell $(BENDER) path opentitan)/sw/tests/$(ot-test)
+endif
+
+ifdef secure
+	compile_flag += +define+SECURE
+	questa-cmd += +define+SECURE 
+endif
+
 bender:
 	curl --proto '=https' --tlsv1.2 https://fabianschuiki.github.io/bender/init -sSf | sh
 
@@ -253,17 +258,14 @@ generate-trace-vsim:
 	make generate-trace
 
 run:
-	vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8360 -lib $(library)  +OT_STRING=$(ibex_elf_bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
+	vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8360 -lib $(library)  +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex_elf_bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi  \
 	${top_level}_optimized +permissive-off ++$(elf-bin) ++$(target-options) ++$(cl-bin) | tee sim.log
 
 #	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -lib $(library) +notimingchecks +nospecify +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) -t 1ps \
 #	-sdfnoerror -sdfnowarn  -sdfmin /ariane_tb/dut/i_host_domain/i_cva6_subsystem/i_ariane_wrap=./gf22/innovus/cva6/out/cva6_synth_wrap.sdf.gz +sdf_verbose \
 
-sim: compile_ot build run
-
-compile_ot:
-	make -C  $(shell $(BENDER) path opentitan)/hw/top_earlgrey/sw/tests/mbox_test/ clean all
+sim: build run
 
 $(alsaqr-regression): build
 	mkdir -p tmp
