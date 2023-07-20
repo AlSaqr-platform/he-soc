@@ -1,4 +1,4 @@
-// Copyright 2018 ETH Zurich and University of Bologna.
+// Copyright 2023 ETH Zurich and University of Bologna.
 // Copyright and related rights are licensed under the Solderpad Hardware
 // License, Version 0.51 (the "License"); you may not use this file except in
 // compliance with the License.  You may obtain a copy of the License at
@@ -8,8 +8,9 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the
 // specific language governing permissions and limitations under the License.
 //
-// Author: Florian Zaruba, ETH Zurich
-// Date: 15/04/2017
+// Author: Luca Valente, University of Bologna
+// Author: Mattia Sinigaglia, University of Bologna
+// Date: 13/07/2023
 // Description: Top level testbench module. Instantiates the top level DUT, configures
 //              the virtual interfaces and starts the test passed by +UVM_TEST+
 //`define TEST_CLOCK_BYPASS
@@ -92,7 +93,8 @@ module ariane_tb;
     parameter  PRELOAD_HYPERRAM    = 1;
     parameter  LOCAL_JTAG          = 1;
     parameter  CHECK_LOCAL_JTAG    = 0;
-    // when preload is enabled LINKER_ENTRY specifies the linker address (L3: 32'h80000000 - L2: 32'h1C000000)
+    // when preload is enabled LINKER_ENTRY specifies the linker address L3: 32'h80000000.
+    // NB: Can not preload if linker address is L2: 32'h1C000000
     parameter  LINKER_ENTRY        = 32'h80000000;
   `else
     parameter PRELOAD_HYPERRAM = 0;
@@ -803,21 +805,21 @@ module ariane_tb;
          dut.i_host_domain.i_l2_subsystem.CUTS[0].bank_i.wdata_i ==32'heeeeeeee );
       `ifdef POWER_CVA6
       $dumpfile("cva6.vcd");
-    	$dumpvars(0, dut.i_host_domain.i_cva6_subsystem.i_ariane_wrap);
+      $dumpvars(0, dut.i_host_domain.i_cva6_subsystem.i_ariane_wrap);
       `elsif POWER_CL
       $dumpfile("cl.vcd");
-    	$dumpvars(0, dut.cluster_i);
+      $dumpvars(0, dut.cluster_i);
       `elsif POWER_TOP
       $dumpfile("top.vcd");
-    	$dumpvars(0, dut);
+      $dumpvars(0, dut);
       `endif
-    	$dumpon;
+      $dumpon;
       @( posedge dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o &&
          dut.i_host_domain.i_l2_subsystem.CUTS[0].bank_i.req_i &&
          dut.i_host_domain.i_l2_subsystem.CUTS[0].bank_i.addr_i =='0 &&
          dut.i_host_domain.i_l2_subsystem.CUTS[0].bank_i.wdata_i ==32'heeeeeeee );
-	  $dumpoff;
-   	$dumpflush;
+    $dumpoff;
+    $dumpflush;
    end // initial begin
    `endif //  `ifdef POWER_PROFILE
 
@@ -952,7 +954,7 @@ module ariane_tb;
         jtag_wait_for_eoc (exit_code, binary_entry);
       end else begin
 
-        $display("Sanity write/read at 0x1C000000"); // word = 8 bytes here
+        $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);
         addr = 32'h1c000000;
 
         jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
@@ -1184,4 +1186,3 @@ module ariane_tb;
   endtask // execute_application
 
 endmodule // ariane_tb
-
