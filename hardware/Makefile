@@ -44,6 +44,8 @@ BENDER_FPGA_SCRIPTS_DIR = fpga/alsaqr/tcl/generated
 BENDER_SYNTH_DIR = gf22
 BENDER_BUILD_DIR:=.
 
+BENDER:=./bender
+
 QUESTA = questa-2022.3
 
 ifndef RISCV
@@ -181,10 +183,10 @@ ifdef sec_boot
 endif
 
 bender:
-	curl --proto '=https' --tlsv1.2 https://fabianschuiki.github.io/bender/init -sSf | sh
+	curl --proto '=https' --tlsv1.2 https://fabianschuiki.github.io/bender/init -sSf | sh -s -- 0.22.0
 
 update:
-	bender update
+	$(BENDER) update
 
 libbender:
 	$(QUESTA) vlib work
@@ -192,28 +194,28 @@ libbender:
 
 scripts-bender-fpga: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
-	bender script vivado -t fpga -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
+	$(BENDER) script vivado -t cv64a6_imafdc_sv39 -t fpga -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
 scripts-bender-fpga-ddr: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
-	bender script vivado -t fpga -t ddr -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
+	$(BENDER) script vivado -t cv64a6_imafdc_sv39 -t fpga -t ddr -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
 scripts-bender-synopsys: | Bender.lock
 	echo 'set ROOT [file normalize [file dirname [info script]]/../../../]' > $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
-	bender script synopsys -t rtl -t synthesis -t asic -t top_level --define="EXCLUDE_PADFRAME" | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
+	$(BENDER) script synopsys -t rtl -t synthesis -t cv64a6_imafdc_sv39 -t asic -t top_level --define="EXCLUDE_PADFRAME" | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
 
 scripts:
-	bender script vsim \
+	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test > compile.tcl
+    -t rtl -t test -t cv64a6_imafdc_sv39 > compile.tcl
 
 scripts_vip:
-	bender script vsim \
+	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t vip > compile.tcl
+    -t rtl -t test -t vip -t cv64a6_imafdc_sv39 > compile.tcl
 
 post_synth_scripts_vip:
-	bender script vsim \
+	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t rtl -t test -t asic -t top_post_synth_sim -t vip --define="EXCLUDE_PADFRAME" > post_synth_compile.tcl
 
