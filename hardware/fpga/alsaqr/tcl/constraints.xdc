@@ -22,6 +22,9 @@ set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  i_alsaq
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  i_alsaqr/i_RoT_wrap/u_RoT/u_clkmgr_aon/u_no_scan_io_div2_div/gen_div2.u_div2/q_o_reg[0]/Q]]
 #set_false_path -from [get_ports pad_reset]
 
+## Bootselect
+## TBD
+
 ## JTAG
 create_clock -period 100.000 -name tck -waveform {0.000 50.000} [get_ports pad_jtag_tck]
 set_input_jitter tck 1.000

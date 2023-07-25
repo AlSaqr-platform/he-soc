@@ -5,9 +5,6 @@ ENTRY(_start)
 SECTIONS
 {
   /* TODO(zarubaf): Auto-generate from description */
-  . = 0x1000000;
+  . = 0x10000;
   .text : { *(.text) }
-  . = . + 0x80;
-  .secure_boot : { *(.secure_boot) }
-
 }

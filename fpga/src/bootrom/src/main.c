@@ -12,15 +12,22 @@ enum boot_mode_t { JTAG, SPL_ROM };
 
 int main() {
     //  TODO:Fix uart deadlock
-
+    int * pointer; 
     __asm__ volatile(
         "csrr a0, mhartid;"
-        "la a1, device_tree;"
-        "ebreak;");
+        "la a1, device_tree;");
+    //        "ebreak;");
 
     
     while (1) {
             __asm__ volatile("wfi;");
+            pointer=(int *)0x10404024;
+            if(*pointer==0x1){
+              *pointer=0x0;
+              __asm__ volatile("li a0, 0x10404000;");
+              __asm__ volatile("lwu t0, 0(a0);");
+              __asm__ volatile("jr t0;");
+            }
     }
 }
 

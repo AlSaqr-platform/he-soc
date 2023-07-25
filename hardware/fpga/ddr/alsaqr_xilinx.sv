@@ -75,10 +75,7 @@ module alsaqr_xilinx
     input wire    pad_jtag_ot_tck,
     input wire    pad_jtag_ot_tdi,
     output wire   pad_jtag_ot_tdo,
-    input wire    pad_jtag_ot_tms,
-
-    input wire    pad_bootmode_0,
-    input wire    pad_bootmode_1   
+    input wire    pad_jtag_ot_tms
   );
 
    localparam  APP_ADDR_WIDTH   = 28;
@@ -94,7 +91,7 @@ module alsaqr_xilinx
   `else
    localparam AXI_ID_WIDTH = 8;
   `endif
-   
+ 
    wire        ref_clk;
    wire        ddr_ref_clk;
    logic       s_locked;
@@ -143,6 +140,7 @@ module alsaqr_xilinx
   wire                      dbg_clk;
   wire                      c0_wr_rd_complete;
 
+  wire                      bootmode;
 
   reg                       c0_ddr4_aresetn;
   wire                      c0_ddr4_data_msmatch_err;
@@ -163,7 +161,7 @@ module alsaqr_xilinx
   wire                             c0_ddr4_dbg_rd_sts_vld;
   wire [DBG_RD_STS_WIDTH-1:0]      c0_ddr4_dbg_rd_sts;
   assign c0_data_compare_error = c0_ddr4_data_msmatch_err | c0_ddr4_write_err | c0_ddr4_read_err;
-
+   
   //***********************************************************************
   // Differential input clock input buffers
   //***********************************************************************
@@ -194,7 +192,8 @@ module alsaqr_xilinx
    
 wire c0_ddr4_reset_n_int;
   assign c0_ddr4_reset_n = c0_ddr4_reset_n_int;
-
+  assign bootmode = 1'b0; 
+   
 //***************************************************************************
 // The User design is instantiated below. The memory interface ports are
 // connected to the top-level and the application interface ports are
@@ -317,8 +316,6 @@ ddr4_0 u_ddr4_0
         .jtag_ot_TDI      ( pad_jtag_ot_tdi    ),
         .jtag_ot_TRSTn    ( pad_jtag_ot_trst   ),
         .jtag_ot_TDO_data ( pad_jtag_ot_tdo    ),
-        .pad_bootmode_0   ( pad_bootmode_0     ),
-        .pad_bootmode_1   ( pad_bootmode_1     ),
         `ifdef SIMPLE_PADFRAME
         .pad_periphs_pad_gpio_b_00_pad(pad_periphs_pad_gpio_b_00_pad),
         .pad_periphs_pad_gpio_b_01_pad(pad_periphs_pad_gpio_b_01_pad),
@@ -337,7 +334,8 @@ ddr4_0 u_ddr4_0
         `endif
 
         .apb_uart_rx_i    ( pad_uart1_rx       ),
-        .apb_uart_tx_o    ( pad_uart1_tx       )
+        .apb_uart_tx_o    ( pad_uart1_tx       ),
+        .pad_bootmode     ( bootmode           )
                 
    );
 

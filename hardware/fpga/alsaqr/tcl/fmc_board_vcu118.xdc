@@ -42,3 +42,8 @@ set_property -dict {PACKAGE_PIN AW25  IOSTANDARD LVCMOS18} [get_ports pad_uart0_
 set_property -dict {PACKAGE_PIN BB21  IOSTANDARD LVCMOS18} [get_ports pad_uart0_tx]
 set_property -dict {PACKAGE_PIN N28   IOSTANDARD LVCMOS12} [get_ports pad_uart1_rx]
 set_property -dict {PACKAGE_PIN M30   IOSTANDARD LVCMOS12} [get_ports pad_uart1_tx]
+
+#######################################################################
+## Bootmode pad
+#######################################################################
+#set_property -dict {PACKAGE_PIN "TBD" IOSTANDARD LVCMOS18} [get_ports pad_bootmode]
