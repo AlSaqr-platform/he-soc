@@ -4,10 +4,10 @@ package:
     - "Florian Zaruba <zarubaf@iis.ee.ethz.ch>"
 
 dependencies:
-  cva6: { git: "git@github.com:minho-pulp/cva6.git", rev: "f2aec221764d935091942edd37c6de2480a41457" }
-  axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.29.1 } 
+  cva6: { git: "git@github.com:minho-pulp/cva6.git", rev: "5f5d4decb256f485cfdb6e1c773c9f6771d09ea5" } #update fpu
+  axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.29.1 }
   common_cells: { git: "https://github.com/pulp-platform/common_cells.git", version: 1.21.0 }
-    
+
 sources:
   - target: not(synthesis)
     files:
