@@ -1,7 +1,8 @@
 overrides:
-  cva6: { git: "git@github.com:minho-pulp/cva6.git", rev: "5f5d4decb256f485cfdb6e1c773c9f6771d09ea5" }
-  axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.39.0-beta.10 }
-  riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0  }
-  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.11 }
-  common_cells: { git: "https://github.com/pulp-platform/common_cells.git", version: 1.30.0 }
-  fpnew: { git: "https://github.com/pulp-platform/cvfpu.git", rev: "92128e6a3aaa33a1a54df705a14591e8e38e313a" }
+  axi:                { git: "https://github.com/pulp-platform/axi.git", version: 0.39.1-beta                                }
+  riscv-dbg:          { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0                                    }
+  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.11                      }
+  common_cells:       { git: "https://github.com/pulp-platform/common_cells.git", version: 1.30.0                            }
+  fpnew:              { git: "https://github.com/pulp-platform/cvfpu.git", rev: pulp-v0.1.3                                  }
+  hci:                { git: "https://github.com/pulp-platform/hci.git", rev: b2e6f391aa6c10c03f45b693d80a0aaddecf169b       }
+  cv32e40p:           { git: "https://github.com/pulp-platform/cv32e40p.git", rev: "2f3f137117c2abcc86d04df267866fe0e0fcd39f"} # branch: shaheen
