@@ -58,28 +58,28 @@ module udma_subsystem
     input logic [7:0]                  event_data_i,
     output logic                       event_ready_o,
 
-    AXI_BUS.Slave                      hyper_axi_bus_slave, 
+    AXI_BUS.Slave                      hyper_axi_bus_slave,
     REG_BUS.in                         hyper_reg_cfg_slave,
- 
+
     // SPIM
     output                             qspi_to_pad_t [N_SPI-1:0] qspi_to_pad,
     input                              pad_to_qspi_t [N_SPI-1:0] pad_to_qspi,
-    
+
     // I2C
     output                             i2c_to_pad_t [N_I2C-1:0] i2c_to_pad,
     input                              pad_to_i2c_t [N_I2C-1:0] pad_to_i2c,
-   
+
     // CAM
   	input                              pad_to_cam_t [N_CAM-1:0] pad_to_cam,
-    
+
     // UART
     input                              pad_to_uart_t [N_UART-1:0] pad_to_uart,
     output                             uart_to_pad_t [N_UART-1:0] uart_to_pad,
-    
+
     // SDIO
     output                             sdio_to_pad_t [N_SDIO-1:0] sdio_to_pad,
     input                              pad_to_sdio_t [N_SDIO-1:0] pad_to_sdio
- 
+
     // HYPERBUS
     `ifndef XILINX_DDR
     ,
@@ -88,7 +88,7 @@ module udma_subsystem
     inout  [HyperbusNumPhys-1:0]                          pad_hyper_ckn,
     inout  [HyperbusNumPhys-1:0]                          pad_hyper_rwds,
     inout  [HyperbusNumPhys-1:0]                          pad_hyper_reset,
-    inout  [HyperbusNumPhys-1:0][7:0]                     pad_hyper_dq 
+    inout  [HyperbusNumPhys-1:0][7:0]                     pad_hyper_dq
    `endif
 );
 
@@ -99,7 +99,7 @@ module udma_subsystem
 
     localparam N_FILTER   = 1;
     localparam N_CH_HYPER = 1;
-   
+
     localparam N_RX_CHANNELS =   N_SPI + N_HYPER + N_SDIO + N_UART + N_I2C + N_CAM;
     localparam N_TX_CHANNELS = 2*N_SPI + N_HYPER + N_SDIO + N_UART + 2*N_I2C;
 
@@ -108,8 +108,8 @@ module udma_subsystem
     localparam N_STREAMS         =   N_FILTER;
     localparam STREAM_ID_WIDTH   = 1;//$clog2(N_STREAMS)
 
-    localparam N_PERIPHS = N_SPI + N_HYPER + N_UART + N_I2C + N_CAM + N_SDIO + N_FILTER + N_CH_HYPER*N_HYPER;  
-    localparam N_EVENTS  = N_SPI + N_HYPER + N_UART + N_I2C + N_CAM + N_SDIO + N_FILTER ;  
+    localparam N_PERIPHS = N_SPI + N_HYPER + N_UART + N_I2C + N_CAM + N_SDIO + N_FILTER + N_CH_HYPER*N_HYPER;
+    localparam N_EVENTS  = N_SPI + N_HYPER + N_UART + N_I2C + N_CAM + N_SDIO + N_FILTER ;
 
     // TX Channels
     localparam CH_ID_TX_UART    = 0;
@@ -121,7 +121,7 @@ module udma_subsystem
     localparam CH_ID_TX_HYPER   = CH_ID_TX_SDIO  + N_SDIO ;
     // Tx Ext Channel
     localparam CH_ID_TX_EXT_PER = CH_ID_TX_HYPER + N_HYPER ;
- 
+
 
     // RX Channels
     localparam CH_ID_RX_UART    = 0;
@@ -139,14 +139,14 @@ module udma_subsystem
     localparam CH_ID_EXT_TX_FILTER = 0;
     localparam CH_ID_EXT_RX_FILTER = 0;
 
-    localparam PER_ID_UART    = 0;                  
+    localparam PER_ID_UART    = 0;
     localparam PER_ID_SPIM    = PER_ID_UART   + N_UART   ; // 7
-    localparam PER_ID_I2C     = PER_ID_SPIM   + N_SPI    ; // 18   
+    localparam PER_ID_I2C     = PER_ID_SPIM   + N_SPI    ; // 18
     localparam PER_ID_SDIO    = PER_ID_I2C    + N_I2C    ; // 24
     localparam PER_ID_CAM     = PER_ID_SDIO   + N_SDIO   ; // 26
     localparam PER_ID_FILTER  = PER_ID_CAM    + N_CAM    ; // 28
     localparam PER_ID_HYPER   = PER_ID_FILTER + N_FILTER ; // 29
-    
+
 
     logic [N_TX_CHANNELS-1:0] [L2_AWIDTH_NOAL-1 : 0] s_tx_cfg_startaddr;
     logic [N_TX_CHANNELS-1:0]     [TRANS_SIZE-1 : 0] s_tx_cfg_size;
@@ -230,7 +230,7 @@ module udma_subsystem
     logic            [N_SPI-1:0] s_spi_eot;
     logic            [N_I2C-1:0] s_i2c_evt;
     logic            [N_I2C-1:0] s_i2c_eot;
-   
+
     logic         [3:0] s_trigger_events;
 
     logic s_filter_eot_evt;
@@ -241,7 +241,7 @@ module udma_subsystem
     assign s_cam_evt     = 1'b0;
 
     assign events_o      = s_events;
-       
+
     assign L2_ro_wen_o   = 1'b1;
     assign L2_wo_wen_o   = 1'b0;
 
@@ -392,13 +392,13 @@ module udma_subsystem
                 .sys_clk_i           ( s_clk_periphs_core[PER_ID_UART+g_uart]    ),
                 .periph_clk_i        ( s_clk_periphs_per[PER_ID_UART+g_uart]     ),
                 .rstn_i              ( sys_resetn_i                              ),
-                                                                                 
+
                 .uart_tx_o           ( uart_to_pad[g_uart].tx_o                  ),
                 .uart_rx_i           ( pad_to_uart[g_uart].rx_i                  ),
 
                 .rx_char_event_o     (                                           ),
                 .err_event_o         (                                           ),
-                                                                                 
+
                 .cfg_data_i          ( s_periph_data_to                          ),
                 .cfg_addr_i          ( s_periph_addr                             ),
                 .cfg_valid_i         ( s_periph_valid[PER_ID_UART+g_uart]        ),
@@ -665,10 +665,10 @@ module udma_subsystem
                 .sys_clk_i           ( s_clk_periphs_core[PER_ID_SDIO+g_sdio] ),
                 .periph_clk_i        ( s_clk_periphs_per[PER_ID_SDIO+g_sdio]  ),
                 .rstn_i              ( sys_resetn_i                           ),
-            
+
                 .err_o               ( s_sdio_err[g_sdio] ),
                 .eot_o               ( s_sdio_eot[g_sdio] ),
-            
+
                 .sdclk_o             ( sdio_to_pad[g_sdio].clk_o      ),
                 .sdcmd_o             ( sdio_to_pad[g_sdio].cmd_o      ),
                 .sdcmd_i             ( pad_to_sdio[g_sdio].cmd_i      ),
@@ -676,14 +676,14 @@ module udma_subsystem
                 .sddata_o            ( sdio_data_o[g_sdio]            ),
                 .sddata_i            ( sdio_data_i[g_sdio]            ),
                 .sddata_oen_o        ( sdio_data_oen_o[g_sdio]        ),
-            
+
                 .cfg_data_i          ( s_periph_data_to                              ),
                 .cfg_addr_i          ( s_periph_addr                                 ),
                 .cfg_valid_i         ( s_periph_valid[PER_ID_SDIO+g_sdio]            ),
                 .cfg_rwn_i           ( s_periph_rwn                                  ),
                 .cfg_data_o          ( s_periph_data_from[PER_ID_SDIO+g_sdio]        ),
                 .cfg_ready_o         ( s_periph_ready[PER_ID_SDIO+g_sdio]            ),
-            
+
                 .cfg_rx_startaddr_o  ( s_rx_cfg_startaddr[CH_ID_RX_SDIO+g_sdio]      ),
                 .cfg_rx_size_o       ( s_rx_cfg_size[CH_ID_RX_SDIO+g_sdio]           ),
                 .cfg_rx_continuous_o ( s_rx_cfg_continuous[CH_ID_RX_SDIO+g_sdio]     ),
@@ -693,7 +693,7 @@ module udma_subsystem
                 .cfg_rx_pending_i    ( s_rx_ch_pending[CH_ID_RX_SDIO+g_sdio]         ),
                 .cfg_rx_curr_addr_i  ( s_rx_ch_curr_addr[CH_ID_RX_SDIO+g_sdio]       ),
                 .cfg_rx_bytes_left_i ( s_rx_ch_bytes_left[CH_ID_RX_SDIO+g_sdio]      ),
-            
+
                 .cfg_tx_startaddr_o  ( s_tx_cfg_startaddr[CH_ID_TX_SDIO+g_sdio]      ),
                 .cfg_tx_size_o       ( s_tx_cfg_size[CH_ID_TX_SDIO+g_sdio]           ),
                 .cfg_tx_continuous_o ( s_tx_cfg_continuous[CH_ID_TX_SDIO+g_sdio]     ),
@@ -703,14 +703,14 @@ module udma_subsystem
                 .cfg_tx_pending_i    ( s_tx_ch_pending[CH_ID_TX_SDIO+g_sdio]         ),
                 .cfg_tx_curr_addr_i  ( s_tx_ch_curr_addr[CH_ID_TX_SDIO+g_sdio]       ),
                 .cfg_tx_bytes_left_i ( s_tx_ch_bytes_left[CH_ID_TX_SDIO+g_sdio]      ),
-            
+
                 .data_tx_req_o       ( s_tx_ch_req[CH_ID_TX_SDIO+g_sdio]             ),
                 .data_tx_gnt_i       ( s_tx_ch_gnt[CH_ID_TX_SDIO+g_sdio]             ),
                 .data_tx_datasize_o  ( s_tx_ch_datasize[CH_ID_TX_SDIO+g_sdio]        ),
                 .data_tx_i           ( s_tx_ch_data[CH_ID_TX_SDIO+g_sdio]            ),
                 .data_tx_valid_i     ( s_tx_ch_valid[CH_ID_TX_SDIO+g_sdio]           ),
                 .data_tx_ready_o     ( s_tx_ch_ready[CH_ID_TX_SDIO+g_sdio]           ),
-            
+
                 .data_rx_datasize_o  ( s_rx_ch_datasize[CH_ID_RX_SDIO+g_sdio]        ),
                 .data_rx_o           ( s_rx_ch_data[CH_ID_RX_SDIO+g_sdio]            ),
                 .data_rx_valid_o     ( s_rx_ch_valid[CH_ID_RX_SDIO+g_sdio]           ),
@@ -728,7 +728,7 @@ module udma_subsystem
             assign sdio_data_i[g_sdio][0] = pad_to_sdio[g_sdio].data0_i;
             assign sdio_data_i[g_sdio][1] = pad_to_sdio[g_sdio].data1_i;
             assign sdio_data_i[g_sdio][2] = pad_to_sdio[g_sdio].data2_i;
-            assign sdio_data_i[g_sdio][3] = pad_to_sdio[g_sdio].data3_i;            
+            assign sdio_data_i[g_sdio][3] = pad_to_sdio[g_sdio].data3_i;
          end // block: assign
      endgenerate
 
@@ -737,7 +737,7 @@ module udma_subsystem
     generate
        for (genvar g_cam=0;g_cam<N_CAM;g_cam++)
         begin: i_cam_gen
-        logic  [7:0] cam_data_i;    
+        logic  [7:0] cam_data_i;
         assign s_events[4*(PER_ID_CAM+g_cam)]    = s_rx_ch_events[CH_ID_RX_CAM+g_cam];
         assign s_events[4*(PER_ID_CAM+g_cam)+1]  = 1'b0;
         assign s_events[4*(PER_ID_CAM+g_cam)+2]  = 1'b0;
@@ -752,17 +752,17 @@ module udma_subsystem
         ) i_camera_if (
             .clk_i(s_clk_periphs_core[PER_ID_CAM+g_cam]),
             .rstn_i(sys_resetn_i),
-        
+
             .dft_test_mode_i(dft_test_mode_i),
             .dft_cg_enable_i(dft_cg_enable_i),
-        
+
             .cfg_data_i          ( s_periph_data_to                        ),
             .cfg_addr_i          ( s_periph_addr                           ),
             .cfg_valid_i         ( s_periph_valid[PER_ID_CAM+g_cam]        ),
             .cfg_rwn_i           ( s_periph_rwn                            ),
             .cfg_data_o          ( s_periph_data_from[PER_ID_CAM+g_cam]    ),
             .cfg_ready_o         ( s_periph_ready[PER_ID_CAM+g_cam]        ),
-        
+
             .cfg_rx_startaddr_o  ( s_rx_cfg_startaddr[CH_ID_RX_CAM+g_cam]  ),
             .cfg_rx_size_o       ( s_rx_cfg_size[CH_ID_RX_CAM+g_cam]       ),
             .cfg_rx_continuous_o ( s_rx_cfg_continuous[CH_ID_RX_CAM+g_cam] ),
@@ -772,12 +772,12 @@ module udma_subsystem
             .cfg_rx_pending_i    ( s_rx_ch_pending[CH_ID_RX_CAM+g_cam]     ),
             .cfg_rx_curr_addr_i  ( s_rx_ch_curr_addr[CH_ID_RX_CAM+g_cam]   ),
             .cfg_rx_bytes_left_i ( s_rx_ch_bytes_left[CH_ID_RX_CAM+g_cam]  ),
-        
+
             .data_rx_datasize_o  ( s_rx_ch_datasize[CH_ID_RX_CAM+g_cam]    ),
             .data_rx_data_o      ( s_rx_ch_data[CH_ID_RX_CAM+g_cam][15:0]  ),
             .data_rx_valid_o     ( s_rx_ch_valid[CH_ID_RX_CAM+g_cam]       ),
             .data_rx_ready_i     ( s_rx_ch_ready[CH_ID_RX_CAM+g_cam]       ),
-        
+
             .cam_clk_i           ( pad_to_cam[g_cam].clk_i                 ),
             .cam_data_i          ( cam_data_i                              ),
             .cam_hsync_i         ( pad_to_cam[g_cam].hsync_i               ),
@@ -790,11 +790,11 @@ module udma_subsystem
         assign cam_data_i[3] = pad_to_cam[g_cam].data3_i;
         assign cam_data_i[4] = pad_to_cam[g_cam].data4_i;
         assign cam_data_i[5] = pad_to_cam[g_cam].data5_i;
-        assign cam_data_i[6] = pad_to_cam[g_cam].data6_i;           
-        assign cam_data_i[7] = pad_to_cam[g_cam].data7_i;           
+        assign cam_data_i[6] = pad_to_cam[g_cam].data6_i;
+        assign cam_data_i[7] = pad_to_cam[g_cam].data7_i;
      end // block: assign
    endgenerate
-   
+
    //PER_ID 7
     assign s_events[4*PER_ID_FILTER]    = s_filter_eot_evt;
     assign s_events[4*PER_ID_FILTER+1]  = s_filter_act_evt;
@@ -862,12 +862,12 @@ module udma_subsystem
 
 
     localparam RegAw  = 32;
-    localparam RegDw  = 32; 
+    localparam RegDw  = 32;
     typedef logic [RegAw-1:0]   reg_addr_t;
     typedef logic [RegDw-1:0]   reg_data_t;
-    typedef logic [RegDw/8-1:0] reg_strb_t;   
+    typedef logic [RegDw/8-1:0] reg_strb_t;
     `REG_BUS_TYPEDEF_REQ(reg_req_t, reg_addr_t, reg_data_t, reg_strb_t)
-    `REG_BUS_TYPEDEF_RSP(reg_rsp_t, reg_data_t)   
+    `REG_BUS_TYPEDEF_RSP(reg_rsp_t, reg_data_t)
 
     `ifndef XILINX_DDR
     generate
@@ -887,25 +887,25 @@ module udma_subsystem
          logic [N_CH_HYPER-1:0] s_evt_eot_hyper;
          logic is_hyper_read_q;
          logic is_hyper_read_d;
-         
+
          assign s_events[4*(PER_ID_HYPER+g_hyper)]            = s_rx_ch_events[CH_ID_RX_HYPER+g_hyper];
          assign s_events[4*(PER_ID_HYPER+g_hyper)+1]          = s_tx_ch_events[CH_ID_TX_HYPER+g_hyper];
          assign s_events[4*(PER_ID_HYPER+g_hyper)+2]          = |s_evt_eot_hyper & is_hyper_read_d ;
          assign s_events[4*(PER_ID_HYPER+g_hyper)+3]          = |s_evt_eot_hyper & !is_hyper_read_d;
 
          always_ff @(posedge sys_clk_i, negedge sys_resetn_i) begin
-            if(!sys_resetn_i) 
+            if(!sys_resetn_i)
                   is_hyper_read_q <= 1'b0;
             else
                   is_hyper_read_q <= is_hyper_read_d;
-         end 
+         end
          always_comb begin
                 if(is_hyper_read_q) begin
                      if ( s_tx_ch_events[CH_ID_TX_HYPER] & !s_rx_ch_events[CH_ID_RX_HYPER]) begin
                            is_hyper_read_d = 1'b0;
                      end
                      else  is_hyper_read_d = 1'b1;
-                end 
+                end
                 else if(!is_hyper_read_q) begin
                      if ( s_rx_ch_events[CH_ID_RX_HYPER] & !s_tx_ch_events[CH_ID_TX_HYPER]) begin
                            is_hyper_read_d = 1'b1;
@@ -919,7 +919,7 @@ module udma_subsystem
          assign s_rx_cfg_stream_id[CH_ID_RX_HYPER+g_hyper]  = 'h0;
          assign s_rx_ch_destination[CH_ID_RX_HYPER+g_hyper] = 'h0;
          assign s_tx_ch_destination[CH_ID_TX_HYPER+g_hyper] = 'h0;
-         
+
         `ifdef EXCLUDE_LLC
          ariane_axi_soc::req_slv_t    axi_hyper_req;
          ariane_axi_soc::resp_slv_t   axi_hyper_rsp;
@@ -933,7 +933,7 @@ module udma_subsystem
          reg_rsp_t   reg_rsp;
          `REG_BUS_ASSIGN_TO_REQ(reg_req,hyper_reg_cfg_slave)
          `REG_BUS_ASSIGN_FROM_RSP(hyper_reg_cfg_slave,reg_rsp)
-    
+
          hyperbus_udma #(
               .L2_AWIDTH_NOAL ( L2_AWIDTH_NOAL                                           ),
               .TRANS_SIZE     ( TRANS_SIZE                                               ),
@@ -962,6 +962,7 @@ module udma_subsystem
               .axi_r_chan_t   ( ariane_axi_soc::r_chan_slv_mem_t                         ),
               `endif
               .AxiUserWidth   ( ariane_axi_soc::UserWidth                                ),
+              .SyncStages     ( ariane_soc::CdcSyncStages                                ),
               .IsClockODelayed( 0                                                        ),
               .RegAddrWidth   ( RegAw                                                    ),
               .RegDataWidth   ( RegDw                                                    ),
@@ -971,7 +972,7 @@ module udma_subsystem
               .RxFifoLogDepth ( 4                                                        ),
               .TxFifoLogDepth ( 4                                                        ),
               .RstChipBase    ( ariane_soc::HYAXIBase + ariane_soc::HYAXILength*g_hyper  ),  // Base address for all chips
-              .RstChipSpace   ( 'h800000                                                 )   
+              .RstChipSpace   ( 'h800000                                                 )
          ) i_hyper (
              .clk_sys_i           ( sys_clk_i                                            ),
              .clk_phy_i           ( periph_clk_i                                         ),
@@ -988,7 +989,7 @@ module udma_subsystem
              .cfg_valid_i         ( s_periph_valid[PER_ID_HYPER+N_CH_HYPER+(g_hyper*(N_CH_HYPER+1)) : PER_ID_HYPER+(g_hyper*(N_CH_HYPER+1))]      ),
              .cfg_ready_o         ( s_periph_ready[PER_ID_HYPER+N_CH_HYPER+(g_hyper*(N_CH_HYPER+1)) : PER_ID_HYPER+(g_hyper*(N_CH_HYPER+1))]      ),
              .cfg_data_o          ( s_periph_data_from[PER_ID_HYPER+N_CH_HYPER+(g_hyper*(N_CH_HYPER+1)) : PER_ID_HYPER+(g_hyper*(N_CH_HYPER+1))]  ),
-         
+
              .cfg_rx_startaddr_o  ( s_rx_cfg_startaddr[CH_ID_RX_HYPER+g_hyper]              ),
              .cfg_rx_size_o       ( s_rx_cfg_size[CH_ID_RX_HYPER+g_hyper]                   ),
              .cfg_rx_continuous_o ( s_rx_cfg_continuous[CH_ID_RX_HYPER+g_hyper]             ),
@@ -998,7 +999,7 @@ module udma_subsystem
              .cfg_rx_pending_i    ( s_rx_ch_pending[CH_ID_RX_HYPER+g_hyper]                 ),
              .cfg_rx_curr_addr_i  ( s_rx_ch_curr_addr[CH_ID_RX_HYPER+g_hyper]               ),
              .cfg_rx_bytes_left_i ( s_rx_ch_bytes_left[CH_ID_RX_HYPER+g_hyper]              ),
-         
+
              .cfg_tx_startaddr_o  ( s_tx_cfg_startaddr[CH_ID_TX_HYPER+g_hyper]              ),
              .cfg_tx_size_o       ( s_tx_cfg_size[CH_ID_TX_HYPER+g_hyper]                   ),
              .cfg_tx_continuous_o ( s_tx_cfg_continuous[CH_ID_TX_HYPER+g_hyper]             ),
@@ -1009,19 +1010,19 @@ module udma_subsystem
              .cfg_tx_curr_addr_i  ( s_tx_ch_curr_addr[CH_ID_TX_HYPER+g_hyper]               ),
              .cfg_tx_bytes_left_i ( s_tx_ch_bytes_left[CH_ID_TX_HYPER+g_hyper]              ),
              .evt_eot_hyper_o     ( s_evt_eot_hyper                                         ),
-         
+
              .data_tx_req_o       ( s_tx_ch_req[CH_ID_TX_HYPER+g_hyper]                     ),
              .data_tx_gnt_i       ( s_tx_ch_gnt[CH_ID_TX_HYPER+g_hyper]                     ),
              .data_tx_datasize_o  ( s_tx_ch_datasize[CH_ID_TX_HYPER+g_hyper]                ),
              .data_tx_i           ( s_tx_ch_data[CH_ID_TX_HYPER+g_hyper]                    ),
              .data_tx_valid_i     ( s_tx_ch_valid[CH_ID_TX_HYPER+g_hyper]                   ),
              .data_tx_ready_o     ( s_tx_ch_ready[CH_ID_TX_HYPER+g_hyper]                   ),
-         
+
              .data_rx_datasize_o  ( s_rx_ch_datasize[CH_ID_RX_HYPER+g_hyper]                ),
              .data_rx_o           ( s_rx_ch_data[CH_ID_RX_HYPER+g_hyper]                    ),
              .data_rx_valid_o     ( s_rx_ch_valid[CH_ID_RX_HYPER+g_hyper]                   ),
              .data_rx_ready_i     ( s_rx_ch_ready[CH_ID_RX_HYPER+g_hyper]                   ),
-         
+
               //////////////TO/FROM EXTERNAL OF THE CHIP///////////////////////////
              .pad_hyper_csn,
              .pad_hyper_ck,
@@ -1037,7 +1038,7 @@ module udma_subsystem
 
    assign hyper_reg_cfg_slave.ready     = 1'b1;
    assign hyper_reg_cfg_slave.error     = '0;
-   
+
    assign cfg_ready_o         = 1'b1;
    assign cfg_data_o          = '0;
    assign cfg_rx_startaddr_o  = '0;
@@ -1051,15 +1052,15 @@ module udma_subsystem
    assign cfg_tx_en_o         = '0;
    assign cfg_tx_clr_o        = '0;
    assign evt_eot_hyper_o     = '0;
-         
+
    assign data_tx_req_o       = '0;
    assign data_tx_datasize_o  = '0;
    assign data_tx_ready_o     = 1'b1;
 
    assign data_rx_datasize_o  = '0;
    assign data_rx_o           = '0;
-   assign data_rx_valid_o     = '0;         
+   assign data_rx_valid_o     = '0;
 
    `endif
-   
+
 endmodule
