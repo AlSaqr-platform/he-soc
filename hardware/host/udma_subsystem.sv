@@ -933,7 +933,7 @@ module udma_subsystem
          reg_rsp_t   reg_rsp;
          `REG_BUS_ASSIGN_TO_REQ(reg_req,hyper_reg_cfg_slave)
          `REG_BUS_ASSIGN_FROM_RSP(hyper_reg_cfg_slave,reg_rsp)
-    
+
          hyperbus_udma #(
               .L2_AWIDTH_NOAL ( L2_AWIDTH_NOAL                                           ),
               .TRANS_SIZE     ( TRANS_SIZE                                               ),
@@ -962,6 +962,7 @@ module udma_subsystem
               .axi_r_chan_t   ( ariane_axi_soc::r_chan_slv_mem_t                         ),
               `endif
               .AxiUserWidth   ( ariane_axi_soc::UserWidth                                ),
+              .SyncStages     ( ariane_soc::CdcSyncStages                                ),
               .IsClockODelayed( 0                                                        ),
               .RegAddrWidth   ( RegAw                                                    ),
               .RegDataWidth   ( RegDw                                                    ),

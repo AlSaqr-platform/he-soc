@@ -706,11 +706,12 @@ module cva6_subsystem
   );
 
   axi_cdc_dst_intf #(
-    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
-    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
-    .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
-    .AXI_USER_WIDTH ( AXI_USER_WIDTH      ),
-    .LOG_DEPTH      ( 1                   )
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH         ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH            ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidth       ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH            ),
+    .LOG_DEPTH      ( 1                         ),
+    .SYNC_STAGES    ( ariane_soc::CdcSyncStages )
     ) cva6_to_xbar (
       .src(cva6_axi_master_dst),
       .dst_clk_i(clk_i),
