@@ -12,7 +12,7 @@
 // Date: 18.06.2020
 // Description: L2 subsystem
 
-module l3_onchip_subsystem 
+module l3_onchip_subsystem
 #(
   parameter int unsigned AXI_ID_WIDTH       = 1,
   parameter int unsigned AXI_ADDR_WIDTH     = 1,
@@ -22,9 +22,9 @@ module l3_onchip_subsystem
   parameter int unsigned L2_BANK_SIZE       = 32768 , // 2^15 words (32 bits)
   parameter int unsigned L2_BANK_ADDR_WIDTH = $clog2(L2_BANK_SIZE),
   parameter int unsigned L2_DATA_WIDTH      = 32 , // Do not change
-  localparam AXI64_2_TCDM32_N_PORTS         = 4    // Do not change, to achieve full bandwith from 64 bit AXI and 32 bit tcdm we need 4 ports!    
+  localparam AXI64_2_TCDM32_N_PORTS         = 4    // Do not change, to achieve full bandwith from 64 bit AXI and 32 bit tcdm we need 4 ports!
                                                    // It is hardcoded in the axi2tcdm_wrap module.
-) 
+)
 (
   input  logic          clk_i,
   input  logic          rst_ni,
@@ -32,7 +32,7 @@ module l3_onchip_subsystem
 );
 
    XBAR_TCDM_BUS axi_interconnect[AXI64_2_TCDM32_N_PORTS-1:0]();
-   
+
    logic [AXI64_2_TCDM32_N_PORTS-1:0]                          core_req_l2;
    logic [AXI64_2_TCDM32_N_PORTS-1:0] [31:0]                   core_add_l2;
    logic [AXI64_2_TCDM32_N_PORTS-1:0]                          core_wen_l2;
@@ -49,7 +49,7 @@ module l3_onchip_subsystem
    logic [NB_L2_BANKS-1:0][3:0]                     mem_be_l2;
    logic [NB_L2_BANKS-1:0][L2_DATA_WIDTH-1:0]       mem_wdata_l2;
    logic [NB_L2_BANKS-1:0][L2_DATA_WIDTH-1:0]       mem_rdata_l2;
-   
+
    axi2tcdm_wrap #(
       .AXI_ID_WIDTH   ( AXI_ID_WIDTH   ),
       .AXI_USER_WIDTH ( AXI_USER_WIDTH ),
@@ -64,7 +64,7 @@ module l3_onchip_subsystem
     );
 
 
- 
+
    // binding
    generate
     for(genvar i=0; i<AXI64_2_TCDM32_N_PORTS; i++) begin : axi_bridge_2_interconnect_unrolling
@@ -75,7 +75,7 @@ module l3_onchip_subsystem
       assign core_wdata_l2  [i] = axi_interconnect[i].wdata;
       assign axi_interconnect[i].gnt     = core_gnt_l2     [i];
 
-       
+
       assign axi_interconnect[i].r_rdata = core_r_rdata_l2 [i];
       assign axi_interconnect[i].r_valid = core_r_valid_l2 [i];
       assign axi_interconnect[i].r_opc   = '0;
@@ -99,10 +99,10 @@ module l3_onchip_subsystem
     .wen_i    ( core_wen_l2     ),
     .wdata_i  ( core_wdata_l2   ),
     .be_i     ( core_be_l2      ),
-    .gnt_o    ( core_gnt_l2     ),                        
+    .gnt_o    ( core_gnt_l2     ),
     .vld_o    ( core_r_valid_l2 ),
     .rdata_o  ( core_r_rdata_l2 ),
-                         
+
     .req_o    ( mem_req_l2      ),
     .gnt_i    ( mem_gnt_l2      ),
     .add_o    ( mem_addr_l2     ),
@@ -117,8 +117,8 @@ module l3_onchip_subsystem
 
    //Perform TCDM handshaking for constant 1 cycle latency
    assign mem_gnt_l2[i] = mem_req_l2[i];
-   
-   `ifndef TARGET_ASIC          
+
+   `ifndef TARGET_ASIC
      tc_sram #(
        .SimInit   ( "random"            ),
    `else
@@ -139,5 +139,5 @@ module l3_onchip_subsystem
      );
 
   end // block: CUTS
-      
+
 endmodule

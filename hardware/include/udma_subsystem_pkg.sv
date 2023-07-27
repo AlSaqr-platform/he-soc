@@ -1,6 +1,6 @@
 package udma_subsystem_pkg;
 
-  localparam N_SPI          = 12; 
+  localparam N_SPI          = 12;
   localparam N_UART         = 8;
   localparam N_SDIO         = 2;
   localparam N_CAM          = 2;
@@ -30,7 +30,7 @@ package udma_subsystem_pkg;
 		logic csn3_o;
 		logic clk_o;
 	} qspi_to_pad_t;
-	
+
 	typedef struct packed {
 		logic sd0_i;
 		logic sd1_i;
@@ -44,7 +44,7 @@ package udma_subsystem_pkg;
 	  logic scl_o;
 	  logic scl_oe_o;
 	} i2c_to_pad_t;
-	
+
 	typedef struct packed {
 	  logic sda_i;
 	  logic scl_i;
@@ -146,6 +146,6 @@ package udma_subsystem_pkg;
 	localparam DEST_SIZE        = 2;
 	localparam STREAM_ID_WIDTH  = 4;
 
-   
+
 endpackage
-   
+

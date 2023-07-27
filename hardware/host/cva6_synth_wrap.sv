@@ -8,7 +8,7 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the
 // specific language governing permissions and limitations under the License.
 //
-// Author: Luca Valente 
+// Author: Luca Valente
 // Date: 13.01.2021
 // Description: Ariane synth wrapper
 
@@ -24,7 +24,7 @@ module cva6_synth_wrap
   localparam AXI_DATA_WIDTH     = 64,
   localparam AXI_STRB_WIDTH     = AXI_ADDR_WIDTH/8,
   localparam LOG_DEPTH          = 1,
-                             
+
   localparam AW_WIDTH           = AXI_ID_WIDTH+AXI_ADDR_WIDTH+AXI_USER_WIDTH+$bits(axi_pkg::len_t)+$bits(axi_pkg::size_t)+$bits(axi_pkg::burst_t)+$bits(axi_pkg::cache_t)+$bits(axi_pkg::prot_t)+$bits(axi_pkg::qos_t)+$bits(axi_pkg::region_t)+$bits(axi_pkg::atop_t)+1,
   localparam W_WIDTH            = AXI_USER_WIDTH+AXI_STRB_WIDTH+AXI_DATA_WIDTH+1,
   localparam R_WIDTH            = AXI_ID_WIDTH+AXI_DATA_WIDTH+AXI_USER_WIDTH+$bits(axi_pkg::resp_t)+1,
@@ -54,31 +54,31 @@ module cva6_synth_wrap
   //***************************************
   // WRITE ADDRESS CHANNEL
   output logic [LOG_DEPTH:0]                  data_master_aw_wptr_o,
-  output logic [ASYNC_AW_DATA_WIDTH-1:0]      data_master_aw_data_o, 
+  output logic [ASYNC_AW_DATA_WIDTH-1:0]      data_master_aw_data_o,
   input logic [LOG_DEPTH:0]                   data_master_aw_rptr_i,
-                                                 
-  // READ ADDRESS CHANNEL                        
+
+  // READ ADDRESS CHANNEL
   output logic [LOG_DEPTH:0]                  data_master_ar_wptr_o,
   output logic [ASYNC_AR_DATA_WIDTH-1:0]      data_master_ar_data_o,
   input logic [LOG_DEPTH:0]                   data_master_ar_rptr_i,
-                                                 
-  // WRITE DATA CHANNEL                          
+
+  // WRITE DATA CHANNEL
   output logic [LOG_DEPTH:0]                  data_master_w_wptr_o,
   output logic [ASYNC_W_DATA_WIDTH-1:0]       data_master_w_data_o,
   input logic [LOG_DEPTH:0]                   data_master_w_rptr_i,
-                                                 
-  // READ DATA CHANNEL                           
+
+  // READ DATA CHANNEL
   input logic [LOG_DEPTH:0]                   data_master_r_wptr_i,
   input logic [ASYNC_R_DATA_WIDTH-1:0]        data_master_r_data_i,
   output logic [LOG_DEPTH:0]                  data_master_r_rptr_o,
-                                                 
-  // WRITE RESPONSE CHANNEL                      
+
+  // WRITE RESPONSE CHANNEL
   input logic [LOG_DEPTH:0]                   data_master_b_wptr_i,
   input logic [ASYNC_B_DATA_WIDTH-1:0]        data_master_b_data_i,
   output logic [LOG_DEPTH:0]                  data_master_b_rptr_o
 
 );
-   
+
   AXI_BUS #(
     .AXI_ADDR_WIDTH ( 64   ),
     .AXI_DATA_WIDTH ( 64   ),
@@ -94,10 +94,10 @@ module cva6_synth_wrap
     .LOG_DEPTH      ( 1    )
   ) cva6_axi_master_src();
 
-                       
+
   ariane_axi_soc::req_t    axi_ariane_req;
   ariane_axi_soc::resp_t   axi_ariane_resp;
-   
+
   ariane #(
     .ArianeCfg  ( ariane_soc::ArianeSocCfg )
   ) i_ariane (
@@ -112,7 +112,7 @@ module cva6_synth_wrap
     .axi_req_o            ( axi_ariane_req      ),
     .axi_resp_i           ( axi_ariane_resp     )
   );
-  
+
   axi_master_connect i_axi_master_connect_ariane (
     .axi_req_i(axi_ariane_req),
     .axi_resp_o(axi_ariane_resp),
@@ -144,7 +144,7 @@ module cva6_synth_wrap
    assign data_master_w_wptr_o = cva6_axi_master_src.w_wptr;
    assign data_master_w_data_o = cva6_axi_master_src.w_data;
    assign cva6_axi_master_src.w_rptr = data_master_w_rptr_i ;
-   
+
    assign cva6_axi_master_src.r_wptr = data_master_r_wptr_i;
    assign cva6_axi_master_src.r_data = data_master_r_data_i;
    assign data_master_r_rptr_o = cva6_axi_master_src.r_rptr;
@@ -169,5 +169,5 @@ module cva6_synth_wrap
       $warning("B Response Errored");
     end
   end
-   
+
 endmodule // cva6_synth_wrap

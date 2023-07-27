@@ -17,7 +17,7 @@ module freq_meter
 (
     input clk
 );
-`ifndef TARGET_SYNTHESIS  
+`ifndef TARGET_SYNTHESIS
   real  past_time;
   real  current_time;
   real  PERIOD;

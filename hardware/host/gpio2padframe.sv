@@ -10,23 +10,23 @@
 //
 // Author: Mattia Sinigaglia, University of Bologna
 // Date: 05/11/2021
-// Description: Wrapper APB GPIO 
-//              
+// Description: Wrapper APB GPIO
+//
 
 module gpio2padframe
   import udma_subsystem_pkg::*;
-  import gpio_pkg::*; 
+  import gpio_pkg::*;
   `ifndef FPGA_EMUL
     `ifndef SIMPLE_PADFRAME
         import pkg_alsaqr_periph_padframe::*;
       `else
-        import pkg_alsaqr_periph_fpga_padframe::*; 
+        import pkg_alsaqr_periph_fpga_padframe::*;
       `endif
   `else
-      import pkg_alsaqr_periph_fpga_padframe::*; 
+      import pkg_alsaqr_periph_fpga_padframe::*;
   `endif
-  #( 
-    parameter int unsigned NUM_GPIO   = 64 
+  #(
+    parameter int unsigned NUM_GPIO   = 64
   )(
 
     output logic [NUM_GPIO-1:0] gpio_in,
@@ -275,5 +275,5 @@ module gpio2padframe
     assign gpio_in[61] = '0;
     assign gpio_in[62] = '0;
     assign gpio_in[63] = '0;
-  
+
 endmodule

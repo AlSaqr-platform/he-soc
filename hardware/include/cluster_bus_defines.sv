@@ -16,7 +16,7 @@
 
 /*
  * Collection of legacy pulp cluster defines.
- * 
+ *
  */
 
 `define NB_SLAVE  4

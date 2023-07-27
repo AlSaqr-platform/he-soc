@@ -22,7 +22,7 @@
 
 /*
  * Collection of legacy pulp cluster defines.
- * 
+ *
  */
 
 `define CLUSTER_ALIAS
@@ -45,7 +45,7 @@
   `define CLUST_FP_DIVSQRT 1
   `define CLUST_SHARED_FP 2
   `define CLUST_SHARED_FP_DIVSQRT 2
-`endif 
+`endif
 
 //PARAMETRES
 `define NB_CLUSTERS   1
