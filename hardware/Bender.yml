@@ -40,6 +40,8 @@ dependencies:
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "eb04acfcab0914ef6bf497898b0c0d84e9bc8e81" } #branch  sm/sync_stages_intf from redmule
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", version: 0.0.1 }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "8e33974e3d744fd4ab8380cc3f20598e89f61423" }
+  axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
 
 
 export_include_dirs:
@@ -117,7 +119,7 @@ sources:
     defines:
       WT_DCACHE: ~
     files:
-      - ../bootrom/bootrom.sv
+      - ../fpga/src/bootrom/bootrom.sv
       - gf22/macro_wrap/memwrap_gf22.sv
       - gf22/macro_wrap/tc_sram_gf22.sv
       - gf22/macro_wrap/tc_clk_gf22.sv
@@ -144,7 +146,7 @@ sources:
       - tb/common/uart.sv
       - tb/common/SimDTM.sv
       - tb/common/SimJTAG.sv
-      - ../bootrom/bootrom.sv
+      - ../fpga/src/bootrom/bootrom.sv
       - tb/common/jtag_pkg.sv
       - tb/common/jtag_intf.sv
       - tb/common/mock_uart.sv

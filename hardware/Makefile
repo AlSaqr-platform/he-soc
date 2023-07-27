@@ -28,6 +28,8 @@ test-location  ?= output/test
 torture-logs   :=
 # custom elf bin to run with sim or sim-verilator
 elf-bin        ?= ../software/hello/hello.riscv
+ibex-elf-bin   ?=
+BOOTMODE       ?= 0
 #cl-bin         ?= ../software/pulp/mm.riscv
 cl-bin         ?= none
 # root pathelf-bin
@@ -102,9 +104,9 @@ ifdef spike-tandem
 endif
 
 # Compile and sim flags
-compile_flag     += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 13262 -permissive +define+$(defines)
+compile_flag     += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 13262 -suppress 3999 -suppress 3009 -suppress 8360 -permissive +define+$(defines)
 uvm-flags        += +UVM_NO_RELNOTES +UVM_VERBOSITY=LOW
-questa-flags     += -t 1ns -64 -coverage -classdebug $(gui-sim) $(QUESTASIM_FLAGS)
+questa-flags     += -t 1ns -64 -coverage -classdebug -suppress 3999 -suppress 3009 -suppress 8360 $(gui-sim) $(QUESTASIM_FLAGS)
 compile_flag_vhd += -64 -nologo -quiet -2008
 
 compile_flag_bender   += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 13262 -permissive
@@ -149,8 +151,8 @@ endif
 
 ifdef simple-padframe
 	questa-cmd   += +SIMPLE_PADFRAME=$(simple-padframe)
- 	compile_flag +=  +define+SIMPLE_PADFRAME
- 	compile_fpga += SIMPLE_PADFRAME
+	compile_flag +=  +define+SIMPLE_PADFRAME
+	compile_fpga += SIMPLE_PADFRAME
 endif
 
 ifdef spike-tandem
@@ -171,6 +173,11 @@ endif
 ifdef preload
 	compile_flag += +define+PRELOAD
 	questa-cmd += +define+PRELOAD
+endif
+
+ifdef secure
+	compile_flag += +define+SECURE
+	questa-cmd += +define+SECURE
 endif
 
 bender:
@@ -247,7 +254,7 @@ generate-trace-vsim:
 	make generate-trace
 
 run:
-	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -lib $(library)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
+	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8360 -lib $(library)  +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi  \
 	${top_level}_optimized +permissive-off ++$(elf-bin) ++$(target-options) ++$(cl-bin) | tee sim.log
 
