@@ -544,7 +544,8 @@ module al_saqr
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH                  ),
      .AXI_ID_WIDTH   ( ariane_soc::SocToClusterIdWidth ),
      .AXI_USER_WIDTH ( AXI_USER_WIDTH                  ),
-     .LOG_DEPTH      ( 3                               )
+     .LOG_DEPTH      ( 3                               ),
+     .SYNC_STAGES    ( ariane_soc::CdcSyncStages       )
      ) soc_to_cluster_src_cdc_fifo_i
        (
        .src_clk_i  ( s_soc_clk                         ),
@@ -554,11 +555,12 @@ module al_saqr
        );
 
    axi_cdc_dst_intf   #(
-     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
-     .AXI_ID_WIDTH   ( ariane_soc::IdWidth      ),
-     .AXI_USER_WIDTH ( AXI_USER_WIDTH           ),
-     .LOG_DEPTH      ( 3                        )
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH         ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH            ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidth       ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH            ),
+     .LOG_DEPTH      ( 3                         ),
+     .SYNC_STAGES    ( ariane_soc::CdcSyncStages )
      ) cluster_to_soc_dst_cdc_fifo_i (
        .dst_clk_i  ( s_soc_clk                    ),
        .dst_rst_ni ( s_cluster_rst_n              ),
@@ -567,11 +569,12 @@ module al_saqr
        );
 
    axi_cdc_dst_intf      #(
-     .AXI_ADDR_WIDTH      ( AXI_ADDRESS_WIDTH      ),
-     .AXI_DATA_WIDTH      ( AXI_DATA_WIDTH         ),
-     .AXI_ID_WIDTH        ( ariane_soc::IdWidth    ),
-     .AXI_USER_WIDTH      ( AXI_USER_WIDTH         ),
-     .LOG_DEPTH           ( 3                      )
+     .AXI_ADDR_WIDTH      ( AXI_ADDRESS_WIDTH         ),
+     .AXI_DATA_WIDTH      ( AXI_DATA_WIDTH            ),
+     .AXI_ID_WIDTH        ( ariane_soc::IdWidth       ),
+     .AXI_USER_WIDTH      ( AXI_USER_WIDTH            ),
+     .LOG_DEPTH           ( 3                         ),
+     .SYNC_STAGES         ( ariane_soc::CdcSyncStages )
      ) cfg_dst_cdc_fifo_i (
        .dst_clk_i         ( s_soc_clk                ),
        .dst_rst_ni        ( s_cluster_rst_n          ),
@@ -610,6 +613,7 @@ module al_saqr
         .AXI_USER_WIDTH               ( AXI_USER_WIDTH                  ),
         .AXI_ID_IN_WIDTH              ( ariane_soc::SocToClusterIdWidth ),
         .AXI_ID_OUT_WIDTH             ( ariane_soc::IdWidth             ),
+        .SYNC_STAGES                  ( ariane_soc::CdcSyncStages       ),
         .LOG_DEPTH                    ( 3                               ),
         .DATA_WIDTH                   ( 32                              ),
         .ADDR_WIDTH                   ( 32                              ),

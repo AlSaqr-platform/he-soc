@@ -24,6 +24,11 @@ The repository is organized as follows
 
  * `software` contains the bare metals tests you can run on the SoC
 
+## NOTE:
+Hints to solve compilation issues:
+* Copy the `vip` folder in `hardware/tb`
+### TODO: Fix these
+
 ## Hello World:
 
 ```

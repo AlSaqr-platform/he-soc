@@ -33,6 +33,9 @@ package ariane_soc;
   localparam IdWidth   = 5; // Do not change
   localparam IdWidthSlave = IdWidth + $clog2(NrSlaves);
 
+  /// Number of synchronization registers to insert on the async pointers
+  localparam CdcSyncStages   = 3;
+
   // Ensure that SocToClusterIdWidth + $clog2(ClusterNrSlaves) = IdWidth
   localparam SocToClusterIdWidth = 3;
 

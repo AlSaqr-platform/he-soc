@@ -120,18 +120,18 @@ module cva6_synth_wrap
   );
 
    axi_cdc_src_intf #(
-                      .AXI_ID_WIDTH(5),
-                      .AXI_ADDR_WIDTH(64),
-                      .AXI_DATA_WIDTH(64),
-                      .AXI_USER_WIDTH(1),
-                      .LOG_DEPTH(1)
-                      )
-   cva6tosocdomainfifo (
-                        .src_clk_i  ( clk_i               ),
-                        .src_rst_ni ( rst_ni              ),
-                        .src        ( cva6_axi_master     ),
-                        .dst        ( cva6_axi_master_src )
-                        );
+    .AXI_ID_WIDTH   ( 5                          ),
+    .AXI_ADDR_WIDTH ( 64                         ),
+    .AXI_DATA_WIDTH ( 64                         ),
+    .AXI_USER_WIDTH ( 1                          ),
+    .LOG_DEPTH      ( 1                          ),
+    .SYNC_STAGES    ( ariane_soc::CdcSyncStages  )
+  )cva6tosocdomainfifo (
+    .src_clk_i  ( clk_i               ),
+    .src_rst_ni ( rst_ni              ),
+    .src        ( cva6_axi_master     ),
+    .dst        ( cva6_axi_master_src )
+  );
 
    assign data_master_aw_wptr_o = cva6_axi_master_src.aw_wptr;
    assign data_master_aw_data_o = cva6_axi_master_src.aw_data;
