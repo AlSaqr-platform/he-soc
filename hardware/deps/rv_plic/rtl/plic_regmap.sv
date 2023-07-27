@@ -1068,7 +1068,7 @@ always_comb begin
           prio_o[255][2:0] = req_i.wdata[2:0];
           prio_we_o[255] = 1'b1;
         end
-      // INTERRUPT ENABLES 
+      // INTERRUPT ENABLES
         32'hc002000: begin
           ie_o[0][31:0] = req_i.wdata[31:0];
           ie_we_o[0] = 1'b1;
@@ -1133,7 +1133,7 @@ always_comb begin
           ie_o[1][255:224] = req_i.wdata[31:0];
           ie_we_o[1] = 1'b1;
         end
-      // THRESHOLDS 
+      // THRESHOLDS
         32'hc200000: begin
           threshold_o[0][2:0] = req_i.wdata[2:0];
           threshold_we_o[0] = 1'b1;
@@ -1142,7 +1142,7 @@ always_comb begin
           threshold_o[1][2:0] = req_i.wdata[2:0];
           threshold_we_o[1] = 1'b1;
         end
-      // CLAIM COMPLETE 
+      // CLAIM COMPLETE
         32'hc200004: begin
           cc_o[0][7:0] = req_i.wdata[7:0];
           cc_we_o[0] = 1'b1;
@@ -2288,7 +2288,7 @@ always_comb begin
           resp_o.rdata[2:0] = threshold_i[1][2:0];
           threshold_re_o[1] = 1'b1;
         end
-      // CLAIM COMPLETE 
+      // CLAIM COMPLETE
         32'hc200004: begin
           resp_o.rdata[7:0] = cc_i[0][7:0];
           cc_re_o[0] = 1'b1;

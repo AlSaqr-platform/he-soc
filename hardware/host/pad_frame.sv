@@ -14,7 +14,7 @@ module pad_frame
     (
      input logic         cva6_uart_tx,
      output logic        cva6_uart_rx,
-     
+
      inout wire          pad_cva6_uart_rx ,
      inout wire          pad_cva6_uart_tx ,
 
@@ -26,7 +26,7 @@ module pad_frame
      input logic         jtag_tdo_i,
      output logic        jtag_tms_o,
      output logic        jtag_trst_o,
-     
+
      inout wire          pad_reset_n,
      inout wire          pad_jtag_tck,
      inout wire          pad_jtag_tdi,
@@ -37,15 +37,15 @@ module pad_frame
      inout wire          pad_bypass,
      inout wire          pad_xtal_in
       );
-   
+
     wire PWROK_S, IOPWROK_S, BIAS_S, RETC_S;
-   
+
     pad_alsaqr_pu padinst_uart_rx    (.OEN( 1'b1   ), .I(1'b0         ), .O(cva6_uart_rx ), .PAD(pad_cva6_uart_rx   ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S) );
     pad_alsaqr_pu padinst_uart_tx    (.OEN( 1'b0   ), .I(cva6_uart_tx ), .O(             ), .PAD(pad_cva6_uart_tx   ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S) );
-   
-`ifndef FPGA_EMUL  
 
-    pad_alsaqr_pu padinst_bypass_clk (.OEN( 1'b1   ), .I(            ), .O( bypass_o    ), .PAD( pad_bypass    ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );   
+`ifndef FPGA_EMUL
+
+    pad_alsaqr_pu padinst_bypass_clk (.OEN( 1'b1   ), .I(            ), .O( bypass_o    ), .PAD( pad_bypass    ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
     pad_alsaqr_pu padinst_ref_clk    (.OEN( 1'b1   ), .I(            ), .O( ref_clk_o   ), .PAD( pad_xtal_in   ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
     pad_alsaqr_pu padinst_reset_n    (.OEN( 1'b1   ), .I(            ), .O( rstn_o      ), .PAD( pad_reset_n   ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
     pad_alsaqr_pu padinst_jtag_tck   (.OEN( 1'b1   ), .I(            ), .O( jtag_tck_o  ), .PAD( pad_jtag_tck  ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S)  );
@@ -57,7 +57,7 @@ module pad_frame
 `else
     assign ref_clk_o = pad_xtal_in;
     assign rstn_o = pad_reset_n;
-    assign bypass_o = pad_bypass;    
+    assign bypass_o = pad_bypass;
     //JTAG signals
     assign pad_jtag_tdo = jtag_tdo_i;
     assign jtag_trst_o = pad_jtag_trst;
@@ -66,6 +66,6 @@ module pad_frame
     assign jtag_tdi_o = pad_jtag_tdi;
 
 `endif // !`ifndef FPGA_EMUL
-  
-   
+
+
 endmodule

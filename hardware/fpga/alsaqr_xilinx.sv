@@ -18,6 +18,7 @@
 // CONDITIONS OF ANY KIND, either express or implied. See the License for the
 // specific language governing permissions and limitations under the License.
 //-----------------------------------------------------------------------------
+
 module alsaqr_xilinx
   (
     input         c0_sys_clk_p,
@@ -26,7 +27,7 @@ module alsaqr_xilinx
     inout wire    pad_uart0_tx,
     inout wire    pad_uart1_rx,
     inout wire    pad_uart1_tx,
-      
+
     input wire    pad_reset,
 
     inout       FMC_hyper0_dqio0 ,
@@ -42,8 +43,8 @@ module alsaqr_xilinx
     inout       FMC_hyper0_csn0  ,
     inout       FMC_hyper0_csn1  ,
     inout       FMC_hyper0_rwds  ,
-    inout       FMC_hyper0_reset ,   
-    
+    inout       FMC_hyper0_reset ,
+
     input wire    pad_jtag_trst,
     input wire    pad_jtag_tck,
     input wire    pad_jtag_tdi,
@@ -56,14 +57,14 @@ module alsaqr_xilinx
   `else
    localparam AXI_ID_WIDTH = 8;
   `endif
-   
+
    wire        ref_clk;
    wire        ddr_ref_clk;
    logic       s_locked;
    logic       s_clk;
-   
+
    logic       reset_n;
-        
+
    assign reset_n = ~pad_reset & pad_jtag_trst;
 
   //***********************************************************************
@@ -71,7 +72,7 @@ module alsaqr_xilinx
   //***********************************************************************
   wire c0_sys_clk_o;
   wire c0_sys_clk_s;
-   
+
   IBUFDS #
     (
      .IBUF_LOW_PWR ("FALSE")
@@ -81,7 +82,7 @@ module alsaqr_xilinx
        .I  (c0_sys_clk_p),
        .IB (c0_sys_clk_n),
        .O  (c0_sys_clk_s)
-       );  
+       );
 
   IBUF #
     (
@@ -90,7 +91,7 @@ module alsaqr_xilinx
       (
        .I  (c0_sys_clk_s),
        .O  (c0_sys_clk_o)
-       );  
+       );
 
    xilinx_clk_mngr alsaqr_clk_manager(
                                       .resetn(reset_n),
@@ -125,13 +126,13 @@ module alsaqr_xilinx
         .pad_hyper_rwds   ( hyper_rwds_wire     ),
         .pad_hyper_reset  ( hyper_reset_n_wire  ),
         .pad_hyper_dq     ( hyper_dq_wire       ),
-                
+
         .cva6_uart_rx_i   ( pad_uart0_rx       ),
         .cva6_uart_tx_o   ( pad_uart0_tx       ),
 
         .apb_uart_rx_i    ( pad_uart1_rx       ),
         .apb_uart_tx_o    ( pad_uart1_tx       )
-                
+
    );
 
    assign hyper_cs_n_wire[0][0] = FMC_hyper0_csn0;

@@ -10,7 +10,7 @@
 
 `include "apb_macros.sv"
 
-module periph_bus_wrap 
+module periph_bus_wrap
   import apb_soc_pkg::*;
   import udma_subsystem_pkg::*;
 #(
@@ -43,7 +43,7 @@ module periph_bus_wrap
     logic [apb_soc_pkg::NUM_APB_SLAVES-1:0][APB_ADDR_WIDTH-1:0] s_start_addr;
     logic [apb_soc_pkg::NUM_APB_SLAVES-1:0][APB_ADDR_WIDTH-1:0] s_end_addr;
 
-   
+
     `APB_ASSIGN_MASTER(s_masters[0], fll_master);
     assign s_start_addr[0] = apb_soc_pkg::FLLBase;
     assign s_end_addr[0]   = apb_soc_pkg::FLLBase + apb_soc_pkg::FLLLength - 1;
@@ -58,7 +58,7 @@ module periph_bus_wrap
 
     `APB_ASSIGN_MASTER(s_masters[3], padframe_master);
     assign s_start_addr[3] = apb_soc_pkg::PADFRAMEBase;
-    assign s_end_addr[3]   = apb_soc_pkg::PADFRAMEBase + apb_soc_pkg::PADFRAMELength - 1 ;  
+    assign s_end_addr[3]   = apb_soc_pkg::PADFRAMEBase + apb_soc_pkg::PADFRAMELength - 1 ;
 
     `APB_ASSIGN_MASTER(s_masters[4], gpio_master);
     assign s_start_addr[4] = apb_soc_pkg::GPIOSBase;
@@ -66,7 +66,7 @@ module periph_bus_wrap
 
     `APB_ASSIGN_MASTER(s_masters[5], socctrl_master);
     assign s_start_addr[5] = apb_soc_pkg::SOCCTRLBase;
-    assign s_end_addr[5]   = apb_soc_pkg::SOCCTRLBase + apb_soc_pkg::SOCCTRLLength - 1 ;   
+    assign s_end_addr[5]   = apb_soc_pkg::SOCCTRLBase + apb_soc_pkg::SOCCTRLLength - 1 ;
 
     `APB_ASSIGN_MASTER(s_masters[6], apb_can0_master);
     assign s_start_addr[6] = apb_soc_pkg::Can0Base;
@@ -75,7 +75,7 @@ module periph_bus_wrap
     `APB_ASSIGN_MASTER(s_masters[7], apb_can1_master);
     assign s_start_addr[7] = apb_soc_pkg::Can1Base;
     assign s_end_addr[7]   = apb_soc_pkg::Can1Base + apb_soc_pkg::CanLength - 1;
-    
+
     `APB_ASSIGN_MASTER(s_masters[8], udma_master);
     assign s_start_addr[8] = apb_soc_pkg::UDMABase;
     assign s_end_addr[8]   = apb_soc_pkg::UDMABase + apb_soc_pkg::UDMALength - 1;
@@ -84,7 +84,7 @@ module periph_bus_wrap
     assign s_start_addr[9] = apb_soc_pkg::APBUARTBase;
     assign s_end_addr[9]   = apb_soc_pkg::APBUARTBase + apb_soc_pkg::APBUARTLength - 1;
 
-   
+
    apb_node_wrap #(
         .NB_MASTER      ( apb_soc_pkg::NUM_APB_SLAVES ),
         .APB_ADDR_WIDTH ( 32                          ),

@@ -16,19 +16,19 @@
 module apb_subsystem
   import apb_soc_pkg::*;
   import udma_subsystem_pkg::*;
-  import gpio_pkg::*; 
+  import gpio_pkg::*;
  `ifndef FPGA_EMUL
     `ifndef SIMPLE_PADFRAME
         import pkg_alsaqr_periph_padframe::*;
       `else
-        import pkg_alsaqr_periph_fpga_padframe::*; 
+        import pkg_alsaqr_periph_fpga_padframe::*;
       `endif
   `else
-      import pkg_alsaqr_periph_fpga_padframe::*; 
+      import pkg_alsaqr_periph_fpga_padframe::*;
   `endif
   import ariane_soc::HyperbusNumPhys;
   import ariane_soc::NumChipsPerHyperbus;
-#( 
+#(
     parameter int unsigned AXI_USER_WIDTH = 1,
     parameter int unsigned AXI_ADDR_WIDTH = 64,
     parameter int unsigned AXI_DATA_WIDTH = 64,
@@ -55,12 +55,12 @@ module apb_subsystem
     input logic                 llc_read_hit_cache_i,
     input logic                 llc_read_miss_cache_i,
     input logic                 llc_write_hit_cache_i,
-    input logic                 llc_write_miss_cache_i, 
-  
+    input logic                 llc_write_miss_cache_i,
+
     AXI_BUS.Slave               axi_apb_slave,
     AXI_BUS.Slave               hyper_axi_bus_slave,
     XBAR_TCDM_BUS.Master        udma_tcdm_channels[1:0],
-    
+
     REG_BUS.out                 padframecfg_reg_master,
 
     output logic [31*4-1:0]     events_o,
@@ -69,22 +69,22 @@ module apb_subsystem
     // SPIM
     output                      qspi_to_pad_t [N_SPI-1:0] qspi_to_pad,
     input                       pad_to_qspi_t [N_SPI-1:0] pad_to_qspi,
-    
+
     // I2C
     output                      i2c_to_pad_t [N_I2C-1:0] i2c_to_pad,
     input                       pad_to_i2c_t [N_I2C-1:0] pad_to_i2c,
-   
+
     // CAM
   	input                       pad_to_cam_t [N_CAM-1:0] pad_to_cam,
-    
+
     // UART
     input                       pad_to_uart_t [N_UART-1:0] pad_to_uart,
     output                      uart_to_pad_t [N_UART-1:0] uart_to_pad,
-    
+
     // SDIO
     output                      sdio_to_pad_t [N_SDIO-1:0] sdio_to_pad,
     input                       pad_to_sdio_t [N_SDIO-1:0] pad_to_sdio,
- 
+
     // HYPERBUS
     `ifndef XILINX_DDR
     inout  [HyperbusNumPhys-1:0][NumChipsPerHyperbus-1:0] pad_hyper_csn,
@@ -92,9 +92,9 @@ module apb_subsystem
     inout  [HyperbusNumPhys-1:0]                          pad_hyper_ckn,
     inout  [HyperbusNumPhys-1:0]                          pad_hyper_rwds,
     inout  [HyperbusNumPhys-1:0]                          pad_hyper_reset,
-    inout  [HyperbusNumPhys-1:0][7:0]                     pad_hyper_dq, 
+    inout  [HyperbusNumPhys-1:0][7:0]                     pad_hyper_dq,
     `endif
-   
+
     // GPIOs
     output                      gpio_to_pad_t gpio_to_pad,
     input                       pad_to_gpio_t pad_to_gpio,
@@ -112,10 +112,10 @@ module apb_subsystem
    logic                                s_cluster_ctrl_rstn;
 
    logic                                [63:0] can_timestamp;
-   
+
    assign rstn_soc_sync_o = s_rstn_soc_sync;
    assign rstn_cluster_sync_o = s_rstn_cluster_sync && s_cluster_ctrl_rstn;
-   
+
    APB  #(
                .ADDR_WIDTH(32),
                .DATA_WIDTH(32)
@@ -130,7 +130,7 @@ module apb_subsystem
                .ADDR_WIDTH(32),
                .DATA_WIDTH(32)
    ) apb_gpio_master_bus();
-  
+
    APB  #(
                .ADDR_WIDTH(32),
                .DATA_WIDTH(32)
@@ -145,7 +145,7 @@ module apb_subsystem
                .ADDR_WIDTH(32),
                .DATA_WIDTH(32)
    ) apb_advtimer_master_bus();
-   
+
    APB  #(
                .ADDR_WIDTH(32),
                .DATA_WIDTH(32)
@@ -160,7 +160,7 @@ module apb_subsystem
                .ADDR_WIDTH(32),
                .DATA_WIDTH(32)
    ) apb_can1_master_bus();
-   
+
    APB  #(
                .ADDR_WIDTH(32),
                .DATA_WIDTH(32)
@@ -170,18 +170,18 @@ module apb_subsystem
                .ADDR_WIDTH(32),
                .DATA_WIDTH(32)
    ) apb_uart_master_bus();
-   
+
    FLL_BUS fll_master_bus(
                 .clk_i(s_soc_clk)
     );
-   
+
    REG_BUS #(
         .ADDR_WIDTH( 32 ),
         .DATA_WIDTH( 32 )
     ) i_hyaxicfg_rbus(
         .clk_i (s_soc_clk)
-    ); 
-  
+    );
+
    axi2apb_wrap #(
          .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH           ),
          .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -193,7 +193,7 @@ module apb_subsystem
            .clk_i      ( clk_soc_o                  ),
            .rst_ni     ( s_rstn_soc_sync            ),
            .test_en_i  ( 1'b0                       ),
-           
+
            .axi_slave  ( axi_apb_slave              ),
            .apb_master ( apb_peripheral_master_bus  )
          );
@@ -256,15 +256,15 @@ module apb_subsystem
      /* pragma translate_on */
    end
 
-   logic [udma_subsystem_pkg::APB_ADDR_WIDTH - 1:0]                        apb_udma_address;   
+   logic [udma_subsystem_pkg::APB_ADDR_WIDTH - 1:0]                        apb_udma_address;
 
    assign apb_udma_address = apb_udma_master_bus.paddr ;
-                            
+
    udma_subsystem i_udma_subsystem
      (
 
          .events_o        ( events_o                      ),
-         
+
          .event_valid_i   ( '0                            ),
          .event_data_i    ( '0                            ),
          .event_ready_o   (                               ),
@@ -274,7 +274,7 @@ module apb_subsystem
 
          .sys_clk_i       ( clk_soc_o                     ),
          .sys_resetn_i    ( s_rstn_soc_sync               ),
-                                                          
+
          .periph_clk_i    ( s_clk_per                     ),
 
          .hyper_axi_bus_slave ( hyper_axi_bus_slave       ),
@@ -326,21 +326,21 @@ module apb_subsystem
          .sdio_to_pad     ( sdio_to_pad                    ),
          .pad_to_sdio     ( pad_to_sdio                    )
       );
-   
-    logic [63:0] s_gpio_sync; 
+
+    logic [63:0] s_gpio_sync;
     logic [NUM_GPIO-1:0] s_gpio_in;
     logic [NUM_GPIO-1:0] s_gpio_out;
     logic [NUM_GPIO-1:0] s_gpio_dir;
-   
-   
+
+
     apb_gpio #(
         .APB_ADDR_WIDTH (32),
         .PAD_NUM        (NUM_GPIO),
         .NBIT_PADCFG    (4) // we actually use padrick for pads' configuration
     ) i_apb_gpio (
-        .HCLK            ( clk_soc_o                   ), 
+        .HCLK            ( clk_soc_o                   ),
         .HRESETn         ( s_rstn_soc_sync             ),
-                                                       
+
         .dft_cg_enable_i ( 1'b0                        ),
 
         .PADDR           ( apb_gpio_master_bus.paddr   ),
@@ -361,7 +361,7 @@ module apb_subsystem
         .interrupt       (                             )
     );
 
-    gpio2padframe #( 
+    gpio2padframe #(
      .NUM_GPIO       ( NUM_GPIO  )
     ) i_apb_gpio_wrap (
         .gpio_in         ( s_gpio_in   ),
@@ -391,32 +391,32 @@ module apb_subsystem
      assign fll_master_bus.addr  = '0;
    `endif
 
-    alsaqr_clk_rst_gen i_alsaqr_clk_rst_gen   
+    alsaqr_clk_rst_gen i_alsaqr_clk_rst_gen
       (
         .ref_clk_i          ( rtc_i               ),
         .rstn_glob_i        ( rst_ni              ),
         .rst_dm_i           ( rst_dm_i            ),
         .test_clk_i         ( 1'b0                ),
         .test_mode_i        ( 1'b0                ),
-        .sel_fll_clk_i      ( bypass_clk_i        ), 
-        .shift_enable_i     ( 1'b0                ),               
+        .sel_fll_clk_i      ( bypass_clk_i        ),
+        .shift_enable_i     ( 1'b0                ),
         .fll_intf           ( fll_master_bus      ),
-        .rstn_soc_sync_o    ( s_rstn_soc_sync     ), 
+        .rstn_soc_sync_o    ( s_rstn_soc_sync     ),
         .rstn_cva6_sync_o   ( rstn_cva6_sync_o    ),
-        .rstn_global_sync_o ( rstn_global_sync_o  ), 
+        .rstn_global_sync_o ( rstn_global_sync_o  ),
         .rstn_cluster_sync_o( s_rstn_cluster_sync ),
         .clk_cva6_o         ( clk_cva6_o          ),
         .clk_soc_o          ( clk_soc_o           ),
         .clk_per_o          ( s_clk_per           ),
-        .clk_cluster_o      ( clk_cluster_o       )                 
+        .clk_cluster_o      ( clk_cluster_o       )
        );
 
-   
+
   apb_to_reg i_apb_to_hyaxicfg
     (
      .clk_i     ( clk_soc_o       ),
      .rst_ni    ( s_rstn_soc_sync ),
-    
+
      .penable_i ( apb_hyaxicfg_master_bus.penable ),
      .pwrite_i  ( apb_hyaxicfg_master_bus.pwrite  ),
      .paddr_i   ( apb_hyaxicfg_master_bus.paddr   ),
@@ -425,13 +425,13 @@ module apb_subsystem
      .prdata_o  ( apb_hyaxicfg_master_bus.prdata  ),
      .pready_o  ( apb_hyaxicfg_master_bus.pready  ),
      .pslverr_o ( apb_hyaxicfg_master_bus.pslverr ),
-    
+
      .reg_o     ( i_hyaxicfg_rbus                 )
-    );      
-   
+    );
+
    logic [3:0]   pwm0_o;
    logic [3:0]   pwm1_o;
-   
+
     apb_adv_timer #(
         .APB_ADDR_WIDTH ( 32             ),
         .EXTSIG_NUM     ( 64             )
@@ -469,13 +469,13 @@ module apb_subsystem
    assign pwm_to_pad.pwm5_o = pwm1_o[1];
    assign pwm_to_pad.pwm6_o = pwm1_o[2];
    assign pwm_to_pad.pwm7_o = pwm1_o[3];
-   
+
 
    apb_to_reg i_apb_to_padframecfg
      (
       .clk_i     ( clk_soc_o       ),
       .rst_ni    ( s_rstn_soc_sync ),
- 
+
       .penable_i ( apb_padframe_master_bus.penable ),
       .pwrite_i  ( apb_padframe_master_bus.pwrite  ),
       .paddr_i   ( apb_padframe_master_bus.paddr   ),
@@ -498,7 +498,7 @@ module apb_subsystem
       ) i_apb_to_can (
       .aclk             ( clk_soc_o                   ),
       .arstn            ( s_rstn_soc_sync             ),
-                                                      
+
       .scan_enable      ( 1'b0                        ),
       .res_n_out        (                             ),
       .irq              ( can_irq_o[0]                ),
@@ -526,7 +526,7 @@ module apb_subsystem
       ) i_apb_to_can1 (
       .aclk             ( clk_soc_o                   ),
       .arstn            ( s_rstn_soc_sync             ),
-                                                      
+
       .scan_enable      ( 1'b0                        ),
       .res_n_out        (                             ),
       .irq              ( can_irq_o[1]                ),
@@ -556,10 +556,10 @@ module apb_subsystem
     .cluster_en_sa_boot_o (cluster_en_sa_boot_o),
     .cluster_fetch_en_o (cluster_fetch_en_o),
     .llc_read_hit_cache_i(llc_read_hit_cache_i),
-    .llc_read_miss_cache_i(llc_read_miss_cache_i), 
+    .llc_read_miss_cache_i(llc_read_miss_cache_i),
     .llc_write_hit_cache_i(llc_write_hit_cache_i),
     .llc_write_miss_cache_i(llc_write_miss_cache_i)
    );
-   
+
 
 endmodule

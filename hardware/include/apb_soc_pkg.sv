@@ -22,7 +22,7 @@ package apb_soc_pkg;
    localparam NUM_APB_SLAVES = 10;
 
    localparam NUM_GPIO = 64;
-   
+
    localparam logic [31:0] APBUARTLength  = 32'h1000;
    localparam logic [31:0] UDMALength     = 32'h22000; //4K * N_PERIPHS  (N_PERIPHS=34)
    localparam logic [31:0] GPIOSLength    = 32'h1000;
@@ -32,7 +32,7 @@ package apb_soc_pkg;
    localparam logic [31:0] PADFRAMELength = 32'h1000;
    localparam logic [31:0] SOCCTRLLength  = 32'h1000;
    localparam logic [31:0] CanLength      = 32'h1000;
-   
+
     typedef enum logic [31:0] {
      FLLBase       = 32'h1A10_0000,
      HYAXICFGBase  = 32'h1A10_1000,

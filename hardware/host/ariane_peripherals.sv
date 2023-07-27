@@ -9,7 +9,7 @@
 // specific language governing permissions and limitations under the License.
 
 // Xilinx Peripehrals
-module ariane_peripherals 
+module ariane_peripherals
     import udma_subsystem_pkg::N_CAN;
 #(
     parameter  int AxiAddrWidth = -1,
@@ -38,7 +38,7 @@ module ariane_peripherals
     // UART
     input  logic            rx_i            ,
     output logic            tx_o            ,
-    // Ethernet             
+    // Ethernet
     input  wire             eth_txck        ,
     input  wire             eth_rxck        ,
     input  wire             eth_rxctl       ,
@@ -48,9 +48,9 @@ module ariane_peripherals
     output wire [3:0]       eth_txd         ,
     inout  wire             phy_mdio        ,
     output logic            eth_mdc         ,
-    // MDIO Interface       
+    // MDIO Interface
     inout                   mdio            ,
-    output                  mdc             
+    output                  mdc
 );
 
   AXI_BUS #(
@@ -66,7 +66,7 @@ module ariane_peripherals
     .AXI_ID_WIDTH   ( AxiIdWidth     ),
     .AXI_USER_WIDTH ( AxiUserWidth   )
   ) spi_cut32();
-   
+
   AXI_LITE #(
     .AXI_ADDR_WIDTH ( 7  ),
     .AXI_DATA_WIDTH ( 32 )
@@ -343,7 +343,7 @@ module ariane_peripherals
               .in     ( spi     ),
               .out    ( spi_cut )
               );
-       
+
          axi_dw_converter_intf #(
            .AXI_ADDR_WIDTH          ( AxiAddrWidth   ),
            .AXI_ID_WIDTH            ( AxiIdWidth     ),
@@ -357,7 +357,7 @@ module ariane_peripherals
               .slv    ( spi_cut   ),
               .mst    ( spi_cut32 )
               );
-                                 
+
          axi_to_axi_lite_intf #(
            .AXI_ADDR_WIDTH     ( 7            ),
            .AXI_DATA_WIDTH     ( 32           ),
@@ -372,7 +372,7 @@ module ariane_peripherals
                .slv        ( spi_cut32 ),
                .mst        ( spi_lite  )
                );
-       
+
          xilinx_qspi axi_quad_spi_0(
            .ext_spi_clk   ( clk_i             ),
            .s_axi_aclk    ( clk_i             ),
@@ -406,7 +406,7 @@ module ariane_peripherals
            .usrdonets     ( 1'b1              ),
            .ip2intc_irpt  ( irq_sources[0]    )
           );
-       
+
 
     end else begin
         assign spi_clk_o = 1'b0;

@@ -39,12 +39,12 @@ module alsaqr_xilinx
     inout [15:0]  c0_ddr4_dq,
     inout [1:0]   c0_ddr4_dqs_t,
     inout [1:0]   c0_ddr4_dqs_c,
-   
+
     inout wire    pad_uart0_rx,
     inout wire    pad_uart0_tx,
     inout wire    pad_uart1_rx,
     inout wire    pad_uart1_tx,
-      
+
     `ifdef SIMPLE_PADFRAME
     inout wire  pad_periphs_pad_gpio_b_00_pad,
     inout wire  pad_periphs_pad_gpio_b_01_pad,
@@ -84,15 +84,15 @@ module alsaqr_xilinx
   `else
    localparam AXI_ID_WIDTH = 8;
   `endif
-   
+
    wire        ref_clk;
    wire        ddr_ref_clk;
    logic       s_locked;
    logic       s_clk;
-   
+
    logic       reset_n;
    logic       c0_ddr4_clk;
-   
+
 
    xilinx_clk_mngr alsaqr_clk_manager(
                                       .resetn(reset_n),
@@ -100,10 +100,10 @@ module alsaqr_xilinx
                                       .clk_in1(c0_sys_clk_o),
                                       .clk_out1(ref_clk)
                                       );
-     
+
    assign reset_n = ~pad_reset & pad_jtag_trst;
 
-   
+
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( 64           ),
      .AXI_DATA_WIDTH ( 64           ),
@@ -159,7 +159,7 @@ module alsaqr_xilinx
   //***********************************************************************
   wire c0_sys_clk_o;
   wire c0_sys_clk_s;
-   
+
   IBUFDS #
     (
      .IBUF_LOW_PWR ("FALSE")
@@ -169,7 +169,7 @@ module alsaqr_xilinx
        .I  (c0_sys_clk_p),
        .IB (c0_sys_clk_n),
        .O  (c0_sys_clk_s)
-       );  
+       );
 
   IBUF #
     (
@@ -178,10 +178,10 @@ module alsaqr_xilinx
       (
        .I  (c0_sys_clk_s),
        .O  (c0_sys_clk_o)
-       );  
+       );
 
 
-   
+
 wire c0_ddr4_reset_n_int;
   assign c0_ddr4_reset_n = c0_ddr4_reset_n_int;
 
@@ -263,7 +263,7 @@ ddr4_0 u_ddr4_0
   .c0_ddr4_s_axi_rvalid                (axi_ddr_sync.r_valid),
   .c0_ddr4_s_axi_rready                (axi_ddr_sync.r_ready),
   // Debug Port
-  .dbg_bus         (dbg_bus)                                             
+  .dbg_bus         (dbg_bus)
 
   );
    always @(posedge c0_ddr4_clk) begin
@@ -286,8 +286,8 @@ ddr4_0 u_ddr4_0
                                .dst_clk_i (c0_ddr4_clk),
                                .dst_rst_ni(c0_ddr4_aresetn),
                                .dst(axi_ddr_sync)
-                               );   
-   
+                               );
+
     al_saqr #(
         .JtagEnable        ( 1'b1          )
     ) i_alsaqr (
@@ -322,7 +322,7 @@ ddr4_0 u_ddr4_0
 
         .apb_uart_rx_i    ( pad_uart1_rx       ),
         .apb_uart_tx_o    ( pad_uart1_tx       )
-                
+
    );
 
 

@@ -12,23 +12,23 @@
 // Date: 18.06.2020
 // Description: L2 subsystem
 
-module l2_subsystem 
+module l2_subsystem
 #(
   parameter int unsigned NB_L2_BANKS        = 4,
   parameter int unsigned L2_BANK_SIZE       = 32768 , // 2^15 words (32 bits)
   parameter int unsigned L2_BANK_ADDR_WIDTH = $clog2(L2_BANK_SIZE),
   parameter int unsigned L2_DATA_WIDTH      = 32 , // Do not change
-  localparam AXI64_2_TCDM32_N_PORTS         = 4,   // Do not change, to achieve full bandwith from 64 bit AXI and 32 bit tcdm we need 4 ports!    
+  localparam AXI64_2_TCDM32_N_PORTS         = 4,   // Do not change, to achieve full bandwith from 64 bit AXI and 32 bit tcdm we need 4 ports!
                                                    // It is hardcoded in the axi2tcdm_wrap module.
   localparam UDMA_TCDM_N_PORTS              = 2    // Do not change as well: hardcoded in the udma_core module
-) 
+)
 (
   input  logic          clk_i,
   input  logic          rst_ni,
   XBAR_TCDM_BUS.Slave   axi_bridge_2_interconnect[AXI64_2_TCDM32_N_PORTS-1:0],
   XBAR_TCDM_BUS.Slave   udma_tcdm_channels[UDMA_TCDM_N_PORTS-1:0]
 );
-   
+
 
 
 
@@ -40,7 +40,7 @@ module l2_subsystem
    logic [AXI64_2_TCDM32_N_PORTS+UDMA_TCDM_N_PORTS-1:0]                          core_gnt_l2;
    logic [AXI64_2_TCDM32_N_PORTS+UDMA_TCDM_N_PORTS-1:0]                          core_r_valid_l2;
    logic [AXI64_2_TCDM32_N_PORTS+UDMA_TCDM_N_PORTS-1:0] [L2_DATA_WIDTH-1:0]      core_r_rdata_l2;
- 
+
    // binding
    generate
     for(genvar i=0; i<AXI64_2_TCDM32_N_PORTS; i++) begin : axi_bridge_2_interconnect_unrolling
@@ -51,7 +51,7 @@ module l2_subsystem
       assign core_wdata_l2  [i] = axi_bridge_2_interconnect[i].wdata;
       assign axi_bridge_2_interconnect[i].gnt     = core_gnt_l2     [i];
 
-       
+
       assign axi_bridge_2_interconnect[i].r_rdata = core_r_rdata_l2 [i];
       assign axi_bridge_2_interconnect[i].r_valid = core_r_valid_l2 [i];
       assign axi_bridge_2_interconnect[i].r_opc   = '0;
@@ -67,13 +67,13 @@ module l2_subsystem
       assign core_wdata_l2  [i+AXI64_2_TCDM32_N_PORTS] = udma_tcdm_channels[i].wdata;
       assign udma_tcdm_channels[i].gnt     = core_gnt_l2     [i+AXI64_2_TCDM32_N_PORTS];
 
-       
+
       assign udma_tcdm_channels[i].r_rdata = core_r_rdata_l2 [i+AXI64_2_TCDM32_N_PORTS];
       assign udma_tcdm_channels[i].r_valid = core_r_valid_l2 [i+AXI64_2_TCDM32_N_PORTS];
       assign udma_tcdm_channels[i].r_opc   = '0;
     end // cores_unrolling
    endgenerate
-     
+
   logic [NB_L2_BANKS-1:0]                          mem_req_l2;
   logic [NB_L2_BANKS-1:0]                          mem_wen_l2;
   logic [NB_L2_BANKS-1:0]                          mem_gnt_l2;
@@ -99,10 +99,10 @@ module l2_subsystem
     .wen_i    ( core_wen_l2                        ),
     .wdata_i  ( core_wdata_l2                      ),
     .be_i     ( core_be_l2                         ),
-    .gnt_o    ( core_gnt_l2                        ),                        
+    .gnt_o    ( core_gnt_l2                        ),
     .vld_o    ( core_r_valid_l2                    ),
     .rdata_o  ( core_r_rdata_l2                    ),
-                         
+
     .req_o    ( mem_req_l2                         ),
     .gnt_i    ( mem_gnt_l2                         ),
     .add_o    ( mem_addr_l2                        ),
@@ -118,8 +118,8 @@ module l2_subsystem
 
         //Perform TCDM handshaking for constant 1 cycle latency
         assign mem_gnt_l2[i] = mem_req_l2[i];
-        
-        `ifndef TARGET_ASIC          
+
+        `ifndef TARGET_ASIC
           tc_sram #(
             .SimInit   ( "random"            ),
         `else
@@ -141,5 +141,5 @@ module l2_subsystem
 
 
        end // block: CUTS
-      
+
 endmodule

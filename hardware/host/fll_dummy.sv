@@ -55,8 +55,8 @@ module fll_dummy #(
    `ifdef GENERATE_CLOCK
    logic  clk;
    parameter time ClkPeriod = 5ns;
-   
-   
+
+
    assign CFGACK = 1'b1;
    assign CFGQ   = 32'hdeadbeef;
 
@@ -78,15 +78,15 @@ module fll_dummy #(
        // Wait for remainder of clock period before continuing with next cycle.
        #((ClkPeriod + 1) / 2);
      end // always
-     
+
      for (genvar i=0;i<NB_FLL;i++) begin
         assign OUTCLK[i] = clk & RSTB;
      end
    `endif
 
   `endif //  `ifdef GENERATE_CLOCK
-   
+
 endmodule: fll_dummy
 
-   
-      
+
+

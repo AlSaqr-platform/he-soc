@@ -49,7 +49,7 @@ module alsaqr_clk_rst_gen (
   logic s_rstn_cluster_sync;
 
   logic [3:0] s_clk;
- 
+
 
   // currently, FLLs are not supported for FPGA emulation
   `ifndef TARGET_FPGA
@@ -86,7 +86,7 @@ module alsaqr_clk_rst_gen (
     assign s_clk_fll_soc     = s_clk[1];
     assign s_clk_fll_per     = s_clk[2];
     assign s_clk_fll_cluster = s_clk[3];
- 
+
 
     tc_clk_mux2 clk_mux_fll_cva6_i (
       .clk0_i    ( s_clk_fll_cva6  ),
@@ -123,7 +123,7 @@ module alsaqr_clk_rst_gen (
       .rst_no      ( s_rstn_cva6_sync         ), //to be used by logic clocked with ref clock in AO domain
       .init_no     (                          )                    //not used
     );
- 
+
     rstgen i_soc_rstgen (
       .clk_i       ( s_clk_soc                ),
       .rst_ni      ( s_rstn_soc & (~rst_dm_i) ),
@@ -139,7 +139,7 @@ module alsaqr_clk_rst_gen (
       .rst_no      ( s_rst_glob_sync          ), //to be used by logic clocked with ref clock in AO domain
       .init_no     (                          )                    //not used
     );
- 
+
     rstgen i_cluster_rstgen (
       .clk_i       ( s_clk_cluster            ),
       .rst_ni      ( s_rstn_soc & (~rst_dm_i) ),
@@ -181,7 +181,7 @@ module alsaqr_clk_rst_gen (
     assign s_rstn_cluster_sync = s_rstn_soc & (~rst_dm_i);
     assign s_rst_glob_sync     = s_rstn_soc;
     assign s_rstn_cva6_sync    = s_rstn_soc & (~rst_dm_i);
- 
+
   `endif
 
 
@@ -195,7 +195,7 @@ module alsaqr_clk_rst_gen (
 
   assign rstn_soc_sync_o     = s_rstn_soc_sync;
   assign rstn_cva6_sync_o    = s_rstn_cva6_sync;
-  assign rstn_global_sync_o  = s_rst_glob_sync;   
+  assign rstn_global_sync_o  = s_rst_glob_sync;
   assign rstn_cluster_sync_o = s_rstn_cluster_sync;
 
   `ifdef DO_NOT_USE_FLL
