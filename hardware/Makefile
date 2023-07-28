@@ -175,9 +175,9 @@ ifdef preload
 	questa-cmd += +define+PRELOAD
 endif
 
-ifdef secure
-	compile_flag += +define+SECURE
-	questa-cmd += +define+SECURE
+ifdef sec_boot
+	compile_flag += +define+SEC_BOOT
+	questa-cmd += +define+SEC_BOOT
 endif
 
 bender:

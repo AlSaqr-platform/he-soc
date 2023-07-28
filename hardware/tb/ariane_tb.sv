@@ -94,18 +94,26 @@ module ariane_tb;
     parameter  PRELOAD_HYPERRAM    = 1;
     parameter  LOCAL_JTAG          = 1;
     parameter  CHECK_LOCAL_JTAG    = 0;
-    // when preload is enabled LINKER_ENTRY specifies the linker address L3: 32'h80000000.
-    // NB: Can not preload if linker address is L2: 32'h1C000000
+    // when preload is enabled LINKER_ENTRY specifies the linker address (L3: 32'h80000000 - L2: 32'h1C000000)
     parameter  LINKER_ENTRY        = 32'h80000000;
   `else
-    parameter PRELOAD_HYPERRAM = 0;
-    parameter  LINKER_ENTRY    = 0;
-    `ifdef USE_LOCAL_JTAG
-      parameter  LOCAL_JTAG          = 1;
-      parameter  CHECK_LOCAL_JTAG    = 0;
+    `ifdef SEC_BOOT
+    parameter  CHECK_LOCAL_JTAG = 0;
+    parameter  PRELOAD_HYPERRAM = 1;
+    parameter  LOCAL_JTAG       = 0;
+    parameter  LINKER_ENTRY     = 0;
     `else
-      parameter  LOCAL_JTAG          = 0;
-      parameter  CHECK_LOCAL_JTAG    = 0;
+       `ifdef USE_LOCAL_JTAG
+       parameter  LOCAL_JTAG       = 1;
+       parameter  PRELOAD_HYPERRAM = 0;
+       parameter  CHECK_LOCAL_JTAG = 0;
+       parameter  LINKER_ENTRY     = 0;
+       `else
+       parameter  LOCAL_JTAG       = 0;
+       parameter  PRELOAD_HYPERRAM = 0;
+       parameter  CHECK_LOCAL_JTAG = 0;
+       parameter  LINKER_ENTRY     = 0;
+       `endif
     `endif
   `endif
 
@@ -378,7 +386,7 @@ module ariane_tb;
   assign s_jtag2ot_trstn      = s_ot_trstn    ;
   assign s_ot_tdo             = s_jtag2ot_tdo ;
 
-  if (~jtag_enable[0] & !LOCAL_JTAG) begin
+  if (~jtag_enable[0] & !LOCAL_JTAG & !PRELOAD_HYPERRAM) begin
     SimDTM i_SimDTM (
       .clk                  ( clk_i                 ),
       .reset                ( ~rst_DTM              ),
