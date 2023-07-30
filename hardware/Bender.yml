@@ -124,6 +124,15 @@ sources:
       - gf22/macro_wrap/tc_sram_gf22.sv
       - gf22/macro_wrap/tc_clk_gf22.sv
 
+
+  - target: all(macro, not(all(fpga, asic, xilinx)))
+    defines:
+      WT_DCACHE: ~
+    files:
+      - gf22/macro_wrap/memwrap_gf22.sv
+      - gf22/macro_wrap/tc_sram_gf22.sv
+      - gf22/macro_wrap/tc_clk_gf22.sv
+
   - target: top_post_synth_sim
     files:
       - gf22/innovus/hyperbus/out/hyperbus_async_macro.v
