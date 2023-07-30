@@ -226,10 +226,21 @@ benderrun: libbender $(util) $(library)
 	$(QUESTA) vsim -c -do 'source $(compile_script); quit'
 	touch $(library)/.build-srcs
 
+benderrun_macro: libbender $(util) $(library)
+	@test -f Bender.lock || { echo "ERROR: Bender.lock file does not exist. Did you run make checkout in bender mode?"; exit 1; }
+	$(QUESTA) vsim -c -do 'source gf22/modelsim/libraries.sh; source $(compile_script); quit'
+	touch $(library)/.build-srcs
+
 bendertb: benderrun $(dpi)
 	touch $(library)/.build-tb
 
+bendertb_macro: benderrun_macro $(dpi)
+	touch $(library)/.build-tb
+
 build: bendertb 	$(dpi-library)/ariane_dpi.so
+	$(QUESTA) vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc -check_synthesis
+
+build_macro: bendertb_macro 	$(dpi-library)/ariane_dpi.so
 	$(QUESTA) vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc -check_synthesis
 
 
@@ -264,6 +275,8 @@ run:
 #	-sdfnoerror -sdfnowarn  -sdfmin /ariane_tb/dut/i_host_domain/i_cva6_subsystem/i_ariane_wrap=./gf22/innovus/cva6/out/cva6_synth_wrap.sdf.gz +sdf_verbose \
 
 sim: build run
+
+macro_sim: build_macro run
 
 $(alsaqr-regression): build
 	mkdir -p tmp
