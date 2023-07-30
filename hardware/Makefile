@@ -209,6 +209,11 @@ scripts:
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t rtl -t test -t cv64a6_imafdc_sv39 > compile.tcl
 
+scripts_vip_macro:
+	$(BENDER) script vsim \
+		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
+    -t asic -t rtl -t test -t vip -t cv64a6_imafdc_sv39 > compile.tcl
+
 scripts_vip:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
