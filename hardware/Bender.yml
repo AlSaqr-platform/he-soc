@@ -40,7 +40,7 @@ dependencies:
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "eb04acfcab0914ef6bf497898b0c0d84e9bc8e81" } #branch  sm/sync_stages_intf from redmule
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "0ec0bf8b7dab6d5e4b3f7ec58338a8efee066379" }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
-  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "7a429ca35d4b85c27b30d26c2187c81b7ac9e839" }
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "7972faa1eb22b4a16a5f08aa72f11d881a12be12" }
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
 
 
@@ -128,17 +128,19 @@ sources:
   - target: all(macro, not(all(fpga, asic, xilinx)))
     defines:
       WT_DCACHE: ~
+      TARGET_ASIC: ~ 
     files:
       - gf22/macro_wrap/memwrap_gf22.sv
       - gf22/macro_wrap/tc_sram_gf22.sv
-      - gf22/macro_wrap/tc_clk_gf22.sv
 
   - target: top_post_synth_sim
     files:
-      - gf22/innovus/hyperbus/out/hyperbus_async_macro.v
-      - gf22/innovus/cva6/out/cva6_synth_wrap.v
-      - gf22/innovus/cluster/out/pulp_cluster.v
-      - gf22/innovus/trial_hier/out/alsaqr_chip.v
+       #- gf22/innovus/hyperbus/out/hyperbus_async_macro.v
+       #- gf22/innovus/cva6/out/cva6_synth_wrap.v
+       #- gf22/innovus/cluster/out/pulp_cluster.v
+       #- gf22/innovus/trial_hier/out/alsaqr_chip.v
+      - gf22/macro_wrap/memwrap_gf22.sv
+      - gf22/macro_wrap/tc_sram_gf22.sv
 
   - target: vip
     files:
