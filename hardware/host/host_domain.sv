@@ -383,7 +383,7 @@ module host_domain
       .conf_resp_o         ( axi_llc_cfg_res                                 ),
       .cached_start_addr_i ( ariane_soc::HYAXIBase                           ),
       .cached_end_addr_i   ( ariane_soc::HYAXIBase + ariane_soc::HYAXILength ),
-      .spm_start_addr_i    ( '0                                              ),
+      .spm_start_addr_i    ( ariane_soc::LLCSPMBase                          ),
       .axi_llc_events_o    ( llc_events                                      )
     );
 

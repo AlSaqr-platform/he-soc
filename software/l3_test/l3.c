@@ -78,9 +78,9 @@ int main(int argc, char const *argv[]) {
   }
     
   if(cnt==0)
-    printf("%d correct!\n", cnt2);
+    printf("Test Passed: %d correct!\n", cnt2);
   else
-    printf("number of errors: %d/%d \n", cnt, cnt2 );
+    printf("Test FAILED: number of errors: %d/%d \n", cnt, cnt2 );
   uart_wait_tx_done();  
   return cnt;
   

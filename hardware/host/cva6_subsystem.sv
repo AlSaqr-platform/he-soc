@@ -520,7 +520,7 @@ module cva6_subsystem
                                          NoAddrRules: ariane_soc::NB_PERIPHERALS
                                          };
 
-  ariane_soc::addr_map_rule_t [ariane_soc::NB_PERIPHERALS-1:0] addr_map;
+  ariane_soc::addr_map_rule_t [ariane_soc::HYAXI+1:0] addr_map; // One extra for the LLCSPM
 
  assign addr_map[ariane_soc::Debug] = '{
     idx:  ariane_soc::Debug,
@@ -594,7 +594,13 @@ module cva6_subsystem
     end_addr:   ariane_soc::HYAXIBase     + ariane_soc::HYAXILength
   };
 
-  assign addr_map[ariane_soc::AXILiteDom] = '{
+  assign addr_map[ariane_soc::HYAXI+1] = '{ 
+    idx:  ariane_soc::HYAXI,
+    start_addr: ariane_soc::LLCSPMBase,
+    end_addr:   ariane_soc::LLCSPMBase     + ariane_soc::LLCSPMLength  
+  }; 
+
+  assign addr_map[ariane_soc::AXILiteDom] = '{ 
     idx:  ariane_soc::AXILiteDom,
     start_addr: ariane_soc::AXILiteBase,
     end_addr:   ariane_soc::AXILiteBase + ariane_soc::AXILiteLength

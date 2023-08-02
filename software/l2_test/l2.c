@@ -25,9 +25,11 @@ int main(int argc, char const *argv[]) {
   for(i=3;i<10;i++)
     {
       b[i]=b[i-1]+b[i-2];
-      if(b[i]!=RESULT_FIB[i])
+      if(b[i]!=RESULT_FIB[i]){
+        printf("Test FAILED\naborting...\n");
         return 1;
+      }
     }
-  printf("0k!\n");
+  printf("Test Passed\n");
   return 0;
 }
