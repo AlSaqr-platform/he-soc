@@ -249,13 +249,13 @@ module al_saqr
   localparam int unsigned AsyncAxiOutRWidth     = secure_subsystem_synth_pkg::SynthAsyncAxiOutRWidth;
   localparam int unsigned LogDepth              = secure_subsystem_synth_pkg::SynthLogDepth;
 
-  localparam type         axi_out_aw_chan_t     = secure_subsystem_synth_pkg::synth_axi_out_aw_chan_t;
-  localparam type         axi_out_w_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_w_chan_t;
-  localparam type         axi_out_b_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_b_chan_t;
-  localparam type         axi_out_ar_chan_t     = secure_subsystem_synth_pkg::synth_axi_out_ar_chan_t;
-  localparam type         axi_out_r_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_r_chan_t;
-  localparam type         axi_out_req_t         = secure_subsystem_synth_pkg::synth_axi_out_req_t;
-  localparam type         axi_out_resp_t        = secure_subsystem_synth_pkg::synth_axi_out_resp_t;
+  localparam type         axi_secd_aw_chan_t     = secure_subsystem_synth_pkg::synth_axi_out_aw_chan_t;
+  localparam type         axi_secd_w_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_w_chan_t;
+  localparam type         axi_secd_b_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_b_chan_t;
+  localparam type         axi_secd_ar_chan_t     = secure_subsystem_synth_pkg::synth_axi_out_ar_chan_t;
+  localparam type         axi_secd_r_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_r_chan_t;
+  localparam type         axi_secd_req_t         = secure_subsystem_synth_pkg::synth_axi_out_req_t;
+  localparam type         axi_secd_resp_t        = secure_subsystem_synth_pkg::synth_axi_out_resp_t;
 
   // AXILITE parameters
   localparam int unsigned AXI_LITE_AW       = 32;
@@ -424,8 +424,8 @@ module al_saqr
   port_signals_pad2soc_t              s_port_signals_pad2soc;
   port_signals_soc2pad_t              s_port_signals_soc2pad;
 
-  axi_out_req_t                       ot_axi_req;
-  axi_out_resp_t                      ot_axi_rsp;
+  axi_secd_req_t                       ot_axi_req;
+  axi_secd_resp_t                      ot_axi_rsp;
 
   jtag_ot_pkg::jtag_req_t jtag_ibex_i;
   jtag_ot_pkg::jtag_rsp_t jtag_ibex_o;
@@ -610,14 +610,14 @@ module al_saqr
       .pad_bootmode     ( pad_bootmode     )
      );
    axi_cdc_dst #(
-      .LogDepth   ( LogDepth          ),
-      .aw_chan_t  ( axi_out_aw_chan_t ),
-      .w_chan_t   ( axi_out_w_chan_t  ),
-      .b_chan_t   ( axi_out_b_chan_t  ),
-      .ar_chan_t  ( axi_out_ar_chan_t ),
-      .r_chan_t   ( axi_out_r_chan_t  ),
-      .axi_req_t  ( axi_out_req_t     ),
-      .axi_resp_t ( axi_out_resp_t    )
+      .LogDepth   ( LogDepth           ),
+      .aw_chan_t  ( axi_secd_aw_chan_t ),
+      .w_chan_t   ( axi_secd_w_chan_t  ),
+      .b_chan_t   ( axi_secd_b_chan_t  ),
+      .ar_chan_t  ( axi_secd_ar_chan_t ),
+      .r_chan_t   ( axi_secd_r_chan_t  ),
+      .axi_req_t  ( axi_secd_req_t     ),
+      .axi_resp_t ( axi_secd_resp_t    )
    ) i_cdc_in (
       .async_data_slave_aw_data_i( async_axi_out_aw_data_o ),
       .async_data_slave_aw_wptr_i( async_axi_out_aw_wptr_o ),
@@ -663,12 +663,6 @@ module al_saqr
      .gpio_1_oe_o      (               ),
      .gpio_0_i         ( '0            ),
      .gpio_1_i         ( '0            ),
-/*     .gpio_0_o         ( s_ot_gpio_to_pad.ot_gpio0_o   ), //will be connected with new padframe
-     .gpio_0_oe_o      ( s_ot_gpio_to_pad.ot_gpio0_d_o ),
-     .gpio_1_o         ( s_ot_gpio_to_pad.ot_gpio1_o   ),
-     .gpio_1_oe_o      ( s_ot_gpio_to_pad.ot_gpio1_d_o ),
-     .gpio_0_i         ( s_pad_to_ot_gpio.ot_gpio0_i   ),
-     .gpio_1_i         ( s_pad_to_ot_gpio.ot_gpio1_i   ),  */
    // axi isolated - not implemented
      .axi_isolate_i    ( 1'b0          ),
      .axi_isolated_o   (               ),
@@ -683,13 +677,6 @@ module al_saqr
      .spi_host_SD_o    (               ),
      .spi_host_SD_i    ( '0            ),
      .spi_host_SD_en_o (               ),
-/*     .spi_host_SCK_o   ( s_ot_qspi_to_pad[1:1] ),
-     .spi_host_SCK_en_o(                       ),
-     .spi_host_CSB_o   ( s_ot_qspi_to_pad[0:0] ),
-     .spi_host_CSB_en_o(                       ),
-     .spi_host_SD_o    ( s_ot_qspi_to_pad[5:2] ),
-     .spi_host_SD_i    ( s_ot_pad_to_qspi[3:0] ),
-     .spi_host_SD_en_o ( s_ot_qspi_to_pad[9:6] )*/
    // Asynch axi port
      .async_axi_out_aw_data_o,
      .async_axi_out_aw_wptr_o,

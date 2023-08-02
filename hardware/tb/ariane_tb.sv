@@ -871,24 +871,6 @@ module ariane_tb;
    uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(w_cva6_uart_tx), .tx(w_cva6_uart_rx), .rx_en(1'b1));
    uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart1_bus (.rx(apb_uart_tx), .tx(apb_uart_rx), .rx_en(1'b1));
 
-  // Clock process
-  initial begin
-    rst_ni = 1'b0;
-    rst_DTM = 1'b0;
-
-    repeat(2)
-      @(posedge rtc_i);
-      @(negedge rtc_i);
-      rst_ni = 1'b1;
-      repeat(8)
-        @(posedge rtc_i);
-      rst_DTM = 1'b1;
-      forever begin
-        @(posedge clk_i);
-        cycles++;
-      end
-  end
-
   initial begin
     forever begin
       rtc_i = 1'b0;
