@@ -14,42 +14,63 @@
  * limitations under the License.
  */
 
-/* 
+/*
  * Mantainer: Luca Valente (luca.valente2@unibo.it)
  */
 
 #include <stdio.h>
 #include <stdint.h>
 #include "utils.h"
-#include "../common/encoding.h"
 #include "udma.h"
 #include "timer.h"
+
 #define BUFFER_SIZE 32
 //#define VERBOSE
 //#define EXTRA_VERBOSE
 
-int main() {
-  alsaqr_periph_padframe_periphs_pad_gpio_pwm0_mux_set (1);
-  alsaqr_periph_padframe_periphs_pad_gpio_pwm1_mux_set (2);
-  alsaqr_periph_padframe_periphs_pad_gpio_pwm2_mux_set (3);
-  alsaqr_periph_padframe_periphs_pad_gpio_pwm3_mux_set (4);
-  alsaqr_periph_padframe_periphs_pad_gpio_pwm4_mux_set (5);
-  alsaqr_periph_padframe_periphs_pad_gpio_pwm5_mux_set (6);
-  alsaqr_periph_padframe_periphs_pad_gpio_pwm6_mux_set (7);
-  alsaqr_periph_padframe_periphs_pad_gpio_pwm7_mux_set (8);
+//#define FPGA_EMULATION
+#define SIMPLE_PAD
 
+int main() {
+
+  #ifdef FPGA_EMULATION
+  int baud_rate = 115200;
+  int test_freq = 50000000;
+  #else
+  set_flls();
+  int baud_rate = 115200;
+  int test_freq = 100000000;
+  #endif
+  uart_set_cfg(0,(test_freq/baud_rate)>>4);
+
+  #ifdef FPGA_EMULATION
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 2 );
+  #else
+    #ifdef SIMPLE_PAD
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 2 );
+    #else
+      alsaqr_periph_padframe_periphs_pad_gpio_pwm0_mux_set (1);
+    #endif
+  #endif
+
+  // Clock gating timers
   enable_timer();
-  config_counter(0,0,0,0,0,0);
-  set_counter_range(0,0,6);
-  set_threshold(0,0,1,1);
-  set_threshold(0,1,2,2);
-  set_threshold(0,2,3,3);
-  set_threshold(0,3,4,3);
+  for (int i=0; i<2; i++){
+    config_counter(i,249,0,0xFF,0,0);
+    set_counter_range(i,0,0x8);
+    set_threshold(i,0,0x8,3);
+  }
+
+
+  printf("Start all timers...\r\n");
+  uart_wait_tx_done();
+
+
   start_timer();
-  
-  for(volatile int i = 0; i<100; i++)
+
+  for(volatile int i = 0; i<500000; i++)
     asm volatile ("wfi");
-  
+
   return 0;
-  
+
 }
