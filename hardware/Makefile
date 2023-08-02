@@ -28,6 +28,8 @@ test-location  ?= output/test
 torture-logs   :=
 # custom elf bin to run with sim or sim-verilator
 elf-bin        ?= ../software/hello/hello.riscv
+ibex-elf-bin   ?=
+BOOTMODE       ?= 0
 #cl-bin         ?= ../software/pulp/mm.riscv
 cl-bin         ?= none
 # root pathelf-bin
@@ -41,6 +43,8 @@ alsaqr-regression          := $(shell xargs printf '\n%s' < $(alsaqr-regression-
 BENDER_FPGA_SCRIPTS_DIR = fpga/alsaqr/tcl/generated
 BENDER_SYNTH_DIR = gf22
 BENDER_BUILD_DIR:=.
+
+BENDER:=./bender
 
 QUESTA = questa-2022.3
 
@@ -102,9 +106,9 @@ ifdef spike-tandem
 endif
 
 # Compile and sim flags
-compile_flag     += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 13262 -permissive +define+$(defines)
+compile_flag     += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 13262 -suppress 3999 -suppress 3009 -suppress 8360 -permissive +define+$(defines)
 uvm-flags        += +UVM_NO_RELNOTES +UVM_VERBOSITY=LOW
-questa-flags     += -t 1ns -64 -coverage -classdebug $(gui-sim) $(QUESTASIM_FLAGS)
+questa-flags     += -t 1ns -64 -coverage -classdebug -suppress 3999 -suppress 3009 -suppress 8360 $(gui-sim) $(QUESTASIM_FLAGS)
 compile_flag_vhd += -64 -nologo -quiet -2008
 
 compile_flag_bender   += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 13262 -permissive
@@ -149,8 +153,8 @@ endif
 
 ifdef simple-padframe
 	questa-cmd   += +SIMPLE_PADFRAME=$(simple-padframe)
- 	compile_flag +=  +define+SIMPLE_PADFRAME
- 	compile_fpga += SIMPLE_PADFRAME
+	compile_flag +=  +define+SIMPLE_PADFRAME
+	compile_fpga += SIMPLE_PADFRAME
 endif
 
 ifdef spike-tandem
@@ -173,11 +177,16 @@ ifdef preload
 	questa-cmd += +define+PRELOAD
 endif
 
+ifdef sec_boot
+	compile_flag += +define+SEC_BOOT
+	questa-cmd += +define+SEC_BOOT
+endif
+
 bender:
-	curl --proto '=https' --tlsv1.2 https://fabianschuiki.github.io/bender/init -sSf | sh
+	curl --proto '=https' --tlsv1.2 https://fabianschuiki.github.io/bender/init -sSf | sh -s -- 0.22.0
 
 update:
-	bender update
+	$(BENDER) update
 
 libbender:
 	$(QUESTA) vlib work
@@ -185,28 +194,33 @@ libbender:
 
 scripts-bender-fpga: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
-	bender script vivado -t fpga -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
+	$(BENDER) script vivado -t cv64a6_imafdc_sv39 -t fpga -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
 scripts-bender-fpga-ddr: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
-	bender script vivado -t fpga -t ddr -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
+	$(BENDER) script vivado -t cv64a6_imafdc_sv39 -t fpga -t ddr -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
 scripts-bender-synopsys: | Bender.lock
 	echo 'set ROOT [file normalize [file dirname [info script]]/../../../]' > $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
-	bender script synopsys -t rtl -t synthesis -t asic -t top_level --define="EXCLUDE_PADFRAME" | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
+	$(BENDER) script synopsys -t rtl -t synthesis -t cv64a6_imafdc_sv39 -t asic -t top_level --define="EXCLUDE_PADFRAME" | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
 
 scripts:
-	bender script vsim \
+	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test > compile.tcl
+    -t rtl -t test -t cv64a6_imafdc_sv39 > compile.tcl
+
+scripts_vip_macro:
+	$(BENDER) script vsim \
+		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
+    -t macro -t rtl -t test -t vip -t cv64a6_imafdc_sv39 > compile.tcl
 
 scripts_vip:
-	bender script vsim \
+	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t vip > compile.tcl
+    -t rtl -t test -t vip -t cv64a6_imafdc_sv39 > compile.tcl
 
 post_synth_scripts_vip:
-	bender script vsim \
+	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t rtl -t test -t asic -t top_post_synth_sim -t vip --define="EXCLUDE_PADFRAME" > post_synth_compile.tcl
 
@@ -217,10 +231,21 @@ benderrun: libbender $(util) $(library)
 	$(QUESTA) vsim -c -do 'source $(compile_script); quit'
 	touch $(library)/.build-srcs
 
+benderrun_macro: libbender $(util) $(library)
+	@test -f Bender.lock || { echo "ERROR: Bender.lock file does not exist. Did you run make checkout in bender mode?"; exit 1; }
+	$(QUESTA) vsim -c -do 'source gf22/modelsim/libraries.sh; source $(compile_script); quit'
+	touch $(library)/.build-srcs
+
 bendertb: benderrun $(dpi)
 	touch $(library)/.build-tb
 
+bendertb_macro: benderrun_macro $(dpi)
+	touch $(library)/.build-tb
+
 build: bendertb 	$(dpi-library)/ariane_dpi.so
+	$(QUESTA) vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc -check_synthesis
+
+build_macro: bendertb_macro 	$(dpi-library)/ariane_dpi.so
 	$(QUESTA) vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc -check_synthesis
 
 
@@ -247,7 +272,7 @@ generate-trace-vsim:
 	make generate-trace
 
 run:
-	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -lib $(library)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
+	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8360 -lib $(library)  +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi  \
 	${top_level}_optimized +permissive-off ++$(elf-bin) ++$(target-options) ++$(cl-bin) | tee sim.log
 
@@ -255,6 +280,8 @@ run:
 #	-sdfnoerror -sdfnowarn  -sdfmin /ariane_tb/dut/i_host_domain/i_cva6_subsystem/i_ariane_wrap=./gf22/innovus/cva6/out/cva6_synth_wrap.sdf.gz +sdf_verbose \
 
 sim: build run
+
+macro_sim: build_macro run
 
 $(alsaqr-regression): build
 	mkdir -p tmp

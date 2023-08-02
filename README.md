@@ -53,10 +53,10 @@ please change the setup to point to you toolchains and Questasim installations.
 
 ### RTL BUILD
 
-First install [bender](https://github.com/pulp-platform/bender). You can install `bender` in whatever folder you like. Then do:
+To install and configure bender, run:
 
 ```
-export PATH=<path-to-bender-binary>:$PATH
+make bender
 
 ulimit -n 2048
 ```
@@ -115,6 +115,26 @@ or simply `make sim` if you used the preload flag. Be aware that the loaded code
  
 ```
 make sim
+```
+### Run test with OpenTitan:
+
+In he-soc/hardware run:
+```
+make clean sim ibex-elf-bin=<path to test binary>
+
+```
+To disable cva6 (and eventually boot it form OpenTitan and run Hello World) use the following flag option:
+
+```
+make scripts_vip sec_boot=1
+
+make clean sim ibex-elf-bin=<path to test binary> sec_boot=1
+
+```
+make script_vip sec_boot=1
+
+make clean sim ibex-elf-bin=
+
 ```
 
 ### Running code on the cluster

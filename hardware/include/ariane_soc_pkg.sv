@@ -17,7 +17,7 @@ package ariane_soc;
   localparam int unsigned NumSources = 255;
   localparam int unsigned MaxPriority = 7;
 
-  localparam NrSlaves = 3; // actually masters, but slaves on the crossbar: Debug module, CVA6, Cluster
+  localparam NrSlaves = 4; // actually masters, but slaves on the crossbar: Debug module, CVA6, Cluster
 
   typedef struct packed {
       logic [31:0] idx;
@@ -81,7 +81,7 @@ package ariane_soc;
   localparam logic[63:0] SPILength      = 64'h800000;
   localparam logic[63:0] EthernetLength = 64'h10000;
   localparam logic[63:0] HYAXILength    = 64'h20000000;  //HyperRamSize*NumChipsPerHyperbus*HyperbusNumPhys;  // 256MB of hyperrams
-  localparam logic[63:0] L2SPMLength    = 64'h80000;     // 512KB of scratchpad memory
+  localparam logic[63:0] L2SPMLength    = 64'h10000;     // 64KB of scratchpad memory
   localparam logic[63:0] APB_SLVSLength = 64'h123000;
 
   // Instantiate AXI protocol checkers

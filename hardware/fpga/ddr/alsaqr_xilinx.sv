@@ -68,7 +68,14 @@ module alsaqr_xilinx
     input wire    pad_jtag_tck,
     input wire    pad_jtag_tdi,
     output wire   pad_jtag_tdo,
-    input wire    pad_jtag_tms
+    input wire    pad_jtag_tms,
+
+    // OpenTitan jtag port
+    input wire    pad_jtag_ot_trst,
+    input wire    pad_jtag_ot_tck,
+    input wire    pad_jtag_ot_tdi,
+    output wire   pad_jtag_ot_tdo,
+    input wire    pad_jtag_ot_tms
   );
 
    localparam  APP_ADDR_WIDTH   = 28;
@@ -133,6 +140,7 @@ module alsaqr_xilinx
   wire                      dbg_clk;
   wire                      c0_wr_rd_complete;
 
+  wire                      bootmode;
 
   reg                       c0_ddr4_aresetn;
   wire                      c0_ddr4_data_msmatch_err;
@@ -184,7 +192,9 @@ module alsaqr_xilinx
 
 wire c0_ddr4_reset_n_int;
   assign c0_ddr4_reset_n = c0_ddr4_reset_n_int;
-
+   
+  assign bootmode = 1'b0; 
+   
 //***************************************************************************
 // The User design is instantiated below. The memory interface ports are
 // connected to the top-level and the application interface ports are
@@ -302,7 +312,11 @@ ddr4_0 u_ddr4_0
         .axi_ddr_master   ( axi_ddr_bus_64     ),
         .cva6_uart_rx_i   ( pad_uart0_rx       ),
         .cva6_uart_tx_o   ( pad_uart0_tx       ),
-
+        .jtag_ot_TCK      ( pad_jtag_ot_tck    ),
+        .jtag_ot_TMS      ( pad_jtag_ot_tms    ),
+        .jtag_ot_TDI      ( pad_jtag_ot_tdi    ),
+        .jtag_ot_TRSTn    ( pad_jtag_ot_trst   ),
+        .jtag_ot_TDO_data ( pad_jtag_ot_tdo    ),
         `ifdef SIMPLE_PADFRAME
         .pad_periphs_pad_gpio_b_00_pad(pad_periphs_pad_gpio_b_00_pad),
         .pad_periphs_pad_gpio_b_01_pad(pad_periphs_pad_gpio_b_01_pad),
@@ -321,7 +335,9 @@ ddr4_0 u_ddr4_0
         `endif
 
         .apb_uart_rx_i    ( pad_uart1_rx       ),
-        .apb_uart_tx_o    ( pad_uart1_tx       )
+        .apb_uart_tx_o    ( pad_uart1_tx       ),
+
+        .pad_bootmode     ( bootmode           )
 
    );
 
