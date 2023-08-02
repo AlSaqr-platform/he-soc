@@ -88,32 +88,32 @@ pad_domains:
 
 
     pad_list:     # padframe physical pad instances
-    
+
       - name: pwrdet
         description: "pwrdet pad"
         pad_type: IN22FDX_GPIO18_10M19S40PI_PWRDET_TIE_H
         is_static: true
-        
-        ##  __  __                    _ 
+
+        ##  __  __                    _
         ## |  \/  |                  | |
         ## | \  / |_   ___  _____  __| |
         ## | |\/| | | | \ \/ / _ \/ _` |
         ## | |  | | |_| |>  <  __/ (_| |
         ## |_|  |_|\__,_/_/\_\___|\__,_|
-        
+
       - name: pad_gpio_b_{i:2d}
         mux_groups: [self]
         description: "pads for FPGA testing"
         multiple: 14
         pad_type: pad_alsaqr
         is_static: false
-        
-      ##  _____           _       
-      ## |  __ \         | |      
-      ## | |__) |__  _ __| |_ ___ 
+
+      ##  _____           _
+      ## |  __ \         | |
+      ## | |__) |__  _ __| |_ ___
       ## |  ___/ _ \| '__| __/ __|
       ## | |  | (_) | |  | |_\__ \
-      ## |_|   \___/|_|   \__|___/    
+      ## |_|   \___/|_|   \__|___/
     port_groups:
 
       #PAD_GPIO_B
@@ -144,7 +144,7 @@ pad_domains:
               chip2pad: sd0_i
               oen: 1'b0
               puen: 1'b1
-        
+
       - name: i2c0
         output_defaults: 1'b1
         ports:
@@ -202,7 +202,7 @@ pad_domains:
             connections:
               chip2pad: cmd_i
               cmd_o: pad2chip
-              oen: cmd_oen_i  
+              oen: cmd_oen_i
               puen: 1'b0
 
       - name: gpio_b
@@ -216,4 +216,16 @@ pad_domains:
               chip2pad: gpio{i}_i
               gpio{i}_o: pad2chip
               oen: ~gpio{i}_d_i
+              puen: 1'b1
+
+      #PAD_PWM
+      - name: pwm
+        ports:
+          - name: pwm{i}
+            multiple: 8
+            mux_groups: ["pad_gpio_b_{i:2d}"]
+            description: "PWM {i} output"
+            connections:
+              chip2pad: pwm{i}_i
+              oen: 1'b0
               puen: 1'b1

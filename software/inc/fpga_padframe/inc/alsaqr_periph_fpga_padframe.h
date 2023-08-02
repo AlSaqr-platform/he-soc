@@ -98,7 +98,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_cfg_smt_get();
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_00_REGISTER = 0,
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_00_group_GPIO_B_port_GPIO0 = 1,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_00_group_SPI0_port_SPI_CS0 = 2,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_00_group_PWM_port_PWM0 = 2,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_00_group_SPI0_port_SPI_CS0 = 3,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_sel_t;
 
 /**
@@ -204,7 +205,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_cfg_smt_get();
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_01_REGISTER = 0,
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_01_group_GPIO_B_port_GPIO1 = 1,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_01_group_SPI0_port_SPI_SCK = 2,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_01_group_PWM_port_PWM1 = 2,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_01_group_SPI0_port_SPI_SCK = 3,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_sel_t;
 
 /**
@@ -310,7 +312,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_cfg_smt_get();
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_02_REGISTER = 0,
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_02_group_GPIO_B_port_GPIO2 = 1,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_02_group_SPI0_port_SPI_MISO = 2,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_02_group_PWM_port_PWM2 = 2,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_02_group_SPI0_port_SPI_MISO = 3,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_sel_t;
 
 /**
@@ -416,7 +419,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_cfg_smt_get();
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_03_REGISTER = 0,
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_03_group_GPIO_B_port_GPIO3 = 1,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_03_group_SPI0_port_SPI_MOSI = 2,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_03_group_PWM_port_PWM3 = 2,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_03_group_SPI0_port_SPI_MOSI = 3,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_sel_t;
 
 /**
@@ -523,6 +527,7 @@ typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_04_REGISTER = 0,
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_04_group_GPIO_B_port_GPIO4 = 1,
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_04_group_I2C0_port_I2C_SCL = 2,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_04_group_PWM_port_PWM4 = 3,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_sel_t;
 
 /**
@@ -629,6 +634,7 @@ typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_05_REGISTER = 0,
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_05_group_GPIO_B_port_GPIO5 = 1,
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_05_group_I2C0_port_I2C_SDA = 2,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_05_group_PWM_port_PWM5 = 3,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_sel_t;
 
 /**
@@ -734,7 +740,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_cfg_smt_get();
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_06_REGISTER = 0,
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_06_group_GPIO_B_port_GPIO6 = 1,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_06_group_UART0_port_UART_TX = 2,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_06_group_PWM_port_PWM6 = 2,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_06_group_UART0_port_UART_TX = 3,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_sel_t;
 
 /**
@@ -840,7 +847,8 @@ uint8_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_cfg_smt_get();
 typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_07_REGISTER = 0,
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_07_group_GPIO_B_port_GPIO7 = 1,
-  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_07_group_UART0_port_UART_RX = 2,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_07_group_PWM_port_PWM7 = 2,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_07_group_UART0_port_UART_RX = 3,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_sel_t;
 
 /**
