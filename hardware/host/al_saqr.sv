@@ -275,21 +275,21 @@ module al_saqr
   logic                        s_bypass_clk;
 
 
-  logic [AsyncAxiOutAwWidth-1:0] async_axi_out_aw_data_o;
-  logic             [LogDepth:0] async_axi_out_aw_wptr_o;
-  logic             [LogDepth:0] async_axi_out_aw_rptr_i;
-  logic [ AsyncAxiOutWWidth-1:0] async_axi_out_w_data_o;
-  logic             [LogDepth:0] async_axi_out_w_wptr_o;
-  logic             [LogDepth:0] async_axi_out_w_rptr_i;
-  logic [ AsyncAxiOutBWidth-1:0] async_axi_out_b_data_i;
-  logic             [LogDepth:0] async_axi_out_b_wptr_i;
-  logic             [LogDepth:0] async_axi_out_b_rptr_o;
-  logic [AsyncAxiOutArWidth-1:0] async_axi_out_ar_data_o;
-  logic             [LogDepth:0] async_axi_out_ar_wptr_o;
-  logic             [LogDepth:0] async_axi_out_ar_rptr_i;
-  logic [ AsyncAxiOutRWidth-1:0] async_axi_out_r_data_i;
-  logic             [LogDepth:0] async_axi_out_r_wptr_i;
-  logic             [LogDepth:0] async_axi_out_r_rptr_o;
+  logic [AsyncAxiOutAwWidth-1:0] async_axi_ot_out_aw_data_o;
+  logic             [LogDepth:0] async_axi_ot_out_aw_wptr_o;
+  logic             [LogDepth:0] async_axi_ot_out_aw_rptr_i;
+  logic [ AsyncAxiOutWWidth-1:0] async_axi_ot_out_w_data_o;
+  logic             [LogDepth:0] async_axi_ot_out_w_wptr_o;
+  logic             [LogDepth:0] async_axi_ot_out_w_rptr_i;
+  logic [ AsyncAxiOutBWidth-1:0] async_axi_ot_out_b_data_i;
+  logic             [LogDepth:0] async_axi_ot_out_b_wptr_i;
+  logic             [LogDepth:0] async_axi_ot_out_b_rptr_o;
+  logic [AsyncAxiOutArWidth-1:0] async_axi_ot_out_ar_data_o;
+  logic             [LogDepth:0] async_axi_ot_out_ar_wptr_o;
+  logic             [LogDepth:0] async_axi_ot_out_ar_rptr_i;
+  logic [ AsyncAxiOutRWidth-1:0] async_axi_ot_out_r_data_i;
+  logic             [LogDepth:0] async_axi_ot_out_r_wptr_i;
+  logic             [LogDepth:0] async_axi_ot_out_r_rptr_o;
 
   logic                          s_jtag_ot_TCK;
   logic                          s_jtag_ot_TDI;
@@ -610,30 +610,31 @@ module al_saqr
       .pad_bootmode     ( pad_bootmode     )
      );
    axi_cdc_dst #(
-      .LogDepth   ( LogDepth           ),
-      .aw_chan_t  ( axi_secd_aw_chan_t ),
-      .w_chan_t   ( axi_secd_w_chan_t  ),
-      .b_chan_t   ( axi_secd_b_chan_t  ),
-      .ar_chan_t  ( axi_secd_ar_chan_t ),
-      .r_chan_t   ( axi_secd_r_chan_t  ),
-      .axi_req_t  ( axi_secd_req_t     ),
-      .axi_resp_t ( axi_secd_resp_t    )
+      .SyncStages ( ariane_soc::CdcSyncStages ),
+      .LogDepth   ( LogDepth                  ),
+      .aw_chan_t  ( axi_secd_aw_chan_t        ),
+      .w_chan_t   ( axi_secd_w_chan_t         ),
+      .b_chan_t   ( axi_secd_b_chan_t         ),
+      .ar_chan_t  ( axi_secd_ar_chan_t        ),
+      .r_chan_t   ( axi_secd_r_chan_t         ),
+      .axi_req_t  ( axi_secd_req_t            ),
+      .axi_resp_t ( axi_secd_resp_t           )
    ) i_cdc_in (
-      .async_data_slave_aw_data_i( async_axi_out_aw_data_o ),
-      .async_data_slave_aw_wptr_i( async_axi_out_aw_wptr_o ),
-      .async_data_slave_aw_rptr_o( async_axi_out_aw_rptr_i ),
-      .async_data_slave_w_data_i ( async_axi_out_w_data_o  ),
-      .async_data_slave_w_wptr_i ( async_axi_out_w_wptr_o  ),
-      .async_data_slave_w_rptr_o ( async_axi_out_w_rptr_i  ),
-      .async_data_slave_b_data_o ( async_axi_out_b_data_i  ),
-      .async_data_slave_b_wptr_o ( async_axi_out_b_wptr_i  ),
-      .async_data_slave_b_rptr_i ( async_axi_out_b_rptr_o  ),
-      .async_data_slave_ar_data_i( async_axi_out_ar_data_o ),
-      .async_data_slave_ar_wptr_i( async_axi_out_ar_wptr_o ),
-      .async_data_slave_ar_rptr_o( async_axi_out_ar_rptr_i ),
-      .async_data_slave_r_data_o ( async_axi_out_r_data_i  ),
-      .async_data_slave_r_wptr_o ( async_axi_out_r_wptr_i  ),
-      .async_data_slave_r_rptr_i ( async_axi_out_r_rptr_o  ),
+      .async_data_slave_aw_data_i( async_axi_ot_out_aw_data_o ),
+      .async_data_slave_aw_wptr_i( async_axi_ot_out_aw_wptr_o ),
+      .async_data_slave_aw_rptr_o( async_axi_ot_out_aw_rptr_i ),
+      .async_data_slave_w_data_i ( async_axi_ot_out_w_data_o  ),
+      .async_data_slave_w_wptr_i ( async_axi_ot_out_w_wptr_o  ),
+      .async_data_slave_w_rptr_o ( async_axi_ot_out_w_rptr_i  ),
+      .async_data_slave_b_data_o ( async_axi_ot_out_b_data_i  ),
+      .async_data_slave_b_wptr_o ( async_axi_ot_out_b_wptr_i  ),
+      .async_data_slave_b_rptr_i ( async_axi_ot_out_b_rptr_o  ),
+      .async_data_slave_ar_data_i( async_axi_ot_out_ar_data_o ),
+      .async_data_slave_ar_wptr_i( async_axi_ot_out_ar_wptr_o ),
+      .async_data_slave_ar_rptr_o( async_axi_ot_out_ar_rptr_i ),
+      .async_data_slave_r_data_o ( async_axi_ot_out_r_data_i  ),
+      .async_data_slave_r_wptr_o ( async_axi_ot_out_r_wptr_i  ),
+      .async_data_slave_r_rptr_i ( async_axi_ot_out_r_rptr_o  ),
       .dst_clk_i                 ( s_soc_clk  ),
       .dst_rst_ni                ( rst_ni     ),
       .dst_req_o                 ( ot_axi_req ),
@@ -678,21 +679,21 @@ module al_saqr
      .spi_host_SD_i    ( '0            ),
      .spi_host_SD_en_o (               ),
    // Asynch axi port
-     .async_axi_out_aw_data_o,
-     .async_axi_out_aw_wptr_o,
-     .async_axi_out_aw_rptr_i,
-     .async_axi_out_w_data_o,
-     .async_axi_out_w_wptr_o,
-     .async_axi_out_w_rptr_i,
-     .async_axi_out_b_data_i,
-     .async_axi_out_b_wptr_i,
-     .async_axi_out_b_rptr_o,
-     .async_axi_out_ar_data_o,
-     .async_axi_out_ar_wptr_o,
-     .async_axi_out_ar_rptr_i,
-     .async_axi_out_r_data_i,
-     .async_axi_out_r_wptr_i,
-     .async_axi_out_r_rptr_o
+     .async_axi_out_aw_data_o ( async_axi_ot_out_aw_data_o ),
+     .async_axi_out_aw_wptr_o ( async_axi_ot_out_aw_wptr_o ),
+     .async_axi_out_aw_rptr_i ( async_axi_ot_out_aw_rptr_i ),
+     .async_axi_out_w_data_o  ( async_axi_ot_out_w_data_o  ),
+     .async_axi_out_w_wptr_o  ( async_axi_ot_out_w_wptr_o  ),
+     .async_axi_out_w_rptr_i  ( async_axi_ot_out_w_rptr_i  ),
+     .async_axi_out_b_data_i  ( async_axi_ot_out_b_data_i  ),
+     .async_axi_out_b_wptr_i  ( async_axi_ot_out_b_wptr_i  ),
+     .async_axi_out_b_rptr_o  ( async_axi_ot_out_b_rptr_o  ),
+     .async_axi_out_ar_data_o ( async_axi_ot_out_ar_data_o ),
+     .async_axi_out_ar_wptr_o ( async_axi_ot_out_ar_wptr_o ),
+     .async_axi_out_ar_rptr_i ( async_axi_ot_out_ar_rptr_i ),
+     .async_axi_out_r_data_i  ( async_axi_ot_out_r_data_i  ),
+     .async_axi_out_r_wptr_i  ( async_axi_ot_out_r_wptr_i  ),
+     .async_axi_out_r_rptr_o  ( async_axi_ot_out_r_rptr_o  )
    );
 
 
