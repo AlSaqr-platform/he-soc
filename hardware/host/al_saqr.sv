@@ -22,7 +22,7 @@
       `include "alsaqr_periph_fpga_padframe/assign.svh"
   `endif
 `else
-  `include "alsaqr_periph_fpga_padframe/assign.svh" 
+  `include "alsaqr_periph_fpga_padframe/assign.svh"
 `endif
 
 `include "axi/typedef.svh"
@@ -30,7 +30,7 @@
 `include "cluster_bus_defines.sv"
 `include "pulp_soc_defines.sv"
 
-module al_saqr 
+module al_saqr
   import axi_pkg::xbar_cfg_t;
   import apb_soc_pkg::NUM_GPIO;
   import udma_subsystem_pkg::*;
@@ -41,10 +41,10 @@ module al_saqr
     `ifndef SIMPLE_PADFRAME
         import pkg_alsaqr_periph_padframe::*;
       `else
-        import pkg_alsaqr_periph_fpga_padframe::*; 
+        import pkg_alsaqr_periph_fpga_padframe::*;
       `endif
   `else
-      import pkg_alsaqr_periph_fpga_padframe::*; 
+      import pkg_alsaqr_periph_fpga_padframe::*;
   `endif
 
   import ariane_soc::HyperbusNumPhys;
@@ -65,7 +65,7 @@ module al_saqr
 ) (
   inout logic         rtc_i,
   inout logic         rst_ni,
-  inout logic         bypass_clk_i, 
+  inout logic         bypass_clk_i,
 
 `ifdef XILINX_DDR
   AXI_BUS.Master      axi_ddr_master,
@@ -223,7 +223,7 @@ module al_saqr
   output logic        dmi_resp_valid,
   input logic         dmi_resp_ready,
   output logic [ 1:0] dmi_resp_bits_resp,
-  output logic [31:0] dmi_resp_bits_data, 
+  output logic [31:0] dmi_resp_bits_data,
 `endif
   // JTAG
   inout wire          jtag_TCK,
@@ -232,7 +232,7 @@ module al_saqr
   inout wire          jtag_TRSTn,
   inout wire          jtag_TDO_data,
   inout wire          jtag_TDO_driven,
-   
+
   inout wire          pad_gwt_ana0,
   inout wire          pad_gwt_ana1,
 
@@ -246,7 +246,7 @@ module al_saqr
   inout wire          pad_ku_dcdc_sel_clk  ,
   inout wire          pad_ku_dcdc_SM_ext   ,
   inout wire          pad_ku_dcdc_sel_SM   ,
-  inout wire          pad_ku_dcdc_PFM_out  
+  inout wire          pad_ku_dcdc_PFM_out
 );
   // AXILITE parameters
   localparam int unsigned AXI_LITE_AW       = 32;
@@ -264,10 +264,10 @@ module al_saqr
   logic                        s_jtag_TRSTn;
   logic                        s_rtc_i;
   logic                        s_bypass_clk;
-   
+
 
   logic s_soc_clk  ;
-  logic s_soc_rst_n; 
+  logic s_soc_rst_n;
   logic s_cluster_clk  ;
   logic s_cluster_rst_n;
 
@@ -275,8 +275,8 @@ module al_saqr
   wire         s_gwt_r250_0;
   wire         s_gwt_b_1;
   wire         s_gwt_r250_1;
-  logic [31:0] s_gwt_cfg_o;   
-  logic [31:0] s_gwt_cfg_i; 
+  logic [31:0] s_gwt_cfg_o;
+  logic [31:0] s_gwt_cfg_i;
   logic        s_gwt_cfg_ie;
 
   AXI_BUS #(
@@ -308,7 +308,7 @@ module al_saqr
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH                  ),
      .AXI_ID_WIDTH   ( ariane_soc::SocToClusterIdWidth ),
      .AXI_USER_WIDTH ( AXI_USER_WIDTH                  )
-  ) serialized_soc_to_cluster_axi_bus();   
+  ) serialized_soc_to_cluster_axi_bus();
   AXI_BUS_ASYNC_GRAY #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH               ),
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH                  ),
@@ -351,12 +351,12 @@ module al_saqr
      .AXI_USER_WIDTH ( AXI_USER_WIDTH           ),
      .LOG_DEPTH      ( 3                        )
   ) async_cfg_axi_bus();
-   
+
   AXI_LITE #(
     .AXI_ADDR_WIDTH (AXI_LITE_AW),
     .AXI_DATA_WIDTH (AXI_LITE_DW)
   ) h2c_tlb_cfg();
-   
+
   AXI_LITE #(
     .AXI_ADDR_WIDTH    ( AXI_LITE_AW ),
     .AXI_DATA_WIDTH    ( AXI_LITE_DW )
@@ -373,33 +373,33 @@ module al_saqr
   ) c2h_tlb_cfg();
 
   logic [127:0]  s_key_1;
-   
+
   logic s_cva6_uart_rx_i;
   logic s_cva6_uart_tx_o;
 
   logic s_dma_pe_evt_ack;
   logic s_dma_pe_evt_valid;
-   
+
   pad_to_hyper_t [HyperbusNumPhys-1:0] s_pad_to_hyper;
   hyper_to_pad_t [HyperbusNumPhys-1:0] s_hyper_to_pad;
 
   qspi_to_pad_t [N_SPI-1:0] s_qspi_to_pad;
   pad_to_qspi_t [N_SPI-1:0] s_pad_to_qspi;
-  
+
   i2c_to_pad_t [N_I2C-1:0] s_i2c_to_pad;
   pad_to_i2c_t [N_I2C-1:0] s_pad_to_i2c;
-  
+
   pad_to_cam_t [N_CAM-1:0] s_pad_to_cam;
- 
+
   pad_to_uart_t [N_UART-1:0] s_pad_to_uart;
   uart_to_pad_t [N_UART-1:0] s_uart_to_pad;
-  
+
   sdio_to_pad_t [N_SDIO-1:0] s_sdio_to_pad;
   pad_to_sdio_t [N_SDIO-1:0] s_pad_to_sdio;
 
   can_to_pad_t [N_CAN-1 : 0] s_can_to_pad;
   pad_to_can_t [N_CAN-1 : 0] s_pad_to_can;
-  
+
   pwm_to_pad_t s_pwm_to_pad;
 
   pad_to_ser_link s_pad_to_serial_link;
@@ -407,10 +407,10 @@ module al_saqr
 
   gpio_to_pad_t s_gpio_b_to_pad;
   pad_to_gpio_t s_pad_to_gpio_b;
-   
+
   port_signals_pad2soc_t              s_port_signals_pad2soc;
   port_signals_soc2pad_t              s_port_signals_soc2pad;
-      
+
   localparam RegAw  = 32;
   localparam RegDw  = 32;
 
@@ -420,7 +420,7 @@ module al_saqr
 
   `REG_BUS_TYPEDEF_REQ(reg_req_t, reg_addr_t, reg_data_t, reg_strb_t)
   `REG_BUS_TYPEDEF_RSP(reg_rsp_t, reg_data_t)
- 
+
   reg_req_t   reg_req;
   reg_rsp_t   reg_rsp;
 
@@ -429,8 +429,8 @@ module al_saqr
         .DATA_WIDTH( RegDw )
     ) i_padframecfg_rbus (
         .clk_i (s_soc_clk)
-    ); 
-      
+    );
+
     host_domain #(
         .NUM_WORDS         ( NUM_WORDS  ),
         .InclSimDTM        ( 1'b1       ),
@@ -455,9 +455,9 @@ module al_saqr
       .dmi_resp_valid,
       .dmi_resp_ready,
       .dmi_resp_bits_resp,
-      .dmi_resp_bits_data, 
-`else                                                                         
-      .dmi_req_valid        ( '0 ), 
+      .dmi_resp_bits_data,
+`else
+      .dmi_req_valid        ( '0 ),
       .dmi_req_ready        (    ),
       .dmi_req_bits_addr    ( '0 ),
       .dmi_req_bits_op      ( '0 ),
@@ -465,7 +465,7 @@ module al_saqr
       .dmi_resp_valid       (    ),
       .dmi_resp_ready       ( '0 ),
       .dmi_resp_bits_resp   (    ),
-      .dmi_resp_bits_data   (    ), 
+      .dmi_resp_bits_data   (    ),
 `endif
       .jtag_TCK               ( s_jtag_TCK                      ),
       .jtag_TMS               ( s_jtag_TMS                      ),
@@ -486,8 +486,8 @@ module al_saqr
       .rstn_cluster_sync_o    ( s_cluster_rst_n                 ),
       .cluster_en_sa_boot_o   ( s_cluster_en_sa_boot            ),
       .cluster_fetch_en_o     ( s_cluster_fetch_en              ),
-      .clk_cluster_o          ( s_cluster_clk                   ),                 
-      .padframecfg_reg_master ( i_padframecfg_rbus              ), 
+      .clk_cluster_o          ( s_cluster_clk                   ),
+      .padframecfg_reg_master ( i_padframecfg_rbus              ),
 
       .qspi_to_pad            ( s_qspi_to_pad                   ),
       .pad_to_qspi            ( s_pad_to_qspi                   ),
@@ -504,7 +504,7 @@ module al_saqr
       .pad_to_sdio            ( s_pad_to_sdio                   ),
 
       .serial_link_to_pad     ( s_serial_link_to_pad            ),
-      .pad_to_serial_link     ( s_pad_to_serial_link            ),                     
+      .pad_to_serial_link     ( s_pad_to_serial_link            ),
 
       .gpio_to_pad            ( s_gpio_b_to_pad                 ),
       .pad_to_gpio            ( s_pad_to_gpio_b                 ),
@@ -525,11 +525,11 @@ module al_saqr
       .pad_hyper_dq
 
     );
-   
+
    pad_frame #()
     i_pad_frame
-      (       
-              
+      (
+
       .cva6_uart_rx     ( s_cva6_uart_rx_i ),
       .cva6_uart_tx     ( s_cva6_uart_tx_o ),
       .pad_cva6_uart_tx ( cva6_uart_tx_o   ),
@@ -543,7 +543,7 @@ module al_saqr
       .jtag_tdo_i       ( s_jtag_TDO       ),
       .jtag_tms_o       ( s_jtag_TMS       ),
       .jtag_trst_o      ( s_jtag_TRSTn     ),
-      
+
       .pad_reset_n      ( rst_ni           ),
       .pad_jtag_tck     ( jtag_TCK         ),
       .pad_jtag_tdi     ( jtag_TDI         ),
@@ -560,10 +560,10 @@ module al_saqr
       .gwt_r250_1       ( s_gwt_r250_1     ),
       .pad_gwt_ana1     ( pad_gwt_ana1     ),
 
-      .pad_ku_dcdc_vdd       ( pad_ku_dcdc_vdd       ),     
-      .pad_ku_dcdc_vref      ( pad_ku_dcdc_vref      ),    
-      .pad_ku_dcdc_vout      ( pad_ku_dcdc_vout      ),    
-                                                     
+      .pad_ku_dcdc_vdd       ( pad_ku_dcdc_vdd       ),
+      .pad_ku_dcdc_vref      ( pad_ku_dcdc_vref      ),
+      .pad_ku_dcdc_vout      ( pad_ku_dcdc_vout      ),
+
       .pad_ku_dcdc_control_1 ( pad_ku_dcdc_control_1 ),
       .pad_ku_dcdc_control_2 ( pad_ku_dcdc_control_2 ),
       .pad_ku_dcdc_clk_ext   ( pad_ku_dcdc_clk_ext   ),
@@ -573,7 +573,7 @@ module al_saqr
       .pad_ku_dcdc_PFM_out   ( pad_ku_dcdc_PFM_out   )
      );
 
-  `ifndef EXCLUDE_CLUSTER   
+  `ifndef EXCLUDE_CLUSTER
 
    axi_serializer_intf #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
@@ -595,14 +595,14 @@ module al_saqr
      .AXI_ID_WIDTH   ( ariane_soc::SocToClusterIdWidth ),
      .AXI_USER_WIDTH ( AXI_USER_WIDTH                  ),
      .LOG_DEPTH      ( 3                               )
-     ) soc_to_cluster_src_cdc_fifo_i 
+     ) soc_to_cluster_src_cdc_fifo_i
        (
        .src_clk_i  ( s_soc_clk                         ),
        .src_rst_ni ( s_soc_rst_n                       ),
        .src        ( serialized_soc_to_cluster_axi_bus ),
        .dst        ( async_soc_to_cluster_axi_bus      )
        );
-   
+
    axi_cdc_dst_intf   #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -622,7 +622,7 @@ module al_saqr
      .AXI_ID_WIDTH        ( ariane_soc::IdWidth    ),
      .AXI_USER_WIDTH      ( AXI_USER_WIDTH         ),
      .LOG_DEPTH           ( 3                      )
-     ) cfg_dst_cdc_fifo_i (                        
+     ) cfg_dst_cdc_fifo_i (
        .dst_clk_i         ( s_soc_clk              ),
        .dst_rst_ni        ( s_soc_rst_n            ),
        .src               ( async_cfg_axi_bus      ),
@@ -675,9 +675,9 @@ module al_saqr
         .ref_clk_i                    ( s_rtc_i                      ),
 
         .pmu_mem_pwdn_i               ( 1'b0                         ),
-        
+
         .base_addr_i                  ( '0                           ),
-       
+
         .dma_pe_evt_ack_i             ( s_dma_pe_evt_ack             ),
         .dma_pe_evt_valid_o           ( s_dma_pe_evt_valid           ),
 
@@ -731,7 +731,7 @@ module al_saqr
         .async_cfg_master_b_wptr_i    ( async_cfg_axi_bus.b_wptr              ),
         .async_cfg_master_b_rptr_o    ( async_cfg_axi_bus.b_rptr              ),
         .async_cfg_master_b_data_i    ( async_cfg_axi_bus.b_data              ),
-     
+
         .async_data_slave_aw_wptr_i   ( async_soc_to_cluster_axi_bus.aw_wptr  ),
         .async_data_slave_aw_rptr_o   ( async_soc_to_cluster_axi_bus.aw_rptr  ),
         .async_data_slave_aw_data_i   ( async_soc_to_cluster_axi_bus.aw_data  ),
@@ -749,7 +749,7 @@ module al_saqr
         .async_data_slave_b_data_o    ( async_soc_to_cluster_axi_bus.b_data   )
    );
   `else // !`ifndef EXCLUDE_CLUSTER
-   
+
      assign c2h_tlb_cfg_axi_bus_64.aw_id = 'h0;
      assign c2h_tlb_cfg_axi_bus_64.aw_addr = 'h0;
      assign c2h_tlb_cfg_axi_bus_64.aw_len = 'h0;
@@ -769,7 +769,7 @@ module al_saqr
      assign c2h_tlb_cfg_axi_bus_64.w_user = 'h0;
      assign c2h_tlb_cfg_axi_bus_64.w_valid = 'h0;
      assign c2h_tlb_cfg_axi_bus_64.b_ready = 1'b1;
-     assign c2h_tlb_cfg_axi_bus_64.ar_id = 'h0; 
+     assign c2h_tlb_cfg_axi_bus_64.ar_id = 'h0;
      assign c2h_tlb_cfg_axi_bus_64.ar_addr = 'h0;
      assign c2h_tlb_cfg_axi_bus_64.ar_len = 'h0;
      assign c2h_tlb_cfg_axi_bus_64.ar_size = 'h0;
@@ -803,7 +803,7 @@ module al_saqr
      assign cluster_to_tlb_axi_bus.w_user = 'h0;
      assign cluster_to_tlb_axi_bus.w_valid = 'h0;
      assign cluster_to_tlb_axi_bus.b_ready = 1'b1;
-     assign cluster_to_tlb_axi_bus.ar_id = 'h0; 
+     assign cluster_to_tlb_axi_bus.ar_id = 'h0;
      assign cluster_to_tlb_axi_bus.ar_addr = 'h0;
      assign cluster_to_tlb_axi_bus.ar_len = 'h0;
      assign cluster_to_tlb_axi_bus.ar_size = 'h0;
@@ -820,10 +820,10 @@ module al_saqr
 
      ariane_axi_soc::req_slv_t    fake_cluster_s_req;
      ariane_axi_soc::resp_slv_t   fake_cluster_s_resp;
-   
+
      `AXI_ASSIGN_TO_REQ(fake_cluster_s_req,tlb_to_cluster_axi_bus)
      `AXI_ASSIGN_FROM_RESP(tlb_to_cluster_axi_bus,fake_cluster_s_resp)
-   
+
      axi_err_slv #(
        .AxiIdWidth ( ariane_soc::IdWidth    ),
        .req_t      ( ariane_axi::req_slv_t  ),
@@ -867,7 +867,7 @@ module al_saqr
      .AXI_MAX_WRITE_TXNS ( 1                      ),
      .AXI_MAX_READ_TXNS  ( 1                      ),
      .FALL_THROUGH       ( 0                      )
-   ) i_axi2lite_tlb_cfg  (                        
+   ) i_axi2lite_tlb_cfg  (
      .clk_i              ( s_soc_clk              ),
      .rst_ni             ( s_soc_rst_n            ),
      .testmode_i         ( 1'b0                   ),
@@ -909,7 +909,7 @@ module al_saqr
                   c2h_tlb_cfg_req,
                   h2c_tlb_cfg_lite_req,
                   c2h_tlb_cfg_lite_req;
-   
+
   axi_lite_resp_t h2c_tlb_cfg_resp,
                   c2h_tlb_cfg_resp,
                   h2c_tlb_cfg_lite_resp,
@@ -923,7 +923,7 @@ module al_saqr
     FallThrough: 0,
     LatencyMode: axi_pkg::CUT_SLV_AX,
     AxiIdWidthSlvPorts: 1,
-    AxiIdUsedSlvPorts: 1, 
+    AxiIdUsedSlvPorts: 1,
     UniqueIds   : 0,
     AxiAddrWidth: AXI_LITE_AW,
     AxiDataWidth: AXI_LITE_DW,
@@ -959,8 +959,8 @@ module al_saqr
      .clk_i                 ( s_soc_clk                                      ),
      .rst_ni                ( s_soc_rst_n                                    ),
      .test_i                ( 1'b0                                           ),
-     .slv_ports_req_i       ( {c2h_tlb_cfg_lite_req , h2c_tlb_cfg_lite_req } ), 
-     .slv_ports_resp_o      ( {c2h_tlb_cfg_lite_resp, h2c_tlb_cfg_lite_resp} ), 
+     .slv_ports_req_i       ( {c2h_tlb_cfg_lite_req , h2c_tlb_cfg_lite_req } ),
+     .slv_ports_resp_o      ( {c2h_tlb_cfg_lite_resp, h2c_tlb_cfg_lite_resp} ),
      .mst_ports_req_o       ( {c2h_tlb_cfg_req ,      h2c_tlb_cfg_req }      ),
      .mst_ports_resp_i      ( {c2h_tlb_cfg_resp,      h2c_tlb_cfg_resp}      ),
      .addr_map_i            ( FromHostTlbCfgXbarAddrMap                      ),
@@ -977,10 +977,10 @@ module al_saqr
     .AXI_DATA_WIDTH          ( AXI_DATA_WIDTH           ),
     .AXI_ID_WIDTH            ( ariane_soc::IdWidthSlave ),
     .AXI_USER_WIDTH          ( AXI_USER_WIDTH           ),
-    .AXI_SLV_PORT_MAX_TXNS   ( 8                        ), 
+    .AXI_SLV_PORT_MAX_TXNS   ( 8                        ),
     .CFG_AXI_ADDR_WIDTH      ( AXI_LITE_AW              ),
     .CFG_AXI_DATA_WIDTH      ( AXI_LITE_DW              ),
-    .L1_NUM_ENTRIES          ( ENTRIES                  ), 
+    .L1_NUM_ENTRIES          ( ENTRIES                  ),
     .L1_CUT_AX               ( 1                        )
   ) i_h2c_tlb                (
     .clk_i                   ( s_soc_clk                ),
@@ -989,23 +989,23 @@ module al_saqr
     .slv                     ( soc_to_tlb_axi_bus       ),
     .mst                     ( tlb_to_cluster_axi_bus   ),
     .cfg                     ( h2c_tlb_cfg              )
-  ); 
+  );
 
    `AXI_LITE_ASSIGN_FROM_REQ ( c2h_tlb_cfg     , c2h_tlb_cfg_req )
    `AXI_LITE_ASSIGN_TO_RESP  ( c2h_tlb_cfg_resp, c2h_tlb_cfg     )
-   
+
    axi_tlb_intf #(
      .AXI_SLV_PORT_ADDR_WIDTH ( AXI_ADDRESS_WIDTH      ),
      .AXI_MST_PORT_ADDR_WIDTH ( AXI_ADDRESS_WIDTH      ),
      .AXI_DATA_WIDTH          ( AXI_DATA_WIDTH         ),
      .AXI_ID_WIDTH            ( ariane_soc::IdWidth    ),
      .AXI_USER_WIDTH          ( AXI_USER_WIDTH         ),
-     .AXI_SLV_PORT_MAX_TXNS   ( 8                      ), 
+     .AXI_SLV_PORT_MAX_TXNS   ( 8                      ),
      .CFG_AXI_ADDR_WIDTH      ( AXI_LITE_AW            ),
      .CFG_AXI_DATA_WIDTH      ( AXI_LITE_DW            ),
      .L1_NUM_ENTRIES          ( ENTRIES                ),
      .L1_CUT_AX               ( 1                      )
-   ) i_c2h_tlb                (                             
+   ) i_c2h_tlb                (
      .clk_i                   ( s_soc_clk              ),
      .rst_ni                  ( s_soc_rst_n            ),
      .test_en_i               ( 1'b0                   ),
@@ -1013,7 +1013,7 @@ module al_saqr
      .mst                     ( tlb_to_soc_axi_bus     ),
      .cfg                     ( c2h_tlb_cfg            )
    );
-  
+
   /**************************************************************************************************/
   /*                                       END AXI TLB REGION                                       */
   /**************************************************************************************************/
@@ -1031,7 +1031,7 @@ module al_saqr
             )i_alsaqr_periph_padframe(
               .clk_i          ( s_soc_clk   ),
               .rst_ni         ( s_soc_rst_n ),
-             
+
               .port_signals_pad2soc(s_port_signals_pad2soc),
               .port_signals_soc2pad(s_port_signals_soc2pad),
 
@@ -1064,7 +1064,7 @@ module al_saqr
               .pad_periphs_pad_gpio_b_26_pad(pad_periphs_pad_gpio_b_26_pad),
               .pad_periphs_pad_gpio_b_27_pad(pad_periphs_pad_gpio_b_27_pad),
               .pad_periphs_pad_gpio_b_28_pad(pad_periphs_pad_gpio_b_28_pad),
-              .pad_periphs_pad_gpio_b_29_pad(pad_periphs_pad_gpio_b_29_pad), 
+              .pad_periphs_pad_gpio_b_29_pad(pad_periphs_pad_gpio_b_29_pad),
               .pad_periphs_pad_gpio_b_30_pad(pad_periphs_pad_gpio_b_30_pad),
               .pad_periphs_pad_gpio_b_31_pad(pad_periphs_pad_gpio_b_31_pad),
               .pad_periphs_pad_gpio_b_32_pad(pad_periphs_pad_gpio_b_32_pad),
@@ -1093,7 +1093,7 @@ module al_saqr
               .pad_periphs_pad_gpio_b_55_pad(pad_periphs_pad_gpio_b_55_pad),
               .pad_periphs_pad_gpio_b_56_pad(pad_periphs_pad_gpio_b_56_pad),
               .pad_periphs_pad_gpio_b_57_pad(pad_periphs_pad_gpio_b_57_pad),
-              
+
               .pad_periphs_pad_gpio_c_00_pad(pad_periphs_pad_gpio_c_00_pad),
               .pad_periphs_pad_gpio_c_01_pad(pad_periphs_pad_gpio_c_01_pad),
               .pad_periphs_pad_gpio_c_02_pad(pad_periphs_pad_gpio_c_02_pad),
@@ -1124,7 +1124,7 @@ module al_saqr
               .pad_periphs_pad_gpio_e_10_pad(pad_periphs_pad_gpio_e_10_pad),
               .pad_periphs_pad_gpio_e_11_pad(pad_periphs_pad_gpio_e_11_pad),
               .pad_periphs_pad_gpio_e_12_pad(pad_periphs_pad_gpio_e_12_pad),
-              
+
               .pad_periphs_pad_gpio_f_00_pad(pad_periphs_pad_gpio_f_00_pad),
               .pad_periphs_pad_gpio_f_01_pad(pad_periphs_pad_gpio_f_01_pad),
               .pad_periphs_pad_gpio_f_02_pad(pad_periphs_pad_gpio_f_02_pad),
@@ -1151,7 +1151,7 @@ module al_saqr
               .pad_periphs_pad_gpio_f_23_pad(pad_periphs_pad_gpio_f_23_pad),
               .pad_periphs_pad_gpio_f_24_pad(pad_periphs_pad_gpio_f_24_pad),
               .pad_periphs_pad_gpio_f_25_pad(pad_periphs_pad_gpio_f_25_pad),
-              
+
               .pad_periphs_pad_gpio_pwm0_pad(pad_periphs_pad_gpio_pwm0_pad),
               .pad_periphs_pad_gpio_pwm1_pad(pad_periphs_pad_gpio_pwm1_pad),
               .pad_periphs_pad_gpio_pwm2_pad(pad_periphs_pad_gpio_pwm2_pad),
@@ -1162,9 +1162,9 @@ module al_saqr
               .pad_periphs_pad_gpio_pwm7_pad(pad_periphs_pad_gpio_pwm7_pad),
 
               .config_req_i   ( reg_req     ),
-              .config_rsp_o   ( reg_rsp     )      
+              .config_rsp_o   ( reg_rsp     )
             );
-          
+
            `ASSIGN_PERIPHS_SPI0_PAD2SOC(s_pad_to_qspi[0],s_port_signals_pad2soc.periphs.spi0)
            `ASSIGN_PERIPHS_SPI0_SOC2PAD(s_port_signals_soc2pad.periphs.spi0,s_qspi_to_pad[0])
 
@@ -1181,11 +1181,11 @@ module al_saqr
            `ASSIGN_PERIPHS_SPI4_SOC2PAD(s_port_signals_soc2pad.periphs.spi4,s_qspi_to_pad[4])
 
            `ASSIGN_PERIPHS_SPI5_PAD2SOC(s_pad_to_qspi[5],s_port_signals_pad2soc.periphs.spi5)
-           `ASSIGN_PERIPHS_SPI5_SOC2PAD(s_port_signals_soc2pad.periphs.spi5,s_qspi_to_pad[5])  
+           `ASSIGN_PERIPHS_SPI5_SOC2PAD(s_port_signals_soc2pad.periphs.spi5,s_qspi_to_pad[5])
 
            `ASSIGN_PERIPHS_SPI6_PAD2SOC(s_pad_to_qspi[6],s_port_signals_pad2soc.periphs.spi6)
            `ASSIGN_PERIPHS_SPI6_SOC2PAD(s_port_signals_soc2pad.periphs.spi6,s_qspi_to_pad[6])
-           
+
            `ASSIGN_PERIPHS_QSPI_PAD2SOC(s_pad_to_qspi[11],s_port_signals_pad2soc.periphs.qspi)
            `ASSIGN_PERIPHS_QSPI_SOC2PAD(s_port_signals_soc2pad.periphs.qspi,s_qspi_to_pad[11])
 
@@ -1197,15 +1197,15 @@ module al_saqr
 
            `ASSIGN_PERIPHS_UART1_PAD2SOC(s_pad_to_uart[1],s_port_signals_pad2soc.periphs.uart1)
            `ASSIGN_PERIPHS_UART1_SOC2PAD(s_port_signals_soc2pad.periphs.uart1,s_uart_to_pad[1])
-           
+
            `ASSIGN_PERIPHS_UART2_PAD2SOC(s_pad_to_uart[2],s_port_signals_pad2soc.periphs.uart2)
            `ASSIGN_PERIPHS_UART2_SOC2PAD(s_port_signals_soc2pad.periphs.uart2,s_uart_to_pad[2])
-           
+
            `ASSIGN_PERIPHS_UART3_PAD2SOC(s_pad_to_uart[3],s_port_signals_pad2soc.periphs.uart3)
            `ASSIGN_PERIPHS_UART3_SOC2PAD(s_port_signals_soc2pad.periphs.uart3,s_uart_to_pad[3])
-          
+
            `ASSIGN_PERIPHS_UART4_PAD2SOC(s_pad_to_uart[4],s_port_signals_pad2soc.periphs.uart4)
-           `ASSIGN_PERIPHS_UART4_SOC2PAD(s_port_signals_soc2pad.periphs.uart4,s_uart_to_pad[4])   
+           `ASSIGN_PERIPHS_UART4_SOC2PAD(s_port_signals_soc2pad.periphs.uart4,s_uart_to_pad[4])
 
            `ASSIGN_PERIPHS_I2C0_PAD2SOC(s_pad_to_i2c[0],s_port_signals_pad2soc.periphs.i2c0)
            `ASSIGN_PERIPHS_I2C0_SOC2PAD(s_port_signals_soc2pad.periphs.i2c0,s_i2c_to_pad[0])
@@ -1247,10 +1247,10 @@ module al_saqr
            `ASSIGN_PERIPHS_UART7_SOC2PAD(s_port_signals_soc2pad.periphs.uart7,s_uart_to_pad[7])
 
            `ASSIGN_PERIPHS_CAM1_PAD2SOC(s_pad_to_cam[1],s_port_signals_pad2soc.periphs.cam1)
-              
+
            `ASSIGN_PERIPHS_SPI8_PAD2SOC(s_pad_to_qspi[8],s_port_signals_pad2soc.periphs.spi8)
            `ASSIGN_PERIPHS_SPI8_SOC2PAD(s_port_signals_soc2pad.periphs.spi8,s_qspi_to_pad[8])
-           
+
            `ASSIGN_PERIPHS_SPI9_PAD2SOC(s_pad_to_qspi[9],s_port_signals_pad2soc.periphs.spi9)
            `ASSIGN_PERIPHS_SPI9_SOC2PAD(s_port_signals_soc2pad.periphs.spi9,s_qspi_to_pad[9])
 
@@ -1264,7 +1264,7 @@ module al_saqr
 
            `ASSIGN_PERIPHS_UART5_PAD2SOC(s_pad_to_uart[5],s_port_signals_pad2soc.periphs.uart5)
            `ASSIGN_PERIPHS_UART5_SOC2PAD(s_port_signals_soc2pad.periphs.uart5,s_uart_to_pad[5])
-          
+
            `ASSIGN_PERIPHS_UART6_PAD2SOC(s_pad_to_uart[6],s_port_signals_pad2soc.periphs.uart6)
            `ASSIGN_PERIPHS_UART6_SOC2PAD(s_port_signals_soc2pad.periphs.uart6,s_uart_to_pad[6])
 
@@ -1272,7 +1272,7 @@ module al_saqr
            `ASSIGN_PERIPHS_DDR_LINK_PAD2SOC(s_pad_to_serial_link,s_port_signals_pad2soc.periphs.ddr_link)
            `ASSIGN_PERIPHS_DDR_LINK_SOC2PAD(s_port_signals_soc2pad.periphs.ddr_link,s_serial_link_to_pad)
 
-        `else 
+        `else
             //SIMPLE_PADFRAME instantiation for RTL simulation
 
             alsaqr_periph_fpga_padframe #(
@@ -1285,7 +1285,7 @@ module al_saqr
              (
               .clk_i          ( s_soc_clk   ),
               .rst_ni         ( s_soc_rst_n ),
-             
+
               .port_signals_pad2soc(s_port_signals_pad2soc),
               .port_signals_soc2pad(s_port_signals_soc2pad),
 
@@ -1303,12 +1303,12 @@ module al_saqr
               .pad_periphs_pad_gpio_b_11_pad(pad_periphs_pad_gpio_b_11_pad),
               .pad_periphs_pad_gpio_b_12_pad(pad_periphs_pad_gpio_b_12_pad),
               .pad_periphs_pad_gpio_b_13_pad(pad_periphs_pad_gpio_b_13_pad),
-              
+
 
               .config_req_i   ( reg_req     ),
-              .config_rsp_o   ( reg_rsp     )      
+              .config_rsp_o   ( reg_rsp     )
               );
-          
+
            `ASSIGN_PERIPHS_SPI0_PAD2SOC(s_pad_to_qspi[0],s_port_signals_pad2soc.periphs.spi0)
            `ASSIGN_PERIPHS_SPI0_SOC2PAD(s_port_signals_soc2pad.periphs.spi0,s_qspi_to_pad[0])
 
@@ -1325,7 +1325,7 @@ module al_saqr
            `ASSIGN_PERIPHS_GPIO_B_SOC2PAD(s_port_signals_soc2pad.periphs.gpio_b,s_gpio_b_to_pad)
 
         `endif
-    `else  
+    `else
         //SIMPLE_PADFRAME instantiation for FPGA emulation
 
             alsaqr_periph_fpga_padframe #(
@@ -1338,7 +1338,7 @@ module al_saqr
              (
               .clk_i          ( s_soc_clk   ),
               .rst_ni         ( s_soc_rst_n ),
-             
+
               .port_signals_pad2soc(s_port_signals_pad2soc),
               .port_signals_soc2pad(s_port_signals_soc2pad),
 
@@ -1356,12 +1356,12 @@ module al_saqr
               .pad_periphs_pad_gpio_b_11_pad(pad_periphs_pad_gpio_b_11_pad),
               .pad_periphs_pad_gpio_b_12_pad(pad_periphs_pad_gpio_b_12_pad),
               .pad_periphs_pad_gpio_b_13_pad(pad_periphs_pad_gpio_b_13_pad),
-              
+
 
               .config_req_i   ( reg_req     ),
-              .config_rsp_o   ( reg_rsp     )      
+              .config_rsp_o   ( reg_rsp     )
               );
-          
+
            `ASSIGN_PERIPHS_SPI0_PAD2SOC(s_pad_to_qspi[0],s_port_signals_pad2soc.periphs.spi0)
            `ASSIGN_PERIPHS_SPI0_SOC2PAD(s_port_signals_soc2pad.periphs.spi0,s_qspi_to_pad[0])
 
@@ -1376,7 +1376,9 @@ module al_saqr
 
            `ASSIGN_PERIPHS_GPIO_B_PAD2SOC(s_pad_to_gpio_b,s_port_signals_pad2soc.periphs.gpio_b)
            `ASSIGN_PERIPHS_GPIO_B_SOC2PAD(s_port_signals_soc2pad.periphs.gpio_b,s_gpio_b_to_pad)
-    `endif 
+
+           `ASSIGN_PERIPHS_PWM_SOC2PAD(s_port_signals_soc2pad.periphs.pwm,s_pwm_to_pad)
+    `endif
 
    `ifndef TARGET_FPGA
    gwt_test i_gwt_test (
@@ -1389,5 +1391,5 @@ module al_saqr
          .cfg_oe(s_gwt_cfg_oe)
          );
    `endif
-   
+
 endmodule
