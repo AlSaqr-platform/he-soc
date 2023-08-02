@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
-#define VERBOSE 10
+#define VERBOSE 1
 
 int main(int argc, char const *argv[]) {
   #ifdef FPGA_EMULATION
@@ -19,7 +19,7 @@ int main(int argc, char const *argv[]) {
   *w_i =  0;
   *w_f = -1;
   int i = 1;
-  while(w_i[i] != *w_f){
+  while(&w_i[i] != w_f){
     w_i[i] = ++w_i[i-1];
     if(w_i[i] != i){
       printf("Test FAILED (w_i[%0d] <- %p) %p\naborting...\n", i, &w_i[i]);
@@ -30,6 +30,9 @@ int main(int argc, char const *argv[]) {
     #endif
     i++;
   }
+  #if VERBOSE > 0
+    printf("LAST MEMORY ADDRESS: w_i[%0d] <- 0x%8x, w_f <- 0x%8x\n", i, &w_i[i], w_f);
+  #endif
   w_i[i] = ++w_i[i-1];
   if(w_i[i] != i){
     printf("Test FAILED (w_i[%0d] <- %p) %p\naborting...\n", i, &w_i[i]);
