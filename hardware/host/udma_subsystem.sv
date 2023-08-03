@@ -62,8 +62,12 @@ module udma_subsystem
     REG_BUS.in                         hyper_reg_cfg_slave,
 
     // SPIM
-    output                             qspi_to_pad_t [N_SPI-1:0] qspi_to_pad,
-    input                              pad_to_qspi_t [N_SPI-1:0] pad_to_qspi,
+    output                             qspi_to_pad_t [N_SPI-1:0] spi_to_pad,
+    input                              pad_to_qspi_t [N_SPI-1:0] pad_to_spi,
+
+    // QSPIM
+    output                             qspi_to_pad_t [N_QSPI-1:0] qspi_to_pad,
+    input                              pad_to_qspi_t [N_QSPI-1:0] pad_to_qspi,
 
     // I2C
     output                             i2c_to_pad_t [N_I2C-1:0] i2c_to_pad,
@@ -75,6 +79,10 @@ module udma_subsystem
     // UART
     input                              pad_to_uart_t [N_UART-1:0] pad_to_uart,
     output                             uart_to_pad_t [N_UART-1:0] uart_to_pad,
+
+    // USART
+    input                              pad_to_usart_t [N_USART-1:0] pad_to_usart,
+    output                             usart_to_pad_t [N_USART-1:0] usart_to_pad,
 
     // SDIO
     output                             sdio_to_pad_t [N_SDIO-1:0] sdio_to_pad,
@@ -100,22 +108,25 @@ module udma_subsystem
     localparam N_FILTER   = 1;
     localparam N_CH_HYPER = 1;
 
-    localparam N_RX_CHANNELS =   N_SPI + N_HYPER + N_SDIO + N_UART + N_I2C + N_CAM;
-    localparam N_TX_CHANNELS = 2*N_SPI + N_HYPER + N_SDIO + N_UART + 2*N_I2C;
+    localparam N_RX_CHANNELS =   N_SPI + N_QSPI + N_HYPER + N_SDIO + N_USART + N_UART + N_I2C + N_CAM;
+    localparam N_TX_CHANNELS = 2*N_SPI + 2*N_QSPI + N_HYPER + N_SDIO + N_USART + N_UART + 2*N_I2C;
 
     localparam N_RX_EXT_CHANNELS =   N_FILTER;
     localparam N_TX_EXT_CHANNELS = 2*N_FILTER;
     localparam N_STREAMS         =   N_FILTER;
     localparam STREAM_ID_WIDTH   = 1;//$clog2(N_STREAMS)
 
-    localparam N_PERIPHS = N_SPI + N_HYPER + N_UART + N_I2C + N_CAM + N_SDIO + N_FILTER + N_CH_HYPER*N_HYPER;
-    localparam N_EVENTS  = N_SPI + N_HYPER + N_UART + N_I2C + N_CAM + N_SDIO + N_FILTER ;
+    localparam N_PERIPHS = N_SPI + N_QSPI + N_HYPER + N_USART + N_UART + N_I2C + N_CAM + N_SDIO + N_FILTER + N_CH_HYPER*N_HYPER;
+    localparam N_EVENTS  = N_SPI + N_QSPI + N_HYPER + N_USART + N_UART + N_I2C + N_CAM + N_SDIO + N_FILTER ;
 
     // TX Channels
     localparam CH_ID_TX_UART    = 0;
-    localparam CH_ID_TX_SPIM    = N_UART;
-    localparam CH_ID_CMD_SPIM   = CH_ID_TX_SPIM  + N_SPI  ;
-    localparam CH_ID_TX_I2C     = CH_ID_CMD_SPIM + N_SPI  ;
+    localparam CH_ID_TX_USART   = CH_ID_TX_UART  + N_UART ;
+    localparam CH_ID_TX_SPIM    = CH_ID_TX_USART + N_USART;
+    localparam CH_ID_TX_QSPIM   = CH_ID_TX_SPIM  + N_SPI  ;
+    localparam CH_ID_CMD_SPIM   = CH_ID_TX_QSPIM + N_QSPI ;
+    localparam CH_ID_CMD_QSPIM  = CH_ID_CMD_SPIM + N_SPI  ;
+    localparam CH_ID_TX_I2C     = CH_ID_CMD_QSPIM+ N_QSPI ;
     localparam CH_ID_CMD_I2C    = CH_ID_TX_I2C   + N_I2C  ;
     localparam CH_ID_TX_SDIO    = CH_ID_CMD_I2C  + N_I2C  ;
     localparam CH_ID_TX_HYPER   = CH_ID_TX_SDIO  + N_SDIO ;
@@ -125,8 +136,10 @@ module udma_subsystem
 
     // RX Channels
     localparam CH_ID_RX_UART    = 0;
-    localparam CH_ID_RX_SPIM    = N_UART;
-    localparam CH_ID_RX_I2C     = CH_ID_RX_SPIM  + N_SPI  ;
+    localparam CH_ID_RX_USART   = CH_ID_RX_UART  + N_UART ;
+    localparam CH_ID_RX_SPIM    = CH_ID_RX_USART + N_USART;
+    localparam CH_ID_RX_QSPIM   = CH_ID_RX_SPIM  + N_SPI  ;
+    localparam CH_ID_RX_I2C     = CH_ID_RX_QSPIM + N_QSPI ;
     localparam CH_ID_RX_SDIO    = CH_ID_RX_I2C   + N_I2C  ;
     localparam CH_ID_RX_CAM     = CH_ID_RX_SDIO  + N_SDIO ;
     localparam CH_ID_RX_HYPER   = CH_ID_RX_CAM   + N_CAM  ;
@@ -140,14 +153,15 @@ module udma_subsystem
     localparam CH_ID_EXT_RX_FILTER = 0;
 
     localparam PER_ID_UART    = 0;
-    localparam PER_ID_SPIM    = PER_ID_UART   + N_UART   ; // 7
-    localparam PER_ID_I2C     = PER_ID_SPIM   + N_SPI    ; // 18
-    localparam PER_ID_SDIO    = PER_ID_I2C    + N_I2C    ; // 24
-    localparam PER_ID_CAM     = PER_ID_SDIO   + N_SDIO   ; // 26
-    localparam PER_ID_FILTER  = PER_ID_CAM    + N_CAM    ; // 28
-    localparam PER_ID_HYPER   = PER_ID_FILTER + N_FILTER ; // 29
-
-
+    localparam PER_ID_USART   = PER_ID_UART   + N_UART   ; // 3
+    localparam PER_ID_SPIM    = PER_ID_USART  + N_USART  ; // 7
+    localparam PER_ID_QSPIM   = PER_ID_SPIM   + N_SPI    ; // 18
+    localparam PER_ID_I2C     = PER_ID_QSPIM  + N_QSPI   ; // 19
+    localparam PER_ID_SDIO    = PER_ID_I2C    + N_I2C    ; // 25
+    localparam PER_ID_CAM     = PER_ID_SDIO   + N_SDIO   ; // 27
+    localparam PER_ID_FILTER  = PER_ID_CAM    + N_CAM    ; // 29
+    localparam PER_ID_HYPER   = PER_ID_FILTER + N_FILTER ; // 31
+    
     logic [N_TX_CHANNELS-1:0] [L2_AWIDTH_NOAL-1 : 0] s_tx_cfg_startaddr;
     logic [N_TX_CHANNELS-1:0]     [TRANS_SIZE-1 : 0] s_tx_cfg_size;
     logic [N_TX_CHANNELS-1:0]                        s_tx_cfg_continuous;
@@ -228,6 +242,7 @@ module udma_subsystem
     logic [N_PERIPHS-1:0]        s_periph_ready;
 
     logic            [N_SPI-1:0] s_spi_eot;
+    logic            [N_QSPI-1:0]s_qspi_eot;
     logic            [N_I2C-1:0] s_i2c_evt;
     logic            [N_I2C-1:0] s_i2c_eot;
 
@@ -373,6 +388,7 @@ module udma_subsystem
 
     //PER_ID 0
     generate
+        // UART
         for (genvar g_uart=0;g_uart<N_UART;g_uart++)
         begin : i_uart_gen
             assign s_events[4*(PER_ID_UART+g_uart)+0] = s_rx_ch_events[CH_ID_RX_UART+g_uart];
@@ -438,13 +454,90 @@ module udma_subsystem
                 .data_rx_datasize_o  ( s_rx_ch_datasize[CH_ID_RX_UART+g_uart]    ),
                 .data_rx_o           ( s_rx_ch_data[CH_ID_RX_UART+g_uart]        ),
                 .data_rx_valid_o     ( s_rx_ch_valid[CH_ID_RX_UART+g_uart]       ),
-                .data_rx_ready_i     ( s_rx_ch_ready[CH_ID_RX_UART+g_uart]       )
+                .data_rx_ready_i     ( s_rx_ch_ready[CH_ID_RX_UART+g_uart]       ),
+
+                .uart_rts_o          (                                           ),
+                .uart_cts_i          ( 1'b1                                      )
+            );
+        end
+
+        // USART
+        for (genvar g_usart=0;g_usart<N_USART;g_usart++)
+        begin : i_usart_gen
+            assign s_events[4*(PER_ID_USART+g_usart)+0] = s_rx_ch_events[CH_ID_RX_USART+g_usart];
+            assign s_events[4*(PER_ID_USART+g_usart)+1] = s_tx_ch_events[CH_ID_TX_USART+g_usart];
+            assign s_events[4*(PER_ID_USART+g_usart)+2] = 1'b0;
+            assign s_events[4*(PER_ID_USART+g_usart)+3] = 1'b0;
+
+            assign s_rx_cfg_stream[CH_ID_RX_USART+g_usart] = 'h0;
+            assign s_rx_cfg_stream_id[CH_ID_RX_USART+g_usart] = 'h0;
+            assign s_rx_ch_destination[CH_ID_RX_USART+g_usart] = 'h0;
+            assign s_tx_ch_destination[CH_ID_TX_USART+g_usart] = 'h0;
+
+            udma_uart_top #(
+                .L2_AWIDTH_NOAL(L2_AWIDTH_NOAL),
+                .TRANS_SIZE(TRANS_SIZE)
+            ) i_usart(
+                .sys_clk_i           ( s_clk_periphs_core[PER_ID_USART+g_usart]    ),
+                .periph_clk_i        ( s_clk_periphs_per[PER_ID_USART+g_usart]     ),
+                .rstn_i              ( sys_resetn_i                              ),
+                                                                                 
+                .uart_tx_o           ( usart_to_pad[g_usart].tx_o                  ),
+                .uart_rx_i           ( pad_to_usart[g_usart].rx_i                  ),
+
+                .rx_char_event_o     (                                           ),
+                .err_event_o         (                                           ),
+                                                                                 
+                .cfg_data_i          ( s_periph_data_to                          ),
+                .cfg_addr_i          ( s_periph_addr                             ),
+                .cfg_valid_i         ( s_periph_valid[PER_ID_USART+g_usart]        ),
+                .cfg_rwn_i           ( s_periph_rwn                              ),
+                .cfg_data_o          ( s_periph_data_from[PER_ID_USART+g_usart]    ),
+                .cfg_ready_o         ( s_periph_ready[PER_ID_USART+g_usart]        ),
+
+                .cfg_rx_startaddr_o  ( s_rx_cfg_startaddr[CH_ID_RX_USART+g_usart]  ),
+                .cfg_rx_size_o       ( s_rx_cfg_size[CH_ID_RX_USART+g_usart]       ),
+                .cfg_rx_continuous_o ( s_rx_cfg_continuous[CH_ID_RX_USART+g_usart] ),
+                .cfg_rx_en_o         ( s_rx_cfg_en[CH_ID_RX_USART+g_usart]         ),
+                .cfg_rx_clr_o        ( s_rx_cfg_clr[CH_ID_RX_USART+g_usart]        ),
+                .cfg_rx_en_i         ( s_rx_ch_en[CH_ID_RX_USART+g_usart]          ),
+                .cfg_rx_pending_i    ( s_rx_ch_pending[CH_ID_RX_USART+g_usart]     ),
+                .cfg_rx_curr_addr_i  ( s_rx_ch_curr_addr[CH_ID_RX_USART+g_usart]   ),
+                .cfg_rx_bytes_left_i ( s_rx_ch_bytes_left[CH_ID_RX_USART+g_usart]  ),
+                .cfg_rx_datasize_o   (                                           ),  // FIXME ANTONIO
+
+                .cfg_tx_startaddr_o  ( s_tx_cfg_startaddr[CH_ID_TX_USART+g_usart]  ),
+                .cfg_tx_size_o       ( s_tx_cfg_size[CH_ID_TX_USART+g_usart]       ),
+                .cfg_tx_continuous_o ( s_tx_cfg_continuous[CH_ID_TX_USART+g_usart] ),
+                .cfg_tx_en_o         ( s_tx_cfg_en[CH_ID_TX_USART+g_usart]         ),
+                .cfg_tx_clr_o        ( s_tx_cfg_clr[CH_ID_TX_USART+g_usart]        ),
+                .cfg_tx_en_i         ( s_tx_ch_en[CH_ID_TX_USART+g_usart]          ),
+                .cfg_tx_pending_i    ( s_tx_ch_pending[CH_ID_TX_USART+g_usart]     ),
+                .cfg_tx_curr_addr_i  ( s_tx_ch_curr_addr[CH_ID_TX_USART+g_usart]   ),
+                .cfg_tx_bytes_left_i ( s_tx_ch_bytes_left[CH_ID_TX_USART+g_usart]  ),
+                .cfg_tx_datasize_o   (                                           ),  // FIXME ANTONIO
+
+                .data_tx_req_o       ( s_tx_ch_req[CH_ID_TX_USART+g_usart]         ),
+                .data_tx_gnt_i       ( s_tx_ch_gnt[CH_ID_TX_USART+g_usart]         ),
+                .data_tx_datasize_o  ( s_tx_ch_datasize[CH_ID_TX_USART+g_usart]    ),
+                .data_tx_i           ( s_tx_ch_data[CH_ID_TX_USART+g_usart]        ),
+                .data_tx_valid_i     ( s_tx_ch_valid[CH_ID_TX_USART+g_usart]       ),
+                .data_tx_ready_o     ( s_tx_ch_ready[CH_ID_TX_USART+g_usart]       ),
+
+                .data_rx_datasize_o  ( s_rx_ch_datasize[CH_ID_RX_USART+g_usart]    ),
+                .data_rx_o           ( s_rx_ch_data[CH_ID_RX_USART+g_usart]        ),
+                .data_rx_valid_o     ( s_rx_ch_valid[CH_ID_RX_USART+g_usart]       ),
+                .data_rx_ready_i     ( s_rx_ch_ready[CH_ID_RX_USART+g_usart]       ),
+
+                .uart_rts_o          ( usart_to_pad[g_usart].rts_o                 ),
+                .uart_cts_i          ( pad_to_usart[g_usart].cts_i                 )
             );
         end
     endgenerate
 
     //PER_ID 1
     generate
+        // SPI
         for (genvar g_spi=0;g_spi<N_SPI;g_spi++)
         begin : i_spim_gen
             assign s_events[4*(PER_ID_SPIM+g_spi)+0] = s_rx_ch_events[CH_ID_RX_SPIM+g_spi];
@@ -469,23 +562,23 @@ module udma_subsystem
                 .dft_cg_enable_i     ( dft_cg_enable_i                          ),
                 .spi_eot_o           ( s_spi_eot[g_spi]                         ),
                 .spi_event_i         ( s_trigger_events                         ),
-                .spi_clk_o           ( qspi_to_pad[g_spi].clk_o                 ),
-                .spi_csn0_o          ( qspi_to_pad[g_spi].csn0_o                ),
-                .spi_csn1_o          ( qspi_to_pad[g_spi].csn1_o                ),
-                .spi_csn2_o          ( qspi_to_pad[g_spi].csn2_o                ),
-                .spi_csn3_o          ( qspi_to_pad[g_spi].csn3_o                ),
-                .spi_oen0_o          ( qspi_to_pad[g_spi].sd0_oen_o             ),
-                .spi_oen1_o          ( qspi_to_pad[g_spi].sd1_oen_o             ),
-                .spi_oen2_o          ( qspi_to_pad[g_spi].sd2_oen_o             ),
-                .spi_oen3_o          ( qspi_to_pad[g_spi].sd3_oen_o             ),
-                .spi_sdo0_o          ( qspi_to_pad[g_spi].sd0_o                ),
-                .spi_sdo1_o          ( qspi_to_pad[g_spi].sd1_o                ),
-                .spi_sdo2_o          ( qspi_to_pad[g_spi].sd2_o                ),
-                .spi_sdo3_o          ( qspi_to_pad[g_spi].sd3_o                ),
-                .spi_sdi0_i          ( pad_to_qspi[g_spi].sd0_i                ),
-                .spi_sdi1_i          ( pad_to_qspi[g_spi].sd1_i                ),
-                .spi_sdi2_i          ( pad_to_qspi[g_spi].sd2_i                ),
-                .spi_sdi3_i          ( pad_to_qspi[g_spi].sd3_i                ),
+                .spi_clk_o           ( spi_to_pad[g_spi].clk_o                 ),
+                .spi_csn0_o          ( spi_to_pad[g_spi].csn0_o                ),
+                .spi_csn1_o          ( spi_to_pad[g_spi].csn1_o                ),
+                .spi_csn2_o          ( spi_to_pad[g_spi].csn2_o                ),
+                .spi_csn3_o          ( spi_to_pad[g_spi].csn3_o                ),
+                .spi_oen0_o          ( spi_to_pad[g_spi].sd0_oen_o             ),
+                .spi_oen1_o          ( spi_to_pad[g_spi].sd1_oen_o             ),
+                .spi_oen2_o          ( spi_to_pad[g_spi].sd2_oen_o             ),
+                .spi_oen3_o          ( spi_to_pad[g_spi].sd3_oen_o             ),
+                .spi_sdo0_o          ( spi_to_pad[g_spi].sd0_o                ),
+                .spi_sdo1_o          ( spi_to_pad[g_spi].sd1_o                ),
+                .spi_sdo2_o          ( spi_to_pad[g_spi].sd2_o                ),
+                .spi_sdo3_o          ( spi_to_pad[g_spi].sd3_o                ),
+                .spi_sdi0_i          ( pad_to_spi[g_spi].sd0_i                ),
+                .spi_sdi1_i          ( pad_to_spi[g_spi].sd1_i                ),
+                .spi_sdi2_i          ( pad_to_spi[g_spi].sd2_i                ),
+                .spi_sdi3_i          ( pad_to_spi[g_spi].sd3_i                ),
 
                 .cfg_data_i          ( s_periph_data_to                         ),
                 .cfg_addr_i          ( s_periph_addr                            ),
@@ -542,6 +635,107 @@ module udma_subsystem
                 .cfg_rx_pending_i    ( s_rx_ch_pending[CH_ID_RX_SPIM+g_spi]       ),
                 .cfg_rx_curr_addr_i  ( s_rx_ch_curr_addr[CH_ID_RX_SPIM+g_spi]     ),
                 .cfg_rx_bytes_left_i ( s_rx_ch_bytes_left[CH_ID_RX_SPIM+g_spi]    )
+            );
+        end
+
+        // QSPI
+        for (genvar g_qspi=0;g_qspi<N_QSPI;g_qspi++)
+        begin : i_qspim_gen
+            assign s_events[4*(PER_ID_QSPIM+g_qspi)+0] = s_rx_ch_events[CH_ID_RX_QSPIM+g_qspi];
+            assign s_events[4*(PER_ID_QSPIM+g_qspi)+1] = s_tx_ch_events[CH_ID_TX_QSPIM+g_qspi];
+            assign s_events[4*(PER_ID_QSPIM+g_qspi)+2] = s_tx_ch_events[CH_ID_CMD_QSPIM+g_qspi];
+            assign s_events[4*(PER_ID_QSPIM+g_qspi)+3] = s_qspi_eot[g_qspi];
+
+            assign s_rx_cfg_stream[CH_ID_RX_QSPIM+g_qspi] = 'h0;
+            assign s_rx_cfg_stream_id[CH_ID_RX_QSPIM+g_qspi] = 'h0;
+            assign s_rx_ch_destination[CH_ID_RX_QSPIM+g_qspi] = 'h0;
+            assign s_tx_ch_destination[CH_ID_TX_QSPIM+g_qspi] = 'h0;
+            assign s_tx_ch_destination[CH_ID_CMD_QSPIM+g_qspi] = 'h0;
+            udma_spim_top
+            #(
+                .L2_AWIDTH_NOAL      ( L2_AWIDTH_NOAL                           ),
+                .TRANS_SIZE          ( TRANS_SIZE                               )
+            ) i_qspim (
+                .sys_clk_i           ( s_clk_periphs_core[PER_ID_QSPIM+g_qspi]    ),
+                .periph_clk_i        ( s_clk_periphs_per[PER_ID_QSPIM+g_qspi]     ),
+                .rstn_i              ( sys_resetn_i                             ),
+                .dft_test_mode_i     ( dft_test_mode_i                          ),
+                .dft_cg_enable_i     ( dft_cg_enable_i                          ),
+                .spi_eot_o           ( s_qspi_eot[g_qspi]                         ),
+                .spi_event_i         ( s_trigger_events                         ),
+                .spi_clk_o           ( qspi_to_pad[g_qspi].clk_o                 ),
+                .spi_csn0_o          ( qspi_to_pad[g_qspi].csn0_o                ),
+                .spi_csn1_o          ( qspi_to_pad[g_qspi].csn1_o                ),
+                .spi_csn2_o          ( qspi_to_pad[g_qspi].csn2_o                ),
+                .spi_csn3_o          ( qspi_to_pad[g_qspi].csn3_o                ),
+                .spi_oen0_o          ( qspi_to_pad[g_qspi].sd0_oen_o             ),
+                .spi_oen1_o          ( qspi_to_pad[g_qspi].sd1_oen_o             ),
+                .spi_oen2_o          ( qspi_to_pad[g_qspi].sd2_oen_o             ),
+                .spi_oen3_o          ( qspi_to_pad[g_qspi].sd3_oen_o             ),
+                .spi_sdo0_o          ( qspi_to_pad[g_qspi].sd0_o                ),
+                .spi_sdo1_o          ( qspi_to_pad[g_qspi].sd1_o                ),
+                .spi_sdo2_o          ( qspi_to_pad[g_qspi].sd2_o                ),
+                .spi_sdo3_o          ( qspi_to_pad[g_qspi].sd3_o                ),
+                .spi_sdi0_i          ( pad_to_qspi[g_qspi].sd0_i                ),
+                .spi_sdi1_i          ( pad_to_qspi[g_qspi].sd1_i                ),
+                .spi_sdi2_i          ( pad_to_qspi[g_qspi].sd2_i                ),
+                .spi_sdi3_i          ( pad_to_qspi[g_qspi].sd3_i                ),
+
+                .cfg_data_i          ( s_periph_data_to                         ),
+                .cfg_addr_i          ( s_periph_addr                            ),
+                .cfg_valid_i         ( s_periph_valid[PER_ID_QSPIM+g_qspi]        ),
+                .cfg_rwn_i           ( s_periph_rwn                             ),
+                .cfg_data_o          ( s_periph_data_from[PER_ID_QSPIM+g_qspi]    ),
+                .cfg_ready_o         ( s_periph_ready[PER_ID_QSPIM+g_qspi]        ),
+
+                .cmd_req_o           ( s_tx_ch_req[CH_ID_CMD_QSPIM+g_qspi]          ),
+                .cmd_gnt_i           ( s_tx_ch_gnt[CH_ID_CMD_QSPIM+g_qspi]          ),
+                .cmd_datasize_o      ( s_tx_ch_datasize[CH_ID_CMD_QSPIM+g_qspi]     ),
+                .cmd_i               ( s_tx_ch_data[CH_ID_CMD_QSPIM+g_qspi]         ),
+                .cmd_valid_i         ( s_tx_ch_valid[CH_ID_CMD_QSPIM+g_qspi]        ),
+                .cmd_ready_o         ( s_tx_ch_ready[CH_ID_CMD_QSPIM+g_qspi]        ),
+
+                .data_tx_req_o       ( s_tx_ch_req[CH_ID_TX_QSPIM+g_qspi]           ),
+                .data_tx_gnt_i       ( s_tx_ch_gnt[CH_ID_TX_QSPIM+g_qspi]           ),
+                .data_tx_datasize_o  ( s_tx_ch_datasize[CH_ID_TX_QSPIM+g_qspi]      ),
+                .data_tx_i           ( s_tx_ch_data[CH_ID_TX_QSPIM+g_qspi]          ),
+                .data_tx_valid_i     ( s_tx_ch_valid[CH_ID_TX_QSPIM+g_qspi]         ),
+                .data_tx_ready_o     ( s_tx_ch_ready[CH_ID_TX_QSPIM+g_qspi]         ),
+
+                .data_rx_datasize_o  ( s_rx_ch_datasize[CH_ID_RX_QSPIM+g_qspi]      ),
+                .data_rx_o           ( s_rx_ch_data[CH_ID_RX_QSPIM+g_qspi]          ),
+                .data_rx_valid_o     ( s_rx_ch_valid[CH_ID_RX_QSPIM+g_qspi]         ),
+                .data_rx_ready_i     ( s_rx_ch_ready[CH_ID_RX_QSPIM+g_qspi]         ),
+
+                .cfg_cmd_startaddr_o  ( s_tx_cfg_startaddr[CH_ID_CMD_QSPIM+g_qspi]  ),
+                .cfg_cmd_size_o       ( s_tx_cfg_size[CH_ID_CMD_QSPIM+g_qspi]       ),
+                .cfg_cmd_continuous_o ( s_tx_cfg_continuous[CH_ID_CMD_QSPIM+g_qspi] ),
+                .cfg_cmd_en_o         ( s_tx_cfg_en[CH_ID_CMD_QSPIM+g_qspi]         ),
+                .cfg_cmd_clr_o        ( s_tx_cfg_clr[CH_ID_CMD_QSPIM+g_qspi]        ),
+                .cfg_cmd_en_i         ( s_tx_ch_en[CH_ID_CMD_QSPIM+g_qspi]          ),
+                .cfg_cmd_pending_i    ( s_tx_ch_pending[CH_ID_CMD_QSPIM+g_qspi]     ),
+                .cfg_cmd_curr_addr_i  ( s_tx_ch_curr_addr[CH_ID_CMD_QSPIM+g_qspi]   ),
+                .cfg_cmd_bytes_left_i ( s_tx_ch_bytes_left[CH_ID_CMD_QSPIM+g_qspi]  ),
+
+                .cfg_tx_startaddr_o  ( s_tx_cfg_startaddr[CH_ID_TX_QSPIM+g_qspi]    ),
+                .cfg_tx_size_o       ( s_tx_cfg_size[CH_ID_TX_QSPIM+g_qspi]         ),
+                .cfg_tx_continuous_o ( s_tx_cfg_continuous[CH_ID_TX_QSPIM+g_qspi]   ),
+                .cfg_tx_en_o         ( s_tx_cfg_en[CH_ID_TX_QSPIM+g_qspi]           ),
+                .cfg_tx_clr_o        ( s_tx_cfg_clr[CH_ID_TX_QSPIM+g_qspi]          ),
+                .cfg_tx_en_i         ( s_tx_ch_en[CH_ID_TX_QSPIM+g_qspi]            ),
+                .cfg_tx_pending_i    ( s_tx_ch_pending[CH_ID_TX_QSPIM+g_qspi]       ),
+                .cfg_tx_curr_addr_i  ( s_tx_ch_curr_addr[CH_ID_TX_QSPIM+g_qspi]     ),
+                .cfg_tx_bytes_left_i ( s_tx_ch_bytes_left[CH_ID_TX_QSPIM+g_qspi]    ),
+
+                .cfg_rx_startaddr_o  ( s_rx_cfg_startaddr[CH_ID_RX_QSPIM+g_qspi]    ),
+                .cfg_rx_size_o       ( s_rx_cfg_size[CH_ID_RX_QSPIM+g_qspi]         ),
+                .cfg_rx_continuous_o ( s_rx_cfg_continuous[CH_ID_RX_QSPIM+g_qspi]   ),
+                .cfg_rx_en_o         ( s_rx_cfg_en[CH_ID_RX_QSPIM+g_qspi]           ),
+                .cfg_rx_clr_o        ( s_rx_cfg_clr[CH_ID_RX_QSPIM+g_qspi]          ),
+                .cfg_rx_en_i         ( s_rx_ch_en[CH_ID_RX_QSPIM+g_qspi]            ),
+                .cfg_rx_pending_i    ( s_rx_ch_pending[CH_ID_RX_QSPIM+g_qspi]       ),
+                .cfg_rx_curr_addr_i  ( s_rx_ch_curr_addr[CH_ID_RX_QSPIM+g_qspi]     ),
+                .cfg_rx_bytes_left_i ( s_rx_ch_bytes_left[CH_ID_RX_QSPIM+g_qspi]    )
             );
         end
     endgenerate

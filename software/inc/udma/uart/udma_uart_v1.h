@@ -88,10 +88,22 @@
 #define ARCHI_SOC_EVENT_UART_RX(id)    (ARCHI_SOC_EVENT_PERIPH_FIRST_EVT(ARCHI_UDMA_UART_ID(id)) + ARCHI_UDMA_UART_RX_EVT)
 #define ARCHI_SOC_EVENT_UART_TX(id)    (ARCHI_SOC_EVENT_PERIPH_FIRST_EVT(ARCHI_UDMA_UART_ID(id)) + ARCHI_UDMA_UART_TX_EVT)
 
+#define UDMA_USART_OFFSET(id)          UDMA_PERIPH_OFFSET(ARCHI_UDMA_USART_ID(id))
+#define UDMA_USART_RX_ADDR(id)         (ARCHI_UDMA_ADDR + UDMA_USART_OFFSET(id) + UDMA_CHANNEL_RX_OFFSET)
+#define UDMA_USART_TX_ADDR(id)         (ARCHI_UDMA_ADDR + UDMA_USART_OFFSET(id) + UDMA_CHANNEL_TX_OFFSET)
+#define UDMA_USART_CUSTOM_ADDR(id)     (ARCHI_UDMA_ADDR + UDMA_USART_OFFSET(id) + UDMA_CHANNEL_CUSTOM_OFFSET)
+#define ARCHI_SOC_EVENT_USART_RX(id)    (ARCHI_SOC_EVENT_PERIPH_FIRST_EVT(ARCHI_UDMA_USART_ID(id)) + ARCHI_UDMA_UART_RX_EVT)
+#define ARCHI_SOC_EVENT_USART_TX(id)    (ARCHI_SOC_EVENT_PERIPH_FIRST_EVT(ARCHI_UDMA_USART_ID(id)) + ARCHI_UDMA_UART_TX_EVT)
+
 int udma_uart_open(int uart_id, int test_freq, int baudrate);
 void udma_uart_close(int uart_id);
 int udma_uart_write(int uart_id, void *buffer, uint32_t size);
 int udma_uart_read(int uart_id, void *buffer, uint32_t size);
+
+int udma_usart_open(int usart_id, int test_freq, int baudrate);
+void udma_usart_close(int usart_id);
+int udma_usart_write(int usart_id, void *buffer, uint32_t size);
+int udma_usart_read(int usart_id, void *buffer, uint32_t size);
 
 static inline void plp_uart_setup(int channel, int parity, uint16_t clk_counter)
 {
@@ -113,27 +125,64 @@ static inline void plp_uart_setup(int channel, int parity, uint16_t clk_counter)
 
   pulp_write32(ARCHI_UDMA_ADDR + UDMA_UART_OFFSET(channel) + UDMA_CHANNEL_CUSTOM_OFFSET + UART_SETUP_OFFSET, val);
 }
+static inline void plp_usart_setup(int channel, int parity, uint16_t clk_counter)
+{
+
+  // [31:16]: clock divider (from SoC clock)
+  // [9]: RX enable
+  // [8]: TX enable
+  // [3]: stop bits  0 = 1 stop bit
+  //                 1 = 2 stop bits
+  // [2:1]: bits     00 = 5 bits
+  //                 01 = 6 bits
+  //                 10 = 7 bits
+  //                 11 = 8 bits
+  // [0]: parity
+
+  unsigned int val = 0x0306 | parity; // both tx and rx enabled; 8N1 configuration; 1 stop bits
+
+  val |= ((clk_counter) << 16);
+
+  pulp_write32(ARCHI_UDMA_ADDR + UDMA_USART_OFFSET(channel) + UDMA_CHANNEL_CUSTOM_OFFSET + UART_SETUP_OFFSET, val);
+}
 
 static inline void plp_uart_disable(int channel) {
   pulp_write32(ARCHI_UDMA_ADDR + UDMA_UART_OFFSET(channel) + UDMA_CHANNEL_CUSTOM_OFFSET + UART_SETUP_OFFSET, 0x00500006);
+}
+static inline void plp_usart_disable(int channel) {
+  pulp_write32(ARCHI_UDMA_ADDR + UDMA_USART_OFFSET(channel) + UDMA_CHANNEL_CUSTOM_OFFSET + UART_SETUP_OFFSET, 0x00500006);
 }
 
 static inline int plp_uart_tx_busy(int channel) {
   return pulp_read32(ARCHI_UDMA_ADDR + UDMA_UART_OFFSET(channel) + UDMA_CHANNEL_CUSTOM_OFFSET + UART_STATUS_OFFSET) & 1;
 }
+static inline int plp_usart_tx_busy(int channel) {
+  return pulp_read32(ARCHI_UDMA_ADDR + UDMA_USART_OFFSET(channel) + UDMA_CHANNEL_CUSTOM_OFFSET + UART_STATUS_OFFSET) & 1;
+}
 
 static inline int plp_uart_rx_busy(int channel) {
   return (pulp_read32(ARCHI_UDMA_ADDR + UDMA_UART_OFFSET(channel) + UDMA_CHANNEL_CUSTOM_OFFSET + UART_STATUS_OFFSET) >> 1) & 1;
+}
+static inline int plp_usart_rx_busy(int channel) {
+  return (pulp_read32(ARCHI_UDMA_ADDR + UDMA_USART_OFFSET(channel) + UDMA_CHANNEL_CUSTOM_OFFSET + UART_STATUS_OFFSET) >> 1) & 1;
 }
 
 static inline unsigned int plp_uart_reg_read(int channel, unsigned int addr)
 { //adr is an offset, expected UART_STATUS_OFFSET or UART_SETUP_OFFSET
   return pulp_read32(ARCHI_UDMA_ADDR + UDMA_UART_OFFSET(channel) + UDMA_CHANNEL_CUSTOM_OFFSET + addr);
 }
+static inline unsigned int plp_usart_reg_read(int channel, unsigned int addr)
+{ //adr is an offset, expected UART_STATUS_OFFSET or UART_SETUP_OFFSET
+  return pulp_read32(ARCHI_UDMA_ADDR + UDMA_USART_OFFSET(channel) + UDMA_CHANNEL_CUSTOM_OFFSET + addr);
+}
 
 static inline void plp_uart_reg_write(int channel, unsigned int addr, unsigned int cfg)
 { //adr is an offset, expected UART_STATUS_OFFSET or UART_SETUP_OFFSET
   pulp_write32(ARCHI_UDMA_ADDR + UDMA_UART_OFFSET(channel) + UDMA_CHANNEL_CUSTOM_OFFSET + addr, cfg);
+}
+static inline void plp_usart_reg_write(int channel, unsigned int addr, unsigned int cfg)
+{ //adr is an offset, expected UART_STATUS_OFFSET or UART_SETUP_OFFSET
+  pulp_write32(ARCHI_UDMA_ADDR + UDMA_USART_OFFSET(channel) + UDMA_CHANNEL_CUSTOM_OFFSET + addr, cfg);
 }
 
 #endif

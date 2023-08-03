@@ -15,7 +15,7 @@
  */
 
 /* 
- * Mantainer: Luca Valente (luca.valente2@unibo.it)
+ * Mantainer: Victor Isachi (victor.isachi@unibo.it)
  */
 
 #include <stdio.h>
@@ -29,8 +29,7 @@
 
 #define BUFFER_SIZE 16
 #define UART_BAUDRATE 115200
-#define N_UART 3
-
+#define N_USART 4
 
 #define PLIC_BASE 0x0C000000
 #define PLIC_CHECK PLIC_BASE + 0x201004
@@ -48,31 +47,26 @@
 //#define FPGA_EMULATION
 //#define SIMPLE_PAD
 
-
-int uart_read_nb(int uart_id, void *buffer, uint32_t size)
+int usart_read_nb(int usart_id, void *buffer, uint32_t size)
 {
-  int periph_id = ARCHI_UDMA_UART_ID(uart_id);
+  int periph_id = ARCHI_UDMA_USART_ID(usart_id);
   int channel = UDMA_CHANNEL_ID(periph_id);
 
   unsigned int base = hal_udma_channel_base(channel);
 
   plp_udma_enqueue(base, (int)buffer, size, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_8);
 
-  //uart_wait_rx_done(periph_id);
-
   return 0;
 }
 
-int uart_write_nb(int uart_id, void *buffer, uint32_t size)
+int usart_write_nb(int usart_id, void *buffer, uint32_t size)
 {
-  int periph_id = ARCHI_UDMA_UART_ID(uart_id);
+  int periph_id = ARCHI_UDMA_USART_ID(usart_id);
   int channel = UDMA_CHANNEL_ID(periph_id) + 1;
 
   unsigned int base = hal_udma_channel_base(channel);
 
   plp_udma_enqueue(base, (int)buffer, size, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_8);
-
-  //uart_wait_tx_done(periph_id);
 
   return 0;
 }
@@ -80,6 +74,7 @@ int uart_write_nb(int uart_id, void *buffer, uint32_t size)
 int main()
 {
   int error = 0;
+  int a, k, setup;
 
   //int tx_buffer[BUFFER_SIZE] = {'S','t','a','y',' ','a','t',' ','h','o','m','e','!','!','!','!'};
   int *tx_buffer= (int*) 0x1C001000;
@@ -87,8 +82,8 @@ int main()
   //int rx_buffer[BUFFER_SIZE];
   int *rx_buffer= (int*) 0x1C002000;
 
-  uint32_t tx_uart_plic_id ;
-  uint32_t rx_uart_plic_id ; 
+  uint32_t tx_usart_plic_id ;
+  uint32_t rx_usart_plic_id ; 
 
   #ifdef FPGA_EMULATION
   int baud_rate = 115200;
@@ -101,28 +96,38 @@ int main()
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
   #ifdef FPGA_EMULATION
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set( 2 ); //tx
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 2 ); //rx
+    //TODO
   #else
     #ifdef SIMPLE_PAD
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set( 2 ); //tx
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 2 ); //rx
+      //TODO
     #else
-      // UART0
-      alsaqr_periph_padframe_periphs_a_24_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_25_mux_set( 1 );
+      // USART0
+      alsaqr_periph_padframe_periphs_a_28_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_29_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_30_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_31_mux_set( 1 );
 
-      // UART1
-      alsaqr_periph_padframe_periphs_a_59_mux_set( 2 );
-      alsaqr_periph_padframe_periphs_a_60_mux_set( 2 );
+      // USART1
+      alsaqr_periph_padframe_periphs_a_61_mux_set( 2 );
+      alsaqr_periph_padframe_periphs_a_62_mux_set( 2 );
+      alsaqr_periph_padframe_periphs_a_63_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_64_mux_set( 1 );
 
-      // UART2
-      alsaqr_periph_padframe_periphs_a_65_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_66_mux_set( 1 );
+      // USART2
+      alsaqr_periph_padframe_periphs_a_69_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_70_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_71_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_72_mux_set( 1 );
+
+      // USART3
+      alsaqr_periph_padframe_periphs_a_73_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_74_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_75_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_76_mux_set( 1 );
     #endif    
   #endif 
 
-  printf("uart start\n");
+  printf("USART start...\n\r");
   uart_wait_tx_done();
 
   tx_buffer[0]= 'S';
@@ -142,66 +147,105 @@ int main()
   tx_buffer[14]= '!';
   tx_buffer[15]= '!';
 
-  for (int u = 0; u < N_UART; ++u)
+  for (int u = 0; u < N_USART; ++u)
   {
+    printf("USART_%0d[control flow OFF] test started...\n\r", u);
     for (int j = 0; j < BUFFER_SIZE; ++j)
     {
       rx_buffer[j] = 0;
     }
 
-    rx_uart_plic_id = ARCHI_UDMA_UART_ID(u)*4 +16 ; //24
-    tx_uart_plic_id = ARCHI_UDMA_UART_ID(u)*4 +16 +1; //25
+    rx_usart_plic_id = ARCHI_UDMA_USART_ID(u)*4 +16 ;
+    tx_usart_plic_id = ARCHI_UDMA_USART_ID(u)*4 +16 +1;
 
     //printf("[%d, %d] Start test uart %d\n",  get_cluster_id(), get_core_id(), u);
-    udma_uart_open(u,test_freq,UART_BAUDRATE);
+    udma_usart_open(u,test_freq,UART_BAUDRATE);
 
     for (int i = 0; i < BUFFER_SIZE; ++i)
     {
-      uart_write_nb(u,tx_buffer + i,1); //--- non blocking write
+      usart_write_nb(u,tx_buffer + i,1); //--- non blocking write
       
       //set tx interrupt
-      pulp_write32(PLIC_BASE+tx_uart_plic_id*4, 1); // set rx interrupt priority to 1
+      pulp_write32(PLIC_BASE+tx_usart_plic_id*4, 1); // set rx interrupt priority to 1
 
       //enable interrupt
-      pulp_write32(PLIC_EN_BITS+(((int)(tx_uart_plic_id/32))*4), 1<<(tx_uart_plic_id%32)); //enable interrupt
+      pulp_write32(PLIC_EN_BITS+(((int)(tx_usart_plic_id/32))*4), 1<<(tx_usart_plic_id%32)); //enable interrupt
 
       //  wfi until reading the rx id from the PLIC
-      while(pulp_read32(PLIC_CHECK)!=tx_uart_plic_id) {
+      while(pulp_read32(PLIC_CHECK)!=tx_usart_plic_id) {
         asm volatile ("wfi");
       }
 
       //Set completed Interrupt
-      pulp_write32(PLIC_CHECK,tx_uart_plic_id);
+      pulp_write32(PLIC_CHECK,tx_usart_plic_id);
 
       //printf("TX Interrupt received\n\r");
 
-      udma_uart_read(u,rx_buffer + i,1);     //--- blocking read
+      udma_usart_read(u,rx_buffer + i,1);     //--- blocking read
 
       //set rx interrupt
-      pulp_write32(PLIC_BASE+rx_uart_plic_id*4, 1); // set rx interrupt priority to 1
+      pulp_write32(PLIC_BASE+rx_usart_plic_id*4, 1); // set rx interrupt priority to 1
 
       //enable interrupt
-      pulp_write32(PLIC_EN_BITS+(((int)(rx_uart_plic_id/32))*4), 1<<(rx_uart_plic_id%32)); //enable interrupt
+      pulp_write32(PLIC_EN_BITS+(((int)(rx_usart_plic_id/32))*4), 1<<(rx_usart_plic_id%32)); //enable interrupt
 
       //  wfi until reading the rx id from the PLIC
-      while(pulp_read32(PLIC_CHECK)!=rx_uart_plic_id) {
+      while(pulp_read32(PLIC_CHECK)!=rx_usart_plic_id) {
         asm volatile ("wfi");
       }
 
       //Set completed Interrupt
-      pulp_write32(PLIC_CHECK,rx_uart_plic_id);
+      pulp_write32(PLIC_CHECK,rx_usart_plic_id);
 
       //printf("RX Interrupt received\n\r");
       
       if (tx_buffer[i] == rx_buffer[i])
       {
-        printf("UART_%0d PASS: tx %c, rx %c\n\r", u, tx_buffer[i],rx_buffer[i]);
+        printf("USART_%0d[control flow OFF] PASS: tx %c, rx %c\n\r", u, tx_buffer[i],rx_buffer[i]);
       }else{
-        printf("UART_%0d FAIL: tx %c, rx %c\n\r", u, tx_buffer[i],rx_buffer[i]);
+        printf("USART_%0d[control flow OFF] FAIL: tx %c, rx %c\n\r", u, tx_buffer[i],rx_buffer[i]);
         error++;
       }
     }
-    udma_uart_close(u);
+
+    printf("USART_%0d[control flow ON] test started...\n\r", u);
+    for (int j = 0; j < BUFFER_SIZE; ++j)
+    {
+      rx_buffer[j] = 0;
+    }
+
+    a = k = 0;
+
+    //enable control flow inside uart peripheral
+    setup = pulp_read32(ARCHI_UDMA_ADDR + UDMA_USART_OFFSET(u) + UDMA_CHANNEL_CUSTOM_OFFSET + UART_SETUP_OFFSET);
+    setup |= 0x00C0;
+    pulp_write32(ARCHI_UDMA_ADDR + UDMA_USART_OFFSET(u) + UDMA_CHANNEL_CUSTOM_OFFSET + UART_SETUP_OFFSET, setup);
+
+    while(a < BUFFER_SIZE){
+      if(pulp_read32(ARCHI_UDMA_ADDR + UDMA_USART_OFFSET(u) + UDMA_CHANNEL_CUSTOM_OFFSET + UART_STATUS_OFFSET) & 0x0004){
+        udma_usart_read(u,rx_buffer + k,1);   //--- blocking read
+        k++;
+      }else{
+        udma_usart_write(u,tx_buffer + a,1);  //--- blocking write
+        a++;
+      }
+    }
+
+    while(k < BUFFER_SIZE){
+      udma_usart_read(u,rx_buffer + k,1);   //--- blocking read
+      k++;
+    }
+
+    for(int i = 0; i < BUFFER_SIZE; ++i){
+      if (tx_buffer[i] == rx_buffer[i]){
+        printf("USART_%0d[control flow ON] PASS: tx %c, rx %c\n\r", u, tx_buffer[i],rx_buffer[i]);
+      }else{
+        printf("USART_%0d[control flow ON] FAIL: tx %c, rx %c\n\r", u, tx_buffer[i],rx_buffer[i]);
+        error++;
+      }
+    }
+
+    udma_usart_close(u);
   }
 
   if (error==0)

@@ -66,7 +66,7 @@
 
 #define CLOCK_DIV 2
 
-#define N_SPI 11
+#define N_QSPI 1
 
 #define BUFFER_SIZE 16
 
@@ -77,7 +77,7 @@
 //enable bits for sources 0-31
 #define PLIC_EN_BITS  PLIC_BASE + 0x2080
 
-#define USE_PLIC 1
+#define USE_PLIC 0
 /*TEST PLIC OK*/
 
 int pad_fun_offset[4] = {REG_PADFUN0_OFFSET,REG_PADFUN1_OFFSET,REG_PADFUN2_OFFSET,REG_PADFUN3_OFFSET};
@@ -130,17 +130,15 @@ int main(){
   int *sr1= (int*) 0x1C00A000;
   int *tx_buffer_cmd_erase= (int*) 0x1C00B000;
 
-  
   int *rems_resp= (int*) 0x1C00C000;
 
-
-  int error[N_SPI];
+  int error[N_QSPI];
   int temp=0;
 
-  uint32_t tx_spi_plic_id ;
-  uint32_t rx_spi_plic_id ; 
-  uint32_t cmd_spi_plic_id ; 
-  uint32_t eot_spi_plic_id ; 
+  uint32_t tx_qspi_plic_id ;
+  uint32_t rx_qspi_plic_id ; 
+  uint32_t cmd_qspi_plic_id ; 
+  uint32_t eot_qspi_plic_id ; 
 
   #ifdef FPGA_EMULATION
   int baud_rate = 115200;
@@ -156,11 +154,11 @@ int main(){
   //--- https://www.cypress.com/file/216421/download
 
   #ifdef PRINTF_ON
-    printf ("Start test SPI...\n\r");
+    printf ("Start test QSPI...\n\r");
     uart_wait_tx_done();
   #endif  
 
-  for(int i=0; i<N_SPI;i++){
+  for(int i=0; i<N_QSPI;i++){
     error[i]=0;
   }
 
@@ -197,13 +195,11 @@ int main(){
   tx_buffer_cmd_program[7]= SPI_CMD_TX_DATA(TEST_PAGE_SIZE,TEST_PAGE_SIZE,8,0,0);
   tx_buffer_cmd_program[8]= SPI_CMD_EOT(0,0);
 
-
   #ifdef PRINTF_ON
     printf ("Reset addr_buffer...\n\r");
     uart_wait_tx_done();
     
   #endif 
-  
 
   //reading address
   for (int i=0; i <4; i++){
@@ -215,14 +211,13 @@ int main(){
     uart_wait_tx_done();     
   #endif 
 
-  // Command sequence to read from SPI flash
+  // Command sequence to read from QSPI flash
   tx_buffer_cmd_read[0]= SPI_CMD_CFG(CLOCK_DIV,0,0);
   tx_buffer_cmd_read[1]= SPI_CMD_SOT(0);
   tx_buffer_cmd_read[2]= SPI_CMD_SEND_CMD(0x13,8,0); //--- read command
   tx_buffer_cmd_read[3]= SPI_CMD_TX_DATA(4,4,8,0,0); //SPI_CMD_TX_DATA(4,0,8,0,0); //--- send the read address
   tx_buffer_cmd_read[4]= SPI_CMD_RX_DATA(TEST_PAGE_SIZE,TEST_PAGE_SIZE,8,0,0); //SPI_CMD_RX_DATA(TEST_PAGE_SIZE,0,8,0,0); //
   tx_buffer_cmd_read[5]= SPI_CMD_EOT(0,0);
-
 
   #ifdef PRINTF_ON
     printf ("Write tx_buffer_cmd_read_WIP...\n\r");
@@ -236,129 +231,61 @@ int main(){
   tx_buffer_cmd_read_WIP[3]= SPI_CMD_RX_DATA(1,0,8,0,0);//SPI_CMD_RX_DATA(1,TEST_PAGE_SIZE,8,0,0); 
   tx_buffer_cmd_read_WIP[4]= SPI_CMD_EOT(0,0);
 
-
   #ifdef PRINTF_ON
     printf ("Write tx_buffer_cmd_read_ID...\n\r");
     uart_wait_tx_done();      
   #endif 
 
-  
   // Read ID command from FLASH
   tx_buffer_cmd_read_ID[0]= SPI_CMD_CFG(CLOCK_DIV,0,0);
   tx_buffer_cmd_read_ID[1]= SPI_CMD_SOT(0);
   tx_buffer_cmd_read_ID[2]= SPI_CMD_SEND_CMD(0x9F,8,0); // read command
   tx_buffer_cmd_read_ID[3]= SPI_CMD_RX_DATA(6,0,8,0,0);
   tx_buffer_cmd_read_ID[4]= SPI_CMD_EOT(0,0);
-  
 
   #ifdef PRINTF_ON
     printf ("Write tx_buffer_cmd_erase...\n\r");
     uart_wait_tx_done();     
   #endif 
 
-  tx_buffer_cmd_erase[0] =SPI_CMD_CFG(CLOCK_DIV,0,0);
+  tx_buffer_cmd_erase[0] = SPI_CMD_CFG(CLOCK_DIV,0,0);
   tx_buffer_cmd_erase[1] = SPI_CMD_SOT(0);
-  tx_buffer_cmd_erase[2] =SPI_CMD_SEND_CMD(0x06,8,0);
-  tx_buffer_cmd_erase[3] =SPI_CMD_EOT(0,0);
-  tx_buffer_cmd_erase[4] =SPI_CMD_SOT(0);
-  tx_buffer_cmd_erase[5] =SPI_CMD_SEND_CMD(0x60,8,0);
-  tx_buffer_cmd_erase[6] =SPI_CMD_EOT(0,0);
+  tx_buffer_cmd_erase[2] = SPI_CMD_SEND_CMD(0x06,8,0);
+  tx_buffer_cmd_erase[3] = SPI_CMD_EOT(0,0);
+  tx_buffer_cmd_erase[4] = SPI_CMD_SOT(0);
+  tx_buffer_cmd_erase[5] = SPI_CMD_SEND_CMD(0x60,8,0);
+  tx_buffer_cmd_erase[6] = SPI_CMD_EOT(0,0);
 
   #ifdef PRINTF_ON
     printf ("Setup padframe...\n\r");
     uart_wait_tx_done();    
   #endif  
 
-  for (int u = 0; u<N_SPI; u++){
+  for (int u = 0; u<N_QSPI; u++){
 
     #ifdef FPGA_EMULATION
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 2 ); //TODO adapt to the new padframe
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set( 2 ); //TODO adapt to the new padframe
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set( 2 ); //TODO adapt to the new padframe
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set( 2 ); //TODO adapt to the new padframe
+      //TODO
     #else
       #ifdef SIMPLE_PAD
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 2 ); //TODO adapt to the new padframe
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set( 2 ); //TODO adapt to the new padframe
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set( 2 ); //TODO adapt to the new padframe
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set( 2 ); //TODO adapt to the new padframe
+        //TODO
       #else
         switch(u){
           case 0:
-            alsaqr_periph_padframe_periphs_a_02_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_03_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_04_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_05_mux_set( 1 );
-            break;
-          case 1:
-            alsaqr_periph_padframe_periphs_a_06_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_07_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_08_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_09_mux_set( 1 );
-            break;
-          case 2:
-            alsaqr_periph_padframe_periphs_a_10_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_11_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_12_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_13_mux_set( 1 );
-            break;
-          case 3:
-            alsaqr_periph_padframe_periphs_a_14_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_15_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_16_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_17_mux_set( 1 );
-            break;
-          case 4:
-            alsaqr_periph_padframe_periphs_a_32_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_33_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_34_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_35_mux_set( 1 );
-            break;
-          case 5:
-            alsaqr_periph_padframe_periphs_a_44_mux_set( 2 );
-            alsaqr_periph_padframe_periphs_a_45_mux_set( 2 );
-            alsaqr_periph_padframe_periphs_a_46_mux_set( 2 );
-            alsaqr_periph_padframe_periphs_a_47_mux_set( 2 );
-            break;
-          case 6:
-            alsaqr_periph_padframe_periphs_a_48_mux_set( 2 );
-            alsaqr_periph_padframe_periphs_a_49_mux_set( 2 );
-            alsaqr_periph_padframe_periphs_a_50_mux_set( 2 );
-            alsaqr_periph_padframe_periphs_a_51_mux_set( 2 );
-            break;
-          case 7:
-            alsaqr_periph_padframe_periphs_a_52_mux_set( 2 );
-            alsaqr_periph_padframe_periphs_a_53_mux_set( 2 );
-            alsaqr_periph_padframe_periphs_a_54_mux_set( 2 );
-            alsaqr_periph_padframe_periphs_a_55_mux_set( 2 ); /*CS0*/
-            //alsaqr_periph_padframe_periphs_a_56_mux_set( 2 ); /*CS1*/
-            break;
-          case 8:
-            alsaqr_periph_padframe_periphs_a_81_mux_set( 2 );
-            alsaqr_periph_padframe_periphs_a_82_mux_set( 2 );
-            alsaqr_periph_padframe_periphs_a_83_mux_set( 2 );
-            alsaqr_periph_padframe_periphs_a_84_mux_set( 2 );
-            break;
-          case 9:
-            alsaqr_periph_padframe_periphs_a_85_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_86_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_87_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_88_mux_set( 1 );
-            break;
-          case 10:
-            alsaqr_periph_padframe_periphs_a_89_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_90_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_91_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_92_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_linux_qspi_00_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_linux_qspi_01_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_linux_qspi_02_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_linux_qspi_03_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_linux_qspi_04_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_linux_qspi_05_mux_set( 1 );
             break;
         }
       #endif    
     #endif 
 
-    rx_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +16 ; //32
-    tx_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +16 +1; //33
-    cmd_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +16 +2; //34
-    eot_spi_plic_id = ARCHI_UDMA_SPIM_ID(u)*4 +16 +3; //35
+    rx_qspi_plic_id = ARCHI_UDMA_QSPIM_ID(u)*4 +16 ;
+    tx_qspi_plic_id = ARCHI_UDMA_QSPIM_ID(u)*4 +16 +1;
+    cmd_qspi_plic_id = ARCHI_UDMA_QSPIM_ID(u)*4 +16 +2;
+    eot_qspi_plic_id = ARCHI_UDMA_QSPIM_ID(u)*4 +16 +3;
 
     printf("[%d, %d] Start test flash page programming over qspi %d\n",  0, 0,u);
 
@@ -374,9 +301,9 @@ int main(){
       uart_wait_tx_done();    
     #endif 
 
-    //--- get the base address of the SPIMx udma channels
-    //unsigned int udma_spim_channel_base = hal_udma_channel_base(UDMA_CHANNEL_ID(ARCHI_UDMA_SPIM_ID(u)));
-    //printf("uDMA spim%d base channel address %8x\n", u,udma_spim_channel_base);
+    //--- get the base address of the QSPIMx udma channels
+    //unsigned int udma_qspim_channel_base = hal_udma_channel_base(UDMA_CHANNEL_ID(ARCHI_UDMA_QSPIM_ID(u)));
+    //printf("uDMA qspim%d base channel address %8x\n", u,udma_qspim_channel_base);
     //barrier();
 
     //--- check flash ID for debugging (refer to the manual)
@@ -387,52 +314,51 @@ int main(){
     }
 
     #ifdef PRINTF_ON
-      printf ("Enqueue UDMA_SPIM_RX_ADDR...\n\r");
+      printf ("Enqueue UDMA_QSPIM_RX_ADDR...\n\r");
       uart_wait_tx_done();
     #endif 
-
     
-    plp_udma_enqueue(UDMA_SPIM_RX_ADDR(u) ,  (unsigned int)rems_resp, 6*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
+    plp_udma_enqueue(UDMA_QSPIM_RX_ADDR(u) ,  (unsigned int)rems_resp, 6*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
     barrier();
 
     #ifdef PRINTF_ON
-      printf ("Enqueue UDMA_SPIM_CMD_ADDR with tx_buffer_cmd_read_ID...\n\r");
+      printf ("Enqueue UDMA_QSPIM_CMD_ADDR with tx_buffer_cmd_read_ID...\n\r");
       uart_wait_tx_done();    
     #endif 
     
-    plp_udma_enqueue(UDMA_SPIM_CMD_ADDR(u),  (int)tx_buffer_cmd_read_ID, 5*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
-    //--- polling to check if the transfer is completed (when the "SADDR" register of the SPI channel is equal to 0)
+    plp_udma_enqueue(UDMA_QSPIM_CMD_ADDR(u),  (int)tx_buffer_cmd_read_ID, 5*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
+    //--- polling to check if the transfer is completed (when the "SADDR" register of the QSPI channel is equal to 0)
     
     if (USE_PLIC==0){
       do {
           #ifdef PRINTF_ON
-            printf ("Polling on UDMA_SPIM_RX_ADDR until != 0...\n\r");
+            printf ("Polling on UDMA_QSPIM_RX_ADDR until != 0...\n\r");
             uart_wait_tx_done();
           #endif 
           
-          poll_var = pulp_read32(UDMA_CHANNEL_SIZE_OFFSET + UDMA_SPIM_RX_ADDR(u));
+          poll_var = pulp_read32(UDMA_CHANNEL_SIZE_OFFSET + UDMA_QSPIM_RX_ADDR(u));
           barrier();
 
         } while(poll_var != 0);
 
     }else {
       #ifdef PRINTF_ON
-        printf ("Set interrupt on rx_spi_plic_id...\n\r");
+        printf ("Set interrupt on rx_qspi_plic_id...\n\r");
         uart_wait_tx_done();    
       #endif 
       
       //Set RX interrupt
-      pulp_write32(PLIC_BASE+rx_spi_plic_id*4, 1); // set rx interrupt priority to 1
+      pulp_write32(PLIC_BASE+rx_qspi_plic_id*4, 1); // set rx interrupt priority to 1
       
       #ifdef PRINTF_ON
-        printf ("Enable interrupt on rx_spi_plic_id...\n\r");
+        printf ("Enable interrupt on rx_qspi_plic_id...\n\r");
         uart_wait_tx_done();
       #endif 
       
-      pulp_write32(PLIC_EN_BITS+(((int)(rx_spi_plic_id/32))*4), 1<<(rx_spi_plic_id%32)); //enable interrupt
+      pulp_write32(PLIC_EN_BITS+(((int)(rx_qspi_plic_id/32))*4), 1<<(rx_qspi_plic_id%32)); //enable interrupt
 
       //  wfi until reading the rx id from the PLIC
-      while(pulp_read32(PLIC_CHECK)!=rx_spi_plic_id) {
+      while(pulp_read32(PLIC_CHECK)!=rx_qspi_plic_id) {
         asm volatile ("wfi");
       }
 
@@ -442,7 +368,7 @@ int main(){
       #endif 
 
       //Set completed Interrupt
-      pulp_write32(PLIC_CHECK,rx_spi_plic_id);
+      pulp_write32(PLIC_CHECK,rx_qspi_plic_id);
     }
 
     #ifdef FPGA_EMULATION {
@@ -452,7 +378,7 @@ int main(){
         uart_wait_tx_done();
       #endif 
 
-      plp_udma_enqueue(UDMA_SPIM_CMD_ADDR(u),  (int)tx_buffer_cmd_erase , 28, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
+      plp_udma_enqueue(UDMA_QSPIM_CMD_ADDR(u),  (int)tx_buffer_cmd_erase , 28, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
 
       temp=0;
       pulp_write32(sr1,0);
@@ -462,47 +388,44 @@ int main(){
         uart_wait_tx_done();
       #endif 
       
-
       do {
-
         #ifdef PRINTF_ON
-          printf ("Enqueue UDMA_SPIM_RX_ADDR with sr1...\n\r");
+          printf ("Enqueue UDMA_QSPIM_RX_ADDR with sr1...\n\r");
           uart_wait_tx_done();
         #endif 
         
-        
-        plp_udma_enqueue(UDMA_SPIM_RX_ADDR(u) ,  (unsigned int)sr1, 1*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
+        plp_udma_enqueue(UDMA_QSPIM_RX_ADDR(u) ,  (unsigned int)sr1, 1*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
         barrier();
-        //printf ("Enqueue UDMA_SPIM_CMD_ADDR with tx_buffer_cmd_read_WIP...\n\r");
+        //printf ("Enqueue UDMA_QSPIM_CMD_ADDR with tx_buffer_cmd_read_WIP...\n\r");
         //uart_wait_tx_done();
-        plp_udma_enqueue(UDMA_SPIM_CMD_ADDR(u),  (int)tx_buffer_cmd_read_WIP, 5*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
+        plp_udma_enqueue(UDMA_QSPIM_CMD_ADDR(u),  (int)tx_buffer_cmd_read_WIP, 5*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
         barrier();
           
         if (USE_PLIC==0){
-          //--- polling to check if the transfer is completed (when the "SADDR" register of the SPI channel is equal to 0)
+          //--- polling to check if the transfer is completed (when the "SADDR" register of the QSPI channel is equal to 0)
           do {
-            //printf ("Polling on UDMA_SPIM_RX_ADDR until != 0...\n\r");
+            //printf ("Polling on UDMA_QSPIM_RX_ADDR until != 0...\n\r");
             uart_wait_tx_done();
-            poll_var = pulp_read32(UDMA_CHANNEL_SIZE_OFFSET + UDMA_SPIM_RX_ADDR(u));
+            poll_var = pulp_read32(UDMA_CHANNEL_SIZE_OFFSET + UDMA_QSPIM_RX_ADDR(u));
             barrier();
           } while(poll_var != 0);
         }else {
-          //printf ("Set interrupt on rx_spi_plic_id...\n\r");
+          //printf ("Set interrupt on rx_qspi_plic_id...\n\r");
           uart_wait_tx_done();
           //Set RX interrupt
-          pulp_write32(PLIC_BASE+rx_spi_plic_id*4, 1); // set tx interrupt priority to 1
-          //printf ("Enable interrupt on rx_spi_plic_id...\n\r");
+          pulp_write32(PLIC_BASE+rx_qspi_plic_id*4, 1); // set tx interrupt priority to 1
+          //printf ("Enable interrupt on rx_qspi_plic_id...\n\r");
           uart_wait_tx_done();
-          pulp_write32(PLIC_EN_BITS+(((int)(rx_spi_plic_id/32))*4), 1<<(rx_spi_plic_id%32)); //enable interrupt
+          pulp_write32(PLIC_EN_BITS+(((int)(rx_qspi_plic_id/32))*4), 1<<(rx_qspi_plic_id%32)); //enable interrupt
 
           //  wfi until reading the EOT id from the PLIC
-          while(pulp_read32(PLIC_CHECK)!=rx_spi_plic_id) {
+          while(pulp_read32(PLIC_CHECK)!=rx_qspi_plic_id) {
             asm volatile ("wfi");
           }
           //printf ("Interrupt received and clear...\n\r");
           uart_wait_tx_done();
           //Set completed Interrupt
-          pulp_write32(PLIC_CHECK,rx_spi_plic_id);
+          pulp_write32(PLIC_CHECK,rx_qspi_plic_id);
         }
 
         //printf ("Check WIP on Sr1\n\r");
@@ -515,26 +438,24 @@ int main(){
 
     #endif
 
-
     #ifdef PRINTF_ON
       printf ("WRITING MEMORY PAGE ON THE FLASH...\n\r");
       uart_wait_tx_done(); 
 
-      printf ("Enqueue UDMA_SPIM_TX_ADDR...\n\r");
+      printf ("Enqueue UDMA_QSPIM_TX_ADDR...\n\r");
       uart_wait_tx_done();      
     #endif
 
-    
     //Write the Flash page
-    plp_udma_enqueue(UDMA_SPIM_TX_ADDR(u) ,  (int)memory_page          ,TEST_PAGE_SIZE*4 + 4*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
+    plp_udma_enqueue(UDMA_QSPIM_TX_ADDR(u) ,  (int)memory_page          ,TEST_PAGE_SIZE*4 + 4*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
     barrier();
 
     #ifdef PRINTF_ON
-      printf ("Enqueue UDMA_SPIM_CMD_ADDR with tx_buffer_cmd_program...\n\r");
+      printf ("Enqueue UDMA_QSPIM_CMD_ADDR with tx_buffer_cmd_program...\n\r");
       uart_wait_tx_done();
     #endif
        
-    plp_udma_enqueue(UDMA_SPIM_CMD_ADDR(u),  (int)tx_buffer_cmd_program , 9*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
+    plp_udma_enqueue(UDMA_QSPIM_CMD_ADDR(u),  (int)tx_buffer_cmd_program , 9*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
     barrier();
       
     temp=0;
@@ -546,53 +467,51 @@ int main(){
     #endif
 
     #ifdef PRINTF_ON
-        printf ("Enqueue UDMA_SPIM_RX_ADDR with sr1...\n\r");
+        printf ("Enqueue UDMA_QSPIM_RX_ADDR with sr1...\n\r");
         uart_wait_tx_done();    
     #endif  
     do {    
-      
-      plp_udma_enqueue(UDMA_SPIM_RX_ADDR(u) ,  (unsigned int)sr1, 1*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
+      plp_udma_enqueue(UDMA_QSPIM_RX_ADDR(u) ,  (unsigned int)sr1, 1*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
       barrier();
 
       #ifdef PRINTF_ON
-        printf ("Enqueue UDMA_SPIM_CMD_ADDR with tx_buffer_cmd_read_WIP...\n\r");
+        printf ("Enqueue UDMA_QSPIM_CMD_ADDR with tx_buffer_cmd_read_WIP...\n\r");
         uart_wait_tx_done();    
       #endif      
       
-      plp_udma_enqueue(UDMA_SPIM_CMD_ADDR(u),  (int)tx_buffer_cmd_read_WIP, 5*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
+      plp_udma_enqueue(UDMA_QSPIM_CMD_ADDR(u),  (int)tx_buffer_cmd_read_WIP, 5*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
       barrier();
         
       if (USE_PLIC==0){
-        //--- polling to check if the transfer is completed (when the "SADDR" register of the SPI channel is equal to 0)
+        //--- polling to check if the transfer is completed (when the "SADDR" register of the QSPI channel is equal to 0)
         do {
-
           #ifdef PRINTF_ON
-            printf ("Polling on UDMA_SPIM_RX_ADDR until != 0...\n\r");
+            printf ("Polling on UDMA_QSPIM_RX_ADDR until != 0...\n\r");
             uart_wait_tx_done();
           #endif
 
-          poll_var = pulp_read32(UDMA_CHANNEL_SIZE_OFFSET + UDMA_SPIM_RX_ADDR(u));
+          poll_var = pulp_read32(UDMA_CHANNEL_SIZE_OFFSET + UDMA_QSPIM_RX_ADDR(u));
           barrier();
         } while(poll_var != 0);
       }else {
 
         #ifdef PRINTF_ON
-          printf ("Set interrupt on rx_spi_plic_id...\n\r");
+          printf ("Set interrupt on rx_qspi_plic_id...\n\r");
           uart_wait_tx_done();
         #endif
   
         //Set RX interrupt
-        pulp_write32(PLIC_BASE+rx_spi_plic_id*4, 1); // set tx interrupt priority to 1
+        pulp_write32(PLIC_BASE+rx_qspi_plic_id*4, 1); // set tx interrupt priority to 1
 
         #ifdef PRINTF_ON
-          printf ("Enable interrupt on rx_spi_plic_id...\n\r");
+          printf ("Enable interrupt on rx_qspi_plic_id...\n\r");
           uart_wait_tx_done();  
         #endif
         
-        pulp_write32(PLIC_EN_BITS+(((int)(rx_spi_plic_id/32))*4), 1<<(rx_spi_plic_id%32)); //enable interrupt
+        pulp_write32(PLIC_EN_BITS+(((int)(rx_qspi_plic_id/32))*4), 1<<(rx_qspi_plic_id%32)); //enable interrupt
 
         //  wfi until reading the EOT id from the PLIC
-        while(pulp_read32(PLIC_CHECK)!=rx_spi_plic_id) {
+        while(pulp_read32(PLIC_CHECK)!=rx_qspi_plic_id) {
           asm volatile ("wfi");
         }
 
@@ -602,7 +521,7 @@ int main(){
         #endif
 
         //Set completed Interrupt
-        pulp_write32(PLIC_CHECK,rx_spi_plic_id);
+        pulp_write32(PLIC_CHECK,rx_qspi_plic_id);
       }
 
       #ifdef PRINTF_ON
@@ -621,61 +540,60 @@ int main(){
       printf ("READING BACK MEMORY PAGE FROM THE FLASH...\n\r");
       uart_wait_tx_done(); 
 
-      printf ("Enqueue UDMA_SPIM_RX_ADDR with rx_page...\n\r");
+      printf ("Enqueue UDMA_QSPIM_RX_ADDR with rx_page...\n\r");
       uart_wait_tx_done(); 
     #endif
     
     // Read back data
-    plp_udma_enqueue(UDMA_SPIM_RX_ADDR(u) ,  (int)rx_page     , TEST_PAGE_SIZE*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
+    plp_udma_enqueue(UDMA_QSPIM_RX_ADDR(u) ,  (int)rx_page     , TEST_PAGE_SIZE*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
     barrier();
 
     #ifdef PRINTF_ON
-      printf ("Enqueue UDMA_SPIM_TX_ADDR with addr_buffer...\n\r");
+      printf ("Enqueue UDMA_QSPIM_TX_ADDR with addr_buffer...\n\r");
       uart_wait_tx_done();
     #endif
 
-    plp_udma_enqueue(UDMA_SPIM_TX_ADDR(u) ,  (int)addr_buffer    , 4*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
+    plp_udma_enqueue(UDMA_QSPIM_TX_ADDR(u) ,  (int)addr_buffer    , 4*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
     barrier();
 
     #ifdef PRINTF_ON
-      printf ("Enqueue UDMA_SPIM_CMD_ADDR with tx_buffer_cmd_read...\n\r");
+      printf ("Enqueue UDMA_QSPIM_CMD_ADDR with tx_buffer_cmd_read...\n\r");
       uart_wait_tx_done();      
     #endif
 
-    plp_udma_enqueue(UDMA_SPIM_CMD_ADDR(u),  (int)tx_buffer_cmd_read , 6*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
+    plp_udma_enqueue(UDMA_QSPIM_CMD_ADDR(u),  (int)tx_buffer_cmd_read , 6*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
     barrier();
 
-    // Polling to check if the transfer is completed (when the "SADDR" register of the SPI channel is equal to 0)
+    // Polling to check if the transfer is completed (when the "SADDR" register of the QSPI channel is equal to 0)
     if (USE_PLIC==0){
       do {
         #ifdef PRINTF_ON
-          printf ("Polling on UDMA_SPIM_RX_ADDR until != 0...\n\r");
+          printf ("Polling on UDMA_QSPIM_RX_ADDR until != 0...\n\r");
           uart_wait_tx_done(); 
         #endif
        
-        poll_var = pulp_read32(UDMA_CHANNEL_SIZE_OFFSET + UDMA_SPIM_RX_ADDR(u));
+        poll_var = pulp_read32(UDMA_CHANNEL_SIZE_OFFSET + UDMA_QSPIM_RX_ADDR(u));
         barrier();
       } while(poll_var != 0);
     }else{
 
       #ifdef PRINTF_ON
-        printf ("Set interrupt on rx_spi_plic_id...\n\r");
+        printf ("Set interrupt on rx_qspi_plic_id...\n\r");
         uart_wait_tx_done();    
       #endif
 
-
       //Set RX interrupt
-      pulp_write32(PLIC_BASE+rx_spi_plic_id*4, 1); // set rx interrupt priority to 1
+      pulp_write32(PLIC_BASE+rx_qspi_plic_id*4, 1); // set rx interrupt priority to 1
       
       #ifdef PRINTF_ON
-        printf ("Enable interrupt on rx_spi_plic_id...\n\r");
+        printf ("Enable interrupt on rx_qspi_plic_id...\n\r");
         uart_wait_tx_done();
       #endif
 
-      pulp_write32(PLIC_EN_BITS+(((int)(rx_spi_plic_id/32))*4), 1<<(rx_spi_plic_id%32)); //enable interrupt
+      pulp_write32(PLIC_EN_BITS+(((int)(rx_qspi_plic_id/32))*4), 1<<(rx_qspi_plic_id%32)); //enable interrupt
 
       //  wfi until reading the rx id from the PLIC
-      while(pulp_read32(PLIC_CHECK)!=rx_spi_plic_id) {
+      while(pulp_read32(PLIC_CHECK)!=rx_qspi_plic_id) {
         asm volatile ("wfi");
       }
 
@@ -685,7 +603,7 @@ int main(){
       #endif
      
       //Set completed Interrupt
-      pulp_write32(PLIC_CHECK,rx_spi_plic_id);
+      pulp_write32(PLIC_CHECK,rx_qspi_plic_id);
     }
 
     barrier();
@@ -694,7 +612,6 @@ int main(){
       uart_wait_tx_done();
     #endif
 
-    
     for (int i = 0; i < TEST_PAGE_SIZE; ++i){
       //printf("Index %d: read %8x, expected %8x \n\r",i,rx_page[i],memory_page[i+4]);
       if (rx_page[i] != memory_page[i+4])
@@ -707,22 +624,22 @@ int main(){
     }
 
     if (error[u] == 0){
-      printf("Test SPI_%d PASSED\n",u);
+      printf("Test QSPI_%d PASSED\n",u);
     }else{
-      printf("Test SPI_%d FAILED with %d errors\n\r", u, error[u]);
+      printf("Test QSPI_%d FAILED with %d errors\n\r", u, error[u]);
     }
     uart_wait_tx_done();
   }
 
   temp=0;
-  for(int i=0; i<N_SPI; i++){
-     temp+=error[i];
+  for(int i=0; i<N_QSPI; i++){
+    temp+=error[i];
   }
   if (temp == 0){
-      printf("Test PASSED\n",u);
-    }else{
-      printf("Test FAILED with %d errors\n\r", temp);
-    }
+    printf("Test PASSED\n",u);
+  }else{
+    printf("Test FAILED with %d errors\n\r", temp);
+  }
     
   return temp;
 }

@@ -28,7 +28,7 @@
 #define BLOCK_SIZE 512
 #define BLOCK_COUNT 0x0
 
-//#define PRINTF_ON
+#define PRINTF_ON
 
 #define BLOCK_COUNT_MUL 2
 #define SDIO_QUAD_EN 1
@@ -423,7 +423,6 @@ int main(){
   
   int error = 0;
   int clk_div=0;
-  int u=0;
 
   uint32_t *tx_buffer= (uint32_t*) 0x1C001000;
   uint32_t *rx_buffer= (uint32_t*) 0x1C002000;   
@@ -452,36 +451,52 @@ int main(){
   int baud_rate = 115200;
   int test_freq = 100000000;
   #endif  
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
-
-
-
-  #ifdef FPGA_EMULATION
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_set( 2 );
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_set( 2 );
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_set( 2 );
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 2 );
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 2 );
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 2 );
-  #else
-    #ifdef SIMPLE_PAD
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_set( 2 );
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_set( 2 );
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_set( 2 );
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 2 );
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 2 );
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 2 );
-    #else
-      alsaqr_periph_padframe_periphs_pad_gpio_f_01_mux_set( 2 );
-      alsaqr_periph_padframe_periphs_pad_gpio_f_02_mux_set( 2 );
-      alsaqr_periph_padframe_periphs_pad_gpio_f_03_mux_set( 2 );
-      alsaqr_periph_padframe_periphs_pad_gpio_f_04_mux_set( 2 );
-      alsaqr_periph_padframe_periphs_pad_gpio_f_05_mux_set( 2 );
-      alsaqr_periph_padframe_periphs_pad_gpio_f_06_mux_set( 2 );
-    #endif 
-  #endif 
+  uart_set_cfg(0,(test_freq/baud_rate)>>4); 
     
-for (int u = N_SDIO-1; u<N_SDIO; u++){
+  for (int u = 0; u<N_SDIO; u++){
+
+    #ifdef PRINTF_ON
+      printf ("Testing SDIO_%0d...\n\r", u);
+    #endif
+
+    #ifdef FPGA_EMULATION
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_set( 2 ); //FIXME
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_set( 2 ); //FIXME
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_set( 2 ); //FIXME
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 2 ); //FIXME
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 2 ); //FIXME
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 2 ); //FIXME
+    #else
+      #ifdef SIMPLE_PAD
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_set( 2 ); //FIXME
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_set( 2 ); //FIXME
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_set( 2 ); //FIXME
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 2 ); //FIXME
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 2 ); //FIXME
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 2 ); //FIXME
+      #else
+        switch(u){
+          case 0:
+            //Config padframe on SPIO0
+            alsaqr_periph_padframe_periphs_a_18_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_a_19_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_a_20_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_a_21_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_a_22_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_a_23_mux_set( 1 );
+            break;
+          case 1:
+            //Config padframe on SPIO1
+            alsaqr_periph_padframe_periphs_a_58_mux_set( 2 );
+            alsaqr_periph_padframe_periphs_a_59_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_b_25_mux_set( 2 );
+            alsaqr_periph_padframe_periphs_a_60_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_a_61_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_a_62_mux_set( 1 );
+            break;
+        }
+      #endif 
+    #endif
 
     for(int i = 0; i < BLOCK_SIZE*2 ; i++) {
         tx_buffer[i] = i+349;
@@ -578,18 +593,17 @@ for (int u = N_SDIO-1; u<N_SDIO; u++){
       //uart_wait_tx_done();
         if(rx_buffer[i] != tx_buffer[i]){
           error++;
-          //printf ("[%d] TX: %x - RX: %x \n\r",i, tx_buffer[i], rx_buffer[i]);
+          printf ("SDIO_%0d: [%d] TX = %x - RX = %x \n\r", u, i, tx_buffer[i], rx_buffer[i]);
           //uart_wait_tx_done();
         }
     }
-
-    if(error!=0)
-      printf("Test single FAILED with %d \n\r", error);
-    else
-      printf("Test single SDIO PASSED\n\r");
-
-    uart_wait_tx_done();
+    
+    uart_wait_tx_done();  
   }
+  if(error!=0)
+    printf("Test FAILED with %d errors\n\r", error);
+  else
+    printf("Test PASSED\n\r");
 
   return error;
 }

@@ -24,6 +24,10 @@ build/
 *.out
 *.jou
 *.o
+*.riscv
+*.dump
+*.slm
+*.bin
 uart
 work-ver/*
 fpga/work-fpga
@@ -82,9 +86,10 @@ hardware/tb/vip/sdio/
 hardware/tb/vip/spi_master_padframe.sv
 hardware/tb/vip/src_files.yml
 hardware/tb/vip/uart_tb_rx.sv
-software/*/*.riscv
-software/*/*.dump
-software/*/*.slm
+hardware/bender
+hardware/work
+software/axi_tlb/cluster_code.h
+software/fpu_pulp/cluster_code.h
 fpga/src/bootrom/bootrom.bin
 fpga/src/bootrom/bootrom.coe
 fpga/src/bootrom/bootrom.elf

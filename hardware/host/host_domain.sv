@@ -106,8 +106,12 @@ module host_domain
   // TLB Config
   AXI_LITE.Master             c2h_tlb_cfg_lite_master,
   // SPIM
-  output                      qspi_to_pad_t [N_SPI-1:0] qspi_to_pad,
-  input                       pad_to_qspi_t [N_SPI-1:0] pad_to_qspi,
+  output                      qspi_to_pad_t [N_SPI-1:0] spi_to_pad,
+  input                       pad_to_qspi_t [N_SPI-1:0] pad_to_spi,
+
+  // QSPIM
+  output                      qspi_to_pad_t [N_QSPI-1:0] qspi_to_pad,
+  input                       pad_to_qspi_t [N_QSPI-1:0] pad_to_qspi,
 
   // I2C
   output                      i2c_to_pad_t [N_I2C-1:0] i2c_to_pad,
@@ -119,6 +123,10 @@ module host_domain
   // UART
   input                       pad_to_uart_t [N_UART-1:0] pad_to_uart,
   output                      uart_to_pad_t [N_UART-1:0] uart_to_pad,
+
+  // USART
+  input                       pad_to_usart_t [N_USART-1:0] pad_to_usart,
+  output                      usart_to_pad_t [N_USART-1:0] usart_to_pad,
 
   // SDIO
   output                      sdio_to_pad_t [N_SDIO-1:0] sdio_to_pad,
@@ -490,13 +498,17 @@ module host_domain
       .events_o               ( s_udma_events                  ),
       .can_irq_o              ( s_can_irq                      ),
 
+      .spi_to_pad             ( spi_to_pad                     ),
+      .pad_to_spi             ( pad_to_spi                     ),
       .qspi_to_pad            ( qspi_to_pad                    ),
       .pad_to_qspi            ( pad_to_qspi                    ),
       .i2c_to_pad             ( i2c_to_pad                     ),
       .pad_to_i2c             ( pad_to_i2c                     ),
   	  .pad_to_cam             ( pad_to_cam                     ),
-      .pad_to_uart            ( pad_to_uart                    ),
       .uart_to_pad            ( uart_to_pad                    ),
+      .pad_to_uart            ( pad_to_uart                    ),
+      .usart_to_pad           ( usart_to_pad                   ),
+      .pad_to_usart           ( pad_to_usart                   ),
       .sdio_to_pad            ( sdio_to_pad                    ),
       .pad_to_sdio            ( pad_to_sdio                    ),
       .pwm_to_pad             ( pwm_to_pad                     ),
