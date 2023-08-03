@@ -82,125 +82,183 @@ module al_saqr
   `endif
 
  `ifndef EXCLUDE_PADFRAME
-  inout wire logic    pad_periphs_pad_gpio_b_00_pad,
-  inout wire logic    pad_periphs_pad_gpio_b_01_pad,
-  inout wire logic    pad_periphs_pad_gpio_b_02_pad,
-  inout wire logic    pad_periphs_pad_gpio_b_03_pad,
-  inout wire logic    pad_periphs_pad_gpio_b_04_pad,
-  inout wire logic    pad_periphs_pad_gpio_b_05_pad,
-  inout wire logic    pad_periphs_pad_gpio_b_06_pad,
-  inout wire logic    pad_periphs_pad_gpio_b_07_pad,
-  inout wire logic    pad_periphs_pad_gpio_b_08_pad,
-  inout wire logic    pad_periphs_pad_gpio_b_09_pad,
-  inout wire logic    pad_periphs_pad_gpio_b_10_pad,
-  inout wire logic    pad_periphs_pad_gpio_b_11_pad,
-  inout wire logic    pad_periphs_pad_gpio_b_12_pad,
-  inout wire logic    pad_periphs_pad_gpio_b_13_pad,
+  inout wire logic    pad_periphs_a_00_pad,
+  inout wire logic    pad_periphs_a_01_pad,
+  inout wire logic    pad_periphs_a_02_pad,
+  inout wire logic    pad_periphs_a_03_pad,
+  inout wire logic    pad_periphs_a_04_pad,
+  inout wire logic    pad_periphs_a_05_pad,
+  inout wire logic    pad_periphs_a_06_pad,
+  inout wire logic    pad_periphs_a_07_pad,
+  inout wire logic    pad_periphs_a_08_pad,
+  inout wire logic    pad_periphs_a_09_pad,
+  inout wire logic    pad_periphs_a_10_pad,
+  inout wire logic    pad_periphs_a_11_pad,
+  inout wire logic    pad_periphs_a_12_pad,
+  inout wire logic    pad_periphs_a_13_pad,
 
   `ifndef FPGA_EMUL
     `ifndef SIMPLE_PADFRAME
-        inout wire logic    pad_periphs_pad_gpio_b_14_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_15_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_16_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_17_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_18_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_19_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_20_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_21_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_22_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_23_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_24_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_25_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_26_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_27_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_28_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_29_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_30_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_31_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_32_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_33_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_34_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_35_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_36_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_37_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_38_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_39_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_40_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_41_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_42_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_43_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_44_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_45_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_46_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_47_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_48_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_49_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_50_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_51_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_52_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_53_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_54_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_55_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_56_pad,
-        inout wire logic    pad_periphs_pad_gpio_b_57_pad,
+        inout wire logic    pad_periphs_a_14_pad,
+        inout wire logic    pad_periphs_a_15_pad,
+        inout wire logic    pad_periphs_a_16_pad,
+        inout wire logic    pad_periphs_a_17_pad,
+        inout wire logic    pad_periphs_a_18_pad,
+        inout wire logic    pad_periphs_a_19_pad,
+        inout wire logic    pad_periphs_a_20_pad,
+        inout wire logic    pad_periphs_a_21_pad,
+        inout wire logic    pad_periphs_a_22_pad,
+        inout wire logic    pad_periphs_a_23_pad,
+        inout wire logic    pad_periphs_a_24_pad,
+        inout wire logic    pad_periphs_a_25_pad,
+        inout wire logic    pad_periphs_a_26_pad,
+        inout wire logic    pad_periphs_a_27_pad,
+        inout wire logic    pad_periphs_a_28_pad,
+        inout wire logic    pad_periphs_a_29_pad,
+        inout wire logic    pad_periphs_a_30_pad,
+        inout wire logic    pad_periphs_a_31_pad,
+        inout wire logic    pad_periphs_a_32_pad,
+        inout wire logic    pad_periphs_a_33_pad,
+        inout wire logic    pad_periphs_a_34_pad,
+        inout wire logic    pad_periphs_a_35_pad,
+        inout wire logic    pad_periphs_a_36_pad,
+        inout wire logic    pad_periphs_a_37_pad,
+        inout wire logic    pad_periphs_a_38_pad,
+        inout wire logic    pad_periphs_a_39_pad,
+        inout wire logic    pad_periphs_a_40_pad,
+        inout wire logic    pad_periphs_a_41_pad,
+        inout wire logic    pad_periphs_a_42_pad,
+        inout wire logic    pad_periphs_a_43_pad,
+        inout wire logic    pad_periphs_a_44_pad,
+        inout wire logic    pad_periphs_a_45_pad,
+        inout wire logic    pad_periphs_a_46_pad,
+        inout wire logic    pad_periphs_a_47_pad,
+        inout wire logic    pad_periphs_a_48_pad,
+        inout wire logic    pad_periphs_a_49_pad,
+        inout wire logic    pad_periphs_a_50_pad,
+        inout wire logic    pad_periphs_a_51_pad,
+        inout wire logic    pad_periphs_a_52_pad,
+        inout wire logic    pad_periphs_a_53_pad,
+        inout wire logic    pad_periphs_a_54_pad,
+        inout wire logic    pad_periphs_a_55_pad,
+        inout wire logic    pad_periphs_a_56_pad,
+        inout wire logic    pad_periphs_a_57_pad,
+        inout wire logic    pad_periphs_a_58_pad,
+        inout wire logic    pad_periphs_a_59_pad,
+        inout wire logic    pad_periphs_a_60_pad,
+        inout wire logic    pad_periphs_a_61_pad,
+        inout wire logic    pad_periphs_a_62_pad,
+        inout wire logic    pad_periphs_a_63_pad,
+        inout wire logic    pad_periphs_a_64_pad,
+        inout wire logic    pad_periphs_a_65_pad,
+        inout wire logic    pad_periphs_a_66_pad,
+        inout wire logic    pad_periphs_a_67_pad,
+        inout wire logic    pad_periphs_a_68_pad,
+        inout wire logic    pad_periphs_a_69_pad,
+        inout wire logic    pad_periphs_a_70_pad,
+        inout wire logic    pad_periphs_a_71_pad,
+        inout wire logic    pad_periphs_a_72_pad,
+        inout wire logic    pad_periphs_a_73_pad,
+        inout wire logic    pad_periphs_a_74_pad,
+        inout wire logic    pad_periphs_a_75_pad,
+        inout wire logic    pad_periphs_a_76_pad,
+        inout wire logic    pad_periphs_a_77_pad,
+        inout wire logic    pad_periphs_a_78_pad,
+        inout wire logic    pad_periphs_a_79_pad,
+        inout wire logic    pad_periphs_a_80_pad,
+        inout wire logic    pad_periphs_a_81_pad,
+        inout wire logic    pad_periphs_a_82_pad,
+        inout wire logic    pad_periphs_a_83_pad,
+        inout wire logic    pad_periphs_a_84_pad,
+        inout wire logic    pad_periphs_a_85_pad,
+        inout wire logic    pad_periphs_a_86_pad,
+        inout wire logic    pad_periphs_a_87_pad,
+        inout wire logic    pad_periphs_a_88_pad,
+        inout wire logic    pad_periphs_a_89_pad,
+        inout wire logic    pad_periphs_a_90_pad,
+        inout wire logic    pad_periphs_a_91_pad,
+        inout wire logic    pad_periphs_a_92_pad,
 
-        inout wire logic    pad_periphs_pad_gpio_c_00_pad,
-        inout wire logic    pad_periphs_pad_gpio_c_01_pad,
-        inout wire logic    pad_periphs_pad_gpio_c_02_pad,
-        inout wire logic    pad_periphs_pad_gpio_c_03_pad,
+        inout wire logic    pad_periphs_b_00_pad,
+        inout wire logic    pad_periphs_b_01_pad,
+        inout wire logic    pad_periphs_b_02_pad,
+        inout wire logic    pad_periphs_b_03_pad,
+        inout wire logic    pad_periphs_b_04_pad,
+        inout wire logic    pad_periphs_b_05_pad,
+        inout wire logic    pad_periphs_b_06_pad,
+        inout wire logic    pad_periphs_b_07_pad,
+        inout wire logic    pad_periphs_b_08_pad,
+        inout wire logic    pad_periphs_b_09_pad,
+        inout wire logic    pad_periphs_b_10_pad,
+        inout wire logic    pad_periphs_b_11_pad,
+        inout wire logic    pad_periphs_b_12_pad,
+        inout wire logic    pad_periphs_b_13_pad,
+        inout wire logic    pad_periphs_b_14_pad,
+        inout wire logic    pad_periphs_b_15_pad,
+        inout wire logic    pad_periphs_b_16_pad,
+        inout wire logic    pad_periphs_b_17_pad,
+        inout wire logic    pad_periphs_b_18_pad,
+        inout wire logic    pad_periphs_b_19_pad,
+        inout wire logic    pad_periphs_b_20_pad,
+        inout wire logic    pad_periphs_b_21_pad,
+        inout wire logic    pad_periphs_b_22_pad,
+        inout wire logic    pad_periphs_b_23_pad,
+        inout wire logic    pad_periphs_b_24_pad,
+        inout wire logic    pad_periphs_b_25_pad,
+        inout wire logic    pad_periphs_b_26_pad,
+        inout wire logic    pad_periphs_b_27_pad,
+        inout wire logic    pad_periphs_b_28_pad,
+        inout wire logic    pad_periphs_b_29_pad,
+        inout wire logic    pad_periphs_b_30_pad,
+        inout wire logic    pad_periphs_b_31_pad,
+        inout wire logic    pad_periphs_b_32_pad,
+        inout wire logic    pad_periphs_b_33_pad,
+        inout wire logic    pad_periphs_b_34_pad,
+        inout wire logic    pad_periphs_b_35_pad,
+        inout wire logic    pad_periphs_b_36_pad,
+        inout wire logic    pad_periphs_b_37_pad,
+        inout wire logic    pad_periphs_b_38_pad,
+        inout wire logic    pad_periphs_b_39_pad,
+        inout wire logic    pad_periphs_b_40_pad,
+        inout wire logic    pad_periphs_b_41_pad,
+        inout wire logic    pad_periphs_b_42_pad,
+        inout wire logic    pad_periphs_b_43_pad,
+        inout wire logic    pad_periphs_b_44_pad,
+        inout wire logic    pad_periphs_b_45_pad,
+        inout wire logic    pad_periphs_b_46_pad,
+        inout wire logic    pad_periphs_b_47_pad,
+        inout wire logic    pad_periphs_b_48_pad,
+        inout wire logic    pad_periphs_b_49_pad,
+        inout wire logic    pad_periphs_b_50_pad,
+        inout wire logic    pad_periphs_b_51_pad,
+        inout wire logic    pad_periphs_b_52_pad,
+        inout wire logic    pad_periphs_b_53_pad,
+        inout wire logic    pad_periphs_b_54_pad,
+        inout wire logic    pad_periphs_b_55_pad,
+        inout wire logic    pad_periphs_b_56_pad,
+        inout wire logic    pad_periphs_b_57_pad,
+        inout wire logic    pad_periphs_b_58_pad,
+        inout wire logic    pad_periphs_b_59_pad,
+        inout wire logic    pad_periphs_b_60_pad,
+        inout wire logic    pad_periphs_b_61_pad,
+        inout wire logic    pad_periphs_b_62_pad,
+        
+        inout wire logic    pad_periphs_ot_qspi_00_pad,
+        inout wire logic    pad_periphs_ot_qspi_01_pad,
+        inout wire logic    pad_periphs_ot_qspi_02_pad,
+        inout wire logic    pad_periphs_ot_qspi_03_pad,
+        inout wire logic    pad_periphs_ot_qspi_04_pad,
+        inout wire logic    pad_periphs_ot_qspi_05_pad,
+        
+        inout wire logic    pad_periphs_linux_qspi_00_pad,
+        inout wire logic    pad_periphs_linux_qspi_01_pad,
+        inout wire logic    pad_periphs_linux_qspi_02_pad,
+        inout wire logic    pad_periphs_linux_qspi_03_pad,
+        inout wire logic    pad_periphs_linux_qspi_04_pad,
+        inout wire logic    pad_periphs_linux_qspi_05_pad,
 
-        inout wire logic    pad_periphs_pad_gpio_d_00_pad,
-        inout wire logic    pad_periphs_pad_gpio_d_01_pad,
-        inout wire logic    pad_periphs_pad_gpio_d_02_pad,
-        inout wire logic    pad_periphs_pad_gpio_d_03_pad,
-        inout wire logic    pad_periphs_pad_gpio_d_04_pad,
-        inout wire logic    pad_periphs_pad_gpio_d_05_pad,
-        inout wire logic    pad_periphs_pad_gpio_d_06_pad,
-        inout wire logic    pad_periphs_pad_gpio_d_07_pad,
-        inout wire logic    pad_periphs_pad_gpio_d_08_pad,
-        inout wire logic    pad_periphs_pad_gpio_d_09_pad,
-        inout wire logic    pad_periphs_pad_gpio_d_10_pad,
-
-        inout wire logic    pad_periphs_pad_gpio_e_00_pad,
-        inout wire logic    pad_periphs_pad_gpio_e_01_pad,
-        inout wire logic    pad_periphs_pad_gpio_e_02_pad,
-        inout wire logic    pad_periphs_pad_gpio_e_03_pad,
-        inout wire logic    pad_periphs_pad_gpio_e_04_pad,
-        inout wire logic    pad_periphs_pad_gpio_e_05_pad,
-        inout wire logic    pad_periphs_pad_gpio_e_06_pad,
-        inout wire logic    pad_periphs_pad_gpio_e_07_pad,
-        inout wire logic    pad_periphs_pad_gpio_e_08_pad,
-        inout wire logic    pad_periphs_pad_gpio_e_09_pad,
-        inout wire logic    pad_periphs_pad_gpio_e_10_pad,
-        inout wire logic    pad_periphs_pad_gpio_e_11_pad,
-        inout wire logic    pad_periphs_pad_gpio_e_12_pad,
-
-        inout wire logic    pad_periphs_pad_gpio_f_00_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_01_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_02_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_03_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_04_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_05_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_06_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_07_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_08_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_09_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_10_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_11_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_12_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_13_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_14_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_15_pad,
-        inout wire logic    pad_periphs_pad_gpio_f_16_pad,
-
-        inout wire logic    pad_periphs_pad_gpio_pwm0_pad,
-        inout wire logic    pad_periphs_pad_gpio_pwm1_pad,
-        inout wire logic    pad_periphs_pad_gpio_pwm2_pad,
-        inout wire logic    pad_periphs_pad_gpio_pwm3_pad,
-        inout wire logic    pad_periphs_pad_gpio_pwm4_pad,
-        inout wire logic    pad_periphs_pad_gpio_pwm5_pad,
-        inout wire logic    pad_periphs_pad_gpio_pwm6_pad,
-        inout wire logic    pad_periphs_pad_gpio_pwm7_pad,
+        inout wire logic    pad_periphs_ot_gpio_00_pad,
+        inout wire logic    pad_periphs_ot_gpio_01_pad,
       `endif
     `endif
  `endif
@@ -399,16 +457,22 @@ module al_saqr
   pad_to_hyper_t [HyperbusNumPhys-1:0] s_pad_to_hyper;
   hyper_to_pad_t [HyperbusNumPhys-1:0] s_hyper_to_pad;
 
-  qspi_to_pad_t [N_SPI-1:0] s_qspi_to_pad;
-  pad_to_qspi_t [N_SPI-1:0] s_pad_to_qspi;
+  qspi_to_pad_t [N_SPI-1:0] s_spi_to_pad;
+  pad_to_qspi_t [N_SPI-1:0] s_pad_to_spi;
+
+  qspi_to_pad_t [N_QSPI-1:0] s_qspi_to_pad;
+  pad_to_qspi_t [N_QSPI-1:0] s_pad_to_qspi;
 
   i2c_to_pad_t [N_I2C-1:0] s_i2c_to_pad;
   pad_to_i2c_t [N_I2C-1:0] s_pad_to_i2c;
 
   pad_to_cam_t [N_CAM-1:0] s_pad_to_cam;
 
-  pad_to_uart_t [N_UART-1:0] s_pad_to_uart;
   uart_to_pad_t [N_UART-1:0] s_uart_to_pad;
+  pad_to_uart_t [N_UART-1:0] s_pad_to_uart;
+
+  pad_to_usart_t [N_USART-1:0] s_pad_to_usart;
+  usart_to_pad_t [N_USART-1:0] s_usart_to_pad;
 
   sdio_to_pad_t [N_SDIO-1:0] s_sdio_to_pad;
   pad_to_sdio_t [N_SDIO-1:0] s_pad_to_sdio;
@@ -416,19 +480,33 @@ module al_saqr
   can_to_pad_t [N_CAN-1 : 0] s_can_to_pad;
   pad_to_can_t [N_CAN-1 : 0] s_pad_to_can;
 
+  pwm_nano_to_pad_t [1:0] s_pwm_nano_to_pad;
   pwm_to_pad_t s_pwm_to_pad;
+
+  assign s_pwm_nano_to_pad[0] = s_pwm_to_pad[3:0];
+  assign s_pwm_nano_to_pad[1] = s_pwm_to_pad[7:4];
+
 
   gpio_to_pad_t s_gpio_b_to_pad;
   pad_to_gpio_t s_pad_to_gpio_b;
 
+  ot_gpio_to_pad_t                    s_ot_gpio_to_pad;
+  pad_to_ot_gpio_t                    s_pad_to_ot_gpio;
+
   port_signals_pad2soc_t              s_port_signals_pad2soc;
   port_signals_soc2pad_t              s_port_signals_soc2pad;
 
-  axi_secd_req_t                       ot_axi_req;
-  axi_secd_resp_t                      ot_axi_rsp;
+  qspi_to_pad_ot_t                    s_ot_qspi_to_pad;
+  pad_to_qspi_ot_t                    s_ot_pad_to_qspi;
 
-  jtag_ot_pkg::jtag_req_t jtag_ibex_i;
-  jtag_ot_pkg::jtag_rsp_t jtag_ibex_o;
+  axi_secd_req_t                      ot_axi_req;
+  axi_secd_resp_t                     ot_axi_rsp;
+
+  jtag_ot_pkg::jtag_req_t             jtag_ibex_i;
+  jtag_ot_pkg::jtag_rsp_t             jtag_ibex_o;
+
+  assign s_ot_gpio_to_pad       = '0; //not connected yte
+  assign s_ot_qspi_to_pad       = '0; //not connected yet
 
   assign bootmode_i             = { 1'b0 , bootmode_o };
   assign jtag_ibex_i.tck        = s_jtag_ot_TCK;
@@ -523,6 +601,9 @@ module al_saqr
       .clk_cluster_o          ( s_cluster_clk                   ),
       .padframecfg_reg_master ( i_padframecfg_rbus              ),
 
+      .spi_to_pad             ( s_spi_to_pad                    ),
+      .pad_to_spi             ( s_pad_to_spi                    ),
+      
       .qspi_to_pad            ( s_qspi_to_pad                   ),
       .pad_to_qspi            ( s_pad_to_qspi                   ),
 
@@ -531,8 +612,11 @@ module al_saqr
 
   	  .pad_to_cam             ( s_pad_to_cam                    ),
 
-      .pad_to_uart            ( s_pad_to_uart                   ),
       .uart_to_pad            ( s_uart_to_pad                   ),
+      .pad_to_uart            ( s_pad_to_uart                   ),
+
+      .usart_to_pad           ( s_usart_to_pad                  ),
+      .pad_to_usart           ( s_pad_to_usart                  ),
 
       .sdio_to_pad            ( s_sdio_to_pad                   ),
       .pad_to_sdio            ( s_pad_to_sdio                   ),
@@ -1000,7 +1084,6 @@ module al_saqr
   `else
 
    `ifdef SIMPLE_PADFRAME
-
       alsaqr_periph_fpga_padframe #(
               .AW     ( 32        ),
               .DW     ( 32        ),
@@ -1015,40 +1098,38 @@ module al_saqr
         .port_signals_pad2soc(s_port_signals_pad2soc),
         .port_signals_soc2pad(s_port_signals_soc2pad),
 
-        .pad_periphs_pad_gpio_b_00_pad(pad_periphs_pad_gpio_b_00_pad),
-        .pad_periphs_pad_gpio_b_01_pad(pad_periphs_pad_gpio_b_01_pad),
-        .pad_periphs_pad_gpio_b_02_pad(pad_periphs_pad_gpio_b_02_pad),
-        .pad_periphs_pad_gpio_b_03_pad(pad_periphs_pad_gpio_b_03_pad),
-        .pad_periphs_pad_gpio_b_04_pad(pad_periphs_pad_gpio_b_04_pad),
-        .pad_periphs_pad_gpio_b_05_pad(pad_periphs_pad_gpio_b_05_pad),
-        .pad_periphs_pad_gpio_b_06_pad(pad_periphs_pad_gpio_b_06_pad),
-        .pad_periphs_pad_gpio_b_07_pad(pad_periphs_pad_gpio_b_07_pad),
-        .pad_periphs_pad_gpio_b_08_pad(pad_periphs_pad_gpio_b_08_pad),
-        .pad_periphs_pad_gpio_b_09_pad(pad_periphs_pad_gpio_b_09_pad),
-        .pad_periphs_pad_gpio_b_10_pad(pad_periphs_pad_gpio_b_10_pad),
-        .pad_periphs_pad_gpio_b_11_pad(pad_periphs_pad_gpio_b_11_pad),
-        .pad_periphs_pad_gpio_b_12_pad(pad_periphs_pad_gpio_b_12_pad),
-        .pad_periphs_pad_gpio_b_13_pad(pad_periphs_pad_gpio_b_13_pad),
+        .pad_periphs_pad_gpio_b_00_pad(pad_periphs_a_00_pad),
+        .pad_periphs_pad_gpio_b_01_pad(pad_periphs_a_01_pad),
+        .pad_periphs_pad_gpio_b_02_pad(pad_periphs_a_02_pad),
+        .pad_periphs_pad_gpio_b_03_pad(pad_periphs_a_03_pad),
+        .pad_periphs_pad_gpio_b_04_pad(pad_periphs_a_04_pad),
+        .pad_periphs_pad_gpio_b_05_pad(pad_periphs_a_05_pad),
+        .pad_periphs_pad_gpio_b_06_pad(pad_periphs_a_06_pad),
+        .pad_periphs_pad_gpio_b_07_pad(pad_periphs_a_07_pad),
+        .pad_periphs_pad_gpio_b_08_pad(pad_periphs_a_08_pad),
+        .pad_periphs_pad_gpio_b_09_pad(pad_periphs_a_09_pad),
+        .pad_periphs_pad_gpio_b_10_pad(pad_periphs_a_10_pad),
+        .pad_periphs_pad_gpio_b_11_pad(pad_periphs_a_11_pad),
+        .pad_periphs_pad_gpio_b_12_pad(pad_periphs_a_12_pad),
+        .pad_periphs_pad_gpio_b_13_pad(pad_periphs_a_13_pad),
 
 
         .config_req_i   ( reg_req     ),
         .config_rsp_o   ( reg_rsp     )
         );
 
-     `ASSIGN_PERIPHS_SPI0_PAD2SOC(s_pad_to_qspi[0],s_port_signals_pad2soc.periphs.spi0)
-     `ASSIGN_PERIPHS_SPI0_SOC2PAD(s_port_signals_soc2pad.periphs.spi0,s_qspi_to_pad[0])
-
+     // SPI0
+     `ASSIGN_PERIPHS_SPI0_PAD2SOC(s_pad_to_spi[0],s_port_signals_pad2soc.periphs.spi0)
+     `ASSIGN_PERIPHS_SPI0_SOC2PAD(s_port_signals_soc2pad.periphs.spi0,s_spi_to_pad[0])
+     // SDIO0
      `ASSIGN_PERIPHS_SDIO0_PAD2SOC(s_pad_to_sdio[0],s_port_signals_pad2soc.periphs.sdio0)
      `ASSIGN_PERIPHS_SDIO0_SOC2PAD(s_port_signals_soc2pad.periphs.sdio0,s_sdio_to_pad[0])
-
+     // UART0
      `ASSIGN_PERIPHS_UART0_PAD2SOC(s_pad_to_uart[0],s_port_signals_pad2soc.periphs.uart0)
      `ASSIGN_PERIPHS_UART0_SOC2PAD(s_port_signals_soc2pad.periphs.uart0,s_uart_to_pad[0])
-
+     // I2C0
      `ASSIGN_PERIPHS_I2C0_PAD2SOC(s_pad_to_i2c[0],s_port_signals_pad2soc.periphs.i2c0)
      `ASSIGN_PERIPHS_I2C0_SOC2PAD(s_port_signals_soc2pad.periphs.i2c0,s_i2c_to_pad[0])
-
-      `ASSIGN_PERIPHS_GPIO_B_PAD2SOC(s_pad_to_gpio_b,s_port_signals_pad2soc.periphs.gpio_b)
-      `ASSIGN_PERIPHS_GPIO_B_SOC2PAD(s_port_signals_soc2pad.periphs.gpio_b,s_gpio_b_to_pad)
 
    `else // !`ifdef SIMPLE_PADFRAME
     `ifndef FPGA_EMUL
@@ -1067,193 +1148,226 @@ module al_saqr
           .port_signals_pad2soc(s_port_signals_pad2soc),
           .port_signals_soc2pad(s_port_signals_soc2pad),
 
-          .pad_periphs_pad_gpio_b_00_pad(pad_periphs_pad_gpio_b_00_pad),
-          .pad_periphs_pad_gpio_b_01_pad(pad_periphs_pad_gpio_b_01_pad),
-          .pad_periphs_pad_gpio_b_02_pad(pad_periphs_pad_gpio_b_02_pad),
-          .pad_periphs_pad_gpio_b_03_pad(pad_periphs_pad_gpio_b_03_pad),
-          .pad_periphs_pad_gpio_b_04_pad(pad_periphs_pad_gpio_b_04_pad),
-          .pad_periphs_pad_gpio_b_05_pad(pad_periphs_pad_gpio_b_05_pad),
-          .pad_periphs_pad_gpio_b_06_pad(pad_periphs_pad_gpio_b_06_pad),
-          .pad_periphs_pad_gpio_b_07_pad(pad_periphs_pad_gpio_b_07_pad),
-          .pad_periphs_pad_gpio_b_08_pad(pad_periphs_pad_gpio_b_08_pad),
-          .pad_periphs_pad_gpio_b_09_pad(pad_periphs_pad_gpio_b_09_pad),
-          .pad_periphs_pad_gpio_b_10_pad(pad_periphs_pad_gpio_b_10_pad),
-          .pad_periphs_pad_gpio_b_11_pad(pad_periphs_pad_gpio_b_11_pad),
-          .pad_periphs_pad_gpio_b_12_pad(pad_periphs_pad_gpio_b_12_pad),
-          .pad_periphs_pad_gpio_b_13_pad(pad_periphs_pad_gpio_b_13_pad),
-          .pad_periphs_pad_gpio_b_14_pad(pad_periphs_pad_gpio_b_14_pad),
-          .pad_periphs_pad_gpio_b_15_pad(pad_periphs_pad_gpio_b_15_pad),
-          .pad_periphs_pad_gpio_b_16_pad(pad_periphs_pad_gpio_b_16_pad),
-          .pad_periphs_pad_gpio_b_17_pad(pad_periphs_pad_gpio_b_17_pad),
-          .pad_periphs_pad_gpio_b_18_pad(pad_periphs_pad_gpio_b_18_pad),
-          .pad_periphs_pad_gpio_b_19_pad(pad_periphs_pad_gpio_b_19_pad),
-          .pad_periphs_pad_gpio_b_20_pad(pad_periphs_pad_gpio_b_20_pad),
-          .pad_periphs_pad_gpio_b_21_pad(pad_periphs_pad_gpio_b_21_pad),
-          .pad_periphs_pad_gpio_b_22_pad(pad_periphs_pad_gpio_b_22_pad),
-          .pad_periphs_pad_gpio_b_23_pad(pad_periphs_pad_gpio_b_23_pad),
-          .pad_periphs_pad_gpio_b_24_pad(pad_periphs_pad_gpio_b_24_pad),
-          .pad_periphs_pad_gpio_b_25_pad(pad_periphs_pad_gpio_b_25_pad),
-          .pad_periphs_pad_gpio_b_26_pad(pad_periphs_pad_gpio_b_26_pad),
-          .pad_periphs_pad_gpio_b_27_pad(pad_periphs_pad_gpio_b_27_pad),
-          .pad_periphs_pad_gpio_b_28_pad(pad_periphs_pad_gpio_b_28_pad),
-          .pad_periphs_pad_gpio_b_29_pad(pad_periphs_pad_gpio_b_29_pad),
-          .pad_periphs_pad_gpio_b_30_pad(pad_periphs_pad_gpio_b_30_pad),
-          .pad_periphs_pad_gpio_b_31_pad(pad_periphs_pad_gpio_b_31_pad),
-          .pad_periphs_pad_gpio_b_32_pad(pad_periphs_pad_gpio_b_32_pad),
-          .pad_periphs_pad_gpio_b_33_pad(pad_periphs_pad_gpio_b_33_pad),
-          .pad_periphs_pad_gpio_b_34_pad(pad_periphs_pad_gpio_b_34_pad),
-          .pad_periphs_pad_gpio_b_35_pad(pad_periphs_pad_gpio_b_35_pad),
-          .pad_periphs_pad_gpio_b_36_pad(pad_periphs_pad_gpio_b_36_pad),
-          .pad_periphs_pad_gpio_b_37_pad(pad_periphs_pad_gpio_b_37_pad),
-          .pad_periphs_pad_gpio_b_38_pad(pad_periphs_pad_gpio_b_38_pad),
-          .pad_periphs_pad_gpio_b_39_pad(pad_periphs_pad_gpio_b_39_pad),
-          .pad_periphs_pad_gpio_b_40_pad(pad_periphs_pad_gpio_b_40_pad),
-          .pad_periphs_pad_gpio_b_41_pad(pad_periphs_pad_gpio_b_41_pad),
-          .pad_periphs_pad_gpio_b_42_pad(pad_periphs_pad_gpio_b_42_pad),
-          .pad_periphs_pad_gpio_b_43_pad(pad_periphs_pad_gpio_b_43_pad),
-          .pad_periphs_pad_gpio_b_44_pad(pad_periphs_pad_gpio_b_44_pad),
-          .pad_periphs_pad_gpio_b_45_pad(pad_periphs_pad_gpio_b_45_pad),
-          .pad_periphs_pad_gpio_b_46_pad(pad_periphs_pad_gpio_b_46_pad),
-          .pad_periphs_pad_gpio_b_47_pad(pad_periphs_pad_gpio_b_47_pad),
-          .pad_periphs_pad_gpio_b_48_pad(pad_periphs_pad_gpio_b_48_pad),
-          .pad_periphs_pad_gpio_b_49_pad(pad_periphs_pad_gpio_b_49_pad),
-          .pad_periphs_pad_gpio_b_50_pad(pad_periphs_pad_gpio_b_50_pad),
-          .pad_periphs_pad_gpio_b_51_pad(pad_periphs_pad_gpio_b_51_pad),
-          .pad_periphs_pad_gpio_b_52_pad(pad_periphs_pad_gpio_b_52_pad),
-          .pad_periphs_pad_gpio_b_53_pad(pad_periphs_pad_gpio_b_53_pad),
-          .pad_periphs_pad_gpio_b_54_pad(pad_periphs_pad_gpio_b_54_pad),
-          .pad_periphs_pad_gpio_b_55_pad(pad_periphs_pad_gpio_b_55_pad),
-          .pad_periphs_pad_gpio_b_56_pad(pad_periphs_pad_gpio_b_56_pad),
-          .pad_periphs_pad_gpio_b_57_pad(pad_periphs_pad_gpio_b_57_pad),
+          .pad_periphs_a_00_pad(pad_periphs_a_00_pad),
+          .pad_periphs_a_01_pad(pad_periphs_a_01_pad),
+          .pad_periphs_a_02_pad(pad_periphs_a_02_pad),
+          .pad_periphs_a_03_pad(pad_periphs_a_03_pad),
+          .pad_periphs_a_04_pad(pad_periphs_a_04_pad),
+          .pad_periphs_a_05_pad(pad_periphs_a_05_pad),
+          .pad_periphs_a_06_pad(pad_periphs_a_06_pad),
+          .pad_periphs_a_07_pad(pad_periphs_a_07_pad),
+          .pad_periphs_a_08_pad(pad_periphs_a_08_pad),
+          .pad_periphs_a_09_pad(pad_periphs_a_09_pad),
+          .pad_periphs_a_10_pad(pad_periphs_a_10_pad),
+          .pad_periphs_a_11_pad(pad_periphs_a_11_pad),
+          .pad_periphs_a_12_pad(pad_periphs_a_12_pad),
+          .pad_periphs_a_13_pad(pad_periphs_a_13_pad),
+          .pad_periphs_a_14_pad(pad_periphs_a_14_pad),
+          .pad_periphs_a_15_pad(pad_periphs_a_15_pad),
+          .pad_periphs_a_16_pad(pad_periphs_a_16_pad),
+          .pad_periphs_a_17_pad(pad_periphs_a_17_pad),
+          .pad_periphs_a_18_pad(pad_periphs_a_18_pad),
+          .pad_periphs_a_19_pad(pad_periphs_a_19_pad),
+          .pad_periphs_a_20_pad(pad_periphs_a_20_pad),
+          .pad_periphs_a_21_pad(pad_periphs_a_21_pad),
+          .pad_periphs_a_22_pad(pad_periphs_a_22_pad),
+          .pad_periphs_a_23_pad(pad_periphs_a_23_pad),
+          .pad_periphs_a_24_pad(pad_periphs_a_24_pad),
+          .pad_periphs_a_25_pad(pad_periphs_a_25_pad),
+          .pad_periphs_a_26_pad(pad_periphs_a_26_pad),
+          .pad_periphs_a_27_pad(pad_periphs_a_27_pad),
+          .pad_periphs_a_28_pad(pad_periphs_a_28_pad),
+          .pad_periphs_a_29_pad(pad_periphs_a_29_pad),
+          .pad_periphs_a_30_pad(pad_periphs_a_30_pad),
+          .pad_periphs_a_31_pad(pad_periphs_a_31_pad),
+          .pad_periphs_a_32_pad(pad_periphs_a_32_pad),
+          .pad_periphs_a_33_pad(pad_periphs_a_33_pad),
+          .pad_periphs_a_34_pad(pad_periphs_a_34_pad),
+          .pad_periphs_a_35_pad(pad_periphs_a_35_pad),
+          .pad_periphs_a_36_pad(pad_periphs_a_36_pad),
+          .pad_periphs_a_37_pad(pad_periphs_a_37_pad),
+          .pad_periphs_a_38_pad(pad_periphs_a_38_pad),
+          .pad_periphs_a_39_pad(pad_periphs_a_39_pad),
+          .pad_periphs_a_40_pad(pad_periphs_a_40_pad),
+          .pad_periphs_a_41_pad(pad_periphs_a_41_pad),
+          .pad_periphs_a_42_pad(pad_periphs_a_42_pad),
+          .pad_periphs_a_43_pad(pad_periphs_a_43_pad),
+          .pad_periphs_a_44_pad(pad_periphs_a_44_pad),
+          .pad_periphs_a_45_pad(pad_periphs_a_45_pad),
+          .pad_periphs_a_46_pad(pad_periphs_a_46_pad),
+          .pad_periphs_a_47_pad(pad_periphs_a_47_pad),
+          .pad_periphs_a_48_pad(pad_periphs_a_48_pad),
+          .pad_periphs_a_49_pad(pad_periphs_a_49_pad),
+          .pad_periphs_a_50_pad(pad_periphs_a_50_pad),
+          .pad_periphs_a_51_pad(pad_periphs_a_51_pad),
+          .pad_periphs_a_52_pad(pad_periphs_a_52_pad),
+          .pad_periphs_a_53_pad(pad_periphs_a_53_pad),
+          .pad_periphs_a_54_pad(pad_periphs_a_54_pad),
+          .pad_periphs_a_55_pad(pad_periphs_a_55_pad),
+          .pad_periphs_a_56_pad(pad_periphs_a_56_pad),
+          .pad_periphs_a_57_pad(pad_periphs_a_57_pad),
+          .pad_periphs_a_58_pad(pad_periphs_a_58_pad),
+          .pad_periphs_a_59_pad(pad_periphs_a_59_pad),
+          .pad_periphs_a_60_pad(pad_periphs_a_60_pad),
+          .pad_periphs_a_61_pad(pad_periphs_a_61_pad),
+          .pad_periphs_a_62_pad(pad_periphs_a_62_pad),
+          .pad_periphs_a_63_pad(pad_periphs_a_63_pad),
+          .pad_periphs_a_64_pad(pad_periphs_a_64_pad),
+          .pad_periphs_a_65_pad(pad_periphs_a_65_pad),
+          .pad_periphs_a_66_pad(pad_periphs_a_66_pad),
+          .pad_periphs_a_67_pad(pad_periphs_a_67_pad),
+          .pad_periphs_a_68_pad(pad_periphs_a_68_pad),
+          .pad_periphs_a_69_pad(pad_periphs_a_69_pad),
+          .pad_periphs_a_70_pad(pad_periphs_a_70_pad),
+          .pad_periphs_a_71_pad(pad_periphs_a_71_pad),
+          .pad_periphs_a_72_pad(pad_periphs_a_72_pad),
+          .pad_periphs_a_73_pad(pad_periphs_a_73_pad),
+          .pad_periphs_a_74_pad(pad_periphs_a_74_pad),
+          .pad_periphs_a_75_pad(pad_periphs_a_75_pad),
+          .pad_periphs_a_76_pad(pad_periphs_a_76_pad),
+          .pad_periphs_a_77_pad(pad_periphs_a_77_pad),
+          .pad_periphs_a_78_pad(pad_periphs_a_78_pad),
+          .pad_periphs_a_79_pad(pad_periphs_a_79_pad),
+          .pad_periphs_a_80_pad(pad_periphs_a_80_pad),
+          .pad_periphs_a_81_pad(pad_periphs_a_81_pad),
+          .pad_periphs_a_82_pad(pad_periphs_a_82_pad),
+          .pad_periphs_a_83_pad(pad_periphs_a_83_pad),
+          .pad_periphs_a_84_pad(pad_periphs_a_84_pad),
+          .pad_periphs_a_85_pad(pad_periphs_a_85_pad),
+          .pad_periphs_a_86_pad(pad_periphs_a_86_pad),
+          .pad_periphs_a_87_pad(pad_periphs_a_87_pad),
+          .pad_periphs_a_88_pad(pad_periphs_a_88_pad),
+          .pad_periphs_a_89_pad(pad_periphs_a_89_pad),
+          .pad_periphs_a_90_pad(pad_periphs_a_90_pad),
+          .pad_periphs_a_91_pad(pad_periphs_a_91_pad),
+          .pad_periphs_a_92_pad(pad_periphs_a_92_pad),
 
-          .pad_periphs_pad_gpio_c_00_pad(pad_periphs_pad_gpio_c_00_pad),
-          .pad_periphs_pad_gpio_c_01_pad(pad_periphs_pad_gpio_c_01_pad),
-          .pad_periphs_pad_gpio_c_02_pad(pad_periphs_pad_gpio_c_02_pad),
-          .pad_periphs_pad_gpio_c_03_pad(pad_periphs_pad_gpio_c_03_pad),
+          .pad_periphs_b_00_pad(pad_periphs_b_00_pad),
+          .pad_periphs_b_01_pad(pad_periphs_b_01_pad),
+          .pad_periphs_b_02_pad(pad_periphs_b_02_pad),
+          .pad_periphs_b_03_pad(pad_periphs_b_03_pad),
+          .pad_periphs_b_04_pad(pad_periphs_b_04_pad),
+          .pad_periphs_b_05_pad(pad_periphs_b_05_pad),
+          .pad_periphs_b_06_pad(pad_periphs_b_06_pad),
+          .pad_periphs_b_07_pad(pad_periphs_b_07_pad),
+          .pad_periphs_b_08_pad(pad_periphs_b_08_pad),
+          .pad_periphs_b_09_pad(pad_periphs_b_09_pad),
+          .pad_periphs_b_10_pad(pad_periphs_b_10_pad),
+          .pad_periphs_b_11_pad(pad_periphs_b_11_pad),
+          .pad_periphs_b_12_pad(pad_periphs_b_12_pad),
+          .pad_periphs_b_13_pad(pad_periphs_b_13_pad),
+          .pad_periphs_b_14_pad(pad_periphs_b_14_pad),
+          .pad_periphs_b_15_pad(pad_periphs_b_15_pad),
+          .pad_periphs_b_16_pad(pad_periphs_b_16_pad),
+          .pad_periphs_b_17_pad(pad_periphs_b_17_pad),
+          .pad_periphs_b_18_pad(pad_periphs_b_18_pad),
+          .pad_periphs_b_19_pad(pad_periphs_b_19_pad),
+          .pad_periphs_b_20_pad(pad_periphs_b_20_pad),
+          .pad_periphs_b_21_pad(pad_periphs_b_21_pad),
+          .pad_periphs_b_22_pad(pad_periphs_b_22_pad),
+          .pad_periphs_b_23_pad(pad_periphs_b_23_pad),
+          .pad_periphs_b_24_pad(pad_periphs_b_24_pad),
+          .pad_periphs_b_25_pad(pad_periphs_b_25_pad),
+          .pad_periphs_b_26_pad(pad_periphs_b_26_pad),
+          .pad_periphs_b_27_pad(pad_periphs_b_27_pad),
+          .pad_periphs_b_28_pad(pad_periphs_b_28_pad),
+          .pad_periphs_b_29_pad(pad_periphs_b_29_pad),
+          .pad_periphs_b_30_pad(pad_periphs_b_30_pad),
+          .pad_periphs_b_31_pad(pad_periphs_b_31_pad),
+          .pad_periphs_b_32_pad(pad_periphs_b_32_pad),
+          .pad_periphs_b_33_pad(pad_periphs_b_33_pad),
+          .pad_periphs_b_34_pad(pad_periphs_b_34_pad),
+          .pad_periphs_b_35_pad(pad_periphs_b_35_pad),
+          .pad_periphs_b_36_pad(pad_periphs_b_36_pad),
+          .pad_periphs_b_37_pad(pad_periphs_b_37_pad),
+          .pad_periphs_b_38_pad(pad_periphs_b_38_pad),
+          .pad_periphs_b_39_pad(pad_periphs_b_39_pad),
+          .pad_periphs_b_40_pad(pad_periphs_b_40_pad),
+          .pad_periphs_b_41_pad(pad_periphs_b_41_pad),
+          .pad_periphs_b_42_pad(pad_periphs_b_42_pad),
+          .pad_periphs_b_43_pad(pad_periphs_b_43_pad),
+          .pad_periphs_b_44_pad(pad_periphs_b_44_pad),
+          .pad_periphs_b_45_pad(pad_periphs_b_45_pad),
+          .pad_periphs_b_46_pad(pad_periphs_b_46_pad),
+          .pad_periphs_b_47_pad(pad_periphs_b_47_pad),
+          .pad_periphs_b_48_pad(pad_periphs_b_48_pad),
+          .pad_periphs_b_49_pad(pad_periphs_b_49_pad),
+          .pad_periphs_b_50_pad(pad_periphs_b_50_pad),
+          .pad_periphs_b_51_pad(pad_periphs_b_51_pad),
+          .pad_periphs_b_52_pad(pad_periphs_b_52_pad),
+          .pad_periphs_b_53_pad(pad_periphs_b_53_pad),
+          .pad_periphs_b_54_pad(pad_periphs_b_54_pad),
+          .pad_periphs_b_55_pad(pad_periphs_b_55_pad),
+          .pad_periphs_b_56_pad(pad_periphs_b_56_pad),
+          .pad_periphs_b_57_pad(pad_periphs_b_57_pad),
+          .pad_periphs_b_58_pad(pad_periphs_b_58_pad),
+          .pad_periphs_b_59_pad(pad_periphs_b_59_pad),
+          .pad_periphs_b_60_pad(pad_periphs_b_60_pad),
+          .pad_periphs_b_61_pad(pad_periphs_b_61_pad),
+          .pad_periphs_b_62_pad(pad_periphs_b_62_pad),
 
-          .pad_periphs_pad_gpio_d_00_pad(pad_periphs_pad_gpio_d_00_pad),
-          .pad_periphs_pad_gpio_d_01_pad(pad_periphs_pad_gpio_d_01_pad),
-          .pad_periphs_pad_gpio_d_02_pad(pad_periphs_pad_gpio_d_02_pad),
-          .pad_periphs_pad_gpio_d_03_pad(pad_periphs_pad_gpio_d_03_pad),
-          .pad_periphs_pad_gpio_d_04_pad(pad_periphs_pad_gpio_d_04_pad),
-          .pad_periphs_pad_gpio_d_05_pad(pad_periphs_pad_gpio_d_05_pad),
-          .pad_periphs_pad_gpio_d_06_pad(pad_periphs_pad_gpio_d_06_pad),
-          .pad_periphs_pad_gpio_d_07_pad(pad_periphs_pad_gpio_d_07_pad),
-          .pad_periphs_pad_gpio_d_08_pad(pad_periphs_pad_gpio_d_08_pad),
-          .pad_periphs_pad_gpio_d_09_pad(pad_periphs_pad_gpio_d_09_pad),
-          .pad_periphs_pad_gpio_d_10_pad(pad_periphs_pad_gpio_d_10_pad),
+          .pad_periphs_ot_qspi_00_pad(pad_periphs_ot_qspi_00_pad),
+          .pad_periphs_ot_qspi_01_pad(pad_periphs_ot_qspi_01_pad),
+          .pad_periphs_ot_qspi_02_pad(pad_periphs_ot_qspi_02_pad),
+          .pad_periphs_ot_qspi_03_pad(pad_periphs_ot_qspi_03_pad),
+          .pad_periphs_ot_qspi_04_pad(pad_periphs_ot_qspi_04_pad),
+          .pad_periphs_ot_qspi_05_pad(pad_periphs_ot_qspi_05_pad),
 
-          .pad_periphs_pad_gpio_e_00_pad(pad_periphs_pad_gpio_e_00_pad),
-          .pad_periphs_pad_gpio_e_01_pad(pad_periphs_pad_gpio_e_01_pad),
-          .pad_periphs_pad_gpio_e_02_pad(pad_periphs_pad_gpio_e_02_pad),
-          .pad_periphs_pad_gpio_e_03_pad(pad_periphs_pad_gpio_e_03_pad),
-          .pad_periphs_pad_gpio_e_04_pad(pad_periphs_pad_gpio_e_04_pad),
-          .pad_periphs_pad_gpio_e_05_pad(pad_periphs_pad_gpio_e_05_pad),
-          .pad_periphs_pad_gpio_e_06_pad(pad_periphs_pad_gpio_e_06_pad),
-          .pad_periphs_pad_gpio_e_07_pad(pad_periphs_pad_gpio_e_07_pad),
-          .pad_periphs_pad_gpio_e_08_pad(pad_periphs_pad_gpio_e_08_pad),
-          .pad_periphs_pad_gpio_e_09_pad(pad_periphs_pad_gpio_e_09_pad),
-          .pad_periphs_pad_gpio_e_10_pad(pad_periphs_pad_gpio_e_10_pad),
-          .pad_periphs_pad_gpio_e_11_pad(pad_periphs_pad_gpio_e_11_pad),
-          .pad_periphs_pad_gpio_e_12_pad(pad_periphs_pad_gpio_e_12_pad),
+          .pad_periphs_linux_qspi_00_pad(pad_periphs_linux_qspi_00_pad),
+          .pad_periphs_linux_qspi_01_pad(pad_periphs_linux_qspi_01_pad),
+          .pad_periphs_linux_qspi_02_pad(pad_periphs_linux_qspi_02_pad),
+          .pad_periphs_linux_qspi_03_pad(pad_periphs_linux_qspi_03_pad),
+          .pad_periphs_linux_qspi_04_pad(pad_periphs_linux_qspi_04_pad),
+          .pad_periphs_linux_qspi_05_pad(pad_periphs_linux_qspi_05_pad),
 
-          .pad_periphs_pad_gpio_f_00_pad(pad_periphs_pad_gpio_f_00_pad),
-          .pad_periphs_pad_gpio_f_01_pad(pad_periphs_pad_gpio_f_01_pad),
-          .pad_periphs_pad_gpio_f_02_pad(pad_periphs_pad_gpio_f_02_pad),
-          .pad_periphs_pad_gpio_f_03_pad(pad_periphs_pad_gpio_f_03_pad),
-          .pad_periphs_pad_gpio_f_04_pad(pad_periphs_pad_gpio_f_04_pad),
-          .pad_periphs_pad_gpio_f_05_pad(pad_periphs_pad_gpio_f_05_pad),
-          .pad_periphs_pad_gpio_f_06_pad(pad_periphs_pad_gpio_f_06_pad),
-          .pad_periphs_pad_gpio_f_07_pad(pad_periphs_pad_gpio_f_07_pad),
-          .pad_periphs_pad_gpio_f_08_pad(pad_periphs_pad_gpio_f_08_pad),
-          .pad_periphs_pad_gpio_f_09_pad(pad_periphs_pad_gpio_f_09_pad),
-          .pad_periphs_pad_gpio_f_10_pad(pad_periphs_pad_gpio_f_10_pad),
-          .pad_periphs_pad_gpio_f_11_pad(pad_periphs_pad_gpio_f_11_pad),
-          .pad_periphs_pad_gpio_f_12_pad(pad_periphs_pad_gpio_f_12_pad),
-          .pad_periphs_pad_gpio_f_13_pad(pad_periphs_pad_gpio_f_13_pad),
-          .pad_periphs_pad_gpio_f_14_pad(pad_periphs_pad_gpio_f_14_pad),
-          .pad_periphs_pad_gpio_f_15_pad(pad_periphs_pad_gpio_f_15_pad),
-          .pad_periphs_pad_gpio_f_16_pad(pad_periphs_pad_gpio_f_16_pad),
-
-          .pad_periphs_pad_gpio_pwm0_pad(pad_periphs_pad_gpio_pwm0_pad),
-          .pad_periphs_pad_gpio_pwm1_pad(pad_periphs_pad_gpio_pwm1_pad),
-          .pad_periphs_pad_gpio_pwm2_pad(pad_periphs_pad_gpio_pwm2_pad),
-          .pad_periphs_pad_gpio_pwm3_pad(pad_periphs_pad_gpio_pwm3_pad),
-          .pad_periphs_pad_gpio_pwm4_pad(pad_periphs_pad_gpio_pwm4_pad),
-          .pad_periphs_pad_gpio_pwm5_pad(pad_periphs_pad_gpio_pwm5_pad),
-          .pad_periphs_pad_gpio_pwm6_pad(pad_periphs_pad_gpio_pwm6_pad),
-          .pad_periphs_pad_gpio_pwm7_pad(pad_periphs_pad_gpio_pwm7_pad),
+          .pad_periphs_ot_gpio_00_pad(pad_periphs_ot_gpio_00_pad),
+          .pad_periphs_ot_gpio_01_pad(pad_periphs_ot_gpio_01_pad),
 
           .config_req_i   ( reg_req     ),
           .config_rsp_o   ( reg_rsp     )
           );
 
-          `ASSIGN_PERIPHS_SPI0_PAD2SOC(s_pad_to_qspi[0],s_port_signals_pad2soc.periphs.spi0)
-          `ASSIGN_PERIPHS_SPI0_SOC2PAD(s_port_signals_soc2pad.periphs.spi0,s_qspi_to_pad[0])
+          // SPIs
+          `ASSIGN_PERIPHS_SPI0_PAD2SOC(s_pad_to_spi[0],s_port_signals_pad2soc.periphs.spi0)
+          `ASSIGN_PERIPHS_SPI0_SOC2PAD(s_port_signals_soc2pad.periphs.spi0,s_spi_to_pad[0])
 
-          `ASSIGN_PERIPHS_SPI1_PAD2SOC(s_pad_to_qspi[1],s_port_signals_pad2soc.periphs.spi1)
-          `ASSIGN_PERIPHS_SPI1_SOC2PAD(s_port_signals_soc2pad.periphs.spi1,s_qspi_to_pad[1])
+          `ASSIGN_PERIPHS_SPI1_PAD2SOC(s_pad_to_spi[1],s_port_signals_pad2soc.periphs.spi1)
+          `ASSIGN_PERIPHS_SPI1_SOC2PAD(s_port_signals_soc2pad.periphs.spi1,s_spi_to_pad[1])
 
-          `ASSIGN_PERIPHS_SPI2_PAD2SOC(s_pad_to_qspi[2],s_port_signals_pad2soc.periphs.spi2)
-          `ASSIGN_PERIPHS_SPI2_SOC2PAD(s_port_signals_soc2pad.periphs.spi2,s_qspi_to_pad[2])
+          `ASSIGN_PERIPHS_SPI2_PAD2SOC(s_pad_to_spi[2],s_port_signals_pad2soc.periphs.spi2)
+          `ASSIGN_PERIPHS_SPI2_SOC2PAD(s_port_signals_soc2pad.periphs.spi2,s_spi_to_pad[2])
 
-          `ASSIGN_PERIPHS_SPI3_PAD2SOC(s_pad_to_qspi[3],s_port_signals_pad2soc.periphs.spi3)
-          `ASSIGN_PERIPHS_SPI3_SOC2PAD(s_port_signals_soc2pad.periphs.spi3,s_qspi_to_pad[3])
+          `ASSIGN_PERIPHS_SPI3_PAD2SOC(s_pad_to_spi[3],s_port_signals_pad2soc.periphs.spi3)
+          `ASSIGN_PERIPHS_SPI3_SOC2PAD(s_port_signals_soc2pad.periphs.spi3,s_spi_to_pad[3])
 
-          `ASSIGN_PERIPHS_SPI4_PAD2SOC(s_pad_to_qspi[4],s_port_signals_pad2soc.periphs.spi4)
-          `ASSIGN_PERIPHS_SPI4_SOC2PAD(s_port_signals_soc2pad.periphs.spi4,s_qspi_to_pad[4])
+          `ASSIGN_PERIPHS_SPI4_PAD2SOC(s_pad_to_spi[4],s_port_signals_pad2soc.periphs.spi4)
+          `ASSIGN_PERIPHS_SPI4_SOC2PAD(s_port_signals_soc2pad.periphs.spi4,s_spi_to_pad[4])
 
-          `ASSIGN_PERIPHS_SPI5_PAD2SOC(s_pad_to_qspi[5],s_port_signals_pad2soc.periphs.spi5)
-          `ASSIGN_PERIPHS_SPI5_SOC2PAD(s_port_signals_soc2pad.periphs.spi5,s_qspi_to_pad[5])
+          `ASSIGN_PERIPHS_SPI5_PAD2SOC(s_pad_to_spi[5],s_port_signals_pad2soc.periphs.spi5)
+          `ASSIGN_PERIPHS_SPI5_SOC2PAD(s_port_signals_soc2pad.periphs.spi5,s_spi_to_pad[5])
 
-          `ASSIGN_PERIPHS_SPI6_PAD2SOC(s_pad_to_qspi[6],s_port_signals_pad2soc.periphs.spi6)
-          `ASSIGN_PERIPHS_SPI6_SOC2PAD(s_port_signals_soc2pad.periphs.spi6,s_qspi_to_pad[6])
+          `ASSIGN_PERIPHS_SPI6_PAD2SOC(s_pad_to_spi[6],s_port_signals_pad2soc.periphs.spi6)
+          `ASSIGN_PERIPHS_SPI6_SOC2PAD(s_port_signals_soc2pad.periphs.spi6,s_spi_to_pad[6])
 
-          `ASSIGN_PERIPHS_QSPI_PAD2SOC(s_pad_to_qspi[11],s_port_signals_pad2soc.periphs.qspi)
-          `ASSIGN_PERIPHS_QSPI_SOC2PAD(s_port_signals_soc2pad.periphs.qspi,s_qspi_to_pad[11])
+          `ASSIGN_PERIPHS_SPI7_PAD2SOC(s_pad_to_spi[7],s_port_signals_pad2soc.periphs.spi7)
+          `ASSIGN_PERIPHS_SPI7_SOC2PAD(s_port_signals_soc2pad.periphs.spi7,s_spi_to_pad[7])
 
-          `ASSIGN_PERIPHS_SDIO0_PAD2SOC(s_pad_to_sdio[0],s_port_signals_pad2soc.periphs.sdio0)
-          `ASSIGN_PERIPHS_SDIO0_SOC2PAD(s_port_signals_soc2pad.periphs.sdio0,s_sdio_to_pad[0])
+          `ASSIGN_PERIPHS_SPI8_PAD2SOC(s_pad_to_spi[8],s_port_signals_pad2soc.periphs.spi8)
+          `ASSIGN_PERIPHS_SPI8_SOC2PAD(s_port_signals_soc2pad.periphs.spi8,s_spi_to_pad[8])
 
-          `ASSIGN_PERIPHS_UART0_PAD2SOC(s_pad_to_uart[0],s_port_signals_pad2soc.periphs.uart0)
-          `ASSIGN_PERIPHS_UART0_SOC2PAD(s_port_signals_soc2pad.periphs.uart0,s_uart_to_pad[0])
+          `ASSIGN_PERIPHS_SPI9_PAD2SOC(s_pad_to_spi[9],s_port_signals_pad2soc.periphs.spi9)
+          `ASSIGN_PERIPHS_SPI9_SOC2PAD(s_port_signals_soc2pad.periphs.spi9,s_spi_to_pad[9])
 
-          `ASSIGN_PERIPHS_UART1_PAD2SOC(s_pad_to_uart[1],s_port_signals_pad2soc.periphs.uart1)
-          `ASSIGN_PERIPHS_UART1_SOC2PAD(s_port_signals_soc2pad.periphs.uart1,s_uart_to_pad[1])
+          `ASSIGN_PERIPHS_SPI10_PAD2SOC(s_pad_to_spi[10],s_port_signals_pad2soc.periphs.spi10)
+          `ASSIGN_PERIPHS_SPI10_SOC2PAD(s_port_signals_soc2pad.periphs.spi10,s_spi_to_pad[10])
 
-          `ASSIGN_PERIPHS_UART2_PAD2SOC(s_pad_to_uart[2],s_port_signals_pad2soc.periphs.uart2)
-          `ASSIGN_PERIPHS_UART2_SOC2PAD(s_port_signals_soc2pad.periphs.uart2,s_uart_to_pad[2])
+          // LINUX QSPI
+          `ASSIGN_PERIPHS_QSPI_LINUX_PAD2SOC(s_pad_to_qspi[0],s_port_signals_pad2soc.periphs.qspi_linux)
+          `ASSIGN_PERIPHS_QSPI_LINUX_SOC2PAD(s_port_signals_soc2pad.periphs.qspi_linux,s_qspi_to_pad[0])
 
-          `ASSIGN_PERIPHS_UART3_PAD2SOC(s_pad_to_uart[3],s_port_signals_pad2soc.periphs.uart3)
-          `ASSIGN_PERIPHS_UART3_SOC2PAD(s_port_signals_soc2pad.periphs.uart3,s_uart_to_pad[3])
-
-          `ASSIGN_PERIPHS_UART4_PAD2SOC(s_pad_to_uart[4],s_port_signals_pad2soc.periphs.uart4)
-          `ASSIGN_PERIPHS_UART4_SOC2PAD(s_port_signals_soc2pad.periphs.uart4,s_uart_to_pad[4])
-
+          // I2Cs
           `ASSIGN_PERIPHS_I2C0_PAD2SOC(s_pad_to_i2c[0],s_port_signals_pad2soc.periphs.i2c0)
           `ASSIGN_PERIPHS_I2C0_SOC2PAD(s_port_signals_soc2pad.periphs.i2c0,s_i2c_to_pad[0])
-
-          `ASSIGN_PERIPHS_I2C4_PAD2SOC(s_pad_to_i2c[4],s_port_signals_pad2soc.periphs.i2c4)
-          `ASSIGN_PERIPHS_I2C4_SOC2PAD(s_port_signals_soc2pad.periphs.i2c4,s_i2c_to_pad[4])
-
-          `ASSIGN_PERIPHS_I2C5_PAD2SOC(s_pad_to_i2c[5],s_port_signals_pad2soc.periphs.i2c5)
-          `ASSIGN_PERIPHS_I2C5_SOC2PAD(s_port_signals_soc2pad.periphs.i2c5,s_i2c_to_pad[5])
-
-          `ASSIGN_PERIPHS_GPIO_B_PAD2SOC(s_pad_to_gpio_b,s_port_signals_pad2soc.periphs.gpio_b)
-          `ASSIGN_PERIPHS_GPIO_B_SOC2PAD(s_port_signals_soc2pad.periphs.gpio_b,s_gpio_b_to_pad)
-
-          `ASSIGN_PERIPHS_PWM_SOC2PAD(s_port_signals_soc2pad.periphs.pwm,s_pwm_to_pad)
-
-          `ASSIGN_PERIPHS_SPI7_PAD2SOC(s_pad_to_qspi[7],s_port_signals_pad2soc.periphs.spi7)
-          `ASSIGN_PERIPHS_SPI7_SOC2PAD(s_port_signals_soc2pad.periphs.spi7,s_qspi_to_pad[7])
-
-          //CAN0
-          `ASSIGN_PERIPHS_CAN0_PAD2SOC(s_pad_to_can[0],s_port_signals_pad2soc.periphs.can0)
-          `ASSIGN_PERIPHS_CAN0_SOC2PAD(s_port_signals_soc2pad.periphs.can0,s_can_to_pad[0])
-
-          //CAN1
-          `ASSIGN_PERIPHS_CAN0_PAD2SOC(s_pad_to_can[1],s_port_signals_pad2soc.periphs.can1)
-          `ASSIGN_PERIPHS_CAN0_SOC2PAD(s_port_signals_soc2pad.periphs.can1,s_can_to_pad[1])
 
           `ASSIGN_PERIPHS_I2C1_PAD2SOC(s_pad_to_i2c[1],s_port_signals_pad2soc.periphs.i2c1)
           `ASSIGN_PERIPHS_I2C1_SOC2PAD(s_port_signals_soc2pad.periphs.i2c1,s_i2c_to_pad[1])
@@ -1264,32 +1378,65 @@ module al_saqr
           `ASSIGN_PERIPHS_I2C3_PAD2SOC(s_pad_to_i2c[3],s_port_signals_pad2soc.periphs.i2c3)
           `ASSIGN_PERIPHS_I2C3_SOC2PAD(s_port_signals_soc2pad.periphs.i2c3,s_i2c_to_pad[3])
 
-          `ASSIGN_PERIPHS_CAM0_PAD2SOC(s_pad_to_cam[0],s_port_signals_pad2soc.periphs.cam0)
+          `ASSIGN_PERIPHS_I2C4_PAD2SOC(s_pad_to_i2c[4],s_port_signals_pad2soc.periphs.i2c4)
+          `ASSIGN_PERIPHS_I2C4_SOC2PAD(s_port_signals_soc2pad.periphs.i2c4,s_i2c_to_pad[4])
 
-          `ASSIGN_PERIPHS_UART7_PAD2SOC(s_pad_to_uart[7],s_port_signals_pad2soc.periphs.uart7)
-          `ASSIGN_PERIPHS_UART7_SOC2PAD(s_port_signals_soc2pad.periphs.uart7,s_uart_to_pad[7])
+          `ASSIGN_PERIPHS_I2C5_PAD2SOC(s_pad_to_i2c[5],s_port_signals_pad2soc.periphs.i2c5)
+          `ASSIGN_PERIPHS_I2C5_SOC2PAD(s_port_signals_soc2pad.periphs.i2c5,s_i2c_to_pad[5])
+
+          // UARTs
+          `ASSIGN_PERIPHS_UART0_PAD2SOC(s_pad_to_uart[0],s_port_signals_pad2soc.periphs.uart0)
+          `ASSIGN_PERIPHS_UART0_SOC2PAD(s_port_signals_soc2pad.periphs.uart0,s_uart_to_pad[0])
+
+          `ASSIGN_PERIPHS_UART1_PAD2SOC(s_pad_to_uart[1],s_port_signals_pad2soc.periphs.uart1)
+          `ASSIGN_PERIPHS_UART1_SOC2PAD(s_port_signals_soc2pad.periphs.uart1,s_uart_to_pad[1])
+
+          `ASSIGN_PERIPHS_UART2_PAD2SOC(s_pad_to_uart[2],s_port_signals_pad2soc.periphs.uart2)
+          `ASSIGN_PERIPHS_UART2_SOC2PAD(s_port_signals_soc2pad.periphs.uart2,s_uart_to_pad[2])
+
+          // USARTs
+          `ASSIGN_PERIPHS_USART0_PAD2SOC(s_pad_to_usart[0],s_port_signals_pad2soc.periphs.usart0)
+          `ASSIGN_PERIPHS_USART0_SOC2PAD(s_port_signals_soc2pad.periphs.usart0,s_usart_to_pad[0])
+
+          `ASSIGN_PERIPHS_USART1_PAD2SOC(s_pad_to_usart[1],s_port_signals_pad2soc.periphs.usart1)
+          `ASSIGN_PERIPHS_USART1_SOC2PAD(s_port_signals_soc2pad.periphs.usart1,s_usart_to_pad[1])
+
+          `ASSIGN_PERIPHS_USART2_PAD2SOC(s_pad_to_usart[2],s_port_signals_pad2soc.periphs.usart2)
+          `ASSIGN_PERIPHS_USART2_SOC2PAD(s_port_signals_soc2pad.periphs.usart2,s_usart_to_pad[2])
+
+          `ASSIGN_PERIPHS_USART3_PAD2SOC(s_pad_to_usart[3],s_port_signals_pad2soc.periphs.usart3)
+          `ASSIGN_PERIPHS_USART3_SOC2PAD(s_port_signals_soc2pad.periphs.usart3,s_usart_to_pad[3])
+
+          // GPIOs
+          `ASSIGN_PERIPHS_GPIO_B_PAD2SOC(s_pad_to_gpio_b,s_port_signals_pad2soc.periphs.gpio_b)
+          `ASSIGN_PERIPHS_GPIO_B_SOC2PAD(s_port_signals_soc2pad.periphs.gpio_b,s_gpio_b_to_pad)
+
+          // OT GPIO
+          `ASSIGN_PERIPHS_OT_GPIO_PAD2SOC(s_pad_to_ot_gpio,s_port_signals_pad2soc.periphs.ot_gpio)
+          `ASSIGN_PERIPHS_OT_GPIO_SOC2PAD(s_port_signals_soc2pad.periphs.ot_gpio,s_ot_gpio_to_pad)
+
+          // PWMs
+          `ASSIGN_PERIPHS_PWM0_SOC2PAD(s_port_signals_soc2pad.periphs.pwm0,s_pwm_nano_to_pad[0])
+          `ASSIGN_PERIPHS_PWM1_SOC2PAD(s_port_signals_soc2pad.periphs.pwm1,s_pwm_nano_to_pad[1])
+
+          // CANs
+          `ASSIGN_PERIPHS_CAN0_PAD2SOC(s_pad_to_can[0],s_port_signals_pad2soc.periphs.can0)
+          `ASSIGN_PERIPHS_CAN0_SOC2PAD(s_port_signals_soc2pad.periphs.can0,s_can_to_pad[0])
+
+          `ASSIGN_PERIPHS_CAN0_PAD2SOC(s_pad_to_can[1],s_port_signals_pad2soc.periphs.can1)
+          `ASSIGN_PERIPHS_CAN0_SOC2PAD(s_port_signals_soc2pad.periphs.can1,s_can_to_pad[1])
+
+          // CAMs
+          `ASSIGN_PERIPHS_CAM0_PAD2SOC(s_pad_to_cam[0],s_port_signals_pad2soc.periphs.cam0)
 
           `ASSIGN_PERIPHS_CAM1_PAD2SOC(s_pad_to_cam[1],s_port_signals_pad2soc.periphs.cam1)
 
-          `ASSIGN_PERIPHS_SPI8_PAD2SOC(s_pad_to_qspi[8],s_port_signals_pad2soc.periphs.spi8)
-          `ASSIGN_PERIPHS_SPI8_SOC2PAD(s_port_signals_soc2pad.periphs.spi8,s_qspi_to_pad[8])
-
-          `ASSIGN_PERIPHS_SPI9_PAD2SOC(s_pad_to_qspi[9],s_port_signals_pad2soc.periphs.spi9)
-          `ASSIGN_PERIPHS_SPI9_SOC2PAD(s_port_signals_soc2pad.periphs.spi9,s_qspi_to_pad[9])
-
-          `ASSIGN_PERIPHS_SPI10_PAD2SOC(s_pad_to_qspi[10],s_port_signals_pad2soc.periphs.spi10)
-          `ASSIGN_PERIPHS_SPI10_SOC2PAD(s_port_signals_soc2pad.periphs.spi10,s_qspi_to_pad[10])
-
-          //ETH0
+          // SDIOs
+          `ASSIGN_PERIPHS_SDIO0_PAD2SOC(s_pad_to_sdio[0],s_port_signals_pad2soc.periphs.sdio0)
+          `ASSIGN_PERIPHS_SDIO0_SOC2PAD(s_port_signals_soc2pad.periphs.sdio0,s_sdio_to_pad[0])
 
           `ASSIGN_PERIPHS_SDIO1_PAD2SOC(s_pad_to_sdio[1],s_port_signals_pad2soc.periphs.sdio1)
           `ASSIGN_PERIPHS_SDIO1_SOC2PAD(s_port_signals_soc2pad.periphs.sdio1,s_sdio_to_pad[1])
-
-          `ASSIGN_PERIPHS_UART5_PAD2SOC(s_pad_to_uart[5],s_port_signals_pad2soc.periphs.uart5)
-          `ASSIGN_PERIPHS_UART5_SOC2PAD(s_port_signals_soc2pad.periphs.uart5,s_uart_to_pad[5])
-
-          `ASSIGN_PERIPHS_UART6_PAD2SOC(s_pad_to_uart[6],s_port_signals_pad2soc.periphs.uart6)
-          `ASSIGN_PERIPHS_UART6_SOC2PAD(s_port_signals_soc2pad.periphs.uart6,s_uart_to_pad[6])
 
     `else // !`ifndef FPGA_EMUL
            assign reg_rsp.ready = 1'b0;

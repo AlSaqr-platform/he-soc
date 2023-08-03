@@ -30,10 +30,14 @@
 #define BUFFER_SIZE 10
 #define BUFFER_SIZE_READ 12
 
-#define N_I2C 1
+#define N_I2C 6
 
-#define I2C_MEM0 0x50
-#define I2C_MEM1 0x51
+#define I2C_MEM0_ADDR_BASE 0xA0
+#define I2C_MEM1_ADDR_BASE 0xA0
+#define I2C_MEM2_ADDR_BASE 0xA2
+#define I2C_MEM3_ADDR_BASE 0xA4
+#define I2C_MEM4_ADDR_BASE 0xA6
+#define I2C_MEM5_ADDR_BASE 0xA6
 
 #define PLIC_BASE 0x0C000000
 #define PLIC_CHECK PLIC_BASE + 0x201004
@@ -137,11 +141,25 @@ int main()
 
     cmd_buffer_wr[0]= (((uint32_t)I2C_CMD_CFG) << 24) | 0x40; // sets 16 bit clock divider
     cmd_buffer_wr[1]= (((uint32_t)I2C_CMD_START)<<24); //cmd start
-            
-    if (u==0){
-      cmd_buffer_wr[2]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa0;  // write I2C_MEM0 address + direction bit
-    }else{
-      cmd_buffer_wr[2]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa2; // write I2C_MEM1 address + direction bit
+    switch(u){
+      case 0:
+        cmd_buffer_wr[2]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM0_ADDR_BASE | 0x0; // write I2C_MEM0 address + direction bit
+        break;
+      case 1:
+        cmd_buffer_wr[2]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM1_ADDR_BASE | 0x0; // write I2C_MEM1 address + direction bit
+        break;
+      case 2:
+        cmd_buffer_wr[2]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM2_ADDR_BASE | 0x0; // write I2C_MEM2 address + direction bit
+        break;
+      case 3:
+        cmd_buffer_wr[2]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM3_ADDR_BASE | 0x0; // write I2C_MEM1 address + direction bit
+        break;
+      case 4:
+        cmd_buffer_wr[2]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM4_ADDR_BASE | 0x0; // write I2C_MEM1 address + direction bit
+        break;
+      case 5:
+        cmd_buffer_wr[2]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM5_ADDR_BASE | 0x0; // write I2C_MEM1 address + direction bit
+        break;
     }
     cmd_buffer_wr[3]= (((uint32_t)I2C_CMD_WRB)<<24); 
     cmd_buffer_wr[4]= (((uint32_t)I2C_CMD_WRB)<<24);
@@ -155,18 +173,48 @@ int main()
 
     cmd_buffer_rd[0]= (((uint32_t)I2C_CMD_CFG)<<24) | 0x40; // set 16bit clock divider
     cmd_buffer_rd[1]= (((uint32_t)I2C_CMD_START)<<24);
-    if (u==0){
-      cmd_buffer_rd[2]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa0;
-    }else{
-      cmd_buffer_rd[2]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa2;
+    switch(u){
+      case 0:
+        cmd_buffer_rd[2]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM0_ADDR_BASE | 0x0; // write I2C_MEM0 address + direction bit
+        break;
+      case 1:
+        cmd_buffer_rd[2]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM1_ADDR_BASE | 0x0; // write I2C_MEM1 address + direction bit
+        break;
+      case 2:
+        cmd_buffer_rd[2]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM2_ADDR_BASE | 0x0; // write I2C_MEM2 address + direction bit
+        break;
+      case 3:
+        cmd_buffer_rd[2]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM3_ADDR_BASE | 0x0; // write I2C_MEM1 address + direction bit
+        break;
+      case 4:
+        cmd_buffer_rd[2]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM4_ADDR_BASE | 0x0; // write I2C_MEM1 address + direction bit
+        break;
+      case 5:
+        cmd_buffer_rd[2]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM5_ADDR_BASE | 0x0; // write I2C_MEM1 address + direction bit
+        break;
     }
     cmd_buffer_rd[3]= (((uint32_t)I2C_CMD_WRB)<<24);
     cmd_buffer_rd[4]= (((uint32_t)I2C_CMD_WRB)<<24);
     cmd_buffer_rd[5]= (((uint32_t)I2C_CMD_START)<<24);
-    if (u==0){
-      cmd_buffer_rd[6]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa1; //write addr+dir (0xa1) on bus
-    }else{
-      cmd_buffer_rd[6]= (((uint32_t)I2C_CMD_WRB)<<24) | 0xa3;
+    switch(u){
+      case 0:
+        cmd_buffer_rd[6]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM0_ADDR_BASE | 0x1; // write I2C_MEM0 address + direction bit
+        break;
+      case 1:
+        cmd_buffer_rd[6]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM1_ADDR_BASE | 0x1; // write I2C_MEM1 address + direction bit
+        break;
+      case 2:
+        cmd_buffer_rd[6]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM2_ADDR_BASE | 0x1; // write I2C_MEM2 address + direction bit
+        break;
+      case 3:
+        cmd_buffer_rd[6]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM3_ADDR_BASE | 0x1; // write I2C_MEM1 address + direction bit
+        break;
+      case 4:
+        cmd_buffer_rd[6]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM4_ADDR_BASE | 0x1; // write I2C_MEM1 address + direction bit
+        break;
+      case 5:
+        cmd_buffer_rd[6]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM5_ADDR_BASE | 0x1; // write I2C_MEM1 address + direction bit
+        break;
     }
     cmd_buffer_rd[7]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
     cmd_buffer_rd[8]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
@@ -182,15 +230,39 @@ int main()
 
 
     #ifdef FPGA_EMULATION
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 2 );
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 2 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 2 ); //TODO: updated with the new FPGA padframe
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 2 ); //TODO: updated with the new FPGA padframe
     #else
       #ifdef SIMPLE_PAD
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 2 );
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 2 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 2 ); //TODO: updated with the new FPGA padframe
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 2 ); //TODO: updated with the new FPGA padframe
       #else
-        alsaqr_periph_padframe_periphs_pad_gpio_b_50_mux_set( 2 );
-        alsaqr_periph_padframe_periphs_pad_gpio_b_51_mux_set( 2 );
+        switch (u){
+          case 0:
+            alsaqr_periph_padframe_periphs_a_00_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_a_01_mux_set( 1 );
+            break;
+          case 1:
+            alsaqr_periph_padframe_periphs_a_26_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_a_27_mux_set( 1 );
+            break;
+          case 2:
+            alsaqr_periph_padframe_periphs_a_36_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_a_37_mux_set( 1 );
+            break;
+          case 3:
+            alsaqr_periph_padframe_periphs_a_42_mux_set( 2 );
+            alsaqr_periph_padframe_periphs_a_43_mux_set( 2 );
+            break;
+          case 4:
+            alsaqr_periph_padframe_periphs_a_57_mux_set( 2 );
+            alsaqr_periph_padframe_periphs_a_58_mux_set( 1 );
+            break;
+          case 5:
+            alsaqr_periph_padframe_periphs_a_67_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_a_68_mux_set( 1 );
+            break;
+        }
 
         // Uncomment this two lines to test the i2c1 in RTL
         //alsaqr_periph_padframe_periphs_pad_gpio_d_00_mux_set( 2 );
@@ -427,7 +499,7 @@ int main()
       if (rx_buffer[i]!=expected_rx_buffer[i])
       {
         #ifdef VERBOSE
-          printf("rx_buffer[%0d]=0x%0x different from expected 0x%0x\n", i, rx_buffer[i], expected_rx_buffer[i]);
+          printf("i2c_%0d: rx_buffer[%0d]=0x%0x different from expected 0x%0x\n", u, i, rx_buffer[i], expected_rx_buffer[i]);
         #endif
         error++;
       }

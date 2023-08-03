@@ -30,6 +30,14 @@ static void udma_uart_wait_tx_done(int periph)
 
   while(plp_uart_tx_busy(periph - ARCHI_UDMA_UART_ID(0)));
 }
+static void udma_usart_wait_tx_done(int periph)
+{
+  while (plp_udma_busy(UDMA_USART_TX_ADDR(periph - ARCHI_UDMA_USART_ID(0))))
+  {
+  }
+
+  while(plp_usart_tx_busy(periph - ARCHI_UDMA_USART_ID(0)));
+}
 
 
 static void udma_uart_wait_rx_done(int periph)
@@ -38,7 +46,12 @@ static void udma_uart_wait_rx_done(int periph)
   {
   }
 }
-
+static void udma_usart_wait_rx_done(int periph)
+{
+  while (plp_udma_busy(UDMA_USART_RX_ADDR(periph - ARCHI_UDMA_USART_ID(0))))
+  {
+  }
+}
 
 
 static void udma_uart_setup(int channel, int test_freq, int baudrate)
@@ -47,14 +60,18 @@ static void udma_uart_setup(int channel, int test_freq, int baudrate)
 
   plp_uart_setup(channel - ARCHI_UDMA_UART_ID(0), 0, div-1);
 }
+static void udma_usart_setup(int channel, int test_freq, int baudrate)
+{
+  int div =  (test_freq + baudrate/2) / baudrate;
 
-
+  plp_usart_setup(channel - ARCHI_UDMA_USART_ID(0), 0, div-1);
+}
 
 
 int udma_uart_open(int uart_id, int test_freq, int baudrate)
 {
   int periph_id = ARCHI_UDMA_UART_ID(uart_id);
-  int channel = UDMA_EVENT_ID(periph_id);
+  int channel = UDMA_CHANNEL_ID(periph_id);
 
   plp_udma_cg_set(plp_udma_cg_get() | (1<<periph_id));
 
@@ -65,14 +82,26 @@ int udma_uart_open(int uart_id, int test_freq, int baudrate)
 
   return 0;
 }
+int udma_usart_open(int usart_id, int test_freq, int baudrate)
+{
+  int periph_id = ARCHI_UDMA_USART_ID(usart_id);
+  int channel = UDMA_CHANNEL_ID(periph_id);
 
+  plp_udma_cg_set(plp_udma_cg_get() | (1<<periph_id));
 
+  //soc_eu_fcEventMask_setEvent(channel);
+  //soc_eu_fcEventMask_setEvent(channel+1);
+
+  udma_usart_setup(periph_id, test_freq, baudrate);
+
+  return 0;
+}
 
 
 void udma_uart_close(int uart_id)
 {
   int periph_id = ARCHI_UDMA_UART_ID(uart_id);
-  int channel = UDMA_EVENT_ID(periph_id);
+  int channel = UDMA_CHANNEL_ID(periph_id);
 
   udma_uart_wait_tx_done(periph_id);
 
@@ -80,15 +109,23 @@ void udma_uart_close(int uart_id)
 
   plp_udma_cg_set(plp_udma_cg_get() & ~(1<<periph_id));
 }
+void udma_usart_close(int usart_id)
+{
+  int periph_id = ARCHI_UDMA_USART_ID(usart_id);
+  int channel = UDMA_CHANNEL_ID(periph_id);
 
+  udma_usart_wait_tx_done(periph_id);
 
+  plp_usart_disable(periph_id);      
 
+  plp_udma_cg_set(plp_udma_cg_get() & ~(1<<periph_id));
+}
 
 
 int udma_uart_write(int uart_id, void *buffer, uint32_t size)
 {
   int periph_id = ARCHI_UDMA_UART_ID(uart_id);
-  int channel = UDMA_EVENT_ID(periph_id) + 1;
+  int channel = UDMA_CHANNEL_ID(periph_id) + 1;
 
   unsigned int base = hal_udma_channel_base(channel);
 
@@ -98,19 +135,44 @@ int udma_uart_write(int uart_id, void *buffer, uint32_t size)
 
   return 0;
 }
+int udma_usart_write(int usart_id, void *buffer, uint32_t size)
+{
+  int periph_id = ARCHI_UDMA_USART_ID(usart_id);
+  int channel = UDMA_CHANNEL_ID(periph_id) + 1;
 
+  unsigned int base = hal_udma_channel_base(channel);
+
+  plp_udma_enqueue(base, (int)buffer, size, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_8);
+
+  udma_usart_wait_tx_done(periph_id);
+
+  return 0;
+}
 
 
 int udma_uart_read(int uart_id, void *buffer, uint32_t size)
 {
   int periph_id = ARCHI_UDMA_UART_ID(uart_id);
-  int channel = UDMA_EVENT_ID(periph_id);
+  int channel = UDMA_CHANNEL_ID(periph_id);
 
   unsigned int base = hal_udma_channel_base(channel);
 
   plp_udma_enqueue(base, (int)buffer, size, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_8);
 
   udma_uart_wait_rx_done(periph_id);
+
+  return 0;
+}
+int udma_usart_read(int usart_id, void *buffer, uint32_t size)
+{
+  int periph_id = ARCHI_UDMA_USART_ID(usart_id);
+  int channel = UDMA_CHANNEL_ID(periph_id);
+
+  unsigned int base = hal_udma_channel_base(channel);
+
+  plp_udma_enqueue(base, (int)buffer, size, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_8);
+
+  udma_usart_wait_rx_done(periph_id);
 
   return 0;
 }

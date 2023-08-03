@@ -1,12 +1,14 @@
 package udma_subsystem_pkg;
 
-  localparam N_SPI          = 12;
-  localparam N_UART         = 8;
-  localparam N_SDIO         = 2;
-  localparam N_CAM          = 2;
-  localparam N_I2C          = 5;
-  localparam N_HYPER        = 1; // Do not change unless you know what you are doing.
-  localparam N_CAN          = 2;
+	localparam N_SPI          = 11;
+	localparam N_QSPI         = 1;
+	localparam N_USART        = 4;
+	localparam N_UART         = 3;
+	localparam N_SDIO         = 2;
+	localparam N_CAM          = 2;
+	localparam N_I2C          = 6;
+	localparam N_HYPER        = 1; // Do not change unless you know what you are doing.
+	localparam N_CAN          = 2;
 
   typedef struct packed {
  		logic tx_o;
@@ -14,6 +16,16 @@ package udma_subsystem_pkg;
  	typedef struct packed {
  		logic rx_i;
  	} pad_to_uart_t;
+
+  	typedef struct packed {
+ 		logic tx_o;
+    	logic rts_o;
+ 	} usart_to_pad_t;
+
+	typedef struct packed {
+		logic rx_i;
+		logic cts_i;
+	} pad_to_usart_t;
 
 	typedef struct packed {
 		logic sd0_o;
@@ -39,21 +51,41 @@ package udma_subsystem_pkg;
 	} pad_to_qspi_t;
 
 	typedef struct packed {
-	  logic sda_o;
-	  logic sda_oe_o;
-	  logic scl_o;
-	  logic scl_oe_o;
+		logic csn0_o;
+		logic clk_o;
+		logic sd0_o;
+		logic sd1_o;
+		logic sd2_o;
+		logic sd3_o;
+		logic sd0_oen_o;
+		logic sd1_oen_o;
+		logic sd2_oen_o;
+		logic sd3_oen_o;
+	} qspi_to_pad_ot_t;
+
+	typedef struct packed {
+		logic sd0_i;
+		logic sd1_i;
+		logic sd2_i;
+		logic sd3_i;
+	} pad_to_qspi_ot_t;
+
+	typedef struct packed {
+		logic sda_o;
+		logic sda_oe_o;
+		logic scl_o;
+		logic scl_oe_o;
 	} i2c_to_pad_t;
 
 	typedef struct packed {
-	  logic sda_i;
-	  logic scl_i;
+		logic sda_i;
+		logic scl_i;
 	} pad_to_i2c_t;
 
 	typedef struct packed {
-	  logic clk_i;
-	  logic hsync_i;
-	  logic vsync_i;
+		logic clk_i;
+		logic hsync_i;
+		logic vsync_i;
 		logic data0_i;
 		logic data1_i;
 		logic data2_i;
@@ -65,9 +97,9 @@ package udma_subsystem_pkg;
 	} pad_to_cam_t;
 
 	typedef struct packed {
-	  logic clk_o;
-	  logic cmd_o;
-	  logic cmd_oen_o;
+		logic clk_o;
+		logic cmd_o;
+		logic cmd_oen_o;
 		logic data0_o;
 		logic data1_o;
 		logic data2_o;
@@ -79,7 +111,7 @@ package udma_subsystem_pkg;
 	} sdio_to_pad_t;
 
 	typedef struct packed {
-	  logic cmd_i;
+		logic cmd_i;
 		logic data0_i;
 		logic data1_i;
 		logic data2_i;
@@ -117,7 +149,7 @@ package udma_subsystem_pkg;
 		logic dq7_i;
 	} pad_to_hyper_t;
 
- 	typedef struct packed {
+	typedef struct packed {
 		logic pwm0_o;
 		logic pwm1_o;
 		logic pwm2_o;
@@ -128,13 +160,32 @@ package udma_subsystem_pkg;
 		logic pwm7_o;
 	} pwm_to_pad_t;
 
+		typedef struct packed {
+		logic pwm0_o;
+		logic pwm1_o;
+		logic pwm2_o;
+		logic pwm3_o;
+	} pwm_nano_to_pad_t;
+
 	typedef struct packed {
-	  logic rx_i;
+		logic rx_i;
 	} pad_to_can_t;
 
 	typedef struct packed {
-	  logic tx_o;
+		logic tx_o;
 	} can_to_pad_t;
+
+	typedef struct packed {
+		logic        ot_gpio0_d_o;
+		logic        ot_gpio0_o;
+		logic        ot_gpio1_d_o;
+		logic        ot_gpio1_o;
+	} ot_gpio_to_pad_t;
+
+	typedef struct packed {
+		logic        ot_gpio0_i;
+		logic        ot_gpio1_i;
+	} pad_to_ot_gpio_t;
 
 	// system related bitwidths
 	localparam L2_DATA_WIDTH    = 32;

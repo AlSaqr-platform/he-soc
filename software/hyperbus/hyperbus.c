@@ -122,10 +122,10 @@ int main() {
       #endif
       
       if(error!=0) { 
-          printf("error \n");
+          printf("Test FAILED\n");
           pass=1;
           }
-      else printf("ok\n");
+      else printf("TEST Passed\n");
       uart_wait_tx_done();
 
       return pass;

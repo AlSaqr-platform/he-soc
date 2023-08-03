@@ -135,18 +135,22 @@
 #define ARCHI_UDMA_HAS_TRACER 1
 #define ARCHI_UDMA_HAS_FILTER 1
 
-#define ARCHI_UDMA_NB_SPIM    12
-#define ARCHI_UDMA_NB_UART    8
+#define ARCHI_UDMA_NB_SPIM    11
+#define ARCHI_UDMA_NB_QSPIM   1
+#define ARCHI_UDMA_NB_UART    3
+#define ARCHI_UDMA_NB_USART   4
 #define ARCHI_UDMA_NB_SDIO    2
-#define ARCHI_UDMA_NB_I2C     5
+#define ARCHI_UDMA_NB_I2C     6
 #define ARCHI_UDMA_NB_I2S     0
 #define ARCHI_UDMA_NB_CAM     2
 #define ARCHI_UDMA_NB_TRACER  1
 #define ARCHI_UDMA_NB_FILTER  1
 
 #define ARCHI_UDMA_UART_ID(id)            (0 + (id))
-#define ARCHI_UDMA_SPIM_ID(id)            (8 + (id))
-#define ARCHI_UDMA_I2C_ID(id)             (20 + (id))
+#define ARCHI_UDMA_USART_ID(id)           (3 + (id))
+#define ARCHI_UDMA_SPIM_ID(id)            (7 + (id))
+#define ARCHI_UDMA_QSPIM_ID(id)           (18 + (id))
+#define ARCHI_UDMA_I2C_ID(id)             (19 + (id))
 #define ARCHI_UDMA_SDIO_ID(id)            (25 + (id))
 //#define ARCHI_UDMA_I2S_ID(id)             
 #define ARCHI_UDMA_CAM_ID(id)             (27 + (id))

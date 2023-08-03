@@ -131,11 +131,6 @@ make scripts_vip sec_boot=1
 make clean sim ibex-elf-bin=<path to test binary> sec_boot=1
 
 ```
-make script_vip sec_boot=1
-
-make clean sim ibex-elf-bin=
-
-```
 
 ### Running code on the cluster
 
@@ -170,9 +165,7 @@ cd ../hardware
 
 make scripts_vip
 
-mkdir tmp
-
-make batch-mode=1 run-regressions
+make clean batch-mode=1 run-regressions
 ```
 
 The tests that will be executed are the one listed in `software/regression.list`

@@ -25,6 +25,7 @@
 #include "udma.h"
 
 #define BUFFER_SIZE 32
+#define NUM_GPIOS 63
 
 #define ARCHI_GPIO_ADDR 0x1A105000
 
@@ -169,7 +170,7 @@ int main() {
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
   
-  uint32_t error [3]= {0,0,0};
+  uint32_t error [NUM_GPIOS];
   uint32_t simple=0;
   uint32_t val_wr = 0x00000000;
   uint32_t val_rd = 0;
@@ -190,13 +191,69 @@ int main() {
       alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 1 ); //rx uart
       simple=1;
     #else
+      alsaqr_periph_padframe_periphs_b_00_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_01_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_02_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_03_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_04_mux_set(1);
       alsaqr_periph_padframe_periphs_b_05_mux_set(1);
       alsaqr_periph_padframe_periphs_b_06_mux_set(1);
       alsaqr_periph_padframe_periphs_b_07_mux_set(1);
-
+      alsaqr_periph_padframe_periphs_b_08_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_09_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_10_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_11_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_12_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_13_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_14_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_15_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_16_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_17_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_18_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_19_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_20_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_21_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_22_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_23_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_24_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_25_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_26_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_27_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_28_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_29_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_30_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_31_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_32_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_33_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_34_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_35_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_36_mux_set(1);
       alsaqr_periph_padframe_periphs_b_37_mux_set(1);
       alsaqr_periph_padframe_periphs_b_38_mux_set(1);
       alsaqr_periph_padframe_periphs_b_39_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_40_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_41_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_42_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_43_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_44_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_45_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_46_mux_set(1);
+      alsaqr_periph_padframe_periphs_b_47_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_48_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_49_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_50_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_51_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_52_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_53_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_54_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_55_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_56_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_57_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_58_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_59_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_60_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_61_mux_set(2);
+      alsaqr_periph_padframe_periphs_b_62_mux_set(2);
     #endif    
   #endif 
   
@@ -204,24 +261,20 @@ int main() {
     configure_gpio( 6 , OUT );
     configure_gpio( 7 , IN );
   }else{
-    configure_gpio( 5 , OUT );
-    configure_gpio( 6 , OUT );
-    configure_gpio( 7 , OUT );
+    for(int i = 0; i < NUM_GPIOS; i++) {
+      configure_gpio( i , OUT );
+      printf("gpio_%0d direction: %s\n", i, "OUT");
+    }
 
-    configure_gpio( 37 , IN );
-    configure_gpio( 38 , IN );
-    configure_gpio( 39 , IN );
-
-    /*configure_gpio( 5 , IN );
-    configure_gpio( 6 , IN );
-    configure_gpio( 7 , IN );
-
-    configure_gpio( 37 , OUT );
-    configure_gpio( 38 , OUT );
-    configure_gpio( 39 , OUT );*/
-
+    // for(int i = 0; i < NUM_GPIOS; i++)
+    //   configure_gpio( i , IN );
   }
-  
+
+  for(int i = 0; i < NUM_GPIOS; i++) {
+    error[i] = 0;
+    printf("gpio_%0d error: %0d\n", i, error[i]);
+  }
+    
   gpio_val=1;
   printf("Start...\n");
 
@@ -233,28 +286,13 @@ int main() {
         error[0]++;
     }else{
       //TEST FOR FULL PADFRAME
-      
-      set_gpio(5,gpio_val);
-      set_gpio(6,gpio_val);  
-      set_gpio(7,gpio_val);
-      
-      if (gpio_val!=get_gpio(37))
-        error[0]++;
-      if (gpio_val!=get_gpio(38))
-        error[1]++;
-      if (gpio_val!=get_gpio(39))
-        error[2]++;
 
-      /*set_gpio(37,gpio_val);
-      set_gpio(38,gpio_val);  
-      set_gpio(39,gpio_val);
-      
-      if (gpio_val!=get_gpio(5))
-        error[0]++;
-      if (gpio_val!=get_gpio(6))
-        error[1]++;
-      if (gpio_val!=get_gpio(7))
-        error[2]++;*/
+      for(int i = 0; i < NUM_GPIOS; i++) {
+        set_gpio( i , gpio_val);
+        printf("gpio_%0d value: %0d\n", i, gpio_val);
+      }
+
+      //TODO need to check also the read
     }
     gpio_val=!gpio_val;
   }

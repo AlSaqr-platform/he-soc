@@ -172,13 +172,13 @@ int main(){
 
   */
 
-  //Config pad_gpio_c_00 and 01 as CAN0 tx and rx
-  alsaqr_periph_padframe_periphs_pad_gpio_c_00_mux_set( 1 );
-  alsaqr_periph_padframe_periphs_pad_gpio_c_01_mux_set( 1 );
+  //Config padframe CAN0
+  alsaqr_periph_padframe_periphs_a_81_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_a_82_mux_set( 1 );
 
-  //Config pad_gpio_c_02 and 03 as CAN1 tx and rx
-  alsaqr_periph_padframe_periphs_pad_gpio_c_02_mux_set( 1 );
-  alsaqr_periph_padframe_periphs_pad_gpio_c_03_mux_set( 1 );
+  //Config padframe CAN1
+  alsaqr_periph_padframe_periphs_a_83_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_a_84_mux_set( 1 );
 
 
   // WAR SETTING REG CAN 0
