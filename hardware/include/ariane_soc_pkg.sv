@@ -11,8 +11,11 @@
 // Author: Florian Zaruba, ETH Zurich
 // Description: Contains SoC information as constants
 package ariane_soc;
+
+  localparam NumCVA6 = 2; // 2~4 number of cores
+
   // M-Mode Hart, S-Mode Hart
-  localparam int unsigned NumTargets = 2;
+  localparam int unsigned NumTargets = 2*NumCVA6;
   // Uart, SPI, Ethernet, reserved
   localparam int unsigned NumSources = 255;
   localparam int unsigned MaxPriority = 7;
@@ -123,10 +126,17 @@ package ariane_soc;
     NrCachedRegionRules:    1,
     CachedRegionAddrBase:  {HYAXIBase},
     CachedRegionLength:    {HYAXILength},
+    // shared region
+    NrSharedRegionRules:    1,
+    SharedRegionAddrBase:  {HYAXIBase},
+    SharedRegionLength:    {HYAXILength},
     //  cache config
-    Axi64BitCompliant:      1'b1,
+    AxiCompliant:           1'b1,
     SwapEndianess:          1'b0,
-    // debug
+     // CLIC
+    CLICNumInterruptSrc:    1'b1,
+    CLICIntCtlBits:         1,
+   // debug
     DmBaseAddress:          DebugBase,
     NrPMPEntries:           8
   };

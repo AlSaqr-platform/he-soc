@@ -215,6 +215,7 @@ scripts_vip_macro:
 scripts_vip:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
+
     -t rtl -t test -t vip -t cv64a6_imafdc_sv39 > compile.tcl
 
 post_synth_scripts_vip:

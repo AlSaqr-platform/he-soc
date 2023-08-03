@@ -13,6 +13,7 @@ module ariane_peripherals
     import udma_subsystem_pkg::N_CAN;
     import ariane_soc::*;
 #(
+    parameter  int NumCVA6      = -1,
     parameter  int AxiAddrWidth = -1,
     parameter  int AxiDataWidth = -1,
     parameter  int AxiIdWidth   = -1,
@@ -35,7 +36,7 @@ module ariane_peripherals
     input  logic            cluster_eoc_i   ,
     input  logic [N_CAN-1:0] can_irq_i      ,
     input  logic            cl_dma_pe_evt_i ,
-    output logic [1:0]      irq_o           ,
+    output logic [NumCVA6-1:0][1:0] irq_o   ,
     // UART
     input  logic            rx_i            ,
     output logic            tx_o            ,

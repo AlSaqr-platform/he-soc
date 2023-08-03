@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
+#include "encoding.h"
+
 //#define FPGA_EMULATION
 
 int main(int argc, char const *argv[]) {
@@ -13,7 +15,7 @@ int main(int argc, char const *argv[]) {
   set_flls();
   int baud_rate = 115200;
   int test_freq = 100000000;
-  #endif  
+  #endif
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
   uint32_t * hyaxicfg_reg_mask = 0x1A101018;
   pulp_write32(hyaxicfg_reg_mask,26); //128MB addressable
@@ -22,11 +24,10 @@ int main(int argc, char const *argv[]) {
   uint32_t * hyaxicfg_reg_memspace_start_addr1 = 0x1A101028;
   pulp_write32(hyaxicfg_reg_memspace_start_addr1,0x84000000);
   uint32_t * hyaxicfg_reg_memspace_end_addr0 = 0x1A101024;
-  pulp_write32(hyaxicfg_reg_memspace_end_addr0,0x84000000); 
-  printf("Hello CVA6!\r\n");
+  pulp_write32(hyaxicfg_reg_memspace_end_addr0,0x84000000);
+  printf("Hart ID: %d\r\n", read_csr(mhartid));
   uart_wait_tx_done();
   return 0;
 }
- 
 
 

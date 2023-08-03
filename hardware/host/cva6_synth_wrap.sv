@@ -12,11 +12,20 @@
 // Date: 13.01.2021
 // Description: Ariane synth wrapper
 
+`include "ace/typedef.svh"
+`include "ace/assign.svh"
 
 module cva6_synth_wrap
  import ariane_pkg::*;
  import ariane_soc::*;
- import ariane_axi_soc::*; #(
+ import ariane_ace::ar_chan_t;
+ import ariane_ace::aw_chan_t;
+ import ariane_axi::w_chan_t;
+ import ariane_ace::m2s_t;
+ import ariane_ace::s2m_t;
+ import ariane_axi_soc::*;
+ import snoop_pkg::*;
+ import ace_pkg::ccu_cfg_t; #(
 
   localparam AXI_ID_WIDTH       = 5,
   localparam AXI_ADDR_WIDTH     = 64,
@@ -41,13 +50,12 @@ module cva6_synth_wrap
   input  logic                         rst_ni,
   // Core ID, Cluster ID and boot address are considered more or less static
   input  logic [riscv::VLEN-1:0]       boot_addr_i,  // reset boot address
-  input  logic [riscv::XLEN-1:0]       hart_id_i,    // hart id in a multicore environment (reflected in a CSR)
   // Interrupt inputs
-  input  logic [1:0]                   irq_i,        // level sensitive IR lines, mip & sip (async)
-  input  logic                         ipi_i,        // inter-processor interrupts (async)
+  input  logic [ariane_soc::NumCVA6-1:0][1:0] irq_i,        // level sensitive IR lines, mip & sip (async)
+  input  logic [ariane_soc::NumCVA6-1:0]      ipi_i,        // inter-processor interrupts (async)
   // Timer facilities
-  input  logic                         time_irq_i,   // timer interrupt in (async)
-  input  logic                         debug_req_i,  // debug request (async)
+  input  logic [ariane_soc::NumCVA6-1:0]      time_irq_i,   // timer interrupt in (async)
+  input  logic [ariane_soc::NumCVA6-1:0]      debug_req_i,  // debug request (async)
 
   // memory side, AXI Master
   // AXI4 MASTER
@@ -79,59 +87,148 @@ module cva6_synth_wrap
 
 );
 
+  localparam  CVA6AXiIdWidth = 4; // Do not change, CVA6 from planV only supports IdWidth = 4
+  localparam  CCUAxiIdWidth = CVA6AXiIdWidth + $clog2(ariane_soc::NumCVA6) + $clog2(ariane_soc::NumCVA6+1);
+
+  ACE_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
+    .AXI_ID_WIDTH   ( CVA6AXiIdWidth ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH )
+  ) core_to_CCU[ariane_soc::NumCVA6-1:0]();
+
+  SNOOP_BUS  #(
+    .SNOOP_ADDR_WIDTH ( AXI_ADDR_WIDTH ),
+    .SNOOP_DATA_WIDTH ( AXI_DATA_WIDTH )
+  ) CCU_to_core[ariane_soc::NumCVA6-1:0]();
+
   AXI_BUS #(
-    .AXI_ADDR_WIDTH ( 64   ),
-    .AXI_DATA_WIDTH ( 64   ),
-    .AXI_ID_WIDTH   ( 5    ),
-    .AXI_USER_WIDTH ( 1    )
+    .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
+    .AXI_ID_WIDTH   ( CCUAxiIdWidth  ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH )
+  ) ccu_axi_master();
+
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
+    .AXI_ID_WIDTH   ( AXI_ID_WIDTH   ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH )
   ) cva6_axi_master();
 
   AXI_BUS_ASYNC_GRAY #(
-    .AXI_ADDR_WIDTH ( 64   ),
-    .AXI_DATA_WIDTH ( 64   ),
-    .AXI_ID_WIDTH   ( 5    ),
-    .AXI_USER_WIDTH ( 1    ),
+    .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
+    .AXI_ID_WIDTH   ( AXI_ID_WIDTH   ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH ),
     .LOG_DEPTH      ( 1    )
   ) cva6_axi_master_src();
 
 
-  ariane_axi_soc::req_t    axi_ariane_req;
-  ariane_axi_soc::resp_t   axi_ariane_resp;
+  ariane_ace::m2s_t [ariane_soc::NumCVA6-1:0] ace_ariane_req;
+  ariane_ace::s2m_t [ariane_soc::NumCVA6-1:0] ace_ariane_resp;
 
-  ariane #(
-    .ArianeCfg  ( ariane_soc::ArianeSocCfg )
-  ) i_ariane (
-    .clk_i                ( clk_i               ),
-    .rst_ni               ( rst_ni              ),
-    .boot_addr_i          ( ariane_soc::ROMBase ), // start fetching from ROM
-    .hart_id_i            ( '0                  ),
-    .irq_i                ( irq_i               ), // async signal
-    .ipi_i                ( ipi_i               ), // async signal
-    .time_irq_i           ( time_irq_i          ), // async signal
-    .debug_req_i          ( debug_req_i         ), // async signal
-    .axi_req_o            ( axi_ariane_req      ),
-    .axi_resp_i           ( axi_ariane_resp     )
+  logic [ariane_soc::NumCVA6-1:0][1:0] hart_id;
+
+  for (genvar i = 0; i < ariane_soc::NumCVA6 ; i++ ) begin : gen_ariane
+
+    assign hart_id[i] = i;
+
+    cva6 #(
+      .ArianeCfg     ( ariane_soc::ArianeSocCfg ),
+      .AxiAddrWidth  ( AXI_ADDR_WIDTH           ),
+      .AxiDataWidth  ( AXI_DATA_WIDTH           ),
+      .AxiIdWidth    ( CVA6AXiIdWidth           ),
+      .axi_ar_chan_t ( ariane_ace::ar_chan_t    ),
+      .axi_aw_chan_t ( ariane_ace::aw_chan_t    ),
+      .axi_w_chan_t  ( ariane_axi::w_chan_t     ),
+      .axi_req_t     ( ariane_ace::m2s_t        ),
+      .axi_rsp_t     ( ariane_ace::s2m_t        )
+    ) i_ariane (
+      .clk_i                ( clk_i                 ),
+      .rst_ni               ( rst_ni                ),
+      .boot_addr_i          ( ariane_soc::ROMBase   ), // start fetching from ROM
+      .hart_id_i            ( { 62'h0, hart_id[i] } ),
+      .irq_i                ( irq_i[i][1:0]         ),
+      .ipi_i                ( ipi_i[i]              ),
+      .time_irq_i           ( time_irq_i[i]         ),
+      .debug_req_i          ( debug_req_i[i]        ),
+      .clic_irq_valid_i     ( '0                    ),
+      .clic_irq_id_i        ( 2'b00                 ),
+      .clic_irq_level_i     ( '0                    ),
+      .clic_irq_priv_i      ( riscv::PRIV_LVL_M     ),
+      .clic_irq_shv_i       ( 1'b0                  ),
+      .clic_irq_ready_o     (                       ),
+      .clic_kill_req_i      ( 1'b0                  ),
+      .clic_kill_ack_o      (                       ),
+      .rvfi_o               (                       ),
+      .cvxif_req_o          (                       ),
+      .cvxif_resp_i         ( '0                    ),
+      .l15_req_o            (                       ),
+      .l15_rtrn_i           ( '0                    ),
+      .axi_req_o            ( ace_ariane_req[i]     ),
+      .axi_resp_i           ( ace_ariane_resp[i]    )
+    );
+
+    `ACE_ASSIGN_FROM_REQ(core_to_CCU[i], ace_ariane_req[i])
+    `ACE_ASSIGN_TO_RESP(ace_ariane_resp[i], core_to_CCU[i])
+    `SNOOP_ASSIGN_FROM_RESP(CCU_to_core[i], ace_ariane_req[i])
+    `SNOOP_ASSIGN_TO_REQ(ace_ariane_resp[i], CCU_to_core[i])
+
+  end // block: gen_ariane
+
+  localparam ace_pkg::ccu_cfg_t CCU_CFG = '{
+    NoSlvPorts: ariane_soc::NumCVA6,
+    MaxMstTrans: 2, // Probably requires update
+    MaxSlvTrans: 2, // Probably requires update
+    FallThrough: 1'b0,
+    LatencyMode: axi_pkg::NO_LATENCY,
+    AxiIdWidthSlvPorts:CVA6AXiIdWidth,
+    AxiIdUsedSlvPorts: CVA6AXiIdWidth,
+    UniqueIds: 1'b1,
+    AxiAddrWidth: AXI_ADDR_WIDTH,
+    AxiDataWidth: AXI_DATA_WIDTH
+  };
+
+  ace_ccu_top_intf #(
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH ),
+    .Cfg            ( CCU_CFG        )
+  ) i_ccu (
+    .clk_i                 ( clk_i           ),
+    .rst_ni                ( rst_ni          ),
+    .test_i                ( 1'b0            ),
+    .slv_ports             ( core_to_CCU     ),
+    .snoop_ports           ( CCU_to_core     ),
+    .mst_ports             ( ccu_axi_master  )
   );
 
-  axi_master_connect i_axi_master_connect_ariane (
-    .axi_req_i(axi_ariane_req),
-    .axi_resp_o(axi_ariane_resp),
-    .master(cva6_axi_master)
+  axi_id_remap_intf #(
+    .AXI_SLV_PORT_ID_WIDTH     ( CCUAxiIdWidth  ),
+    .AXI_SLV_PORT_MAX_UNIQ_IDS ( 4              ),
+    .AXI_MAX_TXNS_PER_ID       ( 1              ),
+    .AXI_MST_PORT_ID_WIDTH     ( AXI_ID_WIDTH   ),
+    .AXI_ADDR_WIDTH            ( AXI_ADDR_WIDTH ),
+    .AXI_DATA_WIDTH            ( AXI_DATA_WIDTH ),
+    .AXI_USER_WIDTH            ( AXI_USER_WIDTH )
+  ) i_axi_id_remapper (
+      .clk_i  ( clk_i           ),
+      .rst_ni ( rst_ni          ),
+      .slv    ( ccu_axi_master  ),
+      .mst    ( cva6_axi_master )
   );
 
    axi_cdc_src_intf #(
-    .AXI_ID_WIDTH   ( 5                          ),
-    .AXI_ADDR_WIDTH ( 64                         ),
-    .AXI_DATA_WIDTH ( 64                         ),
-    .AXI_USER_WIDTH ( 1                          ),
-    .LOG_DEPTH      ( 1                          ),
-    .SYNC_STAGES    ( ariane_soc::CdcSyncStages  )
-  )cva6tosocdomainfifo (
-    .src_clk_i  ( clk_i               ),
-    .src_rst_ni ( rst_ni              ),
-    .src        ( cva6_axi_master     ),
-    .dst        ( cva6_axi_master_src )
-  );
+     .AXI_ID_WIDTH   ( AXI_ID_WIDTH   ),
+     .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH ),
+     .LOG_DEPTH      ( 1              )
+   ) cva6tosocdomainfifo (
+       .src_clk_i  ( clk_i               ),
+       .src_rst_ni ( rst_ni              ),
+       .src        ( cva6_axi_master     ),
+       .dst        ( cva6_axi_master_src )
+   );
 
    assign data_master_aw_wptr_o = cva6_axi_master_src.aw_wptr;
    assign data_master_aw_data_o = cva6_axi_master_src.aw_data;
@@ -158,14 +255,14 @@ module cva6_synth_wrap
   // -------------
   // check for response errors
   always_ff @(posedge clk_i) begin : p_assert
-    if (axi_ariane_req.r_ready &&
-      axi_ariane_resp.r_valid &&
-      axi_ariane_resp.r.resp inside {axi_pkg::RESP_DECERR, axi_pkg::RESP_SLVERR}) begin
+    if (cva6_axi_master.r_ready &&
+      cva6_axi_master.r_valid &&
+      cva6_axi_master.r_resp inside {axi_pkg::RESP_DECERR, axi_pkg::RESP_SLVERR}) begin
       $warning("R Response Errored");
     end
-    if (axi_ariane_req.b_ready &&
-      axi_ariane_resp.b_valid &&
-      axi_ariane_resp.b.resp inside {axi_pkg::RESP_DECERR, axi_pkg::RESP_SLVERR}) begin
+    if (cva6_axi_master.b_ready &&
+      cva6_axi_master.b_valid &&
+      cva6_axi_master.b_resp inside {axi_pkg::RESP_DECERR, axi_pkg::RESP_SLVERR}) begin
       $warning("B Response Errored");
     end
   end

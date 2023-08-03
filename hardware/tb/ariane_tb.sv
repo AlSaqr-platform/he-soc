@@ -2267,8 +2267,10 @@ module ariane_tb;
 
     logic [31:0] linker_addr;
     logic [63:0] binary_entry;
-    dm::sbcs_t sbcs;
+    logic        cid;
 
+    dm::sbcs_t sbcs;
+    assign cid = 1'b0;
     if(LOCAL_JTAG==1) begin
       $display("LOCAL_JTAG : %d", LOCAL_JTAG);
       if(PRELOAD_HYPERRAM==0) begin
@@ -2282,18 +2284,18 @@ module ariane_tb;
 
       repeat(20)
       @(posedge rtc_i);
-      jtag_init();
+      jtag_init(cid);
 
       if(PRELOAD_HYPERRAM==0) begin
         // Load cluster code
         if(cluster_binary!="none")
-          jtag_elf_load(cluster_binary, binary_entry);
+          jtag_elf_load(cluster_binary, binary_entry, cid);
 
         $display("Load binary...");
         // Load host code
-        jtag_elf_load(binary, binary_entry);
+        jtag_elf_load(binary, binary_entry, cid);
         $display("Wakeup Core..");
-        jtag_elf_run(binary_entry);
+        jtag_elf_run(binary_entry, cid);
         $display("Wait EOC...");
         jtag_wait_for_eoc ( TOHOST );
       end else begin
@@ -2306,7 +2308,7 @@ module ariane_tb;
         binary_entry={32'h00000000,LINKER_ENTRY};
         #(REFClockPeriod);
         $display("Wakeup here at %x!!", binary_entry);
-        jtag_ariane_wakeup( LINKER_ENTRY );
+        jtag_ariane_wakeup( LINKER_ENTRY, cid );
         jtag_wait_for_eoc ( TOHOST );
       end
     end
@@ -2383,9 +2385,9 @@ module ariane_tb;
   endtask
 
   // Initialize the debug module
-  task automatic jtag_init;
+  task automatic jtag_init(input bit cid);
     jtag_idcode_t idcode;
-    dm::dmcontrol_t dmcontrol = '{dmactive: 1, default: '0};
+    dm::dmcontrol_t dmcontrol = '{dmactive: 1, hartsello:cid, default: '0};
     // Check ID code
     repeat(100) @(posedge s_tck);
     jtag_dbg.get_idcode(idcode);
@@ -2416,19 +2418,19 @@ module ariane_tb;
   endtask
 
   // Load a binary
-  task automatic jtag_elf_load(input string binary, output doub_bt binary_entry );
+  task automatic jtag_elf_load(input string binary, output doub_bt binary_entry, input bit cid );
     dm::dmstatus_t status;
-    // Halt hart 0
-    jtag_write(dm::DMControl, dm::dmcontrol_t'{haltreq: 1, dmactive: 1, default: '0});
+    // Halt hart i
+    jtag_write(dm::DMControl, dm::dmcontrol_t'{haltreq: 1, hartsello:cid, dmactive: 1, default: '0});
     do jtag_dbg.read_dmi_exp_backoff(dm::DMStatus, status);
     while (~status.allhalted);
-    $display("[JTAG] Halted hart 0");
+    $display("[JTAG] Halted hart %d", cid);
     // Preload binary
     jtag_elf_preload(binary, binary_entry);
   endtask
 
   // Run a binary
-  task automatic jtag_elf_run(input doub_bt binary_entry);
+  task automatic jtag_elf_run(input doub_bt binary_entry, input bit cid);
     dm::sbcs_t sbcs;
     do begin
       jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
@@ -2439,7 +2441,7 @@ module ariane_tb;
     jtag_write(dm::Data0, binary_entry[31:0]);
     jtag_write(dm::Command, 32'h0033_07b1, 0, 1);
     // Resume hart 0
-    jtag_write(dm::DMControl, dm::dmcontrol_t'{resumereq: 1, dmactive: 1, default: '0});
+    jtag_write(dm::DMControl, dm::dmcontrol_t'{resumereq: 1, dmactive: 1, hartsello: cid, default: '0});
     $display("[JTAG] Resumed hart 0 from 0x%h", binary_entry);
   endtask
 
@@ -2481,6 +2483,7 @@ module ariane_tb;
 
   task jtag_ariane_wakeup;
     input logic [31:0] start_addr;
+    input bit          cid;
     logic [31:0] dm_status;
 
     automatic dm::sbcs_t sbcs = '{
@@ -2491,30 +2494,29 @@ module ariane_tb;
 
     $info("======== Waking up Ariane using JTAG ========");
     // Initialize the dm module again, otherwise it will not work
-    jtag_init();
+    jtag_init(cid);
     // Write PC to Data0 and Data1
     jtag_write(dm::Data0, start_addr);
 
     jtag_write(dm::Data1, 32'h0000_0000);
 
     // Halt Req
-    jtag_write(dm::DMControl, 32'h8000_0001);
+    jtag_write(dm::DMControl, dm::dmcontrol_t'{haltreq: 1, hartsello:cid, dmactive: 1, default: '0});
 
     // Wait for CVA6 to be halted
     do jtag_dbg.read_dmi_exp_backoff(dm::DMStatus, dm_status);
     while (!dm_status[8]);
 
     // Ensure haltreq, resumereq and ackhavereset all equal to 0
-    jtag_write(dm::DMControl, 32'h0000_0001);
+    jtag_write(dm::DMControl,  dm::dmcontrol_t'{hartsello:cid, dmactive: 1, default: '0});
 
     // Register Access Abstract Command
     jtag_write(dm::Command, {8'h0,1'b0,3'h3,1'b0,1'b0,1'b1,1'b1,4'h0,dm::CSR_DPC});
 
     // Resume req. Exiting from debug mode CVA6 will jump at the DPC address.
     // Ensure haltreq, resumereq and ackhavereset all equal to 0
-    jtag_write(dm::DMControl, 32'h4000_0001);
-    jtag_write(dm::DMControl, 32'h0000_0001);
-
+    jtag_write(dm::DMControl,  dm::dmcontrol_t'{resumereq:1, hartsello:cid, dmactive: 1, default: '0});
+    jtag_write(dm::DMControl,  dm::dmcontrol_t'{hartsello:cid, dmactive: 1, default: '0});
 
     // Wait till end of computation
     program_loaded = 1;
