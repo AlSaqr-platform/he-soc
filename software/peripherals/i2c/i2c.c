@@ -30,7 +30,15 @@
 #define BUFFER_SIZE 10
 #define BUFFER_SIZE_READ 12
 
-#define N_I2C 6
+#ifndef FPGA_EMULATION
+  #ifndef SIMPLE_PAD
+    #define N_I2C 6
+  #else
+    #define N_I2C 1
+  #endif
+#else
+  #define N_I2C 1
+#endif
 
 #define I2C_MEM0_ADDR_BASE 0xA0
 #define I2C_MEM1_ADDR_BASE 0xA0
@@ -230,12 +238,12 @@ int main()
 
 
     #ifdef FPGA_EMULATION
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 2 ); //TODO: updated with the new FPGA padframe
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 2 ); //TODO: updated with the new FPGA padframe
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 2 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 2 );
     #else
       #ifdef SIMPLE_PAD
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 2 ); //TODO: updated with the new FPGA padframe
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 2 ); //TODO: updated with the new FPGA padframe
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 2 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 2 );
       #else
         switch (u){
           case 0:

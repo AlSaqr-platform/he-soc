@@ -95,37 +95,29 @@ int main()
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
-  #ifdef FPGA_EMULATION
-    //TODO
-  #else
-    #ifdef SIMPLE_PAD
-      //TODO
-    #else
-      // USART0
-      alsaqr_periph_padframe_periphs_a_28_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_29_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_30_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_31_mux_set( 1 );
+  // USART0
+  alsaqr_periph_padframe_periphs_a_28_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_a_29_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_a_30_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_a_31_mux_set( 1 );
 
-      // USART1
-      alsaqr_periph_padframe_periphs_a_61_mux_set( 2 );
-      alsaqr_periph_padframe_periphs_a_62_mux_set( 2 );
-      alsaqr_periph_padframe_periphs_a_63_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_64_mux_set( 1 );
+  // USART1
+  alsaqr_periph_padframe_periphs_a_61_mux_set( 2 );
+  alsaqr_periph_padframe_periphs_a_62_mux_set( 2 );
+  alsaqr_periph_padframe_periphs_a_63_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_a_64_mux_set( 1 );
 
-      // USART2
-      alsaqr_periph_padframe_periphs_a_69_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_70_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_71_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_72_mux_set( 1 );
+  // USART2
+  alsaqr_periph_padframe_periphs_a_69_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_a_70_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_a_71_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_a_72_mux_set( 1 );
 
-      // USART3
-      alsaqr_periph_padframe_periphs_a_73_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_74_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_75_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_76_mux_set( 1 );
-    #endif    
-  #endif 
+  // USART3
+  alsaqr_periph_padframe_periphs_a_73_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_a_74_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_a_75_mux_set( 1 );
+  alsaqr_periph_padframe_periphs_a_76_mux_set( 1 );
 
   printf("USART start...\n\r");
   uart_wait_tx_done();
