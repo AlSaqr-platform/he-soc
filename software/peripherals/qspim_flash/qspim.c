@@ -263,24 +263,16 @@ int main(){
 
   for (int u = 0; u<N_QSPI; u++){
 
-    #ifdef FPGA_EMULATION
-      //TODO
-    #else
-      #ifdef SIMPLE_PAD
-        //TODO
-      #else
-        switch(u){
-          case 0:
-            alsaqr_periph_padframe_periphs_linux_qspi_00_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_linux_qspi_01_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_linux_qspi_02_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_linux_qspi_03_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_linux_qspi_04_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_linux_qspi_05_mux_set( 1 );
-            break;
-        }
-      #endif    
-    #endif 
+    switch(u){
+      case 0:
+        alsaqr_periph_padframe_periphs_linux_qspi_00_mux_set( 1 );
+        alsaqr_periph_padframe_periphs_linux_qspi_01_mux_set( 1 );
+        alsaqr_periph_padframe_periphs_linux_qspi_02_mux_set( 1 );
+        alsaqr_periph_padframe_periphs_linux_qspi_03_mux_set( 1 );
+        alsaqr_periph_padframe_periphs_linux_qspi_04_mux_set( 1 );
+        alsaqr_periph_padframe_periphs_linux_qspi_05_mux_set( 1 );
+        break;
+    }
 
     rx_qspi_plic_id = ARCHI_UDMA_QSPIM_ID(u)*4 +16 ;
     tx_qspi_plic_id = ARCHI_UDMA_QSPIM_ID(u)*4 +16 +1;

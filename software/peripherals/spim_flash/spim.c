@@ -66,7 +66,15 @@
 
 #define CLOCK_DIV 2
 
-#define N_SPI 11
+#ifndef FPGA_EMULATION
+  #ifndef SIMPLE_PAD
+    #define N_SPI 11
+  #else
+    #define N_SPI 1
+  #endif
+#else
+  #define N_SPI 1
+#endif
 
 #define BUFFER_SIZE 16
 
@@ -272,16 +280,16 @@ int main(){
   for (int u = 0; u<N_SPI; u++){
 
     #ifdef FPGA_EMULATION
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 2 ); //TODO adapt to the new padframe
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set( 2 ); //TODO adapt to the new padframe
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set( 2 ); //TODO adapt to the new padframe
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set( 2 ); //TODO adapt to the new padframe
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 2 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set( 2 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set( 2 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set( 2 );
     #else
       #ifdef SIMPLE_PAD
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 2 ); //TODO adapt to the new padframe
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set( 2 ); //TODO adapt to the new padframe
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set( 2 ); //TODO adapt to the new padframe
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set( 2 ); //TODO adapt to the new padframe
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 2 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set( 2 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set( 2 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set( 2 );
       #else
         switch(u){
           case 0:
@@ -716,13 +724,13 @@ int main(){
 
   temp=0;
   for(int i=0; i<N_SPI; i++){
-     temp+=error[i];
+    temp+=error[i];
   }
   if (temp == 0){
-      printf("Test PASSED\n",u);
-    }else{
-      printf("Test FAILED with %d errors\n\r", temp);
-    }
+    printf("Test PASSED\n",u);
+  }else{
+    printf("Test FAILED with %d errors\n\r", temp);
+  }
     
   return temp;
 }

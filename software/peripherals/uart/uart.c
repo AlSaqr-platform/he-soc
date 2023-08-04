@@ -29,8 +29,16 @@
 
 #define BUFFER_SIZE 16
 #define UART_BAUDRATE 115200
-#define N_UART 3
 
+#ifndef FPGA_EMULATION
+  #ifndef SIMPLE_PAD
+    #define N_UART 3
+  #else
+    #define N_UART 1
+  #endif
+#else
+  #define N_UART 1
+#endif
 
 #define PLIC_BASE 0x0C000000
 #define PLIC_CHECK PLIC_BASE + 0x201004
