@@ -1296,8 +1296,8 @@ module ariane_tb;
     if(USE_USART == 1) begin
 
       // config the USART0 pads, not muxed
-      assign pad_periphs_a_29_pad_usart0_rx  = pad_periphs_a_28_pad_usart0_tx;  // UART0_TX  -> UART0_RX 
-      assign pad_periphs_a_31_pad_usart0_cts = pad_periphs_a_30_pad_usart0_rts; // UART0_RTS -> UART0_CTS 
+      assign pad_periphs_a_29_pad_usart0_rx  = pad_periphs_a_28_pad_usart0_tx;  // UART0_TX  -> UART0_RX
+      assign pad_periphs_a_31_pad_usart0_cts = pad_periphs_a_30_pad_usart0_rts; // UART0_RTS -> UART0_CTS
 
     end
 
@@ -1542,16 +1542,16 @@ module ariane_tb;
     if(USE_USART == 1) begin
 
       // config the USART1 pads, muxed with SDIO1 (61, 62)
-      assign pad_periphs_a_62_pad_usart1_rx  = pad_periphs_a_61_pad_usart1_tx;  // UART1_TX  -> UART1_RX 
-      assign pad_periphs_a_64_pad_usart1_cts = pad_periphs_a_63_pad_usart1_rts; // UART1_RTS -> UART1_CTS 
+      assign pad_periphs_a_62_pad_usart1_rx  = pad_periphs_a_61_pad_usart1_tx;  // UART1_TX  -> UART1_RX
+      assign pad_periphs_a_64_pad_usart1_cts = pad_periphs_a_63_pad_usart1_rts; // UART1_RTS -> UART1_CTS
 
       // config the USART2 pads, not muxed
-      assign pad_periphs_a_70_pad_usart2_rx  = pad_periphs_a_69_pad_usart2_tx;  // UART2_TX  -> UART2_RX 
-      assign pad_periphs_a_72_pad_usart2_cts = pad_periphs_a_71_pad_usart2_rts; // UART2_RTS -> UART2_CTS 
+      assign pad_periphs_a_70_pad_usart2_rx  = pad_periphs_a_69_pad_usart2_tx;  // UART2_TX  -> UART2_RX
+      assign pad_periphs_a_72_pad_usart2_cts = pad_periphs_a_71_pad_usart2_rts; // UART2_RTS -> UART2_CTS
 
       // config the USART3 pads, not muxed
-      assign pad_periphs_a_74_pad_usart3_rx  = pad_periphs_a_73_pad_usart3_tx;  // UART3_TX  -> UART3_RX 
-      assign pad_periphs_a_76_pad_usart3_cts = pad_periphs_a_75_pad_usart3_rts; // UART3_RTS -> UART3_CTS 
+      assign pad_periphs_a_74_pad_usart3_rx  = pad_periphs_a_73_pad_usart3_tx;  // UART3_TX  -> UART3_RX
+      assign pad_periphs_a_76_pad_usart3_cts = pad_periphs_a_75_pad_usart3_rts; // UART3_RTS -> UART3_CTS
 
     end
 
@@ -1916,7 +1916,7 @@ module ariane_tb;
   tranif1 a_91_pad_spi10_miso  (pad_periphs_a_91_pad, pad_periphs_a_91_pad_spi10_miso, pad_periphs_a_91_pad_mux_sel_spi10_miso );
   tranif1 a_92_pad_spi10_mosi  (pad_periphs_a_92_pad, pad_periphs_a_92_pad_spi10_mosi, pad_periphs_a_92_pad_mux_sel_spi10_mosi );
 
-  tranif1 b_00_pad_drdy_gpio0  (pad_periphs_b_00_pad, pad_periphs_b_00_pad_drdy_gpio0  , pad_periphs_b_00_pad_mux_sel_drdy_gpio0   ); 
+  tranif1 b_00_pad_drdy_gpio0  (pad_periphs_b_00_pad, pad_periphs_b_00_pad_drdy_gpio0  , pad_periphs_b_00_pad_mux_sel_drdy_gpio0   );
   tranif1 b_01_pad_drdy_gpio1  (pad_periphs_b_01_pad, pad_periphs_b_01_pad_drdy_gpio1  , pad_periphs_b_01_pad_mux_sel_drdy_gpio1   );
   tranif1 b_02_pad_drdy_gpio2  (pad_periphs_b_02_pad, pad_periphs_b_02_pad_drdy_gpio2  , pad_periphs_b_02_pad_mux_sel_drdy_gpio2   );
   tranif1 b_03_pad_sync_gpio3  (pad_periphs_b_03_pad, pad_periphs_b_03_pad_sync_gpio3  , pad_periphs_b_03_pad_mux_sel_sync_gpio3   );
@@ -2139,6 +2139,26 @@ module ariane_tb;
     forever
       #(REFClockPeriod/2) s_tck=~s_tck;
   end
+
+  `ifndef PRELOAD
+    `ifndef SEC_BOOT
+      `ifndef USE_LOCAL_JTAG
+        initial begin
+          forever begin
+            wait (exit_o[0]);
+
+              if ((exit_o >> 1)) begin
+                `uvm_error( "Core Test",  $sformatf("*** FAILED *** (tohost = %0d)", (exit_o >> 1)))
+              end else begin
+                `uvm_info( "Core Test",  $sformatf("*** SUCCESS *** (tohost = %0d)", (exit_o >> 1)), UVM_LOW)
+              end
+                $stop;
+          end
+        end
+      `endif
+    `endif
+  `endif
+
 
   ////////////
   //  JTAG  //
