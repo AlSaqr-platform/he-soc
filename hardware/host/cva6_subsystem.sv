@@ -669,7 +669,7 @@ module cva6_subsystem
 `else
     .InclSPI      ( 1'b0                     ),
 `endif
-    .InclEthernet ( 1'b0                     )
+    .InclEthernet ( 1'b1                     )
   ) i_ariane_peripherals (
     .clk_i           ( clk_i                        ),
     .rst_ni          ( ndmreset_n                   ),
@@ -694,17 +694,6 @@ module cva6_subsystem
     .eth_to_pad       ( eth_to_pad                  ),
     .pad_to_eth       ( pad_to_eth                  ),
 
-    /*.eth_txck        ( ),
-    .eth_rxck        ( ),
-    .eth_rxctl       ( ),
-    .eth_rxd         ( ),
-    .eth_rst_n       ( ),
-    .eth_tx_en       ( ),
-    .eth_txd         ( ),
-    .phy_mdio        ( ),
-    .eth_mdc         ( ),
-    .mdio            ( ),
-    .mdc             ( ),*/
     .irq_ariane_i
   );
 

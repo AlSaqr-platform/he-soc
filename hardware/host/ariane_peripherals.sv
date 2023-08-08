@@ -48,19 +48,6 @@ module ariane_peripherals
     output eth_to_pad_t     eth_to_pad       ,
     input  pad_to_eth_t     pad_to_eth       ,
 
-    /*input  wire             eth_txck        ,
-    input  wire             eth_rxck        ,
-    input  wire             eth_rxctl       ,
-    input  wire [3:0]       eth_rxd         ,
-    output wire             eth_rst_n       ,
-    output wire             eth_tx_en       ,
-    output wire [3:0]       eth_txd         ,
-    inout  wire             phy_mdio        ,
-    output logic            eth_mdc         ,
-    // MDIO Interface
-    inout                   mdio            ,
-    output                  mdc             ,*/
-
     // SCMI mailbox interrupt to CVA6
     input  logic            irq_ariane_i
 
