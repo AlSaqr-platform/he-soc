@@ -131,4 +131,28 @@ package ariane_soc;
     NrPMPEntries:           8
   };
 
+  // Ethernet
+  typedef struct packed {
+    logic eth_rxck_i ;
+    logic eth_rxctl_i;
+    logic eth_rxd0_i ;
+    logic eth_rxd1_i ;
+    logic eth_rxd2_i ;
+    logic eth_rxd3_i ;
+    logic eth_md_i;
+  } pad_to_eth_t;
+
+  typedef struct packed {
+    logic eth_rstn_o;
+    logic eth_txck_o;
+    logic eth_txctl_o;
+    logic eth_txd0_o;
+    logic eth_txd1_o;
+    logic eth_txd2_o;
+    logic eth_txd3_o;
+    logic eth_mdc_o;
+    logic eth_md_o;
+    logic eth_md_oe;
+  } eth_to_pad_t;
+
 endpackage

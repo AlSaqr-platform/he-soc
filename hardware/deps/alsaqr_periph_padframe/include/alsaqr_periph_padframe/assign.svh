@@ -501,7 +501,7 @@
 
 `define ASSIGN_PERIPHS_ETH_SOC2PAD(load, driver) \
   assign load.eth_md_i = driver.eth_md_o; \
-  assign load.eth_md__i = driver.eth_md__o; \
+  assign load.eth_md_oe = driver.eth_md_oe; \
   assign load.eth_mdc_i = driver.eth_mdc_o; \
   assign load.eth_rstn_i = driver.eth_rstn_o; \
   assign load.eth_txck_i = driver.eth_txck_o; \

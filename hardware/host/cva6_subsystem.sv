@@ -77,6 +77,14 @@ module cva6_subsystem
   AXI_BUS.Master          cluster_axi_master,
   AXI_BUS.Slave           cluster_axi_slave,
 
+  //ETHERNET
+  input  logic            eth_clk_i       , // 125 MHz quadrature
+  input  logic            eth_phy_tx_clk_i, // 125 MHz in-phase
+  input  logic            eth_clk_200MHz_i,
+
+  output eth_to_pad_t     eth_to_pad,
+  input  pad_to_eth_t     pad_to_eth,
+
   // OpenTitan axi master
   input  axi_req_t        ot_axi_req,
   output axi_rsp_t        ot_axi_rsp,
@@ -678,7 +686,15 @@ module cva6_subsystem
     .irq_o           ( irqs                         ),
     .rx_i            ( cva6_uart_rx_i               ),
     .tx_o            ( cva6_uart_tx_o               ),
-    .eth_txck        ( ),
+
+    .eth_clk_i        ( eth_clk_i                   ),
+    .eth_phy_tx_clk_i ( eth_phy_tx_clk_i            ),
+    .eth_clk_200MHz_i ( eth_clk_200MHz_i            ),
+
+    .eth_to_pad       ( eth_to_pad                  ),
+    .pad_to_eth       ( pad_to_eth                  ),
+
+    /*.eth_txck        ( ),
     .eth_rxck        ( ),
     .eth_rxctl       ( ),
     .eth_rxd         ( ),
@@ -688,7 +704,7 @@ module cva6_subsystem
     .phy_mdio        ( ),
     .eth_mdc         ( ),
     .mdio            ( ),
-    .mdc             ( ),
+    .mdc             ( ),*/
     .irq_ariane_i
   );
 

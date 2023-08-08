@@ -11,6 +11,7 @@
 // Xilinx Peripehrals
 module ariane_peripherals
     import udma_subsystem_pkg::N_CAN;
+    import ariane_soc::*;
 #(
     parameter  int AxiAddrWidth = -1,
     parameter  int AxiDataWidth = -1,
@@ -38,8 +39,16 @@ module ariane_peripherals
     // UART
     input  logic            rx_i            ,
     output logic            tx_o            ,
+
     // Ethernet
-    input  wire             eth_txck        ,
+    input  logic            eth_clk_i        , // 125 MHz quadrature
+    input  logic            eth_phy_tx_clk_i , // 125 MHz in-phase
+    input  logic            eth_clk_200MHz_i ,
+
+    output eth_to_pad_t     eth_to_pad       ,
+    input  pad_to_eth_t     pad_to_eth       ,
+
+    /*input  wire             eth_txck        ,
     input  wire             eth_rxck        ,
     input  wire             eth_rxctl       ,
     input  wire [3:0]       eth_rxd         ,
@@ -50,7 +59,8 @@ module ariane_peripherals
     output logic            eth_mdc         ,
     // MDIO Interface
     inout                   mdio            ,
-    output                  mdc             ,
+    output                  mdc             ,*/
+
     // SCMI mailbox interrupt to CVA6
     input  logic            irq_ariane_i
 
@@ -437,8 +447,82 @@ module ariane_peripherals
     // ---------------
     // 4. Ethernet
     // ---------------
-    if (0)
+    if (InclEthernet)
       begin
+
+        logic [3:0] eth_txd_o, eth_rxd_i;
+        logic                      eth_en, eth_we, eth_int_n, eth_pme_n, eth_mdio_i, eth_mdio_o, eth_mdio_oe;
+        logic [AxiAddrWidth-1:0]   eth_addr;
+        logic [AxiDataWidth-1:0]   eth_wrdata, eth_rdata;
+        logic [AxiDataWidth/8-1:0] eth_be;
+
+        assign eth_rxd_i[3] = pad_to_eth.eth_rxd3_i;
+        assign eth_rxd_i[2] = pad_to_eth.eth_rxd2_i;
+        assign eth_rxd_i[1] = pad_to_eth.eth_rxd1_i;
+        assign eth_rxd_i[0] = pad_to_eth.eth_rxd0_i;
+
+        assign eth_to_pad.eth_txd3_o = eth_txd_o[3];
+        assign eth_to_pad.eth_txd2_o = eth_txd_o[2];
+        assign eth_to_pad.eth_txd1_o = eth_txd_o[1];
+        assign eth_to_pad.eth_txd0_o = eth_txd_o[0];
+
+        axi2mem #(
+        .AXI_ID_WIDTH   ( AxiIdWidth       ),
+        .AXI_ADDR_WIDTH ( AxiAddrWidth     ),
+        .AXI_DATA_WIDTH ( AxiDataWidth     ),
+        .AXI_USER_WIDTH ( AxiUserWidth     )
+        ) axi2ethernet (
+            .clk_i  ( clk_i                   ),
+            .rst_ni ( rst_ni                  ),
+            .slave  ( ethernet                ),
+            .req_o  ( eth_en                  ),
+            .we_o   ( eth_we                  ),
+            .addr_o ( eth_addr                ),
+            .be_o   ( eth_be                  ),
+            .data_o ( eth_wrdata              ),
+            .data_i ( eth_rdata               )
+        );
+
+        framing_top eth_rgmii (
+           .msoc_clk(clk_i),
+           .core_lsu_addr(eth_addr[14:0]),
+           .core_lsu_wdata(eth_wrdata),
+           .core_lsu_be(eth_be),
+           .ce_d(eth_en),
+           .we_d(eth_en & eth_we),
+           .framing_sel(eth_en),
+           .framing_rdata(eth_rdata),
+           .rst_int(!rst_ni),
+
+           .clk_int( eth_phy_tx_clk_i ), // 125 MHz in-phase
+           .clk90_int( eth_clk_i ),    // 125 MHz quadrature
+           .clk_200_int( eth_clk_200MHz_i ),
+           /*
+            * Ethernet: 1000BASE-T RGMII
+            */
+           .phy_rx_clk( pad_to_eth.eth_rxck_i ),
+
+           .phy_rxd( eth_rxd_i ),
+
+           .phy_rx_ctl(pad_to_eth.eth_rxctl_i),
+
+           .phy_tx_clk(eth_to_pad.eth_txck_o),
+           .phy_txd( eth_txd_o ),
+
+           .phy_tx_ctl( eth_to_pad.eth_txctl_o ),
+           .phy_reset_n( eth_to_pad.eth_rstn_o ),
+           .phy_mdc( eth_to_pad.eth_mdc_o ),
+
+           .phy_int_n( ),
+           .phy_pme_n( ),
+
+           .phy_mdio_i(pad_to_eth.eth_md_i),
+           .phy_mdio_o(eth_to_pad.eth_md_o),
+           .phy_mdio_oe(eth_to_pad.eth_md_oe),
+
+           .eth_irq(irq_sources[2])
+        );
+
       end
     else
       begin

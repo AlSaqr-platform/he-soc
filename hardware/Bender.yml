@@ -42,6 +42,7 @@ dependencies:
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
   opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "7972faa1eb22b4a16a5f08aa72f11d881a12be12" }
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
+  ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "9666978b51b969b6b51311d762a885635653190f" }
 
 
 export_include_dirs:
