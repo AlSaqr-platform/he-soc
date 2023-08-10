@@ -2315,7 +2315,6 @@ module ariane_tb;
   task automatic jtag_read_reg;
     input logic [31:0] addr;
     output logic [63:0] rdata;
-    input int unsigned idle_cycles;
 
     automatic dm::sbcs_t sbcs = '{
       sbautoincrement: 1'b1,
@@ -2352,7 +2351,7 @@ module ariane_tb;
     jtag_write(dm::SBData0, value[31:0]);
 
     //Check correctess
-    jtag_read_reg(start_addr, rdata, 200);
+    jtag_read_reg(start_addr, rdata);
     if(rdata!=value) begin
       $fatal(1,"rdata at %x: %x" , start_addr, rdata);
     end else begin
