@@ -74,29 +74,35 @@ module ariane_tb;
   parameter  USE_SDIO             = 1;
   parameter  USE_CAN              = 1;
 
+  ////////////////////////////////
+  //                            //
+  //  LINKER SCRIPT PARAMETERS  //
+  //                            //
+  ////////////////////////////////
+
+  // when preload is enabled LINKER_ENTRY specifies the linker address which must be L3 -> 32'h80000000
+  parameter  LINKER_ENTRY        = 32'h80000000;
+  // IMPORTANT : If you change the linkerscript check the tohost address and update this paramater
+  parameter  TOHOST              = LINKER_ENTRY + 32'h1C0;
+
   `ifdef PRELOAD
     parameter  PRELOAD_HYPERRAM    = 1;
     parameter  LOCAL_JTAG          = 1;
     parameter  CHECK_LOCAL_JTAG    = 0;
-    // when preload is enabled LINKER_ENTRY specifies the linker address (L3: 32'h80000000 - L2: 32'h1C000000)
-    parameter  LINKER_ENTRY        = 32'h80000000;
   `else
     `ifdef SEC_BOOT
     parameter  CHECK_LOCAL_JTAG = 0;
     parameter  PRELOAD_HYPERRAM = 1;
     parameter  LOCAL_JTAG       = 0;
-    parameter  LINKER_ENTRY     = 0;
     `else
        `ifdef USE_LOCAL_JTAG
        parameter  LOCAL_JTAG       = 1;
        parameter  PRELOAD_HYPERRAM = 0;
        parameter  CHECK_LOCAL_JTAG = 0;
-       parameter  LINKER_ENTRY     = 0;
        `else
        parameter  LOCAL_JTAG       = 0;
        parameter  PRELOAD_HYPERRAM = 0;
        parameter  CHECK_LOCAL_JTAG = 0;
-       parameter  LINKER_ENTRY     = 0;
        `endif
     `endif
   `endif
@@ -2152,7 +2158,7 @@ module ariane_tb;
               end else begin
                 `uvm_info( "Core Test",  $sformatf("*** SUCCESS *** (tohost = %0d)", (exit_o >> 1)), UVM_LOW)
               end
-                $stop;
+                $finish;
           end
         end
       `endif
@@ -2289,7 +2295,7 @@ module ariane_tb;
         $display("Wakeup Core..");
         jtag_elf_run(binary_entry);
         $display("Wait EOC...");
-        jtag_wait_for_eoc (exit_code, binary_entry);
+        jtag_wait_for_eoc ( TOHOST );
       end else begin
 
         $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);
@@ -2300,18 +2306,16 @@ module ariane_tb;
         binary_entry={32'h00000000,LINKER_ENTRY};
         #(REFClockPeriod);
         $display("Wakeup here at %x!!", binary_entry);
-        jtag_ariane_wakeup(LINKER_ENTRY);
-        jtag_wait_for_eoc (exit_code, binary_entry);
+        jtag_ariane_wakeup( LINKER_ENTRY );
+        jtag_wait_for_eoc ( TOHOST );
       end
     end
   end
 
-  task automatic jtag_write_reg;
-    input logic [31:0] start_addr;
-    input logic [63:0] value;
-
-    logic [31:0]      addr;
-    logic [63:0]      rdata;
+  task automatic jtag_read_reg;
+    input logic [31:0] addr;
+    output logic [63:0] rdata;
+    input int unsigned idle_cycles;
 
     automatic dm::sbcs_t sbcs = '{
       sbautoincrement: 1'b1,
@@ -2319,21 +2323,6 @@ module ariane_tb;
       default        : 1'b0
     };
 
-    addr = start_addr;
-    do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
-    while (sbcs.sbbusy);
-    jtag_dbg.write_dmi(dm::SBCS, sbcs);
-    do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
-    while (sbcs.sbbusy);
-    jtag_dbg.write_dmi(dm::SBAddress0, addr);
-    do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
-    while (sbcs.sbbusy);
-    jtag_dbg.write_dmi(dm::SBData1, value[63:32]);
-    do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
-    while (sbcs.sbbusy);
-    jtag_dbg.write_dmi(dm::SBData0, value[31:0]);
-    do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
-    while (sbcs.sbbusy);
     sbcs.sbreadonaddr = 1;
     jtag_dbg.write_dmi(dm::SBCS, sbcs);
     do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
@@ -2349,14 +2338,27 @@ module ariane_tb;
     // Wait until SBA is free to read another 32 bits
     do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
     while (sbcs.sbbusy);
+  endtask
+
+  task automatic jtag_write_reg(input logic [31:0] start_addr, input doub_bt value);
+    logic [63:0]      rdata;
+
+    $display("[JTAG] Start writing at %x ", start_addr);
+    jtag_write(dm::SBCS, JtagInitSbcs, 1, 1);
+    // Write address
+    jtag_write(dm::SBAddress0, start_addr);
+    // Write data
+    jtag_write(dm::SBData1, value[63:32]);
+    jtag_write(dm::SBData0, value[31:0]);
+
+    //Check correctess
+    jtag_read_reg(start_addr, rdata, 200);
     if(rdata!=value) begin
-      $fatal(1,"rdata at %x: %x" , addr, rdata);
+      $fatal(1,"rdata at %x: %x" , start_addr, rdata);
     end else begin
-      $display("W/R sanity check at %x ok! : %x", addr, rdata);
+      $display("W/R sanity check at %x ok! : %x", start_addr, rdata);
     end
-
-
-  endtask // execute_application
+  endtask
 
   task automatic jtag_write(
     input dm::dm_csr_e addr,
@@ -2469,12 +2471,13 @@ module ariane_tb;
   endtask
 
   // Wait for termination signal and get return code
-  task automatic jtag_wait_for_eoc(output word_bt exit_code, input doub_bt entry);
-    jtag_poll_bit0(entry[31:0] + 32'h1000, exit_code, 800);
+  task automatic jtag_wait_for_eoc(input word_bt tohost);
+    //jtag_init();
+    jtag_poll_bit0(tohost, exit_code, 800);
     exit_code >>= 1;
     if (exit_code) $error("[JTAG] FAILED: return code %0d", exit_code);
     else $display("[JTAG] SUCCESS");
-    $stop;
+    $finish;
   endtask
 
   task jtag_ariane_wakeup;
