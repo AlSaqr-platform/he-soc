@@ -30,16 +30,6 @@
 #define BUFFER_SIZE 10
 #define BUFFER_SIZE_READ 12
 
-#ifndef FPGA_EMULATION
-  #ifndef SIMPLE_PAD
-    #define N_I2C 6
-  #else
-    #define N_I2C 1
-  #endif
-#else
-  #define N_I2C 1
-#endif
-
 #define I2C_MEM0_ADDR_BASE 0xA0
 #define I2C_MEM1_ADDR_BASE 0xA0
 #define I2C_MEM2_ADDR_BASE 0xA2
@@ -65,8 +55,18 @@
 **  - SIMPLE_PAD: MUST BE SETTED ONLY TO SIMULATE THE FPGA PAD ON RTL         **
 *******************************************************************************/
 
-//#define SIMPLE_PAD
+#define SIMPLE_PAD
 //#define FPGA_EMULATION
+
+#ifndef FPGA_EMULATION
+  #ifndef SIMPLE_PAD
+    #define N_I2C 6
+  #else
+    #define N_I2C 1
+  #endif
+#else
+  #define N_I2C 1
+#endif
 
 #define VERBOSE
 #define PRINTF_ON

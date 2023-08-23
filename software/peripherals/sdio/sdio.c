@@ -45,7 +45,7 @@
 *******************************************************************************/
 
 //#define FPGA_EMULATION
-//#define SIMPLE_PAD
+#define SIMPLE_PAD
 
 #ifdef FPGA_EMULATION
   #define N_SDIO 1
