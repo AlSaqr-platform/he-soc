@@ -247,7 +247,7 @@ package ariane_axi_soc;
 
     localparam LiteAddrWidth = 32;
     localparam LiteDataWidth = 32;
-    localparam LiteStrbWidth = DataWidth / 8;
+    localparam LiteStrbWidth = LiteDataWidth / 8;
 
     typedef logic [LiteAddrWidth-1:0] lite_addr_t;
     typedef logic [LiteDataWidth-1:0] lite_data_t;
