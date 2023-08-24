@@ -24,6 +24,7 @@ import jtag_ot_pkg::*;
 import ariane_soc::HyperbusNumPhys;
 import ariane_soc::NumChipsPerHyperbus;
 import pkg_internal_alsaqr_periph_padframe_periphs::*;
+import pkg_internal_alsaqr_periph_fpga_padframe_periphs::*;
 
 `include "uvm_macros.svh"
 `include "axi/assign.svh"
@@ -33,6 +34,7 @@ import pkg_internal_alsaqr_periph_padframe_periphs::*;
 `define POWER_PROFILE
 `define POWER_CVA6
 `define PAD_MUX_REG_PATH dut.i_alsaqr_periph_padframe.i_periphs.i_periphs_muxer.s_reg2hw
+`define SIMPLE_PAD_MUX_REG_PATH dut.i_alsaqr_periph_fpga_padframe.i_periphs.i_periphs_muxer.s_reg2hw
 
 import "DPI-C" function byte read_elf(input string filename);
 import "DPI-C" function byte get_entry(output longint entry);
@@ -829,6 +831,35 @@ module ariane_tb;
     logic    pad_periphs_b_61_pad_mux_sel_io_gpio61   ;
     logic    pad_periphs_b_62_pad_mux_sel_eth_intb    ;
     logic    pad_periphs_b_62_pad_mux_sel_io_gpio62   ;
+
+    logic    simple_pad_periphs_00_mux_sel_spi0_cs    ;
+    logic    simple_pad_periphs_00_mux_sel_gpio0      ;
+    logic    simple_pad_periphs_01_mux_sel_spi0_ck    ;
+    logic    simple_pad_periphs_01_mux_sel_gpio1      ;
+    logic    simple_pad_periphs_02_mux_sel_spi0_so    ;
+    logic    simple_pad_periphs_02_mux_sel_gpio2      ;
+    logic    simple_pad_periphs_03_mux_sel_spi0_si    ;
+    logic    simple_pad_periphs_03_mux_sel_gpio3      ;
+    logic    simple_pad_periphs_04_mux_sel_i2c0_scl   ;
+    logic    simple_pad_periphs_04_mux_sel_gpio4      ;
+    logic    simple_pad_periphs_05_mux_sel_i2c0_sda   ;
+    logic    simple_pad_periphs_05_mux_sel_gpio5      ;
+    logic    simple_pad_periphs_06_mux_sel_uart0_tx   ;
+    logic    simple_pad_periphs_06_mux_sel_gpio6      ;
+    logic    simple_pad_periphs_07_mux_sel_uart0_rx   ;
+    logic    simple_pad_periphs_07_mux_sel_gpio7      ;
+    logic    simple_pad_periphs_08_mux_sel_sdio0_d1   ;
+    logic    simple_pad_periphs_08_mux_sel_gpio8      ;
+    logic    simple_pad_periphs_09_mux_sel_sdio0_d2   ;
+    logic    simple_pad_periphs_09_mux_sel_gpio9      ;
+    logic    simple_pad_periphs_10_mux_sel_sdio0_d3   ;
+    logic    simple_pad_periphs_10_mux_sel_gpio10     ;
+    logic    simple_pad_periphs_11_mux_sel_sdio0_d4   ;
+    logic    simple_pad_periphs_11_mux_sel_gpio11     ;
+    logic    simple_pad_periphs_12_mux_sel_sdio0_clk  ;
+    logic    simple_pad_periphs_12_mux_sel_gpio12     ;
+    logic    simple_pad_periphs_13_mux_sel_sdio0_cmd  ;
+    logic    simple_pad_periphs_13_mux_sel_gpio13     ;
 
   `ifndef TEST_CLOCK_BYPASS
     assign s_bypass=1'b0;
@@ -1862,6 +1893,35 @@ module ariane_tb;
       assign pad_periphs_b_61_pad_mux_sel_io_gpio61    = (`PAD_MUX_REG_PATH.b_61_mux_sel.q == PAD_MUX_GROUP_B_61_SEL_GPIO_B_GPIO61   );
       assign pad_periphs_b_62_pad_mux_sel_eth_intb     = (`PAD_MUX_REG_PATH.b_62_mux_sel.q == PAD_MUX_GROUP_B_62_SEL_ETH_ETH_INTB    );
       assign pad_periphs_b_62_pad_mux_sel_io_gpio62    = (`PAD_MUX_REG_PATH.b_62_mux_sel.q == PAD_MUX_GROUP_B_62_SEL_GPIO_B_GPIO62   ); 
+    `else // !`ifndef SIMPLE_PADFRAME
+      assign simple_pad_periphs_00_mux_sel_spi0_cs   = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_00_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_00_SEL_SPI0_SPI_CS0    );
+      assign simple_pad_periphs_00_mux_sel_gpio0     = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_00_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_00_SEL_GPIO_B_GPIO0    );
+      assign simple_pad_periphs_01_mux_sel_spi0_ck   = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_01_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_01_SEL_SPI0_SPI_SCK    );
+      assign simple_pad_periphs_01_mux_sel_gpio1     = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_01_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_01_SEL_GPIO_B_GPIO1    );
+      assign simple_pad_periphs_02_mux_sel_spi0_so   = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_02_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_02_SEL_SPI0_SPI_MISO   );
+      assign simple_pad_periphs_02_mux_sel_gpio2     = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_02_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_02_SEL_GPIO_B_GPIO2    );
+      assign simple_pad_periphs_03_mux_sel_spi0_si   = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_03_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_03_SEL_SPI0_SPI_MOSI   );
+      assign simple_pad_periphs_03_mux_sel_gpio3     = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_03_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_03_SEL_GPIO_B_GPIO3    );
+      assign simple_pad_periphs_04_mux_sel_i2c0_scl  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_04_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_04_SEL_I2C0_I2C_SCL    );
+      assign simple_pad_periphs_04_mux_sel_gpio4     = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_04_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_04_SEL_GPIO_B_GPIO4    );
+      assign simple_pad_periphs_05_mux_sel_i2c0_sda  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_05_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_05_SEL_I2C0_I2C_SDA    );
+      assign simple_pad_periphs_05_mux_sel_gpio5     = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_05_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_05_SEL_GPIO_B_GPIO5    );
+      assign simple_pad_periphs_06_mux_sel_uart0_tx  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_06_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_06_SEL_UART0_UART_TX   );
+      assign simple_pad_periphs_06_mux_sel_gpio6     = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_06_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_06_SEL_GPIO_B_GPIO6    );
+      assign simple_pad_periphs_07_mux_sel_uart0_rx  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_07_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_07_SEL_UART0_UART_RX   );
+      assign simple_pad_periphs_07_mux_sel_gpio7     = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_07_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_07_SEL_GPIO_B_GPIO7    );
+      assign simple_pad_periphs_08_mux_sel_sdio0_d1  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_08_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_08_SEL_SDIO0_SDIO_DATA0);
+      assign simple_pad_periphs_08_mux_sel_gpio8     = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_08_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_08_SEL_GPIO_B_GPIO8    );
+      assign simple_pad_periphs_09_mux_sel_sdio0_d2  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_09_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_09_SEL_SDIO0_SDIO_DATA1);
+      assign simple_pad_periphs_09_mux_sel_gpio9     = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_09_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_09_SEL_GPIO_B_GPIO9    );
+      assign simple_pad_periphs_10_mux_sel_sdio0_d3  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_10_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_10_SEL_SDIO0_SDIO_DATA2);
+      assign simple_pad_periphs_10_mux_sel_gpio10    = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_10_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_10_SEL_GPIO_B_GPIO10   );
+      assign simple_pad_periphs_11_mux_sel_sdio0_d4  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_11_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_11_SEL_SDIO0_SDIO_DATA3);
+      assign simple_pad_periphs_11_mux_sel_gpio11    = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_11_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_11_SEL_GPIO_B_GPIO11   );
+      assign simple_pad_periphs_12_mux_sel_sdio0_clk = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_12_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_12_SEL_SDIO0_SDIO_CLK  );
+      assign simple_pad_periphs_12_mux_sel_gpio12    = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_12_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_12_SEL_GPIO_B_GPIO12   );
+      assign simple_pad_periphs_13_mux_sel_sdio0_cmd = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_13_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_13_SEL_SDIO0_SDIO_CMD  );
+      assign simple_pad_periphs_13_mux_sel_gpio13    = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_13_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_13_SEL_GPIO_B_GPIO13   );
     `endif
   `endif
   //**************************************************
@@ -2079,20 +2139,27 @@ module ariane_tb;
       tranif1 b_62_pad_eth_intb       (pad_periphs_b_62_pad, pad_periphs_b_62_pad_eth_intb    , pad_periphs_b_62_pad_mux_sel_eth_intb     );
       tranif1 b_62_pad_io_gpio62      (pad_periphs_b_62_pad, pad_periphs_b_62_pad_io_gpio62   , pad_periphs_b_62_pad_mux_sel_io_gpio62    );
     `else // !`ifndef SIMPLE_PADFRAME
-      tranif1 simple_pad_00_spi0_cs   (pad_periphs_a_00_pad, simple_pad_periphs_00_spi0_cs    , 1'b1);
-      tranif1 simple_pad_01_spi0_ck   (pad_periphs_a_01_pad, simple_pad_periphs_01_spi0_ck    , 1'b1);
-      tranif1 simple_pad_02_spi0_so   (pad_periphs_a_02_pad, simple_pad_periphs_02_spi0_so    , 1'b1);
-      tranif1 simple_pad_03_spi0_si   (pad_periphs_a_03_pad, simple_pad_periphs_03_spi0_si    , 1'b1);
-      tranif1 simple_pad_04_i2c0_scl  (pad_periphs_a_04_pad, simple_pad_periphs_04_i2c0_scl   , 1'b1);
-      tranif1 simple_pad_05_i2c0_sda  (pad_periphs_a_05_pad, simple_pad_periphs_05_i2c0_sda   , 1'b1);
-      tranif1 simple_pad_06_uart0_tx  (pad_periphs_a_06_pad, simple_pad_periphs_06_uart0_tx   , 1'b1);
-      tranif1 simple_pad_07_uart0_rx  (pad_periphs_a_07_pad, simple_pad_periphs_07_uart0_rx   , 1'b1);
-      tranif1 simple_pad_08_sdio0_d1  (pad_periphs_a_08_pad, simple_pad_periphs_08_sdio0_d1   , 1'b1);
-      tranif1 simple_pad_09_sdio0_d2  (pad_periphs_a_09_pad, simple_pad_periphs_09_sdio0_d2   , 1'b1);
-      tranif1 simple_pad_10_sdio0_d3  (pad_periphs_a_10_pad, simple_pad_periphs_10_sdio0_d3   , 1'b1);
-      tranif1 simple_pad_11_sdio0_d4  (pad_periphs_a_11_pad, simple_pad_periphs_11_sdio0_d4   , 1'b1);
-      tranif1 simple_pad_12_sdio0_clk (pad_periphs_a_12_pad, simple_pad_periphs_12_sdio0_clk  , 1'b1);
-      tranif1 simple_pad_13_sdio0_cmd (pad_periphs_a_13_pad, simple_pad_periphs_13_sdio0_cmd  , 1'b1);
+      tranif1 simple_pad_00_spi0_cs   (pad_periphs_a_00_pad, simple_pad_periphs_00_spi0_cs    , simple_pad_periphs_00_mux_sel_spi0_cs  );
+      tranif1 simple_pad_01_spi0_ck   (pad_periphs_a_01_pad, simple_pad_periphs_01_spi0_ck    , simple_pad_periphs_01_mux_sel_spi0_ck  );
+      tranif1 simple_pad_02_spi0_so   (pad_periphs_a_02_pad, simple_pad_periphs_02_spi0_so    , simple_pad_periphs_02_mux_sel_spi0_so  );
+      tranif1 simple_pad_03_spi0_si   (pad_periphs_a_03_pad, simple_pad_periphs_03_spi0_si    , simple_pad_periphs_03_mux_sel_spi0_si  );
+      tranif1 simple_pad_04_i2c0_scl  (pad_periphs_a_04_pad, simple_pad_periphs_04_i2c0_scl   , simple_pad_periphs_04_mux_sel_i2c0_scl );
+      tranif1 simple_pad_05_i2c0_sda  (pad_periphs_a_05_pad, simple_pad_periphs_05_i2c0_sda   , simple_pad_periphs_05_mux_sel_i2c0_sda );
+      tranif1 simple_pad_06_uart0_tx  (pad_periphs_a_06_pad, simple_pad_periphs_06_uart0_tx   , simple_pad_periphs_06_mux_sel_uart0_tx );
+      tranif1 simple_pad_07_uart0_rx  (pad_periphs_a_07_pad, simple_pad_periphs_07_uart0_rx   , simple_pad_periphs_07_mux_sel_uart0_rx );
+      tranif1 simple_pad_08_sdio0_d1  (pad_periphs_a_08_pad, simple_pad_periphs_08_sdio0_d1   , simple_pad_periphs_08_mux_sel_sdio0_d1 );
+      tranif1 simple_pad_09_sdio0_d2  (pad_periphs_a_09_pad, simple_pad_periphs_09_sdio0_d2   , simple_pad_periphs_09_mux_sel_sdio0_d2 );
+      tranif1 simple_pad_10_sdio0_d3  (pad_periphs_a_10_pad, simple_pad_periphs_10_sdio0_d3   , simple_pad_periphs_10_mux_sel_sdio0_d3 );
+      tranif1 simple_pad_11_sdio0_d4  (pad_periphs_a_11_pad, simple_pad_periphs_11_sdio0_d4   , simple_pad_periphs_11_mux_sel_sdio0_d4 );
+      tranif1 simple_pad_12_sdio0_clk (pad_periphs_a_12_pad, simple_pad_periphs_12_sdio0_clk  , simple_pad_periphs_12_mux_sel_sdio0_clk);
+      tranif1 simple_pad_13_sdio0_cmd (pad_periphs_a_13_pad, simple_pad_periphs_13_sdio0_cmd  , simple_pad_periphs_13_mux_sel_sdio0_cmd);
+      tranif1 simple_pad_00_13_gpio0_gpio13 (pad_periphs_a_00_pad, pad_periphs_a_13_pad, simple_pad_periphs_00_mux_sel_gpio0 && simple_pad_periphs_13_mux_sel_gpio13);
+      tranif1 simple_pad_01_12_gpio1_gpio12 (pad_periphs_a_01_pad, pad_periphs_a_12_pad, simple_pad_periphs_01_mux_sel_gpio1 && simple_pad_periphs_12_mux_sel_gpio12);
+      tranif1 simple_pad_02_11_gpio2_gpio11 (pad_periphs_a_02_pad, pad_periphs_a_11_pad, simple_pad_periphs_02_mux_sel_gpio2 && simple_pad_periphs_11_mux_sel_gpio11);
+      tranif1 simple_pad_03_10_gpio3_gpio10 (pad_periphs_a_03_pad, pad_periphs_a_10_pad, simple_pad_periphs_03_mux_sel_gpio3 && simple_pad_periphs_10_mux_sel_gpio10);
+      tranif1 simple_pad_04_09_gpio4_gpio9  (pad_periphs_a_04_pad, pad_periphs_a_09_pad, simple_pad_periphs_04_mux_sel_gpio4 && simple_pad_periphs_09_mux_sel_gpio9 );
+      tranif1 simple_pad_05_08_gpio5_gpio8  (pad_periphs_a_05_pad, pad_periphs_a_08_pad, simple_pad_periphs_05_mux_sel_gpio5 && simple_pad_periphs_08_mux_sel_gpio8 );
+      tranif1 simple_pad_06_07_gpio6_gpio7  (pad_periphs_a_06_pad, pad_periphs_a_07_pad, simple_pad_periphs_06_mux_sel_gpio6 && simple_pad_periphs_07_mux_sel_gpio7 );
     `endif
   `endif
   //**************************************************
