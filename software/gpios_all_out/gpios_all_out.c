@@ -15,7 +15,7 @@
  */
 
 /* 
- * Mantainer: Luca Valente (luca.valente2@unibo.it)
+ * Mantainer: Victor Isachi (victor.isachi@unibo.it)
  */
 
 #include <stdio.h>
@@ -25,7 +25,6 @@
 #include "udma.h"
 
 #define BUFFER_SIZE 32
-#define NUM_GPIOS 63
 
 #define ARCHI_GPIO_ADDR 0x1A105000
 
@@ -33,24 +32,28 @@
 #define IN  0
 
 //#define FPGA_EMULATION
-//#define SIMPLE_PAD
+#define SIMPLE_PAD
 
-//#define VERBOSE
-//#define EXTRA_VERBOSE
+#ifndef FPGA_EMULATION
+  #ifndef SIMPLE_PAD
+    #define NUM_GPIOS 63
+  #else
+    #define NUM_GPIOS 14
+  #endif
+#else
+  #define NUM_GPIOS 14
+#endif
+
+#define VERBOSE 10
 
 uint32_t configure_gpio(uint32_t number, uint32_t direction){
   uint32_t address;
   uint32_t dir;
   uint32_t gpioen;
-
   //--- set GPIO
-  if(number < 32)
-  {
-    if (direction == IN) 
-    {
-
+  if(number < 32){
+    if (direction == IN) {
       address = ARCHI_GPIO_ADDR + GPIO_GPIOEN_OFFSET;
-
       gpioen = pulp_read32(address);
       //--- enable GPIO
       //printf("GPIOEN RD: %x\n",gpioen);
@@ -64,7 +67,6 @@ uint32_t configure_gpio(uint32_t number, uint32_t direction){
       dir |= (0 << number);
       //printf("GPIODIR WR: %x\n",dir);
       pulp_write32(address, dir);
-
     }else if (direction == OUT){ 
       //--- enable GPIO
       address = ARCHI_GPIO_ADDR + GPIO_GPIOEN_OFFSET;
@@ -77,8 +79,7 @@ uint32_t configure_gpio(uint32_t number, uint32_t direction){
       pulp_write32(address, dir);
     }
   }else{
-    if (direction == IN)
-    {
+    if (direction == IN){
       address = ARCHI_GPIO_ADDR + GPIO_GPIOEN_32_63_OFFSET;
       gpioen = pulp_read32(address);
       //--- enable GPIO
@@ -107,18 +108,15 @@ uint32_t configure_gpio(uint32_t number, uint32_t direction){
   }
 
   while(pulp_read32(address) != dir);
-
 }
 
 void set_gpio(uint32_t number, uint32_t value){
   uint32_t value_wr;
   uint32_t address;
-  if (number < 32)
-  {
+  if (number < 32){
     address = ARCHI_GPIO_ADDR + GPIO_PADOUT_OFFSET;
     value_wr = pulp_read32(address);
-    if (value == 1)
-    {
+    if (value == 1){
       value_wr |= (1 << (number));
     }else{
       value_wr &= ~(1 << (number));
@@ -127,8 +125,7 @@ void set_gpio(uint32_t number, uint32_t value){
   }else{
     address = ARCHI_GPIO_ADDR + GPIO_PADOUT_32_63_OFFSET;
     value_wr = pulp_read32(address);
-    if (value == 1)
-    {
+    if (value == 1){
       value_wr |= (1 << (number % 32));
     }else{
       value_wr &= ~(1 << (number % 32));
@@ -139,13 +136,11 @@ void set_gpio(uint32_t number, uint32_t value){
   while(pulp_read32(address) != value_wr);
 }
 
-
 uint32_t get_gpio(uint32_t number){
   uint32_t value_rd;
   uint32_t address;
   uint32_t bit;
-  if (number < 32)
-  {
+  if (number < 32){
     address = ARCHI_GPIO_ADDR + GPIO_PADIN_OFFSET;
     value_rd = pulp_read32(address);
     bit= 0x1 & (value_rd>>number);
@@ -170,26 +165,44 @@ int main() {
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
   
-  uint32_t error [NUM_GPIOS];
-  uint32_t simple=0;
-  uint32_t val_wr = 0x00000000;
-  uint32_t val_rd = 0;
-  uint32_t gpio_out;
-  uint32_t gpio_in;
-  uint32_t val_rd1;
+  uint32_t error = 0;
   uint32_t gpio_val;
   uint32_t address;
-
+  uint32_t simple_padframe;
 
   #ifdef FPGA_EMULATION
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set( 1 ); //tx uart
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 1 ); //rx uart
-    simple=1;
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 1 );
+    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 1 );
+    simple_padframe=1;
   #else
     #ifdef SIMPLE_PAD
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set( 1 ); //tx uart
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 1 ); //rx uart
-      simple=1;
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 1 );
+      simple_padframe=1;
     #else
       alsaqr_periph_padframe_periphs_b_00_mux_set(1);
       alsaqr_periph_padframe_periphs_b_01_mux_set(1);
@@ -254,54 +267,74 @@ int main() {
       alsaqr_periph_padframe_periphs_b_60_mux_set(2);
       alsaqr_periph_padframe_periphs_b_61_mux_set(2);
       alsaqr_periph_padframe_periphs_b_62_mux_set(2);
+      simple_padframe=0;
     #endif    
-  #endif 
-  
-  if (simple==1){
-    configure_gpio( 6 , OUT );
-    configure_gpio( 7 , IN );
+  #endif
+
+  //*************************************************
+  // Test Phase
+  //*************************************************
+  if(simple_padframe){
+
+    for(int i = 0; i < NUM_GPIOS/2; i++) {
+      configure_gpio( i , OUT );
+      #if VERBOSE > 1
+        printf("gpio_%0d direction: %s\n", i, "OUT");
+      #endif
+      configure_gpio( NUM_GPIOS-1 - i , IN );
+      #if VERBOSE > 1
+        printf("gpio_%0d direction: %s\n", NUM_GPIOS-1 - i, "IN");
+      #endif
+    }
+
+    printf("Start...\n");
+    gpio_val=1;
+    for (int i = 0; i < 8; i++){
+      for(int j = 0; j < NUM_GPIOS/2; j++) {
+        set_gpio( j , gpio_val);
+        #if VERBOSE > 5
+          printf("gpio_%0d value: %0d\n", j, gpio_val);
+        #endif
+        if(get_gpio(NUM_GPIOS-1 - j) != gpio_val){
+          printf("ERROR: gpio_%0d value != %0d\n", NUM_GPIOS-1 - j, gpio_val);
+          error++;
+        }
+      }
+      gpio_val=!gpio_val;
+    }
+
+    if(!error)
+      printf("Test PASSED\n\r");
+    else
+      printf("Test FAILED\n\r");
+    return error;
+
   }else{
+
     for(int i = 0; i < NUM_GPIOS; i++) {
       configure_gpio( i , OUT );
-      printf("gpio_%0d direction: %s\n", i, "OUT");
+      #if VERBOSE > 1
+        printf("gpio_%0d direction: %s\n", i, "OUT");
+      #endif
     }
-
-    // for(int i = 0; i < NUM_GPIOS; i++)
-    //   configure_gpio( i , IN );
-  }
-
-  for(int i = 0; i < NUM_GPIOS; i++) {
-    error[i] = 0;
-    printf("gpio_%0d error: %0d\n", i, error[i]);
-  }
     
-  gpio_val=1;
-  printf("Start...\n");
-
-  for (int i=0; i<100; i++){
-    if(simple==1){
-      //TEST FOR SIMPLE PADFRAME AND FPGA
-      set_gpio(6,gpio_val);
-      if (gpio_val!=get_gpio(7))
-        error[0]++;
-    }else{
-      //TEST FOR FULL PADFRAME
-
-      for(int i = 0; i < NUM_GPIOS; i++) {
-        set_gpio( i , gpio_val);
-        printf("gpio_%0d value: %0d\n", i, gpio_val);
+    printf("Start...\n");
+    gpio_val=1;
+    for (int i = 0; i < 8; i++){
+      for(int j = 0; j < NUM_GPIOS; j++) {
+        set_gpio( j , gpio_val);
+        #if VERBOSE > 5
+          printf("gpio_%0d value: %0d\n", j, gpio_val);
+        #endif
       }
-
-      //TODO need to check also the read
+      gpio_val=!gpio_val;
     }
-    gpio_val=!gpio_val;
+
+    printf("\n************************************************************\n");
+    printf("*VISUALLY INSPECT THAT YOU SEE 1010_1010 ON ALL GPIO SIGNALS*\n");
+    printf("\n************************************************************\n");
+
+    return 0;
   }
-
-  if (error[0]+error[1]+error[2]!=0)
-    printf ("TEST GPIO FAIL with: %d %d %d\n", error[0], error[1], error[2]);
-  else
-    printf ("TEST GPIO PASSED\n");
-
-  uart_wait_tx_done();  
-  return error[0]+error[1]+error[2];
+  
 }
