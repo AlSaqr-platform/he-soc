@@ -281,9 +281,11 @@ int main() {
       #if VERBOSE > 1
         printf("gpio_%0d direction: %s\n", i, "OUT");
       #endif
-      configure_gpio( NUM_GPIOS-1 - i , IN );
+    }
+    for(int i = NUM_GPIOS/2; i < NUM_GPIOS; i++) {
+      configure_gpio( i , IN );
       #if VERBOSE > 1
-        printf("gpio_%0d direction: %s\n", NUM_GPIOS-1 - i, "IN");
+        printf("gpio_%0d direction: %s\n", i, "IN");
       #endif
     }
 
@@ -295,8 +297,10 @@ int main() {
         #if VERBOSE > 5
           printf("gpio_%0d value: %0d\n", j, gpio_val);
         #endif
-        if(get_gpio(NUM_GPIOS-1 - j) != gpio_val){
-          printf("ERROR: gpio_%0d value != %0d\n", NUM_GPIOS-1 - j, gpio_val);
+      }
+      for(int j = NUM_GPIOS/2; j < NUM_GPIOS; j++) {
+        if(get_gpio(j) != gpio_val){
+          printf("ERROR: gpio_%0d value != %0d\n", j, gpio_val);
           error++;
         }
       }

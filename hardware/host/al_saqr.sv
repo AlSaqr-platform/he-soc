@@ -319,10 +319,6 @@ module al_saqr
   localparam int unsigned AXI_LITE_AW       = 32;
   localparam int unsigned AXI_LITE_DW       = 32;
 
-  logic [NUM_GPIO-1:0]         s_gpio_pad_in;
-  logic [NUM_GPIO-1:0]         s_gpio_pad_out;
-  logic [NUM_GPIO-1:0]         s_gpio_pad_dir;
-
   logic                        s_rst_ni;
   logic                        s_jtag_TCK;
   logic                        s_jtag_TDI;
