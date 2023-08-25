@@ -31,8 +31,8 @@
 #define OUT 1
 #define IN  0
 
-//#define FPGA_EMULATION
-#define SIMPLE_PAD
+// #define FPGA_EMULATION
+// #define SIMPLE_PAD
 
 #ifndef FPGA_EMULATION
   #ifndef SIMPLE_PAD
@@ -165,10 +165,9 @@ int main() {
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
   
-  uint32_t error = 0;
+  uint32_t error;
   uint32_t gpio_val;
   uint32_t address;
-  uint32_t simple_padframe;
 
   #ifdef FPGA_EMULATION
     alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 1 );
@@ -185,7 +184,6 @@ int main() {
     alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 1 );
     alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 1 );
     alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 1 );
-    simple_padframe=1;
   #else
     #ifdef SIMPLE_PAD
       alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 1 );
@@ -202,7 +200,6 @@ int main() {
       alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 1 );
       alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 1 );
       alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 1 );
-      simple_padframe=1;
     #else
       alsaqr_periph_padframe_periphs_b_00_mux_set(1);
       alsaqr_periph_padframe_periphs_b_01_mux_set(1);
@@ -267,78 +264,44 @@ int main() {
       alsaqr_periph_padframe_periphs_b_60_mux_set(2);
       alsaqr_periph_padframe_periphs_b_61_mux_set(2);
       alsaqr_periph_padframe_periphs_b_62_mux_set(2);
-      simple_padframe=0;
     #endif    
   #endif
 
-  //*************************************************
-  // Test Phase
-  //*************************************************
-  if(simple_padframe){
+  for(int i = 0; i < NUM_GPIOS/2; i++) {
+    configure_gpio( i , OUT );
+    #if VERBOSE > 1
+      printf("gpio_%0d direction: %s\n", i, "OUT");
+    #endif
+  }
+  for(int i = NUM_GPIOS/2; i < NUM_GPIOS; i++) {
+    configure_gpio( i , IN );
+    #if VERBOSE > 1
+      printf("gpio_%0d direction: %s\n", i, "IN");
+    #endif
+  }
 
+  printf("Start...\n");
+  error=0;
+  gpio_val=1;
+  for (int j = 0; j < 10; j++){
     for(int i = 0; i < NUM_GPIOS/2; i++) {
-      configure_gpio( i , OUT );
-      #if VERBOSE > 1
-        printf("gpio_%0d direction: %s\n", i, "OUT");
+      set_gpio( i , gpio_val);
+      #if VERBOSE > 5
+        printf("gpio_%0d value: %0d\n", i, gpio_val);
       #endif
     }
     for(int i = NUM_GPIOS/2; i < NUM_GPIOS; i++) {
-      configure_gpio( i , IN );
-      #if VERBOSE > 1
-        printf("gpio_%0d direction: %s\n", i, "IN");
-      #endif
-    }
-
-    printf("Start...\n");
-    gpio_val=1;
-    for (int i = 0; i < 8; i++){
-      for(int j = 0; j < NUM_GPIOS/2; j++) {
-        set_gpio( j , gpio_val);
-        #if VERBOSE > 5
-          printf("gpio_%0d value: %0d\n", j, gpio_val);
-        #endif
+      if(get_gpio(i) != gpio_val){
+        printf("ERROR: gpio_%0d value != %0d\n", i, gpio_val);
+        error++;
       }
-      for(int j = NUM_GPIOS/2; j < NUM_GPIOS; j++) {
-        if(get_gpio(j) != gpio_val){
-          printf("ERROR: gpio_%0d value != %0d\n", j, gpio_val);
-          error++;
-        }
-      }
-      gpio_val=!gpio_val;
     }
-
-    if(!error)
-      printf("Test PASSED\n\r");
-    else
-      printf("Test FAILED\n\r");
-    return error;
-
-  }else{
-
-    for(int i = 0; i < NUM_GPIOS; i++) {
-      configure_gpio( i , OUT );
-      #if VERBOSE > 1
-        printf("gpio_%0d direction: %s\n", i, "OUT");
-      #endif
-    }
-    
-    printf("Start...\n");
-    gpio_val=1;
-    for (int i = 0; i < 8; i++){
-      for(int j = 0; j < NUM_GPIOS; j++) {
-        set_gpio( j , gpio_val);
-        #if VERBOSE > 5
-          printf("gpio_%0d value: %0d\n", j, gpio_val);
-        #endif
-      }
-      gpio_val=!gpio_val;
-    }
-
-    printf("\n************************************************************\n");
-    printf("*VISUALLY INSPECT THAT YOU SEE 1010_1010 ON ALL GPIO SIGNALS*\n");
-    printf("\n************************************************************\n");
-
-    return 0;
+    gpio_val=!gpio_val;
   }
-  
+
+  if(!error)
+    printf("Test PASSED\n\r");
+  else
+    printf("Test FAILED\n\r");
+  return error;
 }
