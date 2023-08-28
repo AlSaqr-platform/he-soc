@@ -83,7 +83,8 @@ module ariane_tb;
   // when preload is enabled LINKER_ENTRY specifies the linker address which must be L3 -> 32'h80000000
   parameter  LINKER_ENTRY        = 32'h80000000;
   // IMPORTANT : If you change the linkerscript check the tohost address and update this paramater
-  parameter  TOHOST              = LINKER_ENTRY + 32'h1C0;
+  // IMPORTANT : to host mapped in L2 non-cached region because we use WB cache
+  parameter  TOHOST              = 32'h1C000000;
 
   `ifdef PRELOAD
     parameter  PRELOAD_HYPERRAM    = 1;
@@ -400,6 +401,7 @@ module ariane_tb;
     string        binary ;
     string        cluster_binary;
     string        ot_sram;
+    logic         cid;
 
     // NEW PAD VIP SIGNALS
     wire    pad_periphs_a_00_pad_i2c0_scl  ;
@@ -2267,10 +2269,13 @@ module ariane_tb;
 
     logic [31:0] linker_addr;
     logic [63:0] binary_entry;
-    logic        cid;
+    logic [63:0] to_host;
 
     dm::sbcs_t sbcs;
-    assign cid = 1'b0;
+
+    if ( $value$plusargs ("CORE_ID=%d", cid));
+      $display("Core ID: %d", cid);
+
     if(LOCAL_JTAG==1) begin
       $display("LOCAL_JTAG : %d", LOCAL_JTAG);
       if(PRELOAD_HYPERRAM==0) begin
@@ -2302,9 +2307,7 @@ module ariane_tb;
 
         $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);
         addr = 32'h1c000000;
-
         jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
-
         binary_entry={32'h00000000,LINKER_ENTRY};
         #(REFClockPeriod);
         $display("Wakeup here at %x!!", binary_entry);
@@ -2473,7 +2476,6 @@ module ariane_tb;
 
   // Wait for termination signal and get return code
   task automatic jtag_wait_for_eoc(input word_bt tohost);
-    //jtag_init();
     jtag_poll_bit0(tohost, exit_code, 800);
     exit_code >>= 1;
     if (exit_code) $error("[JTAG] FAILED: return code %0d", exit_code);
