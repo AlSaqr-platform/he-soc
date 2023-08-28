@@ -1,90 +1,100 @@
-// See LICENSE for license details.
-
-#ifndef __UTIL_H
-#define __UTIL_H
-
-extern void setStats(int enable);
+#ifndef _UTILS_H_
+#define _UTILS_H_
 
 #include <stdint.h>
 
-#define static_assert(cond) switch(0) { case 0: case !!(long)(cond): ; }
+//typedef enum { false, true } bool;
 
-static int verify(int n, const volatile int* test, const int* verify)
+/**
+ * @brief Write to CSR.
+ * @param CSR register to write.
+ * @param Value to write to CSR register.
+ * @return void
+ *
+ * Function to handle CSR writes.
+ *
+ */
+#define csrw(csr, value)  asm volatile ("csrw\t\t" #csr ", %0" : /* no output */ : "r" (value));
+
+/**
+ * @brief Read from CSR.
+ * @param void
+ * @return 32-bit unsigned int
+ *
+ * Function to handle CSR reads.
+ *
+ */
+#define csrr(csr, value)  asm volatile ("csrr\t\t%0, " #csr "": "=r" (value));
+
+/**
+ * \brief Enables interrupts globally.
+ * \param void
+ * \return void
+ *
+ * By writing 1 to the ie (interruptenable) bit
+ * interrupts are globally enabled.
+ */
+static inline void int_enable(void) 
 {
-  int i;
-  // Unrolled for faster verification
-  for (i = 0; i < n/2*2; i+=2)
-  {
-    int t0 = test[i], t1 = test[i+1];
-    int v0 = verify[i], v1 = verify[i+1];
-    if (t0 != v0) return i+1;
-    if (t1 != v1) return i+2;
-  }
-  if (n % 2 != 0 && test[n-1] != verify[n-1])
-    return n;
-  return 0;
+  // read-modify-write
+  uint64_t mstatus;
+  uint64_t mie;
+    
+  // enable MSIP, timer_irq, irq[1]
+  asm volatile ("csrr %0, mie": "=r" (mie));
+  mie |= 0x288; // mie[3]=MSIP, mie[7]=timer, mie[9]=irq[1]
+  asm volatile ("csrw mie, %0" : /* no output */ : "r" (mie));
+
+  //enable MSTATUS.MIE
+  asm volatile ("csrr %0, mstatus": "=r" (mstatus));
+  mstatus |= 0x8;
+  asm volatile ("csrw mstatus, %0" : /* no output */ : "r" (mstatus));
 }
 
-static int verifyDouble(int n, const volatile double* test, const double* verify)
-{
-  int i;
-  // Unrolled for faster verification
-  for (i = 0; i < n/2*2; i+=2)
-  {
-    double t0 = test[i], t1 = test[i+1];
-    double v0 = verify[i], v1 = verify[i+1];
-    int eq1 = t0 == v0, eq2 = t1 == v1;
-    if (!(eq1 & eq2)) return i+1+eq1;
-  }
-  if (n % 2 != 0 && test[n-1] != verify[n-1])
-    return n;
-  return 0;
+/**
+ * \brief Disables interrupts globally.
+ * \param void
+ * \return void
+ *
+ * By writing 0 to the ie (interruptenable) bit
+ * interrupts are globally disabled.
+ */
+static inline void int_disable(void) {
+  // read-modify-write
+  uint64_t mstatus;
+  uint64_t mie;
+  asm volatile ("csrr %0, mstatus": "=r" (mstatus));
+  mstatus &= ~(0x88);
+  asm volatile ("csrw mstatus, %0" : /* no output */ : "r" (mstatus));
+
+  mie = 0;
+  asm volatile ("csrw mie, %0" : /* no output */ : "r" (mie));
 }
 
-static void __attribute__((noinline)) barrier(int ncores)
-{
-  static volatile int sense;
-  static volatile int count;
-  static __thread int threadsense;
-
-  __sync_synchronize();
-
-  threadsense = !threadsense;
-  if (__sync_fetch_and_add(&count, 1) == ncores-1)
-  {
-    count = 0;
-    sense = threadsense;
-  }
-  else while(sense != threadsense)
-    ;
-
-  __sync_synchronize();
+/**
+ * @brief Request to put the core to sleep.
+ * @param void
+ *
+ * Set the core to sleep state and wait for events/interrupt to wake up.
+ *
+ */
+static inline void sleep(void) {
+  asm volatile ("wfi");
 }
 
-static uint64_t lfsr(uint64_t x)
-{
-  uint64_t bit = (x ^ (x >> 1)) & 1;
-  return (x >> 1) | (bit << 62);
+// sleep some cycles
+void sleep_busy(volatile int);
+
+// 
+static inline void pmp_allow_all(void) {
+  uint64_t pmpaddr;
+  pmpaddr = 0x800000000; // match all
+  asm volatile ("csrw pmpaddr0, %0" : /* no output */ : "r" (pmpaddr));
+
+  uint64_t pmpcfg;
+  // for PMP0: A=TOR, W=1, X=1, R=1
+  pmpcfg = 0xF;
+  asm volatile ("csrw pmpcfg0, %0" : /* no output */ : "r" (pmpcfg));
 }
 
-static uintptr_t insn_len(uintptr_t pc)
-{
-  return (*(unsigned short*)pc & 3) ? 4 : 2;
-}
-
-#ifdef __riscv
-#include "encoding.h"
 #endif
-
-#define stringify_1(s) #s
-#define stringify(s) stringify_1(s)
-#define stats(code, iter) do { \
-    unsigned long _c = -read_csr(mcycle), _i = -read_csr(minstret); \
-    code; \
-    _c += read_csr(mcycle), _i += read_csr(minstret); \
-    if (cid == 0) \
-      printf("\n%s: %ld cycles, %ld.%ld cycles/iter, %ld.%ld CPI\n", \
-             stringify(code), _c, _c/iter, 10*_c/iter%10, _c/_i, 10*_c/_i%10); \
-  } while(0)
-
-#endif //__UTIL_H

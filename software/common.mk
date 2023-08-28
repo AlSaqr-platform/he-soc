@@ -1,10 +1,10 @@
 ifdef nogui
-	sim_flags = batch-mode=1 
+	sim_flags = batch-mode=1
 endif
 
 #ifdef simple_pad
 #	rtl_flags = simple-padframe=1
-#	sim_flags += simple-padframe=1 
+#	sim_flags += simple-padframe=1
 #endif
 
 current_dir = $(shell pwd)
@@ -29,9 +29,9 @@ inc_dir := $(SW_HOME)/common/
 RISCV_PREFIX ?= riscv$(XLEN)-unknown-elf-
 RISCV_GCC ?= $(RISCV_PREFIX)gcc
 
-RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump --disassemble-all --disassemble-zeroes --section=.text --section=.text.startup --section=.text.init --section=.data
+RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump -h --disassemble-all --disassemble-zeroes --section=.text --section=.text.startup --section=.text.init --section=.data --section=.tohost --section=.sdata --section=.rodata --section=.sbss --section=.bss --section=.tdata --section=.tbss --section=.stack -t -s
 
-RISCV_FLAGS     := -mcmodel=medany -static -std=gnu99 -DNUM_CORES=1 -O3 -ffast-math -fno-common -fno-builtin-printf $(INC)
+RISCV_FLAGS     := -mcmodel=medany -static -std=gnu99 -DNUM_CORES=4 -O3 -ffast-math -fno-common -fno-builtin-printf $(INC)
 RISCV_LINK_OPTS := -static -nostdlib -nostartfiles -lm -lgcc
 
 clean:
@@ -40,7 +40,7 @@ clean:
 	rm -f *.slm
 
 build:
-	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir)/test.ld $(RISCV_LINK_OPTS) $(cc-elf-y) $(inc_dir)/crt.S  $(inc_dir)/syscalls.c -L $(inc_dir) $(APP).c -o $(APP).riscv
+	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir)/test.ld $(RISCV_LINK_OPTS) $(cc-elf-y) $(inc_dir)/crt.S  $(inc_dir)/syscalls.c $(inc_dir)/util.c -L $(inc_dir) $(APP).c -o $(APP).riscv
 
 dis:
 	$(RISCV_OBJDUMP) $(APP).riscv > $(APP).dump
@@ -53,8 +53,8 @@ dump:
 
 all: clean build dis dump
 
-rtl: 
-	 $(MAKE) -C  $(SW_HOME)/../hardware/ all 
+rtl:
+	 $(MAKE) -C  $(SW_HOME)/../hardware/ all
 
 sim:
 	$(MAKE) -C  $(SW_HOME)/../hardware/ sim $(sim_flags) elf-bin=$(shell pwd)/$(APP).riscv

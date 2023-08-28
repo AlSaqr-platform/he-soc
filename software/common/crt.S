@@ -12,6 +12,8 @@
 # define REGBYTES 4
 #endif
 
+# define NB_CORES 4
+
   .section ".text.init"
   .globl _start
 _start:
@@ -106,27 +108,57 @@ _start:
 1:
 #endif
 
-  # initialize trap vector
+  // initialize interrupt vecotor table
   la t0, trap_entry
   csrw mtvec, t0
 
-  # initialize global pointer
+  // initialize global pointer
 .option push
 .option norelax
   la gp, __global_pointer$
 .option pop
 
-  la  tp, _tls_data
+  la  tp, _end + 63
+  and tp, tp, -64
 
   # get core id
   csrr a0, mhartid
-  # for now, assume only 1 core
-  li a1, 1
-  
-  la  sp, _stack
+  # for now, assume only 2 cores
+  li a1, NB_CORES
+  #1:bgeu a0, a1, 1b
+
+  la sp, _stack
 
   j _init
 
+  //
+  // trap_entry was here
+  //
+
+.section ".tdata.begin"
+.globl _tdata_begin
+_tdata_begin:
+
+.section ".tdata.end"
+.globl _tdata_end
+_tdata_end:
+
+.section ".tbss.end"
+.globl _tbss_end
+_tbss_end:
+
+.section ".tohost","aw",@progbits
+.align 6
+.globl tohost
+tohost: .dword 0
+.align 6
+.globl fromhost
+fromhost: .dword 0
+
+
+  /////////////////////////////////////////////////////////////
+
+  .section .text
   .align 2
 trap_entry:
   addi sp, sp, -272
@@ -163,15 +195,16 @@ trap_entry:
   SREG x30, 30*REGBYTES(sp)
   SREG x31, 31*REGBYTES(sp)
 
-  csrr a0, mcause
-  csrr a1, mepc
-  mv a2, sp
-  jal handle_trap
-  csrw mepc, a0
+//  csrr a0, mcause
+//  csrr a1, mepc
+//  mv a2, sp
+//  jal handle_trap
+    jal ISR
+//  csrw mepc, a0
 
   # Remain in M-mode after eret
-  li t0, MSTATUS_MPP
-  csrs mstatus, t0
+//  li t0, MSTATUS_MPP
+//  csrs mstatus, t0
 
   LREG x1, 1*REGBYTES(sp)
   LREG x2, 2*REGBYTES(sp)
@@ -208,27 +241,3 @@ trap_entry:
   addi sp, sp, 272
   mret
 
-#ifdef CLUSTER_BIN
-.section .clusterraw
-.incbin CLUSTER_BIN_PATH
-#endif
-
-.section ".tdata.begin"
-.globl _tdata_begin
-_tdata_begin:
-
-.section ".tdata.end"
-.globl _tdata_end
-_tdata_end:
-
-.section ".tbss.end"
-.globl _tbss_end
-_tbss_end:
-
-.section ".tohost","aw",@progbits
-.align 6
-.globl tohost
-tohost: .dword 0
-.align 6
-.globl fromhost
-fromhost: .dword 0
