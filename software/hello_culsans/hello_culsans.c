@@ -6,7 +6,7 @@
 
 #define FPGA_EMULATION
 
-int thread_entry(int argc, char const *argv[]) {
+int main(int argc, char const *argv[]) {
 
   #ifdef FPGA_EMULATION
   int baud_rate = 115200;
@@ -27,7 +27,7 @@ int thread_entry(int argc, char const *argv[]) {
   pulp_write32(hyaxicfg_reg_memspace_end_addr0,0x84000000);
   printf("Hello Culsans! I'm Core %d!\r\n", read_csr(mhartid));
   uart_wait_tx_done();
-  return 0;
+  return 1;
 }
  
 
