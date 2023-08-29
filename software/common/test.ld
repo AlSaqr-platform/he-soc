@@ -35,6 +35,7 @@ SECTIONS
   /* set the base address at the beginnning of the RAM */
   . = 0x80000000;
   .text.init : { *(.text.init) } > L3
+
   /* to host mapped in L2 non-cached region because we use WB cache */
   . = ALIGN(0x1000);
   .tohost : { *(.tohost) } > L2

@@ -31,7 +31,7 @@ RISCV_GCC ?= $(RISCV_PREFIX)gcc
 
 RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump -h --disassemble-all --disassemble-zeroes --section=.text --section=.text.startup --section=.text.init --section=.data --section=.tohost --section=.sdata --section=.rodata --section=.sbss --section=.bss --section=.tdata --section=.tbss --section=.stack -t -s
 
-RISCV_FLAGS     := -mcmodel=medany -static -std=gnu99 -DNUM_CORES=4 -O3 -ffast-math -fno-common -fno-builtin-printf $(INC)
+RISCV_FLAGS     := -mcmodel=medany -static -std=gnu99 -DNUM_CORES=2 -O3 -ffast-math -fno-common -fno-builtin-printf $(INC)
 RISCV_LINK_OPTS := -static -nostdlib -nostartfiles -lm -lgcc
 
 clean:
