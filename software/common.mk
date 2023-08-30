@@ -25,6 +25,7 @@ INC=$(foreach d, $(directories), -I$(utils_dir)$d)
 
 
 inc_dir := $(SW_HOME)/common/
+inc_dir_culsans := $(SW_HOME)/common_culsans/
 
 RISCV_PREFIX ?= riscv$(XLEN)-unknown-elf-
 RISCV_GCC ?= $(RISCV_PREFIX)gcc
@@ -39,8 +40,12 @@ clean:
 	rm -f $(APP).dump
 	rm -f *.slm
 
-build:
-	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir)/test.ld $(RISCV_LINK_OPTS) $(cc-elf-y) $(inc_dir)/crt.S  $(inc_dir)/syscalls.c $(inc_dir)/util.c -L $(inc_dir) $(APP).c -o $(APP).riscv
+# IMPORTANT: the inc_dir_culsans sw environment (taken from planvtech) contains a bug into the printf where it does not print anything when you pass a parameter to it
+build_culsans:
+	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir_culsans)/test.ld $(RISCV_LINK_OPTS) $(cc-elf-y) $(inc_dir_culsans)/crt.S  $(inc_dir_culsans)/syscalls.c $(inc_dir_culsans)/util.c -L $(inc_dir_culsans) $(APP).c -o $(APP).riscv
+
+build_single:
+	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir)/test.ld $(RISCV_LINK_OPTS) $(cc-elf-y) $(inc_dir)/crt.S $(inc_dir)/syscalls.c -L $(inc_dir) $(APP).c -o $(APP).riscv
 
 dis:
 	$(RISCV_OBJDUMP) $(APP).riscv > $(APP).dump
@@ -51,7 +56,7 @@ dump:
 	cp $(APP).riscv  $(HW_HOME)/
 	echo $(APP).riscv | tee -a  $(HW_HOME)/regression.list
 
-all: clean build dis dump
+all: clean build_single dis dump
 
 rtl:
 	 $(MAKE) -C $(SW_HOME)/../hardware/ -B all

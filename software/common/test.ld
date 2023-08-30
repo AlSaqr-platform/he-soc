@@ -9,15 +9,12 @@
 
 /* The OUTPUT_ARCH command specifies the machine architecture where the
    argument is one of the names used in the BFD library. More
-   specifically one of the entires in bfd/cpu-mips.c */
+   specifically one of the entires in bfd/cpu-mips.c
+   See LICENSE for license details.
+*/
 
 OUTPUT_ARCH( "riscv" )
 ENTRY(_start)
-
-/*----------------------------------------------------------------------*/
-/* Memory layout                                                        */
-/*----------------------------------------------------------------------*/
-
 
 MEMORY
 {
@@ -25,27 +22,24 @@ MEMORY
   L3      (rwx) : ORIGIN = 0x80000000, LENGTH = 0x20000000
 }
 
-
 /*----------------------------------------------------------------------*/
 /* Sections                                                             */
 /*----------------------------------------------------------------------*/
 
 SECTIONS
 {
-  /* set the base address at the beginnning of the RAM */
+
+  /* text: for code & constants */
   . = 0x80000000;
   .text.init : { *(.text.init) } > L3
 
-  /* to host mapped in L2 non-cached region because we use WB cache */
   . = ALIGN(0x1000);
   .tohost : { *(.tohost) } > L2
 
   .text : { *(.text) } > L3
 
-  /* data segment */
-  .data : {
-    *(.cached_region_2)
-  } > L3
+  /* data: for initialized data */
+  .data : { *(.data) } > L3
 
   .sdata : {
     __global_pointer$ = . + 0x800;
@@ -53,7 +47,7 @@ SECTIONS
     *(.sdata .sdata.* .gnu.linkonce.s.*)
   } > L3
 
-   /* Read Only Cluster Code */
+  /* Read Only Cluster Code */
   .rodata :  {
     *(.rodata);
     . = ALIGN(0x10);
@@ -62,40 +56,23 @@ SECTIONS
     __cluster_code_end = . ;
     } > L3
 
-  .nocache_noshare_region : {
-    *(.nocache_noshare_region)
-    } > L3
-
-  .nocache_share_region : {
-    *(.nocache_share_region)
-  } > L3
-
-  .cache_share_region : {
-    *(.cache_share_region)
-  } > L3
-
-  .cache_noshare_region : {
-    *(.cache_noshare_region)
-  } > L3
-
-  /* bss segment */
+  /* bss: for uninitialized data */
   .sbss : {
     *(.sbss .sbss.* .gnu.linkonce.sb.*)
     *(.scommon)
   } > L3
-
   .bss : {
     *(.bss)
   } > L3
 
   /* thread-local data segment */
-  .tdata : {
+  .tdata :
+  {
     _tls_data = .;
     *(.tdata.begin)
     *(.tdata)
     *(.tdata.end)
   } > L3
-
   .tbss :
   {
     *(.tbss)
@@ -111,5 +88,4 @@ SECTIONS
 
   /* End of uninitalized data segement */
   _end = .;
-
 }
