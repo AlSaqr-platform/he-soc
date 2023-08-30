@@ -1796,7 +1796,7 @@ module ariane_tb;
   assign pad_periphs_b_60_pad_mux_sel_io_gpio60    = (`PAD_MUX_REG_PATH.b_60_mux_sel.q == PAD_MUX_GROUP_B_60_SEL_GPIO_B_GPIO60   );
   assign pad_periphs_b_61_pad_mux_sel_eth_mdc      = (`PAD_MUX_REG_PATH.b_61_mux_sel.q == PAD_MUX_GROUP_B_61_SEL_ETH_ETH_MDC     );
   assign pad_periphs_b_61_pad_mux_sel_io_gpio61    = (`PAD_MUX_REG_PATH.b_61_mux_sel.q == PAD_MUX_GROUP_B_61_SEL_GPIO_B_GPIO61   );
-  assign pad_periphs_b_62_pad_mux_sel_eth_intb     = (`PAD_MUX_REG_PATH.b_62_mux_sel.q == PAD_MUX_GROUP_B_62_SEL_ETH_ETH_INTB    );
+  //assign pad_periphs_b_62_pad_mux_sel_eth_intb     = (`PAD_MUX_REG_PATH.b_62_mux_sel.q == PAD_MUX_GROUP_B_62_SEL_ETH_ETH_INTB    );
   assign pad_periphs_b_62_pad_mux_sel_io_gpio62    = (`PAD_MUX_REG_PATH.b_62_mux_sel.q == PAD_MUX_GROUP_B_62_SEL_GPIO_B_GPIO62   );
   //**************************************************
   // VIP MUX SEL END
@@ -2008,7 +2008,7 @@ module ariane_tb;
   tranif1 b_60_pad_io_gpio60   (pad_periphs_b_60_pad, pad_periphs_b_60_pad_io_gpio60   , pad_periphs_b_60_pad_mux_sel_io_gpio60    );
   tranif1 b_61_pad_eth_mdc     (pad_periphs_b_61_pad, pad_periphs_b_61_pad_eth_mdc     , pad_periphs_b_61_pad_mux_sel_eth_mdc      );
   tranif1 b_61_pad_io_gpio61   (pad_periphs_b_61_pad, pad_periphs_b_61_pad_io_gpio61   , pad_periphs_b_61_pad_mux_sel_io_gpio61    );
-  tranif1 b_62_pad_eth_intb    (pad_periphs_b_62_pad, pad_periphs_b_62_pad_eth_intb    , pad_periphs_b_62_pad_mux_sel_eth_intb     );
+  //tranif1 b_62_pad_eth_intb    (pad_periphs_b_62_pad, pad_periphs_b_62_pad_eth_intb    , pad_periphs_b_62_pad_mux_sel_eth_intb     );
   tranif1 b_62_pad_io_gpio62   (pad_periphs_b_62_pad, pad_periphs_b_62_pad_io_gpio62   , pad_periphs_b_62_pad_mux_sel_io_gpio62    );
 
   //**************************************************

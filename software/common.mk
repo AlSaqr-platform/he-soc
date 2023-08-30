@@ -54,7 +54,7 @@ dump:
 all: clean build dis dump
 
 rtl:
-	 $(MAKE) -C  $(SW_HOME)/../hardware/ all
+	 $(MAKE) -C $(SW_HOME)/../hardware/ -B all
 
 sim:
-	$(MAKE) -C  $(SW_HOME)/../hardware/ sim $(sim_flags) elf-bin=$(shell pwd)/$(APP).riscv
+	$(MAKE) -C  $(SW_HOME)/../hardware/ -B sim $(sim_flags) elf-bin=$(shell pwd)/$(APP).riscv

@@ -152,6 +152,9 @@ module host_domain
 
   output                      pwm_to_pad_t pwm_to_pad,
 
+  // FLL output
+  output                      fll_to_pad_t    fll_to_pad,
+
   output gpio_to_pad_t        gpio_to_pad,
   input  pad_to_gpio_t        pad_to_gpio,
 
@@ -549,6 +552,7 @@ module host_domain
       .pad_hyper_dq,
       `endif
 
+      .fll_to_pad             ( fll_to_pad                     ),
       .gpio_to_pad            ( gpio_to_pad                    ),
       .pad_to_gpio            ( pad_to_gpio                    )
       );

@@ -14089,11 +14089,14 @@
           resval: 0
           fields: [
               {
-                  bits: "1:0"
+                  bits: "2:0"
                   enum: [
                       { value: "0", name: "register", desc: "Connects the Pad to the internal configuration register."}
-                      { value: "1", name: "port_eth_eth_intb", desc: "Connect port eth_intb from port group eth to this pad." }
-                      { value: "2", name: "port_gpio_b_gpio62", desc: "Connect port gpio62 from port group gpio_b to this pad." }
+                      { value: "1", name: "port_fll_cluster_clk_cluster", desc: "Connect port clk_cluster from port group fll_cluster to this pad." }
+                      { value: "2", name: "port_fll_cva6_clk_cva6", desc: "Connect port clk_cva6 from port group fll_cva6 to this pad." }
+                      { value: "3", name: "port_fll_per_clk_peripheral", desc: "Connect port clk_peripheral from port group fll_per to this pad." }
+                      { value: "4", name: "port_fll_soc_clk_soc", desc: "Connect port clk_soc from port group fll_soc to this pad." }
+                      { value: "5", name: "port_gpio_b_gpio62", desc: "Connect port gpio62 from port group gpio_b to this pad." }
                   ]
               }
           ]

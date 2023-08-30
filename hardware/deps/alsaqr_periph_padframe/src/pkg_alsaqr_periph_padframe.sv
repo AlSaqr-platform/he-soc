@@ -562,7 +562,6 @@ package pkg_alsaqr_periph_padframe;
      } pad_domain_periphs_port_group_eth_soc2pad_t;
 
    typedef struct packed {
-      logic        eth_intb_o;
       logic        eth_md_o;
       logic        eth_rxck_o;
       logic        eth_rxctl_o;
@@ -571,6 +570,22 @@ package pkg_alsaqr_periph_padframe;
       logic        eth_rxd2_o;
       logic        eth_rxd3_o;
      } pad_domain_periphs_port_group_eth_pad2soc_t;
+
+   typedef struct packed {
+      logic        clk_soc_i;
+     } pad_domain_periphs_port_group_fll_soc_soc2pad_t;
+
+   typedef struct packed {
+      logic        clk_cva6_i;
+     } pad_domain_periphs_port_group_fll_cva6_soc2pad_t;
+
+   typedef struct packed {
+      logic        clk_peripheral_i;
+     } pad_domain_periphs_port_group_fll_per_soc2pad_t;
+
+   typedef struct packed {
+      logic        clk_cluster_i;
+     } pad_domain_periphs_port_group_fll_cluster_soc2pad_t;
 
    typedef struct packed {
       logic        clk_i;
@@ -657,6 +672,10 @@ package pkg_alsaqr_periph_padframe;
      pad_domain_periphs_port_group_can1_soc2pad_t can1;
      pad_domain_periphs_port_group_gpio_b_soc2pad_t gpio_b;
      pad_domain_periphs_port_group_eth_soc2pad_t eth;
+     pad_domain_periphs_port_group_fll_soc_soc2pad_t fll_soc;
+     pad_domain_periphs_port_group_fll_cva6_soc2pad_t fll_cva6;
+     pad_domain_periphs_port_group_fll_per_soc2pad_t fll_per;
+     pad_domain_periphs_port_group_fll_cluster_soc2pad_t fll_cluster;
      pad_domain_periphs_port_group_qspi_ot_soc2pad_t qspi_ot;
      pad_domain_periphs_port_group_qspi_linux_soc2pad_t qspi_linux;
      pad_domain_periphs_port_group_ot_gpio_soc2pad_t ot_gpio;

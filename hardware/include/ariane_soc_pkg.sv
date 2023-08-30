@@ -165,4 +165,12 @@ package ariane_soc;
     logic eth_md_oe;
   } eth_to_pad_t;
 
+  typedef struct packed {
+    logic clk_soc_o;
+    logic clk_cva6_o;
+    logic clk_peripheral_o;
+    logic clk_cluster_o;
+  } fll_to_pad_t;
+
+
 endpackage

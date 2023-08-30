@@ -486,6 +486,8 @@ module al_saqr
   eth_to_pad_t s_eth_to_pad;
   pad_to_eth_t s_pad_to_eth;
 
+  fll_to_pad_t    s_fll_to_pad;
+
   assign s_pwm_nano_to_pad[0] = s_pwm_to_pad[3:0];
   assign s_pwm_nano_to_pad[1] = s_pwm_to_pad[7:4];
 
@@ -649,6 +651,7 @@ module al_saqr
        `endif
 
       .pwm_to_pad             ( s_pwm_to_pad                    ),
+      .fll_to_pad             ( s_fll_to_pad                    ),
 
       .ot_axi_req             ( ot_axi_req                      ),
       .ot_axi_rsp             ( ot_axi_rsp                      ),
@@ -1447,6 +1450,12 @@ module al_saqr
           //ETHERNET
           `ASSIGN_PERIPHS_ETH_PAD2SOC(s_pad_to_eth,s_port_signals_pad2soc.periphs.eth)
           `ASSIGN_PERIPHS_ETH_SOC2PAD(s_port_signals_soc2pad.periphs.eth,s_eth_to_pad)
+
+          //FLL OUT
+          `ASSIGN_PERIPHS_FLL_SOC_SOC2PAD(s_port_signals_soc2pad.periphs.fll_soc,s_fll_to_pad)
+          `ASSIGN_PERIPHS_FLL_CVA6_SOC2PAD(s_port_signals_soc2pad.periphs.fll_cva6,s_fll_to_pad)
+          `ASSIGN_PERIPHS_FLL_PER_SOC2PAD(s_port_signals_soc2pad.periphs.fll_per,s_fll_to_pad)
+          `ASSIGN_PERIPHS_FLL_CLUSTER_SOC2PAD(s_port_signals_soc2pad.periphs.fll_cluster,s_fll_to_pad)
 
     `else // !`ifndef FPGA_EMUL
            assign reg_rsp.ready = 1'b0;
