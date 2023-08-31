@@ -119,8 +119,13 @@ sources:
 
   - target: all(asic, not(all(fpga, xilinx)))
     defines:
-      WT_DCACHE: ~
+      WT_DCACHE:   ~
+      GF22_FLL:    ~
+      TARGET_ASIC: ~
     files:
+      - fll_behav/FLL/DCO_Model_v1p0.vdh
+      - fll_behav/gf22/synopsys/netlists/gf22_fll.v
+      - host/alsaqr_clk_rst_gen.sv
       - ../fpga/src/bootrom/bootrom.sv
       - gf22/macro_wrap/memwrap_gf22.sv
       - gf22/macro_wrap/tc_sram_gf22.sv
@@ -128,15 +133,17 @@ sources:
 
   - target: macro
     defines:
-      WT_DCACHE: ~
-      GF22_FLL:  ~
+      WT_DCACHE:   ~
+      GF22_FLL:    ~
       TARGET_ASIC: ~
     files:
+      - fll_behav/FLL/DCO_Model_v1p0.vhd
+      - fll_behav/gf22/synopsys/netlists/gf22_fll.v
+      - host/alsaqr_clk_rst_gen.sv
       - ../fpga/src/bootrom/bootrom.sv
       - gf22/macro_wrap/memwrap_gf22.sv
       - gf22/macro_wrap/tc_sram_gf22.sv
       - gf22/macro_wrap/tc_clk_gf22.sv
-      - gf22/macro_wrap/fllsynopsys.sv
 
   - target: top_post_synth_sim
     files:
