@@ -10,7 +10,7 @@
 //  The test takes a while also @ 10MHz. Don't run this on Questa.
 //  Also, modify the linker script to have the stack in L2, if you
 //  want to check the whole memory.
-#define STRIDE 0x8
+#define STRIDE 0x2000
 //#define FPGA_EMULATION
 uint64_t *lfsr_byte_feedback;
 
