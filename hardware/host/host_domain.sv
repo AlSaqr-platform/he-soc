@@ -199,7 +199,7 @@ module host_domain
 
    // parameters for the LLC
    localparam NUM_WAYS   = 32'd16;
-   localparam NUM_LINES  = 32'd512;
+   localparam NUM_LINES  = 32'd256;
    localparam NUM_BLOCKS = 32'd8;
 
    logic                                 s_clk_cva6;
