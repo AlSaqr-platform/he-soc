@@ -534,12 +534,6 @@ module cva6_subsystem
     end_addr:   ariane_soc::ROMBase      + ariane_soc::ROMLength
   };
 
-  assign addr_map[ariane_soc::UART] = '{
-    idx:  ariane_soc::UART,
-    start_addr: ariane_soc::UARTBase,
-    end_addr:   ariane_soc::UARTBase     + ariane_soc::UARTLength
-  };
-
   assign addr_map[ariane_soc::CLINT] = '{
     idx:  ariane_soc::CLINT,
     start_addr: ariane_soc::CLINTBase,
@@ -588,6 +582,18 @@ module cva6_subsystem
     end_addr:   ariane_soc::EthernetBase + ariane_soc::EthernetLength
   };
 
+  assign addr_map[ariane_soc::UART] = '{
+    idx:  ariane_soc::UART,
+    start_addr: ariane_soc::UARTBase,
+    end_addr:   ariane_soc::UARTBase     + ariane_soc::UARTLength
+  };
+
+  assign addr_map[ariane_soc::AXILiteDom] = '{ 
+    idx:  ariane_soc::AXILiteDom,
+    start_addr: ariane_soc::AXILiteBase,
+    end_addr:   ariane_soc::AXILiteBase + ariane_soc::AXILiteLength
+  };
+
   assign addr_map[ariane_soc::HYAXI] = '{
     idx:  ariane_soc::HYAXI,
     start_addr: ariane_soc::HYAXIBase,
@@ -599,12 +605,6 @@ module cva6_subsystem
     start_addr: ariane_soc::LLCSPMBase,
     end_addr:   ariane_soc::LLCSPMBase     + ariane_soc::LLCSPMLength  
   }; 
-
-  assign addr_map[ariane_soc::AXILiteDom] = '{ 
-    idx:  ariane_soc::AXILiteDom,
-    start_addr: ariane_soc::AXILiteBase,
-    end_addr:   ariane_soc::AXILiteBase + ariane_soc::AXILiteLength
-  };
 
   axi_xbar_intf #(
     .AXI_USER_WIDTH         ( AXI_USER_WIDTH                        ),
