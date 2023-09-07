@@ -520,7 +520,7 @@ module cva6_subsystem
                                          NoAddrRules: ariane_soc::NB_PERIPHERALS
                                          };
 
-  ariane_soc::addr_map_rule_t [ariane_soc::HYAXI+1:0] addr_map; // One extra for the LLCSPM
+  ariane_soc::addr_map_rule_t [ariane_soc::NB_PERIPHERALS:0] addr_map; // One extra for the LLCSPM
 
  assign addr_map[ariane_soc::Debug] = '{
     idx:  ariane_soc::Debug,
