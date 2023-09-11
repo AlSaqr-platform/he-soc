@@ -27,7 +27,7 @@ test-location  ?= output/test
 # set to either nothing or -log
 torture-logs   :=
 # custom elf bin to run with sim or sim-verilator
-elf-bin        ?= ../software/hello/hello.riscv
+elf-bin        ?= ../software/hello_culsans/hello_culsans.riscv
 ibex-elf-bin   ?=
 BOOTMODE       ?= 0
 CORE_ID        ?= 0
