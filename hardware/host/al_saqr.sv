@@ -242,14 +242,14 @@ module al_saqr
         inout wire logic    pad_periphs_b_60_pad,
         inout wire logic    pad_periphs_b_61_pad,
         inout wire logic    pad_periphs_b_62_pad,
-        
+
         inout wire logic    pad_periphs_ot_qspi_00_pad,
         inout wire logic    pad_periphs_ot_qspi_01_pad,
         inout wire logic    pad_periphs_ot_qspi_02_pad,
         inout wire logic    pad_periphs_ot_qspi_03_pad,
         inout wire logic    pad_periphs_ot_qspi_04_pad,
         inout wire logic    pad_periphs_ot_qspi_05_pad,
-        
+
         inout wire logic    pad_periphs_linux_qspi_00_pad,
         inout wire logic    pad_periphs_linux_qspi_01_pad,
         inout wire logic    pad_periphs_linux_qspi_02_pad,
@@ -483,6 +483,11 @@ module al_saqr
   pwm_nano_to_pad_t [1:0] s_pwm_nano_to_pad;
   pwm_to_pad_t s_pwm_to_pad;
 
+  eth_to_pad_t s_eth_to_pad;
+  pad_to_eth_t s_pad_to_eth;
+
+  fll_to_pad_t    s_fll_to_pad;
+
   assign s_pwm_nano_to_pad[0] = s_pwm_to_pad[3:0];
   assign s_pwm_nano_to_pad[1] = s_pwm_to_pad[7:4];
 
@@ -603,7 +608,7 @@ module al_saqr
 
       .spi_to_pad             ( s_spi_to_pad                    ),
       .pad_to_spi             ( s_pad_to_spi                    ),
-      
+
       .qspi_to_pad            ( s_qspi_to_pad                   ),
       .pad_to_qspi            ( s_pad_to_qspi                   ),
 
@@ -624,6 +629,9 @@ module al_saqr
       .gpio_to_pad            ( s_gpio_b_to_pad                 ),
       .pad_to_gpio            ( s_pad_to_gpio_b                 ),
 
+      .eth_to_pad             ( s_eth_to_pad                    ),
+      .pad_to_eth             ( s_pad_to_eth                    ),
+
       .can_to_pad             ( s_can_to_pad                    ),
       .pad_to_can             ( s_pad_to_can                    ),
 
@@ -643,6 +651,7 @@ module al_saqr
        `endif
 
       .pwm_to_pad             ( s_pwm_to_pad                    ),
+      .fll_to_pad             ( s_fll_to_pad                    ),
 
       .ot_axi_req             ( ot_axi_req                      ),
       .ot_axi_rsp             ( ot_axi_rsp                      ),
@@ -1437,6 +1446,16 @@ module al_saqr
 
           `ASSIGN_PERIPHS_SDIO1_PAD2SOC(s_pad_to_sdio[1],s_port_signals_pad2soc.periphs.sdio1)
           `ASSIGN_PERIPHS_SDIO1_SOC2PAD(s_port_signals_soc2pad.periphs.sdio1,s_sdio_to_pad[1])
+
+          //ETHERNET
+          `ASSIGN_PERIPHS_ETH_PAD2SOC(s_pad_to_eth,s_port_signals_pad2soc.periphs.eth)
+          `ASSIGN_PERIPHS_ETH_SOC2PAD(s_port_signals_soc2pad.periphs.eth,s_eth_to_pad)
+
+          //FLL OUT
+          `ASSIGN_PERIPHS_FLL_SOC_SOC2PAD(s_port_signals_soc2pad.periphs.fll_soc,s_fll_to_pad)
+          `ASSIGN_PERIPHS_FLL_CVA6_SOC2PAD(s_port_signals_soc2pad.periphs.fll_cva6,s_fll_to_pad)
+          `ASSIGN_PERIPHS_FLL_PER_SOC2PAD(s_port_signals_soc2pad.periphs.fll_per,s_fll_to_pad)
+          `ASSIGN_PERIPHS_FLL_CLUSTER_SOC2PAD(s_port_signals_soc2pad.periphs.fll_cluster,s_fll_to_pad)
 
     `else // !`ifndef FPGA_EMUL
            assign reg_rsp.ready = 1'b0;

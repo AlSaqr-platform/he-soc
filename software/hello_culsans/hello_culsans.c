@@ -25,9 +25,10 @@ int main(int argc, char const *argv[]) {
   pulp_write32(hyaxicfg_reg_memspace_start_addr1,0x84000000);
   uint32_t * hyaxicfg_reg_memspace_end_addr0 = 0x1A101024;
   pulp_write32(hyaxicfg_reg_memspace_end_addr0,0x84000000);
-  printf("Hello CVA6!\r\n");
+  printf("Hello Culsans! I'm Core %d!\r\n", read_csr(mhartid));
   uart_wait_tx_done();
   return 0;
 }
+
 
 

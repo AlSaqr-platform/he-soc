@@ -3227,10 +3227,13 @@ package pkg_internal_alsaqr_periph_padframe_periphs;
   parameter logic[1:0] PAD_MUX_GROUP_B_61_SEL_ETH_ETH_MDC = 2'd1;
   parameter logic[1:0] PAD_MUX_GROUP_B_61_SEL_GPIO_B_GPIO61 = 2'd2;
 
-  parameter PAD_MUX_GROUP_B_62_SEL_WIDTH = 2;
-  parameter logic[1:0] PAD_MUX_GROUP_B_62_SEL_DEFAULT = 2'd0;
-  parameter logic[1:0] PAD_MUX_GROUP_B_62_SEL_ETH_ETH_INTB = 2'd1;
-  parameter logic[1:0] PAD_MUX_GROUP_B_62_SEL_GPIO_B_GPIO62 = 2'd2;
+  parameter PAD_MUX_GROUP_B_62_SEL_WIDTH = 3;
+  parameter logic[2:0] PAD_MUX_GROUP_B_62_SEL_DEFAULT = 3'd0;
+  parameter logic[2:0] PAD_MUX_GROUP_B_62_SEL_FLL_CLUSTER_CLK_CLUSTER = 3'd1;
+  parameter logic[2:0] PAD_MUX_GROUP_B_62_SEL_FLL_CVA6_CLK_CVA6 = 3'd2;
+  parameter logic[2:0] PAD_MUX_GROUP_B_62_SEL_FLL_PER_CLK_PERIPHERAL = 3'd3;
+  parameter logic[2:0] PAD_MUX_GROUP_B_62_SEL_FLL_SOC_CLK_SOC = 3'd4;
+  parameter logic[2:0] PAD_MUX_GROUP_B_62_SEL_GPIO_B_GPIO62 = 3'd5;
 
   parameter PAD_MUX_GROUP_LINUX_QSPI_00_SEL_WIDTH = 1;
   parameter logic[0:0] PAD_MUX_GROUP_LINUX_QSPI_00_SEL_DEFAULT = 1'd0;

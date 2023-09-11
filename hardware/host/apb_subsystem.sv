@@ -15,6 +15,7 @@
 
 module apb_subsystem
   import apb_soc_pkg::*;
+  import ariane_soc::*;
   import udma_subsystem_pkg::*;
   import gpio_pkg::*;
  `ifndef FPGA_EMUL
@@ -109,6 +110,9 @@ module apb_subsystem
     //CAN
     output                      can_to_pad_t [N_CAN-1 : 0] can_to_pad,
     input                       pad_to_can_t [N_CAN-1 : 0] pad_to_can,
+
+    // FLL output
+    output                      fll_to_pad_t fll_to_pad,
 
     output                      pwm_to_pad_t pwm_to_pad
 );
@@ -422,8 +426,13 @@ module apb_subsystem
         .clk_cluster_o      ( clk_cluster_o       )
        );
 
+    // Here is the FLL outputs probed to the pad a_62
+    assign  fll_to_pad.clk_cva6_o = clk_cva6_o;
+    assign  fll_to_pad.clk_soc_o  = clk_soc_o;
+    assign  fll_to_pad.clk_peripheral_o = s_clk_per;
+    assign  fll_to_pad.clk_cluster_o = clk_cluster_o;
 
-  apb_to_reg i_apb_to_hyaxicfg
+    apb_to_reg i_apb_to_hyaxicfg
     (
      .clk_i     ( clk_soc_o       ),
      .rst_ni    ( s_rstn_soc_sync ),

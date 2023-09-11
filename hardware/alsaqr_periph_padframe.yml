@@ -88,19 +88,19 @@ pad_domains:
 
 
     pad_list:     # padframe physical pad instances
-    
+
       - name: pwrdet
         description: "pwrdet pad"
         pad_type: IN22FDX_GPIO18_10M19S40PI_PWRDET_TIE_H
         is_static: true
-        
-        ##  __  __                    _ 
+
+        ##  __  __                    _
         ## |  \/  |                  | |
         ## | \  / |_   ___  _____  __| |
         ## | |\/| | | | \ \/ / _ \/ _` |
         ## | |  | | |_| |>  <  __/ (_| |
         ## |_|  |_|\__,_/_/\_\___|\__,_|
-        
+
       - name: a_{i:2d}
         mux_groups: [self]
         description: "pads not including GPIOs"
@@ -131,13 +131,13 @@ pad_domains:
         multiple: 2
         pad_type: pad_alsaqr
         is_static: false
-         
-      ##  _____           _       
-      ## |  __ \         | |      
-      ## | |__) |__  _ __| |_ ___ 
+
+      ##  _____           _
+      ## |  __ \         | |
+      ## | |__) |__  _ __| |_ ___
       ## |  ___/ _ \| '__| __/ __|
       ## | |  | (_) | |  | |_\__ \
-      ## |_|   \___/|_|   \__|___/    
+      ## |_|   \___/|_|   \__|___/
     port_groups:
 
       #A
@@ -293,8 +293,8 @@ pad_domains:
             connections:
               chip2pad: cmd_i
               cmd_o: pad2chip
-              oen: cmd_oen_i  
-              puen: 1'b0        
+              oen: cmd_oen_i
+              puen: 1'b0
 
       - name: uart0
         output_defaults: 1'b1
@@ -507,8 +507,8 @@ pad_domains:
             mux_groups: [a_54]
             connections:
               chip2pad: sd0_i
-              oen: 1'b0 
-              puen: 1'b1   
+              oen: 1'b0
+              puen: 1'b1
           - name: spi_cs0
             mux_groups: [a_55]
             connections:
@@ -521,7 +521,7 @@ pad_domains:
               chip2pad: csn1_i
               oen: 1'b0
               puen: 1'b1
- 
+
       - name: i2c4
         output_defaults: 1'b1
         ports:
@@ -599,7 +599,7 @@ pad_domains:
               rx_o: pad2chip
               oen: 1'b1
               puen: 1'b1
-            
+
       - name: i2c5
         output_defaults: 1'b1
         ports:
@@ -951,8 +951,8 @@ pad_domains:
             connections:
               chip2pad: cmd_i
               cmd_o: pad2chip
-              oen: cmd_oen_i  
-              puen: 1'b0        
+              oen: cmd_oen_i
+              puen: 1'b0
 
       - name: can0
         output_defaults: 1'b1
@@ -985,7 +985,7 @@ pad_domains:
               rx_o: pad2chip
               oen: 1'b1
               puen: 1'b0
-      
+
       #B
       #GPIOs
 
@@ -1008,45 +1008,45 @@ pad_domains:
         output_defaults: 1'b0
         ports:
           - name: eth_rst
-            mux_groups: [b_47]            
+            mux_groups: [b_47]
             connections:
               chip2pad: eth_rstn_i
               oen: 1'b0
               puen: 1'b1
           - name: eth_rxck
-            mux_groups: [b_48]            
+            mux_groups: [b_48]
             connections:
               eth_rxck_o: pad2chip
               oen: 1'b1
               puen: 1'b1
           - name: eth_rxctl
-            mux_groups: [b_49]            
+            mux_groups: [b_49]
             connections:
               eth_rxctl_o: pad2chip
               oen: 1'b1
               puen: 1'b1
           - name: eth_rxd{i}
             multiple: 4
-            mux_groups: ["b_{50+i:2d}"]            
+            mux_groups: ["b_{50+i:2d}"]
             connections:
               eth_rxd{i}_o: pad2chip
               oen: 1'b1
               puen: 1'b1
           - name: eth_txck
-            mux_groups: [b_54]            
+            mux_groups: [b_54]
             connections:
               chip2pad: eth_txck_i
               oen: 1'b0
               puen: 1'b1
           - name: eth_txctl
-            mux_groups: [b_55]            
+            mux_groups: [b_55]
             connections:
               chip2pad: eth_txctl_i
               oen: 1'b0
               puen: 1'b1
           - name: eth_txd{i}
             multiple: 4
-            mux_groups: ["b_{56+i:2d}"]            
+            mux_groups: ["b_{56+i:2d}"]
             connections:
               chip2pad: eth_txd{i}_i
               oen: 1'b0
@@ -1057,18 +1057,49 @@ pad_domains:
               chip2pad: eth_md_i
               eth_md_o: pad2chip
               oen: ~eth_md_oe
-              puen: 1'b1  
+              puen: 1'b1
           - name: eth_mdc
-            mux_groups: [b_61]            
+            mux_groups: [b_61]
             connections:
               chip2pad: eth_mdc_i
               oen: 1'b0
               puen: 1'b1
-          - name: eth_intb
-            mux_groups: [b_62]            
+
+      # FLL output muxed on b_62 pin
+      - name: fll_soc
+        ports:
+          - name: clk_soc
+            mux_groups: [b_62]
             connections:
-              eth_intb_o: pad2chip
-              oen: 1'b1
+              chip2pad: clk_soc_i
+              oen: 1'b0
+              puen: 1'b1
+
+      - name: fll_cva6
+        ports:
+          - name: clk_cva6
+            mux_groups: [b_62]
+            connections:
+              chip2pad: clk_cva6_i
+              oen: 1'b0
+              puen: 1'b1
+
+      - name: fll_per
+        ports:
+          - name: clk_peripheral
+            mux_groups: [b_62]
+            connections:
+              chip2pad: clk_peripheral_i
+              oen: 1'b0
+              puen: 1'b1
+
+      - name: fll_cluster
+        ports:
+          - name: clk_cluster
+            mux_groups: [b_62]
+            connections:
+              chip2pad: clk_cluster_i
+              oen: 1'b0
               puen: 1'b1
 
       #OpenTitan QSPI

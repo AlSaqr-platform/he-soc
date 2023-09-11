@@ -77,6 +77,14 @@ module cva6_subsystem
   AXI_BUS.Master          cluster_axi_master,
   AXI_BUS.Slave           cluster_axi_slave,
 
+  //ETHERNET
+  input  logic            eth_clk_i       , // 125 MHz quadrature
+  input  logic            eth_phy_tx_clk_i, // 125 MHz in-phase
+  input  logic            eth_clk_200MHz_i,
+
+  output eth_to_pad_t     eth_to_pad,
+  input  pad_to_eth_t     pad_to_eth,
+
   // OpenTitan axi master
   input  axi_req_t        ot_axi_req,
   output axi_rsp_t        ot_axi_rsp,
@@ -88,7 +96,7 @@ module cva6_subsystem
   logic        test_en;
   logic        ndmreset;
   logic        ndmreset_n;
-  logic        debug_req_core;
+  logic        [ariane_soc::NumCVA6-1:0] debug_req_core;
 
   logic        jtag_enable;
   logic        init_done;
@@ -214,7 +222,7 @@ module cva6_subsystem
   // pointer to the dev tree, respectively.
   localparam int unsigned DmiDelCycles = 500;
 
-  logic debug_req_core_ungtd;
+  logic [ariane_soc::NumCVA6-1:0] debug_req_core_ungtd;
   int dmi_del_cnt_d, dmi_del_cnt_q;
 
   assign dmi_del_cnt_d  = (dmi_del_cnt_q) ? dmi_del_cnt_q - 1 : 0;
@@ -247,11 +255,13 @@ module cva6_subsystem
   logic                dm_master_r_valid;
   logic [64-1:0]       dm_master_r_rdata;
 
+  dm::hartinfo_t [ariane_soc::NumCVA6-1:0] host_hart_info;
+  assign host_hart_info = {ariane_soc::NumCVA6{ariane_pkg::DebugHartInfo}};
+
   // debug module
   dm_top #(
-    .NrHarts              ( 1                           ),
-    .BusWidth             ( AXI_DATA_WIDTH              ),
-    .SelectableHarts      ( 1'b1                        )
+    .NrHarts              ( ariane_soc::NumCVA6         ),
+    .BusWidth             ( AXI_DATA_WIDTH              )
   ) i_dm_top (
     .clk_i                ( clk_i                       ),
     .rst_ni               ( rst_ni                      ), // PoR
@@ -260,7 +270,7 @@ module cva6_subsystem
     .dmactive_o           (                             ), // active debug session
     .debug_req_o          ( debug_req_core_ungtd        ),
     .unavailable_i        ( '0                          ),
-    .hartinfo_i           ( {ariane_pkg::DebugHartInfo} ),
+    .hartinfo_i           ( host_hart_info              ),
     .slave_req_i          ( dm_slave_req                ),
     .slave_we_i           ( dm_slave_we                 ),
     .slave_addr_i         ( dm_slave_addr               ),
@@ -275,6 +285,8 @@ module cva6_subsystem
     .master_gnt_i         ( dm_master_gnt               ),
     .master_r_valid_i     ( dm_master_r_valid           ),
     .master_r_rdata_i     ( dm_master_r_rdata           ),
+    .master_r_other_err_i ( '0                          ),
+    .master_r_err_i       ( '0                          ),
     .dmi_rst_ni           ( rst_ni                      ),
     .dmi_req_valid_i      ( debug_req_valid             ),
     .dmi_req_ready_o      ( debug_req_ready             ),
@@ -307,15 +319,20 @@ module cva6_subsystem
 
   axi_adapter #(
     .DATA_WIDTH            ( AXI_DATA_WIDTH            ),
-    .AXI_ID_WIDTH          ( ariane_soc::IdWidth       )
+    .AXI_ADDR_WIDTH        ( AXI_ADDRESS_WIDTH         ),
+    .AXI_DATA_WIDTH        ( AXI_DATA_WIDTH            ),
+    .AXI_ID_WIDTH          ( ariane_soc::IdWidth       ),
+    .axi_req_t             ( ariane_axi_soc::req_t     ),
+    .axi_rsp_t             ( ariane_axi_soc::resp_t    )
   ) i_dm_axi_master (
     .clk_i                 ( clk_i                     ),
     .rst_ni                ( rst_ni                    ),
     .req_i                 ( dm_master_req             ),
     .type_i                ( ariane_axi::SINGLE_REQ    ),
+    .trans_type_i          ( ariane_ace::READ_SHARED   ),
+    .amo_i                 ( ariane_pkg::AMO_NONE      ),
     .busy_o                (                           ),
     .gnt_o                 ( dm_master_gnt             ),
-    .gnt_id_o              (                           ),
     .addr_i                ( dm_master_add             ),
     .we_i                  ( dm_master_we              ),
     .wdata_i               ( dm_master_wdata           ),
@@ -327,6 +344,8 @@ module cva6_subsystem
     .id_o                  (                           ),
     .critical_word_o       (                           ),
     .critical_word_valid_o (                           ),
+    .dirty_o               (                           ),
+    .shared_o              (                           ),
     .axi_req_o             ( dm_axi_m_req              ),
     .axi_resp_i            ( dm_axi_m_resp             )
   );
@@ -606,8 +625,8 @@ module cva6_subsystem
   // CLINT
   // ---------------
   // divide clock by two
-  logic ipi;
-  logic timer_irq;
+  logic [ariane_soc::NumCVA6-1:0] ipi;
+  logic [ariane_soc::NumCVA6-1:0] timer_irq;
   logic rtc_clint;
 
   ariane_axi_soc::req_slv_t    axi_clint_req;
@@ -622,10 +641,12 @@ module cva6_subsystem
   end
 
   clint #(
-    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
-    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-    .NR_CORES       ( 1                        )
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH          ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH             ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave   ),
+    .NR_CORES       ( ariane_soc::NumCVA6        ),
+    .axi_req_slv_t  ( ariane_axi_soc::req_slv_t  ),
+    .axi_rsp_slv_t  ( ariane_axi_soc::resp_slv_t )
   ) i_clint (
     .clk_i       ( clk_i          ),
     .rst_ni      ( ndmreset_n     ),
@@ -645,9 +666,10 @@ module cva6_subsystem
   // Peripherals
   // ---------------
   logic tx, rx;
-  logic [1:0] irqs;
+  logic [ariane_soc::NumCVA6-1:0][1:0] irqs;
 
   ariane_peripherals #(
+    .NumCVA6      ( ariane_soc::NumCVA6      ),
     .AxiAddrWidth ( AXI_ADDRESS_WIDTH        ),
     .AxiDataWidth ( AXI_DATA_WIDTH           ),
     .AxiIdWidth   ( ariane_soc::IdWidthSlave ),
@@ -661,7 +683,7 @@ module cva6_subsystem
 `else
     .InclSPI      ( 1'b0                     ),
 `endif
-    .InclEthernet ( 1'b0                     )
+    .InclEthernet ( 1'b1                     )
   ) i_ariane_peripherals (
     .clk_i           ( clk_i                        ),
     .rst_ni          ( ndmreset_n                   ),
@@ -678,17 +700,14 @@ module cva6_subsystem
     .irq_o           ( irqs                         ),
     .rx_i            ( cva6_uart_rx_i               ),
     .tx_o            ( cva6_uart_tx_o               ),
-    .eth_txck        ( ),
-    .eth_rxck        ( ),
-    .eth_rxctl       ( ),
-    .eth_rxd         ( ),
-    .eth_rst_n       ( ),
-    .eth_tx_en       ( ),
-    .eth_txd         ( ),
-    .phy_mdio        ( ),
-    .eth_mdc         ( ),
-    .mdio            ( ),
-    .mdc             ( ),
+
+    .eth_clk_i        ( eth_clk_i                   ),
+    .eth_phy_tx_clk_i ( eth_phy_tx_clk_i            ),
+    .eth_clk_200MHz_i ( eth_clk_200MHz_i            ),
+
+    .eth_to_pad       ( eth_to_pad                  ),
+    .pad_to_eth       ( pad_to_eth                  ),
+
     .irq_ariane_i
   );
 
@@ -700,7 +719,6 @@ module cva6_subsystem
     .clk_i                ( cva6_clk_i                  ),
     .rst_ni               ( cva6_rst_ni                 ),
     .boot_addr_i          ( ariane_soc::ROMBase         ), // start fetching from ROM
-    .hart_id_i            ( '0                          ),
     .irq_i                ( irqs                        ), // async signal
     .ipi_i                ( ipi                         ), // async signal
     .time_irq_i           ( timer_irq                   ), // async signal

@@ -490,7 +490,6 @@
   assign load.gpio62_i = driver.gpio62_o; \
 
 `define ASSIGN_PERIPHS_ETH_PAD2SOC(load, driver) \
-  assign load.eth_intb_i = driver.eth_intb_o; \
   assign load.eth_md_i = driver.eth_md_o; \
   assign load.eth_rxck_i = driver.eth_rxck_o; \
   assign load.eth_rxctl_i = driver.eth_rxctl_o; \
@@ -501,7 +500,6 @@
 
 `define ASSIGN_PERIPHS_ETH_SOC2PAD(load, driver) \
   assign load.eth_md_i = driver.eth_md_o; \
-  assign load.eth_md__i = driver.eth_md__o; \
   assign load.eth_mdc_i = driver.eth_mdc_o; \
   assign load.eth_rstn_i = driver.eth_rstn_o; \
   assign load.eth_txck_i = driver.eth_txck_o; \
@@ -510,6 +508,22 @@
   assign load.eth_txd1_i = driver.eth_txd1_o; \
   assign load.eth_txd2_i = driver.eth_txd2_o; \
   assign load.eth_txd3_i = driver.eth_txd3_o; \
+
+
+`define ASSIGN_PERIPHS_FLL_SOC_SOC2PAD(load, driver) \
+  assign load.clk_soc_i = driver.clk_soc_o; \
+
+
+`define ASSIGN_PERIPHS_FLL_CVA6_SOC2PAD(load, driver) \
+  assign load.clk_cva6_i = driver.clk_cva6_o; \
+
+
+`define ASSIGN_PERIPHS_FLL_PER_SOC2PAD(load, driver) \
+  assign load.clk_peripheral_i = driver.clk_peripheral_o; \
+
+
+`define ASSIGN_PERIPHS_FLL_CLUSTER_SOC2PAD(load, driver) \
+  assign load.clk_cluster_i = driver.clk_cluster_o; \
 
 `define ASSIGN_PERIPHS_QSPI_OT_PAD2SOC(load, driver) \
   assign load.sd0_i = driver.sd0_o; \

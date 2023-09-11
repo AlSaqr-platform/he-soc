@@ -136,6 +136,10 @@ module host_domain
   output                      can_to_pad_t [N_CAN-1 : 0] can_to_pad,
   input                       pad_to_can_t [N_CAN-1 : 0] pad_to_can,
 
+  //ETHERNET
+  output                      eth_to_pad_t eth_to_pad,
+  input                       pad_to_eth_t pad_to_eth,
+
   // HYPERBUS
   `ifndef XILINX_DDR
   inout  [HyperbusNumPhys-1:0][NumChipsPerHyperbus-1:0] pad_hyper_csn,
@@ -147,6 +151,9 @@ module host_domain
   `endif
 
   output                      pwm_to_pad_t pwm_to_pad,
+
+  // FLL output
+  output                      fll_to_pad_t    fll_to_pad,
 
   output gpio_to_pad_t        gpio_to_pad,
   input  pad_to_gpio_t        pad_to_gpio,
@@ -206,6 +213,10 @@ module host_domain
    logic                                 phy_clk;
    logic                                 phy_clk_90;
 
+   logic                                 s_periph_clk;
+   logic                                 eth_clk_i ; // 125 MHz quadrature
+   logic                                 eth_phy_tx_clk_i; // 125 MHz in-phase
+
    logic                                 s_llc_read_hit_cache;
    logic                                 s_llc_read_miss_cache;
    logic                                 s_llc_write_hit_cache;
@@ -218,6 +229,16 @@ module host_domain
    assign   soc_clk_o  = s_soc_clk;
    assign   soc_rst_no = s_synch_soc_rst;
    assign   rstn_cluster_sync_o = s_rstn_cluster_sync;
+   assign   eth_clk_200MHz_i = s_soc_clk ;
+
+   clk_gen_hyper i_clk_gen_ethernet (
+        .clk_i    ( s_periph_clk                    ),
+        .rst_ni   ( s_synch_soc_rst                 ),
+        .clk0_o   ( eth_clk_i                       ),
+        .clk90_o  ( eth_phy_tx_clk_i                ),
+        .clk180_o (                                 ),
+        .clk270_o (                                 )
+    );
 
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
@@ -411,6 +432,13 @@ module host_domain
         .apb_axi_master       ( apb_axi_bus          ),
         .hyper_axi_master     ( hyper_axi_bus        ),
 
+        //Ethernet
+        .eth_clk_i            ( eth_clk_i            ), // 125 MHz quadrature
+        .eth_phy_tx_clk_i     ( eth_phy_tx_clk_i     ), // 125 MHz in-phase
+        .eth_clk_200MHz_i     ( eth_clk_200MHz_i     ),
+        .eth_to_pad           ( eth_to_pad           ),
+        .pad_to_eth           ( pad_to_eth           ),
+
         .cluster_axi_master   ( cluster_axi_master   ),
         .cluster_axi_slave    ( cluster_axi_slave    ),
 
@@ -524,6 +552,7 @@ module host_domain
       .pad_hyper_dq,
       `endif
 
+      .fll_to_pad             ( fll_to_pad                     ),
       .gpio_to_pad            ( gpio_to_pad                    ),
       .pad_to_gpio            ( pad_to_gpio                    )
       );

@@ -13,7 +13,8 @@ dependencies:
   apb_host_control: { path: "deps/apb_host_control_regs" }
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
-  cva6: { git: "git@github.com:minho-pulp/cva6.git", rev: "5f5d4decb256f485cfdb6e1c773c9f6771d09ea5" }
+  cva6: { git: "git@github.com:Alsaqr-platform/cva6.git", rev: "15f8bc4c2b6217ba48c700562dfc119a2229e333" }
+  ace: { git: "https://github.com/alsaqr-platform/ace.git", rev: "501dee8e46f104c1e2052458daa24c1f153223f2" }
   riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0  }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.39.1-beta }
   axi_llc: { git: "https://github.com/AlSaqr-platform/axi_llc.git", rev: "29fd76fb438c91c692108c1f93ab221931653c5d" }
@@ -33,7 +34,7 @@ dependencies:
   common_cells: { git: "https://github.com/pulp-platform/common_cells.git", version: 1.30.0 }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", rev: "d436ab3dad8260eadc1288bdc543c79b4d7462c7" }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "0e9f142f2f11278445c953ad011fce1c7ed85b66" }
-  hyperbus_udma: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "717d256ded517b8f94925d3340f423f838b0bb8f" } # branch sm/cdc_sync_stage
+  hyperbus_udma: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "557c191bfa6860715273893ee5fe9ab356753371" } # branch lv/pads
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", version: 1.0.1 }
   register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
@@ -42,6 +43,7 @@ dependencies:
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
   opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "7972faa1eb22b4a16a5f08aa72f11d881a12be12" }
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
+  ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "8d69a9283849e7a504f3900709492f5ef77ab69b" }
 
 
 export_include_dirs:

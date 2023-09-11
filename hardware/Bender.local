@@ -6,3 +6,5 @@ overrides:
   fpnew:              { git: "https://github.com/pulp-platform/cvfpu.git", rev: pulp-v0.1.3                                  }
   hci:                { git: "https://github.com/pulp-platform/hci.git", rev: b2e6f391aa6c10c03f45b693d80a0aaddecf169b       }
   cv32e40p:           { git: "https://github.com/pulp-platform/cv32e40p.git", rev: "2f3f137117c2abcc86d04df267866fe0e0fcd39f"} # branch: shaheen
+  cva6:               { git: "git@github.com:Alsaqr-platform/cva6.git", rev: "15f8bc4c2b6217ba48c700562dfc119a2229e333"      }
+  ace:                { git: "https://github.com/alsaqr-platform/ace.git", rev: "501dee8e46f104c1e2052458daa24c1f153223f2"   }
