@@ -34,10 +34,9 @@ Hints to solve compilation issues:
 ```
 git clone https://github.com/AlSaqr-platform/cva6.git
 
-git submodule update --init --recursive
 ```
 
-To compile the code:
+To compile the code, in he-soc/ run:
 
 ```
 source setup.sh
@@ -46,14 +45,12 @@ cd software/hello
 
 make clean all
 
-cd ../..
-
 ```
 please change the setup to point to you toolchains and Questasim installations.
 
 ### RTL BUILD
 
-To install and configure bender, run:
+To install and configure bender, from he-soc/hardware run:
 
 ```
 make bender
@@ -61,7 +58,12 @@ make bender
 ulimit -n 2048
 ```
 
-You also need to download the vip RTL modules ( [HYPERRAM](https://www.cypress.com/documentation/models/verilog/s27kl0641-s27ks0641-verilog), [HYPERFLASH](https://www.cypress.com/verilog/s26ks512s-verilog), [SPI](http://www.cypress.com/file/260016) and [I2C](http://ww1.microchip.com/downloads/en/DeviceDoc/24xx1025_Verilog_Model.zip) ).
+You also need to download the vip RTL modules. Clone this repo in he-soc/hardware/tb :
+
+```
+git clone git@git.eees.dei.unibo.it:alsaqr-deliveries/vips.git
+```
+Then, build the RTL from he-soc/hardware :
 
 ```
 cd hardware
@@ -123,12 +125,12 @@ In he-soc/hardware run:
 make clean sim ibex-elf-bin=<path to test binary>
 
 ```
-To disable cva6 (and eventually boot it form OpenTitan and run Hello World) use the following flag option:
+To run the secure boot (OpenTitan ROM's code boots OpenTitan flash code, which boots CVA6) use the following flag option:
 
 ```
 make scripts_vip sec_boot=1
 
-make clean sim ibex-elf-bin=<path to test binary> sec_boot=1
+make clean sim BOOTMODE=1 sec_boot=1
 
 ```
 
