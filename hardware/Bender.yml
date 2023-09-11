@@ -13,8 +13,8 @@ dependencies:
   apb_host_control: { path: "deps/apb_host_control_regs" }
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
-  cva6: { git: "git@github.com:Alsaqr-platform/cva6.git", rev: "545e05d68318e7c9d6a94903aa63d9b8f1238877" }
-  ace: { git: "https://github.com/alsaqr-platform/ace.git", rev: "69f9319d7788044c8ecdbb19870a04d0b0e2b8cd" }
+  cva6: { git: "git@github.com:Alsaqr-platform/cva6.git", rev: "15f8bc4c2b6217ba48c700562dfc119a2229e333" }
+  ace: { git: "https://github.com/alsaqr-platform/ace.git", rev: "501dee8e46f104c1e2052458daa24c1f153223f2" }
   riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0  }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.39.1-beta }
   axi_llc: { git: "https://github.com/AlSaqr-platform/axi_llc.git", rev: "29fd76fb438c91c692108c1f93ab221931653c5d" }
