@@ -28,7 +28,7 @@ The repository is organized as follows
 Please change the setup to point to you toolchains and Questasim installations in he-soc/setup.sh):
 
 ```
-git clone https://github.com/AlSaqr-platform/cva6.git
+git clone git@github.com:AlSaqr-platform/he-soc.git
 
 cd he-soc/
 
