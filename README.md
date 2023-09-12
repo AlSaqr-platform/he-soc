@@ -24,57 +24,53 @@ The repository is organized as follows
 
  * `software` contains the bare metals tests you can run on the SoC
 
-## NOTE:
-Hints to solve compilation issues:
-* Copy the `vip` folder in `hardware/tb`
-### TODO: Fix these
-
-## Hello World:
+## Repo initialization
+Please change the setup to point to you toolchains and Questasim installations in he-soc/setup.sh):
 
 ```
 git clone https://github.com/AlSaqr-platform/cva6.git
 
-```
+cd he-soc/
 
-To compile the code, in he-soc/ run:
-
-```
 source setup.sh
-
-cd software/hello
-
-make clean all
-
 ```
-please change the setup to point to you toolchains and Questasim installations.
-
-### RTL BUILD
 
 To install and configure bender, from he-soc/hardware run:
 
 ```
-make bender
+cd hardware/
 
 ulimit -n 2048
-```
 
+make bender update
+```
 You also need to download the vip RTL modules. Clone this repo in he-soc/hardware/tb :
 
 ```
+cd tb/
+
 git clone git@git.eees.dei.unibo.it:alsaqr-deliveries/vips.git
+
+cd ../
 ```
-Then, build the RTL from he-soc/hardware :
+
+To compile the hello world, in he-soc/hardware run:
 
 ```
-cd hardware
+make -C ../software/hello clean all
+```
 
-make update
+This will generate the binaries and the hyperram*.slm that will be in the rams at t=0 (in case of preloading). 
 
+### Generate TCL
+
+Then, generate the tcl for simulation, in he-soc/hardware run:
+
+```
 make scripts_vip
-
 ```
 
-Doing so will load the elf binary through the DMI interface, driven by the SimDTM, communicating with FESVR, the host.
+By default, the elf binary will be loaded through the DMI interface, driven by the SimDTM, communicating with FESVR, the host.
 
 To load the code through JTAG interface, you can add the `localjtag=1` option and do `make localjtag=1 scripts_vip`. Be aware that the preload of the code is slower in this case.
 
@@ -84,34 +80,18 @@ To load the code through JTAG interface, you can add the `localjtag=1` option an
 To reduce simulation time, you can also preload the code in the hyperram. To do so follow the steps here:
 
 ```
-cd hardware
-
-make update
-
 make preload=1 scripts_vip
-
 ```
-This will generate the compile.tcl with the right defines. Go to the test you want to run.
-
-### Compile the code
-
-```
-cd ../software/hello/
-
-make clean all
-
-```
-
-This will generate the binaries and the hyperram*.slm that will be in the rams at t=0 (in case of preloading). 
+This will generate the compile.tcl with the preload defines.
 
 ### Run the test
 
- * Option 1: go to the hardware folder and do:
+ * Option 1: in the he-soc/hardware folder run (elf-bin shall be equal to the path to the elf you want to laod):
 
 ```
-make sim elf-bin=../software/hello/hello.riscv
+make clean sim elf-bin=../software/hello/hello.riscv
 ```
-or simply `make sim` if you used the preload flag. Be aware that the loaded code will be the last one you compiled.
+or simply `make clean sim` if you used the preload flag. Be aware that the loaded code will be the last one you compiled.
 
  * Option 2: go to the test folder (ex `software/hello`)
  
@@ -122,10 +102,10 @@ make sim
 
 In he-soc/hardware run:
 ```
-make clean sim ibex-elf-bin=<path to test binary>
+make clean sim ibex-elf-bin=<path to ibex binary>
 
 ```
-To run the secure boot (OpenTitan ROM's code boots OpenTitan flash code, which boots CVA6) use the following flag option:
+To run the secure boot, use the following commands:
 
 ```
 make scripts_vip sec_boot=1

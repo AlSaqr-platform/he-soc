@@ -9,17 +9,17 @@ To rely on the hyperbus, you need a [special FMC carrier board](https://ieeexplo
 To generate the bitstream do the following
 
 ```
-bender update
+make update
 
 ```
 then `make simple-padframe=1 scripts-bender-fpga-ddr` to use the 1GHz DDR4 or `make scripts-bender-fpga` to use the hyperbus.
 
-You can also use the `exclude-cluster=1` option, in case you don't want to emulate the cluster as well.
+You can also use the `exclude-cluster=1` and `exclude-llc=1` option, in case you don't want to emulate the cluster/llc as well.
 
 ```
 cd fpga
 
-source setup.sh
+source ./setup.sh
 ```
  * Select VCU118. The ZCU102 is already too small to fit ariane and the cluster. We will provide support for the ZCU102 as well in the future, with a reduced version of the cluster.
  * Unless you specified the `exclude-llc` when generating the compile script, you are instantiating it!
@@ -31,6 +31,7 @@ make ips
 
 make clean run
 ```
+Vivado IPs shall be generated only once at the first synthesis (unless modifications to the ROMs are applied)
 
 ## Running code 
 

@@ -2585,17 +2585,16 @@ module ariane_tb;
                 load_secd_binary(ot_sram);
                 jtag_secd_data_preload();
                 jtag_secd_wakeup(32'h e0000080); //preload the flashif
-           `ifdef JTAG_SEC_BOOT
-                repeat(500)
-                  @(posedge rtc_i);
-                jtag_secd_wakeup(32'h d0008080); //secure boot
-           `endif
+                jtag_secd_wait_eoc();
            end
          end
          1:begin
            bootmode = 1'b1;
            riscv_ibex_dbg.reset_master();
            spih_norflash_ot_preload(ot_flash);
+           repeat(8)
+             @(posedge rtc_i);
+           jtag_secd_wait_eoc();
          end
          default:begin
            bootmode = 1'b0;
@@ -2769,5 +2768,42 @@ module ariane_tb;
     if (image != "")
       $readmemh(image, genblk16.i_ot_qspi_flash_csn0.Mem);
   endtask
+
+  task jtag_secd_wait_eoc;
+    automatic dm_ot::sbcs_t sbcs = '{
+      sbautoincrement: 1'b1,
+      sbreadondata   : 1'b1,
+      default        : 1'b0
+    };
+    logic [31:0] retval;
+    logic [31:0] to_host_addr;
+    to_host_addr = 32'h c11c0018;
+
+    // Initialize the dm module again, otherwise it will not work
+    debug_secd_module_init();
+    sbcs.sbreadonaddr = 1;
+    sbcs.sbautoincrement = 0;
+    riscv_ibex_dbg.write_dmi(dm_ot::SBCS, sbcs);
+    do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs);
+    while (sbcs.sbbusy);
+
+    riscv_ibex_dbg.write_dmi(dm_ot::SBAddress0, to_host_addr); // tohost address
+    riscv_ibex_dbg.wait_idle(10);
+    do begin
+	     do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs);
+	     while (sbcs.sbbusy);
+       riscv_ibex_dbg.write_dmi(dm_ot::SBAddress0, to_host_addr); // tohost address
+	     do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs);
+	     while (sbcs.sbbusy);
+       riscv_ibex_dbg.read_dmi(dm_ot::SBData0, retval);
+       # 400ns;
+    end while (~retval[0]);
+
+    if (retval != 32'h00000001) $error("[JTAG] FAILED: return code %0d", retval);
+    else $display("[JTAG] SUCCESS");
+
+    $finish;
+
+  endtask // jtag_read_eoc
 
 endmodule // ariane_tb

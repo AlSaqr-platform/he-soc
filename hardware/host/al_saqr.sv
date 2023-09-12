@@ -1407,12 +1407,12 @@ module al_saqr
           `ASSIGN_PERIPHS_SPI10_SOC2PAD(s_port_signals_soc2pad.periphs.spi10,s_spi_to_pad[10])
 
           // LINUX QSPI
-          `ASSIGN_PERIPHS_QSPI_OT_PAD2SOC(s_pad_to_qspi[0],s_port_signals_pad2soc.periphs.qspi_linux)
-          `ASSIGN_PERIPHS_QSPI_OT_SOC2PAD(s_port_signals_soc2pad.periphs.qspi_linux,s_qspi_to_pad[0])
+          `ASSIGN_PERIPHS_QSPI_LINUX_PAD2SOC(s_pad_to_qspi[0],s_port_signals_pad2soc.periphs.qspi_linux)
+          `ASSIGN_PERIPHS_QSPI_LINUX_SOC2PAD(s_port_signals_soc2pad.periphs.qspi_linux,s_qspi_to_pad[0])
 
           // OT QSPI
-          `ASSIGN_PERIPHS_QSPI_LINUX_PAD2SOC(s_pad_to_ot_qspi,s_port_signals_pad2soc.periphs.qspi_ot)
-          `ASSIGN_PERIPHS_QSPI_LINUX_SOC2PAD(s_port_signals_soc2pad.periphs.qspi_ot,s_ot_qspi_to_pad)
+          `ASSIGN_PERIPHS_QSPI_OT_PAD2SOC(s_pad_to_ot_qspi,s_port_signals_pad2soc.periphs.qspi_ot)
+          `ASSIGN_PERIPHS_QSPI_OT_SOC2PAD(s_port_signals_soc2pad.periphs.qspi_ot,s_ot_qspi_to_pad)
 
           // I2Cs
           `ASSIGN_PERIPHS_I2C0_PAD2SOC(s_pad_to_i2c[0],s_port_signals_pad2soc.periphs.i2c0)
