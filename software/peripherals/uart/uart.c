@@ -43,8 +43,8 @@
 **  - SIMPLE_PAD: MUST BE SETTED ONLY TO SIMULATE THE FPGA PAD ON RTL         **
 *******************************************************************************/
 
-//#define FPGA_EMULATION
-#define SIMPLE_PAD
+// #define FPGA_EMULATION
+// #define SIMPLE_PAD
 
 #ifndef FPGA_EMULATION
   #ifndef SIMPLE_PAD
