@@ -121,9 +121,9 @@ package ariane_soc;
     NrNonIdempotentRules:  1,
     NonIdempotentAddrBase: {64'b0},
     NonIdempotentLength:   {HYAXIBase},
-    NrExecuteRegionRules:  4,
-    ExecuteRegionAddrBase: {HYAXIBase, L2SPMBase,   ROMBase,   DebugBase},
-    ExecuteRegionLength:   {HYAXILength, L2SPMLength, ROMLength, DebugLength},
+    NrExecuteRegionRules:  5,
+    ExecuteRegionAddrBase: {HYAXIBase, LLCSPMBase, L2SPMBase,   ROMBase,   DebugBase},
+    ExecuteRegionLength:   {HYAXILength, LLCSPMLength, L2SPMLength, ROMLength, DebugLength},
     // cached region
     NrCachedRegionRules:    1,
     CachedRegionAddrBase:  {HYAXIBase},

@@ -517,7 +517,7 @@ module cva6_subsystem
                                          UniqueIds: 1'b0,
                                          AxiAddrWidth: AXI_ADDRESS_WIDTH,
                                          AxiDataWidth: AXI_DATA_WIDTH,
-                                         NoAddrRules: ariane_soc::NB_PERIPHERALS
+                                         NoAddrRules: ariane_soc::NB_PERIPHERALS + 1
                                          };
 
   ariane_soc::addr_map_rule_t [ariane_soc::NB_PERIPHERALS:0] addr_map; // One extra for the LLCSPM

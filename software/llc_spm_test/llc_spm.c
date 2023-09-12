@@ -1,15 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
+
 #define VERBOSE 10
 #define APB_SOC_CTRL_BASE 0x1A106000
 #define APB_SOC_CTRL_LLC_CACHE_ADDR_START 0x18
 #define APB_SOC_CTRL_LLC_CACHE_ADDR_END 0x1C
 #define APB_SOC_CTRL_LLC_SPM_ADDR_START 0x20
+#define LLC_CACHE_START 0x80000000
+#define LLC_CACHE_END 0x80800000
+#define LLC_SPM_START 0x70000000
 #define AXI_LITE_BASE 0x10401000
-#define AXI_LLC_CFG_SPM_LOW 0x0
-#define AXI_LLC_CFG_SPM_HIGH 0x4
-#define AXI_LLC_CFG_COMMIT 0x10
+// #define AXI_LLC_CFG_SPM_LOW 0x0
+// #define AXI_LLC_CFG_SPM_HIGH 0x4
+// #define AXI_LLC_CFG_COMMIT 0x10
 
 int main(int argc, char const *argv[]) {
   #ifdef FPGA_EMULATION
@@ -21,15 +25,19 @@ int main(int argc, char const *argv[]) {
   int test_freq = 100000000;
   #endif
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
-  pulp_write32(APB_SOC_CTRL_BASE + APB_SOC_CTRL_LLC_CACHE_ADDR_START, 0x80000000);    //LLC cache address start
-  pulp_write32(APB_SOC_CTRL_BASE + APB_SOC_CTRL_LLC_CACHE_ADDR_END  , 0x80800000);    //LLC cache address end (8MB)
-  pulp_write32(APB_SOC_CTRL_BASE + APB_SOC_CTRL_LLC_SPM_ADDR_START  , 0x70000000);    //LLC SPM address end
-  pulp_write32(AXI_LITE_BASE + AXI_LLC_CFG_SPM_LOW , 0xFFFFFFFF);   //set first half of LLC in SPM mode
-  pulp_write32(AXI_LITE_BASE + AXI_LLC_CFG_SPM_HIGH, 0xFFFFFFFF);   //set second half of LLC in SPM mode
-  pulp_write32(AXI_LITE_BASE + AXI_LLC_CFG_COMMIT  , 0xFFFFFFFF);   //commit the SPM mode configuration 
+  pulp_write32(APB_SOC_CTRL_BASE + APB_SOC_CTRL_LLC_CACHE_ADDR_START, LLC_CACHE_START);    //LLC cache address start
+  pulp_write32(APB_SOC_CTRL_BASE + APB_SOC_CTRL_LLC_CACHE_ADDR_END  , LLC_CACHE_END);      //LLC cache address end (8MB)
+  pulp_write32(APB_SOC_CTRL_BASE + APB_SOC_CTRL_LLC_SPM_ADDR_START  , LLC_SPM_START);      //LLC SPM address end
+  // pulp_write32(AXI_LITE_BASE + AXI_LLC_CFG_SPM_LOW , 0xFFFFFFFF);   //set first half of LLC in SPM mode
+  // pulp_write32(AXI_LITE_BASE + AXI_LLC_CFG_SPM_HIGH, 0xFFFFFFFF);   //set second half of LLC in SPM mode
+  // pulp_write32(AXI_LITE_BASE + AXI_LLC_CFG_COMMIT  , 0x1);          //commit the SPM mode configuration
+  axi_llc_reg32_all_spm(AXI_LITE_BASE);   //set LLC in SPM mode
   #if VERBOSE > 9
     printf("Configured LLC (SPM mode)...\n");
     printf("Starting test (baud_rate: %0d, test_freq: %0d)...\n", baud_rate, test_freq);
+    // printf("LLC SPM configuration registers: HIGH = 0x%8x LOW = 0x%8x...\n", 
+    // pulp_read32(AXI_LITE_BASE + AXI_LLC_CFG_SPM_HIGH), pulp_read32(AXI_LITE_BASE + AXI_LLC_CFG_SPM_LOW));
+    printf("LLC SPM configuration registers: 0x%16x...\n", axi_llc_reg32_get_spm(AXI_LITE_BASE));
   #endif
   int *w_i, *w_f;
   w_i = 0x70000000;
@@ -39,16 +47,16 @@ int main(int argc, char const *argv[]) {
   int i = 1;
   #if VERBOSE > 9
     printf("Starting read/write loop (address range: [0x%0x-0x%0x])...\n", w_i, w_f);
-    printf("Initial values: w_i = %0d@%0p, w_f = %0d@%0p...\n", *w_i, *w_f, w_i, w_f);
+    printf("Initial values: w_i = %0d [address: 0x%0x], w_f = %0d [address: 0x%0x]...\n", *w_i, *w_f, w_i, w_f);
   #endif
   while(&w_i[i] != w_f){
     w_i[i] = ++w_i[i-1];
     if(w_i[i] != i){
-      printf("Test FAILED (w_i[%0d] <- %p) %p\naborting...\n", i, &w_i[i]);
+      printf("Test FAILED (w_i[%0d] = %0d <- 0x%8x) %p\naborting...\n", i, w_i[i], &w_i[i]);
       return 1;
     }
     #if VERBOSE > 5
-      printf("0x%8x: w_i[%6d] = %6d; expecting %6d\n", &w_i[i], i, w_i[i], i);
+      printf("0x%8x: w_i[%0d] = %0d; expecting %0d\n", &w_i[i], i, w_i[i], i);
     #endif
     i++;
   }
@@ -57,7 +65,7 @@ int main(int argc, char const *argv[]) {
   #endif
   w_i[i] = ++w_i[i-1];
   if(w_i[i] != i){
-    printf("Test FAILED (w_i[%0d] <- %p) %p\naborting...\n", i, &w_i[i]);
+    printf("Test FAILED (w_i[%0d] <- 0x%0x)\naborting...\n", i, &w_i[i]);
     return 1;
   }
   printf("Test Passed\n");

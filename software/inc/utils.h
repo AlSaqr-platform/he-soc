@@ -4,6 +4,7 @@
 #include "./archi_tlb/archi_tlb.h"
 #include "./archi_dma/archi_dma.h"
 #include "llc.c"
+#include "./drivers/src/axi_llc_reg32.c"
 
 #define pulp_write32(add, val_) (*(volatile unsigned int *)(long)(add) = val_)
 #define pulp_read32(add) (*(volatile unsigned int *)(long)(add))

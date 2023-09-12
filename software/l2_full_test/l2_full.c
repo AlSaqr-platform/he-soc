@@ -15,14 +15,14 @@ int main(int argc, char const *argv[]) {
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
   int *w_i, *w_f;
   w_i = 0x1C000000;
-  w_f = 0x1C000000 + 0x10000;
+  w_f = 0x1C000000 + 0x10000 - 0x4;
   *w_i =  0;
   *w_f = -1;
   int i = 1;
   while(&w_i[i] != w_f){
     w_i[i] = ++w_i[i-1];
     if(w_i[i] != i){
-      printf("Test FAILED (w_i[%0d] <- %p) %p\naborting...\n", i, &w_i[i]);
+      printf("Test FAILED (w_i[%0d] <- 0x%8x)\naborting...\n", i, &w_i[i]);
       return 1;
     }
     #if VERBOSE > 5
@@ -35,7 +35,7 @@ int main(int argc, char const *argv[]) {
   #endif
   w_i[i] = ++w_i[i-1];
   if(w_i[i] != i){
-    printf("Test FAILED (w_i[%0d] <- %p) %p\naborting...\n", i, &w_i[i]);
+    printf("Test FAILED (w_i[%0d] <- 0x%8x)\naborting...\n", i, &w_i[i]);
     return 1;
   }
   printf("Test Passed\n");
