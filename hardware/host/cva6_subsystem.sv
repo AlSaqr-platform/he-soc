@@ -588,7 +588,7 @@ module cva6_subsystem
     end_addr:   ariane_soc::UARTBase     + ariane_soc::UARTLength
   };
 
-  assign addr_map[ariane_soc::AXILiteDom] = '{ 
+  assign addr_map[ariane_soc::AXILiteDom] = '{
     idx:  ariane_soc::AXILiteDom,
     start_addr: ariane_soc::AXILiteBase,
     end_addr:   ariane_soc::AXILiteBase + ariane_soc::AXILiteLength

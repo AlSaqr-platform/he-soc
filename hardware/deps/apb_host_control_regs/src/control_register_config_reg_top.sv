@@ -311,7 +311,7 @@ module control_register_config_reg_top #(
   prim_subreg #(
     .DW      (32),
     .SWACCESS("RW"),
-    .RESVAL  (32'h0)
+    .RESVAL  (32'h80000000)
   ) u_llc_cache_addr_start (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -338,7 +338,7 @@ module control_register_config_reg_top #(
   prim_subreg #(
     .DW      (32),
     .SWACCESS("RW"),
-    .RESVAL  (32'h0)
+    .RESVAL  (32'h80800000)
   ) u_llc_cache_addr_end (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -365,7 +365,7 @@ module control_register_config_reg_top #(
   prim_subreg #(
     .DW      (32),
     .SWACCESS("RW"),
-    .RESVAL  (32'h0)
+    .RESVAL  (32'h70000000)
   ) u_llc_spm_addr_start (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "utils.h"
 
-#define VERBOSE 10
+#define VERBOSE 1
 #define APB_SOC_CTRL_BASE 0x1A106000
 #define APB_SOC_CTRL_LLC_CACHE_ADDR_START 0x18
 #define APB_SOC_CTRL_LLC_CACHE_ADDR_END 0x1C
@@ -47,7 +47,7 @@ int main(int argc, char const *argv[]) {
   int i = 1;
   #if VERBOSE > 9
     printf("Starting read/write loop (address range: [0x%0x-0x%0x])...\n", w_i, w_f);
-    printf("Initial values: w_i = %0d [address: 0x%0x], w_f = %0d [address: 0x%0x]...\n", *w_i, *w_f, w_i, w_f);
+    printf("Initial values: w_i = %0d [address: 0x%0x], w_f = %0d [address: 0x%0x]...\n", *w_i, w_i, *w_f, w_f);
   #endif
   while(&w_i[i] != w_f){
     w_i[i] = ++w_i[i-1];

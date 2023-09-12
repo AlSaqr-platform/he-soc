@@ -116,6 +116,7 @@
                  desc: '''Start address of the LLC cache region'''
                  swaccess: "rw"
                  hwaccess: "hro"
+                 resval: "0x80000000"
               }
             ]
       }
@@ -130,6 +131,7 @@
                  desc: '''End address of the LLC cache region'''
                  swaccess: "rw"
                  hwaccess: "hro"
+                 resval: "0x80800000"
               }
             ]
       }
@@ -144,6 +146,7 @@
                  desc: '''Start address of the LLC SPM region'''
                  swaccess: "rw"
                  hwaccess: "hro"
+                 resval: "0x70000000"
               }
             ]
       }
