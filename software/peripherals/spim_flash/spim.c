@@ -61,10 +61,8 @@
 **  - SIMPLE_PAD: MUST BE SETTED ONLY TO SIMULATE THE FPGA PAD ON RTL         **
 *******************************************************************************/
 
-#define SIMPLE_PAD
-//#define FPGA_EMULATION
-
-#define CLOCK_DIV 2
+// #define SIMPLE_PAD
+// #define FPGA_EMULATION
 
 #ifndef FPGA_EMULATION
   #ifndef SIMPLE_PAD
@@ -75,6 +73,8 @@
 #else
   #define N_SPI 1
 #endif
+
+#define CLOCK_DIV 2
 
 #define BUFFER_SIZE 16
 
