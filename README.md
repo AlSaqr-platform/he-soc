@@ -36,25 +36,15 @@ source setup.sh
 ```
 NB: this fetches the current master branch, under costant developement. To target a specific release you should git checkout it as first step after cloning the repo.
 
-To install and configure bender, from he-soc/hardware run:
+To install and configure bender and download the git dependencies/verification IPs, from he-soc/hardware run:
 
 ```
 cd hardware/
 
 ulimit -n 2048
 
-make bender update
+make init
 ```
-You also need to download the vip RTL modules. Clone this repo in he-soc/hardware/tb :
-
-```
-cd tb/
-
-git clone git@git.eees.dei.unibo.it:alsaqr-deliveries/vips.git
-
-cd ../
-```
-
 To compile the hello world, in he-soc/hardware run:
 
 ```
