@@ -34,7 +34,7 @@ elf-bin        ?= ../software/hello_culsans/hello_culsans.riscv
 # opentitan variables
 ibex-elf-bin   ?=
 BOOTMODE       ?= 0
-SECD_ROOT      ?= $(shell $(BENDER) path opentitan)
+SECD_ROOT      ?= ./opentitan
 OT_FLASH       ?= $(SECD_ROOT)/sw/tests/alsaqr/flash_alsaqr_boot/bazel-out/flash_alsaqr_boot_signed8.vmem
 #cl-bin         ?= ../software/pulp/mm.riscv
 cl-bin         ?= none

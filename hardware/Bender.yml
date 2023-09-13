@@ -45,6 +45,9 @@ dependencies:
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
   ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "263d481d0175a911893ddf1ead613be91f166a4e" }
 
+workspace:
+  package_links:
+    opentitan: opentitan
 
 export_include_dirs:
   - include/
