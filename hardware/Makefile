@@ -34,8 +34,7 @@ elf-bin        ?= ../software/hello_culsans/hello_culsans.riscv
 # opentitan variables
 ibex-elf-bin   ?=
 BOOTMODE       ?= 0
-SECD_ROOT      ?= ./opentitan
-OT_FLASH       ?= $(SECD_ROOT)/sw/tests/alsaqr/flash_alsaqr_boot/bazel-out/flash_alsaqr_boot_signed8.vmem
+OT_FLASH       ?= ./opentitan/sw/tests/alsaqr/flash_alsaqr_boot/bazel-out/flash_alsaqr_boot_signed8.vmem
 #cl-bin         ?= ../software/pulp/mm.riscv
 cl-bin         ?= none
 # root pathelf-bin
@@ -298,6 +297,43 @@ check-benchmarks:
 
 run-regressions:	$(alsaqr-regression)
 	$(MAKE) check-benchmarks
+
+tb/vips/spi_flash:
+	rm -rf $@
+	mkdir $@
+	rm -rf model_tmp && mkdir model_tmp
+	cd model_tmp; wget https://www.infineon.com/dgdl/Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b
+	cd model_tmp; mv 'Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b' model.zip
+	cd model_tmp; unzip model.zip
+	cd model_tmp; mv 'S25fs256s' exe_folder
+	cd model_tmp/exe_folder; unzip S25fs256s.exe
+	cp model_tmp/exe_folder/S25fs256s/model/s25fs256s.v model_tmp/exe_folder/S25fs256s/model/s25fs256s_verilog.sdf $@
+	rm -rf model_tmp
+
+tb/vips/hyperram_model:
+	rm -rf $@
+	mkdir $@
+	rm -rf model_tmp && mkdir model_tmp
+	cd model_tmp; wget https://www.infineon.com/dgdl/Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6349a14f68
+	cd model_tmp; mv 'Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6349a14f68' model.zip
+	cd model_tmp; unzip model.zip
+	cd model_tmp; mv 'S27KL0641 S27KS0641' exe_folder
+	cd model_tmp/exe_folder; unzip S27ks0641.exe
+	cp model_tmp/exe_folder/S27ks0641/model/s27ks0641.v model_tmp/exe_folder/S27ks0641/model/s27ks0641_verilog.sdf $@
+	rm -rf model_tmp
+
+tb/vips/i2c_eeprom:
+	rm -rf $@
+	mkdir $@
+	rm -rf model_tmp && mkdir model_tmp
+	cd model_tmp; wget https://ww1.microchip.com/downloads/en/DeviceDoc/24xx1025_Verilog_Model.zip
+	cd model_tmp; unzip 24xx1025_Verilog_Model.zip
+	cp model_tmp/24AA1025.v model_tmp/24FC1025.v model_tmp/24LC1025.v $@
+	rm -rf model_tmp
+
+vips: tb/vips/spi_flash tb/vips/hyperram_model tb/vips/i2c_eeprom
+
+init: bender vips update
 
 clean:
 	rm -rf $(riscv-torture-dir)/output/test*

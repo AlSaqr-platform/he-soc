@@ -2306,7 +2306,7 @@ module ariane_tb;
    endgenerate
 
    generate
-     if(USE_S25FS256S_MODEL == 1) begin
+     if(USE_S25FS256S_MODEL == 1) begin : opentitan_spi_flash
       // configure the OT_QSPI1 pads, non muxed
       s25fs256s #(
         .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
@@ -2960,11 +2960,11 @@ module ariane_tb;
 
   task automatic spih_norflash_ot_preload(string image);
     // We overlay the entire memory with an alternating pattern
-    for (int k = 0; k < $size(genblk16.i_ot_qspi_flash_csn0.Mem); ++k)
-        genblk16.i_ot_qspi_flash_csn0.Mem[k] = 'h9a;
+    for (int k = 0; k < $size(opentitan_spi_flash.i_ot_qspi_flash_csn0.Mem); ++k)
+        opentitan_spi_flash.i_ot_qspi_flash_csn0.Mem[k] = 'h9a;
     // We load an image into chip 0 only if it exists
     if (image != "")
-      $readmemh(image, genblk16.i_ot_qspi_flash_csn0.Mem);
+      $readmemh(image, opentitan_spi_flash.i_ot_qspi_flash_csn0.Mem);
   endtask
 
   task jtag_secd_wait_eoc;
