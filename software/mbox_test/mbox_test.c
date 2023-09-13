@@ -35,7 +35,7 @@ int main(int argc, char const *argv[]) {
   #define PLIC_EN_BITS  PLIC_BASE + 0x2080
 
   int a, b, c, d, e, f;
-  int mbox_id = 143;
+  int mbox_id = 10;
 
   // Initialazing the uart
   uart_set_cfg(0,(test_freq/baud_rate)>>4);

@@ -420,7 +420,7 @@ module host_domain
         .jtag_TDO_driven,
         .ot_axi_req,
         .ot_axi_rsp,
-        .irq_ariane_i         ( completion_irq_o     ),
+        .irq_mbox_i           ( completion_irq_o     ),
         .sync_rst_ni          ( s_synch_soc_rst      ),
         .udma_events_i        ( s_udma_events        ),
         .cluster_eoc_i        ( cluster_eoc_i        ),

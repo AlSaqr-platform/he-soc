@@ -34,17 +34,20 @@ dependencies:
   common_cells: { git: "https://github.com/pulp-platform/common_cells.git", version: 1.30.0 }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", rev: "d436ab3dad8260eadc1288bdc543c79b4d7462c7" }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "0e9f142f2f11278445c953ad011fce1c7ed85b66" }
-  hyperbus_udma: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "557c191bfa6860715273893ee5fe9ab356753371" } # branch lv/pads
+  hyperbus_udma: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "26ad4495acad75e58916b0de827be8dbc6cf5c68" } # branch mc/pads
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", version: 1.0.1 }
   register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "eb04acfcab0914ef6bf497898b0c0d84e9bc8e81" } #branch  sm/sync_stages_intf from redmule
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "0ec0bf8b7dab6d5e4b3f7ec58338a8efee066379" }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
-  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "7972faa1eb22b4a16a5f08aa72f11d881a12be12" }
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "4f026bd83cd560e5e34ce307c1aadd6e0a724a9f" }
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
-  ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "8d69a9283849e7a504f3900709492f5ef77ab69b" }
+  ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "263d481d0175a911893ddf1ead613be91f166a4e" }
 
+workspace:
+  package_links:
+    opentitan: opentitan
 
 export_include_dirs:
   - include/
@@ -119,24 +122,33 @@ sources:
 
   - target: all(asic, not(all(fpga, xilinx)))
     defines:
-      WT_DCACHE: ~
+      WT_DCACHE:   ~
+      GF22_FLL:    ~
+      TARGET_ASIC: ~
     files:
+      - fll_behav/FLL/DCO_Model_v1p0.vdh
+      - fll_behav/gf22/synopsys/netlists/gf22_fll.v
+      - host/alsaqr_clk_rst_gen.sv
       - ../fpga/src/bootrom/bootrom.sv
+      - gf22/macro_wrap/r2pv_wrap_gf22.sv
       - gf22/macro_wrap/memwrap_gf22.sv
       - gf22/macro_wrap/tc_sram_gf22.sv
       - gf22/macro_wrap/tc_clk_gf22.sv
 
   - target: macro
     defines:
-      WT_DCACHE: ~
-      GF22_FLL:  ~
+      WT_DCACHE:   ~
+      GF22_FLL:    ~
       TARGET_ASIC: ~
     files:
+      - fll_behav/FLL/DCO_Model_v1p0.vhd
+      - fll_behav/gf22/synopsys/netlists/gf22_fll.v
+      - host/alsaqr_clk_rst_gen.sv
       - ../fpga/src/bootrom/bootrom.sv
+      - gf22/macro_wrap/r2pv_wrap_gf22.sv
       - gf22/macro_wrap/memwrap_gf22.sv
       - gf22/macro_wrap/tc_sram_gf22.sv
       - gf22/macro_wrap/tc_clk_gf22.sv
-      - gf22/macro_wrap/fllsynopsys.sv
 
   - target: top_post_synth_sim
     files:
@@ -147,12 +159,12 @@ sources:
 
   - target: vip
     files:
-      - tb/vip/hyperflash_model/s26ks512s.v
-      - tb/vip/hyperram_model/s27ks0641.v
-      - tb/vip/i2c_eeprom/24FC1025.v
-      - tb/vip/spi_flash/S25fs256s/model/s25fs256s.v
-      - tb/vip/camera/cam_vip.sv
-      - tb/vip/sdio/sdModel.v
+      - tb/vips/hyperflash_model/s26ks512s.v
+      - tb/vips/hyperram_model/s27ks0641.v
+      - tb/vips/i2c_eeprom/24FC1025.v
+      - tb/vips/spi_flash/S25fs256s/model/s25fs256s.v
+      - tb/vips/camera/cam_vip.sv
+      - tb/vips/sdio/sdModel.v
 
 
   - target: test

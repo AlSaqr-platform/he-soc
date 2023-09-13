@@ -43,8 +43,11 @@ import "DPI-C" context function byte read_section(input longint address, inout b
 module ariane_tb;
 
   static uvm_cmdline_processor uvcl = uvm_cmdline_processor::get_inst();
-
-  localparam int unsigned REFClockPeriod = 67000ps; // jtag clock
+  `ifdef TARGET_MACRO
+  localparam int unsigned REFClockPeriod = 500ns; // jtag clock: 2MHz
+  `else
+  localparam int unsigned REFClockPeriod = 67000ps;  // jtag clock: about 15MHz
+  `endif
   // toggle with RTC period
   `ifndef TEST_CLOCK_BYPASS
     localparam int unsigned RTC_CLOCK_PERIOD = 30.517us;
@@ -401,6 +404,8 @@ module ariane_tb;
     string        binary ;
     string        cluster_binary;
     string        ot_sram;
+    string        ot_flash;
+
     logic         cid;
 
     // NEW PAD VIP SIGNALS
@@ -2102,6 +2107,23 @@ module ariane_tb;
      end
    endgenerate
 
+   generate
+     if(USE_S25FS256S_MODEL == 1) begin
+      // configure the OT_QSPI1 pads, non muxed
+      s25fs256s #(
+        .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
+        .UserPreload   ( 0 )
+      ) i_ot_qspi_flash_csn0 (
+        .SI       ( pad_periphs_ot_qspi_02_pad ),
+        .SO       ( pad_periphs_ot_qspi_03_pad ),
+        .SCK      ( pad_periphs_ot_qspi_00_pad ),
+        .CSNeg    ( pad_periphs_ot_qspi_01_pad ),
+        .WPNeg    (  ),
+        .RESETNeg (  )
+      );
+     end
+   endgenerate
+   
    `ifdef POWER_PROFILE
    initial begin
       @( posedge dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o &&
@@ -2476,7 +2498,12 @@ module ariane_tb;
 
   // Wait for termination signal and get return code
   task automatic jtag_wait_for_eoc(input word_bt tohost);
+ `ifdef TARGET_MACRO
+    jtag_poll_bit0(tohost, exit_code, 10);
+ `else
     jtag_poll_bit0(tohost, exit_code, 800);
+ `endif
+
     exit_code >>= 1;
     if (exit_code) $error("[JTAG] FAILED: return code %0d", exit_code);
     else $display("[JTAG] SUCCESS");
@@ -2535,6 +2562,10 @@ module ariane_tb;
 
    initial  begin : bootmodes
 
+     if(!$value$plusargs("OT_FLASH=%s", ot_flash)) begin
+        ot_flash="";
+        $display("OT_FLASH: %s", ot_flash);
+     end
      if(!$value$plusargs("BOOTMODE=%d", boot_mode)) begin
         boot_mode=0;
         $display("BOOTMODE: %d", boot_mode);
@@ -2554,16 +2585,16 @@ module ariane_tb;
                 load_secd_binary(ot_sram);
                 jtag_secd_data_preload();
                 jtag_secd_wakeup(32'h e0000080); //preload the flashif
-           `ifdef JTAG_SEC_BOOT
-                repeat(500)
-                  @(posedge rtc_i);
-                jtag_secd_wakeup(32'h d0008080); //secure boot
-           `endif
+                jtag_secd_wait_eoc();
            end
          end
          1:begin
            bootmode = 1'b1;
            riscv_ibex_dbg.reset_master();
+           spih_norflash_ot_preload(ot_flash);
+           repeat(8)
+             @(posedge rtc_i);
+           jtag_secd_wait_eoc();
          end
          default:begin
            bootmode = 1'b0;
@@ -2728,4 +2759,51 @@ module ariane_tb;
     end
 
   endtask // load_binary
+
+  task automatic spih_norflash_ot_preload(string image);
+    // We overlay the entire memory with an alternating pattern
+    for (int k = 0; k < $size(genblk16.i_ot_qspi_flash_csn0.Mem); ++k)
+        genblk16.i_ot_qspi_flash_csn0.Mem[k] = 'h9a;
+    // We load an image into chip 0 only if it exists
+    if (image != "")
+      $readmemh(image, genblk16.i_ot_qspi_flash_csn0.Mem);
+  endtask
+
+  task jtag_secd_wait_eoc;
+    automatic dm_ot::sbcs_t sbcs = '{
+      sbautoincrement: 1'b1,
+      sbreadondata   : 1'b1,
+      default        : 1'b0
+    };
+    logic [31:0] retval;
+    logic [31:0] to_host_addr;
+    to_host_addr = 32'h c11c0018;
+
+    // Initialize the dm module again, otherwise it will not work
+    debug_secd_module_init();
+    sbcs.sbreadonaddr = 1;
+    sbcs.sbautoincrement = 0;
+    riscv_ibex_dbg.write_dmi(dm_ot::SBCS, sbcs);
+    do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs);
+    while (sbcs.sbbusy);
+
+    riscv_ibex_dbg.write_dmi(dm_ot::SBAddress0, to_host_addr); // tohost address
+    riscv_ibex_dbg.wait_idle(10);
+    do begin
+	     do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs);
+	     while (sbcs.sbbusy);
+       riscv_ibex_dbg.write_dmi(dm_ot::SBAddress0, to_host_addr); // tohost address
+	     do riscv_ibex_dbg.read_dmi(dm_ot::SBCS, sbcs);
+	     while (sbcs.sbbusy);
+       riscv_ibex_dbg.read_dmi(dm_ot::SBData0, retval);
+       # 400ns;
+    end while (~retval[0]);
+
+    if (retval != 32'h00000001) $error("[JTAG] FAILED: return code %0d", retval);
+    else $display("[JTAG] SUCCESS");
+
+    $finish;
+
+  endtask // jtag_read_eoc
+
 endmodule // ariane_tb

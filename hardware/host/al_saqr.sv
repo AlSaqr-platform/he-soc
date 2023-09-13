@@ -360,6 +360,19 @@ module al_saqr
   logic                          bootmode_o;
   logic [1:0]                    bootmode_i;
 
+  logic [3:0]                    spi_ot_sd_i;
+  logic [3:0]                    spi_ot_sd_o;
+  logic [3:0]                    spi_ot_sd_en;
+
+  logic                          gpio_ot_0_i;
+  logic                          gpio_ot_0_o;
+
+  logic                          gpio_ot_1_i;
+  logic                          gpio_ot_1_o;
+
+  logic                          gpio_ot_0_en;
+  logic                          gpio_ot_1_en;
+
   logic s_soc_clk  ;
   logic s_soc_rst_n;
   logic s_cluster_clk  ;
@@ -495,14 +508,14 @@ module al_saqr
   gpio_to_pad_t s_gpio_b_to_pad;
   pad_to_gpio_t s_pad_to_gpio_b;
 
+  qspi_to_pad_ot_t                    s_ot_qspi_to_pad;
+  pad_to_qspi_ot_t                    s_pad_to_ot_qspi;
+
   ot_gpio_to_pad_t                    s_ot_gpio_to_pad;
   pad_to_ot_gpio_t                    s_pad_to_ot_gpio;
 
   port_signals_pad2soc_t              s_port_signals_pad2soc;
   port_signals_soc2pad_t              s_port_signals_soc2pad;
-
-  qspi_to_pad_ot_t                    s_ot_qspi_to_pad;
-  pad_to_qspi_ot_t                    s_ot_pad_to_qspi;
 
   axi_secd_req_t                      ot_axi_req;
   axi_secd_resp_t                     ot_axi_rsp;
@@ -510,15 +523,35 @@ module al_saqr
   jtag_ot_pkg::jtag_req_t             jtag_ibex_i;
   jtag_ot_pkg::jtag_rsp_t             jtag_ibex_o;
 
-  assign s_ot_gpio_to_pad       = '0; //not connected yte
-  assign s_ot_qspi_to_pad       = '0; //not connected yet
-
   assign bootmode_i             = { 1'b0 , bootmode_o };
   assign jtag_ibex_i.tck        = s_jtag_ot_TCK;
   assign jtag_ibex_i.trst_n     = s_jtag_ot_TRSTn;
   assign jtag_ibex_i.tms        = s_jtag_ot_TMS;
   assign jtag_ibex_i.tdi        = s_jtag_ot_TDI;
   assign s_jtag_ot_TDO          = jtag_ibex_o.tdo;
+
+  assign s_ot_qspi_to_pad.sd0_oen_o =  ~spi_ot_sd_en[0];
+  assign s_ot_qspi_to_pad.sd1_oen_o =  ~spi_ot_sd_en[1];
+  assign s_ot_qspi_to_pad.sd2_oen_o =  ~spi_ot_sd_en[2];
+  assign s_ot_qspi_to_pad.sd3_oen_o =  ~spi_ot_sd_en[3];
+
+  assign s_ot_qspi_to_pad.sd0_o =  spi_ot_sd_o[0];
+  assign s_ot_qspi_to_pad.sd1_o =  spi_ot_sd_o[1];
+  assign s_ot_qspi_to_pad.sd2_o =  spi_ot_sd_o[2];
+  assign s_ot_qspi_to_pad.sd3_o =  spi_ot_sd_o[3];
+
+  assign spi_ot_sd_i[0] = s_pad_to_ot_qspi.sd0_i;
+  assign spi_ot_sd_i[1] = s_pad_to_ot_qspi.sd1_i;
+  assign spi_ot_sd_i[2] = s_pad_to_ot_qspi.sd2_i;
+  assign spi_ot_sd_i[3] = s_pad_to_ot_qspi.sd3_i;
+
+  assign s_ot_gpio_to_pad.ot_gpio0_o   = gpio_ot_0_o;
+  assign s_ot_gpio_to_pad.ot_gpio0_d_o = gpio_ot_0_en;
+  assign s_ot_gpio_to_pad.ot_gpio1_o   = gpio_ot_1_o;
+  assign s_ot_gpio_to_pad.ot_gpio1_d_o = gpio_ot_1_en;
+
+  assign gpio_ot_0_i =  s_pad_to_ot_gpio.ot_gpio0_i;
+  assign gpio_ot_1_i =  s_pad_to_ot_gpio.ot_gpio1_i;
 
   localparam RegAw  = 32;
   localparam RegDw  = 32;
@@ -662,7 +695,6 @@ module al_saqr
    pad_frame #()
     i_pad_frame
       (
-
       .cva6_uart_rx     ( s_cva6_uart_rx_i ),
       .cva6_uart_tx     ( s_cva6_uart_tx_o ),
       .pad_cva6_uart_tx ( cva6_uart_tx_o   ),
@@ -677,14 +709,6 @@ module al_saqr
       .jtag_tms_o       ( s_jtag_TMS       ),
       .jtag_trst_o      ( s_jtag_TRSTn     ),
 
-      // opentitan JTAG and bootselect signals
-      .jtag_tck_ot_o    ( s_jtag_ot_TCK    ),
-      .jtag_tdi_ot_o    ( s_jtag_ot_TDI    ),
-      .jtag_tdo_ot_i    ( s_jtag_ot_TDO    ),
-      .jtag_tms_ot_o    ( s_jtag_ot_TMS    ),
-      .jtag_trst_ot_o   ( s_jtag_ot_TRSTn  ),
-      .bootmode_o       ( bootmode_o       ),
-
       .pad_reset_n      ( rst_ni           ),
       .pad_jtag_tck     ( jtag_TCK         ),
       .pad_jtag_tdi     ( jtag_TDI         ),
@@ -694,12 +718,24 @@ module al_saqr
       .pad_bypass       ( bypass_clk_i     ),
       .pad_xtal_in      ( rtc_i            ),
 
-      // opentitan JTAG and bootselect pads
+      // SECD JTAG signals
+      .jtag_tck_ot_o    ( s_jtag_ot_TCK    ),
+      .jtag_tdi_ot_o    ( s_jtag_ot_TDI    ),
+      .jtag_tdo_ot_i    ( s_jtag_ot_TDO    ),
+      .jtag_tms_ot_o    ( s_jtag_ot_TMS    ),
+      .jtag_trst_ot_o   ( s_jtag_ot_TRSTn  ),
+
+      // SECD Bootmode signal
+      .bootmode_o       ( bootmode_o       ),
+
+      // SECD JTAG pads
       .pad_jtag_ot_tck  ( jtag_ot_TCK      ),
       .pad_jtag_ot_tdi  ( jtag_ot_TDI      ),
       .pad_jtag_ot_tdo  ( jtag_ot_TDO_data ),
       .pad_jtag_ot_tms  ( jtag_ot_TMS      ),
       .pad_jtag_ot_trst ( jtag_ot_TRSTn    ),
+
+      // SECD Bootmode pad
       .pad_bootmode     ( pad_bootmode     )
      );
    axi_cdc_dst #(
@@ -750,27 +786,27 @@ module al_saqr
      .jtag_tdi_i       ( jtag_ibex_i.tdi    ),
      .jtag_tdo_o       ( jtag_ibex_o.tdo    ),
      .jtag_tdo_oe_o    (                    ),
-   // GPIOs - will be connected with new padframe
-     .gpio_0_o         (               ),
-     .gpio_0_oe_o      (               ),
-     .gpio_1_o         (               ),
-     .gpio_1_oe_o      (               ),
-     .gpio_0_i         ( '0            ),
-     .gpio_1_i         ( '0            ),
+   // GPIOs
+     .gpio_0_o         ( gpio_ot_0_o   ),
+     .gpio_0_i         ( gpio_ot_0_i   ),
+     .gpio_0_oe_o      ( gpio_ot_0_en  ),
+     .gpio_1_o         ( gpio_ot_1_o   ),
+     .gpio_1_i         ( gpio_ot_1_i   ),
+     .gpio_1_oe_o      ( gpio_ot_1_en  ),
    // axi isolated - not implemented
      .axi_isolate_i    ( 1'b0          ),
      .axi_isolated_o   (               ),
    // Uart - not implemented
      .ibex_uart_rx_i   ( '0            ),
      .ibex_uart_tx_o   (               ),
-   // SPI host -  will be connected with new padframe
-     .spi_host_SCK_o   (               ),
-     .spi_host_SCK_en_o(               ),
-     .spi_host_CSB_o   (               ),
-     .spi_host_CSB_en_o(               ),
-     .spi_host_SD_o    (               ),
-     .spi_host_SD_i    ( '0            ),
-     .spi_host_SD_en_o (               ),
+   // SPI host
+     .spi_host_SCK_o    ( s_ot_qspi_to_pad.clk_o  ),
+     .spi_host_SCK_en_o (                         ),
+     .spi_host_CSB_o    ( s_ot_qspi_to_pad.csn0_o ),
+     .spi_host_CSB_en_o (                         ),
+     .spi_host_SD_o     ( spi_ot_sd_o             ),
+     .spi_host_SD_i     ( spi_ot_sd_i             ),
+     .spi_host_SD_en_o  ( spi_ot_sd_en            ),
    // Asynch axi port
      .async_axi_out_aw_data_o ( async_axi_ot_out_aw_data_o ),
      .async_axi_out_aw_wptr_o ( async_axi_ot_out_aw_wptr_o ),
@@ -1373,6 +1409,10 @@ module al_saqr
           // LINUX QSPI
           `ASSIGN_PERIPHS_QSPI_LINUX_PAD2SOC(s_pad_to_qspi[0],s_port_signals_pad2soc.periphs.qspi_linux)
           `ASSIGN_PERIPHS_QSPI_LINUX_SOC2PAD(s_port_signals_soc2pad.periphs.qspi_linux,s_qspi_to_pad[0])
+
+          // OT QSPI
+          `ASSIGN_PERIPHS_QSPI_OT_PAD2SOC(s_pad_to_ot_qspi,s_port_signals_pad2soc.periphs.qspi_ot)
+          `ASSIGN_PERIPHS_QSPI_OT_SOC2PAD(s_port_signals_soc2pad.periphs.qspi_ot,s_ot_qspi_to_pad)
 
           // I2Cs
           `ASSIGN_PERIPHS_I2C0_PAD2SOC(s_pad_to_i2c[0],s_port_signals_pad2soc.periphs.i2c0)
