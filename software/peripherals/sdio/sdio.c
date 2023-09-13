@@ -44,17 +44,17 @@
 **  - SIMPLE_PAD: MUST BE SETTED ONLY TO SIMULATE THE FPGA PAD ON RTL         **
 *******************************************************************************/
 
-//#define FPGA_EMULATION
-//#define SIMPLE_PAD
+// #define FPGA_EMULATION
+// #define SIMPLE_PAD
 
 #ifdef FPGA_EMULATION
-    #define N_SDIO 1
+  #define N_SDIO 1
 #else
-    #ifdef SIMPLE_PAD
-      #define N_SDIO 1
-    #else
-      #define N_SDIO 2
-    #endif
+  #ifdef SIMPLE_PAD
+    #define N_SDIO 1
+  #else
+    #define N_SDIO 2
+  #endif
 #endif
 
 #define FPGA_CLK_DIV 1920
@@ -460,20 +460,20 @@ int main(){
     #endif
 
     #ifdef FPGA_EMULATION
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_set( 2 ); //FIXME
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_set( 2 ); //FIXME
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_set( 2 ); //FIXME
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 2 ); //FIXME
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 2 ); //FIXME
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 2 ); //FIXME
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_set( 2 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_set( 2 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_set( 2 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 2 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 2 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 2 );
     #else
       #ifdef SIMPLE_PAD
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_set( 2 ); //FIXME
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_set( 2 ); //FIXME
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_set( 2 ); //FIXME
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 2 ); //FIXME
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 2 ); //FIXME
-        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 2 ); //FIXME
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_set( 2 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_set( 2 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_set( 2 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 2 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 2 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 2 );
       #else
         switch(u){
           case 0:

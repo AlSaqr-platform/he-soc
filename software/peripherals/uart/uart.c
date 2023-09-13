@@ -29,8 +29,6 @@
 
 #define BUFFER_SIZE 16
 #define UART_BAUDRATE 115200
-#define N_UART 3
-
 
 #define PLIC_BASE 0x0C000000
 #define PLIC_CHECK PLIC_BASE + 0x201004
@@ -45,9 +43,18 @@
 **  - SIMPLE_PAD: MUST BE SETTED ONLY TO SIMULATE THE FPGA PAD ON RTL         **
 *******************************************************************************/
 
-//#define FPGA_EMULATION
-//#define SIMPLE_PAD
+// #define FPGA_EMULATION
+// #define SIMPLE_PAD
 
+#ifndef FPGA_EMULATION
+  #ifndef SIMPLE_PAD
+    #define N_UART 3
+  #else
+    #define N_UART 1
+  #endif
+#else
+  #define N_UART 1
+#endif
 
 int uart_read_nb(int uart_id, void *buffer, uint32_t size)
 {
