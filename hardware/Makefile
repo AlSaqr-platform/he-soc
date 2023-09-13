@@ -204,7 +204,7 @@ scripts-bender-fpga-ddr: | Bender.lock
 
 scripts-bender-synopsys: | Bender.lock
 	echo 'set ROOT [file normalize [file dirname [info script]]/../../../]' > $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
-	$(BENDER) script synopsys -t rtl -t synthesis -t cv64a6_imafdc_sv39 -t asic -t top_level --define="EXCLUDE_PADFRAME" | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
+	$(BENDER) script synopsys -t rtl -t synthesis -t cv64a6_imafdc_sv39 -t asic -t top_level | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
 
 scripts:
 	$(BENDER) script vsim \
@@ -224,7 +224,7 @@ scripts_vip:
 post_synth_scripts_vip:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t asic -t top_post_synth_sim -t vip --define="EXCLUDE_PADFRAME" > post_synth_compile.tcl
+    -t rtl -t test -t asic -t top_post_synth_sim -t vip > post_synth_compile.tcl
 
 ## -sdfnoerror -sdfnowarn -sdfmin ./gf22/innovus/cva6/out
 

@@ -90,7 +90,7 @@ module cva6_subsystem
   output axi_rsp_t        ot_axi_rsp,
 
   // SCMI mailbox interrupt to CVA6
-  input  logic            irq_ariane_i
+  input  logic            irq_mbox_i
 );
      // disable test-enable
   logic        test_en;
@@ -708,7 +708,7 @@ module cva6_subsystem
     .eth_to_pad       ( eth_to_pad                  ),
     .pad_to_eth       ( pad_to_eth                  ),
 
-    .irq_ariane_i
+    .irq_mbox_i
   );
 
   // ---------------

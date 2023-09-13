@@ -50,7 +50,7 @@ module ariane_peripherals
     input  pad_to_eth_t     pad_to_eth       ,
 
     // SCMI mailbox interrupt to CVA6
-    input  logic            irq_ariane_i
+    input  logic            irq_mbox_i
 
 );
 
@@ -80,8 +80,8 @@ module ariane_peripherals
 
     assign irq_sources[7]                            = c2h_irq_i;
     assign irq_sources[8]                            = cluster_eoc_i;
-    assign irq_sources[9]                            = irq_ariane_i;
-    assign irq_sources[14:9]                         = '0; // reserved for future use
+    assign irq_sources[9]                            = irq_mbox_i;
+    assign irq_sources[14:10]                        = '0; // reserved for future use
     assign irq_sources[138:15]                       = udma_evt_i[123:0];
     assign irq_sources[139]                          = cl_dma_pe_evt_i;
     assign irq_sources[140]                          = can_irq_i[0];
