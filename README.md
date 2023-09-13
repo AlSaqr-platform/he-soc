@@ -34,6 +34,7 @@ cd he-soc/
 
 source setup.sh
 ```
+NB: this fetches the current master branch, under costant developement. To target a specific release you should git checkout it as fist step after cloning the repo.
 
 To install and configure bender, from he-soc/hardware run:
 
