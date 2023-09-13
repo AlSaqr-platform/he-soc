@@ -44,7 +44,7 @@ dependencies:
   opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "4f026bd83cd560e5e34ce307c1aadd6e0a724a9f" }
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
   ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "263d481d0175a911893ddf1ead613be91f166a4e" }
-
+  sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "8a7ddfbbca7c5607f8b956a381df1d901053df35" }
 workspace:
   package_links:
     opentitan: opentitan
@@ -159,12 +159,10 @@ sources:
 
   - target: vip
     files:
-      - tb/vips/hyperflash_model/s26ks512s.v
       - tb/vips/hyperram_model/s27ks0641.v
       - tb/vips/i2c_eeprom/24FC1025.v
-      - tb/vips/spi_flash/S25fs256s/model/s25fs256s.v
+      - tb/vips/spi_flash/s25fs256s.v
       - tb/vips/camera/cam_vip.sv
-      - tb/vips/sdio/sdModel.v
 
 
   - target: test
