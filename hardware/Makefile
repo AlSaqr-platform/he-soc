@@ -164,6 +164,12 @@ ifdef exclude-cluster
   compile_fpga += EXCLUDE_CLUSTER
 endif
 
+ifdef exclude-rot
+	questa-cmd += +EXCLUDE_ROT=$(exclude-rot)
+  compile_flag +=  +define+EXCLUDE_ROT
+  compile_fpga += EXCLUDE_ROT
+endif
+
 ifdef exclude-llc
 	questa-cmd += +EXCLUDE_LLC=$(exclude-llc)
   compile_flag +=  +define+EXCLUDE_LLC
