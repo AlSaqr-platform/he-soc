@@ -60,7 +60,7 @@ package ariane_soc;
 
   localparam NB_PERIPHERALS = HYAXI + 1;
 
-  `ifdef FPGA_EMUL
+  `ifdef FPGA_1PHY
   localparam HyperbusNumPhys          = 1;
   localparam NumChipsPerHyperbus      = 2;
   `else
