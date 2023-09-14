@@ -5,14 +5,16 @@
 #define DEFAULT_SEED 0xcaca5a5adeadbeef
 #define FEEDBACK  0x6c0000397f000032
 #define ADDR_FIRST 0x80000000 
-#define ADDR_LAST 0x80800000
+#define ADDR_LAST 0x80020000
 //  Be careful, this is the size of the hyperram we have on fpga.
 //  The test takes a while also @ 10MHz. Don't run this on Questa.
 //  Also, modify the linker script to have the stack in L2, if you
 //  want to check the whole memory.
 #define STRIDE 0x8
-//#define FPGA_EMULATION
+#define FPGA_EMULATION
+
 uint64_t *lfsr_byte_feedback;
+uint32_t addr;
 
 uint32_t lfsr_iter_bit(uint64_t lfsr) {
   return (lfsr & 1) ? ((lfsr >> 1) ^ FEEDBACK) : (lfsr >> 1);
@@ -45,6 +47,10 @@ uint64_t lfsr_64bits(uint64_t lfsr,  uint64_t *lfsr_byte_feedback) {
 
 int main(int argc, char const *argv[]) {
 
+  // Flush and disable the caches for this test!
+  __asm__ volatile("fence.i");  
+  __asm__ volatile("csrwi 0x701, 0x00");
+
   #ifdef FPGA_EMULATION
   int baud_rate = 9600;
   int test_freq = 10000000;
@@ -62,7 +68,7 @@ int main(int argc, char const *argv[]) {
 
   //WRITE all the memory with stride=128B
   uint64_t lfsr = DEFAULT_SEED;
-  for(uint32_t addr=ADDR_FIRST; addr<ADDR_LAST; addr+=STRIDE) {
+  for(addr=ADDR_FIRST; addr<ADDR_LAST; addr+=STRIDE) {
       lfsr = lfsr_64bits(lfsr, lfsr_byte_feedback);
       *(uint64_t *)(addr) = lfsr;
   }
@@ -70,7 +76,7 @@ int main(int argc, char const *argv[]) {
   //READ
   lfsr = DEFAULT_SEED;
   printf("READ\n" );
-  for(uint32_t addr=ADDR_FIRST; addr<ADDR_LAST; addr+=STRIDE) {
+  for(addr=ADDR_FIRST; addr<ADDR_LAST; addr+=STRIDE) {
       lfsr = lfsr_64bits(lfsr, lfsr_byte_feedback);
       cnt2++;
       if(lfsr!=(*(uint64_t *)(addr)))
