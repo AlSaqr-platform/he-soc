@@ -7,11 +7,7 @@ create_generated_clock -name opentitan_div4_clk -source [get_pins  alsaqr_clk_ma
 create_generated_clock -name opentitan_div2_clk -source [get_pins  alsaqr_clk_manager/clk_out1] -divide_by 2 [get_pins i_alsaqr/i_RoT_wrap/u_RoT/u_clkmgr_aon/u_no_scan_io_div2_div/gen_div2.u_div2/q_o_reg[0]/Q]
 
 #alsaqr clock
-if {$::env(MAIN_MEM)=="HYPER"} {
-create_clock -period 100  [get_pins  alsaqr_clk_manager/clk_out1]
-} else {
-create_clock -period 20  [get_pins  alsaqr_clk_manager/clk_out1]
-}
+create_clock -period ${SRC_CLK_PERIOD} -name ALSAQR_CLK [get_pins  alsaqr_clk_manager/clk_out1]
 
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  u_ddr4_0/c0_ddr4_ui_clk]]
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_ports c0_sys_clk_p]] 
