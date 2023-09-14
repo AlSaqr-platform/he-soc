@@ -17,7 +17,7 @@ int main(int argc, char const *argv[]) {
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
   int * b;
-  b=0x1C000000;
+  b=0x1C000000 + 0x4;   //NOTE: 0x1C000000 already used by the jtag sanity check => do not READ/WRITE that register
   int i;
   b[0]=0;
   b[1]=1;
