@@ -10,6 +10,12 @@
 //
 // Author: Florian Zaruba, ETH Zurich
 // Description: Contains SoC information as constants
+`ifdef TARGET_FPGA
+ `ifndef TARGET_DDR
+  `define HYPER_FPGA_DDR
+ `endif
+`endif
+
 package ariane_soc;
 
   localparam NumCVA6 = 2; // 2~4 number of cores
@@ -63,8 +69,8 @@ package ariane_soc;
 
   localparam NB_PERIPHERALS = HYAXI + 1;
 
-  `ifdef FPGA_EMUL
-  localparam HyperbusNumPhys          = 1;
+  `ifdef HYPER_FPGA_DDR
+  localparam HyperbusNumPhys          = 2;
   localparam NumChipsPerHyperbus      = 2;
   `else
   localparam HyperbusNumPhys          = 2;
@@ -83,7 +89,11 @@ package ariane_soc;
   localparam logic[63:0] TimerLength    = 64'h1000;
   localparam logic[63:0] SPILength      = 64'h800000;
   localparam logic[63:0] EthernetLength = 64'h10000;
+  `ifdef HYPER_FPGA_DDR
+  localparam logic[63:0] HYAXILength    = 64'h2000000;  //32MB of hyperrams
+  `else
   localparam logic[63:0] HYAXILength    = 64'h20000000;  //HyperRamSize*NumChipsPerHyperbus*HyperbusNumPhys;  // 256MB of hyperrams
+  `endif
   localparam logic[63:0] LLCSPMLength   = 64'h20000;     // up to 128KB of LLC that can be used as scratchpad
   localparam logic[63:0] L2SPMLength    = 64'h8000;      // 32KB of scratchpad memory
   localparam logic[63:0] APB_SLVSLength = 64'h131000;

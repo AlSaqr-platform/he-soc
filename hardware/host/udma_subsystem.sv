@@ -1166,7 +1166,7 @@ module udma_subsystem
               .RxFifoLogDepth ( 4                                                        ),
               .TxFifoLogDepth ( 4                                                        ),
               .RstChipBase    ( ariane_soc::HYAXIBase + ariane_soc::HYAXILength*g_hyper  ),  // Base address for all chips
-              .RstChipSpace   ( 'h800000                                                 )
+              .RstChipSpace   ( 'h1000000                                                )
          ) i_hyper (
              .clk_sys_i           ( sys_clk_i                                            ),
              .clk_phy_i           ( periph_clk_i                                         ),
