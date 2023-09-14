@@ -585,6 +585,9 @@ module al_saqr
       // SECD Bootmode pad
       .pad_bootmode     ( pad_bootmode     )
      );
+
+  `ifndef EXCLUDE_ROT
+
    axi_cdc_dst #(
       .SyncStages ( ariane_soc::CdcSyncStages ),
       .LogDepth   ( LogDepth                  ),
@@ -595,7 +598,7 @@ module al_saqr
       .r_chan_t   ( axi_secd_r_chan_t         ),
       .axi_req_t  ( axi_secd_req_t            ),
       .axi_resp_t ( axi_secd_resp_t           )
-   ) i_cdc_in (
+   ) i_cdc_ot2host (
       .async_data_slave_aw_data_i( async_axi_ot_out_aw_data_o ),
       .async_data_slave_aw_wptr_i( async_axi_ot_out_aw_wptr_o ),
       .async_data_slave_aw_rptr_o( async_axi_ot_out_aw_rptr_i ),
@@ -671,7 +674,43 @@ module al_saqr
      .async_axi_out_r_wptr_i  ( async_axi_ot_out_r_wptr_i  ),
      .async_axi_out_r_rptr_o  ( async_axi_ot_out_r_rptr_o  )
    );
+  `else // !`ifndef EXCLUDE_ROT
 
+   assign ot_axi_req.aw.id = 'h0;
+   assign ot_axi_req.aw.addr = 'h0;
+   assign ot_axi_req.aw.len = 'h0;
+   assign ot_axi_req.aw.size = 'h0;
+   assign ot_axi_req.aw.burst = 'h0;
+   assign ot_axi_req.aw.lock = 'h0;
+   assign ot_axi_req.aw.cache = 'h0;
+   assign ot_axi_req.aw.prot = 'h0;
+   assign ot_axi_req.aw.qos = 'h0;
+   assign ot_axi_req.aw.region = 'h0;
+   assign ot_axi_req.aw.atop = 'h0;
+   assign ot_axi_req.aw.user = 'h0;
+   assign ot_axi_req.aw_valid = 'h0;
+   assign ot_axi_req.w.data = 'h0;
+   assign ot_axi_req.w.strb = 'h0;
+   assign ot_axi_req.w.last = 'h0;
+   assign ot_axi_req.w.user = 'h0;
+   assign ot_axi_req.w_valid = 'h0;
+   assign ot_axi_req.b_ready = 1'b1;
+   assign ot_axi_req.ar.id = 'h0;
+   assign ot_axi_req.ar.addr = 'h0;
+   assign ot_axi_req.ar.len = 'h0;
+   assign ot_axi_req.ar.size = 'h0;
+   assign ot_axi_req.ar.burst = 'h0;
+   assign ot_axi_req.ar.lock = 'h0;
+   assign ot_axi_req.ar.cache = 'h0;
+   assign ot_axi_req.ar.prot = 'h0;
+   assign ot_axi_req.ar.qos = 'h0;
+   assign ot_axi_req.ar.region = 'h0;
+   assign ot_axi_req.ar.user = 'h0;
+   assign ot_axi_req.ar_valid = 'h0;
+   assign ot_axi_req.r_ready = 1'b1;
+
+   assign jtag_ibex_o.tdo = 1'b0;
+  `endif // !`ifndef EXCLUDE_ROT
 
   `ifndef EXCLUDE_CLUSTER
 
