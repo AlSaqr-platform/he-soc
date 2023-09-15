@@ -44,7 +44,8 @@ dependencies:
   opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "4f026bd83cd560e5e34ce307c1aadd6e0a724a9f" }
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
   ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "263d481d0175a911893ddf1ead613be91f166a4e" }
-  sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "8a7ddfbbca7c5607f8b956a381df1d901053df35" }
+  sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }
+
 workspace:
   package_links:
     opentitan: opentitan
@@ -134,6 +135,7 @@ sources:
       - gf22/macro_wrap/memwrap_gf22.sv
       - gf22/macro_wrap/tc_sram_gf22.sv
       - gf22/macro_wrap/tc_clk_gf22.sv
+      - gf22/macro_wrap/configurable_delay_gf22.sv
 
   - target: macro
     defines:
