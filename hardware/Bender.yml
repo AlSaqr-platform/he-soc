@@ -43,7 +43,7 @@ dependencies:
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
   opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "4f026bd83cd560e5e34ce307c1aadd6e0a724a9f" }
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
-  ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "263d481d0175a911893ddf1ead613be91f166a4e" }
+  ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "e3312ef0744234aad1e2f4098f6210dda493a6a7" }
   sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }
 
 workspace:
@@ -127,8 +127,8 @@ sources:
       GF22_FLL:    ~
       TARGET_ASIC: ~
     files:
-      - fll_behav/FLL/DCO_Model_v1p0.vdh
-      - fll_behav/gf22/synopsys/netlists/gf22_fll.v
+      - gf22/synopsys/fll/model/DCO_Model_v1p0.vhd
+      - gf22/synopsys/fll/netlists/gf22_fll.v
       - host/alsaqr_clk_rst_gen.sv
       - ../fpga/src/bootrom/bootrom.sv
       - gf22/macro_wrap/r2pv_wrap_gf22.sv
@@ -143,8 +143,8 @@ sources:
       GF22_FLL:    ~
       TARGET_ASIC: ~
     files:
-      - fll_behav/FLL/DCO_Model_v1p0.vhd
-      - fll_behav/gf22/synopsys/netlists/gf22_fll.v
+      - gf22/synopsys/fll/model/DCO_Model_v1p0.vhd
+      - gf22/synopsys/fll/netlists/gf22_fll.v
       - host/alsaqr_clk_rst_gen.sv
       - ../fpga/src/bootrom/bootrom.sv
       - gf22/macro_wrap/r2pv_wrap_gf22.sv
