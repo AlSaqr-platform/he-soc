@@ -385,9 +385,9 @@ module host_domain
       .mst_resp_i          ( axi_mem_res                                     ),
       .conf_req_i          ( axi_llc_cfg_req                                 ),
       .conf_resp_o         ( axi_llc_cfg_res                                 ),
-      .cached_start_addr_i ( s_llc_cache_addr_start                          ),
-      .cached_end_addr_i   ( s_llc_cache_addr_end                            ),
-      .spm_start_addr_i    ( s_llc_spm_addr_start                            ),
+      .cached_start_addr_i ( { 32'h0, s_llc_cache_addr_start }               ),
+      .cached_end_addr_i   ( { 32'h0, s_llc_cache_addr_end   }               ),
+      .spm_start_addr_i    ( { 32'h0, s_llc_spm_addr_start   }               ),
       .axi_llc_events_o    ( llc_events                                      )
     );
 
@@ -521,9 +521,9 @@ module host_domain
       .llc_cache_addr_start_o ( s_llc_cache_addr_start         ),
       .llc_cache_addr_end_o   ( s_llc_cache_addr_end           ),
       .llc_spm_addr_start_o   ( s_llc_spm_addr_start           ),
-      .llc_read_hit_cache_i   ( s_llc_read_hit_cache           ), 
-      .llc_read_miss_cache_i  ( s_llc_read_miss_cache          ), 
-      .llc_write_hit_cache_i  ( s_llc_write_hit_cache          ), 
+      .llc_read_hit_cache_i   ( s_llc_read_hit_cache           ),
+      .llc_read_miss_cache_i  ( s_llc_read_miss_cache          ),
+      .llc_write_hit_cache_i  ( s_llc_write_hit_cache          ),
       .llc_write_miss_cache_i ( s_llc_write_miss_cache         ),
 
       `ifdef XILINX_DDR
