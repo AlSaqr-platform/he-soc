@@ -158,7 +158,7 @@ The tests that will be executed are the one listed in `software/regression.list`
 
 We now support emulation on Xilinx VCU118. Please have a look to the README in the `hardware/fpga` folder.
 
-### Synthetize he-soc into your target technology
+### Synthesize he-soc into your target technology
 
 To synthesize he-soc follow the following steps:
 ```
