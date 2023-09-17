@@ -36,7 +36,7 @@ source setup.sh
 ```
 NB: this fetches the current master branch, under costant developement. To target a specific release you should git checkout it as first step after cloning the repo.
 
-To install and configure bender and download the git dependencies/verification IPs, from he-soc/hardware run:
+To install, configure bender and download the git dependencies + verification IPs, from he-soc/hardware run:
 
 ```
 cd hardware/
