@@ -38,7 +38,6 @@ work-*/*
 install/
 xrun_results/
 hardware/.bender/
-hardware/Bender.lock
 hardware/compile.tcl
 hardware/fpga/.Xil/
 hardware/fpga/alsaqr/alsaqr.cache/
