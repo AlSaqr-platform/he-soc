@@ -41,13 +41,11 @@ static inline unsigned int get_reg_32(void *base, unsigned int off)
 void axi_llc_reg32_set_spm(unsigned long int value, void *base)
 {
     set_reg_64(value, base, AXI_LLC_CFG_SPM_LOW_REG_OFFSET, AXI_LLC_CFG_SPM_HIGH_REG_OFFSET);
-    set_reg_32(0x1, base, AXI_LLC_COMMIT_CFG_REG_OFFSET);
 }
 
 void axi_llc_reg32_set_flush(unsigned long int value, void *base)
 {
     set_reg_64(value, base, AXI_LLC_CFG_FLUSH_LOW_REG_OFFSET, AXI_LLC_CFG_FLUSH_HIGH_REG_OFFSET);
-    set_reg_32(0x1, base, AXI_LLC_COMMIT_CFG_REG_OFFSET);
 }
 
 unsigned long int axi_llc_reg32_get_spm(void *base)
