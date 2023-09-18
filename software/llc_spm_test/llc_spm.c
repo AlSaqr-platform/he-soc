@@ -11,9 +11,6 @@
 #define LLC_CACHE_END 0x80800000
 #define LLC_SPM_START 0x70000000
 #define AXI_LITE_BASE 0x10401000
-// #define AXI_LLC_CFG_SPM_LOW 0x0
-// #define AXI_LLC_CFG_SPM_HIGH 0x4
-// #define AXI_LLC_CFG_COMMIT 0x10
 
 int main(int argc, char const *argv[]) {
   #ifdef FPGA_EMULATION
@@ -28,22 +25,19 @@ int main(int argc, char const *argv[]) {
   pulp_write32(APB_SOC_CTRL_BASE + APB_SOC_CTRL_LLC_CACHE_ADDR_START, LLC_CACHE_START);    //LLC cache address start
   pulp_write32(APB_SOC_CTRL_BASE + APB_SOC_CTRL_LLC_CACHE_ADDR_END  , LLC_CACHE_END);      //LLC cache address end (8MB)
   pulp_write32(APB_SOC_CTRL_BASE + APB_SOC_CTRL_LLC_SPM_ADDR_START  , LLC_SPM_START);      //LLC SPM address end
-  // pulp_write32(AXI_LITE_BASE + AXI_LLC_CFG_SPM_LOW , 0xFFFFFFFF);   //set first half of LLC in SPM mode
-  // pulp_write32(AXI_LITE_BASE + AXI_LLC_CFG_SPM_HIGH, 0xFFFFFFFF);   //set second half of LLC in SPM mode
-  // pulp_write32(AXI_LITE_BASE + AXI_LLC_CFG_COMMIT  , 0x1);          //commit the SPM mode configuration
   axi_llc_reg32_all_spm(AXI_LITE_BASE);   //set LLC in SPM mode
   #if VERBOSE > 9
     printf("Configured LLC (SPM mode)...\n");
     printf("Starting test (baud_rate: %0d, test_freq: %0d)...\n", baud_rate, test_freq);
-    // printf("LLC SPM configuration registers: HIGH = 0x%8x LOW = 0x%8x...\n", 
-    // pulp_read32(AXI_LITE_BASE + AXI_LLC_CFG_SPM_HIGH), pulp_read32(AXI_LITE_BASE + AXI_LLC_CFG_SPM_LOW));
     printf("LLC SPM configuration registers: 0x%16x...\n", axi_llc_reg32_get_spm(AXI_LITE_BASE));
   #endif
   int *w_i, *w_f;
   w_i = 0x70000000;
   w_f = 0x70000000 + 0x40000 - 0x4; //256KB of LLC SPM
-  *w_i =  0;
-  *w_f = -1;
+  w_i[0]  =  0;
+  w_i[1]  =  1,
+  w_f[0]  = -1;
+  w_f[-1] = ((int) w_f - (int) w_i)/4;
   int i = 1;
   #if VERBOSE > 9
     printf("Starting read/write loop (address range: [0x%0x-0x%0x])...\n", w_i, w_f);
@@ -65,7 +59,7 @@ int main(int argc, char const *argv[]) {
   #endif
   w_i[i] = ++w_i[i-1];
   if(w_i[i] != i){
-    printf("Test FAILED (w_i[%0d] <- 0x%0x)\naborting...\n", i, &w_i[i]);
+    printf("Test FAILED (w_i[%0d] <- 0x%8x)\naborting...\n", i, &w_i[i]);
     return 1;
   }
   printf("Test Passed\n");

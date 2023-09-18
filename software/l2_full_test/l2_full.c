@@ -16,8 +16,10 @@ int main(int argc, char const *argv[]) {
   int *w_i, *w_f;
   w_i = 0x1C000000 + 0x4;   //NOTE: 0x1C000000 already used by the jtag sanity check => do not READ/WRITE that register
   w_f = 0x1C000000 + 0x10000 - 0x4;
-  *w_i =  0;
-  *w_f = -1;
+  w_i[0]  =  0;
+  w_i[1]  =  1,
+  w_f[0]  = -1;
+  w_f[-1] = ((int) w_f - (int) w_i)/4;
   int i = 1;
   while(&w_i[i] != w_f){
     w_i[i] = ++w_i[i-1];
@@ -26,7 +28,7 @@ int main(int argc, char const *argv[]) {
       return 1;
     }
     #if VERBOSE > 5
-      printf("0x%8x: w_i[%6d] = %6d; expecting %6d\n", &w_i[i], i, w_i[i], i);
+      printf("0x%8x: w_i[%0d] = %0d; expecting %0d\n", &w_i[i], i, w_i[i], i);
     #endif
     i++;
   }
