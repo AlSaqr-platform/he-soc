@@ -76,6 +76,8 @@ module cva6_subsystem
   AXI_BUS.Master          hyper_axi_master,
   AXI_BUS.Master          cluster_axi_master,
   AXI_BUS.Slave           cluster_axi_slave,
+  AXI_BUS.Slave           udma_rx_l3_axi_slave,
+  AXI_BUS.Slave           udma_tx_l3_axi_slave,
 
   //ETHERNET
   input  logic            eth_clk_i       , // 125 MHz quadrature
@@ -502,6 +504,16 @@ module cva6_subsystem
   `AXI_ASSIGN(slave[2],cluster_axi_slave)
 
   // ---------------
+  // AXI uDMA TX L3 Master (READ ONLY from MEM)
+  // ---------------
+  `AXI_ASSIGN(slave[4],udma_tx_l3_axi_slave)
+
+  // ---------------
+  // AXI uDMA RX L3 Master (WRITE ONLY to MEM)
+  // ---------------
+  `AXI_ASSIGN(slave[5],udma_rx_l3_axi_slave)
+
+  // ---------------
   // AXI Xbar
   // ---------------
   localparam xbar_cfg_t AXI_XBAR_CFG = '{
@@ -600,11 +612,11 @@ module cva6_subsystem
     end_addr:   ariane_soc::HYAXIBase     + ariane_soc::HYAXILength
   };
 
-  assign addr_map[ariane_soc::HYAXI+1] = '{ 
+  assign addr_map[ariane_soc::HYAXI+1] = '{
     idx:  ariane_soc::HYAXI,
     start_addr: ariane_soc::LLCSPMBase,
-    end_addr:   ariane_soc::LLCSPMBase     + ariane_soc::LLCSPMLength  
-  }; 
+    end_addr:   ariane_soc::LLCSPMBase     + ariane_soc::LLCSPMLength
+  };
 
   axi_xbar_intf #(
     .AXI_USER_WIDTH         ( AXI_USER_WIDTH                        ),
