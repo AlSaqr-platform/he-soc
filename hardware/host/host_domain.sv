@@ -376,19 +376,19 @@ module host_domain
       .lite_resp_t      ( ariane_axi_soc::resp_lite_t    ),
       .rule_full_t      ( rule_full_t                    )
     ) i_axi_llc (
-      .clk_i               ( s_soc_clk                                       ),
-      .rst_ni              ( s_synch_soc_rst                                 ),
-      .test_i              ( 1'b0                                            ),
-      .slv_req_i           ( axi_cpu_req                                     ),
-      .slv_resp_o          ( axi_cpu_res                                     ),
-      .mst_req_o           ( axi_mem_req                                     ),
-      .mst_resp_i          ( axi_mem_res                                     ),
-      .conf_req_i          ( axi_llc_cfg_req                                 ),
-      .conf_resp_o         ( axi_llc_cfg_res                                 ),
-      .cached_start_addr_i ( { 32'h0, s_llc_cache_addr_start }               ),
-      .cached_end_addr_i   ( { 32'h0, s_llc_cache_addr_end   }               ),
-      .spm_start_addr_i    ( { 32'h0, s_llc_spm_addr_start   }               ),
-      .axi_llc_events_o    ( llc_events                                      )
+      .clk_i               ( s_soc_clk                                                                          ),
+      .rst_ni              ( s_synch_soc_rst                                                                    ),
+      .test_i              ( 1'b0                                                                               ),
+      .slv_req_i           ( axi_cpu_req                                                                        ),
+      .slv_resp_o          ( axi_cpu_res                                                                        ),
+      .mst_req_o           ( axi_mem_req                                                                        ),
+      .mst_resp_i          ( axi_mem_res                                                                        ),
+      .conf_req_i          ( axi_llc_cfg_req                                                                    ),
+      .conf_resp_o         ( axi_llc_cfg_res                                                                    ),
+      .cached_start_addr_i ( {(AXI_ADDRESS_WIDTH-$bits(s_llc_cache_addr_start))'{1'b0}, s_llc_cache_addr_start} ),
+      .cached_end_addr_i   ( {(AXI_ADDRESS_WIDTH-$bits(s_llc_cache_addr_end))'{1'b0}  , s_llc_cache_addr_end  } ),
+      .spm_start_addr_i    ( {(AXI_ADDRESS_WIDTH-$bits(s_llc_spm_addr_start))'{1'b0}  , s_llc_spm_addr_start  } ),
+      .axi_llc_events_o    ( llc_events                                                                         )
     );
 
    assign s_llc_read_hit_cache = llc_events.hit_read_cache.active;
