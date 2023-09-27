@@ -7,7 +7,7 @@
 package control_register_config_reg_pkg;
 
   // Address widths within the block
-  parameter int BlockAw = 5;
+  parameter int BlockAw = 6;
 
   ////////////////////////////
   // Typedefs for registers //
@@ -28,6 +28,18 @@ package control_register_config_reg_pkg;
   typedef struct packed {
     logic        q;
   } control_register_config_reg2hw_enable_llc_counters_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } control_register_config_reg2hw_llc_cache_addr_start_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } control_register_config_reg2hw_llc_cache_addr_end_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } control_register_config_reg2hw_llc_spm_addr_start_reg_t;
 
   typedef struct packed {
     logic [31:0] d;
@@ -51,8 +63,11 @@ package control_register_config_reg_pkg;
 
   // Register -> HW type
   typedef struct packed {
-    control_register_config_reg2hw_control_cluster_reg_t control_cluster; // [3:1]
-    control_register_config_reg2hw_enable_llc_counters_reg_t enable_llc_counters; // [0:0]
+    control_register_config_reg2hw_control_cluster_reg_t control_cluster; // [99:97]
+    control_register_config_reg2hw_enable_llc_counters_reg_t enable_llc_counters; // [96:96]
+    control_register_config_reg2hw_llc_cache_addr_start_reg_t llc_cache_addr_start; // [95:64]
+    control_register_config_reg2hw_llc_cache_addr_end_reg_t llc_cache_addr_end; // [63:32]
+    control_register_config_reg2hw_llc_spm_addr_start_reg_t llc_spm_addr_start; // [31:0]
   } control_register_config_reg2hw_t;
 
   // HW -> register type
@@ -64,12 +79,15 @@ package control_register_config_reg_pkg;
   } control_register_config_hw2reg_t;
 
   // Register offsets
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER_OFFSET = 5'h 0;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_ENABLE_LLC_COUNTERS_OFFSET = 5'h 4;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_READ_MISS_CACHE_OFFSET = 5'h 8;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_READ_HIT_CACHE_OFFSET = 5'h c;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_WRITE_MISS_CACHE_OFFSET = 5'h 10;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_WRITE_HIT_CACHE_OFFSET = 5'h 14;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER_OFFSET = 6'h 0;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_ENABLE_LLC_COUNTERS_OFFSET = 6'h 4;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_READ_MISS_CACHE_OFFSET = 6'h 8;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_READ_HIT_CACHE_OFFSET = 6'h c;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_WRITE_MISS_CACHE_OFFSET = 6'h 10;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_WRITE_HIT_CACHE_OFFSET = 6'h 14;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_START_OFFSET = 6'h 18;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_END_OFFSET = 6'h 1c;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_SPM_ADDR_START_OFFSET = 6'h 20;
 
   // Register index
   typedef enum int {
@@ -78,17 +96,23 @@ package control_register_config_reg_pkg;
     CONTROL_REGISTER_CONFIG_LLC_READ_MISS_CACHE,
     CONTROL_REGISTER_CONFIG_LLC_READ_HIT_CACHE,
     CONTROL_REGISTER_CONFIG_LLC_WRITE_MISS_CACHE,
-    CONTROL_REGISTER_CONFIG_LLC_WRITE_HIT_CACHE
+    CONTROL_REGISTER_CONFIG_LLC_WRITE_HIT_CACHE,
+    CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_START,
+    CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_END,
+    CONTROL_REGISTER_CONFIG_LLC_SPM_ADDR_START
   } control_register_config_id_e;
 
   // Register width information to check illegal writes
-  parameter logic [3:0] CONTROL_REGISTER_CONFIG_PERMIT [6] = '{
+  parameter logic [3:0] CONTROL_REGISTER_CONFIG_PERMIT [9] = '{
     4'b 0001, // index[0] CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER
     4'b 0001, // index[1] CONTROL_REGISTER_CONFIG_ENABLE_LLC_COUNTERS
     4'b 1111, // index[2] CONTROL_REGISTER_CONFIG_LLC_READ_MISS_CACHE
     4'b 1111, // index[3] CONTROL_REGISTER_CONFIG_LLC_READ_HIT_CACHE
     4'b 1111, // index[4] CONTROL_REGISTER_CONFIG_LLC_WRITE_MISS_CACHE
-    4'b 1111  // index[5] CONTROL_REGISTER_CONFIG_LLC_WRITE_HIT_CACHE
+    4'b 1111, // index[5] CONTROL_REGISTER_CONFIG_LLC_WRITE_HIT_CACHE
+    4'b 1111, // index[6] CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_START
+    4'b 1111, // index[7] CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_END
+    4'b 1111  // index[8] CONTROL_REGISTER_CONFIG_LLC_SPM_ADDR_START
   };
 
 endpackage

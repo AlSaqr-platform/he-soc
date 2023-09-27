@@ -517,10 +517,10 @@ module cva6_subsystem
                                          UniqueIds: 1'b0,
                                          AxiAddrWidth: AXI_ADDRESS_WIDTH,
                                          AxiDataWidth: AXI_DATA_WIDTH,
-                                         NoAddrRules: ariane_soc::NB_PERIPHERALS
+                                         NoAddrRules: ariane_soc::NB_PERIPHERALS + 1
                                          };
 
-  ariane_soc::addr_map_rule_t [ariane_soc::NB_PERIPHERALS-1:0] addr_map;
+  ariane_soc::addr_map_rule_t [ariane_soc::NB_PERIPHERALS:0] addr_map; // One extra for the LLCSPM
 
  assign addr_map[ariane_soc::Debug] = '{
     idx:  ariane_soc::Debug,
@@ -532,12 +532,6 @@ module cva6_subsystem
     idx:  ariane_soc::ROM,
     start_addr: ariane_soc::ROMBase,
     end_addr:   ariane_soc::ROMBase      + ariane_soc::ROMLength
-  };
-
-  assign addr_map[ariane_soc::UART] = '{
-    idx:  ariane_soc::UART,
-    start_addr: ariane_soc::UARTBase,
-    end_addr:   ariane_soc::UARTBase     + ariane_soc::UARTLength
   };
 
   assign addr_map[ariane_soc::CLINT] = '{
@@ -588,10 +582,10 @@ module cva6_subsystem
     end_addr:   ariane_soc::EthernetBase + ariane_soc::EthernetLength
   };
 
-  assign addr_map[ariane_soc::HYAXI] = '{
-    idx:  ariane_soc::HYAXI,
-    start_addr: ariane_soc::HYAXIBase,
-    end_addr:   ariane_soc::HYAXIBase     + ariane_soc::HYAXILength
+  assign addr_map[ariane_soc::UART] = '{
+    idx:  ariane_soc::UART,
+    start_addr: ariane_soc::UARTBase,
+    end_addr:   ariane_soc::UARTBase     + ariane_soc::UARTLength
   };
 
   assign addr_map[ariane_soc::AXILiteDom] = '{
@@ -599,6 +593,18 @@ module cva6_subsystem
     start_addr: ariane_soc::AXILiteBase,
     end_addr:   ariane_soc::AXILiteBase + ariane_soc::AXILiteLength
   };
+
+  assign addr_map[ariane_soc::HYAXI] = '{
+    idx:  ariane_soc::HYAXI,
+    start_addr: ariane_soc::HYAXIBase,
+    end_addr:   ariane_soc::HYAXIBase     + ariane_soc::HYAXILength
+  };
+
+  assign addr_map[ariane_soc::HYAXI+1] = '{ 
+    idx:  ariane_soc::HYAXI,
+    start_addr: ariane_soc::LLCSPMBase,
+    end_addr:   ariane_soc::LLCSPMBase     + ariane_soc::LLCSPMLength  
+  }; 
 
   axi_xbar_intf #(
     .AXI_USER_WIDTH         ( AXI_USER_WIDTH                        ),

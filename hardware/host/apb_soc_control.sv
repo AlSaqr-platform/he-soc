@@ -25,9 +25,12 @@ module apb_soc_control
     output logic         cluster_ctrl_rstn_o,
     output logic         cluster_en_sa_boot_o,
     output logic         cluster_fetch_en_o,
-    input logic          llc_read_hit_cache_i,
-    input logic          llc_read_miss_cache_i,
-    input logic          llc_write_hit_cache_i,
+    output logic[31:0]   llc_cache_addr_start_o,
+    output logic[31:0]   llc_cache_addr_end_o,
+    output logic[31:0]   llc_spm_addr_start_o,
+    input logic          llc_read_hit_cache_i, 
+    input logic          llc_read_miss_cache_i, 
+    input logic          llc_write_hit_cache_i, 
     input logic          llc_write_miss_cache_i
    );
 
@@ -115,6 +118,9 @@ module apb_soc_control
    assign cluster_ctrl_rstn_o = reg2hw_socctrl.control_cluster.reset_n.q;
    assign cluster_en_sa_boot_o = reg2hw_socctrl.control_cluster.en_sa_boot.q;
    assign cluster_fetch_en_o = reg2hw_socctrl.control_cluster.fetch_en.q;
+   assign llc_cache_addr_start_o = reg2hw_socctrl.llc_cache_addr_start.q;
+   assign llc_cache_addr_end_o = reg2hw_socctrl.llc_cache_addr_end.q;
+   assign llc_spm_addr_start_o = reg2hw_socctrl.llc_spm_addr_start.q;
    assign s_llc_counter_enable = reg2hw_socctrl.enable_llc_counters.q;
 
    assign hw2reg_socctrl.llc_write_hit_cache.de = 1'b1;

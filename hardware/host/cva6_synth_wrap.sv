@@ -112,6 +112,13 @@ module cva6_synth_wrap
   AXI_BUS #(
     .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
+    .AXI_ID_WIDTH   ( CCUAxiIdWidth   ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH )
+  ) ccu_axi_master_cut();
+
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
     .AXI_ID_WIDTH   ( AXI_ID_WIDTH   ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH )
   ) cva6_axi_master();
@@ -199,7 +206,20 @@ module cva6_synth_wrap
     .test_i                ( 1'b0            ),
     .slv_ports             ( core_to_CCU     ),
     .snoop_ports           ( CCU_to_core     ),
-    .mst_ports             ( ccu_axi_master  )
+    .mst_ports             ( ccu_axi_master_cut  )
+  );
+
+  axi_cut_intf #(
+    .BYPASS     ( 1'b0           ),
+    .ADDR_WIDTH ( AXI_ADDR_WIDTH ),
+    .DATA_WIDTH ( AXI_DATA_WIDTH ),
+    .ID_WIDTH   ( CCUAxiIdWidth  ),
+    .USER_WIDTH ( AXI_USER_WIDTH )
+  )  i_ccu_cut (
+    .clk_i  ( clk_i                 ),
+    .rst_ni ( rst_ni                ),
+    .in     ( ccu_axi_master_cut    ),
+    .out    ( ccu_axi_master        )
   );
 
   axi_id_remap_intf #(

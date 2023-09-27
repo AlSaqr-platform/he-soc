@@ -84,7 +84,8 @@ package ariane_soc;
   localparam logic[63:0] SPILength      = 64'h800000;
   localparam logic[63:0] EthernetLength = 64'h10000;
   localparam logic[63:0] HYAXILength    = 64'h20000000;  //HyperRamSize*NumChipsPerHyperbus*HyperbusNumPhys;  // 256MB of hyperrams
-  localparam logic[63:0] L2SPMLength    = 64'h10000;     // 64KB of scratchpad memory
+  localparam logic[63:0] LLCSPMLength   = 64'h40000;     // up to 256KB of LLC that can be used as scratchpad
+  localparam logic[63:0] L2SPMLength    = 64'h10000;     // 64KB of scratchpad memory 
   localparam logic[63:0] APB_SLVSLength = 64'h123000;
 
   // Instantiate AXI protocol checkers
@@ -103,6 +104,7 @@ package ariane_soc;
     SPIBase      = 64'h2000_0000,
     EthernetBase = 64'h3000_0000,
     UARTBase     = 64'h4000_0000,
+    LLCSPMBase   = 64'h7000_0000,
     HYAXIBase    = 64'h8000_0000
   } soc_bus_start_t;
   // Let x = NB_PERIPHERALS: as long as Base(xth slave)+Length(xth slave) is < 1_0000_0000 we can cut the 32 MSBs addresses without any worries.
@@ -119,9 +121,9 @@ package ariane_soc;
     NrNonIdempotentRules:  1,
     NonIdempotentAddrBase: {64'b0},
     NonIdempotentLength:   {HYAXIBase},
-    NrExecuteRegionRules:  4,
-    ExecuteRegionAddrBase: {HYAXIBase, L2SPMBase,   ROMBase,   DebugBase},
-    ExecuteRegionLength:   {HYAXILength, L2SPMLength, ROMLength, DebugLength},
+    NrExecuteRegionRules:  5,
+    ExecuteRegionAddrBase: {HYAXIBase, LLCSPMBase, L2SPMBase,   ROMBase,   DebugBase},
+    ExecuteRegionLength:   {HYAXILength, LLCSPMLength, L2SPMLength, ROMLength, DebugLength},
     // cached region
     NrCachedRegionRules:    1,
     CachedRegionAddrBase:  {HYAXIBase},

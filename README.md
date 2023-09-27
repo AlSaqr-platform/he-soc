@@ -36,7 +36,7 @@ source setup.sh
 ```
 NB: this fetches the current master branch, under costant developement. To target a specific release you should git checkout it as first step after cloning the repo.
 
-To install and configure bender and download the git dependencies/verification IPs, from he-soc/hardware run:
+To install, configure bender and download the git dependencies + verification IPs, from he-soc/hardware run:
 
 ```
 cd hardware/
@@ -55,10 +55,21 @@ This will generate the binaries and the hyperram*.slm that will be in the rams a
 
 ### Generate TCL
 
-Then, generate the tcl for simulation, in he-soc/hardware run:
+Then, generate the tcl for simulation and synthesis. In he-soc/hardware run one of thwo following options accordingly to your target:
 
+* RTL simulation:
 ```
 make scripts_vip
+```
+
+* RTL simulation using macro:
+```
+make scripts_vip_macro
+```
+
+* Synopsys Synthesis:
+```
+make scripts-bender-synopsys
 ```
 
 By default, the elf binary will be loaded through the DMI interface, driven by the SimDTM, communicating with FESVR, the host.
@@ -146,3 +157,29 @@ The tests that will be executed are the one listed in `software/regression.list`
 ### FPGA Emulation
 
 We now support emulation on Xilinx VCU118. Please have a look to the README in the `hardware/fpga` folder.
+
+### Synthesize he-soc into your target technology
+
+To synthesize he-soc follow the following steps:
+```
+git clone git@github.com:AlSaqr-platform/he-soc.git
+
+cd he-soc/
+
+source setup.sh
+
+cd hardware
+
+ulimit -n 2048
+
+make init
+
+```
+
+Then clone your technology scripts into hardware and then run:
+
+```
+make scripts-bender-synopsys
+```
+The command will generate .tcl within your technology folder.
+

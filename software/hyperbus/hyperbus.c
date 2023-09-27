@@ -125,7 +125,7 @@ int main() {
           printf("Test FAILED\n");
           pass=1;
           }
-      else printf("TEST Passed\n");
+      else printf("Test Passed\n");
       uart_wait_tx_done();
 
       return pass;
