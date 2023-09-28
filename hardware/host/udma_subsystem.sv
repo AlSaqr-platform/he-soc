@@ -103,7 +103,7 @@ module udma_subsystem
 
     localparam DEST_SIZE = 2;
 
-    localparam L2_AWIDTH_NOAL = L2_ADDR_WIDTH + 2;
+    //localparam L2_AWIDTH_NOAL = L2_ADDR_WIDTH + 2;
 
     localparam N_FILTER   = 1;
     localparam N_CH_HYPER = 1;
@@ -161,7 +161,7 @@ module udma_subsystem
     localparam PER_ID_CAM     = PER_ID_SDIO   + N_SDIO   ; // 27
     localparam PER_ID_FILTER  = PER_ID_CAM    + N_CAM    ; // 29
     localparam PER_ID_HYPER   = PER_ID_FILTER + N_FILTER ; // 31
-    
+
     logic [N_TX_CHANNELS-1:0] [L2_AWIDTH_NOAL-1 : 0] s_tx_cfg_startaddr;
     logic [N_TX_CHANNELS-1:0]     [TRANS_SIZE-1 : 0] s_tx_cfg_size;
     logic [N_TX_CHANNELS-1:0]                        s_tx_cfg_continuous;
@@ -481,13 +481,13 @@ module udma_subsystem
                 .sys_clk_i           ( s_clk_periphs_core[PER_ID_USART+g_usart]    ),
                 .periph_clk_i        ( s_clk_periphs_per[PER_ID_USART+g_usart]     ),
                 .rstn_i              ( sys_resetn_i                              ),
-                                                                                 
+
                 .uart_tx_o           ( usart_to_pad[g_usart].tx_o                  ),
                 .uart_rx_i           ( pad_to_usart[g_usart].rx_i                  ),
 
                 .rx_char_event_o     (                                           ),
                 .err_event_o         (                                           ),
-                                                                                 
+
                 .cfg_data_i          ( s_periph_data_to                          ),
                 .cfg_addr_i          ( s_periph_addr                             ),
                 .cfg_valid_i         ( s_periph_valid[PER_ID_USART+g_usart]        ),
