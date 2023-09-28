@@ -31,7 +31,11 @@ module apb_soc_control
     input logic          llc_read_hit_cache_i, 
     input logic          llc_read_miss_cache_i, 
     input logic          llc_write_hit_cache_i, 
-    input logic          llc_write_miss_cache_i
+    input logic          llc_write_miss_cache_i,
+    output logic [1:0]   ot_clk_sel_o,
+    output logic [31:0]  ot_clk_div_q_o,
+    output logic         ot_clk_div_qe_o,
+    output logic         ot_clk_gate_en_o
    );
 
 
@@ -123,6 +127,11 @@ module apb_soc_control
    assign llc_spm_addr_start_o = reg2hw_socctrl.llc_spm_addr_start.q;
    assign s_llc_counter_enable = reg2hw_socctrl.enable_llc_counters.q;
 
+   assign ot_clk_sel_o = reg2hw_socctrl.ot_clk_sel.q;
+   assign ot_clk_div_q_o = reg2hw_socctrl.ot_clk_div.q;
+   assign ot_clk_div_qe_o = reg2hw_socctrl.ot_clk_div.qe;
+   assign ot_clk_gate_en_o = reg2hw_socctrl.ot_clk_gate_en.q;
+
    assign hw2reg_socctrl.llc_write_hit_cache.de = 1'b1;
    assign hw2reg_socctrl.llc_write_hit_cache.d = llc_write_hit_cache_q;
    assign hw2reg_socctrl.llc_write_miss_cache.de = 1'b1;
@@ -131,5 +140,7 @@ module apb_soc_control
    assign hw2reg_socctrl.llc_read_hit_cache.d = llc_read_hit_cache_q;
    assign hw2reg_socctrl.llc_read_miss_cache.de = 1'b1;
    assign hw2reg_socctrl.llc_read_miss_cache.d = llc_read_miss_cache_q;
+
+
 
 endmodule

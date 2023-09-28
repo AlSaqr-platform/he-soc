@@ -93,6 +93,15 @@ module control_register_config_reg_top #(
   logic [31:0] llc_spm_addr_start_qs;
   logic [31:0] llc_spm_addr_start_wd;
   logic llc_spm_addr_start_we;
+  logic [1:0] ot_clk_sel_qs;
+  logic [1:0] ot_clk_sel_wd;
+  logic ot_clk_sel_we;
+  logic [31:0] ot_clk_div_qs;
+  logic [31:0] ot_clk_div_wd;
+  logic ot_clk_div_we;
+  logic ot_clk_gate_en_qs;
+  logic ot_clk_gate_en_wd;
+  logic ot_clk_gate_en_we;
 
   // Register instances
   // R[control_cluster]: V(False)
@@ -387,20 +396,104 @@ module control_register_config_reg_top #(
   );
 
 
+  // R[ot_clk_sel]: V(False)
+
+  prim_subreg #(
+    .DW      (2),
+    .SWACCESS("RW"),
+    .RESVAL  (2'h1)
+  ) u_ot_clk_sel (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (ot_clk_sel_we),
+    .wd     (ot_clk_sel_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.ot_clk_sel.q ),
+
+    // to register interface (read)
+    .qs     (ot_clk_sel_qs)
+  );
 
 
-  logic [8:0] addr_hit;
+  // R[ot_clk_div]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h8)
+  ) u_ot_clk_div (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (ot_clk_div_we),
+    .wd     (ot_clk_div_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (reg2hw.ot_clk_div.qe),
+    .q      (reg2hw.ot_clk_div.q ),
+
+    // to register interface (read)
+    .qs     (ot_clk_div_qs)
+  );
+
+
+  // R[ot_clk_gate_en]: V(False)
+
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h0)
+  ) u_ot_clk_gate_en (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (ot_clk_gate_en_we),
+    .wd     (ot_clk_gate_en_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.ot_clk_gate_en.q ),
+
+    // to register interface (read)
+    .qs     (ot_clk_gate_en_qs)
+  );
+
+
+
+
+  logic [11:0] addr_hit;
   always_comb begin
     addr_hit = '0;
-    addr_hit[0] = (reg_addr == CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER_OFFSET);
-    addr_hit[1] = (reg_addr == CONTROL_REGISTER_CONFIG_ENABLE_LLC_COUNTERS_OFFSET);
-    addr_hit[2] = (reg_addr == CONTROL_REGISTER_CONFIG_LLC_READ_MISS_CACHE_OFFSET);
-    addr_hit[3] = (reg_addr == CONTROL_REGISTER_CONFIG_LLC_READ_HIT_CACHE_OFFSET);
-    addr_hit[4] = (reg_addr == CONTROL_REGISTER_CONFIG_LLC_WRITE_MISS_CACHE_OFFSET);
-    addr_hit[5] = (reg_addr == CONTROL_REGISTER_CONFIG_LLC_WRITE_HIT_CACHE_OFFSET);
-    addr_hit[6] = (reg_addr == CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_START_OFFSET);
-    addr_hit[7] = (reg_addr == CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_END_OFFSET);
-    addr_hit[8] = (reg_addr == CONTROL_REGISTER_CONFIG_LLC_SPM_ADDR_START_OFFSET);
+    addr_hit[ 0] = (reg_addr == CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER_OFFSET);
+    addr_hit[ 1] = (reg_addr == CONTROL_REGISTER_CONFIG_ENABLE_LLC_COUNTERS_OFFSET);
+    addr_hit[ 2] = (reg_addr == CONTROL_REGISTER_CONFIG_LLC_READ_MISS_CACHE_OFFSET);
+    addr_hit[ 3] = (reg_addr == CONTROL_REGISTER_CONFIG_LLC_READ_HIT_CACHE_OFFSET);
+    addr_hit[ 4] = (reg_addr == CONTROL_REGISTER_CONFIG_LLC_WRITE_MISS_CACHE_OFFSET);
+    addr_hit[ 5] = (reg_addr == CONTROL_REGISTER_CONFIG_LLC_WRITE_HIT_CACHE_OFFSET);
+    addr_hit[ 6] = (reg_addr == CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_START_OFFSET);
+    addr_hit[ 7] = (reg_addr == CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_END_OFFSET);
+    addr_hit[ 8] = (reg_addr == CONTROL_REGISTER_CONFIG_LLC_SPM_ADDR_START_OFFSET);
+    addr_hit[ 9] = (reg_addr == CONTROL_REGISTER_CONFIG_OT_CLK_SEL_OFFSET);
+    addr_hit[10] = (reg_addr == CONTROL_REGISTER_CONFIG_OT_CLK_DIV_OFFSET);
+    addr_hit[11] = (reg_addr == CONTROL_REGISTER_CONFIG_OT_CLK_GATE_EN_OFFSET);
   end
 
   assign addrmiss = (reg_re || reg_we) ? ~|addr_hit : 1'b0 ;
@@ -408,15 +501,18 @@ module control_register_config_reg_top #(
   // Check sub-word write is permitted
   always_comb begin
     wr_err = (reg_we &
-              ((addr_hit[0] & (|(CONTROL_REGISTER_CONFIG_PERMIT[0] & ~reg_be))) |
-               (addr_hit[1] & (|(CONTROL_REGISTER_CONFIG_PERMIT[1] & ~reg_be))) |
-               (addr_hit[2] & (|(CONTROL_REGISTER_CONFIG_PERMIT[2] & ~reg_be))) |
-               (addr_hit[3] & (|(CONTROL_REGISTER_CONFIG_PERMIT[3] & ~reg_be))) |
-               (addr_hit[4] & (|(CONTROL_REGISTER_CONFIG_PERMIT[4] & ~reg_be))) |
-               (addr_hit[5] & (|(CONTROL_REGISTER_CONFIG_PERMIT[5] & ~reg_be))) |
-               (addr_hit[6] & (|(CONTROL_REGISTER_CONFIG_PERMIT[6] & ~reg_be))) |
-               (addr_hit[7] & (|(CONTROL_REGISTER_CONFIG_PERMIT[7] & ~reg_be))) |
-               (addr_hit[8] & (|(CONTROL_REGISTER_CONFIG_PERMIT[8] & ~reg_be)))));
+              ((addr_hit[ 0] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 0] & ~reg_be))) |
+               (addr_hit[ 1] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 1] & ~reg_be))) |
+               (addr_hit[ 2] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 2] & ~reg_be))) |
+               (addr_hit[ 3] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 3] & ~reg_be))) |
+               (addr_hit[ 4] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 4] & ~reg_be))) |
+               (addr_hit[ 5] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 5] & ~reg_be))) |
+               (addr_hit[ 6] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 6] & ~reg_be))) |
+               (addr_hit[ 7] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 7] & ~reg_be))) |
+               (addr_hit[ 8] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 8] & ~reg_be))) |
+               (addr_hit[ 9] & (|(CONTROL_REGISTER_CONFIG_PERMIT[ 9] & ~reg_be))) |
+               (addr_hit[10] & (|(CONTROL_REGISTER_CONFIG_PERMIT[10] & ~reg_be))) |
+               (addr_hit[11] & (|(CONTROL_REGISTER_CONFIG_PERMIT[11] & ~reg_be)))));
   end
 
   assign control_cluster_reset_n_we = addr_hit[0] & reg_we & !reg_error;
@@ -439,6 +535,15 @@ module control_register_config_reg_top #(
 
   assign llc_spm_addr_start_we = addr_hit[8] & reg_we & !reg_error;
   assign llc_spm_addr_start_wd = reg_wdata[31:0];
+
+  assign ot_clk_sel_we = addr_hit[9] & reg_we & !reg_error;
+  assign ot_clk_sel_wd = reg_wdata[1:0];
+
+  assign ot_clk_div_we = addr_hit[10] & reg_we & !reg_error;
+  assign ot_clk_div_wd = reg_wdata[31:0];
+
+  assign ot_clk_gate_en_we = addr_hit[11] & reg_we & !reg_error;
+  assign ot_clk_gate_en_wd = reg_wdata[0];
 
   // Read data return
   always_comb begin
@@ -480,6 +585,18 @@ module control_register_config_reg_top #(
 
       addr_hit[8]: begin
         reg_rdata_next[31:0] = llc_spm_addr_start_qs;
+      end
+
+      addr_hit[9]: begin
+        reg_rdata_next[1:0] = ot_clk_sel_qs;
+      end
+
+      addr_hit[10]: begin
+        reg_rdata_next[31:0] = ot_clk_div_qs;
+      end
+
+      addr_hit[11]: begin
+        reg_rdata_next[0] = ot_clk_gate_en_qs;
       end
 
       default: begin

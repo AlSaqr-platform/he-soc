@@ -42,6 +42,19 @@ package control_register_config_reg_pkg;
   } control_register_config_reg2hw_llc_spm_addr_start_reg_t;
 
   typedef struct packed {
+    logic [1:0]  q;
+  } control_register_config_reg2hw_ot_clk_sel_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+    logic        qe;
+  } control_register_config_reg2hw_ot_clk_div_reg_t;
+
+  typedef struct packed {
+    logic        q;
+  } control_register_config_reg2hw_ot_clk_gate_en_reg_t;
+
+  typedef struct packed {
     logic [31:0] d;
     logic        de;
   } control_register_config_hw2reg_llc_read_miss_cache_reg_t;
@@ -63,11 +76,14 @@ package control_register_config_reg_pkg;
 
   // Register -> HW type
   typedef struct packed {
-    control_register_config_reg2hw_control_cluster_reg_t control_cluster; // [99:97]
-    control_register_config_reg2hw_enable_llc_counters_reg_t enable_llc_counters; // [96:96]
-    control_register_config_reg2hw_llc_cache_addr_start_reg_t llc_cache_addr_start; // [95:64]
-    control_register_config_reg2hw_llc_cache_addr_end_reg_t llc_cache_addr_end; // [63:32]
-    control_register_config_reg2hw_llc_spm_addr_start_reg_t llc_spm_addr_start; // [31:0]
+    control_register_config_reg2hw_control_cluster_reg_t control_cluster; // [135:133]
+    control_register_config_reg2hw_enable_llc_counters_reg_t enable_llc_counters; // [132:132]
+    control_register_config_reg2hw_llc_cache_addr_start_reg_t llc_cache_addr_start; // [131:100]
+    control_register_config_reg2hw_llc_cache_addr_end_reg_t llc_cache_addr_end; // [99:68]
+    control_register_config_reg2hw_llc_spm_addr_start_reg_t llc_spm_addr_start; // [67:36]
+    control_register_config_reg2hw_ot_clk_sel_reg_t ot_clk_sel; // [35:34]
+    control_register_config_reg2hw_ot_clk_div_reg_t ot_clk_div; // [33:1]
+    control_register_config_reg2hw_ot_clk_gate_en_reg_t ot_clk_gate_en; // [0:0]
   } control_register_config_reg2hw_t;
 
   // HW -> register type
@@ -88,6 +104,9 @@ package control_register_config_reg_pkg;
   parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_START_OFFSET = 6'h 18;
   parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_END_OFFSET = 6'h 1c;
   parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_SPM_ADDR_START_OFFSET = 6'h 20;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_OT_CLK_SEL_OFFSET = 6'h 24;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_OT_CLK_DIV_OFFSET = 6'h 28;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_OT_CLK_GATE_EN_OFFSET = 6'h 2C;
 
   // Register index
   typedef enum int {
@@ -99,20 +118,26 @@ package control_register_config_reg_pkg;
     CONTROL_REGISTER_CONFIG_LLC_WRITE_HIT_CACHE,
     CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_START,
     CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_END,
-    CONTROL_REGISTER_CONFIG_LLC_SPM_ADDR_START
+    CONTROL_REGISTER_CONFIG_LLC_SPM_ADDR_START,
+    CONTROL_REGISTER_CONFIG_OT_CLK_SEL,
+    CONTROL_REGISTER_CONFIG_OT_CLK_DIV,
+    CONTROL_REGISTER_CONFIG_OT_CLK_GATE_EN
   } control_register_config_id_e;
 
   // Register width information to check illegal writes
-  parameter logic [3:0] CONTROL_REGISTER_CONFIG_PERMIT [9] = '{
-    4'b 0001, // index[0] CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER
-    4'b 0001, // index[1] CONTROL_REGISTER_CONFIG_ENABLE_LLC_COUNTERS
-    4'b 1111, // index[2] CONTROL_REGISTER_CONFIG_LLC_READ_MISS_CACHE
-    4'b 1111, // index[3] CONTROL_REGISTER_CONFIG_LLC_READ_HIT_CACHE
-    4'b 1111, // index[4] CONTROL_REGISTER_CONFIG_LLC_WRITE_MISS_CACHE
-    4'b 1111, // index[5] CONTROL_REGISTER_CONFIG_LLC_WRITE_HIT_CACHE
-    4'b 1111, // index[6] CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_START
-    4'b 1111, // index[7] CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_END
-    4'b 1111  // index[8] CONTROL_REGISTER_CONFIG_LLC_SPM_ADDR_START
+  parameter logic [3:0] CONTROL_REGISTER_CONFIG_PERMIT [12] = '{
+    4'b 0001, // index[ 0] CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER
+    4'b 0001, // index[ 1] CONTROL_REGISTER_CONFIG_ENABLE_LLC_COUNTERS
+    4'b 1111, // index[ 2] CONTROL_REGISTER_CONFIG_LLC_READ_MISS_CACHE
+    4'b 1111, // index[ 3] CONTROL_REGISTER_CONFIG_LLC_READ_HIT_CACHE
+    4'b 1111, // index[ 4] CONTROL_REGISTER_CONFIG_LLC_WRITE_MISS_CACHE
+    4'b 1111, // index[ 5] CONTROL_REGISTER_CONFIG_LLC_WRITE_HIT_CACHE
+    4'b 1111, // index[ 6] CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_START
+    4'b 1111, // index[ 7] CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_END
+    4'b 1111, // index[ 8] CONTROL_REGISTER_CONFIG_LLC_SPM_ADDR_START
+    4'b 0001, // index[ 9] CONTROL_REGISTER_CONFIG_OT_CLK_SEL
+    4'b 1111, // index[10] CONTROL_REGISTER_CONFIG_OT_CLK_DIV
+    4'b 0001  // index[11] CONTROL_REGISTER_CONFIG_OT_CLK_GATE_EN
   };
 
 endpackage

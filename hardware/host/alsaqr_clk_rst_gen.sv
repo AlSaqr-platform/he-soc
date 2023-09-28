@@ -25,10 +25,16 @@ module alsaqr_clk_rst_gen (
   output logic rstn_global_sync_o,
   output logic rstn_cluster_sync_o,
 
+  input logic [1:0]   ot_clk_sel_i,
+  input logic [31:0]  ot_clk_div_q_i,
+  input logic         ot_clk_div_qe_i,
+  input logic         ot_clk_gate_en_i,
+
   output logic clk_soc_o,
   output logic clk_cva6_o,
   output logic clk_per_o,
-  output logic clk_cluster_o
+  output logic clk_cluster_o,
+  output logic clk_opentitan_o
 );
 
   logic s_clk_soc;
@@ -40,6 +46,7 @@ module alsaqr_clk_rst_gen (
   logic s_clk_fll_cva6;
   logic s_clk_fll_per;
   logic s_clk_fll_cluster;
+  logic s_clk_opentitan;
 
   logic s_rstn_soc;
 
@@ -148,6 +155,52 @@ module alsaqr_clk_rst_gen (
       .init_no     (                          )                    //not used
     );
 
+    clk_mux_glitch_free #(
+      .NUM_INPUTS       ( 4 ),
+      .NUM_SYNC_STAGES  ( 3 )
+    ) ot_clk_mux (
+      .clks_i       ( s_clk           ),
+      .test_clk_i   ( test_clk_i      ),
+      .test_en_i    ( 1'b0            ),
+      .async_rstn_i ( s_rstn_soc_sync ),
+      .async_sel_i  ( ot_clk_sel_i    ),
+      .clk_o        ( s_clk_opentitan )
+    );
+
+    logic [31:0] ot_div_value;
+    logic        ot_div_value_valid;
+    logic        ot_div_value_ready;
+
+    lossy_valid_to_stream ot_clk_int_div_config_decouple (
+      .clk_i   ( s_clk     ),
+      .rst_ni  ( s_rstn_soc_sync     ),
+      .valid_i ( ot_clk_div_qe_i     ),
+      .data_i  ( ot_clk_div_q_i      ),
+      .valid_o ( ot_div_value_valid  ),
+      .ready_i ( ot_div_value_ready  ),
+      .data_o  ( ot_div_value        ),
+      .busy_o  (                     )
+    );
+
+    clk_int_div #(
+      .DIV_VALUE_WIDTH   ( 32 ),
+      `ifdef TARGET_ASIC
+      .DEFAULT_DIV_VALUE ( 8  )
+      `else
+      .DEFAULT_DIV_VALUE ( 1  )
+      `endif
+    ) ot_clk_div (
+      .clk_i          ( s_clk_opentitan    ),
+      .rst_ni         ( s_rstn_soc_sync    ),
+      .en_i           ( ~ot_clk_gate_en_i  ),
+      .test_mode_en_i ( 1'b0               ),
+      .div_i          ( ot_div_value       ),
+      .div_valid_i    ( ot_div_value_valid ),
+      .div_ready_o    ( ot_div_value_ready ),
+      .clk_o          ( clk_opentitan_o    ),
+      .cycl_count_o   (                    )
+    );
+
   `else // !`ifndef PULP_FPGA_EMUL
 
     // Use FPGA dependent clock generation module for both clocks
@@ -183,7 +236,6 @@ module alsaqr_clk_rst_gen (
     assign s_rstn_cva6_sync    = s_rstn_soc & (~rst_dm_i);
 
   `endif
-
 
 
   assign s_rstn_soc = rstn_glob_i;
