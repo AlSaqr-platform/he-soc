@@ -53,3 +53,4 @@
 `define NB_DMAS       4
 `define NB_MPERIPHS   1
 `define NB_SPERIPHS   10
+`define REDMULE       1
