@@ -150,5 +150,50 @@
               }
             ]
       }
+      {
+           name: OT_CLK_SEL
+           desc: '''Mux selector for Opentitan clock'''
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "1:0"
+                 name: ot_clk_sel
+                 desc: '''Mux selector for Opentitan clock'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0x1"
+              }
+            ]
+      }
+      {
+           name: OT_CLK_DIV
+           desc: '''Clock divider for Opentitan'''
+           swaccess: "rw"
+           hwaccess: "hro"
+           hwqe: "true",
+           resval: "0x8"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: ot_clk_div
+                 desc: '''Clock divider for Opentitan'''
+              }
+            ]
+      }
+      {
+           name: OT_CLK_GATE_EN
+           desc: '''Clock gate enable for Opentitan (active high)'''
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "0"
+                 name: ot_clk_gate_en
+                 desc: '''Clock gate enable for Opentitan (active high)'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      }
   ]
 }

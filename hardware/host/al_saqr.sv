@@ -373,6 +373,7 @@ module al_saqr
   logic s_soc_rst_n;
   logic s_cluster_clk  ;
   logic s_cluster_rst_n;
+  logic clk_opentitan_o;
 
   logic s_h2c_mailbox_irq;
 
@@ -633,6 +634,9 @@ module al_saqr
       .cluster_en_sa_boot_o   ( s_cluster_en_sa_boot            ),
       .cluster_fetch_en_o     ( s_cluster_fetch_en              ),
       .clk_cluster_o          ( s_cluster_clk                   ),
+
+      .clk_opentitan_o        ( clk_opentitan_o                 ),
+
       .padframecfg_reg_master ( i_padframecfg_rbus              ),
 
       .spi_to_pad             ( s_spi_to_pad                    ),
@@ -767,8 +771,8 @@ module al_saqr
    );
 
    secure_subsystem_synth_wrap i_RoT_wrap (
-     .clk_i            ( s_soc_clk          ),
-     .clk_ref_i        ( s_soc_clk          ),
+     .clk_i            ( clk_opentitan_o    ),
+     .clk_ref_i        ( clk_opentitan_o    ),
      .rst_ni           ( rst_ni             ),
      .pwr_on_rst_ni    ( rst_ni             ),
      .fetch_en_i       ( '0                 ),

@@ -50,6 +50,7 @@ module apb_subsystem
     output logic                clk_cva6_o,
     output logic                clk_soc_o,
     output logic                clk_cluster_o,
+    output logic                clk_opentitan_o,
     output logic                rstn_cluster_sync_o,
     output logic                cluster_en_sa_boot_o,
     output logic                cluster_fetch_en_o,
@@ -124,6 +125,11 @@ module apb_subsystem
    logic                                s_rstn_soc_sync;
    logic                                s_rstn_cluster_sync;
    logic                                s_cluster_ctrl_rstn;
+
+   logic [1:0]                          ot_clk_sel_o;
+   logic [31:0]                         ot_clk_div_q_o;
+   logic                                ot_clk_div_qe_o;
+   logic                                ot_clk_gate_en_o;
 
    logic                                [63:0] can_timestamp;
 
@@ -423,10 +429,15 @@ module apb_subsystem
         .rstn_cva6_sync_o   ( rstn_cva6_sync_o    ),
         .rstn_global_sync_o ( rstn_global_sync_o  ),
         .rstn_cluster_sync_o( s_rstn_cluster_sync ),
+        .ot_clk_sel_i       ( ot_clk_sel_o        ),
+        .ot_clk_div_q_i     ( ot_clk_div_q_o      ),
+        .ot_clk_div_qe_i    ( ot_clk_div_qe_o     ),
+        .ot_clk_gate_en_i   ( ot_clk_gate_en_o    ),
         .clk_cva6_o         ( clk_cva6_o          ),
         .clk_soc_o          ( clk_soc_o           ),
         .clk_per_o          ( s_clk_per           ),
-        .clk_cluster_o      ( clk_cluster_o       )
+        .clk_cluster_o      ( clk_cluster_o       ),
+        .clk_opentitan_o    ( clk_opentitan_o     )
        );
 
     // Here is the FLL outputs probed to the pad a_62
@@ -581,6 +592,10 @@ module apb_subsystem
     .llc_cache_addr_start_o (llc_cache_addr_start_o),
     .llc_cache_addr_end_o (llc_cache_addr_end_o),
     .llc_spm_addr_start_o (llc_spm_addr_start_o),
+    .ot_clk_sel_o ( ot_clk_sel_o ),
+    .ot_clk_div_q_o ( ot_clk_div_q_o ),
+    .ot_clk_div_qe_o  ( ot_clk_div_qe_o ),
+    .ot_clk_gate_en_o ( ot_clk_gate_en_o ),
     .llc_read_hit_cache_i(llc_read_hit_cache_i),
     .llc_read_miss_cache_i(llc_read_miss_cache_i),
     .llc_write_hit_cache_i(llc_write_hit_cache_i),
