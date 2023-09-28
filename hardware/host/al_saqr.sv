@@ -889,9 +889,9 @@ module al_saqr
     `ifdef CHANGE_CLUSTER_PARAMETERS
     #(
         .NB_CORES                     ( `NB_CORES                       ),
-        .NB_HWPE_PORTS                ( 4                               ),
+        .NB_HWPE_PORTS                ( 9                               ),
         .NB_DMAS                      ( `NB_DMAS                        ),
-        .HWPE_PRESENT                 ( 0                               ),
+        .HWPE_PRESENT                 ( `REDMULE                        ),
         .TCDM_SIZE                    ( 256*1024                        ),
         .NB_TCDM_BANKS                ( 16                              ),
         .SET_ASSOCIATIVE              ( 4                               ),
@@ -902,9 +902,9 @@ module al_saqr
         .MULTICAST_FEATURE            ( "DISABLED"                      ),
         .SHARED_ICACHE                ( "ENABLED"                       ),
         .DIRECT_MAPPED_FEATURE        ( "DISABLED"                      ),
-        .L2_SIZE                      ( ariane_soc::L2SPMLength         ),
+        .L2_SIZE                      ( 512*1024                        ),
         .ROM_BOOT_ADDR                ( 32'h1A000000                    ),
-        .BOOT_ADDR                    ( 32'hC0000000                    ),
+        .BOOT_ADDR                    ( 32'h1C000000                    ),
         .INSTR_RDATA_WIDTH            ( 32                              ),
         .CLUST_FPU                    ( `CLUST_FPU                      ),
         .CLUST_FP_DIVSQRT             ( `CLUST_FP_DIVSQRT               ),
