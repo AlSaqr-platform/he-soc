@@ -36,7 +36,7 @@ source setup.sh
 ```
 NB: this fetches the current master branch, under costant developement. To target a specific release you should git checkout it as first step after cloning the repo.
 
-To install, configure bender and download the git dependencies + verification IPs, from he-soc/hardware run:
+To install, configure bender and download the git dependencies + verification IPs, from he-soc/ run:
 
 ```
 cd hardware/
@@ -48,7 +48,7 @@ make init
 To compile the hello world, in he-soc/hardware run:
 
 ```
-make -C ../software/hello clean all
+make -C ../software/hello_culsans clean all
 ```
 
 This will generate the binaries and the hyperram*.slm that will be in the rams at t=0 (in case of preloading). 
@@ -62,7 +62,7 @@ Then, generate the tcl for simulation and synthesis. In he-soc/hardware run one 
 make scripts_vip
 ```
 
-* RTL simulation using macro:
+* RTL simulation using gf22 macros (this requires the gf22 repository to be cloned and initialized into he-soc/hardware, as well as fll's one):
 ```
 make scripts_vip_macro
 ```
@@ -133,7 +133,7 @@ cd ../cluster
 
 make clean all
 
-make sim elf-bin=../software/cluster/launch_cluster.riscv 
+make sim elf-bin=../software/cluster/launch_cluster.riscv
 
 ```
 ### Run regressions
@@ -159,24 +159,7 @@ The tests that will be executed are the one listed in `software/regression.list`
 We now support emulation on Xilinx VCU118. Please have a look to the README in the `hardware/fpga` folder.
 
 ### Synthesize he-soc into your target technology
-
-To synthesize he-soc follow the following steps:
-```
-git clone git@github.com:AlSaqr-platform/he-soc.git
-
-cd he-soc/
-
-source setup.sh
-
-cd hardware
-
-ulimit -n 2048
-
-make init
-
-```
-
-Then clone your technology scripts into hardware and then run:
+After following the passages described in the section "Repo Initialization" of this REAMDE, clone the FLL and gf22 repositories in he-soc/hardware, then run:
 
 ```
 make scripts-bender-synopsys
