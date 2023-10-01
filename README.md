@@ -91,7 +91,7 @@ This will generate the compile.tcl with the preload defines.
  * Option 1: in the he-soc/hardware folder run (elf-bin shall be equal to the path to the elf you want to laod):
 
 ```
-make clean sim elf-bin=../software/hello/hello.riscv
+make clean sim elf-bin=../software/hello_culsans/hello_culsans.riscv
 ```
 or simply `make clean sim` if you used the preload flag. Be aware that the loaded code will be the last one you compiled.
 
