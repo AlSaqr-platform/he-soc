@@ -428,7 +428,7 @@ module control_register_config_reg_top #(
   prim_subreg #(
     .DW      (32),
     .SWACCESS("RW"),
-    .RESVAL  (32'h8)
+    .RESVAL  (32'h1)
   ) u_ot_clk_div (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),

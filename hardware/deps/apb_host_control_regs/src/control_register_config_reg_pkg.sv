@@ -106,7 +106,7 @@ package control_register_config_reg_pkg;
   parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_SPM_ADDR_START_OFFSET = 6'h 20;
   parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_OT_CLK_SEL_OFFSET = 6'h 24;
   parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_OT_CLK_DIV_OFFSET = 6'h 28;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_OT_CLK_GATE_EN_OFFSET = 6'h 2C;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_OT_CLK_GATE_EN_OFFSET = 6'h 2c;
 
   // Register index
   typedef enum int {

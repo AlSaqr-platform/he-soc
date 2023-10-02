@@ -38,10 +38,10 @@ dependencies:
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", version: 1.0.1 }
   register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
-  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "8f3e79154c4f563c70564403d090485972654533" } #branch standalone_rebase
+  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "456b54c798ae4c5971128a36cc35270c19375fd7" } #branch standalone_rebase
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "0ec0bf8b7dab6d5e4b3f7ec58338a8efee066379" }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
-  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "107db490fd3e85c45fda8b02f30cc01d1f32e65c" }
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "82c70c220afa79e4fde86c3fd543950b73c97226" }
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
   ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "f2c8a5040596476ee1769292a7c48df9b1c05949" }
   sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }
