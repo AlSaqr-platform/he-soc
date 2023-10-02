@@ -32,7 +32,7 @@ torture-logs   :=
 CORE_ID        ?= 0
 elf-bin        ?= ../software/hello_culsans/hello_culsans.riscv
 # opentitan variables
-ibex-elf-bin   ?=
+ibex-elf-bin   ?= none
 BOOTMODE       ?= 0
 OT_FLASH       ?= ./opentitan/sw/tests/alsaqr/flash_alsaqr_boot/bazel-out/flash_alsaqr_boot_signed8.vmem
 #cl-bin         ?= ../software/pulp/mm.riscv

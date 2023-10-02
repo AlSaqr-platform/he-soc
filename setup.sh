@@ -19,4 +19,6 @@ export PATH=/usr/pack/pulpsdk-1.0-kgf/artifactory/pulp-sdk-release/pkg/pulp_risc
 
 echo "cloning submodules"
 
+ulimit -n 2048
+
 git submodule update --init --recursive

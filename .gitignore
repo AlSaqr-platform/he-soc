@@ -82,3 +82,8 @@ software/fpu_pulp/cluster_code.h
 fpga/src/bootrom/bootrom.bin
 fpga/src/bootrom/bootrom.coe
 fpga/src/bootrom/bootrom.elf
+hardware/gf22
+hardware/ip_list
+hardware/fll_behav
+hardware/opentitan
+hardware/Bender.lock

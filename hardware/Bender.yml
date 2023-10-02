@@ -34,14 +34,14 @@ dependencies:
   common_cells: { git: "https://github.com/pulp-platform/common_cells.git", version: 1.30.0 }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", rev: "d436ab3dad8260eadc1288bdc543c79b4d7462c7" }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "0e9f142f2f11278445c953ad011fce1c7ed85b66" }
-  hyperbus_udma: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "22086a9cb967f6650421c999ba97f060051cb79f" } # branch mc/pads
+  hyperbus_udma: { git: "git@github.com:AlSaqr-platform/hyperbus.git", rev: "9ab7ec43b783d5d62607f386a02a362852aaf6c9" } # branch sm/idw_9
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", version: 1.0.1 }
   register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "f57065ec613dcaa3f64f6f536cf9f81075f8f3e2" } # branch: master
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "0ec0bf8b7dab6d5e4b3f7ec58338a8efee066379" }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
-  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "4f026bd83cd560e5e34ce307c1aadd6e0a724a9f" }
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "82c70c220afa79e4fde86c3fd543950b73c97226" }
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
   ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "f2c8a5040596476ee1769292a7c48df9b1c05949" }
   sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }

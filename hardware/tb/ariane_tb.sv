@@ -2515,14 +2515,15 @@ module ariane_tb;
         // Load cluster code
         if(cluster_binary!="none")
           jtag_elf_load(cluster_binary, binary_entry, cid);
-
-        $display("Load binary...");
-        // Load host code
-        jtag_elf_load(binary, binary_entry, cid);
-        $display("Wakeup Core..");
-        jtag_elf_run(binary_entry, cid);
-        $display("Wait EOC...");
-        jtag_wait_for_eoc ( TOHOST );
+        if(binary!="none") begin
+          $display("Load binary...");
+          // Load host code
+          jtag_elf_load(binary, binary_entry, cid);
+          $display("Wakeup Core..");
+          jtag_elf_run(binary_entry, cid);
+          $display("Wait EOC...");
+          jtag_wait_for_eoc ( TOHOST );
+        end
       end else begin
 
         $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);
@@ -2761,7 +2762,7 @@ module ariane_tb;
    initial  begin : bootmodes
 
      if(!$value$plusargs("OT_FLASH=%s", ot_flash)) begin
-        ot_flash="";
+        ot_flash="none";
         $display("OT_FLASH: %s", ot_flash);
      end
      if(!$value$plusargs("BOOTMODE=%d", boot_mode)) begin
@@ -2769,14 +2770,14 @@ module ariane_tb;
         $display("BOOTMODE: %d", boot_mode);
      end
      if(!$value$plusargs("OT_SRAM=%s", ot_sram)) begin
-        ot_sram="";
+        ot_sram="none";
         $display("Loading to SRAM: %s", ot_sram);
      end
      case(boot_mode)
          0:begin
            bootmode = 1'b0;
            riscv_ibex_dbg.reset_master();
-           if (ot_sram != "") begin
+           if (ot_sram != "none") begin
                 repeat(8)
                   @(posedge rtc_i);
                 debug_secd_module_init();

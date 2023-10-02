@@ -184,11 +184,7 @@ module alsaqr_clk_rst_gen (
 
     clk_int_div #(
       .DIV_VALUE_WIDTH   ( 32 ),
-      `ifdef TARGET_ASIC
-      .DEFAULT_DIV_VALUE ( 8  )
-      `else
       .DEFAULT_DIV_VALUE ( 1  )
-      `endif
     ) ot_clk_div (
       .clk_i          ( s_clk_opentitan    ),
       .rst_ni         ( s_rstn_soc_sync    ),
