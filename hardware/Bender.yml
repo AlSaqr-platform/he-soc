@@ -157,10 +157,23 @@ sources:
 
   - target: top_post_synth_sim
     files:
-      - gf22/innovus/hyperbus/out/hyperbus_async_macro.v
-      - gf22/innovus/cva6/out/cva6_synth_wrap.v
+      - gf22/synopsys/fll/model/DCO_Model_v1p0.vhd
+      - gf22/synopsys/fll/netlists/gf22_fll.v
+      - gf22/synopsys/hyperbus/trial/netlists/hyperbus_async_macro.v
+      - gf22/synopsys/culsans/trial/netlists/cva6_synth_wrap.v
+      - gf22/synopsys/opentitan/trial/netlists/secure_subsystem_synth_wrap.v
+      - gf22/synopsys/cluster/trial/netlists/pulp_cluster.v
+      - gf22/synopsys/top/trial/netlists/alsaqr_chip.v
+
+  - target: top_post_pr_sim
+    files:
+      - gf22/synopsys/fll/model/DCO_Model_v1p0.vhd
+      - gf22/synopsys/fll/netlists/gf22_fll.v
+      - gf22/innovus/hyperbus/out/hyperbus_synth_wrap.v
+      - gf22/innovus/culsans/out/culsans_synth_wrap.v
+      - gf22/innovus/opentitan/out/secure_subsystem_synth_wrap.v
       - gf22/innovus/cluster/out/pulp_cluster.v
-      - gf22/innovus/trial_hier/out/alsaqr_chip.v
+      - gf22/innovus/top/out/alsaqr_chip.v
 
   - target: vip
     files:
@@ -168,7 +181,6 @@ sources:
       - tb/vips/i2c_eeprom/24FC1025.v
       - tb/vips/spi_flash/s25fs256s.v
       - tb/vips/camera/cam_vip.sv
-
 
   - target: test
     files:
