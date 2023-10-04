@@ -210,6 +210,23 @@ module apb_subsystem
         .clk_i (s_soc_clk)
     );
 
+    //uDMA -> XBAR
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidth      ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+   ) udma_rx_l3_axi_master_cut();
+
+   //uDMA -> XBAR
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidth      ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+   ) udma_tx_l3_axi_master_cut();
+
+
    axi2apb_wrap #(
          .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH           ),
          .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -329,24 +346,6 @@ module apb_subsystem
          .hyper_axi_bus_slave ( hyper_axi_bus_slave       ),
          .hyper_reg_cfg_slave ( i_hyaxicfg_rbus           ),
 
-         /*.L2_ro_wen_o     ( udma_tcdm_channels[0].wen     ),
-         .L2_ro_req_o     ( udma_tcdm_channels[0].req     ),
-         .L2_ro_gnt_i     ( udma_tcdm_channels[0].gnt     ),
-         .L2_ro_addr_o    ( udma_tcdm_channels[0].add     ),
-         .L2_ro_be_o      ( udma_tcdm_channels[0].be      ),
-         .L2_ro_wdata_o   ( udma_tcdm_channels[0].wdata   ),
-         .L2_ro_rvalid_i  ( udma_tcdm_channels[0].r_valid ),
-         .L2_ro_rdata_i   ( udma_tcdm_channels[0].r_rdata ),
-
-         .L2_wo_wen_o     ( udma_tcdm_channels[1].wen      ),
-         .L2_wo_req_o     ( udma_tcdm_channels[1].req      ),
-         .L2_wo_gnt_i     ( udma_tcdm_channels[1].gnt      ),
-         .L2_wo_addr_o    ( udma_tcdm_channels[1].add      ),
-         .L2_wo_wdata_o   ( udma_tcdm_channels[1].wdata    ),
-         .L2_wo_be_o      ( udma_tcdm_channels[1].be       ),
-         .L2_wo_rvalid_i  ( udma_tcdm_channels[1].r_valid  ),
-         .L2_wo_rdata_i   ( udma_tcdm_channels[1].r_rdata  ),*/
-
          .L2_ro_wen_o     ( udma_2_tcdm_master_channels[0].wen     ),
          .L2_ro_req_o     ( udma_2_tcdm_master_channels[0].req     ),
          .L2_ro_gnt_i     ( udma_2_tcdm_master_channels[0].gnt     ),
@@ -399,7 +398,6 @@ module apb_subsystem
     );
 
     ///
-    XBAR_TCDM_BUS error_slave[2]();
     localparam NR_RULES_L2_DEMUX = 2;
 
     apb_soc_pkg::addr_map_rule_t [NR_RULES_L2_DEMUX-1:0] addr_space_contiguous_tx = '{
@@ -418,17 +416,26 @@ module apb_subsystem
     // The first slave port routes to the TCDM port of L2, the second slave port routes to the axi crossbar L3       //
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+    XBAR_TCDM_BUS slave_ports_rx[2]();
+    XBAR_TCDM_BUS slave_ports_tx[2]();
+
+    `TCDM_ASSIGN_INTF(udma_2_tcdm_to_axi_channels[0],slave_ports_tx[1])
+    `TCDM_ASSIGN_INTF(udma_tcdm_channels[0], slave_ports_tx[0])
+
     tcdm_demux #(
         .NR_OUTPUTS( NR_RULES_L2_DEMUX ),
         .NR_ADDR_MAP_RULES( NR_RULES_L2_DEMUX )
     ) i_l2_demux_tx(
         .clk_i,
         .rst_ni,
-        .test_en_i ( 0 ),
+        .test_en_i ( 1'b0   ),
         .addr_map_rules( addr_space_contiguous_tx ),
         .master_port(udma_2_tcdm_master_channels[0]),
-        .slave_ports({ udma_tcdm_channels[0], udma_2_tcdm_to_axi_channels[0] })
+        .slave_ports(slave_ports_tx)
     );
+
+    `TCDM_ASSIGN_INTF( udma_2_tcdm_to_axi_channels[1], slave_ports_rx[1])
+    `TCDM_ASSIGN_INTF( udma_tcdm_channels[1], slave_ports_rx[0])
 
     tcdm_demux #(
         .NR_OUTPUTS( NR_RULES_L2_DEMUX ),
@@ -436,20 +443,20 @@ module apb_subsystem
     ) i_l2_demux_rx(
         .clk_i,
         .rst_ni,
-        .test_en_i ( 0 ),
+        .test_en_i ( 1'b0   ),
         .addr_map_rules( addr_space_contiguous_rx ),
         .master_port(udma_2_tcdm_master_channels[1]),
-        .slave_ports({ udma_tcdm_channels[1], udma_2_tcdm_to_axi_channels[1]})
+        .slave_ports(slave_ports_rx)
     );
 
     //read from MEM
     lint_2_axi #(
-        .ADDR_WIDTH       ( 32        ),
-        .DATA_WIDTH       ( 64        ),
-        .BE_WIDTH         ( 4         ),
-        .USER_WIDTH       ( AXI_USER_WIDTH ),
-        .AXI_ID_WIDTH     ( ariane_soc::IdWidth   ),
-        .REGISTERED_GRANT ( "FALSE"           )  // "TRUE"|"FALSE"
+        .ADDR_WIDTH       ( 32                  ),
+        .DATA_WIDTH       ( AXI_DATA_WIDTH      ),
+        .BE_WIDTH         ( 4                   ),
+        .USER_WIDTH       ( AXI_USER_WIDTH      ),
+        .AXI_ID_WIDTH     ( ariane_soc::IdWidth ),
+        .REGISTERED_GRANT ( "FALSE"             )  // "TRUE"|"FALSE"
     ) i_udma_tx_tcdm_2_axi (
         // Clock and Reset
         .clk_i,
@@ -473,78 +480,91 @@ module apb_subsystem
         // AXI TARG Port Declarations ------------------------------
         // ---------------------------------------------------------
         //AXI write address bus -------------- // USED// -----------
-        .aw_id_o       ( udma_tx_l3_axi_master.aw_id             ),
-        .aw_addr_o     ( udma_tx_l3_axi_master.aw_addr[31:0]     ),
-        .aw_len_o      ( udma_tx_l3_axi_master.aw_len            ),
-        .aw_size_o     ( udma_tx_l3_axi_master.aw_size           ),
-        .aw_burst_o    ( udma_tx_l3_axi_master.aw_burst          ),
-        .aw_lock_o     ( udma_tx_l3_axi_master.aw_lock           ),
-        .aw_cache_o    ( udma_tx_l3_axi_master.aw_cache          ),
-        .aw_prot_o     ( udma_tx_l3_axi_master.aw_prot           ),
-        .aw_region_o   ( udma_tx_l3_axi_master.aw_region         ),
-        .aw_user_o     ( udma_tx_l3_axi_master.aw_user           ),
-        .aw_qos_o      ( udma_tx_l3_axi_master.aw_qos            ),
-        .aw_valid_o    ( udma_tx_l3_axi_master.aw_valid          ),
-        .aw_ready_i    ( udma_tx_l3_axi_master.aw_ready          ),
+        .aw_id_o       ( udma_tx_l3_axi_master_cut.aw_id             ),
+        .aw_addr_o     ( udma_tx_l3_axi_master_cut.aw_addr[31:0]     ),
+        .aw_len_o      ( udma_tx_l3_axi_master_cut.aw_len            ),
+        .aw_size_o     ( udma_tx_l3_axi_master_cut.aw_size           ),
+        .aw_burst_o    ( udma_tx_l3_axi_master_cut.aw_burst          ),
+        .aw_lock_o     ( udma_tx_l3_axi_master_cut.aw_lock           ),
+        .aw_cache_o    ( udma_tx_l3_axi_master_cut.aw_cache          ),
+        .aw_prot_o     ( udma_tx_l3_axi_master_cut.aw_prot           ),
+        .aw_region_o   ( udma_tx_l3_axi_master_cut.aw_region         ),
+        .aw_user_o     ( udma_tx_l3_axi_master_cut.aw_user           ),
+        .aw_qos_o      ( udma_tx_l3_axi_master_cut.aw_qos            ),
+        .aw_valid_o    ( udma_tx_l3_axi_master_cut.aw_valid          ),
+        .aw_ready_i    ( udma_tx_l3_axi_master_cut.aw_ready          ),
         // ---------------------------------------------------------
 
         //AXI write data bus -------------- // USED// --------------
-        .w_data_o      ( udma_tx_l3_axi_master.w_data            ),
-        .w_strb_o      ( udma_tx_l3_axi_master.w_strb            ),
-        .w_last_o      ( udma_tx_l3_axi_master.w_last            ),
-        .w_user_o      ( udma_tx_l3_axi_master.w_user            ),
-        .w_valid_o     ( udma_tx_l3_axi_master.w_valid           ),
-        .w_ready_i     ( udma_tx_l3_axi_master.w_ready           ),
+        .w_data_o      ( udma_tx_l3_axi_master_cut.w_data            ),
+        .w_strb_o      ( udma_tx_l3_axi_master_cut.w_strb            ),
+        .w_last_o      ( udma_tx_l3_axi_master_cut.w_last            ),
+        .w_user_o      ( udma_tx_l3_axi_master_cut.w_user            ),
+        .w_valid_o     ( udma_tx_l3_axi_master_cut.w_valid           ),
+        .w_ready_i     ( udma_tx_l3_axi_master_cut.w_ready           ),
         // ---------------------------------------------------------
 
         //AXI write response bus -------------- // USED// ----------
-        .b_id_i        ( udma_tx_l3_axi_master.b_id              ),
-        .b_resp_i      ( udma_tx_l3_axi_master.b_resp            ),
-        .b_valid_i     ( udma_tx_l3_axi_master.b_valid           ),
-        .b_user_i      ( udma_tx_l3_axi_master.b_user            ),
-        .b_ready_o     ( udma_tx_l3_axi_master.b_ready           ),
+        .b_id_i        ( udma_tx_l3_axi_master_cut.b_id              ),
+        .b_resp_i      ( udma_tx_l3_axi_master_cut.b_resp            ),
+        .b_valid_i     ( udma_tx_l3_axi_master_cut.b_valid           ),
+        .b_user_i      ( udma_tx_l3_axi_master_cut.b_user            ),
+        .b_ready_o     ( udma_tx_l3_axi_master_cut.b_ready           ),
         // ---------------------------------------------------------
 
         //AXI read address bus -------------------------------------
-        .ar_id_o       ( udma_tx_l3_axi_master.ar_id             ),
-        .ar_addr_o     ( udma_tx_l3_axi_master.ar_addr[31:0]     ),
-        .ar_len_o      ( udma_tx_l3_axi_master.ar_len            ),
-        .ar_size_o     ( udma_tx_l3_axi_master.ar_size           ),
-        .ar_burst_o    ( udma_tx_l3_axi_master.ar_burst          ),
-        .ar_lock_o     ( udma_tx_l3_axi_master.ar_lock           ),
-        .ar_cache_o    ( udma_tx_l3_axi_master.ar_cache          ),
-        .ar_prot_o     ( udma_tx_l3_axi_master.ar_prot           ),
-        .ar_region_o   ( udma_tx_l3_axi_master.ar_region         ),
-        .ar_user_o     ( udma_tx_l3_axi_master.ar_user           ),
-        .ar_qos_o      ( udma_tx_l3_axi_master.ar_qos            ),
-        .ar_valid_o    ( udma_tx_l3_axi_master.ar_valid          ),
-        .ar_ready_i    ( udma_tx_l3_axi_master.ar_ready          ),
+        .ar_id_o       ( udma_tx_l3_axi_master_cut.ar_id             ),
+        .ar_addr_o     ( udma_tx_l3_axi_master_cut.ar_addr[31:0]     ),
+        .ar_len_o      ( udma_tx_l3_axi_master_cut.ar_len            ),
+        .ar_size_o     ( udma_tx_l3_axi_master_cut.ar_size           ),
+        .ar_burst_o    ( udma_tx_l3_axi_master_cut.ar_burst          ),
+        .ar_lock_o     ( udma_tx_l3_axi_master_cut.ar_lock           ),
+        .ar_cache_o    ( udma_tx_l3_axi_master_cut.ar_cache          ),
+        .ar_prot_o     ( udma_tx_l3_axi_master_cut.ar_prot           ),
+        .ar_region_o   ( udma_tx_l3_axi_master_cut.ar_region         ),
+        .ar_user_o     ( udma_tx_l3_axi_master_cut.ar_user           ),
+        .ar_qos_o      ( udma_tx_l3_axi_master_cut.ar_qos            ),
+        .ar_valid_o    ( udma_tx_l3_axi_master_cut.ar_valid          ),
+        .ar_ready_i    ( udma_tx_l3_axi_master_cut.ar_ready          ),
         // ---------------------------------------------------------
 
         //AXI read data bus ----------------------------------------
-        .r_id_i        ( udma_tx_l3_axi_master.r_id              ),
-        //.r_data_i      ( udma_tx_l3_axi_master.r_data[31:0]      ),
-        .r_data_i      ( udma_tx_l3_axi_master.r_data      ),
-        .r_resp_i      ( udma_tx_l3_axi_master.r_resp            ),
-        .r_last_i      ( udma_tx_l3_axi_master.r_last            ),
-        .r_user_i      ( udma_tx_l3_axi_master.r_user            ),
-        .r_valid_i     ( udma_tx_l3_axi_master.r_valid           ),
-        .r_ready_o     ( udma_tx_l3_axi_master.r_ready           )
+        .r_id_i        ( udma_tx_l3_axi_master_cut.r_id              ),
+        //.r_data_i      ( udma_tx_l3_axi_master_cut.r_data[31:0]      ),
+        .r_data_i      ( udma_tx_l3_axi_master_cut.r_data      ),
+        .r_resp_i      ( udma_tx_l3_axi_master_cut.r_resp            ),
+        .r_last_i      ( udma_tx_l3_axi_master_cut.r_last            ),
+        .r_user_i      ( udma_tx_l3_axi_master_cut.r_user            ),
+        .r_valid_i     ( udma_tx_l3_axi_master_cut.r_valid           ),
+        .r_ready_o     ( udma_tx_l3_axi_master_cut.r_ready           )
         // ---------------------------------------------------------
     );
 
-    assign udma_tx_l3_axi_master.aw_atop = '0;
-    assign udma_tx_l3_axi_master.aw_addr [AXI_ADDR_WIDTH-1:32] = 'h0;
-    assign udma_tx_l3_axi_master.ar_addr [AXI_ADDR_WIDTH-1:32] = 'h0;
+    assign udma_tx_l3_axi_master_cut.aw_atop = '0;
+    assign udma_tx_l3_axi_master_cut.aw_addr [AXI_ADDR_WIDTH-1:32] = 'h0;
+    assign udma_tx_l3_axi_master_cut.ar_addr [AXI_ADDR_WIDTH-1:32] = 'h0;
+
+    axi_cut_intf #(
+        .BYPASS     ( 1'b0                ),
+        .ADDR_WIDTH ( AXI_ADDR_WIDTH      ),
+        .DATA_WIDTH ( AXI_DATA_WIDTH      ),
+        .ID_WIDTH   ( ariane_soc::IdWidth ),
+        .USER_WIDTH ( AXI_USER_WIDTH      )
+    )  i_udma_tx_l3_axi_master_cut (
+        .clk_i  ( clk_i                     ),
+        .rst_ni ( rst_ni                    ),
+        .in     ( udma_tx_l3_axi_master_cut ),
+        .out    ( udma_tx_l3_axi_master     )
+    );
 
     //WRITE TO MEM
     lint_2_axi #(
-        .ADDR_WIDTH       ( 32        ),
-        .DATA_WIDTH       ( 64        ),
-        .BE_WIDTH         ( 4         ),
-        .USER_WIDTH       ( AXI_USER_WIDTH ),
-        .AXI_ID_WIDTH     ( ariane_soc::IdWidth   ),
-        .REGISTERED_GRANT ( "FALSE"           )  // "TRUE"|"FALSE"
+        .ADDR_WIDTH       ( 32                  ),
+        .DATA_WIDTH       ( AXI_DATA_WIDTH      ),
+        .BE_WIDTH         ( 4                   ),
+        .USER_WIDTH       ( AXI_USER_WIDTH      ),
+        .AXI_ID_WIDTH     ( ariane_soc::IdWidth ),
+        .REGISTERED_GRANT ( "FALSE"             )  // "TRUE"|"FALSE"
     ) i_udma_rx_tcdm_2_axi (
         // Clock and Reset
         .clk_i,
@@ -568,70 +588,81 @@ module apb_subsystem
         // AXI TARG Port Declarations ------------------------------
         // ---------------------------------------------------------
         //AXI write address bus -------------- // USED// -----------
-        .aw_id_o       ( udma_rx_l3_axi_master.aw_id             ),
-        .aw_addr_o     ( udma_rx_l3_axi_master.aw_addr[31:0]     ),
-        .aw_len_o      ( udma_rx_l3_axi_master.aw_len            ),
-        .aw_size_o     ( udma_rx_l3_axi_master.aw_size           ),
-        .aw_burst_o    ( udma_rx_l3_axi_master.aw_burst          ),
-        .aw_lock_o     ( udma_rx_l3_axi_master.aw_lock           ),
-        .aw_cache_o    ( udma_rx_l3_axi_master.aw_cache          ),
-        .aw_prot_o     ( udma_rx_l3_axi_master.aw_prot           ),
-        .aw_region_o   ( udma_rx_l3_axi_master.aw_region         ),
-        .aw_user_o     ( udma_rx_l3_axi_master.aw_user           ),
-        .aw_qos_o      ( udma_rx_l3_axi_master.aw_qos            ),
-        .aw_valid_o    ( udma_rx_l3_axi_master.aw_valid          ),
-        .aw_ready_i    ( udma_rx_l3_axi_master.aw_ready          ),
+        .aw_id_o       ( udma_rx_l3_axi_master_cut.aw_id             ),
+        .aw_addr_o     ( udma_rx_l3_axi_master_cut.aw_addr[31:0]     ),
+        .aw_len_o      ( udma_rx_l3_axi_master_cut.aw_len            ),
+        .aw_size_o     ( udma_rx_l3_axi_master_cut.aw_size           ),
+        .aw_burst_o    ( udma_rx_l3_axi_master_cut.aw_burst          ),
+        .aw_lock_o     ( udma_rx_l3_axi_master_cut.aw_lock           ),
+        .aw_cache_o    ( udma_rx_l3_axi_master_cut.aw_cache          ),
+        .aw_prot_o     ( udma_rx_l3_axi_master_cut.aw_prot           ),
+        .aw_region_o   ( udma_rx_l3_axi_master_cut.aw_region         ),
+        .aw_user_o     ( udma_rx_l3_axi_master_cut.aw_user           ),
+        .aw_qos_o      ( udma_rx_l3_axi_master_cut.aw_qos            ),
+        .aw_valid_o    ( udma_rx_l3_axi_master_cut.aw_valid          ),
+        .aw_ready_i    ( udma_rx_l3_axi_master_cut.aw_ready          ),
         // ---------------------------------------------------------
 
         //AXI write data bus -------------- // USED// --------------
-        .w_data_o      ( udma_rx_l3_axi_master.w_data            ),
-        .w_strb_o      ( udma_rx_l3_axi_master.w_strb            ),
-        .w_last_o      ( udma_rx_l3_axi_master.w_last            ),
-        .w_user_o      ( udma_rx_l3_axi_master.w_user            ),
-        .w_valid_o     ( udma_rx_l3_axi_master.w_valid           ),
-        .w_ready_i     ( udma_rx_l3_axi_master.w_ready           ),
+        .w_data_o      ( udma_rx_l3_axi_master_cut.w_data            ),
+        .w_strb_o      ( udma_rx_l3_axi_master_cut.w_strb            ),
+        .w_last_o      ( udma_rx_l3_axi_master_cut.w_last            ),
+        .w_user_o      ( udma_rx_l3_axi_master_cut.w_user            ),
+        .w_valid_o     ( udma_rx_l3_axi_master_cut.w_valid           ),
+        .w_ready_i     ( udma_rx_l3_axi_master_cut.w_ready           ),
         // ---------------------------------------------------------
 
         //AXI write response bus -------------- // USED// ----------
-        .b_id_i        ( udma_rx_l3_axi_master.b_id              ),
-        .b_resp_i      ( udma_rx_l3_axi_master.b_resp            ),
-        .b_valid_i     ( udma_rx_l3_axi_master.b_valid           ),
-        .b_user_i      ( udma_rx_l3_axi_master.b_user            ),
-        .b_ready_o     ( udma_rx_l3_axi_master.b_ready           ),
+        .b_id_i        ( udma_rx_l3_axi_master_cut.b_id              ),
+        .b_resp_i      ( udma_rx_l3_axi_master_cut.b_resp            ),
+        .b_valid_i     ( udma_rx_l3_axi_master_cut.b_valid           ),
+        .b_user_i      ( udma_rx_l3_axi_master_cut.b_user            ),
+        .b_ready_o     ( udma_rx_l3_axi_master_cut.b_ready           ),
         // ---------------------------------------------------------
 
         //AXI read address bus -------------------------------------
-        .ar_id_o       ( udma_rx_l3_axi_master.ar_id             ),
-        .ar_addr_o     ( udma_rx_l3_axi_master.ar_addr[31:0]     ),
-        .ar_len_o      ( udma_rx_l3_axi_master.ar_len            ),
-        .ar_size_o     ( udma_rx_l3_axi_master.ar_size           ),
-        .ar_burst_o    ( udma_rx_l3_axi_master.ar_burst          ),
-        .ar_lock_o     ( udma_rx_l3_axi_master.ar_lock           ),
-        .ar_cache_o    ( udma_rx_l3_axi_master.ar_cache          ),
-        .ar_prot_o     ( udma_rx_l3_axi_master.ar_prot           ),
-        .ar_region_o   ( udma_rx_l3_axi_master.ar_region         ),
-        .ar_user_o     ( udma_rx_l3_axi_master.ar_user           ),
-        .ar_qos_o      ( udma_rx_l3_axi_master.ar_qos            ),
-        .ar_valid_o    ( udma_rx_l3_axi_master.ar_valid          ),
-        .ar_ready_i    ( udma_rx_l3_axi_master.ar_ready          ),
+        .ar_id_o       ( udma_rx_l3_axi_master_cut.ar_id             ),
+        .ar_addr_o     ( udma_rx_l3_axi_master_cut.ar_addr[31:0]     ),
+        .ar_len_o      ( udma_rx_l3_axi_master_cut.ar_len            ),
+        .ar_size_o     ( udma_rx_l3_axi_master_cut.ar_size           ),
+        .ar_burst_o    ( udma_rx_l3_axi_master_cut.ar_burst          ),
+        .ar_lock_o     ( udma_rx_l3_axi_master_cut.ar_lock           ),
+        .ar_cache_o    ( udma_rx_l3_axi_master_cut.ar_cache          ),
+        .ar_prot_o     ( udma_rx_l3_axi_master_cut.ar_prot           ),
+        .ar_region_o   ( udma_rx_l3_axi_master_cut.ar_region         ),
+        .ar_user_o     ( udma_rx_l3_axi_master_cut.ar_user           ),
+        .ar_qos_o      ( udma_rx_l3_axi_master_cut.ar_qos            ),
+        .ar_valid_o    ( udma_rx_l3_axi_master_cut.ar_valid          ),
+        .ar_ready_i    ( udma_rx_l3_axi_master_cut.ar_ready          ),
         // ---------------------------------------------------------
 
         //AXI read data bus ----------------------------------------
-        .r_id_i        ( udma_rx_l3_axi_master.r_id              ),
-        .r_data_i      ( udma_rx_l3_axi_master.r_data            ),
-        .r_resp_i      ( udma_rx_l3_axi_master.r_resp            ),
-        .r_last_i      ( udma_rx_l3_axi_master.r_last            ),
-        .r_user_i      ( udma_rx_l3_axi_master.r_user            ),
-        .r_valid_i     ( udma_rx_l3_axi_master.r_valid           ),
-        .r_ready_o     ( udma_rx_l3_axi_master.r_ready           )
+        .r_id_i        ( udma_rx_l3_axi_master_cut.r_id              ),
+        .r_data_i      ( udma_rx_l3_axi_master_cut.r_data            ),
+        .r_resp_i      ( udma_rx_l3_axi_master_cut.r_resp            ),
+        .r_last_i      ( udma_rx_l3_axi_master_cut.r_last            ),
+        .r_user_i      ( udma_rx_l3_axi_master_cut.r_user            ),
+        .r_valid_i     ( udma_rx_l3_axi_master_cut.r_valid           ),
+        .r_ready_o     ( udma_rx_l3_axi_master_cut.r_ready           )
         // ---------------------------------------------------------
     );
 
-    assign udma_rx_l3_axi_master.aw_atop = '0;
-    assign udma_rx_l3_axi_master.aw_addr [AXI_ADDR_WIDTH-1:32] = 'h0;
-    assign udma_rx_l3_axi_master.ar_addr [AXI_ADDR_WIDTH-1:32] = 'h0;
+    assign udma_rx_l3_axi_master_cut.aw_atop = '0;
+    assign udma_rx_l3_axi_master_cut.aw_addr [AXI_ADDR_WIDTH-1:32] = 'h0;
+    assign udma_rx_l3_axi_master_cut.ar_addr [AXI_ADDR_WIDTH-1:32] = 'h0;
 
-    ///
+    axi_cut_intf #(
+        .BYPASS     ( 1'b0                ),
+        .ADDR_WIDTH ( AXI_ADDR_WIDTH      ),
+        .DATA_WIDTH ( AXI_DATA_WIDTH      ),
+        .ID_WIDTH   ( ariane_soc::IdWidth ),
+        .USER_WIDTH ( AXI_USER_WIDTH      )
+    )  i_udma_rx_l3_axi_master_cut (
+        .clk_i  ( clk_i                     ),
+        .rst_ni ( rst_ni                    ),
+        .in     ( udma_rx_l3_axi_master_cut ),
+        .out    ( udma_rx_l3_axi_master     )
+    );
 
     logic [63:0] s_gpio_sync;
     logic [NUM_GPIO-1:0] s_gpio_in;
