@@ -47,6 +47,7 @@ module alsaqr_clk_rst_gen (
   logic s_clk_fll_per;
   logic s_clk_fll_cluster;
   logic s_clk_opentitan;
+  logic s_clk_opentitan_o;
 
   logic s_rstn_soc;
 
@@ -171,8 +172,10 @@ module alsaqr_clk_rst_gen (
     logic        ot_div_value_valid;
     logic        ot_div_value_ready;
 
-    lossy_valid_to_stream ot_clk_int_div_config_decouple (
-      .clk_i   ( s_clk     ),
+    lossy_valid_to_stream  #(
+      .DATA_WIDTH(32)
+    ) ot_clk_int_div_config_decouple(
+      .clk_i   ( s_clk_soc           ),
       .rst_ni  ( s_rstn_soc_sync     ),
       .valid_i ( ot_clk_div_qe_i     ),
       .data_i  ( ot_clk_div_q_i      ),
@@ -193,7 +196,7 @@ module alsaqr_clk_rst_gen (
       .div_i          ( ot_div_value       ),
       .div_valid_i    ( ot_div_value_valid ),
       .div_ready_o    ( ot_div_value_ready ),
-      .clk_o          ( clk_opentitan_o    ),
+      .clk_o          ( s_clk_opentitan_o  ),
       .cycl_count_o   (                    )
     );
 
@@ -221,10 +224,11 @@ module alsaqr_clk_rst_gen (
       .cfg_wrn_i      ( fll_intf.web      )
     );
 
-    assign s_clk_soc     = s_clk_fll_soc;
-    assign s_clk_cluster = s_clk_fll_cluster;
-    assign s_clk_per     = s_clk_fll_per;
-    assign s_clk_cva6    = s_clk_fll_cva6;
+    assign s_clk_soc         = s_clk_fll_soc;
+    assign s_clk_cluster     = s_clk_fll_cluster;
+    assign s_clk_per         = s_clk_fll_per;
+    assign s_clk_cva6        = s_clk_fll_cva6;
+    assign s_clk_opentitan_o = s_clk_fll_soc;
 
     assign s_rstn_soc_sync     = s_rstn_soc & (~rst_dm_i) ;
     assign s_rstn_cluster_sync = s_rstn_soc & (~rst_dm_i);
@@ -233,13 +237,13 @@ module alsaqr_clk_rst_gen (
 
   `endif
 
-
   assign s_rstn_soc = rstn_glob_i;
 
-  assign clk_cva6_o    = s_clk_cva6;
-  assign clk_soc_o     = s_clk_soc;
-  assign clk_per_o     = s_clk_per;
-  assign clk_cluster_o = s_clk_cluster;
+  assign clk_cva6_o      = s_clk_cva6;
+  assign clk_soc_o       = s_clk_soc;
+  assign clk_per_o       = s_clk_per;
+  assign clk_cluster_o   = s_clk_cluster;
+  assign clk_opentitan_o = s_clk_opentitan_o;
 
   assign rstn_soc_sync_o     = s_rstn_soc_sync;
   assign rstn_cva6_sync_o    = s_rstn_cva6_sync;
