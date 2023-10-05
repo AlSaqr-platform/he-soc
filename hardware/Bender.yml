@@ -155,7 +155,7 @@ sources:
       - gf22/macro_wrap/tc_sram_gf22.sv
       - gf22/macro_wrap/tc_clk_gf22.sv
 
-  - target: top_post_synth_sim
+  - target: post_synth_all
     files:
       - gf22/synopsys/fll/model/DCO_Model_v1p0.vhd
       - gf22/synopsys/fll/netlists/gf22_fll.v
@@ -164,6 +164,22 @@ sources:
       - gf22/synopsys/opentitan/trial/netlists/secure_subsystem_synth_wrap.v
       - gf22/synopsys/cluster/trial/netlists/pulp_cluster.v
       - gf22/synopsys/top/trial/netlists/alsaqr_chip.v
+
+  - target: post_synth_top
+    files:
+      - gf22/synopsys/top/trial/netlists/alsaqr_chip.v
+
+  - target: post_synth_opentitan
+    files:
+      - gf22/synopsys/opentitan/trial/netlists/secure_subsystem_synth_wrap.v
+
+  - target: post_synth_cluster
+    files:
+      - gf22/synopsys/cluster/trial/netlists/pulp_cluster.v
+
+  - target: post_synth_hyper
+    files:
+      - gf22/synopsys/hyperbus/trial/netlists/hyperbus_async_macro.v
 
   - target: top_post_pr_sim
     files:
