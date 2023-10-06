@@ -167,6 +167,9 @@ sources:
 
   - target: post_synth_top
     files:
+      - gf22/synopsys/fll/model/DCO_Model_v1p0.vhd
+      - gf22/synopsys/fll/netlists/gf22_fll.v
+      - gf22/synopsys/hyperbus/trial/netlists/hyperbus_async_macro.v
       - gf22/synopsys/top/trial/netlists/alsaqr_chip.v
 
   - target: post_synth_opentitan
@@ -207,5 +210,14 @@ sources:
       - tb/common/jtag_pkg.sv
       - tb/common/jtag_intf.sv
       - tb/common/mock_uart.sv
+
+  - target: tb_synth
+    defines:
+      TARGET_TOP_POST_SYNTH_SIM: ~
+    files:
+      - tb/ariane_tb.sv
+
+  - target: tb
+    files:
       - tb/ariane_tb.sv
 
