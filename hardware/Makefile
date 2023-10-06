@@ -208,47 +208,47 @@ scripts-bender-synopsys: | Bender.lock
 scripts:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t cv64a6_imafdc_sv39 > compile.tcl
+    -t rtl -t test -t tb  -t cv64a6_imafdc_sv39 > compile.tcl
 
 scripts_vip_macro:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t macro -t rtl -t test -t vip -t cv64a6_imafdc_sv39 > compile.tcl
+    -t macro -t rtl -t test -t tb -t vip -t cv64a6_imafdc_sv39 > compile.tcl
 
 scripts_vip:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t vip -t cv64a6_imafdc_sv39 > compile.tcl
+    -t rtl -t test -t tb -t vip -t cv64a6_imafdc_sv39 > compile.tcl
 
 post_synth_all:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t vip -t post_synth_all -t cv64a6_imafdc_sv39 > post_synth_compile.tcl
+    -t rtl -t test -t tb_synth -t vip -t post_synth_all -t cv64a6_imafdc_sv39 > post_synth_compile.tcl
 
 post_synth_top:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t vip -t post_synth_top -t cv64a6_imafdc_sv39 > post_synth_compile.tcl
+    -t rtl -t test -t tb_synth -t vip -t post_synth_top -t cv64a6_imafdc_sv39 > post_synth_compile.tcl
 
 post_synth_opentitan:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t vip -t post_synth_opentitan -t cv64a6_imafdc_sv39 > post_synth_compile.tcl
+    -t rtl -t test -t tb -t vip -t post_synth_opentitan -t cv64a6_imafdc_sv39 > post_synth_compile.tcl
 
 post_synth_cluster:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t vip -t post_synth_cluster -t cv64a6_imafdc_sv39 > post_synth_compile.tcl
+    -t rtl -t test -t tb -t vip -t post_synth_cluster -t cv64a6_imafdc_sv39 > post_synth_compile.tcl
 
 post_synth_hyper:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t vip -t post_synth_hyper -t cv64a6_imafdc_sv39 > post_synth_compile.tcl
+    -t rtl -t test -t tb -t vip -t post_synth_hyper -t cv64a6_imafdc_sv39 > post_synth_compile.tcl
 
 post_pr_scripts_vip:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t cv64a6_imafdc_sv39 -t top_post_pr_sim -t vip > post_pr_compile.tcl
+    -t rtl -t test -t tb_synth -t cv64a6_imafdc_sv39 -t top_post_pr_sim -t vip > post_pr_compile.tcl
 
 ## -sdfnoerror -sdfnowarn -sdfmin ./gf22/innovus/cva6/out
 
@@ -283,7 +283,7 @@ build_macro: bendertb_macro 	$(dpi-library)/ariane_dpi.so
 	vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc -check_synthesis
 
 build_synth: bendertb_synth 	$(dpi-library)/ariane_dpi.so
-	vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized -check_synthesis
+	vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc -check_synthesis
 
 $(library):
 	vlib${questa_version} $(library)
