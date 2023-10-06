@@ -1,7 +1,7 @@
 # Author: Florian Zaruba, ETH Zurich
 # Date: 03/19/2017
 # Description: Makefile for linting and testing Ariane.
-
+QUESTA:=questa-2022.3
 # Bender
 BENDER:=./bender
 # questa library
@@ -272,7 +272,7 @@ post_pr_scripts_vip:
 
 benderrun: libbender $(util) $(library)
 	@test -f Bender.lock || { echo "ERROR: Bender.lock file does not exist. Did you run make checkout in bender mode?"; exit 1; }
-	vsim -c -do 'source $(compile_script); quit'
+	$(QUESTA) vsim -c -do 'source $(compile_script); quit'
 	touch $(library)/.build-srcs
 
 benderrun_macro: libbender $(util) $(library)
@@ -295,10 +295,10 @@ bendertb_synth: benderrun_synth $(dpi)
 	touch $(library)/.build-tb
 
 build: bendertb 	$(dpi-library)/ariane_dpi.so
-	vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc -check_synthesis
+	$(QUESTA) vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc=+u_RoT. -check_synthesis
 
 build_macro: bendertb_macro 	$(dpi-library)/ariane_dpi.so
-	vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc -check_synthesis
+	$(QUESTA) vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc -check_synthesis
 
 build_synth: bendertb_synth 	$(dpi-library)/ariane_dpi.so
 	vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc -check_synthesis
@@ -326,7 +326,7 @@ generate-trace-vsim:
 	make generate-trace
 
 run:
-	vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8386 -suppress 8360 -lib $(library) +OT_FLASH=$(OT_FLASH) +CORE_ID=$(CORE_ID) +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
+	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8386 -suppress 8360 -lib $(library) +OT_FLASH=$(OT_FLASH) +CORE_ID=$(CORE_ID) +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi  \
 	${top_level}_optimized +permissive-off ++$(elf-bin) ++$(target-options) ++$(cl-bin) | tee sim.log
 
@@ -342,7 +342,7 @@ synth_sim: build_synth run
 $(alsaqr-regression): build
 	mkdir -p tmp
 	../software/elf_to_slm.py --binary=$@ --vectors=hyperram0.slm
-	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library)  -suppress 3053 -suppress 8386 -suppress 8885 +max-cycles=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$@ +CL_STRING=$(cl-bin) -t 1ps \
+	$(QUESTA) vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library)  -suppress 3053 -suppress 8386 -suppress 8885 +max-cycles=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$@ +CL_STRING=$(cl-bin) -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi   \
 	${top_level}_optimized $(QUESTASIM_FLAGS) +permissive-off ++$(alsaqr-regression-dir)/$@ ++$(target-options) | tee tmp/alsaqr-regression-$@.log
 
