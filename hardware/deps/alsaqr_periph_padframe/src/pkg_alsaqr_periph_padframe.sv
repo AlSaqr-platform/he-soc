@@ -49,11 +49,40 @@ package pkg_alsaqr_periph_padframe;
      } pad_domain_periphs_port_group_sdio0_pad2soc_t;
 
    typedef struct packed {
+      logic        clk_i;
+      logic        cmd_i;
+      logic        cmd_oen_i;
+      logic        data0_i;
+      logic        data0_oen_i;
+      logic        data1_i;
+      logic        data1_oen_i;
+      logic        data2_i;
+      logic        data2_oen_i;
+      logic        data3_i;
+      logic        data3_oen_i;
+     } pad_domain_periphs_port_group_sdio1_soc2pad_t;
+
+   typedef struct packed {
+      logic        cmd_o;
+      logic        data0_o;
+      logic        data1_o;
+      logic        data2_o;
+      logic        data3_o;
+     } pad_domain_periphs_port_group_sdio1_pad2soc_t;
+
+   typedef struct packed {
       logic        pwm0_i;
       logic        pwm1_i;
       logic        pwm2_i;
       logic        pwm3_i;
      } pad_domain_periphs_port_group_pwm0_soc2pad_t;
+
+   typedef struct packed {
+      logic        pwm0_i;
+      logic        pwm1_i;
+      logic        pwm2_i;
+      logic        pwm3_i;
+     } pad_domain_periphs_port_group_pwm1_soc2pad_t;
 
    typedef struct packed {
       logic        scl_i;
@@ -68,44 +97,6 @@ package pkg_alsaqr_periph_padframe;
      } pad_domain_periphs_port_group_i2c0_pad2soc_t;
 
    typedef struct packed {
-      logic        clk_i;
-      logic        csn0_i;
-      logic        sd0_i;
-     } pad_domain_periphs_port_group_spi0_soc2pad_t;
-
-   typedef struct packed {
-      logic        sd1_o;
-     } pad_domain_periphs_port_group_spi0_pad2soc_t;
-
-   typedef struct packed {
-      logic        clk_i;
-      logic        csn0_i;
-      logic        sd0_i;
-     } pad_domain_periphs_port_group_spi2_soc2pad_t;
-
-   typedef struct packed {
-      logic        sd1_o;
-     } pad_domain_periphs_port_group_spi2_pad2soc_t;
-
-   typedef struct packed {
-      logic        clk_i;
-      logic        csn0_i;
-      logic        sd0_i;
-     } pad_domain_periphs_port_group_spi3_soc2pad_t;
-
-   typedef struct packed {
-      logic        sd1_o;
-     } pad_domain_periphs_port_group_spi3_pad2soc_t;
-
-   typedef struct packed {
-      logic        tx_i;
-     } pad_domain_periphs_port_group_uart0_soc2pad_t;
-
-   typedef struct packed {
-      logic        rx_o;
-     } pad_domain_periphs_port_group_uart0_pad2soc_t;
-
-   typedef struct packed {
       logic        scl_i;
       logic        scl_oe_i;
       logic        sda_i;
@@ -116,26 +107,6 @@ package pkg_alsaqr_periph_padframe;
       logic        scl_o;
       logic        sda_o;
      } pad_domain_periphs_port_group_i2c1_pad2soc_t;
-
-   typedef struct packed {
-      logic        rts_i;
-      logic        tx_i;
-     } pad_domain_periphs_port_group_usart0_soc2pad_t;
-
-   typedef struct packed {
-      logic        cts_o;
-      logic        rx_o;
-     } pad_domain_periphs_port_group_usart0_pad2soc_t;
-
-   typedef struct packed {
-      logic        clk_i;
-      logic        csn0_i;
-      logic        sd0_i;
-     } pad_domain_periphs_port_group_spi4_soc2pad_t;
-
-   typedef struct packed {
-      logic        sd1_o;
-     } pad_domain_periphs_port_group_spi4_pad2soc_t;
 
    typedef struct packed {
       logic        scl_i;
@@ -150,15 +121,16 @@ package pkg_alsaqr_periph_padframe;
      } pad_domain_periphs_port_group_i2c2_pad2soc_t;
 
    typedef struct packed {
-      logic        clk_i;
-      logic        csn0_i;
-      logic        csn1_i;
-      logic        sd0_i;
-     } pad_domain_periphs_port_group_spi7_soc2pad_t;
+      logic        scl_i;
+      logic        scl_oe_i;
+      logic        sda_i;
+      logic        sda_oe_i;
+     } pad_domain_periphs_port_group_i2c3_soc2pad_t;
 
    typedef struct packed {
-      logic        sd1_o;
-     } pad_domain_periphs_port_group_spi7_pad2soc_t;
+      logic        scl_o;
+      logic        sda_o;
+     } pad_domain_periphs_port_group_i2c3_pad2soc_t;
 
    typedef struct packed {
       logic        scl_i;
@@ -174,11 +146,29 @@ package pkg_alsaqr_periph_padframe;
 
    typedef struct packed {
       logic        tx_i;
+     } pad_domain_periphs_port_group_uart0_soc2pad_t;
+
+   typedef struct packed {
+      logic        rx_o;
+     } pad_domain_periphs_port_group_uart0_pad2soc_t;
+
+   typedef struct packed {
+      logic        tx_i;
      } pad_domain_periphs_port_group_uart1_soc2pad_t;
 
    typedef struct packed {
       logic        rx_o;
      } pad_domain_periphs_port_group_uart1_pad2soc_t;
+
+   typedef struct packed {
+      logic        rts_i;
+      logic        tx_i;
+     } pad_domain_periphs_port_group_usart0_soc2pad_t;
+
+   typedef struct packed {
+      logic        cts_o;
+      logic        rx_o;
+     } pad_domain_periphs_port_group_usart0_pad2soc_t;
 
    typedef struct packed {
       logic        rts_i;
@@ -189,6 +179,26 @@ package pkg_alsaqr_periph_padframe;
       logic        cts_o;
       logic        rx_o;
      } pad_domain_periphs_port_group_usart1_pad2soc_t;
+
+   typedef struct packed {
+      logic        rts_i;
+      logic        tx_i;
+     } pad_domain_periphs_port_group_usart2_soc2pad_t;
+
+   typedef struct packed {
+      logic        cts_o;
+      logic        rx_o;
+     } pad_domain_periphs_port_group_usart2_pad2soc_t;
+
+   typedef struct packed {
+      logic        rts_i;
+      logic        tx_i;
+     } pad_domain_periphs_port_group_usart3_soc2pad_t;
+
+   typedef struct packed {
+      logic        cts_o;
+      logic        rx_o;
+     } pad_domain_periphs_port_group_usart3_pad2soc_t;
 
    typedef struct packed {
       logic        eth_md_i;
@@ -214,16 +224,6 @@ package pkg_alsaqr_periph_padframe;
      } pad_domain_periphs_port_group_eth_pad2soc_t;
 
    typedef struct packed {
-      logic        clk_i;
-      logic        csn0_i;
-      logic        sd0_i;
-     } pad_domain_periphs_port_group_spi10_soc2pad_t;
-
-   typedef struct packed {
-      logic        sd1_o;
-     } pad_domain_periphs_port_group_spi10_pad2soc_t;
-
-   typedef struct packed {
       logic        tx_i;
      } pad_domain_periphs_port_group_can0_soc2pad_t;
 
@@ -232,11 +232,58 @@ package pkg_alsaqr_periph_padframe;
      } pad_domain_periphs_port_group_can0_pad2soc_t;
 
    typedef struct packed {
-      logic        pwm0_i;
-      logic        pwm1_i;
-      logic        pwm2_i;
-      logic        pwm3_i;
-     } pad_domain_periphs_port_group_pwm1_soc2pad_t;
+      logic        tx_i;
+     } pad_domain_periphs_port_group_can1_soc2pad_t;
+
+   typedef struct packed {
+      logic        rx_o;
+     } pad_domain_periphs_port_group_can1_pad2soc_t;
+
+   typedef struct packed {
+      logic        clk_o;
+      logic        data0_o;
+      logic        data1_o;
+      logic        data2_o;
+      logic        data3_o;
+      logic        data4_o;
+      logic        data5_o;
+      logic        data6_o;
+      logic        data7_o;
+      logic        hsync_o;
+      logic        vsync_o;
+     } pad_domain_periphs_port_group_cam0_pad2soc_t;
+
+   typedef struct packed {
+      logic        clk_o;
+      logic        data0_o;
+      logic        data1_o;
+      logic        data2_o;
+      logic        data3_o;
+      logic        data4_o;
+      logic        data5_o;
+      logic        data6_o;
+      logic        data7_o;
+      logic        hsync_o;
+      logic        vsync_o;
+     } pad_domain_periphs_port_group_cam1_pad2soc_t;
+
+   typedef struct packed {
+      logic        clk_soc_i;
+     } pad_domain_periphs_port_group_fll_soc_soc2pad_t;
+
+   typedef struct packed {
+      logic        clk_cva6_i;
+     } pad_domain_periphs_port_group_fll_cva6_soc2pad_t;
+
+   typedef struct packed {
+      logic        clk_i;
+      logic        csn0_i;
+      logic        sd0_i;
+     } pad_domain_periphs_port_group_spi0_soc2pad_t;
+
+   typedef struct packed {
+      logic        sd1_o;
+     } pad_domain_periphs_port_group_spi0_pad2soc_t;
 
    typedef struct packed {
       logic        clk_i;
@@ -259,70 +306,34 @@ package pkg_alsaqr_periph_padframe;
      } pad_domain_periphs_port_group_qspi_linux_pad2soc_t;
 
    typedef struct packed {
-      logic        clk_o;
-      logic        data0_o;
-      logic        data1_o;
-      logic        data2_o;
-      logic        data3_o;
-      logic        data4_o;
-      logic        data5_o;
-      logic        data6_o;
-      logic        data7_o;
-      logic        hsync_o;
-      logic        vsync_o;
-     } pad_domain_periphs_port_group_cam0_pad2soc_t;
+      logic        clk_i;
+      logic        csn0_i;
+      logic        sd0_i;
+     } pad_domain_periphs_port_group_spi2_soc2pad_t;
 
    typedef struct packed {
-      logic        soc_clk_i;
-     } pad_domain_periphs_port_group_fll_soc_0_soc2pad_t;
+      logic        sd1_o;
+     } pad_domain_periphs_port_group_spi2_pad2soc_t;
 
    typedef struct packed {
       logic        clk_i;
-      logic        cmd_i;
-      logic        cmd_oen_i;
-      logic        data0_i;
-      logic        data0_oen_i;
-      logic        data1_i;
-      logic        data1_oen_i;
-      logic        data2_i;
-      logic        data2_oen_i;
-      logic        data3_i;
-      logic        data3_oen_i;
-     } pad_domain_periphs_port_group_sdio1_soc2pad_t;
+      logic        csn0_i;
+      logic        sd0_i;
+     } pad_domain_periphs_port_group_spi3_soc2pad_t;
 
    typedef struct packed {
-      logic        cmd_o;
-      logic        data0_o;
-      logic        data1_o;
-      logic        data2_o;
-      logic        data3_o;
-     } pad_domain_periphs_port_group_sdio1_pad2soc_t;
+      logic        sd1_o;
+     } pad_domain_periphs_port_group_spi3_pad2soc_t;
 
    typedef struct packed {
-      logic        tx_i;
-     } pad_domain_periphs_port_group_can1_soc2pad_t;
+      logic        clk_i;
+      logic        csn0_i;
+      logic        sd0_i;
+     } pad_domain_periphs_port_group_spi4_soc2pad_t;
 
    typedef struct packed {
-      logic        rx_o;
-     } pad_domain_periphs_port_group_can1_pad2soc_t;
-
-   typedef struct packed {
-      logic        clk_o;
-      logic        data0_o;
-      logic        data1_o;
-      logic        data2_o;
-      logic        data3_o;
-      logic        data4_o;
-      logic        data5_o;
-      logic        data6_o;
-      logic        data7_o;
-      logic        hsync_o;
-      logic        vsync_o;
-     } pad_domain_periphs_port_group_cam1_pad2soc_t;
-
-   typedef struct packed {
-      logic        soc_clk_i;
-     } pad_domain_periphs_port_group_fll_soc_1_soc2pad_t;
+      logic        sd1_o;
+     } pad_domain_periphs_port_group_spi4_pad2soc_t;
 
    typedef struct packed {
       logic        clk_i;
@@ -335,18 +346,6 @@ package pkg_alsaqr_periph_padframe;
      } pad_domain_periphs_port_group_spi5_pad2soc_t;
 
    typedef struct packed {
-      logic        scl_i;
-      logic        scl_oe_i;
-      logic        sda_i;
-      logic        sda_oe_i;
-     } pad_domain_periphs_port_group_i2c3_soc2pad_t;
-
-   typedef struct packed {
-      logic        scl_o;
-      logic        sda_o;
-     } pad_domain_periphs_port_group_i2c3_pad2soc_t;
-
-   typedef struct packed {
       logic        clk_i;
       logic        csn0_i;
       logic        sd0_i;
@@ -357,24 +356,15 @@ package pkg_alsaqr_periph_padframe;
      } pad_domain_periphs_port_group_spi6_pad2soc_t;
 
    typedef struct packed {
-      logic        rts_i;
-      logic        tx_i;
-     } pad_domain_periphs_port_group_usart2_soc2pad_t;
+      logic        clk_i;
+      logic        csn0_i;
+      logic        csn1_i;
+      logic        sd0_i;
+     } pad_domain_periphs_port_group_spi7_soc2pad_t;
 
    typedef struct packed {
-      logic        cts_o;
-      logic        rx_o;
-     } pad_domain_periphs_port_group_usart2_pad2soc_t;
-
-   typedef struct packed {
-      logic        rts_i;
-      logic        tx_i;
-     } pad_domain_periphs_port_group_usart3_soc2pad_t;
-
-   typedef struct packed {
-      logic        cts_o;
-      logic        rx_o;
-     } pad_domain_periphs_port_group_usart3_pad2soc_t;
+      logic        sd1_o;
+     } pad_domain_periphs_port_group_spi7_pad2soc_t;
 
    typedef struct packed {
       logic        clk_i;
@@ -397,100 +387,14 @@ package pkg_alsaqr_periph_padframe;
      } pad_domain_periphs_port_group_spi9_pad2soc_t;
 
    typedef struct packed {
-      logic        gpio0_d_i;
-      logic        gpio0_i;
-      logic        gpio1_d_i;
-      logic        gpio1_i;
-      logic        gpio2_d_i;
-      logic        gpio2_i;
-      logic        gpio3_d_i;
-      logic        gpio3_i;
-      logic        gpio4_d_i;
-      logic        gpio4_i;
-      logic        gpio5_d_i;
-      logic        gpio5_i;
-      logic        gpio6_d_i;
-      logic        gpio6_i;
-      logic        gpio7_d_i;
-      logic        gpio7_i;
-      logic        gpio8_d_i;
-      logic        gpio8_i;
-      logic        gpio9_d_i;
-      logic        gpio9_i;
-      logic        gpio10_d_i;
-      logic        gpio10_i;
-      logic        gpio11_d_i;
-      logic        gpio11_i;
-      logic        gpio12_d_i;
-      logic        gpio12_i;
-      logic        gpio13_d_i;
-      logic        gpio13_i;
-      logic        gpio14_d_i;
-      logic        gpio14_i;
-      logic        gpio15_d_i;
-      logic        gpio15_i;
-      logic        gpio16_d_i;
-      logic        gpio16_i;
-      logic        gpio17_d_i;
-      logic        gpio17_i;
-      logic        gpio18_d_i;
-      logic        gpio18_i;
-      logic        gpio19_d_i;
-      logic        gpio19_i;
-      logic        gpio20_d_i;
-      logic        gpio20_i;
-      logic        gpio21_d_i;
-      logic        gpio21_i;
-      logic        gpio22_d_i;
-      logic        gpio22_i;
-      logic        gpio23_d_i;
-      logic        gpio23_i;
-      logic        gpio24_d_i;
-      logic        gpio24_i;
-      logic        gpio25_d_i;
-      logic        gpio25_i;
-      logic        gpio26_d_i;
-      logic        gpio26_i;
-      logic        gpio27_d_i;
-      logic        gpio27_i;
-      logic        gpio28_d_i;
-      logic        gpio28_i;
-      logic        gpio29_d_i;
-      logic        gpio29_i;
-     } pad_domain_periphs_port_group_gpio_a_soc2pad_t;
+      logic        clk_i;
+      logic        csn0_i;
+      logic        sd0_i;
+     } pad_domain_periphs_port_group_spi10_soc2pad_t;
 
    typedef struct packed {
-      logic        gpio0_o;
-      logic        gpio1_o;
-      logic        gpio2_o;
-      logic        gpio3_o;
-      logic        gpio4_o;
-      logic        gpio5_o;
-      logic        gpio6_o;
-      logic        gpio7_o;
-      logic        gpio8_o;
-      logic        gpio9_o;
-      logic        gpio10_o;
-      logic        gpio11_o;
-      logic        gpio12_o;
-      logic        gpio13_o;
-      logic        gpio14_o;
-      logic        gpio15_o;
-      logic        gpio16_o;
-      logic        gpio17_o;
-      logic        gpio18_o;
-      logic        gpio19_o;
-      logic        gpio20_o;
-      logic        gpio21_o;
-      logic        gpio22_o;
-      logic        gpio23_o;
-      logic        gpio24_o;
-      logic        gpio25_o;
-      logic        gpio26_o;
-      logic        gpio27_o;
-      logic        gpio28_o;
-      logic        gpio29_o;
-     } pad_domain_periphs_port_group_gpio_a_pad2soc_t;
+      logic        sd1_o;
+     } pad_domain_periphs_port_group_spi10_pad2soc_t;
 
    typedef struct packed {
       logic        gpio0_d_i;
@@ -646,37 +550,36 @@ package pkg_alsaqr_periph_padframe;
      pad_domain_periphs_port_group_spi_ot_soc2pad_t spi_ot;
      pad_domain_periphs_port_group_uart_core_soc2pad_t uart_core;
      pad_domain_periphs_port_group_sdio0_soc2pad_t sdio0;
-     pad_domain_periphs_port_group_pwm0_soc2pad_t pwm0;
-     pad_domain_periphs_port_group_i2c0_soc2pad_t i2c0;
-     pad_domain_periphs_port_group_spi0_soc2pad_t spi0;
-     pad_domain_periphs_port_group_spi2_soc2pad_t spi2;
-     pad_domain_periphs_port_group_spi3_soc2pad_t spi3;
-     pad_domain_periphs_port_group_uart0_soc2pad_t uart0;
-     pad_domain_periphs_port_group_i2c1_soc2pad_t i2c1;
-     pad_domain_periphs_port_group_usart0_soc2pad_t usart0;
-     pad_domain_periphs_port_group_spi4_soc2pad_t spi4;
-     pad_domain_periphs_port_group_i2c2_soc2pad_t i2c2;
-     pad_domain_periphs_port_group_spi7_soc2pad_t spi7;
-     pad_domain_periphs_port_group_i2c4_soc2pad_t i2c4;
-     pad_domain_periphs_port_group_uart1_soc2pad_t uart1;
-     pad_domain_periphs_port_group_usart1_soc2pad_t usart1;
-     pad_domain_periphs_port_group_eth_soc2pad_t eth;
-     pad_domain_periphs_port_group_spi10_soc2pad_t spi10;
-     pad_domain_periphs_port_group_can0_soc2pad_t can0;
-     pad_domain_periphs_port_group_pwm1_soc2pad_t pwm1;
-     pad_domain_periphs_port_group_qspi_linux_soc2pad_t qspi_linux;
-     pad_domain_periphs_port_group_fll_soc_0_soc2pad_t fll_soc_0;
      pad_domain_periphs_port_group_sdio1_soc2pad_t sdio1;
-     pad_domain_periphs_port_group_can1_soc2pad_t can1;
-     pad_domain_periphs_port_group_fll_soc_1_soc2pad_t fll_soc_1;
-     pad_domain_periphs_port_group_spi5_soc2pad_t spi5;
+     pad_domain_periphs_port_group_pwm0_soc2pad_t pwm0;
+     pad_domain_periphs_port_group_pwm1_soc2pad_t pwm1;
+     pad_domain_periphs_port_group_i2c0_soc2pad_t i2c0;
+     pad_domain_periphs_port_group_i2c1_soc2pad_t i2c1;
+     pad_domain_periphs_port_group_i2c2_soc2pad_t i2c2;
      pad_domain_periphs_port_group_i2c3_soc2pad_t i2c3;
-     pad_domain_periphs_port_group_spi6_soc2pad_t spi6;
+     pad_domain_periphs_port_group_i2c4_soc2pad_t i2c4;
+     pad_domain_periphs_port_group_uart0_soc2pad_t uart0;
+     pad_domain_periphs_port_group_uart1_soc2pad_t uart1;
+     pad_domain_periphs_port_group_usart0_soc2pad_t usart0;
+     pad_domain_periphs_port_group_usart1_soc2pad_t usart1;
      pad_domain_periphs_port_group_usart2_soc2pad_t usart2;
      pad_domain_periphs_port_group_usart3_soc2pad_t usart3;
+     pad_domain_periphs_port_group_eth_soc2pad_t eth;
+     pad_domain_periphs_port_group_can0_soc2pad_t can0;
+     pad_domain_periphs_port_group_can1_soc2pad_t can1;
+     pad_domain_periphs_port_group_fll_soc_soc2pad_t fll_soc;
+     pad_domain_periphs_port_group_fll_cva6_soc2pad_t fll_cva6;
+     pad_domain_periphs_port_group_spi0_soc2pad_t spi0;
+     pad_domain_periphs_port_group_qspi_linux_soc2pad_t qspi_linux;
+     pad_domain_periphs_port_group_spi2_soc2pad_t spi2;
+     pad_domain_periphs_port_group_spi3_soc2pad_t spi3;
+     pad_domain_periphs_port_group_spi4_soc2pad_t spi4;
+     pad_domain_periphs_port_group_spi5_soc2pad_t spi5;
+     pad_domain_periphs_port_group_spi6_soc2pad_t spi6;
+     pad_domain_periphs_port_group_spi7_soc2pad_t spi7;
      pad_domain_periphs_port_group_spi8_soc2pad_t spi8;
      pad_domain_periphs_port_group_spi9_soc2pad_t spi9;
-     pad_domain_periphs_port_group_gpio_a_soc2pad_t gpio_a;
+     pad_domain_periphs_port_group_spi10_soc2pad_t spi10;
      pad_domain_periphs_port_group_gpio_b_soc2pad_t gpio_b;
      } pad_domain_periphs_ports_soc2pad_t;
 
@@ -684,35 +587,34 @@ package pkg_alsaqr_periph_padframe;
      pad_domain_periphs_port_group_spi_ot_pad2soc_t spi_ot;
      pad_domain_periphs_port_group_uart_core_pad2soc_t uart_core;
      pad_domain_periphs_port_group_sdio0_pad2soc_t sdio0;
-     pad_domain_periphs_port_group_i2c0_pad2soc_t i2c0;
-     pad_domain_periphs_port_group_spi0_pad2soc_t spi0;
-     pad_domain_periphs_port_group_spi2_pad2soc_t spi2;
-     pad_domain_periphs_port_group_spi3_pad2soc_t spi3;
-     pad_domain_periphs_port_group_uart0_pad2soc_t uart0;
-     pad_domain_periphs_port_group_i2c1_pad2soc_t i2c1;
-     pad_domain_periphs_port_group_usart0_pad2soc_t usart0;
-     pad_domain_periphs_port_group_spi4_pad2soc_t spi4;
-     pad_domain_periphs_port_group_i2c2_pad2soc_t i2c2;
-     pad_domain_periphs_port_group_spi7_pad2soc_t spi7;
-     pad_domain_periphs_port_group_i2c4_pad2soc_t i2c4;
-     pad_domain_periphs_port_group_uart1_pad2soc_t uart1;
-     pad_domain_periphs_port_group_usart1_pad2soc_t usart1;
-     pad_domain_periphs_port_group_eth_pad2soc_t eth;
-     pad_domain_periphs_port_group_spi10_pad2soc_t spi10;
-     pad_domain_periphs_port_group_can0_pad2soc_t can0;
-     pad_domain_periphs_port_group_qspi_linux_pad2soc_t qspi_linux;
-     pad_domain_periphs_port_group_cam0_pad2soc_t cam0;
      pad_domain_periphs_port_group_sdio1_pad2soc_t sdio1;
-     pad_domain_periphs_port_group_can1_pad2soc_t can1;
-     pad_domain_periphs_port_group_cam1_pad2soc_t cam1;
-     pad_domain_periphs_port_group_spi5_pad2soc_t spi5;
+     pad_domain_periphs_port_group_i2c0_pad2soc_t i2c0;
+     pad_domain_periphs_port_group_i2c1_pad2soc_t i2c1;
+     pad_domain_periphs_port_group_i2c2_pad2soc_t i2c2;
      pad_domain_periphs_port_group_i2c3_pad2soc_t i2c3;
-     pad_domain_periphs_port_group_spi6_pad2soc_t spi6;
+     pad_domain_periphs_port_group_i2c4_pad2soc_t i2c4;
+     pad_domain_periphs_port_group_uart0_pad2soc_t uart0;
+     pad_domain_periphs_port_group_uart1_pad2soc_t uart1;
+     pad_domain_periphs_port_group_usart0_pad2soc_t usart0;
+     pad_domain_periphs_port_group_usart1_pad2soc_t usart1;
      pad_domain_periphs_port_group_usart2_pad2soc_t usart2;
      pad_domain_periphs_port_group_usart3_pad2soc_t usart3;
+     pad_domain_periphs_port_group_eth_pad2soc_t eth;
+     pad_domain_periphs_port_group_can0_pad2soc_t can0;
+     pad_domain_periphs_port_group_can1_pad2soc_t can1;
+     pad_domain_periphs_port_group_cam0_pad2soc_t cam0;
+     pad_domain_periphs_port_group_cam1_pad2soc_t cam1;
+     pad_domain_periphs_port_group_spi0_pad2soc_t spi0;
+     pad_domain_periphs_port_group_qspi_linux_pad2soc_t qspi_linux;
+     pad_domain_periphs_port_group_spi2_pad2soc_t spi2;
+     pad_domain_periphs_port_group_spi3_pad2soc_t spi3;
+     pad_domain_periphs_port_group_spi4_pad2soc_t spi4;
+     pad_domain_periphs_port_group_spi5_pad2soc_t spi5;
+     pad_domain_periphs_port_group_spi6_pad2soc_t spi6;
+     pad_domain_periphs_port_group_spi7_pad2soc_t spi7;
      pad_domain_periphs_port_group_spi8_pad2soc_t spi8;
      pad_domain_periphs_port_group_spi9_pad2soc_t spi9;
-     pad_domain_periphs_port_group_gpio_a_pad2soc_t gpio_a;
+     pad_domain_periphs_port_group_spi10_pad2soc_t spi10;
      pad_domain_periphs_port_group_gpio_b_pad2soc_t gpio_b;
      } pad_domain_periphs_ports_pad2soc_t;
 

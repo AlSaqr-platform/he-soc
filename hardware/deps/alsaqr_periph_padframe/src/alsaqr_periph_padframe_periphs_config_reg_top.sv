@@ -715,8 +715,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_00_cfg_smt_qs;
   logic b_00_cfg_smt_wd;
   logic b_00_cfg_smt_we;
-  logic [1:0] b_00_mux_sel_qs;
-  logic [1:0] b_00_mux_sel_wd;
+  logic [2:0] b_00_mux_sel_qs;
+  logic [2:0] b_00_mux_sel_wd;
   logic b_00_mux_sel_we;
   logic b_01_cfg_chip2pad_qs;
   logic b_01_cfg_chip2pad_wd;
@@ -736,8 +736,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_01_cfg_smt_qs;
   logic b_01_cfg_smt_wd;
   logic b_01_cfg_smt_we;
-  logic [1:0] b_01_mux_sel_qs;
-  logic [1:0] b_01_mux_sel_wd;
+  logic [2:0] b_01_mux_sel_qs;
+  logic [2:0] b_01_mux_sel_wd;
   logic b_01_mux_sel_we;
   logic b_02_cfg_chip2pad_qs;
   logic b_02_cfg_chip2pad_wd;
@@ -757,8 +757,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_02_cfg_smt_qs;
   logic b_02_cfg_smt_wd;
   logic b_02_cfg_smt_we;
-  logic [1:0] b_02_mux_sel_qs;
-  logic [1:0] b_02_mux_sel_wd;
+  logic [2:0] b_02_mux_sel_qs;
+  logic [2:0] b_02_mux_sel_wd;
   logic b_02_mux_sel_we;
   logic b_03_cfg_chip2pad_qs;
   logic b_03_cfg_chip2pad_wd;
@@ -799,8 +799,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_04_cfg_smt_qs;
   logic b_04_cfg_smt_wd;
   logic b_04_cfg_smt_we;
-  logic [1:0] b_04_mux_sel_qs;
-  logic [1:0] b_04_mux_sel_wd;
+  logic [2:0] b_04_mux_sel_qs;
+  logic [2:0] b_04_mux_sel_wd;
   logic b_04_mux_sel_we;
   logic b_05_cfg_chip2pad_qs;
   logic b_05_cfg_chip2pad_wd;
@@ -820,8 +820,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_05_cfg_smt_qs;
   logic b_05_cfg_smt_wd;
   logic b_05_cfg_smt_we;
-  logic [1:0] b_05_mux_sel_qs;
-  logic [1:0] b_05_mux_sel_wd;
+  logic [2:0] b_05_mux_sel_qs;
+  logic [2:0] b_05_mux_sel_wd;
   logic b_05_mux_sel_we;
   logic b_06_cfg_chip2pad_qs;
   logic b_06_cfg_chip2pad_wd;
@@ -841,8 +841,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_06_cfg_smt_qs;
   logic b_06_cfg_smt_wd;
   logic b_06_cfg_smt_we;
-  logic [1:0] b_06_mux_sel_qs;
-  logic [1:0] b_06_mux_sel_wd;
+  logic [2:0] b_06_mux_sel_qs;
+  logic [2:0] b_06_mux_sel_wd;
   logic b_06_mux_sel_we;
   logic b_07_cfg_chip2pad_qs;
   logic b_07_cfg_chip2pad_wd;
@@ -862,8 +862,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_07_cfg_smt_qs;
   logic b_07_cfg_smt_wd;
   logic b_07_cfg_smt_we;
-  logic [1:0] b_07_mux_sel_qs;
-  logic [1:0] b_07_mux_sel_wd;
+  logic [2:0] b_07_mux_sel_qs;
+  logic [2:0] b_07_mux_sel_wd;
   logic b_07_mux_sel_we;
   logic b_08_cfg_chip2pad_qs;
   logic b_08_cfg_chip2pad_wd;
@@ -883,8 +883,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_08_cfg_smt_qs;
   logic b_08_cfg_smt_wd;
   logic b_08_cfg_smt_we;
-  logic [1:0] b_08_mux_sel_qs;
-  logic [1:0] b_08_mux_sel_wd;
+  logic [2:0] b_08_mux_sel_qs;
+  logic [2:0] b_08_mux_sel_wd;
   logic b_08_mux_sel_we;
   logic b_09_cfg_chip2pad_qs;
   logic b_09_cfg_chip2pad_wd;
@@ -904,8 +904,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_09_cfg_smt_qs;
   logic b_09_cfg_smt_wd;
   logic b_09_cfg_smt_we;
-  logic [1:0] b_09_mux_sel_qs;
-  logic [1:0] b_09_mux_sel_wd;
+  logic [2:0] b_09_mux_sel_qs;
+  logic [2:0] b_09_mux_sel_wd;
   logic b_09_mux_sel_we;
   logic b_10_cfg_chip2pad_qs;
   logic b_10_cfg_chip2pad_wd;
@@ -925,8 +925,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_10_cfg_smt_qs;
   logic b_10_cfg_smt_wd;
   logic b_10_cfg_smt_we;
-  logic [1:0] b_10_mux_sel_qs;
-  logic [1:0] b_10_mux_sel_wd;
+  logic [2:0] b_10_mux_sel_qs;
+  logic [2:0] b_10_mux_sel_wd;
   logic b_10_mux_sel_we;
   logic b_11_cfg_chip2pad_qs;
   logic b_11_cfg_chip2pad_wd;
@@ -946,8 +946,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_11_cfg_smt_qs;
   logic b_11_cfg_smt_wd;
   logic b_11_cfg_smt_we;
-  logic [1:0] b_11_mux_sel_qs;
-  logic [1:0] b_11_mux_sel_wd;
+  logic [2:0] b_11_mux_sel_qs;
+  logic [2:0] b_11_mux_sel_wd;
   logic b_11_mux_sel_we;
   logic b_12_cfg_chip2pad_qs;
   logic b_12_cfg_chip2pad_wd;
@@ -967,8 +967,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_12_cfg_smt_qs;
   logic b_12_cfg_smt_wd;
   logic b_12_cfg_smt_we;
-  logic [1:0] b_12_mux_sel_qs;
-  logic [1:0] b_12_mux_sel_wd;
+  logic [2:0] b_12_mux_sel_qs;
+  logic [2:0] b_12_mux_sel_wd;
   logic b_12_mux_sel_we;
   logic b_13_cfg_chip2pad_qs;
   logic b_13_cfg_chip2pad_wd;
@@ -988,8 +988,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_13_cfg_smt_qs;
   logic b_13_cfg_smt_wd;
   logic b_13_cfg_smt_we;
-  logic [1:0] b_13_mux_sel_qs;
-  logic [1:0] b_13_mux_sel_wd;
+  logic [2:0] b_13_mux_sel_qs;
+  logic [2:0] b_13_mux_sel_wd;
   logic b_13_mux_sel_we;
   logic b_14_cfg_chip2pad_qs;
   logic b_14_cfg_chip2pad_wd;
@@ -1429,8 +1429,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_34_cfg_smt_qs;
   logic b_34_cfg_smt_wd;
   logic b_34_cfg_smt_we;
-  logic [2:0] b_34_mux_sel_qs;
-  logic [2:0] b_34_mux_sel_wd;
+  logic [1:0] b_34_mux_sel_qs;
+  logic [1:0] b_34_mux_sel_wd;
   logic b_34_mux_sel_we;
   logic b_35_cfg_chip2pad_qs;
   logic b_35_cfg_chip2pad_wd;
@@ -1450,8 +1450,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_35_cfg_smt_qs;
   logic b_35_cfg_smt_wd;
   logic b_35_cfg_smt_we;
-  logic [2:0] b_35_mux_sel_qs;
-  logic [2:0] b_35_mux_sel_wd;
+  logic [1:0] b_35_mux_sel_qs;
+  logic [1:0] b_35_mux_sel_wd;
   logic b_35_mux_sel_we;
   logic b_36_cfg_chip2pad_qs;
   logic b_36_cfg_chip2pad_wd;
@@ -1471,8 +1471,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_36_cfg_smt_qs;
   logic b_36_cfg_smt_wd;
   logic b_36_cfg_smt_we;
-  logic [2:0] b_36_mux_sel_qs;
-  logic [2:0] b_36_mux_sel_wd;
+  logic [1:0] b_36_mux_sel_qs;
+  logic [1:0] b_36_mux_sel_wd;
   logic b_36_mux_sel_we;
   logic b_37_cfg_chip2pad_qs;
   logic b_37_cfg_chip2pad_wd;
@@ -1492,8 +1492,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_37_cfg_smt_qs;
   logic b_37_cfg_smt_wd;
   logic b_37_cfg_smt_we;
-  logic [2:0] b_37_mux_sel_qs;
-  logic [2:0] b_37_mux_sel_wd;
+  logic [1:0] b_37_mux_sel_qs;
+  logic [1:0] b_37_mux_sel_wd;
   logic b_37_mux_sel_we;
   logic b_38_cfg_chip2pad_qs;
   logic b_38_cfg_chip2pad_wd;
@@ -1513,8 +1513,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_38_cfg_smt_qs;
   logic b_38_cfg_smt_wd;
   logic b_38_cfg_smt_we;
-  logic [2:0] b_38_mux_sel_qs;
-  logic [2:0] b_38_mux_sel_wd;
+  logic [1:0] b_38_mux_sel_qs;
+  logic [1:0] b_38_mux_sel_wd;
   logic b_38_mux_sel_we;
   logic b_39_cfg_chip2pad_qs;
   logic b_39_cfg_chip2pad_wd;
@@ -1534,8 +1534,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_39_cfg_smt_qs;
   logic b_39_cfg_smt_wd;
   logic b_39_cfg_smt_we;
-  logic [2:0] b_39_mux_sel_qs;
-  logic [2:0] b_39_mux_sel_wd;
+  logic [1:0] b_39_mux_sel_qs;
+  logic [1:0] b_39_mux_sel_wd;
   logic b_39_mux_sel_we;
   logic b_40_cfg_chip2pad_qs;
   logic b_40_cfg_chip2pad_wd;
@@ -1555,8 +1555,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_40_cfg_smt_qs;
   logic b_40_cfg_smt_wd;
   logic b_40_cfg_smt_we;
-  logic [2:0] b_40_mux_sel_qs;
-  logic [2:0] b_40_mux_sel_wd;
+  logic [1:0] b_40_mux_sel_qs;
+  logic [1:0] b_40_mux_sel_wd;
   logic b_40_mux_sel_we;
   logic b_41_cfg_chip2pad_qs;
   logic b_41_cfg_chip2pad_wd;
@@ -1576,8 +1576,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_41_cfg_smt_qs;
   logic b_41_cfg_smt_wd;
   logic b_41_cfg_smt_we;
-  logic [2:0] b_41_mux_sel_qs;
-  logic [2:0] b_41_mux_sel_wd;
+  logic [1:0] b_41_mux_sel_qs;
+  logic [1:0] b_41_mux_sel_wd;
   logic b_41_mux_sel_we;
   logic b_42_cfg_chip2pad_qs;
   logic b_42_cfg_chip2pad_wd;
@@ -1597,8 +1597,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_42_cfg_smt_qs;
   logic b_42_cfg_smt_wd;
   logic b_42_cfg_smt_we;
-  logic [2:0] b_42_mux_sel_qs;
-  logic [2:0] b_42_mux_sel_wd;
+  logic [1:0] b_42_mux_sel_qs;
+  logic [1:0] b_42_mux_sel_wd;
   logic b_42_mux_sel_we;
   logic b_43_cfg_chip2pad_qs;
   logic b_43_cfg_chip2pad_wd;
@@ -1618,8 +1618,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_43_cfg_smt_qs;
   logic b_43_cfg_smt_wd;
   logic b_43_cfg_smt_we;
-  logic [2:0] b_43_mux_sel_qs;
-  logic [2:0] b_43_mux_sel_wd;
+  logic [1:0] b_43_mux_sel_qs;
+  logic [1:0] b_43_mux_sel_wd;
   logic b_43_mux_sel_we;
   logic b_44_cfg_chip2pad_qs;
   logic b_44_cfg_chip2pad_wd;
@@ -1639,8 +1639,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_44_cfg_smt_qs;
   logic b_44_cfg_smt_wd;
   logic b_44_cfg_smt_we;
-  logic [2:0] b_44_mux_sel_qs;
-  logic [2:0] b_44_mux_sel_wd;
+  logic [1:0] b_44_mux_sel_qs;
+  logic [1:0] b_44_mux_sel_wd;
   logic b_44_mux_sel_we;
   logic b_45_cfg_chip2pad_qs;
   logic b_45_cfg_chip2pad_wd;
@@ -1660,8 +1660,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_45_cfg_smt_qs;
   logic b_45_cfg_smt_wd;
   logic b_45_cfg_smt_we;
-  logic [2:0] b_45_mux_sel_qs;
-  logic [2:0] b_45_mux_sel_wd;
+  logic [1:0] b_45_mux_sel_qs;
+  logic [1:0] b_45_mux_sel_wd;
   logic b_45_mux_sel_we;
   logic b_46_cfg_chip2pad_qs;
   logic b_46_cfg_chip2pad_wd;
@@ -1681,8 +1681,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_46_cfg_smt_qs;
   logic b_46_cfg_smt_wd;
   logic b_46_cfg_smt_we;
-  logic [2:0] b_46_mux_sel_qs;
-  logic [2:0] b_46_mux_sel_wd;
+  logic [1:0] b_46_mux_sel_qs;
+  logic [1:0] b_46_mux_sel_wd;
   logic b_46_mux_sel_we;
   logic b_47_cfg_chip2pad_qs;
   logic b_47_cfg_chip2pad_wd;
@@ -1702,8 +1702,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_47_cfg_smt_qs;
   logic b_47_cfg_smt_wd;
   logic b_47_cfg_smt_we;
-  logic [2:0] b_47_mux_sel_qs;
-  logic [2:0] b_47_mux_sel_wd;
+  logic [1:0] b_47_mux_sel_qs;
+  logic [1:0] b_47_mux_sel_wd;
   logic b_47_mux_sel_we;
   logic ot_spi_00_cfg_chip2pad_qs;
   logic ot_spi_00_cfg_chip2pad_wd;
@@ -7502,9 +7502,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_00_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_00_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -7687,9 +7687,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_01_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_01_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -7872,9 +7872,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_02_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_02_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -8242,9 +8242,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_04_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_04_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -8427,9 +8427,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_05_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_05_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -8612,9 +8612,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_06_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_06_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -8797,9 +8797,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_07_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_07_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -8982,9 +8982,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_08_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_08_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -9167,9 +9167,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_09_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_09_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -9352,9 +9352,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_10_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_10_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -9537,9 +9537,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_11_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_11_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -9722,9 +9722,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_12_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_12_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -9907,9 +9907,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_13_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_13_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -13792,9 +13792,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_34_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (3),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (3'h0)
+    .RESVAL  (2'h0)
   ) u_b_34_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -13977,9 +13977,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_35_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (3),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (3'h0)
+    .RESVAL  (2'h0)
   ) u_b_35_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -14162,9 +14162,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_36_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (3),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (3'h0)
+    .RESVAL  (2'h0)
   ) u_b_36_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -14347,9 +14347,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_37_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (3),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (3'h0)
+    .RESVAL  (2'h0)
   ) u_b_37_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -14532,9 +14532,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_38_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (3),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (3'h0)
+    .RESVAL  (2'h0)
   ) u_b_38_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -14717,9 +14717,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_39_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (3),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (3'h0)
+    .RESVAL  (2'h0)
   ) u_b_39_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -14902,9 +14902,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_40_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (3),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (3'h0)
+    .RESVAL  (2'h0)
   ) u_b_40_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -15087,9 +15087,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_41_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (3),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (3'h0)
+    .RESVAL  (2'h0)
   ) u_b_41_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -15272,9 +15272,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_42_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (3),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (3'h0)
+    .RESVAL  (2'h0)
   ) u_b_42_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -15457,9 +15457,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_43_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (3),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (3'h0)
+    .RESVAL  (2'h0)
   ) u_b_43_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -15642,9 +15642,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_44_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (3),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (3'h0)
+    .RESVAL  (2'h0)
   ) u_b_44_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -15827,9 +15827,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_45_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (3),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (3'h0)
+    .RESVAL  (2'h0)
   ) u_b_45_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -16012,9 +16012,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_46_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (3),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (3'h0)
+    .RESVAL  (2'h0)
   ) u_b_46_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -16197,9 +16197,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_47_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (3),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (3'h0)
+    .RESVAL  (2'h0)
   ) u_b_47_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -17952,7 +17952,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_00_cfg_smt_wd = reg_wdata[6];
 
   assign b_00_mux_sel_we = addr_hit[61] & reg_we & !reg_error;
-  assign b_00_mux_sel_wd = reg_wdata[1:0];
+  assign b_00_mux_sel_wd = reg_wdata[2:0];
 
   assign b_01_cfg_chip2pad_we = addr_hit[62] & reg_we & !reg_error;
   assign b_01_cfg_chip2pad_wd = reg_wdata[0];
@@ -17973,7 +17973,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_01_cfg_smt_wd = reg_wdata[6];
 
   assign b_01_mux_sel_we = addr_hit[63] & reg_we & !reg_error;
-  assign b_01_mux_sel_wd = reg_wdata[1:0];
+  assign b_01_mux_sel_wd = reg_wdata[2:0];
 
   assign b_02_cfg_chip2pad_we = addr_hit[64] & reg_we & !reg_error;
   assign b_02_cfg_chip2pad_wd = reg_wdata[0];
@@ -17994,7 +17994,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_02_cfg_smt_wd = reg_wdata[6];
 
   assign b_02_mux_sel_we = addr_hit[65] & reg_we & !reg_error;
-  assign b_02_mux_sel_wd = reg_wdata[1:0];
+  assign b_02_mux_sel_wd = reg_wdata[2:0];
 
   assign b_03_cfg_chip2pad_we = addr_hit[66] & reg_we & !reg_error;
   assign b_03_cfg_chip2pad_wd = reg_wdata[0];
@@ -18036,7 +18036,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_04_cfg_smt_wd = reg_wdata[6];
 
   assign b_04_mux_sel_we = addr_hit[69] & reg_we & !reg_error;
-  assign b_04_mux_sel_wd = reg_wdata[1:0];
+  assign b_04_mux_sel_wd = reg_wdata[2:0];
 
   assign b_05_cfg_chip2pad_we = addr_hit[70] & reg_we & !reg_error;
   assign b_05_cfg_chip2pad_wd = reg_wdata[0];
@@ -18057,7 +18057,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_05_cfg_smt_wd = reg_wdata[6];
 
   assign b_05_mux_sel_we = addr_hit[71] & reg_we & !reg_error;
-  assign b_05_mux_sel_wd = reg_wdata[1:0];
+  assign b_05_mux_sel_wd = reg_wdata[2:0];
 
   assign b_06_cfg_chip2pad_we = addr_hit[72] & reg_we & !reg_error;
   assign b_06_cfg_chip2pad_wd = reg_wdata[0];
@@ -18078,7 +18078,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_06_cfg_smt_wd = reg_wdata[6];
 
   assign b_06_mux_sel_we = addr_hit[73] & reg_we & !reg_error;
-  assign b_06_mux_sel_wd = reg_wdata[1:0];
+  assign b_06_mux_sel_wd = reg_wdata[2:0];
 
   assign b_07_cfg_chip2pad_we = addr_hit[74] & reg_we & !reg_error;
   assign b_07_cfg_chip2pad_wd = reg_wdata[0];
@@ -18099,7 +18099,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_07_cfg_smt_wd = reg_wdata[6];
 
   assign b_07_mux_sel_we = addr_hit[75] & reg_we & !reg_error;
-  assign b_07_mux_sel_wd = reg_wdata[1:0];
+  assign b_07_mux_sel_wd = reg_wdata[2:0];
 
   assign b_08_cfg_chip2pad_we = addr_hit[76] & reg_we & !reg_error;
   assign b_08_cfg_chip2pad_wd = reg_wdata[0];
@@ -18120,7 +18120,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_08_cfg_smt_wd = reg_wdata[6];
 
   assign b_08_mux_sel_we = addr_hit[77] & reg_we & !reg_error;
-  assign b_08_mux_sel_wd = reg_wdata[1:0];
+  assign b_08_mux_sel_wd = reg_wdata[2:0];
 
   assign b_09_cfg_chip2pad_we = addr_hit[78] & reg_we & !reg_error;
   assign b_09_cfg_chip2pad_wd = reg_wdata[0];
@@ -18141,7 +18141,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_09_cfg_smt_wd = reg_wdata[6];
 
   assign b_09_mux_sel_we = addr_hit[79] & reg_we & !reg_error;
-  assign b_09_mux_sel_wd = reg_wdata[1:0];
+  assign b_09_mux_sel_wd = reg_wdata[2:0];
 
   assign b_10_cfg_chip2pad_we = addr_hit[80] & reg_we & !reg_error;
   assign b_10_cfg_chip2pad_wd = reg_wdata[0];
@@ -18162,7 +18162,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_10_cfg_smt_wd = reg_wdata[6];
 
   assign b_10_mux_sel_we = addr_hit[81] & reg_we & !reg_error;
-  assign b_10_mux_sel_wd = reg_wdata[1:0];
+  assign b_10_mux_sel_wd = reg_wdata[2:0];
 
   assign b_11_cfg_chip2pad_we = addr_hit[82] & reg_we & !reg_error;
   assign b_11_cfg_chip2pad_wd = reg_wdata[0];
@@ -18183,7 +18183,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_11_cfg_smt_wd = reg_wdata[6];
 
   assign b_11_mux_sel_we = addr_hit[83] & reg_we & !reg_error;
-  assign b_11_mux_sel_wd = reg_wdata[1:0];
+  assign b_11_mux_sel_wd = reg_wdata[2:0];
 
   assign b_12_cfg_chip2pad_we = addr_hit[84] & reg_we & !reg_error;
   assign b_12_cfg_chip2pad_wd = reg_wdata[0];
@@ -18204,7 +18204,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_12_cfg_smt_wd = reg_wdata[6];
 
   assign b_12_mux_sel_we = addr_hit[85] & reg_we & !reg_error;
-  assign b_12_mux_sel_wd = reg_wdata[1:0];
+  assign b_12_mux_sel_wd = reg_wdata[2:0];
 
   assign b_13_cfg_chip2pad_we = addr_hit[86] & reg_we & !reg_error;
   assign b_13_cfg_chip2pad_wd = reg_wdata[0];
@@ -18225,7 +18225,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_13_cfg_smt_wd = reg_wdata[6];
 
   assign b_13_mux_sel_we = addr_hit[87] & reg_we & !reg_error;
-  assign b_13_mux_sel_wd = reg_wdata[1:0];
+  assign b_13_mux_sel_wd = reg_wdata[2:0];
 
   assign b_14_cfg_chip2pad_we = addr_hit[88] & reg_we & !reg_error;
   assign b_14_cfg_chip2pad_wd = reg_wdata[0];
@@ -18666,7 +18666,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_34_cfg_smt_wd = reg_wdata[6];
 
   assign b_34_mux_sel_we = addr_hit[129] & reg_we & !reg_error;
-  assign b_34_mux_sel_wd = reg_wdata[2:0];
+  assign b_34_mux_sel_wd = reg_wdata[1:0];
 
   assign b_35_cfg_chip2pad_we = addr_hit[130] & reg_we & !reg_error;
   assign b_35_cfg_chip2pad_wd = reg_wdata[0];
@@ -18687,7 +18687,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_35_cfg_smt_wd = reg_wdata[6];
 
   assign b_35_mux_sel_we = addr_hit[131] & reg_we & !reg_error;
-  assign b_35_mux_sel_wd = reg_wdata[2:0];
+  assign b_35_mux_sel_wd = reg_wdata[1:0];
 
   assign b_36_cfg_chip2pad_we = addr_hit[132] & reg_we & !reg_error;
   assign b_36_cfg_chip2pad_wd = reg_wdata[0];
@@ -18708,7 +18708,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_36_cfg_smt_wd = reg_wdata[6];
 
   assign b_36_mux_sel_we = addr_hit[133] & reg_we & !reg_error;
-  assign b_36_mux_sel_wd = reg_wdata[2:0];
+  assign b_36_mux_sel_wd = reg_wdata[1:0];
 
   assign b_37_cfg_chip2pad_we = addr_hit[134] & reg_we & !reg_error;
   assign b_37_cfg_chip2pad_wd = reg_wdata[0];
@@ -18729,7 +18729,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_37_cfg_smt_wd = reg_wdata[6];
 
   assign b_37_mux_sel_we = addr_hit[135] & reg_we & !reg_error;
-  assign b_37_mux_sel_wd = reg_wdata[2:0];
+  assign b_37_mux_sel_wd = reg_wdata[1:0];
 
   assign b_38_cfg_chip2pad_we = addr_hit[136] & reg_we & !reg_error;
   assign b_38_cfg_chip2pad_wd = reg_wdata[0];
@@ -18750,7 +18750,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_38_cfg_smt_wd = reg_wdata[6];
 
   assign b_38_mux_sel_we = addr_hit[137] & reg_we & !reg_error;
-  assign b_38_mux_sel_wd = reg_wdata[2:0];
+  assign b_38_mux_sel_wd = reg_wdata[1:0];
 
   assign b_39_cfg_chip2pad_we = addr_hit[138] & reg_we & !reg_error;
   assign b_39_cfg_chip2pad_wd = reg_wdata[0];
@@ -18771,7 +18771,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_39_cfg_smt_wd = reg_wdata[6];
 
   assign b_39_mux_sel_we = addr_hit[139] & reg_we & !reg_error;
-  assign b_39_mux_sel_wd = reg_wdata[2:0];
+  assign b_39_mux_sel_wd = reg_wdata[1:0];
 
   assign b_40_cfg_chip2pad_we = addr_hit[140] & reg_we & !reg_error;
   assign b_40_cfg_chip2pad_wd = reg_wdata[0];
@@ -18792,7 +18792,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_40_cfg_smt_wd = reg_wdata[6];
 
   assign b_40_mux_sel_we = addr_hit[141] & reg_we & !reg_error;
-  assign b_40_mux_sel_wd = reg_wdata[2:0];
+  assign b_40_mux_sel_wd = reg_wdata[1:0];
 
   assign b_41_cfg_chip2pad_we = addr_hit[142] & reg_we & !reg_error;
   assign b_41_cfg_chip2pad_wd = reg_wdata[0];
@@ -18813,7 +18813,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_41_cfg_smt_wd = reg_wdata[6];
 
   assign b_41_mux_sel_we = addr_hit[143] & reg_we & !reg_error;
-  assign b_41_mux_sel_wd = reg_wdata[2:0];
+  assign b_41_mux_sel_wd = reg_wdata[1:0];
 
   assign b_42_cfg_chip2pad_we = addr_hit[144] & reg_we & !reg_error;
   assign b_42_cfg_chip2pad_wd = reg_wdata[0];
@@ -18834,7 +18834,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_42_cfg_smt_wd = reg_wdata[6];
 
   assign b_42_mux_sel_we = addr_hit[145] & reg_we & !reg_error;
-  assign b_42_mux_sel_wd = reg_wdata[2:0];
+  assign b_42_mux_sel_wd = reg_wdata[1:0];
 
   assign b_43_cfg_chip2pad_we = addr_hit[146] & reg_we & !reg_error;
   assign b_43_cfg_chip2pad_wd = reg_wdata[0];
@@ -18855,7 +18855,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_43_cfg_smt_wd = reg_wdata[6];
 
   assign b_43_mux_sel_we = addr_hit[147] & reg_we & !reg_error;
-  assign b_43_mux_sel_wd = reg_wdata[2:0];
+  assign b_43_mux_sel_wd = reg_wdata[1:0];
 
   assign b_44_cfg_chip2pad_we = addr_hit[148] & reg_we & !reg_error;
   assign b_44_cfg_chip2pad_wd = reg_wdata[0];
@@ -18876,7 +18876,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_44_cfg_smt_wd = reg_wdata[6];
 
   assign b_44_mux_sel_we = addr_hit[149] & reg_we & !reg_error;
-  assign b_44_mux_sel_wd = reg_wdata[2:0];
+  assign b_44_mux_sel_wd = reg_wdata[1:0];
 
   assign b_45_cfg_chip2pad_we = addr_hit[150] & reg_we & !reg_error;
   assign b_45_cfg_chip2pad_wd = reg_wdata[0];
@@ -18897,7 +18897,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_45_cfg_smt_wd = reg_wdata[6];
 
   assign b_45_mux_sel_we = addr_hit[151] & reg_we & !reg_error;
-  assign b_45_mux_sel_wd = reg_wdata[2:0];
+  assign b_45_mux_sel_wd = reg_wdata[1:0];
 
   assign b_46_cfg_chip2pad_we = addr_hit[152] & reg_we & !reg_error;
   assign b_46_cfg_chip2pad_wd = reg_wdata[0];
@@ -18918,7 +18918,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_46_cfg_smt_wd = reg_wdata[6];
 
   assign b_46_mux_sel_we = addr_hit[153] & reg_we & !reg_error;
-  assign b_46_mux_sel_wd = reg_wdata[2:0];
+  assign b_46_mux_sel_wd = reg_wdata[1:0];
 
   assign b_47_cfg_chip2pad_we = addr_hit[154] & reg_we & !reg_error;
   assign b_47_cfg_chip2pad_wd = reg_wdata[0];
@@ -18939,7 +18939,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign b_47_cfg_smt_wd = reg_wdata[6];
 
   assign b_47_mux_sel_we = addr_hit[155] & reg_we & !reg_error;
-  assign b_47_mux_sel_wd = reg_wdata[2:0];
+  assign b_47_mux_sel_wd = reg_wdata[1:0];
 
   assign ot_spi_00_cfg_chip2pad_we = addr_hit[156] & reg_we & !reg_error;
   assign ot_spi_00_cfg_chip2pad_wd = reg_wdata[0];
@@ -19429,7 +19429,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[61]: begin
-        reg_rdata_next[1:0] = b_00_mux_sel_qs;
+        reg_rdata_next[2:0] = b_00_mux_sel_qs;
       end
 
       addr_hit[62]: begin
@@ -19442,7 +19442,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[63]: begin
-        reg_rdata_next[1:0] = b_01_mux_sel_qs;
+        reg_rdata_next[2:0] = b_01_mux_sel_qs;
       end
 
       addr_hit[64]: begin
@@ -19455,7 +19455,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[65]: begin
-        reg_rdata_next[1:0] = b_02_mux_sel_qs;
+        reg_rdata_next[2:0] = b_02_mux_sel_qs;
       end
 
       addr_hit[66]: begin
@@ -19481,7 +19481,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[69]: begin
-        reg_rdata_next[1:0] = b_04_mux_sel_qs;
+        reg_rdata_next[2:0] = b_04_mux_sel_qs;
       end
 
       addr_hit[70]: begin
@@ -19494,7 +19494,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[71]: begin
-        reg_rdata_next[1:0] = b_05_mux_sel_qs;
+        reg_rdata_next[2:0] = b_05_mux_sel_qs;
       end
 
       addr_hit[72]: begin
@@ -19507,7 +19507,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[73]: begin
-        reg_rdata_next[1:0] = b_06_mux_sel_qs;
+        reg_rdata_next[2:0] = b_06_mux_sel_qs;
       end
 
       addr_hit[74]: begin
@@ -19520,7 +19520,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[75]: begin
-        reg_rdata_next[1:0] = b_07_mux_sel_qs;
+        reg_rdata_next[2:0] = b_07_mux_sel_qs;
       end
 
       addr_hit[76]: begin
@@ -19533,7 +19533,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[77]: begin
-        reg_rdata_next[1:0] = b_08_mux_sel_qs;
+        reg_rdata_next[2:0] = b_08_mux_sel_qs;
       end
 
       addr_hit[78]: begin
@@ -19546,7 +19546,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[79]: begin
-        reg_rdata_next[1:0] = b_09_mux_sel_qs;
+        reg_rdata_next[2:0] = b_09_mux_sel_qs;
       end
 
       addr_hit[80]: begin
@@ -19559,7 +19559,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[81]: begin
-        reg_rdata_next[1:0] = b_10_mux_sel_qs;
+        reg_rdata_next[2:0] = b_10_mux_sel_qs;
       end
 
       addr_hit[82]: begin
@@ -19572,7 +19572,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[83]: begin
-        reg_rdata_next[1:0] = b_11_mux_sel_qs;
+        reg_rdata_next[2:0] = b_11_mux_sel_qs;
       end
 
       addr_hit[84]: begin
@@ -19585,7 +19585,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[85]: begin
-        reg_rdata_next[1:0] = b_12_mux_sel_qs;
+        reg_rdata_next[2:0] = b_12_mux_sel_qs;
       end
 
       addr_hit[86]: begin
@@ -19598,7 +19598,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[87]: begin
-        reg_rdata_next[1:0] = b_13_mux_sel_qs;
+        reg_rdata_next[2:0] = b_13_mux_sel_qs;
       end
 
       addr_hit[88]: begin
@@ -19871,7 +19871,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[129]: begin
-        reg_rdata_next[2:0] = b_34_mux_sel_qs;
+        reg_rdata_next[1:0] = b_34_mux_sel_qs;
       end
 
       addr_hit[130]: begin
@@ -19884,7 +19884,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[131]: begin
-        reg_rdata_next[2:0] = b_35_mux_sel_qs;
+        reg_rdata_next[1:0] = b_35_mux_sel_qs;
       end
 
       addr_hit[132]: begin
@@ -19897,7 +19897,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[133]: begin
-        reg_rdata_next[2:0] = b_36_mux_sel_qs;
+        reg_rdata_next[1:0] = b_36_mux_sel_qs;
       end
 
       addr_hit[134]: begin
@@ -19910,7 +19910,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[135]: begin
-        reg_rdata_next[2:0] = b_37_mux_sel_qs;
+        reg_rdata_next[1:0] = b_37_mux_sel_qs;
       end
 
       addr_hit[136]: begin
@@ -19923,7 +19923,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[137]: begin
-        reg_rdata_next[2:0] = b_38_mux_sel_qs;
+        reg_rdata_next[1:0] = b_38_mux_sel_qs;
       end
 
       addr_hit[138]: begin
@@ -19936,7 +19936,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[139]: begin
-        reg_rdata_next[2:0] = b_39_mux_sel_qs;
+        reg_rdata_next[1:0] = b_39_mux_sel_qs;
       end
 
       addr_hit[140]: begin
@@ -19949,7 +19949,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[141]: begin
-        reg_rdata_next[2:0] = b_40_mux_sel_qs;
+        reg_rdata_next[1:0] = b_40_mux_sel_qs;
       end
 
       addr_hit[142]: begin
@@ -19962,7 +19962,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[143]: begin
-        reg_rdata_next[2:0] = b_41_mux_sel_qs;
+        reg_rdata_next[1:0] = b_41_mux_sel_qs;
       end
 
       addr_hit[144]: begin
@@ -19975,7 +19975,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[145]: begin
-        reg_rdata_next[2:0] = b_42_mux_sel_qs;
+        reg_rdata_next[1:0] = b_42_mux_sel_qs;
       end
 
       addr_hit[146]: begin
@@ -19988,7 +19988,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[147]: begin
-        reg_rdata_next[2:0] = b_43_mux_sel_qs;
+        reg_rdata_next[1:0] = b_43_mux_sel_qs;
       end
 
       addr_hit[148]: begin
@@ -20001,7 +20001,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[149]: begin
-        reg_rdata_next[2:0] = b_44_mux_sel_qs;
+        reg_rdata_next[1:0] = b_44_mux_sel_qs;
       end
 
       addr_hit[150]: begin
@@ -20014,7 +20014,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[151]: begin
-        reg_rdata_next[2:0] = b_45_mux_sel_qs;
+        reg_rdata_next[1:0] = b_45_mux_sel_qs;
       end
 
       addr_hit[152]: begin
@@ -20027,7 +20027,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[153]: begin
-        reg_rdata_next[2:0] = b_46_mux_sel_qs;
+        reg_rdata_next[1:0] = b_46_mux_sel_qs;
       end
 
       addr_hit[154]: begin
@@ -20040,7 +20040,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[155]: begin
-        reg_rdata_next[2:0] = b_47_mux_sel_qs;
+        reg_rdata_next[1:0] = b_47_mux_sel_qs;
       end
 
       addr_hit[156]: begin
