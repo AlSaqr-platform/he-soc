@@ -220,30 +220,48 @@ scripts_vip:
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t rtl -t test -t tb -t vip -t cv64a6_imafdc_sv39 > compile.tcl
 
+gf22_fll_behav:
+	$(BENDER) script vsim \
+		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
+    -t rtl -t gf22_fll_behav -t test -t tb -t vip -t cv64a6_imafdc_sv39 > $(compile_script)
+
+# The following scripts must be used only for post synthesis simulations and provides different configuration to simulate the design
+
+#The following script generates the compile.tcl using all the netlists of the design (TOP - FLL - HYPER - CULSANS - CLUSTER - OPENTITAN)
 post_synth_all:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t tb_synth -t vip -t post_synth_all -t cv64a6_imafdc_sv39 > post_synth_compile.tcl
+    -t rtl -t test -t tb_synth -t vip -t post_synth_all -t cv64a6_imafdc_sv39 > $(compile_script)
 
+#The following script generates the compile.tcl using only the following netlists: TOP - HYPER - FLL
 post_synth_top:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t tb_synth -t vip -t post_synth_top -t cv64a6_imafdc_sv39 > post_synth_compile.tcl
+    -t rtl -t test -t tb_synth -t vip -t post_synth_top -t cv64a6_imafdc_sv39 > $(compile_script)
 
+#The following script generates the compile.tcl using the following netlists: TOP - HYPER and behavioural model of the FLL (used internally)
+post_synth_top_fll_behav:
+	$(BENDER) script vsim \
+		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
+    -t rtl -t test -t tb_synth -t vip -t post_synth_top_fll_behav -t cv64a6_imafdc_sv39 > $(compile_script)
+
+#The following script generates the compile.tcl using only the following netlists: OPENTITAN
 post_synth_opentitan:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t tb -t vip -t post_synth_opentitan -t cv64a6_imafdc_sv39 > post_synth_compile.tcl
+    -t rtl -t test -t tb -t vip -t post_synth_opentitan -t cv64a6_imafdc_sv39 > $(compile_script)
 
+#The following script generates the compile.tcl using only the following netlists: CUSTER
 post_synth_cluster:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t tb -t vip -t post_synth_cluster -t cv64a6_imafdc_sv39 > post_synth_compile.tcl
+    -t rtl -t test -t tb -t vip -t post_synth_cluster -t cv64a6_imafdc_sv39 > $(compile_script)
 
+#The following script generates the compile.tcl using only the following netlists: HYPERRAM
 post_synth_hyper:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t tb -t vip -t post_synth_hyper -t cv64a6_imafdc_sv39 > post_synth_compile.tcl
+    -t rtl -t test -t tb -t vip -t post_synth_hyper -t cv64a6_imafdc_sv39 > $(compile_script)
 
 post_pr_scripts_vip:
 	$(BENDER) script vsim \
@@ -264,7 +282,7 @@ benderrun_macro: libbender $(util) $(library)
 
 benderrun_synth: libbender $(util) $(library)
 	@test -f Bender.lock || { echo "ERROR: Bender.lock file does not exist. Did you run make checkout in bender mode?"; exit 1; }
-	vsim -c -do 'source gf22/modelsim/libraries.sh; source post_synth_compile.tcl; quit'
+	vsim -c -do 'source gf22/modelsim/libraries.sh; source $(compile_script); quit'
 	touch $(library)/.build-srcs
 
 bendertb: benderrun $(dpi)
