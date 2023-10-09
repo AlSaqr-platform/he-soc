@@ -99,5 +99,13 @@ module pad_frame
 
 `endif // !`ifndef FPGA_EMUL
 
+`ifdef TARGET_ASIC
+
+   IN22FDX_GPIO18_10M19S40PI_PWRDET_TIE_V pad_frame_pwrdet ( .RETCOUT (RETC_S), .PWROKOUT (PWROK_S), .IOPWROKOUT (IOPWROK_S), .RETCIN(1'b0), .BIAS(BIAS_S) );
+
+`endif
+
+
+
 
 endmodule
