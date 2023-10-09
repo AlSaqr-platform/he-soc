@@ -68,7 +68,7 @@ package ariane_soc;
   localparam NumChipsPerHyperbus      = 2;
   `else
   localparam HyperbusNumPhys          = 2;
-  localparam NumChipsPerHyperbus      = 2;
+  localparam NumChipsPerHyperbus      = 4;
   `endif
   localparam logic[63:0] HyperRamSize = 64'h4000000; // 64MB
 

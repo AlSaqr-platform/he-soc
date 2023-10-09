@@ -78,7 +78,7 @@ module ariane_tb;
   parameter  USE_SDVT_CPI         = 1;
   parameter  USE_SDIO             = 1;
   parameter  USE_CAN              = 1;
-  parameter  GPIO_LOOPBACK        = 0; 
+  parameter  GPIO_LOOPBACK        = 0;
 
   ////////////////////////////////
   //                            //
@@ -176,7 +176,7 @@ module ariane_tb;
     wire                  s_jtag_to_alsaqr_trstn     ;
     wire                  s_jtag_to_alsaqr_tdo       ;
 
-    wire  [NumPhys-1:0][1:0] hyper_cs_n_wire;
+    wire  [NumPhys-1:0][NumChips-1:0] hyper_cs_n_wire;
     wire  [NumPhys-1:0]      hyper_ck_wire;
     wire  [NumPhys-1:0]      hyper_ck_n_wire;
     wire  [NumPhys-1:0]      hyper_rwds_wire;
@@ -1426,7 +1426,7 @@ module ariane_tb;
         /* CAM VIPs
         */
         if (USE_SDVT_CPI==1) begin
-          
+
           // configure the CAM0 pads, muxed with I2C3 (42, 43), GPIO19 (19),
           // SPI5 (44, 45, 46, 47), GPIO20 (20) and SPI6 (48, 49, 50)
           cam_vip #(
@@ -1500,7 +1500,7 @@ module ariane_tb;
           assign pad_periphs_a_66_pad_uart2_rx = pad_periphs_a_65_pad_uart2_tx; // UART2_TX -> UART2_RX
 
         end
-        
+
       endgenerate
     `endif
   `endif
@@ -1520,7 +1520,7 @@ module ariane_tb;
           I2C_MEM4 ADDRESS 0x53 -(dirrection bit)-> 0xA6
         */
         if (USE_24FC1025_MODEL == 1) begin
-          
+
           // configure the I2C3 pads, muxed with CPI0
           pullup sda3_pullup_i (pad_periphs_a_43_pad_i2c3_sda);
           pullup scl3_pullup_i (pad_periphs_a_42_pad_i2c3_scl);
@@ -1645,16 +1645,16 @@ module ariane_tb;
         if(USE_USART == 1) begin
 
           // config the USART1 pads, muxed with SDIO1 (61, 62)
-          assign pad_periphs_a_62_pad_usart1_rx  = pad_periphs_a_61_pad_usart1_tx;  // UART1_TX  -> UART1_RX 
-          assign pad_periphs_a_64_pad_usart1_cts = pad_periphs_a_63_pad_usart1_rts; // UART1_RTS -> UART1_CTS 
+          assign pad_periphs_a_62_pad_usart1_rx  = pad_periphs_a_61_pad_usart1_tx;  // UART1_TX  -> UART1_RX
+          assign pad_periphs_a_64_pad_usart1_cts = pad_periphs_a_63_pad_usart1_rts; // UART1_RTS -> UART1_CTS
 
           // config the USART2 pads, not muxed
-          assign pad_periphs_a_70_pad_usart2_rx  = pad_periphs_a_69_pad_usart2_tx;  // UART2_TX  -> UART2_RX 
-          assign pad_periphs_a_72_pad_usart2_cts = pad_periphs_a_71_pad_usart2_rts; // UART2_RTS -> UART2_CTS 
+          assign pad_periphs_a_70_pad_usart2_rx  = pad_periphs_a_69_pad_usart2_tx;  // UART2_TX  -> UART2_RX
+          assign pad_periphs_a_72_pad_usart2_cts = pad_periphs_a_71_pad_usart2_rts; // UART2_RTS -> UART2_CTS
 
           // config the USART3 pads, not muxed
-          assign pad_periphs_a_74_pad_usart3_rx  = pad_periphs_a_73_pad_usart3_tx;  // UART3_TX  -> UART3_RX 
-          assign pad_periphs_a_76_pad_usart3_cts = pad_periphs_a_75_pad_usart3_rts; // UART3_RTS -> UART3_CTS 
+          assign pad_periphs_a_74_pad_usart3_rx  = pad_periphs_a_73_pad_usart3_tx;  // UART3_TX  -> UART3_RX
+          assign pad_periphs_a_76_pad_usart3_cts = pad_periphs_a_75_pad_usart3_rts; // UART3_RTS -> UART3_CTS
 
         end
 
@@ -1903,7 +1903,7 @@ module ariane_tb;
                                                                                               PAD_MUX_GROUP_B_62_SEL_FLL_CVA6_CLK_CVA6      |
                                                                                               PAD_MUX_GROUP_B_62_SEL_FLL_PER_CLK_PERIPHERAL |
                                                                                               PAD_MUX_GROUP_B_62_SEL_FLL_CLUSTER_CLK_CLUSTER );
-      assign pad_periphs_b_62_pad_mux_sel_io_gpio62    = (`PAD_MUX_REG_PATH.b_62_mux_sel.q == PAD_MUX_GROUP_B_62_SEL_GPIO_B_GPIO62           ); 
+      assign pad_periphs_b_62_pad_mux_sel_io_gpio62    = (`PAD_MUX_REG_PATH.b_62_mux_sel.q == PAD_MUX_GROUP_B_62_SEL_GPIO_B_GPIO62           );
     `else // !`ifndef SIMPLE_PADFRAME
       assign simple_pad_periphs_00_mux_sel_spi0_cs   = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_00_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_00_SEL_SPI0_SPI_CS0    );
       assign simple_pad_periphs_00_mux_sel_gpio0     = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_00_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_00_SEL_GPIO_B_GPIO0    );
@@ -2097,7 +2097,7 @@ module ariane_tb;
           tranif1 b_30_61_pad_gpio30_gpio61 (pad_periphs_b_30_pad, pad_periphs_b_61_pad, pad_periphs_b_30_pad_mux_sel_io_gpio30    && pad_periphs_b_61_pad_mux_sel_io_gpio61);
           tranif1 b_30_62_pad_gpio30_gpio62 (pad_periphs_b_30_pad, pad_periphs_b_62_pad, pad_periphs_b_30_pad_mux_sel_io_gpio30    && pad_periphs_b_62_pad_mux_sel_io_gpio62);
         end else begin
-          tranif1 b_00_pad_drdy_gpio0     (pad_periphs_b_00_pad, pad_periphs_b_00_pad_drdy_gpio0  , pad_periphs_b_00_pad_mux_sel_drdy_gpio0   ); 
+          tranif1 b_00_pad_drdy_gpio0     (pad_periphs_b_00_pad, pad_periphs_b_00_pad_drdy_gpio0  , pad_periphs_b_00_pad_mux_sel_drdy_gpio0   );
           tranif1 b_01_pad_drdy_gpio1     (pad_periphs_b_01_pad, pad_periphs_b_01_pad_drdy_gpio1  , pad_periphs_b_01_pad_mux_sel_drdy_gpio1   );
           tranif1 b_02_pad_drdy_gpio2     (pad_periphs_b_02_pad, pad_periphs_b_02_pad_drdy_gpio2  , pad_periphs_b_02_pad_mux_sel_drdy_gpio2   );
           tranif1 b_03_pad_sync_gpio3     (pad_periphs_b_03_pad, pad_periphs_b_03_pad_sync_gpio3  , pad_periphs_b_03_pad_mux_sel_sync_gpio3   );
@@ -2321,7 +2321,7 @@ module ariane_tb;
       );
      end
    endgenerate
-   
+
    `ifdef POWER_PROFILE
    initial begin
       @( posedge dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o &&
