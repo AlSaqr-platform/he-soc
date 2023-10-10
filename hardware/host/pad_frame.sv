@@ -12,12 +12,6 @@
 module pad_frame
   import udma_subsystem_pkg::*;
     (
-     input logic         cva6_uart_tx,
-     output logic        cva6_uart_rx,
-
-     inout wire          pad_cva6_uart_rx ,
-     inout wire          pad_cva6_uart_tx ,
-
      output logic        ref_clk_o,
      output logic        rstn_o,
      output logic        bypass_o,
@@ -55,9 +49,6 @@ module pad_frame
       );
 
     wire PWROK_S, IOPWROK_S, BIAS_S, RETC_S;
-
-    pad_alsaqr_pu padinst_uart_rx    (.OEN( 1'b1   ), .I(1'b0         ), .O(cva6_uart_rx ), .PAD(pad_cva6_uart_rx   ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S) );
-    pad_alsaqr_pu padinst_uart_tx    (.OEN( 1'b0   ), .I(cva6_uart_tx ), .O(             ), .PAD(pad_cva6_uart_tx   ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S) );
 
 `ifndef FPGA_EMUL
 

@@ -10,7 +10,7 @@
 module alsaqr_periph_padframe_periphs_config_reg_top #(
     parameter type reg_req_t = logic,
     parameter type reg_rsp_t = logic,
-    parameter int AW = 11
+    parameter int AW = 10
 ) (
   input clk_i,
   input rst_ni,
@@ -85,8 +85,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_00_cfg_smt_qs;
   logic a_00_cfg_smt_wd;
   logic a_00_cfg_smt_we;
-  logic a_00_mux_sel_qs;
-  logic a_00_mux_sel_wd;
+  logic [1:0] a_00_mux_sel_qs;
+  logic [1:0] a_00_mux_sel_wd;
   logic a_00_mux_sel_we;
   logic a_01_cfg_chip2pad_qs;
   logic a_01_cfg_chip2pad_wd;
@@ -106,8 +106,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_01_cfg_smt_qs;
   logic a_01_cfg_smt_wd;
   logic a_01_cfg_smt_we;
-  logic a_01_mux_sel_qs;
-  logic a_01_mux_sel_wd;
+  logic [1:0] a_01_mux_sel_qs;
+  logic [1:0] a_01_mux_sel_wd;
   logic a_01_mux_sel_we;
   logic a_02_cfg_chip2pad_qs;
   logic a_02_cfg_chip2pad_wd;
@@ -127,8 +127,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_02_cfg_smt_qs;
   logic a_02_cfg_smt_wd;
   logic a_02_cfg_smt_we;
-  logic a_02_mux_sel_qs;
-  logic a_02_mux_sel_wd;
+  logic [2:0] a_02_mux_sel_qs;
+  logic [2:0] a_02_mux_sel_wd;
   logic a_02_mux_sel_we;
   logic a_03_cfg_chip2pad_qs;
   logic a_03_cfg_chip2pad_wd;
@@ -148,8 +148,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_03_cfg_smt_qs;
   logic a_03_cfg_smt_wd;
   logic a_03_cfg_smt_we;
-  logic a_03_mux_sel_qs;
-  logic a_03_mux_sel_wd;
+  logic [2:0] a_03_mux_sel_qs;
+  logic [2:0] a_03_mux_sel_wd;
   logic a_03_mux_sel_we;
   logic a_04_cfg_chip2pad_qs;
   logic a_04_cfg_chip2pad_wd;
@@ -169,8 +169,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_04_cfg_smt_qs;
   logic a_04_cfg_smt_wd;
   logic a_04_cfg_smt_we;
-  logic a_04_mux_sel_qs;
-  logic a_04_mux_sel_wd;
+  logic [2:0] a_04_mux_sel_qs;
+  logic [2:0] a_04_mux_sel_wd;
   logic a_04_mux_sel_we;
   logic a_05_cfg_chip2pad_qs;
   logic a_05_cfg_chip2pad_wd;
@@ -190,8 +190,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_05_cfg_smt_qs;
   logic a_05_cfg_smt_wd;
   logic a_05_cfg_smt_we;
-  logic a_05_mux_sel_qs;
-  logic a_05_mux_sel_wd;
+  logic [2:0] a_05_mux_sel_qs;
+  logic [2:0] a_05_mux_sel_wd;
   logic a_05_mux_sel_we;
   logic a_06_cfg_chip2pad_qs;
   logic a_06_cfg_chip2pad_wd;
@@ -211,8 +211,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_06_cfg_smt_qs;
   logic a_06_cfg_smt_wd;
   logic a_06_cfg_smt_we;
-  logic a_06_mux_sel_qs;
-  logic a_06_mux_sel_wd;
+  logic [2:0] a_06_mux_sel_qs;
+  logic [2:0] a_06_mux_sel_wd;
   logic a_06_mux_sel_we;
   logic a_07_cfg_chip2pad_qs;
   logic a_07_cfg_chip2pad_wd;
@@ -232,8 +232,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_07_cfg_smt_qs;
   logic a_07_cfg_smt_wd;
   logic a_07_cfg_smt_we;
-  logic a_07_mux_sel_qs;
-  logic a_07_mux_sel_wd;
+  logic [2:0] a_07_mux_sel_qs;
+  logic [2:0] a_07_mux_sel_wd;
   logic a_07_mux_sel_we;
   logic a_08_cfg_chip2pad_qs;
   logic a_08_cfg_chip2pad_wd;
@@ -253,8 +253,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_08_cfg_smt_qs;
   logic a_08_cfg_smt_wd;
   logic a_08_cfg_smt_we;
-  logic a_08_mux_sel_qs;
-  logic a_08_mux_sel_wd;
+  logic [2:0] a_08_mux_sel_qs;
+  logic [2:0] a_08_mux_sel_wd;
   logic a_08_mux_sel_we;
   logic a_09_cfg_chip2pad_qs;
   logic a_09_cfg_chip2pad_wd;
@@ -274,8 +274,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_09_cfg_smt_qs;
   logic a_09_cfg_smt_wd;
   logic a_09_cfg_smt_we;
-  logic a_09_mux_sel_qs;
-  logic a_09_mux_sel_wd;
+  logic [2:0] a_09_mux_sel_qs;
+  logic [2:0] a_09_mux_sel_wd;
   logic a_09_mux_sel_we;
   logic a_10_cfg_chip2pad_qs;
   logic a_10_cfg_chip2pad_wd;
@@ -295,8 +295,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_10_cfg_smt_qs;
   logic a_10_cfg_smt_wd;
   logic a_10_cfg_smt_we;
-  logic a_10_mux_sel_qs;
-  logic a_10_mux_sel_wd;
+  logic [2:0] a_10_mux_sel_qs;
+  logic [2:0] a_10_mux_sel_wd;
   logic a_10_mux_sel_we;
   logic a_11_cfg_chip2pad_qs;
   logic a_11_cfg_chip2pad_wd;
@@ -316,8 +316,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_11_cfg_smt_qs;
   logic a_11_cfg_smt_wd;
   logic a_11_cfg_smt_we;
-  logic a_11_mux_sel_qs;
-  logic a_11_mux_sel_wd;
+  logic [2:0] a_11_mux_sel_qs;
+  logic [2:0] a_11_mux_sel_wd;
   logic a_11_mux_sel_we;
   logic a_12_cfg_chip2pad_qs;
   logic a_12_cfg_chip2pad_wd;
@@ -337,8 +337,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_12_cfg_smt_qs;
   logic a_12_cfg_smt_wd;
   logic a_12_cfg_smt_we;
-  logic a_12_mux_sel_qs;
-  logic a_12_mux_sel_wd;
+  logic [2:0] a_12_mux_sel_qs;
+  logic [2:0] a_12_mux_sel_wd;
   logic a_12_mux_sel_we;
   logic a_13_cfg_chip2pad_qs;
   logic a_13_cfg_chip2pad_wd;
@@ -358,8 +358,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_13_cfg_smt_qs;
   logic a_13_cfg_smt_wd;
   logic a_13_cfg_smt_we;
-  logic a_13_mux_sel_qs;
-  logic a_13_mux_sel_wd;
+  logic [2:0] a_13_mux_sel_qs;
+  logic [2:0] a_13_mux_sel_wd;
   logic a_13_mux_sel_we;
   logic a_14_cfg_chip2pad_qs;
   logic a_14_cfg_chip2pad_wd;
@@ -379,8 +379,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_14_cfg_smt_qs;
   logic a_14_cfg_smt_wd;
   logic a_14_cfg_smt_we;
-  logic a_14_mux_sel_qs;
-  logic a_14_mux_sel_wd;
+  logic [2:0] a_14_mux_sel_qs;
+  logic [2:0] a_14_mux_sel_wd;
   logic a_14_mux_sel_we;
   logic a_15_cfg_chip2pad_qs;
   logic a_15_cfg_chip2pad_wd;
@@ -400,8 +400,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_15_cfg_smt_qs;
   logic a_15_cfg_smt_wd;
   logic a_15_cfg_smt_we;
-  logic a_15_mux_sel_qs;
-  logic a_15_mux_sel_wd;
+  logic [2:0] a_15_mux_sel_qs;
+  logic [2:0] a_15_mux_sel_wd;
   logic a_15_mux_sel_we;
   logic a_16_cfg_chip2pad_qs;
   logic a_16_cfg_chip2pad_wd;
@@ -421,8 +421,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_16_cfg_smt_qs;
   logic a_16_cfg_smt_wd;
   logic a_16_cfg_smt_we;
-  logic a_16_mux_sel_qs;
-  logic a_16_mux_sel_wd;
+  logic [2:0] a_16_mux_sel_qs;
+  logic [2:0] a_16_mux_sel_wd;
   logic a_16_mux_sel_we;
   logic a_17_cfg_chip2pad_qs;
   logic a_17_cfg_chip2pad_wd;
@@ -442,8 +442,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_17_cfg_smt_qs;
   logic a_17_cfg_smt_wd;
   logic a_17_cfg_smt_we;
-  logic a_17_mux_sel_qs;
-  logic a_17_mux_sel_wd;
+  logic [2:0] a_17_mux_sel_qs;
+  logic [2:0] a_17_mux_sel_wd;
   logic a_17_mux_sel_we;
   logic a_18_cfg_chip2pad_qs;
   logic a_18_cfg_chip2pad_wd;
@@ -463,8 +463,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_18_cfg_smt_qs;
   logic a_18_cfg_smt_wd;
   logic a_18_cfg_smt_we;
-  logic a_18_mux_sel_qs;
-  logic a_18_mux_sel_wd;
+  logic [2:0] a_18_mux_sel_qs;
+  logic [2:0] a_18_mux_sel_wd;
   logic a_18_mux_sel_we;
   logic a_19_cfg_chip2pad_qs;
   logic a_19_cfg_chip2pad_wd;
@@ -484,8 +484,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_19_cfg_smt_qs;
   logic a_19_cfg_smt_wd;
   logic a_19_cfg_smt_we;
-  logic a_19_mux_sel_qs;
-  logic a_19_mux_sel_wd;
+  logic [2:0] a_19_mux_sel_qs;
+  logic [2:0] a_19_mux_sel_wd;
   logic a_19_mux_sel_we;
   logic a_20_cfg_chip2pad_qs;
   logic a_20_cfg_chip2pad_wd;
@@ -505,8 +505,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_20_cfg_smt_qs;
   logic a_20_cfg_smt_wd;
   logic a_20_cfg_smt_we;
-  logic a_20_mux_sel_qs;
-  logic a_20_mux_sel_wd;
+  logic [2:0] a_20_mux_sel_qs;
+  logic [2:0] a_20_mux_sel_wd;
   logic a_20_mux_sel_we;
   logic a_21_cfg_chip2pad_qs;
   logic a_21_cfg_chip2pad_wd;
@@ -526,8 +526,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_21_cfg_smt_qs;
   logic a_21_cfg_smt_wd;
   logic a_21_cfg_smt_we;
-  logic a_21_mux_sel_qs;
-  logic a_21_mux_sel_wd;
+  logic [2:0] a_21_mux_sel_qs;
+  logic [2:0] a_21_mux_sel_wd;
   logic a_21_mux_sel_we;
   logic a_22_cfg_chip2pad_qs;
   logic a_22_cfg_chip2pad_wd;
@@ -547,8 +547,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_22_cfg_smt_qs;
   logic a_22_cfg_smt_wd;
   logic a_22_cfg_smt_we;
-  logic a_22_mux_sel_qs;
-  logic a_22_mux_sel_wd;
+  logic [2:0] a_22_mux_sel_qs;
+  logic [2:0] a_22_mux_sel_wd;
   logic a_22_mux_sel_we;
   logic a_23_cfg_chip2pad_qs;
   logic a_23_cfg_chip2pad_wd;
@@ -568,8 +568,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_23_cfg_smt_qs;
   logic a_23_cfg_smt_wd;
   logic a_23_cfg_smt_we;
-  logic a_23_mux_sel_qs;
-  logic a_23_mux_sel_wd;
+  logic [2:0] a_23_mux_sel_qs;
+  logic [2:0] a_23_mux_sel_wd;
   logic a_23_mux_sel_we;
   logic a_24_cfg_chip2pad_qs;
   logic a_24_cfg_chip2pad_wd;
@@ -589,8 +589,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_24_cfg_smt_qs;
   logic a_24_cfg_smt_wd;
   logic a_24_cfg_smt_we;
-  logic a_24_mux_sel_qs;
-  logic a_24_mux_sel_wd;
+  logic [2:0] a_24_mux_sel_qs;
+  logic [2:0] a_24_mux_sel_wd;
   logic a_24_mux_sel_we;
   logic a_25_cfg_chip2pad_qs;
   logic a_25_cfg_chip2pad_wd;
@@ -610,8 +610,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_25_cfg_smt_qs;
   logic a_25_cfg_smt_wd;
   logic a_25_cfg_smt_we;
-  logic a_25_mux_sel_qs;
-  logic a_25_mux_sel_wd;
+  logic [2:0] a_25_mux_sel_qs;
+  logic [2:0] a_25_mux_sel_wd;
   logic a_25_mux_sel_we;
   logic a_26_cfg_chip2pad_qs;
   logic a_26_cfg_chip2pad_wd;
@@ -631,8 +631,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_26_cfg_smt_qs;
   logic a_26_cfg_smt_wd;
   logic a_26_cfg_smt_we;
-  logic a_26_mux_sel_qs;
-  logic a_26_mux_sel_wd;
+  logic [2:0] a_26_mux_sel_qs;
+  logic [2:0] a_26_mux_sel_wd;
   logic a_26_mux_sel_we;
   logic a_27_cfg_chip2pad_qs;
   logic a_27_cfg_chip2pad_wd;
@@ -652,8 +652,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_27_cfg_smt_qs;
   logic a_27_cfg_smt_wd;
   logic a_27_cfg_smt_we;
-  logic a_27_mux_sel_qs;
-  logic a_27_mux_sel_wd;
+  logic [2:0] a_27_mux_sel_qs;
+  logic [2:0] a_27_mux_sel_wd;
   logic a_27_mux_sel_we;
   logic a_28_cfg_chip2pad_qs;
   logic a_28_cfg_chip2pad_wd;
@@ -673,8 +673,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_28_cfg_smt_qs;
   logic a_28_cfg_smt_wd;
   logic a_28_cfg_smt_we;
-  logic a_28_mux_sel_qs;
-  logic a_28_mux_sel_wd;
+  logic [2:0] a_28_mux_sel_qs;
+  logic [2:0] a_28_mux_sel_wd;
   logic a_28_mux_sel_we;
   logic a_29_cfg_chip2pad_qs;
   logic a_29_cfg_chip2pad_wd;
@@ -694,1332 +694,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_29_cfg_smt_qs;
   logic a_29_cfg_smt_wd;
   logic a_29_cfg_smt_we;
-  logic a_29_mux_sel_qs;
-  logic a_29_mux_sel_wd;
+  logic [2:0] a_29_mux_sel_qs;
+  logic [2:0] a_29_mux_sel_wd;
   logic a_29_mux_sel_we;
-  logic a_30_cfg_chip2pad_qs;
-  logic a_30_cfg_chip2pad_wd;
-  logic a_30_cfg_chip2pad_we;
-  logic [1:0] a_30_cfg_drv_qs;
-  logic [1:0] a_30_cfg_drv_wd;
-  logic a_30_cfg_drv_we;
-  logic a_30_cfg_oen_qs;
-  logic a_30_cfg_oen_wd;
-  logic a_30_cfg_oen_we;
-  logic a_30_cfg_puen_qs;
-  logic a_30_cfg_puen_wd;
-  logic a_30_cfg_puen_we;
-  logic a_30_cfg_slw_qs;
-  logic a_30_cfg_slw_wd;
-  logic a_30_cfg_slw_we;
-  logic a_30_cfg_smt_qs;
-  logic a_30_cfg_smt_wd;
-  logic a_30_cfg_smt_we;
-  logic a_30_mux_sel_qs;
-  logic a_30_mux_sel_wd;
-  logic a_30_mux_sel_we;
-  logic a_31_cfg_chip2pad_qs;
-  logic a_31_cfg_chip2pad_wd;
-  logic a_31_cfg_chip2pad_we;
-  logic [1:0] a_31_cfg_drv_qs;
-  logic [1:0] a_31_cfg_drv_wd;
-  logic a_31_cfg_drv_we;
-  logic a_31_cfg_oen_qs;
-  logic a_31_cfg_oen_wd;
-  logic a_31_cfg_oen_we;
-  logic a_31_cfg_puen_qs;
-  logic a_31_cfg_puen_wd;
-  logic a_31_cfg_puen_we;
-  logic a_31_cfg_slw_qs;
-  logic a_31_cfg_slw_wd;
-  logic a_31_cfg_slw_we;
-  logic a_31_cfg_smt_qs;
-  logic a_31_cfg_smt_wd;
-  logic a_31_cfg_smt_we;
-  logic a_31_mux_sel_qs;
-  logic a_31_mux_sel_wd;
-  logic a_31_mux_sel_we;
-  logic a_32_cfg_chip2pad_qs;
-  logic a_32_cfg_chip2pad_wd;
-  logic a_32_cfg_chip2pad_we;
-  logic [1:0] a_32_cfg_drv_qs;
-  logic [1:0] a_32_cfg_drv_wd;
-  logic a_32_cfg_drv_we;
-  logic a_32_cfg_oen_qs;
-  logic a_32_cfg_oen_wd;
-  logic a_32_cfg_oen_we;
-  logic a_32_cfg_puen_qs;
-  logic a_32_cfg_puen_wd;
-  logic a_32_cfg_puen_we;
-  logic a_32_cfg_slw_qs;
-  logic a_32_cfg_slw_wd;
-  logic a_32_cfg_slw_we;
-  logic a_32_cfg_smt_qs;
-  logic a_32_cfg_smt_wd;
-  logic a_32_cfg_smt_we;
-  logic a_32_mux_sel_qs;
-  logic a_32_mux_sel_wd;
-  logic a_32_mux_sel_we;
-  logic a_33_cfg_chip2pad_qs;
-  logic a_33_cfg_chip2pad_wd;
-  logic a_33_cfg_chip2pad_we;
-  logic [1:0] a_33_cfg_drv_qs;
-  logic [1:0] a_33_cfg_drv_wd;
-  logic a_33_cfg_drv_we;
-  logic a_33_cfg_oen_qs;
-  logic a_33_cfg_oen_wd;
-  logic a_33_cfg_oen_we;
-  logic a_33_cfg_puen_qs;
-  logic a_33_cfg_puen_wd;
-  logic a_33_cfg_puen_we;
-  logic a_33_cfg_slw_qs;
-  logic a_33_cfg_slw_wd;
-  logic a_33_cfg_slw_we;
-  logic a_33_cfg_smt_qs;
-  logic a_33_cfg_smt_wd;
-  logic a_33_cfg_smt_we;
-  logic a_33_mux_sel_qs;
-  logic a_33_mux_sel_wd;
-  logic a_33_mux_sel_we;
-  logic a_34_cfg_chip2pad_qs;
-  logic a_34_cfg_chip2pad_wd;
-  logic a_34_cfg_chip2pad_we;
-  logic [1:0] a_34_cfg_drv_qs;
-  logic [1:0] a_34_cfg_drv_wd;
-  logic a_34_cfg_drv_we;
-  logic a_34_cfg_oen_qs;
-  logic a_34_cfg_oen_wd;
-  logic a_34_cfg_oen_we;
-  logic a_34_cfg_puen_qs;
-  logic a_34_cfg_puen_wd;
-  logic a_34_cfg_puen_we;
-  logic a_34_cfg_slw_qs;
-  logic a_34_cfg_slw_wd;
-  logic a_34_cfg_slw_we;
-  logic a_34_cfg_smt_qs;
-  logic a_34_cfg_smt_wd;
-  logic a_34_cfg_smt_we;
-  logic a_34_mux_sel_qs;
-  logic a_34_mux_sel_wd;
-  logic a_34_mux_sel_we;
-  logic a_35_cfg_chip2pad_qs;
-  logic a_35_cfg_chip2pad_wd;
-  logic a_35_cfg_chip2pad_we;
-  logic [1:0] a_35_cfg_drv_qs;
-  logic [1:0] a_35_cfg_drv_wd;
-  logic a_35_cfg_drv_we;
-  logic a_35_cfg_oen_qs;
-  logic a_35_cfg_oen_wd;
-  logic a_35_cfg_oen_we;
-  logic a_35_cfg_puen_qs;
-  logic a_35_cfg_puen_wd;
-  logic a_35_cfg_puen_we;
-  logic a_35_cfg_slw_qs;
-  logic a_35_cfg_slw_wd;
-  logic a_35_cfg_slw_we;
-  logic a_35_cfg_smt_qs;
-  logic a_35_cfg_smt_wd;
-  logic a_35_cfg_smt_we;
-  logic a_35_mux_sel_qs;
-  logic a_35_mux_sel_wd;
-  logic a_35_mux_sel_we;
-  logic a_36_cfg_chip2pad_qs;
-  logic a_36_cfg_chip2pad_wd;
-  logic a_36_cfg_chip2pad_we;
-  logic [1:0] a_36_cfg_drv_qs;
-  logic [1:0] a_36_cfg_drv_wd;
-  logic a_36_cfg_drv_we;
-  logic a_36_cfg_oen_qs;
-  logic a_36_cfg_oen_wd;
-  logic a_36_cfg_oen_we;
-  logic a_36_cfg_puen_qs;
-  logic a_36_cfg_puen_wd;
-  logic a_36_cfg_puen_we;
-  logic a_36_cfg_slw_qs;
-  logic a_36_cfg_slw_wd;
-  logic a_36_cfg_slw_we;
-  logic a_36_cfg_smt_qs;
-  logic a_36_cfg_smt_wd;
-  logic a_36_cfg_smt_we;
-  logic a_36_mux_sel_qs;
-  logic a_36_mux_sel_wd;
-  logic a_36_mux_sel_we;
-  logic a_37_cfg_chip2pad_qs;
-  logic a_37_cfg_chip2pad_wd;
-  logic a_37_cfg_chip2pad_we;
-  logic [1:0] a_37_cfg_drv_qs;
-  logic [1:0] a_37_cfg_drv_wd;
-  logic a_37_cfg_drv_we;
-  logic a_37_cfg_oen_qs;
-  logic a_37_cfg_oen_wd;
-  logic a_37_cfg_oen_we;
-  logic a_37_cfg_puen_qs;
-  logic a_37_cfg_puen_wd;
-  logic a_37_cfg_puen_we;
-  logic a_37_cfg_slw_qs;
-  logic a_37_cfg_slw_wd;
-  logic a_37_cfg_slw_we;
-  logic a_37_cfg_smt_qs;
-  logic a_37_cfg_smt_wd;
-  logic a_37_cfg_smt_we;
-  logic a_37_mux_sel_qs;
-  logic a_37_mux_sel_wd;
-  logic a_37_mux_sel_we;
-  logic a_38_cfg_chip2pad_qs;
-  logic a_38_cfg_chip2pad_wd;
-  logic a_38_cfg_chip2pad_we;
-  logic [1:0] a_38_cfg_drv_qs;
-  logic [1:0] a_38_cfg_drv_wd;
-  logic a_38_cfg_drv_we;
-  logic a_38_cfg_oen_qs;
-  logic a_38_cfg_oen_wd;
-  logic a_38_cfg_oen_we;
-  logic a_38_cfg_puen_qs;
-  logic a_38_cfg_puen_wd;
-  logic a_38_cfg_puen_we;
-  logic a_38_cfg_slw_qs;
-  logic a_38_cfg_slw_wd;
-  logic a_38_cfg_slw_we;
-  logic a_38_cfg_smt_qs;
-  logic a_38_cfg_smt_wd;
-  logic a_38_cfg_smt_we;
-  logic a_38_mux_sel_qs;
-  logic a_38_mux_sel_wd;
-  logic a_38_mux_sel_we;
-  logic a_39_cfg_chip2pad_qs;
-  logic a_39_cfg_chip2pad_wd;
-  logic a_39_cfg_chip2pad_we;
-  logic [1:0] a_39_cfg_drv_qs;
-  logic [1:0] a_39_cfg_drv_wd;
-  logic a_39_cfg_drv_we;
-  logic a_39_cfg_oen_qs;
-  logic a_39_cfg_oen_wd;
-  logic a_39_cfg_oen_we;
-  logic a_39_cfg_puen_qs;
-  logic a_39_cfg_puen_wd;
-  logic a_39_cfg_puen_we;
-  logic a_39_cfg_slw_qs;
-  logic a_39_cfg_slw_wd;
-  logic a_39_cfg_slw_we;
-  logic a_39_cfg_smt_qs;
-  logic a_39_cfg_smt_wd;
-  logic a_39_cfg_smt_we;
-  logic a_39_mux_sel_qs;
-  logic a_39_mux_sel_wd;
-  logic a_39_mux_sel_we;
-  logic a_40_cfg_chip2pad_qs;
-  logic a_40_cfg_chip2pad_wd;
-  logic a_40_cfg_chip2pad_we;
-  logic [1:0] a_40_cfg_drv_qs;
-  logic [1:0] a_40_cfg_drv_wd;
-  logic a_40_cfg_drv_we;
-  logic a_40_cfg_oen_qs;
-  logic a_40_cfg_oen_wd;
-  logic a_40_cfg_oen_we;
-  logic a_40_cfg_puen_qs;
-  logic a_40_cfg_puen_wd;
-  logic a_40_cfg_puen_we;
-  logic a_40_cfg_slw_qs;
-  logic a_40_cfg_slw_wd;
-  logic a_40_cfg_slw_we;
-  logic a_40_cfg_smt_qs;
-  logic a_40_cfg_smt_wd;
-  logic a_40_cfg_smt_we;
-  logic a_40_mux_sel_qs;
-  logic a_40_mux_sel_wd;
-  logic a_40_mux_sel_we;
-  logic a_41_cfg_chip2pad_qs;
-  logic a_41_cfg_chip2pad_wd;
-  logic a_41_cfg_chip2pad_we;
-  logic [1:0] a_41_cfg_drv_qs;
-  logic [1:0] a_41_cfg_drv_wd;
-  logic a_41_cfg_drv_we;
-  logic a_41_cfg_oen_qs;
-  logic a_41_cfg_oen_wd;
-  logic a_41_cfg_oen_we;
-  logic a_41_cfg_puen_qs;
-  logic a_41_cfg_puen_wd;
-  logic a_41_cfg_puen_we;
-  logic a_41_cfg_slw_qs;
-  logic a_41_cfg_slw_wd;
-  logic a_41_cfg_slw_we;
-  logic a_41_cfg_smt_qs;
-  logic a_41_cfg_smt_wd;
-  logic a_41_cfg_smt_we;
-  logic a_41_mux_sel_qs;
-  logic a_41_mux_sel_wd;
-  logic a_41_mux_sel_we;
-  logic a_42_cfg_chip2pad_qs;
-  logic a_42_cfg_chip2pad_wd;
-  logic a_42_cfg_chip2pad_we;
-  logic [1:0] a_42_cfg_drv_qs;
-  logic [1:0] a_42_cfg_drv_wd;
-  logic a_42_cfg_drv_we;
-  logic a_42_cfg_oen_qs;
-  logic a_42_cfg_oen_wd;
-  logic a_42_cfg_oen_we;
-  logic a_42_cfg_puen_qs;
-  logic a_42_cfg_puen_wd;
-  logic a_42_cfg_puen_we;
-  logic a_42_cfg_slw_qs;
-  logic a_42_cfg_slw_wd;
-  logic a_42_cfg_slw_we;
-  logic a_42_cfg_smt_qs;
-  logic a_42_cfg_smt_wd;
-  logic a_42_cfg_smt_we;
-  logic [1:0] a_42_mux_sel_qs;
-  logic [1:0] a_42_mux_sel_wd;
-  logic a_42_mux_sel_we;
-  logic a_43_cfg_chip2pad_qs;
-  logic a_43_cfg_chip2pad_wd;
-  logic a_43_cfg_chip2pad_we;
-  logic [1:0] a_43_cfg_drv_qs;
-  logic [1:0] a_43_cfg_drv_wd;
-  logic a_43_cfg_drv_we;
-  logic a_43_cfg_oen_qs;
-  logic a_43_cfg_oen_wd;
-  logic a_43_cfg_oen_we;
-  logic a_43_cfg_puen_qs;
-  logic a_43_cfg_puen_wd;
-  logic a_43_cfg_puen_we;
-  logic a_43_cfg_slw_qs;
-  logic a_43_cfg_slw_wd;
-  logic a_43_cfg_slw_we;
-  logic a_43_cfg_smt_qs;
-  logic a_43_cfg_smt_wd;
-  logic a_43_cfg_smt_we;
-  logic [1:0] a_43_mux_sel_qs;
-  logic [1:0] a_43_mux_sel_wd;
-  logic a_43_mux_sel_we;
-  logic a_44_cfg_chip2pad_qs;
-  logic a_44_cfg_chip2pad_wd;
-  logic a_44_cfg_chip2pad_we;
-  logic [1:0] a_44_cfg_drv_qs;
-  logic [1:0] a_44_cfg_drv_wd;
-  logic a_44_cfg_drv_we;
-  logic a_44_cfg_oen_qs;
-  logic a_44_cfg_oen_wd;
-  logic a_44_cfg_oen_we;
-  logic a_44_cfg_puen_qs;
-  logic a_44_cfg_puen_wd;
-  logic a_44_cfg_puen_we;
-  logic a_44_cfg_slw_qs;
-  logic a_44_cfg_slw_wd;
-  logic a_44_cfg_slw_we;
-  logic a_44_cfg_smt_qs;
-  logic a_44_cfg_smt_wd;
-  logic a_44_cfg_smt_we;
-  logic [1:0] a_44_mux_sel_qs;
-  logic [1:0] a_44_mux_sel_wd;
-  logic a_44_mux_sel_we;
-  logic a_45_cfg_chip2pad_qs;
-  logic a_45_cfg_chip2pad_wd;
-  logic a_45_cfg_chip2pad_we;
-  logic [1:0] a_45_cfg_drv_qs;
-  logic [1:0] a_45_cfg_drv_wd;
-  logic a_45_cfg_drv_we;
-  logic a_45_cfg_oen_qs;
-  logic a_45_cfg_oen_wd;
-  logic a_45_cfg_oen_we;
-  logic a_45_cfg_puen_qs;
-  logic a_45_cfg_puen_wd;
-  logic a_45_cfg_puen_we;
-  logic a_45_cfg_slw_qs;
-  logic a_45_cfg_slw_wd;
-  logic a_45_cfg_slw_we;
-  logic a_45_cfg_smt_qs;
-  logic a_45_cfg_smt_wd;
-  logic a_45_cfg_smt_we;
-  logic [1:0] a_45_mux_sel_qs;
-  logic [1:0] a_45_mux_sel_wd;
-  logic a_45_mux_sel_we;
-  logic a_46_cfg_chip2pad_qs;
-  logic a_46_cfg_chip2pad_wd;
-  logic a_46_cfg_chip2pad_we;
-  logic [1:0] a_46_cfg_drv_qs;
-  logic [1:0] a_46_cfg_drv_wd;
-  logic a_46_cfg_drv_we;
-  logic a_46_cfg_oen_qs;
-  logic a_46_cfg_oen_wd;
-  logic a_46_cfg_oen_we;
-  logic a_46_cfg_puen_qs;
-  logic a_46_cfg_puen_wd;
-  logic a_46_cfg_puen_we;
-  logic a_46_cfg_slw_qs;
-  logic a_46_cfg_slw_wd;
-  logic a_46_cfg_slw_we;
-  logic a_46_cfg_smt_qs;
-  logic a_46_cfg_smt_wd;
-  logic a_46_cfg_smt_we;
-  logic [1:0] a_46_mux_sel_qs;
-  logic [1:0] a_46_mux_sel_wd;
-  logic a_46_mux_sel_we;
-  logic a_47_cfg_chip2pad_qs;
-  logic a_47_cfg_chip2pad_wd;
-  logic a_47_cfg_chip2pad_we;
-  logic [1:0] a_47_cfg_drv_qs;
-  logic [1:0] a_47_cfg_drv_wd;
-  logic a_47_cfg_drv_we;
-  logic a_47_cfg_oen_qs;
-  logic a_47_cfg_oen_wd;
-  logic a_47_cfg_oen_we;
-  logic a_47_cfg_puen_qs;
-  logic a_47_cfg_puen_wd;
-  logic a_47_cfg_puen_we;
-  logic a_47_cfg_slw_qs;
-  logic a_47_cfg_slw_wd;
-  logic a_47_cfg_slw_we;
-  logic a_47_cfg_smt_qs;
-  logic a_47_cfg_smt_wd;
-  logic a_47_cfg_smt_we;
-  logic [1:0] a_47_mux_sel_qs;
-  logic [1:0] a_47_mux_sel_wd;
-  logic a_47_mux_sel_we;
-  logic a_48_cfg_chip2pad_qs;
-  logic a_48_cfg_chip2pad_wd;
-  logic a_48_cfg_chip2pad_we;
-  logic [1:0] a_48_cfg_drv_qs;
-  logic [1:0] a_48_cfg_drv_wd;
-  logic a_48_cfg_drv_we;
-  logic a_48_cfg_oen_qs;
-  logic a_48_cfg_oen_wd;
-  logic a_48_cfg_oen_we;
-  logic a_48_cfg_puen_qs;
-  logic a_48_cfg_puen_wd;
-  logic a_48_cfg_puen_we;
-  logic a_48_cfg_slw_qs;
-  logic a_48_cfg_slw_wd;
-  logic a_48_cfg_slw_we;
-  logic a_48_cfg_smt_qs;
-  logic a_48_cfg_smt_wd;
-  logic a_48_cfg_smt_we;
-  logic [1:0] a_48_mux_sel_qs;
-  logic [1:0] a_48_mux_sel_wd;
-  logic a_48_mux_sel_we;
-  logic a_49_cfg_chip2pad_qs;
-  logic a_49_cfg_chip2pad_wd;
-  logic a_49_cfg_chip2pad_we;
-  logic [1:0] a_49_cfg_drv_qs;
-  logic [1:0] a_49_cfg_drv_wd;
-  logic a_49_cfg_drv_we;
-  logic a_49_cfg_oen_qs;
-  logic a_49_cfg_oen_wd;
-  logic a_49_cfg_oen_we;
-  logic a_49_cfg_puen_qs;
-  logic a_49_cfg_puen_wd;
-  logic a_49_cfg_puen_we;
-  logic a_49_cfg_slw_qs;
-  logic a_49_cfg_slw_wd;
-  logic a_49_cfg_slw_we;
-  logic a_49_cfg_smt_qs;
-  logic a_49_cfg_smt_wd;
-  logic a_49_cfg_smt_we;
-  logic [1:0] a_49_mux_sel_qs;
-  logic [1:0] a_49_mux_sel_wd;
-  logic a_49_mux_sel_we;
-  logic a_50_cfg_chip2pad_qs;
-  logic a_50_cfg_chip2pad_wd;
-  logic a_50_cfg_chip2pad_we;
-  logic [1:0] a_50_cfg_drv_qs;
-  logic [1:0] a_50_cfg_drv_wd;
-  logic a_50_cfg_drv_we;
-  logic a_50_cfg_oen_qs;
-  logic a_50_cfg_oen_wd;
-  logic a_50_cfg_oen_we;
-  logic a_50_cfg_puen_qs;
-  logic a_50_cfg_puen_wd;
-  logic a_50_cfg_puen_we;
-  logic a_50_cfg_slw_qs;
-  logic a_50_cfg_slw_wd;
-  logic a_50_cfg_slw_we;
-  logic a_50_cfg_smt_qs;
-  logic a_50_cfg_smt_wd;
-  logic a_50_cfg_smt_we;
-  logic [1:0] a_50_mux_sel_qs;
-  logic [1:0] a_50_mux_sel_wd;
-  logic a_50_mux_sel_we;
-  logic a_51_cfg_chip2pad_qs;
-  logic a_51_cfg_chip2pad_wd;
-  logic a_51_cfg_chip2pad_we;
-  logic [1:0] a_51_cfg_drv_qs;
-  logic [1:0] a_51_cfg_drv_wd;
-  logic a_51_cfg_drv_we;
-  logic a_51_cfg_oen_qs;
-  logic a_51_cfg_oen_wd;
-  logic a_51_cfg_oen_we;
-  logic a_51_cfg_puen_qs;
-  logic a_51_cfg_puen_wd;
-  logic a_51_cfg_puen_we;
-  logic a_51_cfg_slw_qs;
-  logic a_51_cfg_slw_wd;
-  logic a_51_cfg_slw_we;
-  logic a_51_cfg_smt_qs;
-  logic a_51_cfg_smt_wd;
-  logic a_51_cfg_smt_we;
-  logic [1:0] a_51_mux_sel_qs;
-  logic [1:0] a_51_mux_sel_wd;
-  logic a_51_mux_sel_we;
-  logic a_52_cfg_chip2pad_qs;
-  logic a_52_cfg_chip2pad_wd;
-  logic a_52_cfg_chip2pad_we;
-  logic [1:0] a_52_cfg_drv_qs;
-  logic [1:0] a_52_cfg_drv_wd;
-  logic a_52_cfg_drv_we;
-  logic a_52_cfg_oen_qs;
-  logic a_52_cfg_oen_wd;
-  logic a_52_cfg_oen_we;
-  logic a_52_cfg_puen_qs;
-  logic a_52_cfg_puen_wd;
-  logic a_52_cfg_puen_we;
-  logic a_52_cfg_slw_qs;
-  logic a_52_cfg_slw_wd;
-  logic a_52_cfg_slw_we;
-  logic a_52_cfg_smt_qs;
-  logic a_52_cfg_smt_wd;
-  logic a_52_cfg_smt_we;
-  logic [1:0] a_52_mux_sel_qs;
-  logic [1:0] a_52_mux_sel_wd;
-  logic a_52_mux_sel_we;
-  logic a_53_cfg_chip2pad_qs;
-  logic a_53_cfg_chip2pad_wd;
-  logic a_53_cfg_chip2pad_we;
-  logic [1:0] a_53_cfg_drv_qs;
-  logic [1:0] a_53_cfg_drv_wd;
-  logic a_53_cfg_drv_we;
-  logic a_53_cfg_oen_qs;
-  logic a_53_cfg_oen_wd;
-  logic a_53_cfg_oen_we;
-  logic a_53_cfg_puen_qs;
-  logic a_53_cfg_puen_wd;
-  logic a_53_cfg_puen_we;
-  logic a_53_cfg_slw_qs;
-  logic a_53_cfg_slw_wd;
-  logic a_53_cfg_slw_we;
-  logic a_53_cfg_smt_qs;
-  logic a_53_cfg_smt_wd;
-  logic a_53_cfg_smt_we;
-  logic [1:0] a_53_mux_sel_qs;
-  logic [1:0] a_53_mux_sel_wd;
-  logic a_53_mux_sel_we;
-  logic a_54_cfg_chip2pad_qs;
-  logic a_54_cfg_chip2pad_wd;
-  logic a_54_cfg_chip2pad_we;
-  logic [1:0] a_54_cfg_drv_qs;
-  logic [1:0] a_54_cfg_drv_wd;
-  logic a_54_cfg_drv_we;
-  logic a_54_cfg_oen_qs;
-  logic a_54_cfg_oen_wd;
-  logic a_54_cfg_oen_we;
-  logic a_54_cfg_puen_qs;
-  logic a_54_cfg_puen_wd;
-  logic a_54_cfg_puen_we;
-  logic a_54_cfg_slw_qs;
-  logic a_54_cfg_slw_wd;
-  logic a_54_cfg_slw_we;
-  logic a_54_cfg_smt_qs;
-  logic a_54_cfg_smt_wd;
-  logic a_54_cfg_smt_we;
-  logic [1:0] a_54_mux_sel_qs;
-  logic [1:0] a_54_mux_sel_wd;
-  logic a_54_mux_sel_we;
-  logic a_55_cfg_chip2pad_qs;
-  logic a_55_cfg_chip2pad_wd;
-  logic a_55_cfg_chip2pad_we;
-  logic [1:0] a_55_cfg_drv_qs;
-  logic [1:0] a_55_cfg_drv_wd;
-  logic a_55_cfg_drv_we;
-  logic a_55_cfg_oen_qs;
-  logic a_55_cfg_oen_wd;
-  logic a_55_cfg_oen_we;
-  logic a_55_cfg_puen_qs;
-  logic a_55_cfg_puen_wd;
-  logic a_55_cfg_puen_we;
-  logic a_55_cfg_slw_qs;
-  logic a_55_cfg_slw_wd;
-  logic a_55_cfg_slw_we;
-  logic a_55_cfg_smt_qs;
-  logic a_55_cfg_smt_wd;
-  logic a_55_cfg_smt_we;
-  logic [1:0] a_55_mux_sel_qs;
-  logic [1:0] a_55_mux_sel_wd;
-  logic a_55_mux_sel_we;
-  logic a_56_cfg_chip2pad_qs;
-  logic a_56_cfg_chip2pad_wd;
-  logic a_56_cfg_chip2pad_we;
-  logic [1:0] a_56_cfg_drv_qs;
-  logic [1:0] a_56_cfg_drv_wd;
-  logic a_56_cfg_drv_we;
-  logic a_56_cfg_oen_qs;
-  logic a_56_cfg_oen_wd;
-  logic a_56_cfg_oen_we;
-  logic a_56_cfg_puen_qs;
-  logic a_56_cfg_puen_wd;
-  logic a_56_cfg_puen_we;
-  logic a_56_cfg_slw_qs;
-  logic a_56_cfg_slw_wd;
-  logic a_56_cfg_slw_we;
-  logic a_56_cfg_smt_qs;
-  logic a_56_cfg_smt_wd;
-  logic a_56_cfg_smt_we;
-  logic [1:0] a_56_mux_sel_qs;
-  logic [1:0] a_56_mux_sel_wd;
-  logic a_56_mux_sel_we;
-  logic a_57_cfg_chip2pad_qs;
-  logic a_57_cfg_chip2pad_wd;
-  logic a_57_cfg_chip2pad_we;
-  logic [1:0] a_57_cfg_drv_qs;
-  logic [1:0] a_57_cfg_drv_wd;
-  logic a_57_cfg_drv_we;
-  logic a_57_cfg_oen_qs;
-  logic a_57_cfg_oen_wd;
-  logic a_57_cfg_oen_we;
-  logic a_57_cfg_puen_qs;
-  logic a_57_cfg_puen_wd;
-  logic a_57_cfg_puen_we;
-  logic a_57_cfg_slw_qs;
-  logic a_57_cfg_slw_wd;
-  logic a_57_cfg_slw_we;
-  logic a_57_cfg_smt_qs;
-  logic a_57_cfg_smt_wd;
-  logic a_57_cfg_smt_we;
-  logic [1:0] a_57_mux_sel_qs;
-  logic [1:0] a_57_mux_sel_wd;
-  logic a_57_mux_sel_we;
-  logic a_58_cfg_chip2pad_qs;
-  logic a_58_cfg_chip2pad_wd;
-  logic a_58_cfg_chip2pad_we;
-  logic [1:0] a_58_cfg_drv_qs;
-  logic [1:0] a_58_cfg_drv_wd;
-  logic a_58_cfg_drv_we;
-  logic a_58_cfg_oen_qs;
-  logic a_58_cfg_oen_wd;
-  logic a_58_cfg_oen_we;
-  logic a_58_cfg_puen_qs;
-  logic a_58_cfg_puen_wd;
-  logic a_58_cfg_puen_we;
-  logic a_58_cfg_slw_qs;
-  logic a_58_cfg_slw_wd;
-  logic a_58_cfg_slw_we;
-  logic a_58_cfg_smt_qs;
-  logic a_58_cfg_smt_wd;
-  logic a_58_cfg_smt_we;
-  logic [1:0] a_58_mux_sel_qs;
-  logic [1:0] a_58_mux_sel_wd;
-  logic a_58_mux_sel_we;
-  logic a_59_cfg_chip2pad_qs;
-  logic a_59_cfg_chip2pad_wd;
-  logic a_59_cfg_chip2pad_we;
-  logic [1:0] a_59_cfg_drv_qs;
-  logic [1:0] a_59_cfg_drv_wd;
-  logic a_59_cfg_drv_we;
-  logic a_59_cfg_oen_qs;
-  logic a_59_cfg_oen_wd;
-  logic a_59_cfg_oen_we;
-  logic a_59_cfg_puen_qs;
-  logic a_59_cfg_puen_wd;
-  logic a_59_cfg_puen_we;
-  logic a_59_cfg_slw_qs;
-  logic a_59_cfg_slw_wd;
-  logic a_59_cfg_slw_we;
-  logic a_59_cfg_smt_qs;
-  logic a_59_cfg_smt_wd;
-  logic a_59_cfg_smt_we;
-  logic [1:0] a_59_mux_sel_qs;
-  logic [1:0] a_59_mux_sel_wd;
-  logic a_59_mux_sel_we;
-  logic a_60_cfg_chip2pad_qs;
-  logic a_60_cfg_chip2pad_wd;
-  logic a_60_cfg_chip2pad_we;
-  logic [1:0] a_60_cfg_drv_qs;
-  logic [1:0] a_60_cfg_drv_wd;
-  logic a_60_cfg_drv_we;
-  logic a_60_cfg_oen_qs;
-  logic a_60_cfg_oen_wd;
-  logic a_60_cfg_oen_we;
-  logic a_60_cfg_puen_qs;
-  logic a_60_cfg_puen_wd;
-  logic a_60_cfg_puen_we;
-  logic a_60_cfg_slw_qs;
-  logic a_60_cfg_slw_wd;
-  logic a_60_cfg_slw_we;
-  logic a_60_cfg_smt_qs;
-  logic a_60_cfg_smt_wd;
-  logic a_60_cfg_smt_we;
-  logic [1:0] a_60_mux_sel_qs;
-  logic [1:0] a_60_mux_sel_wd;
-  logic a_60_mux_sel_we;
-  logic a_61_cfg_chip2pad_qs;
-  logic a_61_cfg_chip2pad_wd;
-  logic a_61_cfg_chip2pad_we;
-  logic [1:0] a_61_cfg_drv_qs;
-  logic [1:0] a_61_cfg_drv_wd;
-  logic a_61_cfg_drv_we;
-  logic a_61_cfg_oen_qs;
-  logic a_61_cfg_oen_wd;
-  logic a_61_cfg_oen_we;
-  logic a_61_cfg_puen_qs;
-  logic a_61_cfg_puen_wd;
-  logic a_61_cfg_puen_we;
-  logic a_61_cfg_slw_qs;
-  logic a_61_cfg_slw_wd;
-  logic a_61_cfg_slw_we;
-  logic a_61_cfg_smt_qs;
-  logic a_61_cfg_smt_wd;
-  logic a_61_cfg_smt_we;
-  logic [1:0] a_61_mux_sel_qs;
-  logic [1:0] a_61_mux_sel_wd;
-  logic a_61_mux_sel_we;
-  logic a_62_cfg_chip2pad_qs;
-  logic a_62_cfg_chip2pad_wd;
-  logic a_62_cfg_chip2pad_we;
-  logic [1:0] a_62_cfg_drv_qs;
-  logic [1:0] a_62_cfg_drv_wd;
-  logic a_62_cfg_drv_we;
-  logic a_62_cfg_oen_qs;
-  logic a_62_cfg_oen_wd;
-  logic a_62_cfg_oen_we;
-  logic a_62_cfg_puen_qs;
-  logic a_62_cfg_puen_wd;
-  logic a_62_cfg_puen_we;
-  logic a_62_cfg_slw_qs;
-  logic a_62_cfg_slw_wd;
-  logic a_62_cfg_slw_we;
-  logic a_62_cfg_smt_qs;
-  logic a_62_cfg_smt_wd;
-  logic a_62_cfg_smt_we;
-  logic [1:0] a_62_mux_sel_qs;
-  logic [1:0] a_62_mux_sel_wd;
-  logic a_62_mux_sel_we;
-  logic a_63_cfg_chip2pad_qs;
-  logic a_63_cfg_chip2pad_wd;
-  logic a_63_cfg_chip2pad_we;
-  logic [1:0] a_63_cfg_drv_qs;
-  logic [1:0] a_63_cfg_drv_wd;
-  logic a_63_cfg_drv_we;
-  logic a_63_cfg_oen_qs;
-  logic a_63_cfg_oen_wd;
-  logic a_63_cfg_oen_we;
-  logic a_63_cfg_puen_qs;
-  logic a_63_cfg_puen_wd;
-  logic a_63_cfg_puen_we;
-  logic a_63_cfg_slw_qs;
-  logic a_63_cfg_slw_wd;
-  logic a_63_cfg_slw_we;
-  logic a_63_cfg_smt_qs;
-  logic a_63_cfg_smt_wd;
-  logic a_63_cfg_smt_we;
-  logic a_63_mux_sel_qs;
-  logic a_63_mux_sel_wd;
-  logic a_63_mux_sel_we;
-  logic a_64_cfg_chip2pad_qs;
-  logic a_64_cfg_chip2pad_wd;
-  logic a_64_cfg_chip2pad_we;
-  logic [1:0] a_64_cfg_drv_qs;
-  logic [1:0] a_64_cfg_drv_wd;
-  logic a_64_cfg_drv_we;
-  logic a_64_cfg_oen_qs;
-  logic a_64_cfg_oen_wd;
-  logic a_64_cfg_oen_we;
-  logic a_64_cfg_puen_qs;
-  logic a_64_cfg_puen_wd;
-  logic a_64_cfg_puen_we;
-  logic a_64_cfg_slw_qs;
-  logic a_64_cfg_slw_wd;
-  logic a_64_cfg_slw_we;
-  logic a_64_cfg_smt_qs;
-  logic a_64_cfg_smt_wd;
-  logic a_64_cfg_smt_we;
-  logic a_64_mux_sel_qs;
-  logic a_64_mux_sel_wd;
-  logic a_64_mux_sel_we;
-  logic a_65_cfg_chip2pad_qs;
-  logic a_65_cfg_chip2pad_wd;
-  logic a_65_cfg_chip2pad_we;
-  logic [1:0] a_65_cfg_drv_qs;
-  logic [1:0] a_65_cfg_drv_wd;
-  logic a_65_cfg_drv_we;
-  logic a_65_cfg_oen_qs;
-  logic a_65_cfg_oen_wd;
-  logic a_65_cfg_oen_we;
-  logic a_65_cfg_puen_qs;
-  logic a_65_cfg_puen_wd;
-  logic a_65_cfg_puen_we;
-  logic a_65_cfg_slw_qs;
-  logic a_65_cfg_slw_wd;
-  logic a_65_cfg_slw_we;
-  logic a_65_cfg_smt_qs;
-  logic a_65_cfg_smt_wd;
-  logic a_65_cfg_smt_we;
-  logic a_65_mux_sel_qs;
-  logic a_65_mux_sel_wd;
-  logic a_65_mux_sel_we;
-  logic a_66_cfg_chip2pad_qs;
-  logic a_66_cfg_chip2pad_wd;
-  logic a_66_cfg_chip2pad_we;
-  logic [1:0] a_66_cfg_drv_qs;
-  logic [1:0] a_66_cfg_drv_wd;
-  logic a_66_cfg_drv_we;
-  logic a_66_cfg_oen_qs;
-  logic a_66_cfg_oen_wd;
-  logic a_66_cfg_oen_we;
-  logic a_66_cfg_puen_qs;
-  logic a_66_cfg_puen_wd;
-  logic a_66_cfg_puen_we;
-  logic a_66_cfg_slw_qs;
-  logic a_66_cfg_slw_wd;
-  logic a_66_cfg_slw_we;
-  logic a_66_cfg_smt_qs;
-  logic a_66_cfg_smt_wd;
-  logic a_66_cfg_smt_we;
-  logic a_66_mux_sel_qs;
-  logic a_66_mux_sel_wd;
-  logic a_66_mux_sel_we;
-  logic a_67_cfg_chip2pad_qs;
-  logic a_67_cfg_chip2pad_wd;
-  logic a_67_cfg_chip2pad_we;
-  logic [1:0] a_67_cfg_drv_qs;
-  logic [1:0] a_67_cfg_drv_wd;
-  logic a_67_cfg_drv_we;
-  logic a_67_cfg_oen_qs;
-  logic a_67_cfg_oen_wd;
-  logic a_67_cfg_oen_we;
-  logic a_67_cfg_puen_qs;
-  logic a_67_cfg_puen_wd;
-  logic a_67_cfg_puen_we;
-  logic a_67_cfg_slw_qs;
-  logic a_67_cfg_slw_wd;
-  logic a_67_cfg_slw_we;
-  logic a_67_cfg_smt_qs;
-  logic a_67_cfg_smt_wd;
-  logic a_67_cfg_smt_we;
-  logic a_67_mux_sel_qs;
-  logic a_67_mux_sel_wd;
-  logic a_67_mux_sel_we;
-  logic a_68_cfg_chip2pad_qs;
-  logic a_68_cfg_chip2pad_wd;
-  logic a_68_cfg_chip2pad_we;
-  logic [1:0] a_68_cfg_drv_qs;
-  logic [1:0] a_68_cfg_drv_wd;
-  logic a_68_cfg_drv_we;
-  logic a_68_cfg_oen_qs;
-  logic a_68_cfg_oen_wd;
-  logic a_68_cfg_oen_we;
-  logic a_68_cfg_puen_qs;
-  logic a_68_cfg_puen_wd;
-  logic a_68_cfg_puen_we;
-  logic a_68_cfg_slw_qs;
-  logic a_68_cfg_slw_wd;
-  logic a_68_cfg_slw_we;
-  logic a_68_cfg_smt_qs;
-  logic a_68_cfg_smt_wd;
-  logic a_68_cfg_smt_we;
-  logic a_68_mux_sel_qs;
-  logic a_68_mux_sel_wd;
-  logic a_68_mux_sel_we;
-  logic a_69_cfg_chip2pad_qs;
-  logic a_69_cfg_chip2pad_wd;
-  logic a_69_cfg_chip2pad_we;
-  logic [1:0] a_69_cfg_drv_qs;
-  logic [1:0] a_69_cfg_drv_wd;
-  logic a_69_cfg_drv_we;
-  logic a_69_cfg_oen_qs;
-  logic a_69_cfg_oen_wd;
-  logic a_69_cfg_oen_we;
-  logic a_69_cfg_puen_qs;
-  logic a_69_cfg_puen_wd;
-  logic a_69_cfg_puen_we;
-  logic a_69_cfg_slw_qs;
-  logic a_69_cfg_slw_wd;
-  logic a_69_cfg_slw_we;
-  logic a_69_cfg_smt_qs;
-  logic a_69_cfg_smt_wd;
-  logic a_69_cfg_smt_we;
-  logic a_69_mux_sel_qs;
-  logic a_69_mux_sel_wd;
-  logic a_69_mux_sel_we;
-  logic a_70_cfg_chip2pad_qs;
-  logic a_70_cfg_chip2pad_wd;
-  logic a_70_cfg_chip2pad_we;
-  logic [1:0] a_70_cfg_drv_qs;
-  logic [1:0] a_70_cfg_drv_wd;
-  logic a_70_cfg_drv_we;
-  logic a_70_cfg_oen_qs;
-  logic a_70_cfg_oen_wd;
-  logic a_70_cfg_oen_we;
-  logic a_70_cfg_puen_qs;
-  logic a_70_cfg_puen_wd;
-  logic a_70_cfg_puen_we;
-  logic a_70_cfg_slw_qs;
-  logic a_70_cfg_slw_wd;
-  logic a_70_cfg_slw_we;
-  logic a_70_cfg_smt_qs;
-  logic a_70_cfg_smt_wd;
-  logic a_70_cfg_smt_we;
-  logic a_70_mux_sel_qs;
-  logic a_70_mux_sel_wd;
-  logic a_70_mux_sel_we;
-  logic a_71_cfg_chip2pad_qs;
-  logic a_71_cfg_chip2pad_wd;
-  logic a_71_cfg_chip2pad_we;
-  logic [1:0] a_71_cfg_drv_qs;
-  logic [1:0] a_71_cfg_drv_wd;
-  logic a_71_cfg_drv_we;
-  logic a_71_cfg_oen_qs;
-  logic a_71_cfg_oen_wd;
-  logic a_71_cfg_oen_we;
-  logic a_71_cfg_puen_qs;
-  logic a_71_cfg_puen_wd;
-  logic a_71_cfg_puen_we;
-  logic a_71_cfg_slw_qs;
-  logic a_71_cfg_slw_wd;
-  logic a_71_cfg_slw_we;
-  logic a_71_cfg_smt_qs;
-  logic a_71_cfg_smt_wd;
-  logic a_71_cfg_smt_we;
-  logic a_71_mux_sel_qs;
-  logic a_71_mux_sel_wd;
-  logic a_71_mux_sel_we;
-  logic a_72_cfg_chip2pad_qs;
-  logic a_72_cfg_chip2pad_wd;
-  logic a_72_cfg_chip2pad_we;
-  logic [1:0] a_72_cfg_drv_qs;
-  logic [1:0] a_72_cfg_drv_wd;
-  logic a_72_cfg_drv_we;
-  logic a_72_cfg_oen_qs;
-  logic a_72_cfg_oen_wd;
-  logic a_72_cfg_oen_we;
-  logic a_72_cfg_puen_qs;
-  logic a_72_cfg_puen_wd;
-  logic a_72_cfg_puen_we;
-  logic a_72_cfg_slw_qs;
-  logic a_72_cfg_slw_wd;
-  logic a_72_cfg_slw_we;
-  logic a_72_cfg_smt_qs;
-  logic a_72_cfg_smt_wd;
-  logic a_72_cfg_smt_we;
-  logic a_72_mux_sel_qs;
-  logic a_72_mux_sel_wd;
-  logic a_72_mux_sel_we;
-  logic a_73_cfg_chip2pad_qs;
-  logic a_73_cfg_chip2pad_wd;
-  logic a_73_cfg_chip2pad_we;
-  logic [1:0] a_73_cfg_drv_qs;
-  logic [1:0] a_73_cfg_drv_wd;
-  logic a_73_cfg_drv_we;
-  logic a_73_cfg_oen_qs;
-  logic a_73_cfg_oen_wd;
-  logic a_73_cfg_oen_we;
-  logic a_73_cfg_puen_qs;
-  logic a_73_cfg_puen_wd;
-  logic a_73_cfg_puen_we;
-  logic a_73_cfg_slw_qs;
-  logic a_73_cfg_slw_wd;
-  logic a_73_cfg_slw_we;
-  logic a_73_cfg_smt_qs;
-  logic a_73_cfg_smt_wd;
-  logic a_73_cfg_smt_we;
-  logic a_73_mux_sel_qs;
-  logic a_73_mux_sel_wd;
-  logic a_73_mux_sel_we;
-  logic a_74_cfg_chip2pad_qs;
-  logic a_74_cfg_chip2pad_wd;
-  logic a_74_cfg_chip2pad_we;
-  logic [1:0] a_74_cfg_drv_qs;
-  logic [1:0] a_74_cfg_drv_wd;
-  logic a_74_cfg_drv_we;
-  logic a_74_cfg_oen_qs;
-  logic a_74_cfg_oen_wd;
-  logic a_74_cfg_oen_we;
-  logic a_74_cfg_puen_qs;
-  logic a_74_cfg_puen_wd;
-  logic a_74_cfg_puen_we;
-  logic a_74_cfg_slw_qs;
-  logic a_74_cfg_slw_wd;
-  logic a_74_cfg_slw_we;
-  logic a_74_cfg_smt_qs;
-  logic a_74_cfg_smt_wd;
-  logic a_74_cfg_smt_we;
-  logic a_74_mux_sel_qs;
-  logic a_74_mux_sel_wd;
-  logic a_74_mux_sel_we;
-  logic a_75_cfg_chip2pad_qs;
-  logic a_75_cfg_chip2pad_wd;
-  logic a_75_cfg_chip2pad_we;
-  logic [1:0] a_75_cfg_drv_qs;
-  logic [1:0] a_75_cfg_drv_wd;
-  logic a_75_cfg_drv_we;
-  logic a_75_cfg_oen_qs;
-  logic a_75_cfg_oen_wd;
-  logic a_75_cfg_oen_we;
-  logic a_75_cfg_puen_qs;
-  logic a_75_cfg_puen_wd;
-  logic a_75_cfg_puen_we;
-  logic a_75_cfg_slw_qs;
-  logic a_75_cfg_slw_wd;
-  logic a_75_cfg_slw_we;
-  logic a_75_cfg_smt_qs;
-  logic a_75_cfg_smt_wd;
-  logic a_75_cfg_smt_we;
-  logic a_75_mux_sel_qs;
-  logic a_75_mux_sel_wd;
-  logic a_75_mux_sel_we;
-  logic a_76_cfg_chip2pad_qs;
-  logic a_76_cfg_chip2pad_wd;
-  logic a_76_cfg_chip2pad_we;
-  logic [1:0] a_76_cfg_drv_qs;
-  logic [1:0] a_76_cfg_drv_wd;
-  logic a_76_cfg_drv_we;
-  logic a_76_cfg_oen_qs;
-  logic a_76_cfg_oen_wd;
-  logic a_76_cfg_oen_we;
-  logic a_76_cfg_puen_qs;
-  logic a_76_cfg_puen_wd;
-  logic a_76_cfg_puen_we;
-  logic a_76_cfg_slw_qs;
-  logic a_76_cfg_slw_wd;
-  logic a_76_cfg_slw_we;
-  logic a_76_cfg_smt_qs;
-  logic a_76_cfg_smt_wd;
-  logic a_76_cfg_smt_we;
-  logic a_76_mux_sel_qs;
-  logic a_76_mux_sel_wd;
-  logic a_76_mux_sel_we;
-  logic a_77_cfg_chip2pad_qs;
-  logic a_77_cfg_chip2pad_wd;
-  logic a_77_cfg_chip2pad_we;
-  logic [1:0] a_77_cfg_drv_qs;
-  logic [1:0] a_77_cfg_drv_wd;
-  logic a_77_cfg_drv_we;
-  logic a_77_cfg_oen_qs;
-  logic a_77_cfg_oen_wd;
-  logic a_77_cfg_oen_we;
-  logic a_77_cfg_puen_qs;
-  logic a_77_cfg_puen_wd;
-  logic a_77_cfg_puen_we;
-  logic a_77_cfg_slw_qs;
-  logic a_77_cfg_slw_wd;
-  logic a_77_cfg_slw_we;
-  logic a_77_cfg_smt_qs;
-  logic a_77_cfg_smt_wd;
-  logic a_77_cfg_smt_we;
-  logic a_77_mux_sel_qs;
-  logic a_77_mux_sel_wd;
-  logic a_77_mux_sel_we;
-  logic a_78_cfg_chip2pad_qs;
-  logic a_78_cfg_chip2pad_wd;
-  logic a_78_cfg_chip2pad_we;
-  logic [1:0] a_78_cfg_drv_qs;
-  logic [1:0] a_78_cfg_drv_wd;
-  logic a_78_cfg_drv_we;
-  logic a_78_cfg_oen_qs;
-  logic a_78_cfg_oen_wd;
-  logic a_78_cfg_oen_we;
-  logic a_78_cfg_puen_qs;
-  logic a_78_cfg_puen_wd;
-  logic a_78_cfg_puen_we;
-  logic a_78_cfg_slw_qs;
-  logic a_78_cfg_slw_wd;
-  logic a_78_cfg_slw_we;
-  logic a_78_cfg_smt_qs;
-  logic a_78_cfg_smt_wd;
-  logic a_78_cfg_smt_we;
-  logic a_78_mux_sel_qs;
-  logic a_78_mux_sel_wd;
-  logic a_78_mux_sel_we;
-  logic a_79_cfg_chip2pad_qs;
-  logic a_79_cfg_chip2pad_wd;
-  logic a_79_cfg_chip2pad_we;
-  logic [1:0] a_79_cfg_drv_qs;
-  logic [1:0] a_79_cfg_drv_wd;
-  logic a_79_cfg_drv_we;
-  logic a_79_cfg_oen_qs;
-  logic a_79_cfg_oen_wd;
-  logic a_79_cfg_oen_we;
-  logic a_79_cfg_puen_qs;
-  logic a_79_cfg_puen_wd;
-  logic a_79_cfg_puen_we;
-  logic a_79_cfg_slw_qs;
-  logic a_79_cfg_slw_wd;
-  logic a_79_cfg_slw_we;
-  logic a_79_cfg_smt_qs;
-  logic a_79_cfg_smt_wd;
-  logic a_79_cfg_smt_we;
-  logic a_79_mux_sel_qs;
-  logic a_79_mux_sel_wd;
-  logic a_79_mux_sel_we;
-  logic a_80_cfg_chip2pad_qs;
-  logic a_80_cfg_chip2pad_wd;
-  logic a_80_cfg_chip2pad_we;
-  logic [1:0] a_80_cfg_drv_qs;
-  logic [1:0] a_80_cfg_drv_wd;
-  logic a_80_cfg_drv_we;
-  logic a_80_cfg_oen_qs;
-  logic a_80_cfg_oen_wd;
-  logic a_80_cfg_oen_we;
-  logic a_80_cfg_puen_qs;
-  logic a_80_cfg_puen_wd;
-  logic a_80_cfg_puen_we;
-  logic a_80_cfg_slw_qs;
-  logic a_80_cfg_slw_wd;
-  logic a_80_cfg_slw_we;
-  logic a_80_cfg_smt_qs;
-  logic a_80_cfg_smt_wd;
-  logic a_80_cfg_smt_we;
-  logic a_80_mux_sel_qs;
-  logic a_80_mux_sel_wd;
-  logic a_80_mux_sel_we;
-  logic a_81_cfg_chip2pad_qs;
-  logic a_81_cfg_chip2pad_wd;
-  logic a_81_cfg_chip2pad_we;
-  logic [1:0] a_81_cfg_drv_qs;
-  logic [1:0] a_81_cfg_drv_wd;
-  logic a_81_cfg_drv_we;
-  logic a_81_cfg_oen_qs;
-  logic a_81_cfg_oen_wd;
-  logic a_81_cfg_oen_we;
-  logic a_81_cfg_puen_qs;
-  logic a_81_cfg_puen_wd;
-  logic a_81_cfg_puen_we;
-  logic a_81_cfg_slw_qs;
-  logic a_81_cfg_slw_wd;
-  logic a_81_cfg_slw_we;
-  logic a_81_cfg_smt_qs;
-  logic a_81_cfg_smt_wd;
-  logic a_81_cfg_smt_we;
-  logic [1:0] a_81_mux_sel_qs;
-  logic [1:0] a_81_mux_sel_wd;
-  logic a_81_mux_sel_we;
-  logic a_82_cfg_chip2pad_qs;
-  logic a_82_cfg_chip2pad_wd;
-  logic a_82_cfg_chip2pad_we;
-  logic [1:0] a_82_cfg_drv_qs;
-  logic [1:0] a_82_cfg_drv_wd;
-  logic a_82_cfg_drv_we;
-  logic a_82_cfg_oen_qs;
-  logic a_82_cfg_oen_wd;
-  logic a_82_cfg_oen_we;
-  logic a_82_cfg_puen_qs;
-  logic a_82_cfg_puen_wd;
-  logic a_82_cfg_puen_we;
-  logic a_82_cfg_slw_qs;
-  logic a_82_cfg_slw_wd;
-  logic a_82_cfg_slw_we;
-  logic a_82_cfg_smt_qs;
-  logic a_82_cfg_smt_wd;
-  logic a_82_cfg_smt_we;
-  logic [1:0] a_82_mux_sel_qs;
-  logic [1:0] a_82_mux_sel_wd;
-  logic a_82_mux_sel_we;
-  logic a_83_cfg_chip2pad_qs;
-  logic a_83_cfg_chip2pad_wd;
-  logic a_83_cfg_chip2pad_we;
-  logic [1:0] a_83_cfg_drv_qs;
-  logic [1:0] a_83_cfg_drv_wd;
-  logic a_83_cfg_drv_we;
-  logic a_83_cfg_oen_qs;
-  logic a_83_cfg_oen_wd;
-  logic a_83_cfg_oen_we;
-  logic a_83_cfg_puen_qs;
-  logic a_83_cfg_puen_wd;
-  logic a_83_cfg_puen_we;
-  logic a_83_cfg_slw_qs;
-  logic a_83_cfg_slw_wd;
-  logic a_83_cfg_slw_we;
-  logic a_83_cfg_smt_qs;
-  logic a_83_cfg_smt_wd;
-  logic a_83_cfg_smt_we;
-  logic [1:0] a_83_mux_sel_qs;
-  logic [1:0] a_83_mux_sel_wd;
-  logic a_83_mux_sel_we;
-  logic a_84_cfg_chip2pad_qs;
-  logic a_84_cfg_chip2pad_wd;
-  logic a_84_cfg_chip2pad_we;
-  logic [1:0] a_84_cfg_drv_qs;
-  logic [1:0] a_84_cfg_drv_wd;
-  logic a_84_cfg_drv_we;
-  logic a_84_cfg_oen_qs;
-  logic a_84_cfg_oen_wd;
-  logic a_84_cfg_oen_we;
-  logic a_84_cfg_puen_qs;
-  logic a_84_cfg_puen_wd;
-  logic a_84_cfg_puen_we;
-  logic a_84_cfg_slw_qs;
-  logic a_84_cfg_slw_wd;
-  logic a_84_cfg_slw_we;
-  logic a_84_cfg_smt_qs;
-  logic a_84_cfg_smt_wd;
-  logic a_84_cfg_smt_we;
-  logic [1:0] a_84_mux_sel_qs;
-  logic [1:0] a_84_mux_sel_wd;
-  logic a_84_mux_sel_we;
-  logic a_85_cfg_chip2pad_qs;
-  logic a_85_cfg_chip2pad_wd;
-  logic a_85_cfg_chip2pad_we;
-  logic [1:0] a_85_cfg_drv_qs;
-  logic [1:0] a_85_cfg_drv_wd;
-  logic a_85_cfg_drv_we;
-  logic a_85_cfg_oen_qs;
-  logic a_85_cfg_oen_wd;
-  logic a_85_cfg_oen_we;
-  logic a_85_cfg_puen_qs;
-  logic a_85_cfg_puen_wd;
-  logic a_85_cfg_puen_we;
-  logic a_85_cfg_slw_qs;
-  logic a_85_cfg_slw_wd;
-  logic a_85_cfg_slw_we;
-  logic a_85_cfg_smt_qs;
-  logic a_85_cfg_smt_wd;
-  logic a_85_cfg_smt_we;
-  logic a_85_mux_sel_qs;
-  logic a_85_mux_sel_wd;
-  logic a_85_mux_sel_we;
-  logic a_86_cfg_chip2pad_qs;
-  logic a_86_cfg_chip2pad_wd;
-  logic a_86_cfg_chip2pad_we;
-  logic [1:0] a_86_cfg_drv_qs;
-  logic [1:0] a_86_cfg_drv_wd;
-  logic a_86_cfg_drv_we;
-  logic a_86_cfg_oen_qs;
-  logic a_86_cfg_oen_wd;
-  logic a_86_cfg_oen_we;
-  logic a_86_cfg_puen_qs;
-  logic a_86_cfg_puen_wd;
-  logic a_86_cfg_puen_we;
-  logic a_86_cfg_slw_qs;
-  logic a_86_cfg_slw_wd;
-  logic a_86_cfg_slw_we;
-  logic a_86_cfg_smt_qs;
-  logic a_86_cfg_smt_wd;
-  logic a_86_cfg_smt_we;
-  logic a_86_mux_sel_qs;
-  logic a_86_mux_sel_wd;
-  logic a_86_mux_sel_we;
-  logic a_87_cfg_chip2pad_qs;
-  logic a_87_cfg_chip2pad_wd;
-  logic a_87_cfg_chip2pad_we;
-  logic [1:0] a_87_cfg_drv_qs;
-  logic [1:0] a_87_cfg_drv_wd;
-  logic a_87_cfg_drv_we;
-  logic a_87_cfg_oen_qs;
-  logic a_87_cfg_oen_wd;
-  logic a_87_cfg_oen_we;
-  logic a_87_cfg_puen_qs;
-  logic a_87_cfg_puen_wd;
-  logic a_87_cfg_puen_we;
-  logic a_87_cfg_slw_qs;
-  logic a_87_cfg_slw_wd;
-  logic a_87_cfg_slw_we;
-  logic a_87_cfg_smt_qs;
-  logic a_87_cfg_smt_wd;
-  logic a_87_cfg_smt_we;
-  logic a_87_mux_sel_qs;
-  logic a_87_mux_sel_wd;
-  logic a_87_mux_sel_we;
-  logic a_88_cfg_chip2pad_qs;
-  logic a_88_cfg_chip2pad_wd;
-  logic a_88_cfg_chip2pad_we;
-  logic [1:0] a_88_cfg_drv_qs;
-  logic [1:0] a_88_cfg_drv_wd;
-  logic a_88_cfg_drv_we;
-  logic a_88_cfg_oen_qs;
-  logic a_88_cfg_oen_wd;
-  logic a_88_cfg_oen_we;
-  logic a_88_cfg_puen_qs;
-  logic a_88_cfg_puen_wd;
-  logic a_88_cfg_puen_we;
-  logic a_88_cfg_slw_qs;
-  logic a_88_cfg_slw_wd;
-  logic a_88_cfg_slw_we;
-  logic a_88_cfg_smt_qs;
-  logic a_88_cfg_smt_wd;
-  logic a_88_cfg_smt_we;
-  logic a_88_mux_sel_qs;
-  logic a_88_mux_sel_wd;
-  logic a_88_mux_sel_we;
-  logic a_89_cfg_chip2pad_qs;
-  logic a_89_cfg_chip2pad_wd;
-  logic a_89_cfg_chip2pad_we;
-  logic [1:0] a_89_cfg_drv_qs;
-  logic [1:0] a_89_cfg_drv_wd;
-  logic a_89_cfg_drv_we;
-  logic a_89_cfg_oen_qs;
-  logic a_89_cfg_oen_wd;
-  logic a_89_cfg_oen_we;
-  logic a_89_cfg_puen_qs;
-  logic a_89_cfg_puen_wd;
-  logic a_89_cfg_puen_we;
-  logic a_89_cfg_slw_qs;
-  logic a_89_cfg_slw_wd;
-  logic a_89_cfg_slw_we;
-  logic a_89_cfg_smt_qs;
-  logic a_89_cfg_smt_wd;
-  logic a_89_cfg_smt_we;
-  logic a_89_mux_sel_qs;
-  logic a_89_mux_sel_wd;
-  logic a_89_mux_sel_we;
-  logic a_90_cfg_chip2pad_qs;
-  logic a_90_cfg_chip2pad_wd;
-  logic a_90_cfg_chip2pad_we;
-  logic [1:0] a_90_cfg_drv_qs;
-  logic [1:0] a_90_cfg_drv_wd;
-  logic a_90_cfg_drv_we;
-  logic a_90_cfg_oen_qs;
-  logic a_90_cfg_oen_wd;
-  logic a_90_cfg_oen_we;
-  logic a_90_cfg_puen_qs;
-  logic a_90_cfg_puen_wd;
-  logic a_90_cfg_puen_we;
-  logic a_90_cfg_slw_qs;
-  logic a_90_cfg_slw_wd;
-  logic a_90_cfg_slw_we;
-  logic a_90_cfg_smt_qs;
-  logic a_90_cfg_smt_wd;
-  logic a_90_cfg_smt_we;
-  logic a_90_mux_sel_qs;
-  logic a_90_mux_sel_wd;
-  logic a_90_mux_sel_we;
-  logic a_91_cfg_chip2pad_qs;
-  logic a_91_cfg_chip2pad_wd;
-  logic a_91_cfg_chip2pad_we;
-  logic [1:0] a_91_cfg_drv_qs;
-  logic [1:0] a_91_cfg_drv_wd;
-  logic a_91_cfg_drv_we;
-  logic a_91_cfg_oen_qs;
-  logic a_91_cfg_oen_wd;
-  logic a_91_cfg_oen_we;
-  logic a_91_cfg_puen_qs;
-  logic a_91_cfg_puen_wd;
-  logic a_91_cfg_puen_we;
-  logic a_91_cfg_slw_qs;
-  logic a_91_cfg_slw_wd;
-  logic a_91_cfg_slw_we;
-  logic a_91_cfg_smt_qs;
-  logic a_91_cfg_smt_wd;
-  logic a_91_cfg_smt_we;
-  logic a_91_mux_sel_qs;
-  logic a_91_mux_sel_wd;
-  logic a_91_mux_sel_we;
-  logic a_92_cfg_chip2pad_qs;
-  logic a_92_cfg_chip2pad_wd;
-  logic a_92_cfg_chip2pad_we;
-  logic [1:0] a_92_cfg_drv_qs;
-  logic [1:0] a_92_cfg_drv_wd;
-  logic a_92_cfg_drv_we;
-  logic a_92_cfg_oen_qs;
-  logic a_92_cfg_oen_wd;
-  logic a_92_cfg_oen_we;
-  logic a_92_cfg_puen_qs;
-  logic a_92_cfg_puen_wd;
-  logic a_92_cfg_puen_we;
-  logic a_92_cfg_slw_qs;
-  logic a_92_cfg_slw_wd;
-  logic a_92_cfg_slw_we;
-  logic a_92_cfg_smt_qs;
-  logic a_92_cfg_smt_wd;
-  logic a_92_cfg_smt_we;
-  logic a_92_mux_sel_qs;
-  logic a_92_mux_sel_wd;
-  logic a_92_mux_sel_we;
   logic b_00_cfg_chip2pad_qs;
   logic b_00_cfg_chip2pad_wd;
   logic b_00_cfg_chip2pad_we;
@@ -2038,8 +715,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_00_cfg_smt_qs;
   logic b_00_cfg_smt_wd;
   logic b_00_cfg_smt_we;
-  logic b_00_mux_sel_qs;
-  logic b_00_mux_sel_wd;
+  logic [2:0] b_00_mux_sel_qs;
+  logic [2:0] b_00_mux_sel_wd;
   logic b_00_mux_sel_we;
   logic b_01_cfg_chip2pad_qs;
   logic b_01_cfg_chip2pad_wd;
@@ -2059,8 +736,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_01_cfg_smt_qs;
   logic b_01_cfg_smt_wd;
   logic b_01_cfg_smt_we;
-  logic b_01_mux_sel_qs;
-  logic b_01_mux_sel_wd;
+  logic [2:0] b_01_mux_sel_qs;
+  logic [2:0] b_01_mux_sel_wd;
   logic b_01_mux_sel_we;
   logic b_02_cfg_chip2pad_qs;
   logic b_02_cfg_chip2pad_wd;
@@ -2080,8 +757,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_02_cfg_smt_qs;
   logic b_02_cfg_smt_wd;
   logic b_02_cfg_smt_we;
-  logic b_02_mux_sel_qs;
-  logic b_02_mux_sel_wd;
+  logic [2:0] b_02_mux_sel_qs;
+  logic [2:0] b_02_mux_sel_wd;
   logic b_02_mux_sel_we;
   logic b_03_cfg_chip2pad_qs;
   logic b_03_cfg_chip2pad_wd;
@@ -2101,8 +778,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_03_cfg_smt_qs;
   logic b_03_cfg_smt_wd;
   logic b_03_cfg_smt_we;
-  logic b_03_mux_sel_qs;
-  logic b_03_mux_sel_wd;
+  logic [1:0] b_03_mux_sel_qs;
+  logic [1:0] b_03_mux_sel_wd;
   logic b_03_mux_sel_we;
   logic b_04_cfg_chip2pad_qs;
   logic b_04_cfg_chip2pad_wd;
@@ -2122,8 +799,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_04_cfg_smt_qs;
   logic b_04_cfg_smt_wd;
   logic b_04_cfg_smt_we;
-  logic b_04_mux_sel_qs;
-  logic b_04_mux_sel_wd;
+  logic [2:0] b_04_mux_sel_qs;
+  logic [2:0] b_04_mux_sel_wd;
   logic b_04_mux_sel_we;
   logic b_05_cfg_chip2pad_qs;
   logic b_05_cfg_chip2pad_wd;
@@ -2143,8 +820,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_05_cfg_smt_qs;
   logic b_05_cfg_smt_wd;
   logic b_05_cfg_smt_we;
-  logic b_05_mux_sel_qs;
-  logic b_05_mux_sel_wd;
+  logic [2:0] b_05_mux_sel_qs;
+  logic [2:0] b_05_mux_sel_wd;
   logic b_05_mux_sel_we;
   logic b_06_cfg_chip2pad_qs;
   logic b_06_cfg_chip2pad_wd;
@@ -2164,8 +841,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_06_cfg_smt_qs;
   logic b_06_cfg_smt_wd;
   logic b_06_cfg_smt_we;
-  logic b_06_mux_sel_qs;
-  logic b_06_mux_sel_wd;
+  logic [2:0] b_06_mux_sel_qs;
+  logic [2:0] b_06_mux_sel_wd;
   logic b_06_mux_sel_we;
   logic b_07_cfg_chip2pad_qs;
   logic b_07_cfg_chip2pad_wd;
@@ -2185,8 +862,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_07_cfg_smt_qs;
   logic b_07_cfg_smt_wd;
   logic b_07_cfg_smt_we;
-  logic b_07_mux_sel_qs;
-  logic b_07_mux_sel_wd;
+  logic [2:0] b_07_mux_sel_qs;
+  logic [2:0] b_07_mux_sel_wd;
   logic b_07_mux_sel_we;
   logic b_08_cfg_chip2pad_qs;
   logic b_08_cfg_chip2pad_wd;
@@ -2206,8 +883,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_08_cfg_smt_qs;
   logic b_08_cfg_smt_wd;
   logic b_08_cfg_smt_we;
-  logic b_08_mux_sel_qs;
-  logic b_08_mux_sel_wd;
+  logic [2:0] b_08_mux_sel_qs;
+  logic [2:0] b_08_mux_sel_wd;
   logic b_08_mux_sel_we;
   logic b_09_cfg_chip2pad_qs;
   logic b_09_cfg_chip2pad_wd;
@@ -2227,8 +904,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_09_cfg_smt_qs;
   logic b_09_cfg_smt_wd;
   logic b_09_cfg_smt_we;
-  logic b_09_mux_sel_qs;
-  logic b_09_mux_sel_wd;
+  logic [2:0] b_09_mux_sel_qs;
+  logic [2:0] b_09_mux_sel_wd;
   logic b_09_mux_sel_we;
   logic b_10_cfg_chip2pad_qs;
   logic b_10_cfg_chip2pad_wd;
@@ -2248,8 +925,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_10_cfg_smt_qs;
   logic b_10_cfg_smt_wd;
   logic b_10_cfg_smt_we;
-  logic b_10_mux_sel_qs;
-  logic b_10_mux_sel_wd;
+  logic [2:0] b_10_mux_sel_qs;
+  logic [2:0] b_10_mux_sel_wd;
   logic b_10_mux_sel_we;
   logic b_11_cfg_chip2pad_qs;
   logic b_11_cfg_chip2pad_wd;
@@ -2269,8 +946,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_11_cfg_smt_qs;
   logic b_11_cfg_smt_wd;
   logic b_11_cfg_smt_we;
-  logic b_11_mux_sel_qs;
-  logic b_11_mux_sel_wd;
+  logic [2:0] b_11_mux_sel_qs;
+  logic [2:0] b_11_mux_sel_wd;
   logic b_11_mux_sel_we;
   logic b_12_cfg_chip2pad_qs;
   logic b_12_cfg_chip2pad_wd;
@@ -2290,8 +967,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_12_cfg_smt_qs;
   logic b_12_cfg_smt_wd;
   logic b_12_cfg_smt_we;
-  logic b_12_mux_sel_qs;
-  logic b_12_mux_sel_wd;
+  logic [2:0] b_12_mux_sel_qs;
+  logic [2:0] b_12_mux_sel_wd;
   logic b_12_mux_sel_we;
   logic b_13_cfg_chip2pad_qs;
   logic b_13_cfg_chip2pad_wd;
@@ -2311,8 +988,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_13_cfg_smt_qs;
   logic b_13_cfg_smt_wd;
   logic b_13_cfg_smt_we;
-  logic b_13_mux_sel_qs;
-  logic b_13_mux_sel_wd;
+  logic [2:0] b_13_mux_sel_qs;
+  logic [2:0] b_13_mux_sel_wd;
   logic b_13_mux_sel_we;
   logic b_14_cfg_chip2pad_qs;
   logic b_14_cfg_chip2pad_wd;
@@ -2332,8 +1009,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_14_cfg_smt_qs;
   logic b_14_cfg_smt_wd;
   logic b_14_cfg_smt_we;
-  logic b_14_mux_sel_qs;
-  logic b_14_mux_sel_wd;
+  logic [2:0] b_14_mux_sel_qs;
+  logic [2:0] b_14_mux_sel_wd;
   logic b_14_mux_sel_we;
   logic b_15_cfg_chip2pad_qs;
   logic b_15_cfg_chip2pad_wd;
@@ -2353,8 +1030,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_15_cfg_smt_qs;
   logic b_15_cfg_smt_wd;
   logic b_15_cfg_smt_we;
-  logic b_15_mux_sel_qs;
-  logic b_15_mux_sel_wd;
+  logic [2:0] b_15_mux_sel_qs;
+  logic [2:0] b_15_mux_sel_wd;
   logic b_15_mux_sel_we;
   logic b_16_cfg_chip2pad_qs;
   logic b_16_cfg_chip2pad_wd;
@@ -2374,8 +1051,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_16_cfg_smt_qs;
   logic b_16_cfg_smt_wd;
   logic b_16_cfg_smt_we;
-  logic b_16_mux_sel_qs;
-  logic b_16_mux_sel_wd;
+  logic [2:0] b_16_mux_sel_qs;
+  logic [2:0] b_16_mux_sel_wd;
   logic b_16_mux_sel_we;
   logic b_17_cfg_chip2pad_qs;
   logic b_17_cfg_chip2pad_wd;
@@ -2395,8 +1072,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_17_cfg_smt_qs;
   logic b_17_cfg_smt_wd;
   logic b_17_cfg_smt_we;
-  logic b_17_mux_sel_qs;
-  logic b_17_mux_sel_wd;
+  logic [2:0] b_17_mux_sel_qs;
+  logic [2:0] b_17_mux_sel_wd;
   logic b_17_mux_sel_we;
   logic b_18_cfg_chip2pad_qs;
   logic b_18_cfg_chip2pad_wd;
@@ -2416,8 +1093,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_18_cfg_smt_qs;
   logic b_18_cfg_smt_wd;
   logic b_18_cfg_smt_we;
-  logic b_18_mux_sel_qs;
-  logic b_18_mux_sel_wd;
+  logic [2:0] b_18_mux_sel_qs;
+  logic [2:0] b_18_mux_sel_wd;
   logic b_18_mux_sel_we;
   logic b_19_cfg_chip2pad_qs;
   logic b_19_cfg_chip2pad_wd;
@@ -2437,8 +1114,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_19_cfg_smt_qs;
   logic b_19_cfg_smt_wd;
   logic b_19_cfg_smt_we;
-  logic [1:0] b_19_mux_sel_qs;
-  logic [1:0] b_19_mux_sel_wd;
+  logic [2:0] b_19_mux_sel_qs;
+  logic [2:0] b_19_mux_sel_wd;
   logic b_19_mux_sel_we;
   logic b_20_cfg_chip2pad_qs;
   logic b_20_cfg_chip2pad_wd;
@@ -2458,8 +1135,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_20_cfg_smt_qs;
   logic b_20_cfg_smt_wd;
   logic b_20_cfg_smt_we;
-  logic [1:0] b_20_mux_sel_qs;
-  logic [1:0] b_20_mux_sel_wd;
+  logic [2:0] b_20_mux_sel_qs;
+  logic [2:0] b_20_mux_sel_wd;
   logic b_20_mux_sel_we;
   logic b_21_cfg_chip2pad_qs;
   logic b_21_cfg_chip2pad_wd;
@@ -2479,8 +1156,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_21_cfg_smt_qs;
   logic b_21_cfg_smt_wd;
   logic b_21_cfg_smt_we;
-  logic [1:0] b_21_mux_sel_qs;
-  logic [1:0] b_21_mux_sel_wd;
+  logic [2:0] b_21_mux_sel_qs;
+  logic [2:0] b_21_mux_sel_wd;
   logic b_21_mux_sel_we;
   logic b_22_cfg_chip2pad_qs;
   logic b_22_cfg_chip2pad_wd;
@@ -2500,8 +1177,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_22_cfg_smt_qs;
   logic b_22_cfg_smt_wd;
   logic b_22_cfg_smt_we;
-  logic [1:0] b_22_mux_sel_qs;
-  logic [1:0] b_22_mux_sel_wd;
+  logic [2:0] b_22_mux_sel_qs;
+  logic [2:0] b_22_mux_sel_wd;
   logic b_22_mux_sel_we;
   logic b_23_cfg_chip2pad_qs;
   logic b_23_cfg_chip2pad_wd;
@@ -2521,8 +1198,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_23_cfg_smt_qs;
   logic b_23_cfg_smt_wd;
   logic b_23_cfg_smt_we;
-  logic [1:0] b_23_mux_sel_qs;
-  logic [1:0] b_23_mux_sel_wd;
+  logic [2:0] b_23_mux_sel_qs;
+  logic [2:0] b_23_mux_sel_wd;
   logic b_23_mux_sel_we;
   logic b_24_cfg_chip2pad_qs;
   logic b_24_cfg_chip2pad_wd;
@@ -2542,8 +1219,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_24_cfg_smt_qs;
   logic b_24_cfg_smt_wd;
   logic b_24_cfg_smt_we;
-  logic [1:0] b_24_mux_sel_qs;
-  logic [1:0] b_24_mux_sel_wd;
+  logic [2:0] b_24_mux_sel_qs;
+  logic [2:0] b_24_mux_sel_wd;
   logic b_24_mux_sel_we;
   logic b_25_cfg_chip2pad_qs;
   logic b_25_cfg_chip2pad_wd;
@@ -2563,8 +1240,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_25_cfg_smt_qs;
   logic b_25_cfg_smt_wd;
   logic b_25_cfg_smt_we;
-  logic [1:0] b_25_mux_sel_qs;
-  logic [1:0] b_25_mux_sel_wd;
+  logic [2:0] b_25_mux_sel_qs;
+  logic [2:0] b_25_mux_sel_wd;
   logic b_25_mux_sel_we;
   logic b_26_cfg_chip2pad_qs;
   logic b_26_cfg_chip2pad_wd;
@@ -2584,8 +1261,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_26_cfg_smt_qs;
   logic b_26_cfg_smt_wd;
   logic b_26_cfg_smt_we;
-  logic b_26_mux_sel_qs;
-  logic b_26_mux_sel_wd;
+  logic [1:0] b_26_mux_sel_qs;
+  logic [1:0] b_26_mux_sel_wd;
   logic b_26_mux_sel_we;
   logic b_27_cfg_chip2pad_qs;
   logic b_27_cfg_chip2pad_wd;
@@ -2605,8 +1282,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_27_cfg_smt_qs;
   logic b_27_cfg_smt_wd;
   logic b_27_cfg_smt_we;
-  logic b_27_mux_sel_qs;
-  logic b_27_mux_sel_wd;
+  logic [1:0] b_27_mux_sel_qs;
+  logic [1:0] b_27_mux_sel_wd;
   logic b_27_mux_sel_we;
   logic b_28_cfg_chip2pad_qs;
   logic b_28_cfg_chip2pad_wd;
@@ -2626,8 +1303,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_28_cfg_smt_qs;
   logic b_28_cfg_smt_wd;
   logic b_28_cfg_smt_we;
-  logic b_28_mux_sel_qs;
-  logic b_28_mux_sel_wd;
+  logic [1:0] b_28_mux_sel_qs;
+  logic [1:0] b_28_mux_sel_wd;
   logic b_28_mux_sel_we;
   logic b_29_cfg_chip2pad_qs;
   logic b_29_cfg_chip2pad_wd;
@@ -2647,8 +1324,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_29_cfg_smt_qs;
   logic b_29_cfg_smt_wd;
   logic b_29_cfg_smt_we;
-  logic b_29_mux_sel_qs;
-  logic b_29_mux_sel_wd;
+  logic [1:0] b_29_mux_sel_qs;
+  logic [1:0] b_29_mux_sel_wd;
   logic b_29_mux_sel_we;
   logic b_30_cfg_chip2pad_qs;
   logic b_30_cfg_chip2pad_wd;
@@ -2668,8 +1345,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_30_cfg_smt_qs;
   logic b_30_cfg_smt_wd;
   logic b_30_cfg_smt_we;
-  logic b_30_mux_sel_qs;
-  logic b_30_mux_sel_wd;
+  logic [2:0] b_30_mux_sel_qs;
+  logic [2:0] b_30_mux_sel_wd;
   logic b_30_mux_sel_we;
   logic b_31_cfg_chip2pad_qs;
   logic b_31_cfg_chip2pad_wd;
@@ -2689,8 +1366,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_31_cfg_smt_qs;
   logic b_31_cfg_smt_wd;
   logic b_31_cfg_smt_we;
-  logic b_31_mux_sel_qs;
-  logic b_31_mux_sel_wd;
+  logic [2:0] b_31_mux_sel_qs;
+  logic [2:0] b_31_mux_sel_wd;
   logic b_31_mux_sel_we;
   logic b_32_cfg_chip2pad_qs;
   logic b_32_cfg_chip2pad_wd;
@@ -2710,8 +1387,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_32_cfg_smt_qs;
   logic b_32_cfg_smt_wd;
   logic b_32_cfg_smt_we;
-  logic b_32_mux_sel_qs;
-  logic b_32_mux_sel_wd;
+  logic [2:0] b_32_mux_sel_qs;
+  logic [2:0] b_32_mux_sel_wd;
   logic b_32_mux_sel_we;
   logic b_33_cfg_chip2pad_qs;
   logic b_33_cfg_chip2pad_wd;
@@ -2731,8 +1408,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_33_cfg_smt_qs;
   logic b_33_cfg_smt_wd;
   logic b_33_cfg_smt_we;
-  logic b_33_mux_sel_qs;
-  logic b_33_mux_sel_wd;
+  logic [2:0] b_33_mux_sel_qs;
+  logic [2:0] b_33_mux_sel_wd;
   logic b_33_mux_sel_we;
   logic b_34_cfg_chip2pad_qs;
   logic b_34_cfg_chip2pad_wd;
@@ -2752,8 +1429,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_34_cfg_smt_qs;
   logic b_34_cfg_smt_wd;
   logic b_34_cfg_smt_we;
-  logic b_34_mux_sel_qs;
-  logic b_34_mux_sel_wd;
+  logic [1:0] b_34_mux_sel_qs;
+  logic [1:0] b_34_mux_sel_wd;
   logic b_34_mux_sel_we;
   logic b_35_cfg_chip2pad_qs;
   logic b_35_cfg_chip2pad_wd;
@@ -2773,8 +1450,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_35_cfg_smt_qs;
   logic b_35_cfg_smt_wd;
   logic b_35_cfg_smt_we;
-  logic b_35_mux_sel_qs;
-  logic b_35_mux_sel_wd;
+  logic [1:0] b_35_mux_sel_qs;
+  logic [1:0] b_35_mux_sel_wd;
   logic b_35_mux_sel_we;
   logic b_36_cfg_chip2pad_qs;
   logic b_36_cfg_chip2pad_wd;
@@ -2794,8 +1471,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_36_cfg_smt_qs;
   logic b_36_cfg_smt_wd;
   logic b_36_cfg_smt_we;
-  logic b_36_mux_sel_qs;
-  logic b_36_mux_sel_wd;
+  logic [1:0] b_36_mux_sel_qs;
+  logic [1:0] b_36_mux_sel_wd;
   logic b_36_mux_sel_we;
   logic b_37_cfg_chip2pad_qs;
   logic b_37_cfg_chip2pad_wd;
@@ -2815,8 +1492,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_37_cfg_smt_qs;
   logic b_37_cfg_smt_wd;
   logic b_37_cfg_smt_we;
-  logic b_37_mux_sel_qs;
-  logic b_37_mux_sel_wd;
+  logic [1:0] b_37_mux_sel_qs;
+  logic [1:0] b_37_mux_sel_wd;
   logic b_37_mux_sel_we;
   logic b_38_cfg_chip2pad_qs;
   logic b_38_cfg_chip2pad_wd;
@@ -2836,8 +1513,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_38_cfg_smt_qs;
   logic b_38_cfg_smt_wd;
   logic b_38_cfg_smt_we;
-  logic b_38_mux_sel_qs;
-  logic b_38_mux_sel_wd;
+  logic [1:0] b_38_mux_sel_qs;
+  logic [1:0] b_38_mux_sel_wd;
   logic b_38_mux_sel_we;
   logic b_39_cfg_chip2pad_qs;
   logic b_39_cfg_chip2pad_wd;
@@ -2857,8 +1534,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_39_cfg_smt_qs;
   logic b_39_cfg_smt_wd;
   logic b_39_cfg_smt_we;
-  logic b_39_mux_sel_qs;
-  logic b_39_mux_sel_wd;
+  logic [1:0] b_39_mux_sel_qs;
+  logic [1:0] b_39_mux_sel_wd;
   logic b_39_mux_sel_we;
   logic b_40_cfg_chip2pad_qs;
   logic b_40_cfg_chip2pad_wd;
@@ -2878,8 +1555,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_40_cfg_smt_qs;
   logic b_40_cfg_smt_wd;
   logic b_40_cfg_smt_we;
-  logic b_40_mux_sel_qs;
-  logic b_40_mux_sel_wd;
+  logic [1:0] b_40_mux_sel_qs;
+  logic [1:0] b_40_mux_sel_wd;
   logic b_40_mux_sel_we;
   logic b_41_cfg_chip2pad_qs;
   logic b_41_cfg_chip2pad_wd;
@@ -2899,8 +1576,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_41_cfg_smt_qs;
   logic b_41_cfg_smt_wd;
   logic b_41_cfg_smt_we;
-  logic b_41_mux_sel_qs;
-  logic b_41_mux_sel_wd;
+  logic [1:0] b_41_mux_sel_qs;
+  logic [1:0] b_41_mux_sel_wd;
   logic b_41_mux_sel_we;
   logic b_42_cfg_chip2pad_qs;
   logic b_42_cfg_chip2pad_wd;
@@ -2920,8 +1597,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_42_cfg_smt_qs;
   logic b_42_cfg_smt_wd;
   logic b_42_cfg_smt_we;
-  logic b_42_mux_sel_qs;
-  logic b_42_mux_sel_wd;
+  logic [1:0] b_42_mux_sel_qs;
+  logic [1:0] b_42_mux_sel_wd;
   logic b_42_mux_sel_we;
   logic b_43_cfg_chip2pad_qs;
   logic b_43_cfg_chip2pad_wd;
@@ -2941,8 +1618,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_43_cfg_smt_qs;
   logic b_43_cfg_smt_wd;
   logic b_43_cfg_smt_we;
-  logic b_43_mux_sel_qs;
-  logic b_43_mux_sel_wd;
+  logic [1:0] b_43_mux_sel_qs;
+  logic [1:0] b_43_mux_sel_wd;
   logic b_43_mux_sel_we;
   logic b_44_cfg_chip2pad_qs;
   logic b_44_cfg_chip2pad_wd;
@@ -2962,8 +1639,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_44_cfg_smt_qs;
   logic b_44_cfg_smt_wd;
   logic b_44_cfg_smt_we;
-  logic b_44_mux_sel_qs;
-  logic b_44_mux_sel_wd;
+  logic [1:0] b_44_mux_sel_qs;
+  logic [1:0] b_44_mux_sel_wd;
   logic b_44_mux_sel_we;
   logic b_45_cfg_chip2pad_qs;
   logic b_45_cfg_chip2pad_wd;
@@ -2983,8 +1660,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_45_cfg_smt_qs;
   logic b_45_cfg_smt_wd;
   logic b_45_cfg_smt_we;
-  logic b_45_mux_sel_qs;
-  logic b_45_mux_sel_wd;
+  logic [1:0] b_45_mux_sel_qs;
+  logic [1:0] b_45_mux_sel_wd;
   logic b_45_mux_sel_we;
   logic b_46_cfg_chip2pad_qs;
   logic b_46_cfg_chip2pad_wd;
@@ -3004,8 +1681,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic b_46_cfg_smt_qs;
   logic b_46_cfg_smt_wd;
   logic b_46_cfg_smt_we;
-  logic b_46_mux_sel_qs;
-  logic b_46_mux_sel_wd;
+  logic [1:0] b_46_mux_sel_qs;
+  logic [1:0] b_46_mux_sel_wd;
   logic b_46_mux_sel_we;
   logic b_47_cfg_chip2pad_qs;
   logic b_47_cfg_chip2pad_wd;
@@ -3028,615 +1705,90 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic [1:0] b_47_mux_sel_qs;
   logic [1:0] b_47_mux_sel_wd;
   logic b_47_mux_sel_we;
-  logic b_48_cfg_chip2pad_qs;
-  logic b_48_cfg_chip2pad_wd;
-  logic b_48_cfg_chip2pad_we;
-  logic [1:0] b_48_cfg_drv_qs;
-  logic [1:0] b_48_cfg_drv_wd;
-  logic b_48_cfg_drv_we;
-  logic b_48_cfg_oen_qs;
-  logic b_48_cfg_oen_wd;
-  logic b_48_cfg_oen_we;
-  logic b_48_cfg_puen_qs;
-  logic b_48_cfg_puen_wd;
-  logic b_48_cfg_puen_we;
-  logic b_48_cfg_slw_qs;
-  logic b_48_cfg_slw_wd;
-  logic b_48_cfg_slw_we;
-  logic b_48_cfg_smt_qs;
-  logic b_48_cfg_smt_wd;
-  logic b_48_cfg_smt_we;
-  logic [1:0] b_48_mux_sel_qs;
-  logic [1:0] b_48_mux_sel_wd;
-  logic b_48_mux_sel_we;
-  logic b_49_cfg_chip2pad_qs;
-  logic b_49_cfg_chip2pad_wd;
-  logic b_49_cfg_chip2pad_we;
-  logic [1:0] b_49_cfg_drv_qs;
-  logic [1:0] b_49_cfg_drv_wd;
-  logic b_49_cfg_drv_we;
-  logic b_49_cfg_oen_qs;
-  logic b_49_cfg_oen_wd;
-  logic b_49_cfg_oen_we;
-  logic b_49_cfg_puen_qs;
-  logic b_49_cfg_puen_wd;
-  logic b_49_cfg_puen_we;
-  logic b_49_cfg_slw_qs;
-  logic b_49_cfg_slw_wd;
-  logic b_49_cfg_slw_we;
-  logic b_49_cfg_smt_qs;
-  logic b_49_cfg_smt_wd;
-  logic b_49_cfg_smt_we;
-  logic [1:0] b_49_mux_sel_qs;
-  logic [1:0] b_49_mux_sel_wd;
-  logic b_49_mux_sel_we;
-  logic b_50_cfg_chip2pad_qs;
-  logic b_50_cfg_chip2pad_wd;
-  logic b_50_cfg_chip2pad_we;
-  logic [1:0] b_50_cfg_drv_qs;
-  logic [1:0] b_50_cfg_drv_wd;
-  logic b_50_cfg_drv_we;
-  logic b_50_cfg_oen_qs;
-  logic b_50_cfg_oen_wd;
-  logic b_50_cfg_oen_we;
-  logic b_50_cfg_puen_qs;
-  logic b_50_cfg_puen_wd;
-  logic b_50_cfg_puen_we;
-  logic b_50_cfg_slw_qs;
-  logic b_50_cfg_slw_wd;
-  logic b_50_cfg_slw_we;
-  logic b_50_cfg_smt_qs;
-  logic b_50_cfg_smt_wd;
-  logic b_50_cfg_smt_we;
-  logic [1:0] b_50_mux_sel_qs;
-  logic [1:0] b_50_mux_sel_wd;
-  logic b_50_mux_sel_we;
-  logic b_51_cfg_chip2pad_qs;
-  logic b_51_cfg_chip2pad_wd;
-  logic b_51_cfg_chip2pad_we;
-  logic [1:0] b_51_cfg_drv_qs;
-  logic [1:0] b_51_cfg_drv_wd;
-  logic b_51_cfg_drv_we;
-  logic b_51_cfg_oen_qs;
-  logic b_51_cfg_oen_wd;
-  logic b_51_cfg_oen_we;
-  logic b_51_cfg_puen_qs;
-  logic b_51_cfg_puen_wd;
-  logic b_51_cfg_puen_we;
-  logic b_51_cfg_slw_qs;
-  logic b_51_cfg_slw_wd;
-  logic b_51_cfg_slw_we;
-  logic b_51_cfg_smt_qs;
-  logic b_51_cfg_smt_wd;
-  logic b_51_cfg_smt_we;
-  logic [1:0] b_51_mux_sel_qs;
-  logic [1:0] b_51_mux_sel_wd;
-  logic b_51_mux_sel_we;
-  logic b_52_cfg_chip2pad_qs;
-  logic b_52_cfg_chip2pad_wd;
-  logic b_52_cfg_chip2pad_we;
-  logic [1:0] b_52_cfg_drv_qs;
-  logic [1:0] b_52_cfg_drv_wd;
-  logic b_52_cfg_drv_we;
-  logic b_52_cfg_oen_qs;
-  logic b_52_cfg_oen_wd;
-  logic b_52_cfg_oen_we;
-  logic b_52_cfg_puen_qs;
-  logic b_52_cfg_puen_wd;
-  logic b_52_cfg_puen_we;
-  logic b_52_cfg_slw_qs;
-  logic b_52_cfg_slw_wd;
-  logic b_52_cfg_slw_we;
-  logic b_52_cfg_smt_qs;
-  logic b_52_cfg_smt_wd;
-  logic b_52_cfg_smt_we;
-  logic [1:0] b_52_mux_sel_qs;
-  logic [1:0] b_52_mux_sel_wd;
-  logic b_52_mux_sel_we;
-  logic b_53_cfg_chip2pad_qs;
-  logic b_53_cfg_chip2pad_wd;
-  logic b_53_cfg_chip2pad_we;
-  logic [1:0] b_53_cfg_drv_qs;
-  logic [1:0] b_53_cfg_drv_wd;
-  logic b_53_cfg_drv_we;
-  logic b_53_cfg_oen_qs;
-  logic b_53_cfg_oen_wd;
-  logic b_53_cfg_oen_we;
-  logic b_53_cfg_puen_qs;
-  logic b_53_cfg_puen_wd;
-  logic b_53_cfg_puen_we;
-  logic b_53_cfg_slw_qs;
-  logic b_53_cfg_slw_wd;
-  logic b_53_cfg_slw_we;
-  logic b_53_cfg_smt_qs;
-  logic b_53_cfg_smt_wd;
-  logic b_53_cfg_smt_we;
-  logic [1:0] b_53_mux_sel_qs;
-  logic [1:0] b_53_mux_sel_wd;
-  logic b_53_mux_sel_we;
-  logic b_54_cfg_chip2pad_qs;
-  logic b_54_cfg_chip2pad_wd;
-  logic b_54_cfg_chip2pad_we;
-  logic [1:0] b_54_cfg_drv_qs;
-  logic [1:0] b_54_cfg_drv_wd;
-  logic b_54_cfg_drv_we;
-  logic b_54_cfg_oen_qs;
-  logic b_54_cfg_oen_wd;
-  logic b_54_cfg_oen_we;
-  logic b_54_cfg_puen_qs;
-  logic b_54_cfg_puen_wd;
-  logic b_54_cfg_puen_we;
-  logic b_54_cfg_slw_qs;
-  logic b_54_cfg_slw_wd;
-  logic b_54_cfg_slw_we;
-  logic b_54_cfg_smt_qs;
-  logic b_54_cfg_smt_wd;
-  logic b_54_cfg_smt_we;
-  logic [1:0] b_54_mux_sel_qs;
-  logic [1:0] b_54_mux_sel_wd;
-  logic b_54_mux_sel_we;
-  logic b_55_cfg_chip2pad_qs;
-  logic b_55_cfg_chip2pad_wd;
-  logic b_55_cfg_chip2pad_we;
-  logic [1:0] b_55_cfg_drv_qs;
-  logic [1:0] b_55_cfg_drv_wd;
-  logic b_55_cfg_drv_we;
-  logic b_55_cfg_oen_qs;
-  logic b_55_cfg_oen_wd;
-  logic b_55_cfg_oen_we;
-  logic b_55_cfg_puen_qs;
-  logic b_55_cfg_puen_wd;
-  logic b_55_cfg_puen_we;
-  logic b_55_cfg_slw_qs;
-  logic b_55_cfg_slw_wd;
-  logic b_55_cfg_slw_we;
-  logic b_55_cfg_smt_qs;
-  logic b_55_cfg_smt_wd;
-  logic b_55_cfg_smt_we;
-  logic [1:0] b_55_mux_sel_qs;
-  logic [1:0] b_55_mux_sel_wd;
-  logic b_55_mux_sel_we;
-  logic b_56_cfg_chip2pad_qs;
-  logic b_56_cfg_chip2pad_wd;
-  logic b_56_cfg_chip2pad_we;
-  logic [1:0] b_56_cfg_drv_qs;
-  logic [1:0] b_56_cfg_drv_wd;
-  logic b_56_cfg_drv_we;
-  logic b_56_cfg_oen_qs;
-  logic b_56_cfg_oen_wd;
-  logic b_56_cfg_oen_we;
-  logic b_56_cfg_puen_qs;
-  logic b_56_cfg_puen_wd;
-  logic b_56_cfg_puen_we;
-  logic b_56_cfg_slw_qs;
-  logic b_56_cfg_slw_wd;
-  logic b_56_cfg_slw_we;
-  logic b_56_cfg_smt_qs;
-  logic b_56_cfg_smt_wd;
-  logic b_56_cfg_smt_we;
-  logic [1:0] b_56_mux_sel_qs;
-  logic [1:0] b_56_mux_sel_wd;
-  logic b_56_mux_sel_we;
-  logic b_57_cfg_chip2pad_qs;
-  logic b_57_cfg_chip2pad_wd;
-  logic b_57_cfg_chip2pad_we;
-  logic [1:0] b_57_cfg_drv_qs;
-  logic [1:0] b_57_cfg_drv_wd;
-  logic b_57_cfg_drv_we;
-  logic b_57_cfg_oen_qs;
-  logic b_57_cfg_oen_wd;
-  logic b_57_cfg_oen_we;
-  logic b_57_cfg_puen_qs;
-  logic b_57_cfg_puen_wd;
-  logic b_57_cfg_puen_we;
-  logic b_57_cfg_slw_qs;
-  logic b_57_cfg_slw_wd;
-  logic b_57_cfg_slw_we;
-  logic b_57_cfg_smt_qs;
-  logic b_57_cfg_smt_wd;
-  logic b_57_cfg_smt_we;
-  logic [1:0] b_57_mux_sel_qs;
-  logic [1:0] b_57_mux_sel_wd;
-  logic b_57_mux_sel_we;
-  logic b_58_cfg_chip2pad_qs;
-  logic b_58_cfg_chip2pad_wd;
-  logic b_58_cfg_chip2pad_we;
-  logic [1:0] b_58_cfg_drv_qs;
-  logic [1:0] b_58_cfg_drv_wd;
-  logic b_58_cfg_drv_we;
-  logic b_58_cfg_oen_qs;
-  logic b_58_cfg_oen_wd;
-  logic b_58_cfg_oen_we;
-  logic b_58_cfg_puen_qs;
-  logic b_58_cfg_puen_wd;
-  logic b_58_cfg_puen_we;
-  logic b_58_cfg_slw_qs;
-  logic b_58_cfg_slw_wd;
-  logic b_58_cfg_slw_we;
-  logic b_58_cfg_smt_qs;
-  logic b_58_cfg_smt_wd;
-  logic b_58_cfg_smt_we;
-  logic [1:0] b_58_mux_sel_qs;
-  logic [1:0] b_58_mux_sel_wd;
-  logic b_58_mux_sel_we;
-  logic b_59_cfg_chip2pad_qs;
-  logic b_59_cfg_chip2pad_wd;
-  logic b_59_cfg_chip2pad_we;
-  logic [1:0] b_59_cfg_drv_qs;
-  logic [1:0] b_59_cfg_drv_wd;
-  logic b_59_cfg_drv_we;
-  logic b_59_cfg_oen_qs;
-  logic b_59_cfg_oen_wd;
-  logic b_59_cfg_oen_we;
-  logic b_59_cfg_puen_qs;
-  logic b_59_cfg_puen_wd;
-  logic b_59_cfg_puen_we;
-  logic b_59_cfg_slw_qs;
-  logic b_59_cfg_slw_wd;
-  logic b_59_cfg_slw_we;
-  logic b_59_cfg_smt_qs;
-  logic b_59_cfg_smt_wd;
-  logic b_59_cfg_smt_we;
-  logic [1:0] b_59_mux_sel_qs;
-  logic [1:0] b_59_mux_sel_wd;
-  logic b_59_mux_sel_we;
-  logic b_60_cfg_chip2pad_qs;
-  logic b_60_cfg_chip2pad_wd;
-  logic b_60_cfg_chip2pad_we;
-  logic [1:0] b_60_cfg_drv_qs;
-  logic [1:0] b_60_cfg_drv_wd;
-  logic b_60_cfg_drv_we;
-  logic b_60_cfg_oen_qs;
-  logic b_60_cfg_oen_wd;
-  logic b_60_cfg_oen_we;
-  logic b_60_cfg_puen_qs;
-  logic b_60_cfg_puen_wd;
-  logic b_60_cfg_puen_we;
-  logic b_60_cfg_slw_qs;
-  logic b_60_cfg_slw_wd;
-  logic b_60_cfg_slw_we;
-  logic b_60_cfg_smt_qs;
-  logic b_60_cfg_smt_wd;
-  logic b_60_cfg_smt_we;
-  logic [1:0] b_60_mux_sel_qs;
-  logic [1:0] b_60_mux_sel_wd;
-  logic b_60_mux_sel_we;
-  logic b_61_cfg_chip2pad_qs;
-  logic b_61_cfg_chip2pad_wd;
-  logic b_61_cfg_chip2pad_we;
-  logic [1:0] b_61_cfg_drv_qs;
-  logic [1:0] b_61_cfg_drv_wd;
-  logic b_61_cfg_drv_we;
-  logic b_61_cfg_oen_qs;
-  logic b_61_cfg_oen_wd;
-  logic b_61_cfg_oen_we;
-  logic b_61_cfg_puen_qs;
-  logic b_61_cfg_puen_wd;
-  logic b_61_cfg_puen_we;
-  logic b_61_cfg_slw_qs;
-  logic b_61_cfg_slw_wd;
-  logic b_61_cfg_slw_we;
-  logic b_61_cfg_smt_qs;
-  logic b_61_cfg_smt_wd;
-  logic b_61_cfg_smt_we;
-  logic [1:0] b_61_mux_sel_qs;
-  logic [1:0] b_61_mux_sel_wd;
-  logic b_61_mux_sel_we;
-  logic b_62_cfg_chip2pad_qs;
-  logic b_62_cfg_chip2pad_wd;
-  logic b_62_cfg_chip2pad_we;
-  logic [1:0] b_62_cfg_drv_qs;
-  logic [1:0] b_62_cfg_drv_wd;
-  logic b_62_cfg_drv_we;
-  logic b_62_cfg_oen_qs;
-  logic b_62_cfg_oen_wd;
-  logic b_62_cfg_oen_we;
-  logic b_62_cfg_puen_qs;
-  logic b_62_cfg_puen_wd;
-  logic b_62_cfg_puen_we;
-  logic b_62_cfg_slw_qs;
-  logic b_62_cfg_slw_wd;
-  logic b_62_cfg_slw_we;
-  logic b_62_cfg_smt_qs;
-  logic b_62_cfg_smt_wd;
-  logic b_62_cfg_smt_we;
-  logic [2:0] b_62_mux_sel_qs;
-  logic [2:0] b_62_mux_sel_wd;
-  logic b_62_mux_sel_we;
-  logic ot_qspi_00_cfg_chip2pad_qs;
-  logic ot_qspi_00_cfg_chip2pad_wd;
-  logic ot_qspi_00_cfg_chip2pad_we;
-  logic [1:0] ot_qspi_00_cfg_drv_qs;
-  logic [1:0] ot_qspi_00_cfg_drv_wd;
-  logic ot_qspi_00_cfg_drv_we;
-  logic ot_qspi_00_cfg_oen_qs;
-  logic ot_qspi_00_cfg_oen_wd;
-  logic ot_qspi_00_cfg_oen_we;
-  logic ot_qspi_00_cfg_puen_qs;
-  logic ot_qspi_00_cfg_puen_wd;
-  logic ot_qspi_00_cfg_puen_we;
-  logic ot_qspi_00_cfg_slw_qs;
-  logic ot_qspi_00_cfg_slw_wd;
-  logic ot_qspi_00_cfg_slw_we;
-  logic ot_qspi_00_cfg_smt_qs;
-  logic ot_qspi_00_cfg_smt_wd;
-  logic ot_qspi_00_cfg_smt_we;
-  logic ot_qspi_00_mux_sel_qs;
-  logic ot_qspi_00_mux_sel_wd;
-  logic ot_qspi_00_mux_sel_we;
-  logic ot_qspi_01_cfg_chip2pad_qs;
-  logic ot_qspi_01_cfg_chip2pad_wd;
-  logic ot_qspi_01_cfg_chip2pad_we;
-  logic [1:0] ot_qspi_01_cfg_drv_qs;
-  logic [1:0] ot_qspi_01_cfg_drv_wd;
-  logic ot_qspi_01_cfg_drv_we;
-  logic ot_qspi_01_cfg_oen_qs;
-  logic ot_qspi_01_cfg_oen_wd;
-  logic ot_qspi_01_cfg_oen_we;
-  logic ot_qspi_01_cfg_puen_qs;
-  logic ot_qspi_01_cfg_puen_wd;
-  logic ot_qspi_01_cfg_puen_we;
-  logic ot_qspi_01_cfg_slw_qs;
-  logic ot_qspi_01_cfg_slw_wd;
-  logic ot_qspi_01_cfg_slw_we;
-  logic ot_qspi_01_cfg_smt_qs;
-  logic ot_qspi_01_cfg_smt_wd;
-  logic ot_qspi_01_cfg_smt_we;
-  logic ot_qspi_01_mux_sel_qs;
-  logic ot_qspi_01_mux_sel_wd;
-  logic ot_qspi_01_mux_sel_we;
-  logic ot_qspi_02_cfg_chip2pad_qs;
-  logic ot_qspi_02_cfg_chip2pad_wd;
-  logic ot_qspi_02_cfg_chip2pad_we;
-  logic [1:0] ot_qspi_02_cfg_drv_qs;
-  logic [1:0] ot_qspi_02_cfg_drv_wd;
-  logic ot_qspi_02_cfg_drv_we;
-  logic ot_qspi_02_cfg_oen_qs;
-  logic ot_qspi_02_cfg_oen_wd;
-  logic ot_qspi_02_cfg_oen_we;
-  logic ot_qspi_02_cfg_puen_qs;
-  logic ot_qspi_02_cfg_puen_wd;
-  logic ot_qspi_02_cfg_puen_we;
-  logic ot_qspi_02_cfg_slw_qs;
-  logic ot_qspi_02_cfg_slw_wd;
-  logic ot_qspi_02_cfg_slw_we;
-  logic ot_qspi_02_cfg_smt_qs;
-  logic ot_qspi_02_cfg_smt_wd;
-  logic ot_qspi_02_cfg_smt_we;
-  logic ot_qspi_02_mux_sel_qs;
-  logic ot_qspi_02_mux_sel_wd;
-  logic ot_qspi_02_mux_sel_we;
-  logic ot_qspi_03_cfg_chip2pad_qs;
-  logic ot_qspi_03_cfg_chip2pad_wd;
-  logic ot_qspi_03_cfg_chip2pad_we;
-  logic [1:0] ot_qspi_03_cfg_drv_qs;
-  logic [1:0] ot_qspi_03_cfg_drv_wd;
-  logic ot_qspi_03_cfg_drv_we;
-  logic ot_qspi_03_cfg_oen_qs;
-  logic ot_qspi_03_cfg_oen_wd;
-  logic ot_qspi_03_cfg_oen_we;
-  logic ot_qspi_03_cfg_puen_qs;
-  logic ot_qspi_03_cfg_puen_wd;
-  logic ot_qspi_03_cfg_puen_we;
-  logic ot_qspi_03_cfg_slw_qs;
-  logic ot_qspi_03_cfg_slw_wd;
-  logic ot_qspi_03_cfg_slw_we;
-  logic ot_qspi_03_cfg_smt_qs;
-  logic ot_qspi_03_cfg_smt_wd;
-  logic ot_qspi_03_cfg_smt_we;
-  logic ot_qspi_03_mux_sel_qs;
-  logic ot_qspi_03_mux_sel_wd;
-  logic ot_qspi_03_mux_sel_we;
-  logic ot_qspi_04_cfg_chip2pad_qs;
-  logic ot_qspi_04_cfg_chip2pad_wd;
-  logic ot_qspi_04_cfg_chip2pad_we;
-  logic [1:0] ot_qspi_04_cfg_drv_qs;
-  logic [1:0] ot_qspi_04_cfg_drv_wd;
-  logic ot_qspi_04_cfg_drv_we;
-  logic ot_qspi_04_cfg_oen_qs;
-  logic ot_qspi_04_cfg_oen_wd;
-  logic ot_qspi_04_cfg_oen_we;
-  logic ot_qspi_04_cfg_puen_qs;
-  logic ot_qspi_04_cfg_puen_wd;
-  logic ot_qspi_04_cfg_puen_we;
-  logic ot_qspi_04_cfg_slw_qs;
-  logic ot_qspi_04_cfg_slw_wd;
-  logic ot_qspi_04_cfg_slw_we;
-  logic ot_qspi_04_cfg_smt_qs;
-  logic ot_qspi_04_cfg_smt_wd;
-  logic ot_qspi_04_cfg_smt_we;
-  logic ot_qspi_04_mux_sel_qs;
-  logic ot_qspi_04_mux_sel_wd;
-  logic ot_qspi_04_mux_sel_we;
-  logic ot_qspi_05_cfg_chip2pad_qs;
-  logic ot_qspi_05_cfg_chip2pad_wd;
-  logic ot_qspi_05_cfg_chip2pad_we;
-  logic [1:0] ot_qspi_05_cfg_drv_qs;
-  logic [1:0] ot_qspi_05_cfg_drv_wd;
-  logic ot_qspi_05_cfg_drv_we;
-  logic ot_qspi_05_cfg_oen_qs;
-  logic ot_qspi_05_cfg_oen_wd;
-  logic ot_qspi_05_cfg_oen_we;
-  logic ot_qspi_05_cfg_puen_qs;
-  logic ot_qspi_05_cfg_puen_wd;
-  logic ot_qspi_05_cfg_puen_we;
-  logic ot_qspi_05_cfg_slw_qs;
-  logic ot_qspi_05_cfg_slw_wd;
-  logic ot_qspi_05_cfg_slw_we;
-  logic ot_qspi_05_cfg_smt_qs;
-  logic ot_qspi_05_cfg_smt_wd;
-  logic ot_qspi_05_cfg_smt_we;
-  logic ot_qspi_05_mux_sel_qs;
-  logic ot_qspi_05_mux_sel_wd;
-  logic ot_qspi_05_mux_sel_we;
-  logic linux_qspi_00_cfg_chip2pad_qs;
-  logic linux_qspi_00_cfg_chip2pad_wd;
-  logic linux_qspi_00_cfg_chip2pad_we;
-  logic [1:0] linux_qspi_00_cfg_drv_qs;
-  logic [1:0] linux_qspi_00_cfg_drv_wd;
-  logic linux_qspi_00_cfg_drv_we;
-  logic linux_qspi_00_cfg_oen_qs;
-  logic linux_qspi_00_cfg_oen_wd;
-  logic linux_qspi_00_cfg_oen_we;
-  logic linux_qspi_00_cfg_puen_qs;
-  logic linux_qspi_00_cfg_puen_wd;
-  logic linux_qspi_00_cfg_puen_we;
-  logic linux_qspi_00_cfg_slw_qs;
-  logic linux_qspi_00_cfg_slw_wd;
-  logic linux_qspi_00_cfg_slw_we;
-  logic linux_qspi_00_cfg_smt_qs;
-  logic linux_qspi_00_cfg_smt_wd;
-  logic linux_qspi_00_cfg_smt_we;
-  logic linux_qspi_00_mux_sel_qs;
-  logic linux_qspi_00_mux_sel_wd;
-  logic linux_qspi_00_mux_sel_we;
-  logic linux_qspi_01_cfg_chip2pad_qs;
-  logic linux_qspi_01_cfg_chip2pad_wd;
-  logic linux_qspi_01_cfg_chip2pad_we;
-  logic [1:0] linux_qspi_01_cfg_drv_qs;
-  logic [1:0] linux_qspi_01_cfg_drv_wd;
-  logic linux_qspi_01_cfg_drv_we;
-  logic linux_qspi_01_cfg_oen_qs;
-  logic linux_qspi_01_cfg_oen_wd;
-  logic linux_qspi_01_cfg_oen_we;
-  logic linux_qspi_01_cfg_puen_qs;
-  logic linux_qspi_01_cfg_puen_wd;
-  logic linux_qspi_01_cfg_puen_we;
-  logic linux_qspi_01_cfg_slw_qs;
-  logic linux_qspi_01_cfg_slw_wd;
-  logic linux_qspi_01_cfg_slw_we;
-  logic linux_qspi_01_cfg_smt_qs;
-  logic linux_qspi_01_cfg_smt_wd;
-  logic linux_qspi_01_cfg_smt_we;
-  logic linux_qspi_01_mux_sel_qs;
-  logic linux_qspi_01_mux_sel_wd;
-  logic linux_qspi_01_mux_sel_we;
-  logic linux_qspi_02_cfg_chip2pad_qs;
-  logic linux_qspi_02_cfg_chip2pad_wd;
-  logic linux_qspi_02_cfg_chip2pad_we;
-  logic [1:0] linux_qspi_02_cfg_drv_qs;
-  logic [1:0] linux_qspi_02_cfg_drv_wd;
-  logic linux_qspi_02_cfg_drv_we;
-  logic linux_qspi_02_cfg_oen_qs;
-  logic linux_qspi_02_cfg_oen_wd;
-  logic linux_qspi_02_cfg_oen_we;
-  logic linux_qspi_02_cfg_puen_qs;
-  logic linux_qspi_02_cfg_puen_wd;
-  logic linux_qspi_02_cfg_puen_we;
-  logic linux_qspi_02_cfg_slw_qs;
-  logic linux_qspi_02_cfg_slw_wd;
-  logic linux_qspi_02_cfg_slw_we;
-  logic linux_qspi_02_cfg_smt_qs;
-  logic linux_qspi_02_cfg_smt_wd;
-  logic linux_qspi_02_cfg_smt_we;
-  logic linux_qspi_02_mux_sel_qs;
-  logic linux_qspi_02_mux_sel_wd;
-  logic linux_qspi_02_mux_sel_we;
-  logic linux_qspi_03_cfg_chip2pad_qs;
-  logic linux_qspi_03_cfg_chip2pad_wd;
-  logic linux_qspi_03_cfg_chip2pad_we;
-  logic [1:0] linux_qspi_03_cfg_drv_qs;
-  logic [1:0] linux_qspi_03_cfg_drv_wd;
-  logic linux_qspi_03_cfg_drv_we;
-  logic linux_qspi_03_cfg_oen_qs;
-  logic linux_qspi_03_cfg_oen_wd;
-  logic linux_qspi_03_cfg_oen_we;
-  logic linux_qspi_03_cfg_puen_qs;
-  logic linux_qspi_03_cfg_puen_wd;
-  logic linux_qspi_03_cfg_puen_we;
-  logic linux_qspi_03_cfg_slw_qs;
-  logic linux_qspi_03_cfg_slw_wd;
-  logic linux_qspi_03_cfg_slw_we;
-  logic linux_qspi_03_cfg_smt_qs;
-  logic linux_qspi_03_cfg_smt_wd;
-  logic linux_qspi_03_cfg_smt_we;
-  logic linux_qspi_03_mux_sel_qs;
-  logic linux_qspi_03_mux_sel_wd;
-  logic linux_qspi_03_mux_sel_we;
-  logic linux_qspi_04_cfg_chip2pad_qs;
-  logic linux_qspi_04_cfg_chip2pad_wd;
-  logic linux_qspi_04_cfg_chip2pad_we;
-  logic [1:0] linux_qspi_04_cfg_drv_qs;
-  logic [1:0] linux_qspi_04_cfg_drv_wd;
-  logic linux_qspi_04_cfg_drv_we;
-  logic linux_qspi_04_cfg_oen_qs;
-  logic linux_qspi_04_cfg_oen_wd;
-  logic linux_qspi_04_cfg_oen_we;
-  logic linux_qspi_04_cfg_puen_qs;
-  logic linux_qspi_04_cfg_puen_wd;
-  logic linux_qspi_04_cfg_puen_we;
-  logic linux_qspi_04_cfg_slw_qs;
-  logic linux_qspi_04_cfg_slw_wd;
-  logic linux_qspi_04_cfg_slw_we;
-  logic linux_qspi_04_cfg_smt_qs;
-  logic linux_qspi_04_cfg_smt_wd;
-  logic linux_qspi_04_cfg_smt_we;
-  logic linux_qspi_04_mux_sel_qs;
-  logic linux_qspi_04_mux_sel_wd;
-  logic linux_qspi_04_mux_sel_we;
-  logic linux_qspi_05_cfg_chip2pad_qs;
-  logic linux_qspi_05_cfg_chip2pad_wd;
-  logic linux_qspi_05_cfg_chip2pad_we;
-  logic [1:0] linux_qspi_05_cfg_drv_qs;
-  logic [1:0] linux_qspi_05_cfg_drv_wd;
-  logic linux_qspi_05_cfg_drv_we;
-  logic linux_qspi_05_cfg_oen_qs;
-  logic linux_qspi_05_cfg_oen_wd;
-  logic linux_qspi_05_cfg_oen_we;
-  logic linux_qspi_05_cfg_puen_qs;
-  logic linux_qspi_05_cfg_puen_wd;
-  logic linux_qspi_05_cfg_puen_we;
-  logic linux_qspi_05_cfg_slw_qs;
-  logic linux_qspi_05_cfg_slw_wd;
-  logic linux_qspi_05_cfg_slw_we;
-  logic linux_qspi_05_cfg_smt_qs;
-  logic linux_qspi_05_cfg_smt_wd;
-  logic linux_qspi_05_cfg_smt_we;
-  logic linux_qspi_05_mux_sel_qs;
-  logic linux_qspi_05_mux_sel_wd;
-  logic linux_qspi_05_mux_sel_we;
-  logic ot_gpio_00_cfg_chip2pad_qs;
-  logic ot_gpio_00_cfg_chip2pad_wd;
-  logic ot_gpio_00_cfg_chip2pad_we;
-  logic [1:0] ot_gpio_00_cfg_drv_qs;
-  logic [1:0] ot_gpio_00_cfg_drv_wd;
-  logic ot_gpio_00_cfg_drv_we;
-  logic ot_gpio_00_cfg_oen_qs;
-  logic ot_gpio_00_cfg_oen_wd;
-  logic ot_gpio_00_cfg_oen_we;
-  logic ot_gpio_00_cfg_puen_qs;
-  logic ot_gpio_00_cfg_puen_wd;
-  logic ot_gpio_00_cfg_puen_we;
-  logic ot_gpio_00_cfg_slw_qs;
-  logic ot_gpio_00_cfg_slw_wd;
-  logic ot_gpio_00_cfg_slw_we;
-  logic ot_gpio_00_cfg_smt_qs;
-  logic ot_gpio_00_cfg_smt_wd;
-  logic ot_gpio_00_cfg_smt_we;
-  logic ot_gpio_00_mux_sel_qs;
-  logic ot_gpio_00_mux_sel_wd;
-  logic ot_gpio_00_mux_sel_we;
-  logic ot_gpio_01_cfg_chip2pad_qs;
-  logic ot_gpio_01_cfg_chip2pad_wd;
-  logic ot_gpio_01_cfg_chip2pad_we;
-  logic [1:0] ot_gpio_01_cfg_drv_qs;
-  logic [1:0] ot_gpio_01_cfg_drv_wd;
-  logic ot_gpio_01_cfg_drv_we;
-  logic ot_gpio_01_cfg_oen_qs;
-  logic ot_gpio_01_cfg_oen_wd;
-  logic ot_gpio_01_cfg_oen_we;
-  logic ot_gpio_01_cfg_puen_qs;
-  logic ot_gpio_01_cfg_puen_wd;
-  logic ot_gpio_01_cfg_puen_we;
-  logic ot_gpio_01_cfg_slw_qs;
-  logic ot_gpio_01_cfg_slw_wd;
-  logic ot_gpio_01_cfg_slw_we;
-  logic ot_gpio_01_cfg_smt_qs;
-  logic ot_gpio_01_cfg_smt_wd;
-  logic ot_gpio_01_cfg_smt_we;
-  logic ot_gpio_01_mux_sel_qs;
-  logic ot_gpio_01_mux_sel_wd;
-  logic ot_gpio_01_mux_sel_we;
+  logic ot_spi_00_cfg_chip2pad_qs;
+  logic ot_spi_00_cfg_chip2pad_wd;
+  logic ot_spi_00_cfg_chip2pad_we;
+  logic [1:0] ot_spi_00_cfg_drv_qs;
+  logic [1:0] ot_spi_00_cfg_drv_wd;
+  logic ot_spi_00_cfg_drv_we;
+  logic ot_spi_00_cfg_oen_qs;
+  logic ot_spi_00_cfg_oen_wd;
+  logic ot_spi_00_cfg_oen_we;
+  logic ot_spi_00_cfg_puen_qs;
+  logic ot_spi_00_cfg_puen_wd;
+  logic ot_spi_00_cfg_puen_we;
+  logic ot_spi_00_cfg_slw_qs;
+  logic ot_spi_00_cfg_slw_wd;
+  logic ot_spi_00_cfg_slw_we;
+  logic ot_spi_00_cfg_smt_qs;
+  logic ot_spi_00_cfg_smt_wd;
+  logic ot_spi_00_cfg_smt_we;
+  logic ot_spi_00_mux_sel_qs;
+  logic ot_spi_00_mux_sel_wd;
+  logic ot_spi_00_mux_sel_we;
+  logic ot_spi_01_cfg_chip2pad_qs;
+  logic ot_spi_01_cfg_chip2pad_wd;
+  logic ot_spi_01_cfg_chip2pad_we;
+  logic [1:0] ot_spi_01_cfg_drv_qs;
+  logic [1:0] ot_spi_01_cfg_drv_wd;
+  logic ot_spi_01_cfg_drv_we;
+  logic ot_spi_01_cfg_oen_qs;
+  logic ot_spi_01_cfg_oen_wd;
+  logic ot_spi_01_cfg_oen_we;
+  logic ot_spi_01_cfg_puen_qs;
+  logic ot_spi_01_cfg_puen_wd;
+  logic ot_spi_01_cfg_puen_we;
+  logic ot_spi_01_cfg_slw_qs;
+  logic ot_spi_01_cfg_slw_wd;
+  logic ot_spi_01_cfg_slw_we;
+  logic ot_spi_01_cfg_smt_qs;
+  logic ot_spi_01_cfg_smt_wd;
+  logic ot_spi_01_cfg_smt_we;
+  logic ot_spi_01_mux_sel_qs;
+  logic ot_spi_01_mux_sel_wd;
+  logic ot_spi_01_mux_sel_we;
+  logic ot_spi_02_cfg_chip2pad_qs;
+  logic ot_spi_02_cfg_chip2pad_wd;
+  logic ot_spi_02_cfg_chip2pad_we;
+  logic [1:0] ot_spi_02_cfg_drv_qs;
+  logic [1:0] ot_spi_02_cfg_drv_wd;
+  logic ot_spi_02_cfg_drv_we;
+  logic ot_spi_02_cfg_oen_qs;
+  logic ot_spi_02_cfg_oen_wd;
+  logic ot_spi_02_cfg_oen_we;
+  logic ot_spi_02_cfg_puen_qs;
+  logic ot_spi_02_cfg_puen_wd;
+  logic ot_spi_02_cfg_puen_we;
+  logic ot_spi_02_cfg_slw_qs;
+  logic ot_spi_02_cfg_slw_wd;
+  logic ot_spi_02_cfg_slw_we;
+  logic ot_spi_02_cfg_smt_qs;
+  logic ot_spi_02_cfg_smt_wd;
+  logic ot_spi_02_cfg_smt_we;
+  logic ot_spi_02_mux_sel_qs;
+  logic ot_spi_02_mux_sel_wd;
+  logic ot_spi_02_mux_sel_we;
+  logic ot_spi_03_cfg_chip2pad_qs;
+  logic ot_spi_03_cfg_chip2pad_wd;
+  logic ot_spi_03_cfg_chip2pad_we;
+  logic [1:0] ot_spi_03_cfg_drv_qs;
+  logic [1:0] ot_spi_03_cfg_drv_wd;
+  logic ot_spi_03_cfg_drv_we;
+  logic ot_spi_03_cfg_oen_qs;
+  logic ot_spi_03_cfg_oen_wd;
+  logic ot_spi_03_cfg_oen_we;
+  logic ot_spi_03_cfg_puen_qs;
+  logic ot_spi_03_cfg_puen_wd;
+  logic ot_spi_03_cfg_puen_we;
+  logic ot_spi_03_cfg_slw_qs;
+  logic ot_spi_03_cfg_slw_wd;
+  logic ot_spi_03_cfg_slw_we;
+  logic ot_spi_03_cfg_smt_qs;
+  logic ot_spi_03_cfg_smt_wd;
+  logic ot_spi_03_cfg_smt_we;
+  logic ot_spi_03_mux_sel_qs;
+  logic ot_spi_03_mux_sel_wd;
+  logic ot_spi_03_mux_sel_we;
 
   // Register instances
   // R[a_00_cfg]: V(False)
@@ -3800,9 +1952,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_00_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_a_00_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -3985,9 +2137,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_01_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_a_01_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -4170,9 +2322,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_02_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_02_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -4355,9 +2507,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_03_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_03_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -4540,9 +2692,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_04_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_04_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -4725,9 +2877,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_05_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_05_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -4910,9 +3062,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_06_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_06_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -5095,9 +3247,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_07_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_07_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -5280,9 +3432,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_08_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_08_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -5465,9 +3617,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_09_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_09_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -5650,9 +3802,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_10_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_10_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -5835,9 +3987,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_11_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_11_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -6020,9 +4172,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_12_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_12_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -6205,9 +4357,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_13_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_13_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -6390,9 +4542,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_14_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_14_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -6575,9 +4727,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_15_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_15_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -6760,9 +4912,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_16_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_16_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -6945,9 +5097,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_17_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_17_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -7130,9 +5282,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_18_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_18_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -7315,9 +5467,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_19_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_19_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -7500,9 +5652,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_20_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_20_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -7685,9 +5837,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_21_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_21_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -7870,9 +6022,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_22_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_22_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -8055,9 +6207,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_23_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_23_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -8240,9 +6392,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_24_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_24_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -8425,9 +6577,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_25_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_25_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -8610,9 +6762,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_26_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_26_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -8795,9 +6947,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_27_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_27_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -8980,9 +7132,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_28_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_28_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -9165,9 +7317,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_29_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_a_29_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -9186,11661 +7338,6 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to register interface (read)
     .qs     (a_29_mux_sel_qs)
-  );
-
-
-  // R[a_30_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_30_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_30_cfg_chip2pad_we),
-    .wd     (a_30_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_30_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_30_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_30_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_30_cfg_drv_we),
-    .wd     (a_30_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_30_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_30_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_30_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_30_cfg_oen_we),
-    .wd     (a_30_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_30_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_30_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_30_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_30_cfg_puen_we),
-    .wd     (a_30_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_30_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_30_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_30_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_30_cfg_slw_we),
-    .wd     (a_30_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_30_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_30_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_30_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_30_cfg_smt_we),
-    .wd     (a_30_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_30_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_30_cfg_smt_qs)
-  );
-
-
-  // R[a_30_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_30_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_30_mux_sel_we),
-    .wd     (a_30_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_30_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_30_mux_sel_qs)
-  );
-
-
-  // R[a_31_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_31_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_31_cfg_chip2pad_we),
-    .wd     (a_31_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_31_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_31_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_31_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_31_cfg_drv_we),
-    .wd     (a_31_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_31_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_31_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_31_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_31_cfg_oen_we),
-    .wd     (a_31_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_31_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_31_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_31_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_31_cfg_puen_we),
-    .wd     (a_31_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_31_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_31_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_31_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_31_cfg_slw_we),
-    .wd     (a_31_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_31_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_31_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_31_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_31_cfg_smt_we),
-    .wd     (a_31_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_31_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_31_cfg_smt_qs)
-  );
-
-
-  // R[a_31_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_31_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_31_mux_sel_we),
-    .wd     (a_31_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_31_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_31_mux_sel_qs)
-  );
-
-
-  // R[a_32_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_32_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_32_cfg_chip2pad_we),
-    .wd     (a_32_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_32_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_32_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_32_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_32_cfg_drv_we),
-    .wd     (a_32_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_32_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_32_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_32_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_32_cfg_oen_we),
-    .wd     (a_32_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_32_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_32_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_32_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_32_cfg_puen_we),
-    .wd     (a_32_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_32_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_32_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_32_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_32_cfg_slw_we),
-    .wd     (a_32_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_32_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_32_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_32_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_32_cfg_smt_we),
-    .wd     (a_32_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_32_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_32_cfg_smt_qs)
-  );
-
-
-  // R[a_32_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_32_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_32_mux_sel_we),
-    .wd     (a_32_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_32_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_32_mux_sel_qs)
-  );
-
-
-  // R[a_33_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_33_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_33_cfg_chip2pad_we),
-    .wd     (a_33_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_33_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_33_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_33_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_33_cfg_drv_we),
-    .wd     (a_33_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_33_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_33_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_33_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_33_cfg_oen_we),
-    .wd     (a_33_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_33_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_33_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_33_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_33_cfg_puen_we),
-    .wd     (a_33_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_33_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_33_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_33_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_33_cfg_slw_we),
-    .wd     (a_33_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_33_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_33_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_33_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_33_cfg_smt_we),
-    .wd     (a_33_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_33_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_33_cfg_smt_qs)
-  );
-
-
-  // R[a_33_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_33_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_33_mux_sel_we),
-    .wd     (a_33_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_33_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_33_mux_sel_qs)
-  );
-
-
-  // R[a_34_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_34_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_34_cfg_chip2pad_we),
-    .wd     (a_34_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_34_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_34_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_34_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_34_cfg_drv_we),
-    .wd     (a_34_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_34_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_34_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_34_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_34_cfg_oen_we),
-    .wd     (a_34_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_34_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_34_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_34_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_34_cfg_puen_we),
-    .wd     (a_34_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_34_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_34_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_34_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_34_cfg_slw_we),
-    .wd     (a_34_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_34_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_34_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_34_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_34_cfg_smt_we),
-    .wd     (a_34_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_34_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_34_cfg_smt_qs)
-  );
-
-
-  // R[a_34_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_34_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_34_mux_sel_we),
-    .wd     (a_34_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_34_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_34_mux_sel_qs)
-  );
-
-
-  // R[a_35_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_35_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_35_cfg_chip2pad_we),
-    .wd     (a_35_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_35_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_35_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_35_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_35_cfg_drv_we),
-    .wd     (a_35_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_35_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_35_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_35_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_35_cfg_oen_we),
-    .wd     (a_35_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_35_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_35_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_35_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_35_cfg_puen_we),
-    .wd     (a_35_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_35_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_35_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_35_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_35_cfg_slw_we),
-    .wd     (a_35_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_35_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_35_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_35_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_35_cfg_smt_we),
-    .wd     (a_35_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_35_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_35_cfg_smt_qs)
-  );
-
-
-  // R[a_35_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_35_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_35_mux_sel_we),
-    .wd     (a_35_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_35_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_35_mux_sel_qs)
-  );
-
-
-  // R[a_36_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_36_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_36_cfg_chip2pad_we),
-    .wd     (a_36_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_36_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_36_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_36_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_36_cfg_drv_we),
-    .wd     (a_36_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_36_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_36_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_36_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_36_cfg_oen_we),
-    .wd     (a_36_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_36_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_36_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_36_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_36_cfg_puen_we),
-    .wd     (a_36_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_36_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_36_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_36_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_36_cfg_slw_we),
-    .wd     (a_36_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_36_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_36_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_36_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_36_cfg_smt_we),
-    .wd     (a_36_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_36_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_36_cfg_smt_qs)
-  );
-
-
-  // R[a_36_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_36_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_36_mux_sel_we),
-    .wd     (a_36_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_36_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_36_mux_sel_qs)
-  );
-
-
-  // R[a_37_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_37_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_37_cfg_chip2pad_we),
-    .wd     (a_37_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_37_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_37_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_37_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_37_cfg_drv_we),
-    .wd     (a_37_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_37_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_37_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_37_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_37_cfg_oen_we),
-    .wd     (a_37_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_37_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_37_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_37_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_37_cfg_puen_we),
-    .wd     (a_37_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_37_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_37_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_37_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_37_cfg_slw_we),
-    .wd     (a_37_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_37_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_37_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_37_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_37_cfg_smt_we),
-    .wd     (a_37_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_37_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_37_cfg_smt_qs)
-  );
-
-
-  // R[a_37_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_37_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_37_mux_sel_we),
-    .wd     (a_37_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_37_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_37_mux_sel_qs)
-  );
-
-
-  // R[a_38_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_38_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_38_cfg_chip2pad_we),
-    .wd     (a_38_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_38_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_38_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_38_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_38_cfg_drv_we),
-    .wd     (a_38_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_38_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_38_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_38_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_38_cfg_oen_we),
-    .wd     (a_38_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_38_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_38_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_38_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_38_cfg_puen_we),
-    .wd     (a_38_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_38_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_38_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_38_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_38_cfg_slw_we),
-    .wd     (a_38_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_38_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_38_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_38_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_38_cfg_smt_we),
-    .wd     (a_38_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_38_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_38_cfg_smt_qs)
-  );
-
-
-  // R[a_38_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_38_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_38_mux_sel_we),
-    .wd     (a_38_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_38_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_38_mux_sel_qs)
-  );
-
-
-  // R[a_39_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_39_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_39_cfg_chip2pad_we),
-    .wd     (a_39_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_39_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_39_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_39_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_39_cfg_drv_we),
-    .wd     (a_39_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_39_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_39_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_39_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_39_cfg_oen_we),
-    .wd     (a_39_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_39_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_39_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_39_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_39_cfg_puen_we),
-    .wd     (a_39_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_39_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_39_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_39_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_39_cfg_slw_we),
-    .wd     (a_39_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_39_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_39_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_39_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_39_cfg_smt_we),
-    .wd     (a_39_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_39_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_39_cfg_smt_qs)
-  );
-
-
-  // R[a_39_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_39_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_39_mux_sel_we),
-    .wd     (a_39_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_39_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_39_mux_sel_qs)
-  );
-
-
-  // R[a_40_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_40_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_40_cfg_chip2pad_we),
-    .wd     (a_40_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_40_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_40_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_40_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_40_cfg_drv_we),
-    .wd     (a_40_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_40_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_40_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_40_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_40_cfg_oen_we),
-    .wd     (a_40_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_40_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_40_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_40_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_40_cfg_puen_we),
-    .wd     (a_40_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_40_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_40_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_40_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_40_cfg_slw_we),
-    .wd     (a_40_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_40_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_40_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_40_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_40_cfg_smt_we),
-    .wd     (a_40_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_40_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_40_cfg_smt_qs)
-  );
-
-
-  // R[a_40_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_40_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_40_mux_sel_we),
-    .wd     (a_40_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_40_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_40_mux_sel_qs)
-  );
-
-
-  // R[a_41_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_41_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_41_cfg_chip2pad_we),
-    .wd     (a_41_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_41_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_41_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_41_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_41_cfg_drv_we),
-    .wd     (a_41_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_41_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_41_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_41_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_41_cfg_oen_we),
-    .wd     (a_41_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_41_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_41_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_41_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_41_cfg_puen_we),
-    .wd     (a_41_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_41_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_41_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_41_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_41_cfg_slw_we),
-    .wd     (a_41_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_41_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_41_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_41_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_41_cfg_smt_we),
-    .wd     (a_41_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_41_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_41_cfg_smt_qs)
-  );
-
-
-  // R[a_41_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_41_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_41_mux_sel_we),
-    .wd     (a_41_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_41_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_41_mux_sel_qs)
-  );
-
-
-  // R[a_42_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_42_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_42_cfg_chip2pad_we),
-    .wd     (a_42_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_42_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_42_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_42_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_42_cfg_drv_we),
-    .wd     (a_42_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_42_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_42_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_42_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_42_cfg_oen_we),
-    .wd     (a_42_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_42_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_42_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_42_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_42_cfg_puen_we),
-    .wd     (a_42_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_42_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_42_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_42_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_42_cfg_slw_we),
-    .wd     (a_42_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_42_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_42_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_42_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_42_cfg_smt_we),
-    .wd     (a_42_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_42_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_42_cfg_smt_qs)
-  );
-
-
-  // R[a_42_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_42_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_42_mux_sel_we),
-    .wd     (a_42_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_42_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_42_mux_sel_qs)
-  );
-
-
-  // R[a_43_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_43_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_43_cfg_chip2pad_we),
-    .wd     (a_43_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_43_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_43_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_43_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_43_cfg_drv_we),
-    .wd     (a_43_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_43_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_43_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_43_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_43_cfg_oen_we),
-    .wd     (a_43_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_43_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_43_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_43_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_43_cfg_puen_we),
-    .wd     (a_43_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_43_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_43_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_43_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_43_cfg_slw_we),
-    .wd     (a_43_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_43_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_43_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_43_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_43_cfg_smt_we),
-    .wd     (a_43_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_43_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_43_cfg_smt_qs)
-  );
-
-
-  // R[a_43_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_43_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_43_mux_sel_we),
-    .wd     (a_43_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_43_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_43_mux_sel_qs)
-  );
-
-
-  // R[a_44_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_44_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_44_cfg_chip2pad_we),
-    .wd     (a_44_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_44_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_44_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_44_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_44_cfg_drv_we),
-    .wd     (a_44_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_44_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_44_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_44_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_44_cfg_oen_we),
-    .wd     (a_44_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_44_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_44_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_44_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_44_cfg_puen_we),
-    .wd     (a_44_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_44_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_44_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_44_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_44_cfg_slw_we),
-    .wd     (a_44_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_44_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_44_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_44_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_44_cfg_smt_we),
-    .wd     (a_44_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_44_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_44_cfg_smt_qs)
-  );
-
-
-  // R[a_44_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_44_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_44_mux_sel_we),
-    .wd     (a_44_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_44_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_44_mux_sel_qs)
-  );
-
-
-  // R[a_45_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_45_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_45_cfg_chip2pad_we),
-    .wd     (a_45_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_45_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_45_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_45_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_45_cfg_drv_we),
-    .wd     (a_45_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_45_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_45_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_45_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_45_cfg_oen_we),
-    .wd     (a_45_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_45_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_45_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_45_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_45_cfg_puen_we),
-    .wd     (a_45_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_45_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_45_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_45_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_45_cfg_slw_we),
-    .wd     (a_45_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_45_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_45_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_45_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_45_cfg_smt_we),
-    .wd     (a_45_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_45_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_45_cfg_smt_qs)
-  );
-
-
-  // R[a_45_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_45_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_45_mux_sel_we),
-    .wd     (a_45_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_45_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_45_mux_sel_qs)
-  );
-
-
-  // R[a_46_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_46_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_46_cfg_chip2pad_we),
-    .wd     (a_46_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_46_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_46_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_46_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_46_cfg_drv_we),
-    .wd     (a_46_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_46_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_46_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_46_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_46_cfg_oen_we),
-    .wd     (a_46_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_46_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_46_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_46_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_46_cfg_puen_we),
-    .wd     (a_46_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_46_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_46_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_46_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_46_cfg_slw_we),
-    .wd     (a_46_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_46_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_46_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_46_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_46_cfg_smt_we),
-    .wd     (a_46_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_46_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_46_cfg_smt_qs)
-  );
-
-
-  // R[a_46_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_46_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_46_mux_sel_we),
-    .wd     (a_46_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_46_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_46_mux_sel_qs)
-  );
-
-
-  // R[a_47_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_47_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_47_cfg_chip2pad_we),
-    .wd     (a_47_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_47_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_47_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_47_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_47_cfg_drv_we),
-    .wd     (a_47_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_47_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_47_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_47_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_47_cfg_oen_we),
-    .wd     (a_47_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_47_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_47_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_47_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_47_cfg_puen_we),
-    .wd     (a_47_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_47_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_47_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_47_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_47_cfg_slw_we),
-    .wd     (a_47_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_47_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_47_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_47_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_47_cfg_smt_we),
-    .wd     (a_47_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_47_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_47_cfg_smt_qs)
-  );
-
-
-  // R[a_47_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_47_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_47_mux_sel_we),
-    .wd     (a_47_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_47_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_47_mux_sel_qs)
-  );
-
-
-  // R[a_48_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_48_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_48_cfg_chip2pad_we),
-    .wd     (a_48_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_48_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_48_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_48_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_48_cfg_drv_we),
-    .wd     (a_48_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_48_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_48_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_48_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_48_cfg_oen_we),
-    .wd     (a_48_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_48_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_48_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_48_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_48_cfg_puen_we),
-    .wd     (a_48_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_48_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_48_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_48_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_48_cfg_slw_we),
-    .wd     (a_48_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_48_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_48_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_48_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_48_cfg_smt_we),
-    .wd     (a_48_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_48_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_48_cfg_smt_qs)
-  );
-
-
-  // R[a_48_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_48_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_48_mux_sel_we),
-    .wd     (a_48_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_48_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_48_mux_sel_qs)
-  );
-
-
-  // R[a_49_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_49_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_49_cfg_chip2pad_we),
-    .wd     (a_49_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_49_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_49_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_49_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_49_cfg_drv_we),
-    .wd     (a_49_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_49_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_49_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_49_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_49_cfg_oen_we),
-    .wd     (a_49_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_49_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_49_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_49_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_49_cfg_puen_we),
-    .wd     (a_49_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_49_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_49_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_49_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_49_cfg_slw_we),
-    .wd     (a_49_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_49_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_49_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_49_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_49_cfg_smt_we),
-    .wd     (a_49_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_49_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_49_cfg_smt_qs)
-  );
-
-
-  // R[a_49_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_49_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_49_mux_sel_we),
-    .wd     (a_49_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_49_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_49_mux_sel_qs)
-  );
-
-
-  // R[a_50_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_50_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_50_cfg_chip2pad_we),
-    .wd     (a_50_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_50_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_50_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_50_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_50_cfg_drv_we),
-    .wd     (a_50_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_50_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_50_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_50_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_50_cfg_oen_we),
-    .wd     (a_50_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_50_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_50_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_50_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_50_cfg_puen_we),
-    .wd     (a_50_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_50_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_50_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_50_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_50_cfg_slw_we),
-    .wd     (a_50_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_50_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_50_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_50_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_50_cfg_smt_we),
-    .wd     (a_50_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_50_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_50_cfg_smt_qs)
-  );
-
-
-  // R[a_50_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_50_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_50_mux_sel_we),
-    .wd     (a_50_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_50_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_50_mux_sel_qs)
-  );
-
-
-  // R[a_51_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_51_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_51_cfg_chip2pad_we),
-    .wd     (a_51_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_51_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_51_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_51_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_51_cfg_drv_we),
-    .wd     (a_51_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_51_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_51_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_51_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_51_cfg_oen_we),
-    .wd     (a_51_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_51_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_51_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_51_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_51_cfg_puen_we),
-    .wd     (a_51_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_51_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_51_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_51_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_51_cfg_slw_we),
-    .wd     (a_51_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_51_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_51_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_51_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_51_cfg_smt_we),
-    .wd     (a_51_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_51_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_51_cfg_smt_qs)
-  );
-
-
-  // R[a_51_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_51_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_51_mux_sel_we),
-    .wd     (a_51_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_51_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_51_mux_sel_qs)
-  );
-
-
-  // R[a_52_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_52_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_52_cfg_chip2pad_we),
-    .wd     (a_52_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_52_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_52_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_52_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_52_cfg_drv_we),
-    .wd     (a_52_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_52_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_52_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_52_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_52_cfg_oen_we),
-    .wd     (a_52_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_52_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_52_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_52_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_52_cfg_puen_we),
-    .wd     (a_52_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_52_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_52_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_52_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_52_cfg_slw_we),
-    .wd     (a_52_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_52_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_52_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_52_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_52_cfg_smt_we),
-    .wd     (a_52_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_52_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_52_cfg_smt_qs)
-  );
-
-
-  // R[a_52_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_52_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_52_mux_sel_we),
-    .wd     (a_52_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_52_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_52_mux_sel_qs)
-  );
-
-
-  // R[a_53_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_53_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_53_cfg_chip2pad_we),
-    .wd     (a_53_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_53_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_53_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_53_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_53_cfg_drv_we),
-    .wd     (a_53_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_53_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_53_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_53_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_53_cfg_oen_we),
-    .wd     (a_53_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_53_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_53_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_53_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_53_cfg_puen_we),
-    .wd     (a_53_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_53_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_53_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_53_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_53_cfg_slw_we),
-    .wd     (a_53_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_53_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_53_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_53_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_53_cfg_smt_we),
-    .wd     (a_53_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_53_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_53_cfg_smt_qs)
-  );
-
-
-  // R[a_53_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_53_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_53_mux_sel_we),
-    .wd     (a_53_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_53_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_53_mux_sel_qs)
-  );
-
-
-  // R[a_54_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_54_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_54_cfg_chip2pad_we),
-    .wd     (a_54_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_54_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_54_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_54_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_54_cfg_drv_we),
-    .wd     (a_54_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_54_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_54_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_54_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_54_cfg_oen_we),
-    .wd     (a_54_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_54_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_54_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_54_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_54_cfg_puen_we),
-    .wd     (a_54_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_54_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_54_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_54_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_54_cfg_slw_we),
-    .wd     (a_54_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_54_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_54_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_54_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_54_cfg_smt_we),
-    .wd     (a_54_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_54_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_54_cfg_smt_qs)
-  );
-
-
-  // R[a_54_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_54_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_54_mux_sel_we),
-    .wd     (a_54_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_54_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_54_mux_sel_qs)
-  );
-
-
-  // R[a_55_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_55_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_55_cfg_chip2pad_we),
-    .wd     (a_55_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_55_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_55_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_55_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_55_cfg_drv_we),
-    .wd     (a_55_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_55_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_55_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_55_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_55_cfg_oen_we),
-    .wd     (a_55_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_55_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_55_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_55_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_55_cfg_puen_we),
-    .wd     (a_55_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_55_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_55_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_55_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_55_cfg_slw_we),
-    .wd     (a_55_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_55_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_55_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_55_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_55_cfg_smt_we),
-    .wd     (a_55_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_55_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_55_cfg_smt_qs)
-  );
-
-
-  // R[a_55_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_55_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_55_mux_sel_we),
-    .wd     (a_55_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_55_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_55_mux_sel_qs)
-  );
-
-
-  // R[a_56_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_56_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_56_cfg_chip2pad_we),
-    .wd     (a_56_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_56_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_56_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_56_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_56_cfg_drv_we),
-    .wd     (a_56_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_56_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_56_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_56_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_56_cfg_oen_we),
-    .wd     (a_56_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_56_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_56_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_56_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_56_cfg_puen_we),
-    .wd     (a_56_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_56_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_56_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_56_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_56_cfg_slw_we),
-    .wd     (a_56_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_56_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_56_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_56_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_56_cfg_smt_we),
-    .wd     (a_56_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_56_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_56_cfg_smt_qs)
-  );
-
-
-  // R[a_56_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_56_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_56_mux_sel_we),
-    .wd     (a_56_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_56_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_56_mux_sel_qs)
-  );
-
-
-  // R[a_57_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_57_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_57_cfg_chip2pad_we),
-    .wd     (a_57_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_57_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_57_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_57_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_57_cfg_drv_we),
-    .wd     (a_57_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_57_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_57_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_57_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_57_cfg_oen_we),
-    .wd     (a_57_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_57_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_57_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_57_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_57_cfg_puen_we),
-    .wd     (a_57_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_57_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_57_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_57_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_57_cfg_slw_we),
-    .wd     (a_57_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_57_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_57_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_57_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_57_cfg_smt_we),
-    .wd     (a_57_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_57_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_57_cfg_smt_qs)
-  );
-
-
-  // R[a_57_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_57_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_57_mux_sel_we),
-    .wd     (a_57_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_57_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_57_mux_sel_qs)
-  );
-
-
-  // R[a_58_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_58_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_58_cfg_chip2pad_we),
-    .wd     (a_58_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_58_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_58_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_58_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_58_cfg_drv_we),
-    .wd     (a_58_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_58_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_58_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_58_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_58_cfg_oen_we),
-    .wd     (a_58_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_58_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_58_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_58_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_58_cfg_puen_we),
-    .wd     (a_58_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_58_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_58_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_58_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_58_cfg_slw_we),
-    .wd     (a_58_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_58_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_58_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_58_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_58_cfg_smt_we),
-    .wd     (a_58_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_58_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_58_cfg_smt_qs)
-  );
-
-
-  // R[a_58_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_58_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_58_mux_sel_we),
-    .wd     (a_58_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_58_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_58_mux_sel_qs)
-  );
-
-
-  // R[a_59_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_59_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_59_cfg_chip2pad_we),
-    .wd     (a_59_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_59_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_59_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_59_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_59_cfg_drv_we),
-    .wd     (a_59_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_59_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_59_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_59_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_59_cfg_oen_we),
-    .wd     (a_59_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_59_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_59_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_59_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_59_cfg_puen_we),
-    .wd     (a_59_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_59_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_59_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_59_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_59_cfg_slw_we),
-    .wd     (a_59_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_59_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_59_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_59_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_59_cfg_smt_we),
-    .wd     (a_59_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_59_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_59_cfg_smt_qs)
-  );
-
-
-  // R[a_59_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_59_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_59_mux_sel_we),
-    .wd     (a_59_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_59_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_59_mux_sel_qs)
-  );
-
-
-  // R[a_60_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_60_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_60_cfg_chip2pad_we),
-    .wd     (a_60_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_60_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_60_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_60_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_60_cfg_drv_we),
-    .wd     (a_60_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_60_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_60_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_60_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_60_cfg_oen_we),
-    .wd     (a_60_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_60_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_60_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_60_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_60_cfg_puen_we),
-    .wd     (a_60_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_60_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_60_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_60_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_60_cfg_slw_we),
-    .wd     (a_60_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_60_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_60_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_60_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_60_cfg_smt_we),
-    .wd     (a_60_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_60_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_60_cfg_smt_qs)
-  );
-
-
-  // R[a_60_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_60_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_60_mux_sel_we),
-    .wd     (a_60_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_60_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_60_mux_sel_qs)
-  );
-
-
-  // R[a_61_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_61_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_61_cfg_chip2pad_we),
-    .wd     (a_61_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_61_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_61_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_61_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_61_cfg_drv_we),
-    .wd     (a_61_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_61_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_61_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_61_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_61_cfg_oen_we),
-    .wd     (a_61_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_61_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_61_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_61_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_61_cfg_puen_we),
-    .wd     (a_61_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_61_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_61_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_61_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_61_cfg_slw_we),
-    .wd     (a_61_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_61_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_61_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_61_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_61_cfg_smt_we),
-    .wd     (a_61_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_61_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_61_cfg_smt_qs)
-  );
-
-
-  // R[a_61_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_61_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_61_mux_sel_we),
-    .wd     (a_61_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_61_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_61_mux_sel_qs)
-  );
-
-
-  // R[a_62_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_62_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_62_cfg_chip2pad_we),
-    .wd     (a_62_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_62_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_62_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_62_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_62_cfg_drv_we),
-    .wd     (a_62_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_62_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_62_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_62_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_62_cfg_oen_we),
-    .wd     (a_62_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_62_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_62_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_62_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_62_cfg_puen_we),
-    .wd     (a_62_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_62_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_62_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_62_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_62_cfg_slw_we),
-    .wd     (a_62_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_62_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_62_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_62_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_62_cfg_smt_we),
-    .wd     (a_62_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_62_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_62_cfg_smt_qs)
-  );
-
-
-  // R[a_62_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_62_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_62_mux_sel_we),
-    .wd     (a_62_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_62_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_62_mux_sel_qs)
-  );
-
-
-  // R[a_63_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_63_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_63_cfg_chip2pad_we),
-    .wd     (a_63_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_63_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_63_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_63_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_63_cfg_drv_we),
-    .wd     (a_63_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_63_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_63_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_63_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_63_cfg_oen_we),
-    .wd     (a_63_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_63_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_63_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_63_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_63_cfg_puen_we),
-    .wd     (a_63_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_63_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_63_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_63_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_63_cfg_slw_we),
-    .wd     (a_63_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_63_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_63_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_63_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_63_cfg_smt_we),
-    .wd     (a_63_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_63_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_63_cfg_smt_qs)
-  );
-
-
-  // R[a_63_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_63_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_63_mux_sel_we),
-    .wd     (a_63_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_63_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_63_mux_sel_qs)
-  );
-
-
-  // R[a_64_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_64_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_64_cfg_chip2pad_we),
-    .wd     (a_64_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_64_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_64_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_64_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_64_cfg_drv_we),
-    .wd     (a_64_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_64_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_64_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_64_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_64_cfg_oen_we),
-    .wd     (a_64_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_64_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_64_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_64_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_64_cfg_puen_we),
-    .wd     (a_64_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_64_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_64_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_64_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_64_cfg_slw_we),
-    .wd     (a_64_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_64_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_64_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_64_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_64_cfg_smt_we),
-    .wd     (a_64_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_64_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_64_cfg_smt_qs)
-  );
-
-
-  // R[a_64_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_64_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_64_mux_sel_we),
-    .wd     (a_64_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_64_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_64_mux_sel_qs)
-  );
-
-
-  // R[a_65_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_65_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_65_cfg_chip2pad_we),
-    .wd     (a_65_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_65_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_65_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_65_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_65_cfg_drv_we),
-    .wd     (a_65_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_65_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_65_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_65_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_65_cfg_oen_we),
-    .wd     (a_65_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_65_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_65_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_65_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_65_cfg_puen_we),
-    .wd     (a_65_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_65_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_65_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_65_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_65_cfg_slw_we),
-    .wd     (a_65_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_65_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_65_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_65_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_65_cfg_smt_we),
-    .wd     (a_65_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_65_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_65_cfg_smt_qs)
-  );
-
-
-  // R[a_65_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_65_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_65_mux_sel_we),
-    .wd     (a_65_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_65_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_65_mux_sel_qs)
-  );
-
-
-  // R[a_66_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_66_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_66_cfg_chip2pad_we),
-    .wd     (a_66_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_66_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_66_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_66_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_66_cfg_drv_we),
-    .wd     (a_66_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_66_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_66_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_66_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_66_cfg_oen_we),
-    .wd     (a_66_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_66_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_66_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_66_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_66_cfg_puen_we),
-    .wd     (a_66_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_66_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_66_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_66_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_66_cfg_slw_we),
-    .wd     (a_66_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_66_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_66_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_66_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_66_cfg_smt_we),
-    .wd     (a_66_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_66_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_66_cfg_smt_qs)
-  );
-
-
-  // R[a_66_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_66_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_66_mux_sel_we),
-    .wd     (a_66_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_66_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_66_mux_sel_qs)
-  );
-
-
-  // R[a_67_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_67_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_67_cfg_chip2pad_we),
-    .wd     (a_67_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_67_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_67_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_67_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_67_cfg_drv_we),
-    .wd     (a_67_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_67_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_67_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_67_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_67_cfg_oen_we),
-    .wd     (a_67_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_67_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_67_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_67_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_67_cfg_puen_we),
-    .wd     (a_67_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_67_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_67_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_67_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_67_cfg_slw_we),
-    .wd     (a_67_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_67_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_67_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_67_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_67_cfg_smt_we),
-    .wd     (a_67_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_67_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_67_cfg_smt_qs)
-  );
-
-
-  // R[a_67_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_67_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_67_mux_sel_we),
-    .wd     (a_67_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_67_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_67_mux_sel_qs)
-  );
-
-
-  // R[a_68_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_68_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_68_cfg_chip2pad_we),
-    .wd     (a_68_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_68_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_68_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_68_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_68_cfg_drv_we),
-    .wd     (a_68_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_68_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_68_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_68_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_68_cfg_oen_we),
-    .wd     (a_68_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_68_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_68_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_68_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_68_cfg_puen_we),
-    .wd     (a_68_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_68_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_68_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_68_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_68_cfg_slw_we),
-    .wd     (a_68_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_68_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_68_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_68_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_68_cfg_smt_we),
-    .wd     (a_68_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_68_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_68_cfg_smt_qs)
-  );
-
-
-  // R[a_68_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_68_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_68_mux_sel_we),
-    .wd     (a_68_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_68_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_68_mux_sel_qs)
-  );
-
-
-  // R[a_69_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_69_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_69_cfg_chip2pad_we),
-    .wd     (a_69_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_69_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_69_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_69_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_69_cfg_drv_we),
-    .wd     (a_69_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_69_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_69_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_69_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_69_cfg_oen_we),
-    .wd     (a_69_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_69_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_69_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_69_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_69_cfg_puen_we),
-    .wd     (a_69_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_69_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_69_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_69_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_69_cfg_slw_we),
-    .wd     (a_69_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_69_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_69_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_69_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_69_cfg_smt_we),
-    .wd     (a_69_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_69_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_69_cfg_smt_qs)
-  );
-
-
-  // R[a_69_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_69_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_69_mux_sel_we),
-    .wd     (a_69_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_69_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_69_mux_sel_qs)
-  );
-
-
-  // R[a_70_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_70_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_70_cfg_chip2pad_we),
-    .wd     (a_70_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_70_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_70_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_70_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_70_cfg_drv_we),
-    .wd     (a_70_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_70_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_70_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_70_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_70_cfg_oen_we),
-    .wd     (a_70_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_70_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_70_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_70_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_70_cfg_puen_we),
-    .wd     (a_70_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_70_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_70_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_70_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_70_cfg_slw_we),
-    .wd     (a_70_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_70_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_70_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_70_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_70_cfg_smt_we),
-    .wd     (a_70_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_70_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_70_cfg_smt_qs)
-  );
-
-
-  // R[a_70_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_70_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_70_mux_sel_we),
-    .wd     (a_70_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_70_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_70_mux_sel_qs)
-  );
-
-
-  // R[a_71_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_71_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_71_cfg_chip2pad_we),
-    .wd     (a_71_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_71_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_71_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_71_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_71_cfg_drv_we),
-    .wd     (a_71_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_71_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_71_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_71_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_71_cfg_oen_we),
-    .wd     (a_71_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_71_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_71_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_71_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_71_cfg_puen_we),
-    .wd     (a_71_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_71_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_71_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_71_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_71_cfg_slw_we),
-    .wd     (a_71_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_71_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_71_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_71_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_71_cfg_smt_we),
-    .wd     (a_71_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_71_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_71_cfg_smt_qs)
-  );
-
-
-  // R[a_71_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_71_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_71_mux_sel_we),
-    .wd     (a_71_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_71_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_71_mux_sel_qs)
-  );
-
-
-  // R[a_72_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_72_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_72_cfg_chip2pad_we),
-    .wd     (a_72_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_72_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_72_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_72_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_72_cfg_drv_we),
-    .wd     (a_72_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_72_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_72_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_72_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_72_cfg_oen_we),
-    .wd     (a_72_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_72_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_72_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_72_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_72_cfg_puen_we),
-    .wd     (a_72_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_72_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_72_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_72_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_72_cfg_slw_we),
-    .wd     (a_72_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_72_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_72_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_72_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_72_cfg_smt_we),
-    .wd     (a_72_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_72_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_72_cfg_smt_qs)
-  );
-
-
-  // R[a_72_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_72_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_72_mux_sel_we),
-    .wd     (a_72_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_72_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_72_mux_sel_qs)
-  );
-
-
-  // R[a_73_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_73_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_73_cfg_chip2pad_we),
-    .wd     (a_73_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_73_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_73_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_73_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_73_cfg_drv_we),
-    .wd     (a_73_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_73_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_73_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_73_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_73_cfg_oen_we),
-    .wd     (a_73_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_73_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_73_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_73_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_73_cfg_puen_we),
-    .wd     (a_73_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_73_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_73_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_73_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_73_cfg_slw_we),
-    .wd     (a_73_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_73_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_73_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_73_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_73_cfg_smt_we),
-    .wd     (a_73_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_73_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_73_cfg_smt_qs)
-  );
-
-
-  // R[a_73_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_73_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_73_mux_sel_we),
-    .wd     (a_73_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_73_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_73_mux_sel_qs)
-  );
-
-
-  // R[a_74_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_74_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_74_cfg_chip2pad_we),
-    .wd     (a_74_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_74_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_74_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_74_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_74_cfg_drv_we),
-    .wd     (a_74_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_74_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_74_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_74_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_74_cfg_oen_we),
-    .wd     (a_74_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_74_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_74_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_74_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_74_cfg_puen_we),
-    .wd     (a_74_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_74_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_74_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_74_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_74_cfg_slw_we),
-    .wd     (a_74_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_74_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_74_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_74_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_74_cfg_smt_we),
-    .wd     (a_74_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_74_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_74_cfg_smt_qs)
-  );
-
-
-  // R[a_74_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_74_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_74_mux_sel_we),
-    .wd     (a_74_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_74_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_74_mux_sel_qs)
-  );
-
-
-  // R[a_75_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_75_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_75_cfg_chip2pad_we),
-    .wd     (a_75_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_75_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_75_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_75_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_75_cfg_drv_we),
-    .wd     (a_75_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_75_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_75_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_75_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_75_cfg_oen_we),
-    .wd     (a_75_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_75_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_75_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_75_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_75_cfg_puen_we),
-    .wd     (a_75_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_75_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_75_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_75_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_75_cfg_slw_we),
-    .wd     (a_75_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_75_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_75_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_75_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_75_cfg_smt_we),
-    .wd     (a_75_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_75_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_75_cfg_smt_qs)
-  );
-
-
-  // R[a_75_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_75_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_75_mux_sel_we),
-    .wd     (a_75_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_75_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_75_mux_sel_qs)
-  );
-
-
-  // R[a_76_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_76_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_76_cfg_chip2pad_we),
-    .wd     (a_76_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_76_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_76_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_76_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_76_cfg_drv_we),
-    .wd     (a_76_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_76_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_76_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_76_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_76_cfg_oen_we),
-    .wd     (a_76_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_76_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_76_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_76_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_76_cfg_puen_we),
-    .wd     (a_76_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_76_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_76_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_76_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_76_cfg_slw_we),
-    .wd     (a_76_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_76_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_76_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_76_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_76_cfg_smt_we),
-    .wd     (a_76_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_76_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_76_cfg_smt_qs)
-  );
-
-
-  // R[a_76_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_76_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_76_mux_sel_we),
-    .wd     (a_76_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_76_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_76_mux_sel_qs)
-  );
-
-
-  // R[a_77_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_77_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_77_cfg_chip2pad_we),
-    .wd     (a_77_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_77_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_77_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_77_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_77_cfg_drv_we),
-    .wd     (a_77_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_77_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_77_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_77_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_77_cfg_oen_we),
-    .wd     (a_77_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_77_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_77_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_77_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_77_cfg_puen_we),
-    .wd     (a_77_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_77_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_77_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_77_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_77_cfg_slw_we),
-    .wd     (a_77_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_77_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_77_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_77_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_77_cfg_smt_we),
-    .wd     (a_77_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_77_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_77_cfg_smt_qs)
-  );
-
-
-  // R[a_77_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_77_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_77_mux_sel_we),
-    .wd     (a_77_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_77_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_77_mux_sel_qs)
-  );
-
-
-  // R[a_78_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_78_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_78_cfg_chip2pad_we),
-    .wd     (a_78_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_78_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_78_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_78_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_78_cfg_drv_we),
-    .wd     (a_78_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_78_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_78_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_78_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_78_cfg_oen_we),
-    .wd     (a_78_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_78_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_78_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_78_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_78_cfg_puen_we),
-    .wd     (a_78_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_78_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_78_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_78_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_78_cfg_slw_we),
-    .wd     (a_78_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_78_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_78_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_78_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_78_cfg_smt_we),
-    .wd     (a_78_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_78_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_78_cfg_smt_qs)
-  );
-
-
-  // R[a_78_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_78_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_78_mux_sel_we),
-    .wd     (a_78_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_78_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_78_mux_sel_qs)
-  );
-
-
-  // R[a_79_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_79_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_79_cfg_chip2pad_we),
-    .wd     (a_79_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_79_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_79_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_79_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_79_cfg_drv_we),
-    .wd     (a_79_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_79_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_79_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_79_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_79_cfg_oen_we),
-    .wd     (a_79_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_79_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_79_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_79_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_79_cfg_puen_we),
-    .wd     (a_79_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_79_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_79_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_79_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_79_cfg_slw_we),
-    .wd     (a_79_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_79_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_79_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_79_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_79_cfg_smt_we),
-    .wd     (a_79_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_79_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_79_cfg_smt_qs)
-  );
-
-
-  // R[a_79_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_79_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_79_mux_sel_we),
-    .wd     (a_79_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_79_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_79_mux_sel_qs)
-  );
-
-
-  // R[a_80_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_80_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_80_cfg_chip2pad_we),
-    .wd     (a_80_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_80_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_80_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_80_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_80_cfg_drv_we),
-    .wd     (a_80_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_80_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_80_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_80_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_80_cfg_oen_we),
-    .wd     (a_80_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_80_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_80_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_80_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_80_cfg_puen_we),
-    .wd     (a_80_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_80_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_80_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_80_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_80_cfg_slw_we),
-    .wd     (a_80_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_80_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_80_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_80_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_80_cfg_smt_we),
-    .wd     (a_80_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_80_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_80_cfg_smt_qs)
-  );
-
-
-  // R[a_80_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_80_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_80_mux_sel_we),
-    .wd     (a_80_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_80_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_80_mux_sel_qs)
-  );
-
-
-  // R[a_81_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_81_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_81_cfg_chip2pad_we),
-    .wd     (a_81_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_81_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_81_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_81_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_81_cfg_drv_we),
-    .wd     (a_81_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_81_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_81_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_81_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_81_cfg_oen_we),
-    .wd     (a_81_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_81_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_81_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_81_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_81_cfg_puen_we),
-    .wd     (a_81_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_81_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_81_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_81_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_81_cfg_slw_we),
-    .wd     (a_81_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_81_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_81_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_81_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_81_cfg_smt_we),
-    .wd     (a_81_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_81_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_81_cfg_smt_qs)
-  );
-
-
-  // R[a_81_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_81_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_81_mux_sel_we),
-    .wd     (a_81_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_81_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_81_mux_sel_qs)
-  );
-
-
-  // R[a_82_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_82_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_82_cfg_chip2pad_we),
-    .wd     (a_82_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_82_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_82_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_82_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_82_cfg_drv_we),
-    .wd     (a_82_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_82_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_82_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_82_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_82_cfg_oen_we),
-    .wd     (a_82_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_82_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_82_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_82_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_82_cfg_puen_we),
-    .wd     (a_82_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_82_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_82_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_82_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_82_cfg_slw_we),
-    .wd     (a_82_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_82_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_82_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_82_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_82_cfg_smt_we),
-    .wd     (a_82_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_82_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_82_cfg_smt_qs)
-  );
-
-
-  // R[a_82_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_82_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_82_mux_sel_we),
-    .wd     (a_82_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_82_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_82_mux_sel_qs)
-  );
-
-
-  // R[a_83_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_83_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_83_cfg_chip2pad_we),
-    .wd     (a_83_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_83_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_83_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_83_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_83_cfg_drv_we),
-    .wd     (a_83_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_83_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_83_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_83_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_83_cfg_oen_we),
-    .wd     (a_83_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_83_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_83_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_83_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_83_cfg_puen_we),
-    .wd     (a_83_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_83_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_83_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_83_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_83_cfg_slw_we),
-    .wd     (a_83_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_83_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_83_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_83_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_83_cfg_smt_we),
-    .wd     (a_83_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_83_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_83_cfg_smt_qs)
-  );
-
-
-  // R[a_83_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_83_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_83_mux_sel_we),
-    .wd     (a_83_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_83_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_83_mux_sel_qs)
-  );
-
-
-  // R[a_84_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_84_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_84_cfg_chip2pad_we),
-    .wd     (a_84_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_84_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_84_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_84_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_84_cfg_drv_we),
-    .wd     (a_84_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_84_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_84_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_84_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_84_cfg_oen_we),
-    .wd     (a_84_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_84_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_84_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_84_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_84_cfg_puen_we),
-    .wd     (a_84_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_84_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_84_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_84_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_84_cfg_slw_we),
-    .wd     (a_84_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_84_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_84_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_84_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_84_cfg_smt_we),
-    .wd     (a_84_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_84_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_84_cfg_smt_qs)
-  );
-
-
-  // R[a_84_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_84_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_84_mux_sel_we),
-    .wd     (a_84_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_84_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_84_mux_sel_qs)
-  );
-
-
-  // R[a_85_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_85_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_85_cfg_chip2pad_we),
-    .wd     (a_85_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_85_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_85_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_85_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_85_cfg_drv_we),
-    .wd     (a_85_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_85_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_85_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_85_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_85_cfg_oen_we),
-    .wd     (a_85_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_85_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_85_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_85_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_85_cfg_puen_we),
-    .wd     (a_85_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_85_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_85_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_85_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_85_cfg_slw_we),
-    .wd     (a_85_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_85_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_85_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_85_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_85_cfg_smt_we),
-    .wd     (a_85_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_85_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_85_cfg_smt_qs)
-  );
-
-
-  // R[a_85_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_85_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_85_mux_sel_we),
-    .wd     (a_85_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_85_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_85_mux_sel_qs)
-  );
-
-
-  // R[a_86_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_86_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_86_cfg_chip2pad_we),
-    .wd     (a_86_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_86_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_86_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_86_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_86_cfg_drv_we),
-    .wd     (a_86_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_86_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_86_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_86_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_86_cfg_oen_we),
-    .wd     (a_86_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_86_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_86_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_86_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_86_cfg_puen_we),
-    .wd     (a_86_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_86_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_86_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_86_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_86_cfg_slw_we),
-    .wd     (a_86_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_86_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_86_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_86_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_86_cfg_smt_we),
-    .wd     (a_86_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_86_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_86_cfg_smt_qs)
-  );
-
-
-  // R[a_86_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_86_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_86_mux_sel_we),
-    .wd     (a_86_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_86_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_86_mux_sel_qs)
-  );
-
-
-  // R[a_87_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_87_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_87_cfg_chip2pad_we),
-    .wd     (a_87_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_87_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_87_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_87_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_87_cfg_drv_we),
-    .wd     (a_87_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_87_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_87_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_87_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_87_cfg_oen_we),
-    .wd     (a_87_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_87_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_87_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_87_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_87_cfg_puen_we),
-    .wd     (a_87_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_87_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_87_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_87_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_87_cfg_slw_we),
-    .wd     (a_87_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_87_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_87_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_87_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_87_cfg_smt_we),
-    .wd     (a_87_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_87_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_87_cfg_smt_qs)
-  );
-
-
-  // R[a_87_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_87_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_87_mux_sel_we),
-    .wd     (a_87_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_87_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_87_mux_sel_qs)
-  );
-
-
-  // R[a_88_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_88_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_88_cfg_chip2pad_we),
-    .wd     (a_88_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_88_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_88_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_88_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_88_cfg_drv_we),
-    .wd     (a_88_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_88_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_88_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_88_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_88_cfg_oen_we),
-    .wd     (a_88_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_88_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_88_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_88_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_88_cfg_puen_we),
-    .wd     (a_88_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_88_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_88_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_88_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_88_cfg_slw_we),
-    .wd     (a_88_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_88_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_88_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_88_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_88_cfg_smt_we),
-    .wd     (a_88_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_88_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_88_cfg_smt_qs)
-  );
-
-
-  // R[a_88_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_88_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_88_mux_sel_we),
-    .wd     (a_88_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_88_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_88_mux_sel_qs)
-  );
-
-
-  // R[a_89_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_89_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_89_cfg_chip2pad_we),
-    .wd     (a_89_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_89_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_89_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_89_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_89_cfg_drv_we),
-    .wd     (a_89_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_89_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_89_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_89_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_89_cfg_oen_we),
-    .wd     (a_89_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_89_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_89_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_89_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_89_cfg_puen_we),
-    .wd     (a_89_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_89_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_89_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_89_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_89_cfg_slw_we),
-    .wd     (a_89_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_89_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_89_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_89_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_89_cfg_smt_we),
-    .wd     (a_89_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_89_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_89_cfg_smt_qs)
-  );
-
-
-  // R[a_89_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_89_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_89_mux_sel_we),
-    .wd     (a_89_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_89_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_89_mux_sel_qs)
-  );
-
-
-  // R[a_90_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_90_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_90_cfg_chip2pad_we),
-    .wd     (a_90_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_90_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_90_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_90_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_90_cfg_drv_we),
-    .wd     (a_90_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_90_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_90_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_90_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_90_cfg_oen_we),
-    .wd     (a_90_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_90_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_90_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_90_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_90_cfg_puen_we),
-    .wd     (a_90_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_90_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_90_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_90_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_90_cfg_slw_we),
-    .wd     (a_90_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_90_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_90_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_90_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_90_cfg_smt_we),
-    .wd     (a_90_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_90_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_90_cfg_smt_qs)
-  );
-
-
-  // R[a_90_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_90_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_90_mux_sel_we),
-    .wd     (a_90_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_90_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_90_mux_sel_qs)
-  );
-
-
-  // R[a_91_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_91_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_91_cfg_chip2pad_we),
-    .wd     (a_91_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_91_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_91_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_91_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_91_cfg_drv_we),
-    .wd     (a_91_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_91_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_91_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_91_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_91_cfg_oen_we),
-    .wd     (a_91_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_91_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_91_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_91_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_91_cfg_puen_we),
-    .wd     (a_91_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_91_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_91_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_91_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_91_cfg_slw_we),
-    .wd     (a_91_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_91_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_91_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_91_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_91_cfg_smt_we),
-    .wd     (a_91_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_91_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_91_cfg_smt_qs)
-  );
-
-
-  // R[a_91_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_91_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_91_mux_sel_we),
-    .wd     (a_91_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_91_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_91_mux_sel_qs)
-  );
-
-
-  // R[a_92_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_92_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_92_cfg_chip2pad_we),
-    .wd     (a_92_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_92_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (a_92_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_a_92_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_92_cfg_drv_we),
-    .wd     (a_92_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_92_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (a_92_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_92_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_92_cfg_oen_we),
-    .wd     (a_92_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_92_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (a_92_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_a_92_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_92_cfg_puen_we),
-    .wd     (a_92_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_92_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (a_92_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_92_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_92_cfg_slw_we),
-    .wd     (a_92_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_92_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (a_92_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_92_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_92_cfg_smt_we),
-    .wd     (a_92_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_92_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (a_92_cfg_smt_qs)
-  );
-
-
-  // R[a_92_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_a_92_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (a_92_mux_sel_we),
-    .wd     (a_92_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.a_92_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (a_92_mux_sel_qs)
   );
 
 
@@ -21005,9 +7502,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_00_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_00_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -21190,9 +7687,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_01_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_01_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -21375,9 +7872,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_02_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_02_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -21560,9 +8057,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_03_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_b_03_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -21745,9 +8242,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_04_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_04_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -21930,9 +8427,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_05_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_05_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -22115,9 +8612,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_06_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_06_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -22300,9 +8797,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_07_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_07_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -22485,9 +8982,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_08_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_08_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -22670,9 +9167,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_09_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_09_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -22855,9 +9352,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_10_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_10_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -23040,9 +9537,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_11_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_11_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -23225,9 +9722,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_12_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_12_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -23410,9 +9907,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_13_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_13_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -23595,9 +10092,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_14_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_14_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -23780,9 +10277,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_15_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_15_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -23965,9 +10462,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_16_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_16_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -24150,9 +10647,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_17_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_17_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -24335,9 +10832,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_18_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_18_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -24520,9 +11017,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_19_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_19_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -24705,9 +11202,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_20_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_20_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -24890,9 +11387,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_21_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_21_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -25075,9 +11572,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_22_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_22_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -25260,9 +11757,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_23_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_23_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -25445,9 +11942,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_24_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_24_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -25630,9 +12127,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_25_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_b_25_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -25815,9 +12312,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_26_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_b_26_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -26000,9 +12497,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_27_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_b_27_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -26185,9 +12682,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_28_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_b_28_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -26370,9 +12867,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_29_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_b_29_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -26555,9 +13052,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_30_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_30_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -26740,9 +13237,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_31_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_31_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -26925,9 +13422,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_32_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_32_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -27110,9 +13607,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_33_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (3'h0)
   ) u_b_33_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -27295,9 +13792,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_34_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_b_34_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -27480,9 +13977,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_35_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_b_35_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -27665,9 +14162,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_36_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_b_36_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -27850,9 +14347,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_37_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_b_37_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -28035,9 +14532,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_38_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_b_38_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -28220,9 +14717,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_39_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_b_39_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -28405,9 +14902,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_40_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_b_40_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -28590,9 +15087,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_41_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_b_41_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -28775,9 +15272,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_42_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_b_42_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -28960,9 +15457,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_43_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_b_43_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -29145,9 +15642,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_44_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_b_44_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -29330,9 +15827,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_45_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_b_45_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -29515,9 +16012,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[b_46_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (1),
+    .DW      (2),
     .SWACCESS("RW"),
-    .RESVAL  (1'h0)
+    .RESVAL  (2'h0)
   ) u_b_46_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -29724,20 +16221,20 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   );
 
 
-  // R[b_48_cfg]: V(False)
+  // R[ot_spi_00_cfg]: V(False)
 
   //   F[chip2pad]: 0:0
   prim_subreg #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h0)
-  ) u_b_48_cfg_chip2pad (
+  ) u_ot_spi_00_cfg_chip2pad (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_48_cfg_chip2pad_we),
-    .wd     (b_48_cfg_chip2pad_wd),
+    .we     (ot_spi_00_cfg_chip2pad_we),
+    .wd     (ot_spi_00_cfg_chip2pad_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -29745,10 +16242,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_48_cfg.chip2pad.q ),
+    .q      (reg2hw.ot_spi_00_cfg.chip2pad.q ),
 
     // to register interface (read)
-    .qs     (b_48_cfg_chip2pad_qs)
+    .qs     (ot_spi_00_cfg_chip2pad_qs)
   );
 
 
@@ -29757,13 +16254,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (2),
     .SWACCESS("RW"),
     .RESVAL  (2'h0)
-  ) u_b_48_cfg_drv (
+  ) u_ot_spi_00_cfg_drv (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_48_cfg_drv_we),
-    .wd     (b_48_cfg_drv_wd),
+    .we     (ot_spi_00_cfg_drv_we),
+    .wd     (ot_spi_00_cfg_drv_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -29771,10 +16268,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_48_cfg.drv.q ),
+    .q      (reg2hw.ot_spi_00_cfg.drv.q ),
 
     // to register interface (read)
-    .qs     (b_48_cfg_drv_qs)
+    .qs     (ot_spi_00_cfg_drv_qs)
   );
 
 
@@ -29783,13 +16280,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h1)
-  ) u_b_48_cfg_oen (
+  ) u_ot_spi_00_cfg_oen (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_48_cfg_oen_we),
-    .wd     (b_48_cfg_oen_wd),
+    .we     (ot_spi_00_cfg_oen_we),
+    .wd     (ot_spi_00_cfg_oen_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -29797,10 +16294,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_48_cfg.oen.q ),
+    .q      (reg2hw.ot_spi_00_cfg.oen.q ),
 
     // to register interface (read)
-    .qs     (b_48_cfg_oen_qs)
+    .qs     (ot_spi_00_cfg_oen_qs)
   );
 
 
@@ -29809,13 +16306,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h1)
-  ) u_b_48_cfg_puen (
+  ) u_ot_spi_00_cfg_puen (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_48_cfg_puen_we),
-    .wd     (b_48_cfg_puen_wd),
+    .we     (ot_spi_00_cfg_puen_we),
+    .wd     (ot_spi_00_cfg_puen_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -29823,10 +16320,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_48_cfg.puen.q ),
+    .q      (reg2hw.ot_spi_00_cfg.puen.q ),
 
     // to register interface (read)
-    .qs     (b_48_cfg_puen_qs)
+    .qs     (ot_spi_00_cfg_puen_qs)
   );
 
 
@@ -29835,13 +16332,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h0)
-  ) u_b_48_cfg_slw (
+  ) u_ot_spi_00_cfg_slw (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_48_cfg_slw_we),
-    .wd     (b_48_cfg_slw_wd),
+    .we     (ot_spi_00_cfg_slw_we),
+    .wd     (ot_spi_00_cfg_slw_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -29849,10 +16346,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_48_cfg.slw.q ),
+    .q      (reg2hw.ot_spi_00_cfg.slw.q ),
 
     // to register interface (read)
-    .qs     (b_48_cfg_slw_qs)
+    .qs     (ot_spi_00_cfg_slw_qs)
   );
 
 
@@ -29861,13 +16358,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h0)
-  ) u_b_48_cfg_smt (
+  ) u_ot_spi_00_cfg_smt (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_48_cfg_smt_we),
-    .wd     (b_48_cfg_smt_wd),
+    .we     (ot_spi_00_cfg_smt_we),
+    .wd     (ot_spi_00_cfg_smt_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -29875,26 +16372,26 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_48_cfg.smt.q ),
+    .q      (reg2hw.ot_spi_00_cfg.smt.q ),
 
     // to register interface (read)
-    .qs     (b_48_cfg_smt_qs)
+    .qs     (ot_spi_00_cfg_smt_qs)
   );
 
 
-  // R[b_48_mux_sel]: V(False)
+  // R[ot_spi_00_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (1),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_48_mux_sel (
+    .RESVAL  (1'h0)
+  ) u_ot_spi_00_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_48_mux_sel_we),
-    .wd     (b_48_mux_sel_wd),
+    .we     (ot_spi_00_mux_sel_we),
+    .wd     (ot_spi_00_mux_sel_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -29902,27 +16399,27 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_48_mux_sel.q ),
+    .q      (reg2hw.ot_spi_00_mux_sel.q ),
 
     // to register interface (read)
-    .qs     (b_48_mux_sel_qs)
+    .qs     (ot_spi_00_mux_sel_qs)
   );
 
 
-  // R[b_49_cfg]: V(False)
+  // R[ot_spi_01_cfg]: V(False)
 
   //   F[chip2pad]: 0:0
   prim_subreg #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h0)
-  ) u_b_49_cfg_chip2pad (
+  ) u_ot_spi_01_cfg_chip2pad (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_49_cfg_chip2pad_we),
-    .wd     (b_49_cfg_chip2pad_wd),
+    .we     (ot_spi_01_cfg_chip2pad_we),
+    .wd     (ot_spi_01_cfg_chip2pad_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -29930,10 +16427,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_49_cfg.chip2pad.q ),
+    .q      (reg2hw.ot_spi_01_cfg.chip2pad.q ),
 
     // to register interface (read)
-    .qs     (b_49_cfg_chip2pad_qs)
+    .qs     (ot_spi_01_cfg_chip2pad_qs)
   );
 
 
@@ -29942,13 +16439,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (2),
     .SWACCESS("RW"),
     .RESVAL  (2'h0)
-  ) u_b_49_cfg_drv (
+  ) u_ot_spi_01_cfg_drv (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_49_cfg_drv_we),
-    .wd     (b_49_cfg_drv_wd),
+    .we     (ot_spi_01_cfg_drv_we),
+    .wd     (ot_spi_01_cfg_drv_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -29956,10 +16453,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_49_cfg.drv.q ),
+    .q      (reg2hw.ot_spi_01_cfg.drv.q ),
 
     // to register interface (read)
-    .qs     (b_49_cfg_drv_qs)
+    .qs     (ot_spi_01_cfg_drv_qs)
   );
 
 
@@ -29968,13 +16465,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h1)
-  ) u_b_49_cfg_oen (
+  ) u_ot_spi_01_cfg_oen (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_49_cfg_oen_we),
-    .wd     (b_49_cfg_oen_wd),
+    .we     (ot_spi_01_cfg_oen_we),
+    .wd     (ot_spi_01_cfg_oen_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -29982,10 +16479,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_49_cfg.oen.q ),
+    .q      (reg2hw.ot_spi_01_cfg.oen.q ),
 
     // to register interface (read)
-    .qs     (b_49_cfg_oen_qs)
+    .qs     (ot_spi_01_cfg_oen_qs)
   );
 
 
@@ -29994,13 +16491,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h1)
-  ) u_b_49_cfg_puen (
+  ) u_ot_spi_01_cfg_puen (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_49_cfg_puen_we),
-    .wd     (b_49_cfg_puen_wd),
+    .we     (ot_spi_01_cfg_puen_we),
+    .wd     (ot_spi_01_cfg_puen_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -30008,10 +16505,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_49_cfg.puen.q ),
+    .q      (reg2hw.ot_spi_01_cfg.puen.q ),
 
     // to register interface (read)
-    .qs     (b_49_cfg_puen_qs)
+    .qs     (ot_spi_01_cfg_puen_qs)
   );
 
 
@@ -30020,13 +16517,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h0)
-  ) u_b_49_cfg_slw (
+  ) u_ot_spi_01_cfg_slw (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_49_cfg_slw_we),
-    .wd     (b_49_cfg_slw_wd),
+    .we     (ot_spi_01_cfg_slw_we),
+    .wd     (ot_spi_01_cfg_slw_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -30034,10 +16531,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_49_cfg.slw.q ),
+    .q      (reg2hw.ot_spi_01_cfg.slw.q ),
 
     // to register interface (read)
-    .qs     (b_49_cfg_slw_qs)
+    .qs     (ot_spi_01_cfg_slw_qs)
   );
 
 
@@ -30046,13 +16543,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h0)
-  ) u_b_49_cfg_smt (
+  ) u_ot_spi_01_cfg_smt (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_49_cfg_smt_we),
-    .wd     (b_49_cfg_smt_wd),
+    .we     (ot_spi_01_cfg_smt_we),
+    .wd     (ot_spi_01_cfg_smt_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -30060,26 +16557,26 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_49_cfg.smt.q ),
+    .q      (reg2hw.ot_spi_01_cfg.smt.q ),
 
     // to register interface (read)
-    .qs     (b_49_cfg_smt_qs)
+    .qs     (ot_spi_01_cfg_smt_qs)
   );
 
 
-  // R[b_49_mux_sel]: V(False)
+  // R[ot_spi_01_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (1),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_49_mux_sel (
+    .RESVAL  (1'h0)
+  ) u_ot_spi_01_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_49_mux_sel_we),
-    .wd     (b_49_mux_sel_wd),
+    .we     (ot_spi_01_mux_sel_we),
+    .wd     (ot_spi_01_mux_sel_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -30087,27 +16584,27 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_49_mux_sel.q ),
+    .q      (reg2hw.ot_spi_01_mux_sel.q ),
 
     // to register interface (read)
-    .qs     (b_49_mux_sel_qs)
+    .qs     (ot_spi_01_mux_sel_qs)
   );
 
 
-  // R[b_50_cfg]: V(False)
+  // R[ot_spi_02_cfg]: V(False)
 
   //   F[chip2pad]: 0:0
   prim_subreg #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h0)
-  ) u_b_50_cfg_chip2pad (
+  ) u_ot_spi_02_cfg_chip2pad (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_50_cfg_chip2pad_we),
-    .wd     (b_50_cfg_chip2pad_wd),
+    .we     (ot_spi_02_cfg_chip2pad_we),
+    .wd     (ot_spi_02_cfg_chip2pad_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -30115,10 +16612,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_50_cfg.chip2pad.q ),
+    .q      (reg2hw.ot_spi_02_cfg.chip2pad.q ),
 
     // to register interface (read)
-    .qs     (b_50_cfg_chip2pad_qs)
+    .qs     (ot_spi_02_cfg_chip2pad_qs)
   );
 
 
@@ -30127,13 +16624,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (2),
     .SWACCESS("RW"),
     .RESVAL  (2'h0)
-  ) u_b_50_cfg_drv (
+  ) u_ot_spi_02_cfg_drv (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_50_cfg_drv_we),
-    .wd     (b_50_cfg_drv_wd),
+    .we     (ot_spi_02_cfg_drv_we),
+    .wd     (ot_spi_02_cfg_drv_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -30141,10 +16638,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_50_cfg.drv.q ),
+    .q      (reg2hw.ot_spi_02_cfg.drv.q ),
 
     // to register interface (read)
-    .qs     (b_50_cfg_drv_qs)
+    .qs     (ot_spi_02_cfg_drv_qs)
   );
 
 
@@ -30153,13 +16650,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h1)
-  ) u_b_50_cfg_oen (
+  ) u_ot_spi_02_cfg_oen (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_50_cfg_oen_we),
-    .wd     (b_50_cfg_oen_wd),
+    .we     (ot_spi_02_cfg_oen_we),
+    .wd     (ot_spi_02_cfg_oen_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -30167,10 +16664,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_50_cfg.oen.q ),
+    .q      (reg2hw.ot_spi_02_cfg.oen.q ),
 
     // to register interface (read)
-    .qs     (b_50_cfg_oen_qs)
+    .qs     (ot_spi_02_cfg_oen_qs)
   );
 
 
@@ -30179,13 +16676,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h1)
-  ) u_b_50_cfg_puen (
+  ) u_ot_spi_02_cfg_puen (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_50_cfg_puen_we),
-    .wd     (b_50_cfg_puen_wd),
+    .we     (ot_spi_02_cfg_puen_we),
+    .wd     (ot_spi_02_cfg_puen_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -30193,10 +16690,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_50_cfg.puen.q ),
+    .q      (reg2hw.ot_spi_02_cfg.puen.q ),
 
     // to register interface (read)
-    .qs     (b_50_cfg_puen_qs)
+    .qs     (ot_spi_02_cfg_puen_qs)
   );
 
 
@@ -30205,13 +16702,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h0)
-  ) u_b_50_cfg_slw (
+  ) u_ot_spi_02_cfg_slw (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_50_cfg_slw_we),
-    .wd     (b_50_cfg_slw_wd),
+    .we     (ot_spi_02_cfg_slw_we),
+    .wd     (ot_spi_02_cfg_slw_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -30219,10 +16716,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_50_cfg.slw.q ),
+    .q      (reg2hw.ot_spi_02_cfg.slw.q ),
 
     // to register interface (read)
-    .qs     (b_50_cfg_slw_qs)
+    .qs     (ot_spi_02_cfg_slw_qs)
   );
 
 
@@ -30231,13 +16728,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h0)
-  ) u_b_50_cfg_smt (
+  ) u_ot_spi_02_cfg_smt (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_50_cfg_smt_we),
-    .wd     (b_50_cfg_smt_wd),
+    .we     (ot_spi_02_cfg_smt_we),
+    .wd     (ot_spi_02_cfg_smt_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -30245,26 +16742,26 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_50_cfg.smt.q ),
+    .q      (reg2hw.ot_spi_02_cfg.smt.q ),
 
     // to register interface (read)
-    .qs     (b_50_cfg_smt_qs)
+    .qs     (ot_spi_02_cfg_smt_qs)
   );
 
 
-  // R[b_50_mux_sel]: V(False)
+  // R[ot_spi_02_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (1),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_50_mux_sel (
+    .RESVAL  (1'h0)
+  ) u_ot_spi_02_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_50_mux_sel_we),
-    .wd     (b_50_mux_sel_wd),
+    .we     (ot_spi_02_mux_sel_we),
+    .wd     (ot_spi_02_mux_sel_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -30272,27 +16769,27 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_50_mux_sel.q ),
+    .q      (reg2hw.ot_spi_02_mux_sel.q ),
 
     // to register interface (read)
-    .qs     (b_50_mux_sel_qs)
+    .qs     (ot_spi_02_mux_sel_qs)
   );
 
 
-  // R[b_51_cfg]: V(False)
+  // R[ot_spi_03_cfg]: V(False)
 
   //   F[chip2pad]: 0:0
   prim_subreg #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h0)
-  ) u_b_51_cfg_chip2pad (
+  ) u_ot_spi_03_cfg_chip2pad (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_51_cfg_chip2pad_we),
-    .wd     (b_51_cfg_chip2pad_wd),
+    .we     (ot_spi_03_cfg_chip2pad_we),
+    .wd     (ot_spi_03_cfg_chip2pad_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -30300,10 +16797,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_51_cfg.chip2pad.q ),
+    .q      (reg2hw.ot_spi_03_cfg.chip2pad.q ),
 
     // to register interface (read)
-    .qs     (b_51_cfg_chip2pad_qs)
+    .qs     (ot_spi_03_cfg_chip2pad_qs)
   );
 
 
@@ -30312,13 +16809,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (2),
     .SWACCESS("RW"),
     .RESVAL  (2'h0)
-  ) u_b_51_cfg_drv (
+  ) u_ot_spi_03_cfg_drv (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_51_cfg_drv_we),
-    .wd     (b_51_cfg_drv_wd),
+    .we     (ot_spi_03_cfg_drv_we),
+    .wd     (ot_spi_03_cfg_drv_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -30326,10 +16823,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_51_cfg.drv.q ),
+    .q      (reg2hw.ot_spi_03_cfg.drv.q ),
 
     // to register interface (read)
-    .qs     (b_51_cfg_drv_qs)
+    .qs     (ot_spi_03_cfg_drv_qs)
   );
 
 
@@ -30338,13 +16835,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h1)
-  ) u_b_51_cfg_oen (
+  ) u_ot_spi_03_cfg_oen (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_51_cfg_oen_we),
-    .wd     (b_51_cfg_oen_wd),
+    .we     (ot_spi_03_cfg_oen_we),
+    .wd     (ot_spi_03_cfg_oen_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -30352,10 +16849,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_51_cfg.oen.q ),
+    .q      (reg2hw.ot_spi_03_cfg.oen.q ),
 
     // to register interface (read)
-    .qs     (b_51_cfg_oen_qs)
+    .qs     (ot_spi_03_cfg_oen_qs)
   );
 
 
@@ -30364,13 +16861,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h1)
-  ) u_b_51_cfg_puen (
+  ) u_ot_spi_03_cfg_puen (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_51_cfg_puen_we),
-    .wd     (b_51_cfg_puen_wd),
+    .we     (ot_spi_03_cfg_puen_we),
+    .wd     (ot_spi_03_cfg_puen_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -30378,10 +16875,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_51_cfg.puen.q ),
+    .q      (reg2hw.ot_spi_03_cfg.puen.q ),
 
     // to register interface (read)
-    .qs     (b_51_cfg_puen_qs)
+    .qs     (ot_spi_03_cfg_puen_qs)
   );
 
 
@@ -30390,13 +16887,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h0)
-  ) u_b_51_cfg_slw (
+  ) u_ot_spi_03_cfg_slw (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_51_cfg_slw_we),
-    .wd     (b_51_cfg_slw_wd),
+    .we     (ot_spi_03_cfg_slw_we),
+    .wd     (ot_spi_03_cfg_slw_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -30404,10 +16901,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_51_cfg.slw.q ),
+    .q      (reg2hw.ot_spi_03_cfg.slw.q ),
 
     // to register interface (read)
-    .qs     (b_51_cfg_slw_qs)
+    .qs     (ot_spi_03_cfg_slw_qs)
   );
 
 
@@ -30416,13 +16913,13 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h0)
-  ) u_b_51_cfg_smt (
+  ) u_ot_spi_03_cfg_smt (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (b_51_cfg_smt_we),
-    .wd     (b_51_cfg_smt_wd),
+    .we     (ot_spi_03_cfg_smt_we),
+    .wd     (ot_spi_03_cfg_smt_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -30430,4651 +16927,26 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.b_51_cfg.smt.q ),
+    .q      (reg2hw.ot_spi_03_cfg.smt.q ),
 
     // to register interface (read)
-    .qs     (b_51_cfg_smt_qs)
+    .qs     (ot_spi_03_cfg_smt_qs)
   );
 
 
-  // R[b_51_mux_sel]: V(False)
+  // R[ot_spi_03_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_51_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_51_mux_sel_we),
-    .wd     (b_51_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_51_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (b_51_mux_sel_qs)
-  );
-
-
-  // R[b_52_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_52_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_52_cfg_chip2pad_we),
-    .wd     (b_52_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_52_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (b_52_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_52_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_52_cfg_drv_we),
-    .wd     (b_52_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_52_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (b_52_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_52_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_52_cfg_oen_we),
-    .wd     (b_52_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_52_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (b_52_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_52_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_52_cfg_puen_we),
-    .wd     (b_52_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_52_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (b_52_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_52_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_52_cfg_slw_we),
-    .wd     (b_52_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_52_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (b_52_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_52_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_52_cfg_smt_we),
-    .wd     (b_52_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_52_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (b_52_cfg_smt_qs)
-  );
-
-
-  // R[b_52_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_52_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_52_mux_sel_we),
-    .wd     (b_52_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_52_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (b_52_mux_sel_qs)
-  );
-
-
-  // R[b_53_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_53_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_53_cfg_chip2pad_we),
-    .wd     (b_53_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_53_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (b_53_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_53_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_53_cfg_drv_we),
-    .wd     (b_53_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_53_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (b_53_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_53_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_53_cfg_oen_we),
-    .wd     (b_53_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_53_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (b_53_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_53_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_53_cfg_puen_we),
-    .wd     (b_53_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_53_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (b_53_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_53_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_53_cfg_slw_we),
-    .wd     (b_53_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_53_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (b_53_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_53_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_53_cfg_smt_we),
-    .wd     (b_53_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_53_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (b_53_cfg_smt_qs)
-  );
-
-
-  // R[b_53_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_53_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_53_mux_sel_we),
-    .wd     (b_53_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_53_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (b_53_mux_sel_qs)
-  );
-
-
-  // R[b_54_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_54_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_54_cfg_chip2pad_we),
-    .wd     (b_54_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_54_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (b_54_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_54_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_54_cfg_drv_we),
-    .wd     (b_54_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_54_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (b_54_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_54_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_54_cfg_oen_we),
-    .wd     (b_54_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_54_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (b_54_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_54_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_54_cfg_puen_we),
-    .wd     (b_54_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_54_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (b_54_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_54_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_54_cfg_slw_we),
-    .wd     (b_54_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_54_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (b_54_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_54_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_54_cfg_smt_we),
-    .wd     (b_54_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_54_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (b_54_cfg_smt_qs)
-  );
-
-
-  // R[b_54_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_54_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_54_mux_sel_we),
-    .wd     (b_54_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_54_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (b_54_mux_sel_qs)
-  );
-
-
-  // R[b_55_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_55_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_55_cfg_chip2pad_we),
-    .wd     (b_55_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_55_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (b_55_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_55_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_55_cfg_drv_we),
-    .wd     (b_55_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_55_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (b_55_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_55_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_55_cfg_oen_we),
-    .wd     (b_55_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_55_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (b_55_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_55_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_55_cfg_puen_we),
-    .wd     (b_55_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_55_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (b_55_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_55_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_55_cfg_slw_we),
-    .wd     (b_55_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_55_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (b_55_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_55_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_55_cfg_smt_we),
-    .wd     (b_55_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_55_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (b_55_cfg_smt_qs)
-  );
-
-
-  // R[b_55_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_55_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_55_mux_sel_we),
-    .wd     (b_55_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_55_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (b_55_mux_sel_qs)
-  );
-
-
-  // R[b_56_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_56_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_56_cfg_chip2pad_we),
-    .wd     (b_56_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_56_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (b_56_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_56_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_56_cfg_drv_we),
-    .wd     (b_56_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_56_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (b_56_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_56_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_56_cfg_oen_we),
-    .wd     (b_56_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_56_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (b_56_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_56_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_56_cfg_puen_we),
-    .wd     (b_56_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_56_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (b_56_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_56_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_56_cfg_slw_we),
-    .wd     (b_56_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_56_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (b_56_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_56_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_56_cfg_smt_we),
-    .wd     (b_56_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_56_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (b_56_cfg_smt_qs)
-  );
-
-
-  // R[b_56_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_56_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_56_mux_sel_we),
-    .wd     (b_56_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_56_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (b_56_mux_sel_qs)
-  );
-
-
-  // R[b_57_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_57_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_57_cfg_chip2pad_we),
-    .wd     (b_57_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_57_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (b_57_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_57_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_57_cfg_drv_we),
-    .wd     (b_57_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_57_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (b_57_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_57_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_57_cfg_oen_we),
-    .wd     (b_57_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_57_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (b_57_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_57_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_57_cfg_puen_we),
-    .wd     (b_57_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_57_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (b_57_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_57_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_57_cfg_slw_we),
-    .wd     (b_57_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_57_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (b_57_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_57_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_57_cfg_smt_we),
-    .wd     (b_57_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_57_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (b_57_cfg_smt_qs)
-  );
-
-
-  // R[b_57_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_57_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_57_mux_sel_we),
-    .wd     (b_57_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_57_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (b_57_mux_sel_qs)
-  );
-
-
-  // R[b_58_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_58_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_58_cfg_chip2pad_we),
-    .wd     (b_58_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_58_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (b_58_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_58_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_58_cfg_drv_we),
-    .wd     (b_58_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_58_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (b_58_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_58_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_58_cfg_oen_we),
-    .wd     (b_58_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_58_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (b_58_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_58_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_58_cfg_puen_we),
-    .wd     (b_58_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_58_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (b_58_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_58_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_58_cfg_slw_we),
-    .wd     (b_58_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_58_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (b_58_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_58_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_58_cfg_smt_we),
-    .wd     (b_58_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_58_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (b_58_cfg_smt_qs)
-  );
-
-
-  // R[b_58_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_58_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_58_mux_sel_we),
-    .wd     (b_58_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_58_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (b_58_mux_sel_qs)
-  );
-
-
-  // R[b_59_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_59_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_59_cfg_chip2pad_we),
-    .wd     (b_59_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_59_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (b_59_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_59_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_59_cfg_drv_we),
-    .wd     (b_59_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_59_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (b_59_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_59_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_59_cfg_oen_we),
-    .wd     (b_59_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_59_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (b_59_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_59_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_59_cfg_puen_we),
-    .wd     (b_59_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_59_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (b_59_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_59_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_59_cfg_slw_we),
-    .wd     (b_59_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_59_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (b_59_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_59_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_59_cfg_smt_we),
-    .wd     (b_59_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_59_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (b_59_cfg_smt_qs)
-  );
-
-
-  // R[b_59_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_59_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_59_mux_sel_we),
-    .wd     (b_59_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_59_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (b_59_mux_sel_qs)
-  );
-
-
-  // R[b_60_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_60_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_60_cfg_chip2pad_we),
-    .wd     (b_60_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_60_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (b_60_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_60_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_60_cfg_drv_we),
-    .wd     (b_60_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_60_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (b_60_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_60_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_60_cfg_oen_we),
-    .wd     (b_60_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_60_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (b_60_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_60_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_60_cfg_puen_we),
-    .wd     (b_60_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_60_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (b_60_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_60_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_60_cfg_slw_we),
-    .wd     (b_60_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_60_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (b_60_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_60_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_60_cfg_smt_we),
-    .wd     (b_60_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_60_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (b_60_cfg_smt_qs)
-  );
-
-
-  // R[b_60_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_60_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_60_mux_sel_we),
-    .wd     (b_60_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_60_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (b_60_mux_sel_qs)
-  );
-
-
-  // R[b_61_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_61_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_61_cfg_chip2pad_we),
-    .wd     (b_61_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_61_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (b_61_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_61_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_61_cfg_drv_we),
-    .wd     (b_61_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_61_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (b_61_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_61_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_61_cfg_oen_we),
-    .wd     (b_61_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_61_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (b_61_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_61_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_61_cfg_puen_we),
-    .wd     (b_61_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_61_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (b_61_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_61_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_61_cfg_slw_we),
-    .wd     (b_61_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_61_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (b_61_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_61_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_61_cfg_smt_we),
-    .wd     (b_61_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_61_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (b_61_cfg_smt_qs)
-  );
-
-
-  // R[b_61_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_61_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_61_mux_sel_we),
-    .wd     (b_61_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_61_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (b_61_mux_sel_qs)
-  );
-
-
-  // R[b_62_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_62_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_62_cfg_chip2pad_we),
-    .wd     (b_62_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_62_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (b_62_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_b_62_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_62_cfg_drv_we),
-    .wd     (b_62_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_62_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (b_62_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_62_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_62_cfg_oen_we),
-    .wd     (b_62_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_62_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (b_62_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_b_62_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_62_cfg_puen_we),
-    .wd     (b_62_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_62_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (b_62_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_62_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_62_cfg_slw_we),
-    .wd     (b_62_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_62_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (b_62_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_b_62_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_62_cfg_smt_we),
-    .wd     (b_62_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_62_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (b_62_cfg_smt_qs)
-  );
-
-
-  // R[b_62_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (3),
-    .SWACCESS("RW"),
-    .RESVAL  (3'h0)
-  ) u_b_62_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (b_62_mux_sel_we),
-    .wd     (b_62_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.b_62_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (b_62_mux_sel_qs)
-  );
-
-
-  // R[ot_qspi_00_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_00_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_00_cfg_chip2pad_we),
-    .wd     (ot_qspi_00_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_00_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_00_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_ot_qspi_00_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_00_cfg_drv_we),
-    .wd     (ot_qspi_00_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_00_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_00_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_ot_qspi_00_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_00_cfg_oen_we),
-    .wd     (ot_qspi_00_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_00_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_00_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_ot_qspi_00_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_00_cfg_puen_we),
-    .wd     (ot_qspi_00_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_00_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_00_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_00_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_00_cfg_slw_we),
-    .wd     (ot_qspi_00_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_00_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_00_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_00_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_00_cfg_smt_we),
-    .wd     (ot_qspi_00_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_00_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_00_cfg_smt_qs)
-  );
-
-
-  // R[ot_qspi_00_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_00_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_00_mux_sel_we),
-    .wd     (ot_qspi_00_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_00_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_00_mux_sel_qs)
-  );
-
-
-  // R[ot_qspi_01_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_01_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_01_cfg_chip2pad_we),
-    .wd     (ot_qspi_01_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_01_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_01_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_ot_qspi_01_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_01_cfg_drv_we),
-    .wd     (ot_qspi_01_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_01_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_01_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_ot_qspi_01_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_01_cfg_oen_we),
-    .wd     (ot_qspi_01_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_01_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_01_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_ot_qspi_01_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_01_cfg_puen_we),
-    .wd     (ot_qspi_01_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_01_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_01_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_01_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_01_cfg_slw_we),
-    .wd     (ot_qspi_01_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_01_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_01_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_01_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_01_cfg_smt_we),
-    .wd     (ot_qspi_01_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_01_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_01_cfg_smt_qs)
-  );
-
-
-  // R[ot_qspi_01_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_01_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_01_mux_sel_we),
-    .wd     (ot_qspi_01_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_01_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_01_mux_sel_qs)
-  );
-
-
-  // R[ot_qspi_02_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_02_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_02_cfg_chip2pad_we),
-    .wd     (ot_qspi_02_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_02_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_02_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_ot_qspi_02_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_02_cfg_drv_we),
-    .wd     (ot_qspi_02_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_02_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_02_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_ot_qspi_02_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_02_cfg_oen_we),
-    .wd     (ot_qspi_02_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_02_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_02_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_ot_qspi_02_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_02_cfg_puen_we),
-    .wd     (ot_qspi_02_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_02_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_02_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_02_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_02_cfg_slw_we),
-    .wd     (ot_qspi_02_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_02_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_02_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_02_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_02_cfg_smt_we),
-    .wd     (ot_qspi_02_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_02_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_02_cfg_smt_qs)
-  );
-
-
-  // R[ot_qspi_02_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_02_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_02_mux_sel_we),
-    .wd     (ot_qspi_02_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_02_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_02_mux_sel_qs)
-  );
-
-
-  // R[ot_qspi_03_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_03_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_03_cfg_chip2pad_we),
-    .wd     (ot_qspi_03_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_03_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_03_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_ot_qspi_03_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_03_cfg_drv_we),
-    .wd     (ot_qspi_03_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_03_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_03_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_ot_qspi_03_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_03_cfg_oen_we),
-    .wd     (ot_qspi_03_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_03_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_03_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_ot_qspi_03_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_03_cfg_puen_we),
-    .wd     (ot_qspi_03_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_03_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_03_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_03_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_03_cfg_slw_we),
-    .wd     (ot_qspi_03_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_03_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_03_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_03_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_03_cfg_smt_we),
-    .wd     (ot_qspi_03_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_03_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_03_cfg_smt_qs)
-  );
-
-
-  // R[ot_qspi_03_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_03_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_03_mux_sel_we),
-    .wd     (ot_qspi_03_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_03_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_03_mux_sel_qs)
-  );
-
-
-  // R[ot_qspi_04_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_04_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_04_cfg_chip2pad_we),
-    .wd     (ot_qspi_04_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_04_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_04_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_ot_qspi_04_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_04_cfg_drv_we),
-    .wd     (ot_qspi_04_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_04_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_04_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_ot_qspi_04_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_04_cfg_oen_we),
-    .wd     (ot_qspi_04_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_04_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_04_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_ot_qspi_04_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_04_cfg_puen_we),
-    .wd     (ot_qspi_04_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_04_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_04_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_04_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_04_cfg_slw_we),
-    .wd     (ot_qspi_04_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_04_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_04_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_04_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_04_cfg_smt_we),
-    .wd     (ot_qspi_04_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_04_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_04_cfg_smt_qs)
-  );
-
-
-  // R[ot_qspi_04_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_04_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_04_mux_sel_we),
-    .wd     (ot_qspi_04_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_04_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_04_mux_sel_qs)
-  );
-
-
-  // R[ot_qspi_05_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_05_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_05_cfg_chip2pad_we),
-    .wd     (ot_qspi_05_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_05_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_05_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_ot_qspi_05_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_05_cfg_drv_we),
-    .wd     (ot_qspi_05_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_05_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_05_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_ot_qspi_05_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_05_cfg_oen_we),
-    .wd     (ot_qspi_05_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_05_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_05_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_ot_qspi_05_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_05_cfg_puen_we),
-    .wd     (ot_qspi_05_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_05_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_05_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_05_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_05_cfg_slw_we),
-    .wd     (ot_qspi_05_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_05_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_05_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_05_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_05_cfg_smt_we),
-    .wd     (ot_qspi_05_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_05_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_05_cfg_smt_qs)
-  );
-
-
-  // R[ot_qspi_05_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_qspi_05_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_qspi_05_mux_sel_we),
-    .wd     (ot_qspi_05_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_qspi_05_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (ot_qspi_05_mux_sel_qs)
-  );
-
-
-  // R[linux_qspi_00_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_00_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_00_cfg_chip2pad_we),
-    .wd     (linux_qspi_00_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_00_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_00_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_linux_qspi_00_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_00_cfg_drv_we),
-    .wd     (linux_qspi_00_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_00_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_00_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_linux_qspi_00_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_00_cfg_oen_we),
-    .wd     (linux_qspi_00_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_00_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_00_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_linux_qspi_00_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_00_cfg_puen_we),
-    .wd     (linux_qspi_00_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_00_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_00_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_00_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_00_cfg_slw_we),
-    .wd     (linux_qspi_00_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_00_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_00_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_00_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_00_cfg_smt_we),
-    .wd     (linux_qspi_00_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_00_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_00_cfg_smt_qs)
-  );
-
-
-  // R[linux_qspi_00_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_00_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_00_mux_sel_we),
-    .wd     (linux_qspi_00_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_00_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_00_mux_sel_qs)
-  );
-
-
-  // R[linux_qspi_01_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_01_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_01_cfg_chip2pad_we),
-    .wd     (linux_qspi_01_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_01_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_01_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_linux_qspi_01_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_01_cfg_drv_we),
-    .wd     (linux_qspi_01_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_01_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_01_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_linux_qspi_01_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_01_cfg_oen_we),
-    .wd     (linux_qspi_01_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_01_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_01_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_linux_qspi_01_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_01_cfg_puen_we),
-    .wd     (linux_qspi_01_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_01_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_01_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_01_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_01_cfg_slw_we),
-    .wd     (linux_qspi_01_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_01_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_01_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_01_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_01_cfg_smt_we),
-    .wd     (linux_qspi_01_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_01_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_01_cfg_smt_qs)
-  );
-
-
-  // R[linux_qspi_01_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_01_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_01_mux_sel_we),
-    .wd     (linux_qspi_01_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_01_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_01_mux_sel_qs)
-  );
-
-
-  // R[linux_qspi_02_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_02_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_02_cfg_chip2pad_we),
-    .wd     (linux_qspi_02_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_02_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_02_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_linux_qspi_02_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_02_cfg_drv_we),
-    .wd     (linux_qspi_02_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_02_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_02_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_linux_qspi_02_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_02_cfg_oen_we),
-    .wd     (linux_qspi_02_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_02_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_02_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_linux_qspi_02_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_02_cfg_puen_we),
-    .wd     (linux_qspi_02_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_02_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_02_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_02_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_02_cfg_slw_we),
-    .wd     (linux_qspi_02_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_02_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_02_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_02_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_02_cfg_smt_we),
-    .wd     (linux_qspi_02_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_02_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_02_cfg_smt_qs)
-  );
-
-
-  // R[linux_qspi_02_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_02_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_02_mux_sel_we),
-    .wd     (linux_qspi_02_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_02_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_02_mux_sel_qs)
-  );
-
-
-  // R[linux_qspi_03_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_03_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_03_cfg_chip2pad_we),
-    .wd     (linux_qspi_03_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_03_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_03_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_linux_qspi_03_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_03_cfg_drv_we),
-    .wd     (linux_qspi_03_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_03_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_03_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_linux_qspi_03_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_03_cfg_oen_we),
-    .wd     (linux_qspi_03_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_03_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_03_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_linux_qspi_03_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_03_cfg_puen_we),
-    .wd     (linux_qspi_03_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_03_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_03_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_03_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_03_cfg_slw_we),
-    .wd     (linux_qspi_03_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_03_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_03_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_03_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_03_cfg_smt_we),
-    .wd     (linux_qspi_03_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_03_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_03_cfg_smt_qs)
-  );
-
-
-  // R[linux_qspi_03_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_03_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_03_mux_sel_we),
-    .wd     (linux_qspi_03_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_03_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_03_mux_sel_qs)
-  );
-
-
-  // R[linux_qspi_04_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_04_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_04_cfg_chip2pad_we),
-    .wd     (linux_qspi_04_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_04_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_04_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_linux_qspi_04_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_04_cfg_drv_we),
-    .wd     (linux_qspi_04_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_04_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_04_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_linux_qspi_04_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_04_cfg_oen_we),
-    .wd     (linux_qspi_04_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_04_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_04_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_linux_qspi_04_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_04_cfg_puen_we),
-    .wd     (linux_qspi_04_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_04_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_04_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_04_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_04_cfg_slw_we),
-    .wd     (linux_qspi_04_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_04_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_04_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_04_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_04_cfg_smt_we),
-    .wd     (linux_qspi_04_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_04_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_04_cfg_smt_qs)
-  );
-
-
-  // R[linux_qspi_04_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_04_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_04_mux_sel_we),
-    .wd     (linux_qspi_04_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_04_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_04_mux_sel_qs)
-  );
-
-
-  // R[linux_qspi_05_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_05_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_05_cfg_chip2pad_we),
-    .wd     (linux_qspi_05_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_05_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_05_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_linux_qspi_05_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_05_cfg_drv_we),
-    .wd     (linux_qspi_05_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_05_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_05_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_linux_qspi_05_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_05_cfg_oen_we),
-    .wd     (linux_qspi_05_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_05_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_05_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_linux_qspi_05_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_05_cfg_puen_we),
-    .wd     (linux_qspi_05_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_05_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_05_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_05_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_05_cfg_slw_we),
-    .wd     (linux_qspi_05_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_05_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_05_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_05_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_05_cfg_smt_we),
-    .wd     (linux_qspi_05_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_05_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_05_cfg_smt_qs)
-  );
-
-
-  // R[linux_qspi_05_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_linux_qspi_05_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (linux_qspi_05_mux_sel_we),
-    .wd     (linux_qspi_05_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.linux_qspi_05_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (linux_qspi_05_mux_sel_qs)
-  );
-
-
-  // R[ot_gpio_00_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_gpio_00_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_gpio_00_cfg_chip2pad_we),
-    .wd     (ot_gpio_00_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_gpio_00_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (ot_gpio_00_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_ot_gpio_00_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_gpio_00_cfg_drv_we),
-    .wd     (ot_gpio_00_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_gpio_00_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (ot_gpio_00_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_ot_gpio_00_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_gpio_00_cfg_oen_we),
-    .wd     (ot_gpio_00_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_gpio_00_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (ot_gpio_00_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_ot_gpio_00_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_gpio_00_cfg_puen_we),
-    .wd     (ot_gpio_00_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_gpio_00_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (ot_gpio_00_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_gpio_00_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_gpio_00_cfg_slw_we),
-    .wd     (ot_gpio_00_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_gpio_00_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (ot_gpio_00_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_gpio_00_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_gpio_00_cfg_smt_we),
-    .wd     (ot_gpio_00_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_gpio_00_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (ot_gpio_00_cfg_smt_qs)
-  );
-
-
-  // R[ot_gpio_00_mux_sel]: V(False)
-
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_gpio_00_mux_sel (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_gpio_00_mux_sel_we),
-    .wd     (ot_gpio_00_mux_sel_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_gpio_00_mux_sel.q ),
-
-    // to register interface (read)
-    .qs     (ot_gpio_00_mux_sel_qs)
-  );
-
-
-  // R[ot_gpio_01_cfg]: V(False)
-
-  //   F[chip2pad]: 0:0
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_gpio_01_cfg_chip2pad (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_gpio_01_cfg_chip2pad_we),
-    .wd     (ot_gpio_01_cfg_chip2pad_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_gpio_01_cfg.chip2pad.q ),
-
-    // to register interface (read)
-    .qs     (ot_gpio_01_cfg_chip2pad_qs)
-  );
-
-
-  //   F[drv]: 2:1
-  prim_subreg #(
-    .DW      (2),
-    .SWACCESS("RW"),
-    .RESVAL  (2'h0)
-  ) u_ot_gpio_01_cfg_drv (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_gpio_01_cfg_drv_we),
-    .wd     (ot_gpio_01_cfg_drv_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_gpio_01_cfg.drv.q ),
-
-    // to register interface (read)
-    .qs     (ot_gpio_01_cfg_drv_qs)
-  );
-
-
-  //   F[oen]: 3:3
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_ot_gpio_01_cfg_oen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_gpio_01_cfg_oen_we),
-    .wd     (ot_gpio_01_cfg_oen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_gpio_01_cfg.oen.q ),
-
-    // to register interface (read)
-    .qs     (ot_gpio_01_cfg_oen_qs)
-  );
-
-
-  //   F[puen]: 4:4
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h1)
-  ) u_ot_gpio_01_cfg_puen (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_gpio_01_cfg_puen_we),
-    .wd     (ot_gpio_01_cfg_puen_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_gpio_01_cfg.puen.q ),
-
-    // to register interface (read)
-    .qs     (ot_gpio_01_cfg_puen_qs)
-  );
-
-
-  //   F[slw]: 5:5
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_gpio_01_cfg_slw (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_gpio_01_cfg_slw_we),
-    .wd     (ot_gpio_01_cfg_slw_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_gpio_01_cfg.slw.q ),
-
-    // to register interface (read)
-    .qs     (ot_gpio_01_cfg_slw_qs)
-  );
-
-
-  //   F[smt]: 6:6
-  prim_subreg #(
-    .DW      (1),
-    .SWACCESS("RW"),
-    .RESVAL  (1'h0)
-  ) u_ot_gpio_01_cfg_smt (
-    .clk_i   (clk_i    ),
-    .rst_ni  (rst_ni  ),
-
-    // from register interface
-    .we     (ot_gpio_01_cfg_smt_we),
-    .wd     (ot_gpio_01_cfg_smt_wd),
-
-    // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
-
-    // to internal hardware
-    .qe     (),
-    .q      (reg2hw.ot_gpio_01_cfg.smt.q ),
-
-    // to register interface (read)
-    .qs     (ot_gpio_01_cfg_smt_qs)
-  );
-
-
-  // R[ot_gpio_01_mux_sel]: V(False)
-
-  prim_subreg #(
     .DW      (1),
     .SWACCESS("RW"),
     .RESVAL  (1'h0)
-  ) u_ot_gpio_01_mux_sel (
+  ) u_ot_spi_03_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
 
     // from register interface
-    .we     (ot_gpio_01_mux_sel_we),
-    .wd     (ot_gpio_01_mux_sel_wd),
+    .we     (ot_spi_03_mux_sel_we),
+    .wd     (ot_spi_03_mux_sel_wd),
 
     // from internal hardware
     .de     (1'b0),
@@ -35082,16 +16954,16 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
 
     // to internal hardware
     .qe     (),
-    .q      (reg2hw.ot_gpio_01_mux_sel.q ),
+    .q      (reg2hw.ot_spi_03_mux_sel.q ),
 
     // to register interface (read)
-    .qs     (ot_gpio_01_mux_sel_qs)
+    .qs     (ot_spi_03_mux_sel_qs)
   );
 
 
 
 
-  logic [339:0] addr_hit;
+  logic [163:0] addr_hit;
   always_comb begin
     addr_hit = '0;
     addr_hit[  0] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_00_CFG_OFFSET);
@@ -35154,286 +17026,110 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
     addr_hit[ 57] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_28_MUX_SEL_OFFSET);
     addr_hit[ 58] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_29_CFG_OFFSET);
     addr_hit[ 59] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_29_MUX_SEL_OFFSET);
-    addr_hit[ 60] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_30_CFG_OFFSET);
-    addr_hit[ 61] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_30_MUX_SEL_OFFSET);
-    addr_hit[ 62] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_31_CFG_OFFSET);
-    addr_hit[ 63] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_31_MUX_SEL_OFFSET);
-    addr_hit[ 64] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_32_CFG_OFFSET);
-    addr_hit[ 65] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_32_MUX_SEL_OFFSET);
-    addr_hit[ 66] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_33_CFG_OFFSET);
-    addr_hit[ 67] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_33_MUX_SEL_OFFSET);
-    addr_hit[ 68] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_34_CFG_OFFSET);
-    addr_hit[ 69] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_34_MUX_SEL_OFFSET);
-    addr_hit[ 70] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_35_CFG_OFFSET);
-    addr_hit[ 71] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_35_MUX_SEL_OFFSET);
-    addr_hit[ 72] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_36_CFG_OFFSET);
-    addr_hit[ 73] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_36_MUX_SEL_OFFSET);
-    addr_hit[ 74] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_37_CFG_OFFSET);
-    addr_hit[ 75] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_37_MUX_SEL_OFFSET);
-    addr_hit[ 76] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_38_CFG_OFFSET);
-    addr_hit[ 77] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_38_MUX_SEL_OFFSET);
-    addr_hit[ 78] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_39_CFG_OFFSET);
-    addr_hit[ 79] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_39_MUX_SEL_OFFSET);
-    addr_hit[ 80] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_40_CFG_OFFSET);
-    addr_hit[ 81] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_40_MUX_SEL_OFFSET);
-    addr_hit[ 82] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_41_CFG_OFFSET);
-    addr_hit[ 83] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_41_MUX_SEL_OFFSET);
-    addr_hit[ 84] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_42_CFG_OFFSET);
-    addr_hit[ 85] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_42_MUX_SEL_OFFSET);
-    addr_hit[ 86] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_43_CFG_OFFSET);
-    addr_hit[ 87] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_43_MUX_SEL_OFFSET);
-    addr_hit[ 88] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_44_CFG_OFFSET);
-    addr_hit[ 89] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_44_MUX_SEL_OFFSET);
-    addr_hit[ 90] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_45_CFG_OFFSET);
-    addr_hit[ 91] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_45_MUX_SEL_OFFSET);
-    addr_hit[ 92] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_46_CFG_OFFSET);
-    addr_hit[ 93] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_46_MUX_SEL_OFFSET);
-    addr_hit[ 94] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_47_CFG_OFFSET);
-    addr_hit[ 95] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_47_MUX_SEL_OFFSET);
-    addr_hit[ 96] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_48_CFG_OFFSET);
-    addr_hit[ 97] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_48_MUX_SEL_OFFSET);
-    addr_hit[ 98] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_49_CFG_OFFSET);
-    addr_hit[ 99] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_49_MUX_SEL_OFFSET);
-    addr_hit[100] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_50_CFG_OFFSET);
-    addr_hit[101] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_50_MUX_SEL_OFFSET);
-    addr_hit[102] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_51_CFG_OFFSET);
-    addr_hit[103] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_51_MUX_SEL_OFFSET);
-    addr_hit[104] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_52_CFG_OFFSET);
-    addr_hit[105] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_52_MUX_SEL_OFFSET);
-    addr_hit[106] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_53_CFG_OFFSET);
-    addr_hit[107] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_53_MUX_SEL_OFFSET);
-    addr_hit[108] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_54_CFG_OFFSET);
-    addr_hit[109] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_54_MUX_SEL_OFFSET);
-    addr_hit[110] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_55_CFG_OFFSET);
-    addr_hit[111] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_55_MUX_SEL_OFFSET);
-    addr_hit[112] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_56_CFG_OFFSET);
-    addr_hit[113] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_56_MUX_SEL_OFFSET);
-    addr_hit[114] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_57_CFG_OFFSET);
-    addr_hit[115] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_57_MUX_SEL_OFFSET);
-    addr_hit[116] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_58_CFG_OFFSET);
-    addr_hit[117] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_58_MUX_SEL_OFFSET);
-    addr_hit[118] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_59_CFG_OFFSET);
-    addr_hit[119] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_59_MUX_SEL_OFFSET);
-    addr_hit[120] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_60_CFG_OFFSET);
-    addr_hit[121] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_60_MUX_SEL_OFFSET);
-    addr_hit[122] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_61_CFG_OFFSET);
-    addr_hit[123] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_61_MUX_SEL_OFFSET);
-    addr_hit[124] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_62_CFG_OFFSET);
-    addr_hit[125] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_62_MUX_SEL_OFFSET);
-    addr_hit[126] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_63_CFG_OFFSET);
-    addr_hit[127] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_63_MUX_SEL_OFFSET);
-    addr_hit[128] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_64_CFG_OFFSET);
-    addr_hit[129] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_64_MUX_SEL_OFFSET);
-    addr_hit[130] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_65_CFG_OFFSET);
-    addr_hit[131] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_65_MUX_SEL_OFFSET);
-    addr_hit[132] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_66_CFG_OFFSET);
-    addr_hit[133] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_66_MUX_SEL_OFFSET);
-    addr_hit[134] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_67_CFG_OFFSET);
-    addr_hit[135] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_67_MUX_SEL_OFFSET);
-    addr_hit[136] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_68_CFG_OFFSET);
-    addr_hit[137] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_68_MUX_SEL_OFFSET);
-    addr_hit[138] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_69_CFG_OFFSET);
-    addr_hit[139] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_69_MUX_SEL_OFFSET);
-    addr_hit[140] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_70_CFG_OFFSET);
-    addr_hit[141] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_70_MUX_SEL_OFFSET);
-    addr_hit[142] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_71_CFG_OFFSET);
-    addr_hit[143] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_71_MUX_SEL_OFFSET);
-    addr_hit[144] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_72_CFG_OFFSET);
-    addr_hit[145] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_72_MUX_SEL_OFFSET);
-    addr_hit[146] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_73_CFG_OFFSET);
-    addr_hit[147] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_73_MUX_SEL_OFFSET);
-    addr_hit[148] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_74_CFG_OFFSET);
-    addr_hit[149] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_74_MUX_SEL_OFFSET);
-    addr_hit[150] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_75_CFG_OFFSET);
-    addr_hit[151] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_75_MUX_SEL_OFFSET);
-    addr_hit[152] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_76_CFG_OFFSET);
-    addr_hit[153] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_76_MUX_SEL_OFFSET);
-    addr_hit[154] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_77_CFG_OFFSET);
-    addr_hit[155] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_77_MUX_SEL_OFFSET);
-    addr_hit[156] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_78_CFG_OFFSET);
-    addr_hit[157] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_78_MUX_SEL_OFFSET);
-    addr_hit[158] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_79_CFG_OFFSET);
-    addr_hit[159] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_79_MUX_SEL_OFFSET);
-    addr_hit[160] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_80_CFG_OFFSET);
-    addr_hit[161] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_80_MUX_SEL_OFFSET);
-    addr_hit[162] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_81_CFG_OFFSET);
-    addr_hit[163] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_81_MUX_SEL_OFFSET);
-    addr_hit[164] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_82_CFG_OFFSET);
-    addr_hit[165] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_82_MUX_SEL_OFFSET);
-    addr_hit[166] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_83_CFG_OFFSET);
-    addr_hit[167] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_83_MUX_SEL_OFFSET);
-    addr_hit[168] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_84_CFG_OFFSET);
-    addr_hit[169] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_84_MUX_SEL_OFFSET);
-    addr_hit[170] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_85_CFG_OFFSET);
-    addr_hit[171] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_85_MUX_SEL_OFFSET);
-    addr_hit[172] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_86_CFG_OFFSET);
-    addr_hit[173] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_86_MUX_SEL_OFFSET);
-    addr_hit[174] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_87_CFG_OFFSET);
-    addr_hit[175] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_87_MUX_SEL_OFFSET);
-    addr_hit[176] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_88_CFG_OFFSET);
-    addr_hit[177] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_88_MUX_SEL_OFFSET);
-    addr_hit[178] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_89_CFG_OFFSET);
-    addr_hit[179] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_89_MUX_SEL_OFFSET);
-    addr_hit[180] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_90_CFG_OFFSET);
-    addr_hit[181] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_90_MUX_SEL_OFFSET);
-    addr_hit[182] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_91_CFG_OFFSET);
-    addr_hit[183] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_91_MUX_SEL_OFFSET);
-    addr_hit[184] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_92_CFG_OFFSET);
-    addr_hit[185] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_92_MUX_SEL_OFFSET);
-    addr_hit[186] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_00_CFG_OFFSET);
-    addr_hit[187] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_00_MUX_SEL_OFFSET);
-    addr_hit[188] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_01_CFG_OFFSET);
-    addr_hit[189] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_01_MUX_SEL_OFFSET);
-    addr_hit[190] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_02_CFG_OFFSET);
-    addr_hit[191] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_02_MUX_SEL_OFFSET);
-    addr_hit[192] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_03_CFG_OFFSET);
-    addr_hit[193] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_03_MUX_SEL_OFFSET);
-    addr_hit[194] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_04_CFG_OFFSET);
-    addr_hit[195] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_04_MUX_SEL_OFFSET);
-    addr_hit[196] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_05_CFG_OFFSET);
-    addr_hit[197] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_05_MUX_SEL_OFFSET);
-    addr_hit[198] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_06_CFG_OFFSET);
-    addr_hit[199] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_06_MUX_SEL_OFFSET);
-    addr_hit[200] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_07_CFG_OFFSET);
-    addr_hit[201] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_07_MUX_SEL_OFFSET);
-    addr_hit[202] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_08_CFG_OFFSET);
-    addr_hit[203] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_08_MUX_SEL_OFFSET);
-    addr_hit[204] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_09_CFG_OFFSET);
-    addr_hit[205] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_09_MUX_SEL_OFFSET);
-    addr_hit[206] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_10_CFG_OFFSET);
-    addr_hit[207] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_10_MUX_SEL_OFFSET);
-    addr_hit[208] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_11_CFG_OFFSET);
-    addr_hit[209] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_11_MUX_SEL_OFFSET);
-    addr_hit[210] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_12_CFG_OFFSET);
-    addr_hit[211] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_12_MUX_SEL_OFFSET);
-    addr_hit[212] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_13_CFG_OFFSET);
-    addr_hit[213] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_13_MUX_SEL_OFFSET);
-    addr_hit[214] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_14_CFG_OFFSET);
-    addr_hit[215] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_14_MUX_SEL_OFFSET);
-    addr_hit[216] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_15_CFG_OFFSET);
-    addr_hit[217] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_15_MUX_SEL_OFFSET);
-    addr_hit[218] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_16_CFG_OFFSET);
-    addr_hit[219] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_16_MUX_SEL_OFFSET);
-    addr_hit[220] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_17_CFG_OFFSET);
-    addr_hit[221] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_17_MUX_SEL_OFFSET);
-    addr_hit[222] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_18_CFG_OFFSET);
-    addr_hit[223] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_18_MUX_SEL_OFFSET);
-    addr_hit[224] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_19_CFG_OFFSET);
-    addr_hit[225] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_19_MUX_SEL_OFFSET);
-    addr_hit[226] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_20_CFG_OFFSET);
-    addr_hit[227] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_20_MUX_SEL_OFFSET);
-    addr_hit[228] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_21_CFG_OFFSET);
-    addr_hit[229] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_21_MUX_SEL_OFFSET);
-    addr_hit[230] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_22_CFG_OFFSET);
-    addr_hit[231] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_22_MUX_SEL_OFFSET);
-    addr_hit[232] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_23_CFG_OFFSET);
-    addr_hit[233] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_23_MUX_SEL_OFFSET);
-    addr_hit[234] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_24_CFG_OFFSET);
-    addr_hit[235] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_24_MUX_SEL_OFFSET);
-    addr_hit[236] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_25_CFG_OFFSET);
-    addr_hit[237] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_25_MUX_SEL_OFFSET);
-    addr_hit[238] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_26_CFG_OFFSET);
-    addr_hit[239] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_26_MUX_SEL_OFFSET);
-    addr_hit[240] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_27_CFG_OFFSET);
-    addr_hit[241] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_27_MUX_SEL_OFFSET);
-    addr_hit[242] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_28_CFG_OFFSET);
-    addr_hit[243] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_28_MUX_SEL_OFFSET);
-    addr_hit[244] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_29_CFG_OFFSET);
-    addr_hit[245] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_29_MUX_SEL_OFFSET);
-    addr_hit[246] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_30_CFG_OFFSET);
-    addr_hit[247] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_30_MUX_SEL_OFFSET);
-    addr_hit[248] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_31_CFG_OFFSET);
-    addr_hit[249] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_31_MUX_SEL_OFFSET);
-    addr_hit[250] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_32_CFG_OFFSET);
-    addr_hit[251] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_32_MUX_SEL_OFFSET);
-    addr_hit[252] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_33_CFG_OFFSET);
-    addr_hit[253] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_33_MUX_SEL_OFFSET);
-    addr_hit[254] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_34_CFG_OFFSET);
-    addr_hit[255] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_34_MUX_SEL_OFFSET);
-    addr_hit[256] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_35_CFG_OFFSET);
-    addr_hit[257] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_35_MUX_SEL_OFFSET);
-    addr_hit[258] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_36_CFG_OFFSET);
-    addr_hit[259] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_36_MUX_SEL_OFFSET);
-    addr_hit[260] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_37_CFG_OFFSET);
-    addr_hit[261] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_37_MUX_SEL_OFFSET);
-    addr_hit[262] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_38_CFG_OFFSET);
-    addr_hit[263] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_38_MUX_SEL_OFFSET);
-    addr_hit[264] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_39_CFG_OFFSET);
-    addr_hit[265] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_39_MUX_SEL_OFFSET);
-    addr_hit[266] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_40_CFG_OFFSET);
-    addr_hit[267] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_40_MUX_SEL_OFFSET);
-    addr_hit[268] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_41_CFG_OFFSET);
-    addr_hit[269] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_41_MUX_SEL_OFFSET);
-    addr_hit[270] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_42_CFG_OFFSET);
-    addr_hit[271] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_42_MUX_SEL_OFFSET);
-    addr_hit[272] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_43_CFG_OFFSET);
-    addr_hit[273] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_43_MUX_SEL_OFFSET);
-    addr_hit[274] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_44_CFG_OFFSET);
-    addr_hit[275] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_44_MUX_SEL_OFFSET);
-    addr_hit[276] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_45_CFG_OFFSET);
-    addr_hit[277] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_45_MUX_SEL_OFFSET);
-    addr_hit[278] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_46_CFG_OFFSET);
-    addr_hit[279] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_46_MUX_SEL_OFFSET);
-    addr_hit[280] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_47_CFG_OFFSET);
-    addr_hit[281] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_47_MUX_SEL_OFFSET);
-    addr_hit[282] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_48_CFG_OFFSET);
-    addr_hit[283] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_48_MUX_SEL_OFFSET);
-    addr_hit[284] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_49_CFG_OFFSET);
-    addr_hit[285] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_49_MUX_SEL_OFFSET);
-    addr_hit[286] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_50_CFG_OFFSET);
-    addr_hit[287] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_50_MUX_SEL_OFFSET);
-    addr_hit[288] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_51_CFG_OFFSET);
-    addr_hit[289] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_51_MUX_SEL_OFFSET);
-    addr_hit[290] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_52_CFG_OFFSET);
-    addr_hit[291] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_52_MUX_SEL_OFFSET);
-    addr_hit[292] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_53_CFG_OFFSET);
-    addr_hit[293] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_53_MUX_SEL_OFFSET);
-    addr_hit[294] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_54_CFG_OFFSET);
-    addr_hit[295] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_54_MUX_SEL_OFFSET);
-    addr_hit[296] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_55_CFG_OFFSET);
-    addr_hit[297] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_55_MUX_SEL_OFFSET);
-    addr_hit[298] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_56_CFG_OFFSET);
-    addr_hit[299] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_56_MUX_SEL_OFFSET);
-    addr_hit[300] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_57_CFG_OFFSET);
-    addr_hit[301] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_57_MUX_SEL_OFFSET);
-    addr_hit[302] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_58_CFG_OFFSET);
-    addr_hit[303] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_58_MUX_SEL_OFFSET);
-    addr_hit[304] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_59_CFG_OFFSET);
-    addr_hit[305] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_59_MUX_SEL_OFFSET);
-    addr_hit[306] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_60_CFG_OFFSET);
-    addr_hit[307] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_60_MUX_SEL_OFFSET);
-    addr_hit[308] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_61_CFG_OFFSET);
-    addr_hit[309] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_61_MUX_SEL_OFFSET);
-    addr_hit[310] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_62_CFG_OFFSET);
-    addr_hit[311] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_62_MUX_SEL_OFFSET);
-    addr_hit[312] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_00_CFG_OFFSET);
-    addr_hit[313] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_00_MUX_SEL_OFFSET);
-    addr_hit[314] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_CFG_OFFSET);
-    addr_hit[315] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_01_MUX_SEL_OFFSET);
-    addr_hit[316] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_02_CFG_OFFSET);
-    addr_hit[317] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_02_MUX_SEL_OFFSET);
-    addr_hit[318] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_03_CFG_OFFSET);
-    addr_hit[319] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_03_MUX_SEL_OFFSET);
-    addr_hit[320] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_04_CFG_OFFSET);
-    addr_hit[321] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_04_MUX_SEL_OFFSET);
-    addr_hit[322] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_05_CFG_OFFSET);
-    addr_hit[323] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_QSPI_05_MUX_SEL_OFFSET);
-    addr_hit[324] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_00_CFG_OFFSET);
-    addr_hit[325] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_00_MUX_SEL_OFFSET);
-    addr_hit[326] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_01_CFG_OFFSET);
-    addr_hit[327] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_01_MUX_SEL_OFFSET);
-    addr_hit[328] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_02_CFG_OFFSET);
-    addr_hit[329] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_02_MUX_SEL_OFFSET);
-    addr_hit[330] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_03_CFG_OFFSET);
-    addr_hit[331] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_03_MUX_SEL_OFFSET);
-    addr_hit[332] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_04_CFG_OFFSET);
-    addr_hit[333] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_04_MUX_SEL_OFFSET);
-    addr_hit[334] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_05_CFG_OFFSET);
-    addr_hit[335] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_LINUX_QSPI_05_MUX_SEL_OFFSET);
-    addr_hit[336] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_GPIO_00_CFG_OFFSET);
-    addr_hit[337] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_GPIO_00_MUX_SEL_OFFSET);
-    addr_hit[338] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_GPIO_01_CFG_OFFSET);
-    addr_hit[339] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_GPIO_01_MUX_SEL_OFFSET);
+    addr_hit[ 60] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_00_CFG_OFFSET);
+    addr_hit[ 61] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_00_MUX_SEL_OFFSET);
+    addr_hit[ 62] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_01_CFG_OFFSET);
+    addr_hit[ 63] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_01_MUX_SEL_OFFSET);
+    addr_hit[ 64] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_02_CFG_OFFSET);
+    addr_hit[ 65] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_02_MUX_SEL_OFFSET);
+    addr_hit[ 66] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_03_CFG_OFFSET);
+    addr_hit[ 67] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_03_MUX_SEL_OFFSET);
+    addr_hit[ 68] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_04_CFG_OFFSET);
+    addr_hit[ 69] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_04_MUX_SEL_OFFSET);
+    addr_hit[ 70] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_05_CFG_OFFSET);
+    addr_hit[ 71] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_05_MUX_SEL_OFFSET);
+    addr_hit[ 72] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_06_CFG_OFFSET);
+    addr_hit[ 73] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_06_MUX_SEL_OFFSET);
+    addr_hit[ 74] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_07_CFG_OFFSET);
+    addr_hit[ 75] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_07_MUX_SEL_OFFSET);
+    addr_hit[ 76] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_08_CFG_OFFSET);
+    addr_hit[ 77] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_08_MUX_SEL_OFFSET);
+    addr_hit[ 78] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_09_CFG_OFFSET);
+    addr_hit[ 79] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_09_MUX_SEL_OFFSET);
+    addr_hit[ 80] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_10_CFG_OFFSET);
+    addr_hit[ 81] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_10_MUX_SEL_OFFSET);
+    addr_hit[ 82] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_11_CFG_OFFSET);
+    addr_hit[ 83] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_11_MUX_SEL_OFFSET);
+    addr_hit[ 84] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_12_CFG_OFFSET);
+    addr_hit[ 85] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_12_MUX_SEL_OFFSET);
+    addr_hit[ 86] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_13_CFG_OFFSET);
+    addr_hit[ 87] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_13_MUX_SEL_OFFSET);
+    addr_hit[ 88] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_14_CFG_OFFSET);
+    addr_hit[ 89] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_14_MUX_SEL_OFFSET);
+    addr_hit[ 90] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_15_CFG_OFFSET);
+    addr_hit[ 91] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_15_MUX_SEL_OFFSET);
+    addr_hit[ 92] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_16_CFG_OFFSET);
+    addr_hit[ 93] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_16_MUX_SEL_OFFSET);
+    addr_hit[ 94] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_17_CFG_OFFSET);
+    addr_hit[ 95] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_17_MUX_SEL_OFFSET);
+    addr_hit[ 96] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_18_CFG_OFFSET);
+    addr_hit[ 97] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_18_MUX_SEL_OFFSET);
+    addr_hit[ 98] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_19_CFG_OFFSET);
+    addr_hit[ 99] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_19_MUX_SEL_OFFSET);
+    addr_hit[100] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_20_CFG_OFFSET);
+    addr_hit[101] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_20_MUX_SEL_OFFSET);
+    addr_hit[102] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_21_CFG_OFFSET);
+    addr_hit[103] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_21_MUX_SEL_OFFSET);
+    addr_hit[104] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_22_CFG_OFFSET);
+    addr_hit[105] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_22_MUX_SEL_OFFSET);
+    addr_hit[106] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_23_CFG_OFFSET);
+    addr_hit[107] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_23_MUX_SEL_OFFSET);
+    addr_hit[108] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_24_CFG_OFFSET);
+    addr_hit[109] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_24_MUX_SEL_OFFSET);
+    addr_hit[110] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_25_CFG_OFFSET);
+    addr_hit[111] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_25_MUX_SEL_OFFSET);
+    addr_hit[112] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_26_CFG_OFFSET);
+    addr_hit[113] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_26_MUX_SEL_OFFSET);
+    addr_hit[114] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_27_CFG_OFFSET);
+    addr_hit[115] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_27_MUX_SEL_OFFSET);
+    addr_hit[116] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_28_CFG_OFFSET);
+    addr_hit[117] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_28_MUX_SEL_OFFSET);
+    addr_hit[118] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_29_CFG_OFFSET);
+    addr_hit[119] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_29_MUX_SEL_OFFSET);
+    addr_hit[120] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_30_CFG_OFFSET);
+    addr_hit[121] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_30_MUX_SEL_OFFSET);
+    addr_hit[122] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_31_CFG_OFFSET);
+    addr_hit[123] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_31_MUX_SEL_OFFSET);
+    addr_hit[124] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_32_CFG_OFFSET);
+    addr_hit[125] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_32_MUX_SEL_OFFSET);
+    addr_hit[126] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_33_CFG_OFFSET);
+    addr_hit[127] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_33_MUX_SEL_OFFSET);
+    addr_hit[128] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_34_CFG_OFFSET);
+    addr_hit[129] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_34_MUX_SEL_OFFSET);
+    addr_hit[130] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_35_CFG_OFFSET);
+    addr_hit[131] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_35_MUX_SEL_OFFSET);
+    addr_hit[132] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_36_CFG_OFFSET);
+    addr_hit[133] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_36_MUX_SEL_OFFSET);
+    addr_hit[134] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_37_CFG_OFFSET);
+    addr_hit[135] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_37_MUX_SEL_OFFSET);
+    addr_hit[136] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_38_CFG_OFFSET);
+    addr_hit[137] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_38_MUX_SEL_OFFSET);
+    addr_hit[138] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_39_CFG_OFFSET);
+    addr_hit[139] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_39_MUX_SEL_OFFSET);
+    addr_hit[140] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_40_CFG_OFFSET);
+    addr_hit[141] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_40_MUX_SEL_OFFSET);
+    addr_hit[142] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_41_CFG_OFFSET);
+    addr_hit[143] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_41_MUX_SEL_OFFSET);
+    addr_hit[144] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_42_CFG_OFFSET);
+    addr_hit[145] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_42_MUX_SEL_OFFSET);
+    addr_hit[146] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_43_CFG_OFFSET);
+    addr_hit[147] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_43_MUX_SEL_OFFSET);
+    addr_hit[148] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_44_CFG_OFFSET);
+    addr_hit[149] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_44_MUX_SEL_OFFSET);
+    addr_hit[150] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_45_CFG_OFFSET);
+    addr_hit[151] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_45_MUX_SEL_OFFSET);
+    addr_hit[152] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_46_CFG_OFFSET);
+    addr_hit[153] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_46_MUX_SEL_OFFSET);
+    addr_hit[154] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_47_CFG_OFFSET);
+    addr_hit[155] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_47_MUX_SEL_OFFSET);
+    addr_hit[156] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_SPI_00_CFG_OFFSET);
+    addr_hit[157] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_SPI_00_MUX_SEL_OFFSET);
+    addr_hit[158] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_SPI_01_CFG_OFFSET);
+    addr_hit[159] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_SPI_01_MUX_SEL_OFFSET);
+    addr_hit[160] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_SPI_02_CFG_OFFSET);
+    addr_hit[161] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_SPI_02_MUX_SEL_OFFSET);
+    addr_hit[162] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_SPI_03_CFG_OFFSET);
+    addr_hit[163] = (reg_addr == ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_SPI_03_MUX_SEL_OFFSET);
   end
 
   assign addrmiss = (reg_re || reg_we) ? ~|addr_hit : 1'b0 ;
@@ -35604,183 +17300,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
                (addr_hit[160] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[160] & ~reg_be))) |
                (addr_hit[161] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[161] & ~reg_be))) |
                (addr_hit[162] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[162] & ~reg_be))) |
-               (addr_hit[163] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[163] & ~reg_be))) |
-               (addr_hit[164] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[164] & ~reg_be))) |
-               (addr_hit[165] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[165] & ~reg_be))) |
-               (addr_hit[166] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[166] & ~reg_be))) |
-               (addr_hit[167] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[167] & ~reg_be))) |
-               (addr_hit[168] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[168] & ~reg_be))) |
-               (addr_hit[169] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[169] & ~reg_be))) |
-               (addr_hit[170] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[170] & ~reg_be))) |
-               (addr_hit[171] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[171] & ~reg_be))) |
-               (addr_hit[172] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[172] & ~reg_be))) |
-               (addr_hit[173] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[173] & ~reg_be))) |
-               (addr_hit[174] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[174] & ~reg_be))) |
-               (addr_hit[175] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[175] & ~reg_be))) |
-               (addr_hit[176] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[176] & ~reg_be))) |
-               (addr_hit[177] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[177] & ~reg_be))) |
-               (addr_hit[178] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[178] & ~reg_be))) |
-               (addr_hit[179] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[179] & ~reg_be))) |
-               (addr_hit[180] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[180] & ~reg_be))) |
-               (addr_hit[181] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[181] & ~reg_be))) |
-               (addr_hit[182] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[182] & ~reg_be))) |
-               (addr_hit[183] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[183] & ~reg_be))) |
-               (addr_hit[184] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[184] & ~reg_be))) |
-               (addr_hit[185] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[185] & ~reg_be))) |
-               (addr_hit[186] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[186] & ~reg_be))) |
-               (addr_hit[187] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[187] & ~reg_be))) |
-               (addr_hit[188] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[188] & ~reg_be))) |
-               (addr_hit[189] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[189] & ~reg_be))) |
-               (addr_hit[190] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[190] & ~reg_be))) |
-               (addr_hit[191] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[191] & ~reg_be))) |
-               (addr_hit[192] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[192] & ~reg_be))) |
-               (addr_hit[193] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[193] & ~reg_be))) |
-               (addr_hit[194] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[194] & ~reg_be))) |
-               (addr_hit[195] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[195] & ~reg_be))) |
-               (addr_hit[196] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[196] & ~reg_be))) |
-               (addr_hit[197] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[197] & ~reg_be))) |
-               (addr_hit[198] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[198] & ~reg_be))) |
-               (addr_hit[199] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[199] & ~reg_be))) |
-               (addr_hit[200] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[200] & ~reg_be))) |
-               (addr_hit[201] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[201] & ~reg_be))) |
-               (addr_hit[202] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[202] & ~reg_be))) |
-               (addr_hit[203] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[203] & ~reg_be))) |
-               (addr_hit[204] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[204] & ~reg_be))) |
-               (addr_hit[205] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[205] & ~reg_be))) |
-               (addr_hit[206] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[206] & ~reg_be))) |
-               (addr_hit[207] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[207] & ~reg_be))) |
-               (addr_hit[208] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[208] & ~reg_be))) |
-               (addr_hit[209] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[209] & ~reg_be))) |
-               (addr_hit[210] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[210] & ~reg_be))) |
-               (addr_hit[211] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[211] & ~reg_be))) |
-               (addr_hit[212] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[212] & ~reg_be))) |
-               (addr_hit[213] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[213] & ~reg_be))) |
-               (addr_hit[214] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[214] & ~reg_be))) |
-               (addr_hit[215] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[215] & ~reg_be))) |
-               (addr_hit[216] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[216] & ~reg_be))) |
-               (addr_hit[217] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[217] & ~reg_be))) |
-               (addr_hit[218] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[218] & ~reg_be))) |
-               (addr_hit[219] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[219] & ~reg_be))) |
-               (addr_hit[220] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[220] & ~reg_be))) |
-               (addr_hit[221] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[221] & ~reg_be))) |
-               (addr_hit[222] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[222] & ~reg_be))) |
-               (addr_hit[223] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[223] & ~reg_be))) |
-               (addr_hit[224] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[224] & ~reg_be))) |
-               (addr_hit[225] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[225] & ~reg_be))) |
-               (addr_hit[226] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[226] & ~reg_be))) |
-               (addr_hit[227] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[227] & ~reg_be))) |
-               (addr_hit[228] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[228] & ~reg_be))) |
-               (addr_hit[229] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[229] & ~reg_be))) |
-               (addr_hit[230] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[230] & ~reg_be))) |
-               (addr_hit[231] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[231] & ~reg_be))) |
-               (addr_hit[232] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[232] & ~reg_be))) |
-               (addr_hit[233] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[233] & ~reg_be))) |
-               (addr_hit[234] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[234] & ~reg_be))) |
-               (addr_hit[235] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[235] & ~reg_be))) |
-               (addr_hit[236] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[236] & ~reg_be))) |
-               (addr_hit[237] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[237] & ~reg_be))) |
-               (addr_hit[238] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[238] & ~reg_be))) |
-               (addr_hit[239] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[239] & ~reg_be))) |
-               (addr_hit[240] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[240] & ~reg_be))) |
-               (addr_hit[241] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[241] & ~reg_be))) |
-               (addr_hit[242] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[242] & ~reg_be))) |
-               (addr_hit[243] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[243] & ~reg_be))) |
-               (addr_hit[244] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[244] & ~reg_be))) |
-               (addr_hit[245] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[245] & ~reg_be))) |
-               (addr_hit[246] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[246] & ~reg_be))) |
-               (addr_hit[247] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[247] & ~reg_be))) |
-               (addr_hit[248] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[248] & ~reg_be))) |
-               (addr_hit[249] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[249] & ~reg_be))) |
-               (addr_hit[250] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[250] & ~reg_be))) |
-               (addr_hit[251] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[251] & ~reg_be))) |
-               (addr_hit[252] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[252] & ~reg_be))) |
-               (addr_hit[253] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[253] & ~reg_be))) |
-               (addr_hit[254] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[254] & ~reg_be))) |
-               (addr_hit[255] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[255] & ~reg_be))) |
-               (addr_hit[256] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[256] & ~reg_be))) |
-               (addr_hit[257] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[257] & ~reg_be))) |
-               (addr_hit[258] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[258] & ~reg_be))) |
-               (addr_hit[259] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[259] & ~reg_be))) |
-               (addr_hit[260] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[260] & ~reg_be))) |
-               (addr_hit[261] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[261] & ~reg_be))) |
-               (addr_hit[262] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[262] & ~reg_be))) |
-               (addr_hit[263] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[263] & ~reg_be))) |
-               (addr_hit[264] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[264] & ~reg_be))) |
-               (addr_hit[265] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[265] & ~reg_be))) |
-               (addr_hit[266] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[266] & ~reg_be))) |
-               (addr_hit[267] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[267] & ~reg_be))) |
-               (addr_hit[268] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[268] & ~reg_be))) |
-               (addr_hit[269] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[269] & ~reg_be))) |
-               (addr_hit[270] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[270] & ~reg_be))) |
-               (addr_hit[271] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[271] & ~reg_be))) |
-               (addr_hit[272] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[272] & ~reg_be))) |
-               (addr_hit[273] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[273] & ~reg_be))) |
-               (addr_hit[274] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[274] & ~reg_be))) |
-               (addr_hit[275] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[275] & ~reg_be))) |
-               (addr_hit[276] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[276] & ~reg_be))) |
-               (addr_hit[277] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[277] & ~reg_be))) |
-               (addr_hit[278] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[278] & ~reg_be))) |
-               (addr_hit[279] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[279] & ~reg_be))) |
-               (addr_hit[280] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[280] & ~reg_be))) |
-               (addr_hit[281] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[281] & ~reg_be))) |
-               (addr_hit[282] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[282] & ~reg_be))) |
-               (addr_hit[283] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[283] & ~reg_be))) |
-               (addr_hit[284] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[284] & ~reg_be))) |
-               (addr_hit[285] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[285] & ~reg_be))) |
-               (addr_hit[286] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[286] & ~reg_be))) |
-               (addr_hit[287] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[287] & ~reg_be))) |
-               (addr_hit[288] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[288] & ~reg_be))) |
-               (addr_hit[289] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[289] & ~reg_be))) |
-               (addr_hit[290] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[290] & ~reg_be))) |
-               (addr_hit[291] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[291] & ~reg_be))) |
-               (addr_hit[292] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[292] & ~reg_be))) |
-               (addr_hit[293] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[293] & ~reg_be))) |
-               (addr_hit[294] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[294] & ~reg_be))) |
-               (addr_hit[295] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[295] & ~reg_be))) |
-               (addr_hit[296] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[296] & ~reg_be))) |
-               (addr_hit[297] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[297] & ~reg_be))) |
-               (addr_hit[298] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[298] & ~reg_be))) |
-               (addr_hit[299] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[299] & ~reg_be))) |
-               (addr_hit[300] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[300] & ~reg_be))) |
-               (addr_hit[301] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[301] & ~reg_be))) |
-               (addr_hit[302] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[302] & ~reg_be))) |
-               (addr_hit[303] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[303] & ~reg_be))) |
-               (addr_hit[304] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[304] & ~reg_be))) |
-               (addr_hit[305] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[305] & ~reg_be))) |
-               (addr_hit[306] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[306] & ~reg_be))) |
-               (addr_hit[307] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[307] & ~reg_be))) |
-               (addr_hit[308] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[308] & ~reg_be))) |
-               (addr_hit[309] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[309] & ~reg_be))) |
-               (addr_hit[310] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[310] & ~reg_be))) |
-               (addr_hit[311] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[311] & ~reg_be))) |
-               (addr_hit[312] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[312] & ~reg_be))) |
-               (addr_hit[313] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[313] & ~reg_be))) |
-               (addr_hit[314] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[314] & ~reg_be))) |
-               (addr_hit[315] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[315] & ~reg_be))) |
-               (addr_hit[316] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[316] & ~reg_be))) |
-               (addr_hit[317] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[317] & ~reg_be))) |
-               (addr_hit[318] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[318] & ~reg_be))) |
-               (addr_hit[319] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[319] & ~reg_be))) |
-               (addr_hit[320] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[320] & ~reg_be))) |
-               (addr_hit[321] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[321] & ~reg_be))) |
-               (addr_hit[322] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[322] & ~reg_be))) |
-               (addr_hit[323] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[323] & ~reg_be))) |
-               (addr_hit[324] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[324] & ~reg_be))) |
-               (addr_hit[325] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[325] & ~reg_be))) |
-               (addr_hit[326] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[326] & ~reg_be))) |
-               (addr_hit[327] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[327] & ~reg_be))) |
-               (addr_hit[328] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[328] & ~reg_be))) |
-               (addr_hit[329] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[329] & ~reg_be))) |
-               (addr_hit[330] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[330] & ~reg_be))) |
-               (addr_hit[331] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[331] & ~reg_be))) |
-               (addr_hit[332] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[332] & ~reg_be))) |
-               (addr_hit[333] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[333] & ~reg_be))) |
-               (addr_hit[334] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[334] & ~reg_be))) |
-               (addr_hit[335] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[335] & ~reg_be))) |
-               (addr_hit[336] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[336] & ~reg_be))) |
-               (addr_hit[337] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[337] & ~reg_be))) |
-               (addr_hit[338] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[338] & ~reg_be))) |
-               (addr_hit[339] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[339] & ~reg_be)))));
+               (addr_hit[163] & (|(ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_PERMIT[163] & ~reg_be)))));
   end
 
   assign a_00_cfg_chip2pad_we = addr_hit[0] & reg_we & !reg_error;
@@ -35802,7 +17322,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_00_cfg_smt_wd = reg_wdata[6];
 
   assign a_00_mux_sel_we = addr_hit[1] & reg_we & !reg_error;
-  assign a_00_mux_sel_wd = reg_wdata[0];
+  assign a_00_mux_sel_wd = reg_wdata[1:0];
 
   assign a_01_cfg_chip2pad_we = addr_hit[2] & reg_we & !reg_error;
   assign a_01_cfg_chip2pad_wd = reg_wdata[0];
@@ -35823,7 +17343,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_01_cfg_smt_wd = reg_wdata[6];
 
   assign a_01_mux_sel_we = addr_hit[3] & reg_we & !reg_error;
-  assign a_01_mux_sel_wd = reg_wdata[0];
+  assign a_01_mux_sel_wd = reg_wdata[1:0];
 
   assign a_02_cfg_chip2pad_we = addr_hit[4] & reg_we & !reg_error;
   assign a_02_cfg_chip2pad_wd = reg_wdata[0];
@@ -35844,7 +17364,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_02_cfg_smt_wd = reg_wdata[6];
 
   assign a_02_mux_sel_we = addr_hit[5] & reg_we & !reg_error;
-  assign a_02_mux_sel_wd = reg_wdata[0];
+  assign a_02_mux_sel_wd = reg_wdata[2:0];
 
   assign a_03_cfg_chip2pad_we = addr_hit[6] & reg_we & !reg_error;
   assign a_03_cfg_chip2pad_wd = reg_wdata[0];
@@ -35865,7 +17385,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_03_cfg_smt_wd = reg_wdata[6];
 
   assign a_03_mux_sel_we = addr_hit[7] & reg_we & !reg_error;
-  assign a_03_mux_sel_wd = reg_wdata[0];
+  assign a_03_mux_sel_wd = reg_wdata[2:0];
 
   assign a_04_cfg_chip2pad_we = addr_hit[8] & reg_we & !reg_error;
   assign a_04_cfg_chip2pad_wd = reg_wdata[0];
@@ -35886,7 +17406,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_04_cfg_smt_wd = reg_wdata[6];
 
   assign a_04_mux_sel_we = addr_hit[9] & reg_we & !reg_error;
-  assign a_04_mux_sel_wd = reg_wdata[0];
+  assign a_04_mux_sel_wd = reg_wdata[2:0];
 
   assign a_05_cfg_chip2pad_we = addr_hit[10] & reg_we & !reg_error;
   assign a_05_cfg_chip2pad_wd = reg_wdata[0];
@@ -35907,7 +17427,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_05_cfg_smt_wd = reg_wdata[6];
 
   assign a_05_mux_sel_we = addr_hit[11] & reg_we & !reg_error;
-  assign a_05_mux_sel_wd = reg_wdata[0];
+  assign a_05_mux_sel_wd = reg_wdata[2:0];
 
   assign a_06_cfg_chip2pad_we = addr_hit[12] & reg_we & !reg_error;
   assign a_06_cfg_chip2pad_wd = reg_wdata[0];
@@ -35928,7 +17448,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_06_cfg_smt_wd = reg_wdata[6];
 
   assign a_06_mux_sel_we = addr_hit[13] & reg_we & !reg_error;
-  assign a_06_mux_sel_wd = reg_wdata[0];
+  assign a_06_mux_sel_wd = reg_wdata[2:0];
 
   assign a_07_cfg_chip2pad_we = addr_hit[14] & reg_we & !reg_error;
   assign a_07_cfg_chip2pad_wd = reg_wdata[0];
@@ -35949,7 +17469,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_07_cfg_smt_wd = reg_wdata[6];
 
   assign a_07_mux_sel_we = addr_hit[15] & reg_we & !reg_error;
-  assign a_07_mux_sel_wd = reg_wdata[0];
+  assign a_07_mux_sel_wd = reg_wdata[2:0];
 
   assign a_08_cfg_chip2pad_we = addr_hit[16] & reg_we & !reg_error;
   assign a_08_cfg_chip2pad_wd = reg_wdata[0];
@@ -35970,7 +17490,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_08_cfg_smt_wd = reg_wdata[6];
 
   assign a_08_mux_sel_we = addr_hit[17] & reg_we & !reg_error;
-  assign a_08_mux_sel_wd = reg_wdata[0];
+  assign a_08_mux_sel_wd = reg_wdata[2:0];
 
   assign a_09_cfg_chip2pad_we = addr_hit[18] & reg_we & !reg_error;
   assign a_09_cfg_chip2pad_wd = reg_wdata[0];
@@ -35991,7 +17511,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_09_cfg_smt_wd = reg_wdata[6];
 
   assign a_09_mux_sel_we = addr_hit[19] & reg_we & !reg_error;
-  assign a_09_mux_sel_wd = reg_wdata[0];
+  assign a_09_mux_sel_wd = reg_wdata[2:0];
 
   assign a_10_cfg_chip2pad_we = addr_hit[20] & reg_we & !reg_error;
   assign a_10_cfg_chip2pad_wd = reg_wdata[0];
@@ -36012,7 +17532,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_10_cfg_smt_wd = reg_wdata[6];
 
   assign a_10_mux_sel_we = addr_hit[21] & reg_we & !reg_error;
-  assign a_10_mux_sel_wd = reg_wdata[0];
+  assign a_10_mux_sel_wd = reg_wdata[2:0];
 
   assign a_11_cfg_chip2pad_we = addr_hit[22] & reg_we & !reg_error;
   assign a_11_cfg_chip2pad_wd = reg_wdata[0];
@@ -36033,7 +17553,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_11_cfg_smt_wd = reg_wdata[6];
 
   assign a_11_mux_sel_we = addr_hit[23] & reg_we & !reg_error;
-  assign a_11_mux_sel_wd = reg_wdata[0];
+  assign a_11_mux_sel_wd = reg_wdata[2:0];
 
   assign a_12_cfg_chip2pad_we = addr_hit[24] & reg_we & !reg_error;
   assign a_12_cfg_chip2pad_wd = reg_wdata[0];
@@ -36054,7 +17574,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_12_cfg_smt_wd = reg_wdata[6];
 
   assign a_12_mux_sel_we = addr_hit[25] & reg_we & !reg_error;
-  assign a_12_mux_sel_wd = reg_wdata[0];
+  assign a_12_mux_sel_wd = reg_wdata[2:0];
 
   assign a_13_cfg_chip2pad_we = addr_hit[26] & reg_we & !reg_error;
   assign a_13_cfg_chip2pad_wd = reg_wdata[0];
@@ -36075,7 +17595,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_13_cfg_smt_wd = reg_wdata[6];
 
   assign a_13_mux_sel_we = addr_hit[27] & reg_we & !reg_error;
-  assign a_13_mux_sel_wd = reg_wdata[0];
+  assign a_13_mux_sel_wd = reg_wdata[2:0];
 
   assign a_14_cfg_chip2pad_we = addr_hit[28] & reg_we & !reg_error;
   assign a_14_cfg_chip2pad_wd = reg_wdata[0];
@@ -36096,7 +17616,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_14_cfg_smt_wd = reg_wdata[6];
 
   assign a_14_mux_sel_we = addr_hit[29] & reg_we & !reg_error;
-  assign a_14_mux_sel_wd = reg_wdata[0];
+  assign a_14_mux_sel_wd = reg_wdata[2:0];
 
   assign a_15_cfg_chip2pad_we = addr_hit[30] & reg_we & !reg_error;
   assign a_15_cfg_chip2pad_wd = reg_wdata[0];
@@ -36117,7 +17637,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_15_cfg_smt_wd = reg_wdata[6];
 
   assign a_15_mux_sel_we = addr_hit[31] & reg_we & !reg_error;
-  assign a_15_mux_sel_wd = reg_wdata[0];
+  assign a_15_mux_sel_wd = reg_wdata[2:0];
 
   assign a_16_cfg_chip2pad_we = addr_hit[32] & reg_we & !reg_error;
   assign a_16_cfg_chip2pad_wd = reg_wdata[0];
@@ -36138,7 +17658,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_16_cfg_smt_wd = reg_wdata[6];
 
   assign a_16_mux_sel_we = addr_hit[33] & reg_we & !reg_error;
-  assign a_16_mux_sel_wd = reg_wdata[0];
+  assign a_16_mux_sel_wd = reg_wdata[2:0];
 
   assign a_17_cfg_chip2pad_we = addr_hit[34] & reg_we & !reg_error;
   assign a_17_cfg_chip2pad_wd = reg_wdata[0];
@@ -36159,7 +17679,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_17_cfg_smt_wd = reg_wdata[6];
 
   assign a_17_mux_sel_we = addr_hit[35] & reg_we & !reg_error;
-  assign a_17_mux_sel_wd = reg_wdata[0];
+  assign a_17_mux_sel_wd = reg_wdata[2:0];
 
   assign a_18_cfg_chip2pad_we = addr_hit[36] & reg_we & !reg_error;
   assign a_18_cfg_chip2pad_wd = reg_wdata[0];
@@ -36180,7 +17700,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_18_cfg_smt_wd = reg_wdata[6];
 
   assign a_18_mux_sel_we = addr_hit[37] & reg_we & !reg_error;
-  assign a_18_mux_sel_wd = reg_wdata[0];
+  assign a_18_mux_sel_wd = reg_wdata[2:0];
 
   assign a_19_cfg_chip2pad_we = addr_hit[38] & reg_we & !reg_error;
   assign a_19_cfg_chip2pad_wd = reg_wdata[0];
@@ -36201,7 +17721,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_19_cfg_smt_wd = reg_wdata[6];
 
   assign a_19_mux_sel_we = addr_hit[39] & reg_we & !reg_error;
-  assign a_19_mux_sel_wd = reg_wdata[0];
+  assign a_19_mux_sel_wd = reg_wdata[2:0];
 
   assign a_20_cfg_chip2pad_we = addr_hit[40] & reg_we & !reg_error;
   assign a_20_cfg_chip2pad_wd = reg_wdata[0];
@@ -36222,7 +17742,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_20_cfg_smt_wd = reg_wdata[6];
 
   assign a_20_mux_sel_we = addr_hit[41] & reg_we & !reg_error;
-  assign a_20_mux_sel_wd = reg_wdata[0];
+  assign a_20_mux_sel_wd = reg_wdata[2:0];
 
   assign a_21_cfg_chip2pad_we = addr_hit[42] & reg_we & !reg_error;
   assign a_21_cfg_chip2pad_wd = reg_wdata[0];
@@ -36243,7 +17763,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_21_cfg_smt_wd = reg_wdata[6];
 
   assign a_21_mux_sel_we = addr_hit[43] & reg_we & !reg_error;
-  assign a_21_mux_sel_wd = reg_wdata[0];
+  assign a_21_mux_sel_wd = reg_wdata[2:0];
 
   assign a_22_cfg_chip2pad_we = addr_hit[44] & reg_we & !reg_error;
   assign a_22_cfg_chip2pad_wd = reg_wdata[0];
@@ -36264,7 +17784,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_22_cfg_smt_wd = reg_wdata[6];
 
   assign a_22_mux_sel_we = addr_hit[45] & reg_we & !reg_error;
-  assign a_22_mux_sel_wd = reg_wdata[0];
+  assign a_22_mux_sel_wd = reg_wdata[2:0];
 
   assign a_23_cfg_chip2pad_we = addr_hit[46] & reg_we & !reg_error;
   assign a_23_cfg_chip2pad_wd = reg_wdata[0];
@@ -36285,7 +17805,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_23_cfg_smt_wd = reg_wdata[6];
 
   assign a_23_mux_sel_we = addr_hit[47] & reg_we & !reg_error;
-  assign a_23_mux_sel_wd = reg_wdata[0];
+  assign a_23_mux_sel_wd = reg_wdata[2:0];
 
   assign a_24_cfg_chip2pad_we = addr_hit[48] & reg_we & !reg_error;
   assign a_24_cfg_chip2pad_wd = reg_wdata[0];
@@ -36306,7 +17826,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_24_cfg_smt_wd = reg_wdata[6];
 
   assign a_24_mux_sel_we = addr_hit[49] & reg_we & !reg_error;
-  assign a_24_mux_sel_wd = reg_wdata[0];
+  assign a_24_mux_sel_wd = reg_wdata[2:0];
 
   assign a_25_cfg_chip2pad_we = addr_hit[50] & reg_we & !reg_error;
   assign a_25_cfg_chip2pad_wd = reg_wdata[0];
@@ -36327,7 +17847,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_25_cfg_smt_wd = reg_wdata[6];
 
   assign a_25_mux_sel_we = addr_hit[51] & reg_we & !reg_error;
-  assign a_25_mux_sel_wd = reg_wdata[0];
+  assign a_25_mux_sel_wd = reg_wdata[2:0];
 
   assign a_26_cfg_chip2pad_we = addr_hit[52] & reg_we & !reg_error;
   assign a_26_cfg_chip2pad_wd = reg_wdata[0];
@@ -36348,7 +17868,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_26_cfg_smt_wd = reg_wdata[6];
 
   assign a_26_mux_sel_we = addr_hit[53] & reg_we & !reg_error;
-  assign a_26_mux_sel_wd = reg_wdata[0];
+  assign a_26_mux_sel_wd = reg_wdata[2:0];
 
   assign a_27_cfg_chip2pad_we = addr_hit[54] & reg_we & !reg_error;
   assign a_27_cfg_chip2pad_wd = reg_wdata[0];
@@ -36369,7 +17889,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_27_cfg_smt_wd = reg_wdata[6];
 
   assign a_27_mux_sel_we = addr_hit[55] & reg_we & !reg_error;
-  assign a_27_mux_sel_wd = reg_wdata[0];
+  assign a_27_mux_sel_wd = reg_wdata[2:0];
 
   assign a_28_cfg_chip2pad_we = addr_hit[56] & reg_we & !reg_error;
   assign a_28_cfg_chip2pad_wd = reg_wdata[0];
@@ -36390,7 +17910,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_28_cfg_smt_wd = reg_wdata[6];
 
   assign a_28_mux_sel_we = addr_hit[57] & reg_we & !reg_error;
-  assign a_28_mux_sel_wd = reg_wdata[0];
+  assign a_28_mux_sel_wd = reg_wdata[2:0];
 
   assign a_29_cfg_chip2pad_we = addr_hit[58] & reg_we & !reg_error;
   assign a_29_cfg_chip2pad_wd = reg_wdata[0];
@@ -36411,2947 +17931,1099 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_29_cfg_smt_wd = reg_wdata[6];
 
   assign a_29_mux_sel_we = addr_hit[59] & reg_we & !reg_error;
-  assign a_29_mux_sel_wd = reg_wdata[0];
+  assign a_29_mux_sel_wd = reg_wdata[2:0];
 
-  assign a_30_cfg_chip2pad_we = addr_hit[60] & reg_we & !reg_error;
-  assign a_30_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_30_cfg_drv_we = addr_hit[60] & reg_we & !reg_error;
-  assign a_30_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_30_cfg_oen_we = addr_hit[60] & reg_we & !reg_error;
-  assign a_30_cfg_oen_wd = reg_wdata[3];
-
-  assign a_30_cfg_puen_we = addr_hit[60] & reg_we & !reg_error;
-  assign a_30_cfg_puen_wd = reg_wdata[4];
-
-  assign a_30_cfg_slw_we = addr_hit[60] & reg_we & !reg_error;
-  assign a_30_cfg_slw_wd = reg_wdata[5];
-
-  assign a_30_cfg_smt_we = addr_hit[60] & reg_we & !reg_error;
-  assign a_30_cfg_smt_wd = reg_wdata[6];
-
-  assign a_30_mux_sel_we = addr_hit[61] & reg_we & !reg_error;
-  assign a_30_mux_sel_wd = reg_wdata[0];
-
-  assign a_31_cfg_chip2pad_we = addr_hit[62] & reg_we & !reg_error;
-  assign a_31_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_31_cfg_drv_we = addr_hit[62] & reg_we & !reg_error;
-  assign a_31_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_31_cfg_oen_we = addr_hit[62] & reg_we & !reg_error;
-  assign a_31_cfg_oen_wd = reg_wdata[3];
-
-  assign a_31_cfg_puen_we = addr_hit[62] & reg_we & !reg_error;
-  assign a_31_cfg_puen_wd = reg_wdata[4];
-
-  assign a_31_cfg_slw_we = addr_hit[62] & reg_we & !reg_error;
-  assign a_31_cfg_slw_wd = reg_wdata[5];
-
-  assign a_31_cfg_smt_we = addr_hit[62] & reg_we & !reg_error;
-  assign a_31_cfg_smt_wd = reg_wdata[6];
-
-  assign a_31_mux_sel_we = addr_hit[63] & reg_we & !reg_error;
-  assign a_31_mux_sel_wd = reg_wdata[0];
-
-  assign a_32_cfg_chip2pad_we = addr_hit[64] & reg_we & !reg_error;
-  assign a_32_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_32_cfg_drv_we = addr_hit[64] & reg_we & !reg_error;
-  assign a_32_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_32_cfg_oen_we = addr_hit[64] & reg_we & !reg_error;
-  assign a_32_cfg_oen_wd = reg_wdata[3];
-
-  assign a_32_cfg_puen_we = addr_hit[64] & reg_we & !reg_error;
-  assign a_32_cfg_puen_wd = reg_wdata[4];
-
-  assign a_32_cfg_slw_we = addr_hit[64] & reg_we & !reg_error;
-  assign a_32_cfg_slw_wd = reg_wdata[5];
-
-  assign a_32_cfg_smt_we = addr_hit[64] & reg_we & !reg_error;
-  assign a_32_cfg_smt_wd = reg_wdata[6];
-
-  assign a_32_mux_sel_we = addr_hit[65] & reg_we & !reg_error;
-  assign a_32_mux_sel_wd = reg_wdata[0];
-
-  assign a_33_cfg_chip2pad_we = addr_hit[66] & reg_we & !reg_error;
-  assign a_33_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_33_cfg_drv_we = addr_hit[66] & reg_we & !reg_error;
-  assign a_33_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_33_cfg_oen_we = addr_hit[66] & reg_we & !reg_error;
-  assign a_33_cfg_oen_wd = reg_wdata[3];
-
-  assign a_33_cfg_puen_we = addr_hit[66] & reg_we & !reg_error;
-  assign a_33_cfg_puen_wd = reg_wdata[4];
-
-  assign a_33_cfg_slw_we = addr_hit[66] & reg_we & !reg_error;
-  assign a_33_cfg_slw_wd = reg_wdata[5];
-
-  assign a_33_cfg_smt_we = addr_hit[66] & reg_we & !reg_error;
-  assign a_33_cfg_smt_wd = reg_wdata[6];
-
-  assign a_33_mux_sel_we = addr_hit[67] & reg_we & !reg_error;
-  assign a_33_mux_sel_wd = reg_wdata[0];
-
-  assign a_34_cfg_chip2pad_we = addr_hit[68] & reg_we & !reg_error;
-  assign a_34_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_34_cfg_drv_we = addr_hit[68] & reg_we & !reg_error;
-  assign a_34_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_34_cfg_oen_we = addr_hit[68] & reg_we & !reg_error;
-  assign a_34_cfg_oen_wd = reg_wdata[3];
-
-  assign a_34_cfg_puen_we = addr_hit[68] & reg_we & !reg_error;
-  assign a_34_cfg_puen_wd = reg_wdata[4];
-
-  assign a_34_cfg_slw_we = addr_hit[68] & reg_we & !reg_error;
-  assign a_34_cfg_slw_wd = reg_wdata[5];
-
-  assign a_34_cfg_smt_we = addr_hit[68] & reg_we & !reg_error;
-  assign a_34_cfg_smt_wd = reg_wdata[6];
-
-  assign a_34_mux_sel_we = addr_hit[69] & reg_we & !reg_error;
-  assign a_34_mux_sel_wd = reg_wdata[0];
-
-  assign a_35_cfg_chip2pad_we = addr_hit[70] & reg_we & !reg_error;
-  assign a_35_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_35_cfg_drv_we = addr_hit[70] & reg_we & !reg_error;
-  assign a_35_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_35_cfg_oen_we = addr_hit[70] & reg_we & !reg_error;
-  assign a_35_cfg_oen_wd = reg_wdata[3];
-
-  assign a_35_cfg_puen_we = addr_hit[70] & reg_we & !reg_error;
-  assign a_35_cfg_puen_wd = reg_wdata[4];
-
-  assign a_35_cfg_slw_we = addr_hit[70] & reg_we & !reg_error;
-  assign a_35_cfg_slw_wd = reg_wdata[5];
-
-  assign a_35_cfg_smt_we = addr_hit[70] & reg_we & !reg_error;
-  assign a_35_cfg_smt_wd = reg_wdata[6];
-
-  assign a_35_mux_sel_we = addr_hit[71] & reg_we & !reg_error;
-  assign a_35_mux_sel_wd = reg_wdata[0];
-
-  assign a_36_cfg_chip2pad_we = addr_hit[72] & reg_we & !reg_error;
-  assign a_36_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_36_cfg_drv_we = addr_hit[72] & reg_we & !reg_error;
-  assign a_36_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_36_cfg_oen_we = addr_hit[72] & reg_we & !reg_error;
-  assign a_36_cfg_oen_wd = reg_wdata[3];
-
-  assign a_36_cfg_puen_we = addr_hit[72] & reg_we & !reg_error;
-  assign a_36_cfg_puen_wd = reg_wdata[4];
-
-  assign a_36_cfg_slw_we = addr_hit[72] & reg_we & !reg_error;
-  assign a_36_cfg_slw_wd = reg_wdata[5];
-
-  assign a_36_cfg_smt_we = addr_hit[72] & reg_we & !reg_error;
-  assign a_36_cfg_smt_wd = reg_wdata[6];
-
-  assign a_36_mux_sel_we = addr_hit[73] & reg_we & !reg_error;
-  assign a_36_mux_sel_wd = reg_wdata[0];
-
-  assign a_37_cfg_chip2pad_we = addr_hit[74] & reg_we & !reg_error;
-  assign a_37_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_37_cfg_drv_we = addr_hit[74] & reg_we & !reg_error;
-  assign a_37_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_37_cfg_oen_we = addr_hit[74] & reg_we & !reg_error;
-  assign a_37_cfg_oen_wd = reg_wdata[3];
-
-  assign a_37_cfg_puen_we = addr_hit[74] & reg_we & !reg_error;
-  assign a_37_cfg_puen_wd = reg_wdata[4];
-
-  assign a_37_cfg_slw_we = addr_hit[74] & reg_we & !reg_error;
-  assign a_37_cfg_slw_wd = reg_wdata[5];
-
-  assign a_37_cfg_smt_we = addr_hit[74] & reg_we & !reg_error;
-  assign a_37_cfg_smt_wd = reg_wdata[6];
-
-  assign a_37_mux_sel_we = addr_hit[75] & reg_we & !reg_error;
-  assign a_37_mux_sel_wd = reg_wdata[0];
-
-  assign a_38_cfg_chip2pad_we = addr_hit[76] & reg_we & !reg_error;
-  assign a_38_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_38_cfg_drv_we = addr_hit[76] & reg_we & !reg_error;
-  assign a_38_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_38_cfg_oen_we = addr_hit[76] & reg_we & !reg_error;
-  assign a_38_cfg_oen_wd = reg_wdata[3];
-
-  assign a_38_cfg_puen_we = addr_hit[76] & reg_we & !reg_error;
-  assign a_38_cfg_puen_wd = reg_wdata[4];
-
-  assign a_38_cfg_slw_we = addr_hit[76] & reg_we & !reg_error;
-  assign a_38_cfg_slw_wd = reg_wdata[5];
-
-  assign a_38_cfg_smt_we = addr_hit[76] & reg_we & !reg_error;
-  assign a_38_cfg_smt_wd = reg_wdata[6];
-
-  assign a_38_mux_sel_we = addr_hit[77] & reg_we & !reg_error;
-  assign a_38_mux_sel_wd = reg_wdata[0];
-
-  assign a_39_cfg_chip2pad_we = addr_hit[78] & reg_we & !reg_error;
-  assign a_39_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_39_cfg_drv_we = addr_hit[78] & reg_we & !reg_error;
-  assign a_39_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_39_cfg_oen_we = addr_hit[78] & reg_we & !reg_error;
-  assign a_39_cfg_oen_wd = reg_wdata[3];
-
-  assign a_39_cfg_puen_we = addr_hit[78] & reg_we & !reg_error;
-  assign a_39_cfg_puen_wd = reg_wdata[4];
-
-  assign a_39_cfg_slw_we = addr_hit[78] & reg_we & !reg_error;
-  assign a_39_cfg_slw_wd = reg_wdata[5];
-
-  assign a_39_cfg_smt_we = addr_hit[78] & reg_we & !reg_error;
-  assign a_39_cfg_smt_wd = reg_wdata[6];
-
-  assign a_39_mux_sel_we = addr_hit[79] & reg_we & !reg_error;
-  assign a_39_mux_sel_wd = reg_wdata[0];
-
-  assign a_40_cfg_chip2pad_we = addr_hit[80] & reg_we & !reg_error;
-  assign a_40_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_40_cfg_drv_we = addr_hit[80] & reg_we & !reg_error;
-  assign a_40_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_40_cfg_oen_we = addr_hit[80] & reg_we & !reg_error;
-  assign a_40_cfg_oen_wd = reg_wdata[3];
-
-  assign a_40_cfg_puen_we = addr_hit[80] & reg_we & !reg_error;
-  assign a_40_cfg_puen_wd = reg_wdata[4];
-
-  assign a_40_cfg_slw_we = addr_hit[80] & reg_we & !reg_error;
-  assign a_40_cfg_slw_wd = reg_wdata[5];
-
-  assign a_40_cfg_smt_we = addr_hit[80] & reg_we & !reg_error;
-  assign a_40_cfg_smt_wd = reg_wdata[6];
-
-  assign a_40_mux_sel_we = addr_hit[81] & reg_we & !reg_error;
-  assign a_40_mux_sel_wd = reg_wdata[0];
-
-  assign a_41_cfg_chip2pad_we = addr_hit[82] & reg_we & !reg_error;
-  assign a_41_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_41_cfg_drv_we = addr_hit[82] & reg_we & !reg_error;
-  assign a_41_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_41_cfg_oen_we = addr_hit[82] & reg_we & !reg_error;
-  assign a_41_cfg_oen_wd = reg_wdata[3];
-
-  assign a_41_cfg_puen_we = addr_hit[82] & reg_we & !reg_error;
-  assign a_41_cfg_puen_wd = reg_wdata[4];
-
-  assign a_41_cfg_slw_we = addr_hit[82] & reg_we & !reg_error;
-  assign a_41_cfg_slw_wd = reg_wdata[5];
-
-  assign a_41_cfg_smt_we = addr_hit[82] & reg_we & !reg_error;
-  assign a_41_cfg_smt_wd = reg_wdata[6];
-
-  assign a_41_mux_sel_we = addr_hit[83] & reg_we & !reg_error;
-  assign a_41_mux_sel_wd = reg_wdata[0];
-
-  assign a_42_cfg_chip2pad_we = addr_hit[84] & reg_we & !reg_error;
-  assign a_42_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_42_cfg_drv_we = addr_hit[84] & reg_we & !reg_error;
-  assign a_42_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_42_cfg_oen_we = addr_hit[84] & reg_we & !reg_error;
-  assign a_42_cfg_oen_wd = reg_wdata[3];
-
-  assign a_42_cfg_puen_we = addr_hit[84] & reg_we & !reg_error;
-  assign a_42_cfg_puen_wd = reg_wdata[4];
-
-  assign a_42_cfg_slw_we = addr_hit[84] & reg_we & !reg_error;
-  assign a_42_cfg_slw_wd = reg_wdata[5];
-
-  assign a_42_cfg_smt_we = addr_hit[84] & reg_we & !reg_error;
-  assign a_42_cfg_smt_wd = reg_wdata[6];
-
-  assign a_42_mux_sel_we = addr_hit[85] & reg_we & !reg_error;
-  assign a_42_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_43_cfg_chip2pad_we = addr_hit[86] & reg_we & !reg_error;
-  assign a_43_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_43_cfg_drv_we = addr_hit[86] & reg_we & !reg_error;
-  assign a_43_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_43_cfg_oen_we = addr_hit[86] & reg_we & !reg_error;
-  assign a_43_cfg_oen_wd = reg_wdata[3];
-
-  assign a_43_cfg_puen_we = addr_hit[86] & reg_we & !reg_error;
-  assign a_43_cfg_puen_wd = reg_wdata[4];
-
-  assign a_43_cfg_slw_we = addr_hit[86] & reg_we & !reg_error;
-  assign a_43_cfg_slw_wd = reg_wdata[5];
-
-  assign a_43_cfg_smt_we = addr_hit[86] & reg_we & !reg_error;
-  assign a_43_cfg_smt_wd = reg_wdata[6];
-
-  assign a_43_mux_sel_we = addr_hit[87] & reg_we & !reg_error;
-  assign a_43_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_44_cfg_chip2pad_we = addr_hit[88] & reg_we & !reg_error;
-  assign a_44_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_44_cfg_drv_we = addr_hit[88] & reg_we & !reg_error;
-  assign a_44_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_44_cfg_oen_we = addr_hit[88] & reg_we & !reg_error;
-  assign a_44_cfg_oen_wd = reg_wdata[3];
-
-  assign a_44_cfg_puen_we = addr_hit[88] & reg_we & !reg_error;
-  assign a_44_cfg_puen_wd = reg_wdata[4];
-
-  assign a_44_cfg_slw_we = addr_hit[88] & reg_we & !reg_error;
-  assign a_44_cfg_slw_wd = reg_wdata[5];
-
-  assign a_44_cfg_smt_we = addr_hit[88] & reg_we & !reg_error;
-  assign a_44_cfg_smt_wd = reg_wdata[6];
-
-  assign a_44_mux_sel_we = addr_hit[89] & reg_we & !reg_error;
-  assign a_44_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_45_cfg_chip2pad_we = addr_hit[90] & reg_we & !reg_error;
-  assign a_45_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_45_cfg_drv_we = addr_hit[90] & reg_we & !reg_error;
-  assign a_45_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_45_cfg_oen_we = addr_hit[90] & reg_we & !reg_error;
-  assign a_45_cfg_oen_wd = reg_wdata[3];
-
-  assign a_45_cfg_puen_we = addr_hit[90] & reg_we & !reg_error;
-  assign a_45_cfg_puen_wd = reg_wdata[4];
-
-  assign a_45_cfg_slw_we = addr_hit[90] & reg_we & !reg_error;
-  assign a_45_cfg_slw_wd = reg_wdata[5];
-
-  assign a_45_cfg_smt_we = addr_hit[90] & reg_we & !reg_error;
-  assign a_45_cfg_smt_wd = reg_wdata[6];
-
-  assign a_45_mux_sel_we = addr_hit[91] & reg_we & !reg_error;
-  assign a_45_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_46_cfg_chip2pad_we = addr_hit[92] & reg_we & !reg_error;
-  assign a_46_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_46_cfg_drv_we = addr_hit[92] & reg_we & !reg_error;
-  assign a_46_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_46_cfg_oen_we = addr_hit[92] & reg_we & !reg_error;
-  assign a_46_cfg_oen_wd = reg_wdata[3];
-
-  assign a_46_cfg_puen_we = addr_hit[92] & reg_we & !reg_error;
-  assign a_46_cfg_puen_wd = reg_wdata[4];
-
-  assign a_46_cfg_slw_we = addr_hit[92] & reg_we & !reg_error;
-  assign a_46_cfg_slw_wd = reg_wdata[5];
-
-  assign a_46_cfg_smt_we = addr_hit[92] & reg_we & !reg_error;
-  assign a_46_cfg_smt_wd = reg_wdata[6];
-
-  assign a_46_mux_sel_we = addr_hit[93] & reg_we & !reg_error;
-  assign a_46_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_47_cfg_chip2pad_we = addr_hit[94] & reg_we & !reg_error;
-  assign a_47_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_47_cfg_drv_we = addr_hit[94] & reg_we & !reg_error;
-  assign a_47_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_47_cfg_oen_we = addr_hit[94] & reg_we & !reg_error;
-  assign a_47_cfg_oen_wd = reg_wdata[3];
-
-  assign a_47_cfg_puen_we = addr_hit[94] & reg_we & !reg_error;
-  assign a_47_cfg_puen_wd = reg_wdata[4];
-
-  assign a_47_cfg_slw_we = addr_hit[94] & reg_we & !reg_error;
-  assign a_47_cfg_slw_wd = reg_wdata[5];
-
-  assign a_47_cfg_smt_we = addr_hit[94] & reg_we & !reg_error;
-  assign a_47_cfg_smt_wd = reg_wdata[6];
-
-  assign a_47_mux_sel_we = addr_hit[95] & reg_we & !reg_error;
-  assign a_47_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_48_cfg_chip2pad_we = addr_hit[96] & reg_we & !reg_error;
-  assign a_48_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_48_cfg_drv_we = addr_hit[96] & reg_we & !reg_error;
-  assign a_48_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_48_cfg_oen_we = addr_hit[96] & reg_we & !reg_error;
-  assign a_48_cfg_oen_wd = reg_wdata[3];
-
-  assign a_48_cfg_puen_we = addr_hit[96] & reg_we & !reg_error;
-  assign a_48_cfg_puen_wd = reg_wdata[4];
-
-  assign a_48_cfg_slw_we = addr_hit[96] & reg_we & !reg_error;
-  assign a_48_cfg_slw_wd = reg_wdata[5];
-
-  assign a_48_cfg_smt_we = addr_hit[96] & reg_we & !reg_error;
-  assign a_48_cfg_smt_wd = reg_wdata[6];
-
-  assign a_48_mux_sel_we = addr_hit[97] & reg_we & !reg_error;
-  assign a_48_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_49_cfg_chip2pad_we = addr_hit[98] & reg_we & !reg_error;
-  assign a_49_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_49_cfg_drv_we = addr_hit[98] & reg_we & !reg_error;
-  assign a_49_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_49_cfg_oen_we = addr_hit[98] & reg_we & !reg_error;
-  assign a_49_cfg_oen_wd = reg_wdata[3];
-
-  assign a_49_cfg_puen_we = addr_hit[98] & reg_we & !reg_error;
-  assign a_49_cfg_puen_wd = reg_wdata[4];
-
-  assign a_49_cfg_slw_we = addr_hit[98] & reg_we & !reg_error;
-  assign a_49_cfg_slw_wd = reg_wdata[5];
-
-  assign a_49_cfg_smt_we = addr_hit[98] & reg_we & !reg_error;
-  assign a_49_cfg_smt_wd = reg_wdata[6];
-
-  assign a_49_mux_sel_we = addr_hit[99] & reg_we & !reg_error;
-  assign a_49_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_50_cfg_chip2pad_we = addr_hit[100] & reg_we & !reg_error;
-  assign a_50_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_50_cfg_drv_we = addr_hit[100] & reg_we & !reg_error;
-  assign a_50_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_50_cfg_oen_we = addr_hit[100] & reg_we & !reg_error;
-  assign a_50_cfg_oen_wd = reg_wdata[3];
-
-  assign a_50_cfg_puen_we = addr_hit[100] & reg_we & !reg_error;
-  assign a_50_cfg_puen_wd = reg_wdata[4];
-
-  assign a_50_cfg_slw_we = addr_hit[100] & reg_we & !reg_error;
-  assign a_50_cfg_slw_wd = reg_wdata[5];
-
-  assign a_50_cfg_smt_we = addr_hit[100] & reg_we & !reg_error;
-  assign a_50_cfg_smt_wd = reg_wdata[6];
-
-  assign a_50_mux_sel_we = addr_hit[101] & reg_we & !reg_error;
-  assign a_50_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_51_cfg_chip2pad_we = addr_hit[102] & reg_we & !reg_error;
-  assign a_51_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_51_cfg_drv_we = addr_hit[102] & reg_we & !reg_error;
-  assign a_51_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_51_cfg_oen_we = addr_hit[102] & reg_we & !reg_error;
-  assign a_51_cfg_oen_wd = reg_wdata[3];
-
-  assign a_51_cfg_puen_we = addr_hit[102] & reg_we & !reg_error;
-  assign a_51_cfg_puen_wd = reg_wdata[4];
-
-  assign a_51_cfg_slw_we = addr_hit[102] & reg_we & !reg_error;
-  assign a_51_cfg_slw_wd = reg_wdata[5];
-
-  assign a_51_cfg_smt_we = addr_hit[102] & reg_we & !reg_error;
-  assign a_51_cfg_smt_wd = reg_wdata[6];
-
-  assign a_51_mux_sel_we = addr_hit[103] & reg_we & !reg_error;
-  assign a_51_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_52_cfg_chip2pad_we = addr_hit[104] & reg_we & !reg_error;
-  assign a_52_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_52_cfg_drv_we = addr_hit[104] & reg_we & !reg_error;
-  assign a_52_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_52_cfg_oen_we = addr_hit[104] & reg_we & !reg_error;
-  assign a_52_cfg_oen_wd = reg_wdata[3];
-
-  assign a_52_cfg_puen_we = addr_hit[104] & reg_we & !reg_error;
-  assign a_52_cfg_puen_wd = reg_wdata[4];
-
-  assign a_52_cfg_slw_we = addr_hit[104] & reg_we & !reg_error;
-  assign a_52_cfg_slw_wd = reg_wdata[5];
-
-  assign a_52_cfg_smt_we = addr_hit[104] & reg_we & !reg_error;
-  assign a_52_cfg_smt_wd = reg_wdata[6];
-
-  assign a_52_mux_sel_we = addr_hit[105] & reg_we & !reg_error;
-  assign a_52_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_53_cfg_chip2pad_we = addr_hit[106] & reg_we & !reg_error;
-  assign a_53_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_53_cfg_drv_we = addr_hit[106] & reg_we & !reg_error;
-  assign a_53_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_53_cfg_oen_we = addr_hit[106] & reg_we & !reg_error;
-  assign a_53_cfg_oen_wd = reg_wdata[3];
-
-  assign a_53_cfg_puen_we = addr_hit[106] & reg_we & !reg_error;
-  assign a_53_cfg_puen_wd = reg_wdata[4];
-
-  assign a_53_cfg_slw_we = addr_hit[106] & reg_we & !reg_error;
-  assign a_53_cfg_slw_wd = reg_wdata[5];
-
-  assign a_53_cfg_smt_we = addr_hit[106] & reg_we & !reg_error;
-  assign a_53_cfg_smt_wd = reg_wdata[6];
-
-  assign a_53_mux_sel_we = addr_hit[107] & reg_we & !reg_error;
-  assign a_53_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_54_cfg_chip2pad_we = addr_hit[108] & reg_we & !reg_error;
-  assign a_54_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_54_cfg_drv_we = addr_hit[108] & reg_we & !reg_error;
-  assign a_54_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_54_cfg_oen_we = addr_hit[108] & reg_we & !reg_error;
-  assign a_54_cfg_oen_wd = reg_wdata[3];
-
-  assign a_54_cfg_puen_we = addr_hit[108] & reg_we & !reg_error;
-  assign a_54_cfg_puen_wd = reg_wdata[4];
-
-  assign a_54_cfg_slw_we = addr_hit[108] & reg_we & !reg_error;
-  assign a_54_cfg_slw_wd = reg_wdata[5];
-
-  assign a_54_cfg_smt_we = addr_hit[108] & reg_we & !reg_error;
-  assign a_54_cfg_smt_wd = reg_wdata[6];
-
-  assign a_54_mux_sel_we = addr_hit[109] & reg_we & !reg_error;
-  assign a_54_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_55_cfg_chip2pad_we = addr_hit[110] & reg_we & !reg_error;
-  assign a_55_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_55_cfg_drv_we = addr_hit[110] & reg_we & !reg_error;
-  assign a_55_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_55_cfg_oen_we = addr_hit[110] & reg_we & !reg_error;
-  assign a_55_cfg_oen_wd = reg_wdata[3];
-
-  assign a_55_cfg_puen_we = addr_hit[110] & reg_we & !reg_error;
-  assign a_55_cfg_puen_wd = reg_wdata[4];
-
-  assign a_55_cfg_slw_we = addr_hit[110] & reg_we & !reg_error;
-  assign a_55_cfg_slw_wd = reg_wdata[5];
-
-  assign a_55_cfg_smt_we = addr_hit[110] & reg_we & !reg_error;
-  assign a_55_cfg_smt_wd = reg_wdata[6];
-
-  assign a_55_mux_sel_we = addr_hit[111] & reg_we & !reg_error;
-  assign a_55_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_56_cfg_chip2pad_we = addr_hit[112] & reg_we & !reg_error;
-  assign a_56_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_56_cfg_drv_we = addr_hit[112] & reg_we & !reg_error;
-  assign a_56_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_56_cfg_oen_we = addr_hit[112] & reg_we & !reg_error;
-  assign a_56_cfg_oen_wd = reg_wdata[3];
-
-  assign a_56_cfg_puen_we = addr_hit[112] & reg_we & !reg_error;
-  assign a_56_cfg_puen_wd = reg_wdata[4];
-
-  assign a_56_cfg_slw_we = addr_hit[112] & reg_we & !reg_error;
-  assign a_56_cfg_slw_wd = reg_wdata[5];
-
-  assign a_56_cfg_smt_we = addr_hit[112] & reg_we & !reg_error;
-  assign a_56_cfg_smt_wd = reg_wdata[6];
-
-  assign a_56_mux_sel_we = addr_hit[113] & reg_we & !reg_error;
-  assign a_56_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_57_cfg_chip2pad_we = addr_hit[114] & reg_we & !reg_error;
-  assign a_57_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_57_cfg_drv_we = addr_hit[114] & reg_we & !reg_error;
-  assign a_57_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_57_cfg_oen_we = addr_hit[114] & reg_we & !reg_error;
-  assign a_57_cfg_oen_wd = reg_wdata[3];
-
-  assign a_57_cfg_puen_we = addr_hit[114] & reg_we & !reg_error;
-  assign a_57_cfg_puen_wd = reg_wdata[4];
-
-  assign a_57_cfg_slw_we = addr_hit[114] & reg_we & !reg_error;
-  assign a_57_cfg_slw_wd = reg_wdata[5];
-
-  assign a_57_cfg_smt_we = addr_hit[114] & reg_we & !reg_error;
-  assign a_57_cfg_smt_wd = reg_wdata[6];
-
-  assign a_57_mux_sel_we = addr_hit[115] & reg_we & !reg_error;
-  assign a_57_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_58_cfg_chip2pad_we = addr_hit[116] & reg_we & !reg_error;
-  assign a_58_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_58_cfg_drv_we = addr_hit[116] & reg_we & !reg_error;
-  assign a_58_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_58_cfg_oen_we = addr_hit[116] & reg_we & !reg_error;
-  assign a_58_cfg_oen_wd = reg_wdata[3];
-
-  assign a_58_cfg_puen_we = addr_hit[116] & reg_we & !reg_error;
-  assign a_58_cfg_puen_wd = reg_wdata[4];
-
-  assign a_58_cfg_slw_we = addr_hit[116] & reg_we & !reg_error;
-  assign a_58_cfg_slw_wd = reg_wdata[5];
-
-  assign a_58_cfg_smt_we = addr_hit[116] & reg_we & !reg_error;
-  assign a_58_cfg_smt_wd = reg_wdata[6];
-
-  assign a_58_mux_sel_we = addr_hit[117] & reg_we & !reg_error;
-  assign a_58_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_59_cfg_chip2pad_we = addr_hit[118] & reg_we & !reg_error;
-  assign a_59_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_59_cfg_drv_we = addr_hit[118] & reg_we & !reg_error;
-  assign a_59_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_59_cfg_oen_we = addr_hit[118] & reg_we & !reg_error;
-  assign a_59_cfg_oen_wd = reg_wdata[3];
-
-  assign a_59_cfg_puen_we = addr_hit[118] & reg_we & !reg_error;
-  assign a_59_cfg_puen_wd = reg_wdata[4];
-
-  assign a_59_cfg_slw_we = addr_hit[118] & reg_we & !reg_error;
-  assign a_59_cfg_slw_wd = reg_wdata[5];
-
-  assign a_59_cfg_smt_we = addr_hit[118] & reg_we & !reg_error;
-  assign a_59_cfg_smt_wd = reg_wdata[6];
-
-  assign a_59_mux_sel_we = addr_hit[119] & reg_we & !reg_error;
-  assign a_59_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_60_cfg_chip2pad_we = addr_hit[120] & reg_we & !reg_error;
-  assign a_60_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_60_cfg_drv_we = addr_hit[120] & reg_we & !reg_error;
-  assign a_60_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_60_cfg_oen_we = addr_hit[120] & reg_we & !reg_error;
-  assign a_60_cfg_oen_wd = reg_wdata[3];
-
-  assign a_60_cfg_puen_we = addr_hit[120] & reg_we & !reg_error;
-  assign a_60_cfg_puen_wd = reg_wdata[4];
-
-  assign a_60_cfg_slw_we = addr_hit[120] & reg_we & !reg_error;
-  assign a_60_cfg_slw_wd = reg_wdata[5];
-
-  assign a_60_cfg_smt_we = addr_hit[120] & reg_we & !reg_error;
-  assign a_60_cfg_smt_wd = reg_wdata[6];
-
-  assign a_60_mux_sel_we = addr_hit[121] & reg_we & !reg_error;
-  assign a_60_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_61_cfg_chip2pad_we = addr_hit[122] & reg_we & !reg_error;
-  assign a_61_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_61_cfg_drv_we = addr_hit[122] & reg_we & !reg_error;
-  assign a_61_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_61_cfg_oen_we = addr_hit[122] & reg_we & !reg_error;
-  assign a_61_cfg_oen_wd = reg_wdata[3];
-
-  assign a_61_cfg_puen_we = addr_hit[122] & reg_we & !reg_error;
-  assign a_61_cfg_puen_wd = reg_wdata[4];
-
-  assign a_61_cfg_slw_we = addr_hit[122] & reg_we & !reg_error;
-  assign a_61_cfg_slw_wd = reg_wdata[5];
-
-  assign a_61_cfg_smt_we = addr_hit[122] & reg_we & !reg_error;
-  assign a_61_cfg_smt_wd = reg_wdata[6];
-
-  assign a_61_mux_sel_we = addr_hit[123] & reg_we & !reg_error;
-  assign a_61_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_62_cfg_chip2pad_we = addr_hit[124] & reg_we & !reg_error;
-  assign a_62_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_62_cfg_drv_we = addr_hit[124] & reg_we & !reg_error;
-  assign a_62_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_62_cfg_oen_we = addr_hit[124] & reg_we & !reg_error;
-  assign a_62_cfg_oen_wd = reg_wdata[3];
-
-  assign a_62_cfg_puen_we = addr_hit[124] & reg_we & !reg_error;
-  assign a_62_cfg_puen_wd = reg_wdata[4];
-
-  assign a_62_cfg_slw_we = addr_hit[124] & reg_we & !reg_error;
-  assign a_62_cfg_slw_wd = reg_wdata[5];
-
-  assign a_62_cfg_smt_we = addr_hit[124] & reg_we & !reg_error;
-  assign a_62_cfg_smt_wd = reg_wdata[6];
-
-  assign a_62_mux_sel_we = addr_hit[125] & reg_we & !reg_error;
-  assign a_62_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_63_cfg_chip2pad_we = addr_hit[126] & reg_we & !reg_error;
-  assign a_63_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_63_cfg_drv_we = addr_hit[126] & reg_we & !reg_error;
-  assign a_63_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_63_cfg_oen_we = addr_hit[126] & reg_we & !reg_error;
-  assign a_63_cfg_oen_wd = reg_wdata[3];
-
-  assign a_63_cfg_puen_we = addr_hit[126] & reg_we & !reg_error;
-  assign a_63_cfg_puen_wd = reg_wdata[4];
-
-  assign a_63_cfg_slw_we = addr_hit[126] & reg_we & !reg_error;
-  assign a_63_cfg_slw_wd = reg_wdata[5];
-
-  assign a_63_cfg_smt_we = addr_hit[126] & reg_we & !reg_error;
-  assign a_63_cfg_smt_wd = reg_wdata[6];
-
-  assign a_63_mux_sel_we = addr_hit[127] & reg_we & !reg_error;
-  assign a_63_mux_sel_wd = reg_wdata[0];
-
-  assign a_64_cfg_chip2pad_we = addr_hit[128] & reg_we & !reg_error;
-  assign a_64_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_64_cfg_drv_we = addr_hit[128] & reg_we & !reg_error;
-  assign a_64_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_64_cfg_oen_we = addr_hit[128] & reg_we & !reg_error;
-  assign a_64_cfg_oen_wd = reg_wdata[3];
-
-  assign a_64_cfg_puen_we = addr_hit[128] & reg_we & !reg_error;
-  assign a_64_cfg_puen_wd = reg_wdata[4];
-
-  assign a_64_cfg_slw_we = addr_hit[128] & reg_we & !reg_error;
-  assign a_64_cfg_slw_wd = reg_wdata[5];
-
-  assign a_64_cfg_smt_we = addr_hit[128] & reg_we & !reg_error;
-  assign a_64_cfg_smt_wd = reg_wdata[6];
-
-  assign a_64_mux_sel_we = addr_hit[129] & reg_we & !reg_error;
-  assign a_64_mux_sel_wd = reg_wdata[0];
-
-  assign a_65_cfg_chip2pad_we = addr_hit[130] & reg_we & !reg_error;
-  assign a_65_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_65_cfg_drv_we = addr_hit[130] & reg_we & !reg_error;
-  assign a_65_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_65_cfg_oen_we = addr_hit[130] & reg_we & !reg_error;
-  assign a_65_cfg_oen_wd = reg_wdata[3];
-
-  assign a_65_cfg_puen_we = addr_hit[130] & reg_we & !reg_error;
-  assign a_65_cfg_puen_wd = reg_wdata[4];
-
-  assign a_65_cfg_slw_we = addr_hit[130] & reg_we & !reg_error;
-  assign a_65_cfg_slw_wd = reg_wdata[5];
-
-  assign a_65_cfg_smt_we = addr_hit[130] & reg_we & !reg_error;
-  assign a_65_cfg_smt_wd = reg_wdata[6];
-
-  assign a_65_mux_sel_we = addr_hit[131] & reg_we & !reg_error;
-  assign a_65_mux_sel_wd = reg_wdata[0];
-
-  assign a_66_cfg_chip2pad_we = addr_hit[132] & reg_we & !reg_error;
-  assign a_66_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_66_cfg_drv_we = addr_hit[132] & reg_we & !reg_error;
-  assign a_66_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_66_cfg_oen_we = addr_hit[132] & reg_we & !reg_error;
-  assign a_66_cfg_oen_wd = reg_wdata[3];
-
-  assign a_66_cfg_puen_we = addr_hit[132] & reg_we & !reg_error;
-  assign a_66_cfg_puen_wd = reg_wdata[4];
-
-  assign a_66_cfg_slw_we = addr_hit[132] & reg_we & !reg_error;
-  assign a_66_cfg_slw_wd = reg_wdata[5];
-
-  assign a_66_cfg_smt_we = addr_hit[132] & reg_we & !reg_error;
-  assign a_66_cfg_smt_wd = reg_wdata[6];
-
-  assign a_66_mux_sel_we = addr_hit[133] & reg_we & !reg_error;
-  assign a_66_mux_sel_wd = reg_wdata[0];
-
-  assign a_67_cfg_chip2pad_we = addr_hit[134] & reg_we & !reg_error;
-  assign a_67_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_67_cfg_drv_we = addr_hit[134] & reg_we & !reg_error;
-  assign a_67_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_67_cfg_oen_we = addr_hit[134] & reg_we & !reg_error;
-  assign a_67_cfg_oen_wd = reg_wdata[3];
-
-  assign a_67_cfg_puen_we = addr_hit[134] & reg_we & !reg_error;
-  assign a_67_cfg_puen_wd = reg_wdata[4];
-
-  assign a_67_cfg_slw_we = addr_hit[134] & reg_we & !reg_error;
-  assign a_67_cfg_slw_wd = reg_wdata[5];
-
-  assign a_67_cfg_smt_we = addr_hit[134] & reg_we & !reg_error;
-  assign a_67_cfg_smt_wd = reg_wdata[6];
-
-  assign a_67_mux_sel_we = addr_hit[135] & reg_we & !reg_error;
-  assign a_67_mux_sel_wd = reg_wdata[0];
-
-  assign a_68_cfg_chip2pad_we = addr_hit[136] & reg_we & !reg_error;
-  assign a_68_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_68_cfg_drv_we = addr_hit[136] & reg_we & !reg_error;
-  assign a_68_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_68_cfg_oen_we = addr_hit[136] & reg_we & !reg_error;
-  assign a_68_cfg_oen_wd = reg_wdata[3];
-
-  assign a_68_cfg_puen_we = addr_hit[136] & reg_we & !reg_error;
-  assign a_68_cfg_puen_wd = reg_wdata[4];
-
-  assign a_68_cfg_slw_we = addr_hit[136] & reg_we & !reg_error;
-  assign a_68_cfg_slw_wd = reg_wdata[5];
-
-  assign a_68_cfg_smt_we = addr_hit[136] & reg_we & !reg_error;
-  assign a_68_cfg_smt_wd = reg_wdata[6];
-
-  assign a_68_mux_sel_we = addr_hit[137] & reg_we & !reg_error;
-  assign a_68_mux_sel_wd = reg_wdata[0];
-
-  assign a_69_cfg_chip2pad_we = addr_hit[138] & reg_we & !reg_error;
-  assign a_69_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_69_cfg_drv_we = addr_hit[138] & reg_we & !reg_error;
-  assign a_69_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_69_cfg_oen_we = addr_hit[138] & reg_we & !reg_error;
-  assign a_69_cfg_oen_wd = reg_wdata[3];
-
-  assign a_69_cfg_puen_we = addr_hit[138] & reg_we & !reg_error;
-  assign a_69_cfg_puen_wd = reg_wdata[4];
-
-  assign a_69_cfg_slw_we = addr_hit[138] & reg_we & !reg_error;
-  assign a_69_cfg_slw_wd = reg_wdata[5];
-
-  assign a_69_cfg_smt_we = addr_hit[138] & reg_we & !reg_error;
-  assign a_69_cfg_smt_wd = reg_wdata[6];
-
-  assign a_69_mux_sel_we = addr_hit[139] & reg_we & !reg_error;
-  assign a_69_mux_sel_wd = reg_wdata[0];
-
-  assign a_70_cfg_chip2pad_we = addr_hit[140] & reg_we & !reg_error;
-  assign a_70_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_70_cfg_drv_we = addr_hit[140] & reg_we & !reg_error;
-  assign a_70_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_70_cfg_oen_we = addr_hit[140] & reg_we & !reg_error;
-  assign a_70_cfg_oen_wd = reg_wdata[3];
-
-  assign a_70_cfg_puen_we = addr_hit[140] & reg_we & !reg_error;
-  assign a_70_cfg_puen_wd = reg_wdata[4];
-
-  assign a_70_cfg_slw_we = addr_hit[140] & reg_we & !reg_error;
-  assign a_70_cfg_slw_wd = reg_wdata[5];
-
-  assign a_70_cfg_smt_we = addr_hit[140] & reg_we & !reg_error;
-  assign a_70_cfg_smt_wd = reg_wdata[6];
-
-  assign a_70_mux_sel_we = addr_hit[141] & reg_we & !reg_error;
-  assign a_70_mux_sel_wd = reg_wdata[0];
-
-  assign a_71_cfg_chip2pad_we = addr_hit[142] & reg_we & !reg_error;
-  assign a_71_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_71_cfg_drv_we = addr_hit[142] & reg_we & !reg_error;
-  assign a_71_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_71_cfg_oen_we = addr_hit[142] & reg_we & !reg_error;
-  assign a_71_cfg_oen_wd = reg_wdata[3];
-
-  assign a_71_cfg_puen_we = addr_hit[142] & reg_we & !reg_error;
-  assign a_71_cfg_puen_wd = reg_wdata[4];
-
-  assign a_71_cfg_slw_we = addr_hit[142] & reg_we & !reg_error;
-  assign a_71_cfg_slw_wd = reg_wdata[5];
-
-  assign a_71_cfg_smt_we = addr_hit[142] & reg_we & !reg_error;
-  assign a_71_cfg_smt_wd = reg_wdata[6];
-
-  assign a_71_mux_sel_we = addr_hit[143] & reg_we & !reg_error;
-  assign a_71_mux_sel_wd = reg_wdata[0];
-
-  assign a_72_cfg_chip2pad_we = addr_hit[144] & reg_we & !reg_error;
-  assign a_72_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_72_cfg_drv_we = addr_hit[144] & reg_we & !reg_error;
-  assign a_72_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_72_cfg_oen_we = addr_hit[144] & reg_we & !reg_error;
-  assign a_72_cfg_oen_wd = reg_wdata[3];
-
-  assign a_72_cfg_puen_we = addr_hit[144] & reg_we & !reg_error;
-  assign a_72_cfg_puen_wd = reg_wdata[4];
-
-  assign a_72_cfg_slw_we = addr_hit[144] & reg_we & !reg_error;
-  assign a_72_cfg_slw_wd = reg_wdata[5];
-
-  assign a_72_cfg_smt_we = addr_hit[144] & reg_we & !reg_error;
-  assign a_72_cfg_smt_wd = reg_wdata[6];
-
-  assign a_72_mux_sel_we = addr_hit[145] & reg_we & !reg_error;
-  assign a_72_mux_sel_wd = reg_wdata[0];
-
-  assign a_73_cfg_chip2pad_we = addr_hit[146] & reg_we & !reg_error;
-  assign a_73_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_73_cfg_drv_we = addr_hit[146] & reg_we & !reg_error;
-  assign a_73_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_73_cfg_oen_we = addr_hit[146] & reg_we & !reg_error;
-  assign a_73_cfg_oen_wd = reg_wdata[3];
-
-  assign a_73_cfg_puen_we = addr_hit[146] & reg_we & !reg_error;
-  assign a_73_cfg_puen_wd = reg_wdata[4];
-
-  assign a_73_cfg_slw_we = addr_hit[146] & reg_we & !reg_error;
-  assign a_73_cfg_slw_wd = reg_wdata[5];
-
-  assign a_73_cfg_smt_we = addr_hit[146] & reg_we & !reg_error;
-  assign a_73_cfg_smt_wd = reg_wdata[6];
-
-  assign a_73_mux_sel_we = addr_hit[147] & reg_we & !reg_error;
-  assign a_73_mux_sel_wd = reg_wdata[0];
-
-  assign a_74_cfg_chip2pad_we = addr_hit[148] & reg_we & !reg_error;
-  assign a_74_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_74_cfg_drv_we = addr_hit[148] & reg_we & !reg_error;
-  assign a_74_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_74_cfg_oen_we = addr_hit[148] & reg_we & !reg_error;
-  assign a_74_cfg_oen_wd = reg_wdata[3];
-
-  assign a_74_cfg_puen_we = addr_hit[148] & reg_we & !reg_error;
-  assign a_74_cfg_puen_wd = reg_wdata[4];
-
-  assign a_74_cfg_slw_we = addr_hit[148] & reg_we & !reg_error;
-  assign a_74_cfg_slw_wd = reg_wdata[5];
-
-  assign a_74_cfg_smt_we = addr_hit[148] & reg_we & !reg_error;
-  assign a_74_cfg_smt_wd = reg_wdata[6];
-
-  assign a_74_mux_sel_we = addr_hit[149] & reg_we & !reg_error;
-  assign a_74_mux_sel_wd = reg_wdata[0];
-
-  assign a_75_cfg_chip2pad_we = addr_hit[150] & reg_we & !reg_error;
-  assign a_75_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_75_cfg_drv_we = addr_hit[150] & reg_we & !reg_error;
-  assign a_75_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_75_cfg_oen_we = addr_hit[150] & reg_we & !reg_error;
-  assign a_75_cfg_oen_wd = reg_wdata[3];
-
-  assign a_75_cfg_puen_we = addr_hit[150] & reg_we & !reg_error;
-  assign a_75_cfg_puen_wd = reg_wdata[4];
-
-  assign a_75_cfg_slw_we = addr_hit[150] & reg_we & !reg_error;
-  assign a_75_cfg_slw_wd = reg_wdata[5];
-
-  assign a_75_cfg_smt_we = addr_hit[150] & reg_we & !reg_error;
-  assign a_75_cfg_smt_wd = reg_wdata[6];
-
-  assign a_75_mux_sel_we = addr_hit[151] & reg_we & !reg_error;
-  assign a_75_mux_sel_wd = reg_wdata[0];
-
-  assign a_76_cfg_chip2pad_we = addr_hit[152] & reg_we & !reg_error;
-  assign a_76_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_76_cfg_drv_we = addr_hit[152] & reg_we & !reg_error;
-  assign a_76_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_76_cfg_oen_we = addr_hit[152] & reg_we & !reg_error;
-  assign a_76_cfg_oen_wd = reg_wdata[3];
-
-  assign a_76_cfg_puen_we = addr_hit[152] & reg_we & !reg_error;
-  assign a_76_cfg_puen_wd = reg_wdata[4];
-
-  assign a_76_cfg_slw_we = addr_hit[152] & reg_we & !reg_error;
-  assign a_76_cfg_slw_wd = reg_wdata[5];
-
-  assign a_76_cfg_smt_we = addr_hit[152] & reg_we & !reg_error;
-  assign a_76_cfg_smt_wd = reg_wdata[6];
-
-  assign a_76_mux_sel_we = addr_hit[153] & reg_we & !reg_error;
-  assign a_76_mux_sel_wd = reg_wdata[0];
-
-  assign a_77_cfg_chip2pad_we = addr_hit[154] & reg_we & !reg_error;
-  assign a_77_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_77_cfg_drv_we = addr_hit[154] & reg_we & !reg_error;
-  assign a_77_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_77_cfg_oen_we = addr_hit[154] & reg_we & !reg_error;
-  assign a_77_cfg_oen_wd = reg_wdata[3];
-
-  assign a_77_cfg_puen_we = addr_hit[154] & reg_we & !reg_error;
-  assign a_77_cfg_puen_wd = reg_wdata[4];
-
-  assign a_77_cfg_slw_we = addr_hit[154] & reg_we & !reg_error;
-  assign a_77_cfg_slw_wd = reg_wdata[5];
-
-  assign a_77_cfg_smt_we = addr_hit[154] & reg_we & !reg_error;
-  assign a_77_cfg_smt_wd = reg_wdata[6];
-
-  assign a_77_mux_sel_we = addr_hit[155] & reg_we & !reg_error;
-  assign a_77_mux_sel_wd = reg_wdata[0];
-
-  assign a_78_cfg_chip2pad_we = addr_hit[156] & reg_we & !reg_error;
-  assign a_78_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_78_cfg_drv_we = addr_hit[156] & reg_we & !reg_error;
-  assign a_78_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_78_cfg_oen_we = addr_hit[156] & reg_we & !reg_error;
-  assign a_78_cfg_oen_wd = reg_wdata[3];
-
-  assign a_78_cfg_puen_we = addr_hit[156] & reg_we & !reg_error;
-  assign a_78_cfg_puen_wd = reg_wdata[4];
-
-  assign a_78_cfg_slw_we = addr_hit[156] & reg_we & !reg_error;
-  assign a_78_cfg_slw_wd = reg_wdata[5];
-
-  assign a_78_cfg_smt_we = addr_hit[156] & reg_we & !reg_error;
-  assign a_78_cfg_smt_wd = reg_wdata[6];
-
-  assign a_78_mux_sel_we = addr_hit[157] & reg_we & !reg_error;
-  assign a_78_mux_sel_wd = reg_wdata[0];
-
-  assign a_79_cfg_chip2pad_we = addr_hit[158] & reg_we & !reg_error;
-  assign a_79_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_79_cfg_drv_we = addr_hit[158] & reg_we & !reg_error;
-  assign a_79_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_79_cfg_oen_we = addr_hit[158] & reg_we & !reg_error;
-  assign a_79_cfg_oen_wd = reg_wdata[3];
-
-  assign a_79_cfg_puen_we = addr_hit[158] & reg_we & !reg_error;
-  assign a_79_cfg_puen_wd = reg_wdata[4];
-
-  assign a_79_cfg_slw_we = addr_hit[158] & reg_we & !reg_error;
-  assign a_79_cfg_slw_wd = reg_wdata[5];
-
-  assign a_79_cfg_smt_we = addr_hit[158] & reg_we & !reg_error;
-  assign a_79_cfg_smt_wd = reg_wdata[6];
-
-  assign a_79_mux_sel_we = addr_hit[159] & reg_we & !reg_error;
-  assign a_79_mux_sel_wd = reg_wdata[0];
-
-  assign a_80_cfg_chip2pad_we = addr_hit[160] & reg_we & !reg_error;
-  assign a_80_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_80_cfg_drv_we = addr_hit[160] & reg_we & !reg_error;
-  assign a_80_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_80_cfg_oen_we = addr_hit[160] & reg_we & !reg_error;
-  assign a_80_cfg_oen_wd = reg_wdata[3];
-
-  assign a_80_cfg_puen_we = addr_hit[160] & reg_we & !reg_error;
-  assign a_80_cfg_puen_wd = reg_wdata[4];
-
-  assign a_80_cfg_slw_we = addr_hit[160] & reg_we & !reg_error;
-  assign a_80_cfg_slw_wd = reg_wdata[5];
-
-  assign a_80_cfg_smt_we = addr_hit[160] & reg_we & !reg_error;
-  assign a_80_cfg_smt_wd = reg_wdata[6];
-
-  assign a_80_mux_sel_we = addr_hit[161] & reg_we & !reg_error;
-  assign a_80_mux_sel_wd = reg_wdata[0];
-
-  assign a_81_cfg_chip2pad_we = addr_hit[162] & reg_we & !reg_error;
-  assign a_81_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_81_cfg_drv_we = addr_hit[162] & reg_we & !reg_error;
-  assign a_81_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_81_cfg_oen_we = addr_hit[162] & reg_we & !reg_error;
-  assign a_81_cfg_oen_wd = reg_wdata[3];
-
-  assign a_81_cfg_puen_we = addr_hit[162] & reg_we & !reg_error;
-  assign a_81_cfg_puen_wd = reg_wdata[4];
-
-  assign a_81_cfg_slw_we = addr_hit[162] & reg_we & !reg_error;
-  assign a_81_cfg_slw_wd = reg_wdata[5];
-
-  assign a_81_cfg_smt_we = addr_hit[162] & reg_we & !reg_error;
-  assign a_81_cfg_smt_wd = reg_wdata[6];
-
-  assign a_81_mux_sel_we = addr_hit[163] & reg_we & !reg_error;
-  assign a_81_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_82_cfg_chip2pad_we = addr_hit[164] & reg_we & !reg_error;
-  assign a_82_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_82_cfg_drv_we = addr_hit[164] & reg_we & !reg_error;
-  assign a_82_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_82_cfg_oen_we = addr_hit[164] & reg_we & !reg_error;
-  assign a_82_cfg_oen_wd = reg_wdata[3];
-
-  assign a_82_cfg_puen_we = addr_hit[164] & reg_we & !reg_error;
-  assign a_82_cfg_puen_wd = reg_wdata[4];
-
-  assign a_82_cfg_slw_we = addr_hit[164] & reg_we & !reg_error;
-  assign a_82_cfg_slw_wd = reg_wdata[5];
-
-  assign a_82_cfg_smt_we = addr_hit[164] & reg_we & !reg_error;
-  assign a_82_cfg_smt_wd = reg_wdata[6];
-
-  assign a_82_mux_sel_we = addr_hit[165] & reg_we & !reg_error;
-  assign a_82_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_83_cfg_chip2pad_we = addr_hit[166] & reg_we & !reg_error;
-  assign a_83_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_83_cfg_drv_we = addr_hit[166] & reg_we & !reg_error;
-  assign a_83_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_83_cfg_oen_we = addr_hit[166] & reg_we & !reg_error;
-  assign a_83_cfg_oen_wd = reg_wdata[3];
-
-  assign a_83_cfg_puen_we = addr_hit[166] & reg_we & !reg_error;
-  assign a_83_cfg_puen_wd = reg_wdata[4];
-
-  assign a_83_cfg_slw_we = addr_hit[166] & reg_we & !reg_error;
-  assign a_83_cfg_slw_wd = reg_wdata[5];
-
-  assign a_83_cfg_smt_we = addr_hit[166] & reg_we & !reg_error;
-  assign a_83_cfg_smt_wd = reg_wdata[6];
-
-  assign a_83_mux_sel_we = addr_hit[167] & reg_we & !reg_error;
-  assign a_83_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_84_cfg_chip2pad_we = addr_hit[168] & reg_we & !reg_error;
-  assign a_84_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_84_cfg_drv_we = addr_hit[168] & reg_we & !reg_error;
-  assign a_84_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_84_cfg_oen_we = addr_hit[168] & reg_we & !reg_error;
-  assign a_84_cfg_oen_wd = reg_wdata[3];
-
-  assign a_84_cfg_puen_we = addr_hit[168] & reg_we & !reg_error;
-  assign a_84_cfg_puen_wd = reg_wdata[4];
-
-  assign a_84_cfg_slw_we = addr_hit[168] & reg_we & !reg_error;
-  assign a_84_cfg_slw_wd = reg_wdata[5];
-
-  assign a_84_cfg_smt_we = addr_hit[168] & reg_we & !reg_error;
-  assign a_84_cfg_smt_wd = reg_wdata[6];
-
-  assign a_84_mux_sel_we = addr_hit[169] & reg_we & !reg_error;
-  assign a_84_mux_sel_wd = reg_wdata[1:0];
-
-  assign a_85_cfg_chip2pad_we = addr_hit[170] & reg_we & !reg_error;
-  assign a_85_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_85_cfg_drv_we = addr_hit[170] & reg_we & !reg_error;
-  assign a_85_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_85_cfg_oen_we = addr_hit[170] & reg_we & !reg_error;
-  assign a_85_cfg_oen_wd = reg_wdata[3];
-
-  assign a_85_cfg_puen_we = addr_hit[170] & reg_we & !reg_error;
-  assign a_85_cfg_puen_wd = reg_wdata[4];
-
-  assign a_85_cfg_slw_we = addr_hit[170] & reg_we & !reg_error;
-  assign a_85_cfg_slw_wd = reg_wdata[5];
-
-  assign a_85_cfg_smt_we = addr_hit[170] & reg_we & !reg_error;
-  assign a_85_cfg_smt_wd = reg_wdata[6];
-
-  assign a_85_mux_sel_we = addr_hit[171] & reg_we & !reg_error;
-  assign a_85_mux_sel_wd = reg_wdata[0];
-
-  assign a_86_cfg_chip2pad_we = addr_hit[172] & reg_we & !reg_error;
-  assign a_86_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_86_cfg_drv_we = addr_hit[172] & reg_we & !reg_error;
-  assign a_86_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_86_cfg_oen_we = addr_hit[172] & reg_we & !reg_error;
-  assign a_86_cfg_oen_wd = reg_wdata[3];
-
-  assign a_86_cfg_puen_we = addr_hit[172] & reg_we & !reg_error;
-  assign a_86_cfg_puen_wd = reg_wdata[4];
-
-  assign a_86_cfg_slw_we = addr_hit[172] & reg_we & !reg_error;
-  assign a_86_cfg_slw_wd = reg_wdata[5];
-
-  assign a_86_cfg_smt_we = addr_hit[172] & reg_we & !reg_error;
-  assign a_86_cfg_smt_wd = reg_wdata[6];
-
-  assign a_86_mux_sel_we = addr_hit[173] & reg_we & !reg_error;
-  assign a_86_mux_sel_wd = reg_wdata[0];
-
-  assign a_87_cfg_chip2pad_we = addr_hit[174] & reg_we & !reg_error;
-  assign a_87_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_87_cfg_drv_we = addr_hit[174] & reg_we & !reg_error;
-  assign a_87_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_87_cfg_oen_we = addr_hit[174] & reg_we & !reg_error;
-  assign a_87_cfg_oen_wd = reg_wdata[3];
-
-  assign a_87_cfg_puen_we = addr_hit[174] & reg_we & !reg_error;
-  assign a_87_cfg_puen_wd = reg_wdata[4];
-
-  assign a_87_cfg_slw_we = addr_hit[174] & reg_we & !reg_error;
-  assign a_87_cfg_slw_wd = reg_wdata[5];
-
-  assign a_87_cfg_smt_we = addr_hit[174] & reg_we & !reg_error;
-  assign a_87_cfg_smt_wd = reg_wdata[6];
-
-  assign a_87_mux_sel_we = addr_hit[175] & reg_we & !reg_error;
-  assign a_87_mux_sel_wd = reg_wdata[0];
-
-  assign a_88_cfg_chip2pad_we = addr_hit[176] & reg_we & !reg_error;
-  assign a_88_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_88_cfg_drv_we = addr_hit[176] & reg_we & !reg_error;
-  assign a_88_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_88_cfg_oen_we = addr_hit[176] & reg_we & !reg_error;
-  assign a_88_cfg_oen_wd = reg_wdata[3];
-
-  assign a_88_cfg_puen_we = addr_hit[176] & reg_we & !reg_error;
-  assign a_88_cfg_puen_wd = reg_wdata[4];
-
-  assign a_88_cfg_slw_we = addr_hit[176] & reg_we & !reg_error;
-  assign a_88_cfg_slw_wd = reg_wdata[5];
-
-  assign a_88_cfg_smt_we = addr_hit[176] & reg_we & !reg_error;
-  assign a_88_cfg_smt_wd = reg_wdata[6];
-
-  assign a_88_mux_sel_we = addr_hit[177] & reg_we & !reg_error;
-  assign a_88_mux_sel_wd = reg_wdata[0];
-
-  assign a_89_cfg_chip2pad_we = addr_hit[178] & reg_we & !reg_error;
-  assign a_89_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_89_cfg_drv_we = addr_hit[178] & reg_we & !reg_error;
-  assign a_89_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_89_cfg_oen_we = addr_hit[178] & reg_we & !reg_error;
-  assign a_89_cfg_oen_wd = reg_wdata[3];
-
-  assign a_89_cfg_puen_we = addr_hit[178] & reg_we & !reg_error;
-  assign a_89_cfg_puen_wd = reg_wdata[4];
-
-  assign a_89_cfg_slw_we = addr_hit[178] & reg_we & !reg_error;
-  assign a_89_cfg_slw_wd = reg_wdata[5];
-
-  assign a_89_cfg_smt_we = addr_hit[178] & reg_we & !reg_error;
-  assign a_89_cfg_smt_wd = reg_wdata[6];
-
-  assign a_89_mux_sel_we = addr_hit[179] & reg_we & !reg_error;
-  assign a_89_mux_sel_wd = reg_wdata[0];
-
-  assign a_90_cfg_chip2pad_we = addr_hit[180] & reg_we & !reg_error;
-  assign a_90_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_90_cfg_drv_we = addr_hit[180] & reg_we & !reg_error;
-  assign a_90_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_90_cfg_oen_we = addr_hit[180] & reg_we & !reg_error;
-  assign a_90_cfg_oen_wd = reg_wdata[3];
-
-  assign a_90_cfg_puen_we = addr_hit[180] & reg_we & !reg_error;
-  assign a_90_cfg_puen_wd = reg_wdata[4];
-
-  assign a_90_cfg_slw_we = addr_hit[180] & reg_we & !reg_error;
-  assign a_90_cfg_slw_wd = reg_wdata[5];
-
-  assign a_90_cfg_smt_we = addr_hit[180] & reg_we & !reg_error;
-  assign a_90_cfg_smt_wd = reg_wdata[6];
-
-  assign a_90_mux_sel_we = addr_hit[181] & reg_we & !reg_error;
-  assign a_90_mux_sel_wd = reg_wdata[0];
-
-  assign a_91_cfg_chip2pad_we = addr_hit[182] & reg_we & !reg_error;
-  assign a_91_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_91_cfg_drv_we = addr_hit[182] & reg_we & !reg_error;
-  assign a_91_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_91_cfg_oen_we = addr_hit[182] & reg_we & !reg_error;
-  assign a_91_cfg_oen_wd = reg_wdata[3];
-
-  assign a_91_cfg_puen_we = addr_hit[182] & reg_we & !reg_error;
-  assign a_91_cfg_puen_wd = reg_wdata[4];
-
-  assign a_91_cfg_slw_we = addr_hit[182] & reg_we & !reg_error;
-  assign a_91_cfg_slw_wd = reg_wdata[5];
-
-  assign a_91_cfg_smt_we = addr_hit[182] & reg_we & !reg_error;
-  assign a_91_cfg_smt_wd = reg_wdata[6];
-
-  assign a_91_mux_sel_we = addr_hit[183] & reg_we & !reg_error;
-  assign a_91_mux_sel_wd = reg_wdata[0];
-
-  assign a_92_cfg_chip2pad_we = addr_hit[184] & reg_we & !reg_error;
-  assign a_92_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign a_92_cfg_drv_we = addr_hit[184] & reg_we & !reg_error;
-  assign a_92_cfg_drv_wd = reg_wdata[2:1];
-
-  assign a_92_cfg_oen_we = addr_hit[184] & reg_we & !reg_error;
-  assign a_92_cfg_oen_wd = reg_wdata[3];
-
-  assign a_92_cfg_puen_we = addr_hit[184] & reg_we & !reg_error;
-  assign a_92_cfg_puen_wd = reg_wdata[4];
-
-  assign a_92_cfg_slw_we = addr_hit[184] & reg_we & !reg_error;
-  assign a_92_cfg_slw_wd = reg_wdata[5];
-
-  assign a_92_cfg_smt_we = addr_hit[184] & reg_we & !reg_error;
-  assign a_92_cfg_smt_wd = reg_wdata[6];
-
-  assign a_92_mux_sel_we = addr_hit[185] & reg_we & !reg_error;
-  assign a_92_mux_sel_wd = reg_wdata[0];
-
-  assign b_00_cfg_chip2pad_we = addr_hit[186] & reg_we & !reg_error;
+  assign b_00_cfg_chip2pad_we = addr_hit[60] & reg_we & !reg_error;
   assign b_00_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_00_cfg_drv_we = addr_hit[186] & reg_we & !reg_error;
+  assign b_00_cfg_drv_we = addr_hit[60] & reg_we & !reg_error;
   assign b_00_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_00_cfg_oen_we = addr_hit[186] & reg_we & !reg_error;
+  assign b_00_cfg_oen_we = addr_hit[60] & reg_we & !reg_error;
   assign b_00_cfg_oen_wd = reg_wdata[3];
 
-  assign b_00_cfg_puen_we = addr_hit[186] & reg_we & !reg_error;
+  assign b_00_cfg_puen_we = addr_hit[60] & reg_we & !reg_error;
   assign b_00_cfg_puen_wd = reg_wdata[4];
 
-  assign b_00_cfg_slw_we = addr_hit[186] & reg_we & !reg_error;
+  assign b_00_cfg_slw_we = addr_hit[60] & reg_we & !reg_error;
   assign b_00_cfg_slw_wd = reg_wdata[5];
 
-  assign b_00_cfg_smt_we = addr_hit[186] & reg_we & !reg_error;
+  assign b_00_cfg_smt_we = addr_hit[60] & reg_we & !reg_error;
   assign b_00_cfg_smt_wd = reg_wdata[6];
 
-  assign b_00_mux_sel_we = addr_hit[187] & reg_we & !reg_error;
-  assign b_00_mux_sel_wd = reg_wdata[0];
+  assign b_00_mux_sel_we = addr_hit[61] & reg_we & !reg_error;
+  assign b_00_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_01_cfg_chip2pad_we = addr_hit[188] & reg_we & !reg_error;
+  assign b_01_cfg_chip2pad_we = addr_hit[62] & reg_we & !reg_error;
   assign b_01_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_01_cfg_drv_we = addr_hit[188] & reg_we & !reg_error;
+  assign b_01_cfg_drv_we = addr_hit[62] & reg_we & !reg_error;
   assign b_01_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_01_cfg_oen_we = addr_hit[188] & reg_we & !reg_error;
+  assign b_01_cfg_oen_we = addr_hit[62] & reg_we & !reg_error;
   assign b_01_cfg_oen_wd = reg_wdata[3];
 
-  assign b_01_cfg_puen_we = addr_hit[188] & reg_we & !reg_error;
+  assign b_01_cfg_puen_we = addr_hit[62] & reg_we & !reg_error;
   assign b_01_cfg_puen_wd = reg_wdata[4];
 
-  assign b_01_cfg_slw_we = addr_hit[188] & reg_we & !reg_error;
+  assign b_01_cfg_slw_we = addr_hit[62] & reg_we & !reg_error;
   assign b_01_cfg_slw_wd = reg_wdata[5];
 
-  assign b_01_cfg_smt_we = addr_hit[188] & reg_we & !reg_error;
+  assign b_01_cfg_smt_we = addr_hit[62] & reg_we & !reg_error;
   assign b_01_cfg_smt_wd = reg_wdata[6];
 
-  assign b_01_mux_sel_we = addr_hit[189] & reg_we & !reg_error;
-  assign b_01_mux_sel_wd = reg_wdata[0];
+  assign b_01_mux_sel_we = addr_hit[63] & reg_we & !reg_error;
+  assign b_01_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_02_cfg_chip2pad_we = addr_hit[190] & reg_we & !reg_error;
+  assign b_02_cfg_chip2pad_we = addr_hit[64] & reg_we & !reg_error;
   assign b_02_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_02_cfg_drv_we = addr_hit[190] & reg_we & !reg_error;
+  assign b_02_cfg_drv_we = addr_hit[64] & reg_we & !reg_error;
   assign b_02_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_02_cfg_oen_we = addr_hit[190] & reg_we & !reg_error;
+  assign b_02_cfg_oen_we = addr_hit[64] & reg_we & !reg_error;
   assign b_02_cfg_oen_wd = reg_wdata[3];
 
-  assign b_02_cfg_puen_we = addr_hit[190] & reg_we & !reg_error;
+  assign b_02_cfg_puen_we = addr_hit[64] & reg_we & !reg_error;
   assign b_02_cfg_puen_wd = reg_wdata[4];
 
-  assign b_02_cfg_slw_we = addr_hit[190] & reg_we & !reg_error;
+  assign b_02_cfg_slw_we = addr_hit[64] & reg_we & !reg_error;
   assign b_02_cfg_slw_wd = reg_wdata[5];
 
-  assign b_02_cfg_smt_we = addr_hit[190] & reg_we & !reg_error;
+  assign b_02_cfg_smt_we = addr_hit[64] & reg_we & !reg_error;
   assign b_02_cfg_smt_wd = reg_wdata[6];
 
-  assign b_02_mux_sel_we = addr_hit[191] & reg_we & !reg_error;
-  assign b_02_mux_sel_wd = reg_wdata[0];
+  assign b_02_mux_sel_we = addr_hit[65] & reg_we & !reg_error;
+  assign b_02_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_03_cfg_chip2pad_we = addr_hit[192] & reg_we & !reg_error;
+  assign b_03_cfg_chip2pad_we = addr_hit[66] & reg_we & !reg_error;
   assign b_03_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_03_cfg_drv_we = addr_hit[192] & reg_we & !reg_error;
+  assign b_03_cfg_drv_we = addr_hit[66] & reg_we & !reg_error;
   assign b_03_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_03_cfg_oen_we = addr_hit[192] & reg_we & !reg_error;
+  assign b_03_cfg_oen_we = addr_hit[66] & reg_we & !reg_error;
   assign b_03_cfg_oen_wd = reg_wdata[3];
 
-  assign b_03_cfg_puen_we = addr_hit[192] & reg_we & !reg_error;
+  assign b_03_cfg_puen_we = addr_hit[66] & reg_we & !reg_error;
   assign b_03_cfg_puen_wd = reg_wdata[4];
 
-  assign b_03_cfg_slw_we = addr_hit[192] & reg_we & !reg_error;
+  assign b_03_cfg_slw_we = addr_hit[66] & reg_we & !reg_error;
   assign b_03_cfg_slw_wd = reg_wdata[5];
 
-  assign b_03_cfg_smt_we = addr_hit[192] & reg_we & !reg_error;
+  assign b_03_cfg_smt_we = addr_hit[66] & reg_we & !reg_error;
   assign b_03_cfg_smt_wd = reg_wdata[6];
 
-  assign b_03_mux_sel_we = addr_hit[193] & reg_we & !reg_error;
-  assign b_03_mux_sel_wd = reg_wdata[0];
+  assign b_03_mux_sel_we = addr_hit[67] & reg_we & !reg_error;
+  assign b_03_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_04_cfg_chip2pad_we = addr_hit[194] & reg_we & !reg_error;
+  assign b_04_cfg_chip2pad_we = addr_hit[68] & reg_we & !reg_error;
   assign b_04_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_04_cfg_drv_we = addr_hit[194] & reg_we & !reg_error;
+  assign b_04_cfg_drv_we = addr_hit[68] & reg_we & !reg_error;
   assign b_04_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_04_cfg_oen_we = addr_hit[194] & reg_we & !reg_error;
+  assign b_04_cfg_oen_we = addr_hit[68] & reg_we & !reg_error;
   assign b_04_cfg_oen_wd = reg_wdata[3];
 
-  assign b_04_cfg_puen_we = addr_hit[194] & reg_we & !reg_error;
+  assign b_04_cfg_puen_we = addr_hit[68] & reg_we & !reg_error;
   assign b_04_cfg_puen_wd = reg_wdata[4];
 
-  assign b_04_cfg_slw_we = addr_hit[194] & reg_we & !reg_error;
+  assign b_04_cfg_slw_we = addr_hit[68] & reg_we & !reg_error;
   assign b_04_cfg_slw_wd = reg_wdata[5];
 
-  assign b_04_cfg_smt_we = addr_hit[194] & reg_we & !reg_error;
+  assign b_04_cfg_smt_we = addr_hit[68] & reg_we & !reg_error;
   assign b_04_cfg_smt_wd = reg_wdata[6];
 
-  assign b_04_mux_sel_we = addr_hit[195] & reg_we & !reg_error;
-  assign b_04_mux_sel_wd = reg_wdata[0];
+  assign b_04_mux_sel_we = addr_hit[69] & reg_we & !reg_error;
+  assign b_04_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_05_cfg_chip2pad_we = addr_hit[196] & reg_we & !reg_error;
+  assign b_05_cfg_chip2pad_we = addr_hit[70] & reg_we & !reg_error;
   assign b_05_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_05_cfg_drv_we = addr_hit[196] & reg_we & !reg_error;
+  assign b_05_cfg_drv_we = addr_hit[70] & reg_we & !reg_error;
   assign b_05_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_05_cfg_oen_we = addr_hit[196] & reg_we & !reg_error;
+  assign b_05_cfg_oen_we = addr_hit[70] & reg_we & !reg_error;
   assign b_05_cfg_oen_wd = reg_wdata[3];
 
-  assign b_05_cfg_puen_we = addr_hit[196] & reg_we & !reg_error;
+  assign b_05_cfg_puen_we = addr_hit[70] & reg_we & !reg_error;
   assign b_05_cfg_puen_wd = reg_wdata[4];
 
-  assign b_05_cfg_slw_we = addr_hit[196] & reg_we & !reg_error;
+  assign b_05_cfg_slw_we = addr_hit[70] & reg_we & !reg_error;
   assign b_05_cfg_slw_wd = reg_wdata[5];
 
-  assign b_05_cfg_smt_we = addr_hit[196] & reg_we & !reg_error;
+  assign b_05_cfg_smt_we = addr_hit[70] & reg_we & !reg_error;
   assign b_05_cfg_smt_wd = reg_wdata[6];
 
-  assign b_05_mux_sel_we = addr_hit[197] & reg_we & !reg_error;
-  assign b_05_mux_sel_wd = reg_wdata[0];
+  assign b_05_mux_sel_we = addr_hit[71] & reg_we & !reg_error;
+  assign b_05_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_06_cfg_chip2pad_we = addr_hit[198] & reg_we & !reg_error;
+  assign b_06_cfg_chip2pad_we = addr_hit[72] & reg_we & !reg_error;
   assign b_06_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_06_cfg_drv_we = addr_hit[198] & reg_we & !reg_error;
+  assign b_06_cfg_drv_we = addr_hit[72] & reg_we & !reg_error;
   assign b_06_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_06_cfg_oen_we = addr_hit[198] & reg_we & !reg_error;
+  assign b_06_cfg_oen_we = addr_hit[72] & reg_we & !reg_error;
   assign b_06_cfg_oen_wd = reg_wdata[3];
 
-  assign b_06_cfg_puen_we = addr_hit[198] & reg_we & !reg_error;
+  assign b_06_cfg_puen_we = addr_hit[72] & reg_we & !reg_error;
   assign b_06_cfg_puen_wd = reg_wdata[4];
 
-  assign b_06_cfg_slw_we = addr_hit[198] & reg_we & !reg_error;
+  assign b_06_cfg_slw_we = addr_hit[72] & reg_we & !reg_error;
   assign b_06_cfg_slw_wd = reg_wdata[5];
 
-  assign b_06_cfg_smt_we = addr_hit[198] & reg_we & !reg_error;
+  assign b_06_cfg_smt_we = addr_hit[72] & reg_we & !reg_error;
   assign b_06_cfg_smt_wd = reg_wdata[6];
 
-  assign b_06_mux_sel_we = addr_hit[199] & reg_we & !reg_error;
-  assign b_06_mux_sel_wd = reg_wdata[0];
+  assign b_06_mux_sel_we = addr_hit[73] & reg_we & !reg_error;
+  assign b_06_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_07_cfg_chip2pad_we = addr_hit[200] & reg_we & !reg_error;
+  assign b_07_cfg_chip2pad_we = addr_hit[74] & reg_we & !reg_error;
   assign b_07_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_07_cfg_drv_we = addr_hit[200] & reg_we & !reg_error;
+  assign b_07_cfg_drv_we = addr_hit[74] & reg_we & !reg_error;
   assign b_07_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_07_cfg_oen_we = addr_hit[200] & reg_we & !reg_error;
+  assign b_07_cfg_oen_we = addr_hit[74] & reg_we & !reg_error;
   assign b_07_cfg_oen_wd = reg_wdata[3];
 
-  assign b_07_cfg_puen_we = addr_hit[200] & reg_we & !reg_error;
+  assign b_07_cfg_puen_we = addr_hit[74] & reg_we & !reg_error;
   assign b_07_cfg_puen_wd = reg_wdata[4];
 
-  assign b_07_cfg_slw_we = addr_hit[200] & reg_we & !reg_error;
+  assign b_07_cfg_slw_we = addr_hit[74] & reg_we & !reg_error;
   assign b_07_cfg_slw_wd = reg_wdata[5];
 
-  assign b_07_cfg_smt_we = addr_hit[200] & reg_we & !reg_error;
+  assign b_07_cfg_smt_we = addr_hit[74] & reg_we & !reg_error;
   assign b_07_cfg_smt_wd = reg_wdata[6];
 
-  assign b_07_mux_sel_we = addr_hit[201] & reg_we & !reg_error;
-  assign b_07_mux_sel_wd = reg_wdata[0];
+  assign b_07_mux_sel_we = addr_hit[75] & reg_we & !reg_error;
+  assign b_07_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_08_cfg_chip2pad_we = addr_hit[202] & reg_we & !reg_error;
+  assign b_08_cfg_chip2pad_we = addr_hit[76] & reg_we & !reg_error;
   assign b_08_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_08_cfg_drv_we = addr_hit[202] & reg_we & !reg_error;
+  assign b_08_cfg_drv_we = addr_hit[76] & reg_we & !reg_error;
   assign b_08_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_08_cfg_oen_we = addr_hit[202] & reg_we & !reg_error;
+  assign b_08_cfg_oen_we = addr_hit[76] & reg_we & !reg_error;
   assign b_08_cfg_oen_wd = reg_wdata[3];
 
-  assign b_08_cfg_puen_we = addr_hit[202] & reg_we & !reg_error;
+  assign b_08_cfg_puen_we = addr_hit[76] & reg_we & !reg_error;
   assign b_08_cfg_puen_wd = reg_wdata[4];
 
-  assign b_08_cfg_slw_we = addr_hit[202] & reg_we & !reg_error;
+  assign b_08_cfg_slw_we = addr_hit[76] & reg_we & !reg_error;
   assign b_08_cfg_slw_wd = reg_wdata[5];
 
-  assign b_08_cfg_smt_we = addr_hit[202] & reg_we & !reg_error;
+  assign b_08_cfg_smt_we = addr_hit[76] & reg_we & !reg_error;
   assign b_08_cfg_smt_wd = reg_wdata[6];
 
-  assign b_08_mux_sel_we = addr_hit[203] & reg_we & !reg_error;
-  assign b_08_mux_sel_wd = reg_wdata[0];
+  assign b_08_mux_sel_we = addr_hit[77] & reg_we & !reg_error;
+  assign b_08_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_09_cfg_chip2pad_we = addr_hit[204] & reg_we & !reg_error;
+  assign b_09_cfg_chip2pad_we = addr_hit[78] & reg_we & !reg_error;
   assign b_09_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_09_cfg_drv_we = addr_hit[204] & reg_we & !reg_error;
+  assign b_09_cfg_drv_we = addr_hit[78] & reg_we & !reg_error;
   assign b_09_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_09_cfg_oen_we = addr_hit[204] & reg_we & !reg_error;
+  assign b_09_cfg_oen_we = addr_hit[78] & reg_we & !reg_error;
   assign b_09_cfg_oen_wd = reg_wdata[3];
 
-  assign b_09_cfg_puen_we = addr_hit[204] & reg_we & !reg_error;
+  assign b_09_cfg_puen_we = addr_hit[78] & reg_we & !reg_error;
   assign b_09_cfg_puen_wd = reg_wdata[4];
 
-  assign b_09_cfg_slw_we = addr_hit[204] & reg_we & !reg_error;
+  assign b_09_cfg_slw_we = addr_hit[78] & reg_we & !reg_error;
   assign b_09_cfg_slw_wd = reg_wdata[5];
 
-  assign b_09_cfg_smt_we = addr_hit[204] & reg_we & !reg_error;
+  assign b_09_cfg_smt_we = addr_hit[78] & reg_we & !reg_error;
   assign b_09_cfg_smt_wd = reg_wdata[6];
 
-  assign b_09_mux_sel_we = addr_hit[205] & reg_we & !reg_error;
-  assign b_09_mux_sel_wd = reg_wdata[0];
+  assign b_09_mux_sel_we = addr_hit[79] & reg_we & !reg_error;
+  assign b_09_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_10_cfg_chip2pad_we = addr_hit[206] & reg_we & !reg_error;
+  assign b_10_cfg_chip2pad_we = addr_hit[80] & reg_we & !reg_error;
   assign b_10_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_10_cfg_drv_we = addr_hit[206] & reg_we & !reg_error;
+  assign b_10_cfg_drv_we = addr_hit[80] & reg_we & !reg_error;
   assign b_10_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_10_cfg_oen_we = addr_hit[206] & reg_we & !reg_error;
+  assign b_10_cfg_oen_we = addr_hit[80] & reg_we & !reg_error;
   assign b_10_cfg_oen_wd = reg_wdata[3];
 
-  assign b_10_cfg_puen_we = addr_hit[206] & reg_we & !reg_error;
+  assign b_10_cfg_puen_we = addr_hit[80] & reg_we & !reg_error;
   assign b_10_cfg_puen_wd = reg_wdata[4];
 
-  assign b_10_cfg_slw_we = addr_hit[206] & reg_we & !reg_error;
+  assign b_10_cfg_slw_we = addr_hit[80] & reg_we & !reg_error;
   assign b_10_cfg_slw_wd = reg_wdata[5];
 
-  assign b_10_cfg_smt_we = addr_hit[206] & reg_we & !reg_error;
+  assign b_10_cfg_smt_we = addr_hit[80] & reg_we & !reg_error;
   assign b_10_cfg_smt_wd = reg_wdata[6];
 
-  assign b_10_mux_sel_we = addr_hit[207] & reg_we & !reg_error;
-  assign b_10_mux_sel_wd = reg_wdata[0];
+  assign b_10_mux_sel_we = addr_hit[81] & reg_we & !reg_error;
+  assign b_10_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_11_cfg_chip2pad_we = addr_hit[208] & reg_we & !reg_error;
+  assign b_11_cfg_chip2pad_we = addr_hit[82] & reg_we & !reg_error;
   assign b_11_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_11_cfg_drv_we = addr_hit[208] & reg_we & !reg_error;
+  assign b_11_cfg_drv_we = addr_hit[82] & reg_we & !reg_error;
   assign b_11_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_11_cfg_oen_we = addr_hit[208] & reg_we & !reg_error;
+  assign b_11_cfg_oen_we = addr_hit[82] & reg_we & !reg_error;
   assign b_11_cfg_oen_wd = reg_wdata[3];
 
-  assign b_11_cfg_puen_we = addr_hit[208] & reg_we & !reg_error;
+  assign b_11_cfg_puen_we = addr_hit[82] & reg_we & !reg_error;
   assign b_11_cfg_puen_wd = reg_wdata[4];
 
-  assign b_11_cfg_slw_we = addr_hit[208] & reg_we & !reg_error;
+  assign b_11_cfg_slw_we = addr_hit[82] & reg_we & !reg_error;
   assign b_11_cfg_slw_wd = reg_wdata[5];
 
-  assign b_11_cfg_smt_we = addr_hit[208] & reg_we & !reg_error;
+  assign b_11_cfg_smt_we = addr_hit[82] & reg_we & !reg_error;
   assign b_11_cfg_smt_wd = reg_wdata[6];
 
-  assign b_11_mux_sel_we = addr_hit[209] & reg_we & !reg_error;
-  assign b_11_mux_sel_wd = reg_wdata[0];
+  assign b_11_mux_sel_we = addr_hit[83] & reg_we & !reg_error;
+  assign b_11_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_12_cfg_chip2pad_we = addr_hit[210] & reg_we & !reg_error;
+  assign b_12_cfg_chip2pad_we = addr_hit[84] & reg_we & !reg_error;
   assign b_12_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_12_cfg_drv_we = addr_hit[210] & reg_we & !reg_error;
+  assign b_12_cfg_drv_we = addr_hit[84] & reg_we & !reg_error;
   assign b_12_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_12_cfg_oen_we = addr_hit[210] & reg_we & !reg_error;
+  assign b_12_cfg_oen_we = addr_hit[84] & reg_we & !reg_error;
   assign b_12_cfg_oen_wd = reg_wdata[3];
 
-  assign b_12_cfg_puen_we = addr_hit[210] & reg_we & !reg_error;
+  assign b_12_cfg_puen_we = addr_hit[84] & reg_we & !reg_error;
   assign b_12_cfg_puen_wd = reg_wdata[4];
 
-  assign b_12_cfg_slw_we = addr_hit[210] & reg_we & !reg_error;
+  assign b_12_cfg_slw_we = addr_hit[84] & reg_we & !reg_error;
   assign b_12_cfg_slw_wd = reg_wdata[5];
 
-  assign b_12_cfg_smt_we = addr_hit[210] & reg_we & !reg_error;
+  assign b_12_cfg_smt_we = addr_hit[84] & reg_we & !reg_error;
   assign b_12_cfg_smt_wd = reg_wdata[6];
 
-  assign b_12_mux_sel_we = addr_hit[211] & reg_we & !reg_error;
-  assign b_12_mux_sel_wd = reg_wdata[0];
+  assign b_12_mux_sel_we = addr_hit[85] & reg_we & !reg_error;
+  assign b_12_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_13_cfg_chip2pad_we = addr_hit[212] & reg_we & !reg_error;
+  assign b_13_cfg_chip2pad_we = addr_hit[86] & reg_we & !reg_error;
   assign b_13_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_13_cfg_drv_we = addr_hit[212] & reg_we & !reg_error;
+  assign b_13_cfg_drv_we = addr_hit[86] & reg_we & !reg_error;
   assign b_13_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_13_cfg_oen_we = addr_hit[212] & reg_we & !reg_error;
+  assign b_13_cfg_oen_we = addr_hit[86] & reg_we & !reg_error;
   assign b_13_cfg_oen_wd = reg_wdata[3];
 
-  assign b_13_cfg_puen_we = addr_hit[212] & reg_we & !reg_error;
+  assign b_13_cfg_puen_we = addr_hit[86] & reg_we & !reg_error;
   assign b_13_cfg_puen_wd = reg_wdata[4];
 
-  assign b_13_cfg_slw_we = addr_hit[212] & reg_we & !reg_error;
+  assign b_13_cfg_slw_we = addr_hit[86] & reg_we & !reg_error;
   assign b_13_cfg_slw_wd = reg_wdata[5];
 
-  assign b_13_cfg_smt_we = addr_hit[212] & reg_we & !reg_error;
+  assign b_13_cfg_smt_we = addr_hit[86] & reg_we & !reg_error;
   assign b_13_cfg_smt_wd = reg_wdata[6];
 
-  assign b_13_mux_sel_we = addr_hit[213] & reg_we & !reg_error;
-  assign b_13_mux_sel_wd = reg_wdata[0];
+  assign b_13_mux_sel_we = addr_hit[87] & reg_we & !reg_error;
+  assign b_13_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_14_cfg_chip2pad_we = addr_hit[214] & reg_we & !reg_error;
+  assign b_14_cfg_chip2pad_we = addr_hit[88] & reg_we & !reg_error;
   assign b_14_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_14_cfg_drv_we = addr_hit[214] & reg_we & !reg_error;
+  assign b_14_cfg_drv_we = addr_hit[88] & reg_we & !reg_error;
   assign b_14_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_14_cfg_oen_we = addr_hit[214] & reg_we & !reg_error;
+  assign b_14_cfg_oen_we = addr_hit[88] & reg_we & !reg_error;
   assign b_14_cfg_oen_wd = reg_wdata[3];
 
-  assign b_14_cfg_puen_we = addr_hit[214] & reg_we & !reg_error;
+  assign b_14_cfg_puen_we = addr_hit[88] & reg_we & !reg_error;
   assign b_14_cfg_puen_wd = reg_wdata[4];
 
-  assign b_14_cfg_slw_we = addr_hit[214] & reg_we & !reg_error;
+  assign b_14_cfg_slw_we = addr_hit[88] & reg_we & !reg_error;
   assign b_14_cfg_slw_wd = reg_wdata[5];
 
-  assign b_14_cfg_smt_we = addr_hit[214] & reg_we & !reg_error;
+  assign b_14_cfg_smt_we = addr_hit[88] & reg_we & !reg_error;
   assign b_14_cfg_smt_wd = reg_wdata[6];
 
-  assign b_14_mux_sel_we = addr_hit[215] & reg_we & !reg_error;
-  assign b_14_mux_sel_wd = reg_wdata[0];
+  assign b_14_mux_sel_we = addr_hit[89] & reg_we & !reg_error;
+  assign b_14_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_15_cfg_chip2pad_we = addr_hit[216] & reg_we & !reg_error;
+  assign b_15_cfg_chip2pad_we = addr_hit[90] & reg_we & !reg_error;
   assign b_15_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_15_cfg_drv_we = addr_hit[216] & reg_we & !reg_error;
+  assign b_15_cfg_drv_we = addr_hit[90] & reg_we & !reg_error;
   assign b_15_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_15_cfg_oen_we = addr_hit[216] & reg_we & !reg_error;
+  assign b_15_cfg_oen_we = addr_hit[90] & reg_we & !reg_error;
   assign b_15_cfg_oen_wd = reg_wdata[3];
 
-  assign b_15_cfg_puen_we = addr_hit[216] & reg_we & !reg_error;
+  assign b_15_cfg_puen_we = addr_hit[90] & reg_we & !reg_error;
   assign b_15_cfg_puen_wd = reg_wdata[4];
 
-  assign b_15_cfg_slw_we = addr_hit[216] & reg_we & !reg_error;
+  assign b_15_cfg_slw_we = addr_hit[90] & reg_we & !reg_error;
   assign b_15_cfg_slw_wd = reg_wdata[5];
 
-  assign b_15_cfg_smt_we = addr_hit[216] & reg_we & !reg_error;
+  assign b_15_cfg_smt_we = addr_hit[90] & reg_we & !reg_error;
   assign b_15_cfg_smt_wd = reg_wdata[6];
 
-  assign b_15_mux_sel_we = addr_hit[217] & reg_we & !reg_error;
-  assign b_15_mux_sel_wd = reg_wdata[0];
+  assign b_15_mux_sel_we = addr_hit[91] & reg_we & !reg_error;
+  assign b_15_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_16_cfg_chip2pad_we = addr_hit[218] & reg_we & !reg_error;
+  assign b_16_cfg_chip2pad_we = addr_hit[92] & reg_we & !reg_error;
   assign b_16_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_16_cfg_drv_we = addr_hit[218] & reg_we & !reg_error;
+  assign b_16_cfg_drv_we = addr_hit[92] & reg_we & !reg_error;
   assign b_16_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_16_cfg_oen_we = addr_hit[218] & reg_we & !reg_error;
+  assign b_16_cfg_oen_we = addr_hit[92] & reg_we & !reg_error;
   assign b_16_cfg_oen_wd = reg_wdata[3];
 
-  assign b_16_cfg_puen_we = addr_hit[218] & reg_we & !reg_error;
+  assign b_16_cfg_puen_we = addr_hit[92] & reg_we & !reg_error;
   assign b_16_cfg_puen_wd = reg_wdata[4];
 
-  assign b_16_cfg_slw_we = addr_hit[218] & reg_we & !reg_error;
+  assign b_16_cfg_slw_we = addr_hit[92] & reg_we & !reg_error;
   assign b_16_cfg_slw_wd = reg_wdata[5];
 
-  assign b_16_cfg_smt_we = addr_hit[218] & reg_we & !reg_error;
+  assign b_16_cfg_smt_we = addr_hit[92] & reg_we & !reg_error;
   assign b_16_cfg_smt_wd = reg_wdata[6];
 
-  assign b_16_mux_sel_we = addr_hit[219] & reg_we & !reg_error;
-  assign b_16_mux_sel_wd = reg_wdata[0];
+  assign b_16_mux_sel_we = addr_hit[93] & reg_we & !reg_error;
+  assign b_16_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_17_cfg_chip2pad_we = addr_hit[220] & reg_we & !reg_error;
+  assign b_17_cfg_chip2pad_we = addr_hit[94] & reg_we & !reg_error;
   assign b_17_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_17_cfg_drv_we = addr_hit[220] & reg_we & !reg_error;
+  assign b_17_cfg_drv_we = addr_hit[94] & reg_we & !reg_error;
   assign b_17_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_17_cfg_oen_we = addr_hit[220] & reg_we & !reg_error;
+  assign b_17_cfg_oen_we = addr_hit[94] & reg_we & !reg_error;
   assign b_17_cfg_oen_wd = reg_wdata[3];
 
-  assign b_17_cfg_puen_we = addr_hit[220] & reg_we & !reg_error;
+  assign b_17_cfg_puen_we = addr_hit[94] & reg_we & !reg_error;
   assign b_17_cfg_puen_wd = reg_wdata[4];
 
-  assign b_17_cfg_slw_we = addr_hit[220] & reg_we & !reg_error;
+  assign b_17_cfg_slw_we = addr_hit[94] & reg_we & !reg_error;
   assign b_17_cfg_slw_wd = reg_wdata[5];
 
-  assign b_17_cfg_smt_we = addr_hit[220] & reg_we & !reg_error;
+  assign b_17_cfg_smt_we = addr_hit[94] & reg_we & !reg_error;
   assign b_17_cfg_smt_wd = reg_wdata[6];
 
-  assign b_17_mux_sel_we = addr_hit[221] & reg_we & !reg_error;
-  assign b_17_mux_sel_wd = reg_wdata[0];
+  assign b_17_mux_sel_we = addr_hit[95] & reg_we & !reg_error;
+  assign b_17_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_18_cfg_chip2pad_we = addr_hit[222] & reg_we & !reg_error;
+  assign b_18_cfg_chip2pad_we = addr_hit[96] & reg_we & !reg_error;
   assign b_18_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_18_cfg_drv_we = addr_hit[222] & reg_we & !reg_error;
+  assign b_18_cfg_drv_we = addr_hit[96] & reg_we & !reg_error;
   assign b_18_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_18_cfg_oen_we = addr_hit[222] & reg_we & !reg_error;
+  assign b_18_cfg_oen_we = addr_hit[96] & reg_we & !reg_error;
   assign b_18_cfg_oen_wd = reg_wdata[3];
 
-  assign b_18_cfg_puen_we = addr_hit[222] & reg_we & !reg_error;
+  assign b_18_cfg_puen_we = addr_hit[96] & reg_we & !reg_error;
   assign b_18_cfg_puen_wd = reg_wdata[4];
 
-  assign b_18_cfg_slw_we = addr_hit[222] & reg_we & !reg_error;
+  assign b_18_cfg_slw_we = addr_hit[96] & reg_we & !reg_error;
   assign b_18_cfg_slw_wd = reg_wdata[5];
 
-  assign b_18_cfg_smt_we = addr_hit[222] & reg_we & !reg_error;
+  assign b_18_cfg_smt_we = addr_hit[96] & reg_we & !reg_error;
   assign b_18_cfg_smt_wd = reg_wdata[6];
 
-  assign b_18_mux_sel_we = addr_hit[223] & reg_we & !reg_error;
-  assign b_18_mux_sel_wd = reg_wdata[0];
+  assign b_18_mux_sel_we = addr_hit[97] & reg_we & !reg_error;
+  assign b_18_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_19_cfg_chip2pad_we = addr_hit[224] & reg_we & !reg_error;
+  assign b_19_cfg_chip2pad_we = addr_hit[98] & reg_we & !reg_error;
   assign b_19_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_19_cfg_drv_we = addr_hit[224] & reg_we & !reg_error;
+  assign b_19_cfg_drv_we = addr_hit[98] & reg_we & !reg_error;
   assign b_19_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_19_cfg_oen_we = addr_hit[224] & reg_we & !reg_error;
+  assign b_19_cfg_oen_we = addr_hit[98] & reg_we & !reg_error;
   assign b_19_cfg_oen_wd = reg_wdata[3];
 
-  assign b_19_cfg_puen_we = addr_hit[224] & reg_we & !reg_error;
+  assign b_19_cfg_puen_we = addr_hit[98] & reg_we & !reg_error;
   assign b_19_cfg_puen_wd = reg_wdata[4];
 
-  assign b_19_cfg_slw_we = addr_hit[224] & reg_we & !reg_error;
+  assign b_19_cfg_slw_we = addr_hit[98] & reg_we & !reg_error;
   assign b_19_cfg_slw_wd = reg_wdata[5];
 
-  assign b_19_cfg_smt_we = addr_hit[224] & reg_we & !reg_error;
+  assign b_19_cfg_smt_we = addr_hit[98] & reg_we & !reg_error;
   assign b_19_cfg_smt_wd = reg_wdata[6];
 
-  assign b_19_mux_sel_we = addr_hit[225] & reg_we & !reg_error;
-  assign b_19_mux_sel_wd = reg_wdata[1:0];
+  assign b_19_mux_sel_we = addr_hit[99] & reg_we & !reg_error;
+  assign b_19_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_20_cfg_chip2pad_we = addr_hit[226] & reg_we & !reg_error;
+  assign b_20_cfg_chip2pad_we = addr_hit[100] & reg_we & !reg_error;
   assign b_20_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_20_cfg_drv_we = addr_hit[226] & reg_we & !reg_error;
+  assign b_20_cfg_drv_we = addr_hit[100] & reg_we & !reg_error;
   assign b_20_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_20_cfg_oen_we = addr_hit[226] & reg_we & !reg_error;
+  assign b_20_cfg_oen_we = addr_hit[100] & reg_we & !reg_error;
   assign b_20_cfg_oen_wd = reg_wdata[3];
 
-  assign b_20_cfg_puen_we = addr_hit[226] & reg_we & !reg_error;
+  assign b_20_cfg_puen_we = addr_hit[100] & reg_we & !reg_error;
   assign b_20_cfg_puen_wd = reg_wdata[4];
 
-  assign b_20_cfg_slw_we = addr_hit[226] & reg_we & !reg_error;
+  assign b_20_cfg_slw_we = addr_hit[100] & reg_we & !reg_error;
   assign b_20_cfg_slw_wd = reg_wdata[5];
 
-  assign b_20_cfg_smt_we = addr_hit[226] & reg_we & !reg_error;
+  assign b_20_cfg_smt_we = addr_hit[100] & reg_we & !reg_error;
   assign b_20_cfg_smt_wd = reg_wdata[6];
 
-  assign b_20_mux_sel_we = addr_hit[227] & reg_we & !reg_error;
-  assign b_20_mux_sel_wd = reg_wdata[1:0];
+  assign b_20_mux_sel_we = addr_hit[101] & reg_we & !reg_error;
+  assign b_20_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_21_cfg_chip2pad_we = addr_hit[228] & reg_we & !reg_error;
+  assign b_21_cfg_chip2pad_we = addr_hit[102] & reg_we & !reg_error;
   assign b_21_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_21_cfg_drv_we = addr_hit[228] & reg_we & !reg_error;
+  assign b_21_cfg_drv_we = addr_hit[102] & reg_we & !reg_error;
   assign b_21_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_21_cfg_oen_we = addr_hit[228] & reg_we & !reg_error;
+  assign b_21_cfg_oen_we = addr_hit[102] & reg_we & !reg_error;
   assign b_21_cfg_oen_wd = reg_wdata[3];
 
-  assign b_21_cfg_puen_we = addr_hit[228] & reg_we & !reg_error;
+  assign b_21_cfg_puen_we = addr_hit[102] & reg_we & !reg_error;
   assign b_21_cfg_puen_wd = reg_wdata[4];
 
-  assign b_21_cfg_slw_we = addr_hit[228] & reg_we & !reg_error;
+  assign b_21_cfg_slw_we = addr_hit[102] & reg_we & !reg_error;
   assign b_21_cfg_slw_wd = reg_wdata[5];
 
-  assign b_21_cfg_smt_we = addr_hit[228] & reg_we & !reg_error;
+  assign b_21_cfg_smt_we = addr_hit[102] & reg_we & !reg_error;
   assign b_21_cfg_smt_wd = reg_wdata[6];
 
-  assign b_21_mux_sel_we = addr_hit[229] & reg_we & !reg_error;
-  assign b_21_mux_sel_wd = reg_wdata[1:0];
+  assign b_21_mux_sel_we = addr_hit[103] & reg_we & !reg_error;
+  assign b_21_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_22_cfg_chip2pad_we = addr_hit[230] & reg_we & !reg_error;
+  assign b_22_cfg_chip2pad_we = addr_hit[104] & reg_we & !reg_error;
   assign b_22_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_22_cfg_drv_we = addr_hit[230] & reg_we & !reg_error;
+  assign b_22_cfg_drv_we = addr_hit[104] & reg_we & !reg_error;
   assign b_22_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_22_cfg_oen_we = addr_hit[230] & reg_we & !reg_error;
+  assign b_22_cfg_oen_we = addr_hit[104] & reg_we & !reg_error;
   assign b_22_cfg_oen_wd = reg_wdata[3];
 
-  assign b_22_cfg_puen_we = addr_hit[230] & reg_we & !reg_error;
+  assign b_22_cfg_puen_we = addr_hit[104] & reg_we & !reg_error;
   assign b_22_cfg_puen_wd = reg_wdata[4];
 
-  assign b_22_cfg_slw_we = addr_hit[230] & reg_we & !reg_error;
+  assign b_22_cfg_slw_we = addr_hit[104] & reg_we & !reg_error;
   assign b_22_cfg_slw_wd = reg_wdata[5];
 
-  assign b_22_cfg_smt_we = addr_hit[230] & reg_we & !reg_error;
+  assign b_22_cfg_smt_we = addr_hit[104] & reg_we & !reg_error;
   assign b_22_cfg_smt_wd = reg_wdata[6];
 
-  assign b_22_mux_sel_we = addr_hit[231] & reg_we & !reg_error;
-  assign b_22_mux_sel_wd = reg_wdata[1:0];
+  assign b_22_mux_sel_we = addr_hit[105] & reg_we & !reg_error;
+  assign b_22_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_23_cfg_chip2pad_we = addr_hit[232] & reg_we & !reg_error;
+  assign b_23_cfg_chip2pad_we = addr_hit[106] & reg_we & !reg_error;
   assign b_23_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_23_cfg_drv_we = addr_hit[232] & reg_we & !reg_error;
+  assign b_23_cfg_drv_we = addr_hit[106] & reg_we & !reg_error;
   assign b_23_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_23_cfg_oen_we = addr_hit[232] & reg_we & !reg_error;
+  assign b_23_cfg_oen_we = addr_hit[106] & reg_we & !reg_error;
   assign b_23_cfg_oen_wd = reg_wdata[3];
 
-  assign b_23_cfg_puen_we = addr_hit[232] & reg_we & !reg_error;
+  assign b_23_cfg_puen_we = addr_hit[106] & reg_we & !reg_error;
   assign b_23_cfg_puen_wd = reg_wdata[4];
 
-  assign b_23_cfg_slw_we = addr_hit[232] & reg_we & !reg_error;
+  assign b_23_cfg_slw_we = addr_hit[106] & reg_we & !reg_error;
   assign b_23_cfg_slw_wd = reg_wdata[5];
 
-  assign b_23_cfg_smt_we = addr_hit[232] & reg_we & !reg_error;
+  assign b_23_cfg_smt_we = addr_hit[106] & reg_we & !reg_error;
   assign b_23_cfg_smt_wd = reg_wdata[6];
 
-  assign b_23_mux_sel_we = addr_hit[233] & reg_we & !reg_error;
-  assign b_23_mux_sel_wd = reg_wdata[1:0];
+  assign b_23_mux_sel_we = addr_hit[107] & reg_we & !reg_error;
+  assign b_23_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_24_cfg_chip2pad_we = addr_hit[234] & reg_we & !reg_error;
+  assign b_24_cfg_chip2pad_we = addr_hit[108] & reg_we & !reg_error;
   assign b_24_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_24_cfg_drv_we = addr_hit[234] & reg_we & !reg_error;
+  assign b_24_cfg_drv_we = addr_hit[108] & reg_we & !reg_error;
   assign b_24_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_24_cfg_oen_we = addr_hit[234] & reg_we & !reg_error;
+  assign b_24_cfg_oen_we = addr_hit[108] & reg_we & !reg_error;
   assign b_24_cfg_oen_wd = reg_wdata[3];
 
-  assign b_24_cfg_puen_we = addr_hit[234] & reg_we & !reg_error;
+  assign b_24_cfg_puen_we = addr_hit[108] & reg_we & !reg_error;
   assign b_24_cfg_puen_wd = reg_wdata[4];
 
-  assign b_24_cfg_slw_we = addr_hit[234] & reg_we & !reg_error;
+  assign b_24_cfg_slw_we = addr_hit[108] & reg_we & !reg_error;
   assign b_24_cfg_slw_wd = reg_wdata[5];
 
-  assign b_24_cfg_smt_we = addr_hit[234] & reg_we & !reg_error;
+  assign b_24_cfg_smt_we = addr_hit[108] & reg_we & !reg_error;
   assign b_24_cfg_smt_wd = reg_wdata[6];
 
-  assign b_24_mux_sel_we = addr_hit[235] & reg_we & !reg_error;
-  assign b_24_mux_sel_wd = reg_wdata[1:0];
+  assign b_24_mux_sel_we = addr_hit[109] & reg_we & !reg_error;
+  assign b_24_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_25_cfg_chip2pad_we = addr_hit[236] & reg_we & !reg_error;
+  assign b_25_cfg_chip2pad_we = addr_hit[110] & reg_we & !reg_error;
   assign b_25_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_25_cfg_drv_we = addr_hit[236] & reg_we & !reg_error;
+  assign b_25_cfg_drv_we = addr_hit[110] & reg_we & !reg_error;
   assign b_25_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_25_cfg_oen_we = addr_hit[236] & reg_we & !reg_error;
+  assign b_25_cfg_oen_we = addr_hit[110] & reg_we & !reg_error;
   assign b_25_cfg_oen_wd = reg_wdata[3];
 
-  assign b_25_cfg_puen_we = addr_hit[236] & reg_we & !reg_error;
+  assign b_25_cfg_puen_we = addr_hit[110] & reg_we & !reg_error;
   assign b_25_cfg_puen_wd = reg_wdata[4];
 
-  assign b_25_cfg_slw_we = addr_hit[236] & reg_we & !reg_error;
+  assign b_25_cfg_slw_we = addr_hit[110] & reg_we & !reg_error;
   assign b_25_cfg_slw_wd = reg_wdata[5];
 
-  assign b_25_cfg_smt_we = addr_hit[236] & reg_we & !reg_error;
+  assign b_25_cfg_smt_we = addr_hit[110] & reg_we & !reg_error;
   assign b_25_cfg_smt_wd = reg_wdata[6];
 
-  assign b_25_mux_sel_we = addr_hit[237] & reg_we & !reg_error;
-  assign b_25_mux_sel_wd = reg_wdata[1:0];
+  assign b_25_mux_sel_we = addr_hit[111] & reg_we & !reg_error;
+  assign b_25_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_26_cfg_chip2pad_we = addr_hit[238] & reg_we & !reg_error;
+  assign b_26_cfg_chip2pad_we = addr_hit[112] & reg_we & !reg_error;
   assign b_26_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_26_cfg_drv_we = addr_hit[238] & reg_we & !reg_error;
+  assign b_26_cfg_drv_we = addr_hit[112] & reg_we & !reg_error;
   assign b_26_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_26_cfg_oen_we = addr_hit[238] & reg_we & !reg_error;
+  assign b_26_cfg_oen_we = addr_hit[112] & reg_we & !reg_error;
   assign b_26_cfg_oen_wd = reg_wdata[3];
 
-  assign b_26_cfg_puen_we = addr_hit[238] & reg_we & !reg_error;
+  assign b_26_cfg_puen_we = addr_hit[112] & reg_we & !reg_error;
   assign b_26_cfg_puen_wd = reg_wdata[4];
 
-  assign b_26_cfg_slw_we = addr_hit[238] & reg_we & !reg_error;
+  assign b_26_cfg_slw_we = addr_hit[112] & reg_we & !reg_error;
   assign b_26_cfg_slw_wd = reg_wdata[5];
 
-  assign b_26_cfg_smt_we = addr_hit[238] & reg_we & !reg_error;
+  assign b_26_cfg_smt_we = addr_hit[112] & reg_we & !reg_error;
   assign b_26_cfg_smt_wd = reg_wdata[6];
 
-  assign b_26_mux_sel_we = addr_hit[239] & reg_we & !reg_error;
-  assign b_26_mux_sel_wd = reg_wdata[0];
+  assign b_26_mux_sel_we = addr_hit[113] & reg_we & !reg_error;
+  assign b_26_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_27_cfg_chip2pad_we = addr_hit[240] & reg_we & !reg_error;
+  assign b_27_cfg_chip2pad_we = addr_hit[114] & reg_we & !reg_error;
   assign b_27_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_27_cfg_drv_we = addr_hit[240] & reg_we & !reg_error;
+  assign b_27_cfg_drv_we = addr_hit[114] & reg_we & !reg_error;
   assign b_27_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_27_cfg_oen_we = addr_hit[240] & reg_we & !reg_error;
+  assign b_27_cfg_oen_we = addr_hit[114] & reg_we & !reg_error;
   assign b_27_cfg_oen_wd = reg_wdata[3];
 
-  assign b_27_cfg_puen_we = addr_hit[240] & reg_we & !reg_error;
+  assign b_27_cfg_puen_we = addr_hit[114] & reg_we & !reg_error;
   assign b_27_cfg_puen_wd = reg_wdata[4];
 
-  assign b_27_cfg_slw_we = addr_hit[240] & reg_we & !reg_error;
+  assign b_27_cfg_slw_we = addr_hit[114] & reg_we & !reg_error;
   assign b_27_cfg_slw_wd = reg_wdata[5];
 
-  assign b_27_cfg_smt_we = addr_hit[240] & reg_we & !reg_error;
+  assign b_27_cfg_smt_we = addr_hit[114] & reg_we & !reg_error;
   assign b_27_cfg_smt_wd = reg_wdata[6];
 
-  assign b_27_mux_sel_we = addr_hit[241] & reg_we & !reg_error;
-  assign b_27_mux_sel_wd = reg_wdata[0];
+  assign b_27_mux_sel_we = addr_hit[115] & reg_we & !reg_error;
+  assign b_27_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_28_cfg_chip2pad_we = addr_hit[242] & reg_we & !reg_error;
+  assign b_28_cfg_chip2pad_we = addr_hit[116] & reg_we & !reg_error;
   assign b_28_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_28_cfg_drv_we = addr_hit[242] & reg_we & !reg_error;
+  assign b_28_cfg_drv_we = addr_hit[116] & reg_we & !reg_error;
   assign b_28_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_28_cfg_oen_we = addr_hit[242] & reg_we & !reg_error;
+  assign b_28_cfg_oen_we = addr_hit[116] & reg_we & !reg_error;
   assign b_28_cfg_oen_wd = reg_wdata[3];
 
-  assign b_28_cfg_puen_we = addr_hit[242] & reg_we & !reg_error;
+  assign b_28_cfg_puen_we = addr_hit[116] & reg_we & !reg_error;
   assign b_28_cfg_puen_wd = reg_wdata[4];
 
-  assign b_28_cfg_slw_we = addr_hit[242] & reg_we & !reg_error;
+  assign b_28_cfg_slw_we = addr_hit[116] & reg_we & !reg_error;
   assign b_28_cfg_slw_wd = reg_wdata[5];
 
-  assign b_28_cfg_smt_we = addr_hit[242] & reg_we & !reg_error;
+  assign b_28_cfg_smt_we = addr_hit[116] & reg_we & !reg_error;
   assign b_28_cfg_smt_wd = reg_wdata[6];
 
-  assign b_28_mux_sel_we = addr_hit[243] & reg_we & !reg_error;
-  assign b_28_mux_sel_wd = reg_wdata[0];
+  assign b_28_mux_sel_we = addr_hit[117] & reg_we & !reg_error;
+  assign b_28_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_29_cfg_chip2pad_we = addr_hit[244] & reg_we & !reg_error;
+  assign b_29_cfg_chip2pad_we = addr_hit[118] & reg_we & !reg_error;
   assign b_29_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_29_cfg_drv_we = addr_hit[244] & reg_we & !reg_error;
+  assign b_29_cfg_drv_we = addr_hit[118] & reg_we & !reg_error;
   assign b_29_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_29_cfg_oen_we = addr_hit[244] & reg_we & !reg_error;
+  assign b_29_cfg_oen_we = addr_hit[118] & reg_we & !reg_error;
   assign b_29_cfg_oen_wd = reg_wdata[3];
 
-  assign b_29_cfg_puen_we = addr_hit[244] & reg_we & !reg_error;
+  assign b_29_cfg_puen_we = addr_hit[118] & reg_we & !reg_error;
   assign b_29_cfg_puen_wd = reg_wdata[4];
 
-  assign b_29_cfg_slw_we = addr_hit[244] & reg_we & !reg_error;
+  assign b_29_cfg_slw_we = addr_hit[118] & reg_we & !reg_error;
   assign b_29_cfg_slw_wd = reg_wdata[5];
 
-  assign b_29_cfg_smt_we = addr_hit[244] & reg_we & !reg_error;
+  assign b_29_cfg_smt_we = addr_hit[118] & reg_we & !reg_error;
   assign b_29_cfg_smt_wd = reg_wdata[6];
 
-  assign b_29_mux_sel_we = addr_hit[245] & reg_we & !reg_error;
-  assign b_29_mux_sel_wd = reg_wdata[0];
+  assign b_29_mux_sel_we = addr_hit[119] & reg_we & !reg_error;
+  assign b_29_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_30_cfg_chip2pad_we = addr_hit[246] & reg_we & !reg_error;
+  assign b_30_cfg_chip2pad_we = addr_hit[120] & reg_we & !reg_error;
   assign b_30_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_30_cfg_drv_we = addr_hit[246] & reg_we & !reg_error;
+  assign b_30_cfg_drv_we = addr_hit[120] & reg_we & !reg_error;
   assign b_30_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_30_cfg_oen_we = addr_hit[246] & reg_we & !reg_error;
+  assign b_30_cfg_oen_we = addr_hit[120] & reg_we & !reg_error;
   assign b_30_cfg_oen_wd = reg_wdata[3];
 
-  assign b_30_cfg_puen_we = addr_hit[246] & reg_we & !reg_error;
+  assign b_30_cfg_puen_we = addr_hit[120] & reg_we & !reg_error;
   assign b_30_cfg_puen_wd = reg_wdata[4];
 
-  assign b_30_cfg_slw_we = addr_hit[246] & reg_we & !reg_error;
+  assign b_30_cfg_slw_we = addr_hit[120] & reg_we & !reg_error;
   assign b_30_cfg_slw_wd = reg_wdata[5];
 
-  assign b_30_cfg_smt_we = addr_hit[246] & reg_we & !reg_error;
+  assign b_30_cfg_smt_we = addr_hit[120] & reg_we & !reg_error;
   assign b_30_cfg_smt_wd = reg_wdata[6];
 
-  assign b_30_mux_sel_we = addr_hit[247] & reg_we & !reg_error;
-  assign b_30_mux_sel_wd = reg_wdata[0];
+  assign b_30_mux_sel_we = addr_hit[121] & reg_we & !reg_error;
+  assign b_30_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_31_cfg_chip2pad_we = addr_hit[248] & reg_we & !reg_error;
+  assign b_31_cfg_chip2pad_we = addr_hit[122] & reg_we & !reg_error;
   assign b_31_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_31_cfg_drv_we = addr_hit[248] & reg_we & !reg_error;
+  assign b_31_cfg_drv_we = addr_hit[122] & reg_we & !reg_error;
   assign b_31_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_31_cfg_oen_we = addr_hit[248] & reg_we & !reg_error;
+  assign b_31_cfg_oen_we = addr_hit[122] & reg_we & !reg_error;
   assign b_31_cfg_oen_wd = reg_wdata[3];
 
-  assign b_31_cfg_puen_we = addr_hit[248] & reg_we & !reg_error;
+  assign b_31_cfg_puen_we = addr_hit[122] & reg_we & !reg_error;
   assign b_31_cfg_puen_wd = reg_wdata[4];
 
-  assign b_31_cfg_slw_we = addr_hit[248] & reg_we & !reg_error;
+  assign b_31_cfg_slw_we = addr_hit[122] & reg_we & !reg_error;
   assign b_31_cfg_slw_wd = reg_wdata[5];
 
-  assign b_31_cfg_smt_we = addr_hit[248] & reg_we & !reg_error;
+  assign b_31_cfg_smt_we = addr_hit[122] & reg_we & !reg_error;
   assign b_31_cfg_smt_wd = reg_wdata[6];
 
-  assign b_31_mux_sel_we = addr_hit[249] & reg_we & !reg_error;
-  assign b_31_mux_sel_wd = reg_wdata[0];
+  assign b_31_mux_sel_we = addr_hit[123] & reg_we & !reg_error;
+  assign b_31_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_32_cfg_chip2pad_we = addr_hit[250] & reg_we & !reg_error;
+  assign b_32_cfg_chip2pad_we = addr_hit[124] & reg_we & !reg_error;
   assign b_32_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_32_cfg_drv_we = addr_hit[250] & reg_we & !reg_error;
+  assign b_32_cfg_drv_we = addr_hit[124] & reg_we & !reg_error;
   assign b_32_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_32_cfg_oen_we = addr_hit[250] & reg_we & !reg_error;
+  assign b_32_cfg_oen_we = addr_hit[124] & reg_we & !reg_error;
   assign b_32_cfg_oen_wd = reg_wdata[3];
 
-  assign b_32_cfg_puen_we = addr_hit[250] & reg_we & !reg_error;
+  assign b_32_cfg_puen_we = addr_hit[124] & reg_we & !reg_error;
   assign b_32_cfg_puen_wd = reg_wdata[4];
 
-  assign b_32_cfg_slw_we = addr_hit[250] & reg_we & !reg_error;
+  assign b_32_cfg_slw_we = addr_hit[124] & reg_we & !reg_error;
   assign b_32_cfg_slw_wd = reg_wdata[5];
 
-  assign b_32_cfg_smt_we = addr_hit[250] & reg_we & !reg_error;
+  assign b_32_cfg_smt_we = addr_hit[124] & reg_we & !reg_error;
   assign b_32_cfg_smt_wd = reg_wdata[6];
 
-  assign b_32_mux_sel_we = addr_hit[251] & reg_we & !reg_error;
-  assign b_32_mux_sel_wd = reg_wdata[0];
+  assign b_32_mux_sel_we = addr_hit[125] & reg_we & !reg_error;
+  assign b_32_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_33_cfg_chip2pad_we = addr_hit[252] & reg_we & !reg_error;
+  assign b_33_cfg_chip2pad_we = addr_hit[126] & reg_we & !reg_error;
   assign b_33_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_33_cfg_drv_we = addr_hit[252] & reg_we & !reg_error;
+  assign b_33_cfg_drv_we = addr_hit[126] & reg_we & !reg_error;
   assign b_33_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_33_cfg_oen_we = addr_hit[252] & reg_we & !reg_error;
+  assign b_33_cfg_oen_we = addr_hit[126] & reg_we & !reg_error;
   assign b_33_cfg_oen_wd = reg_wdata[3];
 
-  assign b_33_cfg_puen_we = addr_hit[252] & reg_we & !reg_error;
+  assign b_33_cfg_puen_we = addr_hit[126] & reg_we & !reg_error;
   assign b_33_cfg_puen_wd = reg_wdata[4];
 
-  assign b_33_cfg_slw_we = addr_hit[252] & reg_we & !reg_error;
+  assign b_33_cfg_slw_we = addr_hit[126] & reg_we & !reg_error;
   assign b_33_cfg_slw_wd = reg_wdata[5];
 
-  assign b_33_cfg_smt_we = addr_hit[252] & reg_we & !reg_error;
+  assign b_33_cfg_smt_we = addr_hit[126] & reg_we & !reg_error;
   assign b_33_cfg_smt_wd = reg_wdata[6];
 
-  assign b_33_mux_sel_we = addr_hit[253] & reg_we & !reg_error;
-  assign b_33_mux_sel_wd = reg_wdata[0];
+  assign b_33_mux_sel_we = addr_hit[127] & reg_we & !reg_error;
+  assign b_33_mux_sel_wd = reg_wdata[2:0];
 
-  assign b_34_cfg_chip2pad_we = addr_hit[254] & reg_we & !reg_error;
+  assign b_34_cfg_chip2pad_we = addr_hit[128] & reg_we & !reg_error;
   assign b_34_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_34_cfg_drv_we = addr_hit[254] & reg_we & !reg_error;
+  assign b_34_cfg_drv_we = addr_hit[128] & reg_we & !reg_error;
   assign b_34_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_34_cfg_oen_we = addr_hit[254] & reg_we & !reg_error;
+  assign b_34_cfg_oen_we = addr_hit[128] & reg_we & !reg_error;
   assign b_34_cfg_oen_wd = reg_wdata[3];
 
-  assign b_34_cfg_puen_we = addr_hit[254] & reg_we & !reg_error;
+  assign b_34_cfg_puen_we = addr_hit[128] & reg_we & !reg_error;
   assign b_34_cfg_puen_wd = reg_wdata[4];
 
-  assign b_34_cfg_slw_we = addr_hit[254] & reg_we & !reg_error;
+  assign b_34_cfg_slw_we = addr_hit[128] & reg_we & !reg_error;
   assign b_34_cfg_slw_wd = reg_wdata[5];
 
-  assign b_34_cfg_smt_we = addr_hit[254] & reg_we & !reg_error;
+  assign b_34_cfg_smt_we = addr_hit[128] & reg_we & !reg_error;
   assign b_34_cfg_smt_wd = reg_wdata[6];
 
-  assign b_34_mux_sel_we = addr_hit[255] & reg_we & !reg_error;
-  assign b_34_mux_sel_wd = reg_wdata[0];
+  assign b_34_mux_sel_we = addr_hit[129] & reg_we & !reg_error;
+  assign b_34_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_35_cfg_chip2pad_we = addr_hit[256] & reg_we & !reg_error;
+  assign b_35_cfg_chip2pad_we = addr_hit[130] & reg_we & !reg_error;
   assign b_35_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_35_cfg_drv_we = addr_hit[256] & reg_we & !reg_error;
+  assign b_35_cfg_drv_we = addr_hit[130] & reg_we & !reg_error;
   assign b_35_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_35_cfg_oen_we = addr_hit[256] & reg_we & !reg_error;
+  assign b_35_cfg_oen_we = addr_hit[130] & reg_we & !reg_error;
   assign b_35_cfg_oen_wd = reg_wdata[3];
 
-  assign b_35_cfg_puen_we = addr_hit[256] & reg_we & !reg_error;
+  assign b_35_cfg_puen_we = addr_hit[130] & reg_we & !reg_error;
   assign b_35_cfg_puen_wd = reg_wdata[4];
 
-  assign b_35_cfg_slw_we = addr_hit[256] & reg_we & !reg_error;
+  assign b_35_cfg_slw_we = addr_hit[130] & reg_we & !reg_error;
   assign b_35_cfg_slw_wd = reg_wdata[5];
 
-  assign b_35_cfg_smt_we = addr_hit[256] & reg_we & !reg_error;
+  assign b_35_cfg_smt_we = addr_hit[130] & reg_we & !reg_error;
   assign b_35_cfg_smt_wd = reg_wdata[6];
 
-  assign b_35_mux_sel_we = addr_hit[257] & reg_we & !reg_error;
-  assign b_35_mux_sel_wd = reg_wdata[0];
+  assign b_35_mux_sel_we = addr_hit[131] & reg_we & !reg_error;
+  assign b_35_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_36_cfg_chip2pad_we = addr_hit[258] & reg_we & !reg_error;
+  assign b_36_cfg_chip2pad_we = addr_hit[132] & reg_we & !reg_error;
   assign b_36_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_36_cfg_drv_we = addr_hit[258] & reg_we & !reg_error;
+  assign b_36_cfg_drv_we = addr_hit[132] & reg_we & !reg_error;
   assign b_36_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_36_cfg_oen_we = addr_hit[258] & reg_we & !reg_error;
+  assign b_36_cfg_oen_we = addr_hit[132] & reg_we & !reg_error;
   assign b_36_cfg_oen_wd = reg_wdata[3];
 
-  assign b_36_cfg_puen_we = addr_hit[258] & reg_we & !reg_error;
+  assign b_36_cfg_puen_we = addr_hit[132] & reg_we & !reg_error;
   assign b_36_cfg_puen_wd = reg_wdata[4];
 
-  assign b_36_cfg_slw_we = addr_hit[258] & reg_we & !reg_error;
+  assign b_36_cfg_slw_we = addr_hit[132] & reg_we & !reg_error;
   assign b_36_cfg_slw_wd = reg_wdata[5];
 
-  assign b_36_cfg_smt_we = addr_hit[258] & reg_we & !reg_error;
+  assign b_36_cfg_smt_we = addr_hit[132] & reg_we & !reg_error;
   assign b_36_cfg_smt_wd = reg_wdata[6];
 
-  assign b_36_mux_sel_we = addr_hit[259] & reg_we & !reg_error;
-  assign b_36_mux_sel_wd = reg_wdata[0];
+  assign b_36_mux_sel_we = addr_hit[133] & reg_we & !reg_error;
+  assign b_36_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_37_cfg_chip2pad_we = addr_hit[260] & reg_we & !reg_error;
+  assign b_37_cfg_chip2pad_we = addr_hit[134] & reg_we & !reg_error;
   assign b_37_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_37_cfg_drv_we = addr_hit[260] & reg_we & !reg_error;
+  assign b_37_cfg_drv_we = addr_hit[134] & reg_we & !reg_error;
   assign b_37_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_37_cfg_oen_we = addr_hit[260] & reg_we & !reg_error;
+  assign b_37_cfg_oen_we = addr_hit[134] & reg_we & !reg_error;
   assign b_37_cfg_oen_wd = reg_wdata[3];
 
-  assign b_37_cfg_puen_we = addr_hit[260] & reg_we & !reg_error;
+  assign b_37_cfg_puen_we = addr_hit[134] & reg_we & !reg_error;
   assign b_37_cfg_puen_wd = reg_wdata[4];
 
-  assign b_37_cfg_slw_we = addr_hit[260] & reg_we & !reg_error;
+  assign b_37_cfg_slw_we = addr_hit[134] & reg_we & !reg_error;
   assign b_37_cfg_slw_wd = reg_wdata[5];
 
-  assign b_37_cfg_smt_we = addr_hit[260] & reg_we & !reg_error;
+  assign b_37_cfg_smt_we = addr_hit[134] & reg_we & !reg_error;
   assign b_37_cfg_smt_wd = reg_wdata[6];
 
-  assign b_37_mux_sel_we = addr_hit[261] & reg_we & !reg_error;
-  assign b_37_mux_sel_wd = reg_wdata[0];
+  assign b_37_mux_sel_we = addr_hit[135] & reg_we & !reg_error;
+  assign b_37_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_38_cfg_chip2pad_we = addr_hit[262] & reg_we & !reg_error;
+  assign b_38_cfg_chip2pad_we = addr_hit[136] & reg_we & !reg_error;
   assign b_38_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_38_cfg_drv_we = addr_hit[262] & reg_we & !reg_error;
+  assign b_38_cfg_drv_we = addr_hit[136] & reg_we & !reg_error;
   assign b_38_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_38_cfg_oen_we = addr_hit[262] & reg_we & !reg_error;
+  assign b_38_cfg_oen_we = addr_hit[136] & reg_we & !reg_error;
   assign b_38_cfg_oen_wd = reg_wdata[3];
 
-  assign b_38_cfg_puen_we = addr_hit[262] & reg_we & !reg_error;
+  assign b_38_cfg_puen_we = addr_hit[136] & reg_we & !reg_error;
   assign b_38_cfg_puen_wd = reg_wdata[4];
 
-  assign b_38_cfg_slw_we = addr_hit[262] & reg_we & !reg_error;
+  assign b_38_cfg_slw_we = addr_hit[136] & reg_we & !reg_error;
   assign b_38_cfg_slw_wd = reg_wdata[5];
 
-  assign b_38_cfg_smt_we = addr_hit[262] & reg_we & !reg_error;
+  assign b_38_cfg_smt_we = addr_hit[136] & reg_we & !reg_error;
   assign b_38_cfg_smt_wd = reg_wdata[6];
 
-  assign b_38_mux_sel_we = addr_hit[263] & reg_we & !reg_error;
-  assign b_38_mux_sel_wd = reg_wdata[0];
+  assign b_38_mux_sel_we = addr_hit[137] & reg_we & !reg_error;
+  assign b_38_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_39_cfg_chip2pad_we = addr_hit[264] & reg_we & !reg_error;
+  assign b_39_cfg_chip2pad_we = addr_hit[138] & reg_we & !reg_error;
   assign b_39_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_39_cfg_drv_we = addr_hit[264] & reg_we & !reg_error;
+  assign b_39_cfg_drv_we = addr_hit[138] & reg_we & !reg_error;
   assign b_39_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_39_cfg_oen_we = addr_hit[264] & reg_we & !reg_error;
+  assign b_39_cfg_oen_we = addr_hit[138] & reg_we & !reg_error;
   assign b_39_cfg_oen_wd = reg_wdata[3];
 
-  assign b_39_cfg_puen_we = addr_hit[264] & reg_we & !reg_error;
+  assign b_39_cfg_puen_we = addr_hit[138] & reg_we & !reg_error;
   assign b_39_cfg_puen_wd = reg_wdata[4];
 
-  assign b_39_cfg_slw_we = addr_hit[264] & reg_we & !reg_error;
+  assign b_39_cfg_slw_we = addr_hit[138] & reg_we & !reg_error;
   assign b_39_cfg_slw_wd = reg_wdata[5];
 
-  assign b_39_cfg_smt_we = addr_hit[264] & reg_we & !reg_error;
+  assign b_39_cfg_smt_we = addr_hit[138] & reg_we & !reg_error;
   assign b_39_cfg_smt_wd = reg_wdata[6];
 
-  assign b_39_mux_sel_we = addr_hit[265] & reg_we & !reg_error;
-  assign b_39_mux_sel_wd = reg_wdata[0];
+  assign b_39_mux_sel_we = addr_hit[139] & reg_we & !reg_error;
+  assign b_39_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_40_cfg_chip2pad_we = addr_hit[266] & reg_we & !reg_error;
+  assign b_40_cfg_chip2pad_we = addr_hit[140] & reg_we & !reg_error;
   assign b_40_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_40_cfg_drv_we = addr_hit[266] & reg_we & !reg_error;
+  assign b_40_cfg_drv_we = addr_hit[140] & reg_we & !reg_error;
   assign b_40_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_40_cfg_oen_we = addr_hit[266] & reg_we & !reg_error;
+  assign b_40_cfg_oen_we = addr_hit[140] & reg_we & !reg_error;
   assign b_40_cfg_oen_wd = reg_wdata[3];
 
-  assign b_40_cfg_puen_we = addr_hit[266] & reg_we & !reg_error;
+  assign b_40_cfg_puen_we = addr_hit[140] & reg_we & !reg_error;
   assign b_40_cfg_puen_wd = reg_wdata[4];
 
-  assign b_40_cfg_slw_we = addr_hit[266] & reg_we & !reg_error;
+  assign b_40_cfg_slw_we = addr_hit[140] & reg_we & !reg_error;
   assign b_40_cfg_slw_wd = reg_wdata[5];
 
-  assign b_40_cfg_smt_we = addr_hit[266] & reg_we & !reg_error;
+  assign b_40_cfg_smt_we = addr_hit[140] & reg_we & !reg_error;
   assign b_40_cfg_smt_wd = reg_wdata[6];
 
-  assign b_40_mux_sel_we = addr_hit[267] & reg_we & !reg_error;
-  assign b_40_mux_sel_wd = reg_wdata[0];
+  assign b_40_mux_sel_we = addr_hit[141] & reg_we & !reg_error;
+  assign b_40_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_41_cfg_chip2pad_we = addr_hit[268] & reg_we & !reg_error;
+  assign b_41_cfg_chip2pad_we = addr_hit[142] & reg_we & !reg_error;
   assign b_41_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_41_cfg_drv_we = addr_hit[268] & reg_we & !reg_error;
+  assign b_41_cfg_drv_we = addr_hit[142] & reg_we & !reg_error;
   assign b_41_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_41_cfg_oen_we = addr_hit[268] & reg_we & !reg_error;
+  assign b_41_cfg_oen_we = addr_hit[142] & reg_we & !reg_error;
   assign b_41_cfg_oen_wd = reg_wdata[3];
 
-  assign b_41_cfg_puen_we = addr_hit[268] & reg_we & !reg_error;
+  assign b_41_cfg_puen_we = addr_hit[142] & reg_we & !reg_error;
   assign b_41_cfg_puen_wd = reg_wdata[4];
 
-  assign b_41_cfg_slw_we = addr_hit[268] & reg_we & !reg_error;
+  assign b_41_cfg_slw_we = addr_hit[142] & reg_we & !reg_error;
   assign b_41_cfg_slw_wd = reg_wdata[5];
 
-  assign b_41_cfg_smt_we = addr_hit[268] & reg_we & !reg_error;
+  assign b_41_cfg_smt_we = addr_hit[142] & reg_we & !reg_error;
   assign b_41_cfg_smt_wd = reg_wdata[6];
 
-  assign b_41_mux_sel_we = addr_hit[269] & reg_we & !reg_error;
-  assign b_41_mux_sel_wd = reg_wdata[0];
+  assign b_41_mux_sel_we = addr_hit[143] & reg_we & !reg_error;
+  assign b_41_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_42_cfg_chip2pad_we = addr_hit[270] & reg_we & !reg_error;
+  assign b_42_cfg_chip2pad_we = addr_hit[144] & reg_we & !reg_error;
   assign b_42_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_42_cfg_drv_we = addr_hit[270] & reg_we & !reg_error;
+  assign b_42_cfg_drv_we = addr_hit[144] & reg_we & !reg_error;
   assign b_42_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_42_cfg_oen_we = addr_hit[270] & reg_we & !reg_error;
+  assign b_42_cfg_oen_we = addr_hit[144] & reg_we & !reg_error;
   assign b_42_cfg_oen_wd = reg_wdata[3];
 
-  assign b_42_cfg_puen_we = addr_hit[270] & reg_we & !reg_error;
+  assign b_42_cfg_puen_we = addr_hit[144] & reg_we & !reg_error;
   assign b_42_cfg_puen_wd = reg_wdata[4];
 
-  assign b_42_cfg_slw_we = addr_hit[270] & reg_we & !reg_error;
+  assign b_42_cfg_slw_we = addr_hit[144] & reg_we & !reg_error;
   assign b_42_cfg_slw_wd = reg_wdata[5];
 
-  assign b_42_cfg_smt_we = addr_hit[270] & reg_we & !reg_error;
+  assign b_42_cfg_smt_we = addr_hit[144] & reg_we & !reg_error;
   assign b_42_cfg_smt_wd = reg_wdata[6];
 
-  assign b_42_mux_sel_we = addr_hit[271] & reg_we & !reg_error;
-  assign b_42_mux_sel_wd = reg_wdata[0];
+  assign b_42_mux_sel_we = addr_hit[145] & reg_we & !reg_error;
+  assign b_42_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_43_cfg_chip2pad_we = addr_hit[272] & reg_we & !reg_error;
+  assign b_43_cfg_chip2pad_we = addr_hit[146] & reg_we & !reg_error;
   assign b_43_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_43_cfg_drv_we = addr_hit[272] & reg_we & !reg_error;
+  assign b_43_cfg_drv_we = addr_hit[146] & reg_we & !reg_error;
   assign b_43_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_43_cfg_oen_we = addr_hit[272] & reg_we & !reg_error;
+  assign b_43_cfg_oen_we = addr_hit[146] & reg_we & !reg_error;
   assign b_43_cfg_oen_wd = reg_wdata[3];
 
-  assign b_43_cfg_puen_we = addr_hit[272] & reg_we & !reg_error;
+  assign b_43_cfg_puen_we = addr_hit[146] & reg_we & !reg_error;
   assign b_43_cfg_puen_wd = reg_wdata[4];
 
-  assign b_43_cfg_slw_we = addr_hit[272] & reg_we & !reg_error;
+  assign b_43_cfg_slw_we = addr_hit[146] & reg_we & !reg_error;
   assign b_43_cfg_slw_wd = reg_wdata[5];
 
-  assign b_43_cfg_smt_we = addr_hit[272] & reg_we & !reg_error;
+  assign b_43_cfg_smt_we = addr_hit[146] & reg_we & !reg_error;
   assign b_43_cfg_smt_wd = reg_wdata[6];
 
-  assign b_43_mux_sel_we = addr_hit[273] & reg_we & !reg_error;
-  assign b_43_mux_sel_wd = reg_wdata[0];
+  assign b_43_mux_sel_we = addr_hit[147] & reg_we & !reg_error;
+  assign b_43_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_44_cfg_chip2pad_we = addr_hit[274] & reg_we & !reg_error;
+  assign b_44_cfg_chip2pad_we = addr_hit[148] & reg_we & !reg_error;
   assign b_44_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_44_cfg_drv_we = addr_hit[274] & reg_we & !reg_error;
+  assign b_44_cfg_drv_we = addr_hit[148] & reg_we & !reg_error;
   assign b_44_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_44_cfg_oen_we = addr_hit[274] & reg_we & !reg_error;
+  assign b_44_cfg_oen_we = addr_hit[148] & reg_we & !reg_error;
   assign b_44_cfg_oen_wd = reg_wdata[3];
 
-  assign b_44_cfg_puen_we = addr_hit[274] & reg_we & !reg_error;
+  assign b_44_cfg_puen_we = addr_hit[148] & reg_we & !reg_error;
   assign b_44_cfg_puen_wd = reg_wdata[4];
 
-  assign b_44_cfg_slw_we = addr_hit[274] & reg_we & !reg_error;
+  assign b_44_cfg_slw_we = addr_hit[148] & reg_we & !reg_error;
   assign b_44_cfg_slw_wd = reg_wdata[5];
 
-  assign b_44_cfg_smt_we = addr_hit[274] & reg_we & !reg_error;
+  assign b_44_cfg_smt_we = addr_hit[148] & reg_we & !reg_error;
   assign b_44_cfg_smt_wd = reg_wdata[6];
 
-  assign b_44_mux_sel_we = addr_hit[275] & reg_we & !reg_error;
-  assign b_44_mux_sel_wd = reg_wdata[0];
+  assign b_44_mux_sel_we = addr_hit[149] & reg_we & !reg_error;
+  assign b_44_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_45_cfg_chip2pad_we = addr_hit[276] & reg_we & !reg_error;
+  assign b_45_cfg_chip2pad_we = addr_hit[150] & reg_we & !reg_error;
   assign b_45_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_45_cfg_drv_we = addr_hit[276] & reg_we & !reg_error;
+  assign b_45_cfg_drv_we = addr_hit[150] & reg_we & !reg_error;
   assign b_45_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_45_cfg_oen_we = addr_hit[276] & reg_we & !reg_error;
+  assign b_45_cfg_oen_we = addr_hit[150] & reg_we & !reg_error;
   assign b_45_cfg_oen_wd = reg_wdata[3];
 
-  assign b_45_cfg_puen_we = addr_hit[276] & reg_we & !reg_error;
+  assign b_45_cfg_puen_we = addr_hit[150] & reg_we & !reg_error;
   assign b_45_cfg_puen_wd = reg_wdata[4];
 
-  assign b_45_cfg_slw_we = addr_hit[276] & reg_we & !reg_error;
+  assign b_45_cfg_slw_we = addr_hit[150] & reg_we & !reg_error;
   assign b_45_cfg_slw_wd = reg_wdata[5];
 
-  assign b_45_cfg_smt_we = addr_hit[276] & reg_we & !reg_error;
+  assign b_45_cfg_smt_we = addr_hit[150] & reg_we & !reg_error;
   assign b_45_cfg_smt_wd = reg_wdata[6];
 
-  assign b_45_mux_sel_we = addr_hit[277] & reg_we & !reg_error;
-  assign b_45_mux_sel_wd = reg_wdata[0];
+  assign b_45_mux_sel_we = addr_hit[151] & reg_we & !reg_error;
+  assign b_45_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_46_cfg_chip2pad_we = addr_hit[278] & reg_we & !reg_error;
+  assign b_46_cfg_chip2pad_we = addr_hit[152] & reg_we & !reg_error;
   assign b_46_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_46_cfg_drv_we = addr_hit[278] & reg_we & !reg_error;
+  assign b_46_cfg_drv_we = addr_hit[152] & reg_we & !reg_error;
   assign b_46_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_46_cfg_oen_we = addr_hit[278] & reg_we & !reg_error;
+  assign b_46_cfg_oen_we = addr_hit[152] & reg_we & !reg_error;
   assign b_46_cfg_oen_wd = reg_wdata[3];
 
-  assign b_46_cfg_puen_we = addr_hit[278] & reg_we & !reg_error;
+  assign b_46_cfg_puen_we = addr_hit[152] & reg_we & !reg_error;
   assign b_46_cfg_puen_wd = reg_wdata[4];
 
-  assign b_46_cfg_slw_we = addr_hit[278] & reg_we & !reg_error;
+  assign b_46_cfg_slw_we = addr_hit[152] & reg_we & !reg_error;
   assign b_46_cfg_slw_wd = reg_wdata[5];
 
-  assign b_46_cfg_smt_we = addr_hit[278] & reg_we & !reg_error;
+  assign b_46_cfg_smt_we = addr_hit[152] & reg_we & !reg_error;
   assign b_46_cfg_smt_wd = reg_wdata[6];
 
-  assign b_46_mux_sel_we = addr_hit[279] & reg_we & !reg_error;
-  assign b_46_mux_sel_wd = reg_wdata[0];
+  assign b_46_mux_sel_we = addr_hit[153] & reg_we & !reg_error;
+  assign b_46_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_47_cfg_chip2pad_we = addr_hit[280] & reg_we & !reg_error;
+  assign b_47_cfg_chip2pad_we = addr_hit[154] & reg_we & !reg_error;
   assign b_47_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_47_cfg_drv_we = addr_hit[280] & reg_we & !reg_error;
+  assign b_47_cfg_drv_we = addr_hit[154] & reg_we & !reg_error;
   assign b_47_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_47_cfg_oen_we = addr_hit[280] & reg_we & !reg_error;
+  assign b_47_cfg_oen_we = addr_hit[154] & reg_we & !reg_error;
   assign b_47_cfg_oen_wd = reg_wdata[3];
 
-  assign b_47_cfg_puen_we = addr_hit[280] & reg_we & !reg_error;
+  assign b_47_cfg_puen_we = addr_hit[154] & reg_we & !reg_error;
   assign b_47_cfg_puen_wd = reg_wdata[4];
 
-  assign b_47_cfg_slw_we = addr_hit[280] & reg_we & !reg_error;
+  assign b_47_cfg_slw_we = addr_hit[154] & reg_we & !reg_error;
   assign b_47_cfg_slw_wd = reg_wdata[5];
 
-  assign b_47_cfg_smt_we = addr_hit[280] & reg_we & !reg_error;
+  assign b_47_cfg_smt_we = addr_hit[154] & reg_we & !reg_error;
   assign b_47_cfg_smt_wd = reg_wdata[6];
 
-  assign b_47_mux_sel_we = addr_hit[281] & reg_we & !reg_error;
+  assign b_47_mux_sel_we = addr_hit[155] & reg_we & !reg_error;
   assign b_47_mux_sel_wd = reg_wdata[1:0];
 
-  assign b_48_cfg_chip2pad_we = addr_hit[282] & reg_we & !reg_error;
-  assign b_48_cfg_chip2pad_wd = reg_wdata[0];
+  assign ot_spi_00_cfg_chip2pad_we = addr_hit[156] & reg_we & !reg_error;
+  assign ot_spi_00_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_48_cfg_drv_we = addr_hit[282] & reg_we & !reg_error;
-  assign b_48_cfg_drv_wd = reg_wdata[2:1];
+  assign ot_spi_00_cfg_drv_we = addr_hit[156] & reg_we & !reg_error;
+  assign ot_spi_00_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_48_cfg_oen_we = addr_hit[282] & reg_we & !reg_error;
-  assign b_48_cfg_oen_wd = reg_wdata[3];
+  assign ot_spi_00_cfg_oen_we = addr_hit[156] & reg_we & !reg_error;
+  assign ot_spi_00_cfg_oen_wd = reg_wdata[3];
 
-  assign b_48_cfg_puen_we = addr_hit[282] & reg_we & !reg_error;
-  assign b_48_cfg_puen_wd = reg_wdata[4];
+  assign ot_spi_00_cfg_puen_we = addr_hit[156] & reg_we & !reg_error;
+  assign ot_spi_00_cfg_puen_wd = reg_wdata[4];
 
-  assign b_48_cfg_slw_we = addr_hit[282] & reg_we & !reg_error;
-  assign b_48_cfg_slw_wd = reg_wdata[5];
+  assign ot_spi_00_cfg_slw_we = addr_hit[156] & reg_we & !reg_error;
+  assign ot_spi_00_cfg_slw_wd = reg_wdata[5];
 
-  assign b_48_cfg_smt_we = addr_hit[282] & reg_we & !reg_error;
-  assign b_48_cfg_smt_wd = reg_wdata[6];
+  assign ot_spi_00_cfg_smt_we = addr_hit[156] & reg_we & !reg_error;
+  assign ot_spi_00_cfg_smt_wd = reg_wdata[6];
 
-  assign b_48_mux_sel_we = addr_hit[283] & reg_we & !reg_error;
-  assign b_48_mux_sel_wd = reg_wdata[1:0];
+  assign ot_spi_00_mux_sel_we = addr_hit[157] & reg_we & !reg_error;
+  assign ot_spi_00_mux_sel_wd = reg_wdata[0];
 
-  assign b_49_cfg_chip2pad_we = addr_hit[284] & reg_we & !reg_error;
-  assign b_49_cfg_chip2pad_wd = reg_wdata[0];
+  assign ot_spi_01_cfg_chip2pad_we = addr_hit[158] & reg_we & !reg_error;
+  assign ot_spi_01_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_49_cfg_drv_we = addr_hit[284] & reg_we & !reg_error;
-  assign b_49_cfg_drv_wd = reg_wdata[2:1];
+  assign ot_spi_01_cfg_drv_we = addr_hit[158] & reg_we & !reg_error;
+  assign ot_spi_01_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_49_cfg_oen_we = addr_hit[284] & reg_we & !reg_error;
-  assign b_49_cfg_oen_wd = reg_wdata[3];
+  assign ot_spi_01_cfg_oen_we = addr_hit[158] & reg_we & !reg_error;
+  assign ot_spi_01_cfg_oen_wd = reg_wdata[3];
 
-  assign b_49_cfg_puen_we = addr_hit[284] & reg_we & !reg_error;
-  assign b_49_cfg_puen_wd = reg_wdata[4];
+  assign ot_spi_01_cfg_puen_we = addr_hit[158] & reg_we & !reg_error;
+  assign ot_spi_01_cfg_puen_wd = reg_wdata[4];
 
-  assign b_49_cfg_slw_we = addr_hit[284] & reg_we & !reg_error;
-  assign b_49_cfg_slw_wd = reg_wdata[5];
+  assign ot_spi_01_cfg_slw_we = addr_hit[158] & reg_we & !reg_error;
+  assign ot_spi_01_cfg_slw_wd = reg_wdata[5];
 
-  assign b_49_cfg_smt_we = addr_hit[284] & reg_we & !reg_error;
-  assign b_49_cfg_smt_wd = reg_wdata[6];
+  assign ot_spi_01_cfg_smt_we = addr_hit[158] & reg_we & !reg_error;
+  assign ot_spi_01_cfg_smt_wd = reg_wdata[6];
 
-  assign b_49_mux_sel_we = addr_hit[285] & reg_we & !reg_error;
-  assign b_49_mux_sel_wd = reg_wdata[1:0];
+  assign ot_spi_01_mux_sel_we = addr_hit[159] & reg_we & !reg_error;
+  assign ot_spi_01_mux_sel_wd = reg_wdata[0];
 
-  assign b_50_cfg_chip2pad_we = addr_hit[286] & reg_we & !reg_error;
-  assign b_50_cfg_chip2pad_wd = reg_wdata[0];
+  assign ot_spi_02_cfg_chip2pad_we = addr_hit[160] & reg_we & !reg_error;
+  assign ot_spi_02_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_50_cfg_drv_we = addr_hit[286] & reg_we & !reg_error;
-  assign b_50_cfg_drv_wd = reg_wdata[2:1];
+  assign ot_spi_02_cfg_drv_we = addr_hit[160] & reg_we & !reg_error;
+  assign ot_spi_02_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_50_cfg_oen_we = addr_hit[286] & reg_we & !reg_error;
-  assign b_50_cfg_oen_wd = reg_wdata[3];
+  assign ot_spi_02_cfg_oen_we = addr_hit[160] & reg_we & !reg_error;
+  assign ot_spi_02_cfg_oen_wd = reg_wdata[3];
 
-  assign b_50_cfg_puen_we = addr_hit[286] & reg_we & !reg_error;
-  assign b_50_cfg_puen_wd = reg_wdata[4];
+  assign ot_spi_02_cfg_puen_we = addr_hit[160] & reg_we & !reg_error;
+  assign ot_spi_02_cfg_puen_wd = reg_wdata[4];
 
-  assign b_50_cfg_slw_we = addr_hit[286] & reg_we & !reg_error;
-  assign b_50_cfg_slw_wd = reg_wdata[5];
+  assign ot_spi_02_cfg_slw_we = addr_hit[160] & reg_we & !reg_error;
+  assign ot_spi_02_cfg_slw_wd = reg_wdata[5];
 
-  assign b_50_cfg_smt_we = addr_hit[286] & reg_we & !reg_error;
-  assign b_50_cfg_smt_wd = reg_wdata[6];
+  assign ot_spi_02_cfg_smt_we = addr_hit[160] & reg_we & !reg_error;
+  assign ot_spi_02_cfg_smt_wd = reg_wdata[6];
 
-  assign b_50_mux_sel_we = addr_hit[287] & reg_we & !reg_error;
-  assign b_50_mux_sel_wd = reg_wdata[1:0];
+  assign ot_spi_02_mux_sel_we = addr_hit[161] & reg_we & !reg_error;
+  assign ot_spi_02_mux_sel_wd = reg_wdata[0];
 
-  assign b_51_cfg_chip2pad_we = addr_hit[288] & reg_we & !reg_error;
-  assign b_51_cfg_chip2pad_wd = reg_wdata[0];
+  assign ot_spi_03_cfg_chip2pad_we = addr_hit[162] & reg_we & !reg_error;
+  assign ot_spi_03_cfg_chip2pad_wd = reg_wdata[0];
 
-  assign b_51_cfg_drv_we = addr_hit[288] & reg_we & !reg_error;
-  assign b_51_cfg_drv_wd = reg_wdata[2:1];
+  assign ot_spi_03_cfg_drv_we = addr_hit[162] & reg_we & !reg_error;
+  assign ot_spi_03_cfg_drv_wd = reg_wdata[2:1];
 
-  assign b_51_cfg_oen_we = addr_hit[288] & reg_we & !reg_error;
-  assign b_51_cfg_oen_wd = reg_wdata[3];
+  assign ot_spi_03_cfg_oen_we = addr_hit[162] & reg_we & !reg_error;
+  assign ot_spi_03_cfg_oen_wd = reg_wdata[3];
 
-  assign b_51_cfg_puen_we = addr_hit[288] & reg_we & !reg_error;
-  assign b_51_cfg_puen_wd = reg_wdata[4];
+  assign ot_spi_03_cfg_puen_we = addr_hit[162] & reg_we & !reg_error;
+  assign ot_spi_03_cfg_puen_wd = reg_wdata[4];
 
-  assign b_51_cfg_slw_we = addr_hit[288] & reg_we & !reg_error;
-  assign b_51_cfg_slw_wd = reg_wdata[5];
+  assign ot_spi_03_cfg_slw_we = addr_hit[162] & reg_we & !reg_error;
+  assign ot_spi_03_cfg_slw_wd = reg_wdata[5];
 
-  assign b_51_cfg_smt_we = addr_hit[288] & reg_we & !reg_error;
-  assign b_51_cfg_smt_wd = reg_wdata[6];
+  assign ot_spi_03_cfg_smt_we = addr_hit[162] & reg_we & !reg_error;
+  assign ot_spi_03_cfg_smt_wd = reg_wdata[6];
 
-  assign b_51_mux_sel_we = addr_hit[289] & reg_we & !reg_error;
-  assign b_51_mux_sel_wd = reg_wdata[1:0];
-
-  assign b_52_cfg_chip2pad_we = addr_hit[290] & reg_we & !reg_error;
-  assign b_52_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign b_52_cfg_drv_we = addr_hit[290] & reg_we & !reg_error;
-  assign b_52_cfg_drv_wd = reg_wdata[2:1];
-
-  assign b_52_cfg_oen_we = addr_hit[290] & reg_we & !reg_error;
-  assign b_52_cfg_oen_wd = reg_wdata[3];
-
-  assign b_52_cfg_puen_we = addr_hit[290] & reg_we & !reg_error;
-  assign b_52_cfg_puen_wd = reg_wdata[4];
-
-  assign b_52_cfg_slw_we = addr_hit[290] & reg_we & !reg_error;
-  assign b_52_cfg_slw_wd = reg_wdata[5];
-
-  assign b_52_cfg_smt_we = addr_hit[290] & reg_we & !reg_error;
-  assign b_52_cfg_smt_wd = reg_wdata[6];
-
-  assign b_52_mux_sel_we = addr_hit[291] & reg_we & !reg_error;
-  assign b_52_mux_sel_wd = reg_wdata[1:0];
-
-  assign b_53_cfg_chip2pad_we = addr_hit[292] & reg_we & !reg_error;
-  assign b_53_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign b_53_cfg_drv_we = addr_hit[292] & reg_we & !reg_error;
-  assign b_53_cfg_drv_wd = reg_wdata[2:1];
-
-  assign b_53_cfg_oen_we = addr_hit[292] & reg_we & !reg_error;
-  assign b_53_cfg_oen_wd = reg_wdata[3];
-
-  assign b_53_cfg_puen_we = addr_hit[292] & reg_we & !reg_error;
-  assign b_53_cfg_puen_wd = reg_wdata[4];
-
-  assign b_53_cfg_slw_we = addr_hit[292] & reg_we & !reg_error;
-  assign b_53_cfg_slw_wd = reg_wdata[5];
-
-  assign b_53_cfg_smt_we = addr_hit[292] & reg_we & !reg_error;
-  assign b_53_cfg_smt_wd = reg_wdata[6];
-
-  assign b_53_mux_sel_we = addr_hit[293] & reg_we & !reg_error;
-  assign b_53_mux_sel_wd = reg_wdata[1:0];
-
-  assign b_54_cfg_chip2pad_we = addr_hit[294] & reg_we & !reg_error;
-  assign b_54_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign b_54_cfg_drv_we = addr_hit[294] & reg_we & !reg_error;
-  assign b_54_cfg_drv_wd = reg_wdata[2:1];
-
-  assign b_54_cfg_oen_we = addr_hit[294] & reg_we & !reg_error;
-  assign b_54_cfg_oen_wd = reg_wdata[3];
-
-  assign b_54_cfg_puen_we = addr_hit[294] & reg_we & !reg_error;
-  assign b_54_cfg_puen_wd = reg_wdata[4];
-
-  assign b_54_cfg_slw_we = addr_hit[294] & reg_we & !reg_error;
-  assign b_54_cfg_slw_wd = reg_wdata[5];
-
-  assign b_54_cfg_smt_we = addr_hit[294] & reg_we & !reg_error;
-  assign b_54_cfg_smt_wd = reg_wdata[6];
-
-  assign b_54_mux_sel_we = addr_hit[295] & reg_we & !reg_error;
-  assign b_54_mux_sel_wd = reg_wdata[1:0];
-
-  assign b_55_cfg_chip2pad_we = addr_hit[296] & reg_we & !reg_error;
-  assign b_55_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign b_55_cfg_drv_we = addr_hit[296] & reg_we & !reg_error;
-  assign b_55_cfg_drv_wd = reg_wdata[2:1];
-
-  assign b_55_cfg_oen_we = addr_hit[296] & reg_we & !reg_error;
-  assign b_55_cfg_oen_wd = reg_wdata[3];
-
-  assign b_55_cfg_puen_we = addr_hit[296] & reg_we & !reg_error;
-  assign b_55_cfg_puen_wd = reg_wdata[4];
-
-  assign b_55_cfg_slw_we = addr_hit[296] & reg_we & !reg_error;
-  assign b_55_cfg_slw_wd = reg_wdata[5];
-
-  assign b_55_cfg_smt_we = addr_hit[296] & reg_we & !reg_error;
-  assign b_55_cfg_smt_wd = reg_wdata[6];
-
-  assign b_55_mux_sel_we = addr_hit[297] & reg_we & !reg_error;
-  assign b_55_mux_sel_wd = reg_wdata[1:0];
-
-  assign b_56_cfg_chip2pad_we = addr_hit[298] & reg_we & !reg_error;
-  assign b_56_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign b_56_cfg_drv_we = addr_hit[298] & reg_we & !reg_error;
-  assign b_56_cfg_drv_wd = reg_wdata[2:1];
-
-  assign b_56_cfg_oen_we = addr_hit[298] & reg_we & !reg_error;
-  assign b_56_cfg_oen_wd = reg_wdata[3];
-
-  assign b_56_cfg_puen_we = addr_hit[298] & reg_we & !reg_error;
-  assign b_56_cfg_puen_wd = reg_wdata[4];
-
-  assign b_56_cfg_slw_we = addr_hit[298] & reg_we & !reg_error;
-  assign b_56_cfg_slw_wd = reg_wdata[5];
-
-  assign b_56_cfg_smt_we = addr_hit[298] & reg_we & !reg_error;
-  assign b_56_cfg_smt_wd = reg_wdata[6];
-
-  assign b_56_mux_sel_we = addr_hit[299] & reg_we & !reg_error;
-  assign b_56_mux_sel_wd = reg_wdata[1:0];
-
-  assign b_57_cfg_chip2pad_we = addr_hit[300] & reg_we & !reg_error;
-  assign b_57_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign b_57_cfg_drv_we = addr_hit[300] & reg_we & !reg_error;
-  assign b_57_cfg_drv_wd = reg_wdata[2:1];
-
-  assign b_57_cfg_oen_we = addr_hit[300] & reg_we & !reg_error;
-  assign b_57_cfg_oen_wd = reg_wdata[3];
-
-  assign b_57_cfg_puen_we = addr_hit[300] & reg_we & !reg_error;
-  assign b_57_cfg_puen_wd = reg_wdata[4];
-
-  assign b_57_cfg_slw_we = addr_hit[300] & reg_we & !reg_error;
-  assign b_57_cfg_slw_wd = reg_wdata[5];
-
-  assign b_57_cfg_smt_we = addr_hit[300] & reg_we & !reg_error;
-  assign b_57_cfg_smt_wd = reg_wdata[6];
-
-  assign b_57_mux_sel_we = addr_hit[301] & reg_we & !reg_error;
-  assign b_57_mux_sel_wd = reg_wdata[1:0];
-
-  assign b_58_cfg_chip2pad_we = addr_hit[302] & reg_we & !reg_error;
-  assign b_58_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign b_58_cfg_drv_we = addr_hit[302] & reg_we & !reg_error;
-  assign b_58_cfg_drv_wd = reg_wdata[2:1];
-
-  assign b_58_cfg_oen_we = addr_hit[302] & reg_we & !reg_error;
-  assign b_58_cfg_oen_wd = reg_wdata[3];
-
-  assign b_58_cfg_puen_we = addr_hit[302] & reg_we & !reg_error;
-  assign b_58_cfg_puen_wd = reg_wdata[4];
-
-  assign b_58_cfg_slw_we = addr_hit[302] & reg_we & !reg_error;
-  assign b_58_cfg_slw_wd = reg_wdata[5];
-
-  assign b_58_cfg_smt_we = addr_hit[302] & reg_we & !reg_error;
-  assign b_58_cfg_smt_wd = reg_wdata[6];
-
-  assign b_58_mux_sel_we = addr_hit[303] & reg_we & !reg_error;
-  assign b_58_mux_sel_wd = reg_wdata[1:0];
-
-  assign b_59_cfg_chip2pad_we = addr_hit[304] & reg_we & !reg_error;
-  assign b_59_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign b_59_cfg_drv_we = addr_hit[304] & reg_we & !reg_error;
-  assign b_59_cfg_drv_wd = reg_wdata[2:1];
-
-  assign b_59_cfg_oen_we = addr_hit[304] & reg_we & !reg_error;
-  assign b_59_cfg_oen_wd = reg_wdata[3];
-
-  assign b_59_cfg_puen_we = addr_hit[304] & reg_we & !reg_error;
-  assign b_59_cfg_puen_wd = reg_wdata[4];
-
-  assign b_59_cfg_slw_we = addr_hit[304] & reg_we & !reg_error;
-  assign b_59_cfg_slw_wd = reg_wdata[5];
-
-  assign b_59_cfg_smt_we = addr_hit[304] & reg_we & !reg_error;
-  assign b_59_cfg_smt_wd = reg_wdata[6];
-
-  assign b_59_mux_sel_we = addr_hit[305] & reg_we & !reg_error;
-  assign b_59_mux_sel_wd = reg_wdata[1:0];
-
-  assign b_60_cfg_chip2pad_we = addr_hit[306] & reg_we & !reg_error;
-  assign b_60_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign b_60_cfg_drv_we = addr_hit[306] & reg_we & !reg_error;
-  assign b_60_cfg_drv_wd = reg_wdata[2:1];
-
-  assign b_60_cfg_oen_we = addr_hit[306] & reg_we & !reg_error;
-  assign b_60_cfg_oen_wd = reg_wdata[3];
-
-  assign b_60_cfg_puen_we = addr_hit[306] & reg_we & !reg_error;
-  assign b_60_cfg_puen_wd = reg_wdata[4];
-
-  assign b_60_cfg_slw_we = addr_hit[306] & reg_we & !reg_error;
-  assign b_60_cfg_slw_wd = reg_wdata[5];
-
-  assign b_60_cfg_smt_we = addr_hit[306] & reg_we & !reg_error;
-  assign b_60_cfg_smt_wd = reg_wdata[6];
-
-  assign b_60_mux_sel_we = addr_hit[307] & reg_we & !reg_error;
-  assign b_60_mux_sel_wd = reg_wdata[1:0];
-
-  assign b_61_cfg_chip2pad_we = addr_hit[308] & reg_we & !reg_error;
-  assign b_61_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign b_61_cfg_drv_we = addr_hit[308] & reg_we & !reg_error;
-  assign b_61_cfg_drv_wd = reg_wdata[2:1];
-
-  assign b_61_cfg_oen_we = addr_hit[308] & reg_we & !reg_error;
-  assign b_61_cfg_oen_wd = reg_wdata[3];
-
-  assign b_61_cfg_puen_we = addr_hit[308] & reg_we & !reg_error;
-  assign b_61_cfg_puen_wd = reg_wdata[4];
-
-  assign b_61_cfg_slw_we = addr_hit[308] & reg_we & !reg_error;
-  assign b_61_cfg_slw_wd = reg_wdata[5];
-
-  assign b_61_cfg_smt_we = addr_hit[308] & reg_we & !reg_error;
-  assign b_61_cfg_smt_wd = reg_wdata[6];
-
-  assign b_61_mux_sel_we = addr_hit[309] & reg_we & !reg_error;
-  assign b_61_mux_sel_wd = reg_wdata[1:0];
-
-  assign b_62_cfg_chip2pad_we = addr_hit[310] & reg_we & !reg_error;
-  assign b_62_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign b_62_cfg_drv_we = addr_hit[310] & reg_we & !reg_error;
-  assign b_62_cfg_drv_wd = reg_wdata[2:1];
-
-  assign b_62_cfg_oen_we = addr_hit[310] & reg_we & !reg_error;
-  assign b_62_cfg_oen_wd = reg_wdata[3];
-
-  assign b_62_cfg_puen_we = addr_hit[310] & reg_we & !reg_error;
-  assign b_62_cfg_puen_wd = reg_wdata[4];
-
-  assign b_62_cfg_slw_we = addr_hit[310] & reg_we & !reg_error;
-  assign b_62_cfg_slw_wd = reg_wdata[5];
-
-  assign b_62_cfg_smt_we = addr_hit[310] & reg_we & !reg_error;
-  assign b_62_cfg_smt_wd = reg_wdata[6];
-
-  assign b_62_mux_sel_we = addr_hit[311] & reg_we & !reg_error;
-  assign b_62_mux_sel_wd = reg_wdata[2:0];
-
-  assign ot_qspi_00_cfg_chip2pad_we = addr_hit[312] & reg_we & !reg_error;
-  assign ot_qspi_00_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign ot_qspi_00_cfg_drv_we = addr_hit[312] & reg_we & !reg_error;
-  assign ot_qspi_00_cfg_drv_wd = reg_wdata[2:1];
-
-  assign ot_qspi_00_cfg_oen_we = addr_hit[312] & reg_we & !reg_error;
-  assign ot_qspi_00_cfg_oen_wd = reg_wdata[3];
-
-  assign ot_qspi_00_cfg_puen_we = addr_hit[312] & reg_we & !reg_error;
-  assign ot_qspi_00_cfg_puen_wd = reg_wdata[4];
-
-  assign ot_qspi_00_cfg_slw_we = addr_hit[312] & reg_we & !reg_error;
-  assign ot_qspi_00_cfg_slw_wd = reg_wdata[5];
-
-  assign ot_qspi_00_cfg_smt_we = addr_hit[312] & reg_we & !reg_error;
-  assign ot_qspi_00_cfg_smt_wd = reg_wdata[6];
-
-  assign ot_qspi_00_mux_sel_we = addr_hit[313] & reg_we & !reg_error;
-  assign ot_qspi_00_mux_sel_wd = reg_wdata[0];
-
-  assign ot_qspi_01_cfg_chip2pad_we = addr_hit[314] & reg_we & !reg_error;
-  assign ot_qspi_01_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign ot_qspi_01_cfg_drv_we = addr_hit[314] & reg_we & !reg_error;
-  assign ot_qspi_01_cfg_drv_wd = reg_wdata[2:1];
-
-  assign ot_qspi_01_cfg_oen_we = addr_hit[314] & reg_we & !reg_error;
-  assign ot_qspi_01_cfg_oen_wd = reg_wdata[3];
-
-  assign ot_qspi_01_cfg_puen_we = addr_hit[314] & reg_we & !reg_error;
-  assign ot_qspi_01_cfg_puen_wd = reg_wdata[4];
-
-  assign ot_qspi_01_cfg_slw_we = addr_hit[314] & reg_we & !reg_error;
-  assign ot_qspi_01_cfg_slw_wd = reg_wdata[5];
-
-  assign ot_qspi_01_cfg_smt_we = addr_hit[314] & reg_we & !reg_error;
-  assign ot_qspi_01_cfg_smt_wd = reg_wdata[6];
-
-  assign ot_qspi_01_mux_sel_we = addr_hit[315] & reg_we & !reg_error;
-  assign ot_qspi_01_mux_sel_wd = reg_wdata[0];
-
-  assign ot_qspi_02_cfg_chip2pad_we = addr_hit[316] & reg_we & !reg_error;
-  assign ot_qspi_02_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign ot_qspi_02_cfg_drv_we = addr_hit[316] & reg_we & !reg_error;
-  assign ot_qspi_02_cfg_drv_wd = reg_wdata[2:1];
-
-  assign ot_qspi_02_cfg_oen_we = addr_hit[316] & reg_we & !reg_error;
-  assign ot_qspi_02_cfg_oen_wd = reg_wdata[3];
-
-  assign ot_qspi_02_cfg_puen_we = addr_hit[316] & reg_we & !reg_error;
-  assign ot_qspi_02_cfg_puen_wd = reg_wdata[4];
-
-  assign ot_qspi_02_cfg_slw_we = addr_hit[316] & reg_we & !reg_error;
-  assign ot_qspi_02_cfg_slw_wd = reg_wdata[5];
-
-  assign ot_qspi_02_cfg_smt_we = addr_hit[316] & reg_we & !reg_error;
-  assign ot_qspi_02_cfg_smt_wd = reg_wdata[6];
-
-  assign ot_qspi_02_mux_sel_we = addr_hit[317] & reg_we & !reg_error;
-  assign ot_qspi_02_mux_sel_wd = reg_wdata[0];
-
-  assign ot_qspi_03_cfg_chip2pad_we = addr_hit[318] & reg_we & !reg_error;
-  assign ot_qspi_03_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign ot_qspi_03_cfg_drv_we = addr_hit[318] & reg_we & !reg_error;
-  assign ot_qspi_03_cfg_drv_wd = reg_wdata[2:1];
-
-  assign ot_qspi_03_cfg_oen_we = addr_hit[318] & reg_we & !reg_error;
-  assign ot_qspi_03_cfg_oen_wd = reg_wdata[3];
-
-  assign ot_qspi_03_cfg_puen_we = addr_hit[318] & reg_we & !reg_error;
-  assign ot_qspi_03_cfg_puen_wd = reg_wdata[4];
-
-  assign ot_qspi_03_cfg_slw_we = addr_hit[318] & reg_we & !reg_error;
-  assign ot_qspi_03_cfg_slw_wd = reg_wdata[5];
-
-  assign ot_qspi_03_cfg_smt_we = addr_hit[318] & reg_we & !reg_error;
-  assign ot_qspi_03_cfg_smt_wd = reg_wdata[6];
-
-  assign ot_qspi_03_mux_sel_we = addr_hit[319] & reg_we & !reg_error;
-  assign ot_qspi_03_mux_sel_wd = reg_wdata[0];
-
-  assign ot_qspi_04_cfg_chip2pad_we = addr_hit[320] & reg_we & !reg_error;
-  assign ot_qspi_04_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign ot_qspi_04_cfg_drv_we = addr_hit[320] & reg_we & !reg_error;
-  assign ot_qspi_04_cfg_drv_wd = reg_wdata[2:1];
-
-  assign ot_qspi_04_cfg_oen_we = addr_hit[320] & reg_we & !reg_error;
-  assign ot_qspi_04_cfg_oen_wd = reg_wdata[3];
-
-  assign ot_qspi_04_cfg_puen_we = addr_hit[320] & reg_we & !reg_error;
-  assign ot_qspi_04_cfg_puen_wd = reg_wdata[4];
-
-  assign ot_qspi_04_cfg_slw_we = addr_hit[320] & reg_we & !reg_error;
-  assign ot_qspi_04_cfg_slw_wd = reg_wdata[5];
-
-  assign ot_qspi_04_cfg_smt_we = addr_hit[320] & reg_we & !reg_error;
-  assign ot_qspi_04_cfg_smt_wd = reg_wdata[6];
-
-  assign ot_qspi_04_mux_sel_we = addr_hit[321] & reg_we & !reg_error;
-  assign ot_qspi_04_mux_sel_wd = reg_wdata[0];
-
-  assign ot_qspi_05_cfg_chip2pad_we = addr_hit[322] & reg_we & !reg_error;
-  assign ot_qspi_05_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign ot_qspi_05_cfg_drv_we = addr_hit[322] & reg_we & !reg_error;
-  assign ot_qspi_05_cfg_drv_wd = reg_wdata[2:1];
-
-  assign ot_qspi_05_cfg_oen_we = addr_hit[322] & reg_we & !reg_error;
-  assign ot_qspi_05_cfg_oen_wd = reg_wdata[3];
-
-  assign ot_qspi_05_cfg_puen_we = addr_hit[322] & reg_we & !reg_error;
-  assign ot_qspi_05_cfg_puen_wd = reg_wdata[4];
-
-  assign ot_qspi_05_cfg_slw_we = addr_hit[322] & reg_we & !reg_error;
-  assign ot_qspi_05_cfg_slw_wd = reg_wdata[5];
-
-  assign ot_qspi_05_cfg_smt_we = addr_hit[322] & reg_we & !reg_error;
-  assign ot_qspi_05_cfg_smt_wd = reg_wdata[6];
-
-  assign ot_qspi_05_mux_sel_we = addr_hit[323] & reg_we & !reg_error;
-  assign ot_qspi_05_mux_sel_wd = reg_wdata[0];
-
-  assign linux_qspi_00_cfg_chip2pad_we = addr_hit[324] & reg_we & !reg_error;
-  assign linux_qspi_00_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign linux_qspi_00_cfg_drv_we = addr_hit[324] & reg_we & !reg_error;
-  assign linux_qspi_00_cfg_drv_wd = reg_wdata[2:1];
-
-  assign linux_qspi_00_cfg_oen_we = addr_hit[324] & reg_we & !reg_error;
-  assign linux_qspi_00_cfg_oen_wd = reg_wdata[3];
-
-  assign linux_qspi_00_cfg_puen_we = addr_hit[324] & reg_we & !reg_error;
-  assign linux_qspi_00_cfg_puen_wd = reg_wdata[4];
-
-  assign linux_qspi_00_cfg_slw_we = addr_hit[324] & reg_we & !reg_error;
-  assign linux_qspi_00_cfg_slw_wd = reg_wdata[5];
-
-  assign linux_qspi_00_cfg_smt_we = addr_hit[324] & reg_we & !reg_error;
-  assign linux_qspi_00_cfg_smt_wd = reg_wdata[6];
-
-  assign linux_qspi_00_mux_sel_we = addr_hit[325] & reg_we & !reg_error;
-  assign linux_qspi_00_mux_sel_wd = reg_wdata[0];
-
-  assign linux_qspi_01_cfg_chip2pad_we = addr_hit[326] & reg_we & !reg_error;
-  assign linux_qspi_01_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign linux_qspi_01_cfg_drv_we = addr_hit[326] & reg_we & !reg_error;
-  assign linux_qspi_01_cfg_drv_wd = reg_wdata[2:1];
-
-  assign linux_qspi_01_cfg_oen_we = addr_hit[326] & reg_we & !reg_error;
-  assign linux_qspi_01_cfg_oen_wd = reg_wdata[3];
-
-  assign linux_qspi_01_cfg_puen_we = addr_hit[326] & reg_we & !reg_error;
-  assign linux_qspi_01_cfg_puen_wd = reg_wdata[4];
-
-  assign linux_qspi_01_cfg_slw_we = addr_hit[326] & reg_we & !reg_error;
-  assign linux_qspi_01_cfg_slw_wd = reg_wdata[5];
-
-  assign linux_qspi_01_cfg_smt_we = addr_hit[326] & reg_we & !reg_error;
-  assign linux_qspi_01_cfg_smt_wd = reg_wdata[6];
-
-  assign linux_qspi_01_mux_sel_we = addr_hit[327] & reg_we & !reg_error;
-  assign linux_qspi_01_mux_sel_wd = reg_wdata[0];
-
-  assign linux_qspi_02_cfg_chip2pad_we = addr_hit[328] & reg_we & !reg_error;
-  assign linux_qspi_02_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign linux_qspi_02_cfg_drv_we = addr_hit[328] & reg_we & !reg_error;
-  assign linux_qspi_02_cfg_drv_wd = reg_wdata[2:1];
-
-  assign linux_qspi_02_cfg_oen_we = addr_hit[328] & reg_we & !reg_error;
-  assign linux_qspi_02_cfg_oen_wd = reg_wdata[3];
-
-  assign linux_qspi_02_cfg_puen_we = addr_hit[328] & reg_we & !reg_error;
-  assign linux_qspi_02_cfg_puen_wd = reg_wdata[4];
-
-  assign linux_qspi_02_cfg_slw_we = addr_hit[328] & reg_we & !reg_error;
-  assign linux_qspi_02_cfg_slw_wd = reg_wdata[5];
-
-  assign linux_qspi_02_cfg_smt_we = addr_hit[328] & reg_we & !reg_error;
-  assign linux_qspi_02_cfg_smt_wd = reg_wdata[6];
-
-  assign linux_qspi_02_mux_sel_we = addr_hit[329] & reg_we & !reg_error;
-  assign linux_qspi_02_mux_sel_wd = reg_wdata[0];
-
-  assign linux_qspi_03_cfg_chip2pad_we = addr_hit[330] & reg_we & !reg_error;
-  assign linux_qspi_03_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign linux_qspi_03_cfg_drv_we = addr_hit[330] & reg_we & !reg_error;
-  assign linux_qspi_03_cfg_drv_wd = reg_wdata[2:1];
-
-  assign linux_qspi_03_cfg_oen_we = addr_hit[330] & reg_we & !reg_error;
-  assign linux_qspi_03_cfg_oen_wd = reg_wdata[3];
-
-  assign linux_qspi_03_cfg_puen_we = addr_hit[330] & reg_we & !reg_error;
-  assign linux_qspi_03_cfg_puen_wd = reg_wdata[4];
-
-  assign linux_qspi_03_cfg_slw_we = addr_hit[330] & reg_we & !reg_error;
-  assign linux_qspi_03_cfg_slw_wd = reg_wdata[5];
-
-  assign linux_qspi_03_cfg_smt_we = addr_hit[330] & reg_we & !reg_error;
-  assign linux_qspi_03_cfg_smt_wd = reg_wdata[6];
-
-  assign linux_qspi_03_mux_sel_we = addr_hit[331] & reg_we & !reg_error;
-  assign linux_qspi_03_mux_sel_wd = reg_wdata[0];
-
-  assign linux_qspi_04_cfg_chip2pad_we = addr_hit[332] & reg_we & !reg_error;
-  assign linux_qspi_04_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign linux_qspi_04_cfg_drv_we = addr_hit[332] & reg_we & !reg_error;
-  assign linux_qspi_04_cfg_drv_wd = reg_wdata[2:1];
-
-  assign linux_qspi_04_cfg_oen_we = addr_hit[332] & reg_we & !reg_error;
-  assign linux_qspi_04_cfg_oen_wd = reg_wdata[3];
-
-  assign linux_qspi_04_cfg_puen_we = addr_hit[332] & reg_we & !reg_error;
-  assign linux_qspi_04_cfg_puen_wd = reg_wdata[4];
-
-  assign linux_qspi_04_cfg_slw_we = addr_hit[332] & reg_we & !reg_error;
-  assign linux_qspi_04_cfg_slw_wd = reg_wdata[5];
-
-  assign linux_qspi_04_cfg_smt_we = addr_hit[332] & reg_we & !reg_error;
-  assign linux_qspi_04_cfg_smt_wd = reg_wdata[6];
-
-  assign linux_qspi_04_mux_sel_we = addr_hit[333] & reg_we & !reg_error;
-  assign linux_qspi_04_mux_sel_wd = reg_wdata[0];
-
-  assign linux_qspi_05_cfg_chip2pad_we = addr_hit[334] & reg_we & !reg_error;
-  assign linux_qspi_05_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign linux_qspi_05_cfg_drv_we = addr_hit[334] & reg_we & !reg_error;
-  assign linux_qspi_05_cfg_drv_wd = reg_wdata[2:1];
-
-  assign linux_qspi_05_cfg_oen_we = addr_hit[334] & reg_we & !reg_error;
-  assign linux_qspi_05_cfg_oen_wd = reg_wdata[3];
-
-  assign linux_qspi_05_cfg_puen_we = addr_hit[334] & reg_we & !reg_error;
-  assign linux_qspi_05_cfg_puen_wd = reg_wdata[4];
-
-  assign linux_qspi_05_cfg_slw_we = addr_hit[334] & reg_we & !reg_error;
-  assign linux_qspi_05_cfg_slw_wd = reg_wdata[5];
-
-  assign linux_qspi_05_cfg_smt_we = addr_hit[334] & reg_we & !reg_error;
-  assign linux_qspi_05_cfg_smt_wd = reg_wdata[6];
-
-  assign linux_qspi_05_mux_sel_we = addr_hit[335] & reg_we & !reg_error;
-  assign linux_qspi_05_mux_sel_wd = reg_wdata[0];
-
-  assign ot_gpio_00_cfg_chip2pad_we = addr_hit[336] & reg_we & !reg_error;
-  assign ot_gpio_00_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign ot_gpio_00_cfg_drv_we = addr_hit[336] & reg_we & !reg_error;
-  assign ot_gpio_00_cfg_drv_wd = reg_wdata[2:1];
-
-  assign ot_gpio_00_cfg_oen_we = addr_hit[336] & reg_we & !reg_error;
-  assign ot_gpio_00_cfg_oen_wd = reg_wdata[3];
-
-  assign ot_gpio_00_cfg_puen_we = addr_hit[336] & reg_we & !reg_error;
-  assign ot_gpio_00_cfg_puen_wd = reg_wdata[4];
-
-  assign ot_gpio_00_cfg_slw_we = addr_hit[336] & reg_we & !reg_error;
-  assign ot_gpio_00_cfg_slw_wd = reg_wdata[5];
-
-  assign ot_gpio_00_cfg_smt_we = addr_hit[336] & reg_we & !reg_error;
-  assign ot_gpio_00_cfg_smt_wd = reg_wdata[6];
-
-  assign ot_gpio_00_mux_sel_we = addr_hit[337] & reg_we & !reg_error;
-  assign ot_gpio_00_mux_sel_wd = reg_wdata[0];
-
-  assign ot_gpio_01_cfg_chip2pad_we = addr_hit[338] & reg_we & !reg_error;
-  assign ot_gpio_01_cfg_chip2pad_wd = reg_wdata[0];
-
-  assign ot_gpio_01_cfg_drv_we = addr_hit[338] & reg_we & !reg_error;
-  assign ot_gpio_01_cfg_drv_wd = reg_wdata[2:1];
-
-  assign ot_gpio_01_cfg_oen_we = addr_hit[338] & reg_we & !reg_error;
-  assign ot_gpio_01_cfg_oen_wd = reg_wdata[3];
-
-  assign ot_gpio_01_cfg_puen_we = addr_hit[338] & reg_we & !reg_error;
-  assign ot_gpio_01_cfg_puen_wd = reg_wdata[4];
-
-  assign ot_gpio_01_cfg_slw_we = addr_hit[338] & reg_we & !reg_error;
-  assign ot_gpio_01_cfg_slw_wd = reg_wdata[5];
-
-  assign ot_gpio_01_cfg_smt_we = addr_hit[338] & reg_we & !reg_error;
-  assign ot_gpio_01_cfg_smt_wd = reg_wdata[6];
-
-  assign ot_gpio_01_mux_sel_we = addr_hit[339] & reg_we & !reg_error;
-  assign ot_gpio_01_mux_sel_wd = reg_wdata[0];
+  assign ot_spi_03_mux_sel_we = addr_hit[163] & reg_we & !reg_error;
+  assign ot_spi_03_mux_sel_wd = reg_wdata[0];
 
   // Read data return
   always_comb begin
@@ -39367,7 +19039,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[1]: begin
-        reg_rdata_next[0] = a_00_mux_sel_qs;
+        reg_rdata_next[1:0] = a_00_mux_sel_qs;
       end
 
       addr_hit[2]: begin
@@ -39380,7 +19052,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[3]: begin
-        reg_rdata_next[0] = a_01_mux_sel_qs;
+        reg_rdata_next[1:0] = a_01_mux_sel_qs;
       end
 
       addr_hit[4]: begin
@@ -39393,7 +19065,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[5]: begin
-        reg_rdata_next[0] = a_02_mux_sel_qs;
+        reg_rdata_next[2:0] = a_02_mux_sel_qs;
       end
 
       addr_hit[6]: begin
@@ -39406,7 +19078,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[7]: begin
-        reg_rdata_next[0] = a_03_mux_sel_qs;
+        reg_rdata_next[2:0] = a_03_mux_sel_qs;
       end
 
       addr_hit[8]: begin
@@ -39419,7 +19091,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[9]: begin
-        reg_rdata_next[0] = a_04_mux_sel_qs;
+        reg_rdata_next[2:0] = a_04_mux_sel_qs;
       end
 
       addr_hit[10]: begin
@@ -39432,7 +19104,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[11]: begin
-        reg_rdata_next[0] = a_05_mux_sel_qs;
+        reg_rdata_next[2:0] = a_05_mux_sel_qs;
       end
 
       addr_hit[12]: begin
@@ -39445,7 +19117,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[13]: begin
-        reg_rdata_next[0] = a_06_mux_sel_qs;
+        reg_rdata_next[2:0] = a_06_mux_sel_qs;
       end
 
       addr_hit[14]: begin
@@ -39458,7 +19130,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[15]: begin
-        reg_rdata_next[0] = a_07_mux_sel_qs;
+        reg_rdata_next[2:0] = a_07_mux_sel_qs;
       end
 
       addr_hit[16]: begin
@@ -39471,7 +19143,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[17]: begin
-        reg_rdata_next[0] = a_08_mux_sel_qs;
+        reg_rdata_next[2:0] = a_08_mux_sel_qs;
       end
 
       addr_hit[18]: begin
@@ -39484,7 +19156,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[19]: begin
-        reg_rdata_next[0] = a_09_mux_sel_qs;
+        reg_rdata_next[2:0] = a_09_mux_sel_qs;
       end
 
       addr_hit[20]: begin
@@ -39497,7 +19169,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[21]: begin
-        reg_rdata_next[0] = a_10_mux_sel_qs;
+        reg_rdata_next[2:0] = a_10_mux_sel_qs;
       end
 
       addr_hit[22]: begin
@@ -39510,7 +19182,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[23]: begin
-        reg_rdata_next[0] = a_11_mux_sel_qs;
+        reg_rdata_next[2:0] = a_11_mux_sel_qs;
       end
 
       addr_hit[24]: begin
@@ -39523,7 +19195,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[25]: begin
-        reg_rdata_next[0] = a_12_mux_sel_qs;
+        reg_rdata_next[2:0] = a_12_mux_sel_qs;
       end
 
       addr_hit[26]: begin
@@ -39536,7 +19208,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[27]: begin
-        reg_rdata_next[0] = a_13_mux_sel_qs;
+        reg_rdata_next[2:0] = a_13_mux_sel_qs;
       end
 
       addr_hit[28]: begin
@@ -39549,7 +19221,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[29]: begin
-        reg_rdata_next[0] = a_14_mux_sel_qs;
+        reg_rdata_next[2:0] = a_14_mux_sel_qs;
       end
 
       addr_hit[30]: begin
@@ -39562,7 +19234,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[31]: begin
-        reg_rdata_next[0] = a_15_mux_sel_qs;
+        reg_rdata_next[2:0] = a_15_mux_sel_qs;
       end
 
       addr_hit[32]: begin
@@ -39575,7 +19247,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[33]: begin
-        reg_rdata_next[0] = a_16_mux_sel_qs;
+        reg_rdata_next[2:0] = a_16_mux_sel_qs;
       end
 
       addr_hit[34]: begin
@@ -39588,7 +19260,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[35]: begin
-        reg_rdata_next[0] = a_17_mux_sel_qs;
+        reg_rdata_next[2:0] = a_17_mux_sel_qs;
       end
 
       addr_hit[36]: begin
@@ -39601,7 +19273,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[37]: begin
-        reg_rdata_next[0] = a_18_mux_sel_qs;
+        reg_rdata_next[2:0] = a_18_mux_sel_qs;
       end
 
       addr_hit[38]: begin
@@ -39614,7 +19286,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[39]: begin
-        reg_rdata_next[0] = a_19_mux_sel_qs;
+        reg_rdata_next[2:0] = a_19_mux_sel_qs;
       end
 
       addr_hit[40]: begin
@@ -39627,7 +19299,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[41]: begin
-        reg_rdata_next[0] = a_20_mux_sel_qs;
+        reg_rdata_next[2:0] = a_20_mux_sel_qs;
       end
 
       addr_hit[42]: begin
@@ -39640,7 +19312,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[43]: begin
-        reg_rdata_next[0] = a_21_mux_sel_qs;
+        reg_rdata_next[2:0] = a_21_mux_sel_qs;
       end
 
       addr_hit[44]: begin
@@ -39653,7 +19325,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[45]: begin
-        reg_rdata_next[0] = a_22_mux_sel_qs;
+        reg_rdata_next[2:0] = a_22_mux_sel_qs;
       end
 
       addr_hit[46]: begin
@@ -39666,7 +19338,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[47]: begin
-        reg_rdata_next[0] = a_23_mux_sel_qs;
+        reg_rdata_next[2:0] = a_23_mux_sel_qs;
       end
 
       addr_hit[48]: begin
@@ -39679,7 +19351,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[49]: begin
-        reg_rdata_next[0] = a_24_mux_sel_qs;
+        reg_rdata_next[2:0] = a_24_mux_sel_qs;
       end
 
       addr_hit[50]: begin
@@ -39692,7 +19364,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[51]: begin
-        reg_rdata_next[0] = a_25_mux_sel_qs;
+        reg_rdata_next[2:0] = a_25_mux_sel_qs;
       end
 
       addr_hit[52]: begin
@@ -39705,7 +19377,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[53]: begin
-        reg_rdata_next[0] = a_26_mux_sel_qs;
+        reg_rdata_next[2:0] = a_26_mux_sel_qs;
       end
 
       addr_hit[54]: begin
@@ -39718,7 +19390,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[55]: begin
-        reg_rdata_next[0] = a_27_mux_sel_qs;
+        reg_rdata_next[2:0] = a_27_mux_sel_qs;
       end
 
       addr_hit[56]: begin
@@ -39731,7 +19403,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[57]: begin
-        reg_rdata_next[0] = a_28_mux_sel_qs;
+        reg_rdata_next[2:0] = a_28_mux_sel_qs;
       end
 
       addr_hit[58]: begin
@@ -39744,829 +19416,10 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[59]: begin
-        reg_rdata_next[0] = a_29_mux_sel_qs;
+        reg_rdata_next[2:0] = a_29_mux_sel_qs;
       end
 
       addr_hit[60]: begin
-        reg_rdata_next[0] = a_30_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_30_cfg_drv_qs;
-        reg_rdata_next[3] = a_30_cfg_oen_qs;
-        reg_rdata_next[4] = a_30_cfg_puen_qs;
-        reg_rdata_next[5] = a_30_cfg_slw_qs;
-        reg_rdata_next[6] = a_30_cfg_smt_qs;
-      end
-
-      addr_hit[61]: begin
-        reg_rdata_next[0] = a_30_mux_sel_qs;
-      end
-
-      addr_hit[62]: begin
-        reg_rdata_next[0] = a_31_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_31_cfg_drv_qs;
-        reg_rdata_next[3] = a_31_cfg_oen_qs;
-        reg_rdata_next[4] = a_31_cfg_puen_qs;
-        reg_rdata_next[5] = a_31_cfg_slw_qs;
-        reg_rdata_next[6] = a_31_cfg_smt_qs;
-      end
-
-      addr_hit[63]: begin
-        reg_rdata_next[0] = a_31_mux_sel_qs;
-      end
-
-      addr_hit[64]: begin
-        reg_rdata_next[0] = a_32_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_32_cfg_drv_qs;
-        reg_rdata_next[3] = a_32_cfg_oen_qs;
-        reg_rdata_next[4] = a_32_cfg_puen_qs;
-        reg_rdata_next[5] = a_32_cfg_slw_qs;
-        reg_rdata_next[6] = a_32_cfg_smt_qs;
-      end
-
-      addr_hit[65]: begin
-        reg_rdata_next[0] = a_32_mux_sel_qs;
-      end
-
-      addr_hit[66]: begin
-        reg_rdata_next[0] = a_33_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_33_cfg_drv_qs;
-        reg_rdata_next[3] = a_33_cfg_oen_qs;
-        reg_rdata_next[4] = a_33_cfg_puen_qs;
-        reg_rdata_next[5] = a_33_cfg_slw_qs;
-        reg_rdata_next[6] = a_33_cfg_smt_qs;
-      end
-
-      addr_hit[67]: begin
-        reg_rdata_next[0] = a_33_mux_sel_qs;
-      end
-
-      addr_hit[68]: begin
-        reg_rdata_next[0] = a_34_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_34_cfg_drv_qs;
-        reg_rdata_next[3] = a_34_cfg_oen_qs;
-        reg_rdata_next[4] = a_34_cfg_puen_qs;
-        reg_rdata_next[5] = a_34_cfg_slw_qs;
-        reg_rdata_next[6] = a_34_cfg_smt_qs;
-      end
-
-      addr_hit[69]: begin
-        reg_rdata_next[0] = a_34_mux_sel_qs;
-      end
-
-      addr_hit[70]: begin
-        reg_rdata_next[0] = a_35_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_35_cfg_drv_qs;
-        reg_rdata_next[3] = a_35_cfg_oen_qs;
-        reg_rdata_next[4] = a_35_cfg_puen_qs;
-        reg_rdata_next[5] = a_35_cfg_slw_qs;
-        reg_rdata_next[6] = a_35_cfg_smt_qs;
-      end
-
-      addr_hit[71]: begin
-        reg_rdata_next[0] = a_35_mux_sel_qs;
-      end
-
-      addr_hit[72]: begin
-        reg_rdata_next[0] = a_36_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_36_cfg_drv_qs;
-        reg_rdata_next[3] = a_36_cfg_oen_qs;
-        reg_rdata_next[4] = a_36_cfg_puen_qs;
-        reg_rdata_next[5] = a_36_cfg_slw_qs;
-        reg_rdata_next[6] = a_36_cfg_smt_qs;
-      end
-
-      addr_hit[73]: begin
-        reg_rdata_next[0] = a_36_mux_sel_qs;
-      end
-
-      addr_hit[74]: begin
-        reg_rdata_next[0] = a_37_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_37_cfg_drv_qs;
-        reg_rdata_next[3] = a_37_cfg_oen_qs;
-        reg_rdata_next[4] = a_37_cfg_puen_qs;
-        reg_rdata_next[5] = a_37_cfg_slw_qs;
-        reg_rdata_next[6] = a_37_cfg_smt_qs;
-      end
-
-      addr_hit[75]: begin
-        reg_rdata_next[0] = a_37_mux_sel_qs;
-      end
-
-      addr_hit[76]: begin
-        reg_rdata_next[0] = a_38_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_38_cfg_drv_qs;
-        reg_rdata_next[3] = a_38_cfg_oen_qs;
-        reg_rdata_next[4] = a_38_cfg_puen_qs;
-        reg_rdata_next[5] = a_38_cfg_slw_qs;
-        reg_rdata_next[6] = a_38_cfg_smt_qs;
-      end
-
-      addr_hit[77]: begin
-        reg_rdata_next[0] = a_38_mux_sel_qs;
-      end
-
-      addr_hit[78]: begin
-        reg_rdata_next[0] = a_39_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_39_cfg_drv_qs;
-        reg_rdata_next[3] = a_39_cfg_oen_qs;
-        reg_rdata_next[4] = a_39_cfg_puen_qs;
-        reg_rdata_next[5] = a_39_cfg_slw_qs;
-        reg_rdata_next[6] = a_39_cfg_smt_qs;
-      end
-
-      addr_hit[79]: begin
-        reg_rdata_next[0] = a_39_mux_sel_qs;
-      end
-
-      addr_hit[80]: begin
-        reg_rdata_next[0] = a_40_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_40_cfg_drv_qs;
-        reg_rdata_next[3] = a_40_cfg_oen_qs;
-        reg_rdata_next[4] = a_40_cfg_puen_qs;
-        reg_rdata_next[5] = a_40_cfg_slw_qs;
-        reg_rdata_next[6] = a_40_cfg_smt_qs;
-      end
-
-      addr_hit[81]: begin
-        reg_rdata_next[0] = a_40_mux_sel_qs;
-      end
-
-      addr_hit[82]: begin
-        reg_rdata_next[0] = a_41_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_41_cfg_drv_qs;
-        reg_rdata_next[3] = a_41_cfg_oen_qs;
-        reg_rdata_next[4] = a_41_cfg_puen_qs;
-        reg_rdata_next[5] = a_41_cfg_slw_qs;
-        reg_rdata_next[6] = a_41_cfg_smt_qs;
-      end
-
-      addr_hit[83]: begin
-        reg_rdata_next[0] = a_41_mux_sel_qs;
-      end
-
-      addr_hit[84]: begin
-        reg_rdata_next[0] = a_42_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_42_cfg_drv_qs;
-        reg_rdata_next[3] = a_42_cfg_oen_qs;
-        reg_rdata_next[4] = a_42_cfg_puen_qs;
-        reg_rdata_next[5] = a_42_cfg_slw_qs;
-        reg_rdata_next[6] = a_42_cfg_smt_qs;
-      end
-
-      addr_hit[85]: begin
-        reg_rdata_next[1:0] = a_42_mux_sel_qs;
-      end
-
-      addr_hit[86]: begin
-        reg_rdata_next[0] = a_43_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_43_cfg_drv_qs;
-        reg_rdata_next[3] = a_43_cfg_oen_qs;
-        reg_rdata_next[4] = a_43_cfg_puen_qs;
-        reg_rdata_next[5] = a_43_cfg_slw_qs;
-        reg_rdata_next[6] = a_43_cfg_smt_qs;
-      end
-
-      addr_hit[87]: begin
-        reg_rdata_next[1:0] = a_43_mux_sel_qs;
-      end
-
-      addr_hit[88]: begin
-        reg_rdata_next[0] = a_44_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_44_cfg_drv_qs;
-        reg_rdata_next[3] = a_44_cfg_oen_qs;
-        reg_rdata_next[4] = a_44_cfg_puen_qs;
-        reg_rdata_next[5] = a_44_cfg_slw_qs;
-        reg_rdata_next[6] = a_44_cfg_smt_qs;
-      end
-
-      addr_hit[89]: begin
-        reg_rdata_next[1:0] = a_44_mux_sel_qs;
-      end
-
-      addr_hit[90]: begin
-        reg_rdata_next[0] = a_45_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_45_cfg_drv_qs;
-        reg_rdata_next[3] = a_45_cfg_oen_qs;
-        reg_rdata_next[4] = a_45_cfg_puen_qs;
-        reg_rdata_next[5] = a_45_cfg_slw_qs;
-        reg_rdata_next[6] = a_45_cfg_smt_qs;
-      end
-
-      addr_hit[91]: begin
-        reg_rdata_next[1:0] = a_45_mux_sel_qs;
-      end
-
-      addr_hit[92]: begin
-        reg_rdata_next[0] = a_46_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_46_cfg_drv_qs;
-        reg_rdata_next[3] = a_46_cfg_oen_qs;
-        reg_rdata_next[4] = a_46_cfg_puen_qs;
-        reg_rdata_next[5] = a_46_cfg_slw_qs;
-        reg_rdata_next[6] = a_46_cfg_smt_qs;
-      end
-
-      addr_hit[93]: begin
-        reg_rdata_next[1:0] = a_46_mux_sel_qs;
-      end
-
-      addr_hit[94]: begin
-        reg_rdata_next[0] = a_47_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_47_cfg_drv_qs;
-        reg_rdata_next[3] = a_47_cfg_oen_qs;
-        reg_rdata_next[4] = a_47_cfg_puen_qs;
-        reg_rdata_next[5] = a_47_cfg_slw_qs;
-        reg_rdata_next[6] = a_47_cfg_smt_qs;
-      end
-
-      addr_hit[95]: begin
-        reg_rdata_next[1:0] = a_47_mux_sel_qs;
-      end
-
-      addr_hit[96]: begin
-        reg_rdata_next[0] = a_48_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_48_cfg_drv_qs;
-        reg_rdata_next[3] = a_48_cfg_oen_qs;
-        reg_rdata_next[4] = a_48_cfg_puen_qs;
-        reg_rdata_next[5] = a_48_cfg_slw_qs;
-        reg_rdata_next[6] = a_48_cfg_smt_qs;
-      end
-
-      addr_hit[97]: begin
-        reg_rdata_next[1:0] = a_48_mux_sel_qs;
-      end
-
-      addr_hit[98]: begin
-        reg_rdata_next[0] = a_49_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_49_cfg_drv_qs;
-        reg_rdata_next[3] = a_49_cfg_oen_qs;
-        reg_rdata_next[4] = a_49_cfg_puen_qs;
-        reg_rdata_next[5] = a_49_cfg_slw_qs;
-        reg_rdata_next[6] = a_49_cfg_smt_qs;
-      end
-
-      addr_hit[99]: begin
-        reg_rdata_next[1:0] = a_49_mux_sel_qs;
-      end
-
-      addr_hit[100]: begin
-        reg_rdata_next[0] = a_50_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_50_cfg_drv_qs;
-        reg_rdata_next[3] = a_50_cfg_oen_qs;
-        reg_rdata_next[4] = a_50_cfg_puen_qs;
-        reg_rdata_next[5] = a_50_cfg_slw_qs;
-        reg_rdata_next[6] = a_50_cfg_smt_qs;
-      end
-
-      addr_hit[101]: begin
-        reg_rdata_next[1:0] = a_50_mux_sel_qs;
-      end
-
-      addr_hit[102]: begin
-        reg_rdata_next[0] = a_51_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_51_cfg_drv_qs;
-        reg_rdata_next[3] = a_51_cfg_oen_qs;
-        reg_rdata_next[4] = a_51_cfg_puen_qs;
-        reg_rdata_next[5] = a_51_cfg_slw_qs;
-        reg_rdata_next[6] = a_51_cfg_smt_qs;
-      end
-
-      addr_hit[103]: begin
-        reg_rdata_next[1:0] = a_51_mux_sel_qs;
-      end
-
-      addr_hit[104]: begin
-        reg_rdata_next[0] = a_52_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_52_cfg_drv_qs;
-        reg_rdata_next[3] = a_52_cfg_oen_qs;
-        reg_rdata_next[4] = a_52_cfg_puen_qs;
-        reg_rdata_next[5] = a_52_cfg_slw_qs;
-        reg_rdata_next[6] = a_52_cfg_smt_qs;
-      end
-
-      addr_hit[105]: begin
-        reg_rdata_next[1:0] = a_52_mux_sel_qs;
-      end
-
-      addr_hit[106]: begin
-        reg_rdata_next[0] = a_53_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_53_cfg_drv_qs;
-        reg_rdata_next[3] = a_53_cfg_oen_qs;
-        reg_rdata_next[4] = a_53_cfg_puen_qs;
-        reg_rdata_next[5] = a_53_cfg_slw_qs;
-        reg_rdata_next[6] = a_53_cfg_smt_qs;
-      end
-
-      addr_hit[107]: begin
-        reg_rdata_next[1:0] = a_53_mux_sel_qs;
-      end
-
-      addr_hit[108]: begin
-        reg_rdata_next[0] = a_54_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_54_cfg_drv_qs;
-        reg_rdata_next[3] = a_54_cfg_oen_qs;
-        reg_rdata_next[4] = a_54_cfg_puen_qs;
-        reg_rdata_next[5] = a_54_cfg_slw_qs;
-        reg_rdata_next[6] = a_54_cfg_smt_qs;
-      end
-
-      addr_hit[109]: begin
-        reg_rdata_next[1:0] = a_54_mux_sel_qs;
-      end
-
-      addr_hit[110]: begin
-        reg_rdata_next[0] = a_55_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_55_cfg_drv_qs;
-        reg_rdata_next[3] = a_55_cfg_oen_qs;
-        reg_rdata_next[4] = a_55_cfg_puen_qs;
-        reg_rdata_next[5] = a_55_cfg_slw_qs;
-        reg_rdata_next[6] = a_55_cfg_smt_qs;
-      end
-
-      addr_hit[111]: begin
-        reg_rdata_next[1:0] = a_55_mux_sel_qs;
-      end
-
-      addr_hit[112]: begin
-        reg_rdata_next[0] = a_56_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_56_cfg_drv_qs;
-        reg_rdata_next[3] = a_56_cfg_oen_qs;
-        reg_rdata_next[4] = a_56_cfg_puen_qs;
-        reg_rdata_next[5] = a_56_cfg_slw_qs;
-        reg_rdata_next[6] = a_56_cfg_smt_qs;
-      end
-
-      addr_hit[113]: begin
-        reg_rdata_next[1:0] = a_56_mux_sel_qs;
-      end
-
-      addr_hit[114]: begin
-        reg_rdata_next[0] = a_57_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_57_cfg_drv_qs;
-        reg_rdata_next[3] = a_57_cfg_oen_qs;
-        reg_rdata_next[4] = a_57_cfg_puen_qs;
-        reg_rdata_next[5] = a_57_cfg_slw_qs;
-        reg_rdata_next[6] = a_57_cfg_smt_qs;
-      end
-
-      addr_hit[115]: begin
-        reg_rdata_next[1:0] = a_57_mux_sel_qs;
-      end
-
-      addr_hit[116]: begin
-        reg_rdata_next[0] = a_58_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_58_cfg_drv_qs;
-        reg_rdata_next[3] = a_58_cfg_oen_qs;
-        reg_rdata_next[4] = a_58_cfg_puen_qs;
-        reg_rdata_next[5] = a_58_cfg_slw_qs;
-        reg_rdata_next[6] = a_58_cfg_smt_qs;
-      end
-
-      addr_hit[117]: begin
-        reg_rdata_next[1:0] = a_58_mux_sel_qs;
-      end
-
-      addr_hit[118]: begin
-        reg_rdata_next[0] = a_59_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_59_cfg_drv_qs;
-        reg_rdata_next[3] = a_59_cfg_oen_qs;
-        reg_rdata_next[4] = a_59_cfg_puen_qs;
-        reg_rdata_next[5] = a_59_cfg_slw_qs;
-        reg_rdata_next[6] = a_59_cfg_smt_qs;
-      end
-
-      addr_hit[119]: begin
-        reg_rdata_next[1:0] = a_59_mux_sel_qs;
-      end
-
-      addr_hit[120]: begin
-        reg_rdata_next[0] = a_60_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_60_cfg_drv_qs;
-        reg_rdata_next[3] = a_60_cfg_oen_qs;
-        reg_rdata_next[4] = a_60_cfg_puen_qs;
-        reg_rdata_next[5] = a_60_cfg_slw_qs;
-        reg_rdata_next[6] = a_60_cfg_smt_qs;
-      end
-
-      addr_hit[121]: begin
-        reg_rdata_next[1:0] = a_60_mux_sel_qs;
-      end
-
-      addr_hit[122]: begin
-        reg_rdata_next[0] = a_61_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_61_cfg_drv_qs;
-        reg_rdata_next[3] = a_61_cfg_oen_qs;
-        reg_rdata_next[4] = a_61_cfg_puen_qs;
-        reg_rdata_next[5] = a_61_cfg_slw_qs;
-        reg_rdata_next[6] = a_61_cfg_smt_qs;
-      end
-
-      addr_hit[123]: begin
-        reg_rdata_next[1:0] = a_61_mux_sel_qs;
-      end
-
-      addr_hit[124]: begin
-        reg_rdata_next[0] = a_62_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_62_cfg_drv_qs;
-        reg_rdata_next[3] = a_62_cfg_oen_qs;
-        reg_rdata_next[4] = a_62_cfg_puen_qs;
-        reg_rdata_next[5] = a_62_cfg_slw_qs;
-        reg_rdata_next[6] = a_62_cfg_smt_qs;
-      end
-
-      addr_hit[125]: begin
-        reg_rdata_next[1:0] = a_62_mux_sel_qs;
-      end
-
-      addr_hit[126]: begin
-        reg_rdata_next[0] = a_63_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_63_cfg_drv_qs;
-        reg_rdata_next[3] = a_63_cfg_oen_qs;
-        reg_rdata_next[4] = a_63_cfg_puen_qs;
-        reg_rdata_next[5] = a_63_cfg_slw_qs;
-        reg_rdata_next[6] = a_63_cfg_smt_qs;
-      end
-
-      addr_hit[127]: begin
-        reg_rdata_next[0] = a_63_mux_sel_qs;
-      end
-
-      addr_hit[128]: begin
-        reg_rdata_next[0] = a_64_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_64_cfg_drv_qs;
-        reg_rdata_next[3] = a_64_cfg_oen_qs;
-        reg_rdata_next[4] = a_64_cfg_puen_qs;
-        reg_rdata_next[5] = a_64_cfg_slw_qs;
-        reg_rdata_next[6] = a_64_cfg_smt_qs;
-      end
-
-      addr_hit[129]: begin
-        reg_rdata_next[0] = a_64_mux_sel_qs;
-      end
-
-      addr_hit[130]: begin
-        reg_rdata_next[0] = a_65_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_65_cfg_drv_qs;
-        reg_rdata_next[3] = a_65_cfg_oen_qs;
-        reg_rdata_next[4] = a_65_cfg_puen_qs;
-        reg_rdata_next[5] = a_65_cfg_slw_qs;
-        reg_rdata_next[6] = a_65_cfg_smt_qs;
-      end
-
-      addr_hit[131]: begin
-        reg_rdata_next[0] = a_65_mux_sel_qs;
-      end
-
-      addr_hit[132]: begin
-        reg_rdata_next[0] = a_66_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_66_cfg_drv_qs;
-        reg_rdata_next[3] = a_66_cfg_oen_qs;
-        reg_rdata_next[4] = a_66_cfg_puen_qs;
-        reg_rdata_next[5] = a_66_cfg_slw_qs;
-        reg_rdata_next[6] = a_66_cfg_smt_qs;
-      end
-
-      addr_hit[133]: begin
-        reg_rdata_next[0] = a_66_mux_sel_qs;
-      end
-
-      addr_hit[134]: begin
-        reg_rdata_next[0] = a_67_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_67_cfg_drv_qs;
-        reg_rdata_next[3] = a_67_cfg_oen_qs;
-        reg_rdata_next[4] = a_67_cfg_puen_qs;
-        reg_rdata_next[5] = a_67_cfg_slw_qs;
-        reg_rdata_next[6] = a_67_cfg_smt_qs;
-      end
-
-      addr_hit[135]: begin
-        reg_rdata_next[0] = a_67_mux_sel_qs;
-      end
-
-      addr_hit[136]: begin
-        reg_rdata_next[0] = a_68_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_68_cfg_drv_qs;
-        reg_rdata_next[3] = a_68_cfg_oen_qs;
-        reg_rdata_next[4] = a_68_cfg_puen_qs;
-        reg_rdata_next[5] = a_68_cfg_slw_qs;
-        reg_rdata_next[6] = a_68_cfg_smt_qs;
-      end
-
-      addr_hit[137]: begin
-        reg_rdata_next[0] = a_68_mux_sel_qs;
-      end
-
-      addr_hit[138]: begin
-        reg_rdata_next[0] = a_69_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_69_cfg_drv_qs;
-        reg_rdata_next[3] = a_69_cfg_oen_qs;
-        reg_rdata_next[4] = a_69_cfg_puen_qs;
-        reg_rdata_next[5] = a_69_cfg_slw_qs;
-        reg_rdata_next[6] = a_69_cfg_smt_qs;
-      end
-
-      addr_hit[139]: begin
-        reg_rdata_next[0] = a_69_mux_sel_qs;
-      end
-
-      addr_hit[140]: begin
-        reg_rdata_next[0] = a_70_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_70_cfg_drv_qs;
-        reg_rdata_next[3] = a_70_cfg_oen_qs;
-        reg_rdata_next[4] = a_70_cfg_puen_qs;
-        reg_rdata_next[5] = a_70_cfg_slw_qs;
-        reg_rdata_next[6] = a_70_cfg_smt_qs;
-      end
-
-      addr_hit[141]: begin
-        reg_rdata_next[0] = a_70_mux_sel_qs;
-      end
-
-      addr_hit[142]: begin
-        reg_rdata_next[0] = a_71_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_71_cfg_drv_qs;
-        reg_rdata_next[3] = a_71_cfg_oen_qs;
-        reg_rdata_next[4] = a_71_cfg_puen_qs;
-        reg_rdata_next[5] = a_71_cfg_slw_qs;
-        reg_rdata_next[6] = a_71_cfg_smt_qs;
-      end
-
-      addr_hit[143]: begin
-        reg_rdata_next[0] = a_71_mux_sel_qs;
-      end
-
-      addr_hit[144]: begin
-        reg_rdata_next[0] = a_72_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_72_cfg_drv_qs;
-        reg_rdata_next[3] = a_72_cfg_oen_qs;
-        reg_rdata_next[4] = a_72_cfg_puen_qs;
-        reg_rdata_next[5] = a_72_cfg_slw_qs;
-        reg_rdata_next[6] = a_72_cfg_smt_qs;
-      end
-
-      addr_hit[145]: begin
-        reg_rdata_next[0] = a_72_mux_sel_qs;
-      end
-
-      addr_hit[146]: begin
-        reg_rdata_next[0] = a_73_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_73_cfg_drv_qs;
-        reg_rdata_next[3] = a_73_cfg_oen_qs;
-        reg_rdata_next[4] = a_73_cfg_puen_qs;
-        reg_rdata_next[5] = a_73_cfg_slw_qs;
-        reg_rdata_next[6] = a_73_cfg_smt_qs;
-      end
-
-      addr_hit[147]: begin
-        reg_rdata_next[0] = a_73_mux_sel_qs;
-      end
-
-      addr_hit[148]: begin
-        reg_rdata_next[0] = a_74_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_74_cfg_drv_qs;
-        reg_rdata_next[3] = a_74_cfg_oen_qs;
-        reg_rdata_next[4] = a_74_cfg_puen_qs;
-        reg_rdata_next[5] = a_74_cfg_slw_qs;
-        reg_rdata_next[6] = a_74_cfg_smt_qs;
-      end
-
-      addr_hit[149]: begin
-        reg_rdata_next[0] = a_74_mux_sel_qs;
-      end
-
-      addr_hit[150]: begin
-        reg_rdata_next[0] = a_75_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_75_cfg_drv_qs;
-        reg_rdata_next[3] = a_75_cfg_oen_qs;
-        reg_rdata_next[4] = a_75_cfg_puen_qs;
-        reg_rdata_next[5] = a_75_cfg_slw_qs;
-        reg_rdata_next[6] = a_75_cfg_smt_qs;
-      end
-
-      addr_hit[151]: begin
-        reg_rdata_next[0] = a_75_mux_sel_qs;
-      end
-
-      addr_hit[152]: begin
-        reg_rdata_next[0] = a_76_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_76_cfg_drv_qs;
-        reg_rdata_next[3] = a_76_cfg_oen_qs;
-        reg_rdata_next[4] = a_76_cfg_puen_qs;
-        reg_rdata_next[5] = a_76_cfg_slw_qs;
-        reg_rdata_next[6] = a_76_cfg_smt_qs;
-      end
-
-      addr_hit[153]: begin
-        reg_rdata_next[0] = a_76_mux_sel_qs;
-      end
-
-      addr_hit[154]: begin
-        reg_rdata_next[0] = a_77_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_77_cfg_drv_qs;
-        reg_rdata_next[3] = a_77_cfg_oen_qs;
-        reg_rdata_next[4] = a_77_cfg_puen_qs;
-        reg_rdata_next[5] = a_77_cfg_slw_qs;
-        reg_rdata_next[6] = a_77_cfg_smt_qs;
-      end
-
-      addr_hit[155]: begin
-        reg_rdata_next[0] = a_77_mux_sel_qs;
-      end
-
-      addr_hit[156]: begin
-        reg_rdata_next[0] = a_78_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_78_cfg_drv_qs;
-        reg_rdata_next[3] = a_78_cfg_oen_qs;
-        reg_rdata_next[4] = a_78_cfg_puen_qs;
-        reg_rdata_next[5] = a_78_cfg_slw_qs;
-        reg_rdata_next[6] = a_78_cfg_smt_qs;
-      end
-
-      addr_hit[157]: begin
-        reg_rdata_next[0] = a_78_mux_sel_qs;
-      end
-
-      addr_hit[158]: begin
-        reg_rdata_next[0] = a_79_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_79_cfg_drv_qs;
-        reg_rdata_next[3] = a_79_cfg_oen_qs;
-        reg_rdata_next[4] = a_79_cfg_puen_qs;
-        reg_rdata_next[5] = a_79_cfg_slw_qs;
-        reg_rdata_next[6] = a_79_cfg_smt_qs;
-      end
-
-      addr_hit[159]: begin
-        reg_rdata_next[0] = a_79_mux_sel_qs;
-      end
-
-      addr_hit[160]: begin
-        reg_rdata_next[0] = a_80_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_80_cfg_drv_qs;
-        reg_rdata_next[3] = a_80_cfg_oen_qs;
-        reg_rdata_next[4] = a_80_cfg_puen_qs;
-        reg_rdata_next[5] = a_80_cfg_slw_qs;
-        reg_rdata_next[6] = a_80_cfg_smt_qs;
-      end
-
-      addr_hit[161]: begin
-        reg_rdata_next[0] = a_80_mux_sel_qs;
-      end
-
-      addr_hit[162]: begin
-        reg_rdata_next[0] = a_81_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_81_cfg_drv_qs;
-        reg_rdata_next[3] = a_81_cfg_oen_qs;
-        reg_rdata_next[4] = a_81_cfg_puen_qs;
-        reg_rdata_next[5] = a_81_cfg_slw_qs;
-        reg_rdata_next[6] = a_81_cfg_smt_qs;
-      end
-
-      addr_hit[163]: begin
-        reg_rdata_next[1:0] = a_81_mux_sel_qs;
-      end
-
-      addr_hit[164]: begin
-        reg_rdata_next[0] = a_82_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_82_cfg_drv_qs;
-        reg_rdata_next[3] = a_82_cfg_oen_qs;
-        reg_rdata_next[4] = a_82_cfg_puen_qs;
-        reg_rdata_next[5] = a_82_cfg_slw_qs;
-        reg_rdata_next[6] = a_82_cfg_smt_qs;
-      end
-
-      addr_hit[165]: begin
-        reg_rdata_next[1:0] = a_82_mux_sel_qs;
-      end
-
-      addr_hit[166]: begin
-        reg_rdata_next[0] = a_83_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_83_cfg_drv_qs;
-        reg_rdata_next[3] = a_83_cfg_oen_qs;
-        reg_rdata_next[4] = a_83_cfg_puen_qs;
-        reg_rdata_next[5] = a_83_cfg_slw_qs;
-        reg_rdata_next[6] = a_83_cfg_smt_qs;
-      end
-
-      addr_hit[167]: begin
-        reg_rdata_next[1:0] = a_83_mux_sel_qs;
-      end
-
-      addr_hit[168]: begin
-        reg_rdata_next[0] = a_84_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_84_cfg_drv_qs;
-        reg_rdata_next[3] = a_84_cfg_oen_qs;
-        reg_rdata_next[4] = a_84_cfg_puen_qs;
-        reg_rdata_next[5] = a_84_cfg_slw_qs;
-        reg_rdata_next[6] = a_84_cfg_smt_qs;
-      end
-
-      addr_hit[169]: begin
-        reg_rdata_next[1:0] = a_84_mux_sel_qs;
-      end
-
-      addr_hit[170]: begin
-        reg_rdata_next[0] = a_85_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_85_cfg_drv_qs;
-        reg_rdata_next[3] = a_85_cfg_oen_qs;
-        reg_rdata_next[4] = a_85_cfg_puen_qs;
-        reg_rdata_next[5] = a_85_cfg_slw_qs;
-        reg_rdata_next[6] = a_85_cfg_smt_qs;
-      end
-
-      addr_hit[171]: begin
-        reg_rdata_next[0] = a_85_mux_sel_qs;
-      end
-
-      addr_hit[172]: begin
-        reg_rdata_next[0] = a_86_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_86_cfg_drv_qs;
-        reg_rdata_next[3] = a_86_cfg_oen_qs;
-        reg_rdata_next[4] = a_86_cfg_puen_qs;
-        reg_rdata_next[5] = a_86_cfg_slw_qs;
-        reg_rdata_next[6] = a_86_cfg_smt_qs;
-      end
-
-      addr_hit[173]: begin
-        reg_rdata_next[0] = a_86_mux_sel_qs;
-      end
-
-      addr_hit[174]: begin
-        reg_rdata_next[0] = a_87_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_87_cfg_drv_qs;
-        reg_rdata_next[3] = a_87_cfg_oen_qs;
-        reg_rdata_next[4] = a_87_cfg_puen_qs;
-        reg_rdata_next[5] = a_87_cfg_slw_qs;
-        reg_rdata_next[6] = a_87_cfg_smt_qs;
-      end
-
-      addr_hit[175]: begin
-        reg_rdata_next[0] = a_87_mux_sel_qs;
-      end
-
-      addr_hit[176]: begin
-        reg_rdata_next[0] = a_88_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_88_cfg_drv_qs;
-        reg_rdata_next[3] = a_88_cfg_oen_qs;
-        reg_rdata_next[4] = a_88_cfg_puen_qs;
-        reg_rdata_next[5] = a_88_cfg_slw_qs;
-        reg_rdata_next[6] = a_88_cfg_smt_qs;
-      end
-
-      addr_hit[177]: begin
-        reg_rdata_next[0] = a_88_mux_sel_qs;
-      end
-
-      addr_hit[178]: begin
-        reg_rdata_next[0] = a_89_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_89_cfg_drv_qs;
-        reg_rdata_next[3] = a_89_cfg_oen_qs;
-        reg_rdata_next[4] = a_89_cfg_puen_qs;
-        reg_rdata_next[5] = a_89_cfg_slw_qs;
-        reg_rdata_next[6] = a_89_cfg_smt_qs;
-      end
-
-      addr_hit[179]: begin
-        reg_rdata_next[0] = a_89_mux_sel_qs;
-      end
-
-      addr_hit[180]: begin
-        reg_rdata_next[0] = a_90_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_90_cfg_drv_qs;
-        reg_rdata_next[3] = a_90_cfg_oen_qs;
-        reg_rdata_next[4] = a_90_cfg_puen_qs;
-        reg_rdata_next[5] = a_90_cfg_slw_qs;
-        reg_rdata_next[6] = a_90_cfg_smt_qs;
-      end
-
-      addr_hit[181]: begin
-        reg_rdata_next[0] = a_90_mux_sel_qs;
-      end
-
-      addr_hit[182]: begin
-        reg_rdata_next[0] = a_91_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_91_cfg_drv_qs;
-        reg_rdata_next[3] = a_91_cfg_oen_qs;
-        reg_rdata_next[4] = a_91_cfg_puen_qs;
-        reg_rdata_next[5] = a_91_cfg_slw_qs;
-        reg_rdata_next[6] = a_91_cfg_smt_qs;
-      end
-
-      addr_hit[183]: begin
-        reg_rdata_next[0] = a_91_mux_sel_qs;
-      end
-
-      addr_hit[184]: begin
-        reg_rdata_next[0] = a_92_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = a_92_cfg_drv_qs;
-        reg_rdata_next[3] = a_92_cfg_oen_qs;
-        reg_rdata_next[4] = a_92_cfg_puen_qs;
-        reg_rdata_next[5] = a_92_cfg_slw_qs;
-        reg_rdata_next[6] = a_92_cfg_smt_qs;
-      end
-
-      addr_hit[185]: begin
-        reg_rdata_next[0] = a_92_mux_sel_qs;
-      end
-
-      addr_hit[186]: begin
         reg_rdata_next[0] = b_00_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_00_cfg_drv_qs;
         reg_rdata_next[3] = b_00_cfg_oen_qs;
@@ -40575,11 +19428,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_00_cfg_smt_qs;
       end
 
-      addr_hit[187]: begin
-        reg_rdata_next[0] = b_00_mux_sel_qs;
+      addr_hit[61]: begin
+        reg_rdata_next[2:0] = b_00_mux_sel_qs;
       end
 
-      addr_hit[188]: begin
+      addr_hit[62]: begin
         reg_rdata_next[0] = b_01_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_01_cfg_drv_qs;
         reg_rdata_next[3] = b_01_cfg_oen_qs;
@@ -40588,11 +19441,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_01_cfg_smt_qs;
       end
 
-      addr_hit[189]: begin
-        reg_rdata_next[0] = b_01_mux_sel_qs;
+      addr_hit[63]: begin
+        reg_rdata_next[2:0] = b_01_mux_sel_qs;
       end
 
-      addr_hit[190]: begin
+      addr_hit[64]: begin
         reg_rdata_next[0] = b_02_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_02_cfg_drv_qs;
         reg_rdata_next[3] = b_02_cfg_oen_qs;
@@ -40601,11 +19454,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_02_cfg_smt_qs;
       end
 
-      addr_hit[191]: begin
-        reg_rdata_next[0] = b_02_mux_sel_qs;
+      addr_hit[65]: begin
+        reg_rdata_next[2:0] = b_02_mux_sel_qs;
       end
 
-      addr_hit[192]: begin
+      addr_hit[66]: begin
         reg_rdata_next[0] = b_03_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_03_cfg_drv_qs;
         reg_rdata_next[3] = b_03_cfg_oen_qs;
@@ -40614,11 +19467,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_03_cfg_smt_qs;
       end
 
-      addr_hit[193]: begin
-        reg_rdata_next[0] = b_03_mux_sel_qs;
+      addr_hit[67]: begin
+        reg_rdata_next[1:0] = b_03_mux_sel_qs;
       end
 
-      addr_hit[194]: begin
+      addr_hit[68]: begin
         reg_rdata_next[0] = b_04_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_04_cfg_drv_qs;
         reg_rdata_next[3] = b_04_cfg_oen_qs;
@@ -40627,11 +19480,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_04_cfg_smt_qs;
       end
 
-      addr_hit[195]: begin
-        reg_rdata_next[0] = b_04_mux_sel_qs;
+      addr_hit[69]: begin
+        reg_rdata_next[2:0] = b_04_mux_sel_qs;
       end
 
-      addr_hit[196]: begin
+      addr_hit[70]: begin
         reg_rdata_next[0] = b_05_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_05_cfg_drv_qs;
         reg_rdata_next[3] = b_05_cfg_oen_qs;
@@ -40640,11 +19493,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_05_cfg_smt_qs;
       end
 
-      addr_hit[197]: begin
-        reg_rdata_next[0] = b_05_mux_sel_qs;
+      addr_hit[71]: begin
+        reg_rdata_next[2:0] = b_05_mux_sel_qs;
       end
 
-      addr_hit[198]: begin
+      addr_hit[72]: begin
         reg_rdata_next[0] = b_06_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_06_cfg_drv_qs;
         reg_rdata_next[3] = b_06_cfg_oen_qs;
@@ -40653,11 +19506,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_06_cfg_smt_qs;
       end
 
-      addr_hit[199]: begin
-        reg_rdata_next[0] = b_06_mux_sel_qs;
+      addr_hit[73]: begin
+        reg_rdata_next[2:0] = b_06_mux_sel_qs;
       end
 
-      addr_hit[200]: begin
+      addr_hit[74]: begin
         reg_rdata_next[0] = b_07_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_07_cfg_drv_qs;
         reg_rdata_next[3] = b_07_cfg_oen_qs;
@@ -40666,11 +19519,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_07_cfg_smt_qs;
       end
 
-      addr_hit[201]: begin
-        reg_rdata_next[0] = b_07_mux_sel_qs;
+      addr_hit[75]: begin
+        reg_rdata_next[2:0] = b_07_mux_sel_qs;
       end
 
-      addr_hit[202]: begin
+      addr_hit[76]: begin
         reg_rdata_next[0] = b_08_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_08_cfg_drv_qs;
         reg_rdata_next[3] = b_08_cfg_oen_qs;
@@ -40679,11 +19532,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_08_cfg_smt_qs;
       end
 
-      addr_hit[203]: begin
-        reg_rdata_next[0] = b_08_mux_sel_qs;
+      addr_hit[77]: begin
+        reg_rdata_next[2:0] = b_08_mux_sel_qs;
       end
 
-      addr_hit[204]: begin
+      addr_hit[78]: begin
         reg_rdata_next[0] = b_09_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_09_cfg_drv_qs;
         reg_rdata_next[3] = b_09_cfg_oen_qs;
@@ -40692,11 +19545,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_09_cfg_smt_qs;
       end
 
-      addr_hit[205]: begin
-        reg_rdata_next[0] = b_09_mux_sel_qs;
+      addr_hit[79]: begin
+        reg_rdata_next[2:0] = b_09_mux_sel_qs;
       end
 
-      addr_hit[206]: begin
+      addr_hit[80]: begin
         reg_rdata_next[0] = b_10_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_10_cfg_drv_qs;
         reg_rdata_next[3] = b_10_cfg_oen_qs;
@@ -40705,11 +19558,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_10_cfg_smt_qs;
       end
 
-      addr_hit[207]: begin
-        reg_rdata_next[0] = b_10_mux_sel_qs;
+      addr_hit[81]: begin
+        reg_rdata_next[2:0] = b_10_mux_sel_qs;
       end
 
-      addr_hit[208]: begin
+      addr_hit[82]: begin
         reg_rdata_next[0] = b_11_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_11_cfg_drv_qs;
         reg_rdata_next[3] = b_11_cfg_oen_qs;
@@ -40718,11 +19571,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_11_cfg_smt_qs;
       end
 
-      addr_hit[209]: begin
-        reg_rdata_next[0] = b_11_mux_sel_qs;
+      addr_hit[83]: begin
+        reg_rdata_next[2:0] = b_11_mux_sel_qs;
       end
 
-      addr_hit[210]: begin
+      addr_hit[84]: begin
         reg_rdata_next[0] = b_12_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_12_cfg_drv_qs;
         reg_rdata_next[3] = b_12_cfg_oen_qs;
@@ -40731,11 +19584,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_12_cfg_smt_qs;
       end
 
-      addr_hit[211]: begin
-        reg_rdata_next[0] = b_12_mux_sel_qs;
+      addr_hit[85]: begin
+        reg_rdata_next[2:0] = b_12_mux_sel_qs;
       end
 
-      addr_hit[212]: begin
+      addr_hit[86]: begin
         reg_rdata_next[0] = b_13_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_13_cfg_drv_qs;
         reg_rdata_next[3] = b_13_cfg_oen_qs;
@@ -40744,11 +19597,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_13_cfg_smt_qs;
       end
 
-      addr_hit[213]: begin
-        reg_rdata_next[0] = b_13_mux_sel_qs;
+      addr_hit[87]: begin
+        reg_rdata_next[2:0] = b_13_mux_sel_qs;
       end
 
-      addr_hit[214]: begin
+      addr_hit[88]: begin
         reg_rdata_next[0] = b_14_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_14_cfg_drv_qs;
         reg_rdata_next[3] = b_14_cfg_oen_qs;
@@ -40757,11 +19610,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_14_cfg_smt_qs;
       end
 
-      addr_hit[215]: begin
-        reg_rdata_next[0] = b_14_mux_sel_qs;
+      addr_hit[89]: begin
+        reg_rdata_next[2:0] = b_14_mux_sel_qs;
       end
 
-      addr_hit[216]: begin
+      addr_hit[90]: begin
         reg_rdata_next[0] = b_15_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_15_cfg_drv_qs;
         reg_rdata_next[3] = b_15_cfg_oen_qs;
@@ -40770,11 +19623,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_15_cfg_smt_qs;
       end
 
-      addr_hit[217]: begin
-        reg_rdata_next[0] = b_15_mux_sel_qs;
+      addr_hit[91]: begin
+        reg_rdata_next[2:0] = b_15_mux_sel_qs;
       end
 
-      addr_hit[218]: begin
+      addr_hit[92]: begin
         reg_rdata_next[0] = b_16_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_16_cfg_drv_qs;
         reg_rdata_next[3] = b_16_cfg_oen_qs;
@@ -40783,11 +19636,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_16_cfg_smt_qs;
       end
 
-      addr_hit[219]: begin
-        reg_rdata_next[0] = b_16_mux_sel_qs;
+      addr_hit[93]: begin
+        reg_rdata_next[2:0] = b_16_mux_sel_qs;
       end
 
-      addr_hit[220]: begin
+      addr_hit[94]: begin
         reg_rdata_next[0] = b_17_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_17_cfg_drv_qs;
         reg_rdata_next[3] = b_17_cfg_oen_qs;
@@ -40796,11 +19649,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_17_cfg_smt_qs;
       end
 
-      addr_hit[221]: begin
-        reg_rdata_next[0] = b_17_mux_sel_qs;
+      addr_hit[95]: begin
+        reg_rdata_next[2:0] = b_17_mux_sel_qs;
       end
 
-      addr_hit[222]: begin
+      addr_hit[96]: begin
         reg_rdata_next[0] = b_18_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_18_cfg_drv_qs;
         reg_rdata_next[3] = b_18_cfg_oen_qs;
@@ -40809,11 +19662,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_18_cfg_smt_qs;
       end
 
-      addr_hit[223]: begin
-        reg_rdata_next[0] = b_18_mux_sel_qs;
+      addr_hit[97]: begin
+        reg_rdata_next[2:0] = b_18_mux_sel_qs;
       end
 
-      addr_hit[224]: begin
+      addr_hit[98]: begin
         reg_rdata_next[0] = b_19_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_19_cfg_drv_qs;
         reg_rdata_next[3] = b_19_cfg_oen_qs;
@@ -40822,11 +19675,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_19_cfg_smt_qs;
       end
 
-      addr_hit[225]: begin
-        reg_rdata_next[1:0] = b_19_mux_sel_qs;
+      addr_hit[99]: begin
+        reg_rdata_next[2:0] = b_19_mux_sel_qs;
       end
 
-      addr_hit[226]: begin
+      addr_hit[100]: begin
         reg_rdata_next[0] = b_20_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_20_cfg_drv_qs;
         reg_rdata_next[3] = b_20_cfg_oen_qs;
@@ -40835,11 +19688,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_20_cfg_smt_qs;
       end
 
-      addr_hit[227]: begin
-        reg_rdata_next[1:0] = b_20_mux_sel_qs;
+      addr_hit[101]: begin
+        reg_rdata_next[2:0] = b_20_mux_sel_qs;
       end
 
-      addr_hit[228]: begin
+      addr_hit[102]: begin
         reg_rdata_next[0] = b_21_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_21_cfg_drv_qs;
         reg_rdata_next[3] = b_21_cfg_oen_qs;
@@ -40848,11 +19701,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_21_cfg_smt_qs;
       end
 
-      addr_hit[229]: begin
-        reg_rdata_next[1:0] = b_21_mux_sel_qs;
+      addr_hit[103]: begin
+        reg_rdata_next[2:0] = b_21_mux_sel_qs;
       end
 
-      addr_hit[230]: begin
+      addr_hit[104]: begin
         reg_rdata_next[0] = b_22_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_22_cfg_drv_qs;
         reg_rdata_next[3] = b_22_cfg_oen_qs;
@@ -40861,11 +19714,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_22_cfg_smt_qs;
       end
 
-      addr_hit[231]: begin
-        reg_rdata_next[1:0] = b_22_mux_sel_qs;
+      addr_hit[105]: begin
+        reg_rdata_next[2:0] = b_22_mux_sel_qs;
       end
 
-      addr_hit[232]: begin
+      addr_hit[106]: begin
         reg_rdata_next[0] = b_23_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_23_cfg_drv_qs;
         reg_rdata_next[3] = b_23_cfg_oen_qs;
@@ -40874,11 +19727,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_23_cfg_smt_qs;
       end
 
-      addr_hit[233]: begin
-        reg_rdata_next[1:0] = b_23_mux_sel_qs;
+      addr_hit[107]: begin
+        reg_rdata_next[2:0] = b_23_mux_sel_qs;
       end
 
-      addr_hit[234]: begin
+      addr_hit[108]: begin
         reg_rdata_next[0] = b_24_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_24_cfg_drv_qs;
         reg_rdata_next[3] = b_24_cfg_oen_qs;
@@ -40887,11 +19740,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_24_cfg_smt_qs;
       end
 
-      addr_hit[235]: begin
-        reg_rdata_next[1:0] = b_24_mux_sel_qs;
+      addr_hit[109]: begin
+        reg_rdata_next[2:0] = b_24_mux_sel_qs;
       end
 
-      addr_hit[236]: begin
+      addr_hit[110]: begin
         reg_rdata_next[0] = b_25_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_25_cfg_drv_qs;
         reg_rdata_next[3] = b_25_cfg_oen_qs;
@@ -40900,11 +19753,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_25_cfg_smt_qs;
       end
 
-      addr_hit[237]: begin
-        reg_rdata_next[1:0] = b_25_mux_sel_qs;
+      addr_hit[111]: begin
+        reg_rdata_next[2:0] = b_25_mux_sel_qs;
       end
 
-      addr_hit[238]: begin
+      addr_hit[112]: begin
         reg_rdata_next[0] = b_26_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_26_cfg_drv_qs;
         reg_rdata_next[3] = b_26_cfg_oen_qs;
@@ -40913,11 +19766,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_26_cfg_smt_qs;
       end
 
-      addr_hit[239]: begin
-        reg_rdata_next[0] = b_26_mux_sel_qs;
+      addr_hit[113]: begin
+        reg_rdata_next[1:0] = b_26_mux_sel_qs;
       end
 
-      addr_hit[240]: begin
+      addr_hit[114]: begin
         reg_rdata_next[0] = b_27_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_27_cfg_drv_qs;
         reg_rdata_next[3] = b_27_cfg_oen_qs;
@@ -40926,11 +19779,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_27_cfg_smt_qs;
       end
 
-      addr_hit[241]: begin
-        reg_rdata_next[0] = b_27_mux_sel_qs;
+      addr_hit[115]: begin
+        reg_rdata_next[1:0] = b_27_mux_sel_qs;
       end
 
-      addr_hit[242]: begin
+      addr_hit[116]: begin
         reg_rdata_next[0] = b_28_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_28_cfg_drv_qs;
         reg_rdata_next[3] = b_28_cfg_oen_qs;
@@ -40939,11 +19792,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_28_cfg_smt_qs;
       end
 
-      addr_hit[243]: begin
-        reg_rdata_next[0] = b_28_mux_sel_qs;
+      addr_hit[117]: begin
+        reg_rdata_next[1:0] = b_28_mux_sel_qs;
       end
 
-      addr_hit[244]: begin
+      addr_hit[118]: begin
         reg_rdata_next[0] = b_29_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_29_cfg_drv_qs;
         reg_rdata_next[3] = b_29_cfg_oen_qs;
@@ -40952,11 +19805,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_29_cfg_smt_qs;
       end
 
-      addr_hit[245]: begin
-        reg_rdata_next[0] = b_29_mux_sel_qs;
+      addr_hit[119]: begin
+        reg_rdata_next[1:0] = b_29_mux_sel_qs;
       end
 
-      addr_hit[246]: begin
+      addr_hit[120]: begin
         reg_rdata_next[0] = b_30_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_30_cfg_drv_qs;
         reg_rdata_next[3] = b_30_cfg_oen_qs;
@@ -40965,11 +19818,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_30_cfg_smt_qs;
       end
 
-      addr_hit[247]: begin
-        reg_rdata_next[0] = b_30_mux_sel_qs;
+      addr_hit[121]: begin
+        reg_rdata_next[2:0] = b_30_mux_sel_qs;
       end
 
-      addr_hit[248]: begin
+      addr_hit[122]: begin
         reg_rdata_next[0] = b_31_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_31_cfg_drv_qs;
         reg_rdata_next[3] = b_31_cfg_oen_qs;
@@ -40978,11 +19831,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_31_cfg_smt_qs;
       end
 
-      addr_hit[249]: begin
-        reg_rdata_next[0] = b_31_mux_sel_qs;
+      addr_hit[123]: begin
+        reg_rdata_next[2:0] = b_31_mux_sel_qs;
       end
 
-      addr_hit[250]: begin
+      addr_hit[124]: begin
         reg_rdata_next[0] = b_32_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_32_cfg_drv_qs;
         reg_rdata_next[3] = b_32_cfg_oen_qs;
@@ -40991,11 +19844,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_32_cfg_smt_qs;
       end
 
-      addr_hit[251]: begin
-        reg_rdata_next[0] = b_32_mux_sel_qs;
+      addr_hit[125]: begin
+        reg_rdata_next[2:0] = b_32_mux_sel_qs;
       end
 
-      addr_hit[252]: begin
+      addr_hit[126]: begin
         reg_rdata_next[0] = b_33_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_33_cfg_drv_qs;
         reg_rdata_next[3] = b_33_cfg_oen_qs;
@@ -41004,11 +19857,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_33_cfg_smt_qs;
       end
 
-      addr_hit[253]: begin
-        reg_rdata_next[0] = b_33_mux_sel_qs;
+      addr_hit[127]: begin
+        reg_rdata_next[2:0] = b_33_mux_sel_qs;
       end
 
-      addr_hit[254]: begin
+      addr_hit[128]: begin
         reg_rdata_next[0] = b_34_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_34_cfg_drv_qs;
         reg_rdata_next[3] = b_34_cfg_oen_qs;
@@ -41017,11 +19870,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_34_cfg_smt_qs;
       end
 
-      addr_hit[255]: begin
-        reg_rdata_next[0] = b_34_mux_sel_qs;
+      addr_hit[129]: begin
+        reg_rdata_next[1:0] = b_34_mux_sel_qs;
       end
 
-      addr_hit[256]: begin
+      addr_hit[130]: begin
         reg_rdata_next[0] = b_35_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_35_cfg_drv_qs;
         reg_rdata_next[3] = b_35_cfg_oen_qs;
@@ -41030,11 +19883,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_35_cfg_smt_qs;
       end
 
-      addr_hit[257]: begin
-        reg_rdata_next[0] = b_35_mux_sel_qs;
+      addr_hit[131]: begin
+        reg_rdata_next[1:0] = b_35_mux_sel_qs;
       end
 
-      addr_hit[258]: begin
+      addr_hit[132]: begin
         reg_rdata_next[0] = b_36_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_36_cfg_drv_qs;
         reg_rdata_next[3] = b_36_cfg_oen_qs;
@@ -41043,11 +19896,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_36_cfg_smt_qs;
       end
 
-      addr_hit[259]: begin
-        reg_rdata_next[0] = b_36_mux_sel_qs;
+      addr_hit[133]: begin
+        reg_rdata_next[1:0] = b_36_mux_sel_qs;
       end
 
-      addr_hit[260]: begin
+      addr_hit[134]: begin
         reg_rdata_next[0] = b_37_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_37_cfg_drv_qs;
         reg_rdata_next[3] = b_37_cfg_oen_qs;
@@ -41056,11 +19909,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_37_cfg_smt_qs;
       end
 
-      addr_hit[261]: begin
-        reg_rdata_next[0] = b_37_mux_sel_qs;
+      addr_hit[135]: begin
+        reg_rdata_next[1:0] = b_37_mux_sel_qs;
       end
 
-      addr_hit[262]: begin
+      addr_hit[136]: begin
         reg_rdata_next[0] = b_38_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_38_cfg_drv_qs;
         reg_rdata_next[3] = b_38_cfg_oen_qs;
@@ -41069,11 +19922,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_38_cfg_smt_qs;
       end
 
-      addr_hit[263]: begin
-        reg_rdata_next[0] = b_38_mux_sel_qs;
+      addr_hit[137]: begin
+        reg_rdata_next[1:0] = b_38_mux_sel_qs;
       end
 
-      addr_hit[264]: begin
+      addr_hit[138]: begin
         reg_rdata_next[0] = b_39_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_39_cfg_drv_qs;
         reg_rdata_next[3] = b_39_cfg_oen_qs;
@@ -41082,11 +19935,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_39_cfg_smt_qs;
       end
 
-      addr_hit[265]: begin
-        reg_rdata_next[0] = b_39_mux_sel_qs;
+      addr_hit[139]: begin
+        reg_rdata_next[1:0] = b_39_mux_sel_qs;
       end
 
-      addr_hit[266]: begin
+      addr_hit[140]: begin
         reg_rdata_next[0] = b_40_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_40_cfg_drv_qs;
         reg_rdata_next[3] = b_40_cfg_oen_qs;
@@ -41095,11 +19948,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_40_cfg_smt_qs;
       end
 
-      addr_hit[267]: begin
-        reg_rdata_next[0] = b_40_mux_sel_qs;
+      addr_hit[141]: begin
+        reg_rdata_next[1:0] = b_40_mux_sel_qs;
       end
 
-      addr_hit[268]: begin
+      addr_hit[142]: begin
         reg_rdata_next[0] = b_41_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_41_cfg_drv_qs;
         reg_rdata_next[3] = b_41_cfg_oen_qs;
@@ -41108,11 +19961,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_41_cfg_smt_qs;
       end
 
-      addr_hit[269]: begin
-        reg_rdata_next[0] = b_41_mux_sel_qs;
+      addr_hit[143]: begin
+        reg_rdata_next[1:0] = b_41_mux_sel_qs;
       end
 
-      addr_hit[270]: begin
+      addr_hit[144]: begin
         reg_rdata_next[0] = b_42_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_42_cfg_drv_qs;
         reg_rdata_next[3] = b_42_cfg_oen_qs;
@@ -41121,11 +19974,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_42_cfg_smt_qs;
       end
 
-      addr_hit[271]: begin
-        reg_rdata_next[0] = b_42_mux_sel_qs;
+      addr_hit[145]: begin
+        reg_rdata_next[1:0] = b_42_mux_sel_qs;
       end
 
-      addr_hit[272]: begin
+      addr_hit[146]: begin
         reg_rdata_next[0] = b_43_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_43_cfg_drv_qs;
         reg_rdata_next[3] = b_43_cfg_oen_qs;
@@ -41134,11 +19987,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_43_cfg_smt_qs;
       end
 
-      addr_hit[273]: begin
-        reg_rdata_next[0] = b_43_mux_sel_qs;
+      addr_hit[147]: begin
+        reg_rdata_next[1:0] = b_43_mux_sel_qs;
       end
 
-      addr_hit[274]: begin
+      addr_hit[148]: begin
         reg_rdata_next[0] = b_44_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_44_cfg_drv_qs;
         reg_rdata_next[3] = b_44_cfg_oen_qs;
@@ -41147,11 +20000,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_44_cfg_smt_qs;
       end
 
-      addr_hit[275]: begin
-        reg_rdata_next[0] = b_44_mux_sel_qs;
+      addr_hit[149]: begin
+        reg_rdata_next[1:0] = b_44_mux_sel_qs;
       end
 
-      addr_hit[276]: begin
+      addr_hit[150]: begin
         reg_rdata_next[0] = b_45_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_45_cfg_drv_qs;
         reg_rdata_next[3] = b_45_cfg_oen_qs;
@@ -41160,11 +20013,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_45_cfg_smt_qs;
       end
 
-      addr_hit[277]: begin
-        reg_rdata_next[0] = b_45_mux_sel_qs;
+      addr_hit[151]: begin
+        reg_rdata_next[1:0] = b_45_mux_sel_qs;
       end
 
-      addr_hit[278]: begin
+      addr_hit[152]: begin
         reg_rdata_next[0] = b_46_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_46_cfg_drv_qs;
         reg_rdata_next[3] = b_46_cfg_oen_qs;
@@ -41173,11 +20026,11 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_46_cfg_smt_qs;
       end
 
-      addr_hit[279]: begin
-        reg_rdata_next[0] = b_46_mux_sel_qs;
+      addr_hit[153]: begin
+        reg_rdata_next[1:0] = b_46_mux_sel_qs;
       end
 
-      addr_hit[280]: begin
+      addr_hit[154]: begin
         reg_rdata_next[0] = b_47_cfg_chip2pad_qs;
         reg_rdata_next[2:1] = b_47_cfg_drv_qs;
         reg_rdata_next[3] = b_47_cfg_oen_qs;
@@ -41186,385 +20039,60 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
         reg_rdata_next[6] = b_47_cfg_smt_qs;
       end
 
-      addr_hit[281]: begin
+      addr_hit[155]: begin
         reg_rdata_next[1:0] = b_47_mux_sel_qs;
       end
 
-      addr_hit[282]: begin
-        reg_rdata_next[0] = b_48_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = b_48_cfg_drv_qs;
-        reg_rdata_next[3] = b_48_cfg_oen_qs;
-        reg_rdata_next[4] = b_48_cfg_puen_qs;
-        reg_rdata_next[5] = b_48_cfg_slw_qs;
-        reg_rdata_next[6] = b_48_cfg_smt_qs;
+      addr_hit[156]: begin
+        reg_rdata_next[0] = ot_spi_00_cfg_chip2pad_qs;
+        reg_rdata_next[2:1] = ot_spi_00_cfg_drv_qs;
+        reg_rdata_next[3] = ot_spi_00_cfg_oen_qs;
+        reg_rdata_next[4] = ot_spi_00_cfg_puen_qs;
+        reg_rdata_next[5] = ot_spi_00_cfg_slw_qs;
+        reg_rdata_next[6] = ot_spi_00_cfg_smt_qs;
       end
 
-      addr_hit[283]: begin
-        reg_rdata_next[1:0] = b_48_mux_sel_qs;
+      addr_hit[157]: begin
+        reg_rdata_next[0] = ot_spi_00_mux_sel_qs;
       end
 
-      addr_hit[284]: begin
-        reg_rdata_next[0] = b_49_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = b_49_cfg_drv_qs;
-        reg_rdata_next[3] = b_49_cfg_oen_qs;
-        reg_rdata_next[4] = b_49_cfg_puen_qs;
-        reg_rdata_next[5] = b_49_cfg_slw_qs;
-        reg_rdata_next[6] = b_49_cfg_smt_qs;
+      addr_hit[158]: begin
+        reg_rdata_next[0] = ot_spi_01_cfg_chip2pad_qs;
+        reg_rdata_next[2:1] = ot_spi_01_cfg_drv_qs;
+        reg_rdata_next[3] = ot_spi_01_cfg_oen_qs;
+        reg_rdata_next[4] = ot_spi_01_cfg_puen_qs;
+        reg_rdata_next[5] = ot_spi_01_cfg_slw_qs;
+        reg_rdata_next[6] = ot_spi_01_cfg_smt_qs;
       end
 
-      addr_hit[285]: begin
-        reg_rdata_next[1:0] = b_49_mux_sel_qs;
+      addr_hit[159]: begin
+        reg_rdata_next[0] = ot_spi_01_mux_sel_qs;
       end
 
-      addr_hit[286]: begin
-        reg_rdata_next[0] = b_50_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = b_50_cfg_drv_qs;
-        reg_rdata_next[3] = b_50_cfg_oen_qs;
-        reg_rdata_next[4] = b_50_cfg_puen_qs;
-        reg_rdata_next[5] = b_50_cfg_slw_qs;
-        reg_rdata_next[6] = b_50_cfg_smt_qs;
+      addr_hit[160]: begin
+        reg_rdata_next[0] = ot_spi_02_cfg_chip2pad_qs;
+        reg_rdata_next[2:1] = ot_spi_02_cfg_drv_qs;
+        reg_rdata_next[3] = ot_spi_02_cfg_oen_qs;
+        reg_rdata_next[4] = ot_spi_02_cfg_puen_qs;
+        reg_rdata_next[5] = ot_spi_02_cfg_slw_qs;
+        reg_rdata_next[6] = ot_spi_02_cfg_smt_qs;
       end
 
-      addr_hit[287]: begin
-        reg_rdata_next[1:0] = b_50_mux_sel_qs;
+      addr_hit[161]: begin
+        reg_rdata_next[0] = ot_spi_02_mux_sel_qs;
       end
 
-      addr_hit[288]: begin
-        reg_rdata_next[0] = b_51_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = b_51_cfg_drv_qs;
-        reg_rdata_next[3] = b_51_cfg_oen_qs;
-        reg_rdata_next[4] = b_51_cfg_puen_qs;
-        reg_rdata_next[5] = b_51_cfg_slw_qs;
-        reg_rdata_next[6] = b_51_cfg_smt_qs;
+      addr_hit[162]: begin
+        reg_rdata_next[0] = ot_spi_03_cfg_chip2pad_qs;
+        reg_rdata_next[2:1] = ot_spi_03_cfg_drv_qs;
+        reg_rdata_next[3] = ot_spi_03_cfg_oen_qs;
+        reg_rdata_next[4] = ot_spi_03_cfg_puen_qs;
+        reg_rdata_next[5] = ot_spi_03_cfg_slw_qs;
+        reg_rdata_next[6] = ot_spi_03_cfg_smt_qs;
       end
 
-      addr_hit[289]: begin
-        reg_rdata_next[1:0] = b_51_mux_sel_qs;
-      end
-
-      addr_hit[290]: begin
-        reg_rdata_next[0] = b_52_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = b_52_cfg_drv_qs;
-        reg_rdata_next[3] = b_52_cfg_oen_qs;
-        reg_rdata_next[4] = b_52_cfg_puen_qs;
-        reg_rdata_next[5] = b_52_cfg_slw_qs;
-        reg_rdata_next[6] = b_52_cfg_smt_qs;
-      end
-
-      addr_hit[291]: begin
-        reg_rdata_next[1:0] = b_52_mux_sel_qs;
-      end
-
-      addr_hit[292]: begin
-        reg_rdata_next[0] = b_53_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = b_53_cfg_drv_qs;
-        reg_rdata_next[3] = b_53_cfg_oen_qs;
-        reg_rdata_next[4] = b_53_cfg_puen_qs;
-        reg_rdata_next[5] = b_53_cfg_slw_qs;
-        reg_rdata_next[6] = b_53_cfg_smt_qs;
-      end
-
-      addr_hit[293]: begin
-        reg_rdata_next[1:0] = b_53_mux_sel_qs;
-      end
-
-      addr_hit[294]: begin
-        reg_rdata_next[0] = b_54_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = b_54_cfg_drv_qs;
-        reg_rdata_next[3] = b_54_cfg_oen_qs;
-        reg_rdata_next[4] = b_54_cfg_puen_qs;
-        reg_rdata_next[5] = b_54_cfg_slw_qs;
-        reg_rdata_next[6] = b_54_cfg_smt_qs;
-      end
-
-      addr_hit[295]: begin
-        reg_rdata_next[1:0] = b_54_mux_sel_qs;
-      end
-
-      addr_hit[296]: begin
-        reg_rdata_next[0] = b_55_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = b_55_cfg_drv_qs;
-        reg_rdata_next[3] = b_55_cfg_oen_qs;
-        reg_rdata_next[4] = b_55_cfg_puen_qs;
-        reg_rdata_next[5] = b_55_cfg_slw_qs;
-        reg_rdata_next[6] = b_55_cfg_smt_qs;
-      end
-
-      addr_hit[297]: begin
-        reg_rdata_next[1:0] = b_55_mux_sel_qs;
-      end
-
-      addr_hit[298]: begin
-        reg_rdata_next[0] = b_56_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = b_56_cfg_drv_qs;
-        reg_rdata_next[3] = b_56_cfg_oen_qs;
-        reg_rdata_next[4] = b_56_cfg_puen_qs;
-        reg_rdata_next[5] = b_56_cfg_slw_qs;
-        reg_rdata_next[6] = b_56_cfg_smt_qs;
-      end
-
-      addr_hit[299]: begin
-        reg_rdata_next[1:0] = b_56_mux_sel_qs;
-      end
-
-      addr_hit[300]: begin
-        reg_rdata_next[0] = b_57_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = b_57_cfg_drv_qs;
-        reg_rdata_next[3] = b_57_cfg_oen_qs;
-        reg_rdata_next[4] = b_57_cfg_puen_qs;
-        reg_rdata_next[5] = b_57_cfg_slw_qs;
-        reg_rdata_next[6] = b_57_cfg_smt_qs;
-      end
-
-      addr_hit[301]: begin
-        reg_rdata_next[1:0] = b_57_mux_sel_qs;
-      end
-
-      addr_hit[302]: begin
-        reg_rdata_next[0] = b_58_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = b_58_cfg_drv_qs;
-        reg_rdata_next[3] = b_58_cfg_oen_qs;
-        reg_rdata_next[4] = b_58_cfg_puen_qs;
-        reg_rdata_next[5] = b_58_cfg_slw_qs;
-        reg_rdata_next[6] = b_58_cfg_smt_qs;
-      end
-
-      addr_hit[303]: begin
-        reg_rdata_next[1:0] = b_58_mux_sel_qs;
-      end
-
-      addr_hit[304]: begin
-        reg_rdata_next[0] = b_59_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = b_59_cfg_drv_qs;
-        reg_rdata_next[3] = b_59_cfg_oen_qs;
-        reg_rdata_next[4] = b_59_cfg_puen_qs;
-        reg_rdata_next[5] = b_59_cfg_slw_qs;
-        reg_rdata_next[6] = b_59_cfg_smt_qs;
-      end
-
-      addr_hit[305]: begin
-        reg_rdata_next[1:0] = b_59_mux_sel_qs;
-      end
-
-      addr_hit[306]: begin
-        reg_rdata_next[0] = b_60_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = b_60_cfg_drv_qs;
-        reg_rdata_next[3] = b_60_cfg_oen_qs;
-        reg_rdata_next[4] = b_60_cfg_puen_qs;
-        reg_rdata_next[5] = b_60_cfg_slw_qs;
-        reg_rdata_next[6] = b_60_cfg_smt_qs;
-      end
-
-      addr_hit[307]: begin
-        reg_rdata_next[1:0] = b_60_mux_sel_qs;
-      end
-
-      addr_hit[308]: begin
-        reg_rdata_next[0] = b_61_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = b_61_cfg_drv_qs;
-        reg_rdata_next[3] = b_61_cfg_oen_qs;
-        reg_rdata_next[4] = b_61_cfg_puen_qs;
-        reg_rdata_next[5] = b_61_cfg_slw_qs;
-        reg_rdata_next[6] = b_61_cfg_smt_qs;
-      end
-
-      addr_hit[309]: begin
-        reg_rdata_next[1:0] = b_61_mux_sel_qs;
-      end
-
-      addr_hit[310]: begin
-        reg_rdata_next[0] = b_62_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = b_62_cfg_drv_qs;
-        reg_rdata_next[3] = b_62_cfg_oen_qs;
-        reg_rdata_next[4] = b_62_cfg_puen_qs;
-        reg_rdata_next[5] = b_62_cfg_slw_qs;
-        reg_rdata_next[6] = b_62_cfg_smt_qs;
-      end
-
-      addr_hit[311]: begin
-        reg_rdata_next[2:0] = b_62_mux_sel_qs;
-      end
-
-      addr_hit[312]: begin
-        reg_rdata_next[0] = ot_qspi_00_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = ot_qspi_00_cfg_drv_qs;
-        reg_rdata_next[3] = ot_qspi_00_cfg_oen_qs;
-        reg_rdata_next[4] = ot_qspi_00_cfg_puen_qs;
-        reg_rdata_next[5] = ot_qspi_00_cfg_slw_qs;
-        reg_rdata_next[6] = ot_qspi_00_cfg_smt_qs;
-      end
-
-      addr_hit[313]: begin
-        reg_rdata_next[0] = ot_qspi_00_mux_sel_qs;
-      end
-
-      addr_hit[314]: begin
-        reg_rdata_next[0] = ot_qspi_01_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = ot_qspi_01_cfg_drv_qs;
-        reg_rdata_next[3] = ot_qspi_01_cfg_oen_qs;
-        reg_rdata_next[4] = ot_qspi_01_cfg_puen_qs;
-        reg_rdata_next[5] = ot_qspi_01_cfg_slw_qs;
-        reg_rdata_next[6] = ot_qspi_01_cfg_smt_qs;
-      end
-
-      addr_hit[315]: begin
-        reg_rdata_next[0] = ot_qspi_01_mux_sel_qs;
-      end
-
-      addr_hit[316]: begin
-        reg_rdata_next[0] = ot_qspi_02_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = ot_qspi_02_cfg_drv_qs;
-        reg_rdata_next[3] = ot_qspi_02_cfg_oen_qs;
-        reg_rdata_next[4] = ot_qspi_02_cfg_puen_qs;
-        reg_rdata_next[5] = ot_qspi_02_cfg_slw_qs;
-        reg_rdata_next[6] = ot_qspi_02_cfg_smt_qs;
-      end
-
-      addr_hit[317]: begin
-        reg_rdata_next[0] = ot_qspi_02_mux_sel_qs;
-      end
-
-      addr_hit[318]: begin
-        reg_rdata_next[0] = ot_qspi_03_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = ot_qspi_03_cfg_drv_qs;
-        reg_rdata_next[3] = ot_qspi_03_cfg_oen_qs;
-        reg_rdata_next[4] = ot_qspi_03_cfg_puen_qs;
-        reg_rdata_next[5] = ot_qspi_03_cfg_slw_qs;
-        reg_rdata_next[6] = ot_qspi_03_cfg_smt_qs;
-      end
-
-      addr_hit[319]: begin
-        reg_rdata_next[0] = ot_qspi_03_mux_sel_qs;
-      end
-
-      addr_hit[320]: begin
-        reg_rdata_next[0] = ot_qspi_04_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = ot_qspi_04_cfg_drv_qs;
-        reg_rdata_next[3] = ot_qspi_04_cfg_oen_qs;
-        reg_rdata_next[4] = ot_qspi_04_cfg_puen_qs;
-        reg_rdata_next[5] = ot_qspi_04_cfg_slw_qs;
-        reg_rdata_next[6] = ot_qspi_04_cfg_smt_qs;
-      end
-
-      addr_hit[321]: begin
-        reg_rdata_next[0] = ot_qspi_04_mux_sel_qs;
-      end
-
-      addr_hit[322]: begin
-        reg_rdata_next[0] = ot_qspi_05_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = ot_qspi_05_cfg_drv_qs;
-        reg_rdata_next[3] = ot_qspi_05_cfg_oen_qs;
-        reg_rdata_next[4] = ot_qspi_05_cfg_puen_qs;
-        reg_rdata_next[5] = ot_qspi_05_cfg_slw_qs;
-        reg_rdata_next[6] = ot_qspi_05_cfg_smt_qs;
-      end
-
-      addr_hit[323]: begin
-        reg_rdata_next[0] = ot_qspi_05_mux_sel_qs;
-      end
-
-      addr_hit[324]: begin
-        reg_rdata_next[0] = linux_qspi_00_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = linux_qspi_00_cfg_drv_qs;
-        reg_rdata_next[3] = linux_qspi_00_cfg_oen_qs;
-        reg_rdata_next[4] = linux_qspi_00_cfg_puen_qs;
-        reg_rdata_next[5] = linux_qspi_00_cfg_slw_qs;
-        reg_rdata_next[6] = linux_qspi_00_cfg_smt_qs;
-      end
-
-      addr_hit[325]: begin
-        reg_rdata_next[0] = linux_qspi_00_mux_sel_qs;
-      end
-
-      addr_hit[326]: begin
-        reg_rdata_next[0] = linux_qspi_01_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = linux_qspi_01_cfg_drv_qs;
-        reg_rdata_next[3] = linux_qspi_01_cfg_oen_qs;
-        reg_rdata_next[4] = linux_qspi_01_cfg_puen_qs;
-        reg_rdata_next[5] = linux_qspi_01_cfg_slw_qs;
-        reg_rdata_next[6] = linux_qspi_01_cfg_smt_qs;
-      end
-
-      addr_hit[327]: begin
-        reg_rdata_next[0] = linux_qspi_01_mux_sel_qs;
-      end
-
-      addr_hit[328]: begin
-        reg_rdata_next[0] = linux_qspi_02_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = linux_qspi_02_cfg_drv_qs;
-        reg_rdata_next[3] = linux_qspi_02_cfg_oen_qs;
-        reg_rdata_next[4] = linux_qspi_02_cfg_puen_qs;
-        reg_rdata_next[5] = linux_qspi_02_cfg_slw_qs;
-        reg_rdata_next[6] = linux_qspi_02_cfg_smt_qs;
-      end
-
-      addr_hit[329]: begin
-        reg_rdata_next[0] = linux_qspi_02_mux_sel_qs;
-      end
-
-      addr_hit[330]: begin
-        reg_rdata_next[0] = linux_qspi_03_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = linux_qspi_03_cfg_drv_qs;
-        reg_rdata_next[3] = linux_qspi_03_cfg_oen_qs;
-        reg_rdata_next[4] = linux_qspi_03_cfg_puen_qs;
-        reg_rdata_next[5] = linux_qspi_03_cfg_slw_qs;
-        reg_rdata_next[6] = linux_qspi_03_cfg_smt_qs;
-      end
-
-      addr_hit[331]: begin
-        reg_rdata_next[0] = linux_qspi_03_mux_sel_qs;
-      end
-
-      addr_hit[332]: begin
-        reg_rdata_next[0] = linux_qspi_04_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = linux_qspi_04_cfg_drv_qs;
-        reg_rdata_next[3] = linux_qspi_04_cfg_oen_qs;
-        reg_rdata_next[4] = linux_qspi_04_cfg_puen_qs;
-        reg_rdata_next[5] = linux_qspi_04_cfg_slw_qs;
-        reg_rdata_next[6] = linux_qspi_04_cfg_smt_qs;
-      end
-
-      addr_hit[333]: begin
-        reg_rdata_next[0] = linux_qspi_04_mux_sel_qs;
-      end
-
-      addr_hit[334]: begin
-        reg_rdata_next[0] = linux_qspi_05_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = linux_qspi_05_cfg_drv_qs;
-        reg_rdata_next[3] = linux_qspi_05_cfg_oen_qs;
-        reg_rdata_next[4] = linux_qspi_05_cfg_puen_qs;
-        reg_rdata_next[5] = linux_qspi_05_cfg_slw_qs;
-        reg_rdata_next[6] = linux_qspi_05_cfg_smt_qs;
-      end
-
-      addr_hit[335]: begin
-        reg_rdata_next[0] = linux_qspi_05_mux_sel_qs;
-      end
-
-      addr_hit[336]: begin
-        reg_rdata_next[0] = ot_gpio_00_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = ot_gpio_00_cfg_drv_qs;
-        reg_rdata_next[3] = ot_gpio_00_cfg_oen_qs;
-        reg_rdata_next[4] = ot_gpio_00_cfg_puen_qs;
-        reg_rdata_next[5] = ot_gpio_00_cfg_slw_qs;
-        reg_rdata_next[6] = ot_gpio_00_cfg_smt_qs;
-      end
-
-      addr_hit[337]: begin
-        reg_rdata_next[0] = ot_gpio_00_mux_sel_qs;
-      end
-
-      addr_hit[338]: begin
-        reg_rdata_next[0] = ot_gpio_01_cfg_chip2pad_qs;
-        reg_rdata_next[2:1] = ot_gpio_01_cfg_drv_qs;
-        reg_rdata_next[3] = ot_gpio_01_cfg_oen_qs;
-        reg_rdata_next[4] = ot_gpio_01_cfg_puen_qs;
-        reg_rdata_next[5] = ot_gpio_01_cfg_slw_qs;
-        reg_rdata_next[6] = ot_gpio_01_cfg_smt_qs;
-      end
-
-      addr_hit[339]: begin
-        reg_rdata_next[0] = ot_gpio_01_mux_sel_qs;
+      addr_hit[163]: begin
+        reg_rdata_next[0] = ot_spi_03_mux_sel_qs;
       end
 
       default: begin

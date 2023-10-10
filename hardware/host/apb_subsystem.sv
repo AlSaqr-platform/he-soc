@@ -47,8 +47,6 @@ module apb_subsystem
     input logic                 bypass_clk_i,
     input logic                 rtc_i,
     input logic                 rst_dm_i,
-    input logic                 apb_uart_rx_i,
-    output logic                apb_uart_tx_o,
     output logic                rstn_soc_sync_o,
     output logic                rstn_cva6_sync_o,
     output logic                rstn_global_sync_o,
@@ -281,8 +279,8 @@ module apb_subsystem
        .DSRN    ( 1'b0                           ),
        .DCDN    ( 1'b0                           ),
        .RIN     ( 1'b0                           ),
-       .SIN     ( apb_uart_rx_i                  ),
-       .SOUT    ( apb_uart_tx_o                  )
+       .SIN     ( 1'b0                           ),
+       .SOUT    (                                )
      );
    end else begin
      /* pragma translate_off */
@@ -753,11 +751,9 @@ module apb_subsystem
         .clk_opentitan_o    ( clk_opentitan_o     )
        );
 
-    // Here is the FLL outputs probed to the pad a_62
+    // Here is the FLL output to the PADFRAME
     assign  fll_to_pad.clk_cva6_o = clk_cva6_o;
     assign  fll_to_pad.clk_soc_o  = clk_soc_o;
-    assign  fll_to_pad.clk_peripheral_o = s_clk_per;
-    assign  fll_to_pad.clk_cluster_o = clk_cluster_o;
 
     apb_to_reg i_apb_to_hyaxicfg
     (

@@ -75,8 +75,6 @@ module host_domain
   // CVA6 DEBUG UART
   input logic                 cva6_uart_rx_i,
   output logic                cva6_uart_tx_o,
-  input  logic                apb_uart_rx_i,
-  output logic                apb_uart_tx_o,
 
   // FROM SimDTM
   input logic                 dmi_req_valid,
@@ -527,8 +525,6 @@ module host_domain
       .rst_ni                 ( rst_ni                         ),
       .bypass_clk_i           ( bypass_clk_i                   ),
       .rst_dm_i               ( s_dm_rst                       ),
-      .apb_uart_rx_i          ( apb_uart_rx_i                  ),
-      .apb_uart_tx_o          ( apb_uart_tx_o                  ),
       .clk_cva6_o             ( s_clk_cva6                     ),
       .clk_soc_o              ( s_soc_clk                      ),
       .clk_opentitan_o        ( clk_opentitan_o                ),

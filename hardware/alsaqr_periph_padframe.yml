@@ -104,34 +104,21 @@ pad_domains:
       - name: a_{i:2d}
         mux_groups: [self]
         description: "pads not including GPIOs"
-        multiple: 93
+        multiple: 30
         pad_type: pad_alsaqr
         is_static: false
       - name: b_{i:2d}
         mux_groups: [self]
         description: "pads that include GPIOs"
-        multiple: 63
+        multiple: 48
         pad_type: pad_alsaqr
         is_static: false
-      - name: ot_qspi_{i:2d}
+      - name: ot_spi_{i:2d}
         mux_groups: [self]
         description: "opentitan qspi"
-        multiple: 6
+        multiple: 4
         pad_type: pad_alsaqr
         is_static: false
-      - name: linux_qspi_{i:2d}
-        mux_groups: [self]
-        description: "linux dedicated qspi"
-        multiple: 6
-        pad_type: pad_alsaqr
-        is_static: false
-      - name: ot_gpio_{i:2d}
-        mux_groups: [self]
-        description: "opentitan dedicated gpios"
-        multiple: 2
-        pad_type: pad_alsaqr
-        is_static: false
-
       ##  _____           _
       ## |  __ \         | |
       ## | |__) |__  _ __| |_ ___
@@ -140,135 +127,52 @@ pad_domains:
       ## |_|   \___/|_|   \__|___/
     port_groups:
 
-      #A
-      - name: i2c0
+      # Fixed pins, not multiplexed
+      #OpenTitan SPI
+      - name: spi_ot
+        output_defaults: 1'b0
+        ports:
+          - name: spi_sck
+            mux_groups: [ot_spi_00]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_csn
+            mux_groups: [ot_spi_01]
+            connections:
+              chip2pad: csn0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_sd{i}
+            multiple: 2
+            mux_groups: ["ot_spi_{02+i:2d}"]
+            connections:
+              chip2pad: sd{i}_i
+              sd{i}_o: pad2chip
+              oen: sd{i}_oen_i
+              puen: 1'b1
+
+#####################################
+#####################################
+######### Peripherlas list ##########
+#####################################
+#####################################
+
+      - name: uart_core
         output_defaults: 1'b1
         ports:
-          - name: i2c_scl
+          - name: uart_tx
             mux_groups: [a_00]
             connections:
-              chip2pad: scl_i
-              scl_o: pad2chip
-              oen: ~scl_oe_i
-              puen: 1'b0
-          - name: i2c_sda
+              chip2pad: tx_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: uart_rx
             mux_groups: [a_01]
             connections:
-              chip2pad: sda_i
-              sda_o: pad2chip
-              oen: ~sda_oe_i
-              puen: 1'b0
-
-      - name: spi0
-        output_defaults: 1'b0
-        ports:
-          - name: spi_sck
-            mux_groups: [a_02]
-            connections:
-              chip2pad: clk_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_cs0
-            mux_groups: [a_03]
-            connections:
-              chip2pad: csn0_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_miso
-            mux_groups: [a_04]
-            connections:
-              sd1_o: pad2chip
+              rx_o: pad2chip
               oen: 1'b1
-              puen: 1'b1
-          - name: spi_mosi
-            mux_groups: [a_05]
-            connections:
-              chip2pad: sd0_i
-              oen: 1'b0
-              puen: 1'b1
-
-      - name: spi1
-        output_defaults: 1'b0
-        ports:
-          - name: spi_sck
-            mux_groups: [a_06]
-            connections:
-              chip2pad: clk_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_cs0
-            mux_groups: [a_07]
-            connections:
-              chip2pad: csn0_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_miso
-            mux_groups: [a_08]
-            connections:
-              sd1_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: spi_mosi
-            mux_groups: [a_09]
-            connections:
-              chip2pad: sd0_i
-              oen: 1'b0
-              puen: 1'b1
-
-      - name: spi2
-        output_defaults: 1'b0
-        ports:
-          - name: spi_sck
-            mux_groups: [a_10]
-            connections:
-              chip2pad: clk_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_cs0
-            mux_groups: [a_11]
-            connections:
-              chip2pad: csn0_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_miso
-            mux_groups: [a_12]
-            connections:
-              sd1_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: spi_mosi
-            mux_groups: [a_13]
-            connections:
-              chip2pad: sd0_i
-              oen: 1'b0
-              puen: 1'b1
-
-      - name: spi3
-        output_defaults: 1'b0
-        ports:
-          - name: spi_sck
-            mux_groups: [a_14]
-            connections:
-              chip2pad: clk_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_cs0
-            mux_groups: [a_15]
-            connections:
-              chip2pad: csn0_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_miso
-            mux_groups: [a_16]
-            connections:
-              sd1_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: spi_mosi
-            mux_groups: [a_17]
-            connections:
-              chip2pad: sd0_i
-              oen: 1'b0
               puen: 1'b1
 
       - name: sdio0
@@ -276,283 +180,238 @@ pad_domains:
         ports:
           - name: sdio_data{i}
             multiple: 4
-            mux_groups: ["a_{18+i:2d}"]
+            mux_groups: ["a_{02+i:2d}"]
             connections:
               chip2pad: data{i}_i
               data{i}_o: pad2chip
               oen: data{i}_oen_i
               puen: 1'b0
           - name: sdio_clk
-            mux_groups: [a_22]
+            mux_groups: [a_06]
             connections:
               chip2pad: clk_i
               oen: 1'b0
               puen: 1'b1
           - name: sdio_cmd
-            mux_groups: [a_23]
+            mux_groups: [a_07]
             connections:
               chip2pad: cmd_i
               cmd_o: pad2chip
               oen: cmd_oen_i
               puen: 1'b0
 
-      - name: uart0
+      - name: sdio1
         output_defaults: 1'b1
         ports:
-          - name: uart_tx
-            mux_groups: [a_24]
+          - name: sdio_data0
+            mux_groups: [b_00, a_09]
             connections:
-              chip2pad: tx_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: uart_rx
-            mux_groups: [a_25]
-            connections:
-              rx_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-
-      - name: i2c1
-        output_defaults: 1'b1
-        ports:
-          - name: i2c_scl
-            mux_groups: [a_26]
-            connections:
-              chip2pad: scl_i
-              scl_o: pad2chip
-              oen: ~scl_oe_i
+              chip2pad: data0_i
+              data0_o: pad2chip
+              oen: data3_oen_i
               puen: 1'b0
-          - name: i2c_sda
-            mux_groups: [a_27]
+          - name: sdio_data1
+            mux_groups: [b_01, a_10]
             connections:
-              chip2pad: sda_i
-              sda_o: pad2chip
-              oen: ~sda_oe_i
+              chip2pad: data1_i
+              data1_o: pad2chip
+              oen: data2_oen_i
               puen: 1'b0
-
-      - name: usart0
-        output_defaults: 1'b1
-        ports:
-          - name: uart_tx
-            mux_groups: [a_28]
+          - name: sdio_data2
+            mux_groups: [b_02, a_11]
             connections:
-              chip2pad: tx_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: uart_rx
-            mux_groups: [a_29]
+              chip2pad: data2_i
+              data2_o: pad2chip
+              oen: data1_oen_i
+              puen: 1'b0
+          - name: sdio_data3
+            mux_groups: [b_03, a_12]
             connections:
-              rx_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: uart_rts
-            mux_groups: [a_30]
-            connections:
-              chip2pad: rts_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: uart_cts
-            mux_groups: [a_31]
-            connections:
-              cts_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-
-      - name: spi4
-        output_defaults: 1'b0
-        ports:
-          - name: spi_sck
-            mux_groups: [a_32]
+              chip2pad: data3_i
+              data3_o: pad2chip
+              oen: data0_oen_i
+              puen: 1'b0
+          - name: sdio_clk
+            mux_groups: [b_04, a_13]
             connections:
               chip2pad: clk_i
               oen: 1'b0
               puen: 1'b1
-          - name: spi_cs0
-            mux_groups: [a_33]
+          - name: sdio_cmd
+            mux_groups: [b_05, a_14]
             connections:
-              chip2pad: csn0_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_miso
-            mux_groups: [a_34]
-            connections:
-              sd1_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: spi_mosi
-            mux_groups: [a_35]
-            connections:
-              chip2pad: sd0_i
-              oen: 1'b0
-              puen: 1'b1
-
-      - name: i2c2
-        output_defaults: 1'b1
-        ports:
-          - name: i2c_scl
-            mux_groups: [a_36]
-            connections:
-              chip2pad: scl_i
-              scl_o: pad2chip
-              oen: ~scl_oe_i
-              puen: 1'b0
-          - name: i2c_sda
-            mux_groups: [a_37]
-            connections:
-              chip2pad: sda_i
-              sda_o: pad2chip
-              oen: ~sda_oe_i
+              chip2pad: cmd_i
+              cmd_o: pad2chip
+              oen: cmd_oen_i
               puen: 1'b0
 
       - name: pwm0
         ports:
           - name: pwm{i}
             multiple: 4
-            mux_groups: ["a_{38+i:2d}"]
+            mux_groups: ["a_{08+i:2d}"]
             connections:
               chip2pad: pwm{i}_i
               oen: 1'b0
               puen: 1'b1
 
-      - name: i2c3
+      - name: pwm1
+        ports:
+          - name: pwm{i}
+            multiple: 4
+            mux_groups: ["b_{44+i:2d}","a_{10+i:2d}", "b_{32+i:2d}"]
+            connections:
+              chip2pad: pwm{i}_i
+              oen: 1'b0
+              puen: 1'b1
+
+      - name: i2c0
         output_defaults: 1'b1
         ports:
           - name: i2c_scl
-            mux_groups: [a_42]
+            mux_groups: [a_12, a_08]
             connections:
               chip2pad: scl_i
               scl_o: pad2chip
               oen: ~scl_oe_i
               puen: 1'b0
           - name: i2c_sda
-            mux_groups: [a_43]
+            mux_groups: [a_13, a_09]
             connections:
               chip2pad: sda_i
               sda_o: pad2chip
               oen: ~sda_oe_i
               puen: 1'b0
 
-      - name: spi5
-        output_defaults: 1'b0
+      - name: i2c1
+        output_defaults: 1'b1
         ports:
-          - name: spi_sck
-            mux_groups: [a_44]
+          - name: i2c_scl
+            mux_groups: [a_28, a_16, b_01]
             connections:
-              chip2pad: clk_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_cs0
-            mux_groups: [a_45]
+              chip2pad: scl_i
+              scl_o: pad2chip
+              oen: ~scl_oe_i
+              puen: 1'b0
+          - name: i2c_sda
+            mux_groups: [a_29, a_17, b_02]
             connections:
-              chip2pad: csn0_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_miso
-            mux_groups: [a_46]
-            connections:
-              sd1_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: spi_mosi
-            mux_groups: [a_47]
-            connections:
-              chip2pad: sd0_i
-              oen: 1'b0
-              puen: 1'b1
+              chip2pad: sda_i
+              sda_o: pad2chip
+              oen: ~sda_oe_i
+              puen: 1'b0
 
-      - name: spi6
-        output_defaults: 1'b0
+      - name: i2c2
+        output_defaults: 1'b1
         ports:
-          - name: spi_sck
-            mux_groups: [a_48]
+          - name: i2c_scl
+            mux_groups: [b_08]
             connections:
-              chip2pad: clk_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_cs0
-            mux_groups: [a_49]
+              chip2pad: scl_i
+              scl_o: pad2chip
+              oen: ~scl_oe_i
+              puen: 1'b0
+          - name: i2c_sda
+            mux_groups: [b_09]
             connections:
-              chip2pad: csn0_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_miso
-            mux_groups: [a_50]
-            connections:
-              sd1_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: spi_mosi
-            mux_groups: [a_51]
-            connections:
-              chip2pad: sd0_i
-              oen: 1'b0
-              puen: 1'b1
+              chip2pad: sda_i
+              sda_o: pad2chip
+              oen: ~sda_oe_i
+              puen: 1'b0
 
-      - name: spi7
-        output_defaults: 1'b0
+      - name: i2c3
+        output_defaults: 1'b1
         ports:
-          - name: spi_sck
-            mux_groups: [a_52]
+          - name: i2c_scl
+            mux_groups: [b_08]
             connections:
-              chip2pad: clk_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_miso
-            mux_groups: [a_53]
+              chip2pad: scl_i
+              scl_o: pad2chip
+              oen: ~scl_oe_i
+              puen: 1'b0
+          - name: i2c_sda
+            mux_groups: [b_09]
             connections:
-              sd1_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: spi_mosi
-            mux_groups: [a_54]
-            connections:
-              chip2pad: sd0_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_cs0
-            mux_groups: [a_55]
-            connections:
-              chip2pad: csn0_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_cs1
-            mux_groups: [a_56]
-            connections:
-              chip2pad: csn1_i
-              oen: 1'b0
-              puen: 1'b1
+              chip2pad: sda_i
+              sda_o: pad2chip
+              oen: ~sda_oe_i
+              puen: 1'b0
 
       - name: i2c4
         output_defaults: 1'b1
         ports:
           - name: i2c_scl
-            mux_groups: [a_57]
+            mux_groups: [b_15]
             connections:
               chip2pad: scl_i
               scl_o: pad2chip
               oen: ~scl_oe_i
               puen: 1'b0
           - name: i2c_sda
-            mux_groups: [a_58]
+            mux_groups: [b_16]
             connections:
               chip2pad: sda_i
               sda_o: pad2chip
               oen: ~sda_oe_i
               puen: 1'b0
 
-      - name: uart1
+      - name: uart0
         output_defaults: 1'b1
         ports:
           - name: uart_tx
-            mux_groups: [a_59]
+            mux_groups: [a_26, a_14, b_00]
             connections:
               chip2pad: tx_i
               oen: 1'b0
               puen: 1'b1
           - name: uart_rx
-            mux_groups: [a_60]
+            mux_groups: [a_27, a_15, b_01]
             connections:
               rx_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+
+      - name: uart1
+        output_defaults: 1'b1
+        ports:
+          - name: uart_tx
+            mux_groups: [b_17]
+            connections:
+              chip2pad: tx_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: uart_rx
+            mux_groups: [b_18]
+            connections:
+              rx_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+
+      - name: usart0
+        output_defaults: 1'b1
+        ports:
+          - name: uart_tx
+            mux_groups: [b_00, b_10]
+            connections:
+              chip2pad: tx_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: uart_rx
+            mux_groups: [b_01, b_11]
+            connections:
+              rx_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: uart_rts
+            mux_groups: [b_02, b_12]
+            connections:
+              chip2pad: rts_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: uart_cts
+            mux_groups: [b_03, b_13]
+            connections:
+              cts_o: pad2chip
               oen: 1'b1
               puen: 1'b1
 
@@ -560,87 +419,53 @@ pad_domains:
         output_defaults: 1'b1
         ports:
           - name: uart_tx
-            mux_groups: [a_61]
+            mux_groups: [b_19, a_05]
             connections:
               chip2pad: tx_i
               oen: 1'b0
               puen: 1'b1
           - name: uart_rx
-            mux_groups: [a_62]
+            mux_groups: [b_20, a_06]
             connections:
               rx_o: pad2chip
               oen: 1'b1
               puen: 1'b1
           - name: uart_rts
-            mux_groups: [a_63]
+            mux_groups: [b_21, a_07]
             connections:
               chip2pad: rts_i
               oen: 1'b0
               puen: 1'b1
           - name: uart_cts
-            mux_groups: [a_64]
+            mux_groups: [b_22, a_08]
             connections:
               cts_o: pad2chip
               oen: 1'b1
               puen: 1'b1
 
-      - name: uart2
-        output_defaults: 1'b1
-        ports:
-          - name: uart_tx
-            mux_groups: [a_65]
-            connections:
-              chip2pad: tx_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: uart_rx
-            mux_groups: [a_66]
-            connections:
-              rx_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-
-      - name: i2c5
-        output_defaults: 1'b1
-        ports:
-          - name: i2c_scl
-            mux_groups: [a_67]
-            connections:
-              chip2pad: scl_i
-              scl_o: pad2chip
-              oen: ~scl_oe_i
-              puen: 1'b0
-          - name: i2c_sda
-            mux_groups: [a_68]
-            connections:
-              chip2pad: sda_i
-              sda_o: pad2chip
-              oen: ~sda_oe_i
-              puen: 1'b0
-
       - name: usart2
         output_defaults: 1'b1
         ports:
           - name: uart_tx
-            mux_groups: [a_69]
+            mux_groups: [b_14]
             connections:
               chip2pad: tx_i
               oen: 1'b0
               puen: 1'b1
           - name: uart_rx
-            mux_groups: [a_70]
+            mux_groups: [b_15]
             connections:
               rx_o: pad2chip
               oen: 1'b1
               puen: 1'b1
           - name: uart_rts
-            mux_groups: [a_71]
+            mux_groups: [b_16]
             connections:
               chip2pad: rts_i
               oen: 1'b0
               puen: 1'b1
           - name: uart_cts
-            mux_groups: [a_72]
+            mux_groups: [b_17]
             connections:
               cts_o: pad2chip
               oen: 1'b1
@@ -650,321 +475,102 @@ pad_domains:
         output_defaults: 1'b1
         ports:
           - name: uart_tx
-            mux_groups: [a_73]
+            mux_groups: [b_18]
             connections:
               chip2pad: tx_i
               oen: 1'b0
               puen: 1'b1
           - name: uart_rx
-            mux_groups: [a_74]
+            mux_groups: [b_19]
             connections:
               rx_o: pad2chip
               oen: 1'b1
               puen: 1'b1
           - name: uart_rts
-            mux_groups: [a_75]
+            mux_groups: [b_20]
             connections:
               chip2pad: rts_i
               oen: 1'b0
               puen: 1'b1
           - name: uart_cts
-            mux_groups: [a_76]
+            mux_groups: [b_21]
             connections:
               cts_o: pad2chip
               oen: 1'b1
               puen: 1'b1
 
-      - name: pwm1
+      - name: eth
+        output_defaults: 1'b0
         ports:
-          - name: pwm{i}
+          - name: eth_rst
+            mux_groups: [b_23, a_15]
+            connections:
+              chip2pad: eth_rstn_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: eth_rxck
+            mux_groups: [b_24, a_16]
+            connections:
+              eth_rxck_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: eth_rxctl
+            mux_groups: [b_25, a_17]
+            connections:
+              eth_rxctl_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: eth_rxd{i}
             multiple: 4
-            mux_groups: ["a_{77+i:2d}"]
+            mux_groups: ["b_{26+i:2d}", "a_{18+i:2d}"]
             connections:
-              chip2pad: pwm{i}_i
+              eth_rxd{i}_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: eth_txck
+            mux_groups: [b_30, a_22]
+            connections:
+              chip2pad: eth_txck_i
               oen: 1'b0
               puen: 1'b1
-
-      - name: spi8
-        output_defaults: 1'b0
-        ports:
-          - name: spi_sck
-            mux_groups: [a_81]
+          - name: eth_txctl
+            mux_groups: [b_31, a_23]
             connections:
-              chip2pad: clk_i
+              chip2pad: eth_txctl_i
               oen: 1'b0
               puen: 1'b1
-          - name: spi_cs0
-            mux_groups: [a_82]
+          - name: eth_txd{i}
+            multiple: 4
+            mux_groups: ["b_{32+i:2d}", "a_{24+i:2d}"]
             connections:
-              chip2pad: csn0_i
+              chip2pad: eth_txd{i}_i
               oen: 1'b0
               puen: 1'b1
-          - name: spi_miso
-            mux_groups: [a_83]
+          - name: eth_mdio
+            mux_groups: [b_36, a_28]
             connections:
-              sd1_o: pad2chip
-              oen: 1'b1
+              chip2pad: eth_md_i
+              eth_md_o: pad2chip
+              oen: ~eth_md_oe
               puen: 1'b1
-          - name: spi_mosi
-            mux_groups: [a_84]
+          - name: eth_mdc
+            mux_groups: [b_37, a_29]
             connections:
-              chip2pad: sd0_i
+              chip2pad: eth_mdc_i
               oen: 1'b0
               puen: 1'b1
-
-      - name: spi9
-        output_defaults: 1'b0
-        ports:
-          - name: spi_sck
-            mux_groups: [a_85]
-            connections:
-              chip2pad: clk_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_cs0
-            mux_groups: [a_86]
-            connections:
-              chip2pad: csn0_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_miso
-            mux_groups: [a_87]
-            connections:
-              sd1_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: spi_mosi
-            mux_groups: [a_88]
-            connections:
-              chip2pad: sd0_i
-              oen: 1'b0
-              puen: 1'b1
-
-      - name: spi10
-        output_defaults: 1'b0
-        ports:
-          - name: spi_sck
-            mux_groups: [a_89]
-            connections:
-              chip2pad: clk_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_cs0
-            mux_groups: [a_90]
-            connections:
-              chip2pad: csn0_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: spi_miso
-            mux_groups: [a_91]
-            connections:
-              sd1_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: spi_mosi
-            mux_groups: [a_92]
-            connections:
-              chip2pad: sd0_i
-              oen: 1'b0
-              puen: 1'b1
-
-      # A muxing
-      - name: cam0
-        output_defaults: 1'b1
-        ports:
-          - name: cam_pclk
-            mux_groups: [a_42]
-            connections:
-              clk_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_vsync
-            mux_groups: [a_43]
-            connections:
-              vsync_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_hsync
-            mux_groups: [b_19]
-            connections:
-              hsync_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_data0_i
-            mux_groups: [a_44]
-            connections:
-              data0_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_data1_i
-            mux_groups: [a_45]
-            connections:
-              data1_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_data2_i
-            mux_groups: [a_46]
-            connections:
-              data2_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_data3_i
-            mux_groups: [a_47]
-            connections:
-              data3_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_data4_i
-            mux_groups: [b_20]
-            connections:
-              data4_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_data5_i
-            mux_groups: [a_48]
-            connections:
-              data5_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_data6_i
-            mux_groups: [a_49]
-            connections:
-              data6_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_data7_i
-            mux_groups: [a_50]
-            connections:
-              data7_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-
-      - name: cam1
-        output_defaults: 1'b1
-        ports:
-          - name: cam_pclk
-            mux_groups: [a_51]
-            connections:
-              clk_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_vsync
-            mux_groups: [b_21]
-            connections:
-              vsync_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_hsync
-            mux_groups: [a_52]
-            connections:
-              hsync_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_data0_i
-            mux_groups: [a_53]
-            connections:
-              data0_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_data1_i
-            mux_groups: [a_54]
-            connections:
-              data1_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_data2_i
-            mux_groups: [b_22]
-            connections:
-              data2_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_data3_i
-            mux_groups: [b_23]
-            connections:
-              data3_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_data4_i
-            mux_groups: [b_24]
-            connections:
-              data4_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_data5_i
-            mux_groups: [a_55]
-            connections:
-              data5_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_data6_i
-            mux_groups: [a_56]
-            connections:
-              data6_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-          - name: cam_data7_i
-            mux_groups: [a_57]
-            connections:
-              data7_o: pad2chip
-              oen: 1'b1
-              puen: 1'b1
-
-      - name: sdio1
-        output_defaults: 1'b1
-        ports:
-          - name: sdio_data0
-            mux_groups: ["a_58"]
-            connections:
-              chip2pad: data0_i
-              data0_o: pad2chip
-              oen: data3_oen_i
-              puen: 1'b0
-          - name: sdio_data1
-            mux_groups: ["b_25"]
-            connections:
-              chip2pad: data1_i
-              data1_o: pad2chip
-              oen: data2_oen_i
-              puen: 1'b0
-          - name: sdio_data2
-            mux_groups: ["a_59"]
-            connections:
-              chip2pad: data2_i
-              data2_o: pad2chip
-              oen: data1_oen_i
-              puen: 1'b0
-          - name: sdio_data3
-            mux_groups: ["a_60"]
-            connections:
-              chip2pad: data3_i
-              data3_o: pad2chip
-              oen: data0_oen_i
-              puen: 1'b0
-          - name: sdio_clk
-            mux_groups: [a_61]
-            connections:
-              chip2pad: clk_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: sdio_cmd
-            mux_groups: [a_62]
-            connections:
-              chip2pad: cmd_i
-              cmd_o: pad2chip
-              oen: cmd_oen_i
-              puen: 1'b0
 
       - name: can0
         output_defaults: 1'b1
         ports:
           - name: can_tx
-            mux_groups: [a_81]
+            mux_groups: [b_42, a_00]
             connections:
               chip2pad: tx_i
               oen: 1'b0
               puen: 1'b0
           - name: can_rx
-            mux_groups: [a_82]
+            mux_groups: [b_43, a_01]
             connections:
               rx_o: pad2chip
               oen: 1'b1
@@ -974,193 +580,497 @@ pad_domains:
         output_defaults: 1'b1
         ports:
           - name: can_tx
-            mux_groups: [a_83]
+            mux_groups: [b_30, a_02]
             connections:
               chip2pad: tx_i
               oen: 1'b0
               puen: 1'b0
           - name: can_rx
-            mux_groups: [a_84]
+            mux_groups: [b_31, a_03]
             connections:
               rx_o: pad2chip
               oen: 1'b1
               puen: 1'b0
 
-      #B
-      #GPIOs
-
-      - name: gpio_b
-        output_defaults: 1'b0
+      - name: cam0
+        output_defaults: 1'b1
         ports:
-          - name: gpio{i}
-            multiple: 63
-            mux_groups: ["b_{i:2d}"]
-            description: "Bidirectional GPIO {i} signal"
+          - name: cam_pclk
+            mux_groups: [a_18]
             connections:
-              chip2pad: gpio{i}_i
-              gpio{i}_o: pad2chip
-              oen: ~gpio{i}_d_i
+              clk_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: cam_vsync
+            mux_groups: [a_19]
+            connections:
+              vsync_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: cam_hsync
+            mux_groups: [a_20]
+            connections:
+              hsync_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: cam_data0_i
+            mux_groups: [a_21]
+            connections:
+              data0_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: cam_data1_i
+            mux_groups: [a_22]
+            connections:
+              data1_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: cam_data2_i
+            mux_groups: [a_23]
+            connections:
+              data2_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: cam_data3_i
+            mux_groups: [a_24]
+            connections:
+              data3_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: cam_data4_i
+            mux_groups: [a_25]
+            connections:
+              data4_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: cam_data5_i
+            mux_groups: [a_26]
+            connections:
+              data5_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: cam_data6_i
+            mux_groups: [a_27]
+            connections:
+              data6_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: cam_data7_i
+            mux_groups: [a_28]
+            connections:
+              data7_o: pad2chip
+              oen: 1'b1
               puen: 1'b1
 
-      #Muxing
-
-      - name: eth
-        output_defaults: 1'b0
+      - name: cam1
+        output_defaults: 1'b1
         ports:
-          - name: eth_rst
-            mux_groups: [b_47]
+          - name: cam_pclk
+            mux_groups: [b_36]
             connections:
-              chip2pad: eth_rstn_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: eth_rxck
-            mux_groups: [b_48]
-            connections:
-              eth_rxck_o: pad2chip
+              clk_o: pad2chip
               oen: 1'b1
               puen: 1'b1
-          - name: eth_rxctl
-            mux_groups: [b_49]
+          - name: cam_vsync
+            mux_groups: [b_37]
             connections:
-              eth_rxctl_o: pad2chip
+              vsync_o: pad2chip
               oen: 1'b1
               puen: 1'b1
-          - name: eth_rxd{i}
-            multiple: 4
-            mux_groups: ["b_{50+i:2d}"]
+          - name: cam_hsync
+            mux_groups: [b_38]
             connections:
-              eth_rxd{i}_o: pad2chip
+              hsync_o: pad2chip
               oen: 1'b1
               puen: 1'b1
-          - name: eth_txck
-            mux_groups: [b_54]
+          - name: cam_data0_i
+            mux_groups: [b_39]
             connections:
-              chip2pad: eth_txck_i
-              oen: 1'b0
+              data0_o: pad2chip
+              oen: 1'b1
               puen: 1'b1
-          - name: eth_txctl
-            mux_groups: [b_55]
+          - name: cam_data1_i
+            mux_groups: [b_40]
             connections:
-              chip2pad: eth_txctl_i
-              oen: 1'b0
+              data1_o: pad2chip
+              oen: 1'b1
               puen: 1'b1
-          - name: eth_txd{i}
-            multiple: 4
-            mux_groups: ["b_{56+i:2d}"]
+          - name: cam_data2_i
+            mux_groups: [b_41]
             connections:
-              chip2pad: eth_txd{i}_i
-              oen: 1'b0
+              data2_o: pad2chip
+              oen: 1'b1
               puen: 1'b1
-          - name: eth_mdio
-            mux_groups: [b_60]
+          - name: cam_data3_i
+            mux_groups: [b_42]
             connections:
-              chip2pad: eth_md_i
-              eth_md_o: pad2chip
-              oen: ~eth_md_oe
+              data3_o: pad2chip
+              oen: 1'b1
               puen: 1'b1
-          - name: eth_mdc
-            mux_groups: [b_61]
+          - name: cam_data4_i
+            mux_groups: [b_43]
             connections:
-              chip2pad: eth_mdc_i
-              oen: 1'b0
+              data4_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: cam_data5_i
+            mux_groups: [b_44]
+            connections:
+              data5_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: cam_data6_i
+            mux_groups: [b_45]
+            connections:
+              data6_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: cam_data7_i
+            mux_groups: [b_46]
+            connections:
+              data7_o: pad2chip
+              oen: 1'b1
               puen: 1'b1
 
-      # FLL output muxed on b_62 pin
       - name: fll_soc
+        output_defaults: 1'b1
         ports:
           - name: clk_soc
-            mux_groups: [b_62]
+            mux_groups: [a_29, a_04]
             connections:
               chip2pad: clk_soc_i
               oen: 1'b0
               puen: 1'b1
 
       - name: fll_cva6
+        output_defaults: 1'b1
         ports:
           - name: clk_cva6
-            mux_groups: [b_62]
+            mux_groups: [b_47]
             connections:
               chip2pad: clk_cva6_i
               oen: 1'b0
               puen: 1'b1
 
-      - name: fll_per
-        ports:
-          - name: clk_peripheral
-            mux_groups: [b_62]
-            connections:
-              chip2pad: clk_peripheral_i
-              oen: 1'b0
-              puen: 1'b1
-
-      - name: fll_cluster
-        ports:
-          - name: clk_cluster
-            mux_groups: [b_62]
-            connections:
-              chip2pad: clk_cluster_i
-              oen: 1'b0
-              puen: 1'b1
-
-      #OpenTitan QSPI
-      - name: qspi_ot
+      - name: spi0
         output_defaults: 1'b0
         ports:
-          - name: qspi_sck
-            mux_groups: [ot_qspi_00]
+          - name: spi_sck
+            mux_groups: [a_14, b_06]
             connections:
               chip2pad: clk_i
               oen: 1'b0
               puen: 1'b1
-          - name: qspi_csn
-            mux_groups: [ot_qspi_01]
+          - name: spi_cs0
+            mux_groups: [a_15, b_07]
             connections:
               chip2pad: csn0_i
               oen: 1'b0
               puen: 1'b1
-          - name: qspi_sd{i}
-            multiple: 4
-            mux_groups: ["ot_qspi_{02+i:2d}"]
+          - name: spi_miso
+            mux_groups: [a_16, b_08]
             connections:
-              chip2pad: sd{i}_i
-              sd{i}_o: pad2chip
-              oen: sd{i}_oen_i
+              sd1_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: spi_mosi
+            mux_groups: [a_17, b_09]
+            connections:
+              chip2pad: sd0_i
+              oen: 1'b0
               puen: 1'b1
 
-      #Linux QSPI
+      - name: spi1
+        output_defaults: 1'b0
+        ports:
+          - name: spi_sck
+            mux_groups: [a_18, b_18]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_cs0
+            mux_groups: [a_19, b_19]
+            connections:
+              chip2pad: csn0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_miso
+            mux_groups: [a_20, b_20]
+            connections:
+              sd1_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: spi_mosi
+            mux_groups: [a_21, b_21]
+            connections:
+              chip2pad: sd0_i
+              oen: 1'b0
+              puen: 1'b1
+
+      - name: spi2
+        output_defaults: 1'b0
+        ports:
+          - name: spi_sck
+            mux_groups: [a_22, b_22]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_cs0
+            mux_groups: [a_23, b_23]
+            connections:
+              chip2pad: csn0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_miso
+            mux_groups: [a_24, b_24]
+            connections:
+              sd1_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: spi_mosi
+            mux_groups: [a_25, b_25]
+            connections:
+              chip2pad: sd0_i
+              oen: 1'b0
+              puen: 1'b1
+
+      - name: spi3
+        output_defaults: 1'b0
+        ports:
+          - name: spi_sck
+            mux_groups: [b_04, b_14]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_cs0
+            mux_groups: [b_05, b_15]
+            connections:
+              chip2pad: csn0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_miso
+            mux_groups: [b_06, b_16]
+            connections:
+              sd1_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: spi_mosi
+            mux_groups: [b_07, b_17]
+            connections:
+              chip2pad: sd0_i
+              oen: 1'b0
+              puen: 1'b1
+
+      - name: spi4
+        output_defaults: 1'b0
+        ports:
+          - name: spi_sck
+            mux_groups: [b_04]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_cs0
+            mux_groups: [b_05]
+            connections:
+              chip2pad: csn0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_miso
+            mux_groups: [b_06]
+            connections:
+              sd1_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: spi_mosi
+            mux_groups: [b_07]
+            connections:
+              chip2pad: sd0_i
+              oen: 1'b0
+              puen: 1'b1
+
+      - name: spi5
+        output_defaults: 1'b0
+        ports:
+          - name: spi_sck
+            mux_groups: [b_10]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_cs0
+            mux_groups: [b_11]
+            connections:
+              chip2pad: csn0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_miso
+            mux_groups: [b_12]
+            connections:
+              sd1_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: spi_mosi
+            mux_groups: [b_13]
+            connections:
+              chip2pad: sd0_i
+              oen: 1'b0
+              puen: 1'b1
+
+      - name: spi6
+        output_defaults: 1'b0
+        ports:
+          - name: spi_sck
+            mux_groups: [b_10]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_miso
+            mux_groups: [b_11]
+            connections:
+              sd1_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: spi_mosi
+            mux_groups: [b_12]
+            connections:
+              chip2pad: sd0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_cs0
+            mux_groups: [b_13]
+            connections:
+              chip2pad: csn0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_cs1
+            mux_groups: [b_14]
+            connections:
+              chip2pad: csn1_i
+              oen: 1'b0
+              puen: 1'b1
+
+      - name: spi7
+        output_defaults: 1'b0
+        ports:
+          - name: spi_sck
+            mux_groups: [b_22]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_cs0
+            mux_groups: [b_23]
+            connections:
+              chip2pad: csn0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_miso
+            mux_groups: [b_24]
+            connections:
+              sd1_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: spi_mosi
+            mux_groups: [b_25]
+            connections:
+              chip2pad: sd0_i
+              oen: 1'b0
+              puen: 1'b1
+
+      - name: spi8
+        output_defaults: 1'b0
+        ports:
+          - name: spi_sck
+            mux_groups: [b_26]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_cs0
+            mux_groups: [b_27]
+            connections:
+              chip2pad: csn0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_miso
+            mux_groups: [b_28]
+            connections:
+              sd1_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: spi_mosi
+            mux_groups: [b_29]
+            connections:
+              chip2pad: sd0_i
+              oen: 1'b0
+              puen: 1'b1
+
+      - name: spi9
+        output_defaults: 1'b0
+        ports:
+          - name: spi_sck
+            mux_groups: [b_38, b_30]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_cs0
+            mux_groups: [b_39, b_31]
+            connections:
+              chip2pad: csn0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_miso
+            mux_groups: [b_40, b_32]
+            connections:
+              sd1_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: spi_mosi
+            mux_groups: [b_41, b_33]
+            connections:
+              chip2pad: sd0_i
+              oen: 1'b0
+              puen: 1'b1
+
       - name: qspi_linux
         output_defaults: 1'b0
         ports:
           - name: qspi_sck
-            mux_groups: [linux_qspi_00]
+            mux_groups: [a_02]
             connections:
               chip2pad: clk_i
               oen: 1'b0
               puen: 1'b1
           - name: qspi_csn
-            mux_groups: [linux_qspi_01]
+            mux_groups: [a_03]
             connections:
               chip2pad: csn0_i
               oen: 1'b0
               puen: 1'b1
           - name: qspi_sd{i}
             multiple: 4
-            mux_groups: ["linux_qspi_{02+i:2d}"]
+            mux_groups: ["a_{04+i:2d}"]
             connections:
               chip2pad: sd{i}_i
               sd{i}_o: pad2chip
               oen: sd{i}_oen_i
               puen: 1'b1
 
-      - name: ot_gpio
+      - name: gpio_b
         output_defaults: 1'b0
         ports:
-          - name: op_gpio{i}
-            multiple: 2
-            mux_groups: ["ot_gpio_{i:2d}"]
-            description: "Bidirectional GPIO {i} signal"
+          - name: gpio{i}
+            multiple: 48
+            mux_groups: ["b_{00+i:2d}", "a_{00+i:2d}"]
+            description: "bidirectional GPIO {i} signal"
             connections:
-              chip2pad: ot_gpio{i}_i
-              ot_gpio{i}_o: pad2chip
-              oen: ~ot_gpio{i}_d_i
+              chip2pad: gpio{i}_i
+              gpio{i}_o: pad2chip
+              oen: ~gpio{i}_d_i
               puen: 1'b1
