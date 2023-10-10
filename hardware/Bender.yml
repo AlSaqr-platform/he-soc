@@ -38,7 +38,7 @@ dependencies:
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", version: 1.0.1 }
   register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
-  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "f57065ec613dcaa3f64f6f536cf9f81075f8f3e2" } # branch: master
+  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "alsaqr-delivery-20231009" } # branch: master
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "0ec0bf8b7dab6d5e4b3f7ec58338a8efee066379" }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
   opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "cc3fd7dd6d8303de7f17c7b6751e7c696799d690" }
