@@ -107,6 +107,13 @@ pad_domains:
         multiple: 14
         pad_type: pad_alsaqr
         is_static: false
+
+      - name: ot_spi_{i:2d}
+        mux_groups: [self]
+        description: "opentitan qspi"
+        multiple: 4
+        pad_type: pad_alsaqr
+        is_static: false
         
       ##  _____           _       
       ## |  __ \         | |      
@@ -204,6 +211,31 @@ pad_domains:
               cmd_o: pad2chip
               oen: cmd_oen_i  
               puen: 1'b0
+
+      #OpenTitan SPI
+      - name: spi_ot
+        output_defaults: 1'b0
+        ports:
+          - name: spi_sck
+            mux_groups: [ot_spi_00]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_csn
+            mux_groups: [ot_spi_01]
+            connections:
+              chip2pad: csn0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_sd{i}
+            multiple: 2
+            mux_groups: ["ot_spi_{02+i:2d}"]
+            connections:
+              chip2pad: sd{i}_i
+              sd{i}_o: pad2chip
+              oen: sd{i}_oen_i
+              puen: 1'b1
 
       - name: gpio_b
         output_defaults: 1'b0
