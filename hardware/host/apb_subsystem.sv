@@ -774,9 +774,14 @@ module apb_subsystem
      .reg_o     ( i_hyaxicfg_rbus                 )
     );
 
-   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm_ch0_o;
-   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm_ch1_o;
-   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm_evt_o;
+   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm_o;
+   /*logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm1_o;
+   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm2_o;
+   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm3_o;
+   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm4_o;
+   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm5_o;
+   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm6_o;
+   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm7_o;*/
 
     generate
         for (genvar i=0; i< apb_soc_pkg::NUM_ADV_TIMER; i++) begin : adv_timer_gen
@@ -801,51 +806,24 @@ module apb_subsystem
                 .low_speed_clk_i ( rtc_i                   ),
                 .ext_sig_i       ( s_gpio_sync             ),
 
-                .events_o        ( pwm_evt_o[i]            ),
+                .events_o        (                         ),
 
-                .ch_0_o          ( pwm_ch0_o[i]            ),
-                .ch_1_o          ( pwm_ch1_o[i]            ),
+                .ch_0_o          ( pwm_o[i]                ),
+                .ch_1_o          (                         ),
                 .ch_2_o          (                         ),
                 .ch_3_o          (                         )
             );
         end
     endgenerate
 
-   assign pwm_to_pad.pwm0_o = pwm_ch0_o[0][0];
-   assign pwm_to_pad.pwm1_o = pwm_ch0_o[1][0];
-   assign pwm_to_pad.pwm2_o = pwm_ch0_o[2][0];
-   assign pwm_to_pad.pwm3_o = pwm_ch0_o[3][0];
-   assign pwm_to_pad.pwm4_o = pwm_ch0_o[4][0];
-   assign pwm_to_pad.pwm5_o = pwm_ch0_o[5][0];
-   assign pwm_to_pad.pwm6_o = pwm_ch0_o[6][0];
-   assign pwm_to_pad.pwm7_o = pwm_ch0_o[7][0];
-
-   assign pwm_to_pad.pwm8_o  = pwm_ch1_o[0][0];
-   assign pwm_to_pad.pwm9_o  = pwm_ch1_o[1][0];
-   assign pwm_to_pad.pwm10_o = pwm_ch1_o[2][0];
-   assign pwm_to_pad.pwm11_o = pwm_ch1_o[3][0];
-   assign pwm_to_pad.pwm12_o = pwm_ch1_o[4][0];
-   assign pwm_to_pad.pwm13_o = pwm_ch1_o[5][0];
-   assign pwm_to_pad.pwm14_o = pwm_ch1_o[6][0];
-   assign pwm_to_pad.pwm15_o = pwm_ch1_o[7][0];
-
-   assign pwm_irq_o[0] = pwm_evt_o[0][0];
-   assign pwm_irq_o[1] = pwm_evt_o[1][0];
-   assign pwm_irq_o[2] = pwm_evt_o[2][0];
-   assign pwm_irq_o[3] = pwm_evt_o[3][0];
-   assign pwm_irq_o[4] = pwm_evt_o[4][0];
-   assign pwm_irq_o[5] = pwm_evt_o[5][0];
-   assign pwm_irq_o[6] = pwm_evt_o[6][0];
-   assign pwm_irq_o[7] = pwm_evt_o[7][0];
-
-   assign pwm_irq_o[8]  = pwm_evt_o[0][1];
-   assign pwm_irq_o[9]  = pwm_evt_o[1][1];
-   assign pwm_irq_o[10] = pwm_evt_o[2][1];
-   assign pwm_irq_o[11] = pwm_evt_o[3][1];
-   assign pwm_irq_o[12] = pwm_evt_o[4][1];
-   assign pwm_irq_o[13] = pwm_evt_o[5][1];
-   assign pwm_irq_o[14] = pwm_evt_o[6][1];
-   assign pwm_irq_o[15] = pwm_evt_o[7][1];
+   assign pwm_to_pad.pwm0_o = pwm_o[0][0];
+   assign pwm_to_pad.pwm1_o = pwm_o[1][0];
+   assign pwm_to_pad.pwm2_o = pwm_o[2][0];
+   assign pwm_to_pad.pwm3_o = pwm_o[3][0];
+   assign pwm_to_pad.pwm4_o = pwm_o[4][0];
+   assign pwm_to_pad.pwm5_o = pwm_o[5][0];
+   assign pwm_to_pad.pwm6_o = pwm_o[6][0];
+   assign pwm_to_pad.pwm7_o = pwm_o[7][0];
 
    apb_to_reg i_apb_to_padframecfg
      (
