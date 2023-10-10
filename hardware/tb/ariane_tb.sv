@@ -86,8 +86,8 @@ module ariane_tb;
   //                            //
   ////////////////////////////////
 
-  // when preload is enabled LINKER_ENTRY specifies the linker address which must be L3 -> 32'h80000000
-  parameter  LINKER_ENTRY        = 32'h80000000;
+  // when preload is enabled LINKER_ENTRY specifies the linker address which must be L3 -> 32'h80100000
+  parameter  LINKER_ENTRY        = 32'h80100000;
   // IMPORTANT : If you change the linkerscript check the tohost address and update this paramater
   // IMPORTANT : to host mapped in L2 non-cached region because we use WB cache
   parameter  TOHOST              = 32'h1C000000;
@@ -410,6 +410,7 @@ module ariane_tb;
     string        ot_flash;
 
     logic         cid;
+    bit           dual_core;
 
     // NEW PAD VIP SIGNALS
     wire    pad_periphs_a_00_pad_i2c0_scl  ;
@@ -2501,6 +2502,9 @@ module ariane_tb;
     if ( $value$plusargs ("CORE_ID=%d", cid));
       $display("Core ID: %d", cid);
 
+    if ( $value$plusargs ("DUAL_CORE=%d", dual_core));
+      $display("Dual Core: %s", dual_core ? "Yes" : "No");
+
     if(LOCAL_JTAG==1) begin
       $display("LOCAL_JTAG : %d", LOCAL_JTAG);
       if(PRELOAD_HYPERRAM==0) begin
@@ -2517,9 +2521,12 @@ module ariane_tb;
       $display("Waiting the FLL clock before initiating the debug module...");
       repeat(10)
       @(posedge clk_i);
-      jtag_init(cid);
+      if (dual_core)
+        jtag_init_dual_core();
+      else
+        jtag_init(cid);
 
-      if(PRELOAD_HYPERRAM==0) begin
+      if(PRELOAD_HYPERRAM==0) begin //TODO: add dual core support without hyerram preload
         // Load cluster code
         if(cluster_binary!="none")
           jtag_elf_load(cluster_binary, binary_entry, cid);
@@ -2540,8 +2547,13 @@ module ariane_tb;
         binary_entry={32'h00000000,LINKER_ENTRY};
         #(REFClockPeriod);
         $display("Wakeup here at %x!!", binary_entry);
-        jtag_ariane_wakeup( LINKER_ENTRY, cid );
-        jtag_wait_for_eoc ( TOHOST );
+        if (dual_core) begin
+          jtag_ariane_wakeup_dual_core( LINKER_ENTRY );
+          jtag_wait_for_eoc_dual_core ( TOHOST );
+        end else begin
+          jtag_ariane_wakeup( LINKER_ENTRY, cid );
+          jtag_wait_for_eoc ( TOHOST );
+        end
       end
     end
   end
@@ -2634,6 +2646,28 @@ module ariane_tb;
     $display("[JTAG] Initialization success");
   endtask
 
+  // Initialize the debug module for the dual core
+  task automatic jtag_init_dual_core();
+    jtag_idcode_t idcode;
+    dm::dmcontrol_t dmcontrol_0 = '{dmactive: 1, hartsello:0, default: '0};
+    dm::dmcontrol_t dmcontrol_1 = '{dmactive: 1, hartsello:1, default: '0};
+    // Check ID code
+    repeat(100) @(posedge s_tck);
+    jtag_dbg.get_idcode(idcode);
+    if (idcode != dm_idcode)
+        $fatal(1, "[JTAG] Unexpected ID code: expected 0x%h, got 0x%h!", ariane_soc::DbgIdCode, idcode);
+    // Activate, wait for debug module
+    jtag_write(dm::DMControl, dmcontrol_0);
+    do jtag_dbg.read_dmi_exp_backoff(dm::DMControl, dmcontrol_0);
+    while (~dmcontrol_0.dmactive);
+    jtag_write(dm::DMControl, dmcontrol_1);
+    do jtag_dbg.read_dmi_exp_backoff(dm::DMControl, dmcontrol_1);
+    while (~dmcontrol_1.dmactive);
+    // Activate, wait for system bus
+    jtag_write(dm::SBCS, JtagInitSbcs, 0, 1);
+    $display("[JTAG] Initialization success");
+  endtask
+
   task automatic jtag_poll_bit0(
     input doub_bt addr,
     output word_bt data,
@@ -2717,6 +2751,18 @@ module ariane_tb;
     $finish;
   endtask
 
+  // Wait for termination signal and get exit code
+  task automatic jtag_wait_for_eoc_dual_core(input word_bt tohost);
+  `ifdef TARGET_MACRO
+    jtag_poll_bit0(tohost, exit_code, 10);
+  `else
+    jtag_poll_bit0(tohost, exit_code, 800);
+  `endif
+
+    $display("\n***JTAG EXIT CODE: %0d[0x%0h]***\n", exit_code, exit_code);
+    $finish;
+  endtask
+
   task jtag_ariane_wakeup;
     input logic [31:0] start_addr;
     input bit          cid;
@@ -2762,6 +2808,48 @@ module ariane_tb;
     $info("======== Wait for Completion ========");
 
   endtask // execute_application
+
+  // dual core wakeup
+  task jtag_ariane_wakeup_dual_core(input logic [31:0] start_addr);
+    logic [31:0] dm_status;
+
+    $info("======== Waking up Ariane dual core using JTAG ========");
+    // Write PC to Data0 and Data1
+    jtag_write(dm::Data0, start_addr);
+    jtag_write(dm::Data1, 32'h0000_0000);
+
+    // Halt Req
+    jtag_write(dm::DMControl, dm::dmcontrol_t'{haltreq: 1, hartsello:0, dmactive: 1, default: '0});
+    jtag_write(dm::DMControl, dm::dmcontrol_t'{haltreq: 1, hartsello:1, dmactive: 1, default: '0});
+
+    // Wait for CVA6 dual core to be halted
+    do jtag_dbg.read_dmi_exp_backoff(dm::DMStatus, dm_status);
+    while (!dm_status[9]);
+
+    // Ensure haltreq, resumereq and ackhavereset all equal to 0
+    jtag_write(dm::DMControl,  dm::dmcontrol_t'{hartsello:0, dmactive: 1, default: '0});
+    jtag_write(dm::DMControl,  dm::dmcontrol_t'{hartsello:1, dmactive: 1, default: '0});
+
+    // Register Access Abstract Command: copy the contents of {Data1, Data0} into the DPC
+    jtag_write(dm::DMControl,  dm::dmcontrol_t'{hartsello:0, dmactive: 1, default: '0});
+    jtag_write(dm::Command, {8'h0,1'b0,3'h3,1'b0,1'b0,1'b1,1'b1,4'h0,dm::CSR_DPC});
+    jtag_write(dm::DMControl,  dm::dmcontrol_t'{hartsello:1, dmactive: 1, default: '0});
+    jtag_write(dm::Command, {8'h0,1'b0,3'h3,1'b0,1'b0,1'b1,1'b1,4'h0,dm::CSR_DPC});
+
+    // Resume req. Exiting from debug mode CVA6 cores will jump at the DPC address.
+    // Ensure haltreq, resumereq and ackhavereset all equal to 0
+    jtag_write(dm::DMControl,  dm::dmcontrol_t'{resumereq:1, hartsello:0, dmactive: 1, default: '0});
+    jtag_write(dm::DMControl,  dm::dmcontrol_t'{resumereq:1, hartsello:1, dmactive: 1, default: '0});
+    jtag_write(dm::DMControl,  dm::dmcontrol_t'{hartsello:0, dmactive: 1, default: '0});
+    jtag_write(dm::DMControl,  dm::dmcontrol_t'{hartsello:1, dmactive: 1, default: '0});
+
+    // Wait till end of computation
+    program_loaded = 1;
+
+    // When task completed reading the return value using JTAG
+    // Mainly used for post synthesis part
+    $info("======== Wait for Completion ========");
+  endtask //jtag_ariane_wakeup_dual_core
 
 /////////////////////////////////////////////////////////////////
                  //IBEX PROCESS AND TASKS//
