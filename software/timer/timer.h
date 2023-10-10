@@ -41,7 +41,7 @@ static inline void set_threshold(uint32_t timer_offset, int timer_num, int chann
    return;
  }
 
-static inline void start_timer(uint32_t timer_offset, int timer_num)
+static inline void start_timer(uint32_t timer_offset)
  {
-   pulp_write32(timer_offset+timer_num*0x40,1);
+   pulp_write32(timer_offset,1);
  }
