@@ -86,8 +86,9 @@ module ariane_tb;
   //                            //
   ////////////////////////////////
 
-  // when preload is enabled LINKER_ENTRY specifies the linker address which must be L3 -> 32'h80100000
-  parameter  LINKER_ENTRY        = 32'h80100000;
+  // when preload is enabled LINKER_ENTRY specifies the linker address
+  parameter  LINKER_ENTRY_SINGLE        = 32'h80000000; //must be L3 -> 32'h80000000
+  parameter  LINKER_ENTRY_DOUBLE        = 32'h80100000; //must be L3 -> 32'h80100000 for Culsans tests
   // IMPORTANT : If you change the linkerscript check the tohost address and update this paramater
   // IMPORTANT : to host mapped in L2 non-cached region because we use WB cache
   parameter  TOHOST              = 32'h1C000000;
@@ -2505,6 +2506,11 @@ module ariane_tb;
     if ( $value$plusargs ("DUAL_CORE=%d", dual_core));
       $display("Dual Core: %s", dual_core ? "Yes" : "No");
 
+    if (dual_core)
+      linker_addr = LINKER_ENTRY_DOUBLE;
+    else
+      linker_addr = LINKER_ENTRY_DOUBLE;
+
     if(LOCAL_JTAG==1) begin
       $display("LOCAL_JTAG : %d", LOCAL_JTAG);
       if(PRELOAD_HYPERRAM==0) begin
@@ -2541,17 +2547,17 @@ module ariane_tb;
         end
       end else begin
 
-        $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);
+        $display("Preload at %x - Sanity write/read at 0x1C000000", linker_addr);
         addr = 32'h1c000000;
         jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
-        binary_entry={32'h00000000,LINKER_ENTRY};
+        binary_entry={32'h00000000,linker_addr};
         #(REFClockPeriod);
         $display("Wakeup here at %x!!", binary_entry);
         if (dual_core) begin
-          jtag_ariane_wakeup_dual_core( LINKER_ENTRY );
+          jtag_ariane_wakeup_dual_core( linker_addr );
           jtag_wait_for_eoc_dual_core ( TOHOST );
         end else begin
-          jtag_ariane_wakeup( LINKER_ENTRY, cid );
+          jtag_ariane_wakeup( linker_addr, cid );
           jtag_wait_for_eoc ( TOHOST );
         end
       end
