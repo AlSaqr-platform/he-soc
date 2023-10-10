@@ -180,7 +180,6 @@
 
 `define ASSIGN_PERIPHS_ETH_SOC2PAD(load, driver) \
   assign load.eth_md_i = driver.eth_md_o; \
-  assign load.eth_md__i = driver.eth_md__o; \
   assign load.eth_mdc_i = driver.eth_mdc_o; \
   assign load.eth_rstn_i = driver.eth_rstn_o; \
   assign load.eth_txck_i = driver.eth_txck_o; \
@@ -246,23 +245,13 @@
   assign load.csn0_i = driver.csn0_o; \
   assign load.sd0_i = driver.sd0_o; \
 
-`define ASSIGN_PERIPHS_QSPI_LINUX_PAD2SOC(load, driver) \
-  assign load.sd0_i = driver.sd0_o; \
+`define ASSIGN_PERIPHS_SPI1_PAD2SOC(load, driver) \
   assign load.sd1_i = driver.sd1_o; \
-  assign load.sd2_i = driver.sd2_o; \
-  assign load.sd3_i = driver.sd3_o; \
 
-`define ASSIGN_PERIPHS_QSPI_LINUX_SOC2PAD(load, driver) \
+`define ASSIGN_PERIPHS_SPI1_SOC2PAD(load, driver) \
   assign load.clk_i = driver.clk_o; \
   assign load.csn0_i = driver.csn0_o; \
   assign load.sd0_i = driver.sd0_o; \
-  assign load.sd0_oen_i = driver.sd0_oen_o; \
-  assign load.sd1_i = driver.sd1_o; \
-  assign load.sd1_oen_i = driver.sd1_oen_o; \
-  assign load.sd2_i = driver.sd2_o; \
-  assign load.sd2_oen_i = driver.sd2_oen_o; \
-  assign load.sd3_i = driver.sd3_o; \
-  assign load.sd3_oen_i = driver.sd3_oen_o; \
 
 `define ASSIGN_PERIPHS_SPI2_PAD2SOC(load, driver) \
   assign load.sd1_i = driver.sd1_o; \
@@ -302,6 +291,7 @@
 `define ASSIGN_PERIPHS_SPI6_SOC2PAD(load, driver) \
   assign load.clk_i = driver.clk_o; \
   assign load.csn0_i = driver.csn0_o; \
+  assign load.csn1_i = driver.csn1_o; \
   assign load.sd0_i = driver.sd0_o; \
 
 `define ASSIGN_PERIPHS_SPI7_PAD2SOC(load, driver) \
@@ -310,7 +300,6 @@
 `define ASSIGN_PERIPHS_SPI7_SOC2PAD(load, driver) \
   assign load.clk_i = driver.clk_o; \
   assign load.csn0_i = driver.csn0_o; \
-  assign load.csn1_i = driver.csn1_o; \
   assign load.sd0_i = driver.sd0_o; \
 
 `define ASSIGN_PERIPHS_SPI8_PAD2SOC(load, driver) \
@@ -329,13 +318,23 @@
   assign load.csn0_i = driver.csn0_o; \
   assign load.sd0_i = driver.sd0_o; \
 
-`define ASSIGN_PERIPHS_SPI10_PAD2SOC(load, driver) \
+`define ASSIGN_PERIPHS_QSPI_LINUX_PAD2SOC(load, driver) \
+  assign load.sd0_i = driver.sd0_o; \
   assign load.sd1_i = driver.sd1_o; \
+  assign load.sd2_i = driver.sd2_o; \
+  assign load.sd3_i = driver.sd3_o; \
 
-`define ASSIGN_PERIPHS_SPI10_SOC2PAD(load, driver) \
+`define ASSIGN_PERIPHS_QSPI_LINUX_SOC2PAD(load, driver) \
   assign load.clk_i = driver.clk_o; \
   assign load.csn0_i = driver.csn0_o; \
   assign load.sd0_i = driver.sd0_o; \
+  assign load.sd0_oen_i = driver.sd0_oen_o; \
+  assign load.sd1_i = driver.sd1_o; \
+  assign load.sd1_oen_i = driver.sd1_oen_o; \
+  assign load.sd2_i = driver.sd2_o; \
+  assign load.sd2_oen_i = driver.sd2_oen_o; \
+  assign load.sd3_i = driver.sd3_o; \
+  assign load.sd3_oen_i = driver.sd3_oen_o; \
 
 `define ASSIGN_PERIPHS_GPIO_B_PAD2SOC(load, driver) \
   assign load.gpio0_i = driver.gpio0_o; \

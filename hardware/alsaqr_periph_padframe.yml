@@ -780,32 +780,7 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
-      - name: qspi_linux
-        output_defaults: 1'b0
-        ports:
-          - name: qspi_sck
-            mux_groups: [a_02]
-            connections:
-              chip2pad: clk_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: qspi_csn
-            mux_groups: [a_03]
-            connections:
-              chip2pad: csn0_i
-              oen: 1'b0
-              puen: 1'b1
-          - name: qspi_sd{i}
-            multiple: 4
-            mux_groups: ["a_{04+i:2d}"]
-            connections:
-              chip2pad: sd{i}_i
-              sd{i}_o: pad2chip
-              oen: sd{i}_oen_i
-              puen: 1'b1
-
-
-      - name: spi2
+      - name: spi1
         output_defaults: 1'b0
         ports:
           - name: spi_sck
@@ -833,7 +808,7 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
-      - name: spi3
+      - name: spi2
         output_defaults: 1'b0
         ports:
           - name: spi_sck
@@ -861,7 +836,7 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
-      - name: spi4
+      - name: spi3
         output_defaults: 1'b0
         ports:
           - name: spi_sck
@@ -889,7 +864,7 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
-      - name: spi5
+      - name: spi4
         output_defaults: 1'b0
         ports:
           - name: spi_sck
@@ -917,7 +892,7 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
-      - name: spi6
+      - name: spi5
         output_defaults: 1'b0
         ports:
           - name: spi_sck
@@ -945,7 +920,7 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
-      - name: spi7
+      - name: spi6
         output_defaults: 1'b0
         ports:
           - name: spi_sck
@@ -979,7 +954,7 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
-      - name: spi8
+      - name: spi7
         output_defaults: 1'b0
         ports:
           - name: spi_sck
@@ -1007,7 +982,7 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
-      - name: spi9
+      - name: spi8
         output_defaults: 1'b0
         ports:
           - name: spi_sck
@@ -1035,7 +1010,7 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
-      - name: spi10
+      - name: spi9
         output_defaults: 1'b0
         ports:
           - name: spi_sck
@@ -1061,6 +1036,30 @@ pad_domains:
             connections:
               chip2pad: sd0_i
               oen: 1'b0
+              puen: 1'b1
+
+      - name: qspi_linux
+        output_defaults: 1'b0
+        ports:
+          - name: qspi_sck
+            mux_groups: [a_02]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: qspi_csn
+            mux_groups: [a_03]
+            connections:
+              chip2pad: csn0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: qspi_sd{i}
+            multiple: 4
+            mux_groups: ["a_{04+i:2d}"]
+            connections:
+              chip2pad: sd{i}_i
+              sd{i}_o: pad2chip
+              oen: sd{i}_oen_i
               puen: 1'b1
 
       - name: gpio_b

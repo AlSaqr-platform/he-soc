@@ -289,21 +289,11 @@ package pkg_alsaqr_periph_padframe;
       logic        clk_i;
       logic        csn0_i;
       logic        sd0_i;
-      logic        sd0_oen_i;
-      logic        sd1_i;
-      logic        sd1_oen_i;
-      logic        sd2_i;
-      logic        sd2_oen_i;
-      logic        sd3_i;
-      logic        sd3_oen_i;
-     } pad_domain_periphs_port_group_qspi_linux_soc2pad_t;
+     } pad_domain_periphs_port_group_spi1_soc2pad_t;
 
    typedef struct packed {
-      logic        sd0_o;
       logic        sd1_o;
-      logic        sd2_o;
-      logic        sd3_o;
-     } pad_domain_periphs_port_group_qspi_linux_pad2soc_t;
+     } pad_domain_periphs_port_group_spi1_pad2soc_t;
 
    typedef struct packed {
       logic        clk_i;
@@ -348,6 +338,7 @@ package pkg_alsaqr_periph_padframe;
    typedef struct packed {
       logic        clk_i;
       logic        csn0_i;
+      logic        csn1_i;
       logic        sd0_i;
      } pad_domain_periphs_port_group_spi6_soc2pad_t;
 
@@ -358,7 +349,6 @@ package pkg_alsaqr_periph_padframe;
    typedef struct packed {
       logic        clk_i;
       logic        csn0_i;
-      logic        csn1_i;
       logic        sd0_i;
      } pad_domain_periphs_port_group_spi7_soc2pad_t;
 
@@ -390,11 +380,21 @@ package pkg_alsaqr_periph_padframe;
       logic        clk_i;
       logic        csn0_i;
       logic        sd0_i;
-     } pad_domain_periphs_port_group_spi10_soc2pad_t;
+      logic        sd0_oen_i;
+      logic        sd1_i;
+      logic        sd1_oen_i;
+      logic        sd2_i;
+      logic        sd2_oen_i;
+      logic        sd3_i;
+      logic        sd3_oen_i;
+     } pad_domain_periphs_port_group_qspi_linux_soc2pad_t;
 
    typedef struct packed {
+      logic        sd0_o;
       logic        sd1_o;
-     } pad_domain_periphs_port_group_spi10_pad2soc_t;
+      logic        sd2_o;
+      logic        sd3_o;
+     } pad_domain_periphs_port_group_qspi_linux_pad2soc_t;
 
    typedef struct packed {
       logic        gpio0_d_i;
@@ -570,7 +570,7 @@ package pkg_alsaqr_periph_padframe;
      pad_domain_periphs_port_group_fll_soc_soc2pad_t fll_soc;
      pad_domain_periphs_port_group_fll_cva6_soc2pad_t fll_cva6;
      pad_domain_periphs_port_group_spi0_soc2pad_t spi0;
-     pad_domain_periphs_port_group_qspi_linux_soc2pad_t qspi_linux;
+     pad_domain_periphs_port_group_spi1_soc2pad_t spi1;
      pad_domain_periphs_port_group_spi2_soc2pad_t spi2;
      pad_domain_periphs_port_group_spi3_soc2pad_t spi3;
      pad_domain_periphs_port_group_spi4_soc2pad_t spi4;
@@ -579,7 +579,7 @@ package pkg_alsaqr_periph_padframe;
      pad_domain_periphs_port_group_spi7_soc2pad_t spi7;
      pad_domain_periphs_port_group_spi8_soc2pad_t spi8;
      pad_domain_periphs_port_group_spi9_soc2pad_t spi9;
-     pad_domain_periphs_port_group_spi10_soc2pad_t spi10;
+     pad_domain_periphs_port_group_qspi_linux_soc2pad_t qspi_linux;
      pad_domain_periphs_port_group_gpio_b_soc2pad_t gpio_b;
      } pad_domain_periphs_ports_soc2pad_t;
 
@@ -605,7 +605,7 @@ package pkg_alsaqr_periph_padframe;
      pad_domain_periphs_port_group_cam0_pad2soc_t cam0;
      pad_domain_periphs_port_group_cam1_pad2soc_t cam1;
      pad_domain_periphs_port_group_spi0_pad2soc_t spi0;
-     pad_domain_periphs_port_group_qspi_linux_pad2soc_t qspi_linux;
+     pad_domain_periphs_port_group_spi1_pad2soc_t spi1;
      pad_domain_periphs_port_group_spi2_pad2soc_t spi2;
      pad_domain_periphs_port_group_spi3_pad2soc_t spi3;
      pad_domain_periphs_port_group_spi4_pad2soc_t spi4;
@@ -614,7 +614,7 @@ package pkg_alsaqr_periph_padframe;
      pad_domain_periphs_port_group_spi7_pad2soc_t spi7;
      pad_domain_periphs_port_group_spi8_pad2soc_t spi8;
      pad_domain_periphs_port_group_spi9_pad2soc_t spi9;
-     pad_domain_periphs_port_group_spi10_pad2soc_t spi10;
+     pad_domain_periphs_port_group_qspi_linux_pad2soc_t qspi_linux;
      pad_domain_periphs_port_group_gpio_b_pad2soc_t gpio_b;
      } pad_domain_periphs_ports_pad2soc_t;
 
