@@ -172,7 +172,7 @@ module apb_subsystem
    APB  #(
                .ADDR_WIDTH(32),
                .DATA_WIDTH(32)
-   ) apb_advtimer_master_bus();
+   ) apb_advtimer_master_bus [NUM_ADV_TIMER-1:0]();
 
    APB  #(
                .ADDR_WIDTH(32),
@@ -776,47 +776,56 @@ module apb_subsystem
      .reg_o     ( i_hyaxicfg_rbus                 )
     );
 
-   logic [3:0]   pwm0_o;
-   logic [3:0]   pwm1_o;
+   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm_o;
+   /*logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm1_o;
+   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm2_o;
+   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm3_o;
+   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm4_o;
+   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm5_o;
+   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm6_o;
+   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm7_o;*/
 
-    apb_adv_timer #(
-        .APB_ADDR_WIDTH ( 32             ),
-        .EXTSIG_NUM     ( 64             )
-    ) i_apb_adv_timer0 (
-        .HCLK            ( s_clk_per               ),
-        .HRESETn         ( s_rstn_soc_sync         ),
+    generate
+        for (genvar i=0; i< apb_soc_pkg::NUM_ADV_TIMER; i++) begin : adv_timer_gen
+            apb_adv_timer #(
+                .APB_ADDR_WIDTH ( 32             ),
+                .EXTSIG_NUM     ( 64             )
+            ) i_apb_adv_timer (
+                .HCLK            ( s_clk_per               ),
+                .HRESETn         ( s_rstn_soc_sync         ),
 
-        .dft_cg_enable_i ( 1'b0                    ),
+                .dft_cg_enable_i ( 1'b0                    ),
 
-        .PADDR           ( apb_advtimer_master_bus.paddr   ),
-        .PWDATA          ( apb_advtimer_master_bus.pwdata  ),
-        .PWRITE          ( apb_advtimer_master_bus.pwrite  ),
-        .PSEL            ( apb_advtimer_master_bus.psel    ),
-        .PENABLE         ( apb_advtimer_master_bus.penable ),
-        .PRDATA          ( apb_advtimer_master_bus.prdata  ),
-        .PREADY          ( apb_advtimer_master_bus.pready  ),
-        .PSLVERR         ( apb_advtimer_master_bus.pslverr ),
+                .PADDR           ( apb_advtimer_master_bus[i].paddr   ),
+                .PWDATA          ( apb_advtimer_master_bus[i].pwdata  ),
+                .PWRITE          ( apb_advtimer_master_bus[i].pwrite  ),
+                .PSEL            ( apb_advtimer_master_bus[i].psel    ),
+                .PENABLE         ( apb_advtimer_master_bus[i].penable ),
+                .PRDATA          ( apb_advtimer_master_bus[i].prdata  ),
+                .PREADY          ( apb_advtimer_master_bus[i].pready  ),
+                .PSLVERR         ( apb_advtimer_master_bus[i].pslverr ),
 
-        .low_speed_clk_i ( rtc_i                   ),
-        .ext_sig_i       ( s_gpio_sync             ),
+                .low_speed_clk_i ( rtc_i                   ),
+                .ext_sig_i       ( s_gpio_sync             ),
 
-        .events_o        (                         ),
+                .events_o        (                         ),
 
-        .ch_0_o          ( pwm0_o                  ),
-        .ch_1_o          ( pwm1_o                  ),
-        .ch_2_o          (                         ),
-        .ch_3_o          (                         )
-    );
+                .ch_0_o          ( pwm_o[i]                ),
+                .ch_1_o          (                         ),
+                .ch_2_o          (                         ),
+                .ch_3_o          (                         )
+            );
+        end
+    endgenerate
 
-   assign pwm_to_pad.pwm0_o = pwm0_o[0];
-   assign pwm_to_pad.pwm1_o = pwm0_o[1];
-   assign pwm_to_pad.pwm2_o = pwm0_o[2];
-   assign pwm_to_pad.pwm3_o = pwm0_o[3];
-   assign pwm_to_pad.pwm4_o = pwm1_o[0];
-   assign pwm_to_pad.pwm5_o = pwm1_o[1];
-   assign pwm_to_pad.pwm6_o = pwm1_o[2];
-   assign pwm_to_pad.pwm7_o = pwm1_o[3];
-
+   assign pwm_to_pad.pwm0_o = pwm_o[0][0];
+   assign pwm_to_pad.pwm1_o = pwm_o[1][0];
+   assign pwm_to_pad.pwm2_o = pwm_o[2][0];
+   assign pwm_to_pad.pwm3_o = pwm_o[3][0];
+   assign pwm_to_pad.pwm4_o = pwm_o[4][0];
+   assign pwm_to_pad.pwm5_o = pwm_o[5][0];
+   assign pwm_to_pad.pwm6_o = pwm_o[6][0];
+   assign pwm_to_pad.pwm7_o = pwm_o[7][0];
 
    apb_to_reg i_apb_to_padframecfg
      (
