@@ -40,7 +40,7 @@ cl-bin         ?= none
 # root pathelf-bin
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 root-dir := $(dir $(mkfile_path))
-# acc options:
+# acc options
 # guide: define acc=<+"instance name".> , the dot includes all the child instances.
 # Example: <make clean sim acc=+u_RoT.>,  this will plot all the OpenTitan and subinstances signals (all the OT design)
 acc            ?=+dut.
@@ -281,12 +281,12 @@ benderrun: libbender $(util) $(library)
 
 benderrun_macro: libbender $(util) $(library)
 	@test -f Bender.lock || { echo "ERROR: Bender.lock file does not exist. Did you run make checkout in bender mode?"; exit 1; }
-	vsim -c -do 'source gf22/modelsim/libraries.sh; source $(compile_script); quit'
+	$(QUESTA) vsim -c -do 'source gf22/modelsim/libraries.sh; source $(compile_script); quit'
 	touch $(library)/.build-srcs
 
 benderrun_synth: libbender $(util) $(library)
 	@test -f Bender.lock || { echo "ERROR: Bender.lock file does not exist. Did you run make checkout in bender mode?"; exit 1; }
-	vsim -c -do 'source gf22/modelsim/libraries.sh; source $(compile_script); quit'
+	$(QUESTA) vsim -c -do 'source gf22/modelsim/libraries.sh; source $(compile_script); quit'
 	touch $(library)/.build-srcs
 
 bendertb: benderrun $(dpi)
@@ -305,7 +305,7 @@ build_macro: bendertb_macro 	$(dpi-library)/ariane_dpi.so
 	$(QUESTA) vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc=$(acc) -check_synthesis
 
 build_synth: bendertb_synth 	$(dpi-library)/ariane_dpi.so
-	vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc -check_synthesis
+	$(QUESTA) vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc=$(acc) -check_synthesis
 
 $(library):
 	vlib${questa_version} $(library)
