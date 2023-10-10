@@ -19,6 +19,7 @@
 
 module cva6_subsystem
   import axi_pkg::xbar_cfg_t;
+  import apb_soc_pkg::NUM_ADV_TIMER;
   import ariane_soc::*;
   import udma_subsystem_pkg::N_CAN;
 #(
@@ -48,6 +49,7 @@ module cva6_subsystem
   input  logic             c2h_irq_i,
   input  logic             cluster_eoc_i,
   input  logic [N_CAN-1:0] can_irq_i,
+  input  logic [NUM_ADV_TIMER-1 : 0] pwm_irq_i,
   input  logic             cl_dma_pe_evt_i,
   input  logic             dmi_req_valid,
   output logic             dmi_req_ready,
@@ -714,6 +716,7 @@ module cva6_subsystem
     .cluster_eoc_i   ( cluster_eoc_i                ),
     .c2h_irq_i       ( c2h_irq_i                    ),
     .can_irq_i       ( can_irq_i                    ),
+    .pwm_irq_i       ( pwm_irq_i                    ),
     .cl_dma_pe_evt_i ( cl_dma_pe_evt_i              ),
     .irq_o           ( irqs                         ),
     .rx_i            ( cva6_uart_rx_i               ),

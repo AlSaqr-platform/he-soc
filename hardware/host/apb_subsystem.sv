@@ -126,6 +126,7 @@ module apb_subsystem
     // FLL output
     output                      fll_to_pad_t fll_to_pad,
 
+    output logic                [NUM_ADV_TIMER-1 : 0] pwm_irq_o,
     output                      pwm_to_pad_t pwm_to_pad
 );
 
@@ -777,13 +778,7 @@ module apb_subsystem
     );
 
    logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm_o;
-   /*logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm1_o;
-   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm2_o;
-   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm3_o;
-   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm4_o;
-   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm5_o;
-   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm6_o;
-   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm7_o;*/
+   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm_evt_o;
 
     generate
         for (genvar i=0; i< apb_soc_pkg::NUM_ADV_TIMER; i++) begin : adv_timer_gen
@@ -808,7 +803,7 @@ module apb_subsystem
                 .low_speed_clk_i ( rtc_i                   ),
                 .ext_sig_i       ( s_gpio_sync             ),
 
-                .events_o        (                         ),
+                .events_o        ( pwm_evt_o[i]            ),
 
                 .ch_0_o          ( pwm_o[i]                ),
                 .ch_1_o          (                         ),
@@ -826,6 +821,16 @@ module apb_subsystem
    assign pwm_to_pad.pwm5_o = pwm_o[5][0];
    assign pwm_to_pad.pwm6_o = pwm_o[6][0];
    assign pwm_to_pad.pwm7_o = pwm_o[7][0];
+
+   assign pwm_irq_o[0] = pwm_evt_o[0][0];
+   assign pwm_irq_o[1] = pwm_evt_o[1][0];
+   assign pwm_irq_o[2] = pwm_evt_o[2][0];
+   assign pwm_irq_o[3] = pwm_evt_o[3][0];
+
+   assign pwm_irq_o[4] = pwm_evt_o[4][0];
+   assign pwm_irq_o[5] = pwm_evt_o[5][0];
+   assign pwm_irq_o[6] = pwm_evt_o[6][0];
+   assign pwm_irq_o[7] = pwm_evt_o[7][0];
 
    apb_to_reg i_apb_to_padframecfg
      (
