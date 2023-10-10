@@ -49,7 +49,7 @@ module cva6_subsystem
   input  logic             c2h_irq_i,
   input  logic             cluster_eoc_i,
   input  logic [N_CAN-1:0] can_irq_i,
-  input  logic [(NUM_ADV_TIMER*2)-1 : 0] pwm_irq_i,
+  input  logic [NUM_ADV_TIMER-1 : 0] pwm_irq_i,
   input  logic             cl_dma_pe_evt_i,
   input  logic             dmi_req_valid,
   output logic             dmi_req_ready,
