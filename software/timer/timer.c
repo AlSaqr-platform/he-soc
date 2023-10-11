@@ -41,6 +41,8 @@
 #define TIMER6_OFFSET 0x1A228000
 #define TIMER7_OFFSET 0x1A229000
 
+#define N_CH 2
+
 int main() {
 
   #ifdef FPGA_EMULATION
@@ -74,66 +76,90 @@ int main() {
 
   // Clock gating timers
 
-  // TIMER 0
+  // TIMER 0 CH0 + CH1
   enable_timer(TIMER0_OFFSET);
-  config_counter(TIMER0_OFFSET,0,249,0,0xFF,0,0);
-  set_counter_range(TIMER0_OFFSET,0,0,0x8);
-  set_threshold(TIMER0_OFFSET,0,0,0x8,3);
+  for (int i=0; i< N_CH; i++) {
+    config_counter(TIMER0_OFFSET,i,249,0,0xFF,0,0);
+    set_counter_range(TIMER0_OFFSET,i,0,0x8);
+    set_threshold(TIMER0_OFFSET,i,0,0x8,3);
+  }
 
-  // TIMER 1
+  // TIMER 1 CH0 + CH1
   enable_timer(TIMER1_OFFSET);
-  config_counter(TIMER1_OFFSET,0,249,0,0xFF,0,0);
-  set_counter_range(TIMER1_OFFSET,0,0,0x8);
-  set_threshold(TIMER1_OFFSET,0,0,0x8,3);
+  for (int i=0; i< N_CH; i++) {
+    config_counter(TIMER1_OFFSET,i,249,0,0xFF,0,0);
+    set_counter_range(TIMER1_OFFSET,i,0,0x8);
+    set_threshold(TIMER1_OFFSET,i,0,0x8,3);
+  }
 
-  // TIMER 2
+
+  // TIMER 2 CH0 + CH1
   enable_timer(TIMER2_OFFSET);
-  config_counter(TIMER2_OFFSET,0,249,0,0xFF,0,0);
-  set_counter_range(TIMER2_OFFSET,0,0,0x8);
-  set_threshold(TIMER2_OFFSET,0,0,0x8,3);
+  for (int i=0; i< N_CH; i++) {
+    config_counter(TIMER2_OFFSET,i,249,0,0xFF,0,0);
+    set_counter_range(TIMER2_OFFSET,i,0,0x8);
+    set_threshold(TIMER2_OFFSET,i,0,0x8,3);
+  }
 
 
-  // TIMER 3
+
+  // TIMER 3 CH0 + CH1
   enable_timer(TIMER3_OFFSET);
-  config_counter(TIMER3_OFFSET,0,249,0,0xFF,0,0);
-  set_counter_range(TIMER3_OFFSET,0,0,0x8);
-  set_threshold(TIMER3_OFFSET,0,0,0x8,3);
+  for (int i=0; i< N_CH; i++) {
+    config_counter(TIMER3_OFFSET,i,249,0,0xFF,0,0);
+    set_counter_range(TIMER3_OFFSET,i,0,0x8);
+    set_threshold(TIMER3_OFFSET,i,0,0x8,3);
+  }
 
-  // TIMER 4
+  // TIMER 4 CH0 + CH1
   enable_timer(TIMER4_OFFSET);
-  config_counter(TIMER4_OFFSET,0,249,0,0xFF,0,0);
-  set_counter_range(TIMER4_OFFSET,0,0,0x8);
-  set_threshold(TIMER4_OFFSET,0,0,0x8,3);
+  for (int i=0; i< N_CH; i++) {
+    config_counter(TIMER4_OFFSET,i,249,0,0xFF,0,0);
+    set_counter_range(TIMER4_OFFSET,i,0,0x8);
+    set_threshold(TIMER4_OFFSET,i,0,0x8,3);
+  }
 
-  // TIMER 5
+
+  // TIMER 5 CH0 + CH1
   enable_timer(TIMER5_OFFSET);
-  config_counter(TIMER5_OFFSET,0,249,0,0xFF,0,0);
-  set_counter_range(TIMER5_OFFSET,0,0,0x8);
-  set_threshold(TIMER5_OFFSET,0,0,0x8,3);
+  for (int i=0; i< N_CH; i++) {
+    config_counter(TIMER5_OFFSET,i,249,0,0xFF,0,0);
+    set_counter_range(TIMER5_OFFSET,i,0,0x8);
+    set_threshold(TIMER5_OFFSET,i,0,0x8,3);
+  }
 
-  // TIMER 6
+
+  // TIMER 6 CH0 + CH1
   enable_timer(TIMER6_OFFSET);
-  config_counter(TIMER6_OFFSET,0,249,0,0xFF,0,0);
-  set_counter_range(TIMER6_OFFSET,0,0,0x8);
-  set_threshold(TIMER6_OFFSET,0,0,0x8,3);
+  for (int i=0; i< N_CH; i++) {
+    config_counter(TIMER6_OFFSET,i,249,0,0xFF,0,0);
+    set_counter_range(TIMER6_OFFSET,i,0,0x8);
+    set_threshold(TIMER6_OFFSET,i,0,0x8,3);
+  }
 
-  // TIMER 7
+
+  // TIMER 7 CH0 + CH1
   enable_timer(TIMER7_OFFSET);
-  config_counter(TIMER7_OFFSET,0,249,0,0xFF,0,0);
-  set_counter_range(TIMER7_OFFSET,0,0,0x8);
-  set_threshold(TIMER7_OFFSET,0,0,0x8,3);
+  for (int i=0; i< N_CH; i++) {
+    config_counter(TIMER7_OFFSET,i,249,0,0xFF,0,0);
+    set_counter_range(TIMER7_OFFSET,i,0,0x8);
+    set_threshold(TIMER7_OFFSET,i,0,0x8,3);
+  }
 
-  printf("Start all timers...\r\n");
+  printf("Start channels of each timers...\r\n");
   uart_wait_tx_done();
 
-  start_timer(TIMER0_OFFSET);
-  start_timer(TIMER1_OFFSET);
-  start_timer(TIMER2_OFFSET);
-  start_timer(TIMER3_OFFSET);
-  start_timer(TIMER4_OFFSET);
-  start_timer(TIMER5_OFFSET);
-  start_timer(TIMER6_OFFSET);
-  start_timer(TIMER7_OFFSET);
+  // Enable CH0 + CH1 per each timer
+  for (int i=0; i< N_CH; i++) {
+    start_timer(TIMER0_OFFSET, i);
+    start_timer(TIMER1_OFFSET, i);
+    start_timer(TIMER2_OFFSET, i);
+    start_timer(TIMER3_OFFSET, i);
+    start_timer(TIMER4_OFFSET, i);
+    start_timer(TIMER5_OFFSET, i);
+    start_timer(TIMER6_OFFSET, i);
+    start_timer(TIMER7_OFFSET, i);
+  }
 
   for(volatile int i = 0; i<500000; i++)
     asm volatile ("wfi");
