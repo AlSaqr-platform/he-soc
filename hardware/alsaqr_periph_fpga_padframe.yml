@@ -114,6 +114,14 @@ pad_domains:
         multiple: 4
         pad_type: pad_alsaqr
         is_static: false
+
+      - name: cva6_uart_{i:2d}
+        mux_groups: [self]
+        description: "cva6 spi"
+        multiple: 2
+        pad_type: pad_alsaqr
+        is_static: false
+        
         
       ##  _____           _       
       ## |  __ \         | |      
@@ -235,6 +243,22 @@ pad_domains:
               chip2pad: sd{i}_i
               sd{i}_o: pad2chip
               oen: sd{i}_oen_i
+              puen: 1'b1
+
+      - name: uart_core
+        output_defaults: 1'b1
+        ports:
+          - name: uart_tx
+            mux_groups: [cva6_uart_00]
+            connections:
+              chip2pad: tx_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: uart_rx
+            mux_groups: [cva6_uart_01]
+            connections:
+              rx_o: pad2chip
+              oen: 1'b1
               puen: 1'b1
 
       - name: gpio_b

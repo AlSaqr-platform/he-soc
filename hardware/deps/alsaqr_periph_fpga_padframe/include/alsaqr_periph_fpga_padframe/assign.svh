@@ -59,6 +59,12 @@
   assign load.sd1_i = driver.sd1_o; \
   assign load.sd1_oen_i = driver.sd1_oen_o; \
 
+`define ASSIGN_PERIPHS_UART_CORE_PAD2SOC(load, driver) \
+  assign load.rx_i = driver.rx_o; \
+
+`define ASSIGN_PERIPHS_UART_CORE_SOC2PAD(load, driver) \
+  assign load.tx_i = driver.tx_o; \
+
 `define ASSIGN_PERIPHS_GPIO_B_PAD2SOC(load, driver) \
   assign load.gpio0_i = driver.gpio0_o; \
   assign load.gpio1_i = driver.gpio1_o; \
