@@ -71,6 +71,14 @@ package pkg_alsaqr_periph_fpga_padframe;
      } pad_domain_periphs_port_group_spi_ot_pad2soc_t;
 
    typedef struct packed {
+      logic        tx_i;
+     } pad_domain_periphs_port_group_uart_core_soc2pad_t;
+
+   typedef struct packed {
+      logic        rx_o;
+     } pad_domain_periphs_port_group_uart_core_pad2soc_t;
+
+   typedef struct packed {
       logic        gpio0_d_i;
       logic        gpio0_i;
       logic        gpio1_d_i;
@@ -124,6 +132,7 @@ package pkg_alsaqr_periph_fpga_padframe;
      pad_domain_periphs_port_group_uart0_soc2pad_t uart0;
      pad_domain_periphs_port_group_sdio0_soc2pad_t sdio0;
      pad_domain_periphs_port_group_spi_ot_soc2pad_t spi_ot;
+     pad_domain_periphs_port_group_uart_core_soc2pad_t uart_core;
      pad_domain_periphs_port_group_gpio_b_soc2pad_t gpio_b;
      } pad_domain_periphs_ports_soc2pad_t;
 
@@ -133,6 +142,7 @@ package pkg_alsaqr_periph_fpga_padframe;
      pad_domain_periphs_port_group_uart0_pad2soc_t uart0;
      pad_domain_periphs_port_group_sdio0_pad2soc_t sdio0;
      pad_domain_periphs_port_group_spi_ot_pad2soc_t spi_ot;
+     pad_domain_periphs_port_group_uart_core_pad2soc_t uart_core;
      pad_domain_periphs_port_group_gpio_b_pad2soc_t gpio_b;
      } pad_domain_periphs_ports_pad2soc_t;
 

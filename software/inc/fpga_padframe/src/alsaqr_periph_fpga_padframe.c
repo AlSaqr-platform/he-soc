@@ -1681,3 +1681,189 @@ alsaqr_periph_fpga_padframe_periphs_ot_spi_03_mux_sel_t alsaqr_periph_fpga_padfr
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;
 }
+
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_chip2pad_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_CHIP2PAD_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_chip2pad_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_CHIP2PAD_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_drv_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_field32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_DRV_FIELD, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_drv_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_field32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_DRV_FIELD);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_oen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_OEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_oen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_OEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_puen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_PUEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_puen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_PUEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_slw_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_SLW_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_slw_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_SLW_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_smt_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_SMT_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_smt_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_CFG_SMT_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_mux_set(alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_mux_sel_t mux_sel) {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 1;
+  uint32_t field_mask = (1<<sel_size)-1;
+  REG_WRITE32(address, mux_sel & field_mask);
+}
+
+alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_mux_sel_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_mux_get() {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_00_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 1;
+
+  uint32_t field_mask = (1<<sel_size)-1;
+  return REG_READ32(address) & field_mask;
+}
+
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_chip2pad_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_CHIP2PAD_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_chip2pad_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_CHIP2PAD_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_drv_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_field32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_DRV_FIELD, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_drv_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_field32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_DRV_FIELD);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_oen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_OEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_oen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_OEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_puen_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_PUEN_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_puen_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_PUEN_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_slw_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_SLW_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_slw_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_SLW_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_smt_set(uint8_t value) {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  reg = bitfield_bit32_write(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_SMT_BIT, value);
+  REG_WRITE32(address, reg);
+}
+
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_smt_get() {
+  uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_REG_OFFSET;
+  uint32_t reg = REG_READ32(address);
+  return bitfield_bit32_read(reg, ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_CFG_SMT_BIT);
+}
+
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_mux_set(alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_mux_sel_t mux_sel) {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 1;
+  uint32_t field_mask = (1<<sel_size)-1;
+  REG_WRITE32(address, mux_sel & field_mask);
+}
+
+alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_mux_sel_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_mux_get() {
+  const uint32_t address = ALSAQR_PERIPH_FPGA_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CONFIG_CVA6_UART_01_MUX_SEL_REG_OFFSET;
+  const uint32_t sel_size = 1;
+
+  uint32_t field_mask = (1<<sel_size)-1;
+  return REG_READ32(address) & field_mask;
+}
