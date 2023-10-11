@@ -24,7 +24,9 @@ module alsaqr_periph_fpga_padframe_periphs_pads
   inout wire logic pad_ot_spi_00_pad,
   inout wire logic pad_ot_spi_01_pad,
   inout wire logic pad_ot_spi_02_pad,
-  inout wire logic pad_ot_spi_03_pad
+  inout wire logic pad_ot_spi_03_pad,
+  inout wire logic pad_cva6_uart_00_pad,
+  inout wire logic pad_cva6_uart_01_pad
   );
 
    // Pad instantiations
@@ -286,6 +288,34 @@ module alsaqr_periph_fpga_padframe_periphs_pads
     .DRV(mux_to_pads_i.ot_spi_03.drv),
     .SLW(mux_to_pads_i.ot_spi_03.slw),
     .SMT(mux_to_pads_i.ot_spi_03.smt),
+    .PWROK(PWROK_S),
+    .IOPWROK(IOPWROK_S),
+    .BIAS(BIAS_S),
+    .RETC(RETC_S)
+  );
+   pad_alsaqr i_cva6_uart_00 (
+    .OEN(mux_to_pads_i.cva6_uart_00.oen),
+    .I(mux_to_pads_i.cva6_uart_00.chip2pad),
+    .O(pads_to_mux_o.cva6_uart_00.pad2chip),
+    .PUEN(mux_to_pads_i.cva6_uart_00.puen),
+    .PAD(pad_cva6_uart_00_pad),
+    .DRV(mux_to_pads_i.cva6_uart_00.drv),
+    .SLW(mux_to_pads_i.cva6_uart_00.slw),
+    .SMT(mux_to_pads_i.cva6_uart_00.smt),
+    .PWROK(PWROK_S),
+    .IOPWROK(IOPWROK_S),
+    .BIAS(BIAS_S),
+    .RETC(RETC_S)
+  );
+   pad_alsaqr i_cva6_uart_01 (
+    .OEN(mux_to_pads_i.cva6_uart_01.oen),
+    .I(mux_to_pads_i.cva6_uart_01.chip2pad),
+    .O(pads_to_mux_o.cva6_uart_01.pad2chip),
+    .PUEN(mux_to_pads_i.cva6_uart_01.puen),
+    .PAD(pad_cva6_uart_01_pad),
+    .DRV(mux_to_pads_i.cva6_uart_01.drv),
+    .SLW(mux_to_pads_i.cva6_uart_01.slw),
+    .SMT(mux_to_pads_i.cva6_uart_01.smt),
     .PWROK(PWROK_S),
     .IOPWROK(IOPWROK_S),
     .BIAS(BIAS_S),

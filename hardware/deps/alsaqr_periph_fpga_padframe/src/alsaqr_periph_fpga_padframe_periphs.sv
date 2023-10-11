@@ -28,6 +28,8 @@ module alsaqr_periph_fpga_padframe_periphs
   inout wire logic pad_ot_spi_01_pad,
   inout wire logic pad_ot_spi_02_pad,
   inout wire logic pad_ot_spi_03_pad,
+  inout wire logic pad_cva6_uart_00_pad,
+  inout wire logic pad_cva6_uart_01_pad,
   input req_t config_req_i,
   output resp_t config_rsp_o
 );
@@ -55,7 +57,9 @@ module alsaqr_periph_fpga_padframe_periphs
      .pad_ot_spi_00_pad,
      .pad_ot_spi_01_pad,
      .pad_ot_spi_02_pad,
-     .pad_ot_spi_03_pad
+     .pad_ot_spi_03_pad,
+     .pad_cva6_uart_00_pad,
+     .pad_cva6_uart_01_pad
 
   );
 
