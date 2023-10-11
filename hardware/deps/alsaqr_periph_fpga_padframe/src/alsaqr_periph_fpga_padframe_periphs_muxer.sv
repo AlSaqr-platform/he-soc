@@ -687,6 +687,66 @@ module alsaqr_periph_fpga_padframe_periphs_muxer
      endcase
    end // always_comb
 
+   // Pad cva6_uart_00
+   always_comb begin
+     unique case (s_reg2hw.cva6_uart_00_mux_sel.q)
+       PAD_MUX_GROUP_CVA6_UART_00_SEL_DEFAULT: begin
+         mux_to_pads_o.cva6_uart_00.chip2pad = s_reg2hw.cva6_uart_00_cfg.chip2pad.q;
+         mux_to_pads_o.cva6_uart_00.drv = s_reg2hw.cva6_uart_00_cfg.drv.q;
+         mux_to_pads_o.cva6_uart_00.oen = s_reg2hw.cva6_uart_00_cfg.oen.q;
+         mux_to_pads_o.cva6_uart_00.puen = s_reg2hw.cva6_uart_00_cfg.puen.q;
+         mux_to_pads_o.cva6_uart_00.slw = s_reg2hw.cva6_uart_00_cfg.slw.q;
+         mux_to_pads_o.cva6_uart_00.smt = s_reg2hw.cva6_uart_00_cfg.smt.q;
+       end
+       PAD_MUX_GROUP_CVA6_UART_00_SEL_UART_CORE_UART_TX: begin
+          mux_to_pads_o.cva6_uart_00.chip2pad = port_signals_soc2pad_i.uart_core.tx_i;
+          mux_to_pads_o.cva6_uart_00.drv = s_reg2hw.cva6_uart_00_cfg.drv.q;
+          mux_to_pads_o.cva6_uart_00.oen = 1'b0;
+          mux_to_pads_o.cva6_uart_00.puen = 1'b1;
+          mux_to_pads_o.cva6_uart_00.slw = s_reg2hw.cva6_uart_00_cfg.slw.q;
+          mux_to_pads_o.cva6_uart_00.smt = s_reg2hw.cva6_uart_00_cfg.smt.q;
+       end
+       default: begin
+         mux_to_pads_o.cva6_uart_00.chip2pad = s_reg2hw.cva6_uart_00_cfg.chip2pad.q;
+         mux_to_pads_o.cva6_uart_00.drv = s_reg2hw.cva6_uart_00_cfg.drv.q;
+         mux_to_pads_o.cva6_uart_00.oen = s_reg2hw.cva6_uart_00_cfg.oen.q;
+         mux_to_pads_o.cva6_uart_00.puen = s_reg2hw.cva6_uart_00_cfg.puen.q;
+         mux_to_pads_o.cva6_uart_00.slw = s_reg2hw.cva6_uart_00_cfg.slw.q;
+         mux_to_pads_o.cva6_uart_00.smt = s_reg2hw.cva6_uart_00_cfg.smt.q;
+       end
+     endcase
+   end // always_comb
+
+   // Pad cva6_uart_01
+   always_comb begin
+     unique case (s_reg2hw.cva6_uart_01_mux_sel.q)
+       PAD_MUX_GROUP_CVA6_UART_01_SEL_DEFAULT: begin
+         mux_to_pads_o.cva6_uart_01.chip2pad = s_reg2hw.cva6_uart_01_cfg.chip2pad.q;
+         mux_to_pads_o.cva6_uart_01.drv = s_reg2hw.cva6_uart_01_cfg.drv.q;
+         mux_to_pads_o.cva6_uart_01.oen = s_reg2hw.cva6_uart_01_cfg.oen.q;
+         mux_to_pads_o.cva6_uart_01.puen = s_reg2hw.cva6_uart_01_cfg.puen.q;
+         mux_to_pads_o.cva6_uart_01.slw = s_reg2hw.cva6_uart_01_cfg.slw.q;
+         mux_to_pads_o.cva6_uart_01.smt = s_reg2hw.cva6_uart_01_cfg.smt.q;
+       end
+       PAD_MUX_GROUP_CVA6_UART_01_SEL_UART_CORE_UART_RX: begin
+          mux_to_pads_o.cva6_uart_01.chip2pad = s_reg2hw.cva6_uart_01_cfg.chip2pad.q;
+          mux_to_pads_o.cva6_uart_01.drv = s_reg2hw.cva6_uart_01_cfg.drv.q;
+          mux_to_pads_o.cva6_uart_01.oen = 1'b1;
+          mux_to_pads_o.cva6_uart_01.puen = 1'b1;
+          mux_to_pads_o.cva6_uart_01.slw = s_reg2hw.cva6_uart_01_cfg.slw.q;
+          mux_to_pads_o.cva6_uart_01.smt = s_reg2hw.cva6_uart_01_cfg.smt.q;
+       end
+       default: begin
+         mux_to_pads_o.cva6_uart_01.chip2pad = s_reg2hw.cva6_uart_01_cfg.chip2pad.q;
+         mux_to_pads_o.cva6_uart_01.drv = s_reg2hw.cva6_uart_01_cfg.drv.q;
+         mux_to_pads_o.cva6_uart_01.oen = s_reg2hw.cva6_uart_01_cfg.oen.q;
+         mux_to_pads_o.cva6_uart_01.puen = s_reg2hw.cva6_uart_01_cfg.puen.q;
+         mux_to_pads_o.cva6_uart_01.slw = s_reg2hw.cva6_uart_01_cfg.slw.q;
+         mux_to_pads_o.cva6_uart_01.smt = s_reg2hw.cva6_uart_01_cfg.smt.q;
+       end
+     endcase
+   end // always_comb
+
 
   // Pad -> SoC Multiplex Logic
   // Port Group spi0
@@ -1048,6 +1108,40 @@ module alsaqr_periph_fpga_padframe_periphs_muxer
           end
           default: begin
             port_signals_pad2soc_o.spi_ot.sd1_o = 1'b0;
+          end
+       endcase
+     end
+   end
+
+  // Port Group uart_core
+
+
+  // Port Signal rx_o
+  logic [0:0] port_mux_sel_uart_core_rx_o_req;
+  logic [PORT_MUX_GROUP_CVA6_UART_01_SEL_WIDTH-1:0] port_mux_sel_uart_core_rx_o_arbitrated;
+  logic port_mux_sel_uart_core_rx_o_no_connection;
+
+   assign port_mux_sel_uart_core_rx_o_req[PORT_MUX_GROUP_CVA6_UART_01_SEL_CVA6_UART_01] = s_reg2hw.cva6_uart_01_mux_sel.q == PAD_MUX_GROUP_CVA6_UART_01_SEL_UART_CORE_UART_RX ? 1'b1 : 1'b0;
+
+   lzc #(
+     .WIDTH(1),
+     .MODE(1'b0)
+   ) i_port_muxsel_uart_core_rx_o_arbiter (
+     .in_i(port_mux_sel_uart_core_rx_o_req),
+     .cnt_o(port_mux_sel_uart_core_rx_o_arbitrated),
+     .empty_o(port_mux_sel_uart_core_rx_o_no_connection)
+   );
+
+   always_comb begin
+     if (port_mux_sel_uart_core_rx_o_no_connection) begin
+        port_signals_pad2soc_o.uart_core.rx_o = 1'b1;
+     end else begin
+        unique case (port_mux_sel_uart_core_rx_o_arbitrated)
+          PORT_MUX_GROUP_CVA6_UART_01_SEL_CVA6_UART_01: begin
+            port_signals_pad2soc_o.uart_core.rx_o = pads_to_mux_i.cva6_uart_01.pad2chip;
+          end
+          default: begin
+            port_signals_pad2soc_o.uart_core.rx_o = 1'b1;
           end
        endcase
      end

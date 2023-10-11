@@ -235,6 +235,32 @@ package pkg_internal_alsaqr_periph_fpga_padframe_periphs;
   } pad_to_mux_ot_spi_03_t;
 
   typedef struct packed{
+    logic  chip2pad;
+    logic [1:0] drv;
+    logic  oen;
+    logic  puen;
+    logic  slw;
+    logic  smt;
+  } mux_to_pad_cva6_uart_00_t;
+
+  typedef struct packed{
+    logic  pad2chip;
+  } pad_to_mux_cva6_uart_00_t;
+
+  typedef struct packed{
+    logic  chip2pad;
+    logic [1:0] drv;
+    logic  oen;
+    logic  puen;
+    logic  slw;
+    logic  smt;
+  } mux_to_pad_cva6_uart_01_t;
+
+  typedef struct packed{
+    logic  pad2chip;
+  } pad_to_mux_cva6_uart_01_t;
+
+  typedef struct packed{
     mux_to_pad_pad_gpio_b_00_t pad_gpio_b_00;
     mux_to_pad_pad_gpio_b_01_t pad_gpio_b_01;
     mux_to_pad_pad_gpio_b_02_t pad_gpio_b_02;
@@ -253,6 +279,8 @@ package pkg_internal_alsaqr_periph_fpga_padframe_periphs;
     mux_to_pad_ot_spi_01_t ot_spi_01;
     mux_to_pad_ot_spi_02_t ot_spi_02;
     mux_to_pad_ot_spi_03_t ot_spi_03;
+    mux_to_pad_cva6_uart_00_t cva6_uart_00;
+    mux_to_pad_cva6_uart_01_t cva6_uart_01;
   } mux_to_pads_t;
 
   typedef struct packed{
@@ -274,11 +302,21 @@ package pkg_internal_alsaqr_periph_fpga_padframe_periphs;
     pad_to_mux_ot_spi_01_t ot_spi_01;
     pad_to_mux_ot_spi_02_t ot_spi_02;
     pad_to_mux_ot_spi_03_t ot_spi_03;
+    pad_to_mux_cva6_uart_00_t cva6_uart_00;
+    pad_to_mux_cva6_uart_01_t cva6_uart_01;
   } pads_to_mux_t;
 
 
 
   // Indices definitions
+
+  parameter PAD_MUX_GROUP_CVA6_UART_00_SEL_WIDTH = 1;
+  parameter logic[0:0] PAD_MUX_GROUP_CVA6_UART_00_SEL_DEFAULT = 1'd0;
+  parameter logic[0:0] PAD_MUX_GROUP_CVA6_UART_00_SEL_UART_CORE_UART_TX = 1'd1;
+
+  parameter PAD_MUX_GROUP_CVA6_UART_01_SEL_WIDTH = 1;
+  parameter logic[0:0] PAD_MUX_GROUP_CVA6_UART_01_SEL_DEFAULT = 1'd0;
+  parameter logic[0:0] PAD_MUX_GROUP_CVA6_UART_01_SEL_UART_CORE_UART_RX = 1'd1;
 
   parameter PAD_MUX_GROUP_OT_SPI_00_SEL_WIDTH = 1;
   parameter logic[0:0] PAD_MUX_GROUP_OT_SPI_00_SEL_DEFAULT = 1'd0;
@@ -367,6 +405,12 @@ package pkg_internal_alsaqr_periph_fpga_padframe_periphs;
   parameter logic[1:0] PAD_MUX_GROUP_PAD_GPIO_B_13_SEL_SDIO0_SDIO_CMD = 2'd2;
 
   // Dynamic Pad  instance index
+
+  parameter PORT_MUX_GROUP_CVA6_UART_00_SEL_WIDTH = 1;
+  parameter logic[0:0] PORT_MUX_GROUP_CVA6_UART_00_SEL_CVA6_UART_00 = 1'd0;
+
+  parameter PORT_MUX_GROUP_CVA6_UART_01_SEL_WIDTH = 1;
+  parameter logic[0:0] PORT_MUX_GROUP_CVA6_UART_01_SEL_CVA6_UART_01 = 1'd0;
 
   parameter PORT_MUX_GROUP_OT_SPI_00_SEL_WIDTH = 1;
   parameter logic[0:0] PORT_MUX_GROUP_OT_SPI_00_SEL_OT_SPI_00 = 1'd0;
