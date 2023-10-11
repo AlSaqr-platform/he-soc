@@ -54,6 +54,14 @@ module alsaqr_periph_fpga_padframe_periphs_muxer
           mux_to_pads_o.pad_gpio_b_00.slw = s_reg2hw.pad_gpio_b_00_cfg.slw.q;
           mux_to_pads_o.pad_gpio_b_00.smt = s_reg2hw.pad_gpio_b_00_cfg.smt.q;
        end
+       PAD_MUX_GROUP_PAD_GPIO_B_00_SEL_SPI_OT_SPI_CSN: begin
+          mux_to_pads_o.pad_gpio_b_00.chip2pad = port_signals_soc2pad_i.spi_ot.csn0_i;
+          mux_to_pads_o.pad_gpio_b_00.drv = s_reg2hw.pad_gpio_b_00_cfg.drv.q;
+          mux_to_pads_o.pad_gpio_b_00.oen = 1'b0;
+          mux_to_pads_o.pad_gpio_b_00.puen = 1'b1;
+          mux_to_pads_o.pad_gpio_b_00.slw = s_reg2hw.pad_gpio_b_00_cfg.slw.q;
+          mux_to_pads_o.pad_gpio_b_00.smt = s_reg2hw.pad_gpio_b_00_cfg.smt.q;
+       end
        PAD_MUX_GROUP_PAD_GPIO_B_00_SEL_GPIO_B_GPIO0: begin
           mux_to_pads_o.pad_gpio_b_00.chip2pad = port_signals_soc2pad_i.gpio_b.gpio0_i;
           mux_to_pads_o.pad_gpio_b_00.drv = s_reg2hw.pad_gpio_b_00_cfg.drv.q;
@@ -86,6 +94,14 @@ module alsaqr_periph_fpga_padframe_periphs_muxer
        end
        PAD_MUX_GROUP_PAD_GPIO_B_01_SEL_SPI0_SPI_SCK: begin
           mux_to_pads_o.pad_gpio_b_01.chip2pad = port_signals_soc2pad_i.spi0.clk_i;
+          mux_to_pads_o.pad_gpio_b_01.drv = s_reg2hw.pad_gpio_b_01_cfg.drv.q;
+          mux_to_pads_o.pad_gpio_b_01.oen = 1'b0;
+          mux_to_pads_o.pad_gpio_b_01.puen = 1'b1;
+          mux_to_pads_o.pad_gpio_b_01.slw = s_reg2hw.pad_gpio_b_01_cfg.slw.q;
+          mux_to_pads_o.pad_gpio_b_01.smt = s_reg2hw.pad_gpio_b_01_cfg.smt.q;
+       end
+       PAD_MUX_GROUP_PAD_GPIO_B_01_SEL_SPI_OT_SPI_SCK: begin
+          mux_to_pads_o.pad_gpio_b_01.chip2pad = port_signals_soc2pad_i.spi_ot.clk_i;
           mux_to_pads_o.pad_gpio_b_01.drv = s_reg2hw.pad_gpio_b_01_cfg.drv.q;
           mux_to_pads_o.pad_gpio_b_01.oen = 1'b0;
           mux_to_pads_o.pad_gpio_b_01.puen = 1'b1;
@@ -130,6 +146,14 @@ module alsaqr_periph_fpga_padframe_periphs_muxer
           mux_to_pads_o.pad_gpio_b_02.slw = s_reg2hw.pad_gpio_b_02_cfg.slw.q;
           mux_to_pads_o.pad_gpio_b_02.smt = s_reg2hw.pad_gpio_b_02_cfg.smt.q;
        end
+       PAD_MUX_GROUP_PAD_GPIO_B_02_SEL_SPI_OT_SPI_SD1: begin
+          mux_to_pads_o.pad_gpio_b_02.chip2pad = port_signals_soc2pad_i.spi_ot.sd1_i;
+          mux_to_pads_o.pad_gpio_b_02.drv = s_reg2hw.pad_gpio_b_02_cfg.drv.q;
+          mux_to_pads_o.pad_gpio_b_02.oen = port_signals_soc2pad_i.spi_ot.sd1_oen_i;
+          mux_to_pads_o.pad_gpio_b_02.puen = 1'b1;
+          mux_to_pads_o.pad_gpio_b_02.slw = s_reg2hw.pad_gpio_b_02_cfg.slw.q;
+          mux_to_pads_o.pad_gpio_b_02.smt = s_reg2hw.pad_gpio_b_02_cfg.smt.q;
+       end
        PAD_MUX_GROUP_PAD_GPIO_B_02_SEL_GPIO_B_GPIO2: begin
           mux_to_pads_o.pad_gpio_b_02.chip2pad = port_signals_soc2pad_i.gpio_b.gpio2_i;
           mux_to_pads_o.pad_gpio_b_02.drv = s_reg2hw.pad_gpio_b_02_cfg.drv.q;
@@ -164,6 +188,14 @@ module alsaqr_periph_fpga_padframe_periphs_muxer
           mux_to_pads_o.pad_gpio_b_03.chip2pad = port_signals_soc2pad_i.spi0.sd0_i;
           mux_to_pads_o.pad_gpio_b_03.drv = s_reg2hw.pad_gpio_b_03_cfg.drv.q;
           mux_to_pads_o.pad_gpio_b_03.oen = 1'b0;
+          mux_to_pads_o.pad_gpio_b_03.puen = 1'b1;
+          mux_to_pads_o.pad_gpio_b_03.slw = s_reg2hw.pad_gpio_b_03_cfg.slw.q;
+          mux_to_pads_o.pad_gpio_b_03.smt = s_reg2hw.pad_gpio_b_03_cfg.smt.q;
+       end
+       PAD_MUX_GROUP_PAD_GPIO_B_03_SEL_SPI_OT_SPI_SD0: begin
+          mux_to_pads_o.pad_gpio_b_03.chip2pad = port_signals_soc2pad_i.spi_ot.sd0_i;
+          mux_to_pads_o.pad_gpio_b_03.drv = s_reg2hw.pad_gpio_b_03_cfg.drv.q;
+          mux_to_pads_o.pad_gpio_b_03.oen = port_signals_soc2pad_i.spi_ot.sd0_oen_i;
           mux_to_pads_o.pad_gpio_b_03.puen = 1'b1;
           mux_to_pads_o.pad_gpio_b_03.slw = s_reg2hw.pad_gpio_b_03_cfg.slw.q;
           mux_to_pads_o.pad_gpio_b_03.smt = s_reg2hw.pad_gpio_b_03_cfg.smt.q;
@@ -567,126 +599,6 @@ module alsaqr_periph_fpga_padframe_periphs_muxer
      endcase
    end // always_comb
 
-   // Pad ot_spi_00
-   always_comb begin
-     unique case (s_reg2hw.ot_spi_00_mux_sel.q)
-       PAD_MUX_GROUP_OT_SPI_00_SEL_DEFAULT: begin
-         mux_to_pads_o.ot_spi_00.chip2pad = s_reg2hw.ot_spi_00_cfg.chip2pad.q;
-         mux_to_pads_o.ot_spi_00.drv = s_reg2hw.ot_spi_00_cfg.drv.q;
-         mux_to_pads_o.ot_spi_00.oen = s_reg2hw.ot_spi_00_cfg.oen.q;
-         mux_to_pads_o.ot_spi_00.puen = s_reg2hw.ot_spi_00_cfg.puen.q;
-         mux_to_pads_o.ot_spi_00.slw = s_reg2hw.ot_spi_00_cfg.slw.q;
-         mux_to_pads_o.ot_spi_00.smt = s_reg2hw.ot_spi_00_cfg.smt.q;
-       end
-       PAD_MUX_GROUP_OT_SPI_00_SEL_SPI_OT_SPI_SCK: begin
-          mux_to_pads_o.ot_spi_00.chip2pad = port_signals_soc2pad_i.spi_ot.clk_i;
-          mux_to_pads_o.ot_spi_00.drv = s_reg2hw.ot_spi_00_cfg.drv.q;
-          mux_to_pads_o.ot_spi_00.oen = 1'b0;
-          mux_to_pads_o.ot_spi_00.puen = 1'b1;
-          mux_to_pads_o.ot_spi_00.slw = s_reg2hw.ot_spi_00_cfg.slw.q;
-          mux_to_pads_o.ot_spi_00.smt = s_reg2hw.ot_spi_00_cfg.smt.q;
-       end
-       default: begin
-         mux_to_pads_o.ot_spi_00.chip2pad = s_reg2hw.ot_spi_00_cfg.chip2pad.q;
-         mux_to_pads_o.ot_spi_00.drv = s_reg2hw.ot_spi_00_cfg.drv.q;
-         mux_to_pads_o.ot_spi_00.oen = s_reg2hw.ot_spi_00_cfg.oen.q;
-         mux_to_pads_o.ot_spi_00.puen = s_reg2hw.ot_spi_00_cfg.puen.q;
-         mux_to_pads_o.ot_spi_00.slw = s_reg2hw.ot_spi_00_cfg.slw.q;
-         mux_to_pads_o.ot_spi_00.smt = s_reg2hw.ot_spi_00_cfg.smt.q;
-       end
-     endcase
-   end // always_comb
-
-   // Pad ot_spi_01
-   always_comb begin
-     unique case (s_reg2hw.ot_spi_01_mux_sel.q)
-       PAD_MUX_GROUP_OT_SPI_01_SEL_DEFAULT: begin
-         mux_to_pads_o.ot_spi_01.chip2pad = s_reg2hw.ot_spi_01_cfg.chip2pad.q;
-         mux_to_pads_o.ot_spi_01.drv = s_reg2hw.ot_spi_01_cfg.drv.q;
-         mux_to_pads_o.ot_spi_01.oen = s_reg2hw.ot_spi_01_cfg.oen.q;
-         mux_to_pads_o.ot_spi_01.puen = s_reg2hw.ot_spi_01_cfg.puen.q;
-         mux_to_pads_o.ot_spi_01.slw = s_reg2hw.ot_spi_01_cfg.slw.q;
-         mux_to_pads_o.ot_spi_01.smt = s_reg2hw.ot_spi_01_cfg.smt.q;
-       end
-       PAD_MUX_GROUP_OT_SPI_01_SEL_SPI_OT_SPI_CSN: begin
-          mux_to_pads_o.ot_spi_01.chip2pad = port_signals_soc2pad_i.spi_ot.csn0_i;
-          mux_to_pads_o.ot_spi_01.drv = s_reg2hw.ot_spi_01_cfg.drv.q;
-          mux_to_pads_o.ot_spi_01.oen = 1'b0;
-          mux_to_pads_o.ot_spi_01.puen = 1'b1;
-          mux_to_pads_o.ot_spi_01.slw = s_reg2hw.ot_spi_01_cfg.slw.q;
-          mux_to_pads_o.ot_spi_01.smt = s_reg2hw.ot_spi_01_cfg.smt.q;
-       end
-       default: begin
-         mux_to_pads_o.ot_spi_01.chip2pad = s_reg2hw.ot_spi_01_cfg.chip2pad.q;
-         mux_to_pads_o.ot_spi_01.drv = s_reg2hw.ot_spi_01_cfg.drv.q;
-         mux_to_pads_o.ot_spi_01.oen = s_reg2hw.ot_spi_01_cfg.oen.q;
-         mux_to_pads_o.ot_spi_01.puen = s_reg2hw.ot_spi_01_cfg.puen.q;
-         mux_to_pads_o.ot_spi_01.slw = s_reg2hw.ot_spi_01_cfg.slw.q;
-         mux_to_pads_o.ot_spi_01.smt = s_reg2hw.ot_spi_01_cfg.smt.q;
-       end
-     endcase
-   end // always_comb
-
-   // Pad ot_spi_02
-   always_comb begin
-     unique case (s_reg2hw.ot_spi_02_mux_sel.q)
-       PAD_MUX_GROUP_OT_SPI_02_SEL_DEFAULT: begin
-         mux_to_pads_o.ot_spi_02.chip2pad = s_reg2hw.ot_spi_02_cfg.chip2pad.q;
-         mux_to_pads_o.ot_spi_02.drv = s_reg2hw.ot_spi_02_cfg.drv.q;
-         mux_to_pads_o.ot_spi_02.oen = s_reg2hw.ot_spi_02_cfg.oen.q;
-         mux_to_pads_o.ot_spi_02.puen = s_reg2hw.ot_spi_02_cfg.puen.q;
-         mux_to_pads_o.ot_spi_02.slw = s_reg2hw.ot_spi_02_cfg.slw.q;
-         mux_to_pads_o.ot_spi_02.smt = s_reg2hw.ot_spi_02_cfg.smt.q;
-       end
-       PAD_MUX_GROUP_OT_SPI_02_SEL_SPI_OT_SPI_SD0: begin
-          mux_to_pads_o.ot_spi_02.chip2pad = port_signals_soc2pad_i.spi_ot.sd0_i;
-          mux_to_pads_o.ot_spi_02.drv = s_reg2hw.ot_spi_02_cfg.drv.q;
-          mux_to_pads_o.ot_spi_02.oen = port_signals_soc2pad_i.spi_ot.sd0_oen_i;
-          mux_to_pads_o.ot_spi_02.puen = 1'b1;
-          mux_to_pads_o.ot_spi_02.slw = s_reg2hw.ot_spi_02_cfg.slw.q;
-          mux_to_pads_o.ot_spi_02.smt = s_reg2hw.ot_spi_02_cfg.smt.q;
-       end
-       default: begin
-         mux_to_pads_o.ot_spi_02.chip2pad = s_reg2hw.ot_spi_02_cfg.chip2pad.q;
-         mux_to_pads_o.ot_spi_02.drv = s_reg2hw.ot_spi_02_cfg.drv.q;
-         mux_to_pads_o.ot_spi_02.oen = s_reg2hw.ot_spi_02_cfg.oen.q;
-         mux_to_pads_o.ot_spi_02.puen = s_reg2hw.ot_spi_02_cfg.puen.q;
-         mux_to_pads_o.ot_spi_02.slw = s_reg2hw.ot_spi_02_cfg.slw.q;
-         mux_to_pads_o.ot_spi_02.smt = s_reg2hw.ot_spi_02_cfg.smt.q;
-       end
-     endcase
-   end // always_comb
-
-   // Pad ot_spi_03
-   always_comb begin
-     unique case (s_reg2hw.ot_spi_03_mux_sel.q)
-       PAD_MUX_GROUP_OT_SPI_03_SEL_DEFAULT: begin
-         mux_to_pads_o.ot_spi_03.chip2pad = s_reg2hw.ot_spi_03_cfg.chip2pad.q;
-         mux_to_pads_o.ot_spi_03.drv = s_reg2hw.ot_spi_03_cfg.drv.q;
-         mux_to_pads_o.ot_spi_03.oen = s_reg2hw.ot_spi_03_cfg.oen.q;
-         mux_to_pads_o.ot_spi_03.puen = s_reg2hw.ot_spi_03_cfg.puen.q;
-         mux_to_pads_o.ot_spi_03.slw = s_reg2hw.ot_spi_03_cfg.slw.q;
-         mux_to_pads_o.ot_spi_03.smt = s_reg2hw.ot_spi_03_cfg.smt.q;
-       end
-       PAD_MUX_GROUP_OT_SPI_03_SEL_SPI_OT_SPI_SD1: begin
-          mux_to_pads_o.ot_spi_03.chip2pad = port_signals_soc2pad_i.spi_ot.sd1_i;
-          mux_to_pads_o.ot_spi_03.drv = s_reg2hw.ot_spi_03_cfg.drv.q;
-          mux_to_pads_o.ot_spi_03.oen = port_signals_soc2pad_i.spi_ot.sd1_oen_i;
-          mux_to_pads_o.ot_spi_03.puen = 1'b1;
-          mux_to_pads_o.ot_spi_03.slw = s_reg2hw.ot_spi_03_cfg.slw.q;
-          mux_to_pads_o.ot_spi_03.smt = s_reg2hw.ot_spi_03_cfg.smt.q;
-       end
-       default: begin
-         mux_to_pads_o.ot_spi_03.chip2pad = s_reg2hw.ot_spi_03_cfg.chip2pad.q;
-         mux_to_pads_o.ot_spi_03.drv = s_reg2hw.ot_spi_03_cfg.drv.q;
-         mux_to_pads_o.ot_spi_03.oen = s_reg2hw.ot_spi_03_cfg.oen.q;
-         mux_to_pads_o.ot_spi_03.puen = s_reg2hw.ot_spi_03_cfg.puen.q;
-         mux_to_pads_o.ot_spi_03.slw = s_reg2hw.ot_spi_03_cfg.slw.q;
-         mux_to_pads_o.ot_spi_03.smt = s_reg2hw.ot_spi_03_cfg.smt.q;
-       end
-     endcase
-   end // always_comb
-
    // Pad cva6_uart_00
    always_comb begin
      unique case (s_reg2hw.cva6_uart_00_mux_sel.q)
@@ -1052,10 +964,10 @@ module alsaqr_periph_fpga_padframe_periphs_muxer
 
   // Port Signal sd0_o
   logic [0:0] port_mux_sel_spi_ot_sd0_o_req;
-  logic [PORT_MUX_GROUP_OT_SPI_02_SEL_WIDTH-1:0] port_mux_sel_spi_ot_sd0_o_arbitrated;
+  logic [PORT_MUX_GROUP_PAD_GPIO_B_03_SEL_WIDTH-1:0] port_mux_sel_spi_ot_sd0_o_arbitrated;
   logic port_mux_sel_spi_ot_sd0_o_no_connection;
 
-   assign port_mux_sel_spi_ot_sd0_o_req[PORT_MUX_GROUP_OT_SPI_02_SEL_OT_SPI_02] = s_reg2hw.ot_spi_02_mux_sel.q == PAD_MUX_GROUP_OT_SPI_02_SEL_SPI_OT_SPI_SD0 ? 1'b1 : 1'b0;
+   assign port_mux_sel_spi_ot_sd0_o_req[PORT_MUX_GROUP_PAD_GPIO_B_03_SEL_PAD_GPIO_B_03] = s_reg2hw.pad_gpio_b_03_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_03_SEL_SPI_OT_SPI_SD0 ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
@@ -1071,8 +983,8 @@ module alsaqr_periph_fpga_padframe_periphs_muxer
         port_signals_pad2soc_o.spi_ot.sd0_o = 1'b0;
      end else begin
         unique case (port_mux_sel_spi_ot_sd0_o_arbitrated)
-          PORT_MUX_GROUP_OT_SPI_02_SEL_OT_SPI_02: begin
-            port_signals_pad2soc_o.spi_ot.sd0_o = pads_to_mux_i.ot_spi_02.pad2chip;
+          PORT_MUX_GROUP_PAD_GPIO_B_03_SEL_PAD_GPIO_B_03: begin
+            port_signals_pad2soc_o.spi_ot.sd0_o = pads_to_mux_i.pad_gpio_b_03.pad2chip;
           end
           default: begin
             port_signals_pad2soc_o.spi_ot.sd0_o = 1'b0;
@@ -1084,10 +996,10 @@ module alsaqr_periph_fpga_padframe_periphs_muxer
 
   // Port Signal sd1_o
   logic [0:0] port_mux_sel_spi_ot_sd1_o_req;
-  logic [PORT_MUX_GROUP_OT_SPI_03_SEL_WIDTH-1:0] port_mux_sel_spi_ot_sd1_o_arbitrated;
+  logic [PORT_MUX_GROUP_PAD_GPIO_B_02_SEL_WIDTH-1:0] port_mux_sel_spi_ot_sd1_o_arbitrated;
   logic port_mux_sel_spi_ot_sd1_o_no_connection;
 
-   assign port_mux_sel_spi_ot_sd1_o_req[PORT_MUX_GROUP_OT_SPI_03_SEL_OT_SPI_03] = s_reg2hw.ot_spi_03_mux_sel.q == PAD_MUX_GROUP_OT_SPI_03_SEL_SPI_OT_SPI_SD1 ? 1'b1 : 1'b0;
+   assign port_mux_sel_spi_ot_sd1_o_req[PORT_MUX_GROUP_PAD_GPIO_B_02_SEL_PAD_GPIO_B_02] = s_reg2hw.pad_gpio_b_02_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_02_SEL_SPI_OT_SPI_SD1 ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
@@ -1103,8 +1015,8 @@ module alsaqr_periph_fpga_padframe_periphs_muxer
         port_signals_pad2soc_o.spi_ot.sd1_o = 1'b0;
      end else begin
         unique case (port_mux_sel_spi_ot_sd1_o_arbitrated)
-          PORT_MUX_GROUP_OT_SPI_03_SEL_OT_SPI_03: begin
-            port_signals_pad2soc_o.spi_ot.sd1_o = pads_to_mux_i.ot_spi_03.pad2chip;
+          PORT_MUX_GROUP_PAD_GPIO_B_02_SEL_PAD_GPIO_B_02: begin
+            port_signals_pad2soc_o.spi_ot.sd1_o = pads_to_mux_i.pad_gpio_b_02.pad2chip;
           end
           default: begin
             port_signals_pad2soc_o.spi_ot.sd1_o = 1'b0;

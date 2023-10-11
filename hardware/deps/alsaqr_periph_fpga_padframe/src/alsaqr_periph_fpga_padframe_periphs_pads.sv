@@ -21,10 +21,6 @@ module alsaqr_periph_fpga_padframe_periphs_pads
   inout wire logic pad_pad_gpio_b_11_pad,
   inout wire logic pad_pad_gpio_b_12_pad,
   inout wire logic pad_pad_gpio_b_13_pad,
-  inout wire logic pad_ot_spi_00_pad,
-  inout wire logic pad_ot_spi_01_pad,
-  inout wire logic pad_ot_spi_02_pad,
-  inout wire logic pad_ot_spi_03_pad,
   inout wire logic pad_cva6_uart_00_pad,
   inout wire logic pad_cva6_uart_01_pad
   );
@@ -232,62 +228,6 @@ module alsaqr_periph_fpga_padframe_periphs_pads
     .DRV(mux_to_pads_i.pad_gpio_b_13.drv),
     .SLW(mux_to_pads_i.pad_gpio_b_13.slw),
     .SMT(mux_to_pads_i.pad_gpio_b_13.smt),
-    .PWROK(PWROK_S),
-    .IOPWROK(IOPWROK_S),
-    .BIAS(BIAS_S),
-    .RETC(RETC_S)
-  );
-   pad_alsaqr i_ot_spi_00 (
-    .OEN(mux_to_pads_i.ot_spi_00.oen),
-    .I(mux_to_pads_i.ot_spi_00.chip2pad),
-    .O(pads_to_mux_o.ot_spi_00.pad2chip),
-    .PUEN(mux_to_pads_i.ot_spi_00.puen),
-    .PAD(pad_ot_spi_00_pad),
-    .DRV(mux_to_pads_i.ot_spi_00.drv),
-    .SLW(mux_to_pads_i.ot_spi_00.slw),
-    .SMT(mux_to_pads_i.ot_spi_00.smt),
-    .PWROK(PWROK_S),
-    .IOPWROK(IOPWROK_S),
-    .BIAS(BIAS_S),
-    .RETC(RETC_S)
-  );
-   pad_alsaqr i_ot_spi_01 (
-    .OEN(mux_to_pads_i.ot_spi_01.oen),
-    .I(mux_to_pads_i.ot_spi_01.chip2pad),
-    .O(pads_to_mux_o.ot_spi_01.pad2chip),
-    .PUEN(mux_to_pads_i.ot_spi_01.puen),
-    .PAD(pad_ot_spi_01_pad),
-    .DRV(mux_to_pads_i.ot_spi_01.drv),
-    .SLW(mux_to_pads_i.ot_spi_01.slw),
-    .SMT(mux_to_pads_i.ot_spi_01.smt),
-    .PWROK(PWROK_S),
-    .IOPWROK(IOPWROK_S),
-    .BIAS(BIAS_S),
-    .RETC(RETC_S)
-  );
-   pad_alsaqr i_ot_spi_02 (
-    .OEN(mux_to_pads_i.ot_spi_02.oen),
-    .I(mux_to_pads_i.ot_spi_02.chip2pad),
-    .O(pads_to_mux_o.ot_spi_02.pad2chip),
-    .PUEN(mux_to_pads_i.ot_spi_02.puen),
-    .PAD(pad_ot_spi_02_pad),
-    .DRV(mux_to_pads_i.ot_spi_02.drv),
-    .SLW(mux_to_pads_i.ot_spi_02.slw),
-    .SMT(mux_to_pads_i.ot_spi_02.smt),
-    .PWROK(PWROK_S),
-    .IOPWROK(IOPWROK_S),
-    .BIAS(BIAS_S),
-    .RETC(RETC_S)
-  );
-   pad_alsaqr i_ot_spi_03 (
-    .OEN(mux_to_pads_i.ot_spi_03.oen),
-    .I(mux_to_pads_i.ot_spi_03.chip2pad),
-    .O(pads_to_mux_o.ot_spi_03.pad2chip),
-    .PUEN(mux_to_pads_i.ot_spi_03.puen),
-    .PAD(pad_ot_spi_03_pad),
-    .DRV(mux_to_pads_i.ot_spi_03.drv),
-    .SLW(mux_to_pads_i.ot_spi_03.slw),
-    .SMT(mux_to_pads_i.ot_spi_03.smt),
     .PWROK(PWROK_S),
     .IOPWROK(IOPWROK_S),
     .BIAS(BIAS_S),

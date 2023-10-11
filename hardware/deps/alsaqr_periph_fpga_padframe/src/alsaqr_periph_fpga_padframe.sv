@@ -27,10 +27,6 @@ module alsaqr_periph_fpga_padframe
   inout wire logic                           pad_periphs_pad_gpio_b_11_pad,
   inout wire logic                           pad_periphs_pad_gpio_b_12_pad,
   inout wire logic                           pad_periphs_pad_gpio_b_13_pad,
-  inout wire logic                           pad_periphs_ot_spi_00_pad,
-  inout wire logic                           pad_periphs_ot_spi_01_pad,
-  inout wire logic                           pad_periphs_ot_spi_02_pad,
-  inout wire logic                           pad_periphs_ot_spi_03_pad,
   inout wire logic                           pad_periphs_cva6_uart_00_pad,
   inout wire logic                           pad_periphs_cva6_uart_01_pad,
   // Config Interface
@@ -63,10 +59,6 @@ module alsaqr_periph_fpga_padframe
    .pad_pad_gpio_b_11_pad(pad_periphs_pad_gpio_b_11_pad),
    .pad_pad_gpio_b_12_pad(pad_periphs_pad_gpio_b_12_pad),
    .pad_pad_gpio_b_13_pad(pad_periphs_pad_gpio_b_13_pad),
-   .pad_ot_spi_00_pad(pad_periphs_ot_spi_00_pad),
-   .pad_ot_spi_01_pad(pad_periphs_ot_spi_01_pad),
-   .pad_ot_spi_02_pad(pad_periphs_ot_spi_02_pad),
-   .pad_ot_spi_03_pad(pad_periphs_ot_spi_03_pad),
    .pad_cva6_uart_00_pad(pad_periphs_cva6_uart_00_pad),
    .pad_cva6_uart_01_pad(pad_periphs_cva6_uart_01_pad),
    .config_req_i(periphs_config_req),
@@ -75,7 +67,7 @@ module alsaqr_periph_fpga_padframe
 
 
    localparam int unsigned NUM_PAD_DOMAINS = 1;
-   localparam int unsigned REG_ADDR_WIDTH = 8;
+   localparam int unsigned REG_ADDR_WIDTH = 7;
    typedef struct packed {
       int unsigned idx;
       logic [REG_ADDR_WIDTH-1:0] start_addr;
@@ -83,7 +75,7 @@ module alsaqr_periph_fpga_padframe
    } addr_rule_t;
 
    localparam addr_rule_t[NUM_PAD_DOMAINS-1:0] ADDR_DEMUX_RULES = '{
-     '{ idx: 0, start_addr: 8'd0,  end_addr: 8'd160}
+     '{ idx: 0, start_addr: 7'd0,  end_addr: 7'd128}
      };
    logic[$clog2(NUM_PAD_DOMAINS+1)-1:0] pad_domain_sel; // +1 since there is an additional error slave
    addr_decode #(

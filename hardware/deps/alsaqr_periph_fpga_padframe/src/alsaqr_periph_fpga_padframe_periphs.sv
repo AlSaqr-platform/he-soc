@@ -24,10 +24,6 @@ module alsaqr_periph_fpga_padframe_periphs
   inout wire logic pad_pad_gpio_b_11_pad,
   inout wire logic pad_pad_gpio_b_12_pad,
   inout wire logic pad_pad_gpio_b_13_pad,
-  inout wire logic pad_ot_spi_00_pad,
-  inout wire logic pad_ot_spi_01_pad,
-  inout wire logic pad_ot_spi_02_pad,
-  inout wire logic pad_ot_spi_03_pad,
   inout wire logic pad_cva6_uart_00_pad,
   inout wire logic pad_cva6_uart_01_pad,
   input req_t config_req_i,
@@ -54,10 +50,6 @@ module alsaqr_periph_fpga_padframe_periphs
      .pad_pad_gpio_b_11_pad,
      .pad_pad_gpio_b_12_pad,
      .pad_pad_gpio_b_13_pad,
-     .pad_ot_spi_00_pad,
-     .pad_ot_spi_01_pad,
-     .pad_ot_spi_02_pad,
-     .pad_ot_spi_03_pad,
      .pad_cva6_uart_00_pad,
      .pad_cva6_uart_01_pad
 
