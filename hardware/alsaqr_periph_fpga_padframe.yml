@@ -108,16 +108,9 @@ pad_domains:
         pad_type: pad_alsaqr
         is_static: false
 
-      - name: ot_spi_{i:2d}
-        mux_groups: [self]
-        description: "opentitan qspi"
-        multiple: 4
-        pad_type: pad_alsaqr
-        is_static: false
-
       - name: cva6_uart_{i:2d}
         mux_groups: [self]
-        description: "cva6 spi"
+        description: "cva6 uart"
         multiple: 2
         pad_type: pad_alsaqr
         is_static: false
@@ -225,25 +218,32 @@ pad_domains:
         output_defaults: 1'b0
         ports:
           - name: spi_sck
-            mux_groups: [ot_spi_00]
+            mux_groups: [pad_gpio_b_01]
             connections:
               chip2pad: clk_i
               oen: 1'b0
               puen: 1'b1
           - name: spi_csn
-            mux_groups: [ot_spi_01]
+            mux_groups: [pad_gpio_b_00]
             connections:
               chip2pad: csn0_i
               oen: 1'b0
               puen: 1'b1
-          - name: spi_sd{i}
-            multiple: 2
-            mux_groups: ["ot_spi_{02+i:2d}"]
+          - name: spi_sd0
+            mux_groups: ["pad_gpio_b_03"]
             connections:
-              chip2pad: sd{i}_i
-              sd{i}_o: pad2chip
-              oen: sd{i}_oen_i
+              chip2pad: sd0_i
+              sd0_o: pad2chip
+              oen: sd0_oen_i
               puen: 1'b1
+          - name: spi_sd1
+            mux_groups: ["pad_gpio_b_02"]
+            connections:
+              chip2pad: sd1_i
+              sd1_o: pad2chip
+              oen: sd1_oen_i
+              puen: 1'b1
+
 
       - name: uart_core
         output_defaults: 1'b1
