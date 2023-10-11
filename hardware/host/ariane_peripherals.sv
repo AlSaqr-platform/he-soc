@@ -11,6 +11,7 @@
 // Xilinx Peripehrals
 module ariane_peripherals
     import udma_subsystem_pkg::N_CAN;
+    import apb_soc_pkg::NUM_ADV_TIMER;
     import ariane_soc::*;
 #(
     parameter  int NumCVA6      = -1,
@@ -24,19 +25,20 @@ module ariane_peripherals
     parameter  bit InclGPIO     = 0,
     parameter  bit InclTimer    = 1
 ) (
-    input  logic            clk_i           , // Clock
-    input  logic            rst_ni          , // Asynchronous reset active low
-    AXI_BUS.Slave           plic            ,
-    AXI_BUS.Slave           uart            ,
-    AXI_BUS.Slave           spi             ,
-    AXI_BUS.Slave           ethernet        ,
-    AXI_BUS.Slave           timer           ,
-    input  logic [31*4-1:0] udma_evt_i      ,
-    input  logic            c2h_irq_i       ,
-    input  logic            cluster_eoc_i   ,
-    input  logic [N_CAN-1:0] can_irq_i      ,
-    input  logic            cl_dma_pe_evt_i ,
-    output logic [NumCVA6-1:0][1:0] irq_o   ,
+    input  logic                          clk_i           , // Clock
+    input  logic                          rst_ni          , // Asynchronous reset active low
+    AXI_BUS.Slave                         plic            ,
+    AXI_BUS.Slave                         uart            ,
+    AXI_BUS.Slave                         spi             ,
+    AXI_BUS.Slave                         ethernet        ,
+    AXI_BUS.Slave                         timer           ,
+    input  logic [31*4-1:0]               udma_evt_i      ,
+    input  logic                          c2h_irq_i       ,
+    input  logic                          cluster_eoc_i   ,
+    input  logic [N_CAN-1:0]              can_irq_i      ,
+    input  logic [(NUM_ADV_TIMER*2)-1:0]  pwm_irq_i      ,
+    input  logic                        cl_dma_pe_evt_i ,
+    output logic [NumCVA6-1:0][1:0]     irq_o   ,
     // UART
     input  logic            rx_i            ,
     output logic            tx_o            ,
@@ -86,7 +88,28 @@ module ariane_peripherals
     assign irq_sources[139]                          = cl_dma_pe_evt_i;
     assign irq_sources[140]                          = can_irq_i[0];
     assign irq_sources[141]                          = can_irq_i[1];
-    assign irq_sources[ariane_soc::NumSources-1:142] = '0;
+
+    // Interrupt CH0 from APB TIMERS
+    assign irq_sources[142]                          = pwm_irq_i[0];
+    assign irq_sources[143]                          = pwm_irq_i[1];
+    assign irq_sources[144]                          = pwm_irq_i[2];
+    assign irq_sources[145]                          = pwm_irq_i[3];
+    assign irq_sources[146]                          = pwm_irq_i[4];
+    assign irq_sources[147]                          = pwm_irq_i[5];
+    assign irq_sources[148]                          = pwm_irq_i[6];
+    assign irq_sources[149]                          = pwm_irq_i[7];
+
+    // Interrupt CH1 from APB TIMERS
+    assign irq_sources[150]                          = pwm_irq_i[8];
+    assign irq_sources[151]                          = pwm_irq_i[9];
+    assign irq_sources[152]                          = pwm_irq_i[10];
+    assign irq_sources[153]                          = pwm_irq_i[11];
+    assign irq_sources[154]                          = pwm_irq_i[12];
+    assign irq_sources[155]                          = pwm_irq_i[13];
+    assign irq_sources[156]                          = pwm_irq_i[14];
+    assign irq_sources[157]                          = pwm_irq_i[15];
+
+    assign irq_sources[ariane_soc::NumSources-1:158] = '0;
 
     REG_BUS #(
         .ADDR_WIDTH ( 32 ),

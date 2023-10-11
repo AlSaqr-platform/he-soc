@@ -386,7 +386,7 @@ module al_saqr
   can_to_pad_t [N_CAN-1 : 0] s_can_to_pad;
   pad_to_can_t [N_CAN-1 : 0] s_pad_to_can;
 
-  pwm_nano_to_pad_t [1:0] s_pwm_nano_to_pad;
+  pwm_nano_to_pad_t [3:0] s_pwm_nano_to_pad;
   pwm_to_pad_t s_pwm_to_pad;
 
   eth_to_pad_t s_eth_to_pad;
@@ -394,8 +394,12 @@ module al_saqr
 
   fll_to_pad_t    s_fll_to_pad;
 
-  assign s_pwm_nano_to_pad[0] = s_pwm_to_pad[3:0];
-  assign s_pwm_nano_to_pad[1] = s_pwm_to_pad[7:4];
+  assign s_pwm_nano_to_pad[3] = s_pwm_to_pad[3:0];
+  assign s_pwm_nano_to_pad[2] = s_pwm_to_pad[7:4];
+
+  assign s_pwm_nano_to_pad[1] = s_pwm_to_pad[11:8];
+  assign s_pwm_nano_to_pad[0] = s_pwm_to_pad[15:12];
+
 
 
   gpio_to_pad_t s_gpio_b_to_pad;

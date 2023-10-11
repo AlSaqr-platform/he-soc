@@ -14,42 +14,156 @@
  * limitations under the License.
  */
 
-/* 
+/*
  * Mantainer: Luca Valente (luca.valente2@unibo.it)
  */
 
 #include <stdio.h>
 #include <stdint.h>
 #include "utils.h"
-#include "../common/encoding.h"
 #include "udma.h"
 #include "timer.h"
+
 #define BUFFER_SIZE 32
+
+//#define FPGA_EMULATION
+//#define SIMPLE_PAD
+
 //#define VERBOSE
 //#define EXTRA_VERBOSE
 
-int main() {
-  alsaqr_periph_padframe_periphs_pad_gpio_pwm0_mux_set (1);
-  alsaqr_periph_padframe_periphs_pad_gpio_pwm1_mux_set (2);
-  alsaqr_periph_padframe_periphs_pad_gpio_pwm2_mux_set (3);
-  alsaqr_periph_padframe_periphs_pad_gpio_pwm3_mux_set (4);
-  alsaqr_periph_padframe_periphs_pad_gpio_pwm4_mux_set (5);
-  alsaqr_periph_padframe_periphs_pad_gpio_pwm5_mux_set (6);
-  alsaqr_periph_padframe_periphs_pad_gpio_pwm6_mux_set (7);
-  alsaqr_periph_padframe_periphs_pad_gpio_pwm7_mux_set (8);
+#define TIMER0_OFFSET 0x1A103000
+#define TIMER1_OFFSET 0x1A223000
+#define TIMER2_OFFSET 0x1A224000
+#define TIMER3_OFFSET 0x1A225000
+#define TIMER4_OFFSET 0x1A226000
+#define TIMER5_OFFSET 0x1A227000
+#define TIMER6_OFFSET 0x1A228000
+#define TIMER7_OFFSET 0x1A229000
 
-  enable_timer();
-  config_counter(0,0,0,0,0,0);
-  set_counter_range(0,0,6);
-  set_threshold(0,0,1,1);
-  set_threshold(0,1,2,2);
-  set_threshold(0,2,3,3);
-  set_threshold(0,3,4,3);
-  start_timer();
-  
-  for(volatile int i = 0; i<100; i++)
+#define N_CH 2
+
+int main() {
+
+  #ifdef FPGA_EMULATION
+  int baud_rate = 115200;
+  int test_freq = 50000000;
+  #else
+  set_flls();
+  int baud_rate = 115200;
+  int test_freq = 100000000;
+  #endif
+  uart_set_cfg(0,(test_freq/baud_rate)>>4);
+
+  #ifdef FPGA_EMULATION
+
+  #else
+    #ifdef SIMPLE_PAD
+
+    #else
+      //out pwm0
+      alsaqr_periph_padframe_periphs_a_38_mux_set (1);
+      alsaqr_periph_padframe_periphs_a_39_mux_set (1);
+      alsaqr_periph_padframe_periphs_a_40_mux_set (1);
+      alsaqr_periph_padframe_periphs_a_41_mux_set (1);
+      //out pwm1
+      alsaqr_periph_padframe_periphs_a_77_mux_set (1);
+      alsaqr_periph_padframe_periphs_a_78_mux_set (1);
+      alsaqr_periph_padframe_periphs_a_79_mux_set (1);
+      alsaqr_periph_padframe_periphs_a_80_mux_set (1);
+    #endif
+  #endif
+
+  // Clock gating timers
+
+  // TIMER 0 CH0 + CH1
+  enable_timer(TIMER0_OFFSET);
+  for (int i=0; i< N_CH; i++) {
+    config_counter(TIMER0_OFFSET,i,249,0,0xFF,0,0);
+    set_counter_range(TIMER0_OFFSET,i,0,0x8);
+    set_threshold(TIMER0_OFFSET,i,0,0x8,3);
+  }
+
+  // TIMER 1 CH0 + CH1
+  enable_timer(TIMER1_OFFSET);
+  for (int i=0; i< N_CH; i++) {
+    config_counter(TIMER1_OFFSET,i,249,0,0xFF,0,0);
+    set_counter_range(TIMER1_OFFSET,i,0,0x8);
+    set_threshold(TIMER1_OFFSET,i,0,0x8,3);
+  }
+
+
+  // TIMER 2 CH0 + CH1
+  enable_timer(TIMER2_OFFSET);
+  for (int i=0; i< N_CH; i++) {
+    config_counter(TIMER2_OFFSET,i,249,0,0xFF,0,0);
+    set_counter_range(TIMER2_OFFSET,i,0,0x8);
+    set_threshold(TIMER2_OFFSET,i,0,0x8,3);
+  }
+
+
+
+  // TIMER 3 CH0 + CH1
+  enable_timer(TIMER3_OFFSET);
+  for (int i=0; i< N_CH; i++) {
+    config_counter(TIMER3_OFFSET,i,249,0,0xFF,0,0);
+    set_counter_range(TIMER3_OFFSET,i,0,0x8);
+    set_threshold(TIMER3_OFFSET,i,0,0x8,3);
+  }
+
+  // TIMER 4 CH0 + CH1
+  enable_timer(TIMER4_OFFSET);
+  for (int i=0; i< N_CH; i++) {
+    config_counter(TIMER4_OFFSET,i,249,0,0xFF,0,0);
+    set_counter_range(TIMER4_OFFSET,i,0,0x8);
+    set_threshold(TIMER4_OFFSET,i,0,0x8,3);
+  }
+
+
+  // TIMER 5 CH0 + CH1
+  enable_timer(TIMER5_OFFSET);
+  for (int i=0; i< N_CH; i++) {
+    config_counter(TIMER5_OFFSET,i,249,0,0xFF,0,0);
+    set_counter_range(TIMER5_OFFSET,i,0,0x8);
+    set_threshold(TIMER5_OFFSET,i,0,0x8,3);
+  }
+
+
+  // TIMER 6 CH0 + CH1
+  enable_timer(TIMER6_OFFSET);
+  for (int i=0; i< N_CH; i++) {
+    config_counter(TIMER6_OFFSET,i,249,0,0xFF,0,0);
+    set_counter_range(TIMER6_OFFSET,i,0,0x8);
+    set_threshold(TIMER6_OFFSET,i,0,0x8,3);
+  }
+
+
+  // TIMER 7 CH0 + CH1
+  enable_timer(TIMER7_OFFSET);
+  for (int i=0; i< N_CH; i++) {
+    config_counter(TIMER7_OFFSET,i,249,0,0xFF,0,0);
+    set_counter_range(TIMER7_OFFSET,i,0,0x8);
+    set_threshold(TIMER7_OFFSET,i,0,0x8,3);
+  }
+
+  printf("Start channels of each timers...\r\n");
+  uart_wait_tx_done();
+
+  // Enable CH0 + CH1 per each timer
+  for (int i=0; i< N_CH; i++) {
+    start_timer(TIMER0_OFFSET, i);
+    start_timer(TIMER1_OFFSET, i);
+    start_timer(TIMER2_OFFSET, i);
+    start_timer(TIMER3_OFFSET, i);
+    start_timer(TIMER4_OFFSET, i);
+    start_timer(TIMER5_OFFSET, i);
+    start_timer(TIMER6_OFFSET, i);
+    start_timer(TIMER7_OFFSET, i);
+  }
+
+  for(volatile int i = 0; i<500000; i++)
     asm volatile ("wfi");
-  
+
   return 0;
-  
+
 }

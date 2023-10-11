@@ -86,7 +86,7 @@ package ariane_soc;
   localparam logic[63:0] HYAXILength    = 64'h20000000;  //HyperRamSize*NumChipsPerHyperbus*HyperbusNumPhys;  // 256MB of hyperrams
   localparam logic[63:0] LLCSPMLength   = 64'h40000;     // up to 256KB of LLC that can be used as scratchpad
   localparam logic[63:0] L2SPMLength    = 64'h10000;     // 64KB of scratchpad memory
-  localparam logic[63:0] APB_SLVSLength = 64'h123000;
+  localparam logic[63:0] APB_SLVSLength = 64'h131000;
 
   // Instantiate AXI protocol checkers
   localparam bit GenProtocolChecker = 1'b0;

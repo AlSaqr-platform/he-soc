@@ -19,7 +19,8 @@ package apb_soc_pkg;
       logic [31:0] end_addr;
    } addr_map_rule_t;
 
-   localparam NUM_APB_SLAVES = 10;
+   localparam NUM_APB_SLAVES = 17;
+   localparam NUM_ADV_TIMER  = 8;
 
    localparam NUM_GPIO = 64;
 
@@ -43,6 +44,13 @@ package apb_soc_pkg;
      Can0Base      = 32'h1A10_8000,
      Can1Base      = 32'h1A10_9000,
      UDMABase      = 32'h1A20_0000,
-     APBUARTBase   = 32'h1A22_2000
+     APBUARTBase   = 32'h1A22_2000,
+     ADVTIMER1Base = 32'h1A22_3000,
+     ADVTIMER2Base = 32'h1A22_4000,
+     ADVTIMER3Base = 32'h1A22_5000,
+     ADVTIMER4Base = 32'h1A22_6000,
+     ADVTIMER5Base = 32'h1A22_7000,
+     ADVTIMER6Base = 32'h1A22_8000,
+     ADVTIMER7Base = 32'h1A22_9000
     } soc_apb_bus_start_t;
 endpackage
