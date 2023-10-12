@@ -14,7 +14,7 @@ dependencies:
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
   cva6: { git: "git@github.com:Alsaqr-platform/cva6.git", rev: "09257252ece00d8bf73652529046b48de1207d12" }
-  ace: { git: "https://github.com/alsaqr-platform/ace.git", rev: "501dee8e46f104c1e2052458daa24c1f153223f2" }
+  ace: { git: "https://github.com/alsaqr-platform/ace.git", rev: "ad18b3eceffc14548d06d1a8d970e75876005a51" }
   riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0  }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.39.1-beta }
   axi_llc: { git: "https://github.com/AlSaqr-platform/axi_llc.git", rev: "29fd76fb438c91c692108c1f93ab221931653c5d" }
