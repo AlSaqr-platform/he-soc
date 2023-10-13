@@ -16,16 +16,16 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Padframe
 - FPUs within the PULP Cluster
-- Added 4 Chip Select per each PHY within the HyperRAM 
+- Added 4 Chip Select per each PHY within the HyperRAM macro
 - Updated Culsans to latest delivery
 
 ### Feature Frozen Macros
 - Cluster
 - Open Titan
+- Hyperram
 
 ### Work In progress Macro
 - Culsans
-- Hyperram
 
 ### Software
 
