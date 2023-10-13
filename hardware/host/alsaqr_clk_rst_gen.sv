@@ -90,70 +90,68 @@ module alsaqr_clk_rst_gen (
       .JTQ    (                )  // Scan data out 5
     );
 
-    assign s_clk_fll_cva6    = s_clk[0];
-    assign s_clk_fll_soc     = s_clk[1];
-    assign s_clk_fll_per     = s_clk[2];
-    assign s_clk_fll_cluster = s_clk[3];
-
-
     tc_clk_mux2 clk_mux_fll_cva6_i (
-      .clk0_i    ( s_clk_fll_cva6  ),
+      .clk0_i    ( s_clk[0]   ),
       .clk1_i    ( ref_clk_i       ),
       .clk_sel_i ( sel_fll_clk_i   ),
-      .clk_o     ( s_clk_cva6      )
+      .clk_o     ( s_clk_fll_cva6      )
     );
 
     tc_clk_mux2 clk_mux_fll_soc_i (
-      .clk0_i    ( s_clk_fll_soc  ),
+      .clk0_i    ( s_clk[1]       ),
       .clk1_i    ( ref_clk_i      ),
       .clk_sel_i ( sel_fll_clk_i  ),
-      .clk_o     ( s_clk_soc      )
+      .clk_o     ( s_clk_fll_soc  )
     );
 
     tc_clk_mux2 clk_mux_fll_per_i (
-      .clk0_i    ( s_clk_fll_per  ),
+      .clk0_i    ( s_clk[2]      ),
       .clk1_i    ( ref_clk_i      ),
       .clk_sel_i ( sel_fll_clk_i  ),
       .clk_o     ( s_clk_per      )
     );
 
     tc_clk_mux2 clk_mux_fll_cluster_i (
-      .clk0_i    ( s_clk_fll_cluster  ),
+      .clk0_i    ( s_clk[3]           ),
       .clk1_i    ( ref_clk_i          ),
       .clk_sel_i ( sel_fll_clk_i      ),
-      .clk_o     ( s_clk_cluster      )
+      .clk_o     ( s_clk_fll_cluster  )
     );
 
-    rstgen i_cva6_rstgen (
-      .clk_i       ( s_clk_cva6               ),
+    rstgen_ckg i_cva6_rstgen (
+      .clk_i       ( s_clk_fll_cva6           ),
       .rst_ni      ( s_rstn_soc & (~rst_dm_i) ),
       .test_mode_i ( test_mode_i              ),
       .rst_no      ( s_rstn_cva6_sync         ), //to be used by logic clocked with ref clock in AO domain
-      .init_no     (                          )                    //not used
+      .init_no     (                          ),                    //not used
+      .clk_o       ( s_clk_cva6 )
     );
 
-    rstgen i_soc_rstgen (
-      .clk_i       ( s_clk_soc                ),
+    rstgen_ckg i_soc_rstgen (
+      .clk_i       ( s_clk_fll_soc            ),
       .rst_ni      ( s_rstn_soc & (~rst_dm_i) ),
       .test_mode_i ( test_mode_i              ),
       .rst_no      ( s_rstn_soc_sync          ), //to be used by logic clocked with ref clock in AO domain
-      .init_no     (                          )                    //not used
+      .init_no     (                          ),                    //not used
+      .clk_o       (  )
     );
 
-    rstgen i_soc_dm_rstgen (
-      .clk_i       ( s_clk_soc                ),
+    rstgen_ckg i_soc_dm_rstgen (
+      .clk_i       ( s_clk_fll_soc            ),
       .rst_ni      ( s_rstn_soc               ), // reset from padreset
       .test_mode_i ( test_mode_i              ),
       .rst_no      ( s_rst_glob_sync          ), //to be used by logic clocked with ref clock in AO domain
-      .init_no     (                          )                    //not used
+      .init_no     (                          ),                    //not used
+      .clk_o       ( s_clk_soc                )
     );
 
-    rstgen i_cluster_rstgen (
-      .clk_i       ( s_clk_cluster            ),
+    rstgen_ckg i_cluster_rstgen (
+      .clk_i       ( s_clk_fll_cluster        ),
       .rst_ni      ( s_rstn_soc & (~rst_dm_i) ),
       .test_mode_i ( test_mode_i              ),
       .rst_no      ( s_rstn_cluster_sync      ), //to be used by logic clocked with ref clock in AO domain
-      .init_no     (                          )                    //not used
+      .init_no     (                          ),                    //not used
+      .clk_o       ( s_clk_cluster            )
     );
 
     clk_mux_glitch_free #(
