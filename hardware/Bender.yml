@@ -13,8 +13,8 @@ dependencies:
   apb_host_control: { path: "deps/apb_host_control_regs" }
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
-  cva6: { git: "git@github.com:Alsaqr-platform/cva6.git", rev: "15f8bc4c2b6217ba48c700562dfc119a2229e333" }
-  ace: { git: "https://github.com/alsaqr-platform/ace.git", rev: "501dee8e46f104c1e2052458daa24c1f153223f2" }
+  cva6: { git: "git@github.com:Alsaqr-platform/cva6.git", rev: "09257252ece00d8bf73652529046b48de1207d12" }
+  ace: { git: "https://github.com/alsaqr-platform/ace.git", rev: "ad18b3eceffc14548d06d1a8d970e75876005a51" }
   riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0  }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.39.1-beta }
   axi_llc: { git: "https://github.com/AlSaqr-platform/axi_llc.git", rev: "29fd76fb438c91c692108c1f93ab221931653c5d" }
@@ -45,6 +45,7 @@ dependencies:
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
   ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "f2c8a5040596476ee1769292a7c48df9b1c05949" }
   sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }
+  
 
 workspace:
   package_links:
@@ -84,6 +85,8 @@ sources:
   - host/freqmeter.sv
   - host/fll_dummy.sv
   - host/alsaqr_clk_rst_gen.sv
+  - host/rstgen_bypass_ckg.sv
+  - host/rstgen_ckg.sv
   - host/apb_soc_control.sv
   - host/apb_subsystem.sv
   - host/gpio2padframe.sv
@@ -149,7 +152,7 @@ sources:
     files:
       - gf22/synopsys/fll/model/DCO_Model_v1p0.vhd
       - gf22/synopsys/fll/netlists/gf22_fll.v
-      - host/alsaqr_clk_rst_gen.
+      - host/alsaqr_clk_rst_gen.sv
       - host/apb_subsystem.sv
       - ../fpga/src/bootrom/bootrom.sv
       - gf22/macro_wrap/r2pv_wrap_gf22.sv
@@ -165,6 +168,15 @@ sources:
       - host/alsaqr_clk_rst_gen.sv
       - host/apb_subsystem.sv
 
+  - target: post_synth_fll
+    defines:
+      GF22_FLL: ~
+    files:
+      - host/alsaqr_clk_rst_gen.sv
+      - host/apb_subsystem.sv
+      - gf22/synopsys/fll/model/DCO_Model_v1p0.vhd
+      - gf22/synopsys/fll/netlists/gf22_fll.v
+
   - target: post_synth_all
     files:
       - gf22/synopsys/fll/model/DCO_Model_v1p0.vhd
@@ -177,7 +189,6 @@ sources:
 
   - target: post_synth_top
     files:
-      - gf22/synopsys/fll/model/DCO_Model_v1p0.vhd
       - gf22/synopsys/fll/netlists/gf22_fll.v
       - gf22/synopsys/hyperbus/trial/netlists/hyperbus_async_macro.v
       - gf22/synopsys/top/trial/netlists/alsaqr_chip.v
@@ -226,17 +237,18 @@ sources:
       - tb/common/jtag_intf.sv
       - tb/common/mock_uart.sv
 
-# For now, instantiating simple testbench until the original one
-# will be updated to the new padframe specification
-
   - target: tb_synth
     defines:
       TARGET_TOP_POST_SYNTH_SIM: ~
+      TARGET_POST_SYNTH_SIM_TOP: ~
+      EXCLUDE_PADFRAME: ~
     files:
-      #- tb/ariane_tb.sv
-      - tb/simple_tb.sv
+      - tb/ariane_tb.sv
 
+  # To be fixed for the new padframe
   - target: tb
+    defines:
+      TARGET_TOP_POST_SYNTH_SIM: ~
+      EXCLUDE_PADFRAME: ~
     files:
-      #- tb/ariane_tb.sv
-      - tb/simple_tb.sv
+      - tb/ariane_tb.sv
