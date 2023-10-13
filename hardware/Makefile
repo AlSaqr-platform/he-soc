@@ -243,6 +243,13 @@ post_synth_top:
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t rtl -t test -t tb_synth -t vip -t post_synth_top -t cv64a6_imafdc_sv39 > $(compile_script)
 
+#The following script generates the compile.tcl using only the following netlists: FLL
+post_synth_fll:
+	$(BENDER) script vsim \
+		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
+    -t rtl -t test -t tb_synth -t vip -t post_synth_fll -t cv64a6_imafdc_sv39 > $(compile_script)
+
+
 #The following script generates the compile.tcl using the following netlists: TOP - HYPER and behavioural model of the FLL (used internally)
 post_synth_top_fll_behav:
 	$(BENDER) script vsim \
@@ -397,7 +404,7 @@ init: bender vips update
 clean:
 	rm -rf $(riscv-torture-dir)/output/test*
 	rm -rf $(library)/ $(dpi-library)/ $(ver-library)/
-	rm -f tmp/*.ucdb tmp/*.log *.wlf *vstf wlft* *.ucdb
+	rm -f tmp/*.ucdb tmp/*.log *.wlf *vstf wlft* *.ucdb *.tcl
 	rm -f *log
 	rm -f transcript
 	rm -f uart
