@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 0.0.3 - alsaqr_161023 - 16/10/2023
+
+### Hardware
+
+### Changed
+
+- L2 subsystem: fixed a deadly bug which was preventing DC compilare to instantiate the memeory cuts. Now the L2 subsystems memory are again instantiated in synthesis.
+
 ## 0.0.2 - alsaqr_131023 - 13/10/2023
 
 ### Hardware
