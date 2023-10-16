@@ -17,7 +17,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch/smatt/alsaqr_prj/alsarq1.0/rst_alsaqr/he-soc/hardware/deps/alsaqr_periph_fpga_padframe
+      Path: /scratch/mciani/master-he-soc/he-soc/hardware/deps/alsaqr_periph_fpga_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -25,7 +25,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch/smatt/alsaqr_prj/alsarq1.0/rst_alsaqr/he-soc/hardware/deps/alsaqr_periph_padframe
+      Path: /scratch/mciani/master-he-soc/he-soc/hardware/deps/alsaqr_periph_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -60,7 +60,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch/smatt/alsaqr_prj/alsarq1.0/rst_alsaqr/he-soc/hardware/deps/apb_host_control_regs
+      Path: /scratch/mciani/master-he-soc/he-soc/hardware/deps/apb_host_control_regs
     dependencies:
       - common_cells
       - register_interface
@@ -75,7 +75,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch/smatt/alsaqr_prj/alsarq1.0/rst_alsaqr/he-soc/hardware/../fpga/src/apb_uart
+      Path: /scratch/mciani/master-he-soc/he-soc/hardware/../fpga/src/apb_uart
     dependencies: []
   axi:
     revision: fccffb5953ec8564218ba05e20adbedec845e014
@@ -121,7 +121,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch/smatt/alsaqr_prj/alsarq1.0/rst_alsaqr/he-soc/hardware/deps/axi_riscv_atomics
+      Path: /scratch/mciani/master-he-soc/he-soc/hardware/deps/axi_riscv_atomics
     dependencies:
       - axi
       - common_cells
@@ -145,7 +145,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch/smatt/alsaqr_prj/alsarq1.0/rst_alsaqr/he-soc/hardware/deps/axi_tlb
+      Path: /scratch/mciani/master-he-soc/he-soc/hardware/deps/axi_tlb
     dependencies:
       - axi
       - common_cells
@@ -161,7 +161,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch/smatt/alsaqr_prj/alsarq1.0/rst_alsaqr/he-soc/hardware/deps/clint
+      Path: /scratch/mciani/master-he-soc/he-soc/hardware/deps/clint
     dependencies:
       - cva6
   cluster_interconnect:
@@ -427,7 +427,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch/smatt/alsaqr_prj/alsarq1.0/rst_alsaqr/he-soc/hardware/deps/rv_plic
+      Path: /scratch/mciani/master-he-soc/he-soc/hardware/deps/rv_plic
     dependencies: []
   scm:
     revision: 998466d2a3c2d7d572e43d2666d93c4f767d8d60
@@ -528,7 +528,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch/smatt/alsaqr_prj/alsarq1.0/rst_alsaqr/he-soc/hardware/deps/util
+      Path: /scratch/mciani/master-he-soc/he-soc/hardware/deps/util
     dependencies:
       - axi
       - common_cells

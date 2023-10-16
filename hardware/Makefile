@@ -217,7 +217,7 @@ scripts:
 scripts_vip_macro:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t macro -t rtl -t test -t tb -t vip -t cv64a6_imafdc_sv39 > compile.tcl
+    -t asic -t rtl -t test -t tb -t vip -t cv64a6_imafdc_sv39 > compile.tcl
 
 scripts_vip:
 	$(BENDER) script vsim \
@@ -404,7 +404,7 @@ init: bender vips update
 clean:
 	rm -rf $(riscv-torture-dir)/output/test*
 	rm -rf $(library)/ $(dpi-library)/ $(ver-library)/
-	rm -f tmp/*.ucdb tmp/*.log *.wlf *vstf wlft* *.ucdb *.tcl
+	rm -f tmp/*.ucdb tmp/*.log *.wlf *vstf wlft* *.ucdb
 	rm -f *log
 	rm -f transcript
 	rm -f uart
@@ -412,6 +412,5 @@ clean:
 clean_regs:
 	rm -f *.riscv
 	rm -f regression.list
-
 
 all: clean build

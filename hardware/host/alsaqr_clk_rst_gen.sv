@@ -57,7 +57,9 @@ module alsaqr_clk_rst_gen (
   logic s_rstn_cluster_sync;
 
   logic [3:0] s_clk;
+  logic       tieoff;
 
+  assign tieoff = 1'b0;
 
   // currently, FLLs are not supported for FPGA emulation
   `ifndef TARGET_FPGA
@@ -80,13 +82,13 @@ module alsaqr_clk_rst_gen (
       .CFGD   ( fll_intf.wdata ), // CFG I/F input data bus (write)
       .CFGQ   ( fll_intf.rdata ), // CFG I/F output data bus (read)
       .CFGWEB ( fll_intf.web   ), // CFG I/F write enable (active low)
-      .PWD    ( 1'b0           ), // Asynchronous power down (active high)
-      .RET    ( 1'b0           ), // Asynchronous retention/isolation control (active high)
-      .TM     ( 1'b0           ), // Test mode (active high)
-      .TE     ( 1'b0           ), // Scan enable (active high)
+      .PWD    ( tieoff         ), // Asynchronous power down (active high)
+      .RET    ( tieoff         ), // Asynchronous retention/isolation control (active high)
+      .TM     ( tieoff         ), // Test mode (active high)
+      .TE     ( tieoff         ), // Scan enable (active high)
       .TD     ( '0             ), // Scan data input for chain 1:4
       .TQ     (                ), // Scan data output for chain 1:4
-      .JTD    ( 1'b0           ), // Scan data in 5
+      .JTD    ( tieoff         ), // Scan data in 5
       .JTQ    (                )  // Scan data out 5
     );
 
