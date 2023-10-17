@@ -78,7 +78,6 @@ module ariane_tb;
   parameter  USE_SDVT_CPI         = 1;
   parameter  USE_SDIO             = 1;
   parameter  USE_CAN              = 1;
-  parameter  GPIO_LOOPBACK        = 0;
 
   ////////////////////////////////
   //                            //
@@ -318,7 +317,6 @@ module ariane_tb;
     //**************************************************
     // PAD VIPs SIGNALS BEGINNING
     //**************************************************
-
     wire    alt_0_pad_periphs_a_00_pad_CORE_UART_TX    ;
     wire    alt_0_pad_periphs_a_01_pad_CORE_UART_RX    ;
     wire    alt_0_pad_periphs_a_02_pad_SDIO0_D1        ;
@@ -586,8 +584,8 @@ module ariane_tb;
     wire    alt_2_pad_periphs_b_47_pad_IO_GPIO47 ;
     wire    alt_3_pad_periphs_b_00_pad_GPS2_UART0_TX   ;
     wire    alt_3_pad_periphs_b_01_pad_GPS2_UART0_RX   ;
-    wire    alt_3_pad_periphs_b_02_pad_GPS2_I2C1_SDA   ;
-    wire    alt_3_pad_periphs_b_03_pad_GPS2_I2C1_SCL   ;
+    wire    alt_3_pad_periphs_b_02_pad_GPS2_I2C1_SCL   ;
+    wire    alt_3_pad_periphs_b_03_pad_GPS2_I2C1_SDA   ;
     wire    alt_3_pad_periphs_b_04_pad_IMU2_SPI4_SCK   ;
     wire    alt_3_pad_periphs_b_05_pad_IMU2_SPI4_CS    ;
     wire    alt_3_pad_periphs_b_06_pad_IMU2_SPI4_MISO  ;
@@ -661,7 +659,6 @@ module ariane_tb;
     wire    alt_1_simple_pad_periphs_11_gpio11 ;
     wire    alt_1_simple_pad_periphs_12_gpio12 ;
     wire    alt_1_simple_pad_periphs_13_gpio13 ;
-
     //**************************************************
     // PAD VIPs SIGNALS END
     //**************************************************
@@ -936,8 +933,8 @@ module ariane_tb;
     logic    alt_2_pad_periphs_b_47_pad_mux_sel_IO_GPIO47 ;
     logic    alt_3_pad_periphs_b_00_pad_mux_sel_GPS2_UART0_TX   ;
     logic    alt_3_pad_periphs_b_01_pad_mux_sel_GPS2_UART0_RX   ;
-    logic    alt_3_pad_periphs_b_02_pad_mux_sel_GPS2_I2C1_SDA   ;
-    logic    alt_3_pad_periphs_b_03_pad_mux_sel_GPS2_I2C1_SCL   ;
+    logic    alt_3_pad_periphs_b_02_pad_mux_sel_GPS2_I2C1_SCL   ;
+    logic    alt_3_pad_periphs_b_03_pad_mux_sel_GPS2_I2C1_SDA   ;
     logic    alt_3_pad_periphs_b_04_pad_mux_sel_IMU2_SPI4_SCK   ;
     logic    alt_3_pad_periphs_b_05_pad_mux_sel_IMU2_SPI4_CS    ;
     logic    alt_3_pad_periphs_b_06_pad_mux_sel_IMU2_SPI4_MISO  ;
@@ -1011,7 +1008,6 @@ module ariane_tb;
     logic    alt_1_simple_pad_periphs_11_mux_sel_gpio11 ;
     logic    alt_1_simple_pad_periphs_12_mux_sel_gpio12 ;
     logic    alt_1_simple_pad_periphs_13_mux_sel_gpio13 ;
-
     //**************************************************
     // PAD VIPs MUX SEL SIGNALS END
     //**************************************************
@@ -1224,7 +1220,95 @@ module ariane_tb;
         //**************************************************
         // ALTERNAME 0 - STANDARD QFN VIPs BEGINNING
         //**************************************************
-        
+        if (USE_UART == 1) begin
+          // config the CORE_UART pads
+          assign alt_0_pad_periphs_a_01_pad_CORE_UART_RX = alt_0_pad_periphs_a_00_pad_CORE_UART_TX;
+          // config the UART0 pads
+          assign alt_0_pad_periphs_a_27_pad_GPS1_UART0_RX = alt_0_pad_periphs_a_26_pad_GPS1_UART0_TX;
+        end
+
+        if(USE_SDIO == 1) begin
+          // configure the SDIO0 pads
+          sdModel alt_0_sdModelTB0(
+          .sdClk ( alt_0_pad_periphs_a_06_pad_SDIO0_CLK ),
+          .cmd   ( alt_0_pad_periphs_a_07_pad_SDIO0_CMD ),
+          .dat   ( {
+                    alt_0_pad_periphs_a_05_pad_SDIO0_D4,
+                    alt_0_pad_periphs_a_04_pad_SDIO0_D3,
+                    alt_0_pad_periphs_a_03_pad_SDIO0_D2,
+                    alt_0_pad_periphs_a_02_pad_SDIO0_D1
+                  } )
+          );
+        end
+
+        if (USE_24FC1025_MODEL == 1) begin
+          // configure the I2C0 pads
+          pullup sda0_pullup_i (alt_0_pad_periphs_a_13_pad_BARO1_I2C0_SDA);
+          pullup scl0_pullup_i (alt_0_pad_periphs_a_12_pad_BARO1_I2C0_SCL);
+            M24FC1025 alt_0_i_i2c_mem_0 (
+              .A0    ( 1'b0       ),
+              .A1    ( 1'b0       ),
+              .A2    ( 1'b1       ),
+              .WP    ( 1'b0       ),
+              .SDA   ( alt_0_pad_periphs_a_13_pad_BARO1_I2C0_SDA ),
+              .SCL   ( alt_0_pad_periphs_a_12_pad_BARO1_I2C0_SCL ),
+              .RESET ( 1'b0       )
+          );
+          // configure the I2C1 pads
+          pullup sda1_pullup_i (alt_0_pad_periphs_a_29_pad_GPS1_I2C1_SDA);
+          pullup scl1_pullup_i (alt_0_pad_periphs_a_28_pad_GPS1_I2C1_SCL);
+            M24FC1025 alt_0_i_i2c_mem_1 (
+              .A0    ( 1'b0       ),
+              .A1    ( 1'b0       ),
+              .A2    ( 1'b1       ),
+              .WP    ( 1'b0       ),
+              .SDA   ( alt_0_pad_periphs_a_29_pad_GPS1_I2C1_SDA ),
+              .SCL   ( alt_0_pad_periphs_a_28_pad_GPS1_I2C1_SCL ),
+              .RESET ( 1'b0       )
+          );
+        end
+
+        if(USE_S25FS256S_MODEL == 1) begin
+          // configure the SPI0 pads
+          s25fs256s #(
+            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
+            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
+            .UserPreload   ( 0 )
+          ) alt_0_i_spi_flash_csn0 (
+            .SI       ( alt_0_pad_periphs_a_17_pad_IMU1_SPI0_MOSI ),
+            .SO       ( alt_0_pad_periphs_a_16_pad_IMU1_SPI0_MISO ),
+            .SCK      ( alt_0_pad_periphs_a_14_pad_IMU1_SPI0_SCK  ),
+            .CSNeg    ( alt_0_pad_periphs_a_15_pad_IMU1_SPI0_CS   ),
+            .WPNeg    (  ),
+            .RESETNeg (  )
+          );
+          // configure the SPI1 pads
+          s25fs256s #(
+            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
+            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
+            .UserPreload   ( 0 )
+          ) alt_0_i_spi_flash_csn1 (
+            .SI       ( alt_0_pad_periphs_a_21_pad_FRAM_SPI1_MOSI ),
+            .SO       ( alt_0_pad_periphs_a_20_pad_FRAM_SPI1_MISO ),
+            .SCK      ( alt_0_pad_periphs_a_18_pad_FRAM_SPI1_SCK  ),
+            .CSNeg    ( alt_0_pad_periphs_a_19_pad_FRAM_SPI1_CS   ),
+            .WPNeg    (  ),
+            .RESETNeg (  )
+          );
+          // configure the SPI2 pads
+          s25fs256s #(
+            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
+            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
+            .UserPreload   ( 0 )
+          ) alt_0_i_spi_flash_csn2 (
+            .SI       ( alt_0_pad_periphs_a_25_pad_ADIO1_SPI2_MOSI ),
+            .SO       ( alt_0_pad_periphs_a_24_pad_ADIO1_SPI2_MISO ),
+            .SCK      ( alt_0_pad_periphs_a_22_pad_ADIO1_SPI2_SCK  ),
+            .CSNeg    ( alt_0_pad_periphs_a_23_pad_ADIO1_SPI2_CS   ),
+            .WPNeg    (  ),
+            .RESETNeg (  )
+          );
+        end
         //**************************************************
         // ALTERNAME 0 - STANDARD QFN VIPs END
         //**************************************************
@@ -1232,7 +1316,88 @@ module ariane_tb;
         //**************************************************
         // ALTERNAME 0 - STANDARD CPGA VIPs BEGINNING
         //**************************************************
+        if(USE_USART == 1) begin
+          // config the USART0 pads
+          assign alt_0_pad_periphs_b_01_pad_TLM1_USART0_RX  = alt_0_pad_periphs_b_00_pad_TLM1_USART0_TX;
+          assign alt_0_pad_periphs_b_03_pad_TLM1_USART0_CTS = alt_0_pad_periphs_b_02_pad_TLM1_USART0_RTS;
+          // config the USART1 pads
+          assign alt_0_pad_periphs_b_20_pad_IO_USART1_RX  = alt_0_pad_periphs_b_19_pad_IO_USART1_TX;
+          assign alt_0_pad_periphs_b_22_pad_IO_USART1_CTS = alt_0_pad_periphs_b_21_pad_IO_USART1_RTS;
+        end
 
+        if(USE_S25FS256S_MODEL == 1) begin
+          // configure the SPI3 pads
+          s25fs256s #(
+            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
+            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
+            .UserPreload   ( 0 )
+          ) alt_0_i_spi_flash_csn3 (
+            .SI       ( alt_0_pad_periphs_b_07_pad_ADC0_SPI3_MOSI ),
+            .SO       ( alt_0_pad_periphs_b_06_pad_ADC0_SPI3_MISO ),
+            .SCK      ( alt_0_pad_periphs_b_04_pad_ADC0_SPI3_SCK  ),
+            .CSNeg    ( alt_0_pad_periphs_b_05_pad_ADC0_SPI3_CS   ),
+            .WPNeg    (  ),
+            .RESETNeg (  )
+          );
+          // configure the SPI6 pads
+          s25fs256s #(
+            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
+            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
+            .UserPreload   ( 0 )
+          ) alt_0_i_spi_flash_csn6 (
+            .SI       ( alt_0_pad_periphs_b_12_pad_EXT1_SPI6_MOSI ),
+            .SO       ( alt_0_pad_periphs_b_11_pad_EXT1_SPI6_MISO ),
+            .SCK      ( alt_0_pad_periphs_b_10_pad_EXT1_SPI6_SCK  ),
+            .CSNeg    ( alt_0_pad_periphs_b_13_pad_EXT1_SPI6_CS0  ),
+            .WPNeg    (  ),
+            .RESETNeg (  )
+          );
+          // configure the SPI9 pads
+          s25fs256s #(
+            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
+            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
+            .UserPreload   ( 0 )
+          ) alt_0_i_spi_flash_csn9 (
+            .SI       ( alt_0_pad_periphs_b_41_pad_USB2_SPI9_MOSI ),
+            .SO       ( alt_0_pad_periphs_b_40_pad_USB2_SPI9_MISO ),
+            .SCK      ( alt_0_pad_periphs_b_38_pad_USB1_SPI9_SCK  ),
+            .CSNeg    ( alt_0_pad_periphs_b_39_pad_USB1_SPI9_CS   ),
+            .WPNeg    (  ),
+            .RESETNeg (  )
+          );
+        end
+
+        if (USE_24FC1025_MODEL == 1) begin
+          // configure the I2C2 pads
+          pullup sda0_pullup_i (alt_0_pad_periphs_b_09_pad_PMIC_I2C2_SDA);
+          pullup scl0_pullup_i (alt_0_pad_periphs_b_08_pad_PMIC_I2C2_SCL);
+            M24FC1025 alt_0_i_i2c_mem_2 (
+              .A0    ( 1'b0       ),
+              .A1    ( 1'b0       ),
+              .A2    ( 1'b1       ),
+              .WP    ( 1'b0       ),
+              .SDA   ( alt_0_pad_periphs_b_09_pad_PMIC_I2C2_SDA ),
+              .SCL   ( alt_0_pad_periphs_b_08_pad_PMIC_I2C2_SCL ),
+              .RESET ( 1'b0       )
+          );
+          // configure the I2C4 pads
+          pullup sda0_pullup_i (alt_0_pad_periphs_b_16_pad_EXT2_I2C4_SDA);
+          pullup scl0_pullup_i (alt_0_pad_periphs_b_15_pad_EXT2_I2C4_SCL);
+            M24FC1025 alt_0_i_i2c_mem_4 (
+              .A0    ( 1'b0       ),
+              .A1    ( 1'b0       ),
+              .A2    ( 1'b1       ),
+              .WP    ( 1'b0       ),
+              .SDA   ( alt_0_pad_periphs_b_16_pad_EXT2_I2C4_SDA ),
+              .SCL   ( alt_0_pad_periphs_b_15_pad_EXT2_I2C4_SCL ),
+              .RESET ( 1'b0       )
+          );
+        end
+
+        if (USE_UART == 1) begin
+          // config the UART1 pads
+          assign alt_0_pad_periphs_b_18_pad_EXT3_UART1_RX = alt_0_pad_periphs_b_17_pad_EXT3_UART1_TX;
+        end
         //**************************************************
         // ALTERNAME 0 - STANDARD CPGA VIPs END
         //**************************************************
@@ -1240,7 +1405,77 @@ module ariane_tb;
         //**************************************************
         // ALTERNAME 1 - NANO QFN VIPs BEGINNING
         //**************************************************
+        if (USE_UART == 1) begin
+          // config the CORE_UART pads
+          assign alt_1_pad_periphs_a_01_pad_CORE_UART_RX = alt_1_pad_periphs_a_00_pad_CORE_UART_TX;
+          // config the UART0 pads
+          assign alt_1_pad_periphs_a_15_pad_GPS1_UART0_RX = alt_1_pad_periphs_a_14_pad_GPS1_UART0_TX;
+        end
 
+        if(USE_S25FS256S_MODEL == 1) begin
+          // configure the LINUX QSPI pads
+          s25fs256s #(
+            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
+            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
+            .UserPreload   ( 0 )
+          ) alt_1_i_linux_qspi (
+            .SI       ( alt_1_pad_periphs_a_05_pad_LINUX_QSPI_IO1 ),
+            .SO       ( alt_1_pad_periphs_a_06_pad_LINUX_QSPI_IO2 ),
+            .SCK      ( alt_1_pad_periphs_a_02_pad_LINUX_QSPI_SCK ),
+            .CSNeg    ( alt_1_pad_periphs_a_03_pad_LINUX_QSPI_CSN ),
+            .WPNeg    (  ),
+            .RESETNeg (  )
+          );
+        end
+
+        if (USE_24FC1025_MODEL == 1) begin
+          // configure the I2C0 pads
+          pullup sda0_pullup_i (alt_1_pad_periphs_a_09_pad_BARO1_I2C0_SDA);
+          pullup scl0_pullup_i (alt_1_pad_periphs_a_08_pad_BARO1_I2C0_SCL);
+            M24FC1025 alt_1_i_i2c_mem_0 (
+              .A0    ( 1'b0       ),
+              .A1    ( 1'b0       ),
+              .A2    ( 1'b1       ),
+              .WP    ( 1'b0       ),
+              .SDA   ( alt_1_pad_periphs_a_09_pad_BARO1_I2C0_SDA ),
+              .SCL   ( alt_1_pad_periphs_a_08_pad_BARO1_I2C0_SCL ),
+              .RESET ( 1'b0       )
+          );
+          // configure the I2C1 pads
+          pullup sda1_pullup_i (alt_1_pad_periphs_a_17_pad_GPS1_I2C1_SDA);
+          pullup scl1_pullup_i (alt_1_pad_periphs_a_16_pad_GPS1_I2C1_SCL);
+            M24FC1025 alt_1_i_i2c_mem_1 (
+              .A0    ( 1'b0       ),
+              .A1    ( 1'b0       ),
+              .A2    ( 1'b1       ),
+              .WP    ( 1'b0       ),
+              .SDA   ( alt_1_pad_periphs_a_17_pad_GPS1_I2C1_SDA ),
+              .SCL   ( alt_1_pad_periphs_a_16_pad_GPS1_I2C1_SCL ),
+              .RESET ( 1'b0       )
+          );
+        end
+
+        if (USE_SDVT_CPI==1) begin
+          // configure the CAM0 pads
+          cam_vip #(
+            .HRES       ( 32 ), //320
+            .VRES       ( 32 )  //240
+          ) alt_1_i_cam_vip_0 (
+            .en_i        ( alt_1_pad_periphs_b_26_pad_IO_GPIO_B_26    ),  //GPIO26
+            .cam_clk_o   ( alt_1_pad_periphs_a_18_pad_CAM0_CPI0_CLK   ),
+            .cam_vsync_o ( alt_1_pad_periphs_a_19_pad_CAM0_CPI0_VSYNC ),
+            .cam_href_o  ( alt_1_pad_periphs_a_20_pad_CAM0_CPI0_HSYNC ),
+            .cam_data_o  ( w_cam_0_data  )
+          );
+          assign alt_1_pad_periphs_a_21_pad_CAM0_CPI0_DAT0 = w_cam_0_data[0];
+          assign alt_1_pad_periphs_a_22_pad_CAM0_CPI0_DAT1 = w_cam_0_data[1];
+          assign alt_1_pad_periphs_a_23_pad_CAM0_CPI0_DAT2 = w_cam_0_data[2];
+          assign alt_1_pad_periphs_a_24_pad_CAM0_CPI0_DAT3 = w_cam_0_data[3];
+          assign alt_1_pad_periphs_a_25_pad_CAM0_CPI0_DAT4 = w_cam_0_data[4];
+          assign alt_1_pad_periphs_a_26_pad_CAM0_CPI0_DAT5 = w_cam_0_data[5];
+          assign alt_1_pad_periphs_a_27_pad_CAM0_CPI0_DAT6 = w_cam_0_data[6];
+          assign alt_1_pad_periphs_a_28_pad_CAM0_CPI0_DAT7 = w_cam_0_data[7];
+        end
         //**************************************************
         // ALTERNAME 1 - NANO QFN VIPs END
         //**************************************************
@@ -1248,7 +1483,102 @@ module ariane_tb;
         //**************************************************
         // ALTERNAME 1 - NANO CPGA VIPs BEGINNING
         //**************************************************
+        if(USE_SDIO == 1) begin
+          // configure the SDIO1 pads
+          sdModel alt_1_sdModelTB1(
+          .sdClk ( alt_1_pad_periphs_b_04_pad_WIRELESS_SDIO1_CLK ),
+          .cmd   ( alt_1_pad_periphs_b_05_pad_WIRELESS_SDIO1_CMD ),
+          .dat   ( {
+                    alt_1_pad_periphs_b_03_pad_WIRELESS_SDIO1_D3,
+                    alt_1_pad_periphs_b_02_pad_WIRELESS_SDIO1_D2,
+                    alt_1_pad_periphs_b_01_pad_WIRELESS_SDIO1_D1,
+                    alt_1_pad_periphs_b_00_pad_WIRELESS_SDIO1_D0
+                  } )
+          );
+        end
 
+        if(USE_S25FS256S_MODEL == 1) begin
+          // configure the SPI0 pads
+          s25fs256s #(
+            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
+            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
+            .UserPreload   ( 0 )
+          ) alt_1_i_spi_flash_csn0 (
+            .SI       ( alt_1_pad_periphs_b_09_pad_IMU1_SPI0_MOSI ),
+            .SO       ( alt_1_pad_periphs_b_08_pad_IMU1_SPI0_MISO ),
+            .SCK      ( alt_1_pad_periphs_b_06_pad_IMU1_SPI0_SCK  ),
+            .CSNeg    ( alt_1_pad_periphs_b_07_pad_IMU1_SPI0_CS   ),
+            .WPNeg    (  ),
+            .RESETNeg (  )
+          );
+          // configure the SPI3 pads
+          s25fs256s #(
+            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
+            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
+            .UserPreload   ( 0 )
+          ) alt_1_i_spi_flash_csn3 (
+            .SI       ( alt_1_pad_periphs_b_17_pad_ADC0_SPI3_MOSI ),
+            .SO       ( alt_1_pad_periphs_b_16_pad_ADC0_SPI3_MISO ),
+            .SCK      ( alt_1_pad_periphs_b_14_pad_ADC0_SPI3_SCK  ),
+            .CSNeg    ( alt_1_pad_periphs_b_15_pad_ADC0_SPI3_CS   ),
+            .WPNeg    (  ),
+            .RESETNeg (  )
+          );
+          // configure the SPI1 pads
+          s25fs256s #(
+            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
+            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
+            .UserPreload   ( 0 )
+          ) alt_1_i_spi_flash_csn1 (
+            .SI       ( alt_1_pad_periphs_b_21_pad_FRAM_SPI1_MOSI ),
+            .SO       ( alt_1_pad_periphs_b_20_pad_FRAM_SPI1_MISO ),
+            .SCK      ( alt_1_pad_periphs_b_18_pad_FRAM_SPI1_SCK  ),
+            .CSNeg    ( alt_1_pad_periphs_b_19_pad_FRAM_SPI1_CS   ),
+            .WPNeg    (  ),
+            .RESETNeg (  )
+          );
+          // configure the SPI2 pads
+          s25fs256s #(
+            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
+            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
+            .UserPreload   ( 0 )
+          ) alt_1_i_spi_flash_csn2 (
+            .SI       ( alt_1_pad_periphs_b_25_pad_ADIO1_SPI2_MOSI ),
+            .SO       ( alt_1_pad_periphs_b_24_pad_ADIO1_SPI2_MISO ),
+            .SCK      ( alt_1_pad_periphs_b_22_pad_ADIO1_SPI2_SCK  ),
+            .CSNeg    ( alt_1_pad_periphs_b_23_pad_ADIO1_SPI2_CS   ),
+            .WPNeg    (  ),
+            .RESETNeg (  )
+          );
+        end
+
+        if(USE_USART == 1) begin
+          // config the USART0 pads
+          assign alt_1_pad_periphs_b_11_pad_TLM1_USART0_RX  = alt_1_pad_periphs_b_10_pad_TLM1_USART0_TX;
+          assign alt_1_pad_periphs_b_13_pad_TLM1_USART0_CTS = alt_1_pad_periphs_b_12_pad_TLM1_USART0_RTS;
+        end
+
+        if (USE_SDVT_CPI==1) begin
+          // configure the CAM1 pads
+          cam_vip #(
+            .HRES       ( 32 ), //320
+            .VRES       ( 32 )  //240
+          ) alt_1_i_cam_vip_1 (
+            .en_i        ( alt_1_pad_periphs_b_27_pad_IO_GPIO_B_27    ),  //GPIO27
+            .cam_clk_o   ( alt_1_pad_periphs_b_36_pad_CAM1_CPI1_CLK   ),
+            .cam_vsync_o ( alt_1_pad_periphs_b_37_pad_CAM1_CPI1_VSYNC ),
+            .cam_href_o  ( alt_1_pad_periphs_b_38_pad_CAM1_CPI1_HSYNC ),
+            .cam_data_o  ( w_cam_1_data  )
+          );
+          assign alt_1_pad_periphs_b_39_pad_CAM1_CPI1_DAT0 = w_cam_1_data[0];
+          assign alt_1_pad_periphs_b_40_pad_CAM1_CPI1_DAT1 = w_cam_1_data[1];
+          assign alt_1_pad_periphs_b_41_pad_CAM1_CPI1_DAT2 = w_cam_1_data[2];
+          assign alt_1_pad_periphs_b_42_pad_CAM1_CPI1_DAT3 = w_cam_1_data[3];
+          assign alt_1_pad_periphs_b_43_pad_CAM1_CPI1_DAT4 = w_cam_1_data[4];
+          assign alt_1_pad_periphs_b_44_pad_CAM1_CPI1_DAT5 = w_cam_1_data[5];
+          assign alt_1_pad_periphs_b_45_pad_CAM1_CPI1_DAT6 = w_cam_1_data[6];
+          assign alt_1_pad_periphs_b_46_pad_CAM1_CPI1_DAT7 = w_cam_1_data[7];
+        end
         //**************************************************
         // ALTERNAME 1 - NANO CPGA VIPs END
         //**************************************************
@@ -1256,7 +1586,25 @@ module ariane_tb;
         //**************************************************
         // ALTERNAME 2 - COMM QFN VIPs BEGINNING
         //**************************************************
+        if(USE_USART == 1) begin
+          // config the USART1 pads
+          assign alt_2_pad_periphs_a_06_pad_IO_USART1_RX  = alt_2_pad_periphs_a_05_pad_IO_USART1_TX;
+          assign alt_2_pad_periphs_a_08_pad_IO_USART1_CTS = alt_2_pad_periphs_a_07_pad_IO_USART1_RTS;
+        end
 
+        if(USE_SDIO == 1) begin
+          // configure the SDIO0 pads
+          sdModel alt_2_sdModelTB2(
+          .sdClk ( alt_2_pad_periphs_a_13_pad_WIRELESS_SDIO2_CLK ),
+          .cmd   ( alt_2_pad_periphs_a_14_pad_WIRELESS_SDIO2_CMD ),
+          .dat   ( {
+                    alt_2_pad_periphs_a_12_pad_WIRELESS_SDIO2_D3,
+                    alt_2_pad_periphs_a_11_pad_WIRELESS_SDIO2_D2,
+                    alt_2_pad_periphs_a_10_pad_WIRELESS_SDIO2_D1,
+                    alt_2_pad_periphs_a_09_pad_WIRELESS_SDIO2_D0
+                  } )
+          );
+        end
         //**************************************************
         // ALTERNAME 2 - COMM QFN VIPs END
         //**************************************************
@@ -1264,7 +1612,30 @@ module ariane_tb;
         //**************************************************
         // ALTERNAME 2 - COMM CPGA VIPs BEGINNING
         //**************************************************
-
+        tran alt_2_pad_periphs_b_00_47_gpio_loopback (alt_2_pad_periphs_b_00_pad_IO_GPIO00, alt_2_pad_periphs_b_47_pad_IO_GPIO47);
+        tran alt_2_pad_periphs_b_01_46_gpio_loopback (alt_2_pad_periphs_b_01_pad_IO_GPIO01, alt_2_pad_periphs_b_46_pad_IO_GPIO46);
+        tran alt_2_pad_periphs_b_02_45_gpio_loopback (alt_2_pad_periphs_b_02_pad_IO_GPIO02, alt_2_pad_periphs_b_45_pad_IO_GPIO45);
+        tran alt_2_pad_periphs_b_03_44_gpio_loopback (alt_2_pad_periphs_b_03_pad_IO_GPIO03, alt_2_pad_periphs_b_44_pad_IO_GPIO44);
+        tran alt_2_pad_periphs_b_04_43_gpio_loopback (alt_2_pad_periphs_b_04_pad_IO_GPIO04, alt_2_pad_periphs_b_43_pad_IO_GPIO43);
+        tran alt_2_pad_periphs_b_05_42_gpio_loopback (alt_2_pad_periphs_b_05_pad_IO_GPIO05, alt_2_pad_periphs_b_42_pad_IO_GPIO42);
+        tran alt_2_pad_periphs_b_06_41_gpio_loopback (alt_2_pad_periphs_b_06_pad_IO_GPIO06, alt_2_pad_periphs_b_41_pad_IO_GPIO41);
+        tran alt_2_pad_periphs_b_07_40_gpio_loopback (alt_2_pad_periphs_b_07_pad_IO_GPIO07, alt_2_pad_periphs_b_40_pad_IO_GPIO40);
+        tran alt_2_pad_periphs_b_08_39_gpio_loopback (alt_2_pad_periphs_b_08_pad_IO_GPIO08, alt_2_pad_periphs_b_39_pad_IO_GPIO39);
+        tran alt_2_pad_periphs_b_09_38_gpio_loopback (alt_2_pad_periphs_b_09_pad_IO_GPIO09, alt_2_pad_periphs_b_38_pad_IO_GPIO38);
+        tran alt_2_pad_periphs_b_10_37_gpio_loopback (alt_2_pad_periphs_b_10_pad_IO_GPIO10, alt_2_pad_periphs_b_37_pad_IO_GPIO37);
+        tran alt_2_pad_periphs_b_11_36_gpio_loopback (alt_2_pad_periphs_b_11_pad_IO_GPIO11, alt_2_pad_periphs_b_36_pad_IO_GPIO36);
+        tran alt_2_pad_periphs_b_12_35_gpio_loopback (alt_2_pad_periphs_b_12_pad_IO_GPIO12, alt_2_pad_periphs_b_35_pad_IO_GPIO35);
+        tran alt_2_pad_periphs_b_13_34_gpio_loopback (alt_2_pad_periphs_b_13_pad_IO_GPIO13, alt_2_pad_periphs_b_34_pad_IO_GPIO34);
+        tran alt_2_pad_periphs_b_14_33_gpio_loopback (alt_2_pad_periphs_b_14_pad_IO_GPIO14, alt_2_pad_periphs_b_33_pad_IO_GPIO33);
+        tran alt_2_pad_periphs_b_15_32_gpio_loopback (alt_2_pad_periphs_b_15_pad_IO_GPIO15, alt_2_pad_periphs_b_32_pad_IO_GPIO32);
+        tran alt_2_pad_periphs_b_16_31_gpio_loopback (alt_2_pad_periphs_b_16_pad_IO_GPIO16, alt_2_pad_periphs_b_31_pad_IO_GPIO31);
+        tran alt_2_pad_periphs_b_17_30_gpio_loopback (alt_2_pad_periphs_b_17_pad_IO_GPIO17, alt_2_pad_periphs_b_30_pad_IO_GPIO30);
+        tran alt_2_pad_periphs_b_18_29_gpio_loopback (alt_2_pad_periphs_b_18_pad_IO_GPIO18, alt_2_pad_periphs_b_29_pad_IO_GPIO29);
+        tran alt_2_pad_periphs_b_19_28_gpio_loopback (alt_2_pad_periphs_b_19_pad_IO_GPIO19, alt_2_pad_periphs_b_28_pad_IO_GPIO28);
+        tran alt_2_pad_periphs_b_20_27_gpio_loopback (alt_2_pad_periphs_b_20_pad_IO_GPIO20, alt_2_pad_periphs_b_27_pad_IO_GPIO27);
+        tran alt_2_pad_periphs_b_21_26_gpio_loopback (alt_2_pad_periphs_b_21_pad_IO_GPIO21, alt_2_pad_periphs_b_26_pad_IO_GPIO26);
+        tran alt_2_pad_periphs_b_22_25_gpio_loopback (alt_2_pad_periphs_b_22_pad_IO_GPIO22, alt_2_pad_periphs_b_25_pad_IO_GPIO25);
+        tran alt_2_pad_periphs_b_23_24_gpio_loopback (alt_2_pad_periphs_b_23_pad_IO_GPIO23, alt_2_pad_periphs_b_24_pad_IO_GPIO24);
         //**************************************************
         // ALTERNAME 2 - COMM CPGA VIPs END
         //**************************************************
@@ -1272,7 +1643,21 @@ module ariane_tb;
         //**************************************************
         // ALTERNAME 3 - GPIOs QFN VIPs BEGINNING
         //**************************************************
-
+        tran alt_3_pad_periphs_a_00_29_gpio_loopback (alt_3_pad_periphs_a_00_pad_IO_GPIO00, alt_3_pad_periphs_a_29_pad_IO_GPIO29);
+        tran alt_3_pad_periphs_a_01_28_gpio_loopback (alt_3_pad_periphs_a_01_pad_IO_GPIO01, alt_3_pad_periphs_a_28_pad_IO_GPIO28);
+        tran alt_3_pad_periphs_a_02_27_gpio_loopback (alt_3_pad_periphs_a_02_pad_IO_GPIO02, alt_3_pad_periphs_a_27_pad_IO_GPIO27);
+        tran alt_3_pad_periphs_a_03_26_gpio_loopback (alt_3_pad_periphs_a_03_pad_IO_GPIO03, alt_3_pad_periphs_a_26_pad_IO_GPIO26);
+        tran alt_3_pad_periphs_a_04_25_gpio_loopback (alt_3_pad_periphs_a_04_pad_IO_GPIO04, alt_3_pad_periphs_a_25_pad_IO_GPIO25);
+        tran alt_3_pad_periphs_a_05_24_gpio_loopback (alt_3_pad_periphs_a_05_pad_IO_GPIO05, alt_3_pad_periphs_a_24_pad_IO_GPIO24);
+        tran alt_3_pad_periphs_a_06_23_gpio_loopback (alt_3_pad_periphs_a_06_pad_IO_GPIO06, alt_3_pad_periphs_a_23_pad_IO_GPIO23);
+        tran alt_3_pad_periphs_a_07_22_gpio_loopback (alt_3_pad_periphs_a_07_pad_IO_GPIO07, alt_3_pad_periphs_a_22_pad_IO_GPIO22);
+        tran alt_3_pad_periphs_a_08_21_gpio_loopback (alt_3_pad_periphs_a_08_pad_IO_GPIO08, alt_3_pad_periphs_a_21_pad_IO_GPIO21);
+        tran alt_3_pad_periphs_a_09_20_gpio_loopback (alt_3_pad_periphs_a_09_pad_IO_GPIO09, alt_3_pad_periphs_a_20_pad_IO_GPIO20);
+        tran alt_3_pad_periphs_a_10_19_gpio_loopback (alt_3_pad_periphs_a_10_pad_IO_GPIO10, alt_3_pad_periphs_a_19_pad_IO_GPIO19);
+        tran alt_3_pad_periphs_a_11_18_gpio_loopback (alt_3_pad_periphs_a_11_pad_IO_GPIO11, alt_3_pad_periphs_a_18_pad_IO_GPIO18);
+        tran alt_3_pad_periphs_a_12_17_gpio_loopback (alt_3_pad_periphs_a_12_pad_IO_GPIO12, alt_3_pad_periphs_a_17_pad_IO_GPIO17);
+        tran alt_3_pad_periphs_a_13_16_gpio_loopback (alt_3_pad_periphs_a_13_pad_IO_GPIO13, alt_3_pad_periphs_a_16_pad_IO_GPIO16);
+        tran alt_3_pad_periphs_a_14_15_gpio_loopback (alt_3_pad_periphs_a_14_pad_IO_GPIO14, alt_3_pad_periphs_a_15_pad_IO_GPIO15);
         //**************************************************
         // ALTERNAME 3 - GPIOs QFN VIPs END
         //**************************************************
@@ -1280,7 +1665,122 @@ module ariane_tb;
         //**************************************************
         // ALTERNAME 3 - GPIOs CPGA VIPs BEGINNING
         //**************************************************
+        if (USE_UART == 1) begin
+          // config the UART0 pads
+          assign alt_3_pad_periphs_b_01_pad_GPS2_UART0_RX = alt_3_pad_periphs_b_00_pad_GPS2_UART0_TX;
+        end
 
+        if (USE_24FC1025_MODEL == 1) begin
+          // configure the I2C1 pads
+          pullup sda0_pullup_i (alt_3_pad_periphs_b_03_pad_GPS2_I2C1_SDA);
+          pullup scl0_pullup_i (alt_3_pad_periphs_b_02_pad_GPS2_I2C1_SCL);
+            M24FC1025 alt_3_i_i2c_mem_1 (
+              .A0    ( 1'b0       ),
+              .A1    ( 1'b0       ),
+              .A2    ( 1'b1       ),
+              .WP    ( 1'b0       ),
+              .SDA   ( alt_3_pad_periphs_b_03_pad_GPS2_I2C1_SDA ),
+              .SCL   ( alt_3_pad_periphs_b_02_pad_GPS2_I2C1_SCL ),
+              .RESET ( 1'b0       )
+          );
+          // configure the I2C3 pads
+          pullup sda0_pullup_i (alt_3_pad_periphs_b_09_pad_BARO2_I2C3_SDA);
+          pullup scl0_pullup_i (alt_3_pad_periphs_b_08_pad_BARO2_I2C3_SCL);
+            M24FC1025 alt_3_i_i2c_mem_3 (
+              .A0    ( 1'b0       ),
+              .A1    ( 1'b0       ),
+              .A2    ( 1'b1       ),
+              .WP    ( 1'b0       ),
+              .SDA   ( alt_3_pad_periphs_b_09_pad_BARO2_I2C3_SDA ),
+              .SCL   ( alt_3_pad_periphs_b_08_pad_BARO2_I2C3_SCL ),
+              .RESET ( 1'b0       )
+          );
+        end
+
+        if(USE_S25FS256S_MODEL == 1) begin
+          // configure the SPI4 pads
+          s25fs256s #(
+            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
+            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
+            .UserPreload   ( 0 )
+          ) alt_3_i_spi_flash_csn4 (
+            .SI       ( alt_3_pad_periphs_b_07_pad_IMU2_SPI4_MOSI ),
+            .SO       ( alt_3_pad_periphs_b_06_pad_IMU2_SPI4_MISO ),
+            .SCK      ( alt_3_pad_periphs_b_04_pad_IMU2_SPI4_SCK  ),
+            .CSNeg    ( alt_3_pad_periphs_b_05_pad_IMU2_SPI4_CS   ),
+            .WPNeg    (  ),
+            .RESETNeg (  )
+          );
+          // configure the SPI5 pads
+          s25fs256s #(
+            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
+            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
+            .UserPreload   ( 0 )
+          ) alt_3_i_spi_flash_csn5 (
+            .SI       ( alt_3_pad_periphs_b_13_pad_IMU3_SPI5_MOSI ),
+            .SO       ( alt_3_pad_periphs_b_12_pad_IMU3_SPI5_MISO ),
+            .SCK      ( alt_3_pad_periphs_b_10_pad_IMU3_SPI5_SCK  ),
+            .CSNeg    ( alt_3_pad_periphs_b_11_pad_IMU3_SPI5_CS   ),
+            .WPNeg    (  ),
+            .RESETNeg (  )
+          );
+          // configure the SPI7 pads
+          s25fs256s #(
+            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
+            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
+            .UserPreload   ( 0 )
+          ) alt_3_i_spi_flash_csn7 (
+            .SI       ( alt_3_pad_periphs_b_25_pad_CAN0_SPI7_MOSI ),
+            .SO       ( alt_3_pad_periphs_b_24_pad_CAN0_SPI7_MISO ),
+            .SCK      ( alt_3_pad_periphs_b_22_pad_CAN0_SPI7_SCK  ),
+            .CSNeg    ( alt_3_pad_periphs_b_23_pad_CAN0_SPI7_CS   ),
+            .WPNeg    (  ),
+            .RESETNeg (  )
+          );
+          // configure the SPI8 pads
+          s25fs256s #(
+            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
+            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
+            .UserPreload   ( 0 )
+          ) alt_3_i_spi_flash_csn8 (
+            .SI       ( alt_3_pad_periphs_b_29_pad_CAN1_SPI8_MOSI ),
+            .SO       ( alt_3_pad_periphs_b_28_pad_CAN1_SPI8_MISO ),
+            .SCK      ( alt_3_pad_periphs_b_26_pad_CAN1_SPI8_SCK  ),
+            .CSNeg    ( alt_3_pad_periphs_b_27_pad_CAN1_SPI8_CS   ),
+            .WPNeg    (  ),
+            .RESETNeg (  )
+          );
+          // configure the SPI9 pads
+          s25fs256s #(
+            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
+            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
+            .UserPreload   ( 0 )
+          ) alt_3_i_spi_flash_csn9 (
+            .SI       ( alt_3_pad_periphs_b_33_pad_USB2_SPI9_MOSI ),
+            .SO       ( alt_3_pad_periphs_b_32_pad_USB2_SPI9_MISO ),
+            .SCK      ( alt_3_pad_periphs_b_30_pad_USB1_SPI9_SCK  ),
+            .CSNeg    ( alt_3_pad_periphs_b_31_pad_USB1_SPI9_CS   ),
+            .WPNeg    (  ),
+            .RESETNeg (  )
+          );
+        end
+
+        if(USE_USART == 1) begin
+          // config the USART2 pads
+          assign alt_3_pad_periphs_b_15_pad_TLM2_USART2_RX  = alt_3_pad_periphs_b_14_pad_TLM2_USART2_TX;
+          assign alt_3_pad_periphs_b_17_pad_TLM2_USART2_CTS = alt_3_pad_periphs_b_16_pad_TLM2_USART2_RTS;
+          // config the USART3 pads
+          assign alt_3_pad_periphs_b_19_pad_TLM3_USART3_RX  = alt_3_pad_periphs_b_18_pad_TLM3_USART3_TX;
+          assign alt_3_pad_periphs_b_21_pad_TLM3_USART3_CTS = alt_3_pad_periphs_b_20_pad_TLM3_USART3_RTS;
+        end
+
+        tran alt_3_pad_periphs_b_34_47_gpio_loopback (alt_3_pad_periphs_b_34_pad_IO_GPIO34, alt_3_pad_periphs_b_47_pad_IO_GPIO47);
+        tran alt_3_pad_periphs_b_35_46_gpio_loopback (alt_3_pad_periphs_b_35_pad_IO_GPIO35, alt_3_pad_periphs_b_46_pad_IO_GPIO46);
+        tran alt_3_pad_periphs_b_36_45_gpio_loopback (alt_3_pad_periphs_b_36_pad_IO_GPIO36, alt_3_pad_periphs_b_45_pad_IO_GPIO45);
+        tran alt_3_pad_periphs_b_37_44_gpio_loopback (alt_3_pad_periphs_b_37_pad_IO_GPIO37, alt_3_pad_periphs_b_44_pad_IO_GPIO44);
+        tran alt_3_pad_periphs_b_38_43_gpio_loopback (alt_3_pad_periphs_b_38_pad_IO_GPIO38, alt_3_pad_periphs_b_43_pad_IO_GPIO43);
+        tran alt_3_pad_periphs_b_39_42_gpio_loopback (alt_3_pad_periphs_b_39_pad_IO_GPIO39, alt_3_pad_periphs_b_42_pad_IO_GPIO42);
+        tran alt_3_pad_periphs_b_40_41_gpio_loopback (alt_3_pad_periphs_b_40_pad_IO_GPIO40, alt_3_pad_periphs_b_41_pad_IO_GPIO41);
         //**************************************************
         // ALTERNAME 3 - GPIOs CPGA VIPs END
         //**************************************************
@@ -1288,7 +1788,55 @@ module ariane_tb;
         //**************************************************
         // ALTERNATE 0 - PERIPH VIPs BEGINNING
         //**************************************************
+        if (USE_24FC1025_MODEL == 1) begin
+          // configure the I2C0 pads
+          pullup sda0_pullup_i (alt_0_simple_pad_periphs_05_i2c0_sda);
+          pullup scl0_pullup_i (alt_0_simple_pad_periphs_04_i2c0_scl);
+            M24FC1025 i_i2c_mem_0 (
+              .A0    ( 1'b0       ),
+              .A1    ( 1'b0       ),
+              .A2    ( 1'b1       ),
+              .WP    ( 1'b0       ),
+              .SDA   ( alt_0_simple_pad_periphs_05_i2c0_sda ),
+              .SCL   ( alt_0_simple_pad_periphs_04_i2c0_scl ),
+              .RESET ( 1'b0       )
+          );
+        end
 
+        if(USE_S25FS256S_MODEL == 1) begin
+          // configure the SPI0 pads
+          s25fs256s #(
+            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
+            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
+            .UserPreload   ( 0 )
+          ) i_spi_flash_csn0 (
+            .SI       ( alt_0_simple_pad_periphs_03_spi0_si ),
+            .SO       ( alt_0_simple_pad_periphs_02_spi0_so ),
+            .SCK      ( alt_0_simple_pad_periphs_01_spi0_ck ),
+            .CSNeg    ( alt_0_simple_pad_periphs_00_spi0_cs ),
+            .WPNeg    (  ),
+            .RESETNeg (  )
+          );
+        end
+
+        if(USE_SDIO == 1) begin
+          // configure the SDIO0 pads
+          sdModel sdModelTB0(
+          .sdClk ( alt_0_simple_pad_periphs_12_sdio0_clk ),
+          .cmd   ( alt_0_simple_pad_periphs_13_sdio0_cmd ),
+          .dat   ( {
+                    alt_0_simple_pad_periphs_11_sdio0_d4,
+                    alt_0_simple_pad_periphs_10_sdio0_d3,
+                    alt_0_simple_pad_periphs_09_sdio0_d2,
+                    alt_0_simple_pad_periphs_08_sdio0_d1
+                  } )
+          );
+        end
+
+        if(USE_UART == 1) begin
+          // config the UART0 pads
+          assign simple_pad_periphs_07_uart0_rx = simple_pad_periphs_06_uart0_tx; // UART0_TX -> UART0_RX
+        end
         //**************************************************
         // ALTERNATE 0 - PERIPH VIPs END
         //**************************************************
@@ -1296,7 +1844,13 @@ module ariane_tb;
         //**************************************************
         // ALTERNATE 1 - GPIOs VIPs BEGINNING
         //**************************************************
-
+        tran simple_pad_periphs_00_13_gpio_loopback (alt_1_simple_pad_periphs_00_gpio00, alt_1_simple_pad_periphs_13_gpio13);
+        tran simple_pad_periphs_01_12_gpio_loopback (alt_1_simple_pad_periphs_01_gpio01, alt_1_simple_pad_periphs_12_gpio12);
+        tran simple_pad_periphs_02_11_gpio_loopback (alt_1_simple_pad_periphs_02_gpio02, alt_1_simple_pad_periphs_11_gpio11);
+        tran simple_pad_periphs_03_10_gpio_loopback (alt_1_simple_pad_periphs_03_gpio03, alt_1_simple_pad_periphs_10_gpio10);
+        tran simple_pad_periphs_04_09_gpio_loopback (alt_1_simple_pad_periphs_04_gpio04, alt_1_simple_pad_periphs_09_gpio09);
+        tran simple_pad_periphs_05_08_gpio_loopback (alt_1_simple_pad_periphs_05_gpio05, alt_1_simple_pad_periphs_08_gpio08);
+        tran simple_pad_periphs_06_07_gpio_loopback (alt_1_simple_pad_periphs_06_gpio06, alt_1_simple_pad_periphs_07_gpio07);
         //**************************************************
         // ALTERNATE 1 - GPIOs VIPs END
         //**************************************************
@@ -1305,503 +1859,6 @@ module ariane_tb;
   endgenerate
   //**************************************************
   // VIPs END
-  //**************************************************
-
-  //**************************************************
-  // DEFAULT VIPs BEGINNING
-  //**************************************************
-  generate
-
-    /* I2C VIPs
-      I2C_MEM0 ADDRESS 0x50 -(dirrection bit)-> 0xA0
-      I2C_MEM1 ADDRESS 0x50 -(dirrection bit)-> 0xA0
-      I2C_MEM2 ADDRESS 0x51 -(dirrection bit)-> 0xA2
-      I2C_MEM5 ADDRESS 0x53 -(dirrection bit)-> 0xA6
-    */
-    if (USE_24FC1025_MODEL == 1) begin
-      `ifndef FPGA_EMUL
-        `ifndef SIMPLE_PADFRAME
-
-          // configure the I2C0 pads, non muxed
-          pullup sda0_pullup_i (pad_periphs_a_01_pad_i2c0_sda);
-          pullup scl0_pullup_i (pad_periphs_a_00_pad_i2c0_scl);
-            M24FC1025 i_i2c_mem_0 (
-              .A0    ( 1'b0       ),
-              .A1    ( 1'b0       ),
-              .A2    ( 1'b1       ),
-              .WP    ( 1'b0       ),
-              .SDA   ( pad_periphs_a_01_pad_i2c0_sda ),
-              .SCL   ( pad_periphs_a_00_pad_i2c0_scl ),
-              .RESET ( 1'b0       )
-          );
-
-          // configure the I2C1 pads, non muxed
-          pullup sda1_pullup_i (pad_periphs_a_27_pad_i2c1_sda);
-          pullup scl1_pullup_i (pad_periphs_a_26_pad_i2c1_scl);
-            M24FC1025 i_i2c_mem_1 (
-              .A0    ( 1'b0       ),
-              .A1    ( 1'b0       ),
-              .A2    ( 1'b1       ),
-              .WP    ( 1'b0       ),
-              .SDA   ( pad_periphs_a_27_pad_i2c1_sda ),
-              .SCL   ( pad_periphs_a_26_pad_i2c1_scl ),
-              .RESET ( 1'b0       )
-          );
-
-          // configure the I2C2 pads, non muxed
-          pullup sda2_pullup_i (pad_periphs_a_37_pad_i2c2_sda);
-          pullup scl2_pullup_i (pad_periphs_a_36_pad_i2c2_scl);
-            M24FC1025 i_i2c_mem_2 (
-              .A0    ( 1'b1       ),
-              .A1    ( 1'b0       ),
-              .A2    ( 1'b1       ),
-              .WP    ( 1'b0       ),
-              .SDA   ( pad_periphs_a_37_pad_i2c2_sda ),
-              .SCL   ( pad_periphs_a_36_pad_i2c2_scl ),
-              .RESET ( 1'b0       )
-          );
-
-        `else // !`ifndef SIMPLE_PADFRAME
-
-          // configure the I2C0 pads, non muxed
-          pullup sda0_pullup_i (simple_pad_periphs_05_i2c0_sda);
-          pullup scl0_pullup_i (simple_pad_periphs_04_i2c0_scl);
-            M24FC1025 i_i2c_mem_0 (
-              .A0    ( 1'b0       ),
-              .A1    ( 1'b0       ),
-              .A2    ( 1'b1       ),
-              .WP    ( 1'b0       ),
-              .SDA   ( simple_pad_periphs_05_i2c0_sda ),
-              .SCL   ( simple_pad_periphs_04_i2c0_scl ),
-              .RESET ( 1'b0       )
-          );
-
-        `endif
-      `endif
-    end
-
-    /* SPI VIPs
-    */
-    if(USE_S25FS256S_MODEL == 1) begin
-      `ifndef FPGA_EMUL
-        `ifndef SIMPLE_PADFRAME
-
-          // configure the SPI0 pads, non muxed
-          s25fs256s #(
-            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
-            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
-            .UserPreload   ( 0 )
-          ) i_spi_flash_csn0 (
-            .SI       ( pad_periphs_a_05_pad_spi0_mosi ),
-            .SO       ( pad_periphs_a_04_pad_spi0_miso ),
-            .SCK      ( pad_periphs_a_02_pad_spi0_sck  ),
-            .CSNeg    ( pad_periphs_a_03_pad_spi0_cs   ),
-            .WPNeg    (  ),
-            .RESETNeg (  )
-          );
-
-          // configure the SPI1 pads, non muxed
-          s25fs256s #(
-            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
-            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
-            .UserPreload   ( 0 )
-          ) i_spi_flash_csn1 (
-            .SI       ( pad_periphs_a_09_pad_spi1_mosi ),
-            .SO       ( pad_periphs_a_08_pad_spi1_miso ),
-            .SCK      ( pad_periphs_a_06_pad_spi1_sck  ),
-            .CSNeg    ( pad_periphs_a_07_pad_spi1_cs   ),
-            .WPNeg    (  ),
-            .RESETNeg (  )
-          );
-
-          // configure the SPI2 pads, non muxed
-          s25fs256s #(
-            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
-            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
-            .UserPreload   ( 0 )
-          ) i_spi_flash_csn2 (
-            .SI       ( pad_periphs_a_13_pad_spi2_mosi ),
-            .SO       ( pad_periphs_a_12_pad_spi2_miso ),
-            .SCK      ( pad_periphs_a_10_pad_spi2_sck  ),
-            .CSNeg    ( pad_periphs_a_11_pad_spi2_cs   ),
-            .WPNeg    (  ),
-            .RESETNeg (  )
-          );
-
-          // configure the SPI3 pads, non muxed
-          s25fs256s #(
-            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
-            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
-            .UserPreload   ( 0 )
-          ) i_spi_flash_csn3 (
-            .SI       ( pad_periphs_a_17_pad_spi3_mosi ),
-            .SO       ( pad_periphs_a_16_pad_spi3_miso ),
-            .SCK      ( pad_periphs_a_14_pad_spi3_sck  ),
-            .CSNeg    ( pad_periphs_a_15_pad_spi3_cs   ),
-            .WPNeg    (  ),
-            .RESETNeg (  )
-          );
-
-          // configure the SPI4 pads, non muxed
-          s25fs256s #(
-            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
-            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
-            .UserPreload   ( 0 )
-          ) i_spi_flash_csn4 (
-            .SI       ( pad_periphs_a_35_pad_spi4_mosi ),
-            .SO       ( pad_periphs_a_34_pad_spi4_miso ),
-            .SCK      ( pad_periphs_a_32_pad_spi4_sck  ),
-            .CSNeg    ( pad_periphs_a_33_pad_spi4_cs   ),
-            .WPNeg    (  ),
-            .RESETNeg (  )
-          );
-
-        `else // !`ifndef SIMPLE_PADFRAME
-
-          // configure the SPI0 pads, non muxed
-          s25fs256s #(
-            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
-            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
-            .UserPreload   ( 0 )
-          ) i_spi_flash_csn0 (
-            .SI       ( simple_pad_periphs_03_spi0_si ),
-            .SO       ( simple_pad_periphs_02_spi0_so ),
-            .SCK      ( simple_pad_periphs_01_spi0_ck ),
-            .CSNeg    ( simple_pad_periphs_00_spi0_cs ),
-            .WPNeg    (  ),
-            .RESETNeg (  )
-          );
-
-        `endif
-      `endif
-    end
-
-    /* SDIO VIPs
-    */
-    if(USE_SDIO == 1) begin
-      `ifndef FPGA_EMUL
-        `ifndef SIMPLE_PADFRAME
-
-          // config the SDIO0 pads, not muxed
-          sdModel sdModelTB0(
-          .sdClk ( pad_periphs_a_22_pad_sdio0_clk ),
-          .cmd   ( pad_periphs_a_23_pad_sdio0_cmd ),
-          .dat   ( {
-                    pad_periphs_a_21_pad_sdio0_d4,
-                    pad_periphs_a_20_pad_sdio0_d3,
-                    pad_periphs_a_19_pad_sdio0_d2,
-                    pad_periphs_a_18_pad_sdio0_d1
-                 } )
-          );
-
-        `else // !`ifndef SIMPLE_PADFRAME
-
-          // config the SDIO0 pads, not muxed
-          sdModel sdModelTB0(
-          .sdClk ( simple_pad_periphs_12_sdio0_clk ),
-          .cmd   ( simple_pad_periphs_13_sdio0_cmd ),
-          .dat   ( {
-                    simple_pad_periphs_11_sdio0_d4,
-                    simple_pad_periphs_10_sdio0_d3,
-                    simple_pad_periphs_09_sdio0_d2,
-                    simple_pad_periphs_08_sdio0_d1
-                 } )
-          );
-
-        `endif
-      `endif
-    end
-
-    /* UART VIPs
-    */
-    if(USE_UART == 1) begin
-      `ifndef FPGA_EMUL
-        `ifndef SIMPLE_PADFRAME
-
-          // config the UART0 pads, not muxed
-          assign pad_periphs_a_25_pad_uart0_rx = pad_periphs_a_24_pad_uart0_tx; // UART0_TX -> UART0_RX
-
-        `else // !`ifndef SIMPLE_PADFRAME
-
-          // config the UART0 pads, not muxed
-          assign simple_pad_periphs_07_uart0_rx = simple_pad_periphs_06_uart0_tx; // UART0_TX -> UART0_RX
-
-        `endif
-      `endif
-    end
-
-
-    /* USART VIPs
-    */
-    if(USE_USART == 1) begin
-
-      // config the USART0 pads, not muxed
-      assign pad_periphs_a_29_pad_usart0_rx  = pad_periphs_a_28_pad_usart0_tx;  // UART0_TX  -> UART0_RX
-      assign pad_periphs_a_31_pad_usart0_cts = pad_periphs_a_30_pad_usart0_rts; // UART0_RTS -> UART0_CTS
-
-    end
-
-  endgenerate
-  //**************************************************
-  // DEFAULT VIPs END
-  //**************************************************
-
-  //**************************************************
-  // NANO VIPs BEGINNING
-  //**************************************************
-  `ifndef FPGA_EMUL
-    `ifndef SIMPLE_PADFRAME
-      generate
-
-        /* CAM VIPs
-        */
-        if (USE_SDVT_CPI==1) begin
-
-          // configure the CAM0 pads, muxed with I2C3 (42, 43), GPIO19 (19),
-          // SPI5 (44, 45, 46, 47), GPIO20 (20) and SPI6 (48, 49, 50)
-          cam_vip #(
-            .HRES       ( 32 ), //320
-            .VRES       ( 32 )  //240
-          ) i_cam_vip_0 (
-            .en_i        ( pad_periphs_b_11_pad_gpio11     ),  //GPIO11
-            .cam_clk_o   ( pad_periphs_a_42_pad_cpi0_clk   ),
-            .cam_vsync_o ( pad_periphs_a_43_pad_cpi0_vsync ),
-            .cam_href_o  ( pad_periphs_b_19_pad_cpi0_hsync ),
-            .cam_data_o  ( w_cam_0_data  )
-          );
-          assign pad_periphs_a_44_pad_cpi0_dat0 = w_cam_0_data[0];
-          assign pad_periphs_a_45_pad_cpi0_dat1 = w_cam_0_data[1];
-          assign pad_periphs_a_46_pad_cpi0_dat2 = w_cam_0_data[2];
-          assign pad_periphs_a_47_pad_cpi0_dat3 = w_cam_0_data[3];
-          assign pad_periphs_b_20_pad_cpi0_dat4 = w_cam_0_data[4];
-          assign pad_periphs_a_48_pad_cpi0_dat5 = w_cam_0_data[5];
-          assign pad_periphs_a_49_pad_cpi0_dat6 = w_cam_0_data[6];
-          assign pad_periphs_a_50_pad_cpi0_dat7 = w_cam_0_data[7];
-
-          // configure the CAM1 pads, muxed with SPI6 (51), GPIO21 (21), SPI7 (52, 53, 54),
-          // GPIO22 (22), GPIO23 (23), GPIO24 (24) and SPI7 (55, 56, 57)
-          cam_vip #(
-            .HRES       ( 32 ), //320
-            .VRES       ( 32 )  //240
-          ) i_cam_vip_1 (
-            .en_i        ( pad_periphs_b_12_pad_gpio12     ),  //GPIO12
-            .cam_clk_o   ( pad_periphs_a_51_pad_cpi1_clk   ),
-            .cam_vsync_o ( pad_periphs_b_21_pad_cpi1_vsync ),
-            .cam_href_o  ( pad_periphs_a_52_pad_cpi1_hsync ),
-            .cam_data_o  ( w_cam_1_data  )
-          );
-          assign pad_periphs_a_53_pad_cpi1_dat0 = w_cam_1_data[0];
-          assign pad_periphs_a_54_pad_cpi1_dat1 = w_cam_1_data[1];
-          assign pad_periphs_b_22_pad_cpi1_dat2 = w_cam_1_data[2];
-          assign pad_periphs_b_23_pad_cpi1_dat3 = w_cam_1_data[3];
-          assign pad_periphs_b_24_pad_cpi1_dat4 = w_cam_1_data[4];
-          assign pad_periphs_a_55_pad_cpi1_dat5 = w_cam_1_data[5];
-          assign pad_periphs_a_56_pad_cpi1_dat6 = w_cam_1_data[6];
-          assign pad_periphs_a_57_pad_cpi1_dat7 = w_cam_1_data[7];
-
-        end
-
-        /* SDIO VIPs
-        */
-        if (USE_SDIO == 1) begin
-
-          // config the SDIO1 pads, muxed with I2C4 (58), GPIO25 (25), UART1 (59, 60), USART1 (61, 62)
-          sdModel sdModelTB1(
-          .sdClk ( pad_periphs_a_61_pad_sdio1_clk ),
-          .cmd   ( pad_periphs_a_62_pad_sdio1_cmd ),
-          .dat   ( {
-                    pad_periphs_a_60_pad_sdio1_d3,
-                    pad_periphs_a_59_pad_sdio1_d2,
-                    pad_periphs_b_25_pad_sdio1_d1,
-                    pad_periphs_a_58_pad_sdio1_d0
-                  } )
-          );
-
-        end
-
-        /* UART VIPs
-        */
-        if(USE_UART == 1) begin
-
-          // config the UART1 pads, muxed with SDIO1
-          assign pad_periphs_a_60_pad_uart1_rx = pad_periphs_a_59_pad_uart1_tx; // UART1_TX -> UART1_RX
-
-        end
-
-      endgenerate
-    `endif
-  `endif
-  //**************************************************
-  // NANO VIPs END
-  //**************************************************
-
-  //**************************************************
-  // STANDARD 0 VIPs BEGINNING
-  //**************************************************
-  `ifndef FPGA_EMUL
-    `ifndef SIMPLE_PADFRAME
-      generate
-
-        /* I2C VIPs
-          I2C_MEM3 ADDRESS 0x52 -(dirrection bit)-> 0xA4
-          I2C_MEM4 ADDRESS 0x53 -(dirrection bit)-> 0xA6
-        */
-        if (USE_24FC1025_MODEL == 1) begin
-
-          // configure the I2C3 pads, muxed with CPI0
-          pullup sda3_pullup_i (pad_periphs_a_43_pad_i2c3_sda);
-          pullup scl3_pullup_i (pad_periphs_a_42_pad_i2c3_scl);
-            M24FC1025 i_i2c_mem_3 (
-              .A0    ( 1'b0       ),
-              .A1    ( 1'b1       ),
-              .A2    ( 1'b1       ),
-              .WP    ( 1'b0       ),
-              .SDA   ( pad_periphs_a_43_pad_i2c3_sda ),
-              .SCL   ( pad_periphs_a_42_pad_i2c3_scl ),
-              .RESET ( 1'b0       )
-          );
-
-          // configure the I2C4 pads, muxed with SDIO1 (58) and CPI1 (57)
-          pullup sda4_pullup_i (pad_periphs_a_58_pad_i2c4_sda);
-          pullup scl4_pullup_i (pad_periphs_a_57_pad_i2c4_scl);
-            M24FC1025 i_i2c_mem_4 (
-              .A0    ( 1'b1       ),
-              .A1    ( 1'b1       ),
-              .A2    ( 1'b1       ),
-              .WP    ( 1'b0       ),
-              .SDA   ( pad_periphs_a_58_pad_i2c4_sda ),
-              .SCL   ( pad_periphs_a_57_pad_i2c4_scl ),
-              .RESET ( 1'b0       )
-          );
-
-        end
-
-        /* SPI VIPs
-        */
-        if(USE_S25FS256S_MODEL == 1) begin
-
-          // configure the SPI5 pads, muxed with CPI0
-          s25fs256s #(
-            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
-            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
-            .UserPreload   ( 0 )
-          ) i_spi_flash_csn5 (
-            .SI       ( pad_periphs_a_47_pad_spi5_mosi ),
-            .SO       ( pad_periphs_a_46_pad_spi5_miso ),
-            .SCK      ( pad_periphs_a_44_pad_spi5_sck  ),
-            .CSNeg    ( pad_periphs_a_45_pad_spi5_cs   ),
-            .WPNeg    (  ),
-            .RESETNeg (  )
-          );
-
-          // configure the SPI6 pads, muxed with CPI0 (48, 49, 50) and CPI1 (51)
-          s25fs256s #(
-            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
-            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
-            .UserPreload   ( 0 )
-          ) i_spi_flash_csn6 (
-            .SI       ( pad_periphs_a_51_pad_spi6_mosi ),
-            .SO       ( pad_periphs_a_50_pad_spi6_miso ),
-            .SCK      ( pad_periphs_a_48_pad_spi6_clk  ),
-            .CSNeg    ( pad_periphs_a_49_pad_spi6_cs   ),
-            .WPNeg    (  ),
-            .RESETNeg (  )
-          );
-
-          // configure the SPI7 pads, muxed with CPI1
-          s25fs256s #(
-            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
-            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
-            .UserPreload   ( 0 )
-          ) i_spi_flash_csn7 (
-            .SI       ( pad_periphs_a_54_pad_spi7_mosi ),
-            .SO       ( pad_periphs_a_53_pad_spi7_miso ),
-            .SCK      ( pad_periphs_a_52_pad_spi7_sck  ),
-            .CSNeg    ( pad_periphs_a_55_pad_spi7_cs0  ),  /*CS0*/
-            // .CSNeg    ( pad_periphs_a_56_pad_spi7_cs1  ),  /*CS1*/
-            .WPNeg    (  ),
-            .RESETNeg (  )
-          );
-
-          // configure the SPI8 pads, muxed with CAN1 (81, 82) and CAN2 (83, 84)
-          s25fs256s #(
-            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
-            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
-            .UserPreload   ( 0 )
-          ) i_spi_flash_csn8 (
-            .SI       ( pad_periphs_a_84_pad_spi8_mosi ),
-            .SO       ( pad_periphs_a_83_pad_spi8_miso ),
-            .SCK      ( pad_periphs_a_81_pad_spi8_sck  ),
-            .CSNeg    ( pad_periphs_a_82_pad_spi8_cs   ),
-            .WPNeg    (  ),
-            .RESETNeg (  )
-          );
-
-          // configure the SPI9 pads, non muxed
-          s25fs256s #(
-            .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
-            .mem_file_name ( "./vectors/qspi_stim.slm"  ),
-            .UserPreload   ( 0 )
-          ) i_spi_flash_csn9 (
-            .SI       ( pad_periphs_a_88_pad_spi9_mosi ),
-            .SO       ( pad_periphs_a_87_pad_spi9_miso ),
-            .SCK      ( pad_periphs_a_85_pad_spi9_sck  ),
-            .CSNeg    ( pad_periphs_a_86_pad_spi9_cs   ),
-            .WPNeg    (  ),
-            .RESETNeg (  )
-          );
-
-        end
-
-        /* USART VIPs
-        */
-        if(USE_USART == 1) begin
-
-          // config the USART1 pads, muxed with SDIO1 (61, 62)
-          assign pad_periphs_a_62_pad_usart1_rx  = pad_periphs_a_61_pad_usart1_tx;  // USART1_TX  -> USART1_RX
-          assign pad_periphs_a_64_pad_usart1_cts = pad_periphs_a_63_pad_usart1_rts; // USART1_RTS -> USART1_CTS
-
-          // config the USART2 pads, not muxed
-          assign pad_periphs_a_70_pad_usart2_rx  = pad_periphs_a_69_pad_usart2_tx;  // USART2_TX  -> USART2_RX
-          assign pad_periphs_a_72_pad_usart2_cts = pad_periphs_a_71_pad_usart2_rts; // USART2_RTS -> USART2_CTS
-
-          // config the USART3 pads, not muxed
-          assign pad_periphs_a_74_pad_usart3_rx  = pad_periphs_a_73_pad_usart3_tx;  // USART3_TX  -> USART3_RX
-          assign pad_periphs_a_76_pad_usart3_cts = pad_periphs_a_75_pad_usart3_rts; // USART3_RTS -> USART3_CTS
-
-        end
-
-      endgenerate
-    `endif
-  `endif
-  //**************************************************
-  // STANDARD 0 VIPs END
-  //**************************************************
-
-  //**************************************************
-  // STANDARD 1 VIPs BEGINNING
-  //**************************************************
-  `ifndef FPGA_EMUL
-    `ifndef SIMPLE_PADFRAME
-      generate
-
-        /* CAN VIPs
-        */
-        if(USE_CAN == 1) begin
-
-          // config the CAN0 pads, muxed with SPI8
-          assign pad_periphs_a_82_pad_can0_rx = pad_periphs_a_81_pad_can0_tx; // CAN0_TX -> CAN0_RX
-
-          // config the CAN1 pads, muxed with SPI8
-          assign pad_periphs_a_84_pad_can1_rx = pad_periphs_a_83_pad_can1_tx; // CAN1_TX -> CAN1_RX
-
-        end
-
-      endgenerate
-    `endif
-  `endif
-  //**************************************************
-  // STANDARD 1 VIPs END
   //**************************************************
 
   //**************************************************
@@ -2076,8 +2133,8 @@ module ariane_tb;
         assign alt_2_pad_periphs_b_47_pad_mux_sel_IO_GPIO47 = (`PAD_MUX_REG_PATH.b_47_mux_sel.q == PAD_MUX_GROUP_B_47_SEL_GPIO_B_GPIO47);
         assign alt_3_pad_periphs_b_00_pad_mux_sel_GPS2_UART0_TX   = (`PAD_MUX_REG_PATH.b_00_mux_sel.q == PAD_MUX_GROUP_B_00_SEL_UART0_UART_TX);
         assign alt_3_pad_periphs_b_01_pad_mux_sel_GPS2_UART0_RX   = (`PAD_MUX_REG_PATH.b_01_mux_sel.q == PAD_MUX_GROUP_B_01_SEL_UART0_UART_RX);
-        assign alt_3_pad_periphs_b_02_pad_mux_sel_GPS2_I2C1_SDA   = (`PAD_MUX_REG_PATH.b_02_mux_sel.q == PAD_MUX_GROUP_B_02_SEL_I2C1_I2C_SDA);
-        assign alt_3_pad_periphs_b_03_pad_mux_sel_GPS2_I2C1_SCL   = (`PAD_MUX_REG_PATH.b_03_mux_sel.q == );
+        assign alt_3_pad_periphs_b_02_pad_mux_sel_GPS2_I2C1_SCL   = (`PAD_MUX_REG_PATH.b_02_mux_sel.q == PAD_MUX_GROUP_B_02_SEL_I2C1_I2C_SCL);
+        assign alt_3_pad_periphs_b_03_pad_mux_sel_GPS2_I2C1_SDA   = (`PAD_MUX_REG_PATH.b_03_mux_sel.q == PAD_MUX_GROUP_B_03_SEL_I2C1_I2C_SDA);
         assign alt_3_pad_periphs_b_04_pad_mux_sel_IMU2_SPI4_SCK   = (`PAD_MUX_REG_PATH.b_04_mux_sel.q == PAD_MUX_GROUP_B_04_SEL_SPI4_SPI_SCK);
         assign alt_3_pad_periphs_b_05_pad_mux_sel_IMU2_SPI4_CS    = (`PAD_MUX_REG_PATH.b_05_mux_sel.q == PAD_MUX_GROUP_B_05_SEL_SPI4_SPI_CS0);
         assign alt_3_pad_periphs_b_06_pad_mux_sel_IMU2_SPI4_MISO  = (`PAD_MUX_REG_PATH.b_06_mux_sel.q == PAD_MUX_GROUP_B_06_SEL_SPI4_SPI_MISO);
@@ -2123,34 +2180,34 @@ module ariane_tb;
         assign alt_3_pad_periphs_b_46_pad_mux_sel_IO_GPIO46       = (`PAD_MUX_REG_PATH.b_46_mux_sel.q == PAD_MUX_GROUP_B_46_SEL_GPIO_B_GPIO46);
         assign alt_3_pad_periphs_b_47_pad_mux_sel_IO_GPIO47       = (`PAD_MUX_REG_PATH.b_47_mux_sel.q == PAD_MUX_GROUP_B_47_SEL_GPIO_B_GPIO47);
       `else // !`ifndef SIMPLE_PADFRAME
-        assign alt_0_simple_pad_periphs_00_mux_sel_spi0_cs   = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_00_mux_sel.q == );
-        assign alt_0_simple_pad_periphs_01_mux_sel_spi0_ck   = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_01_mux_sel.q == );
-        assign alt_0_simple_pad_periphs_02_mux_sel_spi0_so   = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_02_mux_sel.q == );
-        assign alt_0_simple_pad_periphs_03_mux_sel_spi0_si   = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_03_mux_sel.q == );
-        assign alt_0_simple_pad_periphs_04_mux_sel_i2c0_scl  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_04_mux_sel.q == );
-        assign alt_0_simple_pad_periphs_05_mux_sel_i2c0_sda  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_05_mux_sel.q == );
-        assign alt_0_simple_pad_periphs_06_mux_sel_uart0_tx  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_06_mux_sel.q == );
-        assign alt_0_simple_pad_periphs_07_mux_sel_uart0_rx  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_07_mux_sel.q == );
-        assign alt_0_simple_pad_periphs_08_mux_sel_sdio0_d1  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_08_mux_sel.q == );
-        assign alt_0_simple_pad_periphs_09_mux_sel_sdio0_d2  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_09_mux_sel.q == );
-        assign alt_0_simple_pad_periphs_10_mux_sel_sdio0_d3  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_10_mux_sel.q == );
-        assign alt_0_simple_pad_periphs_11_mux_sel_sdio0_d4  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_11_mux_sel.q == );
-        assign alt_0_simple_pad_periphs_12_mux_sel_sdio0_clk = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_12_mux_sel.q == );
-        assign alt_0_simple_pad_periphs_13_mux_sel_sdio0_cmd = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_13_mux_sel.q == );
-        assign alt_1_simple_pad_periphs_00_mux_sel_gpio00 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_00_mux_sel.q == );
-        assign alt_1_simple_pad_periphs_01_mux_sel_gpio01 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_01_mux_sel.q == );
-        assign alt_1_simple_pad_periphs_02_mux_sel_gpio02 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_02_mux_sel.q == );
-        assign alt_1_simple_pad_periphs_03_mux_sel_gpio03 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_03_mux_sel.q == );
-        assign alt_1_simple_pad_periphs_04_mux_sel_gpio04 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_04_mux_sel.q == );
-        assign alt_1_simple_pad_periphs_05_mux_sel_gpio05 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_05_mux_sel.q == );
-        assign alt_1_simple_pad_periphs_06_mux_sel_gpio06 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_06_mux_sel.q == );
-        assign alt_1_simple_pad_periphs_07_mux_sel_gpio07 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_07_mux_sel.q == );
-        assign alt_1_simple_pad_periphs_08_mux_sel_gpio08 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_08_mux_sel.q == );
-        assign alt_1_simple_pad_periphs_09_mux_sel_gpio09 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_09_mux_sel.q == );
-        assign alt_1_simple_pad_periphs_10_mux_sel_gpio10 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_10_mux_sel.q == );
-        assign alt_1_simple_pad_periphs_11_mux_sel_gpio11 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_11_mux_sel.q == );
-        assign alt_1_simple_pad_periphs_12_mux_sel_gpio12 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_12_mux_sel.q == );
-        assign alt_1_simple_pad_periphs_13_mux_sel_gpio13 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_13_mux_sel.q == );
+        assign alt_0_simple_pad_periphs_00_mux_sel_spi0_cs   = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_00_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_00_SEL_SPI0_SPI_CS0);
+        assign alt_0_simple_pad_periphs_01_mux_sel_spi0_ck   = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_01_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_01_SEL_SPI0_SPI_SCK);
+        assign alt_0_simple_pad_periphs_02_mux_sel_spi0_so   = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_02_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_02_SEL_SPI0_SPI_MISO);
+        assign alt_0_simple_pad_periphs_03_mux_sel_spi0_si   = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_03_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_03_SEL_SPI0_SPI_MOSI);
+        assign alt_0_simple_pad_periphs_04_mux_sel_i2c0_scl  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_04_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_04_SEL_I2C0_I2C_SCL);
+        assign alt_0_simple_pad_periphs_05_mux_sel_i2c0_sda  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_05_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_05_SEL_I2C0_I2C_SDA);
+        assign alt_0_simple_pad_periphs_06_mux_sel_uart0_tx  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_06_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_06_SEL_UART0_UART_TX);
+        assign alt_0_simple_pad_periphs_07_mux_sel_uart0_rx  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_07_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_07_SEL_UART0_UART_RX);
+        assign alt_0_simple_pad_periphs_08_mux_sel_sdio0_d1  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_08_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_08_SEL_SDIO0_SDIO_DATA0);
+        assign alt_0_simple_pad_periphs_09_mux_sel_sdio0_d2  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_09_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_09_SEL_SDIO0_SDIO_DATA1);
+        assign alt_0_simple_pad_periphs_10_mux_sel_sdio0_d3  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_10_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_10_SEL_SDIO0_SDIO_DATA2);
+        assign alt_0_simple_pad_periphs_11_mux_sel_sdio0_d4  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_11_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_11_SEL_SDIO0_SDIO_DATA3);
+        assign alt_0_simple_pad_periphs_12_mux_sel_sdio0_clk = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_12_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_12_SEL_SDIO0_SDIO_CLK);
+        assign alt_0_simple_pad_periphs_13_mux_sel_sdio0_cmd = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_13_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_13_SEL_SDIO0_SDIO_CMD);
+        assign alt_1_simple_pad_periphs_00_mux_sel_gpio00 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_00_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_00_SEL_GPIO_B_GPIO0);
+        assign alt_1_simple_pad_periphs_01_mux_sel_gpio01 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_01_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_01_SEL_GPIO_B_GPIO1);
+        assign alt_1_simple_pad_periphs_02_mux_sel_gpio02 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_02_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_02_SEL_GPIO_B_GPIO2);
+        assign alt_1_simple_pad_periphs_03_mux_sel_gpio03 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_03_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_03_SEL_GPIO_B_GPIO3);
+        assign alt_1_simple_pad_periphs_04_mux_sel_gpio04 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_04_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_04_SEL_GPIO_B_GPIO4);
+        assign alt_1_simple_pad_periphs_05_mux_sel_gpio05 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_05_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_05_SEL_GPIO_B_GPIO5);
+        assign alt_1_simple_pad_periphs_06_mux_sel_gpio06 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_06_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_06_SEL_GPIO_B_GPIO6);
+        assign alt_1_simple_pad_periphs_07_mux_sel_gpio07 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_07_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_07_SEL_GPIO_B_GPIO7);
+        assign alt_1_simple_pad_periphs_08_mux_sel_gpio08 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_08_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_08_SEL_GPIO_B_GPIO8);
+        assign alt_1_simple_pad_periphs_09_mux_sel_gpio09 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_09_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_09_SEL_GPIO_B_GPIO9);
+        assign alt_1_simple_pad_periphs_10_mux_sel_gpio10 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_10_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_10_SEL_GPIO_B_GPIO10);
+        assign alt_1_simple_pad_periphs_11_mux_sel_gpio11 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_11_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_11_SEL_GPIO_B_GPIO11);
+        assign alt_1_simple_pad_periphs_12_mux_sel_gpio12 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_12_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_12_SEL_GPIO_B_GPIO12);
+        assign alt_1_simple_pad_periphs_13_mux_sel_gpio13 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_13_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_13_SEL_GPIO_B_GPIO13);
       `endif
     `endif
   `endif
@@ -2430,8 +2487,8 @@ module ariane_tb;
         tranif1 alt_2_b_47_pad_IO_GPIO47 (pad_periphs_b_47_pad, alt_2_pad_periphs_b_47_pad_IO_GPIO47, alt_2_pad_periphs_b_47_pad_mux_sel_IO_GPIO47);
         tranif1 alt_3_b_00_pad_GPS2_UART0_TX   (pad_periphs_b_00_pad, alt_3_pad_periphs_b_00_pad_GPS2_UART0_TX  , alt_3_pad_periphs_b_00_pad_mux_sel_GPS2_UART0_TX  );
         tranif1 alt_3_b_01_pad_GPS2_UART0_RX   (pad_periphs_b_01_pad, alt_3_pad_periphs_b_01_pad_GPS2_UART0_RX  , alt_3_pad_periphs_b_01_pad_mux_sel_GPS2_UART0_RX  );
-        tranif1 alt_3_b_02_pad_GPS2_I2C1_SDA   (pad_periphs_b_02_pad, alt_3_pad_periphs_b_02_pad_GPS2_I2C1_SDA  , alt_3_pad_periphs_b_02_pad_mux_sel_GPS2_I2C1_SDA  );
-        tranif1 alt_3_b_03_pad_GPS2_I2C1_SCL   (pad_periphs_b_03_pad, alt_3_pad_periphs_b_03_pad_GPS2_I2C1_SCL  , alt_3_pad_periphs_b_03_pad_mux_sel_GPS2_I2C1_SCL  );
+        tranif1 alt_3_b_02_pad_GPS2_I2C1_SCL   (pad_periphs_b_02_pad, alt_3_pad_periphs_b_02_pad_GPS2_I2C1_SCL  , alt_3_pad_periphs_b_02_pad_mux_sel_GPS2_I2C1_SCL  );
+        tranif1 alt_3_b_03_pad_GPS2_I2C1_SDA   (pad_periphs_b_03_pad, alt_3_pad_periphs_b_03_pad_GPS2_I2C1_SDA  , alt_3_pad_periphs_b_03_pad_mux_sel_GPS2_I2C1_SDA  );
         tranif1 alt_3_b_04_pad_IMU2_SPI4_SCK   (pad_periphs_b_04_pad, alt_3_pad_periphs_b_04_pad_IMU2_SPI4_SCK  , alt_3_pad_periphs_b_04_pad_mux_sel_IMU2_SPI4_SCK  );
         tranif1 alt_3_b_05_pad_IMU2_SPI4_CS    (pad_periphs_b_05_pad, alt_3_pad_periphs_b_05_pad_IMU2_SPI4_CS   , alt_3_pad_periphs_b_05_pad_mux_sel_IMU2_SPI4_CS   );
         tranif1 alt_3_b_06_pad_IMU2_SPI4_MISO  (pad_periphs_b_06_pad, alt_3_pad_periphs_b_06_pad_IMU2_SPI4_MISO , alt_3_pad_periphs_b_06_pad_mux_sel_IMU2_SPI4_MISO );
@@ -2477,20 +2534,20 @@ module ariane_tb;
         tranif1 alt_3_b_46_pad_IO_GPIO46       (pad_periphs_b_46_pad, alt_3_pad_periphs_b_46_pad_IO_GPIO46      , alt_3_pad_periphs_b_46_pad_mux_sel_IO_GPIO46      );
         tranif1 alt_3_b_47_pad_IO_GPIO47       (pad_periphs_b_47_pad, alt_3_pad_periphs_b_47_pad_IO_GPIO47      , alt_3_pad_periphs_b_47_pad_mux_sel_IO_GPIO47      );
       `else // !`ifndef SIMPLE_PADFRAME
-        tranif1 alt_0_simple_pad_00_spi0_cs   (pad_periphs_a_00_pad, alt_0_simple_pad_periphs_00_spi0_cs  ,alt_0_simple_pad_periphs_00_mux_sel_spi0_cs  );
-        tranif1 alt_0_simple_pad_01_spi0_ck   (pad_periphs_a_01_pad, alt_0_simple_pad_periphs_01_spi0_ck  ,alt_0_simple_pad_periphs_01_mux_sel_spi0_ck  );
-        tranif1 alt_0_simple_pad_02_spi0_so   (pad_periphs_a_02_pad, alt_0_simple_pad_periphs_02_spi0_so  ,alt_0_simple_pad_periphs_02_mux_sel_spi0_so  );
-        tranif1 alt_0_simple_pad_03_spi0_si   (pad_periphs_a_03_pad, alt_0_simple_pad_periphs_03_spi0_si  ,alt_0_simple_pad_periphs_03_mux_sel_spi0_si  );
-        tranif1 alt_0_simple_pad_04_i2c0_scl  (pad_periphs_a_04_pad, alt_0_simple_pad_periphs_04_i2c0_scl ,alt_0_simple_pad_periphs_04_mux_sel_i2c0_scl );
-        tranif1 alt_0_simple_pad_05_i2c0_sda  (pad_periphs_a_05_pad, alt_0_simple_pad_periphs_05_i2c0_sda ,alt_0_simple_pad_periphs_05_mux_sel_i2c0_sda );
-        tranif1 alt_0_simple_pad_06_uart0_tx  (pad_periphs_a_06_pad, alt_0_simple_pad_periphs_06_uart0_tx ,alt_0_simple_pad_periphs_06_mux_sel_uart0_tx );
-        tranif1 alt_0_simple_pad_07_uart0_rx  (pad_periphs_a_07_pad, alt_0_simple_pad_periphs_07_uart0_rx ,alt_0_simple_pad_periphs_07_mux_sel_uart0_rx );
-        tranif1 alt_0_simple_pad_08_sdio0_d1  (pad_periphs_a_08_pad, alt_0_simple_pad_periphs_08_sdio0_d1 ,alt_0_simple_pad_periphs_08_mux_sel_sdio0_d1 );
-        tranif1 alt_0_simple_pad_09_sdio0_d2  (pad_periphs_a_09_pad, alt_0_simple_pad_periphs_09_sdio0_d2 ,alt_0_simple_pad_periphs_09_mux_sel_sdio0_d2 );
-        tranif1 alt_0_simple_pad_10_sdio0_d3  (pad_periphs_a_10_pad, alt_0_simple_pad_periphs_10_sdio0_d3 ,alt_0_simple_pad_periphs_10_mux_sel_sdio0_d3 );
-        tranif1 alt_0_simple_pad_11_sdio0_d4  (pad_periphs_a_11_pad, alt_0_simple_pad_periphs_11_sdio0_d4 ,alt_0_simple_pad_periphs_11_mux_sel_sdio0_d4 );
-        tranif1 alt_0_simple_pad_12_sdio0_clk (pad_periphs_a_12_pad, alt_0_simple_pad_periphs_12_sdio0_clk,alt_0_simple_pad_periphs_12_mux_sel_sdio0_clk);
-        tranif1 alt_0_simple_pad_13_sdio0_cmd (pad_periphs_a_13_pad, alt_0_simple_pad_periphs_13_sdio0_cmd,alt_0_simple_pad_periphs_13_mux_sel_sdio0_cmd);
+        tranif1 alt_0_simple_pad_00_spi0_cs   (pad_periphs_a_00_pad, alt_0_simple_pad_periphs_00_spi0_cs  , alt_0_simple_pad_periphs_00_mux_sel_spi0_cs  );
+        tranif1 alt_0_simple_pad_01_spi0_ck   (pad_periphs_a_01_pad, alt_0_simple_pad_periphs_01_spi0_ck  , alt_0_simple_pad_periphs_01_mux_sel_spi0_ck  );
+        tranif1 alt_0_simple_pad_02_spi0_so   (pad_periphs_a_02_pad, alt_0_simple_pad_periphs_02_spi0_so  , alt_0_simple_pad_periphs_02_mux_sel_spi0_so  );
+        tranif1 alt_0_simple_pad_03_spi0_si   (pad_periphs_a_03_pad, alt_0_simple_pad_periphs_03_spi0_si  , alt_0_simple_pad_periphs_03_mux_sel_spi0_si  );
+        tranif1 alt_0_simple_pad_04_i2c0_scl  (pad_periphs_a_04_pad, alt_0_simple_pad_periphs_04_i2c0_scl , alt_0_simple_pad_periphs_04_mux_sel_i2c0_scl );
+        tranif1 alt_0_simple_pad_05_i2c0_sda  (pad_periphs_a_05_pad, alt_0_simple_pad_periphs_05_i2c0_sda , alt_0_simple_pad_periphs_05_mux_sel_i2c0_sda );
+        tranif1 alt_0_simple_pad_06_uart0_tx  (pad_periphs_a_06_pad, alt_0_simple_pad_periphs_06_uart0_tx , alt_0_simple_pad_periphs_06_mux_sel_uart0_tx );
+        tranif1 alt_0_simple_pad_07_uart0_rx  (pad_periphs_a_07_pad, alt_0_simple_pad_periphs_07_uart0_rx , alt_0_simple_pad_periphs_07_mux_sel_uart0_rx );
+        tranif1 alt_0_simple_pad_08_sdio0_d1  (pad_periphs_a_08_pad, alt_0_simple_pad_periphs_08_sdio0_d1 , alt_0_simple_pad_periphs_08_mux_sel_sdio0_d1 );
+        tranif1 alt_0_simple_pad_09_sdio0_d2  (pad_periphs_a_09_pad, alt_0_simple_pad_periphs_09_sdio0_d2 , alt_0_simple_pad_periphs_09_mux_sel_sdio0_d2 );
+        tranif1 alt_0_simple_pad_10_sdio0_d3  (pad_periphs_a_10_pad, alt_0_simple_pad_periphs_10_sdio0_d3 , alt_0_simple_pad_periphs_10_mux_sel_sdio0_d3 );
+        tranif1 alt_0_simple_pad_11_sdio0_d4  (pad_periphs_a_11_pad, alt_0_simple_pad_periphs_11_sdio0_d4 , alt_0_simple_pad_periphs_11_mux_sel_sdio0_d4 );
+        tranif1 alt_0_simple_pad_12_sdio0_clk (pad_periphs_a_12_pad, alt_0_simple_pad_periphs_12_sdio0_clk, alt_0_simple_pad_periphs_12_mux_sel_sdio0_clk);
+        tranif1 alt_0_simple_pad_13_sdio0_cmd (pad_periphs_a_13_pad, alt_0_simple_pad_periphs_13_sdio0_cmd, alt_0_simple_pad_periphs_13_mux_sel_sdio0_cmd);
         tranif1 alt_1_simple_pad_00_gpio00 (pad_periphs_a_00_pad, alt_1_simple_pad_periphs_00_gpio00, alt_1_simple_pad_periphs_00_mux_sel_gpio00);
         tranif1 alt_1_simple_pad_01_gpio01 (pad_periphs_a_01_pad, alt_1_simple_pad_periphs_01_gpio01, alt_1_simple_pad_periphs_01_mux_sel_gpio01);
         tranif1 alt_1_simple_pad_02_gpio02 (pad_periphs_a_02_pad, alt_1_simple_pad_periphs_02_gpio02, alt_1_simple_pad_periphs_02_mux_sel_gpio02);
