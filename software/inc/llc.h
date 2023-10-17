@@ -11,6 +11,8 @@
 #ifndef _LLC_H
 #define _LLC_H
 
+#include <stdint.h>
+
 #define LLC_REG_CYCLE_CNT   0x0
 #define LLC_REG_READ_MISS   0x4
 #define LLC_REG_READ_HIT    0x8

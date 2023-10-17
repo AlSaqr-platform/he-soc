@@ -25,7 +25,6 @@
 #include "udma.h"
 
 #include "udma_uart_v1.h"
-#include "udma_uart.c"
 
 #define BUFFER_SIZE 16
 #define UART_BAUDRATE 115200

@@ -1,10 +1,10 @@
 #ifndef __UDMA_H
 #define __UDMA_H
 
-#include "../../inc/properties.h"
-#include "../memory_map.h"
-#include "../padframe/src/alsaqr_periph_padframe.c"
-#include "../fpga_padframe/src/alsaqr_periph_fpga_padframe.c"
+#include <stdint.h>
+#include "properties.h"
+#include "memory_map.h"
+#include "utils.h"
 /*
  * Global register map
  */
