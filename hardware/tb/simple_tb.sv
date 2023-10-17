@@ -1078,7 +1078,7 @@ module ariane_tb;
            bootmode = 1'b0;
            riscv_ibex_dbg.reset_master();
            if (ot_sram != "none") begin
-                repeat(8)
+                repeat(25)
                   @(posedge rtc_i);
                 debug_secd_module_init();
                 load_secd_binary(ot_sram);
@@ -1091,7 +1091,7 @@ module ariane_tb;
            bootmode = 1'b1;
            riscv_ibex_dbg.reset_master();
            spih_norflash_ot_preload(ot_flash);
-           repeat(8)
+           repeat(25)
              @(posedge rtc_i);
            jtag_secd_wait_eoc();
          end
