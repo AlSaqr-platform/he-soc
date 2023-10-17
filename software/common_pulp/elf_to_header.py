@@ -44,11 +44,17 @@ c_function = """\
          udma_hyper_dread((end-p)*4,p-0x80000000, 0x1C000000, 128, 0);
          udma_hyper_wait(0);
        #else
-         uint32_t * addr;
-         while(p<end){
-           addr = 0x1C000000 + ((p - p0)*4);
-           pulp_write32(addr,pulp_read32(p));
-           p++;
+         uint32_t *addr = (uint32_t*) 0x1C000004;
+         for (uint32_t i = 0; i < (end-p0) >> 2; i++) {
+          pulp_write32(addr + 0, pulp_read32(p + 0));
+          pulp_write32(addr + 1, pulp_read32(p + 1));
+          pulp_write32(addr + 2, pulp_read32(p + 2));
+          pulp_write32(addr + 3, pulp_read32(p + 3));
+          addr += 4;
+          p += 4;
+         }
+         while(p < end) {
+          pulp_write32(addr++,pulp_read32(p++));
          }
        #endif
   #else
@@ -145,7 +151,8 @@ class stim(object):
       file.write('int load_cluster_code() {\n' )
       file.write(c_function)
       for key in sorted(self.mem.keys()):
-        file.write('  (*(volatile unsigned int *)(long)(0x%X)) = 0x%0*X ;\n' % (int(key), width*2, self.mem.get(key)))
+        if int(key) > 0x1c000000:
+          file.write('  (*(volatile unsigned int *)(long)(0x%X)) = 0x%0*X ;\n' % (int(key), width*2, self.mem.get(key)))
       file.write('#endif\n')
       file.write('return 0; \n }\n')
                  
