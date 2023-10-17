@@ -477,22 +477,22 @@ int main(){
       #else
         switch(u){
           case 0:
-            //Config padframe on SPIO0
-            alsaqr_periph_padframe_periphs_a_18_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_19_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_20_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_21_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_22_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_23_mux_set( 1 );
+            //Config padframe on SPIO2
+            alsaqr_periph_padframe_periphs_a_09_mux_set( 4 );
+            alsaqr_periph_padframe_periphs_a_10_mux_set( 4 );
+            alsaqr_periph_padframe_periphs_a_11_mux_set( 4 );
+            alsaqr_periph_padframe_periphs_a_12_mux_set( 4 );
+            alsaqr_periph_padframe_periphs_a_13_mux_set( 4 );
+            alsaqr_periph_padframe_periphs_a_14_mux_set( 2 );
             break;
           case 1:
             //Config padframe on SPIO1
-            alsaqr_periph_padframe_periphs_a_58_mux_set( 2 );
-            alsaqr_periph_padframe_periphs_a_59_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_b_25_mux_set( 2 );
-            alsaqr_periph_padframe_periphs_a_60_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_61_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_62_mux_set( 1 );
+            alsaqr_periph_padframe_periphs_b_00_mux_set( 2 );
+            alsaqr_periph_padframe_periphs_b_01_mux_set( 2 );
+            alsaqr_periph_padframe_periphs_b_02_mux_set( 3 );
+            alsaqr_periph_padframe_periphs_b_03_mux_set( 3 );
+            alsaqr_periph_padframe_periphs_b_04_mux_set( 2 );
+            alsaqr_periph_padframe_periphs_b_05_mux_set( 2 );
             break;
         }
       #endif 
