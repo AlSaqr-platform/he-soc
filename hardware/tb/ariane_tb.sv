@@ -45,10 +45,10 @@ import "DPI-C" context function byte read_section(input longint address, inout b
 module ariane_tb;
 
   static uvm_cmdline_processor uvcl = uvm_cmdline_processor::get_inst();
-  `ifdef TARGET_MACRO
+  `ifdef TARGET_ASIC
   localparam int unsigned REFClockPeriod = 500ns; // jtag clock: 2MHz
   `else
-  localparam int unsigned REFClockPeriod = 67000ps;  // jtag clock: about 15MHz
+  localparam int unsigned REFClockPeriod = 67000ps;  // jtag clock: around 15MHz
   `endif
   // toggle with RTC period
   `ifndef TEST_CLOCK_BYPASS
@@ -2699,7 +2699,7 @@ module ariane_tb;
 
   // Wait for termination signal and get return code
   task automatic jtag_wait_for_eoc(input word_bt tohost);
- `ifdef TARGET_MACRO
+ `ifdef TARGET_ASIC
     jtag_poll_bit0(tohost, exit_code, 10);
  `else
     jtag_poll_bit0(tohost, exit_code, 800);

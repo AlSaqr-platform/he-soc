@@ -404,7 +404,7 @@ init: bender vips update
 clean:
 	rm -rf $(riscv-torture-dir)/output/test*
 	rm -rf $(library)/ $(dpi-library)/ $(ver-library)/
-	rm -f tmp/*.ucdb tmp/*.log *.wlf *vstf wlft* *.ucdb *.tcl
+	rm -f tmp/*.ucdb tmp/*.log *.wlf *vstf wlft* *.ucdb
 	rm -f *log
 	rm -f transcript
 	rm -f uart
