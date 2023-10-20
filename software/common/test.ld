@@ -32,7 +32,8 @@ SECTIONS
   /* text: for code & constants */
   . = 0x80000000;
   .text.init : { *(.text.init) } > L3
-
+  . = 0x80000100;
+  .nocache_share_region : { *(.nocache_share_region) }
   . = ALIGN(0x1000);
   .tohost : { *(.tohost) } > L2
 

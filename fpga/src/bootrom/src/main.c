@@ -19,16 +19,18 @@ int main() {
         "la a1, device_tree;");
       //"ebreak;");
 
-    
+    int mbox_id = 10;
+
     while (1) {
-            __asm__ volatile("wfi;");
+            pointer=(int *)0x0C203004;
+            while(*pointer != mbox_id)
+              __asm__ volatile("wfi;");
+            *pointer = mbox_id;
             pointer=(int *)0x10404024;
-            if(*pointer==0x1){
-              *pointer=0x0;
-              __asm__ volatile("li a0, 0x10404000;");
-              __asm__ volatile("lwu t0, 0(a0);");
-              __asm__ volatile("jr t0;");
-            }
+            *pointer=0x0;
+            __asm__ volatile("li a0, 0x10404000;");
+            __asm__ volatile("lwu t0, 0(a0);");
+            __asm__ volatile("jr t0;");
     }
 }
 

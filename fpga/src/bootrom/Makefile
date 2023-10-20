@@ -29,8 +29,6 @@ bootrom.elf bootrom.dump bootrom.bin: bootrom.S $(OBJS_C) bootrom.ld occamy.dtb
 
 
 %.coe: %.bin 
-	bin2coe -i $< -o $@ -w 64
-	cp bootrom.coe ../../../hardware/fpga/alsaqr/tcl/ips/boot_rom/boot_code.coe
 	python3 gen_rom_sv.py --binary bootrom.elf --vectors bootrom.sv
 
 clean:

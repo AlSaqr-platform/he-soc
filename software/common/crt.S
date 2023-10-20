@@ -12,6 +12,8 @@
 # define REGBYTES 4
 #endif
 
+# define NB_CORES 2
+
   .section ".text.init"
   .globl _start
 _start:
@@ -121,7 +123,7 @@ _start:
   # get core id
   csrr a0, mhartid
   # for now, assume only 1 core
-  li a1, 1
+  li a1, NB_CORES
 
   la  sp, _stack
 
