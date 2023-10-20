@@ -1,13 +1,16 @@
 PROJECT:=xilinx_rom_bank_1024x64
 
 all:
-	vivado-2018.2 vivado -mode batch -source run.tcl
+	#algrin vivado-2018.2 vivado -mode batch -source run.tcl
+	/opt/Xilinx/Vivado/2018.2/bin/vivado -mode batch -source run.tcl
 	mkdir -p ip
 	cp -r ${PROJECT}.srcs/sources_1/ip/${PROJECT}/* ip/.
 	cp ${PROJECT}.runs/${PROJECT}_synth_1/${PROJECT}.dcp ip/.
 
 gui:
-	vivado-2018.2 vivado -mode gui -source run.tcl &
+	#algrin vivado-2018.2 vivado -mode gui -source run.tcl &
+	#/tools/Xilinx/Vivado/2020.2/bin/vivado -mode gui -source run.tcl &
+	/opt/Xilinx/Vivado/2018.2/bin/vivado -mode gui -source run.tcl &
 
 clean:
 	rm -rf ip/*
