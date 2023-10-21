@@ -8,6 +8,9 @@
 #include "properties.h"
 #include "apb_soc/apb_soc.h"
 #include "uart.h"
+#ifdef FLL_DRIVER
+#include "fll.h"
+#endif
 #include "cluster_ctrl_v2.h"
 #include "plic.h"
 #include "string_lib.h"

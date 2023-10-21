@@ -27,6 +27,11 @@ SRC=$(foreach d, $(src_dirs), $(wildcard $(utils_dir)$d/*.c))
 
 INC=$(foreach d, $(inc_dirs), -I$(utils_dir)$d)
 
+ifneq ($(strip $(wildcard $(HW_HOME)/ip_list/fll_behav/driver)),)
+	FLL_DRIVER=1
+	INC += -I$(HW_HOME)/ip_list/fll_behav/driver/inc
+	SRC += $(wildcard $(HW_HOME)/ip_list/fll_behav/driver/src/*.c)
+endif
 
 inc_dir := $(SW_HOME)/common/
 inc_dir_culsans := $(SW_HOME)/common_culsans/
@@ -38,6 +43,10 @@ RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump -h --disassemble-all --disassemble-zeroe
 
 RISCV_FLAGS     := -mcmodel=medany -static -std=gnu99 -DNUM_CORES=2 -O3 -ffast-math -fno-common -fno-builtin-printf $(INC)
 RISCV_LINK_OPTS := -static -nostdlib -nostartfiles -lm -lgcc
+
+ifeq (FLL_DRIVER, 1)
+	RISCV_FLAGS += -DFLL_DRIVER
+endif
 
 clean:
 	rm -f $(APP).riscv

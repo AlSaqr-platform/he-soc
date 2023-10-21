@@ -13,6 +13,12 @@ static uint64_t lfsr(uint64_t x)
 }
 
 void set_flls() {
+  #ifdef FLL_DRIVER
+  unsigned int freq_all = 200 * 1000000; 
+  pi_fll_init_all();
+  * ( ( int * ) 0x1a100030 ) = 0x104321;
+  pi_freq_set(PI_FREQ_DOMAIN_ALL, freq_all);
+  #else
   int data;
   int addr;
 
@@ -40,7 +46,7 @@ void set_flls() {
   addr = 0x1A100030;
   data = 0x1111;
   pulp_write32(addr, data);
-
+  #endif
 }
 
 void tlb_cfg ( uint32_t tlb_addr ,

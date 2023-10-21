@@ -112,16 +112,6 @@
 #define ARCHI_CORE_HAS_1_10  1
 #endif
 
-
-/*
- * CLOCKS
- */
-
-#define ARCHI_REF_CLOCK_LOG2 15
-#define ARCHI_REF_CLOCK      (1<<ARCHI_REF_CLOCK_LOG2)
-
-
-
 /*
  * UDMA
  */
@@ -166,7 +156,24 @@
  * FLLS
 */
 
-#define ARCHI_NB_FLL  3
+#define ARCHI_NB_FLL                (4)
+#define CONFIG_FAST_OSC_FREQUENCY   (24576063)
+#define FLL_ADDR                    (0x1A100000)
+
+#define ARCHI_REF_CLOCK             (1 << 15) // 32kHz, 32768 // used for RTC
+#define ARCHI_FLL_REF_CLOCK         (ARCHI_REF_CLOCK) // 24MHz
+#define ARCHI_FAST_REF_CLOCK_INIT   (ARCHI_REF_CLOCK / 4) // 6.144MHz
+#define ARCHI_FLL_OPEN_LOOP_CLOCK   (50000000) // 50MHz, no fast clock
+
+#define FLL_ID_CVA6                 (0)
+#define FLL_ID_SOC                  (1)
+#define FLL_ID_PER                  (2)
+#define FLL_ID_CL                   (3)
+
+#define CONFIG_FREQUENCY_CVA6        (50000000)
+#define CONFIG_FREQUENCY_SOC         (50000000)
+#define CONFIG_FREQUENCY_PER         (50000000)
+#define CONFIG_FREQUENCY_CL          (50000000)
 
 
 /*
