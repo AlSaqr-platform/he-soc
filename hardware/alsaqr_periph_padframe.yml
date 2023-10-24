@@ -294,14 +294,14 @@ pad_domains:
         output_defaults: 1'b1
         ports:
           - name: i2c_scl
-            mux_groups: [a_28, a_16, b_02]
+            mux_groups: [a_28, b_02]
             connections:
               chip2pad: scl_i
               scl_o: pad2chip
               oen: ~scl_oe_i
               puen: 1'b0
           - name: i2c_sda
-            mux_groups: [a_29, a_17, b_03]
+            mux_groups: [a_29, b_03]
             connections:
               chip2pad: sda_i
               sda_o: pad2chip
@@ -370,14 +370,14 @@ pad_domains:
         output_defaults: 1'b1
         ports:
           - name: i2c_scl
-            mux_groups: [b_16]
+            mux_groups: [a_16]
             connections:
               chip2pad: scl_i
               scl_o: pad2chip
               oen: ~scl_oe_i
               puen: 1'b0
           - name: i2c_sda
-            mux_groups: [b_17]
+            mux_groups: [a_17]
             connections:
               chip2pad: sda_i
               sda_o: pad2chip
@@ -429,7 +429,7 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
           - name: uart_rx
-            mux_groups: [b_15]
+            mux_groups: [a_15]
             connections:
               rx_o: pad2chip
               oen: 1'b1

@@ -1483,14 +1483,14 @@ uint8_t alsaqr_periph_padframe_periphs_a_15_cfg_smt_get() {
 
 void alsaqr_periph_padframe_periphs_a_15_mux_set(alsaqr_periph_padframe_periphs_a_15_mux_sel_t mux_sel) {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_15_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 2;
+  const uint32_t sel_size = 3;
   uint32_t field_mask = (1<<sel_size)-1;
   REG_WRITE32(address, mux_sel & field_mask);
 }
 
 alsaqr_periph_padframe_periphs_a_15_mux_sel_t alsaqr_periph_padframe_periphs_a_15_mux_get() {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_15_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 2;
+  const uint32_t sel_size = 3;
 
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;

@@ -400,8 +400,8 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   logic a_15_cfg_smt_qs;
   logic a_15_cfg_smt_wd;
   logic a_15_cfg_smt_we;
-  logic [1:0] a_15_mux_sel_qs;
-  logic [1:0] a_15_mux_sel_wd;
+  logic [2:0] a_15_mux_sel_qs;
+  logic [2:0] a_15_mux_sel_wd;
   logic a_15_mux_sel_we;
   logic a_16_cfg_chip2pad_qs;
   logic a_16_cfg_chip2pad_wd;
@@ -4727,9 +4727,9 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   // R[a_15_mux_sel]: V(False)
 
   prim_subreg #(
-    .DW      (2),
+    .DW      (3),
     .SWACCESS("RW"),
-    .RESVAL  (2'h0)
+    .RESVAL  (3'h0)
   ) u_a_15_mux_sel (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -17637,7 +17637,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
   assign a_15_cfg_smt_wd = reg_wdata[6];
 
   assign a_15_mux_sel_we = addr_hit[31] & reg_we & !reg_error;
-  assign a_15_mux_sel_wd = reg_wdata[1:0];
+  assign a_15_mux_sel_wd = reg_wdata[2:0];
 
   assign a_16_cfg_chip2pad_we = addr_hit[32] & reg_we & !reg_error;
   assign a_16_cfg_chip2pad_wd = reg_wdata[0];
@@ -19234,7 +19234,7 @@ module alsaqr_periph_padframe_periphs_config_reg_top #(
       end
 
       addr_hit[31]: begin
-        reg_rdata_next[1:0] = a_15_mux_sel_qs;
+        reg_rdata_next[2:0] = a_15_mux_sel_qs;
       end
 
       addr_hit[32]: begin

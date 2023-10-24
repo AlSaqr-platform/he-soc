@@ -840,6 +840,14 @@ module alsaqr_periph_padframe_periphs_muxer
          mux_to_pads_o.a_15.slw = s_reg2hw.a_15_cfg.slw.q;
          mux_to_pads_o.a_15.smt = s_reg2hw.a_15_cfg.smt.q;
        end
+       PAD_MUX_GROUP_A_15_SEL_UART2_UART_RX: begin
+          mux_to_pads_o.a_15.chip2pad = s_reg2hw.a_15_cfg.chip2pad.q;
+          mux_to_pads_o.a_15.drv = s_reg2hw.a_15_cfg.drv.q;
+          mux_to_pads_o.a_15.oen = 1'b1;
+          mux_to_pads_o.a_15.puen = 1'b1;
+          mux_to_pads_o.a_15.slw = s_reg2hw.a_15_cfg.slw.q;
+          mux_to_pads_o.a_15.smt = s_reg2hw.a_15_cfg.smt.q;
+       end
        PAD_MUX_GROUP_A_15_SEL_ETH_ETH_RST: begin
           mux_to_pads_o.a_15.chip2pad = port_signals_soc2pad_i.eth.eth_rstn_i;
           mux_to_pads_o.a_15.drv = s_reg2hw.a_15_cfg.drv.q;
@@ -886,10 +894,10 @@ module alsaqr_periph_padframe_periphs_muxer
          mux_to_pads_o.a_16.slw = s_reg2hw.a_16_cfg.slw.q;
          mux_to_pads_o.a_16.smt = s_reg2hw.a_16_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_16_SEL_I2C1_I2C_SCL: begin
-          mux_to_pads_o.a_16.chip2pad = port_signals_soc2pad_i.i2c1.scl_i;
+       PAD_MUX_GROUP_A_16_SEL_I2C5_I2C_SCL: begin
+          mux_to_pads_o.a_16.chip2pad = port_signals_soc2pad_i.i2c5.scl_i;
           mux_to_pads_o.a_16.drv = s_reg2hw.a_16_cfg.drv.q;
-          mux_to_pads_o.a_16.oen = ~port_signals_soc2pad_i.i2c1.scl_oe_i;
+          mux_to_pads_o.a_16.oen = ~port_signals_soc2pad_i.i2c5.scl_oe_i;
           mux_to_pads_o.a_16.puen = 1'b0;
           mux_to_pads_o.a_16.slw = s_reg2hw.a_16_cfg.slw.q;
           mux_to_pads_o.a_16.smt = s_reg2hw.a_16_cfg.smt.q;
@@ -940,10 +948,10 @@ module alsaqr_periph_padframe_periphs_muxer
          mux_to_pads_o.a_17.slw = s_reg2hw.a_17_cfg.slw.q;
          mux_to_pads_o.a_17.smt = s_reg2hw.a_17_cfg.smt.q;
        end
-       PAD_MUX_GROUP_A_17_SEL_I2C1_I2C_SDA: begin
-          mux_to_pads_o.a_17.chip2pad = port_signals_soc2pad_i.i2c1.sda_i;
+       PAD_MUX_GROUP_A_17_SEL_I2C5_I2C_SDA: begin
+          mux_to_pads_o.a_17.chip2pad = port_signals_soc2pad_i.i2c5.sda_i;
           mux_to_pads_o.a_17.drv = s_reg2hw.a_17_cfg.drv.q;
-          mux_to_pads_o.a_17.oen = ~port_signals_soc2pad_i.i2c1.sda_oe_i;
+          mux_to_pads_o.a_17.oen = ~port_signals_soc2pad_i.i2c5.sda_oe_i;
           mux_to_pads_o.a_17.puen = 1'b0;
           mux_to_pads_o.a_17.slw = s_reg2hw.a_17_cfg.slw.q;
           mux_to_pads_o.a_17.smt = s_reg2hw.a_17_cfg.smt.q;
@@ -2460,14 +2468,6 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.b_15.slw = s_reg2hw.b_15_cfg.slw.q;
           mux_to_pads_o.b_15.smt = s_reg2hw.b_15_cfg.smt.q;
        end
-       PAD_MUX_GROUP_B_15_SEL_UART2_UART_RX: begin
-          mux_to_pads_o.b_15.chip2pad = s_reg2hw.b_15_cfg.chip2pad.q;
-          mux_to_pads_o.b_15.drv = s_reg2hw.b_15_cfg.drv.q;
-          mux_to_pads_o.b_15.oen = 1'b1;
-          mux_to_pads_o.b_15.puen = 1'b1;
-          mux_to_pads_o.b_15.slw = s_reg2hw.b_15_cfg.slw.q;
-          mux_to_pads_o.b_15.smt = s_reg2hw.b_15_cfg.smt.q;
-       end
        PAD_MUX_GROUP_B_15_SEL_USART2_UART_RX: begin
           mux_to_pads_o.b_15.chip2pad = s_reg2hw.b_15_cfg.chip2pad.q;
           mux_to_pads_o.b_15.drv = s_reg2hw.b_15_cfg.drv.q;
@@ -2522,14 +2522,6 @@ module alsaqr_periph_padframe_periphs_muxer
           mux_to_pads_o.b_16.slw = s_reg2hw.b_16_cfg.slw.q;
           mux_to_pads_o.b_16.smt = s_reg2hw.b_16_cfg.smt.q;
        end
-       PAD_MUX_GROUP_B_16_SEL_I2C5_I2C_SCL: begin
-          mux_to_pads_o.b_16.chip2pad = port_signals_soc2pad_i.i2c5.scl_i;
-          mux_to_pads_o.b_16.drv = s_reg2hw.b_16_cfg.drv.q;
-          mux_to_pads_o.b_16.oen = ~port_signals_soc2pad_i.i2c5.scl_oe_i;
-          mux_to_pads_o.b_16.puen = 1'b0;
-          mux_to_pads_o.b_16.slw = s_reg2hw.b_16_cfg.slw.q;
-          mux_to_pads_o.b_16.smt = s_reg2hw.b_16_cfg.smt.q;
-       end
        PAD_MUX_GROUP_B_16_SEL_USART2_UART_RTS: begin
           mux_to_pads_o.b_16.chip2pad = port_signals_soc2pad_i.usart2.rts_i;
           mux_to_pads_o.b_16.drv = s_reg2hw.b_16_cfg.drv.q;
@@ -2575,14 +2567,6 @@ module alsaqr_periph_padframe_periphs_muxer
          mux_to_pads_o.b_17.puen = s_reg2hw.b_17_cfg.puen.q;
          mux_to_pads_o.b_17.slw = s_reg2hw.b_17_cfg.slw.q;
          mux_to_pads_o.b_17.smt = s_reg2hw.b_17_cfg.smt.q;
-       end
-       PAD_MUX_GROUP_B_17_SEL_I2C5_I2C_SDA: begin
-          mux_to_pads_o.b_17.chip2pad = port_signals_soc2pad_i.i2c5.sda_i;
-          mux_to_pads_o.b_17.drv = s_reg2hw.b_17_cfg.drv.q;
-          mux_to_pads_o.b_17.oen = ~port_signals_soc2pad_i.i2c5.sda_oe_i;
-          mux_to_pads_o.b_17.puen = 1'b0;
-          mux_to_pads_o.b_17.slw = s_reg2hw.b_17_cfg.slw.q;
-          mux_to_pads_o.b_17.smt = s_reg2hw.b_17_cfg.smt.q;
        end
        PAD_MUX_GROUP_B_17_SEL_UART1_UART_TX: begin
           mux_to_pads_o.b_17.chip2pad = port_signals_soc2pad_i.uart1.tx_i;
@@ -4778,16 +4762,15 @@ module alsaqr_periph_padframe_periphs_muxer
   // Port Group i2c1
 
   // Port Signal scl_o
-  logic [2:0] port_mux_sel_i2c1_scl_o_req;
-  logic [PORT_MUX_GROUP_A_16_A_28_B_02_SEL_WIDTH-1:0] port_mux_sel_i2c1_scl_o_arbitrated;
+  logic [1:0] port_mux_sel_i2c1_scl_o_req;
+  logic [PORT_MUX_GROUP_A_28_B_02_SEL_WIDTH-1:0] port_mux_sel_i2c1_scl_o_arbitrated;
   logic port_mux_sel_i2c1_scl_o_no_connection;
 
-   assign port_mux_sel_i2c1_scl_o_req[PORT_MUX_GROUP_A_16_A_28_B_02_SEL_A_16] = s_reg2hw.a_16_mux_sel.q == PAD_MUX_GROUP_A_16_SEL_I2C1_I2C_SCL ? 1'b1 : 1'b0;
-   assign port_mux_sel_i2c1_scl_o_req[PORT_MUX_GROUP_A_16_A_28_B_02_SEL_A_28] = s_reg2hw.a_28_mux_sel.q == PAD_MUX_GROUP_A_28_SEL_I2C1_I2C_SCL ? 1'b1 : 1'b0;
-   assign port_mux_sel_i2c1_scl_o_req[PORT_MUX_GROUP_A_16_A_28_B_02_SEL_B_02] = s_reg2hw.b_02_mux_sel.q == PAD_MUX_GROUP_B_02_SEL_I2C1_I2C_SCL ? 1'b1 : 1'b0;
+   assign port_mux_sel_i2c1_scl_o_req[PORT_MUX_GROUP_A_28_B_02_SEL_A_28] = s_reg2hw.a_28_mux_sel.q == PAD_MUX_GROUP_A_28_SEL_I2C1_I2C_SCL ? 1'b1 : 1'b0;
+   assign port_mux_sel_i2c1_scl_o_req[PORT_MUX_GROUP_A_28_B_02_SEL_B_02] = s_reg2hw.b_02_mux_sel.q == PAD_MUX_GROUP_B_02_SEL_I2C1_I2C_SCL ? 1'b1 : 1'b0;
 
    lzc #(
-     .WIDTH(3),
+     .WIDTH(2),
      .MODE(1'b0)
    ) i_port_muxsel_i2c1_scl_o_arbiter (
      .in_i(port_mux_sel_i2c1_scl_o_req),
@@ -4800,13 +4783,10 @@ module alsaqr_periph_padframe_periphs_muxer
         port_signals_pad2soc_o.i2c1.scl_o = 1'b1;
      end else begin
         unique case (port_mux_sel_i2c1_scl_o_arbitrated)
-          PORT_MUX_GROUP_A_16_A_28_B_02_SEL_A_16: begin
-            port_signals_pad2soc_o.i2c1.scl_o = pads_to_mux_i.a_16.pad2chip;
-          end
-          PORT_MUX_GROUP_A_16_A_28_B_02_SEL_A_28: begin
+          PORT_MUX_GROUP_A_28_B_02_SEL_A_28: begin
             port_signals_pad2soc_o.i2c1.scl_o = pads_to_mux_i.a_28.pad2chip;
           end
-          PORT_MUX_GROUP_A_16_A_28_B_02_SEL_B_02: begin
+          PORT_MUX_GROUP_A_28_B_02_SEL_B_02: begin
             port_signals_pad2soc_o.i2c1.scl_o = pads_to_mux_i.b_02.pad2chip;
           end
           default: begin
@@ -4818,16 +4798,15 @@ module alsaqr_periph_padframe_periphs_muxer
 
 
   // Port Signal sda_o
-  logic [2:0] port_mux_sel_i2c1_sda_o_req;
-  logic [PORT_MUX_GROUP_A_17_A_29_B_03_SEL_WIDTH-1:0] port_mux_sel_i2c1_sda_o_arbitrated;
+  logic [1:0] port_mux_sel_i2c1_sda_o_req;
+  logic [PORT_MUX_GROUP_A_29_B_03_SEL_WIDTH-1:0] port_mux_sel_i2c1_sda_o_arbitrated;
   logic port_mux_sel_i2c1_sda_o_no_connection;
 
-   assign port_mux_sel_i2c1_sda_o_req[PORT_MUX_GROUP_A_17_A_29_B_03_SEL_A_17] = s_reg2hw.a_17_mux_sel.q == PAD_MUX_GROUP_A_17_SEL_I2C1_I2C_SDA ? 1'b1 : 1'b0;
-   assign port_mux_sel_i2c1_sda_o_req[PORT_MUX_GROUP_A_17_A_29_B_03_SEL_A_29] = s_reg2hw.a_29_mux_sel.q == PAD_MUX_GROUP_A_29_SEL_I2C1_I2C_SDA ? 1'b1 : 1'b0;
-   assign port_mux_sel_i2c1_sda_o_req[PORT_MUX_GROUP_A_17_A_29_B_03_SEL_B_03] = s_reg2hw.b_03_mux_sel.q == PAD_MUX_GROUP_B_03_SEL_I2C1_I2C_SDA ? 1'b1 : 1'b0;
+   assign port_mux_sel_i2c1_sda_o_req[PORT_MUX_GROUP_A_29_B_03_SEL_A_29] = s_reg2hw.a_29_mux_sel.q == PAD_MUX_GROUP_A_29_SEL_I2C1_I2C_SDA ? 1'b1 : 1'b0;
+   assign port_mux_sel_i2c1_sda_o_req[PORT_MUX_GROUP_A_29_B_03_SEL_B_03] = s_reg2hw.b_03_mux_sel.q == PAD_MUX_GROUP_B_03_SEL_I2C1_I2C_SDA ? 1'b1 : 1'b0;
 
    lzc #(
-     .WIDTH(3),
+     .WIDTH(2),
      .MODE(1'b0)
    ) i_port_muxsel_i2c1_sda_o_arbiter (
      .in_i(port_mux_sel_i2c1_sda_o_req),
@@ -4840,13 +4819,10 @@ module alsaqr_periph_padframe_periphs_muxer
         port_signals_pad2soc_o.i2c1.sda_o = 1'b1;
      end else begin
         unique case (port_mux_sel_i2c1_sda_o_arbitrated)
-          PORT_MUX_GROUP_A_17_A_29_B_03_SEL_A_17: begin
-            port_signals_pad2soc_o.i2c1.sda_o = pads_to_mux_i.a_17.pad2chip;
-          end
-          PORT_MUX_GROUP_A_17_A_29_B_03_SEL_A_29: begin
+          PORT_MUX_GROUP_A_29_B_03_SEL_A_29: begin
             port_signals_pad2soc_o.i2c1.sda_o = pads_to_mux_i.a_29.pad2chip;
           end
-          PORT_MUX_GROUP_A_17_A_29_B_03_SEL_B_03: begin
+          PORT_MUX_GROUP_A_29_B_03_SEL_B_03: begin
             port_signals_pad2soc_o.i2c1.sda_o = pads_to_mux_i.b_03.pad2chip;
           end
           default: begin
@@ -5055,10 +5031,10 @@ module alsaqr_periph_padframe_periphs_muxer
 
   // Port Signal scl_o
   logic [0:0] port_mux_sel_i2c5_scl_o_req;
-  logic [PORT_MUX_GROUP_B_16_SEL_WIDTH-1:0] port_mux_sel_i2c5_scl_o_arbitrated;
+  logic [PORT_MUX_GROUP_A_16_SEL_WIDTH-1:0] port_mux_sel_i2c5_scl_o_arbitrated;
   logic port_mux_sel_i2c5_scl_o_no_connection;
 
-   assign port_mux_sel_i2c5_scl_o_req[PORT_MUX_GROUP_B_16_SEL_B_16] = s_reg2hw.b_16_mux_sel.q == PAD_MUX_GROUP_B_16_SEL_I2C5_I2C_SCL ? 1'b1 : 1'b0;
+   assign port_mux_sel_i2c5_scl_o_req[PORT_MUX_GROUP_A_16_SEL_A_16] = s_reg2hw.a_16_mux_sel.q == PAD_MUX_GROUP_A_16_SEL_I2C5_I2C_SCL ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
@@ -5074,8 +5050,8 @@ module alsaqr_periph_padframe_periphs_muxer
         port_signals_pad2soc_o.i2c5.scl_o = 1'b1;
      end else begin
         unique case (port_mux_sel_i2c5_scl_o_arbitrated)
-          PORT_MUX_GROUP_B_16_SEL_B_16: begin
-            port_signals_pad2soc_o.i2c5.scl_o = pads_to_mux_i.b_16.pad2chip;
+          PORT_MUX_GROUP_A_16_SEL_A_16: begin
+            port_signals_pad2soc_o.i2c5.scl_o = pads_to_mux_i.a_16.pad2chip;
           end
           default: begin
             port_signals_pad2soc_o.i2c5.scl_o = 1'b1;
@@ -5087,10 +5063,10 @@ module alsaqr_periph_padframe_periphs_muxer
 
   // Port Signal sda_o
   logic [0:0] port_mux_sel_i2c5_sda_o_req;
-  logic [PORT_MUX_GROUP_B_17_SEL_WIDTH-1:0] port_mux_sel_i2c5_sda_o_arbitrated;
+  logic [PORT_MUX_GROUP_A_17_SEL_WIDTH-1:0] port_mux_sel_i2c5_sda_o_arbitrated;
   logic port_mux_sel_i2c5_sda_o_no_connection;
 
-   assign port_mux_sel_i2c5_sda_o_req[PORT_MUX_GROUP_B_17_SEL_B_17] = s_reg2hw.b_17_mux_sel.q == PAD_MUX_GROUP_B_17_SEL_I2C5_I2C_SDA ? 1'b1 : 1'b0;
+   assign port_mux_sel_i2c5_sda_o_req[PORT_MUX_GROUP_A_17_SEL_A_17] = s_reg2hw.a_17_mux_sel.q == PAD_MUX_GROUP_A_17_SEL_I2C5_I2C_SDA ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
@@ -5106,8 +5082,8 @@ module alsaqr_periph_padframe_periphs_muxer
         port_signals_pad2soc_o.i2c5.sda_o = 1'b1;
      end else begin
         unique case (port_mux_sel_i2c5_sda_o_arbitrated)
-          PORT_MUX_GROUP_B_17_SEL_B_17: begin
-            port_signals_pad2soc_o.i2c5.sda_o = pads_to_mux_i.b_17.pad2chip;
+          PORT_MUX_GROUP_A_17_SEL_A_17: begin
+            port_signals_pad2soc_o.i2c5.sda_o = pads_to_mux_i.a_17.pad2chip;
           end
           default: begin
             port_signals_pad2soc_o.i2c5.sda_o = 1'b1;
@@ -5193,10 +5169,10 @@ module alsaqr_periph_padframe_periphs_muxer
 
   // Port Signal rx_o
   logic [0:0] port_mux_sel_uart2_rx_o_req;
-  logic [PORT_MUX_GROUP_B_15_SEL_WIDTH-1:0] port_mux_sel_uart2_rx_o_arbitrated;
+  logic [PORT_MUX_GROUP_A_15_SEL_WIDTH-1:0] port_mux_sel_uart2_rx_o_arbitrated;
   logic port_mux_sel_uart2_rx_o_no_connection;
 
-   assign port_mux_sel_uart2_rx_o_req[PORT_MUX_GROUP_B_15_SEL_B_15] = s_reg2hw.b_15_mux_sel.q == PAD_MUX_GROUP_B_15_SEL_UART2_UART_RX ? 1'b1 : 1'b0;
+   assign port_mux_sel_uart2_rx_o_req[PORT_MUX_GROUP_A_15_SEL_A_15] = s_reg2hw.a_15_mux_sel.q == PAD_MUX_GROUP_A_15_SEL_UART2_UART_RX ? 1'b1 : 1'b0;
 
    lzc #(
      .WIDTH(1),
@@ -5212,8 +5188,8 @@ module alsaqr_periph_padframe_periphs_muxer
         port_signals_pad2soc_o.uart2.rx_o = 1'b1;
      end else begin
         unique case (port_mux_sel_uart2_rx_o_arbitrated)
-          PORT_MUX_GROUP_B_15_SEL_B_15: begin
-            port_signals_pad2soc_o.uart2.rx_o = pads_to_mux_i.b_15.pad2chip;
+          PORT_MUX_GROUP_A_15_SEL_A_15: begin
+            port_signals_pad2soc_o.uart2.rx_o = pads_to_mux_i.a_15.pad2chip;
           end
           default: begin
             port_signals_pad2soc_o.uart2.rx_o = 1'b1;
