@@ -6,8 +6,35 @@
 
 //#define FPGA_EMULATION
 
-int main(int argc, char const *argv[]) {
+volatile uint64_t count __attribute__((section(".nocache_share_region")));
 
+void thread_entry(int cid, int nc)
+{
+  int * pointer;
+  int mbox_id = 10;
+
+  hello_world(cid);
+
+  // core 0 initializes the synchronization variable
+  if (cid == 0)
+    count = 0;
+  else
+    while(count != cid);
+
+  count++;
+
+  // cores wait here
+  while(cid)
+    { asm volatile ("wfi"); }
+
+  // core 0 continues after all cores have finished
+  if (cid == 0) {
+    while (count != nc)
+      { asm volatile ("nop"); }
+  }
+}
+
+void hello_world(int cid){
   #ifdef FPGA_EMULATION
   int baud_rate = 115200;
   int test_freq = 50000000;
@@ -25,7 +52,13 @@ int main(int argc, char const *argv[]) {
   pulp_write32(hyaxicfg_reg_memspace_start_addr1,0x84000000);
   uint32_t * hyaxicfg_reg_memspace_end_addr0 = 0x1A101024;
   pulp_write32(hyaxicfg_reg_memspace_end_addr0,0x84000000);
-  printf("Hello World! I'm Core %d!\r\n", read_csr(mhartid));
+  printf("Hello Culsans! I'm Core %d!\r\n", cid);
   uart_wait_tx_done();
+}
+
+int main(int argc, char const *argv[]) {
   return 0;
 }
+
+
+

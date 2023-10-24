@@ -46,7 +46,7 @@ module ariane_tb;
 
   static uvm_cmdline_processor uvcl = uvm_cmdline_processor::get_inst();
   `ifdef TARGET_ASIC
-  localparam int unsigned REFClockPeriod = 500ns; // jtag clock: 2MHz
+  localparam int unsigned REFClockPeriod = 1us; // jtag clock: 1MHz
   `else
   localparam int unsigned REFClockPeriod = 67000ps;  // jtag clock: around 15MHz
   `endif
@@ -89,7 +89,7 @@ module ariane_tb;
   parameter  LINKER_ENTRY        = 32'h80000000;
   // IMPORTANT : If you change the linkerscript check the tohost address and update this paramater
   // IMPORTANT : to host mapped in L2 non-cached region because we use WB cache
-  parameter  TOHOST              = 32'h1C000040;
+  parameter  TOHOST              = 32'h1C000000;
 
   `ifdef PRELOAD
     parameter  PRELOAD_HYPERRAM    = 1;
@@ -2873,6 +2873,7 @@ module ariane_tb;
       $display("Waiting the FLL clock before initiating the debug module...");
       repeat(10)
       @(posedge clk_i);
+
       jtag_init(cid);
 
       if(PRELOAD_HYPERRAM==0) begin
@@ -2885,6 +2886,12 @@ module ariane_tb;
           jtag_elf_load(binary, binary_entry, cid);
           $display("Wakeup Core..");
           jtag_elf_run(binary_entry, cid);
+       `ifdef DUAL_BOOT
+          repeat(100)
+            @(posedge clk_i);
+          jtag_init(cid+1);
+          jtag_elf_run(binary_entry, cid+1);
+       `endif
           $display("Wait EOC...");
           jtag_wait_for_eoc ( TOHOST );
         end
@@ -2897,7 +2904,13 @@ module ariane_tb;
         #(REFClockPeriod);
         $display("Wakeup here at %x!!", binary_entry);
         jtag_ariane_wakeup( LINKER_ENTRY, cid );
-        jtag_wait_for_eoc ( TOHOST );
+     `ifdef DUAL_BOOT
+        repeat(100)
+          @(posedge clk_i);
+        jtag_init( cid+1 );
+        jtag_ariane_wakeup( LINKER_ENTRY, cid+1 );
+     `endif
+        jtag_wait_for_eoc( TOHOST );
       end
     end
   end
@@ -3030,7 +3043,7 @@ module ariane_tb;
     jtag_write(dm::Command, 32'h0033_07b1, 0, 1);
     // Resume hart 0
     jtag_write(dm::DMControl, dm::dmcontrol_t'{resumereq: 1, dmactive: 1, hartsello: cid, default: '0});
-    $display("[JTAG] Resumed hart 0 from 0x%h", binary_entry);
+    $display("[JTAG] Resumed hart %h from 0x%h", cid, binary_entry);
   endtask
 
   // Load a binary
