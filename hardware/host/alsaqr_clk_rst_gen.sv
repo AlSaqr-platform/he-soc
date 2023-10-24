@@ -138,7 +138,7 @@ module alsaqr_clk_rst_gen (
 
     rstgen_ckg i_soc_dm_rstgen (
       .clk_i       ( s_clk_fll_soc            ),
-      .rst_ni      ( s_rstn_soc               ), // reset from padreset
+      .rst_ni      ( s_rstn_soc & (~rst_dm_i) ), // reset from padreset
       .test_mode_i ( test_mode_i              ),
       .rst_no      ( s_rst_glob_sync          ), //to be used by logic clocked with ref clock in AO domain
       .init_no     (                          ),                    //not used
