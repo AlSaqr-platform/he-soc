@@ -243,8 +243,7 @@ module apb_subsystem
            .apb_master ( apb_peripheral_master_bus  )
          );
 
-   periph_bus_wrap #(
-                     )(
+   periph_bus_wrap per_bus_wrap (
     .clk_i(clk_soc_o),
     .rst_ni(s_rstn_soc_sync),
     .apb_slave(apb_peripheral_master_bus),
@@ -260,6 +259,7 @@ module apb_subsystem
     .apb_uart_master(apb_uart_master_bus)
     );
 
+   // cluster uart
    if (InclUART) begin : gen_uart
      apb_uart i_apb_uart1 (
        .CLK     ( clk_i                          ),
