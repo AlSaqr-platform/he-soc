@@ -125,6 +125,16 @@
   assign load.sda_i = driver.sda_o; \
   assign load.sda_oe_i = driver.sda_oe_o; \
 
+`define ASSIGN_PERIPHS_I2C5_PAD2SOC(load, driver) \
+  assign load.scl_i = driver.scl_o; \
+  assign load.sda_i = driver.sda_o; \
+
+`define ASSIGN_PERIPHS_I2C5_SOC2PAD(load, driver) \
+  assign load.scl_i = driver.scl_o; \
+  assign load.scl_oe_i = driver.scl_oe_o; \
+  assign load.sda_i = driver.sda_o; \
+  assign load.sda_oe_i = driver.sda_oe_o; \
+
 `define ASSIGN_PERIPHS_UART0_PAD2SOC(load, driver) \
   assign load.rx_i = driver.rx_o; \
 
@@ -135,6 +145,12 @@
   assign load.rx_i = driver.rx_o; \
 
 `define ASSIGN_PERIPHS_UART1_SOC2PAD(load, driver) \
+  assign load.tx_i = driver.tx_o; \
+
+`define ASSIGN_PERIPHS_UART2_PAD2SOC(load, driver) \
+  assign load.rx_i = driver.rx_o; \
+
+`define ASSIGN_PERIPHS_UART2_SOC2PAD(load, driver) \
   assign load.tx_i = driver.tx_o; \
 
 `define ASSIGN_PERIPHS_USART0_PAD2SOC(load, driver) \
@@ -291,7 +307,6 @@
 `define ASSIGN_PERIPHS_SPI6_SOC2PAD(load, driver) \
   assign load.clk_i = driver.clk_o; \
   assign load.csn0_i = driver.csn0_o; \
-  assign load.csn1_i = driver.csn1_o; \
   assign load.sd0_i = driver.sd0_o; \
 
 `define ASSIGN_PERIPHS_SPI7_PAD2SOC(load, driver) \
@@ -300,6 +315,7 @@
 `define ASSIGN_PERIPHS_SPI7_SOC2PAD(load, driver) \
   assign load.clk_i = driver.clk_o; \
   assign load.csn0_i = driver.csn0_o; \
+  assign load.csn1_i = driver.csn1_o; \
   assign load.sd0_i = driver.sd0_o; \
 
 `define ASSIGN_PERIPHS_SPI8_PAD2SOC(load, driver) \
@@ -314,6 +330,14 @@
   assign load.sd1_i = driver.sd1_o; \
 
 `define ASSIGN_PERIPHS_SPI9_SOC2PAD(load, driver) \
+  assign load.clk_i = driver.clk_o; \
+  assign load.csn0_i = driver.csn0_o; \
+  assign load.sd0_i = driver.sd0_o; \
+
+`define ASSIGN_PERIPHS_SPI10_PAD2SOC(load, driver) \
+  assign load.sd1_i = driver.sd1_o; \
+
+`define ASSIGN_PERIPHS_SPI10_SOC2PAD(load, driver) \
   assign load.clk_i = driver.clk_o; \
   assign load.csn0_i = driver.csn0_o; \
   assign load.sd0_i = driver.sd0_o; \
