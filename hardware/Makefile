@@ -190,6 +190,11 @@ ifdef sec_boot
 	questa-cmd += +define+SEC_BOOT
 endif
 
+ifdef clk-bypass
+	compile_flag += +define+TEST_CLOCK_BYPASS
+	questa-cmd += +define+TEST_CLOCK_BYPASS
+endif
+
 bender:
 	curl --proto '=https' --tlsv1.2 https://fabianschuiki.github.io/bender/init -sSf | sh -s -- 0.22.0
 

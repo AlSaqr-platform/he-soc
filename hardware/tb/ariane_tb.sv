@@ -54,7 +54,7 @@ module ariane_tb;
   `ifndef TEST_CLOCK_BYPASS
     localparam int unsigned RTC_CLOCK_PERIOD = 30.517us;
   `else
-    localparam int unsigned RTC_CLOCK_PERIOD = 10ns;
+    localparam int unsigned RTC_CLOCK_PERIOD = 2ns;
   `endif
 
   localparam NUM_WORDS = 2**25;
