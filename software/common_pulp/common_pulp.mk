@@ -1,5 +1,3 @@
-LINKER_SCRIPT = $(SW_HOME)/common_pulp/link.ld
-
 include $(PULP_SDK_HOME)/install/rules/pulp.mk
 
 dump_header:
