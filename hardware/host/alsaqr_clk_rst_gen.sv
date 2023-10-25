@@ -46,7 +46,9 @@ module alsaqr_clk_rst_gen (
   logic s_clk_fll_cva6;
   logic s_clk_fll_per;
   logic s_clk_fll_cluster;
+
   logic s_clk_opentitan;
+  logic clk_opentitan_div;
   logic s_clk_opentitan_o;
 
   logic s_rstn_soc;
@@ -194,8 +196,15 @@ module alsaqr_clk_rst_gen (
       .div_i          ( ot_div_value       ),
       .div_valid_i    ( ot_div_value_valid ),
       .div_ready_o    ( ot_div_value_ready ),
-      .clk_o          ( s_clk_opentitan_o  ),
+      .clk_o          ( clk_opentitan_div  ),
       .cycl_count_o   (                    )
+    );
+
+    tc_clk_mux2 clk_mux_ref_fll_opentitan_i (
+      .clk0_i    ( clk_opentitan_div   ),
+      .clk1_i    ( ref_clk_i           ),
+      .clk_sel_i ( sel_fll_clk_i       ),
+      .clk_o     ( s_clk_opentitan_o   )
     );
 
   `else // !`ifndef PULP_FPGA_EMUL
