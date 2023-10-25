@@ -48,7 +48,7 @@ module ariane_tb;
   `ifdef TARGET_ASIC
   localparam int unsigned REFClockPeriod = 1us; // jtag clock: 1MHz
   `else
-  localparam int unsigned REFClockPeriod = 67000ps;  // jtag clock: around 15MHz
+  localparam int unsigned REFClockPeriod = 100ns;  // jtag clock: around 10MHz
   `endif
   // toggle with RTC period
   `ifndef TEST_CLOCK_BYPASS
