@@ -2887,7 +2887,7 @@ module ariane_tb;
           $display("Wakeup Core..");
           jtag_elf_run(binary_entry, cid);
        `ifdef DUAL_BOOT
-          repeat(20)
+          repeat(100)
             @(posedge clk_i);
           jtag_init(cid+1);
           jtag_ariane_wakeup( LINKER_ENTRY, cid+1 );
