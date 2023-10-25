@@ -294,10 +294,15 @@ module ariane_tb;
     wire    pad_periphs_b_46_pad;
     wire    pad_periphs_b_47_pad;
 
-    wire    pad_periphs_ot_qspi_00_pad;
-    wire    pad_periphs_ot_qspi_01_pad;
-    wire    pad_periphs_ot_qspi_02_pad;
-    wire    pad_periphs_ot_qspi_03_pad;
+    wire    pad_periphs_ot_spi_00_pad;
+    wire    pad_periphs_ot_spi_01_pad;
+    wire    pad_periphs_ot_spi_02_pad;
+    wire    pad_periphs_ot_spi_03_pad;
+
+    wire                  w_cva6_uart_rx ;
+    wire                  w_cva6_uart_tx ;
+    wire                  apb_uart_rx ;
+    wire                  apb_uart_tx ;
 
     wire ddr_ext_clk;
 
@@ -1192,10 +1197,10 @@ module ariane_tb;
                .pad_periphs_b_46_pad(pad_periphs_b_46_pad),
                .pad_periphs_b_47_pad(pad_periphs_b_47_pad),
 
-               .pad_periphs_ot_qspi_00_pad(pad_periphs_ot_qspi_00_pad),
-               .pad_periphs_ot_qspi_01_pad(pad_periphs_ot_qspi_01_pad),
-               .pad_periphs_ot_qspi_02_pad(pad_periphs_ot_qspi_02_pad),
-               .pad_periphs_ot_qspi_03_pad(pad_periphs_ot_qspi_03_pad),
+               .pad_periphs_ot_spi_00_pad(pad_periphs_ot_spi_00_pad),
+               .pad_periphs_ot_spi_01_pad(pad_periphs_ot_spi_01_pad),
+               .pad_periphs_ot_spi_02_pad(pad_periphs_ot_spi_02_pad),
+               .pad_periphs_ot_spi_03_pad(pad_periphs_ot_spi_03_pad),
 
             `endif //simple pad
           `endif //fpga_emul
@@ -1243,8 +1248,8 @@ module ariane_tb;
 
         if (USE_24FC1025_MODEL == 1) begin
           // configure the I2C0 pads
-          pullup sda0_pullup_i (alt_0_pad_periphs_a_13_pad_BARO1_I2C0_SDA);
-          pullup scl0_pullup_i (alt_0_pad_periphs_a_12_pad_BARO1_I2C0_SCL);
+          pullup alt_0_sda0_pullup_i (alt_0_pad_periphs_a_13_pad_BARO1_I2C0_SDA);
+          pullup alt_0_scl0_pullup_i (alt_0_pad_periphs_a_12_pad_BARO1_I2C0_SCL);
             M24FC1025 alt_0_i_i2c_mem_0 (
               .A0    ( 1'b0       ),
               .A1    ( 1'b0       ),
@@ -1255,8 +1260,8 @@ module ariane_tb;
               .RESET ( 1'b0       )
           );
           // configure the I2C1 pads
-          pullup sda1_pullup_i (alt_0_pad_periphs_a_29_pad_GPS2_I2C1_SDA);
-          pullup scl1_pullup_i (alt_0_pad_periphs_a_28_pad_GPS2_I2C1_SCL);
+          pullup alt_0_sda1_pullup_i (alt_0_pad_periphs_a_29_pad_GPS2_I2C1_SDA);
+          pullup alt_0_scl1_pullup_i (alt_0_pad_periphs_a_28_pad_GPS2_I2C1_SCL);
             M24FC1025 alt_0_i_i2c_mem_1 (
               .A0    ( 1'b0       ),
               .A1    ( 1'b0       ),
@@ -1369,8 +1374,8 @@ module ariane_tb;
 
         if (USE_24FC1025_MODEL == 1) begin
           // configure the I2C2 pads
-          pullup sda0_pullup_i (alt_0_pad_periphs_b_09_pad_PMIC_I2C2_SDA);
-          pullup scl0_pullup_i (alt_0_pad_periphs_b_08_pad_PMIC_I2C2_SCL);
+          pullup alt_0_sda2_pullup_i (alt_0_pad_periphs_b_09_pad_PMIC_I2C2_SDA);
+          pullup alt_0_scl2_pullup_i (alt_0_pad_periphs_b_08_pad_PMIC_I2C2_SCL);
             M24FC1025 alt_0_i_i2c_mem_2 (
               .A0    ( 1'b1       ),
               .A1    ( 1'b0       ),
@@ -1381,8 +1386,8 @@ module ariane_tb;
               .RESET ( 1'b0       )
           );
           // configure the I2C4 pads
-          pullup sda0_pullup_i (alt_0_pad_periphs_b_16_pad_EXT2_I2C4_SDA);
-          pullup scl0_pullup_i (alt_0_pad_periphs_b_15_pad_EXT2_I2C4_SCL);
+          pullup alt_0_sda4_pullup_i (alt_0_pad_periphs_b_16_pad_EXT2_I2C4_SDA);
+          pullup alt_0_scl4_pullup_i (alt_0_pad_periphs_b_15_pad_EXT2_I2C4_SCL);
             M24FC1025 alt_0_i_i2c_mem_4 (
               .A0    ( 1'b1       ),
               .A1    ( 1'b1       ),
@@ -1435,8 +1440,8 @@ module ariane_tb;
 
         if (USE_24FC1025_MODEL == 1) begin
           // configure the I2C0 pads
-          pullup sda0_pullup_i (alt_1_pad_periphs_a_09_pad_BARO1_I2C0_SDA);
-          pullup scl0_pullup_i (alt_1_pad_periphs_a_08_pad_BARO1_I2C0_SCL);
+          pullup alt_1_sda0_pullup_i (alt_1_pad_periphs_a_09_pad_BARO1_I2C0_SDA);
+          pullup alt_1_scl0_pullup_i (alt_1_pad_periphs_a_08_pad_BARO1_I2C0_SCL);
             M24FC1025 alt_1_i_i2c_mem_0 (
               .A0    ( 1'b0       ),
               .A1    ( 1'b0       ),
@@ -1447,8 +1452,8 @@ module ariane_tb;
               .RESET ( 1'b0       )
           );
           // configure the I2C5 pads
-          pullup sda1_pullup_i (alt_1_pad_periphs_a_17_pad_GPS1_I2C5_SDA);
-          pullup scl1_pullup_i (alt_1_pad_periphs_a_16_pad_GPS1_I2C5_SCL);
+          pullup alt_1_sda5_pullup_i (alt_1_pad_periphs_a_17_pad_GPS1_I2C5_SDA);
+          pullup alt_1_scl5_pullup_i (alt_1_pad_periphs_a_16_pad_GPS1_I2C5_SCL);
             M24FC1025 alt_1_i_i2c_mem_5 (
               .A0    ( 1'b1       ),
               .A1    ( 1'b1       ),
@@ -1702,8 +1707,8 @@ module ariane_tb;
 
         if (USE_24FC1025_MODEL == 1) begin
           // configure the I2C1 pads
-          pullup sda0_pullup_i (alt_3_pad_periphs_b_03_pad_GPS2_I2C1_SDA);
-          pullup scl0_pullup_i (alt_3_pad_periphs_b_02_pad_GPS2_I2C1_SCL);
+          pullup alt_3_sda1_pullup_i (alt_3_pad_periphs_b_03_pad_GPS2_I2C1_SDA);
+          pullup alt_3_scl1_pullup_i (alt_3_pad_periphs_b_02_pad_GPS2_I2C1_SCL);
             M24FC1025 alt_3_i_i2c_mem_1 (
               .A0    ( 1'b0       ),
               .A1    ( 1'b0       ),
@@ -1714,8 +1719,8 @@ module ariane_tb;
               .RESET ( 1'b0       )
           );
           // configure the I2C3 pads
-          pullup sda0_pullup_i (alt_3_pad_periphs_b_09_pad_BARO2_I2C3_SDA);
-          pullup scl0_pullup_i (alt_3_pad_periphs_b_08_pad_BARO2_I2C3_SCL);
+          pullup alt_3_sda3_pullup_i (alt_3_pad_periphs_b_09_pad_BARO2_I2C3_SDA);
+          pullup alt_3_scl3_pullup_i (alt_3_pad_periphs_b_08_pad_BARO2_I2C3_SCL);
             M24FC1025 alt_3_i_i2c_mem_3 (
               .A0    ( 1'b0       ),
               .A1    ( 1'b1       ),
@@ -1812,8 +1817,8 @@ module ariane_tb;
         //**************************************************
         if (USE_24FC1025_MODEL == 1) begin
           // configure the I2C0 pads
-          pullup sda0_pullup_i (alt_0_simple_pad_periphs_05_i2c0_sda);
-          pullup scl0_pullup_i (alt_0_simple_pad_periphs_04_i2c0_scl);
+          pullup alt_0_sda0_pullup_i (alt_0_simple_pad_periphs_05_i2c0_sda);
+          pullup alt_0_scl0_pullup_i (alt_0_simple_pad_periphs_04_i2c0_scl);
             M24FC1025 i_i2c_mem_0 (
               .A0    ( 1'b0       ),
               .A1    ( 1'b0       ),
@@ -1886,7 +1891,7 @@ module ariane_tb;
   //**************************************************
   // VIP MUX SEL BEGINNING
   //**************************************************
-  `ifndef TARGET_TOP_POST_SYNTH_SIM
+  `ifndef TARGET_POST_SYNTH_SIM_TOP
     `ifndef FPGA_EMUL
       `ifndef SIMPLE_PADFRAME
         assign alt_0_pad_periphs_a_00_pad_mux_sel_CORE_UART_TX    = (`PAD_MUX_REG_PATH.a_00_mux_sel.q == PAD_MUX_GROUP_A_00_SEL_UART_CORE_UART_TX);
@@ -2078,7 +2083,7 @@ module ariane_tb;
         assign alt_1_pad_periphs_b_18_pad_mux_sel_FRAM_SPI2_SCK      = (`PAD_MUX_REG_PATH.b_18_mux_sel.q == PAD_MUX_GROUP_B_18_SEL_SPI2_SPI_SCK);
         assign alt_1_pad_periphs_b_19_pad_mux_sel_FRAM_SPI2_CS       = (`PAD_MUX_REG_PATH.b_19_mux_sel.q == PAD_MUX_GROUP_B_19_SEL_SPI2_SPI_CS0);
         assign alt_1_pad_periphs_b_20_pad_mux_sel_FRAM_SPI2_MISO     = (`PAD_MUX_REG_PATH.b_20_mux_sel.q == PAD_MUX_GROUP_B_20_SEL_SPI2_SPI_MISO);
-        assign alt_1_pad_periphs_b_21_pad_mux_sel_FRAM_SPI2_MOSI     = (`PAD_MUX_REG_PATH.b_21_mux_sel.q == PAD_MUX_GROUP_B_22_SEL_SPI2_SPI_SCK);
+        assign alt_1_pad_periphs_b_21_pad_mux_sel_FRAM_SPI2_MOSI     = (`PAD_MUX_REG_PATH.b_21_mux_sel.q == PAD_MUX_GROUP_B_21_SEL_SPI2_SPI_MOSI);
         assign alt_1_pad_periphs_b_22_pad_mux_sel_ADIO1_SPI3_SCK     = (`PAD_MUX_REG_PATH.b_22_mux_sel.q == PAD_MUX_GROUP_B_22_SEL_SPI3_SPI_SCK);
         assign alt_1_pad_periphs_b_23_pad_mux_sel_ADIO1_SPI3_CS      = (`PAD_MUX_REG_PATH.b_23_mux_sel.q == PAD_MUX_GROUP_B_23_SEL_SPI3_SPI_CS0);
         assign alt_1_pad_periphs_b_24_pad_mux_sel_ADIO1_SPI3_MISO    = (`PAD_MUX_REG_PATH.b_24_mux_sel.q == PAD_MUX_GROUP_B_24_SEL_SPI3_SPI_MISO);
@@ -2240,7 +2245,7 @@ module ariane_tb;
   //**************************************************
   // VIP MUXING BEGINNING
   //**************************************************
-  `ifndef TARGET_TOP_POST_SYNTH_SIM
+  `ifndef TARGET_POST_SYNTH_SIM_TOP
     `ifndef FPGA_EMUL
       `ifndef SIMPLE_PADFRAME
         tranif1 alt_0_a_00_pad_CORE_UART_TX    (pad_periphs_a_00_pad, alt_0_pad_periphs_a_00_pad_CORE_UART_TX   , alt_0_pad_periphs_a_00_pad_mux_sel_CORE_UART_TX   );
@@ -2667,10 +2672,10 @@ module ariane_tb;
         .TimingModel   ( "S25FS256SAGMFI000_F_30pF" ),
         .UserPreload   ( 0 )
       ) i_ot_qspi_flash_csn0 (
-        .SI       ( pad_periphs_ot_qspi_02_pad ),
-        .SO       ( pad_periphs_ot_qspi_03_pad ),
-        .SCK      ( pad_periphs_ot_qspi_00_pad ),
-        .CSNeg    ( pad_periphs_ot_qspi_01_pad ),
+        .SI       ( pad_periphs_ot_spi_02_pad ),
+        .SO       ( pad_periphs_ot_spi_03_pad ),
+        .SCK      ( pad_periphs_ot_spi_00_pad ),
+        .CSNeg    ( pad_periphs_ot_spi_01_pad ),
         .WPNeg    (  ),
         .RESETNeg (  )
       );
