@@ -158,8 +158,8 @@
             if (!$value$plusargs("VSIM_PATH=%s", vsim_path)) 
                 vsim_path = "../";
 
-        frame0_path = {vsim_path, "./tb/vip/camera/img/frame0.img"};
-        frame1_path = {vsim_path, "./tb/vip/camera/img/frame1.img"};
+        frame0_path = {vsim_path, "./tb/vips/camera/img/frame0.img"};
+        frame1_path = {vsim_path, "./tb/vips/camera/img/frame1.img"};
         $readmemh(frame0_path, pixel_array0);
         $readmemh(frame1_path, pixel_array1);
         #1ms s_rstn = 1'b1;

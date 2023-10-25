@@ -69,35 +69,35 @@ int main(){
     #ifdef SIMPLE_PAD
       return 0;
     #else
-      //Config pad_gpio_b_11 as GPIO
-      alsaqr_periph_padframe_periphs_b_11_mux_set( 1 );
+      //Config pad_a_00 as GPIO00
+      alsaqr_periph_padframe_periphs_a_00_mux_set( 2 );
       //Config padframe on CAM0
-      alsaqr_periph_padframe_periphs_a_42_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_43_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_b_19_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_44_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_45_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_46_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_47_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_b_20_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_48_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_49_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_50_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_18_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_19_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_20_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_21_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_22_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_23_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_24_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_25_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_26_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_27_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_a_28_mux_set( 1 );
 
-      //Config pad_gpio_b_12 as GPIO
-      alsaqr_periph_padframe_periphs_b_12_mux_set( 1 );
+      //Config pad_a_01 as GPIO01
+      alsaqr_periph_padframe_periphs_a_01_mux_set( 2 );
       //Config padframe on CAM1
-      alsaqr_periph_padframe_periphs_a_51_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_b_21_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_52_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_53_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_54_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_b_22_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_b_23_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_b_24_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_55_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_56_mux_set( 1 );
-      alsaqr_periph_padframe_periphs_a_57_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_b_36_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_b_37_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_b_38_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_b_39_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_b_40_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_b_41_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_b_42_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_b_43_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_b_44_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_b_45_mux_set( 1 );
+      alsaqr_periph_padframe_periphs_b_46_mux_set( 1 );
     #endif    
   #endif
 
@@ -109,10 +109,10 @@ int main(){
     address = ARCHI_GPIO_ADDR + GPIO_PADEN_0_31_OFFSET;
     switch(u){
       case 0:
-        val_wr = 1 << 11; //Enable GPIO 11
+        val_wr = 1 << 0; //Enable GPIO 0
         break;
       case 1:
-        val_wr = 1 << 12; //Enable GPIO 12
+        val_wr = 1 << 1; //Enable GPIO 1
         break;
     }
     pulp_write32(address, val_wr);
@@ -122,10 +122,10 @@ int main(){
     address = ARCHI_GPIO_ADDR + GPIO_PADDIR_0_31_OFFSET;
     switch(u){
       case 0:
-        val_wr = 1 << 11; //Set GPIO 11 direction as OUT
+        val_wr = 1 << 0; //Set GPIO 0 direction as OUT
         break;
       case 1:
-        val_wr = 1 << 12; //Set GPIO 12 direction as OUT
+        val_wr = 1 << 1; //Set GPIO 1 direction as OUT
         break;
     }
     pulp_write32(address, val_wr);
@@ -196,10 +196,10 @@ int main(){
     address = ARCHI_GPIO_ADDR + GPIO_PADOUT_0_31_OFFSET;
     switch(u){
       case 0:
-        val_wr = 1 << 11; //Enable Camera VIP by GPIO 0 -> 1
+        val_wr = 1 << 0; //Enable Camera VIP by GPIO 0 -> 1
         break;
       case 1:
-        val_wr = 1 << 12; //Enable Camera VIP by GPIO 1 -> 1
+        val_wr = 1 << 1; //Enable Camera VIP by GPIO 1 -> 1
         break;
     }
     pulp_write32(address, val_wr);
@@ -236,10 +236,10 @@ int main(){
     address = ARCHI_GPIO_ADDR + GPIO_PADEN_0_31_OFFSET;
     switch(u){
       case 0:
-        val_wr = 0 << 11; //Disable GPIO 11
+        val_wr = 0 << 0; //Disable GPIO 0
         break;
       case 1:
-        val_wr = 0 << 12; //Disable GPIO 12
+        val_wr = 0 << 1; //Disable GPIO 1
         break;
     }
     pulp_write32(address, val_wr);
