@@ -17,7 +17,7 @@ max_cycles     ?= 10000000
 # Test case to run
 test_case      ?= core_test
 # QuestaSim Version
-questa_version ?= -10.7b
+questa_version ?=
 # verilator version
 verilator      ?= verilator
 # traget option
@@ -44,10 +44,13 @@ root-dir := $(dir $(mkfile_path))
 # guide: define acc=<+"instance name".> , the dot includes all the child instances.
 # Example: <make clean sim acc=+u_RoT.>,  this will plot all the OpenTitan and subinstances signals (all the OT design)
 acc            ?=+dut.
+
 # regression
-alsaqr-regression-dir      := ./
-alsaqr-regression-list     := ./regression.list
-alsaqr-regression          := $(shell xargs printf '\n%s' < $(alsaqr-regression-list) | cut -b 1-)
+alsaqr-regression-dir        := ./
+alsaqr-regression-list       := ./regression.list
+alsaqr-regression            := $(shell xargs printf '\n%s' < $(alsaqr-regression-list) | cut -b 1-)
+
+alsaqr-regression-post-synth := $(shell xargs printf '\n%s' < $(alsaqr-regression-list) | cut -b 1-)
 
 BENDER_FPGA_SCRIPTS_DIR = fpga/alsaqr/tcl/generated
 BENDER_SYNTH_DIR = gf22
@@ -212,68 +215,87 @@ scripts-bender-synopsys: | Bender.lock
 scripts:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t tb  -t cv64a6_imafdc_sv39 > compile.tcl
+    -t rtl -t test -t tb  -t cv64a6_imafdc_sv39 > $(compile_script)
 
 scripts_vip_macro:
 	$(BENDER) script vsim \
-		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t asic -t rtl -t test -t tb -t vip -t cv64a6_imafdc_sv39 > compile.tcl
+		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
+    -t asic -t rtl -t test -t tb -t vip -t cv64a6_imafdc_sv39 > $(compile_script)
 
 scripts_vip:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t tb -t vip -t cv64a6_imafdc_sv39 > compile.tcl
-
-gf22_fll_behav:
-	$(BENDER) script vsim \
-		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t gf22_fll_behav -t test -t tb -t vip -t cv64a6_imafdc_sv39 > $(compile_script)
+    -t rtl -t test -t tb -t vip -t cv64a6_imafdc_sv39 > $(compile_script)
 
 # The following scripts must be used only for post synthesis simulations and provides different configuration to simulate the design
 
-#The following script generates the compile.tcl using all the netlists of the design (TOP - FLL - HYPER - CULSANS - CLUSTER - OPENTITAN)
+# RTL + FLL BEHAVIOURAL (YOU NEED ACCESS TO THE PRIVATE FLL REPO FOR THIS)
+gf22_fll_behav:
+	$(BENDER) script vsim \
+		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
+    -t rtl -t gf22_fll_behav -t test -t tb -t vip -t cv64a6_imafdc_sv39 > $(compile_script)
+
+# ONLY NETLSISTS: TOP - FLL - CVA6 -OPENTITAN - CLUSTER - HYPER
 post_synth_all:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t tb_synth -t vip -t post_synth_all -t cv64a6_imafdc_sv39 > $(compile_script)
+    -t asic -t rtl -t test -t tb_synth -t vip -t post_synth_all -t cv64a6_imafdc_sv39 > $(compile_script)
 
-#The following script generates the compile.tcl using only the following netlists: TOP - HYPER - FLL
+# RTL: OPENTITAN - CLUSTER - CVA6  / NETLIST: TOP - FLL - HYPER
 post_synth_top:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t tb_synth -t vip -t post_synth_top -t cv64a6_imafdc_sv39 > $(compile_script)
+    -t asic -t rtl -t test -t tb_synth -t vip -t post_synth_top -t cv64a6_imafdc_sv39 > $(compile_script)
 
-#The following script generates the compile.tcl using only the following netlists: FLL
+# RTL: TOP - CLUSTER - OPENTITAN - FLL BEHAV (YOU NEED ACCESS TO THE FLL REPO FOR THIS)  / NETLIST: CVA6 - HYPER
+post_synth_cva6_hyper:
+	$(BENDER) script vsim \
+		--vlog-arg="$(compile_flag) -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
+    -t asic -t rtl -t test -t tb_synth -t vip -t post_synth_cva6_hyper -t cv64a6_imafdc_sv39 > $(compile_script)
+
+# RTL: TOP (USES FLL DUMMY) + CVA6 NETLIST
+post_synth_cva6:
+	$(BENDER) script vsim \
+		--vlog-arg="$(compile_flag) -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
+	-t asic -t asic -t rtl -t test -t tb_synth -t vip -t post_synth_cva6 -t cv64a6_imafdc_sv39 > $(compile_script)
+
+# RTL: TOP - CLUSTER - OPENTITAN / NETLIST: CVA6 - HYPER - FLL
+post_synth_cva6_hyper_fll:
+	$(BENDER) script vsim \
+		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
+    -t asic -t rtl -t test -t tb_synth -t vip -t post_synth_cva6_hyper_fll -t cv64a6_imafdc_sv39 > $(compile_script)
+
+# RTL + FLL NETLIST
 post_synth_fll:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t tb_synth -t vip -t post_synth_fll -t cv64a6_imafdc_sv39 > $(compile_script)
+    -t asic -t rtl -t test -t tb_synth -t vip -t post_synth_fll -t cv64a6_imafdc_sv39 > $(compile_script)
 
-
-#The following script generates the compile.tcl using the following netlists: TOP - HYPER and behavioural model of the FLL (used internally)
+# RTL + FLL NETLIST
 post_synth_top_fll_behav:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t tb_synth -t vip -t post_synth_top_fll_behav -t cv64a6_imafdc_sv39 > $(compile_script)
+    -t asic -t rtl -t test -t tb_synth -t vip -t post_synth_top_fll_behav -t cv64a6_imafdc_sv39 > $(compile_script)
 
-#The following script generates the compile.tcl using only the following netlists: OPENTITAN
+# RTL (USES FLL DUMMY) + OPENTITAN NETLIST 
 post_synth_opentitan:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t tb -t vip -t post_synth_opentitan -t cv64a6_imafdc_sv39 > $(compile_script)
+    -t asic -t rtl -t test -t tb -t vip -t post_synth_opentitan -t cv64a6_imafdc_sv39 > $(compile_script)
 
-#The following script generates the compile.tcl using only the following netlists: CUSTER
+# RTL (USES FLL DUMMY) + CLUSTER NETLIST
 post_synth_cluster:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t tb -t vip -t post_synth_cluster -t cv64a6_imafdc_sv39 > $(compile_script)
+    -t asic -t rtl -t test -t tb -t vip -t post_synth_cluster -t cv64a6_imafdc_sv39 > $(compile_script)
 
-#The following script generates the compile.tcl using only the following netlists: HYPERRAM
+# RTL (USES FLL DUMMY) + HYPER NETLIST
 post_synth_hyper:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t tb -t vip -t post_synth_hyper -t cv64a6_imafdc_sv39 > $(compile_script)
+    -t asic -t rtl -t test -t tb -t vip -t post_synth_hyper -t cv64a6_imafdc_sv39 > $(compile_script)
 
+# NOT TESTED YET
 post_pr_scripts_vip:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
@@ -353,9 +375,9 @@ synth_sim: build_synth run
 $(alsaqr-regression): build
 	mkdir -p tmp
 	../software/elf_to_slm.py --binary=$@ --vectors=hyperram0.slm
-	$(QUESTA) vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -lib $(library)  -suppress 3053 -suppress 8386 -suppress 8885 +max-cycles=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$@ +CL_STRING=$(cl-bin) -t 1ps \
+	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8386 -suppress 8360 -lib $(library) +OT_FLASH=$(OT_FLASH) +CORE_ID=$(CORE_ID) +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$@ +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi   \
-	${top_level}_optimized $(QUESTASIM_FLAGS) +permissive-off ++$(alsaqr-regression-dir)/$@ ++$(target-options) | tee tmp/alsaqr-regression-$@.log
+	${top_level}_optimized +permissive-off ++$(alsaqr-regression-dir)/$@ ++$(target-options) | tee tmp/alsaqr-regression-$@.log
 
 check-benchmarks:
 	echo $(alsaqr-regression)
@@ -363,6 +385,21 @@ check-benchmarks:
 
 run-regressions:	$(alsaqr-regression)
 	$(MAKE) check-benchmarks
+
+$(alsaqr-regression-post-synth): build_synth
+	mkdir -p tmp
+	../software/elf_to_slm.py --binary=$@ --vectors=hyperram0.slm
+	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8386 -suppress 8360 -lib $(library) +OT_FLASH=$(OT_FLASH) +CORE_ID=$(CORE_ID) +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$@ +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
+	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi   \
+	${top_level}_optimized +permissive-off ++$(alsaqr-regression-dir)/$@ ++$(target-options) | tee tmp/alsaqr-regression-$@.log
+
+# NB: This regression for post synthesis requires preload=1 or localjtag=1 otherwise it will not work!!!!
+run-regressions-post-synth:	$(alsaqr-regression-post-synth)
+	$(MAKE) check-benchmarks
+
+check-benchmarks:
+	echo $(alsaqr-regression-post-synth)
+	./check-regs.sh
 
 tb/vips/spi_flash:
 	rm -rf $@

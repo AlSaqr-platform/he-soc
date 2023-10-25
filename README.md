@@ -129,7 +129,7 @@ Work In Progress: to better validate the cluster functionalities we are improvin
 
 ### Run regressions
 
-** Due to the padframe modifications this option is under development **
+NB: Due to the padframe modifications this option is under development
 
 Before merging any modification into the master it is important to run the regression tests to check we did not break anything. To do so, execute the following commands:
 
@@ -164,31 +164,57 @@ The command will generate the analyze_alsaqr.tcl within your technology folder
 
 ### Post Synthesis Simulations
 
-** Due to the padframe modifications this option is under development **
+NB: Due to the padframe modifications this option is under development
 
 The design synthesis of AlSaqr adopts a hierarchical approach. Individual components, such as CVA6, OpenTitan, HyperRAM, PULP Cluster, and FLL, are synthesized independently. However, at the top tier of the design, these submodules are integrated as hard macros, utilizing LEF geometric files alongside lib/db timing views for precision.
 
 To validate the synthesis of AlSaqr we provide the following simulation targets, allowing flexibility and testability:
 
+ * gf22_fll_behav
+  
+  RTL + FLL BEHAVIOURAL (YOU NEED ACCESS TO THE PRIVATE FLL REPO FOR THIS)
+
  * post_synth_all
-   This script generates the compile.tcl using all the netlists of the design
-   (TOP - FLL - HYPERRAM - CULSANS - CLUSTER - OPENTITAN)
+
+  ONLY NETLSISTS: TOP - FLL - CVA6 -OPENTITAN - CLUSTER - HYPER
 
  * post_synth_top
-   This script generates the compile.tcl using only the following netlists: TOP - HYPERRAM - FLL
+
+  RTL: OPENTITAN - CLUSTER - CVA6  / NETLIST: TOP - FLL - HYPER
+
+ * post_synth_cva6_hyper
+
+  RTL: TOP - CLUSTER - OPENTITAN - FLL BEHAV (YOU NEED ACCESS TO THE FLL REPO FOR THIS)  / NETLIST: CVA6 - HYPER
+
+ * post_synth_cva6_hyper_fll
+
+  RTL: TOP - CLUSTER - OPENTITAN / NETLIST: CVA6 - HYPER - FLL
 
  * post_synth_fll
-   This script generates the compile.tcl using only the following netlists: FLL
- 
+
+  RTL + FLL NETLIST
+
+ * post_synth_top_fll_behav
+
+  RTL + FLL NETLIST
+
+ * post_synth_cva6
+
+  RTL: (USES FLL DUMMY) + CVA6 NETLIST
+
  * post_synth_opentitan
-   This script generates the compile.tcl using only the following netlists: OPENTITAN
+
+  RTL (USES FLL DUMMY) + OPENTITAN NETLIST
 
  * post_synth_cluster
-   This script generates the compile.tcl using only the following netlists: CLUSTER
+
+  RTL (USES FLL DUMMY) + CLUSTER NETLIST
 
  * post_synth_hyper
-   This script generates the compile.tcl using only the following netlists: HYPERRAM
 
+  RTL (USES FLL DUMMY) + HYPER NETLIST
+
+ 
 To perform the post sythesis simulation of one of the previous target run the following command within `he-soc/hardware` 
 
 ```

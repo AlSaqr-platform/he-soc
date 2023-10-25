@@ -46,7 +46,7 @@ dependencies:
   ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "f2c8a5040596476ee1769292a7c48df9b1c05949" }
   sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }
   
-
+ 
 workspace:
   package_links:
     opentitan: opentitan
@@ -127,6 +127,7 @@ sources:
       - ./fpga/ddr/boot_rom.sv
       - ./fpga/alsaqr_xilinx.sv
 
+  # MACRO TEST + NETLIST FLL
   - target: all(asic, not(all(fpga, xilinx)))
     defines:
       WT_DCACHE:   ~
@@ -144,6 +145,7 @@ sources:
       - gf22/macro_wrap/tc_clk_gf22.sv
       - gf22/macro_wrap/configurable_delay_gf22.sv
 
+  # RTL + FLL BEHAVIOURAL (YOU NEED ACCESS TO THE PRIVATE FLL REPO FOR THIS)
   - target: gf22_fll_behav
     defines:
       GF22_FLL: ~
@@ -151,6 +153,7 @@ sources:
       - host/alsaqr_clk_rst_gen.sv
       - host/apb_subsystem.sv
 
+  # RTL + FLL NETLIST
   - target: post_synth_fll
     defines:
       GF22_FLL: ~
@@ -160,6 +163,7 @@ sources:
       - gf22/synopsys/fll/model/DCO_Model_v1p0.vhd
       - gf22/synopsys/fll/netlists/gf22_fll.v
 
+  # ONLY NETLSISTS: TOP - FLL - CVA6 -OPENTITAN - CLUSTER - HYPER
   - target: post_synth_all
     files:
       - gf22/synopsys/fll/model/DCO_Model_v1p0.vhd
@@ -170,29 +174,70 @@ sources:
       - gf22/synopsys/cluster/trial/netlists/pulp_cluster.v
       - gf22/synopsys/top/trial/netlists/alsaqr_chip.v
 
+  # RTL: OPENTITAN - CLUSTER - CVA6  / NETLIST: TOP - FLL - HYPER
   - target: post_synth_top
     files:
+      - gf22/synopsys/fll/model/DCO_Model_v1p0.vhd
       - gf22/synopsys/fll/netlists/gf22_fll.v
       - gf22/synopsys/hyperbus/trial/netlists/hyperbus_async_macro.v
       - gf22/synopsys/top/trial/netlists/alsaqr_chip.v
 
+  # RTL: TOP - CLUSTER - OPENTITAN - FLL BEHAV (YOU NEED ACCESS TO THE FLL REPO FOR THIS)  / NETLIST: CVA6 - HYPER
+  - target: post_synth_cva6_hyper
+    defines:
+      TARGET_POST_SYNTH_SIM: ~
+      GF22_FLL: ~
+    files:
+      - host/alsaqr_clk_rst_gen.sv
+      - host/apb_subsystem.sv
+      - gf22/synopsys/culsans/trial/netlists/cva6_synth_wrap.v
+      - ip_list/hyperbus_udma/src/hyperbus_udma.sv
+      - gf22/synopsys/hyperbus/trial/netlists/hyperbus_async_macro.v
+
+  # RTL: TOP - CLUSTER - OPENTITAN / NETLIST: CVA6 - HYPER - FLL
+  - target: post_synth_cva6_hyper_fll
+    defines:
+      TARGET_POST_SYNTH_SIM: ~
+      GF22_FLL: ~
+    files:
+      - ip_list/hyperbus_udma/src/hyperbus_udma.sv
+      - gf22/synopsys/hyperbus/trial/netlists/hyperbus_async_macro.v
+      - host/alsaqr_clk_rst_gen.sv
+      - host/apb_subsystem.sv
+      - gf22/synopsys/fll/model/DCO_Model_v1p0.vhd
+      - gf22/synopsys/fll/netlists/gf22_fll.v
+      - gf22/synopsys/culsans/trial/netlists/cva6_synth_wrap.v
+
+  # RTL: CVA6 - HYPER - FLL (YOU NEED ACCESS TO THE FLL REPO FOR THIS) - OPENTITAN / NETLIST: TOP - HYPER
   - target: post_synth_top_fll_behav
     files:
       - gf22/synopsys/hyperbus/trial/netlists/hyperbus_async_macro.v
       - gf22/synopsys/top/trial/netlists/alsaqr_chip.v
 
+  # RTL: TOP (USES FLL DUMMY) + CVA6 NETLIST
+  - target: post_synth_cva6
+    files:
+      - gf22/synopsys/culsans/trial/netlists/cva6_synth_wrap.v
+
+  # RTL (USES FLL DUMMY) + OPENTITAN NETLIST 
   - target: post_synth_opentitan
     files:
       - gf22/synopsys/opentitan/trial/netlists/secure_subsystem_synth_wrap.v
 
+  # RTL (USES FLL DUMMY) + CLUSTER NETLIST
   - target: post_synth_cluster
     files:
       - gf22/synopsys/cluster/trial/netlists/pulp_cluster.v
 
+  # RTL (USES FLL DUMMY) + HYPER NETLIST
   - target: post_synth_hyper
+    defines:
+      TARGET_POST_SYNTH_SIM: ~
     files:
+      - ip_list/hyperbus_udma/src/hyperbus_udma.sv
       - gf22/synopsys/hyperbus/trial/netlists/hyperbus_async_macro.v
 
+  # NOT TESTED YET
   - target: top_post_pr_sim
     files:
       - gf22/synopsys/fll/model/DCO_Model_v1p0.vhd
@@ -225,6 +270,7 @@ sources:
       TARGET_TOP_POST_SYNTH_SIM: ~
       TARGET_POST_SYNTH_SIM_TOP: ~
       EXCLUDE_PADFRAME: ~
+      TARGET_ASIC: ~
     files:
       - tb/ariane_tb.sv
 
