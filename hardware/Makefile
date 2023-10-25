@@ -127,6 +127,11 @@ compile_flag_bender   += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 13
 # +incdir+ works for Verilator and QuestaSim
 list_incdir := $(foreach dir, ${incdir}, +incdir+$(dir))
 
+ifdef nogui
+	acc :=+p_dut
+	questa-flags += -c
+endif
+
 # if defined, calls the questa targets in batch mode
 ifdef batch-mode
 	questa-flags += -c
