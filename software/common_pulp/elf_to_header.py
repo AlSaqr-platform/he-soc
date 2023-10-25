@@ -44,7 +44,7 @@ c_function = """\
          udma_hyper_dread((end-p)*4,p-0x80000000, 0x1C000000, 128, 0);
          udma_hyper_wait(0);
        #else
-         uint32_t *addr = (uint32_t*) 0x1C000004;
+         uint32_t *addr = (uint32_t*) 0x1C000100;
          for (uint32_t i = 0; i < (end-p0) >> 2; i++) {
           pulp_write32(addr + 0, pulp_read32(p + 0));
           pulp_write32(addr + 1, pulp_read32(p + 1));
