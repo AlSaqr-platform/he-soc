@@ -44,7 +44,7 @@ RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump -h --disassemble-all --disassemble-zeroe
 RISCV_FLAGS     := -mcmodel=medany -static -std=gnu99 -DNUM_CORES=2 -O3 -ffast-math -fno-common -fno-builtin-printf $(INC)
 RISCV_LINK_OPTS := -static -nostdlib -nostartfiles -lm -lgcc
 
-ifeq (FLL_DRIVER, 1)
+ifdef FLL_DRIVER
 	RISCV_FLAGS += -DFLL_DRIVER
 endif
 
