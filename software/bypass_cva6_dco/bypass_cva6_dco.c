@@ -21,18 +21,16 @@ int main(int argc, char const *argv[]) {
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
   uint32_t offset;
-  uint32_t dco_byp_reg_index = 21;
+  uint32_t dco_byp_reg_index = 20;
   uint32_t var;
 
   offset = 1 << dco_byp_reg_index;
   uint32_t * cva6_dco_bypass = FLL_BASE_ADDR + CCR2_REG;
 
   var = pulp_read32(cva6_dco_bypass);
-  printf("Default CCR2 reg value: %h\r\n",var);
-  uart_wait_tx_done();
-  pulp_write32(cva6_dco_bypass,var+offset); //128MB addressable
+  pulp_write32(cva6_dco_bypass, var | offset );
 
-  printf("CVA6 running at 1GHz!\r\n");
+  printf("Bypassing Divider in CVA6 DCO\r\n");
   uart_wait_tx_done();
   return 0;
 }

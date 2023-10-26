@@ -45,11 +45,9 @@ import "DPI-C" context function byte read_section(input longint address, inout b
 module ariane_tb;
 
   static uvm_cmdline_processor uvcl = uvm_cmdline_processor::get_inst();
-  `ifdef TARGET_ASIC
+
   localparam int unsigned REFClockPeriod = 1us; // jtag clock: 1MHz
-  `else
-  localparam int unsigned REFClockPeriod = 100ns;  // jtag clock: around 10MHz
-  `endif
+
   // toggle with RTC period
   `ifndef TEST_CLOCK_BYPASS
     localparam int unsigned RTC_CLOCK_PERIOD = 30.517us;
@@ -3074,12 +3072,7 @@ module ariane_tb;
 
   // Wait for termination signal and get return code
   task automatic jtag_wait_for_eoc(input word_bt tohost);
- `ifdef TARGET_ASIC
-    jtag_poll_bit0(tohost, exit_code, 10);
- `else
-    jtag_poll_bit0(tohost, exit_code, 800);
- `endif
-
+    jtag_poll_bit0(tohost, exit_code, 50);
     exit_code >>= 1;
     if (exit_code) $error("[JTAG] FAILED: return code %0d", exit_code);
     else $display("[JTAG] SUCCESS");
