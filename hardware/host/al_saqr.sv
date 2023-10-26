@@ -394,13 +394,25 @@ module al_saqr
 
   fll_to_pad_t    s_fll_to_pad;
 
-  assign s_pwm_nano_to_pad[3] = s_pwm_to_pad[3:0];
-  assign s_pwm_nano_to_pad[2] = s_pwm_to_pad[7:4];
+  assign s_pwm_nano_to_pad[0].pwm0_o = s_pwm_to_pad.pwm0_o;
+  assign s_pwm_nano_to_pad[0].pwm1_o = s_pwm_to_pad.pwm1_o;
+  assign s_pwm_nano_to_pad[0].pwm2_o = s_pwm_to_pad.pwm2_o;
+  assign s_pwm_nano_to_pad[0].pwm3_o = s_pwm_to_pad.pwm3_o;
 
-  assign s_pwm_nano_to_pad[1] = s_pwm_to_pad[11:8];
-  assign s_pwm_nano_to_pad[0] = s_pwm_to_pad[15:12];
+  assign s_pwm_nano_to_pad[1].pwm0_o = s_pwm_to_pad.pwm4_o;
+  assign s_pwm_nano_to_pad[1].pwm1_o = s_pwm_to_pad.pwm5_o;
+  assign s_pwm_nano_to_pad[1].pwm2_o = s_pwm_to_pad.pwm6_o;
+  assign s_pwm_nano_to_pad[1].pwm3_o = s_pwm_to_pad.pwm7_o;
 
+  assign s_pwm_nano_to_pad[2].pwm0_o = s_pwm_to_pad.pwm8_o;
+  assign s_pwm_nano_to_pad[2].pwm1_o = s_pwm_to_pad.pwm9_o;
+  assign s_pwm_nano_to_pad[2].pwm2_o = s_pwm_to_pad.pwm10_o;
+  assign s_pwm_nano_to_pad[2].pwm3_o = s_pwm_to_pad.pwm11_o;
 
+  assign s_pwm_nano_to_pad[3].pwm0_o = s_pwm_to_pad.pwm12_o;
+  assign s_pwm_nano_to_pad[3].pwm1_o = s_pwm_to_pad.pwm13_o;
+  assign s_pwm_nano_to_pad[3].pwm2_o = s_pwm_to_pad.pwm14_o;
+  assign s_pwm_nano_to_pad[3].pwm3_o = s_pwm_to_pad.pwm15_o;
 
   gpio_to_pad_t s_gpio_b_to_pad;
   pad_to_gpio_t s_pad_to_gpio_b;
