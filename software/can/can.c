@@ -169,42 +169,66 @@ int main(){
 
   /* This test is intended to perform only read and write op on CAN register from APB
      For the configuration of the can check its datasheet from: https://canbus.pages.fel.cvut.cz/ctucanfd_ip_core/doc/Datasheet.pdf
-
   */
 
-  //Config padframe CAN0
-  alsaqr_periph_padframe_periphs_a_81_mux_set( 1 );
-  alsaqr_periph_padframe_periphs_a_82_mux_set( 1 );
+  int num_reps = 2;
+  for (int v = 0; v < num_reps; v++){
+    switch(v){
+      case 0:
+        //Config padframe CAN0
+        alsaqr_periph_padframe_periphs_a_00_mux_set( 1 );
+        alsaqr_periph_padframe_periphs_a_01_mux_set( 1 );
+        alsaqr_periph_padframe_periphs_b_42_mux_set( 0 );
+        alsaqr_periph_padframe_periphs_b_43_mux_set( 0 );
+        //Config padframe CAN1
+        alsaqr_periph_padframe_periphs_a_02_mux_set( 1 );
+        alsaqr_periph_padframe_periphs_a_03_mux_set( 1 );
+        alsaqr_periph_padframe_periphs_b_30_mux_set( 0 );
+        alsaqr_periph_padframe_periphs_b_31_mux_set( 0 );
+        break;
+      case 1:
+        //Config padframe CAN0
+        alsaqr_periph_padframe_periphs_a_00_mux_set( 0 );
+        alsaqr_periph_padframe_periphs_a_01_mux_set( 0 );
+        alsaqr_periph_padframe_periphs_b_42_mux_set( 2 );
+        alsaqr_periph_padframe_periphs_b_43_mux_set( 2 );
+        //Config padframe CAN1
+        alsaqr_periph_padframe_periphs_a_02_mux_set( 0 );
+        alsaqr_periph_padframe_periphs_a_03_mux_set( 0 );
+        alsaqr_periph_padframe_periphs_b_30_mux_set( 1 );
+        alsaqr_periph_padframe_periphs_b_31_mux_set( 1 );
+        break;
+    }
+    
+    // WAR SETTING REG CAN 0
+    address = CAN0_APB_BASE + CTU_CAN_FD_MODE;
+    reg32 = pulp_read32(address);
+    reg_val = reg32;
+    reg32^= 1<<22;
+    pulp_write32( address, reg32 );
+    reg32 = pulp_read32(address);
 
-  //Config padframe CAN1
-  alsaqr_periph_padframe_periphs_a_83_mux_set( 1 );
-  alsaqr_periph_padframe_periphs_a_84_mux_set( 1 );
+    if(reg_val==reg32){
+      error++;
+      printf("ERROR: CAN0.%0d\n\r", v);
+    } 
 
+    // WAR SETTING REG CAN 1
+    address = CAN1_APB_BASE + CTU_CAN_FD_MODE;
+    reg32 = pulp_read32(address);
+    reg_val = reg32;
+    reg32^= 1<<22;
+    pulp_write32( address, reg32 );
+    reg32 = pulp_read32(address);
 
-  // WAR SETTING REG CAN 0
-  address = CAN0_APB_BASE + CTU_CAN_FD_MODE;
-  reg32 = pulp_read32(address);
-  reg_val = reg32;
-  reg32|= 1<<22;
-  pulp_write32( address, reg32 );
-  reg32 = pulp_read32(address);
-
-  if(reg_val==reg32)
-   error++;
-
- // WAR SETTING REG CAN 1
-  address = CAN1_APB_BASE + CTU_CAN_FD_MODE;
-  reg32 = pulp_read32(address);
-  reg_val = reg32;
-  reg32|= 1<<22;
-  pulp_write32( address, reg32 );
-  reg32 = pulp_read32(address);
-
-  if(reg_val==reg32)
-   error++;
-
+    if(reg_val==reg32){
+      error++;
+      printf("ERROR: CAN1.%0d\n\r", v);
+    } 
+  }
+  
   if(error!=0)
-    printf("Test FAILED with :%d\n",error);
+    printf("Test FAILED with :%d\n", error);
   else
     printf("Test PASSED\n");
 

@@ -276,8 +276,5 @@ sources:
 
   # To be fixed for the new padframe
   - target: tb
-    defines:
-      TARGET_TOP_POST_SYNTH_SIM: ~
-      EXCLUDE_PADFRAME: ~
     files:
       - tb/ariane_tb.sv

@@ -1196,6 +1196,9 @@ module al_saqr
           `ASSIGN_PERIPHS_SPI9_PAD2SOC(s_pad_to_spi[9],s_port_signals_pad2soc.periphs.spi9)
           `ASSIGN_PERIPHS_SPI9_SOC2PAD(s_port_signals_soc2pad.periphs.spi9,s_spi_to_pad[9])
 
+          `ASSIGN_PERIPHS_SPI10_PAD2SOC(s_pad_to_spi[10],s_port_signals_pad2soc.periphs.spi10)
+          `ASSIGN_PERIPHS_SPI10_SOC2PAD(s_port_signals_soc2pad.periphs.spi10,s_spi_to_pad[10])
+
           // LINUX QSPI
           `ASSIGN_PERIPHS_QSPI_LINUX_PAD2SOC(s_pad_to_qspi[0],s_port_signals_pad2soc.periphs.qspi_linux)
           `ASSIGN_PERIPHS_QSPI_LINUX_SOC2PAD(s_port_signals_soc2pad.periphs.qspi_linux,s_qspi_to_pad[0])
@@ -1220,6 +1223,9 @@ module al_saqr
           `ASSIGN_PERIPHS_I2C4_PAD2SOC(s_pad_to_i2c[4],s_port_signals_pad2soc.periphs.i2c4)
           `ASSIGN_PERIPHS_I2C4_SOC2PAD(s_port_signals_soc2pad.periphs.i2c4,s_i2c_to_pad[4])
 
+          `ASSIGN_PERIPHS_I2C5_PAD2SOC(s_pad_to_i2c[5],s_port_signals_pad2soc.periphs.i2c5)
+          `ASSIGN_PERIPHS_I2C5_SOC2PAD(s_port_signals_soc2pad.periphs.i2c5,s_i2c_to_pad[5])
+
           // Debug Core UART
           `ASSIGN_PERIPHS_UART_CORE_PAD2SOC(s_cva6_uart_rx,s_port_signals_pad2soc.periphs.uart_core)
           `ASSIGN_PERIPHS_UART_CORE_SOC2PAD(s_port_signals_soc2pad.periphs.uart_core,s_cva6_uart_tx)
@@ -1230,6 +1236,9 @@ module al_saqr
 
           `ASSIGN_PERIPHS_UART1_PAD2SOC(s_pad_to_uart[1],s_port_signals_pad2soc.periphs.uart1)
           `ASSIGN_PERIPHS_UART1_SOC2PAD(s_port_signals_soc2pad.periphs.uart1,s_uart_to_pad[1])
+
+          `ASSIGN_PERIPHS_UART2_PAD2SOC(s_pad_to_uart[2],s_port_signals_pad2soc.periphs.uart2)
+          `ASSIGN_PERIPHS_UART2_SOC2PAD(s_port_signals_soc2pad.periphs.uart2,s_uart_to_pad[2])
 
           // USARTs
           `ASSIGN_PERIPHS_USART0_PAD2SOC(s_pad_to_usart[0],s_port_signals_pad2soc.periphs.usart0)

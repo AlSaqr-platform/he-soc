@@ -155,10 +155,11 @@ pad_domains:
 
 #####################################
 #####################################
-######### Peripherlas list ##########
+######### Peripherals list ##########
 #####################################
 #####################################
 
+      # CVA6 Uart
       - name: uart_core
         output_defaults: 1'b1
         ports:
@@ -175,6 +176,7 @@ pad_domains:
               oen: 1'b1
               puen: 1'b1
 
+      # Linux SDIO
       - name: sdio0
         output_defaults: 1'b1
         ports:
@@ -200,6 +202,7 @@ pad_domains:
               oen: cmd_oen_i
               puen: 1'b0
 
+      # Wireless Comm
       - name: sdio1
         output_defaults: 1'b1
         ports:
@@ -245,26 +248,29 @@ pad_domains:
               oen: cmd_oen_i
               puen: 1'b0
 
+      # QFN PWM
       - name: pwm0
         ports:
           - name: pwm{i}
             multiple: 4
-            mux_groups: ["a_{08+i:2d}"]
+            mux_groups: ["a_{08+i:2d}","a_{10+i:2d}"]
             connections:
               chip2pad: pwm{i}_i
               oen: 1'b0
               puen: 1'b1
 
+      # CPGA PWM
       - name: pwm1
         ports:
           - name: pwm{i}
             multiple: 4
-            mux_groups: ["b_{44+i:2d}","a_{10+i:2d}", "b_{32+i:2d}"]
+            mux_groups: ["b_{44+i:2d}", "b_{32+i:2d}"]
             connections:
               chip2pad: pwm{i}_i
               oen: 1'b0
               puen: 1'b1
 
+      # BARO 1
       - name: i2c0
         output_defaults: 1'b1
         ports:
@@ -283,24 +289,26 @@ pad_domains:
               oen: ~sda_oe_i
               puen: 1'b0
 
+      # GPS 2
       - name: i2c1
         output_defaults: 1'b1
         ports:
           - name: i2c_scl
-            mux_groups: [a_28, a_16, b_01]
+            mux_groups: [a_28, b_02]
             connections:
               chip2pad: scl_i
               scl_o: pad2chip
               oen: ~scl_oe_i
               puen: 1'b0
           - name: i2c_sda
-            mux_groups: [a_29, a_17, b_02]
+            mux_groups: [a_29, b_03]
             connections:
               chip2pad: sda_i
               sda_o: pad2chip
               oen: ~sda_oe_i
               puen: 1'b0
 
+      # PMIC
       - name: i2c2
         output_defaults: 1'b1
         ports:
@@ -319,6 +327,7 @@ pad_domains:
               oen: ~sda_oe_i
               puen: 1'b0
 
+      # BARO 2
       - name: i2c3
         output_defaults: 1'b1
         ports:
@@ -337,6 +346,7 @@ pad_domains:
               oen: ~sda_oe_i
               puen: 1'b0
 
+      # I2C EXT 2
       - name: i2c4
         output_defaults: 1'b1
         ports:
@@ -355,22 +365,43 @@ pad_domains:
               oen: ~sda_oe_i
               puen: 1'b0
 
+      # GPS1
+      - name: i2c5
+        output_defaults: 1'b1
+        ports:
+          - name: i2c_scl
+            mux_groups: [a_16]
+            connections:
+              chip2pad: scl_i
+              scl_o: pad2chip
+              oen: ~scl_oe_i
+              puen: 1'b0
+          - name: i2c_sda
+            mux_groups: [a_17]
+            connections:
+              chip2pad: sda_i
+              sda_o: pad2chip
+              oen: ~sda_oe_i
+              puen: 1'b0
+
+      # GPS 2
       - name: uart0
         output_defaults: 1'b1
         ports:
           - name: uart_tx
-            mux_groups: [a_26, a_14, b_00]
+            mux_groups: [a_26, b_00]
             connections:
               chip2pad: tx_i
               oen: 1'b0
               puen: 1'b1
           - name: uart_rx
-            mux_groups: [a_27, a_15, b_01]
+            mux_groups: [a_27, b_01]
             connections:
               rx_o: pad2chip
               oen: 1'b1
               puen: 1'b1
 
+      # UART EXT 3
       - name: uart1
         output_defaults: 1'b1
         ports:
@@ -387,6 +418,24 @@ pad_domains:
               oen: 1'b1
               puen: 1'b1
 
+      # GPS 1
+      - name: uart2
+        output_defaults: 1'b1
+        ports:
+          - name: uart_tx
+            mux_groups: [a_14]
+            connections:
+              chip2pad: tx_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: uart_rx
+            mux_groups: [a_15]
+            connections:
+              rx_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+
+      # TLM 1
       - name: usart0
         output_defaults: 1'b1
         ports:
@@ -415,6 +464,7 @@ pad_domains:
               oen: 1'b1
               puen: 1'b1
 
+      # IO MCU
       - name: usart1
         output_defaults: 1'b1
         ports:
@@ -443,6 +493,7 @@ pad_domains:
               oen: 1'b1
               puen: 1'b1
 
+      # TLM 2
       - name: usart2
         output_defaults: 1'b1
         ports:
@@ -471,6 +522,7 @@ pad_domains:
               oen: 1'b1
               puen: 1'b1
 
+      # TLM 3
       - name: usart3
         output_defaults: 1'b1
         ports:
@@ -499,6 +551,7 @@ pad_domains:
               oen: 1'b1
               puen: 1'b1
 
+      # ETHERNET
       - name: eth
         output_defaults: 1'b0
         ports:
@@ -560,6 +613,7 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
+      # CAN 0
       - name: can0
         output_defaults: 1'b1
         ports:
@@ -576,6 +630,7 @@ pad_domains:
               oen: 1'b1
               puen: 1'b0
 
+      # CAN 1
       - name: can1
         output_defaults: 1'b1
         ports:
@@ -592,6 +647,7 @@ pad_domains:
               oen: 1'b1
               puen: 1'b0
 
+      # CAM 0
       - name: cam0
         output_defaults: 1'b1
         ports:
@@ -662,6 +718,7 @@ pad_domains:
               oen: 1'b1
               puen: 1'b1
 
+      # CAM 1
       - name: cam1
         output_defaults: 1'b1
         ports:
@@ -732,6 +789,7 @@ pad_domains:
               oen: 1'b1
               puen: 1'b1
 
+      # FLL SOC
       - name: fll_soc
         output_defaults: 1'b1
         ports:
@@ -742,6 +800,7 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
+      # FLL CVA6
       - name: fll_cva6
         output_defaults: 1'b1
         ports:
@@ -752,6 +811,7 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
+      # IMU 1
       - name: spi0
         output_defaults: 1'b0
         ports:
@@ -780,7 +840,37 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
+      # MAG
       - name: spi1
+        output_defaults: 1'b0
+        ports:
+          - name: spi_sck
+            mux_groups: [b_26]
+            connections:
+              chip2pad: clk_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_cs0
+            mux_groups: [b_27]
+            connections:
+              chip2pad: csn0_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: spi_miso
+            mux_groups: [b_28]
+            connections:
+              sd1_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: spi_mosi
+            mux_groups: [b_29]
+            connections:
+              chip2pad: sd0_i
+              oen: 1'b0
+              puen: 1'b1
+
+      # FRAM
+      - name: spi2
         output_defaults: 1'b0
         ports:
           - name: spi_sck
@@ -808,7 +898,8 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
-      - name: spi2
+      # ADIO
+      - name: spi3
         output_defaults: 1'b0
         ports:
           - name: spi_sck
@@ -836,7 +927,8 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
-      - name: spi3
+      # ADC0
+      - name: spi4
         output_defaults: 1'b0
         ports:
           - name: spi_sck
@@ -864,7 +956,8 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
-      - name: spi4
+      # IMU 2
+      - name: spi5
         output_defaults: 1'b0
         ports:
           - name: spi_sck
@@ -892,7 +985,8 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
-      - name: spi5
+      # IMU 3
+      - name: spi6
         output_defaults: 1'b0
         ports:
           - name: spi_sck
@@ -920,7 +1014,8 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
-      - name: spi6
+      # SPI EXT 1
+      - name: spi7
         output_defaults: 1'b0
         ports:
           - name: spi_sck
@@ -954,7 +1049,8 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
-      - name: spi7
+      # SPI CAN 0
+      - name: spi8
         output_defaults: 1'b0
         ports:
           - name: spi_sck
@@ -982,7 +1078,8 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
-      - name: spi8
+      # SPI CAN 1
+      - name: spi9
         output_defaults: 1'b0
         ports:
           - name: spi_sck
@@ -1010,7 +1107,8 @@ pad_domains:
               oen: 1'b0
               puen: 1'b1
 
-      - name: spi9
+      # SPI USB 0
+      - name: spi10
         output_defaults: 1'b0
         ports:
           - name: spi_sck

@@ -3157,14 +3157,14 @@ uint8_t alsaqr_periph_padframe_periphs_b_03_cfg_smt_get() {
 
 void alsaqr_periph_padframe_periphs_b_03_mux_set(alsaqr_periph_padframe_periphs_b_03_mux_sel_t mux_sel) {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_03_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 2;
+  const uint32_t sel_size = 3;
   uint32_t field_mask = (1<<sel_size)-1;
   REG_WRITE32(address, mux_sel & field_mask);
 }
 
 alsaqr_periph_padframe_periphs_b_03_mux_sel_t alsaqr_periph_padframe_periphs_b_03_mux_get() {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_03_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 2;
+  const uint32_t sel_size = 3;
 
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;
@@ -5296,14 +5296,14 @@ uint8_t alsaqr_periph_padframe_periphs_b_26_cfg_smt_get() {
 
 void alsaqr_periph_padframe_periphs_b_26_mux_set(alsaqr_periph_padframe_periphs_b_26_mux_sel_t mux_sel) {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_26_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 2;
+  const uint32_t sel_size = 3;
   uint32_t field_mask = (1<<sel_size)-1;
   REG_WRITE32(address, mux_sel & field_mask);
 }
 
 alsaqr_periph_padframe_periphs_b_26_mux_sel_t alsaqr_periph_padframe_periphs_b_26_mux_get() {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_26_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 2;
+  const uint32_t sel_size = 3;
 
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;
@@ -5389,14 +5389,14 @@ uint8_t alsaqr_periph_padframe_periphs_b_27_cfg_smt_get() {
 
 void alsaqr_periph_padframe_periphs_b_27_mux_set(alsaqr_periph_padframe_periphs_b_27_mux_sel_t mux_sel) {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_27_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 2;
+  const uint32_t sel_size = 3;
   uint32_t field_mask = (1<<sel_size)-1;
   REG_WRITE32(address, mux_sel & field_mask);
 }
 
 alsaqr_periph_padframe_periphs_b_27_mux_sel_t alsaqr_periph_padframe_periphs_b_27_mux_get() {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_27_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 2;
+  const uint32_t sel_size = 3;
 
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;
@@ -5482,14 +5482,14 @@ uint8_t alsaqr_periph_padframe_periphs_b_28_cfg_smt_get() {
 
 void alsaqr_periph_padframe_periphs_b_28_mux_set(alsaqr_periph_padframe_periphs_b_28_mux_sel_t mux_sel) {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_28_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 2;
+  const uint32_t sel_size = 3;
   uint32_t field_mask = (1<<sel_size)-1;
   REG_WRITE32(address, mux_sel & field_mask);
 }
 
 alsaqr_periph_padframe_periphs_b_28_mux_sel_t alsaqr_periph_padframe_periphs_b_28_mux_get() {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_28_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 2;
+  const uint32_t sel_size = 3;
 
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;
@@ -5575,14 +5575,14 @@ uint8_t alsaqr_periph_padframe_periphs_b_29_cfg_smt_get() {
 
 void alsaqr_periph_padframe_periphs_b_29_mux_set(alsaqr_periph_padframe_periphs_b_29_mux_sel_t mux_sel) {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_29_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 2;
+  const uint32_t sel_size = 3;
   uint32_t field_mask = (1<<sel_size)-1;
   REG_WRITE32(address, mux_sel & field_mask);
 }
 
 alsaqr_periph_padframe_periphs_b_29_mux_sel_t alsaqr_periph_padframe_periphs_b_29_mux_get() {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_29_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 2;
+  const uint32_t sel_size = 3;
 
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;
