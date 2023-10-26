@@ -33,7 +33,7 @@
 #define BLOCK_COUNT_MUL 2
 #define SDIO_QUAD_EN 1
 
-#define USE_PLIC 0
+#define USE_PLIC 1
 /*TEST PLIC FAIL*/
 
 /*******************************************************************************
@@ -421,6 +421,12 @@ void test_single_block_read (uint32_t u, uint32_t *rx_buffer , uint32_t *respons
 
 int main(){
   
+  #if N_SDIO == 2
+    int N_REPS[N_SDIO] = {1, 2};
+  #else
+    int N_REPS[N_SDIO] = {1};
+  #endif
+
   int error = 0;
   int clk_div=0;
 
@@ -453,21 +459,13 @@ int main(){
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4); 
     
-  for (int u = 0; u<N_SDIO; u++){
+  for (int u = 0; u < N_SDIO; u++){
+    for (int v = 0; v < N_REPS[u]; v++){
+      #ifdef PRINTF_ON
+        printf ("Testing SDIO_%0d.%0d...\n\r", u, v);
+      #endif
 
-    #ifdef PRINTF_ON
-      printf ("Testing SDIO_%0d...\n\r", u);
-    #endif
-
-    #ifdef FPGA_EMULATION
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_set( 2 );
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_set( 2 );
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_set( 2 );
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 2 );
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 2 );
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 2 );
-    #else
-      #ifdef SIMPLE_PAD
+      #ifdef FPGA_EMULATION
         alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_set( 2 );
         alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_set( 2 );
         alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_set( 2 );
@@ -475,130 +473,165 @@ int main(){
         alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 2 );
         alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 2 );
       #else
-        switch(u){
-          case 0:
-            //Config padframe on SPIO0
-            alsaqr_periph_padframe_periphs_a_18_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_19_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_20_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_21_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_22_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_23_mux_set( 1 );
-            break;
-          case 1:
-            //Config padframe on SPIO1
-            alsaqr_periph_padframe_periphs_a_58_mux_set( 2 );
-            alsaqr_periph_padframe_periphs_a_59_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_b_25_mux_set( 2 );
-            alsaqr_periph_padframe_periphs_a_60_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_61_mux_set( 1 );
-            alsaqr_periph_padframe_periphs_a_62_mux_set( 1 );
-            break;
-        }
-      #endif 
-    #endif
+        #ifdef SIMPLE_PAD
+          alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_set( 2 );
+          alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_set( 2 );
+          alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_set( 2 );
+          alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 2 );
+          alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 2 );
+          alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 2 );
+        #else
+          switch(u){
+            // SPIO0
+            case 0:
+              alsaqr_periph_padframe_periphs_a_02_mux_set( 4 );
+              alsaqr_periph_padframe_periphs_a_03_mux_set( 4 );
+              alsaqr_periph_padframe_periphs_a_04_mux_set( 4 );
+              alsaqr_periph_padframe_periphs_a_05_mux_set( 3 );
+              alsaqr_periph_padframe_periphs_a_06_mux_set( 3 );
+              alsaqr_periph_padframe_periphs_a_07_mux_set( 3 );
+              break;
+            // SPIO1
+            case 1:
+              switch(v){
+                case 0:
+                  alsaqr_periph_padframe_periphs_a_09_mux_set( 4 );
+                  alsaqr_periph_padframe_periphs_a_10_mux_set( 4 );
+                  alsaqr_periph_padframe_periphs_a_11_mux_set( 4 );
+                  alsaqr_periph_padframe_periphs_a_12_mux_set( 4 );
+                  alsaqr_periph_padframe_periphs_a_13_mux_set( 4 );
+                  alsaqr_periph_padframe_periphs_a_14_mux_set( 2 );
 
-    for(int i = 0; i < BLOCK_SIZE*2 ; i++) {
-        tx_buffer[i] = i+349;
-        rx_buffer[i] = 0xFF;
-    }
+                  alsaqr_periph_padframe_periphs_b_00_mux_set( 0 );
+                  alsaqr_periph_padframe_periphs_b_01_mux_set( 0 );
+                  alsaqr_periph_padframe_periphs_b_02_mux_set( 0 );
+                  alsaqr_periph_padframe_periphs_b_03_mux_set( 0 );
+                  alsaqr_periph_padframe_periphs_b_04_mux_set( 0 );
+                  alsaqr_periph_padframe_periphs_b_05_mux_set( 0 );
+                  break;
+                case 1:
+                  alsaqr_periph_padframe_periphs_a_09_mux_set( 0 );
+                  alsaqr_periph_padframe_periphs_a_10_mux_set( 0 );
+                  alsaqr_periph_padframe_periphs_a_11_mux_set( 0 );
+                  alsaqr_periph_padframe_periphs_a_12_mux_set( 0 );
+                  alsaqr_periph_padframe_periphs_a_13_mux_set( 0 );
+                  alsaqr_periph_padframe_periphs_a_14_mux_set( 0 );
 
-    /* Set plic id for TX, RX, EOT and ERR
-    Plics events for a periph with id = N are mapped as
-    n_evt[i]=N*4+8+i , with i=[0:3].
-    Each periph has 4 event signals it can use. The first
-    8 events are already mapped to other non-udma signals.
-   */
+                  alsaqr_periph_padframe_periphs_b_00_mux_set( 2 );
+                  alsaqr_periph_padframe_periphs_b_01_mux_set( 2 );
+                  alsaqr_periph_padframe_periphs_b_02_mux_set( 3 );
+                  alsaqr_periph_padframe_periphs_b_03_mux_set( 3 );
+                  alsaqr_periph_padframe_periphs_b_04_mux_set( 2 );
+                  alsaqr_periph_padframe_periphs_b_05_mux_set( 2 );
+                  break;
+              }
+              break;
+          }
+        #endif 
+      #endif
 
-    rx_sdio_plic_id = ARCHI_UDMA_SDIO_ID(u)*4 +16 ; //115
-    tx_sdio_plic_id = ARCHI_UDMA_SDIO_ID(u)*4 +16 +1; //116
-    eot_sdio_plic_id = ARCHI_UDMA_SDIO_ID(u)*4 +16 +2; //117
-    err_sdio_plic_id = ARCHI_UDMA_SDIO_ID(u)*4 +16 +3; //118
+      for(int i = 0; i < BLOCK_SIZE*2 ; i++) {
+          tx_buffer[i] = i+349;
+          rx_buffer[i] = 0xFF;
+      }
 
-    //--- enable all the udma channels (see below for selective enable)
-    plp_udma_cg_set(plp_udma_cg_get() | (0xffffffff));
+      /* Set plic id for TX, RX, EOT and ERR
+      Plics events for a periph with id = N are mapped as
+      n_evt[i]=N*4+8+i , with i=[0:3].
+      Each periph has 4 event signals it can use. The first
+      8 events are already mapped to other non-udma signals.
+    */
 
-    //Set clkDIV
-    pulp_write32(UDMA_SDIO_CLK_DIV(u), clk_div );
+      rx_sdio_plic_id = ARCHI_UDMA_SDIO_ID(u)*4 +16 ; //115
+      tx_sdio_plic_id = ARCHI_UDMA_SDIO_ID(u)*4 +16 +1; //116
+      eot_sdio_plic_id = ARCHI_UDMA_SDIO_ID(u)*4 +16 +2; //117
+      err_sdio_plic_id = ARCHI_UDMA_SDIO_ID(u)*4 +16 +3; //118
 
-    /*printf("UDMA_SDIO_CMD_OP ADDRESS %08x \n\r", UDMA_SDIO_CMD_OP(u));
-    uart_wait_tx_done();
+      //--- enable all the udma channels (see below for selective enable)
+      plp_udma_cg_set(plp_udma_cg_get() | (0xffffffff));
 
-    printf("UDMA_SDIO_CMD_ARG ADDRESS %08x \n\r", UDMA_SDIO_CMD_ARG(u));
-    uart_wait_tx_done();
+      //Set clkDIV
+      pulp_write32(UDMA_SDIO_CLK_DIV(u), clk_div );
 
-    printf("UDMA_SDIO_START ADDRESS %08x \n\r", UDMA_SDIO_START(u));
-    uart_wait_tx_done();
+      /*printf("UDMA_SDIO_CMD_OP ADDRESS %08x \n\r", UDMA_SDIO_CMD_OP(u));
+      uart_wait_tx_done();
 
-    printf("UDMA_SDIO_STATUS ADDRESS %08x \n\r", UDMA_SDIO_STATUS(u));
-    uart_wait_tx_done();*/
+      printf("UDMA_SDIO_CMD_ARG ADDRESS %08x \n\r", UDMA_SDIO_CMD_ARG(u));
+      uart_wait_tx_done();
 
-    ////////////////////////////////////////////////////////////////
-    //                                                            //
-    //  INIT SEQUENCE                                             //
-    //                                                            //
-    //  CMD 0. Reset Card                                         //
-    //  CMD 8. Get voltage (Only 2.0 Card response to this)       //
-    //  CMD55. Indicate Next Command are Application specific     //
-    //  ACMD44. Get Voltage windows                               //
-    //  CMD2. CID reg                                             //
-    //  CMD3. Get RCA.                                            //
-    //  CMD9. Get CSD.                                            //
-    //  CMD13. Get Status.                                        //
-    //  setup card for transfer                                   //
-    //  CMD 7. Put Card in transfer state                         //
-    //  CMD 16. Set block size                                    //
-    //  CMD 55.                                                   //
-    //  ACMD 6. Set bus width                                     //
-    //                                                            //
-    ////////////////////////////////////////////////////////////////
+      printf("UDMA_SDIO_START ADDRESS %08x \n\r", UDMA_SDIO_START(u));
+      uart_wait_tx_done();
 
-    init_sdio (u, response, eot_sdio_plic_id, err_sdio_plic_id);
+      printf("UDMA_SDIO_STATUS ADDRESS %08x \n\r", UDMA_SDIO_STATUS(u));
+      uart_wait_tx_done();*/
 
-    /////////////////////////////////////////////////////////////////
-    //                                                             //
-    //  Send and receive data                                      //
-    //  init card                                                  //
-    //  CMD 24. Write data                                         //
-    //  CMD 17. Read data                                          //
-    //                                                             //
-    /////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////
+      //                                                            //
+      //  INIT SEQUENCE                                             //
+      //                                                            //
+      //  CMD 0. Reset Card                                         //
+      //  CMD 8. Get voltage (Only 2.0 Card response to this)       //
+      //  CMD55. Indicate Next Command are Application specific     //
+      //  ACMD44. Get Voltage windows                               //
+      //  CMD2. CID reg                                             //
+      //  CMD3. Get RCA.                                            //
+      //  CMD9. Get CSD.                                            //
+      //  CMD13. Get Status.                                        //
+      //  setup card for transfer                                   //
+      //  CMD 7. Put Card in transfer state                         //
+      //  CMD 16. Set block size                                    //
+      //  CMD 55.                                                   //
+      //  ACMD 6. Set bus width                                     //
+      //                                                            //
+      ////////////////////////////////////////////////////////////////
 
-    test_single_block_write (u,tx_buffer, response, eot_sdio_plic_id, err_sdio_plic_id, tx_sdio_plic_id);
+      init_sdio (u, response, eot_sdio_plic_id, err_sdio_plic_id);
+
+      /////////////////////////////////////////////////////////////////
+      //                                                             //
+      //  Send and receive data                                      //
+      //  init card                                                  //
+      //  CMD 24. Write data                                         //
+      //  CMD 17. Read data                                          //
+      //                                                             //
+      /////////////////////////////////////////////////////////////////
+
+      test_single_block_write (u,tx_buffer, response, eot_sdio_plic_id, err_sdio_plic_id, tx_sdio_plic_id);
 
 
-    ////////////////////////////////////////////////////////////////
-    //                                                            //
-    //  CMD 7. Put Card in transfer state                         //
-    //  CMD 16. Set block size                                    //
-    //  CMD 55.                                                   //
-    //  ACMD 6. Set bus width                                     //
-    //  CMD 17. Read single block                                 //
-    //                                                            //
-    ////////////////////////////////////////////////////////////////
+      ////////////////////////////////////////////////////////////////
+      //                                                            //
+      //  CMD 7. Put Card in transfer state                         //
+      //  CMD 16. Set block size                                    //
+      //  CMD 55.                                                   //
+      //  ACMD 6. Set bus width                                     //
+      //  CMD 17. Read single block                                 //
+      //                                                            //
+      ////////////////////////////////////////////////////////////////
 
-    test_single_block_read (u,rx_buffer, response, eot_sdio_plic_id, err_sdio_plic_id, rx_sdio_plic_id);
+      test_single_block_read (u,rx_buffer, response, eot_sdio_plic_id, err_sdio_plic_id, rx_sdio_plic_id);
 
-   
-
-    ////////////////////////////////////////////////////////////////
-    //                                                            //
-    //                ERROR SINGLE BLOK CHECK                     //
-    //                                                            //
-    ////////////////////////////////////////////////////////////////
-
-    /* Print RX_BUFFER */
-    for(int i = 0; i < BLOCK_SIZE/4; i++) {
-      //printf ("TX: %x - RX: %x \n\r", tx_buffer[i], rx_buffer[i]);
-      //uart_wait_tx_done();
-        if(rx_buffer[i] != tx_buffer[i]){
-          error++;
-          printf ("SDIO_%0d: [%d] TX = %x - RX = %x \n\r", u, i, tx_buffer[i], rx_buffer[i]);
-          //uart_wait_tx_done();
-        }
-    }
     
-    uart_wait_tx_done();  
+
+      ////////////////////////////////////////////////////////////////
+      //                                                            //
+      //                ERROR SINGLE BLOK CHECK                     //
+      //                                                            //
+      ////////////////////////////////////////////////////////////////
+
+      /* Print RX_BUFFER */
+      for(int i = 0; i < BLOCK_SIZE/4; i++) {
+        //printf ("TX: %x - RX: %x \n\r", tx_buffer[i], rx_buffer[i]);
+        //uart_wait_tx_done();
+          if(rx_buffer[i] != tx_buffer[i]){
+            error++;
+            printf ("SDIO_%0d: [%d] TX = %x - RX = %x \n\r", u, i, tx_buffer[i], rx_buffer[i]);
+            //uart_wait_tx_done();
+          }
+      }
+      
+      uart_wait_tx_done(); 
+    } 
   }
   if(error!=0)
     printf("Test FAILED with %d errors\n\r", error);
