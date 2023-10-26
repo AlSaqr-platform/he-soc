@@ -41,7 +41,7 @@
 #define TIMER6_OFFSET 0x1A228000
 #define TIMER7_OFFSET 0x1A229000
 
-#define N_CH 2
+#define N_CH 1
 
 int main() {
 
@@ -62,15 +62,15 @@ int main() {
 
     #else
       //out pwm0
-      alsaqr_periph_padframe_periphs_a_38_mux_set (1);
-      alsaqr_periph_padframe_periphs_a_39_mux_set (1);
-      alsaqr_periph_padframe_periphs_a_40_mux_set (1);
-      alsaqr_periph_padframe_periphs_a_41_mux_set (1);
+      alsaqr_periph_padframe_periphs_a_08_mux_set (3);
+      alsaqr_periph_padframe_periphs_a_09_mux_set (3);
+      alsaqr_periph_padframe_periphs_a_10_mux_set (2);
+      alsaqr_periph_padframe_periphs_a_11_mux_set (2);
       //out pwm1
-      alsaqr_periph_padframe_periphs_a_77_mux_set (1);
-      alsaqr_periph_padframe_periphs_a_78_mux_set (1);
-      alsaqr_periph_padframe_periphs_a_79_mux_set (1);
-      alsaqr_periph_padframe_periphs_a_80_mux_set (1);
+      alsaqr_periph_padframe_periphs_b_32_mux_set (3);
+      alsaqr_periph_padframe_periphs_b_33_mux_set (3);
+      alsaqr_periph_padframe_periphs_b_46_mux_set (3);
+      alsaqr_periph_padframe_periphs_b_47_mux_set (3);
     #endif
   #endif
 
