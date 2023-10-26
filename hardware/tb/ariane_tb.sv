@@ -1429,8 +1429,8 @@ module ariane_tb;
             .mem_file_name ( "./vectors/qspi_stim.slm"  ),
             .UserPreload   ( 0 )
           ) alt_1_i_linux_qspi (
-            .SI       ( alt_1_pad_periphs_a_05_pad_LINUX_QSPI_IO1 ),
-            .SO       ( alt_1_pad_periphs_a_06_pad_LINUX_QSPI_IO2 ),
+            .SI       ( alt_1_pad_periphs_a_04_pad_LINUX_QSPI_IO0 ),
+            .SO       ( alt_1_pad_periphs_a_05_pad_LINUX_QSPI_IO1 ),
             .SCK      ( alt_1_pad_periphs_a_02_pad_LINUX_QSPI_SCK ),
             .CSNeg    ( alt_1_pad_periphs_a_03_pad_LINUX_QSPI_CSN ),
             .WPNeg    (  ),

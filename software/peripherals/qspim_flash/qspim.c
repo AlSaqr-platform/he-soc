@@ -77,7 +77,7 @@
 //enable bits for sources 0-31
 #define PLIC_EN_BITS  PLIC_BASE + 0x2080
 
-#define USE_PLIC 0
+#define USE_PLIC 1
 /*TEST PLIC OK*/
 
 int pad_fun_offset[4] = {REG_PADFUN0_OFFSET,REG_PADFUN1_OFFSET,REG_PADFUN2_OFFSET,REG_PADFUN3_OFFSET};
@@ -265,12 +265,12 @@ int main(){
 
     switch(u){
       case 0:
-        alsaqr_periph_padframe_periphs_linux_qspi_00_mux_set( 1 );
-        alsaqr_periph_padframe_periphs_linux_qspi_01_mux_set( 1 );
-        alsaqr_periph_padframe_periphs_linux_qspi_02_mux_set( 1 );
-        alsaqr_periph_padframe_periphs_linux_qspi_03_mux_set( 1 );
-        alsaqr_periph_padframe_periphs_linux_qspi_04_mux_set( 1 );
-        alsaqr_periph_padframe_periphs_linux_qspi_05_mux_set( 1 );
+        alsaqr_periph_padframe_periphs_a_02_mux_set( 3 );
+        alsaqr_periph_padframe_periphs_a_03_mux_set( 3 );
+        alsaqr_periph_padframe_periphs_a_04_mux_set( 3 );
+        alsaqr_periph_padframe_periphs_a_05_mux_set( 2 );
+        alsaqr_periph_padframe_periphs_a_06_mux_set( 2 );
+        alsaqr_periph_padframe_periphs_a_07_mux_set( 2 );
         break;
     }
 
@@ -279,7 +279,7 @@ int main(){
     cmd_qspi_plic_id = ARCHI_UDMA_QSPIM_ID(u)*4 +16 +2;
     eot_qspi_plic_id = ARCHI_UDMA_QSPIM_ID(u)*4 +16 +3;
 
-    printf("[%d, %d] Start test flash page programming over qspi %d\n",  0, 0,u);
+    printf("[%d, %d] Start test flash page programming over qspi %d\n",  0, 0, u);
 
     printf ("Enable CG peripherals...\n\r");
     uart_wait_tx_done();
@@ -616,7 +616,7 @@ int main(){
     }
 
     if (error[u] == 0){
-      printf("Test QSPI_%d PASSED\n",u);
+      printf("Test QSPI_%d PASSED\n", u);
     }else{
       printf("Test QSPI_%d FAILED with %d errors\n\r", u, error[u]);
     }
@@ -628,7 +628,7 @@ int main(){
     temp+=error[i];
   }
   if (temp == 0){
-    printf("Test PASSED\n",u);
+    printf("Test PASSED\n");
   }else{
     printf("Test FAILED with %d errors\n\r", temp);
   }
