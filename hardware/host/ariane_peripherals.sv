@@ -300,6 +300,7 @@ module ariane_peripherals
         .PSLVERR   ( uart_pslverr   )
     );
 
+    // CORE UART
     if (InclUART) begin : gen_uart
         apb_uart i_apb_uart0 (
             .CLK     ( clk_i           ),

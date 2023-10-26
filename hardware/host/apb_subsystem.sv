@@ -259,31 +259,33 @@ module apb_subsystem
     .apb_uart_master(apb_uart_master_bus)
     );
 
-   // cluster uart
+   // CLUSTER UART - FPGA ONLY
    if (InclUART) begin : gen_uart
-     apb_uart i_apb_uart1 (
-       .CLK     ( clk_i                          ),
-       .RSTN    ( rst_ni                         ),
-       .PSEL    ( apb_uart_master_bus.psel       ),
-       .PENABLE ( apb_uart_master_bus.penable    ),
-       .PWRITE  ( apb_uart_master_bus.pwrite     ),
-       .PADDR   ( apb_uart_master_bus.paddr[4:2] ),
-       .PWDATA  ( apb_uart_master_bus.pwdata     ),
-       .PRDATA  ( apb_uart_master_bus.prdata     ),
-       .PREADY  ( apb_uart_master_bus.pready     ),
-       .PSLVERR ( apb_uart_master_bus.pslverr    ),
-       .INT     (                                ),
-       .OUT1N   (                                ), // keep open
-       .OUT2N   (                                ), // keep open
-       .RTSN    (                                ), // no flow control
-       .DTRN    (                                ), // no flow control
-       .CTSN    ( 1'b0                           ),
-       .DSRN    ( 1'b0                           ),
-       .DCDN    ( 1'b0                           ),
-       .RIN     ( 1'b0                           ),
-       .SIN     ( 1'b0                           ),
-       .SOUT    (                                )
-     );
+    `ifdef TARGET_FPGA
+         apb_uart i_apb_uart1 (
+           .CLK     ( clk_i                          ),
+           .RSTN    ( rst_ni                         ),
+           .PSEL    ( apb_uart_master_bus.psel       ),
+           .PENABLE ( apb_uart_master_bus.penable    ),
+           .PWRITE  ( apb_uart_master_bus.pwrite     ),
+           .PADDR   ( apb_uart_master_bus.paddr[4:2] ),
+           .PWDATA  ( apb_uart_master_bus.pwdata     ),
+           .PRDATA  ( apb_uart_master_bus.prdata     ),
+           .PREADY  ( apb_uart_master_bus.pready     ),
+           .PSLVERR ( apb_uart_master_bus.pslverr    ),
+           .INT     (                                ),
+           .OUT1N   (                                ), // keep open
+           .OUT2N   (                                ), // keep open
+           .RTSN    (                                ), // no flow control
+           .DTRN    (                                ), // no flow control
+           .CTSN    ( 1'b0                           ),
+           .DSRN    ( 1'b0                           ),
+           .DCDN    ( 1'b0                           ),
+           .RIN     ( 1'b0                           ),
+           .SIN     ( 1'b0                           ),
+           .SOUT    (                                )
+         );
+     `endif
    end else begin
      /* pragma translate_off */
      mock_uart #( .UART_IDX (1) ) i_mock_uart1 (
