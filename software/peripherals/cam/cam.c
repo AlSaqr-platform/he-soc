@@ -40,7 +40,7 @@
 #define GPIO_GPIOEN_32_63_OFFSET 0x3C
 #define GPIO_PADIN_32_63_OFFSET 0x40
 
-#define PRINTF_ON
+// #define PRINTF_ON
 
 int main(){
   int error=0;

@@ -51,7 +51,7 @@
 #define OUT 1
 #define IN  0
 
-#define PRINTF_ON
+// #define PRINTF_ON
 
 /*******************************************************************************
 **                             IMPORTANT                                      **
@@ -281,8 +281,10 @@ int main(){
 
     printf("[%d, %d] Start test flash page programming over qspi %d\n",  0, 0, u);
 
-    printf ("Enable CG peripherals...\n\r");
-    uart_wait_tx_done();
+    #ifdef PRINTF_ON
+      printf ("Enable CG peripherals...\n\r");
+      uart_wait_tx_done();
+    #endif
 
     // Enable all the udma channels
     plp_udma_cg_set(plp_udma_cg_get() | (0xffffffff));
@@ -299,8 +301,10 @@ int main(){
     //barrier();
 
     //--- check flash ID for debugging (refer to the manual)
-    printf ("Reset rems_resp...\n\r");
-    uart_wait_tx_done();
+    #ifdef PRINTF_ON
+      printf ("Reset rems_resp...\n\r");
+      uart_wait_tx_done();
+    #endif 
     for(int i = 0; i < 6; i++) {
       rems_resp[i] = 0;
     }
