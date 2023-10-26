@@ -158,14 +158,6 @@ package udma_subsystem_pkg;
 		logic pwm5_o;
 		logic pwm6_o;
 		logic pwm7_o;
-		logic pwm8_o;
-		logic pwm9_o;
-		logic pwm10_o;
-		logic pwm11_o;
-		logic pwm12_o;
-		logic pwm13_o;
-		logic pwm14_o;
-		logic pwm15_o;
 	} pwm_to_pad_t;
 
 	typedef struct packed {
