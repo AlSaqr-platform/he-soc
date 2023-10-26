@@ -125,7 +125,7 @@ module apb_subsystem
     output                      fll_to_pad_t fll_to_pad,
 
     //IRQ request of CH0 and CH1 from NUM_ADV_TIMER
-    output logic                [(NUM_ADV_TIMER*2)-1 : 0] pwm_irq_o,
+    output logic                [NUM_ADV_TIMER-1 : 0] pwm_irq_o,
     output                      pwm_to_pad_t pwm_to_pad
 );
 
@@ -811,6 +811,7 @@ module apb_subsystem
         end
     endgenerate
 
+   // PWM 0-8 output from CHANNEL 0
    assign pwm_to_pad.pwm0_o = pwm_ch0_o[0][0];
    assign pwm_to_pad.pwm1_o = pwm_ch0_o[1][0];
    assign pwm_to_pad.pwm2_o = pwm_ch0_o[2][0];
@@ -820,15 +821,7 @@ module apb_subsystem
    assign pwm_to_pad.pwm6_o = pwm_ch0_o[6][0];
    assign pwm_to_pad.pwm7_o = pwm_ch0_o[7][0];
 
-   assign pwm_to_pad.pwm8_o  = pwm_ch1_o[0][0];
-   assign pwm_to_pad.pwm9_o  = pwm_ch1_o[1][0];
-   assign pwm_to_pad.pwm10_o = pwm_ch1_o[2][0];
-   assign pwm_to_pad.pwm11_o = pwm_ch1_o[3][0];
-   assign pwm_to_pad.pwm12_o = pwm_ch1_o[4][0];
-   assign pwm_to_pad.pwm13_o = pwm_ch1_o[5][0];
-   assign pwm_to_pad.pwm14_o = pwm_ch1_o[6][0];
-   assign pwm_to_pad.pwm15_o = pwm_ch1_o[7][0];
-
+   // PWM 0-8 event output from CHANNEL 0
    assign pwm_irq_o[0] = pwm_evt_o[0][0];
    assign pwm_irq_o[1] = pwm_evt_o[1][0];
    assign pwm_irq_o[2] = pwm_evt_o[2][0];
@@ -837,15 +830,6 @@ module apb_subsystem
    assign pwm_irq_o[5] = pwm_evt_o[5][0];
    assign pwm_irq_o[6] = pwm_evt_o[6][0];
    assign pwm_irq_o[7] = pwm_evt_o[7][0];
-
-   assign pwm_irq_o[8]  = pwm_evt_o[0][1];
-   assign pwm_irq_o[9]  = pwm_evt_o[1][1];
-   assign pwm_irq_o[10] = pwm_evt_o[2][1];
-   assign pwm_irq_o[11] = pwm_evt_o[3][1];
-   assign pwm_irq_o[12] = pwm_evt_o[4][1];
-   assign pwm_irq_o[13] = pwm_evt_o[5][1];
-   assign pwm_irq_o[14] = pwm_evt_o[6][1];
-   assign pwm_irq_o[15] = pwm_evt_o[7][1];
 
    apb_to_reg i_apb_to_padframecfg
      (

@@ -36,7 +36,7 @@ module ariane_peripherals
     input  logic                          c2h_irq_i       ,
     input  logic                          cluster_eoc_i   ,
     input  logic [N_CAN-1:0]              can_irq_i      ,
-    input  logic [(NUM_ADV_TIMER*2)-1:0]  pwm_irq_i      ,
+    input  logic [NUM_ADV_TIMER-1:0]  pwm_irq_i      ,
     input  logic                        cl_dma_pe_evt_i ,
     output logic [NumCVA6-1:0][1:0]     irq_o   ,
     // UART
@@ -89,7 +89,7 @@ module ariane_peripherals
     assign irq_sources[140]                          = can_irq_i[0];
     assign irq_sources[141]                          = can_irq_i[1];
 
-    // Interrupt CH0 from APB TIMERS
+    // Interrupt CH0 from 8 APB TIMERS
     assign irq_sources[142]                          = pwm_irq_i[0];
     assign irq_sources[143]                          = pwm_irq_i[1];
     assign irq_sources[144]                          = pwm_irq_i[2];
@@ -99,17 +99,7 @@ module ariane_peripherals
     assign irq_sources[148]                          = pwm_irq_i[6];
     assign irq_sources[149]                          = pwm_irq_i[7];
 
-    // Interrupt CH1 from APB TIMERS
-    assign irq_sources[150]                          = pwm_irq_i[8];
-    assign irq_sources[151]                          = pwm_irq_i[9];
-    assign irq_sources[152]                          = pwm_irq_i[10];
-    assign irq_sources[153]                          = pwm_irq_i[11];
-    assign irq_sources[154]                          = pwm_irq_i[12];
-    assign irq_sources[155]                          = pwm_irq_i[13];
-    assign irq_sources[156]                          = pwm_irq_i[14];
-    assign irq_sources[157]                          = pwm_irq_i[15];
-
-    assign irq_sources[ariane_soc::NumSources-1:158] = '0;
+    assign irq_sources[ariane_soc::NumSources-1:150] = '0;
 
     REG_BUS #(
         .ADDR_WIDTH ( 32 ),

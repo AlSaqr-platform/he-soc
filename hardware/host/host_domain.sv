@@ -213,7 +213,7 @@ module host_domain
    logic [31*4-1:0]                      s_udma_events;
    logic                                 s_dma_pe_evt;
    logic [N_CAN-1:0]                     s_can_irq;
-   logic [(NUM_ADV_TIMER*2)-1 : 0]       s_pwm_irq;
+   logic [NUM_ADV_TIMER-1 : 0]           s_pwm_irq;
    logic                                 s_c2h_irq;
 
    logic                                 phy_clk;
