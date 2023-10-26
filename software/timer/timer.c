@@ -61,12 +61,12 @@ int main() {
     #ifdef SIMPLE_PAD
 
     #else
-      //out pwm0
+      //out pwm0 - pwm3
       alsaqr_periph_padframe_periphs_a_08_mux_set (3);
       alsaqr_periph_padframe_periphs_a_09_mux_set (3);
       alsaqr_periph_padframe_periphs_a_10_mux_set (2);
       alsaqr_periph_padframe_periphs_a_11_mux_set (2);
-      //out pwm1
+      //out pwm4 - pwm7
       alsaqr_periph_padframe_periphs_b_32_mux_set (3);
       alsaqr_periph_padframe_periphs_b_33_mux_set (3);
       alsaqr_periph_padframe_periphs_b_46_mux_set (3);
