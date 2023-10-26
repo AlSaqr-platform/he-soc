@@ -128,8 +128,8 @@ compile_flag_bender   += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 13
 list_incdir := $(foreach dir, ${incdir}, +incdir+$(dir))
 
 ifdef nogui
-	acc :=+p_dut
-	questa-flags += -c
+	acc :=p+dut
+  questa-flags += -c
 endif
 
 # if defined, calls the questa targets in batch mode

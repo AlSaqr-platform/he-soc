@@ -68,3 +68,7 @@ void hello_world(int cid){
   printf("Hello Culsans! I'm Core %d!\r\n", cid);
   uart_wait_tx_done();
 }
+
+int main(int argc, char const *argv[]) {
+  return 0;
+}
