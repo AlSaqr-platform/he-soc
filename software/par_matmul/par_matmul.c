@@ -5,7 +5,6 @@
 #include "./cluster_code.h"
 
 //#define FPGA_EMULATION
-#define BOOT_ADDR 0x1c002080
 
 int launch_cluster() {
   

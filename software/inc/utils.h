@@ -21,8 +21,7 @@
 #include "padframe/inc/alsaqr_periph_padframe.h"
 #include "fpga_padframe/inc/alsaqr_periph_fpga_padframe.h"
 
-#define MB_MSG_EOC 0xE0CE0CE0
-#define MB_MSG_ERR 0xBADBADBA
+#define BOOT_ADDR 0x1c002080 // Cluster boot addr
 
 static inline void barrier() {
     __sync_synchronize();
