@@ -654,7 +654,7 @@ module al_saqr
       .async_data_slave_r_wptr_o ( async_axi_ot_out_r_wptr_i  ),
       .async_data_slave_r_rptr_i ( async_axi_ot_out_r_rptr_o  ),
       .dst_clk_i                 ( s_soc_clk  ),
-      .dst_rst_ni                ( rst_ni     ),
+      .dst_rst_ni                ( s_rst_ni   ),
       .dst_req_o                 ( ot_axi_req ),
       .dst_resp_i                ( ot_axi_rsp )
    );
@@ -662,8 +662,8 @@ module al_saqr
    secure_subsystem_synth_wrap i_RoT_wrap (
      .clk_i            ( clk_opentitan_o    ),
      .clk_ref_i        ( clk_opentitan_o    ),
-     .rst_ni           ( rst_ni             ),
-     .pwr_on_rst_ni    ( rst_ni             ),
+     .rst_ni           ( s_rst_ni           ),
+     .pwr_on_rst_ni    ( s_rst_ni           ),
      .fetch_en_i       ( '0                 ),
      .bootmode_i       ( bootmode_i         ),
      .test_enable_i    ( '0                 ),
