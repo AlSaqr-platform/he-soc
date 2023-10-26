@@ -36,7 +36,7 @@ int launch_cluster() {
 
   // Read irq status
   uint32_t mb_irqs = pulp_read32(0x10403000 + 0x18);
-  uint32_t msg = MB_MSG_ERR;
+  uint32_t msg = -1;
   if ((mb_irqs & 0b111) == 0b001) {
     // Clear interrupt in mb
     pulp_write32(0x10403000 + 0x18, 0b001);
