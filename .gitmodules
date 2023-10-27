@@ -16,3 +16,6 @@
 [submodule "cluster-runtime"]
 	path = cluster-runtime
 	url = git@github.com:AlSaqr-platform/cluster-runtime.git
+[submodule "software/pulp-runtime"]
+	path = software/pulp-runtime
+	url = https://github.com/AlSaqr-platform/pulp-runtime.git
