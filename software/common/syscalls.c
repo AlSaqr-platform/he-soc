@@ -83,7 +83,8 @@ void __attribute__((weak)) thread_entry(int cid, int nc)
 {
   // multi-threaded programs override this function.
   // for the case of single-threaded programs, only let core 0 proceed.
-  while (cid > 2);
+  while (cid != 0)
+    __asm__ volatile("wfi;");
 }
 
 int __attribute__((weak)) main(int argc, char** argv)

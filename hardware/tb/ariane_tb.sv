@@ -45,11 +45,9 @@ import "DPI-C" context function byte read_section(input longint address, inout b
 module ariane_tb;
 
   static uvm_cmdline_processor uvcl = uvm_cmdline_processor::get_inst();
-  `ifdef TARGET_ASIC
-  localparam int unsigned REFClockPeriod = 500ns; // jtag clock: 2MHz
-  `else
-  localparam int unsigned REFClockPeriod = 67000ps;  // jtag clock: around 15MHz
-  `endif
+
+  localparam int unsigned REFClockPeriod = 1us; // jtag clock: 1MHz
+
   // toggle with RTC period
   `ifndef TEST_CLOCK_BYPASS
     localparam int unsigned RTC_CLOCK_PERIOD = 30.517us;
@@ -2873,6 +2871,7 @@ module ariane_tb;
       $display("Waiting the FLL clock before initiating the debug module...");
       repeat(10)
       @(posedge clk_i);
+
       jtag_init(cid);
 
       if(PRELOAD_HYPERRAM==0) begin
@@ -2885,6 +2884,12 @@ module ariane_tb;
           jtag_elf_load(binary, binary_entry, cid);
           $display("Wakeup Core..");
           jtag_elf_run(binary_entry, cid);
+       `ifdef DUAL_BOOT
+          repeat(100)
+            @(posedge clk_i);
+          jtag_init(cid+1);
+          jtag_ariane_wakeup( LINKER_ENTRY, cid+1 );
+       `endif
           $display("Wait EOC...");
           jtag_wait_for_eoc ( TOHOST );
         end
@@ -2897,7 +2902,13 @@ module ariane_tb;
         #(REFClockPeriod);
         $display("Wakeup here at %x!!", binary_entry);
         jtag_ariane_wakeup( LINKER_ENTRY, cid );
-        jtag_wait_for_eoc ( TOHOST );
+     `ifdef DUAL_BOOT
+        repeat(100)
+          @(posedge clk_i);
+        jtag_init( cid+1 );
+        jtag_ariane_wakeup( LINKER_ENTRY, cid+1 );
+     `endif
+        jtag_wait_for_eoc( TOHOST );
       end
     end
   end
@@ -3030,7 +3041,7 @@ module ariane_tb;
     jtag_write(dm::Command, 32'h0033_07b1, 0, 1);
     // Resume hart 0
     jtag_write(dm::DMControl, dm::dmcontrol_t'{resumereq: 1, dmactive: 1, hartsello: cid, default: '0});
-    $display("[JTAG] Resumed hart 0 from 0x%h", binary_entry);
+    $display("[JTAG] Resumed hart %h from 0x%h", cid, binary_entry);
   endtask
 
   // Load a binary
@@ -3061,12 +3072,7 @@ module ariane_tb;
 
   // Wait for termination signal and get return code
   task automatic jtag_wait_for_eoc(input word_bt tohost);
- `ifdef TARGET_ASIC
     jtag_poll_bit0(tohost, exit_code, 10);
- `else
-    jtag_poll_bit0(tohost, exit_code, 800);
- `endif
-
     exit_code >>= 1;
     if (exit_code) $error("[JTAG] FAILED: return code %0d", exit_code);
     else $display("[JTAG] SUCCESS");
@@ -3142,7 +3148,7 @@ module ariane_tb;
            bootmode = 1'b0;
            riscv_ibex_dbg.reset_master();
            if (ot_sram != "none") begin
-                repeat(50)
+                repeat(60)
                   @(posedge rtc_i);
                 debug_secd_module_init();
                 load_secd_binary(ot_sram);
@@ -3155,7 +3161,7 @@ module ariane_tb;
            bootmode = 1'b1;
            riscv_ibex_dbg.reset_master();
            spih_norflash_ot_preload(ot_flash);
-           repeat(50)
+           repeat(60)
              @(posedge rtc_i);
            jtag_secd_wait_eoc();
          end
