@@ -3072,7 +3072,7 @@ module ariane_tb;
 
   // Wait for termination signal and get return code
   task automatic jtag_wait_for_eoc(input word_bt tohost);
-    jtag_poll_bit0(tohost, exit_code, 50);
+    jtag_poll_bit0(tohost, exit_code, 10);
     exit_code >>= 1;
     if (exit_code) $error("[JTAG] FAILED: return code %0d", exit_code);
     else $display("[JTAG] SUCCESS");
