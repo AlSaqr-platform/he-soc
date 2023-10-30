@@ -28,13 +28,13 @@
 #define BLOCK_SIZE 512
 #define BLOCK_COUNT 0x0
 
-#define PRINTF_ON
+// #define PRINTF_ON
 
 #define BLOCK_COUNT_MUL 2
 #define SDIO_QUAD_EN 1
 
 #define USE_PLIC 1
-/*TEST PLIC FAIL*/
+/*TEST PLIC PASS*/
 
 /*******************************************************************************
 **                             IMPORTANT                                      **
@@ -269,9 +269,11 @@ int sdio_send_cmd(uint32_t u, uint32_t cmd_op, uint32_t cmd_arg, uint32_t *respo
     #endif
     
     //  wfi until reading the EOT id from the PLIC
-    while(pulp_read32(PLIC_CHECK)!=eot_sdio_plic_id && pulp_read32(PLIC_CHECK)!=err_sdio_plic_id) {
+    uint32_t plic_check_id;
+    do{
       asm volatile ("wfi");
-    }
+      plic_check_id = pulp_read32(PLIC_CHECK);
+    } while (plic_check_id != eot_sdio_plic_id && plic_check_id != err_sdio_plic_id);
 
     #ifdef PRINTF_ON
       printf("Interrupt received...\n\r");
