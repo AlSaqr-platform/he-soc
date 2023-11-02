@@ -186,7 +186,7 @@ module host_domain
 
    // When changing these parameters, change the L2 size accordingly in ariane_soc_pkg
    localparam NB_L2_BANKS = 8;
-   localparam L2_BANK_SIZE = 2048; // 2^11 words (32 bits)
+   localparam L2_BANK_SIZE = 1024; // 2^10 words (32 bits)
 
    localparam L2_BANK_ADDR_WIDTH = $clog2(L2_BANK_SIZE);
    localparam L2_MEM_ADDR_WIDTH = $clog2(L2_BANK_SIZE * NB_L2_BANKS) - $clog2(NB_L2_BANKS);
@@ -198,7 +198,7 @@ module host_domain
    localparam NB_UDMA_TCDM_CHANNEL = 2;
 
    // parameters for the LLC
-   localparam NUM_WAYS   = 32'd16;
+   localparam NUM_WAYS   = 32'd8;
    localparam NUM_LINES  = 32'd256;
    localparam NUM_BLOCKS = 32'd8;
 

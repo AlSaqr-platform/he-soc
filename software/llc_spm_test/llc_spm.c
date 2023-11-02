@@ -33,7 +33,7 @@ int main(int argc, char const *argv[]) {
   #endif
   int *w_i, *w_f;
   w_i = 0x70000000;
-  w_f = 0x70000000 + 0x40000 - 0x4; //256KB of LLC SPM
+  w_f = 0x70000000 + 0x20000 - 0x4; //128KB of LLC SPM
   w_i[0]  =  0;
   w_i[1]  =  1,
   w_f[0]  = -1;
