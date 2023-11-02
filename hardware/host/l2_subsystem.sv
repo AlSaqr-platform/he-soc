@@ -121,7 +121,7 @@ module l2_subsystem
 
           tc_sram #(
             .SimInit   ( "random"            ),
-            .NumWords  ( L2_BANK_SIZE        ), // 2^15 lines of 32 bits each (128kB), 4 Banks -> 512 kB total memory
+            .NumWords  ( L2_BANK_SIZE        ), // 2^10 lines of 32 bits each (4kB), 8 Banks -> 32kB total memory
             .DataWidth ( L2_DATA_WIDTH       ),
             .NumPorts  ( 1                   )
           ) bank_i (
