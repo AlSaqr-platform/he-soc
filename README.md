@@ -125,7 +125,33 @@ make clean sim BOOTMODE=1 sec_boot=1
 
 ### Running code on the cluster
 
-Work In Progress: to better validate the cluster functionalities we are improving its software environment
+To run code on the cluster we must first source its runtime:
+```
+cd software
+source pulp-runtime/configs/pulp_cluster.sh
+```
+Each test designed for the cluster is structured as follows:
+```
+- your-test-folder
+  |
+  |
+  -- stimuli
+```
+The parent folder contains the code executed by the host (CVA6) and the `stimuli` folder contains the cluster code.
+You can compile all the needed files with the following commands:
+```
+cd your-test-folder
+make -C stimuli clean all dump_header
+make clean all CLUSTER_BIN=1
+```
+The simulation can be launched by doing:
+```
+cd ../../hardware
+make preload=1 scripts_vip
+make sim elf-bin=../software/your-test-folder.riscv
+```
+Replace "your-test-folder" with one of the test listed in software/cluster_regression.list.
+Note that preload was used to reduce simulation time, but it is not mandatory.
 
 ### Run regressions
 
