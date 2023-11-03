@@ -1,3 +1,6 @@
+l2_test_restricted
+l3_test_4cs
+llc_spm_test
 peripherals/spim_flash
 peripherals/qspim_flash
 peripherals/uart
