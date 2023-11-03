@@ -4,6 +4,37 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 0.0.3 - alsaqr_031123 - 03/11/2023
+
+### Hardware
+
+### Added
+
+- Update Top level Synthesis constraints 
+
+### Changed
+- L2 memory decreased from 64KB to 32KB
+- LLC memory decreased from 256KB to 128KB 
+
+### Feature Frozen Macros
+- Cluster
+- Open Titan
+- Hyperram
+
+### Work In progress Macro
+- Culsans
+
+### Software
+
+- Peripherals verification with the new padframe completed
+- Update test for hyperram using 4 CS
+- Add regression for PULP Cluster
+- JTAG boot: through JTAG we boot Core 0, which will run the code in L3. The code in L3 run by core 0 will then boot the second core.
+- JTAG boot: through JTAG we boot both the Cores independently
+- OpenTitan boot: Opentitan boots the Core 0, which again will boot Core 1
+- OpenTitan boot: OpenTitan boots both the cores independently (still under development)
+- Bypass the internal clock divider between dco and clock[0]
+
 ## 0.0.2 - alsaqr_131023 - 13/10/2023
 
 ### Hardware
