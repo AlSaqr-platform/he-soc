@@ -168,7 +168,7 @@ cd ../hardware
 
 make scripts_vip
 
-make clean batch-mode=1 run-regressions
+make clean preload=1 batch-mode=1 run-regressions
 ```
 
 The tests that will be executed are the one listed in `software/regression.list`
@@ -246,4 +246,16 @@ To perform the post sythesis simulation of one of the previous target run the fo
 ```
 make clean post_synth=1 <target_name> synth_sim
 ```
+To run the regression using the netlist do the following:
 
+```
+cd software
+
+source compile_all.sh
+
+cd ../hardware
+
+make clean preload=1 post_synth=1 <target_name>
+
+make preload=1 batch-mode=1 run-regressions-post-synth
+```
