@@ -2803,30 +2803,52 @@ module ariane_tb;
 
     $display("PRELOAD_HYPERRAM : %d", PRELOAD_HYPERRAM);
 
-    // Wait the FLL to generate the clock
-    $display("Waiting the FLL clock before initiating the debug module...");
-    repeat(10)
-      @(posedge clk_i);
+      // Wait the FLL to generate the clock
+      $display("Waiting the FLL clock before initiating the debug module...");
+      repeat(10)
+        @(posedge clk_i);
 
-    jtag_init(cid);
-    if(PRELOAD_HYPERRAM==0) begin
-      // Load cluster code
-      if(cluster_binary!="none")
-        jtag_elf_load(cluster_binary, binary_entry, cid);
-      if(binary!="none") begin
-        $display("Load binary...");
-        // Load host code
-        jtag_elf_load(binary, binary_entry, cid);
-        $display("Wakeup Core..");
-        jtag_elf_run(binary_entry, cid);
+      jtag_init(cid);
+
+      if(PRELOAD_HYPERRAM==0) begin
+        // Load cluster code
+        if(cluster_binary!="none")
+          jtag_elf_load(cluster_binary, binary_entry, cid);
+        if(binary!="none") begin
+          $display("Load binary...");
+          // Load host code
+          jtag_elf_load(binary, binary_entry, cid);
+          $display("Wakeup Core..");
+     `ifndef SEC_BOOT
+          jtag_elf_run(binary_entry, cid);
+       `ifdef DUAL_BOOT
+          repeat(100)
+            @(posedge clk_i);
+          jtag_init(cid+1);
+          jtag_ariane_wakeup( LINKER_ENTRY, cid+1 );
+       `endif
+     `endif
+          $display("Wait EOC...");
+          jtag_wait_for_eoc ( TOHOST );
+        end
+      end else begin
+
+        $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);
+        addr = 32'h1c000000;
+        jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
+        binary_entry={32'h00000000,LINKER_ENTRY};
+        #(REFClockPeriod);
+        $display("Wakeup here at %x!!", binary_entry);
+   `ifndef SEC_BOOT
+        jtag_ariane_wakeup( LINKER_ENTRY, cid );
      `ifdef DUAL_BOOT
         repeat(100)
           @(posedge clk_i);
         jtag_init(cid+1);
         jtag_ariane_wakeup( LINKER_ENTRY, cid+1 );
      `endif
-        $display("Wait EOC...");
-        jtag_wait_for_eoc ( TOHOST );
+   `endif
+        jtag_wait_for_eoc( TOHOST );
       end
     end else begin
       $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);

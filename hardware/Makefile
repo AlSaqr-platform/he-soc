@@ -414,6 +414,11 @@ check-benchmarks:
 run-regressions:	$(alsaqr-regression)
 	$(MAKE) check-benchmarks
 
+run_regression:
+	rm -rf regression_reports
+	mkdir regression_reports
+	python3 regression.py
+
 $(alsaqr-regression-post-synth): build_synth
 	mkdir -p tmp
 	../software/elf_to_slm.py --binary=$@ --vectors=hyperram0.slm

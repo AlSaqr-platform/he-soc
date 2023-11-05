@@ -12,6 +12,10 @@ void thread_entry(int cid, int nc)
   int * pointer;
   int mbox_id = 10;
 
+  // Ack opentitan irq
+  pointer = (int *) 0x10404020;
+  *pointer = 0x1;
+
   // core 0 initializes the synchronization variable and prints hello before core 1
   if (cid == 0){
     count = 0;
