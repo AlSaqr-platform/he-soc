@@ -118,7 +118,7 @@ void sim_spike_t::make_bootrom()
 {
   start_pc = 0x80000000;
 
-  #include "bootrom.h"
+  #include "../bootrom/bootrom.h"
 
   std::vector<char> rom((char*)reset_vec, (char*)reset_vec + sizeof(reset_vec));
 
