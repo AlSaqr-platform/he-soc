@@ -12,7 +12,7 @@ create_generated_clock -name opentitan_spi1 -source [get_pins  alsaqr_clk_manage
 if {$::env(MAIN_MEM)=="HYPER"} {
 create_clock -period 100 -name FPGA_CLK  [get_pins  alsaqr_clk_manager/clk_out1]
 } else {
-create_clock -period 25 -name FPGA_CLK  [get_pins  alsaqr_clk_manager/clk_out1]
+create_clock -period 50 -name FPGA_CLK  [get_pins  alsaqr_clk_manager/clk_out1]
 }
 
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  u_ddr4_0/c0_ddr4_ui_clk]]
