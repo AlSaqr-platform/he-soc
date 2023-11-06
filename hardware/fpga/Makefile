@@ -12,5 +12,5 @@ ips:
 		$(MAKE) -C alsaqr/tcl/ips/rom_ot   clean all
 
 run:
-		vitis-2020.2 vivado -mode gui -source run.tcl
+		vitis-2023.2 vivado -mode gui -source run.tcl
 
