@@ -171,6 +171,15 @@ void sdio_read_response( uint32_t *response, int32_t u){
  * else response is filled with sdcard response
  **/
 int sdio_send_cmd(uint32_t u, uint32_t cmd_op, uint32_t cmd_arg, uint32_t *response, uint32_t eot_sdio_plic_id, uint32_t err_sdio_plic_id) {
+  return sdio_send_cmd_trx(u, cmd_op, cmd_arg, response, eot_sdio_plic_id, err_sdio_plic_id, 0);
+}
+
+/**
+ * Send a command and wait until the sd card answers
+ * retuns 1 if an error/timeout happened
+ * else response is filled with sdcard response
+ **/
+int sdio_send_cmd_trx(uint32_t u, uint32_t cmd_op, uint32_t cmd_arg, uint32_t *response, uint32_t eot_sdio_plic_id, uint32_t err_sdio_plic_id, uint32_t trx_sdio_plic_id) {
   
   uint32_t status =0;
   int error = 0;
@@ -188,7 +197,7 @@ int sdio_send_cmd(uint32_t u, uint32_t cmd_op, uint32_t cmd_arg, uint32_t *respo
     pulp_write32(PLIC_EN_BITS+(((int)(eot_sdio_plic_id/32))*4), 1<<(eot_sdio_plic_id%32)); //enable interrupt
 
     //set ERR interrupt
-    pulp_write32(PLIC_BASE+err_sdio_plic_id*4, 1); // set eot interrupt priority to 1
+    pulp_write32(PLIC_BASE+err_sdio_plic_id*4, 1); // set err interrupt priority to 1
     pulp_write32(PLIC_EN_BITS+(((int)(err_sdio_plic_id/32))*4), pulp_read32(PLIC_EN_BITS+(((int)(err_sdio_plic_id/32))*4)) | 1<<(err_sdio_plic_id%32)); //enable interrupt
 
     #ifdef PRINTF_ON
@@ -273,7 +282,7 @@ int sdio_send_cmd(uint32_t u, uint32_t cmd_op, uint32_t cmd_arg, uint32_t *respo
     do{
       asm volatile ("wfi");
       plic_check_id = pulp_read32(PLIC_CHECK);
-    } while (plic_check_id != eot_sdio_plic_id && plic_check_id != err_sdio_plic_id);
+    } while (plic_check_id != eot_sdio_plic_id && plic_check_id != err_sdio_plic_id && (trx_sdio_plic_id != 0 ? plic_check_id != trx_sdio_plic_id : 1));
 
     #ifdef PRINTF_ON
       printf("Interrupt received...\n\r");
@@ -312,7 +321,7 @@ void test_single_block_write (uint32_t u, uint32_t *tx_buffer, uint32_t *respons
   pulp_write32(UDMA_SDIO_DATA_SETUP(u), ( ((BLOCK_SIZE - 1) <<16) | (0 << 8) | (SDIO_QUAD_EN << 2) | (0 << 1) | 1 ));
 
   // Send CMD 24
-  sdio_send_cmd(u, CMD24 | RSP_48_CRC, BLOCK_COUNT, response, eot_sdio_plic_id, err_sdio_plic_id);
+  sdio_send_cmd_trx(u, CMD24 | RSP_48_CRC, BLOCK_COUNT, response, eot_sdio_plic_id, err_sdio_plic_id, tx_sdio_plic_id);
 
   if (USE_PLIC==0){
     do {
@@ -372,7 +381,7 @@ void test_single_block_read (uint32_t u, uint32_t *rx_buffer , uint32_t *respons
   pulp_write32(UDMA_SDIO_DATA_SETUP(u), ( ((BLOCK_SIZE - 1) <<16) | (0 << 8) | (SDIO_QUAD_EN << 2) | (1 << 1) | 1));
 
   // Send CMD 17
-  sdio_send_cmd(u, CMD17 | RSP_48_CRC, BLOCK_COUNT, response, eot_sdio_plic_id, err_sdio_plic_id);   
+  sdio_send_cmd_trx(u, CMD17 | RSP_48_CRC, BLOCK_COUNT, response, eot_sdio_plic_id, err_sdio_plic_id, rx_sdio_plic_id);   
     
   if (USE_PLIC==0){
     do {
