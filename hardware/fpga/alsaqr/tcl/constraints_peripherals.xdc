@@ -10,11 +10,9 @@ set_case_analysis 0    [get_pins  i_alsaqr/i_host_domain/i_apb_subsystem/i_udma_
 
 create_generated_clock [get_pins  i_alsaqr/i_host_domain/i_apb_subsystem/i_udma_subsystem/i_spim_gen[0].i_spim/u_clockgen/i_clkdiv_cnt/clk_o_reg/Q] -name SPIM_CLK_0 -source [get_pins  alsaqr_clk_manager/clk_out1] -divide_by 1 
 
-create_generated_clock -name opentitan_spi1 -source [get_pins  alsaqr_clk_manager/clk_out1] -divide_by 8 [get_pins i_alsaqr/i_RoT_wrap/u_RoT/u_spi_host0/u_spi_core/u_fsm/spi_clk_buf/clk_buf/clk_o]
-
 #CLK
-#set_output_delay -clock SPIM_CLK_0 -min [ expr 20 * 0.10 ] [ get_ports pad_periphs_pad_gpio_b_01_pad ]
-#set_output_delay -clock SPIM_CLK_0 -max [ expr 20 * 0.35 ] [ get_ports pad_periphs_pad_gpio_b_01_pad ]
+set_output_delay -clock SPIM_CLK_0 -min [ expr 20 * 0.10 ] [ get_ports pad_periphs_pad_gpio_b_01_pad ]
+set_output_delay -clock SPIM_CLK_0 -max [ expr 20 * 0.35 ] [ get_ports pad_periphs_pad_gpio_b_01_pad ]
 
 #CS
 set_output_delay -clock SPIM_CLK_0 -min [ expr 20 * 0.10 ] [ get_ports pad_periphs_pad_gpio_b_00_pad ]
@@ -94,12 +92,12 @@ set_output_delay -clock FPGA_CLK -max [ expr 20 * 0.35 ] [ get_ports pad_periphs
 #################
 
 #TX
-set_output_delay -clock FPGA_ALSQR_CLK -min [ expr 20 * 0.10 ] [ get_ports pad_periphs_pad_gpio_b_06_pad ]
-set_output_delay -clock FPGA_ALSQR_CLK -max [ expr 20 * 0.35 ] [ get_ports pad_periphs_pad_gpio_b_06_pad ]
+set_output_delay -clock FPGA_CLK -min [ expr 20 * 0.10 ] [ get_ports pad_periphs_pad_gpio_b_06_pad ]
+set_output_delay -clock FPGA_CLK -max [ expr 20 * 0.35 ] [ get_ports pad_periphs_pad_gpio_b_06_pad ]
 
 #RX
-set_input_delay -clock FPGA_ALSQR_CLK -min [ expr 20 * 0.10 ] [ get_ports pad_periphs_pad_gpio_b_07_pad ]
-set_input_delay -clock FPGA_ALSQR_CLK -max [ expr 20 * 0.35 ] [ get_ports pad_periphs_pad_gpio_b_07_pad ]
+set_input_delay -clock FPGA_CLK -min [ expr 20 * 0.10 ] [ get_ports pad_periphs_pad_gpio_b_07_pad ]
+set_input_delay -clock FPGA_CLK -max [ expr 20 * 0.35 ] [ get_ports pad_periphs_pad_gpio_b_07_pad ]
 
 set_max_delay    [ expr 20 * 0.50 ] -from  [ get_ports pad_periphs_pad_gpio_b_07_pad ]
 
