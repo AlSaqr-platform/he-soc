@@ -6,11 +6,13 @@ create_clock -period 6.400 [get_pins u_ddr4_0/c0_ddr4_ui_clk]
 create_generated_clock -name opentitan_div4_clk -source [get_pins  alsaqr_clk_manager/clk_out1] -divide_by 4 [get_pins i_alsaqr/i_RoT_wrap/u_RoT/u_clkmgr_aon/u_no_scan_io_div4_div/gen_div.clk_int_reg/Q]
 create_generated_clock -name opentitan_div2_clk -source [get_pins  alsaqr_clk_manager/clk_out1] -divide_by 2 [get_pins i_alsaqr/i_RoT_wrap/u_RoT/u_clkmgr_aon/u_no_scan_io_div2_div/gen_div2.u_div2/q_o_reg[0]/Q]
 
+create_generated_clock -name opentitan_spi1 -source [get_pins  alsaqr_clk_manager/clk_out1] -divide_by 8 [get_pins i_alsaqr/i_RoT_wrap/u_RoT/u_spi_host0/u_spi_core/u_fsm/u_sck_flop/q_o_reg[0]/Q]
+
 #alsaqr clock
 if {$::env(MAIN_MEM)=="HYPER"} {
-create_clock -period 100  [get_pins  alsaqr_clk_manager/clk_out1]
+create_clock -period 100 -name FPGA_CLK  [get_pins  alsaqr_clk_manager/clk_out1]
 } else {
-create_clock -period 20  [get_pins  alsaqr_clk_manager/clk_out1]
+create_clock -period 25 -name FPGA_CLK  [get_pins  alsaqr_clk_manager/clk_out1]
 }
 
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  u_ddr4_0/c0_ddr4_ui_clk]]
@@ -20,6 +22,7 @@ set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  u_ddr4_
 
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  i_alsaqr/i_RoT_wrap/u_RoT/u_clkmgr_aon/u_no_scan_io_div4_div/gen_div.clk_int_reg/Q]]
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  i_alsaqr/i_RoT_wrap/u_RoT/u_clkmgr_aon/u_no_scan_io_div2_div/gen_div2.u_div2/q_o_reg[0]/Q]]
+
 #set_false_path -from [get_ports pad_reset]
 
 ## Bootselect
