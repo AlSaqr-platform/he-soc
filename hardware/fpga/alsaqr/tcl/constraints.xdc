@@ -12,9 +12,8 @@ create_generated_clock -name opentitan_spi1 -source [get_pins  alsaqr_clk_manage
 create_clock ${SRC_CLK_PERIOD} -name ALSAQR_CLK  [get_pins  alsaqr_clk_manager/clk_out1]
 
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  u_ddr4_0/c0_ddr4_ui_clk]]
-set_clock_groups -asynchronous -group [get_clocks -of_objects [get_ports c0_sys_clk_p]] 
+set_clock_groups -asynchronous -group [get_clocks -of_objects [get_ports c0_sys_clk_p]]
 set_clock_groups -asynchronous -group [get_clocks ALSAQR_CLK]
-set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  u_ddr4_0/c0_ddr4_ui_clk]]
 
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  i_alsaqr/i_RoT_wrap/u_RoT/u_clkmgr_aon/u_no_scan_io_div4_div/gen_div.clk_int_reg/Q]]
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  i_alsaqr/i_RoT_wrap/u_RoT/u_clkmgr_aon/u_no_scan_io_div2_div/gen_div2.u_div2/q_o_reg[0]/Q]]
