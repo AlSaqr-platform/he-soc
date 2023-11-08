@@ -51,15 +51,6 @@ module cva6_subsystem
   input  logic [N_CAN-1:0] can_irq_i,
   input  logic [NUM_ADV_TIMER-1 : 0] pwm_irq_i,
   input  logic             cl_dma_pe_evt_i,
-  input  logic             dmi_req_valid,
-  output logic             dmi_req_ready,
-  input  logic [ 6:0]      dmi_req_bits_addr,
-  input  logic [ 1:0]      dmi_req_bits_op,
-  input  logic [31:0]      dmi_req_bits_data,
-  output logic             dmi_resp_valid,
-  input  logic             dmi_resp_ready,
-  output logic [ 1:0]      dmi_resp_bits_resp,
-  output logic [31:0]      dmi_resp_bits_data,
   // JTAG
   input  logic             jtag_TCK,
   input  logic             jtag_TMS,
@@ -118,7 +109,6 @@ module cva6_subsystem
   logic        jtag_resp_valid;
 
   dm::dmi_req_t  jtag_dmi_req;
-  dm::dmi_req_t  dmi_req;
 
   dm::dmi_req_t  debug_req;
   dm::dmi_resp_t debug_resp;
@@ -182,11 +172,10 @@ module cva6_subsystem
   end
 
   // debug if MUX
-  assign debug_req_valid     = (jtag_enable) ? jtag_req_valid     : dmi_req_valid;
-  assign debug_resp_ready    = (jtag_enable) ? jtag_resp_ready    : dmi_resp_ready;
-  assign debug_req           = (jtag_enable) ? jtag_dmi_req       : dmi_req;
-  assign jtag_resp_valid     = (jtag_enable) ? debug_resp_valid   : 1'b0;
-  assign dmi_resp_valid      = (jtag_enable) ? 1'b0               : debug_resp_valid;
+  assign debug_req_valid     = jtag_req_valid;
+  assign debug_resp_ready    = jtag_resp_ready;
+  assign debug_req           = jtag_dmi_req;
+  assign jtag_resp_valid     = debug_resp_valid;
 
   dmi_jtag  #(
     .IdcodeValue ( ariane_soc::DbgIdCode)
@@ -209,15 +198,6 @@ module cva6_subsystem
     .tdo_oe_o         ( jtag_TDO_driven )
   );
 
-  assign dmi_req_ready = debug_req_ready ;
-  assign dmi_req.addr = dmi_req_bits_addr;
-  assign dmi_req.data = dmi_req_bits_data;
-  // SiFive's SimDTM Module
-  // Converts to DPI calls
-  assign dmi_req.op = dm::dtm_op_e'(dmi_req_bits_op);
-
-  assign dmi_resp_bits_data = debug_resp.data;
-  assign dmi_resp_bits_resp = debug_resp.resp;
 
   // this delay window allows the core to read and execute init code
   // from the bootrom before the first debug request can interrupt
