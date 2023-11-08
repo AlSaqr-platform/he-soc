@@ -87,7 +87,6 @@ module ariane_tb;
   // IMPORTANT : If you change the linkerscript check the tohost address and update this paramater
   // IMPORTANT : to host mapped in L2 non-cached region because we use WB cache
   parameter  TOHOST              = 32'h1C000000;
-  parameter  LOCAL_JTAG       = 1;
 
   `ifdef USE_LOCAL_JTAG
     parameter  PRELOAD_HYPERRAM = 0;
@@ -101,10 +100,10 @@ module ariane_tb;
     localparam int unsigned JtagSampleDelay = 0;
   `endif
 
-  `ifdef JTAG_RBB
-    parameter int   jtag_enable = '1 ;
+  `ifdef SIM_JTAG
+    parameter int   sim_jtag_enable = '1 ;
   `else
-    parameter int   jtag_enable = '0 ;
+    parameter int   sim_jtag_enable = '0 ;
   `endif
 
     localparam logic [15:0] PartNumber = 1;
@@ -998,10 +997,11 @@ module ariane_tb;
 
   assign exit_o              = s_jtag_exit;
 
-  assign s_jtag_to_alsaqr_tck    = LOCAL_JTAG==1  ?  s_tck   : s_jtag_TCK   ;
-  assign s_jtag_to_alsaqr_tms    = LOCAL_JTAG==1  ?  s_tms   : s_jtag_TMS   ;
-  assign s_jtag_to_alsaqr_tdi    = LOCAL_JTAG==1  ?  s_tdi   : s_jtag_TDI   ;
-  assign s_jtag_to_alsaqr_trstn  = LOCAL_JTAG==1  ?  s_trstn : s_jtag_TRSTn ;
+  assign s_jtag_to_alsaqr_tck    = sim_jtag_enable[0]==0  ?  s_tck   : s_jtag_TCK   ;
+  assign s_jtag_to_alsaqr_tms    = sim_jtag_enable[0]==0  ?  s_tms   : s_jtag_TMS   ;
+  assign s_jtag_to_alsaqr_tdi    = sim_jtag_enable[0]==0  ?  s_tdi   : s_jtag_TDI   ;
+  assign s_jtag_to_alsaqr_trstn  = sim_jtag_enable[0]==0  ?  s_trstn : s_jtag_TRSTn ;
+
   assign s_jtag_TDO_data      = s_jtag_to_alsaqr_tdo       ;
   assign s_tdo                = s_jtag_to_alsaqr_tdo       ;
 
@@ -1016,7 +1016,7 @@ module ariane_tb;
   SimJTAG i_SimJTAG (
     .clock                ( clk_i                ),
     .reset                ( ~rst_ni              ),
-    .enable               ( jtag_enable[0]       ),
+    .enable               ( sim_jtag_enable[0]   ),
     .init_done            ( rst_ni               ),
     .jtag_TCK             ( s_jtag_TCK           ),
     .jtag_TMS             ( s_jtag_TMS           ),
@@ -1030,10 +1030,10 @@ module ariane_tb;
     al_saqr
     `ifndef TARGET_POST_SYNTH_SIM_TOP #(
         .NUM_WORDS         ( NUM_WORDS                   ),
-        .InclSimDTM        ( 1'b1                        ),
+        .InclSimDTM        ( 1'b0                        ),
         .StallRandomOutput ( 1'b1                        ),
         .StallRandomInput  ( 1'b1                        ),
-        .JtagEnable        ( jtag_enable[0] | LOCAL_JTAG )
+        .JtagEnable        ( 1'b1                        )
     ) `endif dut (
         .rst_ni               ( s_rst_ni               ),
         .rtc_i                ( s_rtc_i                ),
@@ -2793,61 +2793,57 @@ module ariane_tb;
     if ( $value$plusargs ("CORE_ID=%d", cid));
       $display("Core ID: %d", cid);
 
-    if(LOCAL_JTAG==1) begin
-      $display("LOCAL_JTAG : %d", LOCAL_JTAG);
-      if(PRELOAD_HYPERRAM==0) begin
-        if ( $value$plusargs ("CVA6_STRING=%s", binary));
-          $display("Testing %s", binary);
-        if ( $value$plusargs ("CL_STRING=%s", cluster_binary));
-          if(cluster_binary!="none")
-            $display("Testing cluster: %s", cluster_binary);
-      end
-      $display("PRELOAD_HYPERRAM : %d", PRELOAD_HYPERRAM);
+    if(PRELOAD_HYPERRAM==0) begin
+      if ( $value$plusargs ("CVA6_STRING=%s", binary));
+        $display("Testing %s", binary);
+      if ( $value$plusargs ("CL_STRING=%s", cluster_binary));
+        if(cluster_binary!="none")
+          $display("Testing cluster: %s", cluster_binary);
+    end
 
+    $display("PRELOAD_HYPERRAM : %d", PRELOAD_HYPERRAM);
 
-      // Wait the FLL to generate the clock
-      $display("Waiting the FLL clock before initiating the debug module...");
-      repeat(10)
+    // Wait the FLL to generate the clock
+    $display("Waiting the FLL clock before initiating the debug module...");
+    repeat(10)
       @(posedge clk_i);
 
-      jtag_init(cid);
-
-      if(PRELOAD_HYPERRAM==0) begin
-        // Load cluster code
-        if(cluster_binary!="none")
-          jtag_elf_load(cluster_binary, binary_entry, cid);
-        if(binary!="none") begin
-          $display("Load binary...");
-          // Load host code
-          jtag_elf_load(binary, binary_entry, cid);
-          $display("Wakeup Core..");
-          jtag_elf_run(binary_entry, cid);
-       `ifdef DUAL_BOOT
-          repeat(100)
-            @(posedge clk_i);
-          jtag_init(cid+1);
-          jtag_ariane_wakeup( LINKER_ENTRY, cid+1 );
-       `endif
-          $display("Wait EOC...");
-          jtag_wait_for_eoc ( TOHOST );
-        end
-      end else begin
-
-        $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);
-        addr = 32'h1c000000;
-        jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
-        binary_entry={32'h00000000,LINKER_ENTRY};
-        #(REFClockPeriod);
-        $display("Wakeup here at %x!!", binary_entry);
-        jtag_ariane_wakeup( LINKER_ENTRY, cid );
+    jtag_init(cid);
+    if(PRELOAD_HYPERRAM==0) begin
+      // Load cluster code
+      if(cluster_binary!="none")
+        jtag_elf_load(cluster_binary, binary_entry, cid);
+      if(binary!="none") begin
+        $display("Load binary...");
+        // Load host code
+        jtag_elf_load(binary, binary_entry, cid);
+        $display("Wakeup Core..");
+        jtag_elf_run(binary_entry, cid);
      `ifdef DUAL_BOOT
         repeat(100)
           @(posedge clk_i);
-        jtag_init( cid+1 );
+        jtag_init(cid+1);
         jtag_ariane_wakeup( LINKER_ENTRY, cid+1 );
      `endif
-        jtag_wait_for_eoc( TOHOST );
+        $display("Wait EOC...");
+        jtag_wait_for_eoc ( TOHOST );
       end
+    end else begin
+      $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);
+      addr = 32'h1c000000;
+      jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
+      binary_entry={32'h00000000,LINKER_ENTRY};
+      #(REFClockPeriod);
+      $display("Wakeup here at %x!!", binary_entry);
+      jtag_ariane_wakeup( LINKER_ENTRY, cid );
+   `ifdef DUAL_BOOT
+      repeat(100)
+        @(posedge clk_i);
+      jtag_init( cid+1 );
+      jtag_ariane_wakeup( LINKER_ENTRY, cid+1 );
+   `endif
+      jtag_wait_for_eoc( TOHOST );
+
     end
   end
 

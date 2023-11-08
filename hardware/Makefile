@@ -186,14 +186,14 @@ ifdef localjtag
 	questa-cmd += +define+USE_LOCAL_JTAG
 endif
 
-ifdef preload
-	compile_flag += +define+PRELOAD
-	questa-cmd += +define+PRELOAD
-endif
-
 ifdef sec_boot
 	compile_flag += +define+SEC_BOOT
 	questa-cmd += +define+SEC_BOOT
+endif
+
+ifdef sim_jtag
+	compile_flag += +define+SIM_JTAG
+	questa-cmd += +define+SIM_JTAG
 endif
 
 ifdef clk-bypass
