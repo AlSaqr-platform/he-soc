@@ -10,7 +10,7 @@ if [info exists ::env(BOARD)] {
 if {$::env(MAIN_MEM)=="HYPER"} {
     set CLK_FREQ_MHZ 10
 } elseif {$::env(MAIN_MEM)=="DDR4"} {
-    set CLK_FREQ_MHZ 20
+    set CLK_FREQ_MHZ 40
 }
 
 set ipName xilinx_clk_mngr
