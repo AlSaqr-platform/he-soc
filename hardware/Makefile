@@ -207,7 +207,9 @@ ifdef dual-boot
 endif
 
 bender:
-	curl --proto '=https' --tlsv1.2 https://fabianschuiki.github.io/bender/init -sSf | sh -s -- 0.22.0
+	wget "https://github.com/pulp-platform/bender/releases/download/v0.22.0/bender-0.22.0-x86_64-linux-gnu-centos7.8.2003.tar.gz"
+	tar -xvzf bender-0.22.0-x86_64-linux-gnu-centos7.8.2003.tar.gz
+	rm bender-0.22.0-x86_64-linux-gnu-centos7.8.2003.tar.gz
 
 update:
 	$(BENDER) update
