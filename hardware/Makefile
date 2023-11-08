@@ -186,14 +186,14 @@ ifdef localjtag
 	questa-cmd += +define+USE_LOCAL_JTAG
 endif
 
-ifdef preload
-	compile_flag += +define+PRELOAD
-	questa-cmd += +define+PRELOAD
-endif
-
 ifdef sec_boot
 	compile_flag += +define+SEC_BOOT
 	questa-cmd += +define+SEC_BOOT
+endif
+
+ifdef sim_jtag
+	compile_flag += +define+SIM_JTAG
+	questa-cmd += +define+SIM_JTAG
 endif
 
 ifdef clk-bypass
@@ -207,7 +207,9 @@ ifdef dual-boot
 endif
 
 bender:
-	curl --proto '=https' --tlsv1.2 https://fabianschuiki.github.io/bender/init -sSf | sh -s -- 0.22.0
+	wget "https://github.com/pulp-platform/bender/releases/download/v0.22.0/bender-0.22.0-x86_64-linux-gnu-centos7.8.2003.tar.gz"
+	tar -xvzf bender-0.22.0-x86_64-linux-gnu-centos7.8.2003.tar.gz
+	rm bender-0.22.0-x86_64-linux-gnu-centos7.8.2003.tar.gz
 
 update:
 	$(BENDER) update
@@ -366,7 +368,7 @@ $(dpi-library)/%.o: tb/dpi/%.cc $(dpi_hdr)
 $(dpi-library)/ariane_dpi.so: $(dpi)
 	mkdir -p $(dpi-library)
 	# Compile C-code and generate .so file
-	$(CXX) -shared -m64 -o $(dpi-library)/ariane_dpi.so $? -L$(RISCV)/lib -L$(SPIKE_ROOT)/lib -Wl,-rpath,$(RISCV)/lib -Wl,-rpath,$(SPIKE_ROOT)/lib -lfesvr
+	$(CXX) -shared -m64 -o $(dpi-library)/ariane_dpi.so $? -L$(RISCV)/lib -L$(SPIKE_ROOT)/lib -Wl,-rpath,$(RISCV)/lib -Wl,-rpath,$(SPIKE_ROOT)/lib
 
 # single test runs on Questa can be started by calling make <testname>, e.g. make towers.riscv
 # the test names are defined in ci/riscv-asm-tests.list, and in ci/riscv-benchmarks.list

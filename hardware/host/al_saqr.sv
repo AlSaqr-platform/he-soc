@@ -174,18 +174,6 @@ module al_saqr
     `endif
  `endif
 
-  // FROM SimDTM
-`ifndef TARGET_SYNTHESIS
-  input logic         dmi_req_valid,
-  output logic        dmi_req_ready,
-  input logic [ 6:0]  dmi_req_bits_addr,
-  input logic [ 1:0]  dmi_req_bits_op,
-  input logic [31:0]  dmi_req_bits_data,
-  output logic        dmi_resp_valid,
-  input logic         dmi_resp_ready,
-  output logic [ 1:0] dmi_resp_bits_resp,
-  output logic [31:0] dmi_resp_bits_data,
-`endif
   // JTAG
   inout wire          jtag_TCK,
   inout wire          jtag_TMS,
@@ -479,27 +467,6 @@ module al_saqr
       .rst_ni(s_rst_ni),
       .rtc_i(s_rtc_i),
       .bypass_clk_i(s_bypass_clk),
-`ifndef TARGET_SYNTHESIS
-      .dmi_req_valid,
-      .dmi_req_ready,
-      .dmi_req_bits_addr,
-      .dmi_req_bits_op,
-      .dmi_req_bits_data,
-      .dmi_resp_valid,
-      .dmi_resp_ready,
-      .dmi_resp_bits_resp,
-      .dmi_resp_bits_data,
-`else
-      .dmi_req_valid        ( '0 ),
-      .dmi_req_ready        (    ),
-      .dmi_req_bits_addr    ( '0 ),
-      .dmi_req_bits_op      ( '0 ),
-      .dmi_req_bits_data    ( '0 ),
-      .dmi_resp_valid       (    ),
-      .dmi_resp_ready       ( '0 ),
-      .dmi_resp_bits_resp   (    ),
-      .dmi_resp_bits_data   (    ),
-`endif
       .jtag_TCK               ( s_jtag_TCK                      ),
       .jtag_TMS               ( s_jtag_TMS                      ),
       .jtag_TDI               ( s_jtag_TDI                      ),
