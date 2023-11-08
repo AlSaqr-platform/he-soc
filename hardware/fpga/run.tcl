@@ -11,7 +11,9 @@ read_ip ./alsaqr/tcl/ips/qspi/ip/xilinx_qspi.xci
 read_ip ./alsaqr/tcl/ips/rom_ot/ip/xilinx_rom_bank_8192x40.xci
 read_ip ./alsaqr/tcl/ips/otp_ot/ip/xilinx_rom_bank_1024x22.xci
 add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_$::env(BOARD).xdc"
+set SRC_CLK_PERIOD 25
 if {$::env(MAIN_MEM)=="HYPER"} {
+    set SRC_CLK_PERIOD 100
     add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_hyper_$::env(BOARD).xdc"
 } elseif {$::env(MAIN_MEM)=="DDR4"} {
     add_files -fileset constrs_1 -norecurse "alsaqr/tcl/ddr_$::env(BOARD).xdc"
