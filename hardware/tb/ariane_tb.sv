@@ -62,7 +62,6 @@ module ariane_tb;
   logic s_rst_ni;
   logic s_rtc_i;
   logic s_bypass;
-  logic rst_DTM;
   localparam NumPhys = ariane_soc::HyperbusNumPhys;
   localparam NumChips = ariane_soc::NumChipsPerHyperbus;
 
@@ -88,27 +87,12 @@ module ariane_tb;
   // IMPORTANT : If you change the linkerscript check the tohost address and update this paramater
   // IMPORTANT : to host mapped in L2 non-cached region because we use WB cache
   parameter  TOHOST              = 32'h1C000000;
+  parameter  LOCAL_JTAG       = 1;
 
-  `ifdef PRELOAD
-    parameter  PRELOAD_HYPERRAM    = 1;
-    parameter  LOCAL_JTAG          = 1;
-    parameter  CHECK_LOCAL_JTAG    = 0;
+  `ifdef USE_LOCAL_JTAG
+    parameter  PRELOAD_HYPERRAM = 0;
   `else
-    `ifdef SEC_BOOT
-    parameter  CHECK_LOCAL_JTAG = 0;
     parameter  PRELOAD_HYPERRAM = 1;
-    parameter  LOCAL_JTAG       = 0;
-    `else
-       `ifdef USE_LOCAL_JTAG
-       parameter  LOCAL_JTAG       = 1;
-       parameter  PRELOAD_HYPERRAM = 0;
-       parameter  CHECK_LOCAL_JTAG = 0;
-       `else
-       parameter  LOCAL_JTAG       = 0;
-       parameter  PRELOAD_HYPERRAM = 0;
-       parameter  CHECK_LOCAL_JTAG = 0;
-       `endif
-    `endif
   `endif
 
   `ifdef POSTLAYOUT
@@ -139,18 +123,6 @@ module ariane_tb;
 
     logic [31:0] ibex_memory [bit [31:0]];
     int   ibex_sections [bit [31:0]];
-
-
-    wire                  s_dmi_req_valid;
-    wire                  s_dmi_req_ready;
-    wire [ 6:0]           s_dmi_req_bits_addr;
-    wire [ 1:0]           s_dmi_req_bits_op;
-    wire [31:0]           s_dmi_req_bits_data;
-    wire                  s_dmi_resp_valid;
-    wire                  s_dmi_resp_ready;
-    wire [ 1:0]           s_dmi_resp_bits_resp;
-    wire [31:0]           s_dmi_resp_bits_data;
-    wire                  s_dmi_exit;
 
     wire                  s_jtag_TCK       ;
     wire                  s_jtag_TMS       ;
@@ -1024,7 +996,7 @@ module ariane_tb;
   assign s_rst_ni=rst_ni;
   assign s_rtc_i=rtc_i;
 
-  assign exit_o              = (jtag_enable[0]) ? s_jtag_exit          : s_dmi_exit;
+  assign exit_o              = s_jtag_exit;
 
   assign s_jtag_to_alsaqr_tck    = LOCAL_JTAG==1  ?  s_tck   : s_jtag_TCK   ;
   assign s_jtag_to_alsaqr_tms    = LOCAL_JTAG==1  ?  s_tms   : s_jtag_TMS   ;
@@ -1038,27 +1010,6 @@ module ariane_tb;
   assign s_jtag2ot_tdi        = s_ot_tdi      ;
   assign s_jtag2ot_trstn      = s_ot_trstn    ;
   assign s_ot_tdo             = s_jtag2ot_tdo ;
-
-  if (~jtag_enable[0] & !LOCAL_JTAG & !PRELOAD_HYPERRAM) begin
-    SimDTM i_SimDTM (
-      .clk                  ( clk_i                 ),
-      .reset                ( ~rst_DTM              ),
-      .debug_req_valid      ( s_dmi_req_valid       ),
-      .debug_req_ready      ( s_dmi_req_ready       ),
-      .debug_req_bits_addr  ( s_dmi_req_bits_addr   ),
-      .debug_req_bits_op    ( s_dmi_req_bits_op     ),
-      .debug_req_bits_data  ( s_dmi_req_bits_data   ),
-      .debug_resp_valid     ( s_dmi_resp_valid      ),
-      .debug_resp_ready     ( s_dmi_resp_ready      ),
-      .debug_resp_bits_resp ( s_dmi_resp_bits_resp  ),
-      .debug_resp_bits_data ( s_dmi_resp_bits_data  ),
-      .exit                 ( s_dmi_exit            )
-    );
-  end else begin
-    assign dmi_req_valid = '0;
-    assign debug_req_bits_op = '0;
-    assign dmi_exit = 1'b0;
-  end
 
   // SiFive's SimJTAG Module
   // Converts to DPI calls
@@ -1087,28 +1038,17 @@ module ariane_tb;
         .rst_ni               ( s_rst_ni               ),
         .rtc_i                ( s_rtc_i                ),
         .bypass_clk_i         ( s_bypass               ),
-        `ifndef TARGET_POST_SYNTH_SIM_TOP
-          .dmi_req_valid        ( s_dmi_req_valid        ),
-          .dmi_req_ready        ( s_dmi_req_ready        ),
-          .dmi_req_bits_addr    ( s_dmi_req_bits_addr    ),
-          .dmi_req_bits_op      ( s_dmi_req_bits_op      ),
-          .dmi_req_bits_data    ( s_dmi_req_bits_data    ),
-          .dmi_resp_valid       ( s_dmi_resp_valid       ),
-          .dmi_resp_ready       ( s_dmi_resp_ready       ),
-          .dmi_resp_bits_resp   ( s_dmi_resp_bits_resp   ),
-          .dmi_resp_bits_data   ( s_dmi_resp_bits_data   ),
-        `endif
-          .jtag_TCK             ( s_jtag_to_alsaqr_tck   ),
-          .jtag_TMS             ( s_jtag_to_alsaqr_tms   ),
-          .jtag_TDI             ( s_jtag_to_alsaqr_tdi   ),
-          .jtag_TRSTn           ( s_jtag_to_alsaqr_trstn ),
-          .jtag_TDO_data        ( s_jtag_to_alsaqr_tdo   ),
+        .jtag_TCK             ( s_jtag_to_alsaqr_tck   ),
+        .jtag_TMS             ( s_jtag_to_alsaqr_tms   ),
+        .jtag_TDI             ( s_jtag_to_alsaqr_tdi   ),
+        .jtag_TRSTn           ( s_jtag_to_alsaqr_trstn ),
+        .jtag_TDO_data        ( s_jtag_to_alsaqr_tdo   ),
 
-          .jtag_ot_TCK          ( s_jtag2ot_tck          ),
-          .jtag_ot_TMS          ( s_jtag2ot_tms          ),
-          .jtag_ot_TDI          ( s_jtag2ot_tdi          ),
-          .jtag_ot_TRSTn        ( s_jtag2ot_trstn        ),
-          .jtag_ot_TDO_data     ( s_jtag2ot_tdo          ),
+        .jtag_ot_TCK          ( s_jtag2ot_tck          ),
+        .jtag_ot_TMS          ( s_jtag2ot_tms          ),
+        .jtag_ot_TDI          ( s_jtag2ot_tdi          ),
+        .jtag_ot_TRSTn        ( s_jtag2ot_trstn        ),
+        .jtag_ot_TDO_data     ( s_jtag2ot_tdo          ),
 
         `ifndef EXCLUDE_PADFRAME
 
@@ -2817,7 +2757,6 @@ module ariane_tb;
     // Clock process
     initial begin
         rst_ni = 1'b0;
-        rst_DTM = 1'b0;
         jtag_mst.trst_n = 1'b0;
         jtag_ibex_mst.trst_n = 1'b0;
         jtag_ibex_mst.tdi    = 1'b0;
@@ -2830,7 +2769,6 @@ module ariane_tb;
         rst_ni = 1'b1;
         repeat(50)
             @(posedge rtc_i);
-        rst_DTM = 1'b1;
         jtag_mst.trst_n = 1'b1;
         jtag_ibex_mst.trst_n = 1'b1;
         forever begin
