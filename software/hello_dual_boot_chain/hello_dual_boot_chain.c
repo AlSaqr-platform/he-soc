@@ -4,7 +4,7 @@
 #include "utils.h"
 #include "encoding.h"
 
-//#define FPGA_EMULATION
+#define FPGA_EMULATION
 
 volatile uint64_t count __attribute__((section(".nocache_share_region")));
 
@@ -50,7 +50,8 @@ void thread_entry(int cid, int nc)
 void hello_world(int cid){
   #ifdef FPGA_EMULATION
   int baud_rate = 115200;
-  int test_freq = 50000000;
+  int test_freq = 40000000;
+  alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_mux_set(1);
   #else
   set_flls();
   int baud_rate = 115200;
