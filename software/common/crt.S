@@ -122,14 +122,19 @@ _start:
 
   # get core id
   csrr a0, mhartid
-  # for now, assume only 1 core
   li a1, NB_CORES
 
+  #each core has 8KB of stack + TLS
+#define STKSHIFT 12
+  sll a2, a0, STKSHIFT
+  add tp, tp, a2
   la  sp, _stack
+  add sp, sp, a2
 
   j _init
 
   .align 2
+
 trap_entry:
   addi sp, sp, -272
 

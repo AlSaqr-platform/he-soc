@@ -108,6 +108,27 @@ static void init_tls()
 void _init(int cid, int nc)
 {
   init_tls();
+  if(cid==0) {
+     int * tmp;
+     /* Set UART MUX with hardcoded write */
+     tmp = (int *) 0x1a104074;
+     *tmp = 1;
+     /* Set plic mbox IRQ priority to 1 */
+     tmp = (int *) 0xC000028;
+     *tmp = 0x1;
+     /* Disable interrupt from mbox scmi to core 0 */
+     tmp = (int *) 0xC002080;
+     *tmp = 0;
+     /* Disable interrupt from mbox scmi to core 1 */
+     tmp = (int *) 0xC002180;
+     *tmp = 0x400;
+     /* Write .text.init address in the mailbox */
+     tmp = (int *) 0x10404000;
+     *tmp = 0x80000000;
+     /* Send interrupt to core 1 to make it jump to text_init */
+     tmp = (int *) 0x10404024;
+     *tmp = 1;
+  }
   thread_entry(cid, nc);
 
   // only single-threaded programs should ever get here.
