@@ -23,9 +23,9 @@ fi
 
 read -p "Are you instantiating the LLC? y/n " LLC
 if [ "$LLC" = "y" ]; then
-    export AXI_ID_DDR_WIDTH="8"
+    export AXI_ID_DDR_WIDTH="9"
 elif [ "$LLC" = "n" ]; then
-    export AXI_ID_DDR_WIDTH="7"
+    export AXI_ID_DDR_WIDTH="8"
 fi
 
 read -p "Are you instantiating OpenTitan? y/n " OT
