@@ -65,9 +65,11 @@ module alsaqr_xilinx
     input wire    pad_jtag_tck,
     input wire    pad_jtag_tdi,
     output wire   pad_jtag_tdo,
-    input wire    pad_jtag_tms,
+    input wire    pad_jtag_tms
 
     // OpenTitan jtag port
+    `ifndef EXCLUDE_ROT
+    ,
     input wire    pad_jtag_ot_trst,
     input wire    pad_jtag_ot_tck,
     input wire    pad_jtag_ot_tdi,
@@ -75,6 +77,7 @@ module alsaqr_xilinx
     input wire    pad_jtag_ot_tms,
 
     input wire    pad_bootmode
+    `endif
   );
 
    localparam  APP_ADDR_WIDTH   = 28;
@@ -298,17 +301,14 @@ ddr4_0 u_ddr4_0
     ) i_alsaqr (
         .rst_ni           ( reset_n            ),
         .rtc_i            ( ref_clk            ),
-        .jtag_TCK         ( pad_jtag_tck       ),
-        .jtag_TMS         ( pad_jtag_tms       ),
-        .jtag_TDI         ( pad_jtag_tdi       ),
-        .jtag_TRSTn       ( pad_jtag_trst      ),
-        .jtag_TDO_data    ( pad_jtag_tdo       ),
-        .axi_ddr_master   ( axi_ddr_bus_64     ),
+        `ifndef EXCLUDE_ROT
         .jtag_ot_TCK      ( pad_jtag_ot_tck    ),
         .jtag_ot_TMS      ( pad_jtag_ot_tms    ),
         .jtag_ot_TDI      ( pad_jtag_ot_tdi    ),
         .jtag_ot_TRSTn    ( pad_jtag_ot_trst   ),
         .jtag_ot_TDO_data ( pad_jtag_ot_tdo    ),
+        .pad_bootmode     ( pad_bootmode       ),
+        `endif
         `ifdef SIMPLE_PADFRAME
         .pad_periphs_a_00_pad(pad_periphs_pad_gpio_b_00_pad),
         .pad_periphs_a_01_pad(pad_periphs_pad_gpio_b_01_pad),
@@ -327,8 +327,12 @@ ddr4_0 u_ddr4_0
         .pad_periphs_a_14_pad(pad_periphs_cva6_uart_00_pad),
         .pad_periphs_a_15_pad(pad_periphs_cva6_uart_01_pad),
         `endif
-        .pad_bootmode     ( pad_bootmode       )
-
+        .jtag_TCK         ( pad_jtag_tck       ),
+        .jtag_TMS         ( pad_jtag_tms       ),
+        .jtag_TDI         ( pad_jtag_tdi       ),
+        .jtag_TRSTn       ( pad_jtag_trst      ),
+        .jtag_TDO_data    ( pad_jtag_tdo       ),
+        .axi_ddr_master   ( axi_ddr_bus_64     )
    );
 
 
