@@ -10,6 +10,7 @@ int main(int argc, char const *argv[]) {
   #ifdef FPGA_EMULATION
   int baud_rate = 115200;
   int test_freq = 50000000;
+  alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_mux_set(1);
   #else
   set_flls();
   int baud_rate = 115200;
