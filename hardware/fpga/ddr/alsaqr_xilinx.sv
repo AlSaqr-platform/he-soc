@@ -59,6 +59,16 @@ module alsaqr_xilinx
     inout wire  pad_periphs_cva6_uart_01_pad,
     `endif
 
+    // OpenTitan jtag port
+    `ifndef EXCLUDE_ROT
+    input wire    pad_jtag_ot_trst,
+    input wire    pad_jtag_ot_tck,
+    input wire    pad_jtag_ot_tdi,
+    output wire   pad_jtag_ot_tdo,
+    input wire    pad_jtag_ot_tms,
+    input wire    pad_bootmode,
+    `endif
+
     input wire    pad_reset,
 
     input wire    pad_jtag_trst,
@@ -66,18 +76,6 @@ module alsaqr_xilinx
     input wire    pad_jtag_tdi,
     output wire   pad_jtag_tdo,
     input wire    pad_jtag_tms
-
-    // OpenTitan jtag port
-    `ifndef EXCLUDE_ROT
-    ,
-    input wire    pad_jtag_ot_trst,
-    input wire    pad_jtag_ot_tck,
-    input wire    pad_jtag_ot_tdi,
-    output wire   pad_jtag_ot_tdo,
-    input wire    pad_jtag_ot_tms,
-
-    input wire    pad_bootmode
-    `endif
   );
 
    localparam  APP_ADDR_WIDTH   = 28;
