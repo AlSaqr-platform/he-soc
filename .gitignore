@@ -87,3 +87,4 @@ hardware/ip_list
 hardware/fll_behav
 hardware/opentitan
 hardware/Bender.lock
+hardware/regression_reports
