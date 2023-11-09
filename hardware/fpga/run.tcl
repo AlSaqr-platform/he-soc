@@ -21,11 +21,17 @@ if {$::env(MAIN_MEM)=="HYPER"} {
         add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_validation_$::env(BOARD).xdc"
     }
 }
+if {$::env(USE_OT)=="1"} {
+    add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_opentitan_$::env(BOARD).xdc"
+}
 update_compile_order -fileset sources_1
 auto_detect_xpm
 read_xdc ./alsaqr/tcl/constraints.xdc
 if {$::env(MAIN_MEM)=="HYPER"} {
     read_xdc "alsaqr/tcl/constraints_hyper.xdc"
+}
+if {$::env(USE_OT)=="1"} {
+    read_xdc "alsaqr/tcl/constraints_opentitan.xdc"
 }
 add_files -fileset constrs_1 -norecurse "alsaqr/tcl/constraints_peripherals.xdc"
 synth_design
