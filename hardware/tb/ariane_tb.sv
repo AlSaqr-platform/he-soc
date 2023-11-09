@@ -2832,41 +2832,24 @@ module ariane_tb;
           jtag_wait_for_eoc ( TOHOST );
         end
       end else begin
-
         $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);
         addr = 32'h1c000000;
         jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
         binary_entry={32'h00000000,LINKER_ENTRY};
         #(REFClockPeriod);
         $display("Wakeup here at %x!!", binary_entry);
-   `ifndef SEC_BOOT
+     `ifndef SEC_BOOT
         jtag_ariane_wakeup( LINKER_ENTRY, cid );
-     `ifdef DUAL_BOOT
+       `ifdef DUAL_BOOT
         repeat(100)
           @(posedge clk_i);
         jtag_init(cid+1);
         jtag_ariane_wakeup( LINKER_ENTRY, cid+1 );
+       `endif
      `endif
-   `endif
+        $display("Wait EOC...");
         jtag_wait_for_eoc( TOHOST );
       end
-    end else begin
-      $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);
-      addr = 32'h1c000000;
-      jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
-      binary_entry={32'h00000000,LINKER_ENTRY};
-      #(REFClockPeriod);
-      $display("Wakeup here at %x!!", binary_entry);
-      jtag_ariane_wakeup( LINKER_ENTRY, cid );
-   `ifdef DUAL_BOOT
-      repeat(100)
-        @(posedge clk_i);
-      jtag_init( cid+1 );
-      jtag_ariane_wakeup( LINKER_ENTRY, cid+1 );
-   `endif
-      jtag_wait_for_eoc( TOHOST );
-
-    end
   end
 
   task automatic jtag_read_reg;
