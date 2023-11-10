@@ -39,6 +39,9 @@ SECTIONS
 
   .text : { *(.text) } > L3
 
+  /* SPM DATA */
+  .spm_data : { *(.heapl2ram) } > L2
+
   /* data: for initialized data */
   .data : { *(.data) } > L3
 
