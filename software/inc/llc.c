@@ -14,13 +14,13 @@ int write_llc_reg(uint32_t LLC_REG, uint32_t val) {
   if(LLC_REG>0)
     return -1;
   else
-    *(volatile unsigned int*)(0x1A106004 + LLC_REG) = val;
+    *(volatile unsigned int*)((long)(0x1A106004 + LLC_REG)) = val;
 
   return 0;
 }
 
 unsigned int read_llc_reg(uint32_t  LLC_REG) {
-  return  *(volatile unsigned int*)(0x1A106004 + LLC_REG);
+  return  *(volatile unsigned int*)( (long) (0x1A106004 + LLC_REG));
 }
 
 void disable_llc_counters(){
