@@ -4,8 +4,8 @@
 #include "alsaqr_periph_padframe_periphs_regs.h"
 #include "bitfield.h"
 
-#define REG_WRITE32(addr, value) *((volatile uint32_t*) addr) = (uint32_t) value
-#define REG_READ32(addr) *((volatile uint32_t*) addr)
+#define REG_WRITE32(addr, value) *((volatile uint32_t*) (long)addr) = (uint32_t) value
+#define REG_READ32(addr) *((volatile uint32_t*) (long) addr)
 
 
 void alsaqr_periph_padframe_periphs_a_00_cfg_chip2pad_set(uint8_t value) {
