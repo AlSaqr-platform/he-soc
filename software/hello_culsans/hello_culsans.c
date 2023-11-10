@@ -4,9 +4,20 @@
 #include "utils.h"
 #include "encoding.h"
 
-//#define FPGA_EMULATION
+__attribute__ ((section(".heapl2ram"))) int core_done;
 
-int main(int argc, char const *argv[]) {
+//#define FPGA_EMULATION
+int thread_entry(int cid, int nc){
+
+  if(cid==0) {
+    core_done = -1;
+    while(core_done!=0){
+      __asm__ volatile("nop;");
+    }
+  }
+  if(cid==1)
+    core_done = 0;
+
   #ifdef FPGA_EMULATION
   int baud_rate = 115200;
   int test_freq = 50000000;
@@ -17,15 +28,18 @@ int main(int argc, char const *argv[]) {
   int test_freq = 100000000;
   #endif
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
-  uint32_t * hyaxicfg_reg_mask = 0x1A101018;
-  pulp_write32(hyaxicfg_reg_mask,26); //128MB addressable
-  uint32_t * hyaxicfg_reg_memspace_end_addr1 = 0x1A10102C;
-  pulp_write32(hyaxicfg_reg_memspace_end_addr1,0x88000000);
-  uint32_t * hyaxicfg_reg_memspace_start_addr1 = 0x1A101028;
-  pulp_write32(hyaxicfg_reg_memspace_start_addr1,0x84000000);
-  uint32_t * hyaxicfg_reg_memspace_end_addr0 = 0x1A101024;
-  pulp_write32(hyaxicfg_reg_memspace_end_addr0,0x84000000);
+
+  while(core_done<cid){
+    __asm__ volatile("nop;");
+  }
+
   printf("Hello Culsans! I'm Core %d!\r\n", read_csr(mhartid));
   uart_wait_tx_done();
+
+  core_done++;
+
+  while(core_done<2){
+    __asm__ volatile("nop;");
+  }
   return 0;
 }
