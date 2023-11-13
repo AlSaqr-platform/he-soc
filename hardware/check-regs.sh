@@ -5,7 +5,7 @@
 # $2 number of tests to check
 #
 
-cd regression_reports
+cd tmp
 
 # only use colors in interactive mode
 if [[ -z "$-" ]]; then
