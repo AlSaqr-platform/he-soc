@@ -129,7 +129,6 @@ module ariane_tb;
     wire                  s_jtag_TRSTn     ;
     wire                  s_jtag_TDO_data  ;
     wire                  s_jtag_TDO_driven;
-    wire                  s_jtag_exit      ;
 
     string                stimuli_file      ;
     logic                 s_tck         ;
@@ -995,8 +994,6 @@ module ariane_tb;
   assign s_rst_ni=rst_ni;
   assign s_rtc_i=rtc_i;
 
-  assign exit_o              = s_jtag_exit;
-
   assign s_jtag_to_alsaqr_tck    = sim_jtag_enable[0]==0  ?  s_tck   : s_jtag_TCK   ;
   assign s_jtag_to_alsaqr_tms    = sim_jtag_enable[0]==0  ?  s_tms   : s_jtag_TMS   ;
   assign s_jtag_to_alsaqr_tdi    = sim_jtag_enable[0]==0  ?  s_tdi   : s_jtag_TDI   ;
@@ -1024,7 +1021,7 @@ module ariane_tb;
     .jtag_TRSTn           ( s_jtag_TRSTn         ),
     .jtag_TDO_data        ( s_jtag_TDO_data      ),
     .jtag_TDO_driven      ( s_jtag_TDO_driven    ),
-    .exit                 ( s_jtag_exit          )
+    .exit                 ( exit_o               )
   );
 
     al_saqr
@@ -2646,10 +2643,6 @@ module ariane_tb;
    end // initial begin
    `endif //  `ifdef POWER_PROFILE
 
-
-   uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(w_cva6_uart_tx), .tx(w_cva6_uart_rx), .rx_en(1'b1));
-   uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart1_bus (.rx(apb_uart_tx), .tx(apb_uart_rx), .rx_en(1'b1));
-
   initial begin
     forever begin
       rtc_i = 1'b0;
@@ -2666,25 +2659,19 @@ module ariane_tb;
       #(REFClockPeriod/2) s_tck=~s_tck;
   end
 
-  `ifndef PRELOAD
-    `ifndef SEC_BOOT
-      `ifndef USE_LOCAL_JTAG
-        initial begin
-          forever begin
-            wait (exit_o[0]);
-
-              if ((exit_o >> 1)) begin
-                `uvm_error( "Core Test",  $sformatf("*** FAILED *** (tohost = %0d)", (exit_o >> 1)))
-              end else begin
-                `uvm_info( "Core Test",  $sformatf("*** SUCCESS *** (tohost = %0d)", (exit_o >> 1)), UVM_LOW)
-              end
-                $finish;
-          end
+`ifndef USE_LOCAL_JTAG
+  initial begin
+    forever begin
+      wait (exit_o[0]);
+        if ((exit_o >> 1)) begin
+          `uvm_error( "Core Test",  $sformatf("*** FAILED *** (tohost = %0d)", (exit_o >> 1)))
+        end else begin
+          `uvm_info( "Core Test",  $sformatf("*** SUCCESS *** (tohost = %0d)", (exit_o >> 1)), UVM_LOW)
         end
-      `endif
-    `endif
-  `endif
-
+          $finish;
+    end
+  end
+`endif
 
   ////////////
   //  JTAG  //

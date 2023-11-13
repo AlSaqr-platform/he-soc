@@ -5,7 +5,7 @@
 # $2 number of tests to check
 #
 
-cd tmp
+cd regression_reports
 
 # only use colors in interactive mode
 if [[ -z "$-" ]]; then
@@ -18,7 +18,7 @@ else
   NC='\033[0m' # No Color
 fi
 
- get NUM_TOTAL number of tests
+ #get NUM_TOTAL number of tests
 NUM_TOTAL=`ls | wc -l`
 
 echo "list containing tests: $2"
