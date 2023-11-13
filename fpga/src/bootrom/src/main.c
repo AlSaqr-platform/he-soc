@@ -27,6 +27,7 @@ int main() {
 
     while (1) {
       wait_for_boot_irq();
+      claim_irq();
       boot();
     }
 }
@@ -42,7 +43,22 @@ void wait_for_boot_irq(void) {
     pointer=(int *)0x0C201004;
   while(*pointer != mbox_id)
     __asm__ volatile("wfi;");
-  *pointer = mbox_id;
+}
+
+void claim_irq(void) {
+  int * pointer;
+  if(read_csr(mhartid)){
+    pointer = (int *) 0x0C203004;
+    *pointer = mbox_id;
+    pointer = (int *) 0x0C002180; // disable core 1 plic target
+    *pointer = 0x0;
+  }
+  else{
+    pointer = (int *) 0x0C201004;
+    *pointer = mbox_id;
+    pointer = (int *) 0x0C002080; // disable core 1 plic target
+    *pointer = 0x0;
+  }
 }
 
 void boot(void) {

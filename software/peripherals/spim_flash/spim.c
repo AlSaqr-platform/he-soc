@@ -135,17 +135,17 @@ int main(){
 
   // Store all udma's buffers into the L2 memory
   int *memory_page = (int*) 0x1C003000;
-  int *tx_buffer_cmd_program = (int*) 0x1C004000;
-  int *addr_buffer = (int*) 0x1C005000;
-  int *tx_buffer_cmd_read = (int*) 0x1C006000;
-  int *rx_page= (int*) 0x1C007000;
-  int *tx_buffer_cmd_read_ID= (int*) 0x1C008000;
-  int *tx_buffer_cmd_read_WIP = (int*) 0x1C009000;
-  int *sr1= (int*) 0x1C00A000;
-  int *tx_buffer_cmd_erase= (int*) 0x1C00B000;
+  int *tx_buffer_cmd_program = (int*) 0x1C003500;
+  int *addr_buffer = (int*) 0x1C004000;
+  int *tx_buffer_cmd_read = (int*) 0x1C004500;
+  int *rx_page= (int*) 0x1C005000;
+  int *tx_buffer_cmd_read_ID= (int*) 0x1C005500;
+  int *tx_buffer_cmd_read_WIP = (int*) 0x1C006000;
+  int *sr1= (int*) 0x1C006500;
+  int *tx_buffer_cmd_erase= (int*) 0x1C007000;
 
   
-  int *rems_resp= (int*) 0x1C00C000;
+  int *rems_resp= (int*) 0x1C007500;
 
 
   int error[N_SPI];

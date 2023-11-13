@@ -43,11 +43,12 @@ root-dir := $(dir $(mkfile_path))
 # acc options
 # guide: define acc=<+"instance name".> , the dot includes all the child instances.
 # Example: <make clean sim acc=+u_RoT.>,  this will plot all the OpenTitan and subinstances signals (all the OT design)
-acc            ?=+dut.
+acc            ?= +acc=+ariane_tb.
+noacc          ?=
 
 # regression
 alsaqr-regression-dir        := ./
-alsaqr-regression-list       := ./regression.list
+alsaqr-regression-list       := ../software/regression.list
 alsaqr-regression            := $(shell xargs printf '\n%s' < $(alsaqr-regression-list) | cut -b 1-)
 
 alsaqr-regression-post-synth := $(shell xargs printf '\n%s' < $(alsaqr-regression-list) | cut -b 1-)
@@ -128,13 +129,17 @@ compile_flag_bender   += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 13
 list_incdir := $(foreach dir, ${incdir}, +incdir+$(dir))
 
 ifdef nogui
-	acc :=p+dut
+  acc   := +acc=p+ariane_tb.
+	noacc := +noacc=p+dut.
   questa-flags += -c
+	compile_flag += -O5
 endif
 
 # if defined, calls the questa targets in batch mode
 ifdef batch-mode
 	questa-flags += -c
+  acc   := +acc=p+ariane_tb.
+	noacc := +noacc=p+dut.
 	questa-cmd   := -do "coverage save -onexit ./test.ucdb; run -a; quit -code [coverage attribute -name TESTSTATUS -concise]"
 	questa-cmd   += -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; run -all;"
 else
@@ -215,8 +220,8 @@ update:
 	$(BENDER) update
 
 libbender:
-	vlib work
-	vmap work ./work
+	$(QUESTA) vlib work
+	$(QUESTA) vmap work ./work
 
 scripts-bender-fpga: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
@@ -346,16 +351,16 @@ bendertb_synth: benderrun_synth $(dpi)
 	touch $(library)/.build-tb
 
 build: bendertb 	$(dpi-library)/ariane_dpi.so
-	$(QUESTA) vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc=$(acc) -check_synthesis
+	$(QUESTA) vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized $(noacc) $(acc) -check_synthesis
 
 build_dbg: bendertb 	$(dpi-library)/ariane_dpi.so
-	$(QUESTA) vopt $(compile_flag) -debugdb -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc=$(acc) -check_synthesis
+	$(QUESTA) vopt $(compile_flag) -debugdb -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized $(noacc) $(acc) -check_synthesis
 
 build_macro: bendertb_macro 	$(dpi-library)/ariane_dpi.so
-	$(QUESTA) vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc=$(acc) -check_synthesis
+	$(QUESTA) vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized $(noacc) $(acc) -check_synthesis
 
 build_synth: bendertb_synth 	$(dpi-library)/ariane_dpi.so
-	$(QUESTA) vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized +acc=$(acc) -check_synthesis
+	$(QUESTA) vopt $(compile_flag) -suppress 3053 -suppress 8885 -work $(library)  $(top_level) -o $(top_level)_optimized $(noacc) $(acc) -check_synthesis
 
 $(library):
 	vlib${questa_version} $(library)
@@ -400,9 +405,9 @@ macro_sim: build_macro run
 
 synth_sim: build_synth run
 
-$(alsaqr-regression): build
+$(alsaqr-regression): build_macro
 	mkdir -p tmp
-	../software/elf_to_slm.py --binary=$@ --vectors=hyperram0.slm
+	$(MAKE) -C ../software/$@ clean all
 	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8386 -suppress 8360 -lib $(library) +OT_FLASH=$(OT_FLASH) +CORE_ID=$(CORE_ID) +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$@ +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi   \
 	${top_level}_optimized +permissive-off ++$(alsaqr-regression-dir)/$@ ++$(target-options) | tee tmp/alsaqr-regression-$@.log
@@ -412,20 +417,33 @@ check-benchmarks:
 	./check-regs.sh
 
 run-regressions:	$(alsaqr-regression)
+	$(MAKE) scripts_vip_macro
 	$(MAKE) check-benchmarks
+
+run_regression:
+	rm -rf regressions/regression_reports
+	mkdir regressions/regression_reports
+	python3 regression.py
+	regressions/check_regs.sh
+
+run_regression_netlist:
+	rm -rf regressions/regression_netlist_reports
+	mkdir regressions/regression_netlist_reports
+	python3 regression_netlist.py
+	regressions/check_netlist_regs.sh
 
 $(alsaqr-regression-post-synth): build_synth
 	mkdir -p tmp
-	../software/elf_to_slm.py --binary=$@ --vectors=hyperram0.slm
+	$(MAKE) -C ../software/$@ clean all
 	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8386 -suppress 8360 -lib $(library) +OT_FLASH=$(OT_FLASH) +CORE_ID=$(CORE_ID) +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$@ +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi   \
 	${top_level}_optimized +permissive-off ++$(alsaqr-regression-dir)/$@ ++$(target-options) | tee tmp/alsaqr-regression-$@.log
 
 # NB: This regression for post synthesis requires preload=1 or localjtag=1 otherwise it will not work!!!!
 run-regressions-post-synth:	$(alsaqr-regression-post-synth)
-	$(MAKE) check-benchmarks
+	$(MAKE) check-benchmarks-synth
 
-check-benchmarks:
+check-benchmarks-synth:
 	echo $(alsaqr-regression-post-synth)
 	./check-regs.sh
 

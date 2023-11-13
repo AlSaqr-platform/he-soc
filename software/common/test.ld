@@ -18,7 +18,7 @@ ENTRY(_start)
 
 MEMORY
 {
-  L2      (rwx) : ORIGIN = 0x1C000000, LENGTH = 0x00100000
+  L2      (rwx) : ORIGIN = 0x1C000000, LENGTH = 0x00008000
   L3      (rwx) : ORIGIN = 0x80000000, LENGTH = 0x20000000
 }
 

@@ -7,10 +7,10 @@ This repository contains the hardware files needed to build the AlSaqr-SoC. The 
 The repository is organized as follows
 
 ```
-|── bootrom
-|── fpga 
-|── hardware
-|── software
+|-- bootrom
+|-- fpga 
+|-- hardware
+|-- software
 ```
 
  * The `fpga` folder contains some git submodules.
@@ -30,19 +30,14 @@ Please change the setup to point to you toolchains and Questasim installations i
 
 ```
 git clone git@github.com:AlSaqr-platform/he-soc.git
-
 cd he-soc/
-
 source setup.sh
 ```
 ** NB: To target a specific release you should git checkout it as first step after cloning the repo. **
 ```
 git clone git@github.com:AlSaqr-platform/he-soc.git
-
 cd he-soc
-
 git checkout tags/<tag-name> 
-
 source setup.sh
 ```
 
@@ -50,9 +45,6 @@ To install, configure bender and download the git dependencies + verification IP
 
 ```
 cd hardware/
-
-ulimit -n 2048
-
 make init
 ```
 To compile the hello world, in he-soc/hardware run:
@@ -76,30 +68,25 @@ make scripts_vip
 ```
 make scripts_vip_macro
 ```
-By default, the elf binary will be loaded through the DMI interface, driven by the SimDTM, communicating with FESVR, the host.
+By default, the elf binary will be preloaded into L3.
 
 To load the code through JTAG interface, you can add the `localjtag=1` option to the previous command, for instance: `make localjtag=1 scripts_vip`.
 Be aware that the preload of the code is slower in this case.
 
-### Preload
-
-To reduce simulation time, you can also preload the code in the hyperram. To do so follow the steps here:
-
-```
-make clean preload=1 scripts_vip
-```
-This will generate the compile.tcl with the preload defines.
 
 ### Run the test
 
- * Option 1: in the he-soc/hardware folder run (elf-bin shall be equal to the path to the elf you want to laod):
+ * Option 1: in the he-soc/hardware folder run (the test to be run shall be compiled first, as the command runs automatically the simulation with the last tests that has been compiled):
 
 ```
-make clean sim elf-bin=../software/hello_culsans/hello_culsans.riscv
+make -C ../software/"test you want to run" clean all
+make clean sim
 ```
-or simply `make clean sim` if you used the preload flag. Be aware that the loaded code will be the last one you compiled.
+The code that will be laoded is the last that has been compiled. Thus, to run a test with preload in L3, you shall compile the test you want to run (as shown above) and then run the simulation without providing the path to the binary.
 
- * Option 2: go to the test folder (ex `software/hello`)
+In case of localjtag preload, you need to provide the path to the binary you want to execute. `make clean sim elf-bin=../software/hello_culsans/hello_culsans.riscv` if you used the localjtag preload flag.
+
+ * Option 2: go to the test folder (ex `software/hello_culsans`)
  
 ```
 make clean all sim
@@ -109,16 +96,14 @@ make clean all sim
 To run mbox test between cva6 and ibex, in he-soc/hardware run:
 ```
 make -C ../software/mbox_test clean all
-
-make clean sim ibex-elf-bin=./opentitan/sw/tests/alsaqr/mbox_test/mbox_test.elf elf-bin=../software/mbox_test/mbox_test.riscv
-
+make clean sim ibex-elf-bin=./opentitan/sw/tests/alsaqr/mbox_test/mbox_test.elf 
 ```
 
-To run the secure boot, use the following commands:
+To run the full secure boot, use the following commands (for instance, opentitan boots CVA6 which runs an hello world):
 
 ```
 make scripts_vip sec_boot=1
-
+make -C ../software/hello_culsans/ clean all
 make clean sim BOOTMODE=1 sec_boot=1
 
 ```
@@ -138,40 +123,38 @@ Each test designed for the cluster is structured as follows:
   -- stimuli
 ```
 The parent folder contains the code executed by the host (CVA6) and the `stimuli` folder contains the cluster code.
+
 You can compile all the needed files with the following commands:
 ```
 cd your-test-folder
 make -C stimuli clean all dump_header
 make clean all CLUSTER_BIN=1
 ```
-The simulation can be launched by doing:
+The tests that will run is the last that's been compiled. Thus, compile a test among the ones in software/cluster_regression.list then run the following commands:
 ```
 cd ../../hardware
-make preload=1 scripts_vip
-make sim elf-bin=../software/your-test-folder.riscv
+make scripts_vip
+make clean sim
 ```
-Replace "your-test-folder" with one of the test listed in software/cluster_regression.list.
-Note that preload was used to reduce simulation time, but it is not mandatory.
-
 ### Run regressions
 
 NB: Due to the padframe modifications this option is under development
 
 Before merging any modification into the master it is important to run the regression tests to check we did not break anything. To do so, execute the following commands:
 
+The following commands will run the regressions of the peripherals and of the cluster, the tests that are listed in `software/regression.list`:
+
 ```
-cd software
-
-source compile_all.sh
-
-cd ../hardware
-
-make scripts_vip
-
-make clean preload=1 batch-mode=1 run-regressions
+cd hardware/
+make clean batch-mode=1 run-regressions
 ```
+To run the regressions including the CVA6 various dual boot mode, FLL bypass and secure boot/mbox test, run:
+```
+cd hardware/
+make run_regression
+```
+The tests executed here can be found in `hardware/regression.csv`
 
-The tests that will be executed are the one listed in `software/regression.list`
 
 ### FPGA Emulation
 
