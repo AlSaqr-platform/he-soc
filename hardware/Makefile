@@ -132,6 +132,7 @@ ifdef nogui
   acc   := +acc=p+ariane_tb.
 	noacc := +noacc=p+dut.
   questa-flags += -c
+	compile_flag += -O5
 endif
 
 # if defined, calls the questa targets in batch mode
