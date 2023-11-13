@@ -421,16 +421,16 @@ run-regressions:	$(alsaqr-regression)
 	$(MAKE) check-benchmarks
 
 run_regression:
-	rm -rf regression_reports
-	mkdir regression_reports
+	rm -rf regressions/regression_reports
+	mkdir regressions/regression_reports
 	python3 regression.py
-	./check-regs.sh
+	regressions/check_regs.sh
 
 run_regression_netlist:
-	rm -rf regression_netlist_reports
-	mkdir regression_netlist_reports
+	rm -rf regressions/regression_netlist_reports
+	mkdir regressions/regression_netlist_reports
 	python3 regression_netlist.py
-	./check-regs.sh
+	regressions/check_netlist_regs.sh
 
 $(alsaqr-regression-post-synth): build_synth
 	mkdir -p tmp

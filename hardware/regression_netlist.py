@@ -5,7 +5,7 @@ import csv
 import re
 import shutil  # Import the shutil module
 
-file = open('regression_netlist.csv')
+file = open('regressions/regression_netlist.csv')
 csvreader = csv.reader(file)
 
 tests_passed = 0
