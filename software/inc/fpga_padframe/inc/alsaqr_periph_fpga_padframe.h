@@ -99,6 +99,7 @@ typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_00_REGISTER = 0,
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_00_group_GPIO_B_port_GPIO0 = 1,
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_00_group_SPI0_port_SPI_CS0 = 2,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_00_group_SPI_OT_port_SPI_CSN = 3,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_sel_t;
 
 /**
@@ -205,6 +206,7 @@ typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_01_REGISTER = 0,
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_01_group_GPIO_B_port_GPIO1 = 1,
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_01_group_SPI0_port_SPI_SCK = 2,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_01_group_SPI_OT_port_SPI_SCK = 3,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_sel_t;
 
 /**
@@ -311,6 +313,7 @@ typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_02_REGISTER = 0,
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_02_group_GPIO_B_port_GPIO2 = 1,
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_02_group_SPI0_port_SPI_MISO = 2,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_02_group_SPI_OT_port_SPI_SD1 = 3,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_sel_t;
 
 /**
@@ -417,6 +420,7 @@ typedef enum {
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_03_REGISTER = 0,
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_03_group_GPIO_B_port_GPIO3 = 1,
   ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_03_group_SPI0_port_SPI_MOSI = 2,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_PAD_GPIO_B_03_group_SPI_OT_port_SPI_SD0 = 3,
 } alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_sel_t;
 
 /**
@@ -1492,6 +1496,216 @@ void alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set(alsaqr_periph_fpg
  * @return Port or configuration register currently connected to the pad.
  */
  alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_sel_t alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_get();
+
+
+
+/**
+ * Sets the chip2pad pad signal for the pad: cva6_uart_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_chip2pad_set(uint8_t value);
+
+/**
+ * Get the currently configured chip2pad value for the pad: cva6_uart_00
+ *
+ * @return The value of the chip2pad field
+ */
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_chip2pad_get();
+
+/**
+ * Sets the drv pad signal for the pad: cva6_uart_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: cva6_uart_00
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_drv_get();
+
+/**
+ * Sets the oen pad signal for the pad: cva6_uart_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_oen_set(uint8_t value);
+
+/**
+ * Get the currently configured oen value for the pad: cva6_uart_00
+ *
+ * @return The value of the oen field
+ */
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_oen_get();
+
+/**
+ * Sets the puen pad signal for the pad: cva6_uart_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_puen_set(uint8_t value);
+
+/**
+ * Get the currently configured puen value for the pad: cva6_uart_00
+ *
+ * @return The value of the puen field
+ */
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: cva6_uart_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: cva6_uart_00
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: cva6_uart_00
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: cva6_uart_00
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_cfg_smt_get();
+
+typedef enum {
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CVA6_UART_00_REGISTER = 0,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CVA6_UART_00_group_UART_CORE_port_UART_TX = 1,
+} alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_mux_sel_t;
+
+/**
+   * Choose the entity (a port or the dedicated configuration register) that controls cva6_uart_00.
+   *
+   * @param mux_sel Port or configuration register to connect to the pad.
+ */
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_mux_set(alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_mux_sel_t mux_sel);
+
+/**
+ * Read the current multiplexer select value configured for cva6_uart_00.
+ *
+ * @return Port or configuration register currently connected to the pad.
+ */
+ alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_mux_sel_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_mux_get();
+
+
+
+/**
+ * Sets the chip2pad pad signal for the pad: cva6_uart_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_chip2pad_set(uint8_t value);
+
+/**
+ * Get the currently configured chip2pad value for the pad: cva6_uart_01
+ *
+ * @return The value of the chip2pad field
+ */
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_chip2pad_get();
+
+/**
+ * Sets the drv pad signal for the pad: cva6_uart_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 3.
+ */
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_drv_set(uint8_t value);
+
+/**
+ * Get the currently configured drv value for the pad: cva6_uart_01
+ *
+ * @return The value of the drv field
+ */
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_drv_get();
+
+/**
+ * Sets the oen pad signal for the pad: cva6_uart_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_oen_set(uint8_t value);
+
+/**
+ * Get the currently configured oen value for the pad: cva6_uart_01
+ *
+ * @return The value of the oen field
+ */
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_oen_get();
+
+/**
+ * Sets the puen pad signal for the pad: cva6_uart_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_puen_set(uint8_t value);
+
+/**
+ * Get the currently configured puen value for the pad: cva6_uart_01
+ *
+ * @return The value of the puen field
+ */
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_puen_get();
+
+/**
+ * Sets the slw pad signal for the pad: cva6_uart_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_slw_set(uint8_t value);
+
+/**
+ * Get the currently configured slw value for the pad: cva6_uart_01
+ *
+ * @return The value of the slw field
+ */
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_slw_get();
+
+/**
+ * Sets the smt pad signal for the pad: cva6_uart_01
+ *
+ * @param value The value to program into the pad configuration register. A value smaller than 1.
+ */
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_smt_set(uint8_t value);
+
+/**
+ * Get the currently configured smt value for the pad: cva6_uart_01
+ *
+ * @return The value of the smt field
+ */
+uint8_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_cfg_smt_get();
+
+typedef enum {
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CVA6_UART_01_REGISTER = 0,
+  ALSAQR_PERIPH_FPGA_PADFRAME_PERIPHS_CVA6_UART_01_group_UART_CORE_port_UART_RX = 1,
+} alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_mux_sel_t;
+
+/**
+   * Choose the entity (a port or the dedicated configuration register) that controls cva6_uart_01.
+   *
+   * @param mux_sel Port or configuration register to connect to the pad.
+ */
+void alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_mux_set(alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_mux_sel_t mux_sel);
+
+/**
+ * Read the current multiplexer select value configured for cva6_uart_01.
+ *
+ * @return Port or configuration register currently connected to the pad.
+ */
+ alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_mux_sel_t alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_mux_get();
 
 
 

@@ -40,11 +40,6 @@ module alsaqr_xilinx
     inout [1:0]   c0_ddr4_dqs_t,
     inout [1:0]   c0_ddr4_dqs_c,
 
-    inout wire    pad_uart0_rx,
-    inout wire    pad_uart0_tx,
-    inout wire    pad_uart1_rx,
-    inout wire    pad_uart1_tx,
-
     `ifdef SIMPLE_PADFRAME
     inout wire  pad_periphs_pad_gpio_b_00_pad,
     inout wire  pad_periphs_pad_gpio_b_01_pad,
@@ -60,6 +55,18 @@ module alsaqr_xilinx
     inout wire  pad_periphs_pad_gpio_b_11_pad,
     inout wire  pad_periphs_pad_gpio_b_12_pad,
     inout wire  pad_periphs_pad_gpio_b_13_pad,
+    inout wire  pad_periphs_cva6_uart_00_pad,
+    inout wire  pad_periphs_cva6_uart_01_pad,
+    `endif
+
+    // OpenTitan jtag port
+    `ifndef EXCLUDE_ROT
+    input wire    pad_jtag_ot_trst,
+    input wire    pad_jtag_ot_tck,
+    input wire    pad_jtag_ot_tdi,
+    output wire   pad_jtag_ot_tdo,
+    input wire    pad_jtag_ot_tms,
+    input wire    pad_bootmode,
     `endif
 
     input wire    pad_reset,
@@ -68,14 +75,7 @@ module alsaqr_xilinx
     input wire    pad_jtag_tck,
     input wire    pad_jtag_tdi,
     output wire   pad_jtag_tdo,
-    input wire    pad_jtag_tms,
-
-    // OpenTitan jtag port
-    input wire    pad_jtag_ot_trst,
-    input wire    pad_jtag_ot_tck,
-    input wire    pad_jtag_ot_tdi,
-    output wire   pad_jtag_ot_tdo,
-    input wire    pad_jtag_ot_tms
+    input wire    pad_jtag_tms
   );
 
    localparam  APP_ADDR_WIDTH   = 28;
@@ -87,9 +87,9 @@ module alsaqr_xilinx
    localparam  APP_MASK_WIDTH   = 64;  // This parameter is controllerwise
 
   `ifdef EXCLUDE_LLC
-   localparam AXI_ID_WIDTH = 7;
-  `else
    localparam AXI_ID_WIDTH = 8;
+  `else
+   localparam AXI_ID_WIDTH = 9;
   `endif
 
    wire        ref_clk;
@@ -108,7 +108,7 @@ module alsaqr_xilinx
                                       .clk_out1(ref_clk)
                                       );
 
-   assign reset_n = ~pad_reset & pad_jtag_trst;
+   assign reset_n = ~pad_reset;
 
 
    AXI_BUS #(
@@ -139,8 +139,6 @@ module alsaqr_xilinx
   wire                      c0_ddr4_rst;
   wire                      dbg_clk;
   wire                      c0_wr_rd_complete;
-
-  wire                      bootmode;
 
   reg                       c0_ddr4_aresetn;
   wire                      c0_ddr4_data_msmatch_err;
@@ -192,9 +190,7 @@ module alsaqr_xilinx
 
 wire c0_ddr4_reset_n_int;
   assign c0_ddr4_reset_n = c0_ddr4_reset_n_int;
-   
-  assign bootmode = 1'b0; 
-   
+
 //***************************************************************************
 // The User design is instantiated below. The memory interface ports are
 // connected to the top-level and the application interface ports are
@@ -303,20 +299,14 @@ ddr4_0 u_ddr4_0
     ) i_alsaqr (
         .rst_ni           ( reset_n            ),
         .rtc_i            ( ref_clk            ),
-        .jtag_TCK         ( pad_jtag_tck       ),
-        .jtag_TMS         ( pad_jtag_tms       ),
-        .jtag_TDI         ( pad_jtag_tdi       ),
-        .jtag_TRSTn       ( 1'b1               ),
-        .jtag_TDO_data    ( pad_jtag_tdo       ),
-        .jtag_TDO_driven  (                    ),
-        .axi_ddr_master   ( axi_ddr_bus_64     ),
-        .cva6_uart_rx_i   ( pad_uart0_rx       ),
-        .cva6_uart_tx_o   ( pad_uart0_tx       ),
+        `ifndef EXCLUDE_ROT
         .jtag_ot_TCK      ( pad_jtag_ot_tck    ),
         .jtag_ot_TMS      ( pad_jtag_ot_tms    ),
         .jtag_ot_TDI      ( pad_jtag_ot_tdi    ),
         .jtag_ot_TRSTn    ( pad_jtag_ot_trst   ),
         .jtag_ot_TDO_data ( pad_jtag_ot_tdo    ),
+        .pad_bootmode     ( pad_bootmode       ),
+        `endif
         `ifdef SIMPLE_PADFRAME
         .pad_periphs_a_00_pad(pad_periphs_pad_gpio_b_00_pad),
         .pad_periphs_a_01_pad(pad_periphs_pad_gpio_b_01_pad),
@@ -332,13 +322,15 @@ ddr4_0 u_ddr4_0
         .pad_periphs_a_11_pad(pad_periphs_pad_gpio_b_11_pad),
         .pad_periphs_a_12_pad(pad_periphs_pad_gpio_b_12_pad),
         .pad_periphs_a_13_pad(pad_periphs_pad_gpio_b_13_pad),
+        .pad_periphs_a_14_pad(pad_periphs_cva6_uart_00_pad),
+        .pad_periphs_a_15_pad(pad_periphs_cva6_uart_01_pad),
         `endif
-
-        .apb_uart_rx_i    ( pad_uart1_rx       ),
-        .apb_uart_tx_o    ( pad_uart1_tx       ),
-
-        .pad_bootmode     ( bootmode           )
-
+        .jtag_TCK         ( pad_jtag_tck       ),
+        .jtag_TMS         ( pad_jtag_tms       ),
+        .jtag_TDI         ( pad_jtag_tdi       ),
+        .jtag_TRSTn       ( pad_jtag_trst      ),
+        .jtag_TDO_data    ( pad_jtag_tdo       ),
+        .axi_ddr_master   ( axi_ddr_bus_64     )
    );
 
 

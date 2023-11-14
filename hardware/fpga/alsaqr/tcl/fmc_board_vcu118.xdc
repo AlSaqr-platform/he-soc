@@ -26,24 +26,10 @@ set_property -dict {PACKAGE_PIN AW15 IOSTANDARD LVCMOS18} [get_ports pad_jtag_td
 set_property -dict {PACKAGE_PIN AV15 IOSTANDARD LVCMOS18} [get_ports pad_jtag_tck]
 set_property -dict {PACKAGE_PIN AV16 IOSTANDARD LVCMOS18} [get_ports pad_jtag_trst]
 
-#######################################################################
-## Ibex JTAG mapping FMC
-#######################################################################
-set_property -dict {PACKAGE_PIN BF11 IOSTANDARD LVCMOS18} [get_ports pad_jtag_ot_tms]
-set_property -dict {PACKAGE_PIN BC15 IOSTANDARD LVCMOS18} [get_ports pad_jtag_ot_tdi]
-set_property -dict {PACKAGE_PIN BA9  IOSTANDARD LVCMOS18} [get_ports pad_jtag_ot_tdo]
-set_property -dict {PACKAGE_PIN BA15 IOSTANDARD LVCMOS18} [get_ports pad_jtag_ot_tck]
-set_property -dict {PACKAGE_PIN BC11 IOSTANDARD LVCMOS18} [get_ports pad_jtag_ot_trst]
-
 ######################################################################
 # UART mapping
 ######################################################################
-set_property -dict {PACKAGE_PIN AW25  IOSTANDARD LVCMOS18} [get_ports pad_uart0_rx]
-set_property -dict {PACKAGE_PIN BB21  IOSTANDARD LVCMOS18} [get_ports pad_uart0_tx]
-set_property -dict {PACKAGE_PIN N28   IOSTANDARD LVCMOS12} [get_ports pad_uart1_rx]
-set_property -dict {PACKAGE_PIN M30   IOSTANDARD LVCMOS12} [get_ports pad_uart1_tx]
-
-#######################################################################
-## Bootmode pad
-#######################################################################
-#set_property -dict {PACKAGE_PIN "TBD" IOSTANDARD LVCMOS18} [get_ports pad_bootmode]
+set_property -dict {PACKAGE_PIN AW25  IOSTANDARD LVCMOS18} [get_ports pad_periphs_cva6_uart_01_pad]
+set_property -dict {PACKAGE_PIN BB21  IOSTANDARD LVCMOS18} [get_ports pad_periphs_cva6_uart_00_pad]
+#set_property -dict {PACKAGE_PIN N28   IOSTANDARD LVCMOS12} [get_ports pad_uart1_rx]
+#set_property -dict {PACKAGE_PIN M30   IOSTANDARD LVCMOS12} [get_ports pad_uart1_tx]

@@ -28,6 +28,13 @@ elif [ "$LLC" = "n" ]; then
     export AXI_ID_DDR_WIDTH="7"
 fi
 
+read -p "Are you instantiating OpenTitan? y/n " OT
+if [ "$OT" = "y" ]; then
+    export USE_OT="1"
+elif [ "$OT" = "n" ]; then
+    export USE_OT="0"
+fi
+
 if [ -z "$MAIN_MEM"  ]; then
     read -p "Which main memory are you using:  1-DDR 2-HYPER: " MAIN_MEM
 
@@ -51,5 +58,6 @@ echo "XILINX_BOARD=$XILINX_BOARD"
 echo "AXI_ID_DDR_WIDTH=$AXI_ID_DDR_WIDTH"
 echo "MAIN MEMORY = $MAIN_MEM"
 echo "PERIPHERALS VALIDATION = $SIMPLE_PAD"
+echo "USE OT = $USE_OT"
 
 export VSIM_PATH=$PWD/sim

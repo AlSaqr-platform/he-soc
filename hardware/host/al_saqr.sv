@@ -96,11 +96,11 @@ module al_saqr
   inout wire logic    pad_periphs_a_11_pad,
   inout wire logic    pad_periphs_a_12_pad,
   inout wire logic    pad_periphs_a_13_pad,
+  inout wire logic    pad_periphs_a_14_pad,
+  inout wire logic    pad_periphs_a_15_pad,
 
   `ifndef FPGA_EMUL
     `ifndef SIMPLE_PADFRAME
-        inout wire logic    pad_periphs_a_14_pad,
-        inout wire logic    pad_periphs_a_15_pad,
         inout wire logic    pad_periphs_a_16_pad,
         inout wire logic    pad_periphs_a_17_pad,
         inout wire logic    pad_periphs_a_18_pad,
@@ -115,7 +115,6 @@ module al_saqr
         inout wire logic    pad_periphs_a_27_pad,
         inout wire logic    pad_periphs_a_28_pad,
         inout wire logic    pad_periphs_a_29_pad,
-        
 
         inout wire logic    pad_periphs_b_00_pad,
         inout wire logic    pad_periphs_b_01_pad,
@@ -586,6 +585,9 @@ module al_saqr
       // SECD Bootmode pad
       .pad_bootmode     ( pad_bootmode     )
      );
+
+  `ifndef EXCLUDE_ROT
+
    axi_cdc_dst #(
       .SyncStages ( ariane_soc::CdcSyncStages ),
       .LogDepth   ( LogDepth                  ),
@@ -596,7 +598,7 @@ module al_saqr
       .r_chan_t   ( axi_secd_r_chan_t         ),
       .axi_req_t  ( axi_secd_req_t            ),
       .axi_resp_t ( axi_secd_resp_t           )
-   ) i_cdc_in (
+   ) i_cdc_ot2host (
       .async_data_slave_aw_data_i( async_axi_ot_out_aw_data_o ),
       .async_data_slave_aw_wptr_i( async_axi_ot_out_aw_wptr_o ),
       .async_data_slave_aw_rptr_o( async_axi_ot_out_aw_rptr_i ),
@@ -672,7 +674,43 @@ module al_saqr
      .async_axi_out_r_wptr_i  ( async_axi_ot_out_r_wptr_i  ),
      .async_axi_out_r_rptr_o  ( async_axi_ot_out_r_rptr_o  )
    );
+  `else // !`ifndef EXCLUDE_ROT
 
+   assign ot_axi_req.aw.id = 'h0;
+   assign ot_axi_req.aw.addr = 'h0;
+   assign ot_axi_req.aw.len = 'h0;
+   assign ot_axi_req.aw.size = 'h0;
+   assign ot_axi_req.aw.burst = 'h0;
+   assign ot_axi_req.aw.lock = 'h0;
+   assign ot_axi_req.aw.cache = 'h0;
+   assign ot_axi_req.aw.prot = 'h0;
+   assign ot_axi_req.aw.qos = 'h0;
+   assign ot_axi_req.aw.region = 'h0;
+   assign ot_axi_req.aw.atop = 'h0;
+   assign ot_axi_req.aw.user = 'h0;
+   assign ot_axi_req.aw_valid = 'h0;
+   assign ot_axi_req.w.data = 'h0;
+   assign ot_axi_req.w.strb = 'h0;
+   assign ot_axi_req.w.last = 'h0;
+   assign ot_axi_req.w.user = 'h0;
+   assign ot_axi_req.w_valid = 'h0;
+   assign ot_axi_req.b_ready = 1'b1;
+   assign ot_axi_req.ar.id = 'h0;
+   assign ot_axi_req.ar.addr = 'h0;
+   assign ot_axi_req.ar.len = 'h0;
+   assign ot_axi_req.ar.size = 'h0;
+   assign ot_axi_req.ar.burst = 'h0;
+   assign ot_axi_req.ar.lock = 'h0;
+   assign ot_axi_req.ar.cache = 'h0;
+   assign ot_axi_req.ar.prot = 'h0;
+   assign ot_axi_req.ar.qos = 'h0;
+   assign ot_axi_req.ar.region = 'h0;
+   assign ot_axi_req.ar.user = 'h0;
+   assign ot_axi_req.ar_valid = 'h0;
+   assign ot_axi_req.r_ready = 1'b1;
+
+   assign jtag_ibex_o.tdo = 1'b0;
+  `endif // !`ifndef EXCLUDE_ROT
 
   `ifndef EXCLUDE_CLUSTER
 
@@ -1005,7 +1043,8 @@ module al_saqr
         .pad_periphs_pad_gpio_b_11_pad(pad_periphs_a_11_pad),
         .pad_periphs_pad_gpio_b_12_pad(pad_periphs_a_12_pad),
         .pad_periphs_pad_gpio_b_13_pad(pad_periphs_a_13_pad),
-
+        .pad_periphs_cva6_uart_00_pad(pad_periphs_a_14_pad),
+        .pad_periphs_cva6_uart_01_pad(pad_periphs_a_15_pad),
 
         .config_req_i   ( reg_req     ),
         .config_rsp_o   ( reg_rsp     )
@@ -1023,9 +1062,15 @@ module al_saqr
      // I2C0
      `ASSIGN_PERIPHS_I2C0_PAD2SOC(s_pad_to_i2c[0],s_port_signals_pad2soc.periphs.i2c0)
      `ASSIGN_PERIPHS_I2C0_SOC2PAD(s_port_signals_soc2pad.periphs.i2c0,s_i2c_to_pad[0])
+     // Debug Core UART
+     `ASSIGN_PERIPHS_UART_CORE_PAD2SOC(s_cva6_uart_rx,s_port_signals_pad2soc.periphs.uart_core)
+     `ASSIGN_PERIPHS_UART_CORE_SOC2PAD(s_port_signals_soc2pad.periphs.uart_core,s_cva6_uart_tx)
+     // OT SPI
+     `ASSIGN_PERIPHS_SPI_OT_PAD2SOC(s_pad_to_ot_spi,s_port_signals_pad2soc.periphs.spi_ot)
+     `ASSIGN_PERIPHS_SPI_OT_SOC2PAD(s_port_signals_soc2pad.periphs.spi_ot,s_ot_spi_to_pad)
      // GPIOs
-    `ASSIGN_PERIPHS_GPIO_B_PAD2SOC(s_pad_to_gpio_b,s_port_signals_pad2soc.periphs.gpio_b)
-    `ASSIGN_PERIPHS_GPIO_B_SOC2PAD(s_port_signals_soc2pad.periphs.gpio_b,s_gpio_b_to_pad)
+     `ASSIGN_PERIPHS_GPIO_B_PAD2SOC(s_pad_to_gpio_b,s_port_signals_pad2soc.periphs.gpio_b)
+     `ASSIGN_PERIPHS_GPIO_B_SOC2PAD(s_port_signals_soc2pad.periphs.gpio_b,s_gpio_b_to_pad)
 
    `else // !`ifdef SIMPLE_PADFRAME
     `ifndef FPGA_EMUL

@@ -1,7 +1,7 @@
 # Author: Florian Zaruba, ETH Zurich
 # Date: 03/19/2017
 # Description: Makefile for linting and testing Ariane.
-QUESTA:=questa-2022.3
+QUESTA:=questa-2022.3-bt
 # Bender
 BENDER:=./bender
 # questa library
@@ -162,6 +162,12 @@ ifdef exclude-cluster
 	questa-cmd += +EXCLUDE_CLUSTER=$(exclude-cluster)
   compile_flag +=  +define+EXCLUDE_CLUSTER
   compile_fpga += EXCLUDE_CLUSTER
+endif
+
+ifdef exclude-rot
+	questa-cmd += +EXCLUDE_ROT=$(exclude-rot)
+  compile_flag +=  +define+EXCLUDE_ROT
+  compile_fpga += EXCLUDE_ROT
 endif
 
 ifdef exclude-llc
