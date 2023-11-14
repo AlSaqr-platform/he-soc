@@ -4,7 +4,7 @@
 #include "utils.h"
 #include "encoding.h"
 
-#//define FPGA_EMULATION
+//#define FPGA_EMULATION
 
 volatile uint64_t count __attribute__((section(".nocache_share_region")));
 
