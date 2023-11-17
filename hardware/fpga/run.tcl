@@ -26,18 +26,7 @@ if {$::env(USE_OT)=="1"} {
 }
 update_compile_order -fileset sources_1
 auto_detect_xpm
-read_xdc ./alsaqr/tcl/constraints.xdc
-if {$::env(MAIN_MEM)=="HYPER"} {
-    read_xdc "alsaqr/tcl/constraints_hyper.xdc"
-}
-if {$::env(USE_OT)=="1"} {
-    read_xdc "alsaqr/tcl/constraints_opentitan.xdc"
-}
-add_files -fileset constrs_1 -norecurse "alsaqr/tcl/constraints_peripherals.xdc"
-synth_design -rtl
-write_xdc parsed_constraints.xdc
-reset_timing
-read_xdc parsed_constraints.xdc
+read_xdc ./timing_constr.xdc
 synth_design
 update_compile_order -fileset sources_1
 opt_design
