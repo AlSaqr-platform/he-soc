@@ -35,6 +35,7 @@ int thread_entry(int cid, int nc){
   int baud_rate = 115200;
   int test_freq = 40000000;
   alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_mux_set(1);
+  alsaqr_periph_fpga_padframe_periphs_cva6_uart_01_mux_set(1);
   #else
   set_flls();
   int baud_rate = 115200;
