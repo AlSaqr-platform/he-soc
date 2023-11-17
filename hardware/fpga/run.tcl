@@ -34,6 +34,10 @@ if {$::env(USE_OT)=="1"} {
     read_xdc "alsaqr/tcl/constraints_opentitan.xdc"
 }
 add_files -fileset constrs_1 -norecurse "alsaqr/tcl/constraints_peripherals.xdc"
+synth_design -rtl
+write_xdc parsed_constraints.xdc
+reset_timing
+read_xdc parsed_constraints.xdc
 synth_design
 update_compile_order -fileset sources_1
 opt_design

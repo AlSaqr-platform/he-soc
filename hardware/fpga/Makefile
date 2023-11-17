@@ -2,6 +2,7 @@ clean:
 		rm -rf vivado*
 		rm -rf .Xil
 		rm -rf alsaqr/alsaqr*
+		rm -rf ./*.mif
 
 ips:
 		$(MAKE) -C alsaqr/tcl/ips/boot_rom clean all
