@@ -8,6 +8,9 @@ endif
 ifeq ($(USE_OT), 1)
 constr_list += $(constrs_path)/constraints_opentitan.xdc
 endif
+ifeq ($(SIMPLE_PAD), 1)
+constr_list += $(constrs_path)/constraints_fpga_padframe.xdc
+endif
 
 clean:
 		rm -rf vivado*
