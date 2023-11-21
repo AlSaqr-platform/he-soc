@@ -1797,7 +1797,7 @@ module ariane_tb;
 
         if(USE_UART == 1) begin
           // config the UART0 pads
-          assign simple_pad_periphs_07_uart0_rx = simple_pad_periphs_06_uart0_tx; // UART0_TX -> UART0_RX
+          assign alt_0_simple_pad_periphs_07_uart0_rx = alt_0_simple_pad_periphs_06_uart0_tx; // UART0_TX -> UART0_RX
         end
         //**************************************************
         // ALTERNATE 0 - PERIPH VIPs END
