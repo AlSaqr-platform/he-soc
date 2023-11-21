@@ -1575,24 +1575,6 @@ module ariane_tb;
                   } )
           );
         end
-        
-        if(USE_ETHERNET == 1) begin
-          // configure the ETHERNET pads    
-          alt_2_pad_periphs_a_15_pad_mux_sel_ETH_RST 
-          
-          sdModel alt_2_sdModelTB1(
-          .sdClk ( alt_2_pad_periphs_a_13_pad_WIRELESS_SDIO1_CLK ),
-          .cmd   ( alt_2_pad_periphs_a_14_pad_WIRELESS_SDIO1_CMD ),
-          .dat   ( {
-                    alt_2_pad_periphs_a_12_pad_WIRELESS_SDIO1_D3,
-                    alt_2_pad_periphs_a_11_pad_WIRELESS_SDIO1_D2,
-                    alt_2_pad_periphs_a_10_pad_WIRELESS_SDIO1_D1,
-                    alt_2_pad_periphs_a_09_pad_WIRELESS_SDIO1_D0
-                  } )
-          );
-        end
-
-
         //**************************************************
         // ALTERNAME 2 - COMM QFN VIPs END
         //**************************************************
