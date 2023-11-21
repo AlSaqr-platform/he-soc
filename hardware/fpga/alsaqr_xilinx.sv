@@ -133,7 +133,8 @@ module alsaqr_xilinx
     wire  [NumPhys-1:0][7:0] hyper_dq_wire      ;
     wire  [NumPhys-1:0]      hyper_reset_n_wire ;
 
-    logic                    cva6_uart_rx, cva6_uart_tx;
+   logic                     cva6_uart_rx;
+   logic                     cva6_uart_tx;
 
     pad_alsaqr_pu padinst_uart_rx    (.OEN( 1'b1   ), .I(1'b0         ), .O(cva6_uart_rx ), .PAD(pad_periphs_cva6_uart_01_pad   ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S) );
     pad_alsaqr_pu padinst_uart_tx    (.OEN( 1'b0   ), .I(cva6_uart_tx ), .O(             ), .PAD(pad_periphs_cva6_uart_00_pad   ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S) );
