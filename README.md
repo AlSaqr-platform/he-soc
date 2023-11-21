@@ -138,22 +138,14 @@ make clean sim
 ```
 ### Run regressions
 
-NB: Due to the padframe modifications this option is under development
-
 Before merging any modification into the master it is important to run the regression tests to check we did not break anything. To do so, execute the following commands:
 
-The following commands will run the regressions of the peripherals and of the cluster, the tests that are listed in `software/regression.list`:
-
-```
-cd hardware/
-make clean batch-mode=1 run-regressions
-```
-To run the regressions including the CVA6 various dual boot mode, FLL bypass and secure boot/mbox test, run:
+To run the regressions including the CVA6 various dual boot mode, FLL bypass and secure boot/mbox test and periphs, run:
 ```
 cd hardware/
 make run_regression
 ```
-The tests executed here can be found in `hardware/regression.csv`
+The tests executed here can be found in `hardware/regression.csv`, they are 22 and all of them pass.
 
 
 ### FPGA Emulation
