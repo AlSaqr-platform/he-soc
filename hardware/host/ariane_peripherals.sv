@@ -21,7 +21,7 @@ module ariane_peripherals
     parameter  int AxiUserWidth = 1,
     parameter  bit InclUART     = 1,
     parameter  bit InclSPI      = 0,
-    parameter  bit InclEthernet = 0,
+    parameter  bit InclEthernet = 1,
     parameter  bit InclGPIO     = 0,
     parameter  bit InclTimer    = 1
 ) (
@@ -36,7 +36,7 @@ module ariane_peripherals
     input  logic                          c2h_irq_i       ,
     input  logic                          cluster_eoc_i   ,
     input  logic [N_CAN-1:0]              can_irq_i      ,
-    input  logic [NUM_ADV_TIMER-1:0]  pwm_irq_i      ,
+    input  logic [NUM_ADV_TIMER-1:0]      pwm_irq_i      ,
     input  logic                        cl_dma_pe_evt_i ,
     output logic [NumCVA6-1:0][1:0]     irq_o   ,
     // UART
@@ -496,21 +496,18 @@ module ariane_peripherals
            .framing_rdata(eth_rdata),
            .rst_int(!rst_ni),
 
-           .clk_int( eth_phy_tx_clk_i ), // 125 MHz in-phase
-           .clk90_int( eth_clk_i ),    // 125 MHz quadrature
+           .clk_int( eth_clk_i  ), // 125 MHz in-phase
+           .clk90_int(  eth_phy_tx_clk_i  ),    // 125 MHz quadrature
            .clk_200_int( eth_clk_200MHz_i ),
            /*
             * Ethernet: 1000BASE-T RGMII
             */
            .phy_rx_clk( pad_to_eth.eth_rxck_i ),
-
            .phy_rxd( eth_rxd_i ),
-
            .phy_rx_ctl(pad_to_eth.eth_rxctl_i),
 
            .phy_tx_clk(eth_to_pad.eth_txck_o),
            .phy_txd( eth_txd_o ),
-
            .phy_tx_ctl( eth_to_pad.eth_txctl_o ),
            .phy_reset_n( eth_to_pad.eth_rstn_o ),
            .phy_mdc( eth_to_pad.eth_mdc_o ),
@@ -543,6 +540,7 @@ module ariane_peripherals
         assign ethernet.r_data = 'hdeadbeef;
         assign ethernet.r_last = 1'b1;
     end
+
 
     // ---------------
     // 5. Timer

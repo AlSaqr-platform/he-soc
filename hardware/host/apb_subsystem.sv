@@ -52,6 +52,7 @@ module apb_subsystem
     output logic                rstn_global_sync_o,
     output logic                clk_cva6_o,
     output logic                clk_soc_o,
+    output logic                s_clk_per_o,
     output logic                clk_cluster_o,
     output logic                clk_opentitan_o,
     output logic                rstn_cluster_sync_o,
@@ -129,7 +130,6 @@ module apb_subsystem
     output                      pwm_to_pad_t pwm_to_pad
 );
 
-   logic                                s_clk_per;
    logic                                s_rstn_soc_sync;
    logic                                s_rstn_cluster_sync;
    logic                                s_cluster_ctrl_rstn;
@@ -343,7 +343,7 @@ module apb_subsystem
          .sys_clk_i       ( clk_soc_o                     ),
          .sys_resetn_i    ( s_rstn_soc_sync               ),
 
-         .periph_clk_i    ( s_clk_per                     ),
+         .periph_clk_i    ( s_clk_per_o                   ),
 
          .hyper_axi_bus_slave ( hyper_axi_bus_slave       ),
          .hyper_reg_cfg_slave ( i_hyaxicfg_rbus           ),
@@ -750,7 +750,7 @@ module apb_subsystem
         .ot_clk_gate_en_i   ( ot_clk_gate_en_o    ),
         .clk_cva6_o         ( clk_cva6_o          ),
         .clk_soc_o          ( clk_soc_o           ),
-        .clk_per_o          ( s_clk_per           ),
+        .clk_per_o          ( s_clk_per_o         ),
         .clk_cluster_o      ( clk_cluster_o       ),
         .clk_opentitan_o    ( clk_opentitan_o     )
        );
@@ -786,7 +786,7 @@ module apb_subsystem
                 .APB_ADDR_WIDTH ( 32             ),
                 .EXTSIG_NUM     ( 64             )
             ) i_apb_adv_timer (
-                .HCLK            ( s_clk_per               ),
+                .HCLK            ( s_clk_per_o             ),
                 .HRESETn         ( s_rstn_soc_sync         ),
 
                 .dft_cg_enable_i ( 1'b0                    ),
