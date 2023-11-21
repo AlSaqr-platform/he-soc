@@ -135,6 +135,12 @@ ifdef nogui
 	compile_flag += -O5
 endif
 
+ifdef max-opt
+  acc   :=
+	noacc := +noacc=+ariane_tb.
+	compile_flag += -O5
+endif
+
 # if defined, calls the questa targets in batch mode
 ifdef batch-mode
 	questa-flags += -c

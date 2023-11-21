@@ -82,6 +82,18 @@ Be aware that the preload of the code is slower in this case.
 make -C ../software/"test you want to run" clean all
 make clean sim
 ```
+If you want to speed up the simulation (of about 2x), you can use the "max-opt" flag, which will deactivate the logs of all the waveforms. This is not suitable for debugging, but just to get the result of a test as fast as passible.
+To avoid the Questa GUI to be opened, you can use the "nogui=1" flag, which applies the same opts as max-opt and do not open the gui.
+```
+make scripts_vip max-opt=1
+make clean sim max-opt=1
+```
+or
+```
+make scripts_vip nogui=1
+make clean sim nogui=1
+```
+
 The code that will be laoded is the last that has been compiled. Thus, to run a test with preload in L3, you shall compile the test you want to run (as shown above) and then run the simulation without providing the path to the binary.
 
 In case of localjtag preload, you need to provide the path to the binary you want to execute. `make clean sim elf-bin=../software/hello_culsans/hello_culsans.riscv` if you used the localjtag preload flag.
