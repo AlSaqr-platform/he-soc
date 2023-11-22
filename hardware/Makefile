@@ -121,6 +121,8 @@ uvm-flags        += +UVM_NO_RELNOTES +UVM_VERBOSITY=LOW
 questa-flags     += -t 1ns -64 -coverage -classdebug -suppress 3999 -suppress 3009 -suppress 8360 -suppress 8386 $(gui-sim) $(QUESTASIM_FLAGS)
 compile_flag_vhd += -64 -nologo -quiet -2008
 
+questa-cmd       ?= -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; log -r /*; run -all;"
+
 compile_flag_bender   += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 13262 -suppress 8386  -permissive
 
 
@@ -133,11 +135,13 @@ ifdef nogui
 	noacc := +noacc=p+dut.
   questa-flags += -c
 	compile_flag += -O5
+	questa-cmd   := -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; run -all;"
 endif
 
 ifdef max-opt
   acc   :=
 	noacc := +noacc=+ariane_tb.
+	questa-cmd   := -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; run -all;"
 	compile_flag += -O5
 endif
 
@@ -148,10 +152,8 @@ ifdef batch-mode
 	noacc := +noacc=p+dut.
 	questa-cmd   := -do "coverage save -onexit ./test.ucdb; run -a; quit -code [coverage attribute -name TESTSTATUS -concise]"
 	questa-cmd   += -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; run -all;"
-else
-	questa-cmd   := -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; log -r /*; run -all;"
 endif
-# we want to preload the memories
+
 ifdef preload
 	questa-cmd += +PRELOAD=$(preload)
   compile_flag +=  +PRELOAD=$(preload)
