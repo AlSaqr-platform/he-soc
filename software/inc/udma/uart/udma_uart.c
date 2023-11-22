@@ -129,7 +129,7 @@ int udma_uart_write(int uart_id, void *buffer, uint32_t size)
 
   unsigned int base = hal_udma_channel_base(channel);
 
-  plp_udma_enqueue(base, (int)buffer, size, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_8);
+  plp_udma_enqueue(base, (long)buffer, size, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_8);
 
   udma_uart_wait_tx_done(periph_id);
 
@@ -142,7 +142,7 @@ int udma_usart_write(int usart_id, void *buffer, uint32_t size)
 
   unsigned int base = hal_udma_channel_base(channel);
 
-  plp_udma_enqueue(base, (int)buffer, size, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_8);
+  plp_udma_enqueue(base, (long)buffer, size, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_8);
 
   udma_usart_wait_tx_done(periph_id);
 
@@ -157,7 +157,7 @@ int udma_uart_read(int uart_id, void *buffer, uint32_t size)
 
   unsigned int base = hal_udma_channel_base(channel);
 
-  plp_udma_enqueue(base, (int)buffer, size, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_8);
+  plp_udma_enqueue(base, (long)buffer, size, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_8);
 
   udma_uart_wait_rx_done(periph_id);
 
@@ -170,7 +170,7 @@ int udma_usart_read(int usart_id, void *buffer, uint32_t size)
 
   unsigned int base = hal_udma_channel_base(channel);
 
-  plp_udma_enqueue(base, (int)buffer, size, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_8);
+  plp_udma_enqueue(base, (long)buffer, size, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_8);
 
   udma_usart_wait_rx_done(periph_id);
 
