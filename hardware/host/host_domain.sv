@@ -205,12 +205,9 @@ module host_domain
    logic [NUM_ADV_TIMER-1 : 0]           s_pwm_irq;
    logic                                 s_c2h_irq;
 
-   logic                                 phy_clk;
-   logic                                 phy_clk_90;
-
    logic                                 s_periph_clk;
-   logic                                 eth_clk_i ; // 125 MHz quadrature
-   logic                                 eth_phy_tx_clk_i; // 125 MHz in-phase
+   logic                                 eth_clk_i ; // 125 MHz in 0
+   logic                                 eth_phy_tx_clk_i; // 125 MHz 90
 
    logic                                 s_llc_read_hit_cache;
    logic                                 s_llc_read_miss_cache;
@@ -440,8 +437,8 @@ module host_domain
         .hyper_axi_master     ( hyper_axi_bus        ),
 
         //Ethernet
-        .eth_clk_i            ( eth_clk_i            ), // 125 MHz quadrature
-        .eth_phy_tx_clk_i     ( eth_phy_tx_clk_i     ), // 125 MHz in-phase
+        .eth_clk_i            ( eth_clk_i            ), // 125 MHz 0
+        .eth_phy_tx_clk_i     ( eth_phy_tx_clk_i     ), // 125 MHz 90
         .eth_clk_200MHz_i     ( eth_clk_200MHz_i     ),
         .eth_to_pad           ( eth_to_pad           ),
         .pad_to_eth           ( pad_to_eth           ),
@@ -510,6 +507,7 @@ module host_domain
       .rst_dm_i               ( s_dm_rst                       ),
       .clk_cva6_o             ( s_clk_cva6                     ),
       .clk_soc_o              ( s_soc_clk                      ),
+      .s_clk_per_o            ( s_periph_clk                   ),
       .clk_opentitan_o        ( clk_opentitan_o                ),
       .rstn_soc_sync_o        ( s_synch_soc_rst                ),
       .rstn_global_sync_o     ( s_synch_global_rst             ),
