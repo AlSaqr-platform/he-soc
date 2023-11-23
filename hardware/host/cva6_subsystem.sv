@@ -313,7 +313,7 @@ module cva6_subsystem
     .rst_ni                ( rst_ni                    ),
     .req_i                 ( dm_master_req             ),
     .type_i                ( ariane_axi::SINGLE_REQ    ),
-    .trans_type_i          ( ariane_ace::READ_SHARED   ),
+    .trans_type_i          ( ace_pkg::READ_SHARED      ),
     .amo_i                 ( ariane_pkg::AMO_NONE      ),
     .busy_o                (                           ),
     .gnt_o                 ( dm_master_gnt             ),

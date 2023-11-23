@@ -21,8 +21,8 @@ module cva6_synth_wrap
  import ariane_ace::ar_chan_t;
  import ariane_ace::aw_chan_t;
  import ariane_axi::w_chan_t;
- import ariane_ace::m2s_t;
- import ariane_ace::s2m_t;
+ import ariane_ace::req_t;
+ import ariane_ace::resp_t;
  import ariane_axi_soc::*;
  import snoop_pkg::*;
  import ace_pkg::ccu_cfg_t; #(
@@ -132,8 +132,8 @@ module cva6_synth_wrap
   ) cva6_axi_master_src();
 
 
-  ariane_ace::m2s_t [ariane_soc::NumCVA6-1:0] ace_ariane_req;
-  ariane_ace::s2m_t [ariane_soc::NumCVA6-1:0] ace_ariane_resp;
+  ariane_ace::req_t [ariane_soc::NumCVA6-1:0] ace_ariane_req;
+  ariane_ace::resp_t [ariane_soc::NumCVA6-1:0] ace_ariane_resp;
 
   logic [ariane_soc::NumCVA6-1:0][1:0] hart_id;
 
@@ -149,8 +149,8 @@ module cva6_synth_wrap
       .axi_ar_chan_t ( ariane_ace::ar_chan_t    ),
       .axi_aw_chan_t ( ariane_ace::aw_chan_t    ),
       .axi_w_chan_t  ( ariane_axi::w_chan_t     ),
-      .axi_req_t     ( ariane_ace::m2s_t        ),
-      .axi_rsp_t     ( ariane_ace::s2m_t        )
+      .axi_req_t     ( ariane_ace::req_t        ),
+      .axi_rsp_t     ( ariane_ace::resp_t       )
     ) i_ariane (
       .clk_i                ( clk_i                 ),
       .rst_ni               ( rst_ni                ),
@@ -194,11 +194,12 @@ module cva6_synth_wrap
     AxiIdUsedSlvPorts: CVA6AXiIdWidth,
     UniqueIds: 1'b1,
     AxiAddrWidth: AXI_ADDR_WIDTH,
-    AxiDataWidth: AXI_DATA_WIDTH
+    AxiDataWidth: AXI_DATA_WIDTH,
+    AxiUserWidth: AXI_USER_WIDTH,
+    DcacheLineWidth: ariane_pkg::DCACHE_LINE_WIDTH
   };
 
   ace_ccu_top_intf #(
-    .AXI_USER_WIDTH ( AXI_USER_WIDTH ),
     .Cfg            ( CCU_CFG        )
   ) i_ccu (
     .clk_i                 ( clk_i           ),
