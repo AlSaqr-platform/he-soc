@@ -4,6 +4,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 0.0.4 - alsaqr_271123 - 27/11/2023
+
+### Hardware
+
+### Changed
+# CVA6
+- Updated CVA6 dependency with new PLANVTECH delivery.
+- In new PLANVTECH delivery, cache subsystem has changed. Check wisely the new paths names for the memory instances.
+- The gf22 memory macros instantiated are of the same cuts, but there are less in the ICACHE, while for the Dirty Cache, there are now 3x 128x64 macros (not only one), for each core.
+# TOP
+- Fixed performance bug with LLC
+- Fixed bug with Ethernet clock connections.
+- Host domain's bootrom update: fixed a bug preventing some of the CVA6 bootmodes
+
+### Feature Frozen Macros
+- Cluster
+- Open Titan
+- Hyperram
+
+### Work In progress Macro
+- Culsans
+
+### Software
+- Unified the old regressions tests with the new one. There are 22 tests now.
+
 ## 0.0.3 - alsaqr_031123 - 03/11/2023
 
 ### Hardware
