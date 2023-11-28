@@ -47,6 +47,9 @@ The CVA6 JTAG is connected to the PMOD0 port (J52 connector) of the VCU118 (refe
 
 ![alt text](./openocd/CVA6_jtag_connection.png)
 
+# NB: the two openocd config files for Ibex and CVA6 contains a command, ftdi_serial, where we specify the ID of the specific Olimex we use. This is needed because we are using two of them together, and we need to guarantee that we connect properly to the correct JTAG. You shall modify it with the IDs of yours.
+
+
 To run a test:
 
  * Open the hw manager and load the bitstream
