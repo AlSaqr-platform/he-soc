@@ -23,10 +23,8 @@ module alsaqr_xilinx
   (
     input         c0_sys_clk_p,
     input         c0_sys_clk_n,
-    inout wire    pad_uart0_rx,
-    inout wire    pad_uart0_tx,
-    inout wire    pad_uart1_rx,
-    inout wire    pad_uart1_tx,
+    inout wire    pad_periphs_cva6_uart_00_pad,
+    inout wire    pad_periphs_cva6_uart_01_pad,
 
     input wire    pad_reset,
 
@@ -65,6 +63,18 @@ module alsaqr_xilinx
     input wire    pad_jtag_tdi,
     output wire   pad_jtag_tdo,
     input wire    pad_jtag_tms
+
+    // OpenTitan jtag port
+    `ifndef EXCLUDE_ROT
+    ,
+    input wire    pad_jtag_ot_trst,
+    input wire    pad_jtag_ot_tck,
+    input wire    pad_jtag_ot_tdi,
+    output wire   pad_jtag_ot_tdo,
+    input wire    pad_jtag_ot_tms,
+
+    input wire    pad_bootmode
+    `endif
   );
 
   `ifdef EXCLUDE_LLC
@@ -80,7 +90,7 @@ module alsaqr_xilinx
 
    logic       reset_n;
 
-   assign reset_n = ~pad_reset & pad_jtag_trst;
+   assign reset_n = ~pad_reset;
 
   //***********************************************************************
   // Differential input clock input buffers
@@ -128,12 +138,19 @@ module alsaqr_xilinx
     ) i_alsaqr (
         .rst_ni           ( reset_n            ),
         .rtc_i            ( ref_clk            ),
+        `ifndef EXCLUDE_ROT
+        .jtag_ot_TCK      ( pad_jtag_ot_tck    ),
+        .jtag_ot_TMS      ( pad_jtag_ot_tms    ),
+        .jtag_ot_TDI      ( pad_jtag_ot_tdi    ),
+        .jtag_ot_TRSTn    ( pad_jtag_ot_trst   ),
+        .jtag_ot_TDO_data ( pad_jtag_ot_tdo    ),
+        .pad_bootmode     ( pad_bootmode       ),
+        `endif
         .jtag_TCK         ( pad_jtag_tck       ),
         .jtag_TMS         ( pad_jtag_tms       ),
         .jtag_TDI         ( pad_jtag_tdi       ),
-        .jtag_TRSTn       ( 1'b1               ),
+        .jtag_TRSTn       ( pad_jtag_trst      ),
         .jtag_TDO_data    ( pad_jtag_tdo       ),
-        .jtag_TDO_driven  (                    ),
 
         .pad_hyper_csn    ( hyper_cs_n_wire     ),
         .pad_hyper_ck     ( hyper_ck_wire       ),
