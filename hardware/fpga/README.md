@@ -155,3 +155,15 @@ from gdb terminal
 (d) c
 ```
 At this point, you should see the prints from Ibex and CVA6 to the screen terminal.
+
+## Install OpenOCD
+
+```
+git clone https://github.com/riscv/riscv-openocd.git
+cd riscv-openocd
+git checkout 3249d415595ee430164aa0429bcc7452c0f251fa
+./bootstrap
+./configure --enable-jtag_vpi --enable-jtag_dpi --enable-remote-bitbang --enable-fdti enable-ftdi-oscan1 --prefix=/path/to/install
+make
+make install
+```
