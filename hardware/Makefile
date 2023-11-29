@@ -43,7 +43,7 @@ root-dir := $(dir $(mkfile_path))
 # acc options
 # guide: define acc=<+"instance name".> , the dot includes all the child instances.
 # Example: <make clean sim acc=+u_RoT.>,  this will plot all the OpenTitan and subinstances signals (all the OT design)
-acc            ?= +acc=+ariane_tb.
+acc            ?= +acc
 noacc          ?=
 
 # regression
@@ -496,7 +496,7 @@ tb/vips/i2c_eeprom:
 
 vips: tb/vips/spi_flash tb/vips/hyperram_model tb/vips/i2c_eeprom
 
-init: bender vips scripts_vip
+init: bender vips update
 
 .PHONY: culsans-sw-init
 culsans-sw-init:
