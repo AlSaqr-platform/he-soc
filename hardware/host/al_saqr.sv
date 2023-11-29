@@ -171,6 +171,9 @@ module al_saqr
         inout wire logic    pad_periphs_ot_spi_03_pad,
       `endif
     `endif
+ `else
+   input logic fpga_pad_uart_rx_i,
+   output logic fpga_pad_uart_tx_o,
  `endif
 
   // JTAG
@@ -1009,9 +1012,11 @@ module al_saqr
   `REG_BUS_ASSIGN_FROM_RSP(i_padframecfg_rbus,reg_rsp)
 
   `ifdef EXCLUDE_PADFRAME
-   assign reg_rsp.ready = 1'b0;
+   assign reg_rsp.ready = 1'b1;
    assign reg_rsp.rdata = 32'hdeaddead;
    assign reg_rsp.error = 1'b0;
+   assign s_cva6_uart_rx = fpga_pad_uart_rx_i;
+   assign fpga_pad_uart_tx_o = s_cva6_uart_tx;
   `else
 
    `ifdef SIMPLE_PADFRAME
@@ -1301,9 +1306,11 @@ module al_saqr
           `ASSIGN_PERIPHS_FLL_CVA6_SOC2PAD(s_port_signals_soc2pad.periphs.fll_cva6,s_fll_to_pad)
 
     `else // !`ifndef FPGA_EMUL
-           assign reg_rsp.ready = 1'b0;
+           assign reg_rsp.ready = 1'b1;
            assign reg_rsp.rdata = 32'hdeaddead;
            assign reg_rsp.error = 1'b0;
+           assign s_cva6_uart_rx = fpga_pad_uart_rx_i;
+           assign fpga_pad_uart_tx_o = s_cva6_uart_tx;
     `endif // !`ifndef FPGA_EMUL
    `endif // !`ifdef SIMPLE_PADFRAME
   `endif // !`ifdef EXCLUDE_PADFRAME

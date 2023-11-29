@@ -23,10 +23,8 @@ module alsaqr_xilinx
   (
     input         c0_sys_clk_p,
     input         c0_sys_clk_n,
-    inout wire    pad_uart0_rx,
-    inout wire    pad_uart0_tx,
-    inout wire    pad_uart1_rx,
-    inout wire    pad_uart1_tx,
+    inout wire    pad_periphs_cva6_uart_00_pad,
+    inout wire    pad_periphs_cva6_uart_01_pad,
 
     input wire    pad_reset,
 
@@ -45,11 +43,38 @@ module alsaqr_xilinx
     inout       FMC_hyper0_rwds  ,
     inout       FMC_hyper0_reset ,
 
+    inout       FMC_hyper1_dqio0 ,
+    inout       FMC_hyper1_dqio1 ,
+    inout       FMC_hyper1_dqio2 ,
+    inout       FMC_hyper1_dqio3 ,
+    inout       FMC_hyper1_dqio4 ,
+    inout       FMC_hyper1_dqio5 ,
+    inout       FMC_hyper1_dqio6 ,
+    inout       FMC_hyper1_dqio7 ,
+    inout       FMC_hyper1_ck    ,
+    inout       FMC_hyper1_ckn   ,
+    inout       FMC_hyper1_csn0  ,
+    inout       FMC_hyper1_csn1  ,
+    inout       FMC_hyper1_rwds  ,
+    inout       FMC_hyper1_reset ,
+
     input wire    pad_jtag_trst,
     input wire    pad_jtag_tck,
     input wire    pad_jtag_tdi,
     output wire   pad_jtag_tdo,
     input wire    pad_jtag_tms
+
+    // OpenTitan jtag port
+    `ifndef EXCLUDE_ROT
+    ,
+    input wire    pad_jtag_ot_trst,
+    input wire    pad_jtag_ot_tck,
+    input wire    pad_jtag_ot_tdi,
+    output wire   pad_jtag_ot_tdo,
+    input wire    pad_jtag_ot_tms,
+
+    input wire    pad_bootmode
+    `endif
   );
 
   `ifdef EXCLUDE_LLC
@@ -65,7 +90,7 @@ module alsaqr_xilinx
 
    logic       reset_n;
 
-   assign reset_n = ~pad_reset & pad_jtag_trst;
+   assign reset_n = ~pad_reset;
 
   //***********************************************************************
   // Differential input clock input buffers
@@ -100,7 +125,7 @@ module alsaqr_xilinx
                                       .clk_out1(ref_clk)
                                       );
 
-    localparam NumPhys = 1;
+    localparam NumPhys = 2;
     wire  [NumPhys-1:0][1:0] hyper_cs_n_wire    ;
     wire  [NumPhys-1:0]      hyper_ck_wire      ;
     wire  [NumPhys-1:0]      hyper_ck_n_wire    ;
@@ -108,17 +133,29 @@ module alsaqr_xilinx
     wire  [NumPhys-1:0][7:0] hyper_dq_wire      ;
     wire  [NumPhys-1:0]      hyper_reset_n_wire ;
 
+    logic                    cva6_uart_rx, cva6_uart_tx;
+
+    pad_alsaqr_pu padinst_uart_rx    (.OEN( 1'b1   ), .I(1'b0         ), .O(cva6_uart_rx ), .PAD(pad_periphs_cva6_uart_01_pad   ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S) );
+    pad_alsaqr_pu padinst_uart_tx    (.OEN( 1'b0   ), .I(cva6_uart_tx ), .O(             ), .PAD(pad_periphs_cva6_uart_00_pad   ), .DRV(2'b00), .SLW(1'b0), .SMT(1'b0), .PWROK(PWROK_S), .IOPWROK(IOPWROK_S), .BIAS(BIAS_S), .RETC(RETC_S) );
+
     al_saqr #(
         .JtagEnable        ( 1'b1          )
     ) i_alsaqr (
         .rst_ni           ( reset_n            ),
         .rtc_i            ( ref_clk            ),
+        `ifndef EXCLUDE_ROT
+        .jtag_ot_TCK      ( pad_jtag_ot_tck    ),
+        .jtag_ot_TMS      ( pad_jtag_ot_tms    ),
+        .jtag_ot_TDI      ( pad_jtag_ot_tdi    ),
+        .jtag_ot_TRSTn    ( pad_jtag_ot_trst   ),
+        .jtag_ot_TDO_data ( pad_jtag_ot_tdo    ),
+        .pad_bootmode     ( pad_bootmode       ),
+        `endif
         .jtag_TCK         ( pad_jtag_tck       ),
         .jtag_TMS         ( pad_jtag_tms       ),
         .jtag_TDI         ( pad_jtag_tdi       ),
-        .jtag_TRSTn       ( 1'b1               ),
+        .jtag_TRSTn       ( pad_jtag_trst      ),
         .jtag_TDO_data    ( pad_jtag_tdo       ),
-        .jtag_TDO_driven  (                    ),
 
         .pad_hyper_csn    ( hyper_cs_n_wire     ),
         .pad_hyper_ck     ( hyper_ck_wire       ),
@@ -127,11 +164,8 @@ module alsaqr_xilinx
         .pad_hyper_reset  ( hyper_reset_n_wire  ),
         .pad_hyper_dq     ( hyper_dq_wire       ),
 
-        .cva6_uart_rx_i   ( pad_uart0_rx       ),
-        .cva6_uart_tx_o   ( pad_uart0_tx       ),
-
-        .apb_uart_rx_i    ( pad_uart1_rx       ),
-        .apb_uart_tx_o    ( pad_uart1_tx       )
+        .fpga_pad_uart_rx_i ( cva6_uart_rx      ),
+        .fpga_pad_uart_tx_o ( cva6_uart_tx      )
 
    );
 
@@ -149,5 +183,20 @@ module alsaqr_xilinx
    assign hyper_dq_wire[0][5]   = FMC_hyper0_dqio5;
    assign hyper_dq_wire[0][6]   = FMC_hyper0_dqio6;
    assign hyper_dq_wire[0][7]   = FMC_hyper0_dqio7;
+
+   assign hyper_cs_n_wire[1][0] = FMC_hyper1_csn0;
+   assign hyper_cs_n_wire[1][1] = FMC_hyper1_csn1;
+   assign hyper_ck_wire[1]      = FMC_hyper1_ck;
+   assign hyper_ck_n_wire[1]    = FMC_hyper1_ckn;
+   assign hyper_rwds_wire[1]    = FMC_hyper1_rwds;
+   assign hyper_reset_n_wire[1] = FMC_hyper1_reset;
+   assign hyper_dq_wire[1][0]   = FMC_hyper1_dqio0;
+   assign hyper_dq_wire[1][1]   = FMC_hyper1_dqio1;
+   assign hyper_dq_wire[1][2]   = FMC_hyper1_dqio2;
+   assign hyper_dq_wire[1][3]   = FMC_hyper1_dqio3;
+   assign hyper_dq_wire[1][4]   = FMC_hyper1_dqio4;
+   assign hyper_dq_wire[1][5]   = FMC_hyper1_dqio5;
+   assign hyper_dq_wire[1][6]   = FMC_hyper1_dqio6;
+   assign hyper_dq_wire[1][7]   = FMC_hyper1_dqio7;
 
 endmodule

@@ -53,11 +53,7 @@ clean:
 	rm -f $(APP).dump
 	rm -f *.slm
 
-# IMPORTANT: the inc_dir_culsans sw environment (taken from planvtech) contains a bug into the printf where it does not print anything when you pass a parameter to it
-build_culsans:
-	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir_culsans)/test.ld $(RISCV_LINK_OPTS) $(cc-elf-y) $(inc_dir_culsans)/crt.S  $(inc_dir_culsans)/syscalls.c $(inc_dir_culsans)/util.c -L $(inc_dir_culsans) $(APP).c -o $(APP).riscv
-
-build_single:
+build:
 	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir)/test.ld $(RISCV_LINK_OPTS) $(cc-elf-y) $(inc_dir)/crt.S $(inc_dir)/syscalls.c -L $(inc_dir) $(APP).c $(SRC) -o $(APP).riscv
 
 dis:
