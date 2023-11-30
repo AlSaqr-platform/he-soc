@@ -4,11 +4,7 @@ set_property CLOCK_DEDICATED_ROUTE ANY_CMT_COLUMN [get_nets u_ibufg_sys_clk/O]
 create_clock -period 6.400 [get_pins u_ddr4_0/c0_ddr4_ui_clk]
 
 #alsaqr clock
-if {$::env(MAIN_MEM)=="HYPER"} {
-create_clock -period 100 -name FPGA_CLK  [get_pins  alsaqr_clk_manager/clk_out1]
-} else {
-create_clock -period 50 -name FPGA_CLK  [get_pins  alsaqr_clk_manager/clk_out1]
-}
+create_clock -period ${SRC_CLK_PERIOD} -name ALSAQR_CLK  [get_pins  alsaqr_clk_manager/clk_out1]
 
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  u_ddr4_0/c0_ddr4_ui_clk]]
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_ports c0_sys_clk_p]]
