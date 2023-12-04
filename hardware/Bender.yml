@@ -41,7 +41,7 @@ dependencies:
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "d47f3d0d207a5f22f301706f825dbf960f97f56b" } # branch: master
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "0ec0bf8b7dab6d5e4b3f7ec58338a8efee066379" }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
-  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "d3852fee828813ba777b2b12d544f6c2518d126d" }
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "ep/titanssl" }
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
   ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "f2c8a5040596476ee1769292a7c48df9b1c05949" }
   sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }
@@ -220,7 +220,7 @@ sources:
     files:
       - gf22/synopsys/culsans/trial/netlists/cva6_synth_wrap.v
 
-  # RTL (USES FLL DUMMY) + OPENTITAN NETLIST 
+  # RTL (USES FLL DUMMY) + OPENTITAN NETLIST
   - target: post_synth_opentitan
     files:
       - gf22/synopsys/opentitan/trial/netlists/secure_subsystem_synth_wrap.v
