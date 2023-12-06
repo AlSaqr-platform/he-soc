@@ -54,7 +54,7 @@ module fll_dummy #(
 
    `ifdef GENERATE_CLOCK
    logic  clk;
-   parameter time ClkPeriod = 2.5ns;
+   parameter time ClkPeriod = 5ns;
 
 
    assign CFGACK = 1'b1;
