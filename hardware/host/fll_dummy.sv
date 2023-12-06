@@ -54,7 +54,7 @@ module fll_dummy #(
 
    `ifdef GENERATE_CLOCK
    logic  clk;
-   parameter time ClkPeriod = 5ns;
+   parameter time ClkPeriod = 2.5ns;
 
 
    assign CFGACK = 1'b1;
@@ -72,11 +72,11 @@ module fll_dummy #(
        clk = 1'b1;
        // Wait for at most half the clock period before emitting falling clock edge.  Due to integer
        // division, this is not always exactly half the clock period but as close as we can get.
-       #(ClkPeriod / 2);
+       #(ClkPeriod);
        // Emit falling clock edge.
        clk = 1'b0;
        // Wait for remainder of clock period before continuing with next cycle.
-       #((ClkPeriod + 1) / 2);
+       #(ClkPeriod);
      end // always
 
      for (genvar i=0;i<NB_FLL;i++) begin

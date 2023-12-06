@@ -453,7 +453,7 @@ module ariane_peripherals
       begin
 
         logic [3:0] eth_txd_o, eth_rxd_i;
-        logic                      eth_en, eth_we, eth_int_n, eth_pme_n, eth_mdio_i, eth_mdio_o, eth_mdio_oe;
+        logic                      eth_en, eth_we, eth_int_n, eth_mdio_i, eth_mdio_o, eth_mdio_oe;
         logic [AxiAddrWidth-1:0]   eth_addr;
         logic [AxiDataWidth-1:0]   eth_wrdata, eth_rdata;
         logic [AxiDataWidth/8-1:0] eth_be;
@@ -476,7 +476,7 @@ module ariane_peripherals
         ) axi2ethernet (
             .clk_i  ( clk_i                   ),
             .rst_ni ( rst_ni                  ),
-            .slave  ( ethernet                ),
+            .slave  ( ethernet                ), 
             .req_o  ( eth_en                  ),
             .we_o   ( eth_we                  ),
             .addr_o ( eth_addr                ),
@@ -512,10 +512,9 @@ module ariane_peripherals
            .phy_reset_n( eth_to_pad.eth_rstn_o ),
            .phy_mdc( eth_to_pad.eth_mdc_o ),
 
-           .phy_int_n( ),
-           .phy_pme_n( ),
+           .phy_mdio_i(1'b0),
 
-           .phy_mdio_i(pad_to_eth.eth_md_i),
+           //.phy_mdio_i(pad_to_eth.eth_md_i),
            .phy_mdio_o(eth_to_pad.eth_md_o),
            .phy_mdio_oe(eth_to_pad.eth_md_oe),
 

@@ -28,6 +28,7 @@ import pkg_internal_alsaqr_periph_fpga_padframe_periphs::*;
 
 `include "uvm_macros.svh"
 `include "axi/assign.svh"
+`include "axi/typedef.svh"
 `include "register_interface/typedef.svh"
 `include "register_interface/assign.svh"
 
@@ -64,6 +65,95 @@ module ariane_tb;
   logic s_bypass;
   localparam NumPhys = ariane_soc::HyperbusNumPhys;
   localparam NumChips = ariane_soc::NumChipsPerHyperbus;
+    parameter DW       = 64;
+  parameter AW       = 64;
+  parameter IW       = 9;
+  parameter UW       = 1;
+     logic                 s_eth_clk125_0;
+          logic                 s_eth_clk125_90;
+          logic                 s_eth_clk200;  
+          logic                 s_eth_rstni;
+          logic            eth_en, eth_we, eth_int_n, eth_mdio_i, eth_mdio_o, eth_mdio_oe, w_eth_rstn;
+          logic [AW-1:0]   eth_addr;
+          logic [DW-1:0]   eth_wrdata, eth_rdata;
+          logic [DW/8-1:0] eth_be;
+
+           AXI_BUS_DV
+            #(
+            .AXI_ADDR_WIDTH(AW),
+            .AXI_DATA_WIDTH(DW),
+            .AXI_ID_WIDTH(IW),
+            .AXI_USER_WIDTH(UW)
+          )
+         axi_master_dv(clk_i);
+
+          AXI_BUS
+            #(
+            .AXI_ADDR_WIDTH(AW),
+            .AXI_DATA_WIDTH(DW),
+            .AXI_ID_WIDTH(IW),
+            .AXI_USER_WIDTH(UW)
+          )
+         axi_master();       
+
+         `AXI_ASSIGN(axi_master, axi_master_dv)
+           // `AXI_ASSIGN(axi_master_tx, axi_master_tx_dv)
+        
+
+           typedef axi_test::axi_driver #(.AW(AW), .DW(DW), .IW(IW), .UW(UW), .TA(200ps), .TT(700ps)) axi_drv_t;
+           axi_drv_t axi_master_drv =  new(axi_master_dv);
+           
+           typedef logic [AW-1:0]   axi_addr_t;
+           typedef logic [DW-1:0]   axi_data_t;
+           typedef logic [DW/8-1:0] axi_strb_t;
+           typedef logic [IW-1:0]   axi_id_t;
+
+           //beats
+            axi_test::axi_ax_beat #(.AW(AW), .IW(IW), .UW(UW)) ar_beat = new();  
+            axi_test::axi_r_beat  #(.DW(DW), .IW(IW), .UW(UW)) r_beat  = new();
+            axi_test::axi_ax_beat #(.AW(AW), .IW(IW), .UW(UW)) aw_beat = new();
+            axi_test::axi_w_beat  #(.DW(DW), .UW(UW))          w_beat  = new();
+            axi_test::axi_b_beat  #(.IW(IW), .UW(UW))          b_beat  = new();
+    
+           
+  task reset_master;
+      input axi_drv_t axi_master_drv;
+      
+      axi_master_drv.reset_master();
+      
+   endtask // reset_master
+
+           task read_axi;
+              input axi_drv_t axi_master_drv;
+              input axi_addr_t raddr;
+
+              ar_beat.ax_addr  = raddr;
+              axi_master_drv.send_ar(ar_beat);
+              axi_master_drv.recv_r(r_beat);
+              $display("Read data: %x", r_beat.r_data);
+              
+           endtask // read_axi
+
+              // axi write task ----------------------------------------------
+   
+   task write_axi;
+      input axi_drv_t axi_master_drv;    
+      input axi_addr_t waddr;
+      input axi_data_t wdata;
+      input axi_strb_t wstrb;
+
+      aw_beat.ax_addr  = waddr;
+      w_beat.w_strb    = wstrb;
+      w_beat.w_last    = 1'b1;
+      w_beat.w_data    = wdata;
+
+      axi_master_drv.send_aw(aw_beat);
+      axi_master_drv.send_w(w_beat);
+      $display("Written data: %x", w_beat.w_data);
+      axi_master_drv.recv_b(b_beat);
+      
+   endtask; // write_axi
+
 
   localparam ENABLE_DM_TESTS = 0;
 
@@ -75,6 +165,10 @@ module ariane_tb;
   parameter  USE_SDVT_CPI         = 1;
   parameter  USE_SDIO             = 1;
   parameter  USE_CAN              = 1;
+  parameter  USE_ETHERNET         = 1;
+
+
+
 
   ////////////////////////////////
   //                            //
@@ -167,6 +261,12 @@ module ariane_tb;
     wire [7:0]            w_cam_1_data;
     wire                  w_cam_hsync;  //is his even needed???
     wire                  w_cam_vsync;  //is his even needed???
+
+    wire [3:0]            w_eth_tx0_data;
+    wire [3:0]            w_eth_rx0_data;
+
+    wire [3:0]            w_eth_tx2_data;
+    wire [3:0]            w_eth_rx2_data;
 
     logic                 s_ot_tms         ;
     logic                 s_ot_tdi         ;
@@ -1074,11 +1174,11 @@ module ariane_tb;
                .pad_periphs_a_19_pad(pad_periphs_a_19_pad),
                .pad_periphs_a_20_pad(pad_periphs_a_20_pad),
                .pad_periphs_a_21_pad(pad_periphs_a_21_pad),
-               .pad_periphs_a_22_pad(pad_periphs_a_22_pad),
-               .pad_periphs_a_23_pad(pad_periphs_a_23_pad),
-               .pad_periphs_a_24_pad(pad_periphs_a_24_pad),
-               .pad_periphs_a_25_pad(pad_periphs_a_25_pad),
-               .pad_periphs_a_26_pad(pad_periphs_a_26_pad),
+              .pad_periphs_a_22_pad(pad_periphs_a_22_pad),
+              .pad_periphs_a_23_pad(pad_periphs_a_23_pad),
+              .pad_periphs_a_24_pad(pad_periphs_a_24_pad),
+              .pad_periphs_a_25_pad(pad_periphs_a_25_pad),
+              .pad_periphs_a_26_pad(pad_periphs_a_26_pad),
                .pad_periphs_a_27_pad(pad_periphs_a_27_pad),
                .pad_periphs_a_28_pad(pad_periphs_a_28_pad),
                .pad_periphs_a_29_pad(pad_periphs_a_29_pad),
@@ -1343,6 +1443,7 @@ module ariane_tb;
           // config the CAN0 pads
           assign alt_0_pad_periphs_b_43_pad_CAN0_RX = alt_0_pad_periphs_b_42_pad_CAN0_TX;
         end
+
         //**************************************************
         // ALTERNAME 0 - STANDARD CPGA VIPs END
         //**************************************************
@@ -1574,6 +1675,182 @@ module ariane_tb;
                     alt_2_pad_periphs_a_09_pad_WIRELESS_SDIO1_D0
                   } )
           );
+        end
+
+          if (USE_ETHERNET == 1) begin
+       
+           
+       
+            axi2mem #(
+            .AXI_ID_WIDTH   ( IW       ),
+            .AXI_ADDR_WIDTH ( AW    ),
+            .AXI_DATA_WIDTH ( DW    ),
+            .AXI_USER_WIDTH ( UW    )
+            ) axi2ethernet_alt2 (
+                .clk_i  ( clk_i                   ),
+                .rst_ni ( s_eth_rstni             ),
+                .slave  ( axi_master              ),
+                .req_o  ( eth_en                  ),
+                .we_o   ( eth_we                  ),
+                .addr_o ( eth_addr                ),
+                .be_o   ( eth_be                  ),
+                .data_o ( eth_wrdata              ),
+                .data_i ( eth_rdata               )
+            );
+
+          framing_top eth_rgmii_alt2 (
+           .msoc_clk(clk_i),
+           .core_lsu_addr(eth_addr[14:0]),
+           .core_lsu_wdata(eth_wrdata),
+           .core_lsu_be(eth_be),
+           .ce_d(eth_en),
+           .we_d(eth_en & eth_we),
+           .framing_sel(eth_en),
+           .framing_rdata(eth_rdata),
+           .rst_int(!s_eth_rstni),
+
+           .clk_int( s_eth_clk125_0  ), // 125 MHz in-phase
+           .clk90_int(  s_eth_clk125_90 ),    // 125 MHz quadrature
+           .clk_200_int(s_eth_clk200),
+           /*
+            * Ethernet: 1000BASE-T RGMII
+            */
+           .phy_rx_clk( alt_2_pad_periphs_a_22_pad_ETH_TXCK ),
+           .phy_rxd( w_eth_tx2_data ),
+           .phy_rx_ctl( alt_2_pad_periphs_a_23_pad_ETH_TXCTL),
+
+           .phy_tx_clk( alt_2_pad_periphs_a_16_pad_ETH_RXCK ),
+           .phy_txd ( w_eth_rx2_data ),
+           .phy_tx_ctl( alt_2_pad_periphs_a_17_pad_ETH_RXCTL),
+           .phy_reset_n(w_eth_rstn) ,
+           .phy_mdc( ),
+
+           .phy_int_n(1'b1  ),
+           .phy_pme_n( 1'b1 ),
+
+           .phy_mdio_i(1'b0 ),
+           .phy_mdio_o(),
+           .phy_mdio_oe(),
+
+           .eth_irq()
+          );
+          
+    
+          
+          assign alt_2_pad_periphs_a_18_pad_ETH_RXD0 = w_eth_rx2_data[0] ;
+          assign alt_2_pad_periphs_a_19_pad_ETH_RXD1 = w_eth_rx2_data[1] ;
+          assign alt_2_pad_periphs_a_20_pad_ETH_RXD2 = w_eth_rx2_data[2] ;
+          assign alt_2_pad_periphs_a_21_pad_ETH_RXD3 = w_eth_rx2_data[3] ;
+          
+          assign w_eth_tx2_data[0] = alt_2_pad_periphs_a_24_pad_ETH_TXD0 ;
+          assign w_eth_tx2_data[1] = alt_2_pad_periphs_a_25_pad_ETH_TXD1 ;
+          assign w_eth_tx2_data[2] = alt_2_pad_periphs_a_26_pad_ETH_TXD2 ;
+          assign w_eth_tx2_data[3] = alt_2_pad_periphs_a_27_pad_ETH_TXD3 ;
+
+          logic [DW:0] data_array [7:0];
+         initial begin
+            data_array[0] = 64'h1032207098001032; //1 --> 230100890702 2301, mac dest + inizio di mac source
+            data_array[1] = 64'h3210E20020709800; //2 --> 00890702 002E 0123, fine mac source + length + payload
+            data_array[2] = 64'h1716151413121110; // payload
+            data_array[3] = 64'h2726252423222120;
+            data_array[4] = 64'h3736353433323130;
+            data_array[5] = 64'h4746454443424140;
+            data_array[6] = 64'h5756555453525150;
+            data_array[7] = 64'h6766656463626160;
+           end
+
+           // // initialization read addresses
+           logic [AW-1:0] read_addr [7:0];
+           initial begin
+              read_addr[0] = 64'h3000_4000;
+              read_addr[1] = 64'h3000_4008;
+              read_addr[2] = 64'h3000_4010;
+              read_addr[3] = 64'h3000_4018;
+              read_addr[4] = 64'h3000_4020;
+              read_addr[5] = 64'h3000_4028;
+              read_addr[6] = 64'h3000_4030;
+              read_addr[7] = 64'h3000_4038;
+           end
+           
+             // initialization write addresses
+           logic [AW-1:0] write_addr [7:0];
+           initial begin
+              write_addr[0] = 64'h3000_1000;
+              write_addr[1] = 64'h3000_1008;
+              write_addr[2] = 64'h3000_1010;
+              write_addr[3] = 64'h3000_1018;
+              write_addr[4] = 64'h3000_1020;
+              write_addr[5] = 64'h3000_1028;
+              write_addr[6] = 64'h3000_1030;
+              write_addr[7] = 64'h3000_1038;
+           end
+
+            logic [63:0] rx_read_data;
+            assign rx_read_data=axi_master.r_data;
+            
+
+
+           event       tx_complete;
+           logic       en_rx_memw;
+           assign en_rx_memw = eth_rgmii_alt2.RAMB16_inst_rx.genblk1[0].mem_wrap_rx_inst.enaB;
+
+      initial begin
+        while(1) begin
+           @(posedge en_rx_memw);
+           @(negedge en_rx_memw);
+           -> tx_complete;
+        end
+     end
+
+       // Check if the data received and stored in the rx memory matches the transmitted data
+       
+       initial begin
+          int continue_loop = 1;
+          while(continue_loop) begin
+             wait(tx_complete.triggered);
+             for(int i=0; i<8; i++) begin
+                read_axi(axi_master_drv, read_addr[i]);
+                if(rx_read_data == data_array[i]) $display(" data correct");
+                else begin
+                   $display("Data wrong");
+                   //$stop();
+                end
+             end
+              //$stop();
+              continue_loop = 0;
+          end
+
+      reset_master(axi_master_drv);
+      repeat(5) @(posedge clk_i);
+          
+                // Packet length
+      write_axi(axi_master_drv,'h30000810,'h00000040, 'h0f);
+      repeat(5) @(posedge clk_i);
+
+      // TX BUFFER FILLING ----------------------------------------------
+      for(int j=0; j<8; j++) begin
+         write_axi(axi_master_drv, write_addr[j], data_array[j], 'hff);
+         @(posedge clk_i);
+      end
+      repeat(10) @(posedge clk_i);
+
+      // TRANSMISSION OF PACKET -----------------------------------------
+      // 1 --> mac_address[31:0]
+      write_axi(axi_master_drv,'h30000800,'h00890702, 'h0f);
+      @(posedge clk_i);
+
+      // 2 --> {irq_en,promiscuous,spare,loopback,cooked,mac_address[47:32]}
+      write_axi(axi_master_drv,'h30000808,'h00802301, 'h0f); 
+      @(posedge clk_i);
+
+      // 3 --> Rx frame check sequence register(read) and last register(write)
+      write_axi(axi_master_drv,'h30000828,'h00000008, 'h0f);
+      @(posedge clk_i);
+       end
+       
+
+          // make use of all pads
+
         end
         //**************************************************
         // ALTERNAME 2 - COMM QFN VIPs END
@@ -2652,6 +2929,10 @@ module ariane_tb;
   end
 
   assign clk_i = dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o;
+  assign s_eth_clk125_0 = dut.i_host_domain.i_clk_gen_ethernet.clk0_o;
+  assign s_eth_clk125_90 = dut.i_host_domain.i_clk_gen_ethernet.clk90_o;
+  assign s_eth_clk200 = dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o;
+  assign s_eth_rstni =  dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.rstn_soc_sync_o;
 
   initial begin
     s_tck = '0;
