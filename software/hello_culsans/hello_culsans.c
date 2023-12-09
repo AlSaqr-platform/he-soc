@@ -4,7 +4,7 @@
 #include "utils.h"
 #include "encoding.h"
 
-#define FPGA_EMULATION
+//#define FPGA_EMULATION
 
 __attribute__ ((section(".heapl2ram"))) volatile int flag[2] = { 0, 0};
 
@@ -28,7 +28,6 @@ static __attribute__ ((noinline)) void unlock(int cid) {
 int thread_entry(int cid, int nc){
 
   int core_id =  read_csr(mhartid);
-
   lock(cid);
 
   #ifdef FPGA_EMULATION
@@ -40,6 +39,8 @@ int thread_entry(int cid, int nc){
   set_flls();
   int baud_rate = 115200;
   int test_freq = 100000000;
+  alsaqr_periph_padframe_periphs_a_00_mux_set(3);
+  alsaqr_periph_padframe_periphs_a_01_mux_set(3);
   #endif
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 

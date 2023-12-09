@@ -2935,6 +2935,8 @@ module ariane_tb;
   end
 `endif
 
+uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_pad), .tx(), .rx_en(1'b1)); //1470588
+
   ////////////
   //  JTAG  //
   ////////////
