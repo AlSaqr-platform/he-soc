@@ -19,7 +19,7 @@ endif
 
 utils_dir = $(SW_HOME)/inc/
 
-inc_dirs = . drivers/inc string_lib/inc padframe/inc fpga_padframe/inc udma udma/cpi udma/i2c udma/spim udma/uart udma/sdio apb_timer gpio
+inc_dirs = . drivers/inc string_lib/inc padframe/inc fpga_padframe/inc udma udma/cpi udma/i2c udma/spim udma/uart udma/sdio apb_timer gpio ../../../BearSSL/src ../../../BearSSL/inc ../../../BearSSL/build
 
 src_dirs = . drivers/src string_lib/src udma/uart padframe/src fpga_padframe/src
 
@@ -41,8 +41,8 @@ RISCV_GCC ?= $(RISCV_PREFIX)gcc
 
 RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump -h --disassemble-all --disassemble-zeroes --section=.text --section=.text.startup --section=.text.init --section=.data --section=.tohost --section=.sdata --section=.rodata --section=.sbss --section=.bss --section=.tdata --section=.tbss --section=.stack -t -s
 
-RISCV_FLAGS     := -mcmodel=medany -static -std=gnu99 -DNUM_CORES=2 -O3 -ffast-math -fno-common -fno-builtin-printf $(INC)
-RISCV_LINK_OPTS := -static -nostdlib -nostartfiles -lm -lgcc
+RISCV_FLAGS     := -mcmodel=medany -static -std=gnu99 -DNUM_CORES=2 -O3 -ffast-math -fno-common -fno-builtin-printf -ffreestanding $(INC)
+RISCV_LINK_OPTS := -static -nostdlib -nostartfiles -lm
 
 
 ifdef fpga
@@ -59,7 +59,7 @@ clean:
 	rm -f *.slm
 
 build:
-	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir)/test.ld $(RISCV_LINK_OPTS) $(cc-elf-y) $(inc_dir)/crt.S $(inc_dir)/syscalls.c -L $(inc_dir) $(APP).c $(SRC) -o $(APP).riscv
+	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir)/test.ld $(RISCV_LINK_OPTS) $(cc-elf-y) $(inc_dir)/crt.S $(inc_dir)/syscalls.c -L $(inc_dir) $(APP).c $(SRC) -o $(APP).riscv -static -lbearssl
 
 dis:
 	$(RISCV_OBJDUMP) $(APP).riscv > $(APP).dump
