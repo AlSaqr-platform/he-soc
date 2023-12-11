@@ -65,7 +65,7 @@ dump:
 	cp $(APP).riscv  $(HW_HOME)/
 	echo $(APP).riscv | tee -a  $(HW_HOME)/regression.list
 
-all: clean build_single dis dump
+all: clean build dis dump
 
 rtl:
 	 $(MAKE) -C $(SW_HOME)/../hardware/ -B all
