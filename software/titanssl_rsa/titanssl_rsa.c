@@ -12,9 +12,16 @@ typedef struct
     size_t n;
 } titanssl_buffer_t;
 
+typedef struct {
+    uint8_t* modulus;
+    uint8_t* exponent;
+    size_t n;
+} RSAKey;
+
 static titanssl_buffer_t titanssl_data_src;
 static titanssl_buffer_t titanssl_data_dst;
-static titanssl_buffer_t titanssl_data_key;
+static RSAKey titanssl_data_pub_key;
+static RSAKey titanssl_data_priv_key;
 
 /* ============================================================================
  * Benchmark setup
@@ -31,18 +38,16 @@ static titanssl_buffer_t titanssl_data_key;
 
 #define TITANSSL_DATA_SRC 0x80720000
 #define TITANSSL_DATA_DST 0x80740000
-#define TITANSSL_DATA_KEY 0x80760000
+#define TITANSSL_DATA_PUB_KEY_MOD 0x80760000
+#define TITANSSL_DATA_PUB_KEY_EXP 0x80770000
+#define TITANSSL_DATA_PRIV_KEY_MOD 0x80780000
+#define TITANSSL_DATA_PRIV_KEY_EXP 0x80790000
 
 #define TITANSSL_PAYLOAD_SIZE RSA / 8
 
 /* ============================================================================
  * Benchmark original configs 
  * ========================================================================= */
-
-typedef struct {
-    uint8_t* modulus;
-    uint8_t* exponent;
-} RSAKey;
 
 static const uint8_t _in[TITANSSL_PAYLOAD_SIZE] = {
   "Hello OTBN, can you encrypt and decrypt this for me?"
@@ -58,7 +63,7 @@ static const uint8_t _mod[TITANSSL_PAYLOAD_SIZE] = // { 0x01 };
       0x1a, 0x3f, 0x77, 0xdc, 0xc6, 0x27, 0x6d, 0x83, 0x5c, 0xcd, 0x1d,
       0xdf, 0xe5, 0xf3, 0x98, 0xe6, 0x8b, 0xe6, 0x5b, 0xd4};
 
- static const uint8_t _exp_encrypted[TITANSSL_PAYLOAD_SIZE] = {
+ static const uint8_t _out[TITANSSL_PAYLOAD_SIZE] = {
       0xb7, 0x02, 0x28, 0xcb, 0x63, 0x5e, 0xa6, 0xfd, 0x55, 0x4a, 0x85,
       0x43, 0x1d, 0x26, 0x13, 0xb3, 0x78, 0x66, 0xd9, 0xe2, 0xe1, 0xbf,
       0x29, 0xc6, 0xc6, 0xdd, 0x90, 0x76, 0x3f, 0x1d, 0x43, 0xc0, 0x76,
@@ -88,7 +93,7 @@ static const uint8_t _mod[TITANSSL_PAYLOAD_SIZE] = {
       0x8c, 0xd,  0x7c, 0x76, 0xc5, 0x85, 0xa7, 0xa,  0xa1, 0x91, 0xe0, 0xad,
       0xae, 0xfa, 0xb,  0xc5, 0xc4, 0x88, 0x7e, 0xbe};
 
-  static const uint8_t _exp_encrypted[TITANSSL_PAYLOAD_SIZE] = {
+  static const uint8_t  _out[TITANSSL_PAYLOAD_SIZE] = {
       0x1,  0x66, 0x7f, 0x2,  0xdb, 0x27, 0x92, 0x7d, 0xd6, 0x41, 0x4e, 0xbf,
       0x47, 0x31, 0x95, 0x8e, 0xfb, 0x5d, 0xee, 0xa1, 0xdf, 0x6d, 0x31, 0xd2,
       0xeb, 0xee, 0xe2, 0xf4, 0xa4, 0x21, 0xa9, 0xb9, 0xd2, 0xcf, 0x94, 0xfe,
@@ -131,9 +136,9 @@ void mod_exp(uint8_t* result, uint8_t* base, uint8_t* exp, uint8_t* mod) {
     memset(result, 0, TITANSSL_PAYLOAD_SIZE);
     result[TITANSSL_PAYLOAD_SIZE - 1] = 1;
 
-    for (i = 0; i < TITANSSL_PAYLOAD_SIZE; i++) {
+    for (i = 0; i < RSA; i++) {
         if (exp[i / 8] & (1 << (i % 8))) {
-            uint8_t* temp[TITANSSL_PAYLOAD_SIZE];
+            uint8_t temp[TITANSSL_PAYLOAD_SIZE];
             memcpy(temp, result, TITANSSL_PAYLOAD_SIZE);
         
             for (int j = 1; j < base[i / 8]; j++)
@@ -143,7 +148,7 @@ void mod_exp(uint8_t* result, uint8_t* base, uint8_t* exp, uint8_t* mod) {
                 result[j] %= mod[j];
         }
 
-        uint8_t* temp[TITANSSL_PAYLOAD_SIZE];
+        uint8_t temp[TITANSSL_PAYLOAD_SIZE];
         memcpy(temp, base, TITANSSL_PAYLOAD_SIZE);
 
         for (int j = 1; j < base[i / 8]; j++)
@@ -157,86 +162,90 @@ void mod_exp(uint8_t* result, uint8_t* base, uint8_t* exp, uint8_t* mod) {
 
 // Function to perform RSA encryption
 void rsa_encrypt(uint8_t* plaintext, uint8_t* modulus, uint8_t* exponent, uint8_t* ciphertext) {
-    uint8_t plain_num[TITANSSL_PAYLOAD_SIZE];
-    memcpy(plain_num, plaintext, TITANSSL_PAYLOAD_SIZE);
-    uint8_t encrypted_num[TITANSSL_PAYLOAD_SIZE];
-    mod_exp(encrypted_num, plain_num, exponent, modulus);
-    memcpy(ciphertext, encrypted_num, TITANSSL_PAYLOAD_SIZE);
+    mod_exp(ciphertext, plaintext, exponent, modulus);
 }
 
 // Function to perform RSA decryption
-void rsa_decrypt(uint8_t* ciphertext, RSAKey private_key, uint8_t* decrypted_text) {
-    uint8_t encrypted_num[TITANSSL_PAYLOAD_SIZE];
-    memcpy(encrypted_num, ciphertext, TITANSSL_PAYLOAD_SIZE);
-    uint8_t decrypted_num[TITANSSL_PAYLOAD_SIZE];
-    mod_exp(decrypted_num, encrypted_num, private_key.exponent, private_key.modulus);
-    memcpy(decrypted_text, decrypted_num, TITANSSL_PAYLOAD_SIZE);
+void rsa_decrypt(uint8_t* ciphertext, RSAKey* private_key, uint8_t* decrypted_text) {
+    mod_exp(decrypted_text, ciphertext, private_key->exponent, private_key->modulus);
 }
 
 static int titanssl_benchmark(
         titanssl_buffer_t *const src,
         titanssl_buffer_t *const dst,
-        titanssl_buffer_t *const key)
+        RSAKey *const pub_key,
+        RSAKey *const priv_key)
 {
     
-    RSAKey private_key;
-    memcpy(private_key.exponent, _priv_exp, TITANSSL_PAYLOAD_SIZE);
-    memcpy(private_key.modulus, _mod, TITANSSL_PAYLOAD_SIZE);
-    RSAKey public_key;
-    memcpy(public_key.exponent, _pub_exp, TITANSSL_PAYLOAD_SIZE);
-    memcpy(public_key.modulus, _mod, TITANSSL_PAYLOAD_SIZE);
+    memcpy(priv_key->exponent, _priv_exp, TITANSSL_PAYLOAD_SIZE);
+    memcpy(priv_key->modulus, _mod, TITANSSL_PAYLOAD_SIZE);
+    memcpy(pub_key->exponent, _pub_exp, TITANSSL_PAYLOAD_SIZE);
+    memcpy(pub_key->modulus, _mod, TITANSSL_PAYLOAD_SIZE);
 
 #if TITANSSL_BENCHMARK_DEBUG
     memcpy(src->data, _in, TITANSSL_PAYLOAD_SIZE);
 #endif
 
     // Encryption
-    rsa_encrypt(src->data, public_key.modulus, public_key.exponent, dst->data);
+    rsa_encrypt(src->data, pub_key->modulus, pub_key->exponent, dst->data);
 
     // Decryption
-    rsa_decrypt(dst->data, private_key, src->data);
+    rsa_decrypt(dst->data, priv_key, src->data);
 
+#if TITANSSL_BENCHMARK_DEBUG
     printf("Encrypted Text:: %s\t\n");
     for (int i = 0; i < TITANSSL_PAYLOAD_SIZE; i++) {
-        printf("%02X\t\n", src->data[i]);
+        printf("%02X vs %02X\t\n", dst->data[i], _out[i]);
     }
-
     printf("Decrypted Text:: %s\t\n");
     for (int i = 0; i < TITANSSL_PAYLOAD_SIZE; i++) {
-        printf("%02X\t\n", dst->data[i]);
+        printf("%02X vs %02X\t\n", src->data[i], _in[i]);
     }
+#endif
 
     return 0;
 
 }
 
 void initialize_memory(
+        size_t nn,
         uint8_t *src_data,
-        size_t src_n,
         uint8_t *dst_data,
-        size_t dst_n,
-        uint8_t *key_data,
-        size_t key_n)
+        uint8_t *pub_key_mod,
+        uint8_t *pub_key_exp,
+        uint8_t *priv_key_mod,
+        uint8_t *priv_key_exp)
 {
     titanssl_data_src.data = src_data;
-    titanssl_data_src.n = src_n;
-    for (size_t i=0; i<src_n; i++)
+    titanssl_data_src.n = nn;
+    for (size_t i=0; i<nn; i++)
     {
         titanssl_data_src.data[i] = 0x0;
     }
 
     titanssl_data_dst.data = dst_data;
-    titanssl_data_dst.n = dst_n;
-    for (size_t i=0; i<dst_n; i++)
+    titanssl_data_dst.n = nn;
+    for (size_t i=0; i<nn; i++)
     {
         titanssl_data_dst.data[i] = 0x0;
     }
 
-    titanssl_data_key.data = key_data;
-    titanssl_data_key.n = key_n;
-    for (size_t i=0; i<key_n; i++)
+    titanssl_data_pub_key.modulus = pub_key_mod;
+    titanssl_data_pub_key.exponent = pub_key_exp;
+    titanssl_data_pub_key.n = nn;
+    for (size_t i=0; i<nn; i++)
     {
-        titanssl_data_key.data[i] = 0x0;
+        titanssl_data_pub_key.modulus[i] = 0x0;
+        titanssl_data_pub_key.exponent[i] = 0x0;
+    }
+
+    titanssl_data_priv_key.modulus = priv_key_mod;
+    titanssl_data_priv_key.exponent = priv_key_exp;
+    titanssl_data_priv_key.n = nn;
+    for (size_t i=0; i<nn; i++)
+    {
+        titanssl_data_priv_key.modulus[i] = 0x0;
+        titanssl_data_priv_key.exponent[i] = 0x0;
     }
 }
 
@@ -258,18 +267,20 @@ int main(
     );
 
     initialize_memory(
+        TITANSSL_PAYLOAD_SIZE,
         (uint8_t*)TITANSSL_DATA_SRC,
-        TITANSSL_PAYLOAD_SIZE,
         (uint8_t*)TITANSSL_DATA_DST,
-        TITANSSL_PAYLOAD_SIZE,
-        (uint8_t*)TITANSSL_DATA_KEY,
-        TITANSSL_PAYLOAD_SIZE
+        (uint8_t*)TITANSSL_DATA_PUB_KEY_MOD,
+        (uint8_t*)TITANSSL_DATA_PUB_KEY_EXP,
+        (uint8_t*)TITANSSL_DATA_PRIV_KEY_MOD,
+        (uint8_t*)TITANSSL_DATA_PRIV_KEY_EXP
     );
 
     titanssl_benchmark(
         &titanssl_data_src,
         &titanssl_data_dst,
-        &titanssl_data_key
+        &titanssl_data_pub_key,
+        &titanssl_data_priv_key
     );
 
 	return 0;
