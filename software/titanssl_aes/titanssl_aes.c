@@ -14,6 +14,8 @@ typedef struct
 static titanssl_buffer_t titanssl_data_src;
 static titanssl_buffer_t titanssl_data_dst;
 static titanssl_buffer_t titanssl_data_key;
+static titanssl_buffer_t titanssl_data_exp;
+static titanssl_buffer_t titanssl_data_iv;
 
 /* ============================================================================
  * Benchmark setup
@@ -25,7 +27,7 @@ static titanssl_buffer_t titanssl_data_key;
 // Configure payload size.
 #define TITANSSL_BENCHMARK_PAYLOAD 64 // 2354 // 65536
 
-#define AES256
+#define AES 256
 
 /* ============================================================================
  * Benchmark automatic configuration
@@ -34,14 +36,15 @@ static titanssl_buffer_t titanssl_data_key;
 #define TITANSSL_DATA_SRC 0x80720000
 #define TITANSSL_DATA_DST 0x80740000
 #define TITANSSL_DATA_KEY 0x80760000
+#define TITANSSL_DATA_EXP 0x80780000
+#define TITANSSL_DATA_IV  0x80800000
 
 #define TITANSSL_PAYLOAD_SIZE TITANSSL_BENCHMARK_PAYLOAD
-#define TITANSSL_OUTPUT_SIZE  TITANSSL_BENCHMARK_PAYLOAD
 
-#if defined(AES256)
+#if AES == 256
   #define TITANSSL_KEY_SIZE 32
   #define TITANSSL_EXP_SIZE 240
-#elif defined(AES192)
+#elif AES == 192
   #define TITANSSL_KEY_SIZE 4
   #define TITANSSL_EXP_SIZE 208
 #else
@@ -62,10 +65,10 @@ static titanssl_buffer_t titanssl_data_key;
 // The number of columns comprising a state in AES. This is a constant in AES. Value=4
 #define Nb 4
 
-#if defined(AES256)
+#if AES == 256
     #define Nk 8
     #define Nr 14
-#elif defined(AES192)
+#elif AES == 192
     #define Nk 6
     #define Nr 12
 #else
@@ -76,12 +79,6 @@ static titanssl_buffer_t titanssl_data_key;
 /* ============================================================================
  * Benchmark implementation
  * ========================================================================= */
-
-struct AES_ctx
-{
-  uint8_t RoundKey[AES_keyExpSize];
-  uint8_t Iv[AES_BLOCKLEN];
-};
 
 typedef uint8_t state_t[4][4];
 
@@ -186,7 +183,7 @@ static void KeyExpansion(uint8_t* RoundKey, const uint8_t* Key)
 
       tempa[0] = tempa[0] ^ Rcon[i/Nk];
     }
-#if defined(AES256)
+#if AES == 256
     if (i % Nk == 4)
     {
       // Function Subword()
@@ -206,10 +203,9 @@ static void KeyExpansion(uint8_t* RoundKey, const uint8_t* Key)
   }
 }
 
-void AES_init_ctx_iv(struct AES_ctx* ctx, const uint8_t* key, const uint8_t* iv)
+void AES_init_ctx_iv(uint8_t* exp, const uint8_t* key)
 {
-  KeyExpansion(ctx->RoundKey, key);
-  memcpy (ctx->Iv, iv, AES_BLOCKLEN);
+  KeyExpansion(exp, key);
 }
 
 // This function adds the round key to state.
@@ -327,38 +323,29 @@ static void Cipher(state_t* state, const uint8_t* RoundKey)
   AddRoundKey(Nr, state, RoundKey);
 }
 
-void AES_CBC_encrypt_buffer(struct AES_ctx *ctx, uint8_t* buf, size_t length)
+void AES_CBC_encrypt_buffer(uint8_t* exp, uint8_t* iv, uint8_t* buf, size_t length)
 {
   size_t i;
-  uint8_t *Iv = ctx->Iv;
   for (i = 0; i < length; i += AES_BLOCKLEN)
   {
-    XorWithIv(buf, Iv);
-    Cipher((state_t*)buf, ctx->RoundKey);
-    Iv = buf;
+    XorWithIv(buf, iv);
+    Cipher((state_t*)buf, exp);
+    iv = buf;
     buf += AES_BLOCKLEN;
   }
-  /* store Iv in ctx for next call */
-  memcpy(ctx->Iv, Iv, AES_BLOCKLEN);
 }
 
 static int titanssl_benchmark(
         titanssl_buffer_t *const src,
         titanssl_buffer_t *const dst,
-        titanssl_buffer_t *const key)
+        titanssl_buffer_t *const key,
+        titanssl_buffer_t *const exp,
+        titanssl_buffer_t *const iv)
 {
-#if defined(AES256)
-    // uint8_t _key[] = { 0x60, 0x3d, 0xeb, 0x10, 0x15, 0xca, 0x71, 0xbe, 0x2b, 0x73, 0xae, 0xf0, 0x85, 0x7d, 0x77, 0x81,
-    //                  0x1f, 0x35, 0x2c, 0x07, 0x3b, 0x61, 0x08, 0xd7, 0x2d, 0x98, 0x10, 0xa3, 0x09, 0x14, 0xdf, 0xf4 };
+#if AES == 256
     const uint8_t _key[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                             0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
-    /*
-    uint8_t _out[] = { 0xf5, 0x8c, 0x4c, 0x04, 0xd6, 0xe5, 0xf1, 0xba, 0x77, 0x9e, 0xab, 0xfb, 0x5f, 0x7b, 0xfb, 0xd6,
-                      0x9c, 0xfc, 0x4e, 0x96, 0x7e, 0xdb, 0x80, 0x8d, 0x67, 0x9f, 0x77, 0x7b, 0xc6, 0x70, 0x2c, 0x7d,
-                      0x39, 0xf2, 0x33, 0x69, 0xa9, 0xd9, 0xba, 0xcf, 0xa5, 0x30, 0xe2, 0x63, 0x04, 0x23, 0x14, 0x61,
-                      0xb2, 0xeb, 0x05, 0xe2, 0xc3, 0x9b, 0xe9, 0xfc, 0xda, 0x6c, 0x19, 0x07, 0x8c, 0x6a, 0x9d, 0x1b };
-    */
     uint8_t _out[] =  { 
                       0xb6, 0x5d, 0x30, 0x03, 0x0c, 0x88, 0xb4, 0x4c, 0x97, 0x5a, 0x34,
                       0x3f, 0x93, 0xfb, 0x3c, 0x09, 0x45, 0x05, 0xc2, 0xa3, 0x05, 0xed,
@@ -366,13 +353,13 @@ static int titanssl_benchmark(
                       0x33, 0x21, 0x3d, 0xd5, 0x83, 0x1d, 0x19, 0xfb, 0x7c, 0x7b, 0x70,
                       0xb1, 0x7c, 0xf9, 0x63, 0xb0, 0xe4, 0xb2, 0x7a, 0x7f, 0x1b, 0x80,
                       0x1f, 0x84, 0x57, 0xcd, 0x7b, 0x03, 0xe8, 0x8b, 0xe3 };
-  #elif defined(AES192)
+#elif AES == 192
     uint8_t _key[] = { 0x8e, 0x73, 0xb0, 0xf7, 0xda, 0x0e, 0x64, 0x52, 0xc8, 0x10, 0xf3, 0x2b, 0x80, 0x90, 0x79, 0xe5, 0x62, 0xf8, 0xea, 0xd2, 0x52, 0x2c, 0x6b, 0x7b };
     uint8_t _out[] = { 0x4f, 0x02, 0x1d, 0xb2, 0x43, 0xbc, 0x63, 0x3d, 0x71, 0x78, 0x18, 0x3a, 0x9f, 0xa0, 0x71, 0xe8,
                       0xb4, 0xd9, 0xad, 0xa9, 0xad, 0x7d, 0xed, 0xf4, 0xe5, 0xe7, 0x38, 0x76, 0x3f, 0x69, 0x14, 0x5a,
                       0x57, 0x1b, 0x24, 0x20, 0x12, 0xfb, 0x7a, 0xe0, 0x7f, 0xa9, 0xba, 0xac, 0x3d, 0xf1, 0x02, 0xe0,
                       0x08, 0xb0, 0xe2, 0x79, 0x88, 0x59, 0x88, 0x81, 0xd9, 0x20, 0xa9, 0xe6, 0x4f, 0x56, 0x15, 0xcd };
-#elif defined(AES128)
+#elif AES == 128
     uint8_t _key[] = { 0x2b, 0x7e, 0x15, 0x16, 0x28, 0xae, 0xd2, 0xa6, 0xab, 0xf7, 0x15, 0x88, 0x09, 0xcf, 0x4f, 0x3c };
     uint8_t _out[] = { 0x76, 0x49, 0xab, 0xac, 0x81, 0x19, 0xb2, 0x46, 0xce, 0xe9, 0x8e, 0x9b, 0x12, 0xe9, 0x19, 0x7d,
                       0x50, 0x86, 0xcb, 0x9b, 0x50, 0x72, 0x19, 0xee, 0x95, 0xdb, 0x11, 0x3a, 0x91, 0x76, 0x78, 0xb2,
@@ -380,25 +367,19 @@ static int titanssl_benchmark(
                       0x3f, 0xf1, 0xca, 0xa1, 0x68, 0x1f, 0xac, 0x09, 0x12, 0x0e, 0xca, 0x30, 0x75, 0x86, 0xe1, 0xa7 };
 #endif
     uint8_t _iv[]  = { 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d, 0x0e, 0x0f };
-    /*
-    uint8_t _in[]  = { 0x6b, 0xc1, 0xbe, 0xe2, 0x2e, 0x40, 0x9f, 0x96, 0xe9, 0x3d, 0x7e, 0x11, 0x73, 0x93, 0x17, 0x2a,
-                      0xae, 0x2d, 0x8a, 0x57, 0x1e, 0x03, 0xac, 0x9c, 0x9e, 0xb7, 0x6f, 0xac, 0x45, 0xaf, 0x8e, 0x51,
-                      0x30, 0xc8, 0x1c, 0x46, 0xa3, 0x5c, 0xe4, 0x11, 0xe5, 0xfb, 0xc1, 0x19, 0x1a, 0x0a, 0x52, 0xef,
-                      0xf6, 0x9f, 0x24, 0x45, 0xdf, 0x4f, 0x9b, 0x17, 0xad, 0x2b, 0x41, 0x7b, 0xe6, 0x6c, 0x37, 0x10 };
-    */
     uint8_t _in[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                       0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
-    struct AES_ctx ctx;
 
 #if TITANSSL_BENCHMARK_DEBUG
     memcpy(src->data, _in, TITANSSL_PAYLOAD_SIZE);
     memcpy(key->data, _key, TITANSSL_KEY_SIZE);
+    memcpy(iv->data, _iv, TITANSSL_IV_SIZE);
 #endif
 
-    AES_init_ctx_iv(&ctx, key->data, _iv);
-    AES_CBC_encrypt_buffer(&ctx, src->data, TITANSSL_PAYLOAD_SIZE);
+    AES_init_ctx_iv(exp->data, key->data);
+    AES_CBC_encrypt_buffer(exp->data, iv->data, src->data, TITANSSL_PAYLOAD_SIZE);
 
 #if TITANSSL_BENCHMARK_DEBUG
     printf("CBC encrypt: \t\n");
@@ -410,32 +391,31 @@ static int titanssl_benchmark(
 
 void initialize_memory(
         uint8_t *src_data,
-        size_t src_n,
         uint8_t *dst_data,
-        size_t dst_n,
         uint8_t *key_data,
-        size_t key_n)
+        uint8_t *exp_data,
+        uint8_t *iv_data)
 {
     titanssl_data_src.data = src_data;
-    titanssl_data_src.n = src_n;
-    for (size_t i=0; i<src_n; i++)
-    {
+    titanssl_data_src.n = TITANSSL_PAYLOAD_SIZE;
+    for (size_t i=0; i<TITANSSL_PAYLOAD_SIZE; i++)
         titanssl_data_src.data[i] = 0x0;
-    }
-
     titanssl_data_dst.data = dst_data;
-    titanssl_data_dst.n = dst_n;
-    for (size_t i=0; i<dst_n; i++)
-    {
+    titanssl_data_dst.n = TITANSSL_PAYLOAD_SIZE;
+    for (size_t i=0; i<TITANSSL_PAYLOAD_SIZE; i++)
         titanssl_data_dst.data[i] = 0x0;
-    }
-
     titanssl_data_key.data = key_data;
-    titanssl_data_key.n = key_n;
-    for (size_t i=0; i<key_n; i++)
-    {
+    titanssl_data_key.n = TITANSSL_KEY_SIZE;
+    for (size_t i=0; i<TITANSSL_KEY_SIZE; i++)
         titanssl_data_key.data[i] = 0x0;
-    }
+    titanssl_data_exp.data = exp_data;
+    titanssl_data_exp.n = TITANSSL_EXP_SIZE;
+    for (size_t i=0; i<TITANSSL_EXP_SIZE; i++)
+        titanssl_data_exp.data[i] = 0x0;
+    titanssl_data_iv.data = iv_data;
+    titanssl_data_iv.n = TITANSSL_IV_SIZE;
+    for (size_t i=0; i<TITANSSL_IV_SIZE; i++)
+        titanssl_data_iv.data[i] = 0x0;
 }
 
 int main(
@@ -457,17 +437,18 @@ int main(
 
     initialize_memory(
         (uint8_t*)TITANSSL_DATA_SRC,
-        TITANSSL_PAYLOAD_SIZE,
         (uint8_t*)TITANSSL_DATA_DST,
-        TITANSSL_OUTPUT_SIZE,
         (uint8_t*)TITANSSL_DATA_KEY,
-        TITANSSL_KEY_SIZE
+        (uint8_t*)TITANSSL_DATA_EXP,
+        (uint8_t*)TITANSSL_DATA_IV
     );
 
     titanssl_benchmark(
         &titanssl_data_src,
         &titanssl_data_dst,
-        &titanssl_data_key
+        &titanssl_data_key,
+        &titanssl_data_exp,
+        &titanssl_data_iv
     );
 
 	return 0;
