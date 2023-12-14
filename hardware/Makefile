@@ -1,6 +1,7 @@
 # Author: Florian Zaruba, ETH Zurich
 # Date: 03/19/2017
 # Description: Makefile for linting and testing Ariane.
+BENDER := ./bender
 
 # questa library
 library        ?= work
@@ -136,8 +137,8 @@ endif
 
 ifdef simple-padframe
 	questa-cmd   += +SIMPLE_PADFRAME=$(simple-padframe)
- 	compile_flag +=  +define+SIMPLE_PADFRAME
- 	compile_fpga += SIMPLE_PADFRAME
+	compile_flag +=  +define+SIMPLE_PADFRAME
+	compile_fpga += SIMPLE_PADFRAME
 endif
 
 ifdef spike-tandem
@@ -161,10 +162,12 @@ ifdef preload
 endif
 
 bender:
-	curl --proto '=https' --tlsv1.2 https://fabianschuiki.github.io/bender/init -sSf | sh
+	wget "https://github.com/pulp-platform/bender/releases/download/v0.22.0/bender-0.22.0-x86_64-linux-gnu-centos7.8.2003.tar.gz"
+	tar -xvzf bender-0.22.0-x86_64-linux-gnu-centos7.8.2003.tar.gz
+	rm bender-0.22.0-x86_64-linux-gnu-centos7.8.2003.tar.gz
 
 update:
-	bender update
+	$(BENDER) update
 
 libbender:
 	@vlib work
@@ -172,28 +175,28 @@ libbender:
 
 scripts-bender-fpga: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
-	bender script vivado -t fpga -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
+	$(BENDER) script vivado -t fpga -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
 scripts-bender-fpga-ddr: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
-	bender script vivado -t fpga -t ddr -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
+	$(BENDER) script vivado -t fpga -t ddr -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
 scripts-bender-synopsys: | Bender.lock
 	echo 'set ROOT [file normalize [file dirname [info script]]/../../../]' > $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
-	bender script synopsys -t rtl -t synthesis -t asic -t top_level | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
+	$(BENDER) script synopsys -t rtl -t synthesis -t asic -t top_level | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
 
 scripts:
-	bender script vsim \
+	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t rtl -t test > compile.tcl
 
 scripts_vip:
-	bender script vsim \
+	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t rtl -t test -t vip > compile.tcl
 
 post_synth_scripts_vip:
-	bender script vsim \
+	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t rtl -t test -t top_post_synth_sim -t vip > post_synth_compile.tcl
 
@@ -267,3 +270,41 @@ clean_regs:
 
 
 all: clean build
+
+
+tb/vip/spi_flash:
+	rm -rf $@
+	mkdir $@
+	rm -rf model_tmp && mkdir model_tmp
+	cd model_tmp; wget https://www.infineon.com/dgdl/Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b
+	cd model_tmp; mv 'Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b' model.zip
+	cd model_tmp; unzip model.zip
+	cd model_tmp; mv 'S25fs256s' exe_folder
+	cd model_tmp/exe_folder; unzip S25fs256s.exe
+	cp model_tmp/exe_folder/S25fs256s/model/s25fs256s.v model_tmp/exe_folder/S25fs256s/model/s25fs256s_verilog.sdf $@
+	rm -rf model_tmp
+
+tb/vip/hyperram_model:
+	rm -rf $@
+	mkdir $@
+	rm -rf model_tmp && mkdir model_tmp
+	cd model_tmp; wget https://www.infineon.com/dgdl/Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6349a14f68
+	cd model_tmp; mv 'Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6349a14f68' model.zip
+	cd model_tmp; unzip model.zip
+	cd model_tmp; mv 'S27KL0641 S27KS0641' exe_folder
+	cd model_tmp/exe_folder; unzip S27ks0641.exe
+	cp model_tmp/exe_folder/S27ks0641/model/s27ks0641.v model_tmp/exe_folder/S27ks0641/model/s27ks0641_verilog.sdf $@
+	rm -rf model_tmp
+
+tb/vip/i2c_eeprom:
+	rm -rf $@
+	mkdir $@
+	rm -rf model_tmp && mkdir model_tmp
+	cd model_tmp; wget https://ww1.microchip.com/downloads/en/DeviceDoc/24xx1025_Verilog_Model.zip
+	cd model_tmp; unzip 24xx1025_Verilog_Model.zip
+	cp model_tmp/24AA1025.v model_tmp/24FC1025.v model_tmp/24LC1025.v $@
+	rm -rf model_tmp
+
+vip: tb/vip/spi_flash tb/vip/hyperram_model tb/vip/i2c_eeprom
+
+init: bender vip update
