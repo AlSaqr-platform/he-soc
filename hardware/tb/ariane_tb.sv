@@ -1159,11 +1159,11 @@ module ariane_tb;
                .pad_periphs_a_19_pad(pad_periphs_a_19_pad),
                .pad_periphs_a_20_pad(pad_periphs_a_20_pad),
                .pad_periphs_a_21_pad(pad_periphs_a_21_pad),
-              .pad_periphs_a_22_pad(pad_periphs_a_22_pad),
-              .pad_periphs_a_23_pad(pad_periphs_a_23_pad),
-              .pad_periphs_a_24_pad(pad_periphs_a_24_pad),
-              .pad_periphs_a_25_pad(pad_periphs_a_25_pad),
-              .pad_periphs_a_26_pad(pad_periphs_a_26_pad),
+               .pad_periphs_a_22_pad(pad_periphs_a_22_pad),
+               .pad_periphs_a_23_pad(pad_periphs_a_23_pad),
+               .pad_periphs_a_24_pad(pad_periphs_a_24_pad),
+               .pad_periphs_a_25_pad(pad_periphs_a_25_pad),
+               .pad_periphs_a_26_pad(pad_periphs_a_26_pad),
                .pad_periphs_a_27_pad(pad_periphs_a_27_pad),
                .pad_periphs_a_28_pad(pad_periphs_a_28_pad),
                .pad_periphs_a_29_pad(pad_periphs_a_29_pad),
@@ -1217,14 +1217,14 @@ module ariane_tb;
                .pad_periphs_b_46_pad(pad_periphs_b_46_pad),
                .pad_periphs_b_47_pad(pad_periphs_b_47_pad),
 
-               .pad_periphs_ot_spi_00_pad(pad_periphs_ot_spi_00_pad),
-               .pad_periphs_ot_spi_01_pad(pad_periphs_ot_spi_01_pad),
-               .pad_periphs_ot_spi_02_pad(pad_periphs_ot_spi_02_pad),
-               .pad_periphs_ot_spi_03_pad(pad_periphs_ot_spi_03_pad),
-
             `endif //simple pad
           `endif //fpga_emul
         `endif //exclude
+
+        .pad_periphs_ot_spi_00_pad(pad_periphs_ot_spi_00_pad),
+        .pad_periphs_ot_spi_01_pad(pad_periphs_ot_spi_01_pad),
+        .pad_periphs_ot_spi_02_pad(pad_periphs_ot_spi_02_pad),
+        .pad_periphs_ot_spi_03_pad(pad_periphs_ot_spi_03_pad),
 
         .pad_hyper_csn        ( hyper_cs_n_wire        ),
         .pad_hyper_ck         ( hyper_ck_wire          ),
@@ -1830,7 +1830,11 @@ module ariane_tb;
             // 3 --> Rx frame check sequence register(read) and last register(write)
             write_axi(axi_master_drv,'h30000828,'h00000008, 'h0f);
             @(posedge clk_i);
-          end
+
+            repeat(20) @(posedge rtc_i);
+            $finish;
+
+          end // initial begin
         end
 
         //**************************************************

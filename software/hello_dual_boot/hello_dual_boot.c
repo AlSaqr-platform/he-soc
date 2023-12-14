@@ -42,12 +42,14 @@ void thread_entry(int cid, int nc)
 void hello_world(int cid){
   #ifdef FPGA_EMULATION
   int baud_rate = 115200;
-  int test_freq = 50000000;
+  int test_freq = 40000000;
   alsaqr_periph_fpga_padframe_periphs_cva6_uart_00_mux_set(1);
   #else
   set_flls();
   int baud_rate = 115200;
   int test_freq = 100000000;
+  alsaqr_periph_padframe_periphs_a_00_mux_set(3);
+  alsaqr_periph_padframe_periphs_a_01_mux_set(3);
   #endif
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
   uint32_t * hyaxicfg_reg_mask = 0x1A101018;

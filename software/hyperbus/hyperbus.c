@@ -36,7 +36,9 @@ int main() {
     set_flls();
     int baud_rate = 115200;
     int test_freq = 100000000;
-    #endif  
+    alsaqr_periph_padframe_periphs_a_00_mux_set(3);
+    alsaqr_periph_padframe_periphs_a_01_mux_set(3);
+    #endif
     uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
     int * tx_buffer;
