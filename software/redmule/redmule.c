@@ -58,6 +58,8 @@ int main(int argc, char const *argv[]) {
   set_flls();
   int baud_rate = 115200;
   int test_freq = 100000000;
+  alsaqr_periph_padframe_periphs_a_00_mux_set(3);
+  alsaqr_periph_padframe_periphs_a_01_mux_set(3);
   #endif 
 
   unsigned int msg = -1;
