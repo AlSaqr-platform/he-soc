@@ -83,14 +83,14 @@ void __attribute__((weak)) thread_entry(int cid, int nc)
 {
   // multi-threaded programs override this function.
   // for the case of single-threaded programs, only let core 0 proceed.
-  while (cid != 0)
-    __asm__ volatile("wfi;");
+  while (cid != 0);
 }
 
 int __attribute__((weak)) main(int argc, char** argv)
 {
   // single-threaded programs override this function.
-  return 0;
+  printstr("Implement main(), foo!\n");
+  return -1;
 }
 
 static void init_tls()
@@ -107,27 +107,6 @@ static void init_tls()
 void _init(int cid, int nc)
 {
   init_tls();
-  if(cid==0) {
-     int * tmp;
-     /* Set UART MUX with hardcoded write */
-     tmp = (int *) 0x1a104074;
-     *tmp = 1;
-     /* Set plic mbox IRQ priority to 1 */
-     tmp = (int *) 0xC000028;
-     *tmp = 0x1;
-     /* Disable interrupt from mbox scmi to core 0 */
-     tmp = (int *) 0xC002080;
-     *tmp = 0;
-     /* Disable interrupt from mbox scmi to core 1 */
-     tmp = (int *) 0xC002180;
-     *tmp = 0x400;
-     /* Write .text.init address in the mailbox */
-     tmp = (int *) 0x10404000;
-     *tmp = 0x80000000;
-     /* Send interrupt to core 1 to make it jump to text_init */
-     tmp = (int *) 0x10404024;
-     *tmp = 1;
-  }
   thread_entry(cid, nc);
 
   // only single-threaded programs should ever get here.
@@ -145,6 +124,23 @@ void _init(int cid, int nc)
 }
 
 #undef putchar
+// ------------- ADD ----------------
+// int putchar(int ch)
+// {
+//   static __thread char buf[64] __attribute__((aligned(64)));
+//   static __thread int buflen = 0;
+
+//   buf[buflen++] = ch;
+
+//   if (ch == '\n' || buflen == sizeof(buf))
+//   {
+//     syscall(SYS_write, 1, (uintptr_t)buf, buflen);
+//     buflen = 0;
+//   }
+
+//   return 0;
+// }
+// ----------------------------------
 
 void printhex(uint64_t x)
 {
@@ -233,7 +229,7 @@ static void vprintfmt(void (*putch)(int, void**), void **putdat, const char *fmt
     case '-':
       padc = '-';
       goto reswitch;
-
+      
     // flag to pad with 0's instead of spaces
     case '0':
       padc = '0';
@@ -342,7 +338,7 @@ static void vprintfmt(void (*putch)(int, void**), void **putdat, const char *fmt
     case '%':
       putch(ch, putdat);
       break;
-
+      
     // unrecognized escape sequence - just print it literally
     default:
       putch('%', putdat);
@@ -363,18 +359,27 @@ int virtual_printf(const char* fmt, ...)
   return 0; // incorrect return value, but who cares, anyway?
 }
 
+// ----------- modificato ----------
 void sprintf_putch(int ch, void** data)
-  {
-    char** pstr = (char**)data;
-    **pstr = ch;
-    (*pstr)++;
-  }
+{
+  char** pstr = (char**)data;
+  **pstr = ch;
+  (*pstr)++;
+}
+// ----------------------------------
 
 int sprintf(char* str, const char* fmt, ...)
 {
   va_list ap;
   char* str0 = str;
   va_start(ap, fmt);
+
+  // void sprintf_putch(int ch, void** data)
+  // {
+  //   char** pstr = (char**)data;
+  //   **pstr = ch;
+  //   (*pstr)++;
+  // }
 
   vprintfmt(sprintf_putch, (void**)&str, fmt, ap);
   *str = 0;
@@ -399,24 +404,49 @@ void* memcpy(void* dest, const void* src, size_t len)
   return dest;
 }
 
-void* memset(void* dest, int byte, size_t len)
+void* memset(void* dest, int byt, size_t len)
 {
+  // printf("hi\r\n"); //
+  
   if ((((uintptr_t)dest | len) & (sizeof(uintptr_t)-1)) == 0) {
-    uintptr_t word = byte & 0xFF;
+    // printf("ok0\r\n");
+    uintptr_t word = byt & 0xFF;
     word |= word << 8;
     word |= word << 16;
-    word |= word << 16 << 16;
+    word |= word << 16 << 16; // CONTROLLARE
 
     uintptr_t *d = dest;
     while (d < (uintptr_t*)(dest + len))
-      *d++ = word;
+    {
+      *d = word;
+      d++;
+    }
   } else {
+    // printf("ok1\r\n");
     char *d = dest;
+    // printf("ok2\r\n");
     while (d < (char*)(dest + len))
-      *d++ = byte;
+    {
+      *d = (char) byt; // REMOVE
+      d++;
+    }
   }
+
+  // printf("ho\r\n"); //
   return dest;
 }
+
+// my_custom memset
+
+// void* memset (void *dest, int val, size_t len)
+// {
+//   unsigned char *ptr = dest;
+//   while (len-- > 0)
+//     *ptr++ = val;
+//   return dest;
+// }
+
+// ---------------------------------
 
 size_t strlen(const char *s)
 {
@@ -474,36 +504,3 @@ long atol(const char* str)
 
   return sign ? -res : res;
 }
-
-/*
-int
-memcmp (const void *str1, const void *str2, size_t count)
-{
-  const unsigned char *s1 = str1;
-  const unsigned char *s2 = str2;
-
-  while (count-- > 0)
-    {
-      if (*s1++ != *s2++)
-	  return s1[-1] < s2[-1] ? -1 : 1;
-    }
-  return 0;
-}
-
-*/
-
-void *memmove(void *dest, const void *src, size_t count)
-{
-	if (dest < src || src + count <= dest)
-		return memcpy(dest, src, count);
-
-	if (dest > src) {
-		const char *s = src + count;
-		char *tmp = dest + count;
-
-		while (count--)
-			*--tmp = *--s;
-	}
-	return dest;
-}
-

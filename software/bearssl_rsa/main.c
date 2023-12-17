@@ -1,61 +1,21 @@
-// Copyright (c) 2023 ETH Zurich and University of Bologna
-// Copyright and related rights are licensed under the Solderpad Hardware
-// License, Version 0.51 (the "License"); you may not use this file except in
-// compliance with the License.  You may obtain a copy of the License at
-// http://solderpad.org/licenses/SHL-0.51. Unless required by applicable law
-// or agreed to in writing, software, hardware and materials distributed under
-// this License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
-// CONDITIONS OF ANY KIND, either express or implied. See the License for the
-// specific language governing permissions and limitations under the License.
-//
-
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
 #include "bearssl.h"
-
-
+  
 #define FPGA_EMULATION
 
-
-typedef struct
-{
-    uint8_t *data;
-    size_t n;
-} titanssl_buffer_t;
-
-
-static titanssl_buffer_t buffer_payload;
-static titanssl_buffer_t buffer_digest;
-
-
-/* ============================================================================
- * Benchmark setup
- * ========================================================================= */
-
-#define TITANSSL_CFG_BENCHMARK_DEBUG   1
-#define TITANSSL_RSA_MODE  1024
-
-/* ============================================================================
- * Benchmark automatic configuration
- * ========================================================================= */
-
-#define TITANSSL_ADDR_PAYLOAD 0x80720000
-#define TITANSSL_ADDR_DIGEST  0x80740000
-#define TITANSSL_SIZE_PAYLOAD (TITANSSL_RSA_MODE / 8)
-#define TITANSSL_SIZE_DIGEST  (TITANSSL_RSA_MODE / 8)
-
-/* ============================================================================
- * Benchmark implementation
- * ========================================================================= */
-
-#if TITANSSL_RSA_MODE == 512
-
+/*
 static const unsigned char RSA_N[] = {
 
 };
 static const unsigned char RSA_E[] = {
 	0x01, 0x00, 0x01
+};
+
+static const br_rsa_public_key RSA_PK = {
+	(void *)RSA_N, sizeof RSA_N,
+	(void *)RSA_E, sizeof RSA_E
 };
 
 static const unsigned char RSA_P[] = {
@@ -74,7 +34,15 @@ static const unsigned char RSA_IQ[] = {
 	
 };
 
-#elif TITANSSL_RSA_MODE == 1024
+static const br_rsa_private_key RSA_SK = {
+	512,
+	(void *)RSA_P, sizeof RSA_P,
+	(void *)RSA_Q, sizeof RSA_Q,
+	(void *)RSA_DP, sizeof RSA_DP,
+	(void *)RSA_DQ, sizeof RSA_DQ,
+	(void *)RSA_IQ, sizeof RSA_IQ
+};
+*/
 
 static const unsigned char RSA_N[] = {
 	0xBF, 0xB4, 0xA6, 0x2E, 0x87, 0x3F, 0x9C, 0x8D,
@@ -96,6 +64,11 @@ static const unsigned char RSA_N[] = {
 };
 static const unsigned char RSA_E[] = {
 	0x01, 0x00, 0x01
+};
+
+static const br_rsa_public_key RSA_PK = {
+	(void *)RSA_N, sizeof RSA_N,
+	(void *)RSA_E, sizeof RSA_E
 };
 
 static const unsigned char RSA_P[] = {
@@ -149,23 +122,14 @@ static const unsigned char RSA_IQ[] = {
 	0x59, 0x0A, 0xC4, 0xC9, 0xD9, 0x82, 0xAC, 0xE1
 };
 
-#endif
-
-static const br_rsa_public_key RSA_PK = {
-	(void *)RSA_N, sizeof RSA_N,
-	(void *)RSA_E, sizeof RSA_E
-};
-
 static const br_rsa_private_key RSA_SK = {
-	TITANSSL_RSA_MODE,
+	1024,
 	(void *)RSA_P, sizeof RSA_P,
 	(void *)RSA_Q, sizeof RSA_Q,
 	(void *)RSA_DP, sizeof RSA_DP,
 	(void *)RSA_DQ, sizeof RSA_DQ,
 	(void *)RSA_IQ, sizeof RSA_IQ
 };
-
-unsigned char plaintext[TITANSSL_SIZE_PAYLOAD];
 
 static size_t
 hextobin(unsigned char *dst, const char *src)
@@ -198,35 +162,8 @@ hextobin(unsigned char *dst, const char *src)
 	}
 	return num;
 }
-
-void initialize_memory()
-{
-
-    buffer_payload.data = (uint8_t*)TITANSSL_ADDR_PAYLOAD;
-    buffer_payload.n = TITANSSL_SIZE_PAYLOAD;
-    for (size_t i=0; i<TITANSSL_SIZE_PAYLOAD; i++) buffer_payload.data[i] = plaintext[i];
-
-    buffer_digest.data = (uint8_t*)TITANSSL_ADDR_DIGEST;
-    buffer_digest.n = TITANSSL_SIZE_DIGEST;
-    for (size_t i=0; i<TITANSSL_SIZE_DIGEST; i++) buffer_digest.data[i] = 0x0;
-}
-
-void titanssl_benchmark_rsa(
-        titanssl_buffer_t *const payload,
-        titanssl_buffer_t *const digest)
-{
-
-    // encrypt
-    br_rsa_i31_public(payload->data, TITANSSL_SIZE_PAYLOAD, &RSA_PK);
-
-    // decrypt
-    br_rsa_i31_private(digest->data, &RSA_SK);
-    
-}
-
-int main(
-		int argc,
-		char const *argv[])
+ 
+int main(int argc, char **argv)
 {
 #ifdef FPGA_EMULATION
 #define baud_rate 115200
@@ -236,46 +173,35 @@ int main(
 #define test_freq 100000000
     set_flls();
 #endif
-	uart_set_cfg(
+        uart_set_cfg(
         0,
         (test_freq/baud_rate)>>4
     );
 
-#if TITANSSL_RSA_MODE == 512
-    hextobin(plaintext, "");
-#elif TITANSSL_RSA_MODE == 1024
-    hextobin(plaintext, "45A3DC6A106BCD3BD0E48FB579643AA3FF801E5903E80AA9B43A695A8E7F454E93FA208B69995FF7A6D5617C2FEB8E546375A664977A48931842AAE796B5A0D64393DCA35F3490FC157F5BD83B9D58C2F7926E6AE648A2BD96CAB8FCCD3D35BB11424AD47D973FF6D69CA774841AEC45DFAE99CCF79893E7047FDE6CB00AA76D");
-#endif
+    printf("uart init\t\n");
 
-    initialize_memory();
+    /*
+    unsigned char t1[64], t2[64], t3[64];
+    hextobin(t1, "");
+	hextobin(t2, "");
+    */
+    unsigned char t1[128], t2[128], t3[128];
+    hextobin(t1, "45A3DC6A106BCD3BD0E48FB579643AA3FF801E5903E80AA9B43A695A8E7F454E93FA208B69995FF7A6D5617C2FEB8E546375A664977A48931842AAE796B5A0D64393DCA35F3490FC157F5BD83B9D58C2F7926E6AE648A2BD96CAB8FCCD3D35BB11424AD47D973FF6D69CA774841AEC45DFAE99CCF79893E7047FDE6CB00AA76D");
+	hextobin(t2, "0001FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF003021300906052B0E03021A05000414A94A8FE5CCB19BA61C4C0873D391E987982FBBD3");
+	
+    memcpy(t3, t1, sizeof t1);
 
-    titanssl_benchmark_rsa(
-        &buffer_payload,
-        &buffer_digest
-    );
+    // encrypt
+    br_rsa_i31_public(t3, sizeof(t3), &RSA_PK);
 
-#if TITANSSL_CFG_BENCHMARK_DEBUG
-    for (size_t i=0; i<buffer_digest.n; i++) printf("RSA [%2d] 0x%02 vs 0x%02\r\n", i, plaintext[i], buffer_digest.data[i]);
-#endif
+    printf("T3\t\n");
+    for (size_t i=0; i<sizeof(t3); i++) printf("%d: 0x%02x\t\n", i, t3[i]);
 
-	return 0;
+    // decrypt
+    br_rsa_i31_private(t3, &RSA_SK);
+
+    printf("T3\t\n");
+    for (size_t i=0; i<sizeof(t3); i++) printf("%d: 0x%02x\t\n", i, t3[i]);
+ 
+    return 0;
 }
-
-/* in syscall.c
-
-void *memmove(void *dest, const void *src, size_t count)
-{
-	if (dest < src || src + count <= dest)
-		return memcpy(dest, src, count);
-
-	if (dest > src) {
-		const char *s = src + count;
-		char *tmp = dest + count;
-
-		while (count--)
-			*--tmp = *--s;
-	}
-	return dest;
-}
-
-*/
