@@ -14,20 +14,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "utils.h"
-#define FPGA_EMULATION
-
 
 int main(int argc, char const *argv[]) {
 
   #ifdef FPGA_EMULATION
   int baud_rate = 115200;
-  int test_freq = 50000000;
+  int test_freq = 40000000;
   #else
   set_flls();
   int baud_rate = 115200;
   int test_freq = 100000000;
-  alsaqr_periph_padframe_periphs_a_00_mux_set(3);
-  alsaqr_periph_padframe_periphs_a_01_mux_set(3);
   #endif
 
   #define PLIC_BASE     0x0C000000

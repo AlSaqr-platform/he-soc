@@ -110,8 +110,17 @@ void _init(int cid, int nc)
   if(cid==0) {
      int * tmp;
      /* Set UART MUX with hardcoded write */
+     #ifndef FPGA_EMULATION
+     tmp = (int *) 0x1a104004;
+     *tmp = 3;
+     tmp = (int *) 0x1a10400C;
+     *tmp = 3;
+     #else
      tmp = (int *) 0x1a104074;
      *tmp = 1;
+     tmp = (int *) 0x1a10407C;
+     *tmp = 1;
+     #endif
      /* Set plic mbox IRQ priority to 1 */
      tmp = (int *) 0xC000028;
      *tmp = 0x1;

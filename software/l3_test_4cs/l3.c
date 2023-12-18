@@ -53,14 +53,12 @@ uint64_t lfsr_64bits(uint64_t lfsr,  uint64_t *lfsr_byte_feedback) {
 int main(int argc, char const *argv[]) {
 
   #ifdef FPGA_EMULATION
-  int baud_rate = 9600;
-  int test_freq = 10000000;
+  int baud_rate = 115200;
+  int test_freq = 40000000;
   #else
   set_flls();
   int baud_rate = 115200;
   int test_freq = 100000000;
-  alsaqr_periph_padframe_periphs_a_00_mux_set(3);
-  alsaqr_periph_padframe_periphs_a_01_mux_set(3);
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 

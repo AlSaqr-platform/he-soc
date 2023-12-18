@@ -269,6 +269,7 @@ sources:
     defines:
       TARGET_TOP_POST_SYNTH_SIM: ~
       TARGET_POST_SYNTH_SIM_TOP: ~
+      EXCLUDE_PADFRAME: ~
       TARGET_ASIC: ~
     files:
       - tb/ariane_tb.sv
