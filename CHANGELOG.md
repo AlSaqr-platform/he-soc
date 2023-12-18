@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 0.0.5 - alsaqr_181223 - 18/12/2023
+
+### Hardware
+
+### Changed
+# CVA6
+- Updated CVA6 dependency: fixed a bug related to performance counters and enabled the hypervisor extension (with a 7% of overhead in area)
+# Hyperbus
+- Fixed a minor bug related to the irq connection. One signal was not connected. Very minor change.
+# TOP
+- Fixed a bug with the memory wrapper for the ethernet peripheral: two inputs to the memory macro were floating.
+
+### Feature Frozen Macros
+- Cluster
+- OpenTitan
+- Hyperram
+
+### Work In progress Macro
+- Culsans
+
+### Software
+- Created a new flow to run regression tests with the post synthesis chip netlist, which now include opentitan as well.
+- Implementing optimizations flags for netlist simulations (including regressions). An hello world completes in less then 10 minutes now.
+
 ## 0.0.4 - alsaqr_271123 - 27/11/2023
 
 ### Hardware

@@ -4,8 +4,6 @@
 #include "utils.h"
 #include "./cluster_code.h"
 
-//#define FPGA_EMULATION
-
 int launch_cluster() {
   
   tlb_cfg(C2H_TLB_BASE_ADDR, 0, c2h_first_va, c2h_last_va, c2h_base_pa, 0x07);
@@ -52,8 +50,8 @@ int launch_cluster() {
 int main(int argc, char const *argv[]) {
     
   #ifdef FPGA_EMULATION
-  int baud_rate = 9600;
-  int test_freq = 10000000;
+  int baud_rate = 115200;
+  int test_freq = 40000000;
   #else
   set_flls();
   int baud_rate = 115200;

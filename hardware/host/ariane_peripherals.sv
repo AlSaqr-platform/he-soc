@@ -453,7 +453,7 @@ module ariane_peripherals
       begin
 
         logic [3:0] eth_txd_o, eth_rxd_i;
-        logic                      eth_en, eth_we, eth_int_n, eth_pme_n, eth_mdio_i, eth_mdio_o, eth_mdio_oe;
+        logic                      eth_en, eth_we, eth_int_n, eth_mdio_i, eth_mdio_o, eth_mdio_oe;
         logic [AxiAddrWidth-1:0]   eth_addr;
         logic [AxiDataWidth-1:0]   eth_wrdata, eth_rdata;
         logic [AxiDataWidth/8-1:0] eth_be;

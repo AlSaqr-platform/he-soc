@@ -228,12 +228,12 @@ module host_domain
    assign   eth_clk_200MHz_i = s_soc_clk ;
 
    clk_gen_hyper i_clk_gen_ethernet (
-        .clk_i    ( s_periph_clk                    ),
-        .rst_ni   ( s_synch_soc_rst                 ),
-        .clk0_o   ( eth_clk_i                       ),
-        .clk90_o  ( eth_phy_tx_clk_i                ),
-        .clk180_o (                                 ),
-        .clk270_o (                                 )
+        .clk_i    ( s_periph_clk                ),
+        .rst_ni   ( s_synch_soc_rst             ),
+        .clk0_o   ( eth_clk_i                   ),
+        .clk90_o  ( eth_phy_tx_clk_i            ),
+        .clk180_o (                             ),
+        .clk270_o (                             )
     );
 
    AXI_BUS #(

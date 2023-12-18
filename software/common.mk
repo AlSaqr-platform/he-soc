@@ -44,6 +44,11 @@ RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump -h --disassemble-all --disassemble-zeroe
 RISCV_FLAGS     := -mcmodel=medany -static -std=gnu99 -DNUM_CORES=2 -O3 -ffast-math -fno-common -fno-builtin-printf $(INC)
 RISCV_LINK_OPTS := -static -nostdlib -nostartfiles -lm -lgcc
 
+
+ifdef fpga
+	RISCV_FLAGS += -DFPGA_EMULATION
+endif
+
 ifdef FLL_DRIVER
 	RISCV_FLAGS += -DFLL_DRIVER
 endif
@@ -65,7 +70,7 @@ dump:
 	cp $(APP).riscv  $(HW_HOME)/
 	echo $(APP).riscv | tee -a  $(HW_HOME)/regression.list
 
-all: clean build_single dis dump
+all: clean build dis dump
 
 rtl:
 	 $(MAKE) -C $(SW_HOME)/../hardware/ -B all

@@ -157,7 +157,7 @@ To run the regressions including the CVA6 various dual boot mode, FLL bypass and
 cd hardware/
 make run_regression
 ```
-The tests executed here can be found in `hardware/regression.csv`, they are 22 and all of them pass.
+The tests executed here can be found in `hardware/regressions/regression.csv`, they are 23 and all of them pass.
 
 
 ### FPGA Emulation
@@ -228,21 +228,14 @@ To validate the synthesis of AlSaqr we provide the following simulation targets,
   RTL (USES FLL DUMMY) + HYPER NETLIST
 
  
-To perform the post sythesis simulation of one of the previous target run the following command within `he-soc/hardware` 
+To perform the post sythesis simulation of one of the previous target run the following command within `he-soc/hardware` (NB: the acc flag ensures that the simulation is fast, about 10 mins for an hello world):
 
 ```
-make clean post_synth=1 <target_name> synth_sim
+make clean post_synth=1 <target_name> synth_sim acc=+acc=p+ariane_tb.
 ```
-To run the regression using the netlist do the following:
+There is a framwork to run the regressions with the netlist of the chip as well. The netlist regression list is defined in hardware/regressions/regressions_netlist.csv while the transcript of each simulation will be stored in hardware/regressions/regressions_netlist_reports/ . To run the regression using the netlist do the following:
 
 ```
-cd software
-
-source compile_all.sh
-
-cd ../hardware
-
-make clean preload=1 post_synth=1 <target_name>
-
-make preload=1 batch-mode=1 run-regressions-post-synth
+cd hardware/
+make run_regression_netlist
 ```
