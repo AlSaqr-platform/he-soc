@@ -255,7 +255,7 @@ int main(
     );
 
 #if TITANSSL_CFG_BENCHMARK_DEBUG
-    for (size_t i=0; i<buffer_digest.n; i++) printf("RSA [%2d] 0x%02 vs 0x%02\r\n", i, plaintext[i], buffer_digest.data[i]);
+    for (size_t i=0; i<buffer_digest.n; i++) printf("RSA %d 0x%02x vs 0x%02x\r\n", i, plaintext[i], buffer_digest.data[i]);
 #endif
 
 	return 0;
