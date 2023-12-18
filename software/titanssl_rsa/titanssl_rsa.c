@@ -241,6 +241,8 @@ int main(
         (test_freq/baud_rate)>>4
     );
 
+	printf("RSA test 18/12 1\t\n");
+
 #if TITANSSL_RSA_MODE == 512
     hextobin(plaintext, "");
 #elif TITANSSL_RSA_MODE == 1024

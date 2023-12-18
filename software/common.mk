@@ -19,7 +19,8 @@ endif
 
 utils_dir = $(SW_HOME)/inc/
 
-inc_dirs = . drivers/inc string_lib/inc padframe/inc fpga_padframe/inc udma udma/cpi udma/i2c udma/spim udma/uart udma/sdio apb_timer gpio ../../../BearSSL/src ../../../BearSSL/inc ../../../BearSSL/build
+my_inc_dirs = ../../../BearSSL/src ../../../BearSSL/inc ../../../BearSSL/build ../../../SHA3IUF ../../../SHA3IUF/fuzz
+inc_dirs = . drivers/inc string_lib/inc padframe/inc fpga_padframe/inc udma udma/cpi udma/i2c udma/spim udma/uart udma/sdio apb_timer gpio $(my_inc_dirs)
 
 src_dirs = . drivers/src string_lib/src udma/uart padframe/src fpga_padframe/src
 
@@ -54,7 +55,7 @@ clean:
 	rm -f *.slm
 
 build:
-	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir)/test.ld $(RISCV_LINK_OPTS) $(cc-elf-y) $(inc_dir)/crt.S $(inc_dir)/syscalls.c -L $(inc_dir) $(APP).c $(SRC) -o $(APP).riscv -static -lbearssl 
+	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir)/test.ld $(RISCV_LINK_OPTS) $(cc-elf-y) $(inc_dir)/crt.S $(inc_dir)/syscalls.c -L $(inc_dir) $(APP).c $(SRC) -o $(APP).riscv -static -lbearssl -lsha3
 
 dis:
 	$(RISCV_OBJDUMP) $(APP).riscv > $(APP).dump
