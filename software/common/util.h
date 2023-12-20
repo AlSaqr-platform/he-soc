@@ -41,7 +41,7 @@ static int verifyDouble(int n, const volatile double* test, const double* verify
   return 0;
 }
 
-static void __attribute__((noinline)) barrier(int ncores)
+static void __attribute__((noinline)) barrier_old(int ncores)
 {
   static volatile int sense;
   static volatile int count;

@@ -25,22 +25,15 @@ static __attribute__ ((noinline)) void unlock(int cid) {
 
 int thread_entry(int cid, int nc){
 
-  int core_id =  read_csr(mhartid);
   lock(cid);
-
-  #ifdef FPGA_EMULATION
-  int baud_rate = 115200;
-  int test_freq = 40000000;
-  #else
-  set_flls();
-  int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
-
-  printf("Hello Culsans! I'm Core %d!\r\n", core_id);
+  uint64_t misa = read_csr(misa);
+  if(!(misa & 0x80)){
+    printf("Hypervisor extension MISSING!\r\n");
+    uart_wait_tx_done();
+    return -1;
+  }
+  printf("Hello Culsans! I'm Core %d!\r\n", cid);
   uart_wait_tx_done();
-
   unlock(cid);
 
   return 0;
