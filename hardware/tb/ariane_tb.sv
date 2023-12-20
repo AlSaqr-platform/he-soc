@@ -1132,10 +1132,11 @@ module ariane_tb;
         .jtag_ot_TRSTn        ( s_jtag2ot_trstn        ),
         .jtag_ot_TDO_data     ( s_jtag2ot_tdo          ),
 
+        .pad_periphs_a_00_pad(pad_periphs_a_00_pad),
+        .pad_periphs_a_01_pad(pad_periphs_a_01_pad),
+
         `ifndef EXCLUDE_PADFRAME
 
-               .pad_periphs_a_00_pad(pad_periphs_a_00_pad),
-               .pad_periphs_a_01_pad(pad_periphs_a_01_pad),
                .pad_periphs_a_02_pad(pad_periphs_a_02_pad),
                .pad_periphs_a_03_pad(pad_periphs_a_03_pad),
                .pad_periphs_a_04_pad(pad_periphs_a_04_pad),
