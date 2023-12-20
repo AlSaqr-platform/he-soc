@@ -9,7 +9,7 @@ To rely on the hyperbus, you need a [special FMC carrier board](https://ieeexplo
 To generate the bitstream, with a DDR configuration (the one available in VCU118 board), run:
 
 ```
-make simple-padframe=1 scripts-bender-fpga-ddr simple-padfrane=1
+make simple-padframe=1 scripts-bender-fpga-ddr
 
 ```
 To use the hyperram use `make scripts-bender-fpga`, without simple-padframe.
