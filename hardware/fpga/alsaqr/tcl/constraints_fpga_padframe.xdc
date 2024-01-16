@@ -88,3 +88,7 @@ set_input_delay -clock ALSAQR_CLK -min [ expr 20 * 0.10 ] [ get_ports pad_periph
 set_input_delay -clock ALSAQR_CLK -max [ expr 20 * 0.35 ] [ get_ports pad_periphs_pad_gpio_b_07_pad ]
 
 set_max_delay    [ expr 20 * 0.50 ] -from  [ get_ports pad_periphs_pad_gpio_b_07_pad ]
+
+# ETHERNET MDC
+set_output_delay -clock ALSAQR_CLK -min [ expr 20 * 0.10 ] [ get_ports pad_periphs_pad_gpio_b_14_pad ]
+set_output_delay -clock ALSAQR_CLK -max [ expr 20 * 0.35 ] [ get_ports pad_periphs_pad_gpio_b_14_pad ]
