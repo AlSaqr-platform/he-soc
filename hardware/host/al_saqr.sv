@@ -346,7 +346,7 @@ module al_saqr
 
   logic s_cluster_eoc;
   logic s_cluster_eoc_sync;
-   
+
   uart_to_pad_t  s_cva6_uart_tx;
   pad_to_uart_t  s_cva6_uart_rx;
 
@@ -1083,7 +1083,6 @@ module al_saqr
      //ETHERNET
      `ASSIGN_PERIPHS_ETH_PAD2SOC(s_pad_to_eth,s_port_signals_pad2soc.periphs.eth)
      `ASSIGN_PERIPHS_ETH_SOC2PAD(s_port_signals_soc2pad.periphs.eth,s_eth_to_pad)
-
    `else // !`ifdef SIMPLE_PADFRAME
     `ifndef FPGA_EMUL
 
