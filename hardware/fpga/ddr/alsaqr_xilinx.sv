@@ -55,6 +55,7 @@ module alsaqr_xilinx
     inout wire  pad_periphs_pad_gpio_b_11_pad,
     inout wire  pad_periphs_pad_gpio_b_12_pad,
     inout wire  pad_periphs_pad_gpio_b_13_pad,
+    inout wire  pad_periphs_pad_gpio_b_14_pad,
     inout wire  pad_periphs_cva6_uart_00_pad,
     inout wire  pad_periphs_cva6_uart_01_pad,
     `endif
@@ -322,8 +323,9 @@ ddr4_0 u_ddr4_0
         .pad_periphs_a_11_pad(pad_periphs_pad_gpio_b_11_pad),
         .pad_periphs_a_12_pad(pad_periphs_pad_gpio_b_12_pad),
         .pad_periphs_a_13_pad(pad_periphs_pad_gpio_b_13_pad),
-        .pad_periphs_a_14_pad(pad_periphs_cva6_uart_00_pad),
-        .pad_periphs_a_15_pad(pad_periphs_cva6_uart_01_pad),
+        .pad_periphs_a_14_pad(pad_periphs_pad_gpio_b_14_pad),
+        .pad_periphs_a_15_pad(pad_periphs_cva6_uart_00_pad),
+        .pad_periphs_a_16_pad(pad_periphs_cva6_uart_01_pad),
         `endif
         .jtag_TCK         ( pad_jtag_tck       ),
         .jtag_TMS         ( pad_jtag_tms       ),
