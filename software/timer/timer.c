@@ -27,7 +27,7 @@
 #define BUFFER_SIZE 32
 
 //#define FPGA_EMULATION
-//#define SIMPLE_PAD
+#define SIMPLE_PAD
 
 //#define VERBOSE
 //#define EXTRA_VERBOSE
@@ -59,7 +59,16 @@ int main() {
 
   #else
     #ifdef SIMPLE_PAD
-
+      //out pwm0 - pwm3
+      alsaqr_periph_padframe_periphs_a_00_mux_set (3);
+      alsaqr_periph_padframe_periphs_a_01_mux_set (3);
+      alsaqr_periph_padframe_periphs_a_02_mux_set (3);
+      alsaqr_periph_padframe_periphs_a_03_mux_set (3);
+      //out pwm4 - pwm7
+      alsaqr_periph_padframe_periphs_a_04_mux_set (4);
+      alsaqr_periph_padframe_periphs_a_05_mux_set (4);
+      alsaqr_periph_padframe_periphs_a_06_mux_set (3);
+      alsaqr_periph_padframe_periphs_a_07_mux_set (3);
     #else
       //out pwm0 - pwm3
       alsaqr_periph_padframe_periphs_a_08_mux_set (3);
