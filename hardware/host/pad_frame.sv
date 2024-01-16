@@ -87,7 +87,6 @@ module pad_frame
     assign jtag_tdi_ot_o = pad_jtag_ot_tdi;
     //BOOTMODE
     assign bootmode_o = pad_bootmode;
-
 `endif // !`ifndef FPGA_EMUL
 
 `ifdef TARGET_ASIC

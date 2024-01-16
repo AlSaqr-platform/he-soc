@@ -98,10 +98,10 @@ module al_saqr
   inout wire logic    pad_periphs_a_13_pad,
   inout wire logic    pad_periphs_a_14_pad,
   inout wire logic    pad_periphs_a_15_pad,
+  inout wire logic    pad_periphs_a_16_pad,
 
   `ifndef FPGA_EMUL
     `ifndef SIMPLE_PADFRAME
-        inout wire logic    pad_periphs_a_16_pad,
         inout wire logic    pad_periphs_a_17_pad,
         inout wire logic    pad_periphs_a_18_pad,
         inout wire logic    pad_periphs_a_19_pad,
@@ -171,9 +171,24 @@ module al_saqr
         inout wire logic    pad_periphs_ot_spi_03_pad,
       `endif
     `endif
- `else
-   input logic fpga_pad_uart_rx_i,
+ `else /* `ifndef EXCLUDE_PADFRAME */
+   input  logic fpga_pad_uart_rx_i,
    output logic fpga_pad_uart_tx_o,
+ `endif
+
+ `ifdef ETH2FMC_NO_PADFRAME
+  input  logic       clk_125MHz,
+  input  logic       clk_125MHz90,
+  input  logic       clk_300MHz,
+  output wire        eth_rstn,
+  input  wire        eth_rxck,
+  input  wire        eth_rxctl,
+  input  wire  [3:0] eth_rxd,
+  output wire        eth_txck,
+  output wire        eth_txctl,
+  output wire  [3:0] eth_txd,
+  inout  wire        eth_mdio,
+  output wire        eth_mdc,
  `endif
 
   // JTAG
@@ -263,6 +278,10 @@ module al_saqr
 
   logic s_h2c_mailbox_irq;
 
+  logic s_clk_300MHz;
+  logic s_clk_125MHz;
+  logic s_clk_125MHz90;
+
   AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -346,7 +365,7 @@ module al_saqr
 
   logic s_cluster_eoc;
   logic s_cluster_eoc_sync;
-   
+
   uart_to_pad_t  s_cva6_uart_tx;
   pad_to_uart_t  s_cva6_uart_rx;
 
@@ -520,6 +539,11 @@ module al_saqr
       .gpio_to_pad            ( s_gpio_b_to_pad                 ),
       .pad_to_gpio            ( s_pad_to_gpio_b                 ),
 
+      `ifdef ETH2FMC_NO_PADFRAME
+      .clk_300MHz             ( clk_300MHz                      ),
+      .clk_125MHz             ( clk_125MHz                      ),
+      .clk_125MHz90           ( clk_125MHz90                    ),
+      `endif
       .eth_to_pad             ( s_eth_to_pad                    ),
       .pad_to_eth             ( s_pad_to_eth                    ),
 
@@ -537,6 +561,7 @@ module al_saqr
        .pad_hyper_reset,
        .pad_hyper_dq,
        `endif
+
 
       .pwm_to_pad             ( s_pwm_to_pad                    ),
       .fll_to_pad             ( s_fll_to_pad                    ),
@@ -1012,12 +1037,39 @@ module al_saqr
   `REG_BUS_ASSIGN_FROM_RSP(i_padframecfg_rbus,reg_rsp)
 
   `ifdef EXCLUDE_PADFRAME
-   assign reg_rsp.ready = 1'b1;
-   assign reg_rsp.rdata = 32'hdeaddead;
-   assign reg_rsp.error = 1'b0;
-   assign s_cva6_uart_rx = fpga_pad_uart_rx_i;
-   assign fpga_pad_uart_tx_o = s_cva6_uart_tx;
-  `else
+
+     assign reg_rsp.ready = 1'b1;
+     assign reg_rsp.rdata = 32'hdeaddead;
+     assign reg_rsp.error = 1'b0;
+     assign s_cva6_uart_rx = fpga_pad_uart_rx_i;
+     assign fpga_pad_uart_tx_o = s_cva6_uart_tx;
+
+     `ifdef ETH2FMC_NO_PADFRAME
+       assign s_pad_to_eth.eth_rxck_i  = eth_rxck;
+       assign s_pad_to_eth.eth_rxctl_i = eth_rxctl;
+       assign s_pad_to_eth.eth_rxd0_i  = eth_rxd[0];
+       assign s_pad_to_eth.eth_rxd1_i  = eth_rxd[1];
+       assign s_pad_to_eth.eth_rxd2_i  = eth_rxd[2];
+       assign s_pad_to_eth.eth_rxd3_i  = eth_rxd[3];
+       assign eth_mdc    = s_eth_to_pad.eth_mdc_o;
+       assign eth_rst_n  = s_eth_to_pad.eth_rstn_o;
+       assign eth_txck   = s_eth_to_pad.eth_txck_o;
+       assign eth_txctl  = s_eth_to_pad.eth_txctl_o;
+       assign eth_txd[0] = s_eth_to_pad.eth_txd0_o;
+       assign eth_txd[1] = s_eth_to_pad.eth_txd1_o;
+       assign eth_txd[2] = s_eth_to_pad.eth_txd2_o;
+       assign eth_txd[3] = s_eth_to_pad.eth_txd3_o;
+
+       IOBUF IOBUF_inst (
+          .O(s_pad_to_eth.eth_md_i),  // Buffer output
+          .IO(eth_mdio),                // Buffer inout port (connect directly to top-level port)
+          .I(s_eth_to_pad.eth_md_o),  // Buffer input
+          .T(~s_eth_to_pad.eth_md_oe) // 3-state enable input, high=input, low=output
+       );
+
+     `endif
+
+   `else
 
    `ifdef SIMPLE_PADFRAME
       alsaqr_periph_fpga_padframe #(
@@ -1048,8 +1100,9 @@ module al_saqr
         .pad_periphs_pad_gpio_b_11_pad(pad_periphs_a_11_pad),
         .pad_periphs_pad_gpio_b_12_pad(pad_periphs_a_12_pad),
         .pad_periphs_pad_gpio_b_13_pad(pad_periphs_a_13_pad),
-        .pad_periphs_cva6_uart_00_pad(pad_periphs_a_14_pad),
-        .pad_periphs_cva6_uart_01_pad(pad_periphs_a_15_pad),
+        .pad_periphs_pad_gpio_b_14_pad(pad_periphs_a_14_pad),
+        .pad_periphs_cva6_uart_00_pad(pad_periphs_a_15_pad),
+        .pad_periphs_cva6_uart_01_pad(pad_periphs_a_16_pad),
 
         .config_req_i   ( reg_req     ),
         .config_rsp_o   ( reg_rsp     )
@@ -1076,7 +1129,12 @@ module al_saqr
      // GPIOs
      `ASSIGN_PERIPHS_GPIO_B_PAD2SOC(s_pad_to_gpio_b,s_port_signals_pad2soc.periphs.gpio_b)
      `ASSIGN_PERIPHS_GPIO_B_SOC2PAD(s_port_signals_soc2pad.periphs.gpio_b,s_gpio_b_to_pad)
-
+     // PWMs
+     `ASSIGN_PERIPHS_PWM0_SOC2PAD(s_port_signals_soc2pad.periphs.pwm0,s_pwm_nano_to_pad[0])
+     `ASSIGN_PERIPHS_PWM1_SOC2PAD(s_port_signals_soc2pad.periphs.pwm1,s_pwm_nano_to_pad[1])
+     //ETHERNET
+     `ASSIGN_PERIPHS_ETH_PAD2SOC(s_pad_to_eth,s_port_signals_pad2soc.periphs.eth)
+     `ASSIGN_PERIPHS_ETH_SOC2PAD(s_port_signals_soc2pad.periphs.eth,s_eth_to_pad)
    `else // !`ifdef SIMPLE_PADFRAME
     `ifndef FPGA_EMUL
 
@@ -1297,9 +1355,28 @@ module al_saqr
           `ASSIGN_PERIPHS_SDIO1_PAD2SOC(s_pad_to_sdio[1],s_port_signals_pad2soc.periphs.sdio1)
           `ASSIGN_PERIPHS_SDIO1_SOC2PAD(s_port_signals_soc2pad.periphs.sdio1,s_sdio_to_pad[1])
 
-          //ETHERNET
-          `ASSIGN_PERIPHS_ETH_PAD2SOC(s_pad_to_eth,s_port_signals_pad2soc.periphs.eth)
-          `ASSIGN_PERIPHS_ETH_SOC2PAD(s_port_signals_soc2pad.periphs.eth,s_eth_to_pad)
+          // ETHERNET
+          `ifdef ETH2FMC_NO_PADFRAME
+            assign s_pad_to_eth.eth_md_i    = eth_mdio;
+            assign s_pad_to_eth.eth_rxck_i  = eth_rxck;
+            assign s_pad_to_eth.eth_rxctl_i = eth_rxctl;
+            assign s_pad_to_eth.eth_rxd0_i  = eth_rxd[0];
+            assign s_pad_to_eth.eth_rxd1_i  = eth_rxd[1];
+            assign s_pad_to_eth.eth_rxd2_i  = eth_rxd[2];
+            assign s_pad_to_eth.eth_rxd3_i  = eth_rxd[3];
+            assign eth_mdio   = s_eth_to_pad.eth_md_o;
+            assign eth_mdc    = s_eth_to_pad.eth_mdc_o;
+            assign eth_rst_n  = s_eth_to_pad.eth_rstn_o;
+            assign eth_txck   = s_eth_to_pad.eth_txck_o;
+            assign eth_txctl  = s_eth_to_pad.eth_txctl_o;
+            assign eth_txd[0] = s_eth_to_pad.eth_txd0_o;
+            assign eth_txd[1] = s_eth_to_pad.eth_txd1_o;
+            assign eth_txd[2] = s_eth_to_pad.eth_txd2_o;
+            assign eth_txd[3] = s_eth_to_pad.eth_txd3_o;
+          `else
+            `ASSIGN_PERIPHS_ETH_PAD2SOC(s_pad_to_eth,s_port_signals_pad2soc.periphs.eth)
+            `ASSIGN_PERIPHS_ETH_SOC2PAD(s_port_signals_soc2pad.periphs.eth,s_eth_to_pad)
+          `endif
 
           //FLL OUT
           `ASSIGN_PERIPHS_FLL_SOC_SOC2PAD(s_port_signals_soc2pad.periphs.fll_soc,s_fll_to_pad)

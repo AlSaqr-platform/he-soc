@@ -2,7 +2,7 @@
 # PADFRAME FMC PERIPHERAL BOARD (SPI - I2C - UART - SDIO)          #
 ####################################################################
 
-# QSPI - CSm
+# QSPI - CS
 set_property -dict {PACKAGE_PIN AP12 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_00_pad]
 # QSPI - SCK
 set_property -dict {PACKAGE_PIN AN16 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_01_pad]
@@ -28,5 +28,4 @@ set_property -dict {PACKAGE_PIN AT12 IOSTANDARD LVCMOS18} [get_ports pad_periphs
 set_property -dict {PACKAGE_PIN AU12 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_11_pad]
 set_property -dict {PACKAGE_PIN AW13 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_12_pad]
 set_property -dict {PACKAGE_PIN AY13 IOSTANDARD LVCMOS18} [get_ports pad_periphs_pad_gpio_b_13_pad]
-
 
