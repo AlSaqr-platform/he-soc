@@ -104,7 +104,7 @@ pad_domains:
       - name: pad_gpio_b_{i:2d}
         mux_groups: [self]
         description: "pads for FPGA testing"
-        multiple: 14
+        multiple: 15
         pad_type: pad_alsaqr
         is_static: false
 
@@ -243,7 +243,90 @@ pad_domains:
               sd1_o: pad2chip
               oen: sd1_oen_i
               puen: 1'b1
+    
+      # ETHERNET
+      - name: eth
+        output_defaults: 1'b0
+        ports:
+          - name: eth_rst
+            mux_groups: [pad_gpio_b_00]
+            connections:
+              chip2pad: eth_rstn_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: eth_rxck
+            mux_groups: [pad_gpio_b_01]
+            connections:
+              eth_rxck_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: eth_rxctl
+            mux_groups: [pad_gpio_b_02]
+            connections:
+              eth_rxctl_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: eth_rxd{i}
+            multiple: 4
+            mux_groups: ["pad_gpio_b_{03+i:2d}"]
+            connections:
+              eth_rxd{i}_o: pad2chip
+              oen: 1'b1
+              puen: 1'b1
+          - name: eth_txck
+            mux_groups: [pad_gpio_b_07]
+            connections:
+              chip2pad: eth_txck_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: eth_txctl
+            mux_groups: [pad_gpio_b_08]
+            connections:
+              chip2pad: eth_txctl_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: eth_txd{i}
+            multiple: 4
+            mux_groups: ["pad_gpio_b_{09+i:2d}"]
+            connections:
+              chip2pad: eth_txd{i}_i
+              oen: 1'b0
+              puen: 1'b1
+          - name: eth_mdio
+            mux_groups: [pad_gpio_b_13]
+            connections:
+              chip2pad: eth_md_i
+              eth_md_o: pad2chip
+              oen: ~eth_md_oe
+              puen: 1'b1
+          - name: eth_mdc
+            mux_groups: [pad_gpio_b_14]
+            connections:
+              chip2pad: eth_mdc_i
+              oen: 1'b0
+              puen: 1'b1
 
+      # QFN PWM
+      - name: pwm0
+        ports:
+          - name: pwm{i}
+            multiple: 4
+            mux_groups: ["pad_gpio_b_{i:2d}"]
+            connections:
+              chip2pad: pwm{i}_i
+              oen: 1'b0
+              puen: 1'b1
+
+      # CPGA PWM
+      - name: pwm1
+        ports:
+          - name: pwm{i}
+            multiple: 4
+            mux_groups: ["pad_gpio_b_{04+i:2d}"]
+            connections:
+              chip2pad: pwm{i}_i
+              oen: 1'b0
+              puen: 1'b1
 
       - name: uart_core
         output_defaults: 1'b1
