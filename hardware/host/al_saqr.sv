@@ -1077,9 +1077,12 @@ module al_saqr
      // GPIOs
      `ASSIGN_PERIPHS_GPIO_B_PAD2SOC(s_pad_to_gpio_b,s_port_signals_pad2soc.periphs.gpio_b)
      `ASSIGN_PERIPHS_GPIO_B_SOC2PAD(s_port_signals_soc2pad.periphs.gpio_b,s_gpio_b_to_pad)
-      // PWMs
-      `ASSIGN_PERIPHS_PWM0_SOC2PAD(s_port_signals_soc2pad.periphs.pwm0,s_pwm_nano_to_pad[0])
-      `ASSIGN_PERIPHS_PWM1_SOC2PAD(s_port_signals_soc2pad.periphs.pwm1,s_pwm_nano_to_pad[1])
+     // PWMs
+     `ASSIGN_PERIPHS_PWM0_SOC2PAD(s_port_signals_soc2pad.periphs.pwm0,s_pwm_nano_to_pad[0])
+     `ASSIGN_PERIPHS_PWM1_SOC2PAD(s_port_signals_soc2pad.periphs.pwm1,s_pwm_nano_to_pad[1])
+     //ETHERNET
+     `ASSIGN_PERIPHS_ETH_PAD2SOC(s_pad_to_eth,s_port_signals_pad2soc.periphs.eth)
+     `ASSIGN_PERIPHS_ETH_SOC2PAD(s_port_signals_soc2pad.periphs.eth,s_eth_to_pad)
 
    `else // !`ifdef SIMPLE_PADFRAME
     `ifndef FPGA_EMUL
