@@ -7,6 +7,7 @@
 #include <limits.h>
 #include <sys/signal.h>
 #include "util.h"
+#include "utils.h"
 
 #define SYS_write 64
 
@@ -115,12 +116,18 @@ void _init(int cid, int nc)
      *tmp = 3;
      tmp = (int *) 0x1a10400C;
      *tmp = 3;
+     int baud_rate = 115200;
+     int test_freq = 100000000;
      #else
      tmp = (int *) 0x1a104074;
      *tmp = 1;
      tmp = (int *) 0x1a10407C;
      *tmp = 1;
+     int baud_rate = 115200;
+     int test_freq = 40000000;
      #endif
+     uart_set_cfg(0,(test_freq/baud_rate)>>4);
+     set_flls();
      /* Set plic mbox IRQ priority to 1 */
      tmp = (int *) 0xC000028;
      *tmp = 0x1;
