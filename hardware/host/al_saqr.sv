@@ -98,10 +98,10 @@ module al_saqr
   inout wire logic    pad_periphs_a_13_pad,
   inout wire logic    pad_periphs_a_14_pad,
   inout wire logic    pad_periphs_a_15_pad,
+  inout wire logic    pad_periphs_a_16_pad,
 
   `ifndef FPGA_EMUL
     `ifndef SIMPLE_PADFRAME
-        inout wire logic    pad_periphs_a_16_pad,
         inout wire logic    pad_periphs_a_17_pad,
         inout wire logic    pad_periphs_a_18_pad,
         inout wire logic    pad_periphs_a_19_pad,
@@ -1048,8 +1048,9 @@ module al_saqr
         .pad_periphs_pad_gpio_b_11_pad(pad_periphs_a_11_pad),
         .pad_periphs_pad_gpio_b_12_pad(pad_periphs_a_12_pad),
         .pad_periphs_pad_gpio_b_13_pad(pad_periphs_a_13_pad),
-        .pad_periphs_cva6_uart_00_pad(pad_periphs_a_14_pad),
-        .pad_periphs_cva6_uart_01_pad(pad_periphs_a_15_pad),
+        .pad_periphs_pad_gpio_b_14_pad(pad_periphs_a_14_pad),
+        .pad_periphs_cva6_uart_00_pad(pad_periphs_a_15_pad),
+        .pad_periphs_cva6_uart_01_pad(pad_periphs_a_16_pad),
 
         .config_req_i   ( reg_req     ),
         .config_rsp_o   ( reg_rsp     )
@@ -1076,6 +1077,9 @@ module al_saqr
      // GPIOs
      `ASSIGN_PERIPHS_GPIO_B_PAD2SOC(s_pad_to_gpio_b,s_port_signals_pad2soc.periphs.gpio_b)
      `ASSIGN_PERIPHS_GPIO_B_SOC2PAD(s_port_signals_soc2pad.periphs.gpio_b,s_gpio_b_to_pad)
+      // PWMs
+      `ASSIGN_PERIPHS_PWM0_SOC2PAD(s_port_signals_soc2pad.periphs.pwm0,s_pwm_nano_to_pad[0])
+      `ASSIGN_PERIPHS_PWM1_SOC2PAD(s_port_signals_soc2pad.periphs.pwm1,s_pwm_nano_to_pad[1])
 
    `else // !`ifdef SIMPLE_PADFRAME
     `ifndef FPGA_EMUL
