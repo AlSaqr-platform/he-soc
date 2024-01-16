@@ -59,6 +59,41 @@
   assign load.sd1_i = driver.sd1_o; \
   assign load.sd1_oen_i = driver.sd1_oen_o; \
 
+`define ASSIGN_PERIPHS_ETH_PAD2SOC(load, driver) \
+  assign load.eth_md_i = driver.eth_md_o; \
+  assign load.eth_rxck_i = driver.eth_rxck_o; \
+  assign load.eth_rxctl_i = driver.eth_rxctl_o; \
+  assign load.eth_rxd0_i = driver.eth_rxd0_o; \
+  assign load.eth_rxd1_i = driver.eth_rxd1_o; \
+  assign load.eth_rxd2_i = driver.eth_rxd2_o; \
+  assign load.eth_rxd3_i = driver.eth_rxd3_o; \
+
+`define ASSIGN_PERIPHS_ETH_SOC2PAD(load, driver) \
+  assign load.eth_md_i = driver.eth_md_o; \
+  assign load.eth_md__i = driver.eth_md__o; \
+  assign load.eth_mdc_i = driver.eth_mdc_o; \
+  assign load.eth_rstn_i = driver.eth_rstn_o; \
+  assign load.eth_txck_i = driver.eth_txck_o; \
+  assign load.eth_txctl_i = driver.eth_txctl_o; \
+  assign load.eth_txd0_i = driver.eth_txd0_o; \
+  assign load.eth_txd1_i = driver.eth_txd1_o; \
+  assign load.eth_txd2_i = driver.eth_txd2_o; \
+  assign load.eth_txd3_i = driver.eth_txd3_o; \
+
+
+`define ASSIGN_PERIPHS_PWM0_SOC2PAD(load, driver) \
+  assign load.pwm0_i = driver.pwm0_o; \
+  assign load.pwm1_i = driver.pwm1_o; \
+  assign load.pwm2_i = driver.pwm2_o; \
+  assign load.pwm3_i = driver.pwm3_o; \
+
+
+`define ASSIGN_PERIPHS_PWM1_SOC2PAD(load, driver) \
+  assign load.pwm0_i = driver.pwm0_o; \
+  assign load.pwm1_i = driver.pwm1_o; \
+  assign load.pwm2_i = driver.pwm2_o; \
+  assign load.pwm3_i = driver.pwm3_o; \
+
 `define ASSIGN_PERIPHS_UART_CORE_PAD2SOC(load, driver) \
   assign load.rx_i = driver.rx_o; \
 

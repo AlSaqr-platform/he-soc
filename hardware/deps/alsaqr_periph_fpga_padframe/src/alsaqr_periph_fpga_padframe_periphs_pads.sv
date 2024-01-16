@@ -21,6 +21,7 @@ module alsaqr_periph_fpga_padframe_periphs_pads
   inout wire logic pad_pad_gpio_b_11_pad,
   inout wire logic pad_pad_gpio_b_12_pad,
   inout wire logic pad_pad_gpio_b_13_pad,
+  inout wire logic pad_pad_gpio_b_14_pad,
   inout wire logic pad_cva6_uart_00_pad,
   inout wire logic pad_cva6_uart_01_pad
   );
@@ -228,6 +229,20 @@ module alsaqr_periph_fpga_padframe_periphs_pads
     .DRV(mux_to_pads_i.pad_gpio_b_13.drv),
     .SLW(mux_to_pads_i.pad_gpio_b_13.slw),
     .SMT(mux_to_pads_i.pad_gpio_b_13.smt),
+    .PWROK(PWROK_S),
+    .IOPWROK(IOPWROK_S),
+    .BIAS(BIAS_S),
+    .RETC(RETC_S)
+  );
+   pad_alsaqr i_pad_gpio_b_14 (
+    .OEN(mux_to_pads_i.pad_gpio_b_14.oen),
+    .I(mux_to_pads_i.pad_gpio_b_14.chip2pad),
+    .O(pads_to_mux_o.pad_gpio_b_14.pad2chip),
+    .PUEN(mux_to_pads_i.pad_gpio_b_14.puen),
+    .PAD(pad_pad_gpio_b_14_pad),
+    .DRV(mux_to_pads_i.pad_gpio_b_14.drv),
+    .SLW(mux_to_pads_i.pad_gpio_b_14.slw),
+    .SMT(mux_to_pads_i.pad_gpio_b_14.smt),
     .PWROK(PWROK_S),
     .IOPWROK(IOPWROK_S),
     .BIAS(BIAS_S),
