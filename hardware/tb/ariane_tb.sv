@@ -1149,12 +1149,13 @@ module ariane_tb;
                .pad_periphs_a_11_pad(pad_periphs_a_11_pad),
                .pad_periphs_a_12_pad(pad_periphs_a_12_pad),
                .pad_periphs_a_13_pad(pad_periphs_a_13_pad),
-
-          `ifndef FPGA_EMUL
-            `ifndef SIMPLE_PADFRAME
                .pad_periphs_a_14_pad(pad_periphs_a_14_pad),
                .pad_periphs_a_15_pad(pad_periphs_a_15_pad),
                .pad_periphs_a_16_pad(pad_periphs_a_16_pad),
+
+          `ifndef FPGA_EMUL
+            `ifndef SIMPLE_PADFRAME
+
                .pad_periphs_a_17_pad(pad_periphs_a_17_pad),
                .pad_periphs_a_18_pad(pad_periphs_a_18_pad),
                .pad_periphs_a_19_pad(pad_periphs_a_19_pad),
@@ -1218,14 +1219,14 @@ module ariane_tb;
                .pad_periphs_b_46_pad(pad_periphs_b_46_pad),
                .pad_periphs_b_47_pad(pad_periphs_b_47_pad),
 
+               .pad_periphs_ot_spi_00_pad(pad_periphs_ot_spi_00_pad),
+               .pad_periphs_ot_spi_01_pad(pad_periphs_ot_spi_01_pad),
+               .pad_periphs_ot_spi_02_pad(pad_periphs_ot_spi_02_pad),
+               .pad_periphs_ot_spi_03_pad(pad_periphs_ot_spi_03_pad),
+
             `endif //simple pad
           `endif //fpga_emul
         `endif //exclude
-
-        .pad_periphs_ot_spi_00_pad(pad_periphs_ot_spi_00_pad),
-        .pad_periphs_ot_spi_01_pad(pad_periphs_ot_spi_01_pad),
-        .pad_periphs_ot_spi_02_pad(pad_periphs_ot_spi_02_pad),
-        .pad_periphs_ot_spi_03_pad(pad_periphs_ot_spi_03_pad),
 
         .pad_hyper_csn        ( hyper_cs_n_wire        ),
         .pad_hyper_ck         ( hyper_ck_wire          ),
