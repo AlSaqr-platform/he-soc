@@ -55,8 +55,26 @@ module alsaqr_xilinx
     inout wire  pad_periphs_pad_gpio_b_11_pad,
     inout wire  pad_periphs_pad_gpio_b_12_pad,
     inout wire  pad_periphs_pad_gpio_b_13_pad,
+    inout wire  pad_periphs_pad_gpio_b_14_pad,
     inout wire  pad_periphs_cva6_uart_00_pad,
     inout wire  pad_periphs_cva6_uart_01_pad,
+    `endif
+
+    `ifdef EXCLUDE_PADFRAME
+    inout wire  pad_periphs_cva6_uart_00_pad,
+    inout wire  pad_periphs_cva6_uart_01_pad,
+    `endif
+
+    `ifdef ETH2FMC_NO_PADFRAME
+    output wire       fmc_eth_rst_n   ,
+    input  wire       fmc_eth_rxck    ,
+    input  wire       fmc_eth_rxctl   ,
+    input  wire [3:0] fmc_eth_rxd     ,
+    output wire       fmc_eth_txck    ,
+    output wire       fmc_eth_txctl   ,
+    output wire [3:0] fmc_eth_txd     ,
+    inout  wire       fmc_eth_mdio    ,
+    output logic      fmc_eth_mdc     ,
     `endif
 
     // OpenTitan jtag port
@@ -92,7 +110,42 @@ module alsaqr_xilinx
    localparam AXI_ID_WIDTH = 9;
   `endif
 
+`ifdef EXCLUDE_PADFRAME
+   logic  cva6_uart_rx, cva6_uart_tx;
+
+   pad_alsaqr_pu padinst_uart_rx (
+    .OEN(1'b1),
+    .I(1'b0),
+    .O(cva6_uart_rx),
+    .PAD(pad_periphs_cva6_uart_01_pad),
+    .DRV(2'b00),
+    .SLW(1'b0),
+    .SMT(1'b0),
+    .PWROK(PWROK_S),
+    .IOPWROK(IOPWROK_S),
+    .BIAS(BIAS_S),
+    .RETC(RETC_S)
+   );
+
+   pad_alsaqr_pu padinst_uart_tx (
+    .OEN(1'b0),
+    .I(cva6_uart_tx),
+    .O(),
+    .PAD(pad_periphs_cva6_uart_00_pad),
+    .DRV(2'b00),
+    .SLW(1'b0),
+    .SMT(1'b0),
+    .PWROK(PWROK_S),
+    .IOPWROK(IOPWROK_S),
+    .BIAS(BIAS_S),
+    .RETC(RETC_S)
+    );
+`endif
+
    wire        ref_clk;
+   wire        s_clk_300MHz;
+   wire        s_clk_125MHz;
+   wire        s_clk_125MHz90;
    wire        ddr_ref_clk;
    logic       s_locked;
    logic       s_clk;
@@ -105,6 +158,11 @@ module alsaqr_xilinx
                                       .resetn(reset_n),
                                       .locked(),
                                       .clk_in1(c0_sys_clk_o),
+                                      `ifdef ETH2FMC_NO_PADFRAME
+                                      .clk_out4(s_clk_300MHz),
+                                      .clk_out3(s_clk_125MHz90),
+                                      .clk_out2(s_clk_125MHz),
+                                      `endif
                                       .clk_out1(ref_clk)
                                       );
 
@@ -299,6 +357,7 @@ ddr4_0 u_ddr4_0
     ) i_alsaqr (
         .rst_ni           ( reset_n            ),
         .rtc_i            ( ref_clk            ),
+
         `ifndef EXCLUDE_ROT
         .jtag_ot_TCK      ( pad_jtag_ot_tck    ),
         .jtag_ot_TMS      ( pad_jtag_ot_tms    ),
@@ -307,6 +366,7 @@ ddr4_0 u_ddr4_0
         .jtag_ot_TDO_data ( pad_jtag_ot_tdo    ),
         .pad_bootmode     ( pad_bootmode       ),
         `endif
+
         `ifdef SIMPLE_PADFRAME
         .pad_periphs_a_00_pad(pad_periphs_pad_gpio_b_00_pad),
         .pad_periphs_a_01_pad(pad_periphs_pad_gpio_b_01_pad),
@@ -322,9 +382,31 @@ ddr4_0 u_ddr4_0
         .pad_periphs_a_11_pad(pad_periphs_pad_gpio_b_11_pad),
         .pad_periphs_a_12_pad(pad_periphs_pad_gpio_b_12_pad),
         .pad_periphs_a_13_pad(pad_periphs_pad_gpio_b_13_pad),
-        .pad_periphs_a_14_pad(pad_periphs_cva6_uart_00_pad),
-        .pad_periphs_a_15_pad(pad_periphs_cva6_uart_01_pad),
+        .pad_periphs_a_14_pad(pad_periphs_pad_gpio_b_14_pad),
+        .pad_periphs_a_15_pad(pad_periphs_cva6_uart_00_pad),
+        .pad_periphs_a_16_pad(pad_periphs_cva6_uart_01_pad),
         `endif
+
+        `ifdef ETH2FMC_NO_PADFRAME
+        .clk_125MHz     ( s_clk_125MHz    ),
+        .clk_125MHz90   ( s_clk_125MHz90  ),
+        .clk_300MHz     ( s_clk_300MHz    ),
+        .eth_rstn       ( fmc_eth_rst_n   ),
+        .eth_rxck       ( fmc_eth_rxck    ),
+        .eth_rxctl      ( fmc_eth_rxctl   ),
+        .eth_rxd        ( fmc_eth_rxd     ),
+        .eth_txck       ( fmc_eth_txck    ),
+        .eth_txctl      ( fmc_eth_txctl   ),
+        .eth_txd        ( fmc_eth_txd     ),
+        .eth_mdio       ( fmc_eth_mdio    ),
+        .eth_mdc        ( fmc_eth_mdc     ),
+        `endif
+
+        `ifdef EXCLUDE_PADFRAME
+        .fpga_pad_uart_rx_i ( cva6_uart_rx ),
+        .fpga_pad_uart_tx_o ( cva6_uart_tx ),
+        `endif
+
         .jtag_TCK         ( pad_jtag_tck       ),
         .jtag_TMS         ( pad_jtag_tms       ),
         .jtag_TDI         ( pad_jtag_tdi       ),

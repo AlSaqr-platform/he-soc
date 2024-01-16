@@ -47,7 +47,11 @@ module ariane_tb;
 
   static uvm_cmdline_processor uvcl = uvm_cmdline_processor::get_inst();
 
-  localparam int unsigned REFClockPeriod = 1us; // jtag clock: 1MHz
+  localparam int unsigned REFClockPeriod        = 1us; // jtag clock: 1MHz
+  `ifdef ETH2FMC_NO_PADFRAME
+    localparam int unsigned REFClockPeriod300     = 3.33ns; // eth300 clock: 300MHz
+    localparam int unsigned REFClockPeriod125     = 8ns;    // eth125 clock: 125MHz
+  `endif
 
   // toggle with RTC period
   `ifndef TEST_CLOCK_BYPASS
@@ -69,10 +73,10 @@ module ariane_tb;
   parameter AW       = 64;
   parameter IW       = 9;
   parameter UW       = 1;
-  logic                 s_eth_clk125_0;
-  logic                 s_eth_clk125_90;
-  logic                 s_eth_clk200;
-  logic                 s_eth_rstni;
+  logic s_eth_clk125_0;
+  logic s_eth_clk125_90;
+  logic s_eth_clk300;
+  logic s_eth_rstni;
 
   AXI_BUS_DV#(
     .AXI_ADDR_WIDTH(AW),
@@ -230,6 +234,21 @@ module ariane_tb;
     wire  [NumPhys-1:0]      hyper_reset_n_wire;
 
     wire                  soc_clock;
+
+    `ifdef ETH2FMC_NO_PADFRAME
+      logic               s_tck300;
+      logic               s_tck125_0;
+      logic               s_tck125_90;
+      wire                s_core_eth_rstn;
+      wire                s_core_eth_rxck;
+      wire                s_core_eth_rxctl;
+      wire [3:0]          s_core_eth_rxd;
+      wire                s_core_eth_txck;
+      wire                s_core_eth_txctl;
+      wire [3:0]          s_core_eth_txd;
+      wire                s_core_eth_mdio;
+      wire                s_core_eth_mdc;
+    `endif
 
     wire                  w_i2c_sda      ;
     wire                  w_i2c_scl      ;
@@ -717,6 +736,21 @@ module ariane_tb;
     wire    alt_1_simple_pad_periphs_11_gpio11 ;
     wire    alt_1_simple_pad_periphs_12_gpio12 ;
     wire    alt_1_simple_pad_periphs_13_gpio13 ;
+    wire    alt_2_simple_pad_periphs_00_eth_rst   ;
+    wire    alt_2_simple_pad_periphs_01_eth_rxck  ;
+    wire    alt_2_simple_pad_periphs_02_eth_rxctl ;
+    wire    alt_2_simple_pad_periphs_03_eth_rxd0  ;
+    wire    alt_2_simple_pad_periphs_04_eth_rxd1  ;
+    wire    alt_2_simple_pad_periphs_05_eth_rxd2  ;
+    wire    alt_2_simple_pad_periphs_06_eth_rxd3  ;
+    wire    alt_2_simple_pad_periphs_07_eth_txck  ;
+    wire    alt_2_simple_pad_periphs_08_eth_txctl ;
+    wire    alt_2_simple_pad_periphs_09_eth_txd0  ;
+    wire    alt_2_simple_pad_periphs_10_eth_txd1  ;
+    wire    alt_2_simple_pad_periphs_11_eth_txd2  ;
+    wire    alt_2_simple_pad_periphs_12_eth_txd3  ;
+    wire    alt_2_simple_pad_periphs_13_eth_mdio  ;
+    wire    alt_2_simple_pad_periphs_14_eth_mdc   ;
     //**************************************************
     // PAD VIPs SIGNALS END
     //**************************************************
@@ -1066,6 +1100,25 @@ module ariane_tb;
     logic    alt_1_simple_pad_periphs_11_mux_sel_gpio11 ;
     logic    alt_1_simple_pad_periphs_12_mux_sel_gpio12 ;
     logic    alt_1_simple_pad_periphs_13_mux_sel_gpio13 ;
+    logic    alt_2_simple_pad_periphs_00_mux_sel_eth_rst   ;
+    logic    alt_2_simple_pad_periphs_01_mux_sel_eth_rxck  ;
+    logic    alt_2_simple_pad_periphs_02_mux_sel_eth_rxctl ;
+    logic    alt_2_simple_pad_periphs_03_mux_sel_eth_rxd0  ;
+    logic    alt_2_simple_pad_periphs_04_mux_sel_eth_rxd1  ;
+    logic    alt_2_simple_pad_periphs_05_mux_sel_eth_rxd2  ;
+    logic    alt_2_simple_pad_periphs_06_mux_sel_eth_rxd3  ;
+    logic    alt_2_simple_pad_periphs_07_mux_sel_eth_txck  ;
+    logic    alt_2_simple_pad_periphs_08_mux_sel_eth_txctl ;
+    logic    alt_2_simple_pad_periphs_09_mux_sel_eth_txd0  ;
+    logic    alt_2_simple_pad_periphs_10_mux_sel_eth_txd1  ;
+    logic    alt_2_simple_pad_periphs_11_mux_sel_eth_txd2  ;
+    logic    alt_2_simple_pad_periphs_12_mux_sel_eth_txd3  ;
+    logic    alt_2_simple_pad_periphs_13_mux_sel_eth_mdio  ;
+    logic    alt_2_simple_pad_periphs_14_mux_sel_eth_mdc   ;
+
+
+
+
     //**************************************************
     // PAD VIPs MUX SEL SIGNALS END
     //**************************************************
@@ -1149,12 +1202,13 @@ module ariane_tb;
                .pad_periphs_a_11_pad(pad_periphs_a_11_pad),
                .pad_periphs_a_12_pad(pad_periphs_a_12_pad),
                .pad_periphs_a_13_pad(pad_periphs_a_13_pad),
-
-          `ifndef FPGA_EMUL
-            `ifndef SIMPLE_PADFRAME
                .pad_periphs_a_14_pad(pad_periphs_a_14_pad),
                .pad_periphs_a_15_pad(pad_periphs_a_15_pad),
                .pad_periphs_a_16_pad(pad_periphs_a_16_pad),
+
+          `ifndef FPGA_EMUL
+            `ifndef SIMPLE_PADFRAME
+
                .pad_periphs_a_17_pad(pad_periphs_a_17_pad),
                .pad_periphs_a_18_pad(pad_periphs_a_18_pad),
                .pad_periphs_a_19_pad(pad_periphs_a_19_pad),
@@ -1218,14 +1272,29 @@ module ariane_tb;
                .pad_periphs_b_46_pad(pad_periphs_b_46_pad),
                .pad_periphs_b_47_pad(pad_periphs_b_47_pad),
 
+               .pad_periphs_ot_spi_00_pad(pad_periphs_ot_spi_00_pad),
+               .pad_periphs_ot_spi_01_pad(pad_periphs_ot_spi_01_pad),
+               .pad_periphs_ot_spi_02_pad(pad_periphs_ot_spi_02_pad),
+               .pad_periphs_ot_spi_03_pad(pad_periphs_ot_spi_03_pad),
+
             `endif //simple pad
           `endif //fpga_emul
         `endif //exclude
 
-        .pad_periphs_ot_spi_00_pad(pad_periphs_ot_spi_00_pad),
-        .pad_periphs_ot_spi_01_pad(pad_periphs_ot_spi_01_pad),
-        .pad_periphs_ot_spi_02_pad(pad_periphs_ot_spi_02_pad),
-        .pad_periphs_ot_spi_03_pad(pad_periphs_ot_spi_03_pad),
+        `ifdef ETH2FMC_NO_PADFRAME
+        .clk_125MHz       ( s_eth_clk125_0     ),
+        .clk_125MHz90     ( s_eth_clk125_90    ),
+        .clk_300MHz       ( s_eth_clk300       ),
+        .eth_rstn         ( s_core_eth_rstn    ),
+        .eth_rxck         ( s_core_eth_rxck    ),
+        .eth_rxctl        ( s_core_eth_rxctl   ),
+        .eth_rxd          ( s_core_eth_rxd     ),
+        .eth_txck         ( s_core_eth_txck    ),
+        .eth_txctl        ( s_core_eth_txctl   ),
+        .eth_txd          ( s_core_eth_txd     ),
+        .eth_mdio         ( s_core_eth_mdio    ),
+        .eth_mdc          ( s_core_eth_mdc     ),
+        `endif
 
         .pad_hyper_csn        ( hyper_cs_n_wire        ),
         .pad_hyper_ck         ( hyper_ck_wire          ),
@@ -1687,52 +1756,90 @@ module ariane_tb;
                 .data_i ( eth_rdata               )
           );
 
-          framing_top eth_rgmii_alt2 (
-             .msoc_clk(clk_i),
-             .core_lsu_addr(eth_addr[14:0]),
-             .core_lsu_wdata(eth_wrdata),
-             .core_lsu_be(eth_be),
-             .ce_d(eth_en),
-             .we_d(eth_en & eth_we),
-             .framing_sel(eth_en),
-             .framing_rdata(eth_rdata),
-             .rst_int(!s_eth_rstni),
+          `ifdef ETH2FMC_NO_PADFRAME
+            framing_top eth_rgmii_alt2  (
+               .msoc_clk        ( clk_i             ),
+               .core_lsu_addr   ( eth_addr[14:0]    ),
+               .core_lsu_wdata  ( eth_wrdata        ),
+               .core_lsu_be     ( eth_be            ),
+               .ce_d            ( eth_en            ),
+               .we_d            ( eth_en & eth_we   ),
+               .framing_sel     ( eth_en            ),
+               .framing_rdata   ( eth_rdata         ),
+               .rst_int         ( !s_eth_rstni      ),
 
-             .clk_int( s_eth_clk125_0  ), // 125 MHz in-phase
-             .clk90_int(  s_eth_clk125_90 ),    // 125 MHz quadrature
-             .clk_200_int(s_eth_clk200),
-             /*
-              * Ethernet: 1000BASE-T RGMII
-              */
-             .phy_rx_clk( alt_2_pad_periphs_a_22_pad_ETH_TXCK ),
-             .phy_rxd( w_eth_tx2_data ),
-             .phy_rx_ctl( alt_2_pad_periphs_a_23_pad_ETH_TXCTL),
+               .clk_int         ( s_eth_clk125_0    ),    // 125 MHz in-phase
+               .clk90_int       ( s_eth_clk125_90   ),    // 125 MHz quadrature
+               .clk_iodelay_int ( s_eth_clk300      ),
+               /*
+                * Ethernet: 1000BASE-T RGMII
+                */
+               .phy_rx_clk      ( s_core_eth_txck   ),
+               .phy_rxd         ( s_core_eth_txd    ),
+               .phy_rx_ctl      ( s_core_eth_txctl  ),
 
-             .phy_tx_clk( alt_2_pad_periphs_a_16_pad_ETH_RXCK ),
-             .phy_txd ( w_eth_rx2_data ),
-             .phy_tx_ctl( alt_2_pad_periphs_a_17_pad_ETH_RXCTL),
-             .phy_reset_n(w_eth_rstn) ,
-             .phy_mdc( ),
+               .phy_tx_clk      ( s_core_eth_rxck   ),
+               .phy_txd         ( s_core_eth_rxd    ),
+               .phy_tx_ctl      ( s_core_eth_rxctl  ),
+               .phy_reset_n     ( w_eth_rstn        ),
+               .phy_mdc         (                   ),
 
-             .phy_int_n(1'b1  ),
-             .phy_pme_n( 1'b1 ),
+               .phy_int_n       ( 1'b1              ),
+               .phy_pme_n       ( 1'b1              ),
 
-             .phy_mdio_i(1'b0 ),
-             .phy_mdio_o(),
-             .phy_mdio_oe(),
+               .phy_mdio_i      ( 1'b0              ),
+               .phy_mdio_o      (                   ),
+               .phy_mdio_oe     (                   ),
 
-             .eth_irq()
-          );
+               .eth_irq         (                   )
+            );
+          `else // Ethernet attached to the FULL padframe
+            framing_top eth_rgmii_alt2 (
+               .msoc_clk(clk_i),
+               .core_lsu_addr(eth_addr[14:0]),
+               .core_lsu_wdata(eth_wrdata),
+               .core_lsu_be(eth_be),
+               .ce_d(eth_en),
+               .we_d(eth_en & eth_we),
+               .framing_sel(eth_en),
+               .framing_rdata(eth_rdata),
+               .rst_int(!s_eth_rstni),
+               .clk_int( s_eth_clk125_0  ), // 125 MHz in-phase
+               .clk90_int(  s_eth_clk125_90 ),    // 125 MHz quadrature
+               .clk_200_int(s_eth_clk300),
+               /*
+                * Ethernet: 1000BASE-T RGMII
+                */
+               .phy_rx_clk( alt_2_pad_periphs_a_22_pad_ETH_TXCK ),
+               .phy_rxd( w_eth_tx2_data ),
+               .phy_rx_ctl( alt_2_pad_periphs_a_23_pad_ETH_TXCTL),
 
-          assign alt_2_pad_periphs_a_18_pad_ETH_RXD0 = w_eth_rx2_data[0] ;
-          assign alt_2_pad_periphs_a_19_pad_ETH_RXD1 = w_eth_rx2_data[1] ;
-          assign alt_2_pad_periphs_a_20_pad_ETH_RXD2 = w_eth_rx2_data[2] ;
-          assign alt_2_pad_periphs_a_21_pad_ETH_RXD3 = w_eth_rx2_data[3] ;
+               .phy_tx_clk( alt_2_pad_periphs_a_16_pad_ETH_RXCK ),
+               .phy_txd ( w_eth_rx2_data ),
+               .phy_tx_ctl( alt_2_pad_periphs_a_17_pad_ETH_RXCTL),
+               .phy_reset_n(w_eth_rstn) ,
+               .phy_mdc( ),
 
-          assign w_eth_tx2_data[0] = alt_2_pad_periphs_a_24_pad_ETH_TXD0 ;
-          assign w_eth_tx2_data[1] = alt_2_pad_periphs_a_25_pad_ETH_TXD1 ;
-          assign w_eth_tx2_data[2] = alt_2_pad_periphs_a_26_pad_ETH_TXD2 ;
-          assign w_eth_tx2_data[3] = alt_2_pad_periphs_a_27_pad_ETH_TXD3 ;
+               .phy_int_n(1'b1  ),
+               .phy_pme_n( 1'b1 ),
+
+               .phy_mdio_i(1'b0 ),
+               .phy_mdio_o(),
+               .phy_mdio_oe(),
+
+               .eth_irq()
+            );
+
+            assign alt_2_pad_periphs_a_18_pad_ETH_RXD0 = w_eth_rx2_data[0] ;
+            assign alt_2_pad_periphs_a_19_pad_ETH_RXD1 = w_eth_rx2_data[1] ;
+            assign alt_2_pad_periphs_a_20_pad_ETH_RXD2 = w_eth_rx2_data[2] ;
+            assign alt_2_pad_periphs_a_21_pad_ETH_RXD3 = w_eth_rx2_data[3] ;
+
+            assign w_eth_tx2_data[0] = alt_2_pad_periphs_a_24_pad_ETH_TXD0 ;
+            assign w_eth_tx2_data[1] = alt_2_pad_periphs_a_25_pad_ETH_TXD1 ;
+            assign w_eth_tx2_data[2] = alt_2_pad_periphs_a_26_pad_ETH_TXD2 ;
+            assign w_eth_tx2_data[3] = alt_2_pad_periphs_a_27_pad_ETH_TXD3 ;
+          `endif
 
           logic [DW:0] data_array [7:0];
 
@@ -1791,6 +1898,7 @@ module ariane_tb;
           // Check if the data received and stored in the rx memory matches the transmitted data
 
           initial begin
+
             int continue_loop = 1;
 
             while(continue_loop) begin
@@ -1798,9 +1906,9 @@ module ariane_tb;
               for(int i=0; i<8; i++) begin
                 read_axi(axi_master_drv, read_addr[i]);
                 if(rx_read_data == data_array[i])
-                  $display(" data correct");
+                  $display("Data correct");
                 else
-                   $display("Data wrong");
+                  $display("Data wrong");
               end
               continue_loop = 0;
             end
@@ -1808,7 +1916,7 @@ module ariane_tb;
             reset_master(axi_master_drv);
             repeat(5) @(posedge clk_i);
             #3000ns;
-                      // Packet length
+            // Packet length
             write_axi(axi_master_drv,'h30000810,'h00000040, 'h0f);
             repeat(5) @(posedge clk_i);
 
@@ -2056,6 +2164,182 @@ module ariane_tb;
                     alt_0_simple_pad_periphs_08_sdio0_d1
                   } )
           );
+        end
+
+        if(USE_ETHERNET == 1) begin
+
+          logic            eth_en, eth_we, eth_int_n, eth_mdio_i, eth_mdio_o, eth_mdio_oe, w_eth_rstn;
+          logic [AW-1:0]   eth_addr;
+          logic [DW-1:0]   eth_wrdata, eth_rdata;
+          logic [DW/8-1:0] eth_be;
+
+          axi2mem #(
+            .AXI_ID_WIDTH   ( IW    ),
+            .AXI_ADDR_WIDTH ( AW    ),
+            .AXI_DATA_WIDTH ( DW    ),
+            .AXI_USER_WIDTH ( UW    )
+          ) axi2ethernet_alt2 (
+                .clk_i  ( clk_i                   ),
+                .rst_ni ( s_eth_rstni             ),
+                .slave  ( axi_master              ),
+                .req_o  ( eth_en                  ),
+                .we_o   ( eth_we                  ),
+                .addr_o ( eth_addr                ),
+                .be_o   ( eth_be                  ),
+                .data_o ( eth_wrdata              ),
+                .data_i ( eth_rdata               )
+          );
+
+          framing_top eth_rgmii_alt2 (
+             .msoc_clk(clk_i),
+             .core_lsu_addr(eth_addr[14:0]),
+             .core_lsu_wdata(eth_wrdata),
+             .core_lsu_be(eth_be),
+             .ce_d(eth_en),
+             .we_d(eth_en & eth_we),
+             .framing_sel(eth_en),
+             .framing_rdata(eth_rdata),
+             .rst_int(!s_eth_rstni),
+
+             .clk_int( s_eth_clk125_0  ), // 125 MHz in-phase
+             .clk90_int( s_eth_clk125_90 ),    // 125 MHz quadrature
+             .clk_200_int(s_eth_clk300),
+             /*
+              * Ethernet: 1000BASE-T RGMII
+              */
+             .phy_rx_clk ( alt_2_simple_pad_periphs_07_eth_txck ),
+             .phy_rxd    ( w_eth_tx2_data ),
+             .phy_rx_ctl ( alt_2_simple_pad_periphs_08_eth_txctl ),
+
+             .phy_tx_clk ( alt_2_simple_pad_periphs_01_eth_rxck ),
+             .phy_txd    ( w_eth_rx2_data ),
+             .phy_tx_ctl ( alt_2_simple_pad_periphs_02_eth_rxctl ),
+             .phy_reset_n( w_eth_rstn ) ,
+             .phy_mdc(),
+
+             .phy_int_n( 1'b1 ),
+             .phy_pme_n( 1'b1 ),
+
+             .phy_mdio_i(1'b0 ),
+             .phy_mdio_o(),
+             .phy_mdio_oe(),
+
+             .eth_irq()
+          );
+
+          assign alt_2_simple_pad_periphs_03_eth_rxd0 = w_eth_rx2_data[0] ;
+          assign alt_2_simple_pad_periphs_04_eth_rxd1 = w_eth_rx2_data[1] ;
+          assign alt_2_simple_pad_periphs_05_eth_rxd2 = w_eth_rx2_data[2] ;
+          assign alt_2_simple_pad_periphs_06_eth_rxd3 = w_eth_rx2_data[3] ;
+
+          assign w_eth_tx2_data[0] = alt_2_simple_pad_periphs_09_eth_txd0 ;
+          assign w_eth_tx2_data[1] = alt_2_simple_pad_periphs_10_eth_txd1 ;
+          assign w_eth_tx2_data[2] = alt_2_simple_pad_periphs_11_eth_txd2 ;
+          assign w_eth_tx2_data[3] = alt_2_simple_pad_periphs_12_eth_txd3 ;
+
+          logic [DW:0] data_array [7:0];
+
+          initial begin
+            data_array[0] = 64'h1032207098001032; //1 --> 230100890702 2301, mac dest + inizio di mac source
+            data_array[1] = 64'h3210E20020709800; //2 --> 00890702 002E 0123, fine mac source + length + payload
+            data_array[2] = 64'h1716151413121110; // payload
+            data_array[3] = 64'h2726252423222120;
+            data_array[4] = 64'h3736353433323130;
+            data_array[5] = 64'h4746454443424140;
+            data_array[6] = 64'h5756555453525150;
+            data_array[7] = 64'h6766656463626160;
+          end
+
+          // initialization read addresses
+          logic [AW-1:0] read_addr [7:0];
+          initial begin
+            read_addr[0] = 64'h3000_4000;
+            read_addr[1] = 64'h3000_4008;
+            read_addr[2] = 64'h3000_4010;
+            read_addr[3] = 64'h3000_4018;
+            read_addr[4] = 64'h3000_4020;
+            read_addr[5] = 64'h3000_4028;
+            read_addr[6] = 64'h3000_4030;
+            read_addr[7] = 64'h3000_4038;
+          end
+
+          // initialization write addresses
+          logic [AW-1:0] write_addr [7:0];
+          initial begin
+            write_addr[0] = 64'h3000_1000;
+            write_addr[1] = 64'h3000_1008;
+            write_addr[2] = 64'h3000_1010;
+            write_addr[3] = 64'h3000_1018;
+            write_addr[4] = 64'h3000_1020;
+            write_addr[5] = 64'h3000_1028;
+            write_addr[6] = 64'h3000_1030;
+            write_addr[7] = 64'h3000_1038;
+          end
+
+          logic [63:0] rx_read_data;
+          assign rx_read_data=axi_master.r_data;
+
+          event       tx_complete;
+          logic       en_rx_memw;
+          assign en_rx_memw = eth_rgmii_alt2.RAMB16_inst_rx.genblk1[0].mem_wrap_rx_inst.enaB;
+
+          initial begin
+            while(1) begin
+               @(posedge en_rx_memw);
+               @(negedge en_rx_memw);
+               -> tx_complete;
+            end
+          end
+
+          // Check if the data received and stored in the rx memory matches the transmitted data
+
+          initial begin
+            int continue_loop = 1;
+
+            while(continue_loop) begin
+              wait(tx_complete.triggered);
+              for(int i=0; i<8; i++) begin
+                read_axi(axi_master_drv, read_addr[i]);
+                if(rx_read_data == data_array[i])
+                  $display("Data correct");
+                else
+                   $display("Data wrong");
+              end
+              continue_loop = 0;
+            end
+
+            reset_master(axi_master_drv);
+            repeat(5) @(posedge clk_i);
+            #3000ns;
+
+            // Packet length
+            write_axi(axi_master_drv,'h30000810,'h00000040, 'h0f);
+            repeat(5) @(posedge clk_i);
+
+            // TX BUFFER FILLING ----------------------------------------------
+            for(int j=0; j<8; j++) begin
+               write_axi(axi_master_drv, write_addr[j], data_array[j], 'hff);
+               @(posedge clk_i);
+            end
+            repeat(10) @(posedge clk_i);
+
+            // TRANSMISSION OF PACKET -----------------------------------------
+            // 1 --> mac_address[31:0]
+            write_axi(axi_master_drv,'h30000800,'h00890702, 'h0f);
+            @(posedge clk_i);
+
+            // 2 --> {irq_en,promiscuous,spare,loopback,cooked,mac_address[47:32]}
+            write_axi(axi_master_drv,'h30000808,'h00802301, 'h0f);
+            @(posedge clk_i);
+
+            // 3 --> Rx frame check sequence register(read) and last register(write)
+            write_axi(axi_master_drv,'h30000828,'h00000008, 'h0f);
+            @(posedge clk_i);
+
+            repeat(20) @(posedge rtc_i);
+            $finish;
+
+          end // initial begin
         end
 
         if(USE_UART == 1) begin
@@ -2419,20 +2703,35 @@ module ariane_tb;
         assign alt_0_simple_pad_periphs_11_mux_sel_sdio0_d4  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_11_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_11_SEL_SDIO0_SDIO_DATA3);
         assign alt_0_simple_pad_periphs_12_mux_sel_sdio0_clk = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_12_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_12_SEL_SDIO0_SDIO_CLK);
         assign alt_0_simple_pad_periphs_13_mux_sel_sdio0_cmd = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_13_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_13_SEL_SDIO0_SDIO_CMD);
-        assign alt_1_simple_pad_periphs_00_mux_sel_gpio00 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_00_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_00_SEL_GPIO_B_GPIO0);
-        assign alt_1_simple_pad_periphs_01_mux_sel_gpio01 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_01_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_01_SEL_GPIO_B_GPIO1);
-        assign alt_1_simple_pad_periphs_02_mux_sel_gpio02 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_02_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_02_SEL_GPIO_B_GPIO2);
-        assign alt_1_simple_pad_periphs_03_mux_sel_gpio03 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_03_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_03_SEL_GPIO_B_GPIO3);
-        assign alt_1_simple_pad_periphs_04_mux_sel_gpio04 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_04_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_04_SEL_GPIO_B_GPIO4);
-        assign alt_1_simple_pad_periphs_05_mux_sel_gpio05 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_05_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_05_SEL_GPIO_B_GPIO5);
-        assign alt_1_simple_pad_periphs_06_mux_sel_gpio06 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_06_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_06_SEL_GPIO_B_GPIO6);
-        assign alt_1_simple_pad_periphs_07_mux_sel_gpio07 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_07_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_07_SEL_GPIO_B_GPIO7);
-        assign alt_1_simple_pad_periphs_08_mux_sel_gpio08 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_08_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_08_SEL_GPIO_B_GPIO8);
-        assign alt_1_simple_pad_periphs_09_mux_sel_gpio09 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_09_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_09_SEL_GPIO_B_GPIO9);
-        assign alt_1_simple_pad_periphs_10_mux_sel_gpio10 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_10_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_10_SEL_GPIO_B_GPIO10);
-        assign alt_1_simple_pad_periphs_11_mux_sel_gpio11 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_11_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_11_SEL_GPIO_B_GPIO11);
-        assign alt_1_simple_pad_periphs_12_mux_sel_gpio12 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_12_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_12_SEL_GPIO_B_GPIO12);
-        assign alt_1_simple_pad_periphs_13_mux_sel_gpio13 = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_13_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_13_SEL_GPIO_B_GPIO13);
+        assign alt_1_simple_pad_periphs_00_mux_sel_gpio00    = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_00_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_00_SEL_GPIO_B_GPIO0);
+        assign alt_1_simple_pad_periphs_01_mux_sel_gpio01    = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_01_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_01_SEL_GPIO_B_GPIO1);
+        assign alt_1_simple_pad_periphs_02_mux_sel_gpio02    = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_02_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_02_SEL_GPIO_B_GPIO2);
+        assign alt_1_simple_pad_periphs_03_mux_sel_gpio03    = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_03_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_03_SEL_GPIO_B_GPIO3);
+        assign alt_1_simple_pad_periphs_04_mux_sel_gpio04    = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_04_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_04_SEL_GPIO_B_GPIO4);
+        assign alt_1_simple_pad_periphs_05_mux_sel_gpio05    = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_05_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_05_SEL_GPIO_B_GPIO5);
+        assign alt_1_simple_pad_periphs_06_mux_sel_gpio06    = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_06_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_06_SEL_GPIO_B_GPIO6);
+        assign alt_1_simple_pad_periphs_07_mux_sel_gpio07    = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_07_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_07_SEL_GPIO_B_GPIO7);
+        assign alt_1_simple_pad_periphs_08_mux_sel_gpio08    = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_08_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_08_SEL_GPIO_B_GPIO8);
+        assign alt_1_simple_pad_periphs_09_mux_sel_gpio09    = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_09_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_09_SEL_GPIO_B_GPIO9);
+        assign alt_1_simple_pad_periphs_10_mux_sel_gpio10    = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_10_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_10_SEL_GPIO_B_GPIO10);
+        assign alt_1_simple_pad_periphs_11_mux_sel_gpio11    = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_11_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_11_SEL_GPIO_B_GPIO11);
+        assign alt_1_simple_pad_periphs_12_mux_sel_gpio12    = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_12_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_12_SEL_GPIO_B_GPIO12);
+        assign alt_1_simple_pad_periphs_13_mux_sel_gpio13    = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_13_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_13_SEL_GPIO_B_GPIO13);
+        assign alt_2_simple_pad_periphs_00_mux_sel_eth_rst   = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_00_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_00_SEL_ETH_ETH_RST);
+        assign alt_2_simple_pad_periphs_01_mux_sel_eth_rxck  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_01_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_01_SEL_ETH_ETH_RXCK);
+        assign alt_2_simple_pad_periphs_02_mux_sel_eth_rxctl = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_02_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_02_SEL_ETH_ETH_RXCTL);
+        assign alt_2_simple_pad_periphs_03_mux_sel_eth_rxd0  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_03_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_03_SEL_ETH_ETH_RXD0);
+        assign alt_2_simple_pad_periphs_04_mux_sel_eth_rxd1  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_04_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_04_SEL_ETH_ETH_RXD1);
+        assign alt_2_simple_pad_periphs_05_mux_sel_eth_rxd2  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_05_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_05_SEL_ETH_ETH_RXD2);
+        assign alt_2_simple_pad_periphs_06_mux_sel_eth_rxd3  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_06_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_06_SEL_ETH_ETH_RXD3);
+        assign alt_2_simple_pad_periphs_07_mux_sel_eth_txck  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_07_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_07_SEL_ETH_ETH_TXCK);
+        assign alt_2_simple_pad_periphs_08_mux_sel_eth_txctl = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_08_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_08_SEL_ETH_ETH_TXCTL);
+        assign alt_2_simple_pad_periphs_09_mux_sel_eth_txd0  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_09_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_09_SEL_ETH_ETH_TXD0);
+        assign alt_2_simple_pad_periphs_10_mux_sel_eth_txd1  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_10_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_10_SEL_ETH_ETH_TXD1);
+        assign alt_2_simple_pad_periphs_11_mux_sel_eth_txd2  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_11_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_11_SEL_ETH_ETH_TXD2);
+        assign alt_2_simple_pad_periphs_12_mux_sel_eth_txd3  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_12_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_12_SEL_ETH_ETH_TXD3);
+        assign alt_2_simple_pad_periphs_13_mux_sel_eth_mdio  = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_13_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_13_SEL_ETH_ETH_MDIO);
+        assign alt_2_simple_pad_periphs_14_mux_sel_eth_mdc   = (`SIMPLE_PAD_MUX_REG_PATH.pad_gpio_b_14_mux_sel.q == PAD_MUX_GROUP_PAD_GPIO_B_14_SEL_ETH_ETH_MDC);
       `endif
     `endif
   `endif
@@ -2787,6 +3086,21 @@ module ariane_tb;
         tranif1 alt_1_simple_pad_11_gpio11 (pad_periphs_a_11_pad, alt_1_simple_pad_periphs_11_gpio11, alt_1_simple_pad_periphs_11_mux_sel_gpio11);
         tranif1 alt_1_simple_pad_12_gpio12 (pad_periphs_a_12_pad, alt_1_simple_pad_periphs_12_gpio12, alt_1_simple_pad_periphs_12_mux_sel_gpio12);
         tranif1 alt_1_simple_pad_13_gpio13 (pad_periphs_a_13_pad, alt_1_simple_pad_periphs_13_gpio13, alt_1_simple_pad_periphs_13_mux_sel_gpio13);
+        tranif1 alt_2_simple_pad_00_pad_eth_rst   (pad_periphs_a_00_pad, alt_2_simple_pad_periphs_00_eth_rst  , alt_2_simple_pad_periphs_00_mux_sel_eth_rst   );
+        tranif1 alt_2_simple_pad_01_pad_eth_rxck  (pad_periphs_a_01_pad, alt_2_simple_pad_periphs_01_eth_rxck , alt_2_simple_pad_periphs_01_mux_sel_eth_rxck  );
+        tranif1 alt_2_simple_pad_02_pad_eth_rxctl (pad_periphs_a_02_pad, alt_2_simple_pad_periphs_02_eth_rxctl, alt_2_simple_pad_periphs_02_mux_sel_eth_rxctl );
+        tranif1 alt_2_simple_pad_03_pad_eth_rxd0  (pad_periphs_a_03_pad, alt_2_simple_pad_periphs_03_eth_rxd0 , alt_2_simple_pad_periphs_03_mux_sel_eth_rxd0  );
+        tranif1 alt_2_simple_pad_04_pad_eth_rxd1  (pad_periphs_a_04_pad, alt_2_simple_pad_periphs_04_eth_rxd1 , alt_2_simple_pad_periphs_04_mux_sel_eth_rxd1  );
+        tranif1 alt_2_simple_pad_05_pad_eth_rxd2  (pad_periphs_a_05_pad, alt_2_simple_pad_periphs_05_eth_rxd2 , alt_2_simple_pad_periphs_05_mux_sel_eth_rxd2  );
+        tranif1 alt_2_simple_pad_06_pad_eth_rxd3  (pad_periphs_a_06_pad, alt_2_simple_pad_periphs_06_eth_rxd3 , alt_2_simple_pad_periphs_06_mux_sel_eth_rxd3  );
+        tranif1 alt_2_simple_pad_07_pad_eth_txck  (pad_periphs_a_07_pad, alt_2_simple_pad_periphs_07_eth_txck , alt_2_simple_pad_periphs_07_mux_sel_eth_txck  );
+        tranif1 alt_2_simple_pad_08_pad_eth_txctl (pad_periphs_a_08_pad, alt_2_simple_pad_periphs_08_eth_txctl, alt_2_simple_pad_periphs_08_mux_sel_eth_txctl );
+        tranif1 alt_2_simple_pad_09_pad_eth_txd0  (pad_periphs_a_09_pad, alt_2_simple_pad_periphs_09_eth_txd0 , alt_2_simple_pad_periphs_09_mux_sel_eth_txd0  );
+        tranif1 alt_2_simple_pad_10_pad_eth_txd1  (pad_periphs_a_10_pad, alt_2_simple_pad_periphs_10_eth_txd1 , alt_2_simple_pad_periphs_10_mux_sel_eth_txd1  );
+        tranif1 alt_2_simple_pad_11_pad_eth_txd2  (pad_periphs_a_11_pad, alt_2_simple_pad_periphs_11_eth_txd2 , alt_2_simple_pad_periphs_11_mux_sel_eth_txd2  );
+        tranif1 alt_2_simple_pad_12_pad_eth_txd3  (pad_periphs_a_12_pad, alt_2_simple_pad_periphs_12_eth_txd3 , alt_2_simple_pad_periphs_12_mux_sel_eth_txd3  );
+        tranif1 alt_2_simple_pad_13_pad_eth_mdio  (pad_periphs_a_13_pad, alt_2_simple_pad_periphs_13_eth_mdio , alt_2_simple_pad_periphs_13_mux_sel_eth_mdio  );
+        tranif1 alt_2_simple_pad_14_pad_eth_mdc   (pad_periphs_a_14_pad, alt_2_simple_pad_periphs_14_eth_mdc  , alt_2_simple_pad_periphs_14_mux_sel_eth_mdc   );
       `endif
     `endif
   `endif
@@ -2915,9 +3229,17 @@ module ariane_tb;
   end
 
   assign clk_i = dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o;
-  assign s_eth_clk125_0 = dut.i_host_domain.i_clk_gen_ethernet.clk0_o;
-  assign s_eth_clk125_90 = dut.i_host_domain.i_clk_gen_ethernet.clk90_o;
-  assign s_eth_clk200 = dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o;
+
+  `ifdef ETH2FMC_NO_PADFRAME
+    assign s_eth_clk125_0   = s_tck125_0;
+    assign s_eth_clk125_90  = s_tck125_90;
+    assign s_eth_clk300     = s_tck300;
+  `else
+    assign s_eth_clk125_0 = dut.i_host_domain.i_clk_gen_ethernet.clk0_o;
+    assign s_eth_clk125_90 = dut.i_host_domain.i_clk_gen_ethernet.clk90_o;
+    assign s_eth_clk300 = dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o;
+  `endif
+
   assign s_eth_rstni =  dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.rstn_soc_sync_o;
 
   initial begin
@@ -2925,6 +3247,32 @@ module ariane_tb;
     forever
       #(REFClockPeriod/2) s_tck=~s_tck;
   end
+
+  `ifdef ETH2FMC_NO_PADFRAME
+
+    // Ethernet 200 MHz clock
+    initial begin
+      s_tck300 = '0;
+      forever
+        #(REFClockPeriod300/2) s_tck300=~s_tck300;
+    end
+
+    // Ethernet 125 MHz clock
+    initial begin
+      s_tck125_0 = '0;
+      forever
+        #(REFClockPeriod125/2) s_tck125_0=~s_tck125_0;
+    end
+
+    // Ethernet 125 MHz clock shifted 90 degree
+    initial begin
+      s_tck125_90 = '0;
+      #(REFClockPeriod125/4);
+      forever
+        #(REFClockPeriod125/2) s_tck125_90=~s_tck125_90;
+    end
+
+  `endif
 
 `ifndef USE_LOCAL_JTAG
   initial begin

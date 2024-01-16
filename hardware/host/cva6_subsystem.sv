@@ -73,9 +73,9 @@ module cva6_subsystem
   AXI_BUS.Slave           udma_tx_l3_axi_slave,
 
   //ETHERNET
-  input  logic            eth_clk_i       , // 125 MHz 0
-  input  logic            eth_phy_tx_clk_i, // 125 MHz 90
-  input  logic            eth_clk_200MHz_i,
+  input  logic            eth_clk_i       , // 125 MHz 90
+  input  logic            eth_phy_tx_clk_i, // 125 MHz 0
+  input  logic            eth_clk_300MHz_i,
 
   output eth_to_pad_t     eth_to_pad,
   input  pad_to_eth_t     pad_to_eth,
@@ -706,7 +706,7 @@ module cva6_subsystem
 
     .eth_clk_i        ( eth_clk_i                   ),
     .eth_phy_tx_clk_i ( eth_phy_tx_clk_i            ),
-    .eth_clk_200MHz_i ( eth_clk_200MHz_i            ),
+    .eth_clk_300MHz_i ( eth_clk_300MHz_i            ),
 
     .eth_to_pad       ( eth_to_pad                  ),
     .pad_to_eth       ( pad_to_eth                  ),
