@@ -71,6 +71,43 @@ package pkg_alsaqr_periph_fpga_padframe;
      } pad_domain_periphs_port_group_spi_ot_pad2soc_t;
 
    typedef struct packed {
+      logic        eth_md_i;
+      logic        eth_md_oe;
+      logic        eth_mdc_i;
+      logic        eth_rstn_i;
+      logic        eth_txck_i;
+      logic        eth_txctl_i;
+      logic        eth_txd0_i;
+      logic        eth_txd1_i;
+      logic        eth_txd2_i;
+      logic        eth_txd3_i;
+     } pad_domain_periphs_port_group_eth_soc2pad_t;
+
+   typedef struct packed {
+      logic        eth_md_o;
+      logic        eth_rxck_o;
+      logic        eth_rxctl_o;
+      logic        eth_rxd0_o;
+      logic        eth_rxd1_o;
+      logic        eth_rxd2_o;
+      logic        eth_rxd3_o;
+     } pad_domain_periphs_port_group_eth_pad2soc_t;
+
+   typedef struct packed {
+      logic        pwm0_i;
+      logic        pwm1_i;
+      logic        pwm2_i;
+      logic        pwm3_i;
+     } pad_domain_periphs_port_group_pwm0_soc2pad_t;
+
+   typedef struct packed {
+      logic        pwm0_i;
+      logic        pwm1_i;
+      logic        pwm2_i;
+      logic        pwm3_i;
+     } pad_domain_periphs_port_group_pwm1_soc2pad_t;
+
+   typedef struct packed {
       logic        tx_i;
      } pad_domain_periphs_port_group_uart_core_soc2pad_t;
 
@@ -132,6 +169,9 @@ package pkg_alsaqr_periph_fpga_padframe;
      pad_domain_periphs_port_group_uart0_soc2pad_t uart0;
      pad_domain_periphs_port_group_sdio0_soc2pad_t sdio0;
      pad_domain_periphs_port_group_spi_ot_soc2pad_t spi_ot;
+     pad_domain_periphs_port_group_eth_soc2pad_t eth;
+     pad_domain_periphs_port_group_pwm0_soc2pad_t pwm0;
+     pad_domain_periphs_port_group_pwm1_soc2pad_t pwm1;
      pad_domain_periphs_port_group_uart_core_soc2pad_t uart_core;
      pad_domain_periphs_port_group_gpio_b_soc2pad_t gpio_b;
      } pad_domain_periphs_ports_soc2pad_t;
@@ -142,6 +182,7 @@ package pkg_alsaqr_periph_fpga_padframe;
      pad_domain_periphs_port_group_uart0_pad2soc_t uart0;
      pad_domain_periphs_port_group_sdio0_pad2soc_t sdio0;
      pad_domain_periphs_port_group_spi_ot_pad2soc_t spi_ot;
+     pad_domain_periphs_port_group_eth_pad2soc_t eth;
      pad_domain_periphs_port_group_uart_core_pad2soc_t uart_core;
      pad_domain_periphs_port_group_gpio_b_pad2soc_t gpio_b;
      } pad_domain_periphs_ports_pad2soc_t;
