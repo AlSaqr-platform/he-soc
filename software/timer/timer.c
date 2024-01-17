@@ -56,19 +56,28 @@ int main() {
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
   #ifdef FPGA_EMULATION
-
+      //out pwm0 - pwm3
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set(3);
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set(3);
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set(3);
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set(3);
+      //out pwm4 - pwm7
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set(4);
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set(4);
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set(3);
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set(3);
   #else
     #ifdef SIMPLE_PAD
       //out pwm0 - pwm3
-      alsaqr_periph_padframe_periphs_a_00_mux_set (3);
-      alsaqr_periph_padframe_periphs_a_01_mux_set (3);
-      alsaqr_periph_padframe_periphs_a_02_mux_set (3);
-      alsaqr_periph_padframe_periphs_a_03_mux_set (3);
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set(3);
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set(3);
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set(3);
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set(3);
       //out pwm4 - pwm7
-      alsaqr_periph_padframe_periphs_a_04_mux_set (4);
-      alsaqr_periph_padframe_periphs_a_05_mux_set (4);
-      alsaqr_periph_padframe_periphs_a_06_mux_set (3);
-      alsaqr_periph_padframe_periphs_a_07_mux_set (3);
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set(4);
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set(4);
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set(3);
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set(3);
     #else
       //out pwm0 - pwm3
       alsaqr_periph_padframe_periphs_a_08_mux_set (3);
