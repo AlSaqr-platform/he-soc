@@ -11,12 +11,12 @@
 
 #define SIMPLE_PAD
 	
-#define ETH_BASE 			  		 				 0x30000000
+#define ETH_BASE 			  		 0x30000000
 // #define GPIO_PADDIR_0_31_OFFSET      0x0
 // #define GPIO_PADEN_0_31_OFFSET       0x4
 // rx frame check sequence register(read) and last register(write) 
 #define RFCS_OFFSET                  0x0828             
-//tx packet length
+// tx packet length
 #define TPLR_OFFSET                  0x0810
 // MAC address low 32-bits
 #define MACLO_OFFSET                 0x0800
@@ -30,21 +30,21 @@
 int main() {
 
 	#ifdef SIMPLE_PAD
-		alsaqr_periph_padframe_periphs_a_00_mux_set( 1 );
-		alsaqr_periph_padframe_periphs_a_01_mux_set( 1 );
-		alsaqr_periph_padframe_periphs_a_02_mux_set( 1 );
-		alsaqr_periph_padframe_periphs_a_03_mux_set( 1 );
-		alsaqr_periph_padframe_periphs_a_04_mux_set( 1 );
-		alsaqr_periph_padframe_periphs_a_05_mux_set( 1 );
-		alsaqr_periph_padframe_periphs_a_06_mux_set( 1 );
-		alsaqr_periph_padframe_periphs_a_07_mux_set( 1 );
-		alsaqr_periph_padframe_periphs_a_08_mux_set( 1 );
-		alsaqr_periph_padframe_periphs_a_09_mux_set( 1 );
-		alsaqr_periph_padframe_periphs_a_10_mux_set( 1 );
-		alsaqr_periph_padframe_periphs_a_11_mux_set( 1 );
-		alsaqr_periph_padframe_periphs_a_12_mux_set( 1 );
-		alsaqr_periph_padframe_periphs_a_13_mux_set( 1 );
-		alsaqr_periph_padframe_periphs_a_14_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_14_mux_set( 1 );
 	#else
 		alsaqr_periph_padframe_periphs_b_23_mux_set( 0 );
 		alsaqr_periph_padframe_periphs_b_24_mux_set( 0 );
