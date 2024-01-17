@@ -21,3 +21,6 @@
 0,../software/mbox_test,opentitan/sw/tests/alsaqr/mbox_test/mbox_test.elf,none,,,,
 0,../software/hello_culsans,opentitan/sw/tests/alsaqr/alsaqr_boot/alsaqr_boot.elf,none,,1,,
 1,../software/hello_culsans,none,none,,1,,
+0,../software/par_matmul,none,none,,,,
+0,../software/redmule,none,none,,,,
+0,../software/l1_test_random,none,none,,,,
