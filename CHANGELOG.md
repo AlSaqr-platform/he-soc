@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 0.0.6 - alsaqr_180124 - 18/01/2024
+
+### Hardware
+
+### Changed
+# CVA6
+- Updated CVA6 dependency to bootable linux core
+
+### Feature Frozen Macros
+- Cluster
+- OpenTitan
+- Hyperram
+
+### Work In progress Macro
+- Culsans
+
+### Software
+- Implementing FPGA flow for linux boot. The boot flow has been tested both using single/dual core configuration + FMC board having 4 Hyperrams (32KB total)
+- Update CVA6 runtime to enable and check Hypervisor extension
+- Fix Regression flow for correct execution of cluster tests. Hello + L1 test has been temporarily removed from the regression netlist list due to a synchronization issue. The tests will be reintroduced as soon the SW bug is fixed.
+
 ## 0.0.5 - alsaqr_181223 - 18/12/2023
 
 ### Hardware
