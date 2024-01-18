@@ -52,16 +52,6 @@ uint64_t lfsr_64bits(uint64_t lfsr,  uint64_t *lfsr_byte_feedback) {
 
 int main(int argc, char const *argv[]) {
 
-  #ifdef FPGA_EMULATION
-  int baud_rate = 115200;
-  int test_freq = 40000000;
-  #else
-  set_flls();
-  int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif  
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
-
   uint32_t cnt = 0;
   uint32_t cnt2= 0; // (ADDR_LAST_SCND_HALF-ADDR_BASE_FIRST_HALF)/STRIDE
   printf("WRITE \n" );
@@ -77,6 +67,7 @@ int main(int argc, char const *argv[]) {
   //READ
   lfsr = DEFAULT_SEED;
   printf("READ\n" );
+  uart_wait_tx_done();
   for(uint32_t addr=ADDR_BASE_FIRST_HALF; addr<ADDR_LAST_SCND_HALF; addr+=STRIDE) {
       lfsr = lfsr_64bits(lfsr, lfsr_byte_feedback);
       cnt2++;

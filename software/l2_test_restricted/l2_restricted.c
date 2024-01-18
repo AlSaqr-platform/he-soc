@@ -8,15 +8,6 @@
 const int RESULT_FIB[N] = {0, 1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584, 4181};
 
 int main(int argc, char const *argv[]) {
-  #ifdef FPGA_EMULATION
-  int baud_rate = 115200;
-  int test_freq = 40000000;
-  #else
-  set_flls();
-  int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
   int * b;
   b=0x1C000000 + 0x4;   //NOTE: 0x1C000000 already used by the jtag sanity check => do not READ/WRITE that register
   int i;
@@ -28,12 +19,15 @@ int main(int argc, char const *argv[]) {
       b[i*STEP]=b[(i-1)*STEP]+b[(i-2)*STEP];
       if(b[i*STEP]!=RESULT_FIB[i]){
         printf("Test FAILED\naborting...\n");
+        uart_wait_tx_done();
         return 1;
       }
       #if VERBOSE > 5
         printf("TESTED ADDRESS: 0x%8x\n", &b[i*STEP]);
+        uart_wait_tx_done();
       #endif
     }
   printf("Test Passed\n");
+  uart_wait_tx_done();
   return 0;
 }
