@@ -32,6 +32,7 @@ Please change the setup to point to you toolchains and Questasim installations i
 git clone git@github.com:AlSaqr-platform/he-soc.git
 cd he-soc/
 source setup.sh
+source software/pulp-runtime/configs/pulp_cluster.sh
 ```
 ** NB: To target a specific release you should git checkout it as first step after cloning the repo. **
 ```
@@ -39,6 +40,7 @@ git clone git@github.com:AlSaqr-platform/he-soc.git
 cd he-soc
 git checkout tags/<tag-name> 
 source setup.sh
+source software/pulp-runtime/configs/pulp_cluster.sh
 ```
 
 To install, configure bender and download the git dependencies + verification IPs, from he-soc/ run:
