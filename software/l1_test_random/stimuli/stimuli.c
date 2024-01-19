@@ -30,26 +30,24 @@
   #define TEST_VALUE    0xcafecafe           // write/read test value
 #endif
 
-void check_write_read_l1(int*);
-
-PI_L2 int retval[8];
+void check_write_read_l1();
 
 int main () {
 
   synch_barrier();
-  
+
   //////////
   // TEST //
   //////////
 
-  check_write_read_l1(retval);
+  check_write_read_l1();
 
   synch_barrier();
 
   if(core_id() == 0){
     int acc = 0;
     for (int i = 0; i < 8; i++)
-      acc += retval[i];
+      acc += *((int *) BASE_ADDR + i);
     // Write msg to mailbox
     pulp_write32(0x10403000, acc);
   }
@@ -89,7 +87,7 @@ void check_write_read_l1 (int *retval) {
     current_addr += 8;
   }
 
-  #ifdef VERBOSE  
+  #ifdef VERBOSE
   printf("Last addr written: %p\n", (current_addr-1));
   #endif
 
@@ -127,7 +125,7 @@ void check_write_read_l1 (int *retval) {
   printf("Last addr read: %p\n", (current_addr-1));
   #endif
 
-  retval[core_id()] = errors;
+  *((int *) BASE_ADDR + core_id()) = errors;
 
   return;
 }
