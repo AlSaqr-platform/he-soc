@@ -3,7 +3,6 @@
 #include "pulp.h"
 // #define FPGA_EMULATION
 
-unsigned int i;
 #ifdef FPGA_EMULATION
   int baud_rate = 115200;
   int test_freq = 50000000;
@@ -12,14 +11,14 @@ unsigned int i;
   int test_freq = 200000000;
 #endif
 
+#define SHARED_ADDR 0x10000000
+
 //int main(int argc, char const *argv[]) {
 int main() {
 
-  i = 0x10000000;
-
   if(core_id() == 0) {
 
-    pulp_write32(i, 0);
+    pulp_write32(SHARED_ADDR, 0);
 
     #ifdef USE_UART
     uart_set_cfg(0, (test_freq / baud_rate) >> 4);
@@ -28,13 +27,13 @@ int main() {
     uart_wait_tx_done();
     #endif
 
-    pulp_write32(i, pulp_read32(i) + 1);
+    pulp_write32(SHARED_ADDR, pulp_read32(SHARED_ADDR) + 1);
   }
 
   synch_barrier();
 
-  while(pulp_read32(i) < core_id());
-  
+  while(pulp_read32(SHARED_ADDR) < core_id());
+
   if(core_id() != 0) {
 
   #ifdef USE_UART
@@ -42,7 +41,7 @@ int main() {
   uart_wait_tx_done();
   #endif
 
-  pulp_write32(i,pulp_read32(i)+1);
+  pulp_write32(SHARED_ADDR,pulp_read32(SHARED_ADDR)+1);
   }
 
   synch_barrier();
