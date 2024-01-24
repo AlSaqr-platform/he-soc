@@ -172,10 +172,20 @@ module al_saqr
       `endif
     `endif
  `else
-   input logic fpga_pad_uart_rx_i,
+   input  logic fpga_pad_uart_rx_i,
    output logic fpga_pad_uart_tx_o,
  `endif
-
+ `ifdef ETH2FMC_NO_PADFRAME
+  output wire       eth_rst_n,
+  input  wire       eth_rxck ,
+  input  wire       eth_rxctl,
+  input  wire [3:0] eth_rxd  ,
+  output wire       eth_txck ,
+  output wire       eth_txctl,
+  output wire [3:0] eth_txd  ,
+  inout  wire       eth_mdio ,
+  output logic      eth_mdc  ,
+ `endif
   // JTAG
   inout wire          jtag_TCK,
   inout wire          jtag_TMS,
@@ -1017,6 +1027,24 @@ module al_saqr
    assign reg_rsp.error = 1'b0;
    assign s_cva6_uart_rx = fpga_pad_uart_rx_i;
    assign fpga_pad_uart_tx_o = s_cva6_uart_tx;
+   `ifdef ETH2FMC_NO_PADFRAME
+   assign s_pad_to_eth.eth_md_i    = eth_mdio;
+   assign s_pad_to_eth.eth_rxck_i  = eth_rxck;
+   assign s_pad_to_eth.eth_rxctl_i = eth_rxctl;
+   assign s_pad_to_eth.eth_rxd0_i  = eth_rxd[0];
+   assign s_pad_to_eth.eth_rxd1_i  = eth_rxd[1];
+   assign s_pad_to_eth.eth_rxd2_i  = eth_rxd[2];
+   assign s_pad_to_eth.eth_rxd3_i  = eth_rxd[3];
+   assign eth_mdio   = s_eth_to_pad.eth_md_o;
+   assign eth_mdc    = s_eth_to_pad.eth_mdc_o;
+   assign eth_rstn   = s_eth_to_pad.eth_rstn_o;
+   assign eth_txck   = s_eth_to_pad.eth_txck_o;
+   assign eth_txctl  = s_eth_to_pad.eth_txctl_o;
+   assign eth_txd[0] = s_eth_to_pad.eth_txd0_o;
+   assign eth_txd[1] = s_eth_to_pad.eth_txd1_o;
+   assign eth_txd[2] = s_eth_to_pad.eth_txd2_o;
+   assign eth_txd[3] = s_eth_to_pad.eth_txd3_o;
+   `endif
   `else
 
    `ifdef SIMPLE_PADFRAME
