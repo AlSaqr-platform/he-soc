@@ -56,8 +56,21 @@ module alsaqr_xilinx
     inout wire  pad_periphs_pad_gpio_b_12_pad,
     inout wire  pad_periphs_pad_gpio_b_13_pad,
     inout wire  pad_periphs_pad_gpio_b_14_pad,
+    `endif 
     inout wire  pad_periphs_cva6_uart_00_pad,
     inout wire  pad_periphs_cva6_uart_01_pad,
+
+
+    `ifdef ETH2FMC_NO_PADFRAME
+    output wire       fmc_eth_rst_n   ,
+    input  wire       fmc_eth_rxck    ,
+    input  wire       fmc_eth_rxctl   ,
+    input  wire [3:0] fmc_eth_rxd     ,
+    output wire       fmc_eth_txck    ,
+    output wire       fmc_eth_txctl   ,
+    output wire [3:0] fmc_eth_txd     ,
+    inout  wire       fmc_eth_mdio    ,
+    output logic      fmc_eth_mdc     ,
     `endif
 
     // OpenTitan jtag port
@@ -326,6 +339,17 @@ ddr4_0 u_ddr4_0
         .pad_periphs_a_14_pad(pad_periphs_pad_gpio_b_14_pad),
         .pad_periphs_a_15_pad(pad_periphs_cva6_uart_00_pad),
         .pad_periphs_a_16_pad(pad_periphs_cva6_uart_01_pad),
+        `endif
+        `ifdef ETH2FMC_NO_PADFRAME
+        .eth_rst_n  ( fmc_eth_rst_n ) ,
+        .eth_rxck   ( fmc_eth_rxck  ) ,
+        .eth_rxctl  ( fmc_eth_rxctl ) ,
+        .eth_rxd    ( fmc_eth_rxd   ) ,
+        .eth_txck   ( fmc_eth_txck  ) ,
+        .eth_txctl  ( fmc_eth_txctl ) ,
+        .eth_txd    ( fmc_eth_txd   ) ,
+        .eth_mdio   ( fmc_eth_mdio  ) ,
+        .eth_mdc    ( fmc_eth_mdc   ) ,
         `endif
         .jtag_TCK         ( pad_jtag_tck       ),
         .jtag_TMS         ( pad_jtag_tms       ),
