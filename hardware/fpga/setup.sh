@@ -7,7 +7,7 @@ export VIVADO_VERSION=vitis-2020.2
 #Settings are board specific. Check FPGA board datasheet to add new target
 # either "vcu118" or "zcu102"
 
-if [ -z "$BOARD"  ]; then
+if [ -z "$BOARD" ]; then
     read -p "Which board you want to use:  1-zcu102 2-vcu118: " BOARD
 
     if [ "$BOARD" = "1" ]; then
@@ -35,19 +35,32 @@ elif [ "$OT" = "n" ]; then
     export USE_OT="0"
 fi
 
-if [ -z "$MAIN_MEM"  ]; then
+if [ -z "$MAIN_MEM" ]; then
     read -p "Which main memory are you using:  1-DDR 2-HYPER: " MAIN_MEM
-
     if [ "$MAIN_MEM" = "1" ]; then
         export MAIN_MEM="DDR4"
-        read -p "Are you validating the peripherals? y/n " SIMPLE_PAD
-        if [ "$SIMPLE_PAD" = "y" ]; then
-            export SIMPLE_PAD="1"
-        elif [ "$SIMPLE_PAD" = "n" ]; then
-            export SIMPLE_PAD="0"
-        fi
     elif [ "$MAIN_MEM" = "2" ]; then
         export MAIN_MEM="HYPER"
+        export SIMPLE_PAD="0"
+    fi
+fi
+
+if [ "$MAIN_MEM" = "DDR4" ]; then
+    read -p "Are you validating the peripherals? y/n " SIMPLE_PAD
+    if [ "$SIMPLE_PAD" = "y" ]; then
+        read -p "Which peripherals are you validating:  1-ETHERNET 2-(SPI I2C UART SDIO): " SIMPLE_PAD
+        if [ "$SIMPLE_PAD" = "1" ]; then
+            read -p "The ETHERNET module is attached to the padframe? y/n" SIMPLE_PAD
+            if [ "$SIMPLE_PAD" = "y" ]; then
+                export SIMPLE_PAD="ETH"
+            else
+                export ETH2FMC_NO_PAD="1"
+                export SIMPLE_PAD="0"
+            fi
+        elif [ "$SIMPLE_PAD" = "2" ]; then
+            export SIMPLE_PAD="SPI-I2C-UART-SDIO"
+        fi
+    elif [ "$SIMPLE_PAD" = "n" ]; then
         export SIMPLE_PAD="0"
     fi
 fi
@@ -58,6 +71,7 @@ echo "XILINX_BOARD=$XILINX_BOARD"
 echo "AXI_ID_DDR_WIDTH=$AXI_ID_DDR_WIDTH"
 echo "MAIN MEMORY = $MAIN_MEM"
 echo "PERIPHERALS VALIDATION = $SIMPLE_PAD"
+echo "ETHERNET NO PADFRAME = $ETH2FMC_NO_PAD"
 echo "USE OT = $USE_OT"
 
 export VSIM_PATH=$PWD/sim

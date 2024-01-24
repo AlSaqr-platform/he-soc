@@ -186,8 +186,15 @@ endif
 
 ifdef simple-padframe
 	questa-cmd   += +SIMPLE_PADFRAME=$(simple-padframe)
-	compile_flag +=  +define+SIMPLE_PADFRAME
+	compile_flag += +define+SIMPLE_PADFRAME
 	compile_fpga += SIMPLE_PADFRAME
+endif
+
+ifdef eth2fmc-nopadframe
+	questa-cmd   += +ETH2FMC_NO_PADFRAME=$(eth2fmc-nopadframe)
+	compile_flag +=  +define+ETH2FMC_NO_PADFRAME
+	compile_fpga += ETH2FMC_NO_PADFRAME
+	compile_fpga += EXCLUDE_PADFRAME
 endif
 
 ifdef spike-tandem
