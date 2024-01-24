@@ -171,7 +171,7 @@ module al_saqr
         inout wire logic    pad_periphs_ot_spi_03_pad,
       `endif
     `endif
- `else
+ `else /* `ifndef EXCLUDE_PADFRAME */
    input  logic fpga_pad_uart_rx_i,
    output logic fpga_pad_uart_tx_o,
  `endif
