@@ -26,14 +26,14 @@ always_comb begin
   resp_o.ready = 1'b1;
   resp_o.rdata = '0;
   resp_o.error = '0;
-  prio_o = '0;
+  prio_o = prio_i;
   prio_we_o = '0;
   prio_re_o = '0;
-  ie_o = '0;
+  ie_o = ie_i;
   ie_we_o = '0;
   ie_re_o = '0;
   ip_re_o = '0;
-  threshold_o = '0;
+  threshold_o = threshold_i;
   threshold_we_o = '0;
   threshold_re_o = '0;
   cc_o = '0;
