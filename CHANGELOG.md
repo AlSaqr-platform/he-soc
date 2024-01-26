@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 0.0.7 - alsaqr_260124 - 26/01/2024
+
+### Hardware
+
+### Changed
+# TOP
+- Fix register file bug which prevent to keep memory of previous configurations
+
+### Feature Frozen Macros
+- Cluster
+- OpenTitan
+- Hyperram
+
+### Work In progress Macro
+- Culsans
+
+### Software
+- Restore Hello + L1 cluster tests into the regression list
+- Update cluster runtime to match L2 size
+- Remove absolute path in ddr4 run.tcl file for FPGA bitstream generation
+- Add check bender to ensure correct version download
+
 ## 0.0.6 - alsaqr_180124 - 18/01/2024
 
 ### Hardware
