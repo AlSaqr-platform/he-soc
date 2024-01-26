@@ -20,7 +20,7 @@ set_property -dict [list CONFIG.C0.DDR4_TimePeriod {1600} \
                         CONFIG.C0.BANK_GROUP_WIDTH {1} \
                         CONFIG.System_Clock {No_Buffer} ] [get_ips ddr4_0]
 
-generate_target {instantiation_template} [get_files /scratch/lvalente/ddronvcu118/project_1/project_1.srcs/sources_1/ip/ddr4_0/ddr4_0.xci]
+generate_target {instantiation_template} [get_files ./ddr4_0.srcs/sources_1/ip/ddr4_0/ddr4_0.xci]
 update_compile_order -fileset sources_1
 generate_target all [get_files  ./ddr4_0.srcs/sources_1/ip/ddr4_0/ddr4_0.xci]
 catch { config_ip_cache -export [get_ips -all ddr4_0] }
