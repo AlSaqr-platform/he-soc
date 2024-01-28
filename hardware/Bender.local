@@ -1,5 +1,5 @@
 overrides:
-  axi:                { git: "https://github.com/pulp-platform/axi.git", version: 0.39.1-beta                                     }
+  axi:                { git: "https://github.com/pulp-platform/axi.git", version: 0.39.1                                          }
   riscv-dbg:          { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0                                         }
   tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.11                           }
   common_cells:       { git: "https://github.com/pulp-platform/common_cells.git", version: 1.30.0                                 }
@@ -10,3 +10,5 @@ overrides:
   cva6:               { git: "git@github.com:Alsaqr-platform/cva6.git", rev: alsaqr-v1.0                                          }
   ace:                { git: "https://github.com/planvtech/ace.git", rev: "fc2056f9f560ec55192c6b09ef682c822fad90fe"              }
   udma_core:          { git: "https://github.com/Alsaqr-platform/udma_core.git", rev: "ea1c783641910b5f45f680cd4a7665bc311ab5ec"  }
+  idma:               { git: "git@github.com:alSaqr-platform/idma.git", rev: "688613330b11151d0637ba5aede0572a5a4261aa"           }
+  register_interface: { git: "git@github.com:alsaqr-platform/register_interface.git",   version:  0.3.2 }

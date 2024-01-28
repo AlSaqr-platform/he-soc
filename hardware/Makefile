@@ -497,7 +497,8 @@ tb/vips/i2c_eeprom:
 
 vips: tb/vips/spi_flash tb/vips/hyperram_model tb/vips/i2c_eeprom
 
-init: bender vips update
+init: bender vips update scripts_vip
+	make -C ip_list/idma idma_hw_all idma_sim_all
 
 .PHONY: culsans-sw-init
 culsans-sw-init:
