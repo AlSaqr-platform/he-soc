@@ -81,6 +81,8 @@ module cva6_subsystem
   input  pad_to_eth_t     pad_to_eth,
 
   // OpenTitan axi master
+  input  axi_req_t        ot_idma_axi_req,
+  output axi_rsp_t        ot_idma_axi_rsp,
   input  axi_req_t        ot_axi_req,
   output axi_rsp_t        ot_axi_rsp,
 
@@ -410,6 +412,9 @@ module cva6_subsystem
 
   `AXI_ASSIGN_FROM_REQ(slave[3], ot_axi_req)
   `AXI_ASSIGN_TO_RESP (ot_axi_rsp, slave[3])
+
+  `AXI_ASSIGN_FROM_REQ(slave[6], ot_idma_axi_req)
+  `AXI_ASSIGN_TO_RESP (ot_idma_axi_rsp, slave[6])
 
   // ---------------
   // AXI hyperbus Slave

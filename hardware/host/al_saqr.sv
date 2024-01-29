@@ -223,7 +223,6 @@ module al_saqr
   logic                        s_rtc_i;
   logic                        s_bypass_clk;
 
-
   logic [AsyncAxiOutAwWidth-1:0] async_axi_ot_out_aw_data_o;
   logic             [LogDepth:0] async_axi_ot_out_aw_wptr_o;
   logic             [LogDepth:0] async_axi_ot_out_aw_rptr_i;
@@ -239,6 +238,22 @@ module al_saqr
   logic [ AsyncAxiOutRWidth-1:0] async_axi_ot_out_r_data_i;
   logic             [LogDepth:0] async_axi_ot_out_r_wptr_i;
   logic             [LogDepth:0] async_axi_ot_out_r_rptr_o;
+
+  logic [AsyncAxiOutAwWidth-1:0] async_idma_axi_ot_out_aw_data_o;
+  logic             [LogDepth:0] async_idma_axi_ot_out_aw_wptr_o;
+  logic             [LogDepth:0] async_idma_axi_ot_out_aw_rptr_i;
+  logic [ AsyncAxiOutWWidth-1:0] async_idma_axi_ot_out_w_data_o;
+  logic             [LogDepth:0] async_idma_axi_ot_out_w_wptr_o;
+  logic             [LogDepth:0] async_idma_axi_ot_out_w_rptr_i;
+  logic [ AsyncAxiOutBWidth-1:0] async_idma_axi_ot_out_b_data_i;
+  logic             [LogDepth:0] async_idma_axi_ot_out_b_wptr_i;
+  logic             [LogDepth:0] async_idma_axi_ot_out_b_rptr_o;
+  logic [AsyncAxiOutArWidth-1:0] async_idma_axi_ot_out_ar_data_o;
+  logic             [LogDepth:0] async_idma_axi_ot_out_ar_wptr_o;
+  logic             [LogDepth:0] async_idma_axi_ot_out_ar_rptr_i;
+  logic [ AsyncAxiOutRWidth-1:0] async_idma_axi_ot_out_r_data_i;
+  logic             [LogDepth:0] async_idma_axi_ot_out_r_wptr_i;
+  logic             [LogDepth:0] async_idma_axi_ot_out_r_rptr_o;
 
   logic                          s_jtag_ot_TCK;
   logic                          s_jtag_ot_TDI;
@@ -405,8 +420,8 @@ module al_saqr
   port_signals_pad2soc_t              s_port_signals_pad2soc;
   port_signals_soc2pad_t              s_port_signals_soc2pad;
 
-  axi_secd_req_t                      ot_axi_req;
-  axi_secd_resp_t                     ot_axi_rsp;
+  axi_secd_req_t                      ot_axi_req, ot_idma_axi_req;
+  axi_secd_resp_t                     ot_axi_rsp, ot_idma_axi_rsp;
 
   jtag_ot_pkg::jtag_req_t             jtag_ibex_i;
   jtag_ot_pkg::jtag_rsp_t             jtag_ibex_o;
@@ -541,6 +556,8 @@ module al_saqr
       .pwm_to_pad             ( s_pwm_to_pad                    ),
       .fll_to_pad             ( s_fll_to_pad                    ),
 
+      .ot_idma_axi_req        ( ot_idma_axi_req                 ),
+      .ot_idma_axi_rsp        ( ot_idma_axi_rsp                 ),
       .ot_axi_req             ( ot_axi_req                      ),
       .ot_axi_rsp             ( ot_axi_rsp                      ),
 
@@ -601,6 +618,38 @@ module al_saqr
       .r_chan_t   ( axi_secd_r_chan_t         ),
       .axi_req_t  ( axi_secd_req_t            ),
       .axi_resp_t ( axi_secd_resp_t           )
+   ) i_cdc_idma2host (
+      .async_data_slave_aw_data_i( async_idma_axi_ot_out_aw_data_o ),
+      .async_data_slave_aw_wptr_i( async_idma_axi_ot_out_aw_wptr_o ),
+      .async_data_slave_aw_rptr_o( async_idma_axi_ot_out_aw_rptr_i ),
+      .async_data_slave_w_data_i ( async_idma_axi_ot_out_w_data_o  ),
+      .async_data_slave_w_wptr_i ( async_idma_axi_ot_out_w_wptr_o  ),
+      .async_data_slave_w_rptr_o ( async_idma_axi_ot_out_w_rptr_i  ),
+      .async_data_slave_b_data_o ( async_idma_axi_ot_out_b_data_i  ),
+      .async_data_slave_b_wptr_o ( async_idma_axi_ot_out_b_wptr_i  ),
+      .async_data_slave_b_rptr_i ( async_idma_axi_ot_out_b_rptr_o  ),
+      .async_data_slave_ar_data_i( async_idma_axi_ot_out_ar_data_o ),
+      .async_data_slave_ar_wptr_i( async_idma_axi_ot_out_ar_wptr_o ),
+      .async_data_slave_ar_rptr_o( async_idma_axi_ot_out_ar_rptr_i ),
+      .async_data_slave_r_data_o ( async_idma_axi_ot_out_r_data_i  ),
+      .async_data_slave_r_wptr_o ( async_idma_axi_ot_out_r_wptr_i  ),
+      .async_data_slave_r_rptr_i ( async_idma_axi_ot_out_r_rptr_o  ),
+      .dst_clk_i                 ( s_soc_clk       ),
+      .dst_rst_ni                ( s_rst_ni        ),
+      .dst_req_o                 ( ot_idma_axi_req ),
+      .dst_resp_i                ( ot_idma_axi_rsp )
+   );
+
+   axi_cdc_dst #(
+      .SyncStages ( ariane_soc::CdcSyncStages ),
+      .LogDepth   ( LogDepth                  ),
+      .aw_chan_t  ( axi_secd_aw_chan_t        ),
+      .w_chan_t   ( axi_secd_w_chan_t         ),
+      .b_chan_t   ( axi_secd_b_chan_t         ),
+      .ar_chan_t  ( axi_secd_ar_chan_t        ),
+      .r_chan_t   ( axi_secd_r_chan_t         ),
+      .axi_req_t  ( axi_secd_req_t            ),
+      .axi_resp_t ( axi_secd_resp_t           )
    ) i_cdc_ot2host (
       .async_data_slave_aw_data_i( async_axi_ot_out_aw_data_o ),
       .async_data_slave_aw_wptr_i( async_axi_ot_out_aw_wptr_o ),
@@ -647,7 +696,7 @@ module al_saqr
      .gpio_1_i         ( '0            ),
      .gpio_1_oe_o      (               ),
    // axi isolated - not implemented
-     .axi_isolate_i    ( 1'b0          ),
+     .axi_isolate_i    ( 2'b0          ),
      .axi_isolated_o   (               ),
    // Uart - not implemented
      .ibex_uart_rx_i   ( '0            ),
@@ -675,7 +724,22 @@ module al_saqr
      .async_axi_out_ar_rptr_i ( async_axi_ot_out_ar_rptr_i ),
      .async_axi_out_r_data_i  ( async_axi_ot_out_r_data_i  ),
      .async_axi_out_r_wptr_i  ( async_axi_ot_out_r_wptr_i  ),
-     .async_axi_out_r_rptr_o  ( async_axi_ot_out_r_rptr_o  )
+     .async_axi_out_r_rptr_o  ( async_axi_ot_out_r_rptr_o  ),
+     .async_idma_axi_out_aw_data_o ( async_idma_axi_ot_out_aw_data_o ),
+     .async_idma_axi_out_aw_wptr_o ( async_idma_axi_ot_out_aw_wptr_o ),
+     .async_idma_axi_out_aw_rptr_i ( async_idma_axi_ot_out_aw_rptr_i ),
+     .async_idma_axi_out_w_data_o  ( async_idma_axi_ot_out_w_data_o  ),
+     .async_idma_axi_out_w_wptr_o  ( async_idma_axi_ot_out_w_wptr_o  ),
+     .async_idma_axi_out_w_rptr_i  ( async_idma_axi_ot_out_w_rptr_i  ),
+     .async_idma_axi_out_b_data_i  ( async_idma_axi_ot_out_b_data_i  ),
+     .async_idma_axi_out_b_wptr_i  ( async_idma_axi_ot_out_b_wptr_i  ),
+     .async_idma_axi_out_b_rptr_o  ( async_idma_axi_ot_out_b_rptr_o  ),
+     .async_idma_axi_out_ar_data_o ( async_idma_axi_ot_out_ar_data_o ),
+     .async_idma_axi_out_ar_wptr_o ( async_idma_axi_ot_out_ar_wptr_o ),
+     .async_idma_axi_out_ar_rptr_i ( async_idma_axi_ot_out_ar_rptr_i ),
+     .async_idma_axi_out_r_data_i  ( async_idma_axi_ot_out_r_data_i  ),
+     .async_idma_axi_out_r_wptr_i  ( async_idma_axi_ot_out_r_wptr_i  ),
+     .async_idma_axi_out_r_rptr_o  ( async_idma_axi_ot_out_r_rptr_o  )
    );
   `else // !`ifndef EXCLUDE_ROT
 
@@ -711,6 +775,39 @@ module al_saqr
    assign ot_axi_req.ar.user = 'h0;
    assign ot_axi_req.ar_valid = 'h0;
    assign ot_axi_req.r_ready = 1'b1;
+
+   assign ot_idma_axi_req.aw.id = 'h0;
+   assign ot_idma_axi_req.aw.addr = 'h0;
+   assign ot_idma_axi_req.aw.len = 'h0;
+   assign ot_idma_axi_req.aw.size = 'h0;
+   assign ot_idma_axi_req.aw.burst = 'h0;
+   assign ot_idma_axi_req.aw.lock = 'h0;
+   assign ot_idma_axi_req.aw.cache = 'h0;
+   assign ot_idma_axi_req.aw.prot = 'h0;
+   assign ot_idma_axi_req.aw.qos = 'h0;
+   assign ot_idma_axi_req.aw.region = 'h0;
+   assign ot_idma_axi_req.aw.atop = 'h0;
+   assign ot_idma_axi_req.aw.user = 'h0;
+   assign ot_idma_axi_req.aw_valid = 'h0;
+   assign ot_idma_axi_req.w.data = 'h0;
+   assign ot_idma_axi_req.w.strb = 'h0;
+   assign ot_idma_axi_req.w.last = 'h0;
+   assign ot_idma_axi_req.w.user = 'h0;
+   assign ot_idma_axi_req.w_valid = 'h0;
+   assign ot_idma_axi_req.b_ready = 1'b1;
+   assign ot_idma_axi_req.ar.id = 'h0;
+   assign ot_idma_axi_req.ar.addr = 'h0;
+   assign ot_idma_axi_req.ar.len = 'h0;
+   assign ot_idma_axi_req.ar.size = 'h0;
+   assign ot_idma_axi_req.ar.burst = 'h0;
+   assign ot_idma_axi_req.ar.lock = 'h0;
+   assign ot_idma_axi_req.ar.cache = 'h0;
+   assign ot_idma_axi_req.ar.prot = 'h0;
+   assign ot_idma_axi_req.ar.qos = 'h0;
+   assign ot_idma_axi_req.ar.region = 'h0;
+   assign ot_idma_axi_req.ar.user = 'h0;
+   assign ot_idma_axi_req.ar_valid = 'h0;
+   assign ot_idma_axi_req.r_ready = 1'b1;
 
    assign jtag_ibex_o.tdo = 1'b0;
   `endif // !`ifndef EXCLUDE_ROT

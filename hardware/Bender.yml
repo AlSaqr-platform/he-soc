@@ -41,12 +41,12 @@ dependencies:
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "d47f3d0d207a5f22f301706f825dbf960f97f56b" } # branch: master
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "0ec0bf8b7dab6d5e4b3f7ec58338a8efee066379" }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
-  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "5d8d438007ae51d7cff894d31cefcf43f0299631" }
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "d3852fee828813ba777b2b12d544f6c2518d126d" }
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
   ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "f2c8a5040596476ee1769292a7c48df9b1c05949" }
   sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }
   culsans:  { git: "git@github.com:alsaqr-platform/culsans.git", rev: "dd62bc0741b4338ab43cb74bc65d864948b3418a" } # branch: main
-  idma:  { git: "git@github.com:alSaqr-platform/idma.git", rev: "688613330b11151d0637ba5aede0572a5a4261aa" }
+  idma:  { git: "git@github.com:alSaqr-platform/idma.git", rev: "da9b02930ec976972a4599d76a86848f2a54a9c4" }
 
 workspace:
   package_links:

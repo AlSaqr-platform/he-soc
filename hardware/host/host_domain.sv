@@ -148,6 +148,8 @@ module host_domain
   input  pad_to_gpio_t        pad_to_gpio,
 
   // OpenTitan axi master
+  input  axi_req_t            ot_idma_axi_req,
+  output axi_rsp_t            ot_idma_axi_rsp,
   input  axi_req_t            ot_axi_req,
   output axi_rsp_t            ot_axi_rsp,
 
@@ -421,6 +423,8 @@ module host_domain
         .jtag_TRSTn,
         .jtag_TDO_data,
         .jtag_TDO_driven,
+        .ot_idma_axi_req,
+        .ot_idma_axi_rsp,
         .ot_axi_req,
         .ot_axi_rsp,
         .irq_mbox_i           ( completion_irq_o     ),
