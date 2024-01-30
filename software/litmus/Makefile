@@ -2,7 +2,7 @@ ifndef VERBOSE
 .SILENT:
 endif
 
-LITMUS_REPO := https://github.com/pulp-platform/CHERI-Litmus.git
+LITMUS_REPO := git@github.com:ricted98/CHERI-Litmus.git
 SRC_DIR  := src
 
 NUM_CORES := 2
