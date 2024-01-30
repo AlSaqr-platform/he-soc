@@ -35,7 +35,9 @@ module apb_soc_control
     output logic [1:0]   ot_clk_sel_o,
     output logic [31:0]  ot_clk_div_q_o,
     output logic         ot_clk_div_qe_o,
-    output logic         ot_clk_gate_en_o
+    output logic         ot_clk_gate_en_o,
+    output logic [127:0] key_0,
+    output logic [127:0] key_1
    );
 
 
@@ -118,6 +120,11 @@ module apb_soc_control
        .hw2reg     ( hw2reg_socctrl  ),
        .devmode_i  ( '0              )
    );
+
+   for(genvar i=0;i<4;i++) begin : keysassign
+      assign key_0[(i+1)*32 -1 -: 32] = reg2hw_socctrl.logic_locking_key_0[i].q;           
+      assign key_1[(i+1)*32 -1 -: 32] = reg2hw_socctrl.logic_locking_key_1[i].q;           
+   end
 
    assign cluster_ctrl_rstn_o = reg2hw_socctrl.control_cluster.reset_n.q;
    assign cluster_en_sa_boot_o = reg2hw_socctrl.control_cluster.en_sa_boot.q;
