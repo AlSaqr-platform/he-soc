@@ -71,9 +71,9 @@ module ariane_tb;
   parameter UW       = 1;
   logic                 s_eth_clk125_0;
   logic                 s_eth_clk125_90;
-  logic                 s_eth_clk200;  
+  logic                 s_eth_clk200;
   logic                 s_eth_rstni;
- 
+
   AXI_BUS_DV#(
     .AXI_ADDR_WIDTH(AW),
     .AXI_DATA_WIDTH(DW),
@@ -86,26 +86,26 @@ module ariane_tb;
     .AXI_DATA_WIDTH(DW),
     .AXI_ID_WIDTH(IW),
     .AXI_USER_WIDTH(UW)
-  )axi_master();       
+  )axi_master();
 
   `AXI_ASSIGN(axi_master, axi_master_dv)
-  
+
   typedef axi_test::axi_driver #(.AW(AW), .DW(DW), .IW(IW), .UW(UW), .TA(200ps), .TT(700ps)) axi_drv_t;
   axi_drv_t axi_master_drv =  new(axi_master_dv);
-   
+
   typedef logic [AW-1:0]   axi_addr_t;
   typedef logic [DW-1:0]   axi_data_t;
   typedef logic [DW/8-1:0] axi_strb_t;
   typedef logic [IW-1:0]   axi_id_t;
 
   //beats
-  axi_test::axi_ax_beat #(.AW(AW), .IW(IW), .UW(UW)) ar_beat = new();  
+  axi_test::axi_ax_beat #(.AW(AW), .IW(IW), .UW(UW)) ar_beat = new();
   axi_test::axi_r_beat  #(.DW(DW), .IW(IW), .UW(UW)) r_beat  = new();
   axi_test::axi_ax_beat #(.AW(AW), .IW(IW), .UW(UW)) aw_beat = new();
   axi_test::axi_w_beat  #(.DW(DW), .UW(UW))          w_beat  = new();
   axi_test::axi_b_beat  #(.IW(IW), .UW(UW))          b_beat  = new();
 
-     
+
   task reset_master;
     input axi_drv_t axi_master_drv;
     axi_master_drv.reset_master();
@@ -120,9 +120,9 @@ module ariane_tb;
     axi_master_drv.recv_r(r_beat);
     $display("Read data: %x", r_beat.r_data);
   endtask // read_axi
- 
+
   task write_axi;
-    input axi_drv_t axi_master_drv;    
+    input axi_drv_t axi_master_drv;
     input axi_addr_t waddr;
     input axi_data_t wdata;
     input axi_strb_t wstrb;
@@ -136,7 +136,7 @@ module ariane_tb;
     axi_master_drv.send_w(w_beat);
     $display("Written data: %x", w_beat.w_data);
     axi_master_drv.recv_b(b_beat);
-    
+
   endtask; // write_axi
 
 
@@ -1669,7 +1669,7 @@ module ariane_tb;
           logic [AW-1:0]   eth_addr;
           logic [DW-1:0]   eth_wrdata, eth_rdata;
           logic [DW/8-1:0] eth_be;
-          
+
           axi2mem #(
             .AXI_ID_WIDTH   ( IW    ),
             .AXI_ADDR_WIDTH ( AW    ),
@@ -1728,14 +1728,14 @@ module ariane_tb;
           assign alt_2_pad_periphs_a_19_pad_ETH_RXD1 = w_eth_rx2_data[1] ;
           assign alt_2_pad_periphs_a_20_pad_ETH_RXD2 = w_eth_rx2_data[2] ;
           assign alt_2_pad_periphs_a_21_pad_ETH_RXD3 = w_eth_rx2_data[3] ;
-          
+
           assign w_eth_tx2_data[0] = alt_2_pad_periphs_a_24_pad_ETH_TXD0 ;
           assign w_eth_tx2_data[1] = alt_2_pad_periphs_a_25_pad_ETH_TXD1 ;
           assign w_eth_tx2_data[2] = alt_2_pad_periphs_a_26_pad_ETH_TXD2 ;
           assign w_eth_tx2_data[3] = alt_2_pad_periphs_a_27_pad_ETH_TXD3 ;
 
           logic [DW:0] data_array [7:0];
-          
+
           initial begin
             data_array[0] = 64'h1032207098001032; //1 --> 230100890702 2301, mac dest + inizio di mac source
             data_array[1] = 64'h3210E20020709800; //2 --> 00890702 002E 0123, fine mac source + length + payload
@@ -1759,7 +1759,7 @@ module ariane_tb;
             read_addr[6] = 64'h3000_4030;
             read_addr[7] = 64'h3000_4038;
           end
-           
+
           // initialization write addresses
           logic [AW-1:0] write_addr [7:0];
           initial begin
@@ -1775,7 +1775,7 @@ module ariane_tb;
 
           logic [63:0] rx_read_data;
           assign rx_read_data=axi_master.r_data;
-            
+
           event       tx_complete;
           logic       en_rx_memw;
           assign en_rx_memw = eth_rgmii_alt2.RAMB16_inst_rx.genblk1[0].mem_wrap_rx_inst.enaB;
@@ -1789,7 +1789,7 @@ module ariane_tb;
           end
 
           // Check if the data received and stored in the rx memory matches the transmitted data
-       
+
           initial begin
             int continue_loop = 1;
 
@@ -1797,7 +1797,7 @@ module ariane_tb;
               wait(tx_complete.triggered);
               for(int i=0; i<8; i++) begin
                 read_axi(axi_master_drv, read_addr[i]);
-                if(rx_read_data == data_array[i]) 
+                if(rx_read_data == data_array[i])
                   $display(" data correct");
                 else
                    $display("Data wrong");
@@ -1825,7 +1825,7 @@ module ariane_tb;
             @(posedge clk_i);
 
             // 2 --> {irq_en,promiscuous,spare,loopback,cooked,mac_address[47:32]}
-            write_axi(axi_master_drv,'h30000808,'h00802301, 'h0f); 
+            write_axi(axi_master_drv,'h30000808,'h00802301, 'h0f);
             @(posedge clk_i);
 
             // 3 --> Rx frame check sequence register(read) and last register(write)
@@ -2802,7 +2802,7 @@ module ariane_tb;
            s27ks0641 #(
                  .TimingModel   ( "S27KS0641DPBHI020"    ),
                  .UserPreload   ( PRELOAD_HYPERRAM       ),
-                 .mem_file_name ( "./hyperram0.slm"      )
+                 .mem_file_name ( "hyperram0.slm"      )
              ) i_main_hyperram0 (
                     .DQ7           ( hyper_dq_wire[0][7]      ),
                     .DQ6           ( hyper_dq_wire[0][6]      ),
@@ -2821,7 +2821,7 @@ module ariane_tb;
            s27ks0641 #(
                  .TimingModel   ( "S27KS0641DPBHI020"    ),
                  .UserPreload   ( PRELOAD_HYPERRAM       ),
-                 .mem_file_name ( "./hyperram1.slm"      )
+                 .mem_file_name ( "hyperram1.slm"      )
              ) i_main_hyperram1 (
                     .DQ7           ( hyper_dq_wire[1][7]      ),
                     .DQ6           ( hyper_dq_wire[1][6]      ),
@@ -2842,7 +2842,7 @@ module ariane_tb;
            s27ks0641 #(
                  .TimingModel   ( "S27KS0641DPBHI020"    ),
                  .UserPreload   ( PRELOAD_HYPERRAM       ),
-                 .mem_file_name ( "./hyperram.slm"       )
+                 .mem_file_name ( "hyperram.slm"       )
              ) i_main_hyperram0 (
                     .DQ7           ( hyper_dq_wire[0][7]      ),
                     .DQ6           ( hyper_dq_wire[0][6]      ),
