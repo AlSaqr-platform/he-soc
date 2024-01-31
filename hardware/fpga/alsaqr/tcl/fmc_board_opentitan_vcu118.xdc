@@ -10,4 +10,4 @@ set_property -dict {PACKAGE_PIN BC11 IOSTANDARD LVCMOS18} [get_ports pad_jtag_ot
 #######################################################################
 ## Bootmode pad
 #######################################################################
-set_property -dict {PACKAGE_PIN N30 IOSTANDARD LVCMOS18} [get_ports pad_bootmode]
+set_property -dict {PACKAGE_PIN N30 IOSTANDARD LVCMOS12} [get_ports pad_bootmode]
