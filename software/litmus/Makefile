@@ -12,7 +12,7 @@ ADDITIONAL_FLAGS = dual-boot=1 nogui=1
 ifeq ($(wildcard litmus-tests.list),)
     LITMUS_TEST_LIST :=
 else
-    LITMUS_TEST_LIST := $(shell find $(SRC)/binaries -type f -name "*.elf" -exec basename {} .elf \;)
+    LITMUS_TEST_LIST := $(shell cat litmus-tests.list)
 endif
 
 $(HW_RES):
@@ -21,6 +21,7 @@ $(HW_RES):
 build-litmus-tests:
 	cd $(SRC)/frontend; ./make.sh
 	cd $(SRC)/binaries; ./make-riscv.sh ../tests/ $(PLATFORM) $(NUM_CORES)
+	find $(SRC)/binaries -type f -name "*.elf" -exec basename {} .elf \;  > litmus-tests.list
 
 litmus-tests.list:
 	find $(SRC)/binaries -type f -name "*.elf" -exec basename {} .elf \;  > $@
