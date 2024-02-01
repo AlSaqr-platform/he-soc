@@ -5,7 +5,7 @@ export PATH=/usr/pack/pulpsdk-1.0-kgf/artifactory/pulp-sdk-release/pkg/pulp_risc
 
 export PATH=/usr/pack/riscv-1.0-kgf/riscv64-gcc-11.2.0/bin:$PATH
 
-export RISCV=/usr/pack/riscv-1.0-kgf/riscv64-gcc-11.2.0/bin
+export RISCV=/usr/pack/riscv-1.0-kgf/riscv64-gcc-11.2.0
 
 export SW_HOME=$(pwd)/software
 
