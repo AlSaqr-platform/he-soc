@@ -49,12 +49,19 @@ To install, configure bender and download the git dependencies + verification IP
 cd hardware/
 make init
 ```
+make init step may fail on slower networks as connection breaks before getting all repositories.
+Repeat 'make init' step until all repositories downloaded and bender lock generated.
+
 To compile the hello world, in he-soc/hardware run:
 
 ```
 make -C ../software/hello_culsans clean all
 ```
+To compile the hello world for FPGA board, in he-soc/hardware run:
 
+```
+make -C ../software/hello_culsans fpga=1 clean all
+```
 This will generate the binaries and the hyperram*.slm that will be in the rams at t=0 (in case of preloading). 
 
 ### Generate TCL for simulation

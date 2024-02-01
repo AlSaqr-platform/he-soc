@@ -56,9 +56,10 @@ To run a test:
  * Open 3 terminals:
 
 ### Terminal 1
-
+* Select correct cfg so that file settings match Olimex device connected to board. 
+* Showing cfg file path for 'Olimex OpenOCD JTAG ARM-USB-OCD-H' 
 ```
-openocd -f ariane.cfg
+openocd -f /he-soc/fpga/ariane-zcu102.cfg 
 ```
 ### Terminal 2
 
@@ -163,7 +164,7 @@ git clone https://github.com/riscv/riscv-openocd.git
 cd riscv-openocd
 git checkout 3249d415595ee430164aa0429bcc7452c0f251fa
 ./bootstrap
-./configure --enable-jtag_vpi --enable-jtag_dpi --enable-remote-bitbang --enable-fdti enable-ftdi-oscan1 --prefix=/path/to/install
+./configure --enable-jtag_vpi --enable-jtag_dpi --enable-remote-bitbang --enable-ftdi --enable-ftdi-oscan1 --prefix=/path/to/install
 make
 make install
 ```
