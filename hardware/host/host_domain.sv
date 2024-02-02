@@ -129,6 +129,11 @@ module host_domain
   output                      eth_to_pad_t eth_to_pad,
   input                       pad_to_eth_t pad_to_eth,
 
+ `ifdef ETH2FMC_NO_PADFRAME
+ input logic                   clk_200MHz,
+ input logic                   clk_125MHz,
+ `endif
+
   // HYPERBUS
   `ifndef XILINX_DDR
   inout  [HyperbusNumPhys-1:0][NumChipsPerHyperbus-1:0] pad_hyper_csn,
@@ -225,10 +230,10 @@ module host_domain
    assign   soc_clk_o  = s_soc_clk;
    assign   soc_rst_no = s_synch_soc_rst;
    assign   rstn_cluster_sync_o = s_rstn_cluster_sync;
-   assign   eth_clk_200MHz_i = s_soc_clk ;
+   assign   eth_clk_200MHz_i = clk_200MHz ;
 
    clk_gen_hyper i_clk_gen_ethernet (
-        .clk_i    ( s_periph_clk                ),
+        .clk_i    ( clk_125MHz                  ),
         .rst_ni   ( s_synch_soc_rst             ),
         .clk0_o   ( eth_clk_i                   ),
         .clk90_o  ( eth_phy_tx_clk_i            ),
