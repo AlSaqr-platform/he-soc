@@ -2,7 +2,7 @@
 
 We now support emulation on the VCU118. For fpga emulation, you can choose if you want to plug which `axi_slave` you prefer to the `axi_xbar`: either the `hyperbus memory controller` or the `Xilinx DDR4 AXI IP` that uses the onboard DDR4.
 
-To rely on the hyperbus, you need a [special FMC carrier board](https://ieeexplore.ieee.org/document/9607006). Also, when using the DDR we can push the design to 50MHz. When relying on the Hyperbus, our upper limit is 10MHz.
+To rely on the hyperbus, you need a [special FMC carrier board](https://ieeexplore.ieee.org/document/9607006). Also, when using the DDR we can push the design to 40MHz. When relying on the Hyperbus, our upper limit is 10MHz.
 
 ## Bitstream generation
 
@@ -156,6 +156,18 @@ from gdb terminal
 (d) c
 ```
 At this point, you should see the prints from Ibex and CVA6 to the screen terminal.
+
+## Linux Boot
+
+The latest Linux Image that can boot on Dual Core version of CVA6 can be found here:
+
+```
+https://github.com/AlSaqr-platform/cva6-sdk/releases/tag/alsaqr-v1.0
+```
+This includes the instructions to compile the linux image. Such image shall be loaded via JTAG after laoding the dtb with the openocd config file (dual_core_ariane.cfg that you can find in ./openocd).
+You shall update in this file the path to your dtb.
+
+NB: the baudrate when booting linux to be used for UART terminal must be 38400, otherwise you can face issues in sending commands to linux terminal with higer baudrates.
 
 ## Install OpenOCD
 
