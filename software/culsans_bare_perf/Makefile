@@ -8,7 +8,7 @@ $(TESTS):
 	@$(MAKE) -j 1 -C testlist/$@ -d all run >& /dev/null
 
 run-all-tests:
-	$(MAKE) -j $(JOBS) $(TESTS)
+	$(MAKE) -j $(JOBS) $(TESTS) nogui=1
 
 clean:
 	@for item in $(TESTS); do \
