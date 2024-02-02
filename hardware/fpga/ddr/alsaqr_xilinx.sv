@@ -58,7 +58,7 @@ module alsaqr_xilinx
     inout wire  pad_periphs_pad_gpio_b_14_pad,
     inout wire  pad_periphs_cva6_uart_00_pad,
     inout wire  pad_periphs_cva6_uart_01_pad,
-    `endif 
+    `endif
 
     `ifdef EXCLUDE_PADFRAME
     inout wire  pad_periphs_cva6_uart_00_pad,
@@ -128,7 +128,7 @@ module alsaqr_xilinx
    );
 
    pad_alsaqr_pu padinst_uart_tx (
-    .OEN(1'b0), 
+    .OEN(1'b0),
     .I(cva6_uart_tx),
     .O(),
     .PAD(pad_periphs_cva6_uart_00_pad),
@@ -143,6 +143,8 @@ module alsaqr_xilinx
 `endif
 
    wire        ref_clk;
+   wire        s_clk_200MHz;
+   wire        s_clk_125MHz;
    wire        ddr_ref_clk;
    logic       s_locked;
    logic       s_clk;
@@ -155,6 +157,10 @@ module alsaqr_xilinx
                                       .resetn(reset_n),
                                       .locked(),
                                       .clk_in1(c0_sys_clk_o),
+                                      `ifdef ETH2FMC_NO_PADFRAME
+                                      .clk_out3(s_clk_200MHz),
+                                      .clk_out2(s_clk_125MHz),
+                                      `endif
                                       .clk_out1(ref_clk)
                                       );
 
@@ -380,15 +386,17 @@ ddr4_0 u_ddr4_0
         `endif
 
         `ifdef ETH2FMC_NO_PADFRAME
-        .eth_rst_n  ( fmc_eth_rst_n ) ,
-        .eth_rxck   ( fmc_eth_rxck  ) ,
-        .eth_rxctl  ( fmc_eth_rxctl ) ,
-        .eth_rxd    ( fmc_eth_rxd   ) ,
-        .eth_txck   ( fmc_eth_txck  ) ,
-        .eth_txctl  ( fmc_eth_txctl ) ,
-        .eth_txd    ( fmc_eth_txd   ) ,
-        .eth_mdio   ( fmc_eth_mdio  ) ,
-        .eth_mdc    ( fmc_eth_mdc   ) ,
+        .clk_125MHz     ( s_clk_125MHz    ) ,
+        .clk_200MHz     ( s_clk_200MHz    ) ,
+        .eth_rst_n      ( fmc_eth_rst_n ) ,
+        .eth_rxck       ( fmc_eth_rxck  ) ,
+        .eth_rxctl      ( fmc_eth_rxctl ) ,
+        .eth_rxd        ( fmc_eth_rxd   ) ,
+        .eth_txck       ( fmc_eth_txck  ) ,
+        .eth_txctl      ( fmc_eth_txctl ) ,
+        .eth_txd        ( fmc_eth_txd   ) ,
+        .eth_mdio       ( fmc_eth_mdio  ) ,
+        .eth_mdc        ( fmc_eth_mdc   ) ,
         `endif
 
         `ifdef EXCLUDE_PADFRAME

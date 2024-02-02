@@ -176,6 +176,8 @@ module al_saqr
    output logic fpga_pad_uart_tx_o,
  `endif
  `ifdef ETH2FMC_NO_PADFRAME
+  input  logic      clk_125MHz,
+  input  logic      clk_200MHz,
   output wire       eth_rst_n,
   input  wire       eth_rxck ,
   input  wire       eth_rxctl,
@@ -273,6 +275,8 @@ module al_saqr
 
   logic s_h2c_mailbox_irq;
 
+  logic s_clk_200MHz;
+  logic s_clk_125MHz;
   AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -546,6 +550,11 @@ module al_saqr
        .pad_hyper_rwds,
        .pad_hyper_reset,
        .pad_hyper_dq,
+       `endif
+
+       `ifdef ETH2FMC_NO_PADFRAME
+       .clk_200MHz(s_clk_200MHz),
+       .clk_125MHz(s_clk_125MHz),
        `endif
 
       .pwm_to_pad             ( s_pwm_to_pad                    ),
@@ -1028,6 +1037,8 @@ module al_saqr
    assign s_cva6_uart_rx = fpga_pad_uart_rx_i;
    assign fpga_pad_uart_tx_o = s_cva6_uart_tx;
    `ifdef ETH2FMC_NO_PADFRAME
+   assign s_clk_125MHz = clk_125MHz;
+   assign s_clk_200MHz = clk_200MHz;
    assign s_pad_to_eth.eth_md_i    = eth_mdio;
    assign s_pad_to_eth.eth_rxck_i  = eth_rxck;
    assign s_pad_to_eth.eth_rxctl_i = eth_rxctl;
