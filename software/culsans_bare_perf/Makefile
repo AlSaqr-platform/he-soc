@@ -1,5 +1,4 @@
 TESTS := $(shell find ./testlist/* -maxdepth 0 -type d -exec basename {} \;)
-RES_DIR := results
 
 JOBS ?= 32
 
