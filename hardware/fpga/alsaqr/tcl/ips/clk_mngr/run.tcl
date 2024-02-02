@@ -27,6 +27,8 @@ if {$::env(ETH2FMC_NO_PAD)=="1"} {
                             CONFIG.CLKOUT1_REQUESTED_OUT_FREQ "$CLK_FREQ_MHZ" \
                             CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {125} \
                             CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {200} \
+                            CONFIG.RESET_TYPE {ACTIVE_LOW} \
+                            CONFIG.RESET_PORT {resetn} \
                             CONFIG.CLKIN1_JITTER_PS {40.0} \
                             CONFIG.MMCM_DIVCLK_DIVIDE {1} \
                             CONFIG.MMCM_CLKFBOUT_MULT_F {4.000} \
@@ -43,7 +45,7 @@ if {$::env(ETH2FMC_NO_PAD)=="1"} {
                             CONFIG.CLKOUT3_JITTER {93.521} \
                             CONFIG.CLKOUT3_PHASE_ERROR {85.928} \
                             ] [get_ips $ipName]
-else {
+} else {
     set_property -dict [list CONFIG.PRIM_IN_FREQ {250.000} \
                             CONFIG.CLKOUT1_REQUESTED_OUT_FREQ "$CLK_FREQ_MHZ" \
                             CONFIG.RESET_TYPE {ACTIVE_LOW} \
