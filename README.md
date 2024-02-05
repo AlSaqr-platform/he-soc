@@ -24,8 +24,15 @@ The repository is organized as follows
 
  * `software` contains the bare metals tests you can run on the SoC
 
+## RISC-V Toolchain
+
+AlSaqr requires the RISC-V toolchain which is available here: https://github.com/riscv-collab/riscv-gnu-toolchain
+
+For the PULP CLuster make sure the PULP RV32 toolchain is in your PATH. Please refer to PULP RISCV GCC toolchain to use a pre-built release: https://github.com/pulp-platform/pulp-riscv-gcc
+
 ## Repo initialization
-Please change the setup to point to you toolchains and Questasim installations in he-soc/setup.sh):
+Please change the setup file to point to your toolchains and Questasim installations in he-soc/setup.sh:
+
 ** NB: this fetches the current master branch, under costant developement. **
 
 ```
@@ -63,7 +70,7 @@ To compile the hello world for FPGA board, in he-soc/hardware run:
 make -C ../software/hello_culsans fpga=1 clean all
 ```
 This will generate the binaries and the hyperram*.slm that will be in the rams at t=0 (in case of preloading). 
-
+ 
 ### Generate TCL for simulation
 
 Then, generate the tcl for simulation and synthesis. In he-soc/hardware run one of two following options accordingly to your target:
