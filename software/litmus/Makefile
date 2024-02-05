@@ -27,8 +27,7 @@ litmus-tests.list:
 	find $(SRC)/binaries -type f -name "*.elf" -exec basename {} .elf \;  > $@
 
 run-litmus-tests: $(HW_RES)
-	$(MAKE) --quiet -j $(JOBS) -C $(WORK) ADDITIONAL_FLAGS=$(ADDITIONAL_FLAGS) \
-	$(addprefix ../$(HW_RES)/, $(addsuffix .litmus.log, $(LITMUS_TEST_LIST)))
+	$(MAKE) --quiet -j $(JOBS) -C $(WORK) ADDITIONAL_FLAGS=$(ADDITIONAL_FLAGS) $(addprefix ../$(HW_RES)/, $(addsuffix .litmus.log, $(LITMUS_TEST_LIST)))
 
 $(SRC)/litmus.log:
 	cd $(SRC); ci/merge-tests.sh
