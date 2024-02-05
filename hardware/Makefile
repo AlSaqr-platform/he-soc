@@ -30,7 +30,7 @@ test-location  ?= output/test
 torture-logs   :=
 # custom elf bin to run with sim or sim-verilator
 CORE_ID        ?= 0
-elf-bin        ?= ../software/hello_culsans/hello_culsans.riscv
+elf-bin        ?= $(SW_HOME)/hello_culsans/hello_culsans.riscv
 # opentitan variables
 ibex-elf-bin   ?= none
 BOOTMODE       ?= 0
@@ -48,7 +48,7 @@ noacc          ?=
 
 # regression
 alsaqr-regression-dir        := ./
-alsaqr-regression-list       := ../software/regression.list
+alsaqr-regression-list       := $(SW_HOME)/regression.list
 alsaqr-regression            := $(shell xargs printf '\n%s' < $(alsaqr-regression-list) | cut -b 1-)
 
 alsaqr-regression-post-synth := $(shell xargs printf '\n%s' < $(alsaqr-regression-list) | cut -b 1-)
@@ -315,7 +315,7 @@ post_synth_top_fll_behav:
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t asic -t rtl -t test -t tb_synth -t vip -t post_synth_top_fll_behav -t cv64a6_imafdc_sv39_wb > $(compile_script)
 
-# RTL (USES FLL DUMMY) + OPENTITAN NETLIST 
+# RTL (USES FLL DUMMY) + OPENTITAN NETLIST
 post_synth_opentitan:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
@@ -422,7 +422,7 @@ synth_sim: build_synth run
 
 $(alsaqr-regression): build_macro
 	mkdir -p tmp
-	$(MAKE) -C ../software/$@ clean all
+	$(MAKE) -C $(SW_HOME)/$@ clean all
 	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8386 -suppress 8360 -lib $(library) +OT_FLASH=$(OT_FLASH) +CORE_ID=$(CORE_ID) +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$@ +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi   \
 	${top_level}_optimized +permissive-off ++$(alsaqr-regression-dir)/$@ ++$(target-options) | tee tmp/alsaqr-regression-$@.log
@@ -449,7 +449,7 @@ run_regression_netlist:
 
 $(alsaqr-regression-post-synth): build_synth
 	mkdir -p tmp
-	$(MAKE) -C ../software/$@ clean all
+	$(MAKE) -C $(SW_HOME)/$@ clean all
 	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8386 -suppress 8360 -lib $(library) +OT_FLASH=$(OT_FLASH) +CORE_ID=$(CORE_ID) +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$@ +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi   \
 	${top_level}_optimized +permissive-off ++$(alsaqr-regression-dir)/$@ ++$(target-options) | tee tmp/alsaqr-regression-$@.log
