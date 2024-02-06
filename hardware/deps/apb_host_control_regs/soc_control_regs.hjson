@@ -221,5 +221,31 @@
             ]
           }
       }
+      { multireg:
+          { name: LOGIC_LOCKING_KEY_2
+            desc: '''Third logic locking key'''
+            count: "4"
+            swaccess: "rw"
+            hwaccess: "hro"
+            cname: "LOGIC_LOCKING_KEY_2"
+            fields: [
+                { bits: "31:0"
+                }
+            ]
+          }
+      } 
+      { multireg:
+          { name: LOGIC_LOCKING_KEY_3
+            desc: '''Fourth logic locking key'''
+            count: "4"
+            swaccess: "rw"
+            hwaccess: "hro"
+            cname: "LOGIC_LOCKING_KEY_3"
+            fields: [
+                { bits: "31:0"
+                }
+            ]
+          }
+      }
   ]
 }
