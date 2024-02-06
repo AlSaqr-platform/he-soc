@@ -4,7 +4,7 @@ JOBS ?= 32
 
 $(TESTS):
 	@echo "Running $@"
-	@$(MAKE) -C testlist/$@ -d all run >& /dev/null
+	@$(MAKE) -C testlist/$@ all run >& /dev/null
 
 run-all-tests:
 	$(MAKE) -j $(JOBS) $(TESTS) nogui=1 max-opt=1
@@ -15,8 +15,10 @@ clean:
 	   	$(MAKE) -C testlist/$$item clean-sim clean >& /dev/null; \
 	done
 
-results.log:
-	grep -oP 'Error: \[JTAG\] FAILED: return code \K\d*' testlist/*/sim.d/transcript | sed 's@testlist/\([^/]*\)/.*:\([^:]*\)@\1 \2@' > $@
+profile:
+	grep -oP 'Error: \[JTAG\] FAILED: return code \K\d*' testlist/*/sim.d/transcript | sed 's@testlist/\([^/]*\)/.*:\([^:]*\)@\1 \2@' > results.log
 
-.PHONY: run-all-tests clean
+all: clean run-all-tests profile
+
+.PHONY: run-all-tests clean profile all
 
