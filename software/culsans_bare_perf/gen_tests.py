@@ -3,7 +3,7 @@
 import os
 
 cache_ways = 8
-cache_entries = 256
+cache_entries = 128
 cache_line_bytes = 16
 cache_size = cache_ways * cache_entries * cache_line_bytes
 
