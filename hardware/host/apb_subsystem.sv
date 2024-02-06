@@ -928,8 +928,8 @@ module apb_subsystem
     .llc_read_miss_cache_i(llc_read_miss_cache_i),
     .llc_write_hit_cache_i(llc_write_hit_cache_i),
     .llc_write_miss_cache_i(llc_write_miss_cache_i),
-    .key_0(  ),
-    .key_1(  )
+    .xor_locking_blk_0(  ),
+    .xor_locking_blk_1(  )
    );
 
 

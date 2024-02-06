@@ -63,6 +63,14 @@ package control_register_config_reg_pkg;
   } control_register_config_reg2hw_logic_locking_key_1_mreg_t;
 
   typedef struct packed {
+    logic [31:0] q;
+  } control_register_config_reg2hw_logic_locking_key_2_mreg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } control_register_config_reg2hw_logic_locking_key_3_mreg_t;
+
+  typedef struct packed {
     logic [31:0] d;
     logic        de;
   } control_register_config_hw2reg_llc_read_miss_cache_reg_t;
@@ -84,16 +92,18 @@ package control_register_config_reg_pkg;
 
   // Register -> HW type
   typedef struct packed {
-    control_register_config_reg2hw_control_cluster_reg_t control_cluster; // [391:389]
-    control_register_config_reg2hw_enable_llc_counters_reg_t enable_llc_counters; // [388:388]
-    control_register_config_reg2hw_llc_cache_addr_start_reg_t llc_cache_addr_start; // [387:356]
-    control_register_config_reg2hw_llc_cache_addr_end_reg_t llc_cache_addr_end; // [355:324]
-    control_register_config_reg2hw_llc_spm_addr_start_reg_t llc_spm_addr_start; // [323:292]
-    control_register_config_reg2hw_ot_clk_sel_reg_t ot_clk_sel; // [291:290]
-    control_register_config_reg2hw_ot_clk_div_reg_t ot_clk_div; // [289:257]
-    control_register_config_reg2hw_ot_clk_gate_en_reg_t ot_clk_gate_en; // [256:256]
-    control_register_config_reg2hw_logic_locking_key_0_mreg_t [3:0] logic_locking_key_0; // [255:128]
-    control_register_config_reg2hw_logic_locking_key_1_mreg_t [3:0] logic_locking_key_1; // [127:0]
+    control_register_config_reg2hw_control_cluster_reg_t control_cluster; // [647:645]
+    control_register_config_reg2hw_enable_llc_counters_reg_t enable_llc_counters; // [644:644]
+    control_register_config_reg2hw_llc_cache_addr_start_reg_t llc_cache_addr_start; // [643:612]
+    control_register_config_reg2hw_llc_cache_addr_end_reg_t llc_cache_addr_end; // [611:580]
+    control_register_config_reg2hw_llc_spm_addr_start_reg_t llc_spm_addr_start; // [579:548]
+    control_register_config_reg2hw_ot_clk_sel_reg_t ot_clk_sel; // [547:546]
+    control_register_config_reg2hw_ot_clk_div_reg_t ot_clk_div; // [545:513]
+    control_register_config_reg2hw_ot_clk_gate_en_reg_t ot_clk_gate_en; // [512:512]
+    control_register_config_reg2hw_logic_locking_key_0_mreg_t [3:0] logic_locking_key_0; // [511:384]
+    control_register_config_reg2hw_logic_locking_key_1_mreg_t [3:0] logic_locking_key_1; // [383:256]
+    control_register_config_reg2hw_logic_locking_key_2_mreg_t [3:0] logic_locking_key_2; // [255:128]
+    control_register_config_reg2hw_logic_locking_key_3_mreg_t [3:0] logic_locking_key_3; // [127:0]
   } control_register_config_reg2hw_t;
 
   // HW -> register type
@@ -125,6 +135,14 @@ package control_register_config_reg_pkg;
   parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_1_OFFSET = 7'h 44;
   parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_2_OFFSET = 7'h 48;
   parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_3_OFFSET = 7'h 4c;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_0_OFFSET = 7'h 50;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_1_OFFSET = 7'h 54;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_2_OFFSET = 7'h 58;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_3_OFFSET = 7'h 5c;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_0_OFFSET = 7'h 60;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_1_OFFSET = 7'h 64;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_2_OFFSET = 7'h 68;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_3_OFFSET = 7'h 6c;
 
   // Register index
   typedef enum int {
@@ -147,11 +165,19 @@ package control_register_config_reg_pkg;
     CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_0,
     CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_1,
     CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_2,
-    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_3
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_3,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_0,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_1,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_2,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_3,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_0,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_1,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_2,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_3
   } control_register_config_id_e;
 
   // Register width information to check illegal writes
-  parameter logic [3:0] CONTROL_REGISTER_CONFIG_PERMIT [20] = '{
+  parameter logic [3:0] CONTROL_REGISTER_CONFIG_PERMIT [28] = '{
     4'b 0001, // index[ 0] CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER
     4'b 0001, // index[ 1] CONTROL_REGISTER_CONFIG_ENABLE_LLC_COUNTERS
     4'b 1111, // index[ 2] CONTROL_REGISTER_CONFIG_LLC_READ_MISS_CACHE
@@ -171,7 +197,15 @@ package control_register_config_reg_pkg;
     4'b 1111, // index[16] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_0
     4'b 1111, // index[17] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_1
     4'b 1111, // index[18] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_2
-    4'b 1111  // index[19] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_3
+    4'b 1111, // index[19] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_3
+    4'b 1111, // index[20] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_0
+    4'b 1111, // index[21] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_1
+    4'b 1111, // index[22] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_2
+    4'b 1111, // index[23] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_3
+    4'b 1111, // index[24] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_0
+    4'b 1111, // index[25] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_1
+    4'b 1111, // index[26] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_2
+    4'b 1111  // index[27] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_3
   };
 
 endpackage
