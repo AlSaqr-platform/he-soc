@@ -23,9 +23,9 @@ inc_dirs = . drivers/inc string_lib/inc padframe/inc fpga_padframe/inc udma udma
 
 src_dirs = . drivers/src string_lib/src udma/uart padframe/src fpga_padframe/src
 
-SRC=$(foreach d, $(src_dirs), $(wildcard $(utils_dir)$d/*.c))
+SRC+=$(foreach d, $(src_dirs), $(wildcard $(utils_dir)$d/*.c))
 
-INC=$(foreach d, $(inc_dirs), -I$(utils_dir)$d)
+INC+=$(foreach d, $(inc_dirs), -I$(utils_dir)$d)
 
 ifneq ($(strip $(wildcard $(HW_HOME)/ip_list/fll_behav/driver)),)
 	FLL_DRIVER=1
