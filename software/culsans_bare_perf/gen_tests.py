@@ -46,15 +46,18 @@ header_preamble = f"""\
 #define __TEST_UTILS_H__
 
 #include <stdint.h>
+#include <cache.h>
 
 // cachelines are {cache_line_bytes << 3}bit long
 // cache is {cache_size >> 10}kB: {cache_line_bytes}B cachelines x {cache_entries} entries x {cache_ways} ways
 {define_type("cacheline_t", cache_line_bytes << 3)}
 {define_type("half_cacheline_t", cache_line_bytes << 2)}
 
+extern volatile cacheline_t data[CACHE_WAYS * CACHE_ENTRIES];
+
 """
 
-header_body += "void unrolled_write() {\n"
+header_body = "void unrolled_write() {\n"
 header_body += "\n".join([f"*(data+{idx}) = 0x12345678;" for idx in range(cache_entries * cache_ways)])
 header_body += "\n}\n\n"
 
