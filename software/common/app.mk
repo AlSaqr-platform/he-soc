@@ -1,5 +1,3 @@
-include $(SW_HOME)/common.mk
-
 # Overwrite in your test Makefile!
 APP 	?= main
 XLEN    ?= 64
@@ -10,8 +8,10 @@ APP_SRC ?= $(filter-out $(APP).c, $(wildcard *.c))
 SIM_DEPS ?= work work-dpi tb
 SIM_DIR  ?= sim.d
 
-INC += $(APP_INC)
+INC += $(addprefix -I, $(APP_INC))
 SRC += $(APP_SRC)
+
+include $(SW_HOME)/common.mk
 
 run:
 	mkdir -p $(SIM_DIR)
