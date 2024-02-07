@@ -1,13 +1,8 @@
-TESTS := $(shell find ./testlist/* -maxdepth 0 -type d -exec basename {} \;)
-
-JOBS ?= 32
+TESTS ?= $(shell find ./testlist/* -maxdepth 0 -type d -exec basename {} \;)
 
 $(TESTS):
 	@echo "Running $@"
-	@$(MAKE) -C testlist/$@ all run >& /dev/null
-
-run-all-tests:
-	$(MAKE) -j $(JOBS) $(TESTS) nogui=1 max-opt=1
+	@$(MAKE) -C testlist/$@ all run nogui=1 max-opt=1 >& /dev/null
 
 clean:
 	@for item in $(TESTS); do \
@@ -15,12 +10,14 @@ clean:
 	   	$(MAKE) -C testlist/$$item clean-sim clean >& /dev/null; \
 	done
 
-# JTAG FAILED will be printed out since the return code is not 0
-# However, in this case the exit code is actually the number of cycles
-profile:
-	grep -oP 'Error: \[JTAG\] FAILED: return code \K\d*' testlist/*/sim.d/transcript | sed 's@testlist/\([^/]*\)/.*:\([^:]*\)@\1 \2@' > results.log
+run: clean
+	$(MAKE) $(TESTS)
 
-all: clean run-all-tests profile
+profile: run
+	@./extract_results.py
+	@cat results.csv | column -t -s,
 
-.PHONY: run-all-tests clean profile all
+all: profile
+
+.PHONY: run clean profile all
 
