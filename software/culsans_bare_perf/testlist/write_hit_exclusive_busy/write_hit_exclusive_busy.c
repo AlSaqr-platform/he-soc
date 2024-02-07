@@ -17,14 +17,11 @@ void prepare()
 
 int write_hit_exclusive_busy(int cid, int nc)
 {
-  long begin, end;
-
   if (cid == 0) {
     prepare();
-    begin = rdcycle();
-    unrolled_write();
-    end = rdcycle();
-    exit((end-begin)>>12);
+    warm(unrolled_write, 2);
+    profile(unrolled_write, 1);
+    exit(0);
   }
 
   // create some traffic

@@ -20,14 +20,11 @@ void prepare()
 
 int read_hit_busy_snoop(int cid, int nc)
 {
-long begin, end;
-
   if (cid == 0) {
     prepare();
-    begin = rdcycle();
-    unrolled_read();
-    end = rdcycle();
-    exit((end-begin)>>11);
+    warm(unrolled_read, 2);
+    profile(unrolled_read, 2);
+    exit(0);
   }
 
   // create some traffic

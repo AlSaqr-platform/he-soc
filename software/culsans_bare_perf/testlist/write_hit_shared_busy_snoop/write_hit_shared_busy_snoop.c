@@ -18,15 +18,11 @@ void prepare()
 
 int write_hit_shared_busy_snoop(int cid, int nc)
 {
-  long begin, end;
-
   if (cid == 0) {
-    for (int i = 0; i < sizeof(data)/sizeof(data[0]); i++)
-      data[i];
-    begin = rdcycle();
-    unrolled_write();
-    end = rdcycle();
-    exit((end-begin)>>12);
+    // `data` should be cached and shared -> read it
+    read_loop(data, CACHE_WAYS * CACHE_ENTRIES);
+    profile(unrolled_write, 1);
+    exit(0);
   }
 
   // create some traffic
