@@ -19,13 +19,9 @@ void prepare()
 
 int write_shared_busy(int cid, int nc)
 {
-  long begin, end;
-
   if (cid == 0) {
-    begin = rdcycle();
-    unrolled_write();
-    end = rdcycle();
-    exit((end-begin)>>12);
+    profile(unrolled_write, 1);
+    exit(0);
   }
 
   // create some traffic
