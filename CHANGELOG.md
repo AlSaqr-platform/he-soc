@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 0.0.9 - alsaqr_080224 - 08/02/2024
+
+### Hardware
+
+### Changed
+# TOP
+- Add 2 additional 128-bit Logic Locking registers for new logic locking feature using 2 blocks. Compute the XOR between each couple of register.
+
+### Feature Frozen Macros
+- Cluster
+- OpenTitan
+- Hyperram
+
+### Work In progress Macro
+- Culsans
+
+### Software
+
 ## 0.0.8 - alsaqr_310124 - 31/01/2024
 
 ### Hardware
