@@ -14,15 +14,15 @@
         *(ptr + i) = 0x1234ABCD; \
     }
 
-inline void warm(void (*func)(void), uint32_t iter) {
+inline void repeat(void (*func)(void), uint32_t iter) {
     for(uint32_t i = 0; i < iter; i++)
         func();
 }
 
-void profile(void (*test)(void), uint32_t stride);
+void profile(void (*test)(volatile cacheline_t*), volatile cacheline_t *data);
 
-void unrolled_read(void);
+void reads(volatile cacheline_t *);
 
-void unrolled_write(void);
+void writes(volatile cacheline_t *);
 
 #endif

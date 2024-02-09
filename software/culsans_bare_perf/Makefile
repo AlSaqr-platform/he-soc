@@ -1,16 +1,23 @@
-TESTS ?= $(shell find ./testlist/* -maxdepth 0 -type d -exec basename {} \;)
+TEST_FOLDER = testlist
+TESTS ?= $(shell find ./$(TEST_FOLDER)/* -maxdepth 0 -type d -exec basename {} \;)
 
 $(TESTS):
 	@echo "Running $@"
-	@$(MAKE) -C testlist/$@ all run nogui=1 max-opt=1 >& /dev/null
+	@$(MAKE) -C $(TEST_FOLDER)/$@ all run nogui=1 max-opt=1 >& /dev/null
 
 clean:
 	@for item in $(TESTS); do \
 	    echo "Cleaning $$item"; \
-	   	$(MAKE) -C testlist/$$item clean-sim clean >& /dev/null; \
+	   	$(MAKE) -C $(TEST_FOLDER)/$$item clean-sim clean >& /dev/null; \
 	done
 
-run: clean
+src/unrolled.c:
+	@./gen_unrolled_c.py
+
+inc/cache.h:
+	@./gen_cache_h.py
+
+run: clean inc/cache.h src/unrolled.c
 	$(MAKE) $(TESTS)
 
 profile: run

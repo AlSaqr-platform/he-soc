@@ -1,23 +1,41 @@
 #include "read_shared.h"
+#include <stdint.h>
 #include "encoding.h"
 #include "test_utils.h"
-#include <stdint.h>
 
 extern void exit(int);
 
-volatile cacheline_t data[CACHE_WAYS * CACHE_ENTRIES] __attribute__((section(".cache_share_region")));
+// synchronization variable: non-cached and non-shared
+volatile uint64_t count __attribute__((section(".nocache_noshare_region")));
 
-void prepare()
-{
-  for (int i = 0; i < sizeof(data)/sizeof(data[0]); i++)
-    data[i] = i+1;
-}
+volatile cacheline_t data[CACHE_WAYS * CACHE_ENTRIES] __attribute__((section(".cache_share_region")));
 
 int read_shared(int cid, int nc)
 {
+
+  count = 0;
+
+  volatile cacheline_t *data_ptr = &data[2048 / sizeof(cacheline_t)];
+
   if (cid == 0) {
-    warm(unrolled_read, 2);
-    profile(unrolled_read, 2);
+    // Warm I$
+    reads(data_ptr);
+    reads(data_ptr);
+    count++;
+  }
+
+  while(count == 0);
+
+  if (cid == nc-1) {
+    // The core nc-1 owns the locations
+    write_loop(data, CACHE_WAYS * CACHE_ENTRIES);
+    count++;
+  }
+
+  while(count == 1);
+
+  if (cid == 0) {
+    profile(reads, data_ptr);
     exit(0);
   }
 
