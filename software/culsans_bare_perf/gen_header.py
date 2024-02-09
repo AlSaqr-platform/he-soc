@@ -8,6 +8,8 @@ cache_entries = 128
 cache_line_bytes = 16
 cache_size = cache_ways * cache_entries * cache_line_bytes
 
+stride = cache_line_bytes >> 3
+
 if not os.path.isdir("inc"):
     os.makedirs("inc")
 
@@ -42,24 +44,4 @@ content = f"""\
 """
 
 with open("inc/cache.h", "w") as f:
-    f.write(content)
-
-content = f"""\
-#include <stdint.h>
-#include "cache.h"
-
-extern volatile cacheline_t data[CACHE_WAYS * CACHE_ENTRIES];
-
-"""
-
-content += "void unrolled_write() {\n"
-content += "\n".join([f"*(data+{idx}) = 0x12345678;" for idx in range(cache_entries * cache_ways)])
-content += "\n}\n\n"
-
-content += "void unrolled_read() {\n"
-content += "volatile uint64_t* dataptr = (uint64_t*)data;\n"
-content += "\n".join([f"*(dataptr+2*{idx});" for idx in range(cache_entries * cache_ways)])
-content += "\n}\n\n"
-
-with open("src/unrolled.c", "w") as f:
     f.write(content)

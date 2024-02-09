@@ -9,18 +9,17 @@ volatile cacheline_t data[CACHE_WAYS * CACHE_ENTRIES] __attribute__((section(".c
 
 volatile cacheline_t dummy __attribute__((section(".nocache_noshare_region")));
 
-void prepare()
-{
-  for (int i = 0; i < sizeof(data)/sizeof(data[0]); i++)
-    data[i] = i+1;
-}
-
 int write_hit_exclusive_busy(int cid, int nc)
 {
   if (cid == 0) {
-    prepare();
-    warm(unrolled_write, 2);
-    profile(unrolled_write, 1);
+    // Bring data in dcache with exclusivity
+    read_loop(data, CACHE_WAYS * CACHE_ENTRIES);
+    // Warm I$
+    volatile cacheline_t *data_ptr = &data[2048 / sizeof(cacheline_t)];
+    writes(data_ptr);
+    writes(data_ptr);
+    // Profile
+    profile(writes, data_ptr);
     exit(0);
   }
 

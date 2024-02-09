@@ -9,20 +9,19 @@ volatile cacheline_t data[CACHE_WAYS * CACHE_ENTRIES] __attribute__((section(".c
 
 volatile cacheline_t dummy __attribute__((section(".nocache_noshare_region")));
 
-void prepare()
-{
-  for (int i = 0; i < sizeof(data)/sizeof(data[0]); i++)
-    data[i] = i+1;
-
-  dummy = 0;
-}
-
 int read_hit_busy(int cid, int nc)
 {
   if (cid == 0) {
-    prepare();
-    warm(unrolled_read, 2);
-    profile(unrolled_read, 2);
+    // Bring data in dcache
+    write_loop(data, CACHE_WAYS * CACHE_ENTRIES);
+    // Init dummy
+    dummy = 0;
+    // Warm I$
+    volatile cacheline_t *data_ptr = &data[2048 / sizeof(cacheline_t)];
+    reads(data_ptr);
+    reads(data_ptr);
+    // Profile
+    profile(reads, data_ptr);
     exit(0);
   }
 

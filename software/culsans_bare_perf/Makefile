@@ -1,13 +1,14 @@
-TESTS ?= $(shell find ./testlist/* -maxdepth 0 -type d -exec basename {} \;)
+TEST_FOLDER = my
+TESTS ?= $(shell find ./$(TEST_FOLDER)/* -maxdepth 0 -type d -exec basename {} \;)
 
 $(TESTS):
 	@echo "Running $@"
-	@$(MAKE) -C testlist/$@ all run nogui=1 max-opt=1 >& /dev/null
+	@$(MAKE) -C $(TEST_FOLDER)/$@ all run nogui=1 max-opt=1 >& /dev/null
 
 clean:
 	@for item in $(TESTS); do \
 	    echo "Cleaning $$item"; \
-	   	$(MAKE) -C testlist/$$item clean-sim clean >& /dev/null; \
+	   	$(MAKE) -C $(TEST_FOLDER)/$$item clean-sim clean >& /dev/null; \
 	done
 
 run: clean
