@@ -129,10 +129,11 @@ module host_domain
   output                      eth_to_pad_t eth_to_pad,
   input                       pad_to_eth_t pad_to_eth,
 
- `ifdef ETH2FMC_NO_PADFRAME
- input logic                   clk_200MHz,
- input logic                   clk_125MHz,
- `endif
+  `ifdef ETH2FMC_NO_PADFRAME
+  input logic                   clk_200MHz,
+  input logic                   clk_125MHz,
+  input logic                   clk_125MHz90,
+  `endif
 
   // HYPERBUS
   `ifndef XILINX_DDR
@@ -223,6 +224,10 @@ module host_domain
    logic[31:0]                           s_llc_cache_addr_end;
    logic[31:0]                           s_llc_spm_addr_start;
 
+   logic                                 s_eth_clk_200MHz_i;
+   logic                                 s_eth_clk_i;
+   logic                                 s_eth_phy_tx_clk_i;
+
    axi_llc_pkg::events_t llc_events;
 
    logic completion_irq_o;
@@ -230,16 +235,22 @@ module host_domain
    assign   soc_clk_o  = s_soc_clk;
    assign   soc_rst_no = s_synch_soc_rst;
    assign   rstn_cluster_sync_o = s_rstn_cluster_sync;
-   assign   eth_clk_200MHz_i = clk_200MHz ;
 
-   clk_gen_hyper i_clk_gen_ethernet (
-        .clk_i    ( clk_125MHz                  ),
-        .rst_ni   ( s_synch_soc_rst             ),
-        .clk0_o   ( eth_clk_i                   ),
-        .clk90_o  ( eth_phy_tx_clk_i            ),
-        .clk180_o (                             ),
-        .clk270_o (                             )
-    );
+   `ifdef ETH2FMC_NO_PADFRAME
+     assign   s_eth_clk_200MHz_i = clk_200MHz;
+     assign   s_eth_clk_i        = clk_125MHz;
+     assign   s_eth_phy_tx_clk_i = clk_125MHz90;
+  `else
+     assign   eth_clk_200MHz_i = s_soc_clk ;
+     clk_gen_hyper i_clk_gen_ethernet (
+          .clk_i    ( s_periph_clk                ),
+          .rst_ni   ( s_synch_soc_rst             ),
+          .clk0_o   ( eth_clk_i                   ),
+          .clk90_o  ( eth_phy_tx_clk_i            ),
+          .clk180_o (                             ),
+          .clk270_o (                             )
+      );
+  `endif
 
    AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
@@ -442,9 +453,9 @@ module host_domain
         .hyper_axi_master     ( hyper_axi_bus        ),
 
         //Ethernet
-        .eth_clk_i            ( eth_clk_i            ), // 125 MHz 0
-        .eth_phy_tx_clk_i     ( eth_phy_tx_clk_i     ), // 125 MHz 90
-        .eth_clk_200MHz_i     ( eth_clk_200MHz_i     ),
+        .eth_clk_i            ( s_eth_clk_i            ), // 125 MHz 0
+        .eth_phy_tx_clk_i     ( s_eth_phy_tx_clk_i     ), // 125 MHz 90
+        .eth_clk_200MHz_i     ( s_eth_clk_200MHz_i     ),
         .eth_to_pad           ( eth_to_pad           ),
         .pad_to_eth           ( pad_to_eth           ),
 
