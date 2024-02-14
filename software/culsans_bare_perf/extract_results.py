@@ -57,6 +57,6 @@ def generate_csv(folder_path, output_file):
             writer.writerow(test_row)
 
 # Example usage
-folder_path = 'my'
+folder_path = 'testlist'
 output_file = 'results.csv'
 generate_csv(folder_path, output_file)

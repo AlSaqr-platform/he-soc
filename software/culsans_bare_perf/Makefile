@@ -1,4 +1,4 @@
-TEST_FOLDER = my
+TEST_FOLDER = testlist
 TESTS ?= $(shell find ./$(TEST_FOLDER)/* -maxdepth 0 -type d -exec basename {} \;)
 
 $(TESTS):
