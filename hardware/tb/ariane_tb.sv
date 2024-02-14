@@ -47,7 +47,11 @@ module ariane_tb;
 
   static uvm_cmdline_processor uvcl = uvm_cmdline_processor::get_inst();
 
-  localparam int unsigned REFClockPeriod = 1us; // jtag clock: 1MHz
+  localparam int unsigned REFClockPeriod        = 1us; // jtag clock: 1MHz
+  `ifdef ETH2FMC_NO_PADFRAME
+    localparam int unsigned REFClockPeriod200     = 5ns;  // eth200 clock: 200MHz
+    localparam int unsigned REFClockPeriod125     = 8ns;  // eth125 clock: 125MHz
+  `endif
 
   // toggle with RTC period
   `ifndef TEST_CLOCK_BYPASS
@@ -69,10 +73,10 @@ module ariane_tb;
   parameter AW       = 64;
   parameter IW       = 9;
   parameter UW       = 1;
-  logic                 s_eth_clk125_0;
-  logic                 s_eth_clk125_90;
-  logic                 s_eth_clk200;
-  logic                 s_eth_rstni;
+  logic s_eth_clk125_0;
+  logic s_eth_clk125_90;
+  logic s_eth_clk200;
+  logic s_eth_rstni;
 
   AXI_BUS_DV#(
     .AXI_ADDR_WIDTH(AW),
@@ -230,6 +234,21 @@ module ariane_tb;
     wire  [NumPhys-1:0]      hyper_reset_n_wire;
 
     wire                  soc_clock;
+
+    `ifdef ETH2FMC_NO_PADFRAME
+      logic                 s_tck200;
+      logic                 s_tck125_0;
+      logic                 s_tck125_90;
+      logic                 s_core_eth_rst_n;
+      logic                 s_core_eth_rxck;
+      logic                 s_core_eth_rxctl;
+      logic  [3:0]          s_core_eth_rxd;
+      logic                 s_core_eth_txck;
+      logic                 s_core_eth_txctl;
+      logic  [3:0]          s_core_eth_txd;
+      logic                 s_core_eth_mdio;
+      logic                 s_core_eth_mdc;
+    `endif
 
     wire                  w_i2c_sda      ;
     wire                  w_i2c_scl      ;
@@ -1262,6 +1281,21 @@ module ariane_tb;
           `endif //fpga_emul
         `endif //exclude
 
+        `ifdef ETH2FMC_NO_PADFRAME
+        .clk_125MHz       ( s_eth_clk125_0     ),
+        .clk_125MHz90     ( s_eth_clk125_90    ),
+        .clk_200MHz       ( s_eth_clk200       ),
+        .eth_rst_n        ( s_core_eth_rst_n   ),
+        .eth_rxck         ( s_core_eth_rxck    ),
+        .eth_rxctl        ( s_core_eth_rxctl   ),
+        .eth_rxd          ( s_core_eth_rxd     ),
+        .eth_txck         ( s_core_eth_txck    ),
+        .eth_txctl        ( s_core_eth_txctl   ),
+        .eth_txd          ( s_core_eth_txd     ),
+        .eth_mdio         ( s_core_eth_mdio    ),
+        .eth_mdc          ( s_core_eth_mdc     ),
+        `endif
+
         .pad_hyper_csn        ( hyper_cs_n_wire        ),
         .pad_hyper_ck         ( hyper_ck_wire          ),
         .pad_hyper_ckn        ( hyper_ck_n_wire        ),
@@ -1722,52 +1756,91 @@ module ariane_tb;
                 .data_i ( eth_rdata               )
           );
 
-          framing_top eth_rgmii_alt2 (
-             .msoc_clk(clk_i),
-             .core_lsu_addr(eth_addr[14:0]),
-             .core_lsu_wdata(eth_wrdata),
-             .core_lsu_be(eth_be),
-             .ce_d(eth_en),
-             .we_d(eth_en & eth_we),
-             .framing_sel(eth_en),
-             .framing_rdata(eth_rdata),
-             .rst_int(!s_eth_rstni),
+          `ifdef ETH2FMC_NO_PADFRAME
+            framing_top eth_rgmii_alt2  (
+               .msoc_clk        ( clk_i             ),
+               .core_lsu_addr   ( eth_addr[14:0]    ),
+               .core_lsu_wdata  ( eth_wrdata        ),
+               .core_lsu_be     ( eth_be            ),
+               .ce_d            ( eth_en            ),
+               .we_d            ( eth_en & eth_we   ),
+               .framing_sel     ( eth_en            ),
+               .framing_rdata   ( eth_rdata         ),
+               .rst_int         ( !s_eth_rstni      ),
 
-             .clk_int( s_eth_clk125_0  ), // 125 MHz in-phase
-             .clk90_int(  s_eth_clk125_90 ),    // 125 MHz quadrature
-             .clk_200_int(s_eth_clk200),
-             /*
-              * Ethernet: 1000BASE-T RGMII
-              */
-             .phy_rx_clk( alt_2_pad_periphs_a_22_pad_ETH_TXCK ),
-             .phy_rxd( w_eth_tx2_data ),
-             .phy_rx_ctl( alt_2_pad_periphs_a_23_pad_ETH_TXCTL),
+               .clk_int         ( s_eth_clk125_0    ),    // 125 MHz in-phase
+               .clk90_int       ( s_eth_clk125_90   ),    // 125 MHz quadrature
+               .clk_200_int     ( s_eth_clk200      ),
+               /*
+                * Ethernet: 1000BASE-T RGMII
+                */
+               .phy_rx_clk      ( s_core_eth_txck   ),
+               .phy_rxd         ( s_core_eth_txd    ),
+               .phy_rx_ctl      ( s_core_eth_txctl  ),
 
-             .phy_tx_clk( alt_2_pad_periphs_a_16_pad_ETH_RXCK ),
-             .phy_txd ( w_eth_rx2_data ),
-             .phy_tx_ctl( alt_2_pad_periphs_a_17_pad_ETH_RXCTL),
-             .phy_reset_n(w_eth_rstn) ,
-             .phy_mdc( ),
+               .phy_tx_clk      ( s_core_eth_rxck   ),
+               .phy_txd         ( s_core_eth_rxd    ),
+               .phy_tx_ctl      ( s_core_eth_rxctl  ),
+               .phy_reset_n     ( w_eth_rstn        ),
+               .phy_mdc         (                   ),
 
-             .phy_int_n(1'b1  ),
-             .phy_pme_n( 1'b1 ),
+               .phy_int_n       ( 1'b1              ),
+               .phy_pme_n       ( 1'b1              ),
 
-             .phy_mdio_i(1'b0 ),
-             .phy_mdio_o(),
-             .phy_mdio_oe(),
+               .phy_mdio_i      ( 1'b0              ),
+               .phy_mdio_o      (                   ),
+               .phy_mdio_oe     (                   ),
 
-             .eth_irq()
-          );
+               .eth_irq         (                   )
+            );
+          `else // Ethernet attached to the FULL padframe
+            framing_top eth_rgmii_alt2 (
+               .msoc_clk(clk_i),
+               .core_lsu_addr(eth_addr[14:0]),
+               .core_lsu_wdata(eth_wrdata),
+               .core_lsu_be(eth_be),
+               .ce_d(eth_en),
+               .we_d(eth_en & eth_we),
+               .framing_sel(eth_en),
+               .framing_rdata(eth_rdata),
+               .rst_int(!s_eth_rstni),
 
-          assign alt_2_pad_periphs_a_18_pad_ETH_RXD0 = w_eth_rx2_data[0] ;
-          assign alt_2_pad_periphs_a_19_pad_ETH_RXD1 = w_eth_rx2_data[1] ;
-          assign alt_2_pad_periphs_a_20_pad_ETH_RXD2 = w_eth_rx2_data[2] ;
-          assign alt_2_pad_periphs_a_21_pad_ETH_RXD3 = w_eth_rx2_data[3] ;
+              .clk_int( s_eth_clk125_0  ), // 125 MHz in-phase
+               .clk90_int(  s_eth_clk125_90 ),    // 125 MHz quadrature
+               .clk_200_int(s_eth_clk200),
+               /*
+                * Ethernet: 1000BASE-T RGMII
+                */
+               .phy_rx_clk( alt_2_pad_periphs_a_22_pad_ETH_TXCK ),
+               .phy_rxd( w_eth_tx2_data ),
+               .phy_rx_ctl( alt_2_pad_periphs_a_23_pad_ETH_TXCTL),
 
-          assign w_eth_tx2_data[0] = alt_2_pad_periphs_a_24_pad_ETH_TXD0 ;
-          assign w_eth_tx2_data[1] = alt_2_pad_periphs_a_25_pad_ETH_TXD1 ;
-          assign w_eth_tx2_data[2] = alt_2_pad_periphs_a_26_pad_ETH_TXD2 ;
-          assign w_eth_tx2_data[3] = alt_2_pad_periphs_a_27_pad_ETH_TXD3 ;
+               .phy_tx_clk( alt_2_pad_periphs_a_16_pad_ETH_RXCK ),
+               .phy_txd ( w_eth_rx2_data ),
+               .phy_tx_ctl( alt_2_pad_periphs_a_17_pad_ETH_RXCTL),
+               .phy_reset_n(w_eth_rstn) ,
+               .phy_mdc( ),
+
+               .phy_int_n(1'b1  ),
+               .phy_pme_n( 1'b1 ),
+
+               .phy_mdio_i(1'b0 ),
+               .phy_mdio_o(),
+               .phy_mdio_oe(),
+
+               .eth_irq()
+            );
+
+            assign alt_2_pad_periphs_a_18_pad_ETH_RXD0 = w_eth_rx2_data[0] ;
+            assign alt_2_pad_periphs_a_19_pad_ETH_RXD1 = w_eth_rx2_data[1] ;
+            assign alt_2_pad_periphs_a_20_pad_ETH_RXD2 = w_eth_rx2_data[2] ;
+            assign alt_2_pad_periphs_a_21_pad_ETH_RXD3 = w_eth_rx2_data[3] ;
+
+            assign w_eth_tx2_data[0] = alt_2_pad_periphs_a_24_pad_ETH_TXD0 ;
+            assign w_eth_tx2_data[1] = alt_2_pad_periphs_a_25_pad_ETH_TXD1 ;
+            assign w_eth_tx2_data[2] = alt_2_pad_periphs_a_26_pad_ETH_TXD2 ;
+            assign w_eth_tx2_data[3] = alt_2_pad_periphs_a_27_pad_ETH_TXD3 ;
+          `endif
 
           logic [DW:0] data_array [7:0];
 
@@ -1826,6 +1899,7 @@ module ariane_tb;
           // Check if the data received and stored in the rx memory matches the transmitted data
 
           initial begin
+
             int continue_loop = 1;
 
             while(continue_loop) begin
@@ -1833,9 +1907,9 @@ module ariane_tb;
               for(int i=0; i<8; i++) begin
                 read_axi(axi_master_drv, read_addr[i]);
                 if(rx_read_data == data_array[i])
-                  $display(" data correct");
+                  $display("Data correct");
                 else
-                   $display("Data wrong");
+                  $display("Data wrong");
               end
               continue_loop = 0;
             end
@@ -1843,7 +1917,7 @@ module ariane_tb;
             reset_master(axi_master_drv);
             repeat(5) @(posedge clk_i);
             #3000ns;
-                      // Packet length
+            // Packet length
             write_axi(axi_master_drv,'h30000810,'h00000040, 'h0f);
             repeat(5) @(posedge clk_i);
 
@@ -2092,14 +2166,14 @@ module ariane_tb;
                   } )
           );
         end
-        
+
         if(USE_ETHERNET == 1) begin
 
           logic            eth_en, eth_we, eth_int_n, eth_mdio_i, eth_mdio_o, eth_mdio_oe, w_eth_rstn;
           logic [AW-1:0]   eth_addr;
           logic [DW-1:0]   eth_wrdata, eth_rdata;
           logic [DW/8-1:0] eth_be;
-          
+
           axi2mem #(
             .AXI_ID_WIDTH   ( IW    ),
             .AXI_ADDR_WIDTH ( AW    ),
@@ -2165,7 +2239,7 @@ module ariane_tb;
           assign w_eth_tx2_data[3] = alt_2_simple_pad_periphs_12_eth_txd3 ;
 
           logic [DW:0] data_array [7:0];
-          
+
           initial begin
             data_array[0] = 64'h1032207098001032; //1 --> 230100890702 2301, mac dest + inizio di mac source
             data_array[1] = 64'h3210E20020709800; //2 --> 00890702 002E 0123, fine mac source + length + payload
@@ -2189,7 +2263,7 @@ module ariane_tb;
             read_addr[6] = 64'h3000_4030;
             read_addr[7] = 64'h3000_4038;
           end
-           
+
           // initialization write addresses
           logic [AW-1:0] write_addr [7:0];
           initial begin
@@ -2205,7 +2279,7 @@ module ariane_tb;
 
           logic [63:0] rx_read_data;
           assign rx_read_data=axi_master.r_data;
-            
+
           event       tx_complete;
           logic       en_rx_memw;
           assign en_rx_memw = eth_rgmii_alt2.RAMB16_inst_rx.genblk1[0].mem_wrap_rx_inst.enaB;
@@ -2219,7 +2293,7 @@ module ariane_tb;
           end
 
           // Check if the data received and stored in the rx memory matches the transmitted data
-       
+
           initial begin
             int continue_loop = 1;
 
@@ -2227,7 +2301,7 @@ module ariane_tb;
               wait(tx_complete.triggered);
               for(int i=0; i<8; i++) begin
                 read_axi(axi_master_drv, read_addr[i]);
-                if(rx_read_data == data_array[i]) 
+                if(rx_read_data == data_array[i])
                   $display("Data correct");
                 else
                    $display("Data wrong");
@@ -2256,7 +2330,7 @@ module ariane_tb;
             @(posedge clk_i);
 
             // 2 --> {irq_en,promiscuous,spare,loopback,cooked,mac_address[47:32]}
-            write_axi(axi_master_drv,'h30000808,'h00802301, 'h0f); 
+            write_axi(axi_master_drv,'h30000808,'h00802301, 'h0f);
             @(posedge clk_i);
 
             // 3 --> Rx frame check sequence register(read) and last register(write)
@@ -3156,9 +3230,17 @@ module ariane_tb;
   end
 
   assign clk_i = dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o;
-  assign s_eth_clk125_0 = dut.i_host_domain.i_clk_gen_ethernet.clk0_o;
-  assign s_eth_clk125_90 = dut.i_host_domain.i_clk_gen_ethernet.clk90_o;
-  assign s_eth_clk200 = dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o;
+
+  `ifdef ETH2FMC_NO_PADFRAME
+    assign s_eth_clk125_0   = s_tck125_0;
+    assign s_eth_clk125_90  = s_tck125_90;
+    assign s_eth_clk200     = s_tck200;
+  `else
+    assign s_eth_clk125_0 = dut.i_host_domain.i_clk_gen_ethernet.clk0_o;
+    assign s_eth_clk125_90 = dut.i_host_domain.i_clk_gen_ethernet.clk90_o;
+    assign s_eth_clk200 = dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o;
+  `endif
+
   assign s_eth_rstni =  dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.rstn_soc_sync_o;
 
   initial begin
@@ -3166,6 +3248,32 @@ module ariane_tb;
     forever
       #(REFClockPeriod/2) s_tck=~s_tck;
   end
+
+  `ifdef ETH2FMC_NO_PADFRAME
+
+    // Ethernet 200 MHz clock
+    initial begin
+      s_tck200 = '0;
+      forever
+        #(REFClockPeriod200/2) s_tck200=~s_tck200;
+    end
+
+    // Ethernet 125 MHz clock
+    initial begin
+      s_tck125_0 = '0;
+      forever
+        #(REFClockPeriod125/2) s_tck125_0=~s_tck125_0;
+    end
+
+    // Ethernet 125 MHz clock shifted 90 degree
+    initial begin
+      s_tck125_90 = '0;
+      #(REFClockPeriod125/4);
+      forever
+        #(REFClockPeriod125/2) s_tck125_90=~s_tck125_90;
+    end
+
+  `endif
 
 `ifndef USE_LOCAL_JTAG
   initial begin
