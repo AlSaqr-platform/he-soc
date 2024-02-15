@@ -50,7 +50,7 @@ if [ "$MAIN_MEM" = "DDR4" ]; then
     if [ "$SIMPLE_PAD" = "y" ]; then
         read -p "Which peripherals are you validating:  1-ETHERNET 2-(SPI I2C UART SDIO): " SIMPLE_PAD
         if [ "$SIMPLE_PAD" = "1" ]; then
-            read -p "The ETHERNET module is attached to the padframe? y/n" SIMPLE_PAD
+            read -p "The ETHERNET module is attached to the padframe? y/n " SIMPLE_PAD
             if [ "$SIMPLE_PAD" = "y" ]; then
                 export SIMPLE_PAD="ETH"
             else
