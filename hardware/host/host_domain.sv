@@ -214,9 +214,13 @@ module host_domain
    logic                                 s_llc_write_hit_cache;
    logic                                 s_llc_write_miss_cache;
 
-   logic[31:0]                           s_llc_cache_addr_start;
-   logic[31:0]                           s_llc_cache_addr_end;
-   logic[31:0]                           s_llc_spm_addr_start;
+   logic [31:0]                          s_llc_cache_addr_start;
+   logic [31:0]                          s_llc_cache_addr_end;
+   logic [31:0]                          s_llc_spm_addr_start;
+
+   // Logic Locking xored keys
+   logic [127:0]                         xor_locking_blk_0;
+   logic [127:0]                         xor_locking_blk_1;
 
    axi_llc_pkg::events_t llc_events;
 
@@ -436,6 +440,9 @@ module host_domain
         .apb_axi_master       ( apb_axi_bus          ),
         .hyper_axi_master     ( hyper_axi_bus        ),
 
+        // Logic Locking BLK 0
+        .xor_locking_blk_0    ( xor_locking_blk_0    ),
+
         //Ethernet
         .eth_clk_i            ( eth_clk_i            ), // 125 MHz 0
         .eth_phy_tx_clk_i     ( eth_phy_tx_clk_i     ), // 125 MHz 90
@@ -523,6 +530,7 @@ module host_domain
       .llc_read_miss_cache_i  ( s_llc_read_miss_cache          ),
       .llc_write_hit_cache_i  ( s_llc_write_hit_cache          ),
       .llc_write_miss_cache_i ( s_llc_write_miss_cache         ),
+      .xor_locking_blk_0      ( xor_locking_blk_0              ),
 
       `ifdef XILINX_DDR
       .hyper_axi_bus_slave    ( dummyaxibus                    ),

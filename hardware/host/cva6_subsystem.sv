@@ -63,6 +63,9 @@ module cva6_subsystem
   input  logic            cva6_uart_rx_i,
   output logic            cva6_uart_tx_o,
 
+  // Logic Locking xored keys
+  input logic [127:0]     xor_locking_blk_0,
+
   AXI_BUS.Master          axi_lite_master,
   AXI_BUS.Master          l2_axi_master,
   AXI_BUS.Master          apb_axi_master,
@@ -459,6 +462,7 @@ module cva6_subsystem
   ) i_axi_riscv_atomicsl3 (
     .clk_i,
     .rst_ni ( ndmreset_n                ),
+    .key_i  ( xor_locking_blk_0         ),
     .slv    ( master[ariane_soc::HYAXI] ),
     .mst    ( hyper_axi_master_cut      )
   );

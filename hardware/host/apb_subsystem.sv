@@ -75,6 +75,9 @@ module apb_subsystem
 
     REG_BUS.out                 padframecfg_reg_master,
 
+    // Logic Locking xored keys
+    output logic [127:0]        xor_locking_blk_0,
+
     output logic [31*4-1:0]     events_o,
     output logic                [N_CAN-1 : 0] can_irq_o,
 
@@ -928,7 +931,7 @@ module apb_subsystem
     .llc_read_miss_cache_i(llc_read_miss_cache_i),
     .llc_write_hit_cache_i(llc_write_hit_cache_i),
     .llc_write_miss_cache_i(llc_write_miss_cache_i),
-    .xor_locking_blk_0(  ),
+    .xor_locking_blk_0( xor_locking_blk_0 ),
     .xor_locking_blk_1(  )
    );
 
