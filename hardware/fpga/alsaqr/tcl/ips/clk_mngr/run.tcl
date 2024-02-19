@@ -10,7 +10,11 @@ if [info exists ::env(BOARD)] {
 if {$::env(MAIN_MEM)=="HYPER"} {
     set CLK_FREQ_MHZ 10
 } elseif {$::env(MAIN_MEM)=="DDR4"} {
-    set CLK_FREQ_MHZ 40
+    if {$::env(ETH2FMC_NO_PAD)=="1"} {
+        set CLK_FREQ_MHZ 50
+    } else {
+        set CLK_FREQ_MHZ 40
+    }
 }
 
 set ipName xilinx_clk_mngr
@@ -21,11 +25,11 @@ set_property board_part $boardName [current_project]
 create_ip -name clk_wiz -vendor xilinx.com -library ip -module_name $ipName
 
 if {$::env(ETH2FMC_NO_PAD)=="1"} {
-set_property -dict [list CONFIG.PRIM_IN_FREQ {250} \
+    set_property -dict [list CONFIG.PRIM_IN_FREQ {250} \
                             CONFIG.CLKOUT2_USED {true} \
                             CONFIG.CLKOUT3_USED {true} \
                             CONFIG.CLKOUT4_USED {true} \
-                            CONFIG.CLKOUT1_REQUESTED_OUT_FREQ {$CLK_FREQ_MHZ} \
+                            CONFIG.CLKOUT1_REQUESTED_OUT_FREQ "$CLK_FREQ_MHZ" \
                             CONFIG.CLKOUT2_REQUESTED_OUT_FREQ {125} \
                             CONFIG.CLKOUT3_REQUESTED_OUT_FREQ {125} \
                             CONFIG.CLKOUT3_REQUESTED_PHASE {90} \

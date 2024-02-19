@@ -22,6 +22,7 @@ if {$::env(MAIN_MEM)=="HYPER"} {
     } elseif {$::env(SIMPLE_PAD)=="SPI-I2C-UART-SDIO"} {
         add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_validation_$::env(BOARD).xdc"
     } elseif {$::env(ETH2FMC_NO_PAD)=="1"} {
+        set SRC_CLK_PERIOD 20
         add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_validation_$::env(BOARD)_eth-no_padframe.xdc"
     }
 }
