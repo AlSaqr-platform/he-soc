@@ -388,18 +388,18 @@ ddr4_0 u_ddr4_0
         `endif
 
         `ifdef ETH2FMC_NO_PADFRAME
-        .clk_125MHz     ( s_clk_125MHz    ) ,
-        .clk_125MHz90   ( s_clk_125MHz90  ) ,
-        .clk_200MHz     ( s_clk_200MHz    ) ,
-        .eth_rst_n      ( fmc_eth_rst_n ) ,
-        .eth_rxck       ( fmc_eth_rxck  ) ,
-        .eth_rxctl      ( fmc_eth_rxctl ) ,
-        .eth_rxd        ( fmc_eth_rxd   ) ,
-        .eth_txck       ( fmc_eth_txck  ) ,
-        .eth_txctl      ( fmc_eth_txctl ) ,
-        .eth_txd        ( fmc_eth_txd   ) ,
-        .eth_mdio       ( fmc_eth_mdio  ) ,
-        .eth_mdc        ( fmc_eth_mdc   ) ,
+        .clk_125MHz     ( s_clk_125MHz    ),
+        .clk_125MHz90   ( s_clk_125MHz90  ),
+        .clk_200MHz     ( s_clk_200MHz    ),
+        .eth_rstn       ( fmc_eth_rst_n   ),
+        .eth_rxck       ( fmc_eth_rxck    ),
+        .eth_rxctl      ( fmc_eth_rxctl   ),
+        .eth_rxd        ( fmc_eth_rxd     ),
+        .eth_txck       ( fmc_eth_txck    ),
+        .eth_txctl      ( fmc_eth_txctl   ),
+        .eth_txd        ( fmc_eth_txd     ),
+        .eth_mdio       ( fmc_eth_mdio    ),
+        .eth_mdc        ( fmc_eth_mdc     ),
         `endif
 
         `ifdef EXCLUDE_PADFRAME

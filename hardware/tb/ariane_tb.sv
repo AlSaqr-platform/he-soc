@@ -236,18 +236,18 @@ module ariane_tb;
     wire                  soc_clock;
 
     `ifdef ETH2FMC_NO_PADFRAME
-      logic                 s_tck200;
-      logic                 s_tck125_0;
-      logic                 s_tck125_90;
-      logic                 s_core_eth_rst_n;
-      logic                 s_core_eth_rxck;
-      logic                 s_core_eth_rxctl;
-      logic  [3:0]          s_core_eth_rxd;
-      logic                 s_core_eth_txck;
-      logic                 s_core_eth_txctl;
-      logic  [3:0]          s_core_eth_txd;
-      logic                 s_core_eth_mdio;
-      logic                 s_core_eth_mdc;
+      logic               s_tck200;
+      logic               s_tck125_0;
+      logic               s_tck125_90;
+      wire                s_core_eth_rstn;
+      wire                s_core_eth_rxck;
+      wire                s_core_eth_rxctl;
+      wire [3:0]          s_core_eth_rxd;
+      wire                s_core_eth_txck;
+      wire                s_core_eth_txctl;
+      wire [3:0]          s_core_eth_txd;
+      wire                s_core_eth_mdio;
+      wire                s_core_eth_mdc;
     `endif
 
     wire                  w_i2c_sda      ;
@@ -1285,7 +1285,7 @@ module ariane_tb;
         .clk_125MHz       ( s_eth_clk125_0     ),
         .clk_125MHz90     ( s_eth_clk125_90    ),
         .clk_200MHz       ( s_eth_clk200       ),
-        .eth_rst_n        ( s_core_eth_rst_n   ),
+        .eth_rstn         ( s_core_eth_rstn    ),
         .eth_rxck         ( s_core_eth_rxck    ),
         .eth_rxctl        ( s_core_eth_rxctl   ),
         .eth_rxd          ( s_core_eth_rxd     ),
