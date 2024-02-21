@@ -1,7 +1,6 @@
 #!/bin/env python3
 
 import os
-import math
 
 cache_ways = 8
 cache_entries = 128
@@ -12,9 +11,6 @@ stride = cache_line_bytes >> 3
 
 if not os.path.isdir("inc"):
     os.makedirs("inc")
-
-if not os.path.isdir("src"):
-    os.makedirs("src")
 
 def define_type(name, width, signed=False):
     s = f"#define {name} "
@@ -34,7 +30,6 @@ content = f"""\
 #define CACHE_ENTRIES {cache_entries}
 #define CACHE_LINE_BYTE {cache_line_bytes}
 #define CACHE_SIZE_BYTE {cache_size}
-#define NUM_WORDS {int(math.log2(cache_size) - 3)}
 
 // cachelines are {cache_line_bytes << 3}bit long
 // cache is {cache_size >> 10}kB: {cache_line_bytes}B cachelines x {cache_entries} entries x {cache_ways} ways

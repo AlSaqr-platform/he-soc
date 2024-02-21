@@ -11,7 +11,13 @@ clean:
 	   	$(MAKE) -C $(TEST_FOLDER)/$$item clean-sim clean >& /dev/null; \
 	done
 
-run: clean
+src/unrolled.c:
+	./gen_unrolled_c.py
+
+inc/cache.h:
+	./gen_cache_h.py
+
+run: clean inc/cache.h src/unrolled.c
 	$(MAKE) $(TESTS)
 
 profile: run

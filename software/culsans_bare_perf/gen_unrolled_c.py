@@ -1,4 +1,11 @@
+#!/bin/env python3
 
+import os
+
+if not os.path.isdir("src"):
+    os.makedirs("src")
+
+# A single load/store has 12 bits to encode the offset
 min = -2 ** (12-1)
 max = 2 ** (12-1) - 1
 step = 16 # Read only half cacheline
