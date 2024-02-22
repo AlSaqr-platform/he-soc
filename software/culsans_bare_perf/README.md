@@ -1,7 +1,26 @@
-# Al Saqr litmus tests
+# Culsans Bare Metal Performance Tests
+
+These tests are used to profile the performance of the cache coherent system implemented by Culsans under different conditions. They were originally forked from https://github.com/planvtech/culsans/tree/pulp/tests/performance/testlist, but some changes have been done.
+
+## Layout
+- `inc` contains different headers, including `test_stats.h` with the routines used to program and use the performance counters.
+- `src` provides the `profile` function used to profile the tests
+- `testlist` is the actual folder with the different tests
+
+## Provided Tests
+The following conditions are tested out:
+- `read_hit`: the core reads a location cached in its own cache
+- `read_shared`: the core reads a location cached in the cache of another core
+- `write_hit_exclusive`: the core writes a location cached exclusively in its own cache
+- `write_hit_shared`: the core writes a location cached in its own cache, but shared with another core
+- `write_shared`: the core writes a location cached by another core
+The additional `_busy` and `_busy_snoop` indicate that the non-profiled cores generates respecitvely some generic traffic or snoop requests.
+
+## Generating the C files
+The tests rely on a set of generated files which can be tuned depending on the cache size and the desired profiled operation. The Python scripts `gen_cache_h.py` and `gen_unrolled_c.py` respectively produce the `inc/cache.h` header which encodes the cache parameters and the `src/unrolled.c` file which defines the assembly functions used to perform the load and stores profiled in the tests.
 
 ## Commands
-
+The Makefile provides the following commands:
 - `make all`: run all tests and profile the execution
 - `make profile`: alias for `all`
 - `make run`: runs the available tests
