@@ -75,7 +75,7 @@ module cva6_subsystem
   //ETHERNET
   input  logic            eth_clk_i       , // 125 MHz 0
   input  logic            eth_phy_tx_clk_i, // 125 MHz 90
-  input  logic            eth_clk_200MHz_i,
+  //input  logic          eth_clk_200MHz_i,
 
   output eth_to_pad_t     eth_to_pad,
   input  pad_to_eth_t     pad_to_eth,
@@ -158,6 +158,13 @@ module cva6_subsystem
     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
   ) cluster_axi_master_cut();
+
+    AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+  ) eth_idma_slave();
 
 
   assign ndmreset_n = sync_rst_ni;
@@ -498,6 +505,11 @@ module cva6_subsystem
   `AXI_ASSIGN(slave[5],udma_rx_l3_axi_slave)
 
   // ---------------
+  // AXI ETH-IDMA Master
+  // ---------------
+  `AXI_ASSIGN(slave[6],eth_idma_slave)
+
+  // ---------------
   // AXI Xbar
   // ---------------
   localparam xbar_cfg_t AXI_XBAR_CFG = '{
@@ -693,6 +705,7 @@ module cva6_subsystem
     .uart            ( master[ariane_soc::UART]     ),
     .spi             ( master[ariane_soc::SPI]      ),
     .ethernet        ( master[ariane_soc::Ethernet] ),
+    .eth_idma        ( eth_idma_slave               ),
     .timer           ( master[ariane_soc::Timer]    ),
     .udma_evt_i      ( udma_events_i                ),
     .cluster_eoc_i   ( cluster_eoc_i                ),
@@ -706,7 +719,7 @@ module cva6_subsystem
 
     .eth_clk_i        ( eth_clk_i                   ),
     .eth_phy_tx_clk_i ( eth_phy_tx_clk_i            ),
-    .eth_clk_200MHz_i ( eth_clk_200MHz_i            ),
+   // .eth_clk_200MHz_i ( eth_clk_200MHz_i            ),
 
     .eth_to_pad       ( eth_to_pad                  ),
     .pad_to_eth       ( pad_to_eth                  ),

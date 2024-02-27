@@ -5,33 +5,27 @@
 #include "utils.h"
 
    
-#define DRIVER_NAME     "alsaqr-eth"
-#define BUFFER_SIZE      8
-#define WORD_SIZE        8
-#define N_REPS           2
-	
-#define ETH_BASE 			  		 				 0x30000000
-// #define GPIO_PADDIR_0_31_OFFSET      0x0
-// #define GPIO_PADEN_0_31_OFFSET       0x4
-// rx frame check sequence register(read) and last register(write) 
-#define RFCS_OFFSET                  0x0828             
-//tx packet length
-#define TPLR_OFFSET                  0x0810
-// MAC address low 32-bits
-#define MACLO_OFFSET                 0x0800
-// MAC address high 16-bits and MAC ctrl 
-#define MACHI_OFFSET                 0x0808         
-// TX buffer
-#define TXBUFF_OFFSET                0x1000
-// RX buffer
-#define RXBUFF_OFFSET                0x4000
+#define ETH_BASE 			 0x30000000
+#define L2_BASE              0x1C001000
+
+#define MACLO_OFFSET                 0x0
+#define MACHI_OFFSET                 0x4
+
+#define IDMA_SRC_ADDR_OFFSET         0x10
+#define IDMA_DST_ADDR_OFFSET         0x14
+#define IDMA_LENGTH_OFFSET           0x18
+#define IDMA_SRC_PROTO_OFFSET        0x1c
+#define IDMA_DST_PROTO_OFFSET        0x20
+#define IDMA_REQ_VALID_OFFSET        0x38
+#define IDMA_REQ_READY_OFFSET        0x3c
+#define IDMA_RSP_READY_OFFSET        0x40
+#define IDMA_RSP_VALID_OFFSET        0x44
+
 
 
 
   
 int main() {
-	   
-
 		
 	// for (int v = 0; v < N_REPS; v++) {
 	// 	#ifdef FPGA_EMULATION
@@ -117,22 +111,62 @@ int main() {
 	// }
 
     
+  uint64_t data_to_write[8] = {
+        0x1032207098001032, 
+        0x3210E20020709800,
+        0x1716151413121110, 
+        0x2726252423222120,
+        0x3736353433323130, 
+        0x4746454443424140,
+        0x5756555453525150, 
+        0x6766656463626160
+    };
+ 
+  // load data into L2 
+  for (int i = 0; i < 8; ++i) {
+    
+        volatile uint64_t *tx_addr = (volatile uint64_t*)(0x1C001000 + i * sizeof(uint64_t));
+        *tx_addr = data_to_write[i];
+  }
+  
 
-    // Write data to respective addresses
-    *(volatile uint64_t *)0x30001000 = 0x1032207098001032;  // 1 --> 230100890702 2301, mac dest + start of mac source
-    *(volatile uint64_t *)0x30001008 = 0x3210E20020709800;  // 2 -->  00890702 002E 0123, end mac source + length + payload
-    *(volatile uint64_t *)0x30001010 = 0x1716151413121110;  // payload
-    *(volatile uint64_t *)0x30001018 = 0x2726252423222120;
-    *(volatile uint64_t *)0x30001020 = 0x3736353433323130;
-    *(volatile uint64_t *)0x30001028 = 0x4746454443424140;
-    *(volatile uint64_t *)0x30001030 = 0x5756555453525150;
-    *(volatile uint64_t *)0x30001038 = 0x6766656463626160;
+  *(volatile uint32_t *)(ETH_BASE + MACLO_OFFSET)  = 0x98001032;  
+  *(volatile uint32_t *)(ETH_BASE + MACHI_OFFSET) = 0x00012070;  
 
-    pulp_write32( ETH_BASE + TPLR_OFFSET , 0x00000040 );          
-    pulp_write32( ETH_BASE + MACLO_OFFSET , 0x00890702 );
-    pulp_write32( ETH_BASE + MACHI_OFFSET , 0x00802301 );
-    pulp_write32( ETH_BASE + RFCS_OFFSET ,   0x00000008 );	
+  *(volatile uint32_t *)(ETH_BASE + IDMA_SRC_ADDR_OFFSET)= 0x1C001000; 
+  *(volatile uint32_t *)(ETH_BASE + IDMA_DST_ADDR_OFFSET)= 0x0;
+  *(volatile uint32_t *)(ETH_BASE + IDMA_LENGTH_OFFSET) = 0x40;
+  *(volatile uint32_t *)(ETH_BASE + IDMA_SRC_PROTO_OFFSET) = 0x0;
+  *(volatile uint32_t *)(ETH_BASE + IDMA_DST_PROTO_OFFSET) = 0x5;
 
+
+  // // config ethernet
+  //  pulp_write32( ETH_BASE + MACLO_OFFSET , 0x98001032 );
+  //  pulp_write32( ETH_BASE + MACHI_OFFSET , 0x00012070 );
+
+  // //config idma
+  //  pulp_write32( ETH_BASE + IDMA_SRC_ADDR_OFFSET , 0x1C001000 ); // src addr
+  //  pulp_write32( ETH_BASE + IDMA_DST_ADDR_OFFSET , 0x0 ); 
+  //  pulp_write32( ETH_BASE + IDMA_LENGTH_OFFSET ,   0x40);
+  //  pulp_write32( ETH_BASE + IDMA_SRC_PROTO_OFFSET , 0x0);
+  //  pulp_write32( ETH_BASE + IDMA_DST_PROTO_OFFSET , 0x5);
+
+   // req 
+  uint32_t status =0;
+
+  do {
+    status = pulp_read32(0x3000003c);;
+    barrier();
+	} while (status == 0);
+   
+  pulp_write32( ETH_BASE + IDMA_REQ_VALID_OFFSET ,   0x1);
+
+  pulp_write32( ETH_BASE + IDMA_REQ_VALID_OFFSET ,   0x0);
+  
+   // data
+   pulp_write32( ETH_BASE + IDMA_RSP_READY_OFFSET , 0x1);
+  
+   // to-do deassert rsp_ready when rx transaction is complete
     while(1);
 
 

@@ -234,6 +234,10 @@ bender:
 update:
 	$(BENDER) update
 
+idma:
+	make -C working_dir/idma idma_hw_all
+	make -C working_dir/ethernet eth-idma-gen
+
 libbender:
 	$(QUESTA) vlib work
 	$(QUESTA) vmap work ./work
@@ -254,6 +258,7 @@ scripts:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t rtl -t test -t tb  -t cv64a6_imafdc_sv39_wb > $(compile_script)
+	idma
 
 scripts_vip_macro:
 	$(BENDER) script vsim \
@@ -264,6 +269,7 @@ scripts_vip:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t rtl -t test -t tb -t vip -t cv64a6_imafdc_sv39_wb > $(compile_script)
+	make idma
 
 # The following scripts must be used only for post synthesis simulations and provides different configuration to simulate the design
 

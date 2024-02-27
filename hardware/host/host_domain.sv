@@ -225,7 +225,7 @@ module host_domain
    assign   soc_clk_o  = s_soc_clk;
    assign   soc_rst_no = s_synch_soc_rst;
    assign   rstn_cluster_sync_o = s_rstn_cluster_sync;
-   assign   eth_clk_200MHz_i = s_soc_clk ;
+   //assign   eth_clk_200MHz_i = s_soc_clk ;
 
    clk_gen_hyper i_clk_gen_ethernet (
         .clk_i    ( s_periph_clk                ),
@@ -439,7 +439,7 @@ module host_domain
         //Ethernet
         .eth_clk_i            ( eth_clk_i            ), // 125 MHz 0
         .eth_phy_tx_clk_i     ( eth_phy_tx_clk_i     ), // 125 MHz 90
-        .eth_clk_200MHz_i     ( eth_clk_200MHz_i     ),
+      //  .eth_clk_200MHz_i     ( eth_clk_200MHz_i     ),
         .eth_to_pad           ( eth_to_pad           ),
         .pad_to_eth           ( pad_to_eth           ),
 
