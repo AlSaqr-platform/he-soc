@@ -211,10 +211,6 @@ module host_domain
    logic [NUM_ADV_TIMER-1 : 0]           s_pwm_irq;
    logic                                 s_c2h_irq;
 
-   logic                                 s_periph_clk;
-   logic                                 eth_clk_i ; // 125 MHz in 0
-   logic                                 eth_phy_tx_clk_i; // 125 MHz 90
-
    logic                                 s_llc_read_hit_cache;
    logic                                 s_llc_read_miss_cache;
    logic                                 s_llc_write_hit_cache;
@@ -238,15 +234,15 @@ module host_domain
 
    `ifdef ETH2FMC_NO_PADFRAME
      assign   s_eth_clk_200MHz_i = clk_200MHz;
-     assign   s_eth_clk_i        = clk_125MHz;
-     assign   s_eth_phy_tx_clk_i = clk_125MHz90;
+     assign   s_eth_phy_tx_clk_i = clk_125MHz;
+     assign   s_eth_clk_i        = clk_125MHz90;
   `else
-     assign   eth_clk_200MHz_i = s_soc_clk ;
+     assign   s_eth_clk_200MHz_i = s_soc_clk ;
      clk_gen_hyper i_clk_gen_ethernet (
           .clk_i    ( s_periph_clk                ),
           .rst_ni   ( s_synch_soc_rst             ),
-          .clk0_o   ( eth_clk_i                   ),
-          .clk90_o  ( eth_phy_tx_clk_i            ),
+          .clk0_o   ( s_eth_phy_tx_clk_i          ),
+          .clk90_o  ( s_eth_clk_i                 ),
           .clk180_o (                             ),
           .clk270_o (                             )
       );
@@ -453,8 +449,8 @@ module host_domain
         .hyper_axi_master     ( hyper_axi_bus        ),
 
         //Ethernet
-        .eth_clk_i            ( s_eth_clk_i            ), // 125 MHz 0
-        .eth_phy_tx_clk_i     ( s_eth_phy_tx_clk_i     ), // 125 MHz 90
+        .eth_clk_i            ( s_eth_clk_i            ), // 125 MHz 90
+        .eth_phy_tx_clk_i     ( s_eth_phy_tx_clk_i     ), // 125 MHz 0
         .eth_clk_200MHz_i     ( s_eth_clk_200MHz_i     ),
         .eth_to_pad           ( eth_to_pad           ),
         .pad_to_eth           ( pad_to_eth           ),
