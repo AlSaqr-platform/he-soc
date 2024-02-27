@@ -18,7 +18,11 @@
 
 package ariane_soc;
 
-  localparam NumCVA6 = 2; // 2~4 number of cores
+  `ifdef QUAD_CORE
+   localparam NumCVA6 = 4; // 2~4 number of cores
+  `else
+   localparam NumCVA6 = 2;
+  `endif
 
   // M-Mode Hart, S-Mode Hart
   localparam int unsigned NumTargets = 2*NumCVA6;

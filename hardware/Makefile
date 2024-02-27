@@ -175,6 +175,12 @@ ifdef l3-fake
   compile_fpga += L3_TCSRAM
 endif
 
+ifdef quad-core
+	questa-cmd += +QUAD_CORE=1
+	compile_flag += +define+QUAD_CORE
+	compile_fpga += QUAD_CORE
+endif
+
 ifdef exclude-cluster
 	questa-cmd += +EXCLUDE_CLUSTER=$(exclude-cluster)
   compile_flag +=  +define+EXCLUDE_CLUSTER
