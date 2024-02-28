@@ -8,15 +8,15 @@ create_clock -period ${SRC_CLK_PERIOD} -name ALSAQR_CLK [get_pins  alsaqr_clk_ma
 
 create_clock -period 8.000 -name ETH_CLK_125 [get_pins alsaqr_clk_manager/clk_out2]
 create_clock -period 8.000 -name ETH_CLK_125_90 -waveform {2.000 6.000} [get_pins alsaqr_clk_manager/clk_out3]
-create_clock -period 5.000 -name ETH_CLK_200 [get_pins alsaqr_clk_manager/clk_out4]
+create_clock -period 3.333 -name ETH_CLK_300 [get_pins alsaqr_clk_manager/clk_out4]
 
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_pins  u_ddr4_0/c0_ddr4_ui_clk]]
 set_clock_groups -asynchronous -group [get_clocks -of_objects [get_ports c0_sys_clk_p]]
 set_clock_groups -asynchronous -group [get_clocks ALSAQR_CLK]
 
 set_clock_groups -asynchronous -group [get_clocks ETH_CLK_125]
-set_clock_groups -asynchronous -group [get_clocks ETH_CLK_200]
 set_clock_groups -asynchronous -group [get_clocks ETH_CLK_125_90]
+set_clock_groups -asynchronous -group [get_clocks ETH_CLK_300]
 
 #set_false_path -from [get_ports pad_reset]
 
