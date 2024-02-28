@@ -29,7 +29,11 @@ module cva6_synth_wrap
 
   localparam AXI_ID_WIDTH       = 5,
   localparam AXI_ADDR_WIDTH     = 64,
+`ifdef QUAD_CORE
+  localparam AXI_USER_WIDTH     = 2,
+`else
   localparam AXI_USER_WIDTH     = 1,
+`endif
   localparam AXI_DATA_WIDTH     = 64,
   localparam AXI_STRB_WIDTH     = AXI_ADDR_WIDTH/8,
   localparam LOG_DEPTH          = 1,

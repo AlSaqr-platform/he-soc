@@ -20,7 +20,11 @@ package ariane_axi_soc;
     // used in axi_adapter.sv
     typedef enum logic { SINGLE_REQ, CACHE_LINE_REQ } ad_req_t;
 
+   `ifdef QUAD_CORE
+    localparam UserWidth = 2;
+   `else
     localparam UserWidth = 1;
+   `endif
     localparam AddrWidth = 64;
     localparam DataWidth = 64;
     localparam StrbWidth = DataWidth / 8;
