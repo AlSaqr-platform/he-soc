@@ -3,6 +3,7 @@
 #include <stdint.h>
 #include <time.h>
 #include "utils.h"
+#include "apb_timer.h"
 
    
 #define ETH_BASE 			 0x30000000
@@ -20,10 +21,6 @@
 #define IDMA_REQ_READY_OFFSET        0x3c
 #define IDMA_RSP_READY_OFFSET        0x40
 #define IDMA_RSP_VALID_OFFSET        0x44
-
-
-
-
   
 int main() {
 		
@@ -121,7 +118,7 @@ int main() {
         0x5756555453525150, 
         0x6766656463626160
     };
- 
+
   // load data into L2 
   for (int i = 0; i < 8; ++i) {
     
@@ -163,11 +160,25 @@ int main() {
 
   pulp_write32( ETH_BASE + IDMA_REQ_VALID_OFFSET ,   0x0);
   
-   // data
-   pulp_write32( ETH_BASE + IDMA_RSP_READY_OFFSET , 0x1);
+  // data
+  pulp_write32( ETH_BASE + IDMA_RSP_READY_OFFSET , 0x1);
   
-   // to-do deassert rsp_ready when rx transaction is complete
-    while(1);
+ //  //SET TIMER INTERRUPT FOR MEMORY CONSTRAINT (BEFORE TO STORE THE DATA IT REQUIRES SOME TIME)
+	// apb_timer_set_value(N_TIMER-1,0);
+	// apb_timer_set_compare(N_TIMER-1,1);
 
+	// apb_timer_enable(N_TIMER-1,8); //it count every 8 cycles
 
+	// pulp_write32(PLIC_BASE+timer_0_plic_id*4, 1); 
+	// pulp_write32(PLIC_EN_BITS+(((int)(timer_0_plic_id/32))*4), 1<<(timer_0_plic_id%32)); //enable interrupt
+	// //  wfi until reading the rx id from the PLIC
+	// while(pulp_read32(PLIC_CHECK)!=timer_0_plic_id) {
+	// asm volatile ("wfi");
+	// }
+	// //Set completed Interrupt
+	// pulp_write32(PLIC_CHECK,timer_0_plic_id);
+
+	// apb_timer_disable(N_TIMER-1);
+
+  return 0;
 }

@@ -1681,9 +1681,9 @@ module ariane_tb;
           axi_sim_mem #(
             .AddrWidth         ( AddrWidth    ),
             .DataWidth         ( DataWidth    ),
-            .IdWidth           ( IdWidth   ),
+            .IdWidth           ( IdWidth      ),
             .UserWidth         ( UserWidth    ),
-            .axi_req_t         ( ariane_axi_soc::req_t     ),
+            .axi_req_t         ( ariane_axi_soc::req_t      ),
             .axi_rsp_t         ( ariane_axi_soc::resp_t     ),
             .WarnUninitialized ( 1'b0         ),
             .ClearErrOnAccess  ( 1'b1         ),
@@ -1692,8 +1692,8 @@ module ariane_tb;
           ) i_rx_axi_sim_mem (
             .clk_i              ( clk_i            ),
             .rst_ni             ( s_eth_rstni      ),
-            .axi_req_i          ( axi_req_mem    ),
-            .axi_rsp_o          ( axi_rsp_mem    ),
+            .axi_req_i          ( axi_req_mem      ),
+            .axi_rsp_o          ( axi_rsp_mem      ),
             .mon_r_last_o       ( /* NOT CONNECTED */ ),
             .mon_r_beat_count_o ( /* NOT CONNECTED */ ),
             .mon_r_user_o       ( /* NOT CONNECTED */ ),
@@ -1719,10 +1719,7 @@ module ariane_tb;
           assign w_eth_tx2_data[0] = alt_2_pad_periphs_a_24_pad_ETH_TXD0 ;
           assign w_eth_tx2_data[1] = alt_2_pad_periphs_a_25_pad_ETH_TXD1 ;
           assign w_eth_tx2_data[2] = alt_2_pad_periphs_a_26_pad_ETH_TXD2 ;
-          assign w_eth_tx2_data[3] = alt_2_pad_periphs_a_27_pad_ETH_TXD3 ;
-
-          assign data_ready = alt_2_pad_periphs_a_23_pad_ETH_TXCTL;
-          
+          assign w_eth_tx2_data[3] = alt_2_pad_periphs_a_27_pad_ETH_TXD3 ;         
         
           initial begin
        
@@ -1757,7 +1754,7 @@ module ariane_tb;
           // while(1) begin
           // reg_drv_rx.send_read( 'h3000003c, rx_req_ready, reg_error);
           // if(rx_req_ready) begin
-          reg_drv_rx.send_write( 'h30000038, 'h1, 'hf , reg_error);   //spoti req valid
+          reg_drv_rx.send_write( 'h30000038, 'h1, 'hf , reg_error);   //req valid
           @(posedge clk_i);
           // break;
           // end
@@ -1766,22 +1763,22 @@ module ariane_tb;
           @(posedge clk_i);
           reg_drv_rx.send_write( 'h30000040, 'h1, 'hf, reg_error);   //rsp ready
           //repeat(25)@(posedge clk_i);
-          //reg_drv_rx.send_write( 'h30000038, 'h0, 'hf , reg_error);  // req valid
+          reg_drv_rx.send_write( 'h30000038, 'h0, 'hf , reg_error);  // req valid
 
           while(1) begin
             reg_drv_rx.send_read( 'h30000044, rx_rsp_valid, reg_error);
             if(rx_rsp_valid) begin
               reg_drv_rx.send_write( 'h30000040, 32'h0, 'hf , reg_error);  
               @(posedge clk_i);
-          break;
+              break;
+            end
+            @(posedge clk_i);
           end
-          @(posedge clk_i);
+          repeat(160) @(posedge clk_i); // adjust based on num_bytes to write into rx sim mem
+
         end
       end
-
-      end
-          
-          
+   
         //**************************************************
         // ALTERNAME 2 - COMM QFN VIPs END
         //**************************************************
