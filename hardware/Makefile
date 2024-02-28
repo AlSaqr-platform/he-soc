@@ -235,8 +235,8 @@ update:
 	$(BENDER) update
 
 idma:
-	make -C working_dir/idma idma_hw_all
-	make -C working_dir/ethernet eth-idma-gen
+	make -C ip_list/idma idma_hw_all
+	make -C ip_list/ethernet eth-idma-gen
 
 libbender:
 	$(QUESTA) vlib work
