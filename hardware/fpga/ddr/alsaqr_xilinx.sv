@@ -143,7 +143,7 @@ module alsaqr_xilinx
 `endif
 
    wire        ref_clk;
-   wire        s_clk_200MHz;
+   wire        s_clk_300MHz;
    wire        s_clk_125MHz;
    wire        s_clk_125MHz90;
    wire        ddr_ref_clk;
@@ -159,7 +159,7 @@ module alsaqr_xilinx
                                       .locked(),
                                       .clk_in1(c0_sys_clk_o),
                                       `ifdef ETH2FMC_NO_PADFRAME
-                                      .clk_out4(s_clk_200MHz),
+                                      .clk_out4(s_clk_300MHz),
                                       .clk_out3(s_clk_125MHz90),
                                       .clk_out2(s_clk_125MHz),
                                       `endif
@@ -390,7 +390,7 @@ ddr4_0 u_ddr4_0
         `ifdef ETH2FMC_NO_PADFRAME
         .clk_125MHz     ( s_clk_125MHz    ),
         .clk_125MHz90   ( s_clk_125MHz90  ),
-        .clk_200MHz     ( s_clk_200MHz    ),
+        .clk_300MHz     ( s_clk_300MHz    ),
         .eth_rstn       ( fmc_eth_rst_n   ),
         .eth_rxck       ( fmc_eth_rxck    ),
         .eth_rxctl      ( fmc_eth_rxctl   ),

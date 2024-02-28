@@ -46,7 +46,7 @@ module ariane_peripherals
     // Ethernet
     input  logic            eth_clk_i        , // 125 MHz 90
     input  logic            eth_phy_tx_clk_i , // 125 MHz 0
-    input  logic            eth_clk_200MHz_i ,
+    input  logic            eth_clk_300MHz_i ,
 
     output eth_to_pad_t     eth_to_pad       ,
     input  pad_to_eth_t     pad_to_eth       ,
@@ -486,40 +486,40 @@ module ariane_peripherals
         );
 
         framing_top eth_rgmii (
-           .msoc_clk       ( clk_i                  ),
-           .core_lsu_addr  ( eth_addr[14:0]         ),
-           .core_lsu_wdata ( eth_wrdata             ),
-           .core_lsu_be    ( eth_be                 ),
-           .ce_d           ( eth_en                 ),
-           .we_d           ( eth_en & eth_we        ),
-           .framing_sel    ( eth_en                 ),
-           .framing_rdata  ( eth_rdata              ),
-           .rst_int        ( !rst_ni                ),
+           .msoc_clk        ( clk_i                  ),
+           .core_lsu_addr   ( eth_addr[14:0]         ),
+           .core_lsu_wdata  ( eth_wrdata             ),
+           .core_lsu_be     ( eth_be                 ),
+           .ce_d            ( eth_en                 ),
+           .we_d            ( eth_en & eth_we        ),
+           .framing_sel     ( eth_en                 ),
+           .framing_rdata   ( eth_rdata              ),
+           .rst_int         ( !rst_ni                ),
 
-           .clk_int        ( eth_phy_tx_clk_i       ), // 125 MHz 0
-           .clk90_int      ( eth_clk_i              ), // 125 MHz 90
-           .clk_200_int    ( eth_clk_200MHz_i       ),
+           .clk_int         ( eth_phy_tx_clk_i       ), // 125 MHz 0
+           .clk90_int       ( eth_clk_i              ), // 125 MHz 90
+           .clk_iodelay_int ( eth_clk_300MHz_i       ),
            /*
             * Ethernet: 1000BASE-T RGMII
             */
-           .phy_rx_clk     ( pad_to_eth.eth_rxck_i  ),
-           .phy_rxd        ( eth_rxd_i              ),
-           .phy_rx_ctl     ( pad_to_eth.eth_rxctl_i ),
+           .phy_rx_clk      ( pad_to_eth.eth_rxck_i  ),
+           .phy_rxd         ( eth_rxd_i              ),
+           .phy_rx_ctl      ( pad_to_eth.eth_rxctl_i ),
 
-           .phy_tx_clk     ( eth_to_pad.eth_txck_o  ),
-           .phy_txd        ( eth_txd_o              ),
-           .phy_tx_ctl     ( eth_to_pad.eth_txctl_o ),
-           .phy_reset_n    ( eth_to_pad.eth_rstn_o  ),
-           .phy_mdc        ( eth_to_pad.eth_mdc_o   ),
+           .phy_tx_clk      ( eth_to_pad.eth_txck_o  ),
+           .phy_txd         ( eth_txd_o              ),
+           .phy_tx_ctl      ( eth_to_pad.eth_txctl_o ),
+           .phy_reset_n     ( eth_to_pad.eth_rstn_o  ),
+           .phy_mdc         ( eth_to_pad.eth_mdc_o   ),
 
-           .phy_int_n      (                        ),
-           .phy_pme_n      (                        ),
+           .phy_int_n       (                        ),
+           .phy_pme_n       (                        ),
 
-           .phy_mdio_i     ( pad_to_eth.eth_md_i    ),
-           .phy_mdio_o     ( eth_to_pad.eth_md_o    ),
-           .phy_mdio_oe    ( eth_to_pad.eth_md_oe   ),
+           .phy_mdio_i      ( pad_to_eth.eth_md_i    ),
+           .phy_mdio_o      ( eth_to_pad.eth_md_o    ),
+           .phy_mdio_oe     ( eth_to_pad.eth_md_oe   ),
 
-           .eth_irq        ( irq_sources[2]         )
+           .eth_irq         ( irq_sources[2]         )
         );
 
       end
