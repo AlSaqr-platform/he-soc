@@ -600,40 +600,6 @@ module al_saqr
       .jtag_tms_ot_o    ( s_jtag_ot_TMS    ),
       .jtag_trst_ot_o   ( s_jtag_ot_TRSTn  ),
 
-      `ifdef ETH2FMC_NO_PADFRAME
-      .pad_eth_rstn     ( eth_rstn                 ),
-      .pad_eth_rxck     ( eth_rxck                 ),
-      .pad_eth_rxctl    ( eth_rxctl                ),
-      .pad_eth_rxd0     ( eth_rxd[0]               ),
-      .pad_eth_rxd1     ( eth_rxd[1]               ),
-      .pad_eth_rxd2     ( eth_rxd[2]               ),
-      .pad_eth_rxd3     ( eth_rxd[3]               ),
-      .pad_eth_txck     ( eth_txck                 ),
-      .pad_eth_txctl    ( eth_txctl                ),
-      .pad_eth_txd0     ( eth_txd[0]               ),
-      .pad_eth_txd1     ( eth_txd[1]               ),
-      .pad_eth_txd2     ( eth_txd[2]               ),
-      .pad_eth_txd3     ( eth_txd[3]               ),
-      .pad_eth_mdio     ( eth_mdio                 ),
-      .pad_eth_mdc      ( eth_mdc                  ),
-
-      .eth_rstn_i       ( s_eth_to_pad.eth_rstn_o  ),
-      .eth_rxck_o       ( s_pad_to_eth.eth_rxck_i  ),
-      .eth_rxctl_o      ( s_pad_to_eth.eth_rxctl_i ),
-      .eth_rxd0_o       ( s_pad_to_eth.eth_rxd0_i  ),
-      .eth_rxd1_o       ( s_pad_to_eth.eth_rxd1_i  ),
-      .eth_rxd2_o       ( s_pad_to_eth.eth_rxd2_i  ),
-      .eth_rxd3_o       ( s_pad_to_eth.eth_rxd3_i  ),
-      .eth_txck_i       ( s_eth_to_pad.eth_txck_o  ),
-      .eth_txctl_i      ( s_eth_to_pad.eth_txctl_o ),
-      .eth_txd0_i       ( s_eth_to_pad.eth_txd0_o  ),
-      .eth_txd1_i       ( s_eth_to_pad.eth_txd1_o  ),
-      .eth_txd2_i       ( s_eth_to_pad.eth_txd2_o  ),
-      .eth_txd3_i       ( s_eth_to_pad.eth_txd3_o  ),
-      .eth_mdio_i       ( s_eth_to_pad.eth_md_o    ),
-      .eth_mdc_i        ( s_eth_to_pad.eth_mdc_o   ),
-      `endif
-
       // SECD Bootmode signal
       .bootmode_o       ( bootmode_o       ),
 
@@ -1078,6 +1044,25 @@ module al_saqr
      assign s_cva6_uart_rx = fpga_pad_uart_rx_i;
      assign fpga_pad_uart_tx_o = s_cva6_uart_tx;
 
+     `ifdef ETH2FMC_NO_PADFRAME
+       assign s_pad_to_eth.eth_md_i    = eth_mdio;
+       assign s_pad_to_eth.eth_rxck_i  = eth_rxck;
+       assign s_pad_to_eth.eth_rxctl_i = eth_rxctl;
+       assign s_pad_to_eth.eth_rxd0_i  = eth_rxd[0];
+       assign s_pad_to_eth.eth_rxd1_i  = eth_rxd[1];
+       assign s_pad_to_eth.eth_rxd2_i  = eth_rxd[2];
+       assign s_pad_to_eth.eth_rxd3_i  = eth_rxd[3];
+       assign eth_mdio   = s_eth_to_pad.eth_md_o;
+       assign eth_mdc    = s_eth_to_pad.eth_mdc_o;
+       assign eth_rst_n  = s_eth_to_pad.eth_rstn_o;
+       assign eth_txck   = s_eth_to_pad.eth_txck_o;
+       assign eth_txctl  = s_eth_to_pad.eth_txctl_o;
+       assign eth_txd[0] = s_eth_to_pad.eth_txd0_o;
+       assign eth_txd[1] = s_eth_to_pad.eth_txd1_o;
+       assign eth_txd[2] = s_eth_to_pad.eth_txd2_o;
+       assign eth_txd[3] = s_eth_to_pad.eth_txd3_o;
+     `endif
+
    `else
 
    `ifdef SIMPLE_PADFRAME
@@ -1365,7 +1350,24 @@ module al_saqr
           `ASSIGN_PERIPHS_SDIO1_SOC2PAD(s_port_signals_soc2pad.periphs.sdio1,s_sdio_to_pad[1])
 
           // ETHERNET
-          `ifndef ETH2FMC_NO_PADFRAME
+          `ifdef ETH2FMC_NO_PADFRAME
+            assign s_pad_to_eth.eth_md_i    = eth_mdio;
+            assign s_pad_to_eth.eth_rxck_i  = eth_rxck;
+            assign s_pad_to_eth.eth_rxctl_i = eth_rxctl;
+            assign s_pad_to_eth.eth_rxd0_i  = eth_rxd[0];
+            assign s_pad_to_eth.eth_rxd1_i  = eth_rxd[1];
+            assign s_pad_to_eth.eth_rxd2_i  = eth_rxd[2];
+            assign s_pad_to_eth.eth_rxd3_i  = eth_rxd[3];
+            assign eth_mdio   = s_eth_to_pad.eth_md_o;
+            assign eth_mdc    = s_eth_to_pad.eth_mdc_o;
+            assign eth_rst_n  = s_eth_to_pad.eth_rstn_o;
+            assign eth_txck   = s_eth_to_pad.eth_txck_o;
+            assign eth_txctl  = s_eth_to_pad.eth_txctl_o;
+            assign eth_txd[0] = s_eth_to_pad.eth_txd0_o;
+            assign eth_txd[1] = s_eth_to_pad.eth_txd1_o;
+            assign eth_txd[2] = s_eth_to_pad.eth_txd2_o;
+            assign eth_txd[3] = s_eth_to_pad.eth_txd3_o;
+          `else
             `ASSIGN_PERIPHS_ETH_PAD2SOC(s_pad_to_eth,s_port_signals_pad2soc.periphs.eth)
             `ASSIGN_PERIPHS_ETH_SOC2PAD(s_port_signals_soc2pad.periphs.eth,s_eth_to_pad)
           `endif
