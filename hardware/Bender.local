@@ -10,5 +10,5 @@ overrides:
   cva6:               { git: "git@github.com:Alsaqr-platform/cva6.git", rev: alsaqr-v1.0                                          }
   ace:                { git: "https://github.com/planvtech/ace.git", rev: "fc2056f9f560ec55192c6b09ef682c822fad90fe"              }
   udma_core:          { git: "https://github.com/Alsaqr-platform/udma_core.git", rev: "ea1c783641910b5f45f680cd4a7665bc311ab5ec"  }
-  idma:               { git: "git@github.com:alSaqr-platform/idma.git", rev: "da9b02930ec976972a4599d76a86848f2a54a9c4"           }
   register_interface: { git: "git@github.com:alsaqr-platform/register_interface.git",   version:  0.3.2 }
+  idma:  { git: "git@github.com:pulp-platform/idma.git", version: 0.5.1 }
