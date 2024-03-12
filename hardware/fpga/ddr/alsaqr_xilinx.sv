@@ -91,6 +91,11 @@ module alsaqr_xilinx
   `else
    localparam AXI_ID_WIDTH = 9;
   `endif
+  `ifdef QUAD_CORE
+   parameter int unsigned AXI_USER_WIDTH    = 2,
+  `else
+   parameter int unsigned AXI_USER_WIDTH    = 1,
+  `endif
 
    wire        ref_clk;
    wire        ddr_ref_clk;
@@ -110,18 +115,17 @@ module alsaqr_xilinx
 
    assign reset_n = ~pad_reset;
 
-
    AXI_BUS #(
-     .AXI_ADDR_WIDTH ( 64           ),
-     .AXI_DATA_WIDTH ( 64           ),
-     .AXI_ID_WIDTH   ( AXI_ID_WIDTH ),
-     .AXI_USER_WIDTH ( 1            )
+     .AXI_ADDR_WIDTH ( 64             ),
+     .AXI_DATA_WIDTH ( 64             ),
+     .AXI_ID_WIDTH   ( AXI_ID_WIDTH   ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH )
              ) axi_ddr_bus_64();
    AXI_BUS #(
-     .AXI_ADDR_WIDTH ( 64           ),
-     .AXI_DATA_WIDTH ( 64           ),
-     .AXI_ID_WIDTH   ( AXI_ID_WIDTH ),
-     .AXI_USER_WIDTH ( 1            )
+     .AXI_ADDR_WIDTH ( 64             ),
+     .AXI_DATA_WIDTH ( 64             ),
+     .AXI_ID_WIDTH   ( AXI_ID_WIDTH   ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH )
              ) axi_ddr_sync();
 
   wire [APP_ADDR_WIDTH-1:0] c0_ddr4_app_addr;
@@ -280,11 +284,11 @@ ddr4_0 u_ddr4_0
 // ALSAQR
 //***************************************************************************
    axi_cdc_intf #(
-     .AXI_ADDR_WIDTH ( 64           ),
-     .AXI_DATA_WIDTH ( 64           ),
-     .AXI_ID_WIDTH   ( AXI_ID_WIDTH ),
-     .AXI_USER_WIDTH ( 1            ),
-     .LOG_DEPTH      ( 4            )
+     .AXI_ADDR_WIDTH ( 64             ),
+     .AXI_DATA_WIDTH ( 64             ),
+     .AXI_ID_WIDTH   ( AXI_ID_WIDTH   ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH ),
+     .LOG_DEPTH      ( 4              )
                   ) axiddrcdc (
                                .src_clk_i (ref_clk),
                                .src_rst_ni(reset_n),
