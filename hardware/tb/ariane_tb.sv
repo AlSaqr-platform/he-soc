@@ -72,11 +72,16 @@ module ariane_tb;
   parameter DW       = 64;
   parameter AW       = 64;
   parameter IW       = 9;
+  `ifdef QUAD_CORE
+  parameter UW       = 2;
+  `else
   parameter UW       = 1;
+
   logic s_eth_clk125_0;
   logic s_eth_clk125_90;
   logic s_eth_clk300;
   logic s_eth_rstni;
+  `endif
 
   AXI_BUS_DV#(
     .AXI_ADDR_WIDTH(AW),
