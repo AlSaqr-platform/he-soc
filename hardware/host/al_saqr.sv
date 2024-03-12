@@ -477,12 +477,13 @@ module al_saqr
          );
 
     host_domain #(
-        .NUM_WORDS         ( NUM_WORDS  ),
-        .InclSimDTM        ( 1'b1       ),
-        .StallRandomOutput ( 1'b1       ),
-        .StallRandomInput  ( 1'b1       ),
-        .NUM_GPIO          ( NUM_GPIO   ),
-        .JtagEnable        ( JtagEnable ),
+        .NUM_WORDS         ( NUM_WORDS               ),
+        .InclSimDTM        ( 1'b1                    ),
+        .StallRandomOutput ( 1'b1                    ),
+        .StallRandomInput  ( 1'b1                    ),
+        .NUM_GPIO          ( NUM_GPIO                ),
+        .JtagEnable        ( JtagEnable              ),
+        .AXI_USER_WIDTH    ( AXI_USER_WIDTH          ),
         .axi_req_t         ( tlul2axi_pkg::mst_req_t ),
         .axi_rsp_t         ( tlul2axi_pkg::mst_rsp_t )
     ) i_host_domain (
