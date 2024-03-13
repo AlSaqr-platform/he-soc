@@ -47,7 +47,7 @@ module ariane_tb;
 
   static uvm_cmdline_processor uvcl = uvm_cmdline_processor::get_inst();
 
-  localparam int unsigned REFClockPeriod = 1us; // jtag clock: 1MHz
+  localparam int unsigned REFClockPeriod = 200ns; // jtag clock: 1MHz
 
   // toggle with RTC period
   `ifndef TEST_CLOCK_BYPASS
@@ -383,10 +383,10 @@ module ariane_tb;
     wire    alt_0_pad_periphs_a_05_pad_SDIO0_D4        ;
     wire    alt_0_pad_periphs_a_06_pad_SDIO0_CLK       ;
     wire    alt_0_pad_periphs_a_07_pad_SDIO0_CMD       ;
-    wire    alt_0_pad_periphs_a_08_pad_PWM0_CHANNEL0   ;
+   /* wire    alt_0_pad_periphs_a_08_pad_PWM0_CHANNEL0   ;
     wire    alt_0_pad_periphs_a_09_pad_PWM1_CHANNEL0   ;
     wire    alt_0_pad_periphs_a_10_pad_PWM2_CHANNEL0   ;
-    wire    alt_0_pad_periphs_a_11_pad_PWM3_CHANNEL0   ;
+    wire    alt_0_pad_periphs_a_11_pad_PWM3_CHANNEL0   ;*/
     wire    alt_0_pad_periphs_a_12_pad_BARO1_I2C0_SCL  ;
     wire    alt_0_pad_periphs_a_13_pad_BARO1_I2C0_SDA  ;
     wire    alt_0_pad_periphs_a_14_pad_IMU1_SPI0_SCK   ;
@@ -415,10 +415,10 @@ module ariane_tb;
     wire    alt_1_pad_periphs_a_07_pad_LINUX_QSPI_IO3  ;
     wire    alt_1_pad_periphs_a_08_pad_BARO1_I2C0_SCL  ;
     wire    alt_1_pad_periphs_a_09_pad_BARO1_I2C0_SDA  ;
-    wire    alt_1_pad_periphs_a_10_pad_PWM0_CHANNEL0   ;
+/*    wire    alt_1_pad_periphs_a_10_pad_PWM0_CHANNEL0   ;
     wire    alt_1_pad_periphs_a_11_pad_PWM1_CHANNEL0   ;
     wire    alt_1_pad_periphs_a_12_pad_PWM2_CHANNEL0   ;
-    wire    alt_1_pad_periphs_a_13_pad_PWM3_CHANNEL0   ;
+    wire    alt_1_pad_periphs_a_13_pad_PWM3_CHANNEL0   ;*/
     wire    alt_1_pad_periphs_a_14_pad_GPS1_UART2_TX   ;
     wire    alt_1_pad_periphs_a_15_pad_GPS1_UART2_RX   ;
     wire    alt_1_pad_periphs_a_16_pad_GPS1_I2C5_SCL   ;
@@ -540,10 +540,10 @@ module ariane_tb;
     wire    alt_0_pad_periphs_b_41_pad_USB1_SPI10_MOSI ;
     wire    alt_0_pad_periphs_b_42_pad_CAN0_TX         ;
     wire    alt_0_pad_periphs_b_43_pad_CAN0_RX         ;
-    wire    alt_0_pad_periphs_b_44_pad_PWM0_CHANNEL1   ;
+/*    wire    alt_0_pad_periphs_b_44_pad_PWM0_CHANNEL1   ;
     wire    alt_0_pad_periphs_b_45_pad_PWM1_CHANNEL1   ;
     wire    alt_0_pad_periphs_b_46_pad_PWM2_CHANNEL1   ;
-    wire    alt_0_pad_periphs_b_47_pad_PWM3_CHANNEL1   ;
+    wire    alt_0_pad_periphs_b_47_pad_PWM3_CHANNEL1   ;*/
     wire    alt_1_pad_periphs_b_00_pad_WIRELESS_SDIO1_D0  ;
     wire    alt_1_pad_periphs_b_01_pad_WIRELESS_SDIO1_D1  ;
     wire    alt_1_pad_periphs_b_02_pad_WIRELESS_SDIO1_D2  ;
@@ -576,10 +576,10 @@ module ariane_tb;
     wire    alt_1_pad_periphs_b_29_pad_MAG_SPI1_MOSI      ;
     wire    alt_1_pad_periphs_b_30_pad_CAN1_TX            ;
     wire    alt_1_pad_periphs_b_31_pad_CAN1_RX            ;
-    wire    alt_1_pad_periphs_b_32_pad_PWM0_CHANNEL1      ;
+/*    wire    alt_1_pad_periphs_b_32_pad_PWM0_CHANNEL1      ;
     wire    alt_1_pad_periphs_b_33_pad_PWM1_CHANNEL1      ;
     wire    alt_1_pad_periphs_b_34_pad_PWM2_CHANNEL1      ;
-    wire    alt_1_pad_periphs_b_35_pad_PWM3_CHANNEL1      ;
+    wire    alt_1_pad_periphs_b_35_pad_PWM3_CHANNEL1      ;*/
     wire    alt_1_pad_periphs_b_36_pad_CAM1_CPI1_CLK      ;
     wire    alt_1_pad_periphs_b_37_pad_CAM1_CPI1_VSYNC    ;
     wire    alt_1_pad_periphs_b_38_pad_CAM1_CPI1_HSYNC    ;
@@ -732,10 +732,10 @@ module ariane_tb;
     logic    alt_0_pad_periphs_a_05_pad_mux_sel_SDIO0_D4        ;
     logic    alt_0_pad_periphs_a_06_pad_mux_sel_SDIO0_CLK       ;
     logic    alt_0_pad_periphs_a_07_pad_mux_sel_SDIO0_CMD       ;
-    logic    alt_0_pad_periphs_a_08_pad_mux_sel_PWM0_CHANNEL0   ;
+/*    logic    alt_0_pad_periphs_a_08_pad_mux_sel_PWM0_CHANNEL0   ;
     logic    alt_0_pad_periphs_a_09_pad_mux_sel_PWM1_CHANNEL0   ;
     logic    alt_0_pad_periphs_a_10_pad_mux_sel_PWM2_CHANNEL0   ;
-    logic    alt_0_pad_periphs_a_11_pad_mux_sel_PWM3_CHANNEL0   ;
+    logic    alt_0_pad_periphs_a_11_pad_mux_sel_PWM3_CHANNEL0   ;*/
     logic    alt_0_pad_periphs_a_12_pad_mux_sel_BARO1_I2C0_SCL  ;
     logic    alt_0_pad_periphs_a_13_pad_mux_sel_BARO1_I2C0_SDA  ;
     logic    alt_0_pad_periphs_a_14_pad_mux_sel_IMU1_SPI0_SCK   ;
@@ -764,10 +764,10 @@ module ariane_tb;
     logic    alt_1_pad_periphs_a_07_pad_mux_sel_LINUX_QSPI_IO3  ;
     logic    alt_1_pad_periphs_a_08_pad_mux_sel_BARO1_I2C0_SCL  ;
     logic    alt_1_pad_periphs_a_09_pad_mux_sel_BARO1_I2C0_SDA  ;
-    logic    alt_1_pad_periphs_a_10_pad_mux_sel_PWM0_CHANNEL0   ;
+/*    logic    alt_1_pad_periphs_a_10_pad_mux_sel_PWM0_CHANNEL0   ;
     logic    alt_1_pad_periphs_a_11_pad_mux_sel_PWM1_CHANNEL0   ;
     logic    alt_1_pad_periphs_a_12_pad_mux_sel_PWM2_CHANNEL0   ;
-    logic    alt_1_pad_periphs_a_13_pad_mux_sel_PWM3_CHANNEL0   ;
+    logic    alt_1_pad_periphs_a_13_pad_mux_sel_PWM3_CHANNEL0   ;*/
     logic    alt_1_pad_periphs_a_14_pad_mux_sel_GPS1_UART2_TX   ;
     logic    alt_1_pad_periphs_a_15_pad_mux_sel_GPS1_UART2_RX   ;
     logic    alt_1_pad_periphs_a_16_pad_mux_sel_GPS1_I2C5_SCL   ;
@@ -889,10 +889,10 @@ module ariane_tb;
     logic    alt_0_pad_periphs_b_41_pad_mux_sel_USB1_SPI10_MOSI ;
     logic    alt_0_pad_periphs_b_42_pad_mux_sel_CAN0_TX         ;
     logic    alt_0_pad_periphs_b_43_pad_mux_sel_CAN0_RX         ;
-    logic    alt_0_pad_periphs_b_44_pad_mux_sel_PWM0_CHANNEL1   ;
+/*    logic    alt_0_pad_periphs_b_44_pad_mux_sel_PWM0_CHANNEL1   ;
     logic    alt_0_pad_periphs_b_45_pad_mux_sel_PWM1_CHANNEL1   ;
     logic    alt_0_pad_periphs_b_46_pad_mux_sel_PWM2_CHANNEL1   ;
-    logic    alt_0_pad_periphs_b_47_pad_mux_sel_PWM3_CHANNEL1   ;
+    logic    alt_0_pad_periphs_b_47_pad_mux_sel_PWM3_CHANNEL1   ;*/
     logic    alt_1_pad_periphs_b_00_pad_mux_sel_WIRELESS_SDIO1_D0  ;
     logic    alt_1_pad_periphs_b_01_pad_mux_sel_WIRELESS_SDIO1_D1  ;
     logic    alt_1_pad_periphs_b_02_pad_mux_sel_WIRELESS_SDIO1_D2  ;
@@ -925,10 +925,10 @@ module ariane_tb;
     logic    alt_1_pad_periphs_b_29_pad_mux_sel_MAG_SPI1_MOSI      ;
     logic    alt_1_pad_periphs_b_30_pad_mux_sel_CAN1_TX            ;
     logic    alt_1_pad_periphs_b_31_pad_mux_sel_CAN1_RX            ;
-    logic    alt_1_pad_periphs_b_32_pad_mux_sel_PWM0_CHANNEL1      ;
+/*    logic    alt_1_pad_periphs_b_32_pad_mux_sel_PWM0_CHANNEL1      ;
     logic    alt_1_pad_periphs_b_33_pad_mux_sel_PWM1_CHANNEL1      ;
     logic    alt_1_pad_periphs_b_34_pad_mux_sel_PWM2_CHANNEL1      ;
-    logic    alt_1_pad_periphs_b_35_pad_mux_sel_PWM3_CHANNEL1      ;
+    logic    alt_1_pad_periphs_b_35_pad_mux_sel_PWM3_CHANNEL1      ;*/
     logic    alt_1_pad_periphs_b_36_pad_mux_sel_CAM1_CPI1_CLK      ;
     logic    alt_1_pad_periphs_b_37_pad_mux_sel_CAM1_CPI1_VSYNC    ;
     logic    alt_1_pad_periphs_b_38_pad_mux_sel_CAM1_CPI1_HSYNC    ;
@@ -2100,10 +2100,10 @@ module ariane_tb;
         assign alt_0_pad_periphs_a_05_pad_mux_sel_SDIO0_D4        = (`PAD_MUX_REG_PATH.a_05_mux_sel.q == PAD_MUX_GROUP_A_05_SEL_SDIO0_SDIO_DATA3);
         assign alt_0_pad_periphs_a_06_pad_mux_sel_SDIO0_CLK       = (`PAD_MUX_REG_PATH.a_06_mux_sel.q == PAD_MUX_GROUP_A_06_SEL_SDIO0_SDIO_CLK);
         assign alt_0_pad_periphs_a_07_pad_mux_sel_SDIO0_CMD       = (`PAD_MUX_REG_PATH.a_07_mux_sel.q == PAD_MUX_GROUP_A_07_SEL_SDIO0_SDIO_CMD);
-        assign alt_0_pad_periphs_a_08_pad_mux_sel_PWM0_CHANNEL0   = (`PAD_MUX_REG_PATH.a_08_mux_sel.q == PAD_MUX_GROUP_A_08_SEL_PWM0_PWM0);
+/*        assign alt_0_pad_periphs_a_08_pad_mux_sel_PWM0_CHANNEL0   = (`PAD_MUX_REG_PATH.a_08_mux_sel.q == PAD_MUX_GROUP_A_08_SEL_PWM0_PWM0);
         assign alt_0_pad_periphs_a_09_pad_mux_sel_PWM1_CHANNEL0   = (`PAD_MUX_REG_PATH.a_09_mux_sel.q == PAD_MUX_GROUP_A_09_SEL_PWM0_PWM1);
         assign alt_0_pad_periphs_a_10_pad_mux_sel_PWM2_CHANNEL0   = (`PAD_MUX_REG_PATH.a_10_mux_sel.q == PAD_MUX_GROUP_A_10_SEL_PWM0_PWM2);
-        assign alt_0_pad_periphs_a_11_pad_mux_sel_PWM3_CHANNEL0   = (`PAD_MUX_REG_PATH.a_11_mux_sel.q == PAD_MUX_GROUP_A_11_SEL_PWM0_PWM3);
+        assign alt_0_pad_periphs_a_11_pad_mux_sel_PWM3_CHANNEL0   = (`PAD_MUX_REG_PATH.a_11_mux_sel.q == PAD_MUX_GROUP_A_11_SEL_PWM0_PWM3);*/
         assign alt_0_pad_periphs_a_12_pad_mux_sel_BARO1_I2C0_SCL  = (`PAD_MUX_REG_PATH.a_12_mux_sel.q == PAD_MUX_GROUP_A_12_SEL_I2C0_I2C_SCL);
         assign alt_0_pad_periphs_a_13_pad_mux_sel_BARO1_I2C0_SDA  = (`PAD_MUX_REG_PATH.a_13_mux_sel.q == PAD_MUX_GROUP_A_13_SEL_I2C0_I2C_SDA);
         assign alt_0_pad_periphs_a_14_pad_mux_sel_IMU1_SPI0_SCK   = (`PAD_MUX_REG_PATH.a_14_mux_sel.q == PAD_MUX_GROUP_A_14_SEL_SPI0_SPI_SCK);
@@ -2132,10 +2132,10 @@ module ariane_tb;
         assign alt_1_pad_periphs_a_07_pad_mux_sel_LINUX_QSPI_IO3  = (`PAD_MUX_REG_PATH.a_07_mux_sel.q == PAD_MUX_GROUP_A_07_SEL_QSPI_LINUX_QSPI_SD3);
         assign alt_1_pad_periphs_a_08_pad_mux_sel_BARO1_I2C0_SCL  = (`PAD_MUX_REG_PATH.a_08_mux_sel.q == PAD_MUX_GROUP_A_08_SEL_I2C0_I2C_SCL);
         assign alt_1_pad_periphs_a_09_pad_mux_sel_BARO1_I2C0_SDA  = (`PAD_MUX_REG_PATH.a_09_mux_sel.q == PAD_MUX_GROUP_A_09_SEL_I2C0_I2C_SDA);
-        assign alt_1_pad_periphs_a_10_pad_mux_sel_PWM0_CHANNEL0   = (`PAD_MUX_REG_PATH.a_10_mux_sel.q == PAD_MUX_GROUP_A_10_SEL_PWM0_PWM0);
+/*        assign alt_1_pad_periphs_a_10_pad_mux_sel_PWM0_CHANNEL0   = (`PAD_MUX_REG_PATH.a_10_mux_sel.q == PAD_MUX_GROUP_A_10_SEL_PWM0_PWM0);
         assign alt_1_pad_periphs_a_11_pad_mux_sel_PWM1_CHANNEL0   = (`PAD_MUX_REG_PATH.a_11_mux_sel.q == PAD_MUX_GROUP_A_11_SEL_PWM0_PWM1);
         assign alt_1_pad_periphs_a_12_pad_mux_sel_PWM2_CHANNEL0   = (`PAD_MUX_REG_PATH.a_12_mux_sel.q == PAD_MUX_GROUP_A_12_SEL_PWM0_PWM2);
-        assign alt_1_pad_periphs_a_13_pad_mux_sel_PWM3_CHANNEL0   = (`PAD_MUX_REG_PATH.a_13_mux_sel.q == PAD_MUX_GROUP_A_13_SEL_PWM0_PWM3);
+        assign alt_1_pad_periphs_a_13_pad_mux_sel_PWM3_CHANNEL0   = (`PAD_MUX_REG_PATH.a_13_mux_sel.q == PAD_MUX_GROUP_A_13_SEL_PWM0_PWM3);*/
         assign alt_1_pad_periphs_a_14_pad_mux_sel_GPS1_UART2_TX   = (`PAD_MUX_REG_PATH.a_14_mux_sel.q == PAD_MUX_GROUP_A_14_SEL_UART2_UART_TX);
         assign alt_1_pad_periphs_a_15_pad_mux_sel_GPS1_UART2_RX   = (`PAD_MUX_REG_PATH.a_15_mux_sel.q == PAD_MUX_GROUP_A_15_SEL_UART2_UART_RX);
         assign alt_1_pad_periphs_a_16_pad_mux_sel_GPS1_I2C5_SCL   = (`PAD_MUX_REG_PATH.a_16_mux_sel.q == PAD_MUX_GROUP_A_16_SEL_I2C5_I2C_SCL);
@@ -2256,10 +2256,10 @@ module ariane_tb;
         assign alt_0_pad_periphs_b_41_pad_mux_sel_USB1_SPI10_MOSI = (`PAD_MUX_REG_PATH.b_41_mux_sel.q == PAD_MUX_GROUP_B_41_SEL_SPI10_SPI_MOSI);
         assign alt_0_pad_periphs_b_42_pad_mux_sel_CAN0_TX         = (`PAD_MUX_REG_PATH.b_42_mux_sel.q == PAD_MUX_GROUP_B_42_SEL_CAN0_CAN_TX);
         assign alt_0_pad_periphs_b_43_pad_mux_sel_CAN0_RX         = (`PAD_MUX_REG_PATH.b_43_mux_sel.q == PAD_MUX_GROUP_B_43_SEL_CAN0_CAN_RX);
-        assign alt_0_pad_periphs_b_44_pad_mux_sel_PWM0_CHANNEL1   = (`PAD_MUX_REG_PATH.b_44_mux_sel.q == PAD_MUX_GROUP_B_44_SEL_PWM1_PWM0);
+/*        assign alt_0_pad_periphs_b_44_pad_mux_sel_PWM0_CHANNEL1   = (`PAD_MUX_REG_PATH.b_44_mux_sel.q == PAD_MUX_GROUP_B_44_SEL_PWM1_PWM0);
         assign alt_0_pad_periphs_b_45_pad_mux_sel_PWM1_CHANNEL1   = (`PAD_MUX_REG_PATH.b_45_mux_sel.q == PAD_MUX_GROUP_B_45_SEL_PWM1_PWM1);
         assign alt_0_pad_periphs_b_46_pad_mux_sel_PWM2_CHANNEL1   = (`PAD_MUX_REG_PATH.b_46_mux_sel.q == PAD_MUX_GROUP_B_46_SEL_PWM1_PWM2);
-        assign alt_0_pad_periphs_b_47_pad_mux_sel_PWM3_CHANNEL1   = (`PAD_MUX_REG_PATH.b_47_mux_sel.q == PAD_MUX_GROUP_B_47_SEL_PWM1_PWM3);
+        assign alt_0_pad_periphs_b_47_pad_mux_sel_PWM3_CHANNEL1   = (`PAD_MUX_REG_PATH.b_47_mux_sel.q == PAD_MUX_GROUP_B_47_SEL_PWM1_PWM3);*/
         assign alt_1_pad_periphs_b_00_pad_mux_sel_WIRELESS_SDIO1_D0  = (`PAD_MUX_REG_PATH.b_00_mux_sel.q == PAD_MUX_GROUP_B_00_SEL_SDIO1_SDIO_DATA0);
         assign alt_1_pad_periphs_b_01_pad_mux_sel_WIRELESS_SDIO1_D1  = (`PAD_MUX_REG_PATH.b_01_mux_sel.q == PAD_MUX_GROUP_B_01_SEL_SDIO1_SDIO_DATA1);
         assign alt_1_pad_periphs_b_02_pad_mux_sel_WIRELESS_SDIO1_D2  = (`PAD_MUX_REG_PATH.b_02_mux_sel.q == PAD_MUX_GROUP_B_02_SEL_SDIO1_SDIO_DATA2);
@@ -2292,10 +2292,10 @@ module ariane_tb;
         assign alt_1_pad_periphs_b_29_pad_mux_sel_MAG_SPI1_MOSI      = (`PAD_MUX_REG_PATH.b_29_mux_sel.q == PAD_MUX_GROUP_B_29_SEL_SPI1_SPI_MOSI);
         assign alt_1_pad_periphs_b_30_pad_mux_sel_CAN1_TX            = (`PAD_MUX_REG_PATH.b_30_mux_sel.q == PAD_MUX_GROUP_B_30_SEL_CAN1_CAN_TX);
         assign alt_1_pad_periphs_b_31_pad_mux_sel_CAN1_RX            = (`PAD_MUX_REG_PATH.b_31_mux_sel.q == PAD_MUX_GROUP_B_31_SEL_CAN1_CAN_RX);
-        assign alt_1_pad_periphs_b_32_pad_mux_sel_PWM0_CHANNEL1      = (`PAD_MUX_REG_PATH.b_32_mux_sel.q == PAD_MUX_GROUP_B_32_SEL_PWM1_PWM0);
+/*        assign alt_1_pad_periphs_b_32_pad_mux_sel_PWM0_CHANNEL1      = (`PAD_MUX_REG_PATH.b_32_mux_sel.q == PAD_MUX_GROUP_B_32_SEL_PWM1_PWM0);
         assign alt_1_pad_periphs_b_33_pad_mux_sel_PWM1_CHANNEL1      = (`PAD_MUX_REG_PATH.b_33_mux_sel.q == PAD_MUX_GROUP_B_33_SEL_PWM1_PWM1);
         assign alt_1_pad_periphs_b_34_pad_mux_sel_PWM2_CHANNEL1      = (`PAD_MUX_REG_PATH.b_34_mux_sel.q == PAD_MUX_GROUP_B_34_SEL_PWM1_PWM2);
-        assign alt_1_pad_periphs_b_35_pad_mux_sel_PWM3_CHANNEL1      = (`PAD_MUX_REG_PATH.b_35_mux_sel.q == PAD_MUX_GROUP_B_35_SEL_PWM1_PWM3);
+        assign alt_1_pad_periphs_b_35_pad_mux_sel_PWM3_CHANNEL1      = (`PAD_MUX_REG_PATH.b_35_mux_sel.q == PAD_MUX_GROUP_B_35_SEL_PWM1_PWM3);*/
         assign alt_1_pad_periphs_b_36_pad_mux_sel_CAM1_CPI1_CLK      = (`PAD_MUX_REG_PATH.b_36_mux_sel.q == PAD_MUX_GROUP_B_36_SEL_CAM1_CAM_PCLK);
         assign alt_1_pad_periphs_b_37_pad_mux_sel_CAM1_CPI1_VSYNC    = (`PAD_MUX_REG_PATH.b_37_mux_sel.q == PAD_MUX_GROUP_B_37_SEL_CAM1_CAM_VSYNC);
         assign alt_1_pad_periphs_b_38_pad_mux_sel_CAM1_CPI1_HSYNC    = (`PAD_MUX_REG_PATH.b_38_mux_sel.q == PAD_MUX_GROUP_B_38_SEL_CAM1_CAM_HSYNC);
@@ -2454,10 +2454,10 @@ module ariane_tb;
         tranif1 alt_0_a_05_pad_SDIO0_D4        (pad_periphs_a_05_pad, alt_0_pad_periphs_a_05_pad_SDIO0_D4       , alt_0_pad_periphs_a_05_pad_mux_sel_SDIO0_D4       );
         tranif1 alt_0_a_06_pad_SDIO0_CLK       (pad_periphs_a_06_pad, alt_0_pad_periphs_a_06_pad_SDIO0_CLK      , alt_0_pad_periphs_a_06_pad_mux_sel_SDIO0_CLK      );
         tranif1 alt_0_a_07_pad_SDIO0_CMD       (pad_periphs_a_07_pad, alt_0_pad_periphs_a_07_pad_SDIO0_CMD      , alt_0_pad_periphs_a_07_pad_mux_sel_SDIO0_CMD      );
-        tranif1 alt_0_a_08_pad_PWM0_CHANNEL0   (pad_periphs_a_08_pad, alt_0_pad_periphs_a_08_pad_PWM0_CHANNEL0  , alt_0_pad_periphs_a_08_pad_mux_sel_PWM0_CHANNEL0  );
+/*        tranif1 alt_0_a_08_pad_PWM0_CHANNEL0   (pad_periphs_a_08_pad, alt_0_pad_periphs_a_08_pad_PWM0_CHANNEL0  , alt_0_pad_periphs_a_08_pad_mux_sel_PWM0_CHANNEL0  );
         tranif1 alt_0_a_09_pad_PWM1_CHANNEL0   (pad_periphs_a_09_pad, alt_0_pad_periphs_a_09_pad_PWM1_CHANNEL0  , alt_0_pad_periphs_a_09_pad_mux_sel_PWM1_CHANNEL0  );
         tranif1 alt_0_a_10_pad_PWM2_CHANNEL0   (pad_periphs_a_10_pad, alt_0_pad_periphs_a_10_pad_PWM2_CHANNEL0  , alt_0_pad_periphs_a_10_pad_mux_sel_PWM2_CHANNEL0  );
-        tranif1 alt_0_a_11_pad_PWM3_CHANNEL0   (pad_periphs_a_11_pad, alt_0_pad_periphs_a_11_pad_PWM3_CHANNEL0  , alt_0_pad_periphs_a_11_pad_mux_sel_PWM3_CHANNEL0  );
+        tranif1 alt_0_a_11_pad_PWM3_CHANNEL0   (pad_periphs_a_11_pad, alt_0_pad_periphs_a_11_pad_PWM3_CHANNEL0  , alt_0_pad_periphs_a_11_pad_mux_sel_PWM3_CHANNEL0  );*/
         tranif1 alt_0_a_12_pad_BARO1_I2C0_SCL  (pad_periphs_a_12_pad, alt_0_pad_periphs_a_12_pad_BARO1_I2C0_SCL , alt_0_pad_periphs_a_12_pad_mux_sel_BARO1_I2C0_SCL );
         tranif1 alt_0_a_13_pad_BARO1_I2C0_SDA  (pad_periphs_a_13_pad, alt_0_pad_periphs_a_13_pad_BARO1_I2C0_SDA , alt_0_pad_periphs_a_13_pad_mux_sel_BARO1_I2C0_SDA );
         tranif1 alt_0_a_14_pad_IMU1_SPI0_SCK   (pad_periphs_a_14_pad, alt_0_pad_periphs_a_14_pad_IMU1_SPI0_SCK  , alt_0_pad_periphs_a_14_pad_mux_sel_IMU1_SPI0_SCK  );
@@ -2486,10 +2486,10 @@ module ariane_tb;
         tranif1 alt_1_a_07_pad_LINUX_QSPI_IO3  (pad_periphs_a_07_pad, alt_1_pad_periphs_a_07_pad_LINUX_QSPI_IO3 , alt_1_pad_periphs_a_07_pad_mux_sel_LINUX_QSPI_IO3 );
         tranif1 alt_1_a_08_pad_BARO1_I2C0_SCL  (pad_periphs_a_08_pad, alt_1_pad_periphs_a_08_pad_BARO1_I2C0_SCL , alt_1_pad_periphs_a_08_pad_mux_sel_BARO1_I2C0_SCL );
         tranif1 alt_1_a_09_pad_BARO1_I2C0_SDA  (pad_periphs_a_09_pad, alt_1_pad_periphs_a_09_pad_BARO1_I2C0_SDA , alt_1_pad_periphs_a_09_pad_mux_sel_BARO1_I2C0_SDA );
-        tranif1 alt_1_a_10_pad_PWM0_CHANNEL0   (pad_periphs_a_10_pad, alt_1_pad_periphs_a_10_pad_PWM0_CHANNEL0  , alt_1_pad_periphs_a_10_pad_mux_sel_PWM0_CHANNEL0  );
+/*        tranif1 alt_1_a_10_pad_PWM0_CHANNEL0   (pad_periphs_a_10_pad, alt_1_pad_periphs_a_10_pad_PWM0_CHANNEL0  , alt_1_pad_periphs_a_10_pad_mux_sel_PWM0_CHANNEL0  );
         tranif1 alt_1_a_11_pad_PWM1_CHANNEL0   (pad_periphs_a_11_pad, alt_1_pad_periphs_a_11_pad_PWM1_CHANNEL0  , alt_1_pad_periphs_a_11_pad_mux_sel_PWM1_CHANNEL0  );
         tranif1 alt_1_a_12_pad_PWM2_CHANNEL0   (pad_periphs_a_12_pad, alt_1_pad_periphs_a_12_pad_PWM2_CHANNEL0  , alt_1_pad_periphs_a_12_pad_mux_sel_PWM2_CHANNEL0  );
-        tranif1 alt_1_a_13_pad_PWM3_CHANNEL0   (pad_periphs_a_13_pad, alt_1_pad_periphs_a_13_pad_PWM3_CHANNEL0  , alt_1_pad_periphs_a_13_pad_mux_sel_PWM3_CHANNEL0  );
+        tranif1 alt_1_a_13_pad_PWM3_CHANNEL0   (pad_periphs_a_13_pad, alt_1_pad_periphs_a_13_pad_PWM3_CHANNEL0  , alt_1_pad_periphs_a_13_pad_mux_sel_PWM3_CHANNEL0  );*/
         tranif1 alt_1_a_14_pad_GPS1_UART2_TX   (pad_periphs_a_14_pad, alt_1_pad_periphs_a_14_pad_GPS1_UART2_TX  , alt_1_pad_periphs_a_14_pad_mux_sel_GPS1_UART2_TX  );
         tranif1 alt_1_a_15_pad_GPS1_UART2_RX   (pad_periphs_a_15_pad, alt_1_pad_periphs_a_15_pad_GPS1_UART2_RX  , alt_1_pad_periphs_a_15_pad_mux_sel_GPS1_UART2_RX  );
         tranif1 alt_1_a_16_pad_GPS1_I2C5_SCL   (pad_periphs_a_16_pad, alt_1_pad_periphs_a_16_pad_GPS1_I2C5_SCL  , alt_1_pad_periphs_a_16_pad_mux_sel_GPS1_I2C5_SCL  );
@@ -2610,10 +2610,10 @@ module ariane_tb;
         tranif1 alt_0_b_41_pad_USB1_SPI10_MOSI (pad_periphs_b_41_pad, alt_0_pad_periphs_b_41_pad_USB1_SPI10_MOSI, alt_0_pad_periphs_b_41_pad_mux_sel_USB1_SPI10_MOSI);
         tranif1 alt_0_b_42_pad_CAN0_TX         (pad_periphs_b_42_pad, alt_0_pad_periphs_b_42_pad_CAN0_TX        , alt_0_pad_periphs_b_42_pad_mux_sel_CAN0_TX        );
         tranif1 alt_0_b_43_pad_CAN0_RX         (pad_periphs_b_43_pad, alt_0_pad_periphs_b_43_pad_CAN0_RX        , alt_0_pad_periphs_b_43_pad_mux_sel_CAN0_RX        );
-        tranif1 alt_0_b_44_pad_PWM0_CHANNEL1   (pad_periphs_b_44_pad, alt_0_pad_periphs_b_44_pad_PWM0_CHANNEL1  , alt_0_pad_periphs_b_44_pad_mux_sel_PWM0_CHANNEL1  );
+/*        tranif1 alt_0_b_44_pad_PWM0_CHANNEL1   (pad_periphs_b_44_pad, alt_0_pad_periphs_b_44_pad_PWM0_CHANNEL1  , alt_0_pad_periphs_b_44_pad_mux_sel_PWM0_CHANNEL1  );
         tranif1 alt_0_b_45_pad_PWM1_CHANNEL1   (pad_periphs_b_45_pad, alt_0_pad_periphs_b_45_pad_PWM1_CHANNEL1  , alt_0_pad_periphs_b_45_pad_mux_sel_PWM1_CHANNEL1  );
         tranif1 alt_0_b_46_pad_PWM2_CHANNEL1   (pad_periphs_b_46_pad, alt_0_pad_periphs_b_46_pad_PWM2_CHANNEL1  , alt_0_pad_periphs_b_46_pad_mux_sel_PWM2_CHANNEL1  );
-        tranif1 alt_0_b_47_pad_PWM3_CHANNEL1   (pad_periphs_b_47_pad, alt_0_pad_periphs_b_47_pad_PWM3_CHANNEL1  , alt_0_pad_periphs_b_47_pad_mux_sel_PWM3_CHANNEL1  );
+        tranif1 alt_0_b_47_pad_PWM3_CHANNEL1   (pad_periphs_b_47_pad, alt_0_pad_periphs_b_47_pad_PWM3_CHANNEL1  , alt_0_pad_periphs_b_47_pad_mux_sel_PWM3_CHANNEL1  );*/
         tranif1 alt_1_b_00_pad_WIRELESS_SDIO1_D0  (pad_periphs_b_00_pad, alt_1_pad_periphs_b_00_pad_WIRELESS_SDIO1_D0 , alt_1_pad_periphs_b_00_pad_mux_sel_WIRELESS_SDIO1_D0 );
         tranif1 alt_1_b_01_pad_WIRELESS_SDIO1_D1  (pad_periphs_b_01_pad, alt_1_pad_periphs_b_01_pad_WIRELESS_SDIO1_D1 , alt_1_pad_periphs_b_01_pad_mux_sel_WIRELESS_SDIO1_D1 );
         tranif1 alt_1_b_02_pad_WIRELESS_SDIO1_D2  (pad_periphs_b_02_pad, alt_1_pad_periphs_b_02_pad_WIRELESS_SDIO1_D2 , alt_1_pad_periphs_b_02_pad_mux_sel_WIRELESS_SDIO1_D2 );
@@ -2646,10 +2646,10 @@ module ariane_tb;
         tranif1 alt_1_b_29_pad_MAG_SPI1_MOSI      (pad_periphs_b_29_pad, alt_1_pad_periphs_b_29_pad_MAG_SPI1_MOSI     , alt_1_pad_periphs_b_29_pad_mux_sel_MAG_SPI1_MOSI     );
         tranif1 alt_1_b_30_pad_CAN1_TX            (pad_periphs_b_30_pad, alt_1_pad_periphs_b_30_pad_CAN1_TX           , alt_1_pad_periphs_b_30_pad_mux_sel_CAN1_TX           );
         tranif1 alt_1_b_31_pad_CAN1_RX            (pad_periphs_b_31_pad, alt_1_pad_periphs_b_31_pad_CAN1_RX           , alt_1_pad_periphs_b_31_pad_mux_sel_CAN1_RX           );
-        tranif1 alt_1_b_32_pad_PWM0_CHANNEL1      (pad_periphs_b_32_pad, alt_1_pad_periphs_b_32_pad_PWM0_CHANNEL1     , alt_1_pad_periphs_b_32_pad_mux_sel_PWM0_CHANNEL1     );
+/*        tranif1 alt_1_b_32_pad_PWM0_CHANNEL1      (pad_periphs_b_32_pad, alt_1_pad_periphs_b_32_pad_PWM0_CHANNEL1     , alt_1_pad_periphs_b_32_pad_mux_sel_PWM0_CHANNEL1     );
         tranif1 alt_1_b_33_pad_PWM1_CHANNEL1      (pad_periphs_b_33_pad, alt_1_pad_periphs_b_33_pad_PWM1_CHANNEL1     , alt_1_pad_periphs_b_33_pad_mux_sel_PWM1_CHANNEL1     );
         tranif1 alt_1_b_34_pad_PWM2_CHANNEL1      (pad_periphs_b_34_pad, alt_1_pad_periphs_b_34_pad_PWM2_CHANNEL1     , alt_1_pad_periphs_b_34_pad_mux_sel_PWM2_CHANNEL1     );
-        tranif1 alt_1_b_35_pad_PWM3_CHANNEL1      (pad_periphs_b_35_pad, alt_1_pad_periphs_b_35_pad_PWM3_CHANNEL1     , alt_1_pad_periphs_b_35_pad_mux_sel_PWM3_CHANNEL1     );
+        tranif1 alt_1_b_35_pad_PWM3_CHANNEL1      (pad_periphs_b_35_pad, alt_1_pad_periphs_b_35_pad_PWM3_CHANNEL1     , alt_1_pad_periphs_b_35_pad_mux_sel_PWM3_CHANNEL1     );*/
         tranif1 alt_1_b_36_pad_CAM1_CPI1_CLK      (pad_periphs_b_36_pad, alt_1_pad_periphs_b_36_pad_CAM1_CPI1_CLK     , alt_1_pad_periphs_b_36_pad_mux_sel_CAM1_CPI1_CLK     );
         tranif1 alt_1_b_37_pad_CAM1_CPI1_VSYNC    (pad_periphs_b_37_pad, alt_1_pad_periphs_b_37_pad_CAM1_CPI1_VSYNC   , alt_1_pad_periphs_b_37_pad_mux_sel_CAM1_CPI1_VSYNC   );
         tranif1 alt_1_b_38_pad_CAM1_CPI1_HSYNC    (pad_periphs_b_38_pad, alt_1_pad_periphs_b_38_pad_CAM1_CPI1_HSYNC   , alt_1_pad_periphs_b_38_pad_mux_sel_CAM1_CPI1_HSYNC   );

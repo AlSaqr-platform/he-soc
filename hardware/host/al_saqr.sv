@@ -376,8 +376,8 @@ module al_saqr
   can_to_pad_t [N_CAN-1 : 0] s_can_to_pad;
   pad_to_can_t [N_CAN-1 : 0] s_pad_to_can;
 
-  pwm_nano_to_pad_t [1:0] s_pwm_nano_to_pad;
-  pwm_to_pad_t s_pwm_to_pad;
+  //pwm_nano_to_pad_t [1:0] s_pwm_nano_to_pad;
+  //pwm_to_pad_t s_pwm_to_pad;
 
   eth_to_pad_t s_eth_to_pad;
   pad_to_eth_t s_pad_to_eth;
@@ -385,7 +385,7 @@ module al_saqr
   fll_to_pad_t    s_fll_to_pad;
 
   // PWM 0-3 CHANNEL0
-  assign s_pwm_nano_to_pad[0].pwm0_o = s_pwm_to_pad.pwm0_o;
+ /* assign s_pwm_nano_to_pad[0].pwm0_o = s_pwm_to_pad.pwm0_o;
   assign s_pwm_nano_to_pad[0].pwm1_o = s_pwm_to_pad.pwm1_o;
   assign s_pwm_nano_to_pad[0].pwm2_o = s_pwm_to_pad.pwm2_o;
   assign s_pwm_nano_to_pad[0].pwm3_o = s_pwm_to_pad.pwm3_o;
@@ -395,7 +395,7 @@ module al_saqr
   assign s_pwm_nano_to_pad[1].pwm1_o = s_pwm_to_pad.pwm5_o;
   assign s_pwm_nano_to_pad[1].pwm2_o = s_pwm_to_pad.pwm6_o;
   assign s_pwm_nano_to_pad[1].pwm3_o = s_pwm_to_pad.pwm7_o;
-
+*/
   gpio_to_pad_t s_gpio_b_to_pad;
   pad_to_gpio_t s_pad_to_gpio_b;
 
@@ -538,7 +538,7 @@ module al_saqr
        .pad_hyper_dq,
        `endif
 
-      .pwm_to_pad             ( s_pwm_to_pad                    ),
+     // .pwm_to_pad             ( s_pwm_to_pad                    ),
       .fll_to_pad             ( s_fll_to_pad                    ),
 
       .ot_axi_req             ( ot_axi_req                      ),
@@ -1275,8 +1275,8 @@ module al_saqr
           `ASSIGN_PERIPHS_GPIO_B_SOC2PAD(s_port_signals_soc2pad.periphs.gpio_b,s_gpio_b_to_pad)
 
           // PWMs
-          `ASSIGN_PERIPHS_PWM0_SOC2PAD(s_port_signals_soc2pad.periphs.pwm0,s_pwm_nano_to_pad[0])
-          `ASSIGN_PERIPHS_PWM1_SOC2PAD(s_port_signals_soc2pad.periphs.pwm1,s_pwm_nano_to_pad[1])
+         // `ASSIGN_PERIPHS_PWM0_SOC2PAD(s_port_signals_soc2pad.periphs.pwm0,s_pwm_nano_to_pad[0])
+         // `ASSIGN_PERIPHS_PWM1_SOC2PAD(s_port_signals_soc2pad.periphs.pwm1,s_pwm_nano_to_pad[1])
 
           // CANs
           `ASSIGN_PERIPHS_CAN0_PAD2SOC(s_pad_to_can[0],s_port_signals_pad2soc.periphs.can0)

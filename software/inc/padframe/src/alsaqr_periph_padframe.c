@@ -832,14 +832,14 @@ uint8_t alsaqr_periph_padframe_periphs_a_08_cfg_smt_get() {
 
 void alsaqr_periph_padframe_periphs_a_08_mux_set(alsaqr_periph_padframe_periphs_a_08_mux_sel_t mux_sel) {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_08_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 3;
+  const uint32_t sel_size = 2;
   uint32_t field_mask = (1<<sel_size)-1;
   REG_WRITE32(address, mux_sel & field_mask);
 }
 
 alsaqr_periph_padframe_periphs_a_08_mux_sel_t alsaqr_periph_padframe_periphs_a_08_mux_get() {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_08_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 3;
+  const uint32_t sel_size = 2;
 
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;
@@ -925,14 +925,14 @@ uint8_t alsaqr_periph_padframe_periphs_a_09_cfg_smt_get() {
 
 void alsaqr_periph_padframe_periphs_a_09_mux_set(alsaqr_periph_padframe_periphs_a_09_mux_sel_t mux_sel) {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_09_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 3;
+  const uint32_t sel_size = 2;
   uint32_t field_mask = (1<<sel_size)-1;
   REG_WRITE32(address, mux_sel & field_mask);
 }
 
 alsaqr_periph_padframe_periphs_a_09_mux_sel_t alsaqr_periph_padframe_periphs_a_09_mux_get() {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_09_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 3;
+  const uint32_t sel_size = 2;
 
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;
@@ -1018,14 +1018,14 @@ uint8_t alsaqr_periph_padframe_periphs_a_10_cfg_smt_get() {
 
 void alsaqr_periph_padframe_periphs_a_10_mux_set(alsaqr_periph_padframe_periphs_a_10_mux_sel_t mux_sel) {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_10_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 3;
+  const uint32_t sel_size = 2;
   uint32_t field_mask = (1<<sel_size)-1;
   REG_WRITE32(address, mux_sel & field_mask);
 }
 
 alsaqr_periph_padframe_periphs_a_10_mux_sel_t alsaqr_periph_padframe_periphs_a_10_mux_get() {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_10_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 3;
+  const uint32_t sel_size = 2;
 
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;
@@ -1111,14 +1111,14 @@ uint8_t alsaqr_periph_padframe_periphs_a_11_cfg_smt_get() {
 
 void alsaqr_periph_padframe_periphs_a_11_mux_set(alsaqr_periph_padframe_periphs_a_11_mux_sel_t mux_sel) {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_11_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 3;
+  const uint32_t sel_size = 2;
   uint32_t field_mask = (1<<sel_size)-1;
   REG_WRITE32(address, mux_sel & field_mask);
 }
 
 alsaqr_periph_padframe_periphs_a_11_mux_sel_t alsaqr_periph_padframe_periphs_a_11_mux_get() {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_11_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 3;
+  const uint32_t sel_size = 2;
 
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;
@@ -1204,14 +1204,14 @@ uint8_t alsaqr_periph_padframe_periphs_a_12_cfg_smt_get() {
 
 void alsaqr_periph_padframe_periphs_a_12_mux_set(alsaqr_periph_padframe_periphs_a_12_mux_sel_t mux_sel) {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_12_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 3;
+  const uint32_t sel_size = 2;
   uint32_t field_mask = (1<<sel_size)-1;
   REG_WRITE32(address, mux_sel & field_mask);
 }
 
 alsaqr_periph_padframe_periphs_a_12_mux_sel_t alsaqr_periph_padframe_periphs_a_12_mux_get() {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_12_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 3;
+  const uint32_t sel_size = 2;
 
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;
@@ -1297,14 +1297,14 @@ uint8_t alsaqr_periph_padframe_periphs_a_13_cfg_smt_get() {
 
 void alsaqr_periph_padframe_periphs_a_13_mux_set(alsaqr_periph_padframe_periphs_a_13_mux_sel_t mux_sel) {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_13_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 3;
+  const uint32_t sel_size = 2;
   uint32_t field_mask = (1<<sel_size)-1;
   REG_WRITE32(address, mux_sel & field_mask);
 }
 
 alsaqr_periph_padframe_periphs_a_13_mux_sel_t alsaqr_periph_padframe_periphs_a_13_mux_get() {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_A_13_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 3;
+  const uint32_t sel_size = 2;
 
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;
@@ -5854,14 +5854,14 @@ uint8_t alsaqr_periph_padframe_periphs_b_32_cfg_smt_get() {
 
 void alsaqr_periph_padframe_periphs_b_32_mux_set(alsaqr_periph_padframe_periphs_b_32_mux_sel_t mux_sel) {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_32_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 3;
+  const uint32_t sel_size = 2;
   uint32_t field_mask = (1<<sel_size)-1;
   REG_WRITE32(address, mux_sel & field_mask);
 }
 
 alsaqr_periph_padframe_periphs_b_32_mux_sel_t alsaqr_periph_padframe_periphs_b_32_mux_get() {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_32_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 3;
+  const uint32_t sel_size = 2;
 
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;
@@ -5947,14 +5947,14 @@ uint8_t alsaqr_periph_padframe_periphs_b_33_cfg_smt_get() {
 
 void alsaqr_periph_padframe_periphs_b_33_mux_set(alsaqr_periph_padframe_periphs_b_33_mux_sel_t mux_sel) {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_33_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 3;
+  const uint32_t sel_size = 2;
   uint32_t field_mask = (1<<sel_size)-1;
   REG_WRITE32(address, mux_sel & field_mask);
 }
 
 alsaqr_periph_padframe_periphs_b_33_mux_sel_t alsaqr_periph_padframe_periphs_b_33_mux_get() {
   const uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_33_MUX_SEL_REG_OFFSET;
-  const uint32_t sel_size = 3;
+  const uint32_t sel_size = 2;
 
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;

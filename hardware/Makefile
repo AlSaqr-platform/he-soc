@@ -499,35 +499,13 @@ vips: tb/vips/spi_flash tb/vips/hyperram_model tb/vips/i2c_eeprom
 
 init: bender vips update
 
-.PHONY: culsans-sw-init
-culsans-sw-init:
-	make -C ip_list/culsans/tests/integration/ libs/libintegr.a
-	make -C ip_list/culsans/tests/performance/ libs/libintegr.a
-	make -C ip_list/culsans/tests/integration/testlist/access_nocache_noshare main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_cache_share main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_cache_share_overlap main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_modify_cache main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_modify_cache_share main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_modify_cache_share_intense main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_nocache_noshare main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_nocache_noshare_overlap main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_cleanunique_flush main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_evict main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_readshared_flush main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_readunique_flush main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_readunique_modify main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/write_cache_noshare main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/write_cache_share main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/write_cache_share_overlap main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_noshared_remote main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_noshared_remote_busy main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_noshared_remote_busy_snoop main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_busy main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_busy_snoop main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_remote main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_remote_busy main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_remote_busy_snoop main.riscv
+generate_padframe:
+	$(shell rm -rf ./deps/alsaqr_periph_padframe/*)
+	$(shell padrick generate rtl alsaqr_periph_padframe.yml --output ./deps/alsaqr_periph_padframe)
+	$(shell padrick generate driver alsaqr_periph_padframe.yml --output ./deps/alsaqr_periph_padframe)
+	$(shell mv ./deps/alsaqr_periph_padframe/include/*.h ../software/inc/padframe/inc)
+	$(shell mv ./deps/alsaqr_periph_padframe/src/alsaqr_periph_padframe.c ../software/inc/padframe/src)
+	$(shell rm deps/alsaqr_periph_padframe/alsaqr_periph_padframe_periphs_regs.hjson)
 
 clean:
 	rm -rf $(riscv-torture-dir)/output/test*

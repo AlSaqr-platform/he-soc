@@ -248,27 +248,27 @@ pad_domains:
               oen: cmd_oen_i
               puen: 1'b0
 
-      # QFN PWM
-      - name: pwm0
-        ports:
-          - name: pwm{i}
-            multiple: 4
-            mux_groups: ["a_{08+i:2d}","a_{10+i:2d}"]
-            connections:
-              chip2pad: pwm{i}_i
-              oen: 1'b0
-              puen: 1'b1
-
-      # CPGA PWM
-      - name: pwm1
-        ports:
-          - name: pwm{i}
-            multiple: 4
-            mux_groups: ["b_{44+i:2d}", "b_{32+i:2d}"]
-            connections:
-              chip2pad: pwm{i}_i
-              oen: 1'b0
-              puen: 1'b1
+      ## QFN PWM
+      #- name: pwm0
+      #  ports:
+      #    - name: pwm{i}
+      #      multiple: 4
+      #      mux_groups: ["a_{08+i:2d}","a_{10+i:2d}"]
+      #      connections:
+      #        chip2pad: pwm{i}_i
+      #        oen: 1'b0
+      #        puen: 1'b1
+      #
+      ## CPGA PWM
+      #- name: pwm1
+      #  ports:
+      #    - name: pwm{i}
+      #      multiple: 4
+      #      mux_groups: ["b_{44+i:2d}", "b_{32+i:2d}"]
+      #      connections:
+      #        chip2pad: pwm{i}_i
+      #        oen: 1'b0
+      #        puen: 1'b1
 
       # BARO 1
       - name: i2c0

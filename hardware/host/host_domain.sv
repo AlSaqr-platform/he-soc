@@ -23,7 +23,7 @@ module host_domain
   import axi_pkg::xbar_cfg_t;
   import ariane_soc::HyperbusNumPhys;
   import ariane_soc::NumChipsPerHyperbus;
-  import apb_soc_pkg::NUM_ADV_TIMER;
+  //import apb_soc_pkg::NUM_ADV_TIMER;
   import ariane_soc::*;
   import udma_subsystem_pkg::*;
   import gpio_pkg::*;
@@ -139,7 +139,7 @@ module host_domain
   inout  [HyperbusNumPhys-1:0][7:0]                     pad_hyper_dq,
   `endif
 
-  output                      pwm_to_pad_t pwm_to_pad,
+  //output                      pwm_to_pad_t pwm_to_pad,
 
   // FLL output
   output                      fll_to_pad_t    fll_to_pad,
@@ -202,7 +202,7 @@ module host_domain
    logic [31*4-1:0]                      s_udma_events;
    logic                                 s_dma_pe_evt;
    logic [N_CAN-1:0]                     s_can_irq;
-   logic [NUM_ADV_TIMER-1 : 0]           s_pwm_irq;
+   //logic [NUM_ADV_TIMER-1 : 0]           s_pwm_irq;
    logic                                 s_c2h_irq;
 
    logic                                 s_periph_clk;
@@ -429,7 +429,7 @@ module host_domain
         .cluster_eoc_i        ( cluster_eoc_i        ),
         .c2h_irq_i            ( s_c2h_irq            ),
         .can_irq_i            ( s_can_irq            ),
-        .pwm_irq_i            ( s_pwm_irq            ),
+        //.pwm_irq_i            ( s_pwm_irq            ),
         .cl_dma_pe_evt_i      ( s_dma_pe_evt         ),
         .dm_rst_o             ( s_dm_rst             ),
         .l2_axi_master        ( l2_axi_bus           ),
@@ -538,7 +538,7 @@ module host_domain
 
       .events_o               ( s_udma_events                  ),
       .can_irq_o              ( s_can_irq                      ),
-      .pwm_irq_o              ( s_pwm_irq                      ),
+     // .pwm_irq_o              ( s_pwm_irq                      ),
 
       .spi_to_pad             ( spi_to_pad                     ),
       .pad_to_spi             ( pad_to_spi                     ),
@@ -553,7 +553,7 @@ module host_domain
       .pad_to_usart           ( pad_to_usart                   ),
       .sdio_to_pad            ( sdio_to_pad                    ),
       .pad_to_sdio            ( pad_to_sdio                    ),
-      .pwm_to_pad             ( pwm_to_pad                     ),
+      //.pwm_to_pad             ( pwm_to_pad                     ),
       .can_to_pad             ( can_to_pad                     ),
       .pad_to_can             ( pad_to_can                     ),
 

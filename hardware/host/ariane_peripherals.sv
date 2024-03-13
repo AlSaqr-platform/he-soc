@@ -11,7 +11,7 @@
 // Xilinx Peripehrals
 module ariane_peripherals
     import udma_subsystem_pkg::N_CAN;
-    import apb_soc_pkg::NUM_ADV_TIMER;
+//    import apb_soc_pkg::NUM_ADV_TIMER;
     import ariane_soc::*;
 #(
     parameter  int NumCVA6      = -1,
@@ -36,7 +36,7 @@ module ariane_peripherals
     input  logic                          c2h_irq_i       ,
     input  logic                          cluster_eoc_i   ,
     input  logic [N_CAN-1:0]              can_irq_i      ,
-    input  logic [NUM_ADV_TIMER-1:0]      pwm_irq_i      ,
+    //input  logic [NUM_ADV_TIMER-1:0]      pwm_irq_i      ,
     input  logic                        cl_dma_pe_evt_i ,
     output logic [NumCVA6-1:0][1:0]     irq_o   ,
     // UART
@@ -90,7 +90,7 @@ module ariane_peripherals
     assign irq_sources[141]                          = can_irq_i[1];
 
     // Interrupt CH0 from 8 APB TIMERS
-    assign irq_sources[142]                          = pwm_irq_i[0];
+    /*assign irq_sources[142]                          = pwm_irq_i[0];
     assign irq_sources[143]                          = pwm_irq_i[1];
     assign irq_sources[144]                          = pwm_irq_i[2];
     assign irq_sources[145]                          = pwm_irq_i[3];
@@ -100,6 +100,9 @@ module ariane_peripherals
     assign irq_sources[149]                          = pwm_irq_i[7];
 
     assign irq_sources[ariane_soc::NumSources-1:150] = '0;
+    */
+
+    assign irq_sources[ariane_soc::NumSources-1:142] = '0;
 
     REG_BUS #(
         .ADDR_WIDTH ( 32 ),

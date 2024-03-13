@@ -122,12 +122,12 @@ module apb_subsystem
     output                      can_to_pad_t [N_CAN-1 : 0] can_to_pad,
     input                       pad_to_can_t [N_CAN-1 : 0] pad_to_can,
 
-    // FLL output
-    output                      fll_to_pad_t fll_to_pad,
-
     //IRQ request of CH0 and CH1 from NUM_ADV_TIMER
-    output logic                [NUM_ADV_TIMER-1 : 0] pwm_irq_o,
-    output                      pwm_to_pad_t pwm_to_pad
+    //output logic                [NUM_ADV_TIMER-1 : 0] pwm_irq_o,
+    //output                      pwm_to_pad_t pwm_to_pad
+
+    // FLL output
+    output                      fll_to_pad_t fll_to_pad
 );
 
    logic                                s_rstn_soc_sync;
@@ -168,12 +168,12 @@ module apb_subsystem
                .ADDR_WIDTH(32),
                .DATA_WIDTH(32)
    ) apb_hyaxicfg_master_bus ();
-
+/*
    APB  #(
                .ADDR_WIDTH(32),
                .DATA_WIDTH(32)
    ) apb_advtimer_master_bus [NUM_ADV_TIMER-1:0]();
-
+*/
    APB  #(
                .ADDR_WIDTH(32),
                .DATA_WIDTH(32)
@@ -251,7 +251,7 @@ module apb_subsystem
     .gpio_master(apb_gpio_master_bus),
     .fll_master(apb_fll_master_bus),
     .hyaxicfg_master(apb_hyaxicfg_master_bus),
-    .advtimer_master(apb_advtimer_master_bus),
+   // .advtimer_master(apb_advtimer_master_bus),
     .padframe_master(apb_padframe_master_bus),
     .apb_can0_master (apb_can0_master_bus),
     .apb_can1_master (apb_can1_master_bus),
@@ -775,9 +775,8 @@ module apb_subsystem
 
      .reg_o     ( i_hyaxicfg_rbus                 )
     );
-
+/*
    logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm_ch0_o;
-   logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm_ch1_o;
    logic [apb_soc_pkg::NUM_ADV_TIMER-1:0][3:0]   pwm_evt_o;
 
     generate
@@ -806,7 +805,7 @@ module apb_subsystem
                 .events_o        ( pwm_evt_o[i]            ),
 
                 .ch_0_o          ( pwm_ch0_o[i]            ),
-                .ch_1_o          ( pwm_ch1_o[i]            ),
+                .ch_1_o          (                         ),
                 .ch_2_o          (                         ),
                 .ch_3_o          (                         )
             );
@@ -832,7 +831,7 @@ module apb_subsystem
    assign pwm_irq_o[5] = pwm_evt_o[5][0];
    assign pwm_irq_o[6] = pwm_evt_o[6][0];
    assign pwm_irq_o[7] = pwm_evt_o[7][0];
-
+*/
    apb_to_reg i_apb_to_padframecfg
      (
       .clk_i     ( clk_soc_o       ),

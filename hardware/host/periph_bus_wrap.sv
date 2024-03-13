@@ -25,7 +25,7 @@ module periph_bus_wrap
     APB.Master  gpio_master,
     APB.Master  fll_master,
     APB.Master  hyaxicfg_master,
-    APB.Master  advtimer_master[apb_soc_pkg::NUM_ADV_TIMER-1:0],
+    //APB.Master  advtimer_master[apb_soc_pkg::NUM_ADV_TIMER-1:0],
     APB.Master  padframe_master,
     APB.Master  socctrl_master,
     APB.Master  apb_can0_master,
@@ -52,37 +52,39 @@ module periph_bus_wrap
     assign s_start_addr[1] = apb_soc_pkg::HYAXICFGBase;
     assign s_end_addr[1]   = apb_soc_pkg::HYAXICFGBase + apb_soc_pkg::HYAXICFGLength - 1 ;
 
-    `APB_ASSIGN_MASTER(s_masters[2], advtimer_master[0]);
-    assign s_start_addr[2] = apb_soc_pkg::ADVTIMERBase;
-    assign s_end_addr[2]   = apb_soc_pkg::ADVTIMERBase + apb_soc_pkg::ADVTIMERLength - 1 ;
+    `APB_ASSIGN_MASTER(s_masters[2], padframe_master);
+    assign s_start_addr[2] = apb_soc_pkg::PADFRAMEBase;
+    assign s_end_addr[2]   = apb_soc_pkg::PADFRAMEBase + apb_soc_pkg::PADFRAMELength - 1 ;
 
-    `APB_ASSIGN_MASTER(s_masters[3], padframe_master);
-    assign s_start_addr[3] = apb_soc_pkg::PADFRAMEBase;
-    assign s_end_addr[3]   = apb_soc_pkg::PADFRAMEBase + apb_soc_pkg::PADFRAMELength - 1 ;
+    `APB_ASSIGN_MASTER(s_masters[3], gpio_master);
+    assign s_start_addr[3] = apb_soc_pkg::GPIOSBase;
+    assign s_end_addr[3]   = apb_soc_pkg::GPIOSBase + apb_soc_pkg::GPIOSLength - 1;
 
-    `APB_ASSIGN_MASTER(s_masters[4], gpio_master);
-    assign s_start_addr[4] = apb_soc_pkg::GPIOSBase;
-    assign s_end_addr[4]   = apb_soc_pkg::GPIOSBase + apb_soc_pkg::GPIOSLength - 1;
+    `APB_ASSIGN_MASTER(s_masters[4], socctrl_master);
+    assign s_start_addr[4] = apb_soc_pkg::SOCCTRLBase;
+    assign s_end_addr[4]   = apb_soc_pkg::SOCCTRLBase + apb_soc_pkg::SOCCTRLLength - 1 ;
 
-    `APB_ASSIGN_MASTER(s_masters[5], socctrl_master);
-    assign s_start_addr[5] = apb_soc_pkg::SOCCTRLBase;
-    assign s_end_addr[5]   = apb_soc_pkg::SOCCTRLBase + apb_soc_pkg::SOCCTRLLength - 1 ;
+    `APB_ASSIGN_MASTER(s_masters[5], apb_can0_master);
+    assign s_start_addr[5] = apb_soc_pkg::Can0Base;
+    assign s_end_addr[5]   = apb_soc_pkg::Can0Base + apb_soc_pkg::CanLength - 1;
 
-    `APB_ASSIGN_MASTER(s_masters[6], apb_can0_master);
-    assign s_start_addr[6] = apb_soc_pkg::Can0Base;
-    assign s_end_addr[6]   = apb_soc_pkg::Can0Base + apb_soc_pkg::CanLength - 1;
+    `APB_ASSIGN_MASTER(s_masters[6], apb_can1_master);
+    assign s_start_addr[6] = apb_soc_pkg::Can1Base;
+    assign s_end_addr[6]   = apb_soc_pkg::Can1Base + apb_soc_pkg::CanLength - 1;
 
-    `APB_ASSIGN_MASTER(s_masters[7], apb_can1_master);
-    assign s_start_addr[7] = apb_soc_pkg::Can1Base;
-    assign s_end_addr[7]   = apb_soc_pkg::Can1Base + apb_soc_pkg::CanLength - 1;
+    `APB_ASSIGN_MASTER(s_masters[7], udma_master);
+    assign s_start_addr[7] = apb_soc_pkg::UDMABase;
+    assign s_end_addr[7]   = apb_soc_pkg::UDMABase + apb_soc_pkg::UDMALength - 1;
 
-    `APB_ASSIGN_MASTER(s_masters[8], udma_master);
-    assign s_start_addr[8] = apb_soc_pkg::UDMABase;
-    assign s_end_addr[8]   = apb_soc_pkg::UDMABase + apb_soc_pkg::UDMALength - 1;
+   `APB_ASSIGN_MASTER(s_masters[8], apb_uart_master);
+    assign s_start_addr[8] = apb_soc_pkg::APBUARTBase;
+    assign s_end_addr[8]   = apb_soc_pkg::APBUARTBase + apb_soc_pkg::APBUARTLength - 1;
 
-   `APB_ASSIGN_MASTER(s_masters[9], apb_uart_master);
-    assign s_start_addr[9] = apb_soc_pkg::APBUARTBase;
-    assign s_end_addr[9]   = apb_soc_pkg::APBUARTBase + apb_soc_pkg::APBUARTLength - 1;
+
+/*
+    `APB_ASSIGN_MASTER(s_masters[9], advtimer_master[0]);
+    assign s_start_addr[9] = apb_soc_pkg::ADVTIMERBase;
+    assign s_end_addr[9]   = apb_soc_pkg::ADVTIMERBase + apb_soc_pkg::ADVTIMERLength - 1 ;
 
     `APB_ASSIGN_MASTER(s_masters[10], advtimer_master[1]);
     assign s_start_addr[10] = apb_soc_pkg::ADVTIMER1Base;
@@ -111,7 +113,7 @@ module periph_bus_wrap
     `APB_ASSIGN_MASTER(s_masters[16], advtimer_master[7]);
     assign s_start_addr[16] = apb_soc_pkg::ADVTIMER7Base;
     assign s_end_addr[16]   = apb_soc_pkg::ADVTIMER7Base + apb_soc_pkg::ADVTIMERLength - 1 ;
-
+*/
 
    apb_node_wrap #(
         .NB_MASTER      ( apb_soc_pkg::NUM_APB_SLAVES ),
