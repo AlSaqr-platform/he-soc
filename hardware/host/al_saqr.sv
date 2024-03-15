@@ -99,6 +99,11 @@ module al_saqr
   inout wire logic    pad_periphs_a_14_pad,
   inout wire logic    pad_periphs_a_15_pad,
 
+  inout wire logic    pad_periphs_ot_spi_00_pad,
+  inout wire logic    pad_periphs_ot_spi_01_pad,
+  inout wire logic    pad_periphs_ot_spi_02_pad,
+  inout wire logic    pad_periphs_ot_spi_03_pad,
+
   `ifndef FPGA_EMUL
     `ifndef SIMPLE_PADFRAME
         inout wire logic    pad_periphs_a_16_pad,
@@ -165,10 +170,6 @@ module al_saqr
         inout wire logic    pad_periphs_b_46_pad,
         inout wire logic    pad_periphs_b_47_pad,
 
-        inout wire logic    pad_periphs_ot_spi_00_pad,
-        inout wire logic    pad_periphs_ot_spi_01_pad,
-        inout wire logic    pad_periphs_ot_spi_02_pad,
-        inout wire logic    pad_periphs_ot_spi_03_pad,
       `endif
     `endif
  `else
@@ -346,7 +347,7 @@ module al_saqr
 
   logic s_cluster_eoc;
   logic s_cluster_eoc_sync;
-   
+
   uart_to_pad_t  s_cva6_uart_tx;
   pad_to_uart_t  s_cva6_uart_rx;
 
