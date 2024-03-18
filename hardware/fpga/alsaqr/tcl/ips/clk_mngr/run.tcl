@@ -12,7 +12,11 @@ if {$::env(MAIN_MEM)=="HYPER"} {
 } elseif {$::env(MAIN_MEM)=="DDR4"} {
     if {$::env(ETH2FMC_NO_PAD)=="1"} {
         set CLK_FREQ_MHZ 50
-    } else {
+    }
+    elseif{$::env(NUM_CORES)=="4"} {
+        set CLK_FREQ_MHZ 20
+    }
+    else {
         set CLK_FREQ_MHZ 40
     }
 }
