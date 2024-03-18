@@ -92,9 +92,9 @@ module alsaqr_xilinx
    localparam AXI_ID_WIDTH = 9;
   `endif
   `ifdef QUAD_CORE
-   parameter int unsigned AXI_USER_WIDTH    = 2,
+   parameter int unsigned AXI_USER_WIDTH    = 2;
   `else
-   parameter int unsigned AXI_USER_WIDTH    = 1,
+   parameter int unsigned AXI_USER_WIDTH    = 1;
   `endif
 
    wire        ref_clk;
