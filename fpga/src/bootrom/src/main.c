@@ -25,11 +25,15 @@ int main() {
         "la a1, device_tree;");
       //"ebreak;");
 
+    if(read_csr(mhartid)>1) {
+      while(1)
+        __asm__ volatile ("wfi;");
+    }
+
     while (1) {
-      __asm__ volatile ("wfi;");
-//      wait_for_boot_irq();
-//      claim_irq();
-//      boot();
+      wait_for_boot_irq();
+      claim_irq();
+      boot();
     }
 }
 
