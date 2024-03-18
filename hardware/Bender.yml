@@ -37,7 +37,7 @@ dependencies:
   hyperbus_udma: { git: "git@github.com:AlSaqr-platform/hyper_bus.git", rev: "c13cd240bd494edf3c14ce9ba0e564de4dafb559" }
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", version: 1.0.1 }
   register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
-#  apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", rev: 409250db901559b81055d6d3fcfe6337eee98e06 }
+  apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "d47f3d0d207a5f22f301706f825dbf960f97f56b" } # branch: master
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "0ec0bf8b7dab6d5e4b3f7ec58338a8efee066379" }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
