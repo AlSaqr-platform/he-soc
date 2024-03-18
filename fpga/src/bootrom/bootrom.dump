@@ -484,12 +484,12 @@ Disassembly of section .text:
  1000758:	f14027f3          	csrr	a5,mhartid
  100075c:	02079463          	bnez	a5,1000784 <wait_for_boot_irq+0x2c>
  1000760:	0c2017b7          	lui	a5,0xc201
- 1000764:	00478793          	addi	a5,a5,4 # c201004 <mbox_id+0xb20063c>
+ 1000764:	00478793          	addi	a5,a5,4 # c201004 <mbox_id+0xb200614>
  1000768:	0080006f          	j	1000770 <wait_for_boot_irq+0x18>
  100076c:	10500073          	wfi
  1000770:	00000717          	auipc	a4,0x0
  1000774:	0007a683          	lw	a3,0(a5)
- 1000778:	25872703          	lw	a4,600(a4) # 10009c8 <mbox_id>
+ 1000778:	28072703          	lw	a4,640(a4) # 10009f0 <mbox_id>
  100077c:	fee698e3          	bne	a3,a4,100076c <wait_for_boot_irq+0x14>
  1000780:	00008067          	ret
  1000784:	0c2037b7          	lui	a5,0xc203
@@ -498,24 +498,24 @@ Disassembly of section .text:
 000000000100078c <claim_irq>:
  100078c:	f1402773          	csrr	a4,mhartid
  1000790:	00000797          	auipc	a5,0x0
- 1000794:	2387a783          	lw	a5,568(a5) # 10009c8 <mbox_id>
+ 1000794:	2607a783          	lw	a5,608(a5) # 10009f0 <mbox_id>
  1000798:	00070c63          	beqz	a4,10007b0 <claim_irq+0x24>
  100079c:	0c203737          	lui	a4,0xc203
- 10007a0:	00f72223          	sw	a5,4(a4) # c203004 <mbox_id+0xb20263c>
+ 10007a0:	00f72223          	sw	a5,4(a4) # c203004 <mbox_id+0xb202614>
  10007a4:	0c0027b7          	lui	a5,0xc002
- 10007a8:	1807a023          	sw	zero,384(a5) # c002180 <mbox_id+0xb0017b8>
+ 10007a8:	1807a023          	sw	zero,384(a5) # c002180 <mbox_id+0xb001790>
  10007ac:	00008067          	ret
  10007b0:	0c201737          	lui	a4,0xc201
- 10007b4:	00f72223          	sw	a5,4(a4) # c201004 <mbox_id+0xb20063c>
+ 10007b4:	00f72223          	sw	a5,4(a4) # c201004 <mbox_id+0xb200614>
  10007b8:	0c0027b7          	lui	a5,0xc002
- 10007bc:	0807a023          	sw	zero,128(a5) # c002080 <mbox_id+0xb0016b8>
+ 10007bc:	0807a023          	sw	zero,128(a5) # c002080 <mbox_id+0xb001690>
  10007c0:	00008067          	ret
 
 00000000010007c4 <boot>:
  10007c4:	104047b7          	lui	a5,0x10404
- 10007c8:	0207a223          	sw	zero,36(a5) # 10404024 <mbox_id+0xf40365c>
+ 10007c8:	0207a223          	sw	zero,36(a5) # 10404024 <mbox_id+0xf403634>
  10007cc:	10404537          	lui	a0,0x10404
- 10007d0:	00056283          	lwu	t0,0(a0) # 10404000 <mbox_id+0xf403638>
+ 10007d0:	00056283          	lwu	t0,0(a0) # 10404000 <mbox_id+0xf403610>
  10007d4:	00028067          	jr	t0
  10007d8:	00008067          	ret
 
@@ -529,13 +529,13 @@ Disassembly of section .text:
 
 00000000010007ec <is_transmit_empty>:
  10007ec:	400007b7          	lui	a5,0x40000
- 10007f0:	0147c503          	lbu	a0,20(a5) # 40000014 <mbox_id+0x3efff64c>
+ 10007f0:	0147c503          	lbu	a0,20(a5) # 40000014 <mbox_id+0x3efff624>
  10007f4:	02057513          	andi	a0,a0,32
  10007f8:	00008067          	ret
 
 00000000010007fc <write_serial>:
  10007fc:	40000737          	lui	a4,0x40000
- 1000800:	01474783          	lbu	a5,20(a4) # 40000014 <mbox_id+0x3efff64c>
+ 1000800:	01474783          	lbu	a5,20(a4) # 40000014 <mbox_id+0x3efff624>
  1000804:	0207f793          	andi	a5,a5,32
  1000808:	fe078ce3          	beqz	a5,1000800 <write_serial+0x4>
  100080c:	00a70023          	sb	a0,0(a4)
@@ -545,7 +545,7 @@ Disassembly of section .text:
  1000814:	0045959b          	slliw	a1,a1,0x4
  1000818:	02b5553b          	divuw	a0,a0,a1
  100081c:	400007b7          	lui	a5,0x40000
- 1000820:	00078223          	sb	zero,4(a5) # 40000004 <mbox_id+0x3efff63c>
+ 1000820:	00078223          	sb	zero,4(a5) # 40000004 <mbox_id+0x3efff614>
  1000824:	f8000713          	li	a4,-128
  1000828:	00e78623          	sb	a4,12(a5)
  100082c:	0ff57713          	zext.b	a4,a0
@@ -578,7 +578,7 @@ Disassembly of section .text:
 
 0000000001000890 <bin_to_hex>:
  1000890:	00000797          	auipc	a5,0x0
- 1000894:	12878793          	addi	a5,a5,296 # 10009b8 <bin_to_hex_table>
+ 1000894:	15078793          	addi	a5,a5,336 # 10009e0 <bin_to_hex_table>
  1000898:	00f57713          	andi	a4,a0,15
  100089c:	00e78733          	add	a4,a5,a4
  10008a0:	00074703          	lbu	a4,0(a4)
@@ -659,5 +659,14 @@ Disassembly of section .text.startup:
  10009a4:	f1402573          	csrr	a0,mhartid
  10009a8:	fffff597          	auipc	a1,0xfffff
  10009ac:	68858593          	addi	a1,a1,1672 # 1000030 <device_tree>
- 10009b0:	10500073          	wfi
- 10009b4:	ffdff06f          	j	10009b0 <main+0xc>
+ 10009b0:	f1402773          	csrr	a4,mhartid
+ 10009b4:	00100793          	li	a5,1
+ 10009b8:	00e7f663          	bgeu	a5,a4,10009c4 <main+0x20>
+ 10009bc:	10500073          	wfi
+ 10009c0:	ffdff06f          	j	10009bc <main+0x18>
+ 10009c4:	ff010113          	addi	sp,sp,-16
+ 10009c8:	00113423          	sd	ra,8(sp)
+ 10009cc:	d8dff0ef          	jal	ra,1000758 <wait_for_boot_irq>
+ 10009d0:	dbdff0ef          	jal	ra,100078c <claim_irq>
+ 10009d4:	df1ff0ef          	jal	ra,10007c4 <boot>
+ 10009d8:	ff5ff06f          	j	10009cc <main+0x28>
