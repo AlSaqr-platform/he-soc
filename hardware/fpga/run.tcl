@@ -17,14 +17,15 @@ if {$::env(MAIN_MEM)=="HYPER"} {
     add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_hyper_$::env(BOARD).xdc"
 } elseif {$::env(MAIN_MEM)=="DDR4"} {
     add_files -fileset constrs_1 -norecurse "alsaqr/tcl/ddr_$::env(BOARD).xdc"
-    elseif {$::env(SIMPLE_PAD)=="ETH"} {
+    if {$::env(SIMPLE_PAD)=="ETH"} {
         add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_validation_$::env(BOARD)_ethernet.xdc"
+        set SRC_CLK_PERIOD 20
     } elseif {$::env(SIMPLE_PAD)=="SPI-I2C-UART-SDIO"} {
         add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_validation_$::env(BOARD).xdc"
-        if {$::env(ETH2FMC_NO_PAD)=="1"} {
-            set SRC_CLK_PERIOD 20
-            add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_validation_$::env(BOARD)_eth-no_padframe.xdc"
-        }
+        set SRC_CLK_PERIOD 20
+    } elseif {$::env(ETH2FMC_NO_PAD)=="1"} {
+        set SRC_CLK_PERIOD 20
+        add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_validation_$::env(BOARD)_eth-no_padframe.xdc"
     }
     if {$::env(NUM_CORES)=="4"} {
         set SRC_CLK_PERIOD 50
