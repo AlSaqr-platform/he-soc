@@ -26,9 +26,10 @@ int main() {
       //"ebreak;");
 
     while (1) {
-      wait_for_boot_irq();
-      claim_irq();
-      boot();
+      __asm__ volatile ("wfi;");
+//      wait_for_boot_irq();
+//      claim_irq();
+//      boot();
     }
 }
 
