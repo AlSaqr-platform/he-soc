@@ -39,6 +39,12 @@ if [ -z "$MAIN_MEM" ]; then
     read -p "Which main memory are you using:  1-DDR 2-HYPER: " MAIN_MEM
     if [ "$MAIN_MEM" = "1" ]; then
         export MAIN_MEM="DDR4"
+        read -p "How many CVA6 cores? 2/4 " NUM_CORES
+        if [ "$NUM_CORES" = "2" ]; then
+            export NUM_CORES="2"
+        elif [ "$NUM_CORES" = "4" ]; then
+            export NUM_CORES="4"
+        fi
     elif [ "$MAIN_MEM" = "2" ]; then
         export MAIN_MEM="HYPER"
         export SIMPLE_PAD="0"
@@ -61,6 +67,7 @@ echo "XILINX_PART=$XILINX_PART"
 echo "XILINX_BOARD=$XILINX_BOARD"
 echo "AXI_ID_DDR_WIDTH=$AXI_ID_DDR_WIDTH"
 echo "MAIN MEMORY = $MAIN_MEM"
+echo "NUM CORES = $NUM_CORES"
 echo "PERIPHERALS VALIDATION = $SIMPLE_PAD"
 echo "ETHERNET NO PADFRAME = $ETH2FMC_NO_PAD"
 echo "USE OT = $USE_OT"
