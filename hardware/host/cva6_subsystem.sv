@@ -683,7 +683,7 @@ module cva6_subsystem
 `else
     .InclSPI      ( 1'b0                     ),
 `endif
-    .InclEthernet ( 1'b1                     )
+    .InclEthernet ( 1'b0                     )
   ) i_ariane_peripherals (
     .clk_i           ( clk_i                        ),
     .rst_ni          ( ndmreset_n                   ),
