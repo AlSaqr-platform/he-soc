@@ -273,3 +273,25 @@ pad_domains:
               gpio{i}_o: pad2chip
               oen: ~gpio{i}_d_i
               puen: 1'b1
+
+      ## QFN PWM
+      #- name: pwm0
+      #  ports:
+      #    - name: pwm{i}
+      #      multiple: 4
+      #      mux_groups: ["pad_gpio_b_{0+i:2d}"]
+      #      connections:
+      #        chip2pad: pwm{i}_i
+      #        oen: 1'b0
+      #        puen: 1'b1
+      #
+      ## CPGA PWM
+      #- name: pwm1
+      #  ports:
+      #    - name: pwm{i}
+      #      multiple: 4
+      #      mux_groups: ["pad_gpio_b_{4+i:2d}"]
+      #      connections:
+      #        chip2pad: pwm{i}_i
+      #        oen: 1'b0
+      #        puen: 1'b1
