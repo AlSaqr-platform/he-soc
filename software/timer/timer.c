@@ -41,10 +41,17 @@
 #define TIMER6_OFFSET 0x1A228000
 #define TIMER7_OFFSET 0x1A229000
 
+#define PLIC_BASE     0x0C000000
+#define PLIC_CHECK    PLIC_BASE + 0x201004
+
+#define PLIC_EN_BITS  PLIC_BASE + 0x2080
+
 #define N_CH 1
 
 int main() {
 
+  int buff;
+  int irq = 143;
   #ifdef FPGA_EMULATION
   int baud_rate = 115200;
   int test_freq = 50000000;
@@ -76,7 +83,7 @@ int main() {
 
   // Clock gating timers
 
-  // TIMER 0 CH0 + CH1
+  // TIMER 0 CH0
   enable_timer(TIMER0_OFFSET);
   for (int i=0; i< N_CH; i++) {
     config_counter(TIMER0_OFFSET,i,249,0,0xFF,0,0);
@@ -84,7 +91,7 @@ int main() {
     set_threshold(TIMER0_OFFSET,i,0,0x8,3);
   }
 
-  // TIMER 1 CH0 + CH1
+  // TIMER 1 CH0
   enable_timer(TIMER1_OFFSET);
   for (int i=0; i< N_CH; i++) {
     config_counter(TIMER1_OFFSET,i,249,0,0xFF,0,0);
@@ -93,7 +100,7 @@ int main() {
   }
 
 
-  // TIMER 2 CH0 + CH1
+  // TIMER 2 CH0
   enable_timer(TIMER2_OFFSET);
   for (int i=0; i< N_CH; i++) {
     config_counter(TIMER2_OFFSET,i,249,0,0xFF,0,0);
@@ -103,7 +110,7 @@ int main() {
 
 
 
-  // TIMER 3 CH0 + CH1
+  // TIMER 3 CH0
   enable_timer(TIMER3_OFFSET);
   for (int i=0; i< N_CH; i++) {
     config_counter(TIMER3_OFFSET,i,249,0,0xFF,0,0);
@@ -111,7 +118,7 @@ int main() {
     set_threshold(TIMER3_OFFSET,i,0,0x8,3);
   }
 
-  // TIMER 4 CH0 + CH1
+  // TIMER 4 CH0
   enable_timer(TIMER4_OFFSET);
   for (int i=0; i< N_CH; i++) {
     config_counter(TIMER4_OFFSET,i,249,0,0xFF,0,0);
@@ -120,7 +127,7 @@ int main() {
   }
 
 
-  // TIMER 5 CH0 + CH1
+  // TIMER 5 CH0
   enable_timer(TIMER5_OFFSET);
   for (int i=0; i< N_CH; i++) {
     config_counter(TIMER5_OFFSET,i,249,0,0xFF,0,0);
@@ -129,7 +136,7 @@ int main() {
   }
 
 
-  // TIMER 6 CH0 + CH1
+  // TIMER 6 CH0
   enable_timer(TIMER6_OFFSET);
   for (int i=0; i< N_CH; i++) {
     config_counter(TIMER6_OFFSET,i,249,0,0xFF,0,0);
@@ -138,7 +145,7 @@ int main() {
   }
 
 
-  // TIMER 7 CH0 + CH1
+  // TIMER 7 CH0
   enable_timer(TIMER7_OFFSET);
   for (int i=0; i< N_CH; i++) {
     config_counter(TIMER7_OFFSET,i,249,0,0xFF,0,0);
@@ -148,6 +155,16 @@ int main() {
 
   printf("Start channels of each timers...\r\n");
   uart_wait_tx_done();
+
+  // Enable irqs
+  pulp_write32(TIMER0_OFFSET+0x100,0xF0000);
+  pulp_write32(TIMER1_OFFSET+0x100,0xF0000);
+  pulp_write32(TIMER2_OFFSET+0x100,0xF0000);
+  pulp_write32(TIMER3_OFFSET+0x100,0xF0000);
+  pulp_write32(TIMER4_OFFSET+0x100,0xF0000);
+  pulp_write32(TIMER5_OFFSET+0x100,0xF0000);
+  pulp_write32(TIMER6_OFFSET+0x100,0xF0000);
+  pulp_write32(TIMER7_OFFSET+0x100,0xF0000);
 
   // Enable CH0 + CH1 per each timer
   for (int i=0; i< N_CH; i++) {
@@ -161,9 +178,14 @@ int main() {
     start_timer(TIMER7_OFFSET, i);
   }
 
-  for(volatile int i = 0; i<500000; i++)
-    asm volatile ("wfi");
+  pulp_write32(PLIC_BASE+irq*4, 1);                                // set mbox interrupt priority to 1
+  pulp_write32(PLIC_EN_BITS+(((int)(irq/32))*4), 1<<(irq%32)); // enable interrupt
 
+  for(volatile int i = 0; i<100; i++){
+    asm volatile ("wfi");
+    buff=pulp_read32(PLIC_CHECK);
+    pulp_write32(PLIC_CHECK, irq);
+  }
   return 0;
 
 }
