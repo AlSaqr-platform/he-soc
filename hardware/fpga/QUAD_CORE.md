@@ -19,10 +19,15 @@ source setup.sh
 Correct setup settings are highlighted in bold:
 
 *Which board you want to use:  1-zcu102 2-vcu118:* **2**
+
 *Are you instantiating the LLC? y/n* **y**
+
 *Are you instantiating OpenTitan? y/n* **n**
+
 *Which main memory are you using:  1-DDR 2-HYPER:* **1**
+
 *How many CVA6 cores? 2/4* **4**
+
 *Are you validating the peripherals? y/n* **y**
 
 ```
