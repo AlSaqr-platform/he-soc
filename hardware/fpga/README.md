@@ -16,6 +16,8 @@ To use the hyperram use `make scripts-bender-fpga`, without simple-padframe.
 
 You can also use the `exclude-cluster=1`, `exclude-rot=1` and `exclude-llc=1` option, in case you don't want to emulate the cluster/opentitan/llc as well.
 
+Also, you can implement a bitstream with 4 CVA6 cores using the `quad-core=1` option. To do so, refer to the `QUAD_CORE.md` file here.
+
 ```
 cd fpga
 
