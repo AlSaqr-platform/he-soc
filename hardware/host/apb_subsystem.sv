@@ -124,7 +124,7 @@ module apb_subsystem
 
     //IRQ request of CH0 and CH1 from NUM_ADV_TIMER
     //output logic                [NUM_ADV_TIMER-1 : 0] pwm_irq_o,
-    //output                      pwm_to_pad_t pwm_to_pad
+    //output                      pwm_to_pad_t pwm_to_pad,
 
     // FLL output
     output                      fll_to_pad_t fll_to_pad
