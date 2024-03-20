@@ -21,6 +21,7 @@ The repository is organized as follows
    - `host` contains the host-system: it wraps the core and plugs it into the `axi_node` to which the slaves are attached
    - `tb` contains the testbench
    - `fpga` contains the scripts to generate the bitstream
+   - `docs` contains the datasheet of AlSaqr SoC and the related padframe specification
 
  * `software` contains the bare metals tests you can run on the SoC
 
