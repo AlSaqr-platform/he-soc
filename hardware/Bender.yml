@@ -13,7 +13,7 @@ dependencies:
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
   axi_riscv_atomics: { git: "git@github.com:pulp-platform/axi_riscv_atomics.git", version: 0.8.2 }
-  cva6: { git: "git@github.com:Alsaqr-platform/cva6.git", rev: "e32228631687b4c0dc38c14ba2b1230da0612e06" } # branch: lv/parallel-access, based on branch culsans_pulp of planvtech
+  cva6: { git: "git@github.com:Alsaqr-platform/cva6.git", rev: "20eb76c5245126035214141b6f4747d4265e33a7" } # tag: planv-delivery
   ace: { git: "https://github.com/planvtech/ace.git", rev: "fc2056f9f560ec55192c6b09ef682c822fad90fe" } # branch: pulp
   riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0  }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.39.1-beta }
