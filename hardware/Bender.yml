@@ -41,7 +41,7 @@ dependencies:
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "d47f3d0d207a5f22f301706f825dbf960f97f56b" } # branch: master
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "0ec0bf8b7dab6d5e4b3f7ec58338a8efee066379" }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
-  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "122cd13195437362a533e9dd7863a33554f81f83" }
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "de8a5f348467af057677d2928894e15bf74dd7af" }
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
   ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "6bc2bd81b7de1ed424f787a3b6480fec53fa9aa0" }
   sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }
