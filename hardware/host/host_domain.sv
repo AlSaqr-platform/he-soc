@@ -402,13 +402,14 @@ module host_domain
   `endif
 
    cva6_subsystem # (
-        .NUM_WORDS         ( NUM_WORDS  ),
-        .InclSimDTM        ( 1'b1       ),
-        .StallRandomOutput ( 1'b1       ),
-        .StallRandomInput  ( 1'b1       ),
-        .JtagEnable        ( JtagEnable ),
-        .axi_req_t         ( axi_req_t  ),
-        .axi_rsp_t         ( axi_rsp_t  )
+        .NUM_WORDS         ( NUM_WORDS      ),
+        .AXI_USER_WIDTH    ( AXI_USER_WIDTH ),
+        .InclSimDTM        ( 1'b1           ),
+        .StallRandomOutput ( 1'b1           ),
+        .StallRandomInput  ( 1'b1           ),
+        .JtagEnable        ( JtagEnable     ),
+        .axi_req_t         ( axi_req_t      ),
+        .axi_rsp_t         ( axi_rsp_t      )
    ) i_cva6_subsystem (
         .clk_i(s_soc_clk),
         .rst_ni(s_synch_global_rst),

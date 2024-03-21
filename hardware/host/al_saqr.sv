@@ -50,7 +50,11 @@ module al_saqr
   import ariane_soc::HyperbusNumPhys;
   import ariane_soc::NumChipsPerHyperbus;
 #(
+`ifdef QUAD_CORE
+  parameter int unsigned AXI_USER_WIDTH    = 2,
+`else
   parameter int unsigned AXI_USER_WIDTH    = 1,
+`endif
   parameter int unsigned AXI_ADDRESS_WIDTH = 64,
   parameter int unsigned AXI_DATA_WIDTH    = 64,
 `ifdef DROMAJO
@@ -457,12 +461,13 @@ module al_saqr
          );
 
     host_domain #(
-        .NUM_WORDS         ( NUM_WORDS  ),
-        .InclSimDTM        ( 1'b1       ),
-        .StallRandomOutput ( 1'b1       ),
-        .StallRandomInput  ( 1'b1       ),
-        .NUM_GPIO          ( NUM_GPIO   ),
-        .JtagEnable        ( JtagEnable ),
+        .NUM_WORDS         ( NUM_WORDS               ),
+        .InclSimDTM        ( 1'b1                    ),
+        .StallRandomOutput ( 1'b1                    ),
+        .StallRandomInput  ( 1'b1                    ),
+        .NUM_GPIO          ( NUM_GPIO                ),
+        .JtagEnable        ( JtagEnable              ),
+        .AXI_USER_WIDTH    ( AXI_USER_WIDTH          ),
         .axi_req_t         ( tlul2axi_pkg::mst_req_t ),
         .axi_rsp_t         ( tlul2axi_pkg::mst_rsp_t )
     ) i_host_domain (

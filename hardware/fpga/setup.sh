@@ -40,6 +40,12 @@ if [ -z "$MAIN_MEM"  ]; then
 
     if [ "$MAIN_MEM" = "1" ]; then
         export MAIN_MEM="DDR4"
+        read -p "How many CVA6 cores? 2/4 " NUM_CORES
+        if [ "$NUM_CORES" = "2" ]; then
+            export NUM_CORES="2"
+        elif [ "$NUM_CORES" = "4" ]; then
+            export NUM_CORES="4"
+        fi
         read -p "Are you validating the peripherals? y/n " SIMPLE_PAD
         if [ "$SIMPLE_PAD" = "y" ]; then
             export SIMPLE_PAD="1"
@@ -57,6 +63,7 @@ echo "XILINX_PART=$XILINX_PART"
 echo "XILINX_BOARD=$XILINX_BOARD"
 echo "AXI_ID_DDR_WIDTH=$AXI_ID_DDR_WIDTH"
 echo "MAIN MEMORY = $MAIN_MEM"
+echo "NUM CORES = $NUM_CORES"
 echo "PERIPHERALS VALIDATION = $SIMPLE_PAD"
 echo "USE OT = $USE_OT"
 
