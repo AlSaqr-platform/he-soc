@@ -43,7 +43,7 @@ root-dir := $(dir $(mkfile_path))
 # acc options
 # guide: define acc=<+"instance name".> , the dot includes all the child instances.
 # Example: <make clean sim acc=+u_RoT.>,  this will plot all the OpenTitan and subinstances signals (all the OT design)
-acc            ?= +acc
+acc            ?= +acc=p+ariane_tb.
 noacc          ?=
 
 # regression
@@ -129,6 +129,10 @@ compile_flag_bender   += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 13
 # Iterate over all include directories and write them with +incdir+ prefixed
 # +incdir+ works for Verilator and QuestaSim
 list_incdir := $(foreach dir, ${incdir}, +incdir+$(dir))
+
+ifdef debug
+	acc   := +acc
+endif
 
 ifdef nogui
   acc   := +acc=p+ariane_tb.
