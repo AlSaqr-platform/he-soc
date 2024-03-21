@@ -98,17 +98,6 @@ Be aware that the preload of the code is slower in this case.
 make -C ../software/"test you want to run" clean all
 make clean sim
 ```
-If you want to speed up the simulation (of about 2x), you can use the "max-opt" flag, which will deactivate the logs of all the waveforms. This is not suitable for debugging, but just to get the result of a test as fast as passible.
-To avoid the Questa GUI to be opened, you can use the "nogui=1" flag, which applies the same opts as max-opt and do not open the gui.
-```
-make scripts_vip max-opt=1
-make clean sim max-opt=1
-```
-or
-```
-make scripts_vip nogui=1
-make clean sim nogui=1
-```
 
 The code that will be laoded is the last that has been compiled. Thus, to run a test with preload in L3, you shall compile the test you want to run (as shown above) and then run the simulation without providing the path to the binary.
 
@@ -124,7 +113,7 @@ make clean all sim
 To run mbox test between cva6 and ibex, in he-soc/hardware run:
 ```
 make -C ../software/mbox_test clean all
-make clean sim ibex-elf-bin=./opentitan/sw/tests/alsaqr/mbox_test/mbox_test.elf 
+make clean sim ibex-elf-bin=./opentitan/sw/tests/alsaqr/mbox_test/mbox_test.elf
 ```
 
 To run the full secure boot, use the following commands (for instance, opentitan boots CVA6 which runs an hello world):
@@ -244,10 +233,10 @@ To validate the synthesis of AlSaqr we provide the following simulation targets,
   RTL (USES FLL DUMMY) + HYPER NETLIST
 
  
-To perform the post sythesis simulation of one of the previous target run the following command within `he-soc/hardware` (NB: the acc flag ensures that the simulation is fast, about 10 mins for an hello world):
+To perform the post sythesis simulation of one of the previous target run the following command within `he-soc/hardware`
 
 ```
-make clean post_synth=1 <target_name> synth_sim acc=+acc=p+ariane_tb.
+make clean post_synth=1 <target_name> synth_sim
 ```
 There is a framwork to run the regressions with the netlist of the chip as well. The netlist regression list is defined in hardware/regressions/regressions_netlist.csv while the transcript of each simulation will be stored in hardware/regressions/regressions_netlist_reports/ . To run the regression using the netlist do the following:
 
