@@ -1,7 +1,7 @@
 # Author: Florian Zaruba, ETH Zurich
 # Date: 03/19/2017
 # Description: Makefile for linting and testing Ariane.
-QUESTA:=#questa-2022.3-bt
+QUESTA:=questa-2022.3-bt
 # Bender
 BENDER:=./bender
 # questa library
