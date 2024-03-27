@@ -1,11 +1,12 @@
 #!/bin/bash
 echo "exporting RISCV"
 
-export PATH=/usr/pack/pulpsdk-1.0-kgf/artifactory/pulp-sdk-release/pkg/pulp_riscv_gcc/1.0.16/bin/riscv32-unknown-elf:$PATH
+#RISC-V Toolchain
+export PATH=/home/hyunmin/WORK_ALSAQR/opt/riscv/riscv32-unknown-elf:$PATH
 
-export PATH=/usr/pack/riscv-1.0-kgf/riscv64-gcc-11.2.0/bin:$PATH
+export PATH=/opt/riscv/bin:$PATH
 
-export RISCV=/usr/pack/riscv-1.0-kgf/riscv64-gcc-11.2.0
+export RISCV=/opt/riscv
 
 export SW_HOME=$(pwd)/software
 
@@ -13,11 +14,12 @@ export HW_HOME=$(pwd)/hardware
 
 echo "exporting QUESTASIM PATH"
 
-export QUESTASIM_HOME=/usr/pack/questa-2022.3-bt/questasim/
+#Questasim installation location
+export QUESTASIM_HOME=/home/fayad/questa/questasim/
 
 echo "exporting RISCV 32 bit with zfinx"
 
-export PATH=/usr/pack/pulpsdk-1.0-kgf/artifactory/pulp-sdk-release/pkg/pulp_riscv_gcc/1.0.16/bin:$PATH
+export PATH=/home/hyunmin/WORK_ALSAQR/opt/riscv/bin:$PATH
 
 echo "cloning submodules"
 
