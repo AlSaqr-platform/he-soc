@@ -15,6 +15,8 @@ echo "exporting QUESTASIM PATH"
 
 export QUESTASIM_HOME=/usr/pack/questa-2022.3-bt/questasim/
 
+export QUESTA=questa-2022.3-bt
+
 echo "exporting RISCV 32 bit with zfinx"
 
 export PATH=/usr/pack/pulpsdk-1.0-kgf/artifactory/pulp-sdk-release/pkg/pulp_riscv_gcc/1.0.16/bin:$PATH
