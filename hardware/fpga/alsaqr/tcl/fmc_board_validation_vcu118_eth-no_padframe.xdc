@@ -24,6 +24,51 @@ set_property CLOCK_DEDICATED_ROUTE FALSE [get_nets fmc_eth_rxck_IBUF_inst/O]
 create_clock -period 8.000 -name fmc_eth_rxck [get_ports fmc_eth_rxck]
 set_clock_groups -asynchronous -group [get_clocks fmc_eth_rxck -include_generated_clocks]
 
+set_input_delay -clock fmc_eth_rxck -max [ expr 8 * 0.35 ] [ get_ports fmc_eth_rxd[0] ]
+set_input_delay -clock fmc_eth_rxck -min [ expr 8 * 0.10 ] [ get_ports fmc_eth_rxd[0] ]
+
+set_input_delay -clock fmc_eth_rxck -max [ expr 8 * 0.35 ] [ get_ports fmc_eth_rxd[1] ]
+set_input_delay -clock fmc_eth_rxck -min [ expr 8 * 0.10 ] [ get_ports fmc_eth_rxd[1] ]
+
+set_input_delay -clock fmc_eth_rxck -max [ expr 8 * 0.35 ] [ get_ports fmc_eth_rxd[2] ]
+set_input_delay -clock fmc_eth_rxck -min [ expr 8 * 0.10 ] [ get_ports fmc_eth_rxd[2] ]
+
+set_input_delay -clock fmc_eth_rxck -max [ expr 8 * 0.35 ] [ get_ports fmc_eth_rxd[3] ]
+set_input_delay -clock fmc_eth_rxck -min [ expr 8 * 0.10 ] [ get_ports fmc_eth_rxd[3] ]
+
+set_input_delay -clock fmc_eth_rxck -max [ expr 8 * 0.35 ] [ get_ports fmc_eth_rxctl  ]
+set_input_delay -clock fmc_eth_rxck -min [ expr 8 * 0.10 ] [ get_ports fmc_eth_rxctl  ]
+
+set_output_delay -clock ETH_CLK_125 -max [ expr 8 * 0.35 ] [ get_ports fmc_eth_txd[0] ]
+set_output_delay -clock ETH_CLK_125 -min [ expr 8 * 0.10 ] [ get_ports fmc_eth_txd[0] ]
+
+set_output_delay -clock ETH_CLK_125 -max [ expr 8 * 0.35 ] [ get_ports fmc_eth_txd[1] ]
+set_output_delay -clock ETH_CLK_125 -min [ expr 8 * 0.10 ] [ get_ports fmc_eth_txd[1] ]
+
+set_output_delay -clock ETH_CLK_125 -max [ expr 8 * 0.35 ] [ get_ports fmc_eth_txd[2] ]
+set_output_delay -clock ETH_CLK_125 -min [ expr 8 * 0.10 ] [ get_ports fmc_eth_txd[2] ]
+j
+set_output_delay -clock ETH_CLK_125 -max [ expr 8 * 0.35 ] [ get_ports fmc_eth_txd[3] ]
+set_output_delay -clock ETH_CLK_125 -min [ expr 8 * 0.10 ] [ get_ports fmc_eth_txd[3] ]
+
+set_output_delay -clock ETH_CLK_125 -max [ expr 8 * 0.35 ] [ get_ports fmc_eth_txctl  ]
+set_output_delay -clock ETH_CLK_125 -min [ expr 8 * 0.10 ] [ get_ports fmc_eth_txctl  ]
+
+set_output_delay -clock ETH_CLK_125 -max [ expr 8 * 0.35 ] [ get_ports fmc_eth_txck   ]
+set_output_delay -clock ETH_CLK_125 -min [ expr 8 * 0.10 ] [ get_ports fmc_eth_txck   ]
+
+set_output_delay -clock ALSAQR_CLK  -max [ expr 8 * 0.35 ] [ get_ports fmc_eth_mdio   ]
+set_output_delay -clock ALSAQR_CLK  -min [ expr 8 * 0.10 ] [ get_ports fmc_eth_mdio   ]
+
+set_input_delay  -clock ALSAQR_CLK  -max [ expr 8 * 0.35 ] [ get_ports fmc_eth_mdio   ]
+set_input_delay  -clock ALSAQR_CLK  -min [ expr 8 * 0.10 ] [ get_ports fmc_eth_mdio   ]
+
+set_output_delay -clock ALSAQR_CLK  -max [ expr 8 * 0.35 ] [ get_ports fmc_eth_mdc    ]
+set_output_delay -clock ALSAQR_CLK  -min [ expr 8 * 0.10 ] [ get_ports fmc_eth_mdc    ]
+
+set_output_delay -clock ALSAQR_CLK  -max [ expr 8 * 0.35 ] [ get_ports fmc_eth_rst_n  ]
+set_output_delay -clock ALSAQR_CLK  -min [ expr 8 * 0.10 ] [ get_ports fmc_eth_rst_n  ]
+
 ####################################################################################
 # Constraints from file : 'timing_constr.xdc'
 ####################################################################################

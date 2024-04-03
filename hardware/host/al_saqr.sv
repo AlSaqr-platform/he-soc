@@ -1045,14 +1045,12 @@ module al_saqr
      assign fpga_pad_uart_tx_o = s_cva6_uart_tx;
 
      `ifdef ETH2FMC_NO_PADFRAME
-       assign s_pad_to_eth.eth_md_i    = eth_mdio;
        assign s_pad_to_eth.eth_rxck_i  = eth_rxck;
        assign s_pad_to_eth.eth_rxctl_i = eth_rxctl;
        assign s_pad_to_eth.eth_rxd0_i  = eth_rxd[0];
        assign s_pad_to_eth.eth_rxd1_i  = eth_rxd[1];
        assign s_pad_to_eth.eth_rxd2_i  = eth_rxd[2];
        assign s_pad_to_eth.eth_rxd3_i  = eth_rxd[3];
-       assign eth_mdio   = s_eth_to_pad.eth_md_o;
        assign eth_mdc    = s_eth_to_pad.eth_mdc_o;
        assign eth_rst_n  = s_eth_to_pad.eth_rstn_o;
        assign eth_txck   = s_eth_to_pad.eth_txck_o;
@@ -1061,6 +1059,14 @@ module al_saqr
        assign eth_txd[1] = s_eth_to_pad.eth_txd1_o;
        assign eth_txd[2] = s_eth_to_pad.eth_txd2_o;
        assign eth_txd[3] = s_eth_to_pad.eth_txd3_o;
+
+       IOBUF IOBUF_inst (
+          .O(s_pad_to_eth.eth_md_i),  // Buffer output
+          .IO(eth_mdio),                // Buffer inout port (connect directly to top-level port)
+          .I(s_eth_to_pad.eth_md_o),  // Buffer input
+          .T(~s_eth_to_pad.eth_md_oe) // 3-state enable input, high=input, low=output
+       );
+
      `endif
 
    `else
