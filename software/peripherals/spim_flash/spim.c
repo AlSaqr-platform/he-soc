@@ -51,7 +51,7 @@
 #define OUT 1
 #define IN  0
 
-// #define PRINTF_ON
+ #define PRINTF_ON
 
 /*******************************************************************************
 **                             IMPORTANT                                      **
@@ -61,8 +61,8 @@
 **  - SIMPLE_PAD: MUST BE SETTED ONLY TO SIMULATE THE FPGA PAD ON RTL         **
 *******************************************************************************/
 
-// #define SIMPLE_PAD
-// #define FPGA_EMULATION
+ //#define SIMPLE_PAD
+ //#define FPGA_EMULATION
 
 #ifndef FPGA_EMULATION
   #ifndef SIMPLE_PAD
@@ -285,6 +285,10 @@ int main(){
 
   for (int u = 0; u < N_SPI; u++){
     for (int v = 0; v < N_REPS[u]; v++){
+        #ifdef PRINTF_ON
+        printf ("Testing SPIIIII_%0d.%0d...\n\r", u, v);
+      #endif
+
       #ifdef FPGA_EMULATION
         alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 2 );
         alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set( 2 );
@@ -818,7 +822,7 @@ int main(){
         //printf("Index %d: read %8x, expected %8x \n\r",i,rx_page[i],memory_page[i+4]);
         if (rx_page[i] != memory_page[i+4])
         {
-          //printf("Index %d: read %8x, expected %8x -- ERROR\n\r",i,rx_page[i],memory_page[i+4]);
+          printf("Index %d: read %8x, expected %8x -- ERROR\n\r",i,rx_page[i],memory_page[i+4]);
           error[u]++;
         }else
           //printf("Index %d: read %8x, expected %8x \n\r",i,rx_page[i],memory_page[i+4]);
