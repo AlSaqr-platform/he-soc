@@ -51,7 +51,7 @@
 #define OUT 1
 #define IN  0
 
- #define PRINTF_ON
+#define PRINTF_ON
 
 /*******************************************************************************
 **                             IMPORTANT                                      **
@@ -61,8 +61,8 @@
 **  - SIMPLE_PAD: MUST BE SETTED ONLY TO SIMULATE THE FPGA PAD ON RTL         **
 *******************************************************************************/
 
- //#define SIMPLE_PAD
- //#define FPGA_EMULATION
+//#define SIMPLE_PAD
+//#define FPGA_EMULATION
 
 #ifndef FPGA_EMULATION
   #ifndef SIMPLE_PAD
@@ -156,21 +156,11 @@ int main(){
   uint32_t cmd_spi_plic_id ; 
   uint32_t eot_spi_plic_id ; 
 
-  #ifdef FPGA_EMULATION
-  int baud_rate = 115200;
-  int test_freq = 50000000;
-  #else
-  set_flls();
-  int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif  
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
-
   //--- refer to this manual for the commands
   //--- https://www.cypress.com/file/216421/download
 
   #ifdef PRINTF_ON
-    printf ("Start test SPI...\n\r");
+    printf ("aaaaaahhh per favore!!!Start test SPI...\n\r");
     uart_wait_tx_done();
   #endif  
 
