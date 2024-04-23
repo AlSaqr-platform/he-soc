@@ -256,3 +256,37 @@ There is a framwork to run the regressions with the netlist of the chip as well.
 cd hardware/
 make run_regression_netlist
 ```
+## Pubblication
+
+If you use AlSaqr in your work, please cite us:
+
+```
+@ARTICLE{10423921,
+  author={Valente, Luca and Nadalini, Alessandro and Veeran, Asif Hussain Chiralil and Sinigaglia, Mattia and Sá, Bruno and Wistoff, Nils and Tortorella, Yvan and Benatti, Simone and Psiakis, Rafail and Kulmala, Ari and Mohammad, Baker and Pinto, Sandro and Palossi, Daniele and Benini, Luca and Rossi, Davide},
+  journal={IEEE Transactions on Circuits and Systems I: Regular Papers}, 
+  title={A Heterogeneous RISC-V Based SoC for Secure Nano-UAV Navigation}, 
+  year={2024},
+  volume={},
+  number={},
+  pages={1-14},
+  keywords={Standards;Energy efficiency;Drones;Virtual machine monitors;Silicon;Navigation;Internet of Things;Heterogeneous;Linux;low-power;autonomous nano-UAVs;RISC-V},
+  doi={10.1109/TCSI.2024.3359044}}
+
+@INPROCEEDINGS {10254698,
+author = {L. Valente and A. Veeran and M. Sinigaglia and Y. Tortorella and A. Nadalini and N. Wistoff and B. Sa and A. Garofalo and R. Psiakis and M. Tolba and A. Kulmala and N. Limaye and O. Sinanoglu and S. Pinto and D. Palossi and L. Benini and B. Mohammad and D. Rossi},
+booktitle = {2023 IEEE Hot Chips 35 Symposium (HCS)},
+title = {Shaheen: An Open, Secure, and Scalable RV64 SoC for Autonomous Nano-UAVs},
+year = {2023},
+volume = {},
+issn = {},
+pages = {1-12},
+abstract = {Open Source Hardware, the way it should be!},
+keywords = {},
+doi = {10.1109/HCS59251.2023.10254698},
+url = {https://doi.ieeecomputersociety.org/10.1109/HCS59251.2023.10254698},
+publisher = {IEEE Computer Society},
+address = {Los Alamitos, CA, USA},
+month = {aug}
+}
+
+```
