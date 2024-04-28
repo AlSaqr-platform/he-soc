@@ -276,7 +276,7 @@ int main(){
   for (int u = 0; u < N_SPI; u++){
     for (int v = 0; v < N_REPS[u]; v++){
         #ifdef PRINTF_ON
-        printf ("Testing SPIIIII_%0d.%0d...\n\r", u, v);
+        printf ("Testing SPI_%0d.%0d...\n\r", u, v);
       #endif
 
       #ifdef FPGA_EMULATION
