@@ -78,9 +78,9 @@ module alsaqr_xilinx
   );
 
   `ifdef EXCLUDE_LLC
-   localparam AXI_ID_WIDTH = 7;
-  `else
    localparam AXI_ID_WIDTH = 8;
+  `else
+   localparam AXI_ID_WIDTH = 9;
   `endif
 
    wire        ref_clk;
