@@ -23,7 +23,10 @@ module ariane_peripherals
     parameter  bit InclSPI      = 0,
     parameter  bit InclEthernet = 1,
     parameter  bit InclGPIO     = 0,
-    parameter  bit InclTimer    = 1
+    parameter  bit InclTimer    = 1,
+    parameter  bit InclTimer    = 1,
+    parameter  bit InclDMA      = 1,
+    parameter  bit InclIOPMP    = 1
 ) (
     input  logic                          clk_i           , // Clock
     input  logic                          rst_ni          , // Asynchronous reset active low
@@ -32,6 +35,9 @@ module ariane_peripherals
     AXI_BUS.Slave                         spi             ,
     AXI_BUS.Slave                         ethernet        ,
     AXI_BUS.Slave                         timer           ,
+    AXI_BUS.Slave                         dma_cfg         , // DMA Engine configuration IF     (XBAR   => DMA  )
+    AXI_BUS.Master                        iopmp_init      , // IOPMP Initiator Port            (IOPMP  => XBAR )
+    AXI_BUS.Slave                         iopmp_cfg       , // IOPMP Configuration Port        (XBAR   => IOPMP)
     input  logic [31*4-1:0]               udma_evt_i      ,
     input  logic                          c2h_irq_i       ,
     input  logic                          cluster_eoc_i   ,
@@ -99,7 +105,7 @@ module ariane_peripherals
     assign irq_sources[148]                          = pwm_irq_i[6];
     assign irq_sources[149]                          = pwm_irq_i[7];
 
-    assign irq_sources[ariane_soc::NumSources-1:150] = '0;
+    assign irq_sources[ariane_soc::NumSources-1:151] = '0;
 
     REG_BUS #(
         .ADDR_WIDTH ( 32 ),
@@ -637,5 +643,270 @@ module ariane_peripherals
             .PSLVERR ( timer_pslverr    ),
             .irq_o   ( irq_sources[6:3] )
         );
+    end
+
+    // ---------------
+    // 6. DMA & IOPMP
+    // ---------------
+
+    // AXI Bus: iDMA Master <=> IOPMP Receiver Port
+    ariane_axi_soc::req_ext_t   axi_iopmp_rp_req;
+    ariane_axi_soc::resp_t      axi_iopmp_rp_rsp;
+
+    // AXI Bus: AXI Cut <=> iDMA Programming Interface
+    AXI_BUS #(
+      .AXI_ADDR_WIDTH ( AxiAddrWidth             ),
+      .AXI_DATA_WIDTH ( AxiDataWidth             ),
+      .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+      .AXI_USER_WIDTH ( AxiUserWidth             )
+    ) idma_cfg_cut ();
+
+    // AXI Cut for iDMA Programming Interface
+    axi_cut_intf #(
+      .ADDR_WIDTH ( AxiAddrWidth              ),
+      .DATA_WIDTH ( AxiDataWidth              ),
+      .ID_WIDTH   ( ariane_soc::IdWidthSlave  ),
+      .USER_WIDTH ( AxiUserWidth              )
+    ) axi_idma_cfg_cut(
+      .clk_i  ( clk_i   ),
+      .rst_ni ( rst_ni  ),
+      .in     ( dma_cfg ),
+      .out    ( idma_cfg_cut )
+    );
+
+    // AXI Bus: XBAR <=> AXI Cut (IOPMP Configuration Port)
+    AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AxiAddrWidth             ),
+    .AXI_DATA_WIDTH ( AxiDataWidth             ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+    .AXI_USER_WIDTH ( AxiUserWidth             )
+    ) iopmp_cp_cut ();
+
+    // AXI Cut for IOPMP Configuration Port
+    axi_cut_intf #(
+      .ADDR_WIDTH ( AxiAddrWidth              ),
+      .DATA_WIDTH ( AxiDataWidth              ),
+      .ID_WIDTH   ( ariane_soc::IdWidthSlave  ),
+      .USER_WIDTH ( AxiUserWidth              )
+    ) axi_iopmp_cp_cut(
+      .clk_i  ( clk_i   ),
+      .rst_ni ( rst_ni  ),
+      .in     ( iopmp_cp ),
+      .out    ( iopmp_cp_cut )
+    );
+
+    // AXI Bus: AXI Cut <=> IOPMP Configuration Port
+    ariane_axi_soc::req_slv_t  axi_iopmp_cp_req;
+    ariane_axi_soc::resp_slv_t axi_iopmp_cp_rsp;
+    `AXI_ASSIGN_TO_REQ(axi_iopmp_cp_req, iopmp_cp_cut)
+    `AXI_ASSIGN_FROM_RESP(iopmp_cp_cut, axi_iopmp_cp_rsp)
+
+    // AXI Bus: IOPMP Initiator Port <=> AXI Cut
+    AXI_BUS #(
+      .AXI_ADDR_WIDTH ( AxiAddrWidth        ),
+      .AXI_DATA_WIDTH ( AxiDataWidth        ),
+      .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+      .AXI_USER_WIDTH ( AxiUserWidth        )
+    ) iopmp_ip_cut ();
+
+    // AXI Cut for IOPMP Initiator Port
+    axi_cut_intf #(
+      .ADDR_WIDTH ( AxiAddrWidth   ),
+      .DATA_WIDTH ( AxiDataWidth   ),
+      .ID_WIDTH   ( ariane_soc::IdWidth ),
+      .USER_WIDTH ( AxiUserWidth   )
+    ) axi_iopmp_ip_master_cut(
+      .clk_i  ( clk_i   ),
+      .rst_ni ( rst_ni  ),
+      .in     ( iopmp_ip_cut ),
+      .out    ( iopmp_ip )
+    );
+
+    // -----------
+    //# DMA Engine
+    // -----------
+    if (InclDMA) begin : gen_dma
+
+      // AXI Bus: iDMA Master <=> IOPMP Receiver Port
+      AXI_BUS_EXT #(
+        .AXI_ADDR_WIDTH ( AxiAddrWidth          ),
+        .AXI_DATA_WIDTH ( AxiDataWidth          ),
+        .AXI_ID_WIDTH   ( ariane_soc::IdWidth   ),
+        .AXI_USER_WIDTH ( AxiUserWidth          )
+      ) axi_idma_master ();
+
+      // Conversion from SV interface to req/resp structs
+      `AXI_ASSIGN_TO_REQ(axi_iopmp_rp_req, axi_idma_master)
+      `AXI_ASSIGN_FROM_RESP(axi_idma_master, axi_iopmp_rp_rsp)
+
+      // Manually assign extended signals
+      // AW
+      assign axi_iopmp_rp_req.aw.stream_id    = axi_idma_master.aw_stream_id;
+      assign axi_iopmp_rp_req.aw.ss_id_valid  = axi_idma_master.aw_ss_id_valid;
+      assign axi_iopmp_rp_req.aw.substream_id = axi_idma_master.aw_substream_id;
+      assign axi_iopmp_rp_req.aw.nsaid        = axi_idma_master.aw_nsaid;
+      // AR
+      assign axi_iopmp_rp_req.ar.stream_id    = axi_idma_master.ar_stream_id;
+      assign axi_iopmp_rp_req.ar.ss_id_valid  = axi_idma_master.ar_ss_id_valid;
+      assign axi_iopmp_rp_req.ar.substream_id = axi_idma_master.ar_substream_id;
+      assign axi_iopmp_rp_req.ar.nsaid        = axi_idma_master.ar_nsaid;
+
+      // iDMA
+      dma_core_wrap_intf #(
+        .AXI_ADDR_WIDTH     ( AxiAddrWidth               ),
+        .AXI_DATA_WIDTH     ( AxiDataWidth               ),
+        .AXI_USER_WIDTH     ( AxiUserWidth               ),
+        .AXI_ID_WIDTH       ( ariane_soc::IdWidth        ),
+        .AXI_SLV_ID_WIDTH   ( ariane_soc::IdWidthSlave   ),
+        .JOB_FIFO_DEPTH     ( 2                          ),
+        .NUM_AX_IN_FLIGHT   ( 2                          ),
+        .MEM_SYS_DEPTH      ( 0                          ),
+        .BUFFER_DEPTH       ( 3                          ),
+        .RAW_COUPLING_AVAIL ( 1                          ),
+        .IS_TWO_D           ( 0                          ),
+
+        .STREAM_ID          ( 24'd1           ),
+        .NSAID              ( 4'd0            ),
+        .AxID               ( 5'd0            )
+      ) i_dma (
+        .clk_i      		    ( clk_i           ),
+        .rst_ni     		    ( rst_ni          ),
+        .testmode_i 		    ( 1'b0            ),
+        // slave port
+        .axi_slave  		    ( idma_cfg_cut    ),
+        // master port
+        .axi_master 		    ( axi_idma_master )
+		  );
+    end
+
+	  // --------------
+    //# No DMA Engine
+    // --------------
+	  //
+	  // When no DMA engine is included, IOPMP Receiver Port xVALID/xREADY wires are set to zero
+	  // AXI transactions directed to the DMA Programming Interface are responded with error.
+    else begin : gen_dma_disabled
+
+	    // AXI Bus: AXI Cut <=> iDMA Error Slave
+	    ariane_axi_soc::req_slv_t axi_dma_cfg_req;
+	    ariane_axi_soc::resp_slv_t axi_dma_cfg_rsp;
+	    `AXI_ASSIGN_TO_REQ(axi_dma_cfg_req, idma_cfg_cut)
+	    `AXI_ASSIGN_FROM_RESP(idma_cfg_cut, axi_dma_cfg_rsp)
+
+      // iDMA Error Slave
+      axi_err_slv #(
+        .AxiIdWidth ( ariane_soc::IdWidthSlave   ),
+        .axi_req_t  ( ariane_axi_soc::req_slv_t  ),
+        .axi_resp_t ( ariane_axi_soc::resp_slv_t )
+        ) i_idma2_err_slv (
+        .clk_i      ( clk_i    				  ),
+        .rst_ni     ( rst_ni   				  ),
+        .slv_req_i  ( axi_dma_cfg_req   ),
+        .slv_resp_o ( axi_dma_cfg_rsp   ),
+        .test_i     ( 1'b0     				  )
+      );
+
+	    // Set Receiver Port request wires to a known state
+	    assign axi_iopmp_rp_req.ar_valid    = 1'b0;
+      assign axi_iopmp_rp_req.aw_valid    = 1'b0;
+      assign axi_iopmp_rp_req.w_valid     = 1'b0;
+      assign axi_iopmp_rp_req.b_ready     = 1'b0;
+      assign axi_iopmp_rp_req.r_ready     = 1'b0;
+    end
+
+    // -------------------------------------------
+    //# RISC-V Input/Output Physical Memory Protection
+    // -------------------------------------------
+    if (InclIOPMP) begin : gen_iopmp
+
+      // AXI Bus: IOPMP Initiator Port <=> AXI Cut
+      // Conversion from SV interface to req/resp structs
+      /* 
+        In the future, an IOPMP will be capable to configure subsequent transactions to IOPMPs downstream (cascade)
+        To support this feature, the request port of the IOPMP Receiver Port integrates the NSAIDs
+      */
+      ariane_axi_soc::req_nsaid_t axi_iopmp_ip_req;
+      ariane_axi_soc::resp_t      axi_iopmp_ip_rsp;
+      `AXI_ASSIGN_FROM_REQ(iopmp_ip_cut, axi_iopmp_ip_req)
+      `AXI_ASSIGN_TO_RESP(axi_iopmp_ip_rsp, iopmp_ip_cut)
+
+      // Memory-mapped Register IF types
+      // name, addr_t, data_t, strb_t
+      `REG_BUS_TYPEDEF_ALL(iopmp_reg, ariane_axi_soc::addr_t, ariane_axi_soc::data_t, ariane_axi_soc::strb_t)
+
+      riscv_iopmp #(
+        // AXI specific parameters
+        .ADDR_WIDTH			        ( AxiAddrWidth				),
+        .DATA_WIDTH			        ( AxiDataWidth				),
+        .ID_WIDTH			          ( ariane_soc::IdWidth	),
+        .USER_WIDTH			        ( AxiUserWidth				),
+
+        // AXI request/response
+        .axi_req_nsaid_t        ( ariane_axi_soc::req_ext_t   ),
+        .axi_rsp_t			        ( ariane_axi_soc::resp_t	    ),
+        .axi_req_slv_t		      ( ariane_axi_soc::req_slv_t	  ),
+        .axi_rsp_slv_t		      ( ariane_axi_soc::resp_slv_t  ),
+        // AXI channel structs
+        .axi_aw_chan_t          ( ariane_axi_soc::aw_chan_ext_t   ),
+        .axi_w_chan_t           ( ariane_axi_soc::w_chan_t	      ),
+        .axi_b_chan_t           ( ariane_axi_soc::b_chan_t	      ),
+        .axi_ar_chan_t          ( ariane_axi_soc::ar_chan_ext_t   ),
+        .axi_r_chan_t           ( ariane_axi_soc::r_chan_t	      ),
+
+        // Register Interface parameters
+        .reg_req_t		          ( iopmp_reg_req_t ),
+        .reg_rsp_t		          ( iopmp_reg_rsp_t ),
+
+        // Implementation specific
+        .NUMBER_MDS             ( 16 ),
+        .NUMBER_ENTRIES         ( 32 ),
+        .NUMBER_MASTERS         ( 1  ),
+        .NUMBER_ENTRY_ANALYZERS ( 8  )
+    ) i_riscv_iopmp (
+        .clk_i				      ( clk_i						  ),
+        .rst_ni				      ( rst_ni					  ),
+
+        // AXI Config Slave port
+        .control_req_i      ( axi_iopmp_cp_req  ),
+        .control_rsp_o      ( axi_iopmp_cp_rsp  ),
+
+        // AXI Bus Slave port
+        .receiver_req_i     ( axi_iopmp_rp_req  ),
+        .receiver_rsp_o     ( axi_iopmp_rp_rsp  ),
+
+        // AXI Bus Master port
+        .initiator_req_o    ( axi_iopmp_ip_req  ),
+        .initiator_rsp_i    ( axi_iopmp_ip_rsp  ),
+
+        .wsi_wire_o         ( irq_sources[150]  )
+    );
+
+    //-----------
+    //# No IOPMP:
+    //-----------
+    //
+    // When the IOPMP is not included, transactions are bypassed directly to the XBAR.
+    // AXI transactions performed to the IOPMP Configuration Port are responded with error.
+    end else begin : gen_iopmp_disabled
+
+      // IOPMP Error Slave
+      axi_err_slv #(
+          .AxiIdWidth   ( ariane_soc::IdWidthSlave   ),
+          .axi_req_t    ( ariane_axi_soc::req_slv_t  ),
+          .axi_resp_t   ( ariane_axi_soc::resp_slv_t )
+      ) i_iopmp_err_slv (
+          .clk_i        ( clk_i             ),
+          .rst_ni       ( rst_ni            ),
+          .test_i       ( 1'b0              ),
+          .slv_req_i    ( axi_iopmp_cp_req  ),
+          .slv_resp_o   ( axi_iopmp_cp_rsp  )
+      );
+
+      // Connect directly the device to the System Interconnect
+      // iDMA Master IF <=> IOPMP Initiator Port AXI Cut
+      `AXI_ASSIGN_FROM_REQ(iopmp_ip_cut, axi_iopmp_rp_req)
+      `AXI_ASSIGN_TO_RESP(axi_iopmp_rp_rsp, iopmp_ip_cut)
+
+      assign irq_sources[150] = '0;
     end
 endmodule

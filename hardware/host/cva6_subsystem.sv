@@ -584,6 +584,18 @@ module cva6_subsystem
     end_addr:   ariane_soc::UARTBase     + ariane_soc::UARTLength
   };
 
+  assign addr_map[ariane_soc::DMA_CFG] = '{ 
+    idx:        ariane_soc::DMA_CFG,
+    start_addr: ariane_soc::DMABase,
+    end_addr:   ariane_soc::DMABase + ariane_soc::DMALength
+  };
+
+  assign addr_map[ariane_soc::IOPMP_CFG] = '{
+    idx:        ariane_soc::IOPMP_CFG,
+    start_addr: ariane_soc::IOPMPBase,
+    end_addr:   ariane_soc::IOPMPBase + ariane_soc::IOPMPLength
+  };
+
   assign addr_map[ariane_soc::AXILiteDom] = '{
     idx:  ariane_soc::AXILiteDom,
     start_addr: ariane_soc::AXILiteBase,
@@ -685,7 +697,9 @@ module cva6_subsystem
 `else
     .InclSPI      ( 1'b0                     ),
 `endif
-    .InclEthernet ( 1'b1                     )
+    .InclEthernet ( 1'b1                     ),
+    .InclDMA      ( 1'b1                     ),
+    .InclIOPMP    ( 1'b1                     )
   ) i_ariane_peripherals (
     .clk_i           ( clk_i                        ),
     .rst_ni          ( ndmreset_n                   ),
@@ -694,6 +708,9 @@ module cva6_subsystem
     .spi             ( master[ariane_soc::SPI]      ),
     .ethernet        ( master[ariane_soc::Ethernet] ),
     .timer           ( master[ariane_soc::Timer]    ),
+    .dma_cfg         ( master[ariane_soc::DMA_CFG]  ),
+    .iopmp_init      ( slave[6]                     ),
+    .iopmp_cfg       ( master[ariane_soc::IOPMP_CFG]),
     .udma_evt_i      ( udma_events_i                ),
     .cluster_eoc_i   ( cluster_eoc_i                ),
     .c2h_irq_i       ( c2h_irq_i                    ),
