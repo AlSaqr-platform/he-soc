@@ -63,6 +63,7 @@ sources:
   - include/apb_soc_pkg.sv
   - include/pulp_interfaces.sv
   - include/ariane_axi_soc_pkg.sv
+  - include/axi_ext_intf.sv
   - include/udma_subsystem_pkg.sv
   - include/gpio_pkg.sv
   - include/tcdm_macros.sv
