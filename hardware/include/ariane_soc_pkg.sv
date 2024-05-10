@@ -23,8 +23,15 @@ package ariane_soc;
   // M-Mode Hart, S-Mode Hart
   localparam int unsigned NumTargets = 2*NumCVA6;
   // Uart, SPI, Ethernet, reserved
-  localparam int unsigned NumSources = 255;
+  localparam int unsigned NumSources = 256;
   localparam int unsigned MaxPriority = 7;
+
+  // AIA
+  localparam int unsigned NumSourcesImsic = cva6_config_pkg::CVA6ConfigNrSourcesImsic;
+  localparam int unsigned NrVSIntpFiles   = cva6_config_pkg::CVA6ConfigNrVSIntpFiles;
+  localparam int unsigned NrVSIntpFilesW  = cva6_config_pkg::CVA6ConfigNrVSIntpFilesW;
+  localparam int unsigned NrIntpFiles     = cva6_config_pkg::CVA6ConfigNrIntpFiles; 
+  localparam int unsigned NrSourcesW      = cva6_config_pkg::CVA6ConfigNrSourcesW;
 
   localparam NrSlaves = 6; // actually masters, but slaves on the crossbar: Debug module, CVA6, Cluster, uDMA (tx + rx)
 
@@ -52,10 +59,11 @@ package ariane_soc;
   localparam logic [31:0] DbgIdCode= 32'h20001001;
 
   typedef enum int unsigned {
-    HYAXI       = 12,
-    AXILiteDom  = 11,
-    UART        = 10,
-    Ethernet    = 9,
+    HYAXI       = 13,
+    AXILiteDom  = 12,
+    UART        = 11,
+    Ethernet    = 10,
+    IMSIC       = 9,
     SPI         = 8,
     Timer       = 7,
     APB_SLVS    = 6,
@@ -88,6 +96,7 @@ package ariane_soc;
   localparam logic[63:0] ClusterLength  = 64'h400000;
   localparam logic[63:0] TimerLength    = 64'h1000;
   localparam logic[63:0] SPILength      = 64'h800000;
+  localparam logic[63:0] IMSICLength    = 64'h800_0000;
   localparam logic[63:0] EthernetLength = 64'h10000;
   `ifdef HYPER_FPGA_DDR
   localparam logic[63:0] HYAXILength    = 64'h2000000;  //32MB of hyperrams
@@ -112,6 +121,7 @@ package ariane_soc;
     L2SPMBase    = 64'h1C00_0000,
     TimerBase    = 64'h1800_0000,
     SPIBase      = 64'h2000_0000,
+    IMSICBase    = 64'h2400_0000,
     EthernetBase = 64'h3000_0000,
     UARTBase     = 64'h4000_0000,
     LLCSPMBase   = 64'h7000_0000,

@@ -9,6 +9,12 @@
 // specific language governing permissions and limitations under the License.
 
 // Xilinx Peripehrals
+
+`include "register_interface/assign.svh"
+`include "register_interface/typedef.svh"
+`include "axi/assign.svh"
+`include "axi/typedef.svh"
+
 module ariane_peripherals
     import udma_subsystem_pkg::N_CAN;
     import apb_soc_pkg::NUM_ADV_TIMER;
@@ -32,13 +38,22 @@ module ariane_peripherals
     AXI_BUS.Slave                         spi             ,
     AXI_BUS.Slave                         ethernet        ,
     AXI_BUS.Slave                         timer           ,
+    input  logic [NumCVA6-1:0][1:0]                                  i_priv_lvl                 ,
+    input  logic [NumCVA6-1:0][ariane_soc::NrVSIntpFilesW:0]         i_vgein                    ,
+    input  logic [NumCVA6-1:0][31:0]                                 i_imsic_addr               ,
+    input  logic [NumCVA6-1:0][riscv::XLEN-1:0]                      i_imsic_data               ,
+    input  logic [NumCVA6-1:0]                                       i_imsic_we                 ,
+    input  logic [NumCVA6-1:0]                                       i_imsic_claim              ,
+    output logic [NumCVA6-1:0][riscv::XLEN-1:0]                      o_imsic_data               ,
+    output logic [NumCVA6-1:0][ariane_soc::NrIntpFiles-1:0][ariane_soc::NrSourcesW-1:0] o_xtopei,
+    output logic [NumCVA6-1:0]                                       o_imsic_exception          ,
+    output logic [NumCVA6-1:0][ariane_soc::NrIntpFiles-1:0]          irq_o                      ,
     input  logic [31*4-1:0]               udma_evt_i      ,
     input  logic                          c2h_irq_i       ,
     input  logic                          cluster_eoc_i   ,
     input  logic [N_CAN-1:0]              can_irq_i      ,
     input  logic [NUM_ADV_TIMER-1:0]      pwm_irq_i      ,
     input  logic                        cl_dma_pe_evt_i ,
-    output logic [NumCVA6-1:0][1:0]     irq_o   ,
     // UART
     input  logic            rx_i            ,
     output logic            tx_o            ,
@@ -76,7 +91,7 @@ module ariane_peripherals
   ) spi_lite();
 
     // ---------------
-    // 1. PLIC
+    // 1. IRQC
     // ---------------
     logic [ariane_soc::NumSources-1:0] irq_sources;
 
@@ -208,18 +223,44 @@ module ariane_peripherals
     assign reg_bus.error = plic_resp.error;
     assign reg_bus.ready = plic_resp.ready;
 
-    plic_top #(
-      .N_SOURCE    ( ariane_soc::NumSources  ),
-      .N_TARGET    ( ariane_soc::NumTargets  ),
-      .MAX_PRIO    ( ariane_soc::MaxPriority )
-    ) i_plic (
-      .clk_i,
-      .rst_ni,
-      .req_i         ( plic_req    ),
-      .resp_o        ( plic_resp   ),
-      .le_i          ( '0          ), // 0:level 1:edge
-      .irq_sources_i ( irq_sources ),
-      .eip_targets_o ( irq_o       )
+    ariane_axi_soc::req_slv_t    lite_msi_req;
+    ariane_axi_soc::resp_slv_t   lite_msi_resp;
+    
+    `AXI_ASSIGN_TO_REQ(lite_msi_req, imsic)
+    `AXI_ASSIGN_FROM_RESP(imsic, lite_msi_resp)
+
+    aplic_top #(
+        .XLEN                ( riscv::XLEN                       ),
+        .NR_SRC              ( ariane_soc::NumSources            ),
+        .NR_SRC_IMSIC        ( ariane_soc::NumSourcesImsic       ),
+        .MIN_PRIO            ( ariane_soc::MaxPriority           ),
+        .NR_IMSICS           ( NumCVA6                           ),
+        .NR_VS_FILES_PER_IMSIC ( ariane_pkg::NrVSIntpFiles       ),
+        .AXI_ADDR_WIDTH      ( AxiAddrWidth                      ),
+        .AXI_DATA_WIDTH      ( AxiDataWidth                      ),   
+        .AXI_ID_WIDTH        ( AxiIdWidth                        ), 
+        .reg_req_t           ( reg_intf::reg_intf_req_a32_d32    ),
+        .reg_rsp_t           ( reg_intf::reg_intf_resp_d32       ),
+        .axi_req_t           ( ariane_axi_soc::req_slv_t         ),
+        .axi_resp_t          ( ariane_axi_soc::resp_slv_t        )
+    ) aplic_top_embedded_i (
+        .i_clk               ( clk_i                             ),
+        .ni_rst              ( rst_ni                            ),
+        .i_irq_sources       ( {irq_sources, 1'b0}               ),
+        .i_req_cfg           ( plic_req                          ),
+        .o_resp_cfg          ( plic_resp                         ),
+        .i_priv_lvl          ( i_priv_lvl                        ),    
+        .i_vgein             ( i_vgein                           ),
+        .i_imsic_addr        ( i_imsic_addr                      ),        
+        .i_imsic_data        ( i_imsic_data                      ),        
+        .i_imsic_we          ( i_imsic_we                        ),    
+        .i_imsic_claim       ( i_imsic_claim                     ),        
+        .o_imsic_data        ( o_imsic_data                      ),        
+        .o_xtopei            ( o_xtopei                          ),    
+        .o_Xeip_targets      ( irq_o                             ),        
+        .o_imsic_exception   ( o_imsic_exception                 ),            
+        .i_imsic_req         ( lite_msi_req                      ),
+        .o_imsic_resp        ( lite_msi_resp                     )
     );
 
     // ---------------

@@ -5,7 +5,7 @@ package:
 
 dependencies:
   clint: { path: "deps/clint" }
-  rv_plic: { path: "deps/rv_plic" }
+  riscv-aia: { path: "deps/riscv-aia" }
   util: { path: "deps/util" }
   alsaqr_padframe: { path: "deps/alsaqr_periph_padframe" }
   alsaqr_fpga_padframe: { path: "deps/alsaqr_periph_fpga_padframe" }
@@ -13,7 +13,7 @@ dependencies:
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
   axi_riscv_atomics: { git: "git@github.com:pulp-platform/axi_riscv_atomics.git", version: 0.8.2 }
-  cva6: { git: "git@github.com:Alsaqr-platform/cva6.git", rev: alsaqr-v1.0 } # branch: lv/parallel-access, based on branch culsans_pulp of planvtech
+  cva6: { git: "git@github.com:D3boker1/cva6.git", rev: "c1f1349763fb779fa124947b6b3c2bf474fbfcee" } # branch: wip/riscv-aia
   ace: { git: "https://github.com/planvtech/ace.git", rev: "fc2056f9f560ec55192c6b09ef682c822fad90fe" } # branch: pulp
   riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0  }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.39.1-beta }

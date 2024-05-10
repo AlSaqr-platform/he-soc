@@ -572,6 +572,12 @@ module cva6_subsystem
     end_addr:   ariane_soc::SPIBase      + ariane_soc::SPILength
   };
 
+  assign addr_map[ariane_soc::IMSIC] = '{
+    idx:  ariane_soc::IMSIC,
+    start_addr: ariane_soc::IMSICBase,
+    end_addr:   ariane_soc::IMSICBase    + ariane_soc::IMSICLength
+  };
+
   assign addr_map[ariane_soc::Ethernet] = '{
     idx:  ariane_soc::Ethernet,
     start_addr: ariane_soc::EthernetBase,
@@ -668,7 +674,16 @@ module cva6_subsystem
   // Peripherals
   // ---------------
   logic tx, rx;
-  logic [ariane_soc::NumCVA6-1:0][1:0] irqs;
+  logic [ariane_soc::NumCVA6-1:0][ariane_pkg::NrIntpFiles-1:0]                               irqs              ;
+  logic [ariane_soc::NumCVA6-1:0][1:0]                                                       imsic_priv_lvl    ;
+  logic [ariane_soc::NumCVA6-1:0][ariane_pkg::NrVSIntpFilesW:0]                              imsic_vgein       ;
+  logic [ariane_soc::NumCVA6-1:0][31:0]                                                      imsic_addr        ;
+  logic [ariane_soc::NumCVA6-1:0][riscv::XLEN-1:0]                                           imsic_data_i      ;
+  logic [ariane_soc::NumCVA6-1:0]                                                            imsic_we          ;
+  logic [ariane_soc::NumCVA6-1:0]                                                            imsic_claim       ;
+  logic [ariane_soc::NumCVA6-1:0][riscv::XLEN-1:0]                                           imsic_data_o      ;
+  logic [ariane_soc::NumCVA6-1:0]                                                            imsic_exception   ;
+  logic [ariane_soc::NumCVA6-1:0][ariane_pkg::NrIntpFiles-1:0][ariane_pkg::NrSourcesW-1:0]   imsic_xtopei      ;
 
   ariane_peripherals #(
     .NumCVA6      ( ariane_soc::NumCVA6      ),
@@ -694,13 +709,23 @@ module cva6_subsystem
     .spi             ( master[ariane_soc::SPI]      ),
     .ethernet        ( master[ariane_soc::Ethernet] ),
     .timer           ( master[ariane_soc::Timer]    ),
+    .imsic           ( master[ariane_soc::IMSIC]    ),
+    .i_priv_lvl      ( imsic_priv_lvl               ), 
+    .i_vgein         ( imsic_vgein                  ),
+    .i_imsic_addr    ( imsic_addr                   ),   
+    .i_imsic_data    ( imsic_data_o                 ),   
+    .i_imsic_we      ( imsic_we                     ), 
+    .i_imsic_claim   ( imsic_claim                  ),     
+    .o_imsic_data    ( imsic_data_i                 ),   
+    .o_xtopei        ( imsic_xtopei                 ),
+    .irq_o           ( irqs                         ),     
+    .o_imsic_exception( imsic_exception             ),
     .udma_evt_i      ( udma_events_i                ),
     .cluster_eoc_i   ( cluster_eoc_i                ),
     .c2h_irq_i       ( c2h_irq_i                    ),
     .can_irq_i       ( can_irq_i                    ),
     .pwm_irq_i       ( pwm_irq_i                    ),
     .cl_dma_pe_evt_i ( cl_dma_pe_evt_i              ),
-    .irq_o           ( irqs                         ),
     .rx_i            ( cva6_uart_rx_i               ),
     .tx_o            ( cva6_uart_tx_o               ),
 
@@ -722,6 +747,15 @@ module cva6_subsystem
     .clk_i                ( cva6_clk_i                  ),
     .rst_ni               ( cva6_rst_ni                 ),
     .boot_addr_i          ( ariane_soc::ROMBase         ), // start fetching from ROM
+    .imsic_priv_lvl_o     ( imsic_priv_lvl              ),
+    .imsic_vgein_o        ( imsic_vgein                 ),
+    .imsic_addr_o         ( imsic_addr                  ),
+    .imsic_data_o         ( imsic_data_o                ),
+    .imsic_we_o           ( imsic_we                    ),
+    .imsic_claim_o        ( imsic_claim                 ),
+    .imsic_data_i         ( imsic_data_i                ),
+    .imsic_exception_i    ( imsic_exception             ),
+    .imsic_xtopei_i       ( imsic_xtopei                ),
     .irq_i                ( irqs                        ), // async signal
     .ipi_i                ( ipi                         ), // async signal
     .time_irq_i           ( timer_irq                   ), // async signal
