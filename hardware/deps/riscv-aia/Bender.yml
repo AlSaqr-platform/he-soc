@@ -1,0 +1,16 @@
+package:
+  name: riscv-aia
+  authors:
+    - "Zero Day Labs"
+    - "Francisco Marques <fmarques_00@protonmail.com>"
+    
+sources:
+  - vendor/reg_intf_pkg.sv
+  - rtl/ieaia/aplic_domain_gateway.sv
+  - rtl/ieaia/imsic_regmap.sv
+  - rtl/ieaia/imsic_top.sv
+  - rtl/ieaia/aplic_domain_notifier.sv
+  - rtl/ieaia/aplic_regmap_256_0.sv
+  - rtl/ieaia/aplic_domain_regctl.sv
+  - rtl/ieaia/aplic_domain_top.sv
+  - rtl/ieaia/aplic_top.sv
