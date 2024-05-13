@@ -33,7 +33,7 @@ package ariane_soc;
   localparam int unsigned NrIntpFiles     = cva6_config_pkg::CVA6ConfigNrIntpFiles; 
   localparam int unsigned NrSourcesW      = cva6_config_pkg::CVA6ConfigNrSourcesW;
 
-  localparam NrSlaves = 8; // actually masters, but slaves on the crossbar: Debug module, CVA6, Cluster, uDMA (tx + rx), IOMMU Completion IF and DS IF
+  localparam NrSlaves = 9; // actually masters, but slaves on the crossbar: Debug module, CVA6, Cluster, uDMA (tx + rx), IOMMU Completion IF and DS IF, IOPMP initiator port
 
   typedef struct packed {
       logic [31:0] idx;
@@ -59,10 +59,12 @@ package ariane_soc;
   localparam logic [31:0] DbgIdCode= 32'h20001001;
 
   typedef enum int unsigned {
-    HYAXI       = 15,
-    AXILiteDom  = 14,
+    HYAXI       = 17,
+    AXILiteDom  = 16,
+    IOPMP_CFG   = 15,
+    MDMA_CFG    = 14,
     IOMMU_CFG   = 13,
-    DMA_CFG     = 12,
+    SDMA_CFG    = 12,
     UART        = 11,
     Ethernet    = 10,
     IMSIC       = 9,
@@ -94,6 +96,7 @@ package ariane_soc;
   localparam logic[63:0] UARTLength     = 64'h1000;
   localparam logic[63:0] DMALength      = 64'h1000;  
   localparam logic[63:0] IOMMULength    = 64'h1000;
+  localparam logic[63:0] IOPMPLength    = 64'h4000;
   localparam logic[63:0] AXILiteLength  = 64'h100000; // Same on cluster side
   localparam logic[63:0] CLINTLength    = 64'hC0000;
   localparam logic[63:0] PLICLength     = 64'h3FF_FFFF;
@@ -130,6 +133,7 @@ package ariane_soc;
     UARTBase     = 64'h4000_0000,
     DMABase      = 64'h5000_0000,
     IOMMUBase    = 64'h5001_0000,
+    IOPMPBase    = 64'h5002_0000,
     LLCSPMBase   = 64'h7000_0000,
     HYAXIBase    = 64'h8000_0000
   } soc_bus_start_t;

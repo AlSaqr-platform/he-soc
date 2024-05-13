@@ -14,7 +14,6 @@
 //
 
 
-/// An AXI4 interface with standard extensions
 interface AXI_BUS_EXT #(
   parameter AXI_ADDR_WIDTH = -1,
   parameter AXI_DATA_WIDTH = -1,
@@ -115,6 +114,10 @@ interface AXI_BUS_EXT #(
     output r_id, r_data, r_resp, r_last, r_user, r_valid, input r_ready
   );
 
+<<<<<<< HEAD
 endinterface
 
 
+=======
+endinterface
+>>>>>>> feat/iopmp

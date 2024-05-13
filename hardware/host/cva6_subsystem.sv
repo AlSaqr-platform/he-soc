@@ -590,16 +590,28 @@ module cva6_subsystem
     end_addr:   ariane_soc::UARTBase     + ariane_soc::UARTLength
   };
 
-  assign addr_map[ariane_soc::DMA_CFG] = '{ 
-    idx:        ariane_soc::DMA_CFG,
-    start_addr: ariane_soc::DMABase,
-    end_addr:   ariane_soc::DMABase + ariane_soc::DMALength
+  assign addr_map[ariane_soc::SDMA_CFG] = '{ 
+    idx:        ariane_soc::SDMA_CFG,
+    start_addr: ariane_soc::SDMABase,
+    end_addr:   ariane_soc::SDMABase + ariane_soc::SDMALength
   };
 
   assign addr_map[ariane_soc::IOMMU_CFG] = '{
     idx:        ariane_soc::IOMMU_CFG,
     start_addr: ariane_soc::IOMMUBase,
     end_addr:   ariane_soc::IOMMUBase + ariane_soc::IOMMULength
+  };
+
+  assign addr_map[ariane_soc::MDMA_CFG] = '{ 
+    idx:        ariane_soc::MDMA_CFG,
+    start_addr: ariane_soc::MDMABase,
+    end_addr:   ariane_soc::MDMABase + ariane_soc::MDMALength
+  };
+
+  assign addr_map[ariane_soc::IOPMP_CFG] = '{
+    idx:        ariane_soc::IOPMP_CFG,
+    start_addr: ariane_soc::IOPMPBase,
+    end_addr:   ariane_soc::IOPMPBase + ariane_soc::IOPMPLength
   };
 
   assign addr_map[ariane_soc::AXILiteDom] = '{
@@ -713,8 +725,10 @@ module cva6_subsystem
     .InclSPI      ( 1'b0                     ),
 `endif
     .InclEthernet ( 1'b1                     ),
-    .InclDMA      ( 1'b1                     ),
-    .InclIOMMU    ( 1'b1                     )
+    .InclSDMA     ( 1'b1                     ),
+    .InclIOMMU    ( 1'b1                     ),
+    .InclMDMA     ( 1'b1                     ),
+    .InclIOPMP    ( 1'b1                     )
   ) i_ariane_peripherals (
     .clk_i            ( clk_i                         ),
     .rst_ni           ( ndmreset_n                    ),
@@ -723,10 +737,13 @@ module cva6_subsystem
     .spi              ( master[ariane_soc::SPI]       ),
     .ethernet         ( master[ariane_soc::Ethernet]  ),
     .timer            ( master[ariane_soc::Timer]     ),
-    .dma_cfg          ( master[ariane_soc::DMA_CFG]   ),
+    .dma_cfg          ( master[ariane_soc::SDMA_CFG]  ),
     .iommu_comp       ( slave[6]                      ),
     .iommu_ds         ( slave[7]                      ),
     .iommu_cfg        ( master[ariane_soc::IOMMU_CFG] ),
+    .dma_cfg          ( master[ariane_soc::MDMA_CFG]  ),
+    .iopmp_init       ( slave[8]                      ),
+    .iopmp_cfg        ( master[ariane_soc::IOPMP_CFG] ),
     .imsic            ( master[ariane_soc::IMSIC]     ),
     .i_priv_lvl       ( imsic_priv_lvl                ), 
     .i_vgein          ( imsic_vgein                   ),
@@ -753,7 +770,7 @@ module cva6_subsystem
 
     .eth_to_pad       ( eth_to_pad                    ),
     .pad_to_eth       ( pad_to_eth                    ),
-
+    
     .irq_mbox_i
   );
 

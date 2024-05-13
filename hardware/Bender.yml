@@ -47,6 +47,7 @@ dependencies:
   sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }
   culsans:  { git: "git@github.com:alsaqr-platform/culsans.git", rev: "dd62bc0741b4338ab43cb74bc65d864948b3418a" } # branch: main
   riscv-iommu:  { git: "git@github.com:zero-day-labs/riscv-iommu.git", rev: "alsaqr" } # branch: alsaqr
+  riscv-iopmp:  { git: "git@github.com:zero-day-labs/riscv-iopmp.git", rev: "alsaqr" } # branch: alsaqr
   idma:  { git: "git@github.com:malejo97/iDMA.git", rev: "zdl/iommu-iopmp" } # branch: zdl/iommu-iopmp
 
 workspace:
