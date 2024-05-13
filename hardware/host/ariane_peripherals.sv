@@ -29,46 +29,51 @@ module ariane_peripherals
     parameter  bit InclSPI      = 0,
     parameter  bit InclEthernet = 1,
     parameter  bit InclGPIO     = 0,
-    parameter  bit InclTimer    = 1
+    parameter  bit InclTimer    = 1,
+    parameter  bit InclDMA      = 0,
+    parameter  bit InclIOMMU    = 0
 ) (
-    input  logic                          clk_i           , // Clock
-    input  logic                          rst_ni          , // Asynchronous reset active low
-    AXI_BUS.Slave                         plic            ,
-    AXI_BUS.Slave                         uart            ,
-    AXI_BUS.Slave                         spi             ,
-    AXI_BUS.Slave                         ethernet        ,
-    AXI_BUS.Slave                         timer           ,
-    input  logic [NumCVA6-1:0][1:0]                                  i_priv_lvl                 ,
-    input  logic [NumCVA6-1:0][ariane_soc::NrVSIntpFilesW:0]         i_vgein                    ,
-    input  logic [NumCVA6-1:0][31:0]                                 i_imsic_addr               ,
-    input  logic [NumCVA6-1:0][riscv::XLEN-1:0]                      i_imsic_data               ,
-    input  logic [NumCVA6-1:0]                                       i_imsic_we                 ,
-    input  logic [NumCVA6-1:0]                                       i_imsic_claim              ,
-    output logic [NumCVA6-1:0][riscv::XLEN-1:0]                      o_imsic_data               ,
-    output logic [NumCVA6-1:0][ariane_soc::NrIntpFiles-1:0][ariane_soc::NrSourcesW-1:0] o_xtopei,
-    output logic [NumCVA6-1:0]                                       o_imsic_exception          ,
-    output logic [NumCVA6-1:0][ariane_soc::NrIntpFiles-1:0]          irq_o                      ,
-    input  logic [31*4-1:0]               udma_evt_i      ,
-    input  logic                          c2h_irq_i       ,
-    input  logic                          cluster_eoc_i   ,
-    input  logic [N_CAN-1:0]              can_irq_i      ,
-    input  logic [NUM_ADV_TIMER-1:0]      pwm_irq_i      ,
-    input  logic                        cl_dma_pe_evt_i ,
+    input  logic                                                                        clk_i            , // Clock
+    input  logic                                                                        rst_ni           , // Asynchronous reset active low
+    AXI_BUS.Slave                                                                       plic             ,
+    AXI_BUS.Slave                                                                       uart             ,
+    AXI_BUS.Slave                                                                       spi              ,
+    AXI_BUS.Slave                                                                       ethernet         ,
+    AXI_BUS.Slave                                                                       timer            ,
+    AXI_BUS.Slave                                                                       dma_cfg          , // DMA Engine configuration IF     (XBAR   => DMA  )
+    AXI_BUS.Master                                                                      iommu_comp       , // IOMMU Completion IF             (IOMMU  => XBAR )
+    AXI_BUS.Master                                                                      iommu_ds         , // IOMMU Memory IF                 (IOMMU  => XBAR )
+    AXI_BUS.Slave                                                                       iommu_cfg        , // IOMMU Programming IF            (XBAR   => IOMMU)
+    input  logic [NumCVA6-1:0][1:0]                                                     i_priv_lvl       ,
+    input  logic [NumCVA6-1:0][ariane_soc::NrVSIntpFilesW:0]                            i_vgein          ,
+    input  logic [NumCVA6-1:0][31:0]                                                    i_imsic_addr     ,
+    input  logic [NumCVA6-1:0][riscv::XLEN-1:0]                                         i_imsic_data     ,
+    input  logic [NumCVA6-1:0]                                                          i_imsic_we       ,
+    input  logic [NumCVA6-1:0]                                                          i_imsic_claim    ,
+    output logic [NumCVA6-1:0][riscv::XLEN-1:0]                                         o_imsic_data     ,
+    output logic [NumCVA6-1:0][ariane_soc::NrIntpFiles-1:0][ariane_soc::NrSourcesW-1:0] o_xtopei         ,
+    output logic [NumCVA6-1:0]                                                          o_imsic_exception,
+    output logic [NumCVA6-1:0][ariane_soc::NrIntpFiles-1:0]                             irq_o            ,
+    input  logic [31*4-1:0]                                                             udma_evt_i       ,
+    input  logic                                                                        c2h_irq_i        ,
+    input  logic                                                                        cluster_eoc_i    ,
+    input  logic [N_CAN-1:0]                                                            can_irq_i        ,
+    input  logic [NUM_ADV_TIMER-1:0]                                                    pwm_irq_i        ,
+    input  logic                                                                        cl_dma_pe_evt_i  ,
     // UART
-    input  logic            rx_i            ,
-    output logic            tx_o            ,
+    input  logic                                                                        rx_i             ,
+    output logic                                                                        tx_o             ,
 
     // Ethernet
-    input  logic            eth_clk_i        , // 125 MHz quadrature
-    input  logic            eth_phy_tx_clk_i , // 125 MHz in-phase
-    input  logic            eth_clk_200MHz_i ,
+    input  logic                                                                        eth_clk_i        , // 125 MHz quadrature
+    input  logic                                                                        eth_phy_tx_clk_i , // 125 MHz in-phase
+    input  logic                                                                        eth_clk_200MHz_i ,
 
-    output eth_to_pad_t     eth_to_pad       ,
-    input  pad_to_eth_t     pad_to_eth       ,
+    output eth_to_pad_t                                                                 eth_to_pad       ,
+    input  pad_to_eth_t                                                                 pad_to_eth       ,
 
     // SCMI mailbox interrupt to CVA6
-    input  logic            irq_mbox_i
-
+    input  logic                                                                        irq_mbox_i
 );
 
   AXI_BUS #(
@@ -114,7 +119,7 @@ module ariane_peripherals
     assign irq_sources[148]                          = pwm_irq_i[6];
     assign irq_sources[149]                          = pwm_irq_i[7];
 
-    assign irq_sources[ariane_soc::NumSources-1:150] = '0;
+    assign irq_sources[ariane_soc::NumSources-1:154] = '0;
 
     REG_BUS #(
         .ADDR_WIDTH ( 32 ),
@@ -678,5 +683,310 @@ module ariane_peripherals
             .PSLVERR ( timer_pslverr    ),
             .irq_o   ( irq_sources[6:3] )
         );
+    end
+
+    // ---------------
+    // 6. DMA & IOMMU
+    // ---------------
+
+    // AXI Bus: iDMA Master <=> IOMMU TR IF
+    ariane_axi_soc::req_ext_t   axi_iommu_tr_req;
+    ariane_axi_soc::resp_t      axi_iommu_tr_rsp;
+
+    // AXI Bus: XBAR <=> AXI Cut (iDMA Programming Interface)
+    AXI_BUS #(
+      .AXI_ADDR_WIDTH ( AxiAddrWidth             ),
+      .AXI_DATA_WIDTH ( AxiDataWidth             ),
+      .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+      .AXI_USER_WIDTH ( AxiUserWidth             )
+    ) idma_cfg_cut ();
+
+    // AXI Cut for iDMA Programming Interface
+    axi_cut_intf #(
+      .ADDR_WIDTH ( AxiAddrWidth              ),
+      .DATA_WIDTH ( AxiDataWidth              ),
+      .ID_WIDTH   ( ariane_soc::IdWidthSlave  ),
+      .USER_WIDTH ( AxiUserWidth              )
+    ) axi_idma_cfg_cut(
+      .clk_i  ( clk_i   ),
+      .rst_ni ( rst_ni  ),
+      .in     ( dma_cfg ),
+      .out    ( idma_cfg_cut )
+    );
+
+    // AXI Bus: XBAR <=> AXI Cut (IOMMU Programming Interface)
+    AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AxiAddrWidth             ),
+    .AXI_DATA_WIDTH ( AxiDataWidth             ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+    .AXI_USER_WIDTH ( AxiUserWidth             )
+    ) iommu_cfg_cut ();
+
+    // AXI Cut for IOMMU Programming Interface
+    axi_cut_intf #(
+      .ADDR_WIDTH ( AxiAddrWidth              ),
+      .DATA_WIDTH ( AxiDataWidth              ),
+      .ID_WIDTH   ( ariane_soc::IdWidthSlave  ),
+      .USER_WIDTH ( AxiUserWidth              )
+    ) axi_iommu_cfg_cut(
+      .clk_i  ( clk_i   ),
+      .rst_ni ( rst_ni  ),
+      .in     ( iommu_cfg ),
+      .out    ( iommu_cfg_cut )
+    );
+
+    // AXI Bus: AXI Cut <=> IOMMU Programming Interface
+    ariane_axi_soc::req_slv_t  axi_iommu_cfg_req;
+    ariane_axi_soc::resp_slv_t axi_iommu_cfg_rsp;
+    `AXI_ASSIGN_TO_REQ(axi_iommu_cfg_req, iommu_cfg_cut)
+    `AXI_ASSIGN_FROM_RESP(iommu_cfg_cut, axi_iommu_cfg_rsp)
+
+    // AXI Bus: IOMMU Data Structure IF <=> AXI Cut
+    AXI_BUS #(
+      .AXI_ADDR_WIDTH ( AxiAddrWidth        ),
+      .AXI_DATA_WIDTH ( AxiDataWidth        ),
+      .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+      .AXI_USER_WIDTH ( AxiUserWidth        )
+    ) iommu_ds_cut ();
+
+    // AXI Cut for IOMMU Data Structure Interface
+    axi_cut_intf #(
+      .ADDR_WIDTH ( AxiAddrWidth   ),
+      .DATA_WIDTH ( AxiDataWidth   ),
+      .ID_WIDTH   ( ariane_soc::IdWidth ),
+      .USER_WIDTH ( AxiUserWidth   )
+    ) axi_iommu_ds_master_cut(
+      .clk_i  ( clk_i   ),
+      .rst_ni ( rst_ni  ),
+      .in     ( iommu_ds_cut ),
+      .out    ( iommu_ds )
+    );
+
+    // AXI Bus: IOMMU Completion IF <=> AXI Cut
+    AXI_BUS #(
+      .AXI_ADDR_WIDTH ( AxiAddrWidth        ),
+      .AXI_DATA_WIDTH ( AxiDataWidth        ),
+      .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+      .AXI_USER_WIDTH ( AxiUserWidth        )
+    ) iommu_comp_cut ();
+
+    // AXI Cut for IOMMU Completion Interface
+    axi_cut_intf #(
+      .ADDR_WIDTH ( AxiAddrWidth   ),
+      .DATA_WIDTH ( AxiDataWidth   ),
+      .ID_WIDTH   ( ariane_soc::IdWidth ),
+      .USER_WIDTH ( AxiUserWidth   )
+    ) axi_iommu_comp_master_cut(
+      .clk_i  ( clk_i   ),
+      .rst_ni ( rst_ni  ),
+      .in     ( iommu_comp_cut ),
+      .out    ( iommu_comp )
+    );
+
+    // -----------
+    //# DMA Engine
+    // -----------
+    if (InclDMA) begin : gen_dma
+
+      // AXI Bus: iDMA Master <=> IOMMU TR IF
+      AXI_BUS_EXT #(
+          .AXI_ADDR_WIDTH ( AxiAddrWidth          ),
+          .AXI_DATA_WIDTH ( AxiDataWidth          ),
+          .AXI_ID_WIDTH   ( ariane_soc::IdWidth   ),
+          .AXI_USER_WIDTH ( AxiUserWidth          )
+      ) axi_idma_master ();
+
+      // Conversion from SV interface to req/resp structs
+      `AXI_ASSIGN_TO_REQ(axi_iommu_tr_req, axi_idma_master)
+      `AXI_ASSIGN_FROM_RESP(axi_idma_master, axi_iommu_tr_rsp)
+
+      // Manually assign IOMMU-specific signals
+      // AW
+      assign axi_iommu_tr_req.aw.stream_id    = axi_idma_master.aw_stream_id;
+      assign axi_iommu_tr_req.aw.ss_id_valid  = axi_idma_master.aw_ss_id_valid;
+      assign axi_iommu_tr_req.aw.substream_id = axi_idma_master.aw_substream_id;
+      assign axi_iommu_tr_req.aw.nsaid        = axi_idma_master.aw_nsaid;
+      // AR
+      assign axi_iommu_tr_req.ar.stream_id    = axi_idma_master.ar_stream_id;
+      assign axi_iommu_tr_req.ar.ss_id_valid  = axi_idma_master.ar_ss_id_valid;
+      assign axi_iommu_tr_req.ar.substream_id = axi_idma_master.ar_substream_id;
+      assign axi_iommu_tr_req.ar.nsaid        = axi_idma_master.ar_nsaid;
+
+      // iDMA
+      dma_core_wrap_intf #(
+        .AXI_ADDR_WIDTH     ( AxiAddrWidth               ),
+        .AXI_DATA_WIDTH     ( AxiDataWidth               ),
+        .AXI_USER_WIDTH     ( AxiUserWidth               ),
+        .AXI_ID_WIDTH       ( ariane_soc::IdWidth        ),
+        .AXI_SLV_ID_WIDTH   ( ariane_soc::IdWidthSlave   ),
+        .JOB_FIFO_DEPTH     ( 2                          ),
+        .NUM_AX_IN_FLIGHT   ( 2                          ),
+        .MEM_SYS_DEPTH      ( 0                          ),
+        .BUFFER_DEPTH       ( 3                          ),
+        .RAW_COUPLING_AVAIL ( 1                          ),
+        .IS_TWO_D           ( 0                          ),
+
+        .STREAM_ID          ( 24'd10          ),
+        .NSAID              ( 4'd0            ),
+        .AxID               ( 5'd0            )
+      ) i_dma (
+        .clk_i      		    ( clk_i           ),
+        .rst_ni     		    ( rst_ni          ),
+        .testmode_i 		    ( 1'b0            ),
+        // slave port
+        .axi_slave  		    ( idma_cfg_cut    ),
+        // master port
+        .axi_master 		    ( axi_idma_master )
+		  );
+    end
+
+	  // --------------
+    //# No DMA Engine
+    // --------------
+	  //
+	  // When no DMA engine is included, TR AXI Bus request xVALID/xREADY wires are set to zero
+	  // AXI transactions directed to the DMA config port are responded with error.
+    else begin : gen_dma_disabled
+
+	    // AXI Bus: AXI Cut <=> iDMA Error Slave
+	    ariane_axi_soc::req_slv_t axi_dma_cfg_req;
+	    ariane_axi_soc::resp_slv_t axi_dma_cfg_rsp;
+	    `AXI_ASSIGN_TO_REQ(axi_dma_cfg_req, idma_cfg_cut)
+	    `AXI_ASSIGN_FROM_RESP(idma_cfg_cut, axi_dma_cfg_rsp)
+
+      // iDMA Error Slave
+      axi_err_slv #(
+        .AxiIdWidth ( ariane_soc::IdWidthSlave   ),
+        .axi_req_t  ( ariane_axi_soc::req_slv_t  ),
+        .axi_resp_t ( ariane_axi_soc::resp_slv_t )
+        ) i_idma_err_slv (
+        .clk_i      ( clk_i    				  ),
+        .rst_ni     ( rst_ni   				  ),
+        .slv_req_i  ( axi_dma_cfg_req   ),
+        .slv_resp_o ( axi_dma_cfg_rsp   ),
+        .test_i     ( 1'b0     				  )
+      );
+
+	    // Set TR IF request wires to a known state
+	    assign axi_iommu_tr_req.ar_valid    = 1'b0;
+      assign axi_iommu_tr_req.aw_valid    = 1'b0;
+      assign axi_iommu_tr_req.w_valid     = 1'b0;
+      assign axi_iommu_tr_req.b_ready     = 1'b0;
+      assign axi_iommu_tr_req.r_ready     = 1'b0;
+    end
+
+    // -------------------------------------------
+    //# RISC-V Input/Output Memory Management Unit
+    // -------------------------------------------
+    if (InclIOMMU) begin : gen_iommu
+
+      // AXI Bus: IOMMU Data Structure IF <=> AXI Cut
+      // Conversion from SV interface to req/resp structs
+      ariane_axi_soc::req_t  axi_iommu_ds_req;
+      ariane_axi_soc::resp_t axi_iommu_ds_rsp;
+      `AXI_ASSIGN_FROM_REQ(iommu_ds_cut, axi_iommu_ds_req)
+      `AXI_ASSIGN_TO_RESP(axi_iommu_ds_rsp, iommu_ds_cut)
+
+      // AXI Bus: IOMMU Completion IF <=> AXI Cut
+      // Conversion from SV interface to req/resp structs
+      ariane_axi_soc::req_t  axi_iommu_comp_req;
+      ariane_axi_soc::resp_t axi_iommu_comp_rsp;
+      `AXI_ASSIGN_FROM_REQ(iommu_comp_cut, axi_iommu_comp_req)
+      `AXI_ASSIGN_TO_RESP(axi_iommu_comp_rsp, iommu_comp_cut)
+
+      // IOMMU Memory-mapped Register IF types
+      // name, addr_t, data_t, strb_t
+      `REG_BUS_TYPEDEF_ALL(iommu_reg, ariane_axi_soc::addr_t, logic[31:0], logic[3:0])
+
+      riscv_iommu #(
+        .IOTLB_ENTRIES  ( 4	    				),
+        .DDTC_ENTRIES		( 4							),
+        .PDTC_ENTRIES		( 4							),
+        .MRIFC_ENTRIES	( 4							),
+
+        .MSITrans			  ( rv_iommu::MSI_FLAT_MRIF	    ),
+        .InclPC         ( 1'b0						            ),
+        .InclBC         ( 1'b1                        ),
+        .InclDBG			  ( 1'b1						            ),
+
+        .IGS            ( rv_iommu::BOTH              ),
+        .N_INT_VEC      ( ariane_soc::IOMMUNumWires   ),
+        .N_IOHPMCTR     ( 6                           ),
+
+        .ADDR_WIDTH			( AxiAddrWidth				        ),
+        .DATA_WIDTH			( AxiDataWidth				        ),
+        .ID_WIDTH			  ( ariane_soc::IdWidth		      ),
+        .ID_SLV_WIDTH		( ariane_soc::IdWidthSlave	  ),
+        .USER_WIDTH			( AxiUserWidth				        ),
+        .aw_chan_t			( ariane_axi_soc::aw_chan_t   ),
+        .w_chan_t			  ( ariane_axi_soc::w_chan_t	  ),
+        .b_chan_t			  ( ariane_axi_soc::b_chan_t	  ),
+        .ar_chan_t			( ariane_axi_soc::ar_chan_t   ),
+        .r_chan_t			  ( ariane_axi_soc::r_chan_t	  ),
+        .axi_req_t			( ariane_axi_soc::req_t		    ),
+        .axi_rsp_t			( ariane_axi_soc::resp_t	    ),
+        .axi_req_slv_t	( ariane_axi_soc::req_slv_t	  ),
+        .axi_rsp_slv_t	( ariane_axi_soc::resp_slv_t  ),
+        .axi_req_iommu_t( ariane_axi_soc::req_ext_t   ),
+        .reg_req_t		  ( iommu_reg_req_t			        ),
+        .reg_rsp_t		  ( iommu_reg_rsp_t			        )
+      ) i_riscv_iommu (
+
+        .clk_i				    ( clk_i						        ),
+        .rst_ni				    ( rst_ni					        ),
+
+        // Translation Request Interface (Slave)
+        .dev_tr_req_i		  ( axi_iommu_tr_req		    ),
+        .dev_tr_resp_o		( axi_iommu_tr_rsp		    ),
+
+        // Translation Completion Interface (Master)
+        .dev_comp_resp_i	( axi_iommu_comp_rsp	    ),
+        .dev_comp_req_o		( axi_iommu_comp_req	    ),
+
+        // Implicit Memory Accesses Interface (Master)
+        .ds_resp_i			  ( axi_iommu_ds_rsp		    ),
+        .ds_req_o			    ( axi_iommu_ds_req		    ),
+
+        // Programming Interface (Slave) (AXI4 -> Reg IF)
+        .prog_req_i			  ( axi_iommu_cfg_req		    ),
+        .prog_resp_o		  ( axi_iommu_cfg_rsp		    ),
+
+        .wsi_wires_o      ( irq_sources[153:150]    )
+      );
+
+    //-----------
+    //# No IOMMU:
+    //-----------
+    //
+    // When the IOMMU is not included, translation requests are bypassed directly to the XBAR.
+    // AXI transactions performed to the IOMMU programmming IF are responded with error.
+    // All Data Structure IF request xVALID/xREADY wires are set to zero.
+    end else begin : gen_iommu_disabled
+
+      axi_err_slv #(
+          .AxiIdWidth   ( ariane_soc::IdWidthSlave   ),
+          .axi_req_t    ( ariane_axi_soc::req_slv_t  ),
+          .axi_resp_t   ( ariane_axi_soc::resp_slv_t )
+      ) i_iommu_err_slv (
+          .clk_i        ( clk_i             ),
+          .rst_ni       ( rst_ni            ),
+          .test_i       ( 1'b0              ),
+          .slv_req_i    ( axi_iommu_cfg_req ),
+          .slv_resp_o   ( axi_iommu_cfg_rsp )
+      );
+
+      // Connect directly the device to the System Interconnect
+      // iDMA Master IF <=> IOMMU Completion IF AXI Cut
+      `AXI_ASSIGN_FROM_REQ(iommu_comp_cut, axi_iommu_tr_req)
+      `AXI_ASSIGN_TO_RESP(axi_iommu_tr_rsp, iommu_comp_cut)
+
+		  // Set Data Structures IF request xVALID/xREADY wires to a known state
+      assign iommu_ds_cut.aw_valid  = 1'b0;
+      assign iommu_ds_cut.w_valid   = 1'b0;
+      assign iommu_ds_cut.b_ready   = 1'b0;
+      assign iommu_ds_cut.ar_valid  = 1'b0;
+      assign iommu_ds_cut.r_ready   = 1'b0;
+
+      assign irq_sources[(ariane_soc::IOMMUNumWires-1)+150:150] = '0;
     end
 endmodule

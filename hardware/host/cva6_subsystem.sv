@@ -590,6 +590,18 @@ module cva6_subsystem
     end_addr:   ariane_soc::UARTBase     + ariane_soc::UARTLength
   };
 
+  assign addr_map[ariane_soc::DMA_CFG] = '{ 
+    idx:        ariane_soc::DMA_CFG,
+    start_addr: ariane_soc::DMABase,
+    end_addr:   ariane_soc::DMABase + ariane_soc::DMALength
+  };
+
+  assign addr_map[ariane_soc::IOMMU_CFG] = '{
+    idx:        ariane_soc::IOMMU_CFG,
+    start_addr: ariane_soc::IOMMUBase,
+    end_addr:   ariane_soc::IOMMUBase + ariane_soc::IOMMULength
+  };
+
   assign addr_map[ariane_soc::AXILiteDom] = '{
     idx:  ariane_soc::AXILiteDom,
     start_addr: ariane_soc::AXILiteBase,
@@ -700,41 +712,47 @@ module cva6_subsystem
 `else
     .InclSPI      ( 1'b0                     ),
 `endif
-    .InclEthernet ( 1'b1                     )
+    .InclEthernet ( 1'b1                     ),
+    .InclDMA      ( 1'b1                     ),
+    .InclIOMMU    ( 1'b1                     )
   ) i_ariane_peripherals (
-    .clk_i           ( clk_i                        ),
-    .rst_ni          ( ndmreset_n                   ),
-    .plic            ( master[ariane_soc::PLIC]     ),
-    .uart            ( master[ariane_soc::UART]     ),
-    .spi             ( master[ariane_soc::SPI]      ),
-    .ethernet        ( master[ariane_soc::Ethernet] ),
-    .timer           ( master[ariane_soc::Timer]    ),
-    .imsic           ( master[ariane_soc::IMSIC]    ),
-    .i_priv_lvl      ( imsic_priv_lvl               ), 
-    .i_vgein         ( imsic_vgein                  ),
-    .i_imsic_addr    ( imsic_addr                   ),   
-    .i_imsic_data    ( imsic_data_o                 ),   
-    .i_imsic_we      ( imsic_we                     ), 
-    .i_imsic_claim   ( imsic_claim                  ),     
-    .o_imsic_data    ( imsic_data_i                 ),   
-    .o_xtopei        ( imsic_xtopei                 ),
-    .irq_o           ( irqs                         ),     
-    .o_imsic_exception( imsic_exception             ),
-    .udma_evt_i      ( udma_events_i                ),
-    .cluster_eoc_i   ( cluster_eoc_i                ),
-    .c2h_irq_i       ( c2h_irq_i                    ),
-    .can_irq_i       ( can_irq_i                    ),
-    .pwm_irq_i       ( pwm_irq_i                    ),
-    .cl_dma_pe_evt_i ( cl_dma_pe_evt_i              ),
-    .rx_i            ( cva6_uart_rx_i               ),
-    .tx_o            ( cva6_uart_tx_o               ),
+    .clk_i            ( clk_i                         ),
+    .rst_ni           ( ndmreset_n                    ),
+    .plic             ( master[ariane_soc::PLIC]      ),
+    .uart             ( master[ariane_soc::UART]      ),
+    .spi              ( master[ariane_soc::SPI]       ),
+    .ethernet         ( master[ariane_soc::Ethernet]  ),
+    .timer            ( master[ariane_soc::Timer]     ),
+    .dma_cfg          ( master[ariane_soc::DMA_CFG]   ),
+    .iommu_comp       ( slave[6]                      ),
+    .iommu_ds         ( slave[7]                      ),
+    .iommu_cfg        ( master[ariane_soc::IOMMU_CFG] ),
+    .imsic            ( master[ariane_soc::IMSIC]     ),
+    .i_priv_lvl       ( imsic_priv_lvl                ), 
+    .i_vgein          ( imsic_vgein                   ),
+    .i_imsic_addr     ( imsic_addr                    ),   
+    .i_imsic_data     ( imsic_data_o                  ),   
+    .i_imsic_we       ( imsic_we                      ), 
+    .i_imsic_claim    ( imsic_claim                   ),     
+    .o_imsic_data     ( imsic_data_i                  ),   
+    .o_xtopei         ( imsic_xtopei                  ),
+    .irq_o            ( irqs                          ),     
+    .o_imsic_exception( imsic_exception               ),
+    .udma_evt_i       ( udma_events_i                 ),
+    .cluster_eoc_i    ( cluster_eoc_i                 ),
+    .c2h_irq_i        ( c2h_irq_i                     ),
+    .can_irq_i        ( can_irq_i                     ),
+    .pwm_irq_i        ( pwm_irq_i                     ),
+    .cl_dma_pe_evt_i  ( cl_dma_pe_evt_i               ),
+    .rx_i             ( cva6_uart_rx_i                ),
+    .tx_o             ( cva6_uart_tx_o                ),
 
-    .eth_clk_i        ( eth_clk_i                   ),
-    .eth_phy_tx_clk_i ( eth_phy_tx_clk_i            ),
-    .eth_clk_200MHz_i ( eth_clk_200MHz_i            ),
+    .eth_clk_i        ( eth_clk_i                     ),
+    .eth_phy_tx_clk_i ( eth_phy_tx_clk_i              ),
+    .eth_clk_200MHz_i ( eth_clk_200MHz_i              ),
 
-    .eth_to_pad       ( eth_to_pad                  ),
-    .pad_to_eth       ( pad_to_eth                  ),
+    .eth_to_pad       ( eth_to_pad                    ),
+    .pad_to_eth       ( pad_to_eth                    ),
 
     .irq_mbox_i
   );
