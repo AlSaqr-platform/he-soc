@@ -287,19 +287,19 @@ module cva6_subsystem
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
   ) i_dm_axi2mem (
-    .clk_i      ( clk_i                     ),
-    .rst_ni     ( rst_ni                    ),
-    .slave      ( master[ariane_soc::Debug] ),
-    .req_o      ( dm_slave_req              ),
-    .we_o       ( dm_slave_we               ),
-    .addr_o     ( dm_slave_addr             ),
-    .be_o       ( dm_slave_be               ),
-    .data_o     ( dm_slave_wdata            ),
-    .data_i     ( dm_slave_rdata            )
+    .clk_i      ( clk_i                         ),
+    .rst_ni     ( rst_ni                        ),
+    .slave      ( master[ariane_soc::Debug_Slv] ),
+    .req_o      ( dm_slave_req                  ),
+    .we_o       ( dm_slave_we                   ),
+    .addr_o     ( dm_slave_addr                 ),
+    .be_o       ( dm_slave_be                   ),
+    .data_o     ( dm_slave_wdata                ),
+    .data_i     ( dm_slave_rdata                )
   );
 
-  `AXI_ASSIGN_FROM_REQ(slave[1],dm_axi_m_req)
-  `AXI_ASSIGN_TO_RESP(dm_axi_m_resp,slave[1])
+  `AXI_ASSIGN_FROM_REQ(slave[ariane_soc::DEBUG_MST],dm_axi_m_req)
+  `AXI_ASSIGN_TO_RESP(dm_axi_m_resp,slave[ariane_soc::DEBUG_MST])
 
   axi_adapter #(
     .DATA_WIDTH            ( AXI_DATA_WIDTH            ),
@@ -408,8 +408,8 @@ module cva6_subsystem
   // AXI OpenTitan Master
   // ---------------
 
-  `AXI_ASSIGN_FROM_REQ(slave[3], ot_axi_req)
-  `AXI_ASSIGN_TO_RESP (ot_axi_rsp, slave[3])
+  `AXI_ASSIGN_FROM_REQ(slave[ariane_soc::ROT], ot_axi_req)
+  `AXI_ASSIGN_TO_RESP (ot_axi_rsp, slave[ariane_soc::ROT])
 
   // ---------------
   // AXI hyperbus Slave
@@ -467,7 +467,7 @@ module cva6_subsystem
   // AXI CLUSTER Slave
   // ---------------
 
-  `AXI_ASSIGN(cluster_axi_master_cut,master[ariane_soc::Cluster])
+  `AXI_ASSIGN(cluster_axi_master_cut,master[ariane_soc::Cluster_Slv])
 
   axi_cut_intf #(
     .BYPASS     ( 1'b0                     ),
@@ -485,17 +485,17 @@ module cva6_subsystem
   // ---------------
   // AXI CLUSTER Master
   // ---------------
-  `AXI_ASSIGN(slave[2],cluster_axi_slave)
+  `AXI_ASSIGN(slave[ariane_soc::CLUSTER_MST], cluster_axi_slave)
 
   // ---------------
   // AXI uDMA TX L3 Master (READ ONLY from MEM)
   // ---------------
-  `AXI_ASSIGN(slave[4],udma_tx_l3_axi_slave)
+  `AXI_ASSIGN(slave[ariane_soc::UDMA_TX], udma_tx_l3_axi_slave)
 
   // ---------------
   // AXI uDMA RX L3 Master (WRITE ONLY to MEM)
   // ---------------
-  `AXI_ASSIGN(slave[5],udma_rx_l3_axi_slave)
+  `AXI_ASSIGN(slave[ariane_soc::UDMA_RX], udma_rx_l3_axi_slave)
 
   // ---------------
   // AXI Xbar
@@ -518,8 +518,8 @@ module cva6_subsystem
 
   ariane_soc::addr_map_rule_t [ariane_soc::NB_PERIPHERALS:0] addr_map; // One extra for the LLCSPM
 
- assign addr_map[ariane_soc::Debug] = '{
-    idx:  ariane_soc::Debug,
+ assign addr_map[ariane_soc::Debug_Slv] = '{
+    idx:  ariane_soc::Debug_Slv,
     start_addr: ariane_soc::DebugBase,
     end_addr:   ariane_soc::DebugBase    + ariane_soc::DebugLength
   };
@@ -542,8 +542,8 @@ module cva6_subsystem
     end_addr:   ariane_soc::PLICBase     + ariane_soc::PLICLength
   };
 
-  assign addr_map[ariane_soc::Cluster] = '{
-    idx:  ariane_soc::Cluster,
+  assign addr_map[ariane_soc::Cluster_Slv] = '{
+    idx:  ariane_soc::Cluster_Slv,
     start_addr: ariane_soc::ClusterBase,
     end_addr:   ariane_soc::ClusterBase     + ariane_soc::ClusterLength
   };
@@ -738,11 +738,11 @@ module cva6_subsystem
     .ethernet         ( master[ariane_soc::Ethernet]  ),
     .timer            ( master[ariane_soc::Timer]     ),
     .dma_cfg          ( master[ariane_soc::SDMA_CFG]  ),
-    .iommu_comp       ( slave[6]                      ),
-    .iommu_ds         ( slave[7]                      ),
+    .iommu_comp       ( slave[ariane_soc::IOMMU_COMP] ),
+    .iommu_ds         ( slave[ariane_soc::IOMMU_DS]   ),
     .iommu_cfg        ( master[ariane_soc::IOMMU_CFG] ),
     .dma_cfg          ( master[ariane_soc::MDMA_CFG]  ),
-    .iopmp_init       ( slave[8]                      ),
+    .iopmp_init       ( slave[ariane_soc::IOPMP_INIT] ),
     .iopmp_cfg        ( master[ariane_soc::IOPMP_CFG] ),
     .imsic            ( master[ariane_soc::IMSIC]     ),
     .i_priv_lvl       ( imsic_priv_lvl                ), 

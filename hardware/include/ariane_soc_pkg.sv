@@ -33,7 +33,20 @@ package ariane_soc;
   localparam int unsigned NrIntpFiles     = cva6_config_pkg::CVA6ConfigNrIntpFiles; 
   localparam int unsigned NrSourcesW      = cva6_config_pkg::CVA6ConfigNrSourcesW;
 
-  localparam NrSlaves = 9; // actually masters, but slaves on the crossbar: Debug module, CVA6, Cluster, uDMA (tx + rx), IOMMU Completion IF and DS IF, IOPMP initiator port
+  // actually masters, but slaves on the crossbar
+  typedef enum int unsigned {
+    CVA6        = 0,  // CVA6
+    DEBUG_MST   = 1,  // Debug module master port
+    CLUSTER_MST = 2,  // Cluster master port
+    ROT         = 3,  // RoT
+    UDMA_TX     = 4,  // uDMA (tx)
+    UDMA_RX     = 5,  // uDMA (rx)
+    IOMMU_COMP  = 6,  // IOMMU Completion Interface
+    IOMMU_DS    = 7,  // IOMMU Data Structure Interface
+    IOPMP_INIT  = 8   // IOPMP Initiator Port
+  } axi_masters_t;
+
+  localparam NrSlaves = IOPMP_INIT + 1;   // 9
 
   typedef struct packed {
       logic [31:0] idx;
@@ -72,11 +85,11 @@ package ariane_soc;
     Timer       = 7,
     APB_SLVS    = 6,
     L2SPM       = 5,
-    Cluster     = 4,
+    Cluster_Slv = 4,
     PLIC        = 3,
     CLINT       = 2,
     ROM         = 1,
-    Debug       = 0
+    Debug_Slv   = 0
   } axi_slaves_t;
 
   localparam NB_PERIPHERALS = HYAXI + 1;
