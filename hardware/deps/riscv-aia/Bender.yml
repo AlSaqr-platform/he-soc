@@ -6,6 +6,7 @@ package:
     
 sources:
   - vendor/reg_intf_pkg.sv
+  - vendor/aia_axi_lite_slave.sv
   - rtl/ieaia/aplic_domain_gateway.sv
   - rtl/ieaia/imsic_regmap.sv
   - rtl/ieaia/imsic_top.sv
