@@ -44,17 +44,18 @@ module ariane_peripherals
     AXI_BUS.Slave                                                                       timer            ,
     
     // IOMMU
-    AXI_BUS.Slave                                                                       sdma_cfg          ,
+    AXI_BUS.Slave                                                                       sdma_cfg         ,
     AXI_BUS.Master                                                                      iommu_comp       ,
     AXI_BUS.Master                                                                      iommu_ds         ,
     AXI_BUS.Slave                                                                       iommu_cfg        ,
 
     // IOPMP
-    AXI_BUS.Slave                                                                       mdma_cfg          ,
+    AXI_BUS.Slave                                                                       mdma_cfg         ,
     AXI_BUS.Master                                                                      iopmp_init       ,
     AXI_BUS.Slave                                                                       iopmp_cfg        ,
 
     // IMSIC
+    AXI_BUS.Slave                                                                       imsic            ,
     input  logic [NumCVA6-1:0][1:0]                                                     i_priv_lvl       ,
     input  logic [NumCVA6-1:0][ariane_soc::NrVSIntpFilesW:0]                            i_vgein          ,
     input  logic [NumCVA6-1:0][31:0]                                                    i_imsic_addr     ,
@@ -1048,7 +1049,7 @@ module ariane_peripherals
     ) axi_iopmp_cp_cut(
       .clk_i  ( clk_i   ),
       .rst_ni ( rst_ni  ),
-      .in     ( iopmp_cp ),
+      .in     ( iopmp_cfg ),
       .out    ( iopmp_cp_cut )
     );
 
@@ -1076,7 +1077,7 @@ module ariane_peripherals
       .clk_i  ( clk_i   ),
       .rst_ni ( rst_ni  ),
       .in     ( iopmp_ip_cut ),
-      .out    ( iopmp_ip )
+      .out    ( iopmp_init )
     );
 
     // -----------------
@@ -1182,7 +1183,7 @@ module ariane_peripherals
         In the future, an IOPMP will be capable to configure subsequent transactions to IOPMPs downstream (cascade)
         To support this feature, the request port of the IOPMP Receiver Port integrates the NSAIDs
       */
-      ariane_axi_soc::req_nsaid_t axi_iopmp_ip_req;
+      ariane_axi_soc::req_ext_t   axi_iopmp_ip_req;
       ariane_axi_soc::resp_t      axi_iopmp_ip_rsp;
       `AXI_ASSIGN_FROM_REQ(iopmp_ip_cut, axi_iopmp_ip_req)
       `AXI_ASSIGN_TO_RESP(axi_iopmp_ip_rsp, iopmp_ip_cut)
@@ -1200,6 +1201,7 @@ module ariane_peripherals
 
         // AXI request/response
         .axi_req_nsaid_t        ( ariane_axi_soc::req_ext_t   ),
+        .axi_req_t			        ( ariane_axi_soc::req_t	      ),
         .axi_rsp_t			        ( ariane_axi_soc::resp_t	    ),
         .axi_req_slv_t		      ( ariane_axi_soc::req_slv_t	  ),
         .axi_rsp_slv_t		      ( ariane_axi_soc::resp_slv_t  ),
@@ -1217,8 +1219,7 @@ module ariane_peripherals
         // Implementation specific
         .NUMBER_MDS             ( 16 ),
         .NUMBER_ENTRIES         ( 32 ),
-        .NUMBER_MASTERS         ( 1  ),
-        .NUMBER_ENTRY_ANALYZERS ( 8  )
+        .NUMBER_MASTERS         ( 1  )
     ) i_riscv_iopmp (
         .clk_i				      ( clk_i						  ),
         .rst_ni				      ( rst_ni					  ),

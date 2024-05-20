@@ -107,8 +107,9 @@ package ariane_soc;
   localparam logic[63:0] DebugLength    = 64'h1000;
   localparam logic[63:0] ROMLength      = 64'h10000;
   localparam logic[63:0] UARTLength     = 64'h1000;
-  localparam logic[63:0] DMALength      = 64'h1000;  
+  localparam logic[63:0] SDMALength     = 64'h1000;  
   localparam logic[63:0] IOMMULength    = 64'h1000;
+  localparam logic[63:0] MDMALength     = 64'h1000;  
   localparam logic[63:0] IOPMPLength    = 64'h4000;
   localparam logic[63:0] AXILiteLength  = 64'h100000; // Same on cluster side
   localparam logic[63:0] CLINTLength    = 64'hC0000;
@@ -144,9 +145,10 @@ package ariane_soc;
     IMSICBase    = 64'h2400_0000,
     EthernetBase = 64'h3000_0000,
     UARTBase     = 64'h4000_0000,
-    DMABase      = 64'h5000_0000,
+    SDMABase     = 64'h5000_0000,
     IOMMUBase    = 64'h5001_0000,
-    IOPMPBase    = 64'h5002_0000,
+    MDMABase     = 64'h5002_0000,
+    IOPMPBase    = 64'h5003_0000,
     LLCSPMBase   = 64'h7000_0000,
     HYAXIBase    = 64'h8000_0000
   } soc_bus_start_t;

@@ -114,10 +114,4 @@ interface AXI_BUS_EXT #(
     output r_id, r_data, r_resp, r_last, r_user, r_valid, input r_ready
   );
 
-<<<<<<< HEAD
 endinterface
-
-
-=======
-endinterface
->>>>>>> feat/iopmp
