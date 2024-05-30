@@ -48,19 +48,10 @@ fi
 if [ "$MAIN_MEM" = "DDR4" ]; then
     read -p "Are you validating the peripherals? y/n " SIMPLE_PAD
     if [ "$SIMPLE_PAD" = "y" ]; then
-        read -p "Which peripherals are you validating:  1-ETHERNET 2-(SPI I2C UART SDIO): " SIMPLE_PAD
-        if [ "$SIMPLE_PAD" = "1" ]; then
-            read -p "The ETHERNET module is attached to the padframe? y/n " SIMPLE_PAD
-            if [ "$SIMPLE_PAD" = "y" ]; then
-                export SIMPLE_PAD="ETH"
-            else
-                export ETH2FMC_NO_PAD="1"
-                export SIMPLE_PAD="0"
-            fi
-        elif [ "$SIMPLE_PAD" = "2" ]; then
+            export ETH2FMC_NO_PAD="1"
             export SIMPLE_PAD="SPI-I2C-UART-SDIO"
-        fi
     elif [ "$SIMPLE_PAD" = "n" ]; then
+        export ETH2FMC_NO_PAD="0"
         export SIMPLE_PAD="0"
     fi
 fi

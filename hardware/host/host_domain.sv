@@ -232,7 +232,7 @@ module host_domain
    assign   soc_rst_no = s_synch_soc_rst;
    assign   rstn_cluster_sync_o = s_rstn_cluster_sync;
 
-   `ifdef ETH2FMC_NO_PADFRAME
+  `ifdef ETH2FMC_NO_PADFRAME
      assign   s_eth_clk_300MHz_i = clk_300MHz;
      assign   s_eth_phy_tx_clk_i = clk_125MHz;
      assign   s_eth_clk_i        = clk_125MHz90;
