@@ -1806,7 +1806,7 @@ module ariane_tb;
                .rst_int(!s_eth_rstni),
                .clk_int( s_eth_clk125_0  ), // 125 MHz in-phase
                .clk90_int(  s_eth_clk125_90 ),    // 125 MHz quadrature
-               .clk_200_int(s_eth_clk300),
+               .clk_iodelay_int(s_eth_clk300),
                /*
                 * Ethernet: 1000BASE-T RGMII
                 */
@@ -2203,7 +2203,7 @@ module ariane_tb;
 
              .clk_int( s_eth_clk125_0  ), // 125 MHz in-phase
              .clk90_int( s_eth_clk125_90 ),    // 125 MHz quadrature
-             .clk_200_int(s_eth_clk300),
+             .clk_iodelay_int(s_eth_clk300),
              /*
               * Ethernet: 1000BASE-T RGMII
               */
@@ -3271,7 +3271,6 @@ module ariane_tb;
       forever
         #(REFClockPeriod125/2) s_tck125_90=~s_tck125_90;
     end
-
   `endif
 
 `ifndef USE_LOCAL_JTAG
