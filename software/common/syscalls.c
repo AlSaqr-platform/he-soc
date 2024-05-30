@@ -124,10 +124,16 @@ void _init(int cid, int nc)
      tmp = (int *) 0x1a10407C;
      *tmp = 1;
      int baud_rate = 115200;
+     #ifndef FPGA_ETHERNET
      int test_freq = 40000000;
+     #else
+     int test_freq = 50000000;
+     #endif
      #endif
      uart_set_cfg(0,(test_freq/baud_rate)>>4);
+     #ifndef FPGA_EMULATION
      set_flls();
+     #endif
      /* Set plic mbox IRQ priority to 1 */
      tmp = (int *) 0xC000028;
      *tmp = 0x1;
