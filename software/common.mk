@@ -44,10 +44,21 @@ RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump -h --disassemble-all --disassemble-zeroe
 RISCV_FLAGS     := -mcmodel=medany -static -std=gnu99 -DNUM_CORES=2 -O3 -ffast-math -fno-common -fno-builtin-printf $(INC)
 RISCV_LINK_OPTS := -static -nostdlib -nostartfiles -lm -lgcc
 
+################
+## FPGA FLAGS ##
+################
 
+# When sw is compiled with fpga=1 uart baudrate is derived from a source clock of 40MHz - This should be used when you are NOT testing peripherals
 ifdef fpga
 	RISCV_FLAGS += -DFPGA_EMULATION
 endif
+
+# When sw is compiled with fpga_ethernet=1 uart baudrate is derived from a source clock of 50MHz - This should be used when you are testing peripherals
+ifdef fpga_ethernet
+	RISCV_FLAGS += -DFPGA_EMULATION
+	RISCV_FLAGS += -DFPGA_ETHERNET
+endif
+
 
 ifdef FLL_DRIVER
 	RISCV_FLAGS += -DFLL_DRIVER
