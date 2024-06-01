@@ -698,16 +698,9 @@ module cva6_subsystem
   // Peripherals
   // ---------------
   logic tx, rx;
-  logic [ariane_soc::NumCVA6-1:0][ariane_pkg::NrIntpFiles-1:0]                               irqs              ;
-  logic [ariane_soc::NumCVA6-1:0][1:0]                                                       imsic_priv_lvl    ;
-  logic [ariane_soc::NumCVA6-1:0][ariane_pkg::NrVSIntpFilesW:0]                              imsic_vgein       ;
-  logic [ariane_soc::NumCVA6-1:0][31:0]                                                      imsic_addr        ;
-  logic [ariane_soc::NumCVA6-1:0][riscv::XLEN-1:0]                                           imsic_data_i      ;
-  logic [ariane_soc::NumCVA6-1:0]                                                            imsic_we          ;
-  logic [ariane_soc::NumCVA6-1:0]                                                            imsic_claim       ;
-  logic [ariane_soc::NumCVA6-1:0][riscv::XLEN-1:0]                                           imsic_data_o      ;
-  logic [ariane_soc::NumCVA6-1:0]                                                            imsic_exception   ;
-  logic [ariane_soc::NumCVA6-1:0][ariane_pkg::NrIntpFiles-1:0][ariane_pkg::NrSourcesW-1:0]   imsic_xtopei      ;
+  logic [ariane_soc::NumCVA6-1:0][ariane_pkg::NrIntpFiles-1:0]    irqs;
+  imsic_pkg::csr_channel_to_imsic_t   [ariane_soc::NumCVA6-1:0]   ch_csr_to_imsic; 
+  imsic_pkg::csr_channel_from_imsic_t [ariane_soc::NumCVA6-1:0]   ch_imsic_to_csr;
 
   ariane_peripherals #(
     .NumCVA6      ( ariane_soc::NumCVA6      ),
@@ -745,16 +738,9 @@ module cva6_subsystem
     .iopmp_init       ( slave[ariane_soc::IOPMP_INIT] ),
     .iopmp_cfg        ( master[ariane_soc::IOPMP_CFG] ),
     .imsic            ( master[ariane_soc::IMSIC]     ),
-    .i_priv_lvl       ( imsic_priv_lvl                ), 
-    .i_vgein          ( imsic_vgein                   ),
-    .i_imsic_addr     ( imsic_addr                    ),   
-    .i_imsic_data     ( imsic_data_o                  ),   
-    .i_imsic_we       ( imsic_we                      ), 
-    .i_imsic_claim    ( imsic_claim                   ),     
-    .o_imsic_data     ( imsic_data_i                  ),   
-    .o_xtopei         ( imsic_xtopei                  ),
-    .irq_o            ( irqs                          ),     
-    .o_imsic_exception( imsic_exception               ),
+    .imsic_csr_i      ( ch_csr_to_imsic               ),
+    .imsic_csr_o      ( ch_imsic_to_csr               ),
+    .irq_o            ( irqs                          ),
     .udma_evt_i       ( udma_events_i                 ),
     .cluster_eoc_i    ( cluster_eoc_i                 ),
     .c2h_irq_i        ( c2h_irq_i                     ),
@@ -770,7 +756,7 @@ module cva6_subsystem
 
     .eth_to_pad       ( eth_to_pad                    ),
     .pad_to_eth       ( pad_to_eth                    ),
-    
+
     .irq_mbox_i
   );
 
@@ -782,15 +768,8 @@ module cva6_subsystem
     .clk_i                ( cva6_clk_i                  ),
     .rst_ni               ( cva6_rst_ni                 ),
     .boot_addr_i          ( ariane_soc::ROMBase         ), // start fetching from ROM
-    .imsic_priv_lvl_o     ( imsic_priv_lvl              ),
-    .imsic_vgein_o        ( imsic_vgein                 ),
-    .imsic_addr_o         ( imsic_addr                  ),
-    .imsic_data_o         ( imsic_data_o                ),
-    .imsic_we_o           ( imsic_we                    ),
-    .imsic_claim_o        ( imsic_claim                 ),
-    .imsic_data_i         ( imsic_data_i                ),
-    .imsic_exception_i    ( imsic_exception             ),
-    .imsic_xtopei_i       ( imsic_xtopei                ),
+    .imsic_csr_i          ( ch_imsic_to_csr             ),
+    .imsic_csr_o          ( ch_csr_to_imsic             ),
     .irq_i                ( irqs                        ), // async signal
     .ipi_i                ( ipi                         ), // async signal
     .time_irq_i           ( timer_irq                   ), // async signal
