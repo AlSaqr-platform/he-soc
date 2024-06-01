@@ -51,15 +51,8 @@ module cva6_synth_wrap
   // Core ID, Cluster ID and boot address are considered more or less static
   input  logic [riscv::VLEN-1:0]       boot_addr_i,  // reset boot address
   // IMSIC facilities
-  output  logic [ariane_soc::NumCVA6-1:0][1:0]                                                     imsic_priv_lvl_o  ,
-  output  logic [ariane_soc::NumCVA6-1:0][ariane_pkg::NrVSIntpFilesW:0]                            imsic_vgein_o     ,
-  output  logic [ariane_soc::NumCVA6-1:0][31:0]                                                    imsic_addr_o      ,
-  output  logic [ariane_soc::NumCVA6-1:0][riscv::XLEN-1:0]                                         imsic_data_o      ,
-  output  logic [ariane_soc::NumCVA6-1:0]                                                          imsic_we_o        ,
-  output  logic [ariane_soc::NumCVA6-1:0]                                                          imsic_claim_o     ,
-  input   logic [ariane_soc::NumCVA6-1:0][riscv::XLEN-1:0]                                         imsic_data_i      ,
-  input   logic [ariane_soc::NumCVA6-1:0]                                                          imsic_exception_i ,
-  input   logic [ariane_soc::NumCVA6-1:0][ariane_pkg::NrIntpFiles-1:0][ariane_pkg::NrSourcesW-1:0] imsic_xtopei_i    ,
+  input  imsic_pkg::csr_channel_from_imsic_t [ariane_soc::NumCVA6-1:0]   imsic_csr_i,
+  output imsic_pkg::csr_channel_to_imsic_t   [ariane_soc::NumCVA6-1:0]   imsic_csr_o, 
   // Interrupt inputs
   input  logic [ariane_soc::NumCVA6-1:0][ariane_soc::NrIntpFiles-1:0] irq_i,// level sensitive IR lines, mip & sip (async)
   input  logic [ariane_soc::NumCVA6-1:0]      ipi_i,        // inter-processor interrupts (async)
@@ -166,15 +159,8 @@ module cva6_synth_wrap
       .rst_ni               ( rst_ni                ),
       .boot_addr_i          ( ariane_soc::ROMBase   ), // start fetching from ROM
       .hart_id_i            ( { 62'h0, hart_id[i] } ),
-      .imsic_priv_lvl_o     ( imsic_priv_lvl_o[i]   ),          
-      .imsic_vgein_o        ( imsic_vgein_o[i]      ),    
-      .imsic_addr_o         ( imsic_addr_o[i]       ),  
-      .imsic_data_o         ( imsic_data_o[i]       ),  
-      .imsic_we_o           ( imsic_we_o[i]         ),
-      .imsic_claim_o        ( imsic_claim_o[i]      ),    
-      .imsic_data_i         ( imsic_data_i[i]       ),  
-      .imsic_exception_i    ( imsic_exception_i[i]  ),            
-      .imsic_xtopei_i       ( imsic_xtopei_i[i]     ),      
+      .imsic_csr_i          ( imsic_csr_i[i]        ),
+      .imsic_csr_o          ( imsic_csr_o[i]        ),
       .irq_i                ( irq_i[i]              ),
       .ipi_i                ( ipi_i[i]              ),
       .time_irq_i           ( time_irq_i[i]         ),
