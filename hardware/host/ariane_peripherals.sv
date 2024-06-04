@@ -59,7 +59,6 @@ module ariane_peripherals
     input  imsic_pkg::csr_channel_to_imsic_t   [NumCVA6-1:0]  imsic_csr_i      , 
     output imsic_pkg::csr_channel_from_imsic_t [NumCVA6-1:0]  imsic_csr_o      ,
     output logic [NumCVA6-1:0][ariane_soc::NrIntpFiles-1:0]   irq_o            ,
-    output logic [NumCVA6-1:0][ariane_soc::NrIntpFiles-1:0]   irq_o            ,
     input  logic [31*4-1:0]                                   udma_evt_i       ,
     input  logic                                              c2h_irq_i        ,
     input  logic                                              cluster_eoc_i    ,
