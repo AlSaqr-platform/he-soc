@@ -1,13 +1,13 @@
 PROJECT:=xilinx_qspi
 
 all:
-	vivado-2018.2 vivado -mode batch -source ./run.tcl
+	vivado -mode batch -source ./run.tcl
 	mkdir -p ip
 	cp -r ${PROJECT}.srcs/sources_1/ip/${PROJECT}/* ip/.
 	cp ${PROJECT}.runs/${PROJECT}_synth_1/${PROJECT}.dcp ip/.
 
 gui:
-	vivado-2018.2 vivado -mode gui -source tcl/run.tcl &
+	vivado -mode gui -source tcl/run.tcl &
 
 clean:
 	rm -rf ip/*

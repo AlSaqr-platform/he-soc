@@ -1,0 +1,43 @@
+package:
+  name: riscv-aia
+  authors:
+    - "Zero Day Labs"
+    - "Francisco Marques <fmarques_00@protonmail.com>"
+    
+sources:
+  - rtl/package/aplic_domain_pkg.sv
+  - rtl/package/aia_pkg.sv
+  - rtl/package/aplic_pkg.sv
+  - rtl/package/imsic_protocol_pkg.sv
+  - rtl/package/imsic_pkg.sv
+  - vendor/reg_intf_pkg.sv
+  - vendor/aia_axi_lite_slave.sv
+  - rtl/util/synchronizer.sv 
+  - rtl/aplic_domain_gateway.sv
+  - rtl/aplic_domain_notifier.sv
+  - rtl/aplic_regmap.sv
+  - rtl/aplic_domain_regctl.sv
+  - rtl/aplic_domain_top.sv
+  - rtl/aplic_top.sv
+
+  - target: all(aia_msi, aia_embedded, not(aia_direct), not(aia_distributed))
+    defines:
+      MSI_MODE: ~
+      AIA_EMBEDDED: ~
+    files:
+      - rtl/imsic_regmap.sv
+      - rtl/imsic_top.sv
+  
+  - target: all(aia_msi, aia_distributed, not(aia_direct), not(aia_embedded))
+    defines:
+      MSI_MODE: ~
+      AIA_DISTRIBUTED: ~
+    files:
+      - rtl/imsic_regmap.sv
+      - rtl/imsic_top.sv
+  
+  - target: all(aia_direct, not(aia_distributed), not(aia_msi), not(aia_embedded))
+    defines:
+      DIRECT_MODE: ~
+    files:
+      - rtl/ieaia_dev/package/aia_define_direct.svh
