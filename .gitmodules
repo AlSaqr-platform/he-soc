@@ -19,3 +19,7 @@
 [submodule "software/pulp-runtime"]
 	path = software/pulp-runtime
 	url = https://github.com/AlSaqr-platform/pulp-runtime.git
+[submodule "software/litmus/src"]
+	path = software/litmus/src
+	url = git@github.com:AlSaqr-platform/CHERI-Litmus.git
+	branch = rt/alsaqr
