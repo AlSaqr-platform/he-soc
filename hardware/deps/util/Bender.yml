@@ -15,7 +15,3 @@ sources:
       - ./instr_tracer_if.sv
       - ./instr_tracer.sv
   - ./axi2mem.sv
-  - ./axi_master_connect.sv
-  - ./axi_slave_connect.sv
-  - ./axi_master_connect_rev.sv
-  - ./axi_slave_connect_rev.sv

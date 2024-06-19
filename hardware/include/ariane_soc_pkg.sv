@@ -123,35 +123,6 @@ package ariane_soc;
   localparam NrRegion = 1;
   localparam logic [NrRegion-1:0][NB_PERIPHERALS-1:0] ValidRule = {{NrRegion * NB_PERIPHERALS}{1'b1}};
 
-  localparam ariane_pkg::ariane_cfg_t ArianeSocCfg = '{
-    RASDepth: 2,
-    BTBEntries: 32,
-    BHTEntries: 128,
-    // idempotent region
-    NrNonIdempotentRules:  1,
-    NonIdempotentAddrBase: {64'b0},
-    NonIdempotentLength:   {HYAXIBase},
-    NrExecuteRegionRules:  5,
-    ExecuteRegionAddrBase: {HYAXIBase, LLCSPMBase, L2SPMBase,   ROMBase,   DebugBase},
-    ExecuteRegionLength:   {HYAXILength, LLCSPMLength, L2SPMLength, ROMLength, DebugLength},
-    // cached region
-    NrCachedRegionRules:    1,
-    CachedRegionAddrBase:  {HYAXIBase},
-    CachedRegionLength:    {HYAXILength},
-    // shared region
-    NrSharedRegionRules:    1,
-    SharedRegionAddrBase:  {HYAXIBase},
-    SharedRegionLength:    {HYAXILength},
-    //  cache config
-    AxiCompliant:           1'b1,
-    SwapEndianess:          1'b0,
-     // CLIC
-    CLICNumInterruptSrc:    1'b1,
-    CLICIntCtlBits:         1,
-   // debug
-    DmBaseAddress:          DebugBase,
-    NrPMPEntries:           8
-  };
 
   // Ethernet
   typedef struct packed {
