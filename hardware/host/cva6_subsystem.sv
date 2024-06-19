@@ -302,17 +302,15 @@ module cva6_subsystem
   `AXI_ASSIGN_TO_RESP(dm_axi_m_resp,slave[1])
 
   axi_adapter #(
-    .DATA_WIDTH            ( AXI_DATA_WIDTH            ),
-    .AXI_ADDR_WIDTH        ( AXI_ADDRESS_WIDTH         ),
-    .AXI_DATA_WIDTH        ( AXI_DATA_WIDTH            ),
-    .AXI_ID_WIDTH          ( ariane_soc::IdWidth       ),
+    .CVA6Cfg               (cv64a6_imafdch_wb_sv39_alsaqr_pkg::ArianeSocCfg),
     .axi_req_t             ( ariane_axi_soc::req_t     ),
-    .axi_rsp_t             ( ariane_axi_soc::resp_t    )
+    .axi_rsp_t             ( ariane_axi_soc::resp_t    ),
+    .DATA_WIDTH            ( 64                        )
   ) i_dm_axi_master (
     .clk_i                 ( clk_i                     ),
     .rst_ni                ( rst_ni                    ),
     .req_i                 ( dm_master_req             ),
-    .type_i                ( ariane_axi::SINGLE_REQ    ),
+    .type_i                ( ariane_pkg::SINGLE_REQ    ),
     .trans_type_i          ( ace_pkg::READ_SHARED      ),
     .amo_i                 ( ariane_pkg::AMO_NONE      ),
     .busy_o                (                           ),

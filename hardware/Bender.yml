@@ -13,7 +13,7 @@ dependencies:
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
   axi_riscv_atomics: { git: "git@github.com:pulp-platform/axi_riscv_atomics.git", version: 0.8.2 }
-  cva6: { git: "git@github.com:Alsaqr-platform/cva6.git", rev: alsaqr-v1.0 } # branch: lv/parallel-access, based on branch culsans_pulp of planvtech
+  cva6: { git: "https://github.com/pulp-platform/cva6.git", rev: ez/culsans-rebase } # branch: ez/culsans-rebase
   ace: { git: "https://github.com/pulp-platform/ace.git", rev: "06180ec96531d38dc0c1c2b244bad621c5fe73a5" }
   riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0  }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.39.1-beta }
@@ -64,6 +64,8 @@ sources:
   - include/udma_subsystem_pkg.sv
   - include/gpio_pkg.sv
   - include/tcdm_macros.sv
+  - include/cv64a6_imafdch_wb_sv39_alsaqr_pkg.sv
+  - include/ariane_ace_soc_pkg.sv
   - host/axi2tcdm_wrap.sv
   - host/tcdm_demux.sv
   - host/ariane_peripherals.sv
