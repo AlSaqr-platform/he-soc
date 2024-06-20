@@ -10,6 +10,9 @@
  * specific language governing permissions and limitations under the License.
  */
 
+ `include "ace/typedef.svh"
+ `include "ace/assign.svh"
+
 package ariane_ace_soc;
 
   import cv64a6_imafdch_wb_sv39_alsaqr_pkg::CVA6AXIIdWidth;
@@ -26,74 +29,32 @@ package ariane_ace_soc;
   typedef logic [StrbWidth-1:0]      ariane_axi_strb_t;
 
   // W and B channel remain untouched compared to AXI
-  typedef ariane_axi_soc::w_chan_t   ariane_axi_w_chan_t;
-  typedef ariane_axi_soc::b_chan_t   ariane_axi_b_chan_t;
+  import ariane_axi_soc::w_chan_t;
+  import ariane_axi_soc::b_chan_t;
 
   // AW Channel
-  typedef struct packed {
-    ariane_axi_id_t     id;
-    ariane_axi_addr_t   addr;
-    axi_pkg::len_t      len;
-    axi_pkg::size_t     size;
-    axi_pkg::burst_t    burst;
-    logic               lock;
-    axi_pkg::cache_t    cache;
-    axi_pkg::prot_t     prot;
-    axi_pkg::qos_t      qos;
-    axi_pkg::region_t   region;
-    axi_pkg::atop_t     atop;
-    ariane_axi_user_t   user;
-    ace_pkg::awsnoop_t  snoop;
-    ace_pkg::bar_t      bar;
-    ace_pkg::domain_t   domain;
-    ace_pkg::awunique_t awunique;
-  } aw_chan_t;
+  `ACE_TYPEDEF_AW_CHAN_T(aw_chan_t, ariane_axi_addr_t, ariane_axi_id_t, ariane_axi_user_t)
 
   // AR Channel
-  typedef struct packed {
-    ariane_axi_id_t    id;
-    ariane_axi_addr_t  addr;
-    axi_pkg::len_t     len;
-    axi_pkg::size_t    size;
-    axi_pkg::burst_t   burst;
-    logic              lock;
-    axi_pkg::cache_t   cache;
-    axi_pkg::prot_t    prot;
-    axi_pkg::qos_t     qos;
-    axi_pkg::region_t  region;
-    ariane_axi_user_t  user;
-    ace_pkg::arsnoop_t snoop;
-    ace_pkg::bar_t     bar;
-    ace_pkg::domain_t  domain;
-  } ar_chan_t;
+  `ACE_TYPEDEF_AR_CHAN_T(ar_chan_t, ariane_axi_addr_t, ariane_axi_id_t, ariane_axi_user_t)
 
   // R Channel
-  typedef struct packed {
-    ariane_axi_id_t    id;
-    ariane_axi_data_t  data;
-    ace_pkg::rresp_t   resp;
-    logic              last;
-    ariane_axi_user_t  user;
-  } r_chan_t;
+  `ACE_TYPEDEF_R_CHAN_T(r_chan_t, ariane_axi_addr_t, ariane_axi_id_t, ariane_axi_user_t)
 
   // AC Channel
-  typedef struct packed {
-    ariane_axi_addr_t    addr;
-    snoop_pkg::acsnoop_t snoop;
-    snoop_pkg::acprot_t  prot;
-  } ac_chan_t;
+  `SNOOP_TYPEDEF_AC_CHAN_T(ac_chan_t, ariane_axi_addr_t)
 
-  // CD Cannel
-  typedef struct packed {
-    ariane_axi_data_t  data;
-    logic              last;
-  } cd_chan_t;
+  // CD Channel
+  `SNOOP_TYPEDEF_CD_CHAN_T(cd_chan_t, ariane_axi_addr_t)
+
+  // CR Channel
+  `SNOOP_TYPEDEF_CR_CHAN_T(cr_chan_t)
 
   // Request/Response structs
   typedef struct packed {
     aw_chan_t             aw;
     logic                 aw_valid;
-    ariane_axi_w_chan_t   w;
+    w_chan_t              w;
     logic                 w_valid;
     logic                 b_ready;
     ar_chan_t             ar;
@@ -104,37 +65,21 @@ package ariane_ace_soc;
     // Snoop signals are reversed w.r.t. request / response
     logic                 ac_ready;
     logic                 cr_valid;
-    snoop_pkg::crresp_t   cr_resp;
+    cr_chan_t             cr_resp;
     logic                 cd_valid;
     cd_chan_t             cd;
   } req_t;
 
-  typedef struct packed {
-    aw_chan_t             aw;
-    logic                 aw_valid;
-    ariane_axi_w_chan_t   w;
-    logic                 w_valid;
-    logic                 b_ready;
-    ar_chan_t             ar;
-    logic                 ar_valid;
-    logic                 r_ready;
-    logic                 wack;
-    logic                 rack;
-  } req_nosnoop_t;
+  `ACE_TYPEDEF_REQ_T(req_nosnoop_t, aw_chan_t, w_chan_t, ar_chan_t)
 
-  typedef struct packed {
-    ac_chan_t ac;
-    logic     ac_valid;
-    logic     cr_ready;
-    logic     cd_ready;
-  } snoop_req_t;
+  `SNOOP_TYPEDEF_REQ_T(snoop_req_t, ac_chan_t)
 
   typedef struct packed {
     logic                aw_ready;
     logic                ar_ready;
     logic                w_ready;
     logic                b_valid;
-    ariane_axi_b_chan_t  b;
+    b_chan_t             b;
     logic                r_valid;
     r_chan_t             r;
     // Snoop signals are reversed w.r.t. request / response
@@ -144,22 +89,8 @@ package ariane_ace_soc;
     logic                cd_ready;
   } resp_t;
 
-  typedef struct  packed {
-    logic                aw_ready;
-    logic                ar_ready;
-    logic                w_ready;
-    logic                b_valid;
-    ariane_axi_b_chan_t  b;
-    logic                r_valid;
-    r_chan_t             r;
-  } resp_nosnoop_t;
+  `AXI_TYPEDEF_RESP_T(resp_nosnoop_t, b_chan_t, r_chan_t)
 
-  typedef struct  packed {
-    logic               ac_ready;
-    logic               cr_valid;
-    snoop_pkg::crresp_t cr_resp;
-    logic               cd_valid;
-    cd_chan_t           cd;
-  } snoop_resp_t;
+  `SNOOP_TYPEDEF_RESP_T(snoop_resp_t, cd_chan_t, cr_chan_t)
 
 endpackage
