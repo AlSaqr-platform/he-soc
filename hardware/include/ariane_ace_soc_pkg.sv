@@ -29,8 +29,8 @@ package ariane_ace_soc;
   typedef logic [StrbWidth-1:0]      ariane_axi_strb_t;
 
   // W and B channel remain untouched compared to AXI
-  import ariane_axi_soc::w_chan_t;
-  import ariane_axi_soc::b_chan_t;
+  typedef ariane_axi_soc::w_chan_t w_chan_t;
+  typedef ariane_axi_soc::b_chan_t b_chan_t;
 
   // AW Channel
   `ACE_TYPEDEF_AW_CHAN_T(aw_chan_t, ariane_axi_addr_t, ariane_axi_id_t, ariane_axi_user_t)
