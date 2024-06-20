@@ -13,7 +13,7 @@ dependencies:
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
   axi_riscv_atomics: { git: "git@github.com:pulp-platform/axi_riscv_atomics.git", version: 0.8.2 }
-  cva6: { git: "https://github.com/pulp-platform/cva6.git", rev: ez/culsans-rebase } # branch: ez/culsans-rebase
+  cva6: { git: "https://github.com/AlSaqr-platform/cva6.git", rev: pulp-v1-culsans }
   ace: { git: "https://github.com/pulp-platform/ace.git", rev: "06180ec96531d38dc0c1c2b244bad621c5fe73a5" }
   riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0  }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.39.1-beta }
