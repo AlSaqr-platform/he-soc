@@ -12,6 +12,8 @@ ifeq ($(SIMPLE_PAD), 1)
 constr_list += $(constrs_path)/constraints_fpga_padframe.xdc
 endif
 
+VITIS ?= vitis-2022.1
+
 clean:
 		rm -rf vivado*
 		rm -rf .Xil
@@ -31,5 +33,5 @@ constr:
 		cat $(constr_list) > ./timing_constr.xdc
 
 run: constr
-		vitis-2020.2 vivado -mode gui -source run.tcl
+		$(VITIS) vivado -mode gui -source run.tcl
 
