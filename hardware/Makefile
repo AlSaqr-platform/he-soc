@@ -282,7 +282,7 @@ check-fpga-ddr-conflicts:
 		exit 1; \
 	fi
 
-scripts-bender-fpga-ddr: | Bender.lock check-fpga-rot-eth-conflicts
+scripts-bender-fpga-ddr: | Bender.lock check-fpga-ddr-conflicts
 	mkdir -p fpga/alsaqr/tcl/generated
 	$(BENDER) script vivado -t $(CVA6_PKG) -t fpga -t ddr -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
