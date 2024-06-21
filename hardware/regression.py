@@ -12,7 +12,7 @@ tests_passed = 0
 num_tests = 0
 
 # The assumption is that all the cluster-related tests must be at the end of the list!!
-first_cl_test = 24
+first_cl_test = 23
 
 for row in csvreader:
     num_tests = num_tests + 1
