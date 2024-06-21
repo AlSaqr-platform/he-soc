@@ -13,11 +13,7 @@ if {$::env(MAIN_MEM)=="HYPER"} {
     if {$::env(NUM_CORES)==4} {
         set CLK_FREQ_MHZ 20
     } else {
-        if {$::env(ETH2FMC_NO_PAD)=="1"} {
-            set CLK_FREQ_MHZ 50
-        } else {
-            set CLK_FREQ_MHZ 40
-        }
+        set CLK_FREQ_MHZ 50
     }
 }
 

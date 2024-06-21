@@ -164,46 +164,50 @@ ifdef batch-mode
 endif
 
 ifdef preload
-	questa-cmd += +PRELOAD=$(preload)
+  questa-cmd += +PRELOAD=$(preload)
   compile_flag +=  +PRELOAD=$(preload)
-	elf-bin = none
+  elf-bin = none
 endif
 
 ifdef l3-fake
-	questa-cmd += +L3_TCSRAM=$(l3-fake)
+  questa-cmd += +L3_TCSRAM=$(l3-fake)
   compile_flag +=  +define+L3_TCSRAM
   compile_fpga += L3_TCSRAM
 endif
 
 ifdef quad-core
-	questa-cmd += +QUAD_CORE=1
-	compile_flag += +define+QUAD_CORE
-	compile_fpga += QUAD_CORE
+  questa-cmd += +QUAD_CORE=1
+  compile_flag += +define+QUAD_CORE
+  compile_fpga += QUAD_CORE
 endif
 
 ifdef exclude-cluster
-	questa-cmd += +EXCLUDE_CLUSTER=$(exclude-cluster)
+  questa-cmd += +EXCLUDE_CLUSTER=$(exclude-cluster)
   compile_flag +=  +define+EXCLUDE_CLUSTER
   compile_fpga += EXCLUDE_CLUSTER
 endif
 
 ifdef exclude-rot
-	questa-cmd += +EXCLUDE_ROT=$(exclude-rot)
+  questa-cmd += +EXCLUDE_ROT=$(exclude-rot)
   compile_flag +=  +define+EXCLUDE_ROT
   compile_fpga += EXCLUDE_ROT
+  ifdef test-eth
+    questa-cmd += +ETH2FMC_NO_PADFRAME=$(test-eth)
+    compile_flag +=  +define+ETH2FMC_NO_PADFRAME
+    compile_fpga += ETH2FMC_NO_PADFRAME
+  endif
 endif
 
 ifdef exclude-llc
-	questa-cmd += +EXCLUDE_LLC=$(exclude-llc)
+  questa-cmd += +EXCLUDE_LLC=$(exclude-llc)
   compile_flag +=  +define+EXCLUDE_LLC
   compile_fpga += EXCLUDE_LLC
 endif
 
 ifdef simple-padframe
-	questa-cmd   += +SIMPLE_PADFRAME=$(simple-padframe) +ETH2FMC_NO_PADFRAME=$(simple-padframe)
-	compile_flag += +define+SIMPLE_PADFRAME +define+ETH2FMC_NO_PADFRAME
-	compile_fpga += SIMPLE_PADFRAME
-	compile_fpga += ETH2FMC_NO_PADFRAME
+  questa-cmd   += +SIMPLE_PADFRAME=$(simple-padframe)
+  compile_flag += +define+SIMPLE_PADFRAME
+  compile_fpga += SIMPLE_PADFRAME
 endif
 
 ifdef spike-tandem
@@ -254,11 +258,31 @@ libbender:
 	$(QUESTA) vlib work
 	$(QUESTA) vmap work ./work
 
-scripts-bender-fpga: | Bender.lock
+check-fpga-hyper-conflicts:
+	@if [ -z "$(exclude-rot)" ]; then \
+		echo "Error: On FPGA the Hyperram and OT share the same FMC pads"; \
+	fi
+	@if [ -n "$(simple-padframe)" ]; then \
+		echo "Error: On FPGA the Hyperram and the simple pad share the same FMC pads"; \
+	fi
+	@if [ -n "$(test-eth)" ]; then \
+		echo "Error: On FPGA the Hyperram and the ethernet share the same FMC pads"; \
+	fi
+	@if [ -z "$(exclude-rot)" ] || [ -n "$(simple-padframe)" ] || [ -n "$(test-eth)" ]; then \
+		exit 1; \
+	fi
+
+scripts-bender-fpga: | Bender.lock check-fpga-hyper-conflicts
 	mkdir -p fpga/alsaqr/tcl/generated
 	$(BENDER) script vivado -t $(CVA6_PKG) -t fpga -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga) EXCLUDE_PADFRAME" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
-scripts-bender-fpga-ddr: | Bender.lock
+check-fpga-ddr-conflicts:
+	@if [ -n "$(exclude-rot)" ] && [ -z "$(test-eth)" ]; then \
+		echo "Error: On FPGA you have to instantiate one between ROT and ETH"; \
+		exit 1; \
+	fi
+
+scripts-bender-fpga-ddr: | Bender.lock check-fpga-rot-eth-conflicts
 	mkdir -p fpga/alsaqr/tcl/generated
 	$(BENDER) script vivado -t $(CVA6_PKG) -t fpga -t ddr -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
