@@ -28,38 +28,31 @@ elif [ "$LLC" = "n" ]; then
     export AXI_ID_DDR_WIDTH="8"
 fi
 
-read -p "Are you instantiating OpenTitan? y/n " OT
-if [ "$OT" = "y" ]; then
-    export USE_OT="1"
-elif [ "$OT" = "n" ]; then
+read -p "Which main memory are you using:  1-DDR 2-HYPER: " MAIN_MEM
+if [ "$MAIN_MEM" = "1" ]; then
+    export MAIN_MEM="DDR4"
+    export SIMPLE_PAD="SPI-I2C-UART-SDIO"
+    read -p "Are you instantiating OpenTitan? y/n " OT
+    if [ "$OT" = "y" ]; then
+        export USE_OT="1"
+        export ETH2FMC_NO_PAD="0"
+    elif [ "$OT" = "n" ]; then
+        export USE_OT="0"
+        export ETH2FMC_NO_PAD="1"
+    fi
+elif [ "$MAIN_MEM" = "2" ]; then
+    export MAIN_MEM="HYPER"
+    export SIMPLE_PAD="0"
+    export ETH2FMC_NO_PAD="0"
     export USE_OT="0"
 fi
 
-if [ -z "$MAIN_MEM" ]; then
-    read -p "Which main memory are you using:  1-DDR 2-HYPER: " MAIN_MEM
-    if [ "$MAIN_MEM" = "1" ]; then
-        export MAIN_MEM="DDR4"
-        read -p "How many CVA6 cores? 2/4 " NUM_CORES
-        if [ "$NUM_CORES" = "2" ]; then
-            export NUM_CORES="2"
-        elif [ "$NUM_CORES" = "4" ]; then
-            export NUM_CORES="4"
-        fi
-    elif [ "$MAIN_MEM" = "2" ]; then
-        export MAIN_MEM="HYPER"
-        export SIMPLE_PAD="0"
-    fi
-fi
-
-if [ "$MAIN_MEM" = "DDR4" ]; then
-    read -p "Are you validating the peripherals? y/n " SIMPLE_PAD
-    if [ "$SIMPLE_PAD" = "y" ]; then
-            export ETH2FMC_NO_PAD="1"
-            export SIMPLE_PAD="SPI-I2C-UART-SDIO"
-    elif [ "$SIMPLE_PAD" = "n" ]; then
-        export ETH2FMC_NO_PAD="0"
-        export SIMPLE_PAD="0"
-    fi
+read -p "How many CVA6 cores? 2/4 " NUM_CORES
+if [ "$NUM_CORES" = "2" ]; then
+    export NUM_CORES="2"
+elif [ "$NUM_CORES" = "4" ]; then
+    export NUM_CORES="4"
+    echo "This limits frequency to 20MHz, cannot test ethernet"
 fi
 
 echo "$BOARD"
