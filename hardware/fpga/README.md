@@ -6,17 +6,34 @@ To rely on the hyperbus, you need a [special FMC carrier board](https://ieeexplo
 
 ## Bitstream generation
 
-To generate the bitstream, with a DDR configuration (the one available in VCU118 board), run:
+To generate the bitstream, several parameters must be set according to the desired configuration.
+
+The target `scripts-bender-fpga-ddr` uses the DDR, while `scripts-bender-fpga` uses the Hyperram.
+
+Additional defines are:
+* `exclude-rot=1` to avoid instantiating OpenTitan
+* `exclude-cluster=1` to avoid instatiating the PULP cluster
+* `exclude-llc=1` to avoid instatiating the LLC
+* `test-eth=1` to instantiate the Ethernet module
+* `quad-core=1` to use 4 cores instead of 2, refer to the `QUAD_CORE.md` file here
+* `simple-padframe=1` to use the simple configuration for the padframe
+
+
+To generate the bitstream with a DDR configuration (the one available in VCU118 board), run the following command:
 
 ```
-make simple-padframe=1 scripts-bender-fpga-ddr
+make simple-padframe=1 <additional defines> scripts-bender-fpga-ddr
 
 ```
-To use the hyperram use `make scripts-bender-fpga`, without simple-padframe.
+where `<additional defines>` should be one between `test-eth=1` and `exclude-rot=1`.
 
-You can also use the `exclude-cluster=1`, `exclude-rot=1` and `exclude-llc=1` option, in case you don't want to emulate the cluster/opentitan/llc as well.
+To use the hyperram run:
+```
+make exclude-rot=1 <additional defines> scripts-bender-fpga
+```
+where legal `<additional defines>` are `exclude-cluster=1`, `exclude-llc=1` and `quad-core=1`.
 
-Also, you can implement a bitstream with 4 CVA6 cores using the `quad-core=1` option. To do so, refer to the `QUAD_CORE.md` file here.
+Next, move to the `fpga` folder and source the `setup.sh` script to export useful env variables depending on the desired configuration. NOTE: the choices must be aligned with the previously used defines!
 
 ```
 cd fpga
@@ -26,7 +43,6 @@ source ./setup.sh
  * Select VCU118. The ZCU102 is already too small to fit ariane and the cluster. We will provide support for the ZCU102 as well in the future, with a reduced version of the cluster.
  * Unless you specified the `exclude-llc` when generating the compile script, you are instantiating it (the same holds for OpenTitan)!
  * Choose the memory
- * If you choose the hyperram, you can't validate the peripherals. Otherwise you can. Apparently, it's better to instantiate the padframe: it help Vivado with placement, so just say you are also validating the peripherals if you are using the DDR4. 
 
 ```
 make ips
@@ -37,9 +53,9 @@ Vivado IPs shall be generated only once at the first synthesis (unless modificat
 
 ## Running code on CVA6 only
 
-If your goal is to run/debug code uniquely from CVA6, you can connect only its JTAG without connecting OpenTitan one. 
+If your goal is to run/debug code uniquely from CVA6, you can connect only its JTAG without connecting OpenTitan one.
 
-NB: if both are connected and for instance you don't use CVA6/OpenTitan one, this will not affect the behaviour of the system. They can be considered as two completely independent systems. 
+NB: if both are connected and for instance you don't use CVA6/OpenTitan one, this will not affect the behaviour of the system. They can be considered as two completely independent systems.
 
 Remark: OpenTitan (and thus its JTAG) has full visibility on CVA6 memory map, while CVA6 has NO access at all to OpenTitan system, it can only send commands to OpenTitan through the mailbox.
 
@@ -58,10 +74,10 @@ To run a test:
  * Open 3 terminals:
 
 ### Terminal 1
-* Select correct cfg so that file settings match Olimex device connected to board. 
-* Showing cfg file path for 'Olimex OpenOCD JTAG ARM-USB-OCD-H' 
+* Select correct cfg so that file settings match Olimex device connected to board.
+* Showing cfg file path for 'Olimex OpenOCD JTAG ARM-USB-OCD-H'
 ```
-openocd -f /he-soc/fpga/ariane-zcu102.cfg 
+openocd -f /he-soc/fpga/ariane-zcu102.cfg
 ```
 ### Terminal 2
 
@@ -78,7 +94,7 @@ from gdb terminal
 (c) load
 (d) c
 ```
-At this point you are supposed to see the uart prints on the screen. 
+At this point you are supposed to see the uart prints on the screen.
 
 ## Running code on OpenTitan
 
