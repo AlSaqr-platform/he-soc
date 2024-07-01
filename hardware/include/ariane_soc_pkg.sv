@@ -18,8 +18,9 @@
 
 package ariane_soc;
 
+  // 2~4 number of cores
   `ifdef QUAD_CORE
-   localparam NumCVA6 = 4; // 2~4 number of cores
+   localparam NumCVA6 = 4;
   `else
    localparam NumCVA6 = 2;
   `endif

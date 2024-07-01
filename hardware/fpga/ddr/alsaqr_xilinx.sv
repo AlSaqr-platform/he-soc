@@ -109,11 +109,8 @@ module alsaqr_xilinx
   `else
    localparam AXI_ID_WIDTH = 9;
   `endif
-  `ifdef QUAD_CORE
-   parameter int unsigned AXI_USER_WIDTH    = 2;
-  `else
-   parameter int unsigned AXI_USER_WIDTH    = 1;
-  `endif
+
+  parameter int unsigned AXI_USER_WIDTH = ariane_axi_soc::UserWidth;
 
 `ifdef EXCLUDE_PADFRAME
    logic  cva6_uart_rx, cva6_uart_tx;
