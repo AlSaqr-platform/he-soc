@@ -28,8 +28,6 @@ Correct setup settings are highlighted in bold:
 
 *How many CVA6 cores? 2/4* **4**
 
-*Are you validating the peripherals? y/n* **y**
-
 ```
 make ips
 
