@@ -72,7 +72,7 @@ module ariane_tb;
   parameter DW       = 64;
   parameter AW       = 64;
   parameter IW       = 9;
-  parameter UW       = 1;
+  parameter UW       = ariane_axi_soc::UserWidth;
   logic s_eth_clk125_0;
   logic s_eth_clk125_90;
   logic s_eth_clk300;
