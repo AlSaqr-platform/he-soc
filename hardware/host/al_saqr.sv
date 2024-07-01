@@ -51,11 +51,7 @@ module al_saqr
   import ariane_soc::HyperbusNumPhys;
   import ariane_soc::NumChipsPerHyperbus;
 #(
-`ifdef QUAD_CORE
-  parameter int unsigned AXI_USER_WIDTH    = 2,
-`else
-  parameter int unsigned AXI_USER_WIDTH    = 1,
-`endif
+  parameter int unsigned AXI_USER_WIDTH    = ariane_axi_soc::UserWidth,
   parameter int unsigned AXI_ADDRESS_WIDTH = 64,
   parameter int unsigned AXI_DATA_WIDTH    = 64,
 `ifdef DROMAJO
