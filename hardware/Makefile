@@ -273,7 +273,7 @@ check-fpga-hyper-conflicts:
 	fi
 
 scripts-bender-fpga: | Bender.lock check-fpga-hyper-conflicts
-	mkdir -p fpga/alsaqr/tcl/generated
+	mkdir -p $(BENDER_FPGA_SCRIPTS_DIR)
 	$(BENDER) script vivado -t $(CVA6_PKG) -t fpga -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga) EXCLUDE_PADFRAME" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
 check-fpga-ddr-conflicts:
@@ -283,7 +283,7 @@ check-fpga-ddr-conflicts:
 	fi
 
 scripts-bender-fpga-ddr: | Bender.lock check-fpga-ddr-conflicts
-	mkdir -p fpga/alsaqr/tcl/generated
+	mkdir -p $(BENDER_FPGA_SCRIPTS_DIR)
 	$(BENDER) script vivado -t $(CVA6_PKG) -t fpga -t ddr -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
 scripts-bender-synopsys: | Bender.lock
