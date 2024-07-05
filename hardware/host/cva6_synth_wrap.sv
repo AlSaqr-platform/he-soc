@@ -157,7 +157,7 @@ module cva6_synth_wrap
       .time_irq_i           ( time_irq_i[i]         ),
       .debug_req_i          ( debug_req_i[i]        ),
       .clic_irq_valid_i     ( '0                    ),
-      .clic_irq_id_i        ( 2'b00                 ),
+      .clic_irq_id_i        ( '0                    ),
       .clic_irq_level_i     ( '0                    ),
       .clic_irq_priv_i      ( riscv::PRIV_LVL_M     ),
       .clic_irq_shv_i       ( 1'b0                  ),
