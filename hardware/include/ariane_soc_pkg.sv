@@ -44,7 +44,7 @@ package ariane_soc;
   // The additional ID bits are used by the internal multiplexers to route responses.
   // The ID width of the master ports must be AxiIdWidthSlvPorts + $clog_2(NoSlvPorts).
   // The same parameters in cva6/include/ariane_axi need to match with the values below!
-  localparam IdWidth   = 5; // Do not change
+  localparam IdWidth   = 8; // Do not change
   localparam IdWidthSlave = IdWidth + $clog2(NrSlaves);
 
   /// Number of synchronization registers to insert on the async pointers
