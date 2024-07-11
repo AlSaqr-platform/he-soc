@@ -650,7 +650,9 @@ module al_saqr
       .dst_resp_i                ( ot_axi_rsp )
    );
 
-   secure_subsystem_synth_wrap i_RoT_wrap (
+   security_island  #(
+     .HartIdOffs(0)
+   ) i_RoT_wrap (
      .clk_i            ( clk_opentitan_o    ),
      .clk_ref_i        ( clk_opentitan_o    ),
      .rst_ni           ( s_rst_ni           ),
@@ -673,9 +675,6 @@ module al_saqr
      .gpio_1_o         (               ),
      .gpio_1_i         ( '0            ),
      .gpio_1_oe_o      (               ),
-   // axi isolated - not implemented
-     .axi_isolate_i    ( 1'b0          ),
-     .axi_isolated_o   (               ),
    // Uart - not implemented
      .ibex_uart_rx_i   ( '0            ),
      .ibex_uart_tx_o   (               ),
