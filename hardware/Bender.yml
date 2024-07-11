@@ -41,7 +41,7 @@ dependencies:
   pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "d47f3d0d207a5f22f301706f825dbf960f97f56b" } # branch: master
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "0ec0bf8b7dab6d5e4b3f7ec58338a8efee066379" }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
-  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "122cd13195437362a533e9dd7863a33554f81f83" }
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "2d015782f1ceba6786a428e240f0811f26363ab8" }
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
   ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "6bc2bd81b7de1ed424f787a3b6480fec53fa9aa0" }
   sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }
@@ -104,6 +104,7 @@ sources:
 
   - target: all(fpga, xilinx, ddr, not(asic))
     defines:
+      EXCLUDE_CLUSTER: ~
       XILINX_DDR: ~
       FPGA_TARGET_XILINX: ~
       WT_DCACHE: ~
@@ -118,6 +119,7 @@ sources:
 
   - target: all(fpga,xilinx, not(asic), not(ddr))
     defines:
+      EXCLUDE_CLUSTER: ~
       FPGA_TARGET_XILINX: ~
       WT_DCACHE: ~
       FPGA_EMUL: ~
@@ -132,6 +134,7 @@ sources:
   # MACRO TEST + NETLIST FLL
   - target: all(asic, not(all(fpga, xilinx)))
     defines:
+      EXCLUDE_CLUSTER: ~
       WT_DCACHE:   ~
       GF22_FLL:    ~
       TARGET_ASIC: ~
@@ -151,6 +154,7 @@ sources:
   - target: gf22_fll_behav
     defines:
       GF22_FLL: ~
+      EXCLUDE_CLUSTER: ~
     files:
       - host/alsaqr_clk_rst_gen.sv
       - host/apb_subsystem.sv
@@ -159,6 +163,7 @@ sources:
   - target: post_synth_fll
     defines:
       GF22_FLL: ~
+      EXCLUDE_CLUSTER: ~
     files:
       - host/alsaqr_clk_rst_gen.sv
       - host/apb_subsystem.sv
