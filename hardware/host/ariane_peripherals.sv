@@ -306,7 +306,7 @@ module ariane_peripherals
     ) aplic_top_embedded_i (
         .i_clk          ( clk_i                             ),
         .ni_rst         ( rst_ni                            ),
-        .i_irq_sources  ( {irq_sources, 1'b0}               ),
+        .i_irq_sources  ( {irq_sources[ariane_soc::NumSources-2:0], 1'b0}),
         .i_req_cfg      ( aplic_regmap_req_o                ),
         .o_resp_cfg     ( aplic_regmap_resp_i               ),
         .i_imsic_csr    ( imsic_csr_i                       ),
