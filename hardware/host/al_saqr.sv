@@ -12,7 +12,7 @@
 // Author: Mattia Sinigaglia, University of Bologna
 // Date: 18.06.2021
 // Description: AlSaqr platform, it holds host_domain and cluster
-
+`define EXCLUDE_CLUSTER
 `include "register_interface/typedef.svh"
 `include "register_interface/assign.svh"
 
@@ -211,20 +211,20 @@ module al_saqr
   import edn_pkg::*;
   import top_earlgrey_pkg::*;
 
-  localparam int unsigned AsyncAxiOutAwWidth    = secure_subsystem_synth_pkg::SynthAsyncAxiOutAwWidth;
-  localparam int unsigned AsyncAxiOutWWidth     = secure_subsystem_synth_pkg::SynthAsyncAxiOutWWidth;
-  localparam int unsigned AsyncAxiOutBWidth     = secure_subsystem_synth_pkg::SynthAsyncAxiOutBWidth;
-  localparam int unsigned AsyncAxiOutArWidth    = secure_subsystem_synth_pkg::SynthAsyncAxiOutArWidth;
-  localparam int unsigned AsyncAxiOutRWidth     = secure_subsystem_synth_pkg::SynthAsyncAxiOutRWidth;
-  localparam int unsigned LogDepth              = secure_subsystem_synth_pkg::SynthLogDepth;
+  localparam int unsigned AsyncAxiOutAwWidth    = secure_subsystem_synth_astral_pkg::SynthAsyncAxiOutAwWidth;
+  localparam int unsigned AsyncAxiOutWWidth     = secure_subsystem_synth_astral_pkg::SynthAsyncAxiOutWWidth;
+  localparam int unsigned AsyncAxiOutBWidth     = secure_subsystem_synth_astral_pkg::SynthAsyncAxiOutBWidth;
+  localparam int unsigned AsyncAxiOutArWidth    = secure_subsystem_synth_astral_pkg::SynthAsyncAxiOutArWidth;
+  localparam int unsigned AsyncAxiOutRWidth     = secure_subsystem_synth_astral_pkg::SynthAsyncAxiOutRWidth;
+  localparam int unsigned LogDepth              = secure_subsystem_synth_astral_pkg::SynthLogDepth;
 
-  localparam type         axi_secd_aw_chan_t     = secure_subsystem_synth_pkg::synth_axi_out_aw_chan_t;
-  localparam type         axi_secd_w_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_w_chan_t;
-  localparam type         axi_secd_b_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_b_chan_t;
-  localparam type         axi_secd_ar_chan_t     = secure_subsystem_synth_pkg::synth_axi_out_ar_chan_t;
-  localparam type         axi_secd_r_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_r_chan_t;
-  localparam type         axi_secd_req_t         = secure_subsystem_synth_pkg::synth_axi_out_req_t;
-  localparam type         axi_secd_resp_t        = secure_subsystem_synth_pkg::synth_axi_out_resp_t;
+  localparam type         axi_secd_aw_chan_t     = secure_subsystem_synth_astral_pkg::synth_axi_out_aw_chan_t;
+  localparam type         axi_secd_w_chan_t      = secure_subsystem_synth_astral_pkg::synth_axi_out_w_chan_t;
+  localparam type         axi_secd_b_chan_t      = secure_subsystem_synth_astral_pkg::synth_axi_out_b_chan_t;
+  localparam type         axi_secd_ar_chan_t     = secure_subsystem_synth_astral_pkg::synth_axi_out_ar_chan_t;
+  localparam type         axi_secd_r_chan_t      = secure_subsystem_synth_astral_pkg::synth_axi_out_r_chan_t;
+  localparam type         axi_secd_req_t         = secure_subsystem_synth_astral_pkg::synth_axi_out_req_t;
+  localparam type         axi_secd_resp_t        = secure_subsystem_synth_astral_pkg::synth_axi_out_resp_t;
 
   // AXILITE parameters
   localparam int unsigned AXI_LITE_AW       = 32;
