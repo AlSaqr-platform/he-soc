@@ -15,7 +15,9 @@
 
 `include "axi/assign.svh"
 `include "axi/typedef.svh"
-`include "axi/typedef.svh"
+`include "axi/assign.svh"
+`include "register_interface/typedef.svh"
+`include "register_interface/assign.svh"
 `include "tcdm_macros.sv"
 
 module apb_subsystem
@@ -141,6 +143,15 @@ module apb_subsystem
 
    logic                                [63:0] can_timestamp;
 
+   typedef logic [AXI_ADDR_WIDTH-1:0]   reg_addr_t;
+   typedef logic [AXI_DATA_WIDTH-1:0]   reg_data_t;
+   typedef logic [AXI_DATA_WIDTH/8-1:0] reg_strb_t;
+
+   `REG_BUS_TYPEDEF_ALL(reg, reg_addr_t, reg_data_t, reg_strb_t)
+
+   reg_req_t monitor_counter_reg_req;
+   reg_rsp_t monitor_counter_reg_rsp;
+
    assign rstn_soc_sync_o = s_rstn_soc_sync;
    assign rstn_cluster_sync_o = s_rstn_cluster_sync && s_cluster_ctrl_rstn;
 
@@ -199,6 +210,11 @@ module apb_subsystem
                .DATA_WIDTH(32)
    ) apb_uart_master_bus();
 
+   APB  #(
+               .ADDR_WIDTH(32),
+               .DATA_WIDTH(32)
+   ) monitor_counter_master_bus();
+
    FLL_BUS fll_master_bus(
                 .clk_i(s_soc_clk)
     );
@@ -209,6 +225,16 @@ module apb_subsystem
     ) i_hyaxicfg_rbus(
         .clk_i (s_soc_clk)
     );
+
+   REG_BUS #(
+        .ADDR_WIDTH( 32 ),
+        .DATA_WIDTH( 32 )
+    ) i_monitor_counter_bus(
+        .clk_i (s_soc_clk)
+    );
+
+   `REG_BUS_ASSIGN_TO_REQ(monitor_counter_reg_req, i_monitor_counter_bus)
+   `REG_BUS_ASSIGN_FROM_RSP(i_monitor_counter_bus, monitor_counter_reg_rsp)
 
     //uDMA -> XBAR
    AXI_BUS #(
@@ -256,7 +282,8 @@ module apb_subsystem
     .apb_can0_master (apb_can0_master_bus),
     .apb_can1_master (apb_can1_master_bus),
     .socctrl_master(apb_socctrl_master_bus),
-    .apb_uart_master(apb_uart_master_bus)
+    .apb_uart_master(apb_uart_master_bus),
+    .monitor_counter(monitor_counter_master_bus)
     );
 
    // CLUSTER UART - FPGA ONLY
@@ -932,5 +959,30 @@ module apb_subsystem
     .xor_locking_blk_1(  )
    );
 
+    // Monitor Counters
+    apb_to_reg i_apb_to_monitor_counters
+    (
+     .clk_i     ( clk_soc_o       ),
+     .rst_ni    ( s_rstn_soc_sync ),
+
+     .penable_i ( monitor_counter_master_bus.penable ),
+     .pwrite_i  ( monitor_counter_master_bus.pwrite  ),
+     .paddr_i   ( monitor_counter_master_bus.paddr   ),
+     .psel_i    ( monitor_counter_master_bus.psel    ),
+     .pwdata_i  ( monitor_counter_master_bus.pwdata  ),
+     .prdata_o  ( monitor_counter_master_bus.prdata  ),
+     .pready_o  ( monitor_counter_master_bus.pready  ),
+     .pslverr_o ( monitor_counter_master_bus.pslverr ),
+
+     .reg_o     ( i_monitor_counter_bus              )
+    );
+
+    // instantiate here the counter, and connect to
+    // reg_req_i reg_rsp_o port of the register to
+    // monitor_counter_reg_req and monitor_counter_reg_req structures
+    // the interconnect is already on place
+    // the base address to which you access the couters is: 0x1A22_A000 upto 0x1A22_AFFF
+
+    assign monitor_counter_req_rsp = '0;
 
 endmodule

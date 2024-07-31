@@ -30,7 +30,8 @@ module periph_bus_wrap
     APB.Master  socctrl_master,
     APB.Master  apb_can0_master,
     APB.Master  apb_can1_master,
-    APB.Master  apb_uart_master
+    APB.Master  apb_uart_master,
+    APB.Master  monitor_counter
 );
 
     APB
@@ -111,6 +112,10 @@ module periph_bus_wrap
     `APB_ASSIGN_MASTER(s_masters[16], advtimer_master[7]);
     assign s_start_addr[16] = apb_soc_pkg::ADVTIMER7Base;
     assign s_end_addr[16]   = apb_soc_pkg::ADVTIMER7Base + apb_soc_pkg::ADVTIMERLength - 1 ;
+
+    `APB_ASSIGN_MASTER(s_masters[17], monitor_counter);
+    assign s_start_addr[17] = apb_soc_pkg::MonitorCounterBase;
+    assign s_end_addr[17]   = apb_soc_pkg::MonitorCounterBase + apb_soc_pkg::MonitoCounterLength - 1 ;
 
 
    apb_node_wrap #(
