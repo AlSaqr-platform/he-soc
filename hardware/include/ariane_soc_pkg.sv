@@ -78,7 +78,8 @@ package ariane_soc;
   localparam logic [31:0] DbgIdCode= 32'h20001001;
 
   typedef enum int unsigned {
-    HYAXI       = 17,
+    HYAXI       = 18,
+    Snooper     = 17
     AXILiteDom  = 16,
     IOPMP_CFG   = 15,
     MDMA_CFG    = 14,
@@ -133,6 +134,7 @@ package ariane_soc;
   localparam logic[63:0] LLCSPMLength   = 64'h20000;     // up to 128KB of LLC that can be used as scratchpad
   localparam logic[63:0] L2SPMLength    = 64'h8000;      // 32KB of scratchpad memory
   localparam logic[63:0] APB_SLVSLength = 64'h131000;
+  localparam logic[63:0] SnoopLength    = 64'h4000;
 
   // Instantiate AXI protocol checkers
   localparam bit GenProtocolChecker = 1'b0;
@@ -156,6 +158,7 @@ package ariane_soc;
     MDMABase     = 64'h5002_0000,
     IOPMPBase    = 64'h5003_0000,
     LLCSPMBase   = 64'h7000_0000,
+    SnoopBase    = 64'h7100_0000,
     HYAXIBase    = 64'h8000_0000
   } soc_bus_start_t;
   // Let x = NB_PERIPHERALS: as long as Base(xth slave)+Length(xth slave) is < 1_0000_0000 we can cut the 32 MSBs addresses without any worries.
