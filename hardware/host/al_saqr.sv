@@ -367,6 +367,8 @@ module al_saqr
   logic s_cluster_eoc;
   logic s_cluster_eoc_sync;
 
+  logic cfi_req_irq;
+
   uart_to_pad_t  s_cva6_uart_tx;
   pad_to_uart_t  s_cva6_uart_rx;
 
@@ -571,7 +573,8 @@ module al_saqr
       .ot_axi_req             ( ot_axi_req                      ),
       .ot_axi_rsp             ( ot_axi_rsp                      ),
 
-      .doorbell_irq_o         ( doorbell_irq                    )
+      .doorbell_irq_o         ( doorbell_irq                    ),
+      .cfi_req_irq_o          ( cfi_req_irq                     )
     );
 
    pad_frame #()
@@ -661,6 +664,7 @@ module al_saqr
      .bootmode_i       ( bootmode_i         ),
      .test_enable_i    ( '0                 ),
      .irq_ibex_i       ( doorbell_irq       ),
+     .cfi_req_irq_i    ( cfi_req_irq        ),
    // JTAG port
      .jtag_tck_i       ( jtag_ibex_i.tck    ),
      .jtag_tms_i       ( jtag_ibex_i.tms    ),
