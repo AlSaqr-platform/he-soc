@@ -21,6 +21,7 @@ import ariane_pkg::*;
 import uvm_pkg::*;
 import ariane_soc::*;
 import jtag_ot_pkg::*;
+import snooper_pkg::*;
 import ariane_soc::HyperbusNumPhys;
 import ariane_soc::NumChipsPerHyperbus;
 import pkg_internal_alsaqr_periph_padframe_periphs::*;
@@ -36,6 +37,7 @@ import pkg_internal_alsaqr_periph_fpga_padframe_periphs::*;
 //`define POWER_CVA6
 `define PAD_MUX_REG_PATH dut.i_alsaqr_periph_padframe.i_periphs.i_periphs_muxer.s_reg2hw
 `define SIMPLE_PAD_MUX_REG_PATH dut.i_alsaqr_periph_fpga_padframe.i_periphs.i_periphs_muxer.s_reg2hw
+`define TEST_SNOOPER
 
 import "DPI-C" function byte read_elf(input string filename);
 import "DPI-C" function byte get_entry(output longint entry);
@@ -165,6 +167,8 @@ module ariane_tb;
     wire  [NumPhys-1:0]      hyper_reset_n_wire;
 
     wire                  soc_clock;
+
+    trace_t traces;
 
     `ifdef ETH2FMC_NO_PADFRAME
       logic               s_tck300;
@@ -3297,8 +3301,51 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
         end
     end
 
-    // JTAG offload procedure
+`ifdef TEST_SNOOPER
 
+  assign dut.i_host_domain.i_cva6_subsystem.i_snooper.traces_i = traces;
+
+  initial  begin: handle_snoop_traces
+     if(dut.i_host_domain.i_cva6_subsystem.i_snooper.i_snooping_engine.config_i.ctrl.trace_mode.q) begin
+        traces.priv_lvl = 2'b11;
+        traces.pc_src_l = 32'h0;
+        traces.pc_src_h = 32'h4;
+        traces.pc_dst_l = 32'h8;
+        traces.pc_dst_h = 32'hC;
+        traces.metadata = 32'h10;
+        traces.opcode   = 32'b0;
+        @(posedge dut.i_host_domain.i_cva6_subsystem.i_snooper.snoop_en);
+        for(int i=32'h14;i<32'h3ffb;i+=32'h14) begin
+           traces.pc_src_l    = i;
+           traces.pc_src_h    = i + 32'h4;
+           traces.pc_dst_l    = i + 32'h8;
+           traces.pc_dst_h    = i + 32'hC;
+           traces.metadata    = i + 32'h10;
+           @(posedge dut.i_host_domain.i_cva6_subsystem.i_snooper.clk_i);
+        end
+        traces.pc_src_l = 32'hFFFFFFFF;
+        traces.pc_src_h = 32'hFFFFFFFF;
+     end else begin
+        traces.priv_lvl = 2'b11;
+        traces.pc_src_l = 32'h0;
+        traces.pc_src_h = 32'h0;
+        traces.pc_dst_l = 32'h0;
+        traces.pc_dst_h = 32'h0;
+        traces.metadata = 32'h0;
+        traces.opcode   = 32'b0;
+        @(posedge dut.i_host_domain.i_cva6_subsystem.i_snooper.snoop_en);
+        for(int i=32'h1;i<32'h3ffb;i+=32'h1) begin
+           traces.pc_src_l = i*4;
+           traces.opcode   = i*4;
+           @(posedge dut.i_host_domain.i_cva6_subsystem.i_snooper.clk_i);
+        end
+        traces.pc_src_l = 32'hFFFFFFFF;
+        traces.pc_src_h = 32'hFFFFFFFF;
+     end
+  end
+`endif
+
+  // JTAG offload procedure
   initial  begin: local_jtag_preload
 
     logic [63:0] rdata;

@@ -1,0 +1,529 @@
+{
+    name: "cfg_regs"
+    clock_primary: "clk_i"
+    reset_primary: "rst_ni"
+    bus_interfaces: [
+        { protocol: "reg_iface", direction: "device"}
+    ]
+    regwidth: 32,
+    registers: [
+      {
+          name: CTRL
+          desc: '''Snooper configuration register.'''
+          swaccess: "rw"
+          fields: [
+            {
+                bits: "0"
+                name: u_mode
+                desc: '''Log in U. privile level'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "1"
+                name: s_mode
+                desc: '''Log in S. privile level'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "2"
+                name: m_mode
+                desc: '''Log in M. privile level'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "3"
+                name: pc_range_0
+                desc: '''Record PC range 0'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "4"
+                name: pc_range_1
+                desc: '''Record PC range  1'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "5"
+                name: pc_range_2
+                desc: '''Record PC range 2'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "6"
+                name: pc_range_3
+                desc: '''Record PC range 3'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "7"
+                name: trig_pc_0
+                desc: '''Trigger enable for PC 0'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "8"
+                name: trig_pc_1
+                desc: '''Trigger enable for PC 1'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "9"
+                name: trig_pc_2
+                desc: '''Trigger enable for PC 2'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "10"
+                name: trig_pc_3
+                desc: '''Trigger enable for PC 3'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "12:11"
+                name: trace_mode
+                desc: '''Select tracing modality'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "13"
+                name: test_mode
+                desc: '''Select tracing modality'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "14"
+                name: cnt_rst
+                desc: '''Select tracing modality'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "31:15"
+                name: unused
+                desc: '''unused'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+          ]
+      },
+      {
+           name: Base
+           desc: "First valid entry in buffer"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: base
+                 desc: '''First valid entry in buffer'''
+                 swaccess: "ro"
+                 hwaccess: "hwo"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: Last
+           desc: "Last valid entry in buffer"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: last
+                 desc: '''Last valid entry in buffer'''
+                 swaccess: "ro"
+                 hwaccess: "hwo"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: RANGE_0_BASE_H
+           desc: "MSBs of Base PC for Range 0"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: RANGE_0_BASE_H
+                 desc: '''MSBs of Base PC for Range 0'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: RANGE_0_BASE_L
+           desc: "LSBs of Base PC for Range 0"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: RANGE_0_BASE_L
+                 desc: '''LSBs of Base PC for Range 0'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: RANGE_0_LAST_H
+           desc: "MSBs of Last PC for Range 0"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: RANGE_0_LAST_H
+                 desc: '''MSBs of Last PC for Range 0'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: RANGE_0_LAST_L
+           desc: "LSBs of Last PC for Range 0"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: RANGE_0_LAST_L
+                 desc: '''LSBs of Last PC for Range 0'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: RANGE_1_BASE_H
+           desc: "MSBs of Base PC for Range 1"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: RANGE_1_BASE_H
+                 desc: '''MSBs of Base PC for Range 1'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: RANGE_1_BASE_L
+           desc: "LSBs of Base PC for Range 1"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: RANGE_1_BASE_L
+                 desc: '''LSBs of Base PC for Range 1'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: RANGE_1_LAST_H
+           desc: "MSBs of Last PC for Range 1"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: RANGE_1_LAST_H
+                 desc: '''MSBs of Last PC for Range 1'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: RANGE_1_LAST_L
+           desc: "LSBs of Last PC for Range 1"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: RANGE_1_LAST_L
+                 desc: '''LSBs of Last PC for Range 1'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: RANGE_2_BASE_H
+           desc: "MSBs of Base PC for Range 2"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: RANGE_2_BASE_H
+                 desc: '''MSBs of Base PC for Range 2'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: RANGE_2_BASE_L
+           desc: "LSBs of Base PC for Range 2"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: RANGE_2_BASE_L
+                 desc: '''LSBs of Base PC for Range 2'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: RANGE_2_LAST_H
+           desc: "MSBs of Last PC for Range 2"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: RANGE_2_LAST_H
+                 desc: '''MSBs of Last PC for Range 2'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: RANGE_2_LAST_L
+           desc: "LSBs of Last PC for Range 2"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: RANGE_2_LAST_L
+                 desc: '''LSBs of Last PC for Range 2'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: RANGE_3_BASE_H
+           desc: "MSBs of Base PC for Range 3"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: RANGE_3_BASE_H
+                 desc: '''MSBs of Base PC for Range 3'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: RANGE_3_BASE_L
+           desc: "LSBs of Base PC for Range 3"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: RANGE_3_BASE_L
+                 desc: '''LSBs of Base PC for Range 3'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: RANGE_3_LAST_H
+           desc: "MSBs of Last PC for Range 3"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: RANGE_3_LAST_H
+                 desc: '''MSBs of Last PC for Range 3'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: RANGE_3_LAST_L
+           desc: "LSBs of Last PC for Range 3"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: RANGE_3_LAST_L
+                 desc: '''LSBs of Last PC for Range 3'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: TRIG_PC0_H
+           desc: "PC trigger 0 MSB"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: TRIG_PC0_H
+                 desc: '''PC trigger 0 MSB'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: TRIG_PC0_L
+           desc: "PC trigger 0 LSB"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: TRIG_PC0_L
+                 desc: '''PC trigger 0 LSB'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: TRIG_PC1_H
+           desc: "PC trigger 1 MSB"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: TRIG_PC1_H
+                 desc: '''PC trigger 1 MSB'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: TRIG_PC1_L
+           desc: "PC trigger 1 LSB"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: TRIG_PC1_L
+                 desc: '''PC trigger 1 LSB'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: TRIG_PC2_H
+           desc: "PC trigger 2 MSB"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: TRIG_PC2_H
+                 desc: '''PC trigger 2 MSB'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: TRIG_PC2_L
+           desc: "PC trigger 2 LSB"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: TRIG_PC2_L
+                 desc: '''PC trigger 2 LSB'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: TRIG_PC3_H
+           desc: "PC trigger 3 MSB"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: TRIG_PC3_H
+                 desc: '''PC trigger 3 MSB'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: TRIG_PC3_L
+           desc: "PC trigger 3 LSB"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: TRIG_PC3_L
+                 desc: '''PC trigger 3 LSB'''
+                 swaccess: "rw"
+                 hwaccess: "hro"
+                 resval: "0"
+              }
+            ]
+      },
+  ]
+
+}

@@ -1,0 +1,125 @@
+{
+    name: "trace_regs"
+    clock_primary: "clk_i"
+    reset_primary: "rst_ni"
+    bus_interfaces: [
+        { protocol: "reg_iface", direction: "device"}
+    ]
+    regwidth: 32,
+    registers: [
+      {
+           name: PRIV_LVL
+           desc: "Privilege Level"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "1:0"
+                 name: PRIV_LVL
+                 desc: '''Privilege Level'''
+                 swaccess: "none"
+                 hwaccess: "hrw"
+                 resval: "0"
+              },
+              {
+                 bits: "31:2"
+                 name: unused
+                 desc: '''unused'''
+                 swaccess: "none"
+                 hwaccess: "hrw"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: PC_SRC_H
+           desc: "Source PC MSBs"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: PC_SRC_H
+                 desc: '''Source PC MSBs'''
+                 swaccess: "none"
+                 hwaccess: "hrw"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: PC_SRC_L
+           desc: "Source PC LSBs"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: PC_SRC_L
+                 desc: '''Source PC LSBs'''
+                 swaccess: "none"
+                 hwaccess: "hrw"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: PC_DST_H
+           desc: "Field for PC target, data MSBs"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: PC_DST_H
+                 desc: '''Field for PC target MSBs'''
+                 swaccess: "none"
+                 hwaccess: "hrw"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: PC_DST_L
+           desc: "Field for PC target LSBs"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: PC_DST_L
+                 desc: '''Field for PC target LSB'''
+                 swaccess: "none"
+                 hwaccess: "hrw"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: Metadata
+           desc: "Metadata"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: Metadata
+                 desc: '''Metadata'''
+                 swaccess: "none"
+                 hwaccess: "hrw"
+                 resval: "0"
+              }
+            ]
+      },
+      {
+           name: OpCode
+           desc: "OpCode"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "31:0"
+                 name: OpCode
+                 desc: '''OpCode'''
+                 swaccess: "none"
+                 hwaccess: "hrw"
+                 resval: "0"
+              }
+            ]
+      }
+  ]
+
+}
