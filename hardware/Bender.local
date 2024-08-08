@@ -12,3 +12,4 @@ overrides:
   udma_core:          { git: "https://github.com/Alsaqr-platform/udma_core.git", rev: "ea1c783641910b5f45f680cd4a7665bc311ab5ec"  }
   register_interface: { git: "https://github.com/pulp-platform/register_interface.git", version: 0.4.2                            }
   idma:               { git: "git@github.com:alsaqr-platform/iDMA.git", rev: "dc80eb08"                                           } # branch: mc/zdl/exp-path
+  riscv:              { git: "https://github.com/AlSaqr-platform/riscv_nn.git", rev: "291ad04adb290e8f3aa80c22e5528d0640f5a8ae"   } # branch: alsaqr-2.0
