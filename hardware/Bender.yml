@@ -9,7 +9,7 @@ dependencies:
   alsaqr_padframe: { path: "deps/alsaqr_periph_padframe" }
   alsaqr_fpga_padframe: { path: "deps/alsaqr_periph_fpga_padframe" }
   apb_host_control: { path: "deps/apb_host_control_regs" }
-  apb_uart: { path: "../fpga/src/apb_uart" }
+  apb_uart: { path: "deps/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
   snooper: { path: "deps/snooper"}
   axi_riscv_atomics: { git: "git@github.com:pulp-platform/axi_riscv_atomics.git", version: 0.8.2 }
@@ -37,7 +37,6 @@ dependencies:
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", version: 1.0.1 }
   register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
-  pulp_cluster: { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "d47f3d0d207a5f22f301706f825dbf960f97f56b" } # branch: master
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "0ec0bf8b7dab6d5e4b3f7ec58338a8efee066379" }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
   opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "6b4908877403af5eddcb595b7338d9daa460d24e" }
@@ -74,20 +73,21 @@ sources:
   - host/tcdm_demux.sv
   - host/ariane_peripherals.sv
   - host/udma_subsystem.sv
-  - ../fpga/src/axi2apb/src/axi2apb.sv
-  - ../fpga/src/axi2apb/src/axi2apb_64_32.sv
-  - ../fpga/src/axi2apb/src/axi2apb_wrap.sv
-  - ../fpga/src/axi_slice/src/axi_w_buffer.sv
-  - ../fpga/src/axi_slice/src/axi_b_buffer.sv
-  - ../fpga/src/axi_slice/src/axi_slice_wrap.sv
-  - ../fpga/src/axi_slice/src/axi_slice.sv
-  - ../fpga/src/axi_slice/src/axi_single_slice.sv
-  - ../fpga/src/axi_slice/src/axi_ar_buffer.sv
-  - ../fpga/src/axi_slice/src/axi_r_buffer.sv
-  - ../fpga/src/axi_slice/src/axi_aw_buffer.sv
-  - ../fpga/src/apb_timer/apb_timer.sv
-  - ../fpga/src/apb_timer/timer.sv
   - host/dma_core_wrap.sv
+  - deps/axi2apb/src/axi2apb.sv
+  - deps/axi2apb/src/axi2apb_64_32.sv
+  - deps/axi2apb/src/axi2apb_wrap.sv
+  - deps/axi_slice/src/axi_w_buffer.sv
+  - deps/axi_slice/src/axi_b_buffer.sv
+  - deps/axi_slice/src/axi_slice_wrap.sv
+  - deps/axi_slice/src/axi_slice.sv
+  - deps/axi_slice/src/axi_single_slice.sv
+  - deps/axi_slice/src/axi_ar_buffer.sv
+  - deps/axi_slice/src/axi_r_buffer.sv
+  - deps/axi_slice/src/axi_aw_buffer.sv
+  - deps/apb_timer/apb_timer.sv
+  - deps/apb_timer/timer.sv
+  - host/bootrom/bootrom.sv
   - host/periph_bus_wrap.sv
   - host/freqmeter.sv
   - host/fll_dummy.sv
@@ -115,11 +115,11 @@ sources:
       FPGA_EMUL: ~
       PULP_FPGA_EMUL: ~
     files:
-      - ../fpga/src/pad_functional_xilinx/pad_functional_xilinx.sv
-      - ./fpga/ddr/fpga_clk_gen.sv
-      - ./fpga/ddr/boot_rom.sv
-      - ./fpga/ddr/axi_flat.sv
-      - ./fpga/ddr/alsaqr_xilinx.sv
+      - deps/pad_functional_xilinx/pad_functional_xilinx.sv
+      - fpga/ddr/fpga_clk_gen.sv
+      - fpga/ddr/boot_rom.sv
+      - fpga/ddr/axi_flat.sv
+      - fpga/ddr/alsaqr_xilinx.sv
 
   - target: all(fpga,xilinx, not(asic), not(ddr))
     defines:
@@ -129,10 +129,10 @@ sources:
       PULP_FPGA_EMUL: ~
       EXCLUDE_DDR: ~
     files:
-      - ../fpga/src/pad_functional_xilinx/pad_functional_xilinx.sv
-      - ./fpga/ddr/fpga_clk_gen.sv
-      - ./fpga/ddr/boot_rom.sv
-      - ./fpga/alsaqr_xilinx.sv
+      - deps/pad_functional_xilinx/pad_functional_xilinx.sv
+      - fpga/ddr/fpga_clk_gen.sv
+      - fpga/ddr/boot_rom.sv
+      - fpga/alsaqr_xilinx.sv
 
   # MACRO TEST + NETLIST FLL
   - target: all(asic, not(all(fpga, xilinx)))
@@ -145,7 +145,6 @@ sources:
       - gf22/synopsys/fll/netlists/gf22_fll.v
       - host/alsaqr_clk_rst_gen.sv
       - host/apb_subsystem.sv
-      - ../fpga/src/bootrom/bootrom.sv
       - gf22/macro_wrap/r2pv_wrap_gf22.sv
       - gf22/macro_wrap/memwrap_gf22.sv
       - gf22/macro_wrap/tc_sram_gf22.sv
@@ -267,7 +266,6 @@ sources:
       - tb/common/uart.sv
       - tb/common/SimDTM.sv
       - tb/common/SimJTAG.sv
-      - ../fpga/src/bootrom/bootrom.sv
       - tb/common/jtag_pkg.sv
       - tb/common/jtag_intf.sv
       - tb/common/mock_uart.sv
