@@ -1,0 +1,14 @@
+package:
+  name: snooper
+
+sources:
+  - rtl/snooper_pkg.sv
+  - rtl/cfg_regs_reg_pkg.sv
+  - rtl/cfg_regs_reg_top.sv
+  - rtl/trace_regs_reg_pkg.sv
+  - rtl/trace_regs_reg_top.sv
+  - rtl/trace_filter.sv
+  - rtl/trigger.sv
+  - rtl/circular_buffer.sv
+  - rtl/snooping_engine.sv
+  - rtl/snooper.sv

@@ -13,6 +13,13 @@ set_property CLOCK_DEDICATED_ROUTE FALSE [get_pins  i_alsaqr/i_RoT_wrap/rstgen_i
 set_property CLOCK_DEDICATED_ROUTE FALSE [get_pins  i_alsaqr/i_RoT_wrap/rstgen_i/i_rstgen_bypass/i_tc_clk_mux2_rst_n/i_BUFGMUX/I1]
 set_property CLOCK_DEDICATED_ROUTE FALSE [get_pins  i_alsaqr/i_RoT_wrap/rstgen_i/i_rstgen_bypass/i_tc_clk_mux2_rst_n/i_BUFGMUX/O]
 
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_pins  i_alsaqr/i_RoT_wrap/cluster_i/rstgen_i/i_rstgen_bypass/i_tc_clk_mux2_rst_no/i_BUFGMUX/I0]
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_pins  i_alsaqr/i_RoT_wrap/cluster_i/rstgen_i/i_rstgen_bypass/i_tc_clk_mux2_rst_no/i_BUFGMUX/I1]
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_pins  i_alsaqr/i_RoT_wrap/cluster_i/rstgen_i/i_rstgen_bypass/i_tc_clk_mux2_rst_no/i_BUFGMUX/O]
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_pins  i_alsaqr/i_RoT_wrap/cluster_i/rstgen_i/i_rstgen_bypass/i_tc_clk_mux2_rst_n/i_BUFGMUX/I0]
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_pins  i_alsaqr/i_RoT_wrap/cluster_i/rstgen_i/i_rstgen_bypass/i_tc_clk_mux2_rst_n/i_BUFGMUX/I1]
+set_property CLOCK_DEDICATED_ROUTE FALSE [get_pins  i_alsaqr/i_RoT_wrap/cluster_i/rstgen_i/i_rstgen_bypass/i_tc_clk_mux2_rst_n/i_BUFGMUX/O]
+
 ## JTAG Ibex
 create_clock -period 100.000 -name ot_tck -waveform {0.000 50.000} [get_ports pad_jtag_ot_tck]
 set_input_jitter tck 1.000

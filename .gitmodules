@@ -23,3 +23,15 @@
 	path = software/litmus/src
 	url = git@github.com:AlSaqr-platform/CHERI-Litmus.git
 	branch = rt/alsaqr
+[submodule "hardware/deps/apb_uart"]
+	path = hardware/deps/apb_uart
+	url = https://github.com/pulp-platform/apb_uart.git
+[submodule "hardware/deps/apb_node"]
+	path = hardware/deps/apb_node
+	url = https://github.com/pulp-platform/apb_node.git
+[submodule "hardware/deps/axi_slice"]
+	path = hardware/deps/axi_slice
+	url = https://github.com/pulp-platform/axi_slice.git
+[submodule "hardware/deps/apb_timer"]
+	path = hardware/deps/apb_timer
+	url = https://github.com/pulp-platform/apb_timer.git
