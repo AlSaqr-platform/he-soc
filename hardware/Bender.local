@@ -11,3 +11,4 @@ overrides:
   ace:                { git: "https://github.com/pulp-platform/ace.git", rev: "06180ec96531d38dc0c1c2b244bad621c5fe73a5"          }
   udma_core:          { git: "https://github.com/Alsaqr-platform/udma_core.git", rev: "ea1c783641910b5f45f680cd4a7665bc311ab5ec"  }
   register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2                           }
+  riscv:              { git: "https://github.com/AlSaqr-platform/riscv_nn.git", rev: "291ad04adb290e8f3aa80c22e5528d0640f5a8ae"   } # branch: alsaqr-2.0
