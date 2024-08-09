@@ -1213,11 +1213,7 @@ module ariane_peripherals
 
       // AXI Bus: IOPMP Initiator Port <=> AXI Cut
       // Conversion from SV interface to req/resp structs
-      /* 
-        In the future, an IOPMP will be capable to configure subsequent transactions to IOPMPs downstream (cascade)
-        To support this feature, the request port of the IOPMP Receiver Port integrates the NSAIDs
-      */
-      ariane_axi_soc::req_ext_t   axi_iopmp_ip_req;
+      ariane_axi_soc::req_t       axi_iopmp_ip_req;
       ariane_axi_soc::resp_t      axi_iopmp_ip_rsp;
       `AXI_ASSIGN_FROM_REQ(iopmp_ip_cut, axi_iopmp_ip_req)
       `AXI_ASSIGN_TO_RESP(axi_iopmp_ip_rsp, iopmp_ip_cut)
@@ -1228,10 +1224,11 @@ module ariane_peripherals
 
       riscv_iopmp #(
         // AXI specific parameters
-        .ADDR_WIDTH			        ( AxiAddrWidth				),
-        .DATA_WIDTH			        ( AxiDataWidth				),
-        .ID_WIDTH			          ( ariane_soc::IdWidth	),
-        .USER_WIDTH			        ( AxiUserWidth				),
+        .ADDR_WIDTH			        ( AxiAddrWidth				     ),
+        .DATA_WIDTH			        ( AxiDataWidth				     ),
+        .ID_WIDTH			          ( ariane_soc::IdWidth	     ),
+        .ID_SLV_WIDTH		        ( ariane_soc::IdWidthSlave ),
+        .USER_WIDTH			        ( AxiUserWidth				     ),
 
         // AXI request/response
         .axi_req_nsaid_t        ( ariane_axi_soc::req_ext_t   ),
@@ -1240,10 +1237,10 @@ module ariane_peripherals
         .axi_req_slv_t		      ( ariane_axi_soc::req_slv_t	  ),
         .axi_rsp_slv_t		      ( ariane_axi_soc::resp_slv_t  ),
         // AXI channel structs
-        .axi_aw_chan_t          ( ariane_axi_soc::aw_chan_ext_t   ),
+        .axi_aw_chan_t          ( ariane_axi_soc::aw_chan_t       ),
         .axi_w_chan_t           ( ariane_axi_soc::w_chan_t	      ),
         .axi_b_chan_t           ( ariane_axi_soc::b_chan_t	      ),
-        .axi_ar_chan_t          ( ariane_axi_soc::ar_chan_ext_t   ),
+        .axi_ar_chan_t          ( ariane_axi_soc::ar_chan_t       ),
         .axi_r_chan_t           ( ariane_axi_soc::r_chan_t	      ),
 
         // Register Interface parameters
