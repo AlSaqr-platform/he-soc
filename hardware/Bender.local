@@ -10,3 +10,4 @@ overrides:
   cva6:               { git: "https://github.com/AlSaqr-platform/cva6.git", rev: pulp-v1-culsans                                  }
   ace:                { git: "https://github.com/pulp-platform/ace.git", rev: "06180ec96531d38dc0c1c2b244bad621c5fe73a5"          }
   udma_core:          { git: "https://github.com/Alsaqr-platform/udma_core.git", rev: "ea1c783641910b5f45f680cd4a7665bc311ab5ec"  }
+  register_interface: { git: "https://github.com/pulp-platform/register_interface.git", version: 0.4.2        }                       
