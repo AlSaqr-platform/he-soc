@@ -33,18 +33,21 @@ module axi2tcdm_wrap
   output logic         busy_o
 );
 
-  logic [NB_DMAS-1:0][31:0] s_tcdm_bus_wdata;
-  logic [NB_DMAS-1:0][63:0] s_tcdm_bus_add;
-  logic [NB_DMAS-1:0]       s_tcdm_bus_req;
-  logic [NB_DMAS-1:0]       s_tcdm_bus_we;
-  logic [NB_DMAS-1:0][3:0]  s_tcdm_bus_be;
-  logic [NB_DMAS-1:0]       s_tcdm_bus_gnt;
-  logic [NB_DMAS-1:0][31:0] s_tcdm_bus_r_rdata;
-  logic [NB_DMAS-1:0]       s_tcdm_bus_r_valid;
+  localparam MEM_DATA_WIDTH = 32;
+  localparam MEM_ADDR_WIDTH = 32;
+
+  logic [NB_DMAS-1:0][MEM_DATA_WIDTH-1:0] s_tcdm_bus_wdata;
+  logic [NB_DMAS-1:0][AXI_ADDR_WIDTH-1:0] s_tcdm_bus_add;
+  logic [NB_DMAS-1:0]                     s_tcdm_bus_req;
+  logic [NB_DMAS-1:0]                     s_tcdm_bus_we;
+  logic [NB_DMAS-1:0][3:0]                s_tcdm_bus_be;
+  logic [NB_DMAS-1:0]                     s_tcdm_bus_gnt;
+  logic [NB_DMAS-1:0][MEM_DATA_WIDTH-1:0] s_tcdm_bus_r_rdata;
+  logic [NB_DMAS-1:0]                     s_tcdm_bus_r_valid;
 
   generate
     for (genvar i=0; i<NB_DMAS; i++) begin : TCDM_BIND
-      assign tcdm_master[i].add    = s_tcdm_bus_add[i][31:0];
+      assign tcdm_master[i].add    = s_tcdm_bus_add[i][MEM_ADDR_WIDTH-1:0];
       assign tcdm_master[i].req    = s_tcdm_bus_req[i];
       assign tcdm_master[i].wdata  = s_tcdm_bus_wdata[i];
       assign tcdm_master[i].wen    = !s_tcdm_bus_we[i];
@@ -62,7 +65,7 @@ module axi2tcdm_wrap
     .AXI_ADDR_WIDTH (AXI_ADDR_WIDTH),
     .AXI_DATA_WIDTH (AXI_DATA_WIDTH),
     .AXI_USER_WIDTH (AXI_USER_WIDTH),
-    .MEM_DATA_WIDTH (32            ),
+    .MEM_DATA_WIDTH (MEM_DATA_WIDTH),
     .BUF_DEPTH      (4             ),
     .HIDE_STRB      (1'b0          ),
     .OUT_FIFO_DEPTH (32'd1         )
