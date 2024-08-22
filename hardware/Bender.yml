@@ -12,7 +12,7 @@ dependencies:
   apb_host_control: { path: "deps/apb_host_control_regs" }
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
-  axi_riscv_atomics: { git: "git@github.com:pulp-platform/axi_riscv_atomics.git", version: 0.8.2 }
+  axi_riscv_atomics: { git: "git@github.com:pulp-platform/axi_riscv_atomics.git", rev: "2167672adc8dd9326af39f0058a7c0d03769c185" } # branch: rt/id-queue-cut-oup-pop-inp-gnt
   cva6: { git: "https://github.com/AlSaqr-platform/cva6.git", rev: "4cbd3ed30806740b20fce1001cf179f76918d9e9" } # branch: pulp-v1-culsans
   ace: { git: "https://github.com/pulp-platform/ace.git", rev: "06180ec96531d38dc0c1c2b244bad621c5fe73a5" }
   riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0  }
