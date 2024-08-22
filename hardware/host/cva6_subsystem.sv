@@ -387,7 +387,8 @@ module cva6_subsystem
     .AXI_USER_WIDTH     ( AXI_USER_WIDTH           ),
     .AXI_MAX_READ_TXNS  ( 8                        ),
     .AXI_MAX_WRITE_TXNS ( 8                        ),
-    .RISCV_WORD_WIDTH   ( 64                       )
+    .RISCV_WORD_WIDTH   ( 64                       ),
+    .CUT_OUP_POP_INP_GNT( 1                        )
   ) i_axi_riscv_atomicsl2 (
     .clk_i,
     .rst_ni ( ndmreset_n                ),
