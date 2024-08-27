@@ -14,6 +14,7 @@
 
 `include "ace/typedef.svh"
 `include "ace/assign.svh"
+`define APMU_IP
 
 module cva6_synth_wrap
  import ariane_pkg::*;
@@ -83,16 +84,35 @@ module cva6_synth_wrap
   // WRITE RESPONSE CHANNEL
   input logic [LOG_DEPTH:0]                   data_master_b_wptr_i,
   input logic [ASYNC_B_DATA_WIDTH-1:0]        data_master_b_data_i,
-  output logic [LOG_DEPTH:0]                  data_master_b_rptr_o
+  output logic [LOG_DEPTH:0]                  data_master_b_rptr_o,
+
+  // APMU
+  output pmu_pkg::pmu_event_t [ariane_soc::NumCVA6-1:0] spu_core_o
 
 );
+
+`ifdef APMU_IP
+  ACE_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
+    .AXI_ID_WIDTH   ( CVA6AXIIdWidth ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH )
+  ) core_to_SPU[ariane_soc::NumCVA6-1:0]();
 
   ACE_BUS #(
     .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
     .AXI_ID_WIDTH   ( CVA6AXIIdWidth ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH )
+  ) SPU_to_CCU[ariane_soc::NumCVA6-1:0]();
+`else
+  ACE_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
+    .AXI_ID_WIDTH   ( CVA6AXIIdWidth ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH )
   ) core_to_CCU[ariane_soc::NumCVA6-1:0]();
+`endif
 
   SNOOP_BUS  #(
     .SNOOP_ADDR_WIDTH ( AXI_ADDR_WIDTH ),
@@ -171,10 +191,61 @@ module cva6_synth_wrap
       .noc_resp_i           ( ace_ariane_resp[i]    )
     );
 
+  `ifdef APMU_IP
+    `ACE_ASSIGN_FROM_REQ(core_to_SPU[i], ace_ariane_req[i])
+    `ACE_ASSIGN_TO_RESP(ace_ariane_resp[i], core_to_SPU[i])
+  `else
     `ACE_ASSIGN_FROM_REQ(core_to_CCU[i], ace_ariane_req[i])
     `ACE_ASSIGN_TO_RESP(ace_ariane_resp[i], core_to_CCU[i])
+  `endif
+
     `SNOOP_ASSIGN_FROM_RESP(CCU_to_core[i], ace_ariane_req[i])
     `SNOOP_ASSIGN_TO_REQ(ace_ariane_resp[i], CCU_to_core[i])
+
+    `ifdef APMU_IP
+    localparam N_ADDR_RULES = 2;
+    ariane_soc::addr_map_rule_t [N_ADDR_RULES-1:0]   spu_mem_addr_map;
+    assign spu_mem_addr_map[0] = '{
+          idx: 0,
+          start_addr: ariane_soc::DebugBase,
+          end_addr:   ariane_soc::HYAXIBase
+    };
+
+    assign spu_mem_addr_map[1] = '{
+          idx: 1,
+          start_addr: ariane_soc::HYAXIBase,
+          end_addr:   ariane_soc::HYAXIBase + ariane_soc::HYAXILength
+    };
+
+    spu_top #(
+      // Static configuration parameters of the cache.
+      .SetAssociativity   ( ariane_soc::LLC_SET_ASSOC    ),
+      .NumLines           ( ariane_soc::LLC_NUM_LINES    ),
+      .NumBlocks          ( ariane_soc::LLC_NUM_BLOCKS   ),
+      // AXI4 Specifications
+      .IdWidthMasters     ( ariane_soc::IdWidth          ),
+      .IdWidthSlaves      ( ariane_soc::IdWidthSlave+ 1  ),
+      .AddrWidth          ( AXI_ADDR_WIDTH               ),
+      .DataWidth          ( AXI_DATA_WIDTH               ),
+      // Address Indexing
+      .addr_rule_t        ( ariane_soc::addr_map_rule_t  ),
+      .N_ADDR_RULES       ( N_ADDR_RULES                 ),
+      // FIFO and CAM Parameters
+      .CAM_DEPTH          ( 17                           ),
+      .FIFO_DEPTH         (  8                           )
+    ) i_spu_core_llc (
+      .clk_i              ( clk_i                        ),
+      .rst_ni             ( rst_ni                       ),
+      .addr_map_i         ( spu_mem_addr_map             ),
+      .spu_slv            ( core_to_SPU[i]               ),
+      .spu_mst            ( SPU_to_CCU[i]                ),
+      .e_out              ( spu_core_o[i]                )
+    );
+    `else 
+      spu_core_o[i].e_id   = '0;
+      spu_core_o[i].e_info = '0;
+      spu_core_o[i].s_id   = '0;
+    `endif
 
   end // block: gen_ariane
 
@@ -200,7 +271,11 @@ module cva6_synth_wrap
     .clk_i                 ( clk_i           ),
     .rst_ni                ( rst_ni          ),
     .test_i                ( 1'b0            ),
+`ifdef APMU_IP
+    .slv_ports             ( SPU_to_CCU      ),
+`else
     .slv_ports             ( core_to_CCU     ),
+`endif
     .snoop_ports           ( CCU_to_core     ),
     .mst_ports             ( ccu_axi_master_cut  )
   );

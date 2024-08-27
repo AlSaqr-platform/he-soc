@@ -18,6 +18,7 @@
 `include "axi/assign.svh"
 `include "axi/typedef.svh"
 `include "common_cells/registers.svh"
+`define APMU_IP
 
 module host_domain
   import axi_pkg::xbar_cfg_t;
@@ -191,6 +192,12 @@ module host_domain
                                           // It is hardcoded in the axi2tcdm_wrap module.
 
    localparam NB_UDMA_TCDM_CHANNEL = 2;
+
+  `ifdef APMU_IP
+    localparam int unsigned APMU_NUM_COUNTER = 8;
+  `else
+    localparam int unsigned APMU_NUM_COUNTER = 0;
+  `endif
 
    // parameters for the LLC
    localparam NUM_WAYS   = 32'd8;
@@ -414,14 +421,15 @@ module host_domain
   `endif
 
    cva6_subsystem # (
-        .NUM_WORDS         ( NUM_WORDS      ),
-        .AXI_USER_WIDTH    ( AXI_USER_WIDTH ),
-        .InclSimDTM        ( 1'b1           ),
-        .StallRandomOutput ( 1'b1           ),
-        .StallRandomInput  ( 1'b1           ),
-        .JtagEnable        ( JtagEnable     ),
-        .axi_req_t         ( axi_req_t      ),
-        .axi_rsp_t         ( axi_rsp_t      )
+        .NUM_WORDS         ( NUM_WORDS        ),
+        .AXI_USER_WIDTH    ( AXI_USER_WIDTH   ),
+        .APMU_NUM_COUNTER  ( APMU_NUM_COUNTER ),
+        .InclSimDTM        ( 1'b1             ),
+        .StallRandomOutput ( 1'b1             ),
+        .StallRandomInput  ( 1'b1             ),
+        .JtagEnable        ( JtagEnable       ),
+        .axi_req_t         ( axi_req_t        ),
+        .axi_rsp_t         ( axi_rsp_t        )
    ) i_cva6_subsystem (
         .clk_i(s_soc_clk),
         .rst_ni(s_synch_global_rst),
@@ -462,10 +470,14 @@ module host_domain
         .udma_rx_l3_axi_slave ( udma_rx_l3_axi_bus   ),
         .udma_tx_l3_axi_slave ( udma_tx_l3_axi_bus   ),
 
+        .spu_core_o           ( spu_o                ),
+
         .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
         .cva6_uart_tx_o       ( cva6_uart_tx_o       ),
         .axi_lite_master      ( host_lite_bus        )
     );
+
+  pmu_pkg::pmu_event_t [ariane_soc::NumCVA6:0] spu_o;
 
 
    axi2tcdm_wrap #(
