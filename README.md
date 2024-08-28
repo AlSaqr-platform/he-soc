@@ -1,3 +1,38 @@
+# Quick Instructions for alsaqr-culsans
+This is the multicore AlSaqr-variant of the PULP he-soc platform. It has a coherent interconnect based on the AXI4 ACE protocol, called Culsans.
+## Steps to run simulation:
+**Note:** Please update `setup.sh` with the respective path to the RISCV and Questa toolchain as per your system settings.
+
+## Steps to run simulation:
+1. Initialize the project.
+   ```
+   source setup.sh
+   ```
+2. Run bender to checkout the RTL source files.
+   ```
+    cd hardware
+    make init               # Bender will pull-in all repos in hardware/Bender.yml
+    bender update   
+    
+    # Bender will checkout the correct repo version, and
+    # generate a compile.tcl
+    make scripts_vip        
+   ```
+3. Build the software binary (`.riscv`).
+   ```
+    cd software/hello
+    cd hello
+    make clean all          # This command will generate the .riscv binary
+    make sim                # This command will run Questa SIM.
+   ```
+
+## Steps to for synthesis:
+1. The steps for synthesizing a FPGA bitstream are given in `hardware/fpga`.
+
+*Note:* These instructions were written by Mohammed Sajjad Jafri (msjmoham@uwaterloo.ca).
+
+---
+
 # AlSaqr SoC
 
 This repository contains the hardware files needed to build the AlSaqr-SoC. The architecture of the SoC is briefly described in the block diagram below.
