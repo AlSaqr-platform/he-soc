@@ -63,6 +63,8 @@ module cva6_subsystem
 
   // APMU
   output pmu_pkg::pmu_event_t [ariane_soc::NumCVA6-1:0] spu_core_o,
+  // PMU Interrupt Signal
+  input  logic [APMU_NUM_COUNTER-1:0]  pmu_intr_i,
 
   // CVA6 DEBUG UART
   input  logic            cva6_uart_rx_i,
@@ -678,6 +680,7 @@ module cva6_subsystem
     .AxiAddrWidth ( AXI_ADDRESS_WIDTH        ),
     .AxiDataWidth ( AXI_DATA_WIDTH           ),
     .AxiIdWidth   ( ariane_soc::IdWidthSlave ),
+    .APMU_NUM_COUNTER  ( APMU_NUM_COUNTER    ),
 `ifdef TARGET_SYNTHESIS
     .InclUART     ( 1'b1                     ),
 `else
@@ -710,6 +713,8 @@ module cva6_subsystem
     .irq_o           ( irqs                         ),
     .rx_i            ( cva6_uart_rx_i               ),
     .tx_o            ( cva6_uart_tx_o               ),
+
+    .pmu_intr_i      ( pmu_intr_i                   ),
 
     .eth_clk_i        ( eth_clk_i                   ),
     .eth_phy_tx_clk_i ( eth_phy_tx_clk_i            ),

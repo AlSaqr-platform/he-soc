@@ -315,6 +315,17 @@ module host_domain
     .AXI_DATA_WIDTH (AXI_LITE_DW)
    ) llc_cfg_bus();
 
+   // APMU - Debug Request
+   ariane_axi_soc::req_lite_t  pmu_debug_req;
+   ariane_axi_soc::resp_lite_t pmu_debug_res;
+
+   // APMU Configuration Signals
+   ariane_axi_soc::req_lite_t  axi_lite_pmu_cfg_req;
+   ariane_axi_soc::resp_lite_t axi_lite_pmu_cfg_res;
+
+   logic  [APMU_NUM_COUNTER-1:0] pmu_intr_o;
+   pmu_pkg::pmu_event_t [ariane_soc::NumCVA6-1:0] spu_o;
+
    XBAR_TCDM_BUS axi_bridge_2_interconnect[AXI64_2_TCDM32_N_PORTS]();
    XBAR_TCDM_BUS udma_2_tcdm_channels[NB_UDMA_TCDM_CHANNEL]();
 
@@ -470,14 +481,49 @@ module host_domain
         .udma_rx_l3_axi_slave ( udma_rx_l3_axi_bus   ),
         .udma_tx_l3_axi_slave ( udma_tx_l3_axi_bus   ),
 
+        // EVU 
         .spu_core_o           ( spu_o                ),
+        // APMU
+        .pmu_intr_i           ( pmu_intr_o           ),
 
         .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
         .cva6_uart_tx_o       ( cva6_uart_tx_o       ),
         .axi_lite_master      ( host_lite_bus        )
     );
 
-  pmu_pkg::pmu_event_t [ariane_soc::NumCVA6:0] spu_o;
+  AXI_LITE #(
+    .AXI_ADDR_WIDTH (AXI_LITE_AW),
+    .AXI_DATA_WIDTH (AXI_LITE_DW)
+  ) apmu_cfg_lite_bus();
+
+  `ifdef APMU_IP
+  // The PMU only works with 32-bit AXI4-Lite port.
+  pmu_top #(
+    .NUM_PORT         ( 4                             ),
+    .NUM_COUNTER      ( APMU_NUM_COUNTER              ),
+    .DEBUG_START_ADDR ( ariane_soc::DebugBase         ),
+    .DEBUG_LENGTH     ( ariane_soc::DebugLength       ),
+    .lite_req_t       ( ariane_axi_soc::req_lite_t    ),
+    .lite_resp_t      ( ariane_axi_soc::resp_lite_t   ),
+    .aw_chan_lite_t   ( ariane_axi_soc::aw_chan_lite_t),
+    .w_chan_lite_t    ( ariane_axi_soc::w_chan_lite_t ),
+    .b_chan_lite_t    ( ariane_axi_soc::b_chan_lite_t ),
+    .ar_chan_lite_t   ( ariane_axi_soc::ar_chan_lite_t),
+    .r_chan_lite_t    ( ariane_axi_soc::r_chan_lite_t )
+  ) i_pmu_top (
+    .clk_i            ( s_soc_clk                     ),
+    .rst_ni           ( s_synch_soc_rst               ),
+    .port_i           ( spu_o                         ),
+    .conf_req_i       ( axi_lite_pmu_cfg_req          ),
+    .conf_resp_o      ( axi_lite_pmu_cfg_res          ),
+    .debug_req_o      ( pmu_debug_req                 ),
+    .debug_resp_i     ( pmu_debug_res                 ),
+    .intr_o           ( pmu_intr_o                    )
+  );
+
+  `AXI_LITE_ASSIGN_TO_REQ( axi_lite_pmu_cfg_req, apmu_cfg_lite_bus    )
+  `AXI_LITE_ASSIGN_FROM_RESP( apmu_cfg_lite_bus, axi_lite_pmu_cfg_res )
+  `endif
 
 
    axi2tcdm_wrap #(
@@ -610,6 +656,8 @@ module host_domain
        .cluster_axi_lite_slave ( cluster_lite_slave      ),
        .c2h_tlb_cfg_master     ( c2h_tlb_cfg_lite_master ),
        .llc_cfg_master         ( llc_cfg_bus             ),
+       // APMU
+       .apmu_cfg_master        ( apmu_cfg_lite_bus       ),
        .h2c_irq_o              ( h2c_irq_o               ),
        .c2h_irq_o              ( s_c2h_irq               ),
        .doorbell_irq_o,

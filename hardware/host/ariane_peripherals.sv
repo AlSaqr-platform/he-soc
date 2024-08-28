@@ -9,47 +9,53 @@
 // specific language governing permissions and limitations under the License.
 
 // Xilinx Peripehrals
+`define APMU_IP
 module ariane_peripherals
     import udma_subsystem_pkg::N_CAN;
     import apb_soc_pkg::NUM_ADV_TIMER;
     import ariane_soc::*;
 #(
-    parameter  int NumCVA6      = -1,
-    parameter  int AxiAddrWidth = -1,
-    parameter  int AxiDataWidth = -1,
-    parameter  int AxiIdWidth   = -1,
-    parameter  int AxiUserWidth = 1,
-    parameter  bit InclUART     = 1,
-    parameter  bit InclSPI      = 0,
-    parameter  bit InclEthernet = 1,
-    parameter  bit InclGPIO     = 0,
-    parameter  bit InclTimer    = 1
+    parameter  int NumCVA6          = -1,
+    parameter  int AxiAddrWidth     = -1,
+    parameter  int AxiDataWidth     = -1,
+    parameter  int AxiIdWidth       = -1,
+    parameter  int AxiUserWidth     = 1,
+    parameter  int APMU_NUM_COUNTER = 0,
+    parameter  bit InclUART         = 1,
+    parameter  bit InclSPI          = 0,
+    parameter  bit InclEthernet     = 1,
+    parameter  bit InclGPIO         = 0,
+    parameter  bit InclTimer        = 1
 ) (
-    input  logic                          clk_i           , // Clock
-    input  logic                          rst_ni          , // Asynchronous reset active low
-    AXI_BUS.Slave                         plic            ,
-    AXI_BUS.Slave                         uart            ,
-    AXI_BUS.Slave                         spi             ,
-    AXI_BUS.Slave                         ethernet        ,
-    AXI_BUS.Slave                         timer           ,
-    input  logic [31*4-1:0]               udma_evt_i      ,
-    input  logic                          c2h_irq_i       ,
-    input  logic                          cluster_eoc_i   ,
-    input  logic [N_CAN-1:0]              can_irq_i      ,
-    input  logic [NUM_ADV_TIMER-1:0]      pwm_irq_i      ,
-    input  logic                        cl_dma_pe_evt_i ,
-    output logic [NumCVA6-1:0][1:0]     irq_o   ,
+    input  logic                          clk_i,            // Clock
+    input  logic                          rst_ni, // Asynchronous reset active low
+    AXI_BUS.Slave                         plic,
+    AXI_BUS.Slave                         uart,
+    AXI_BUS.Slave                         spi,
+    AXI_BUS.Slave                         ethernet,
+    AXI_BUS.Slave                         timer,
+    input  logic [31*4-1:0]               udma_evt_i,
+    input  logic                          c2h_irq_i,
+    input  logic                          cluster_eoc_i,
+    input  logic [N_CAN-1:0]              can_irq_i,
+    input  logic [NUM_ADV_TIMER-1:0]      pwm_irq_i,
+    input  logic                          cl_dma_pe_evt_i,
+
+    // APMU
+    input  logic [APMU_NUM_COUNTER-1:0]   pmu_intr_i,
+
+    output logic [NumCVA6-1:0][1:0]       irq_o,
     // UART
-    input  logic            rx_i            ,
-    output logic            tx_o            ,
+    input  logic            rx_i,
+    output logic            tx_o,
 
     // Ethernet
-    input  logic            eth_clk_i        , // 125 MHz 90
-    input  logic            eth_phy_tx_clk_i , // 125 MHz 0
-    input  logic            eth_clk_300MHz_i ,
+    input  logic            eth_clk_i, // 125 MHz 90
+    input  logic            eth_phy_tx_clk_i, // 125 MHz 0
+    input  logic            eth_clk_300MHz_i,
 
-    output eth_to_pad_t     eth_to_pad       ,
-    input  pad_to_eth_t     pad_to_eth       ,
+    output eth_to_pad_t     eth_to_pad,
+    input  pad_to_eth_t     pad_to_eth,
 
     // SCMI mailbox interrupt to CVA6
     input  logic            irq_mbox_i
@@ -79,6 +85,7 @@ module ariane_peripherals
     // 1. PLIC
     // ---------------
     logic [ariane_soc::NumSources-1:0] irq_sources;
+    logic [ariane_soc::NumSources-1:0] irq_le;
 
     assign irq_sources[7]                            = c2h_irq_i;
     assign irq_sources[8]                            = cluster_eoc_i;
@@ -99,7 +106,15 @@ module ariane_peripherals
     assign irq_sources[148]                          = pwm_irq_i[6];
     assign irq_sources[149]                          = pwm_irq_i[7];
 
-    assign irq_sources[ariane_soc::NumSources-1:150] = '0;
+  `ifdef APMU_IP
+    assign irq_sources[150+APMU_NUM_COUNTER-1:150]                     = pmu_intr_i;
+    assign irq_sources[ariane_soc::NumSources-1:150+APMU_NUM_COUNTER]  = '0;
+    assign irq_le[150+APMU_NUM_COUNTER-1:150]	                        = {APMU_NUM_COUNTER{1'b1}};
+    assign irq_le[ariane_soc::NumSources-1:150+APMU_NUM_COUNTER]       = '0; 
+  `else
+    assign irq_sources[ariane_soc::NumSources-1:150]                  = '0;
+    assign irq_le[ariane_soc::NumSources-1:150]                       = '0;
+  `endif
 
     REG_BUS #(
         .ADDR_WIDTH ( 32 ),

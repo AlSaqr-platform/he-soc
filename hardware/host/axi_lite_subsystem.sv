@@ -15,6 +15,7 @@
 
 `include "axi/assign.svh"
 `include "axi/typedef.svh"
+`define APMU_IP
 
 module axi_lite_subsystem
   import ariane_soc::IdWidthSlave;
@@ -34,6 +35,9 @@ module axi_lite_subsystem
 
     AXI_LITE.Master  c2h_tlb_cfg_master,
     AXI_LITE.Master  llc_cfg_master,
+
+    // Master to the APMU Slave port.
+    AXI_LITE.Master  apmu_cfg_master,
 
     output logic     h2c_irq_o,
     output logic     c2h_irq_o,
@@ -64,6 +68,8 @@ module axi_lite_subsystem
                                c2hmailbox_lite_resp,
                                axi_lite_mbox_rsp;
 
+  ariane_axi_soc::req_lite_t  apmu_cfg_req;         // Connects to APMU-Slave device.
+  ariane_axi_soc::resp_lite_t apmu_cfg_resp;
 
   AXI_LITE #(
     .AXI_ADDR_WIDTH (AXI_LITE_ADDR_WIDTH),
@@ -161,6 +167,61 @@ module axi_lite_subsystem
   `AXI_LITE_ASSIGN_FROM_REQ ( llc_cfg_master , llc_cfg_req  )
   `AXI_LITE_ASSIGN_TO_RESP  ( llc_cfg_resp , llc_cfg_master )
 
+  `AXI_LITE_ASSIGN_FROM_REQ ( apmu_cfg_master , apmu_cfg_req  )
+  `AXI_LITE_ASSIGN_TO_RESP  ( apmu_cfg_resp , apmu_cfg_master )
+
+`ifdef APMU_IP
+  typedef axi_pkg::xbar_rule_32_t tlb_cfg_xbar_rule_t;
+
+  localparam axi_pkg::xbar_cfg_t FromHostTlbCfgXbarCfg = '{
+    NoSlvPorts:  2,
+    NoMstPorts:  6,
+    MaxMstTrans: 2,
+    MaxSlvTrans: 5,
+    FallThrough: 0,
+    LatencyMode: axi_pkg::CUT_SLV_AX,
+    PipelineStages: 32'd0,
+    AxiIdWidthSlvPorts: 1,
+    AxiIdUsedSlvPorts: 1,
+    UniqueIds   : 0,
+    AxiAddrWidth: AXI_LITE_ADDR_WIDTH,
+    AxiDataWidth: AXI_LITE_DATA_WIDTH,
+    NoAddrRules: 5
+  };
+
+  localparam tlb_cfg_xbar_rule_t [FromHostTlbCfgXbarCfg.NoAddrRules-1:0]
+      FromHostTlbCfgXbarAddrMap = '{
+    '{idx: 32'd5, start_addr: 32'h1040_5000, end_addr: 32'h1060_5000},  // APMU IP
+    '{idx: 32'd4, start_addr: 32'h1040_4000, end_addr: 32'h1040_5000},
+    '{idx: 32'd3, start_addr: 32'h1040_3000, end_addr: 32'h1040_4000},
+    '{idx: 32'd2, start_addr: 32'h1040_2000, end_addr: 32'h1040_3000},
+    '{idx: 32'd1, start_addr: 32'h1040_1000, end_addr: 32'h1040_2000},
+    '{idx: 32'd0, start_addr: 32'h1040_0000, end_addr: 32'h1040_1000}   // Debug IP
+  };
+
+  axi_lite_xbar #(
+     .Cfg                   ( FromHostTlbCfgXbarCfg          ),
+     .aw_chan_t             ( ariane_axi_soc::aw_chan_lite_t ),
+     .w_chan_t              ( ariane_axi_soc::w_chan_lite_t  ),
+     .b_chan_t              ( ariane_axi_soc::b_chan_lite_t  ),
+     .ar_chan_t             ( ariane_axi_soc::ar_chan_lite_t ),
+     .r_chan_t              ( ariane_axi_soc::r_chan_lite_t  ),
+     .axi_req_t             ( ariane_axi_soc::req_lite_t     ),
+     .axi_resp_t            ( ariane_axi_soc::resp_lite_t    ),
+     .rule_t                ( tlb_cfg_xbar_rule_t            )
+   ) i_axi_lite_xbar         (
+     .clk_i                 ( clk_i                                               ),
+     .rst_ni                ( rst_ni                                              ),
+     .test_i                ( 1'b0                                                ),
+     .slv_ports_req_i       ( {cluster_lite_req , host_lite_req }                 ),
+     .slv_ports_resp_o      ( {cluster_lite_resp, host_lite_resp}                 ),
+     .mst_ports_req_o       ( { apmu_cfg_req, axi_lite_mbox_req, c2hmailbox_lite_req,  h2cmailbox_lite_req,  llc_cfg_req,  c2h_tlb_cfg_req } ),
+     .mst_ports_resp_i      ( { apmu_cfg_resp, axi_lite_mbox_rsp, c2hmailbox_lite_resp, h2cmailbox_lite_resp, llc_cfg_resp, c2h_tlb_cfg_resp } ),
+     .addr_map_i            ( FromHostTlbCfgXbarAddrMap                           ),
+     .en_default_mst_port_i ( {1'b0, 1'b0}                                        ),
+     .default_mst_port_i    ( '0                                                  )
+   );
+`else
   typedef axi_pkg::xbar_rule_32_t tlb_cfg_xbar_rule_t;
 
   localparam axi_pkg::xbar_cfg_t FromHostTlbCfgXbarCfg = '{
@@ -211,6 +272,7 @@ module axi_lite_subsystem
      .default_mst_port_i    ( '0                                                  )
    );
 
+`endif
 
   axi_lite_mailbox #(
      .MailboxDepth ( 32'd8                       ),
