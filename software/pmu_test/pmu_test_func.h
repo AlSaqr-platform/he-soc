@@ -81,7 +81,7 @@ uint32_t test_spm_rand(uint64_t base_addr, uint32_t num_rw);
 
 // BubbleSort
 // The `test_pmu_core_bubble_sort` function writes the RISC-V assembly program for bubble sort in the ISPM, populate the DSPM with a randomized array of 
-// size `len` and intialize the core.
+// size `len` at address `arr_base` and intialize the core.
 void bubble_sort (uint32_t *array, uint32_t len);
 uint32_t test_pmu_core_bubble_sort (
               uint32_t program_start_addr, 
