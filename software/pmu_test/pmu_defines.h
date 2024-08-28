@@ -46,11 +46,11 @@
 #define COUNTER_WIDTH   0x4
 
 // PMU Bundle Addresses
-#define PMU_B_BASE_ADDR     0x10404000
-#define TIMER_ADDR          0x10404000
-#define PERIOD_ADDR         0x10404008
-#define PMC_STATUS_ADDR     0x10405000
-#define PMC_BOOT_ADDR       0x10405004
+#define PMU_B_BASE_ADDR     0x10405000
+#define TIMER_ADDR          PMU_B_BASE_ADDR
+#define PERIOD_ADDR         (PMU_B_BASE_ADDR + TIMER_WIDTH)
+#define PMC_STATUS_ADDR     (PMU_B_BASE_ADDR + 0x1000)
+#define PMC_BOOT_ADDR       (PMU_B_BASE_ADDR + 0x1004)
 // Two 64-bit (8B) timer and one 32-bit status registers in the PMU bundle.
 #define PMU_BUNDLE_SIZE     0x2000
 
@@ -64,8 +64,8 @@
 #define COUNTER_BUNDLE_SIZE     0x1000
 
 // PMU Core Addresses
-#define ISPM_BASE_ADDR  0x10426000
-#define DSPM_BASE_ADDR  0x10427000
+#define ISPM_BASE_ADDR  0x10407000
+#define DSPM_BASE_ADDR  0x10428000
 
 /// **********************************************************************
 /// PMU Event Defines for Event Selection Register

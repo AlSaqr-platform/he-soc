@@ -20,9 +20,6 @@
 
 #define INTF_RD
 
-void test_cache(uint32_t num_counter, uint32_t *print_info);
-void test_cache2(uint32_t num_counter, uint32_t *print_info);
-
 // Sometimes the UART skips over output.
 // Gives the UART more time to finish output before filling up the UART Tx FIFO with more data.
 void my_sleep() {
