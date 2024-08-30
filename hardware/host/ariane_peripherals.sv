@@ -482,8 +482,10 @@ module ariane_peripherals
 
         `REG_BUS_TYPEDEF_ALL(reg_bus, reg_bus_addr_t, reg_bus_data_t, reg_bus_strb_t)
 
-        ariane_axi_soc::req_t axi_req_i, axi_req_o;
-        ariane_axi_soc::resp_t axi_rsp_o, axi_rsp_i;
+        ariane_axi_soc::req_t axi_req_i;
+        ariane_axi_soc::req_slv_t axi_req_o;
+        ariane_axi_soc::resp_slv_t axi_rsp_i;
+        ariane_axi_soc::resp_t axi_rsp_o;
         reg_bus_req_t reg_req;
         reg_bus_rsp_t reg_rsp;
 
@@ -545,8 +547,8 @@ module ariane_peripherals
           .RejectZeroTransfers ( RejectZeroTransfers    ),
           .TxFifoLogDepth      ( TxFifoLogDepth         ),
           .RxFifoLogDepth      ( RxFifoLogDepth         ),
-          .axi_req_t           ( ariane_axi_soc::req_t  ),
-          .axi_rsp_t           ( ariane_axi_soc::resp_t ),
+          .axi_req_t           ( ariane_axi_soc::req_slv_t  ),
+          .axi_rsp_t           ( ariane_axi_soc::resp_slv_t ),
           .reg_req_t           ( reg_bus_req_t          ),
           .reg_rsp_t           ( reg_bus_rsp_t          )
         ) i_ethernet (

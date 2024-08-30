@@ -43,7 +43,7 @@ dependencies:
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
   opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "b917030a8f0536421fd6b5bb2ad3429d9c580231" }
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
-  pulp-ethernet: { git: "https://github.com/pulp-platform/pulp-ethernet.git", rev: "7cb866430b38fc5281a6ada345146d49d17b977a" } # branch: chs-hs
+  pulp-ethernet: { git: "https://github.com/pulp-platform/pulp-ethernet.git", rev: "19a8d32a5fa8e234a710a22d179da6b56e21bb58" } # branch: chs-hs
   sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }
   culsans:  { git: "git@github.com:alsaqr-platform/culsans.git", rev: "dd62bc0741b4338ab43cb74bc65d864948b3418a" } # branch: main
 
