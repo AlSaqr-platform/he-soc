@@ -9,7 +9,7 @@
 // #define SIMPLE_PAD
 #define ETH2FMC
 
-#define ETH_BASE 			  		 0x30000000
+#define ETH_BASE 			  		         0x30000000
 #define MACLO_OFFSET                 0x0
 #define MACHI_OFFSET                 0x4
 #define IRQ_OFFSET                   0x18

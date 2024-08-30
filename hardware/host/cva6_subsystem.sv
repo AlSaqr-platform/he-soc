@@ -698,7 +698,7 @@ module cva6_subsystem
 `ifdef ETH2FMC_NO_PADFRAME
     .InclEthernet ( 1'b1                     )
 `else
-    .InclEthernet ( 1'b0                     )
+    .InclEthernet ( 1'b1                     )
 `endif
   ) i_ariane_peripherals (
     .clk_i           ( clk_i                        ),
