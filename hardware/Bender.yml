@@ -5,7 +5,6 @@ package:
 
 dependencies:
   clint: { path: "deps/clint" }
-  riscv-aia: { path: "deps/riscv-aia" }
   util: { path: "deps/util" }
   alsaqr_padframe: { path: "deps/alsaqr_periph_padframe" }
   alsaqr_fpga_padframe: { path: "deps/alsaqr_periph_fpga_padframe" }
@@ -13,7 +12,7 @@ dependencies:
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
   axi_riscv_atomics: { git: "git@github.com:pulp-platform/axi_riscv_atomics.git", version: 0.8.2 }
-  cva6: { git: "git@github.com:D3boker1/cva6.git", rev: "aba88b7aa31dbcbe586501b393ab179cc76313ec" } # branch: wip/riscv-aia
+  cva6: { git: "git@github.com:alsaqr-platform/cva6.git", rev: "5b01253bdcf7f166dcdf336b3516a4ebe8c467a0" }
   ace: { git: "https://github.com/planvtech/ace.git", rev: "fc2056f9f560ec55192c6b09ef682c822fad90fe" } # branch: pulp
   riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0  }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.39.1-beta }
@@ -49,6 +48,7 @@ dependencies:
   riscv-iommu:  { git: "git@github.com:AlSaqr-platform/riscv-iommu.git", rev: "alsaqr" } # branch: alsaqr
   riscv-iopmp:  { git: "git@github.com:AlSaqr-platform/riscv-iopmp.git", rev: "alsaqr" } # branch: alsaqr
   idma:  { git: "git@github.com:malejo97/iDMA.git", rev: "zdl/iommu-iopmp" } # branch: zdl/iommu-iopmp
+  riscv-aia: { git: "git@github.com:AlSaqr-platform/riscv-aia.git", rev: "35f8bdb84a5ec537f43210b713e5320475666de4" } # branch: alsaqr
 
 workspace:
   package_links:
