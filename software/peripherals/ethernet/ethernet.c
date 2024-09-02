@@ -6,9 +6,6 @@
 #define DRIVER_NAME     "alsaqr-eth"
 #define N_REPS           2
 
-// #define SIMPLE_PAD
-#define ETH2FMC
-
 #define ETH_BASE 			  		         0x30000000
 #define MACLO_OFFSET                 0x0
 #define MACHI_OFFSET                 0x4
@@ -26,6 +23,7 @@
 
 #define PLIC_BASE                    0x0C000000
 #define RV_PLIC_PRIO19_REG_OFFSET    0x4c
+//
 #define RV_PLIC_IE0_0_REG_OFFSET     0x2000
 #define RV_PLIC_CC0_REG_OFFSET       0x200004
 #define RV_PLIC_IE0_0_E_19_BIT       3
@@ -42,8 +40,14 @@
 #define TX_BASE 0x70000000
 #define RX_BASE 0x70001000
 
-#define PRINTF_ON
-
+#define APB_SOC_CTRL_BASE 0x1A106000
+#define APB_SOC_CTRL_LLC_CACHE_ADDR_START 0x18
+#define APB_SOC_CTRL_LLC_CACHE_ADDR_END 0x1C
+#define APB_SOC_CTRL_LLC_SPM_ADDR_START 0x20
+#define LLC_CACHE_START 0x80000000
+#define LLC_CACHE_END 0x80800000
+#define LLC_SPM_START 0x70000000
+#define AXI_LITE_BASE 0x10401000
 
 int main() {
 
@@ -98,9 +102,10 @@ int main() {
 		alsaqr_periph_padframe_periphs_a_29_mux_set( 1 );
 	#endif
 
-	#ifdef PRINTF_ON
-	  printf ("Start test Ethernet...\n\r");
-	#endif 
+	  pulp_write32(APB_SOC_CTRL_BASE + APB_SOC_CTRL_LLC_CACHE_ADDR_START, LLC_CACHE_START);    //LLC cache address start
+	  pulp_write32(APB_SOC_CTRL_BASE + APB_SOC_CTRL_LLC_CACHE_ADDR_END  , LLC_CACHE_END);      //LLC cache address end (8MB)
+	  pulp_write32(APB_SOC_CTRL_BASE + APB_SOC_CTRL_LLC_SPM_ADDR_START  , LLC_SPM_START);      //LLC SPM address end
+	  axi_llc_reg32_all_spm(AXI_LITE_BASE);   //set LLC in SPM mode
 
     pulp_write32(PLIC_BASE+RV_PLIC_PRIO19_REG_OFFSET, 0x1);
     pulp_write32(PLIC_BASE+RV_PLIC_IE0_0_REG_OFFSET, 1 << (RV_PLIC_IE0_0_E_19_BIT)); // Enable interrupt number ;
