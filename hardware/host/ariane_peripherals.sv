@@ -462,13 +462,13 @@ module ariane_peripherals
         logic                      eth_md_i, eth_md_o, eth_md_oe, eth_mdc;
         
         // should move to a configuration file
-        localparam int unsigned NumAxInFlight    = 32'd3;
+        localparam int unsigned NumAxInFlight    = 32'd9;
         localparam int unsigned BufferDepth      = 32'd3;
         localparam int unsigned TFLenWidth       = 32'd32;
         localparam int unsigned MemSysDepth      = 32'd0;
         localparam int unsigned RejectZeroTransfers = 32'd1;
         localparam int unsigned TxFifoLogDepth   = 32'd5;
-        localparam int unsigned RxFifoLogDepth   = 32'd1;
+        localparam int unsigned RxFifoLogDepth   = 32'd4;
 
         /// Register interface parameters
         localparam int unsigned RegBusDw   = 32;
