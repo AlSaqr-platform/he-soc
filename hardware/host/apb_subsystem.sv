@@ -982,6 +982,21 @@ module apb_subsystem
     // monitor_counter_reg_req and monitor_counter_reg_req structures
     // the interconnect is already on place
     // the base address to which you access the couters is: 0x1A22_A000 upto 0x1A22_AFFF
+ monitor_counters_t  # (
+    .reg_req_t	(reg_req_t) ,
+    .reg_rsp_t 	(reg_rsp_t)
+
+ ) monitor_counters_t
+ (
+  .clk_i	(clk_i),
+  .rst_ni	(rst_ni),
+
+  // Bus Interface
+  .reg_req_i	(monitor_counter_reg_req),
+  .reg_rsp_o	(monitor_counter_reg_rsp)
+
+);
+
 
     assign monitor_counter_req_rsp = '0;
 

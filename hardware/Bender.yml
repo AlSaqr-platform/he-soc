@@ -83,6 +83,11 @@ sources:
   - ../fpga/src/axi_slice/src/axi_aw_buffer.sv
   - ../fpga/src/apb_timer/apb_timer.sv
   - ../fpga/src/apb_timer/timer.sv
+  - deps/monitor_counters_t/rtl/monitor_counters_t_reg_pkg.sv
+  - deps/monitor_counters_t/rtl/monitor_counters_t_reg_top.sv
+  - deps/monitor_counters_t/rtl/monitor_counters_t_event.sv
+  - deps/monitor_counters_t/rtl/monitor_counters_t_core.sv
+  - deps/monitor_counters_t/rtl/monitor_counters_t.sv
   - host/periph_bus_wrap.sv
   - host/freqmeter.sv
   - host/fll_dummy.sv
