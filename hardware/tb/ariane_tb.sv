@@ -1737,7 +1737,7 @@ module ariane_tb;
              /// Etherent Internal clocks
             .eth_clk125_i        ( s_eth_clk125_0                       ), // 125MHz in-phase
             .eth_clk125q_i       ( s_eth_clk125_90                      ), // 125 MHz with 90 phase shift
-            .eth_clk200_i        ( 0                                    ),
+            .eth_clk200_i        ( '0                                   ),
             .phy_rx_clk_i        ( alt_2_pad_periphs_a_22_pad_ETH_TXCK  ),
             .phy_rxd_i           ( w_eth_tx2_data                       ),
             .phy_rx_ctl_i        ( alt_2_pad_periphs_a_23_pad_ETH_TXCTL ),
