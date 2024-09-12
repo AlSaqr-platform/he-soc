@@ -125,8 +125,8 @@ _start:
   li a1, 1
 1:bgeu a0, a1, 1b
 
-  # give each core 128KB of stack + TLS
-#define STKSHIFT 17
+  # give each core 256KB of stack + TLS
+#define STKSHIFT 18
   sll a2, a0, STKSHIFT
   add tp, tp, a2
   add sp, a0, 1
@@ -216,7 +216,7 @@ trap_entry:
   addi sp, sp, 272
   mret
 
-#ifdef CLUSTER_BIN  
+#ifdef CLUSTER_BIN
 .section .clusterraw
 .incbin CLUSTER_BIN_PATH
 #endif
@@ -240,4 +240,3 @@ tohost: .dword 0
 .align 6
 .globl fromhost
 fromhost: .dword 0
-
