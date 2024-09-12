@@ -105,7 +105,7 @@
                 name: trace_mode
                 desc: '''Select tracing modality'''
                 swaccess: "rw"
-                hwaccess: "hro"
+                hwaccess: "hrw"
                 resval: "0"
             },
             {
@@ -125,7 +125,119 @@
                 resval: "0"
             },
             {
-                bits: "31:15"
+                bits: "15"
+                name: EXCINH
+                desc: '''inhibit log exceptions'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "16"
+                name: INTRINH
+                desc: '''inhibit log irq'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "17"
+                name: TRETINH
+                desc: '''inhibit log trap return'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "18"
+                name: NTBREN
+                desc: '''inhibit log not taken branches'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "19"
+                name: TKBRINH
+                desc: '''inhibit log taken branches'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "20"
+                name: INDCALLINH
+                desc: '''inhibit log indirect calls'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "21"
+                name: DIRCALLINH
+                desc: '''inhibit log direct callsinhibit '''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "22"
+                name: INDJMPINH
+                desc: '''inhibit log indirect jumps'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "23"
+                name: DIRJMPINH
+                desc: '''inhibit log direct jumps'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "24"
+                name: CORSWAPINH
+                desc: '''inhibit log coroutine swap'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "25"
+                name: RETINH
+                desc: '''inhibit log cfunction return'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "26"
+                name: INDLJMPINH
+                desc: '''inhibit log other indir jump'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "27"
+                name: DIRLJMPINH
+                desc: '''inhibit log other dir jumps'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "28"
+                name: core_select
+                desc: '''select among CVA6 core 0 and 1'''
+                swaccess: "rw"
+                hwaccess: "hro"
+                resval: "0"
+            },
+            {
+                bits: "31:29"
                 name: unused
                 desc: '''unused'''
                 swaccess: "rw"

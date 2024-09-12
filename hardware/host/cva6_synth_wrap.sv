@@ -86,8 +86,13 @@ module cva6_synth_wrap
   // WRITE RESPONSE CHANNEL
   input logic [LOG_DEPTH:0]                   data_master_b_wptr_i,
   input logic [ASYNC_B_DATA_WIDTH-1:0]        data_master_b_data_i,
-  output logic [LOG_DEPTH:0]                  data_master_b_rptr_o
-
+  output logic [LOG_DEPTH:0]                  data_master_b_rptr_o,
+  // CTR port
+  output riscv::ctrsource_rv_t                emitter_source_o[1:0],
+  output riscv::ctrtarget_rv_t                emitter_target_o[1:0],
+  output riscv::ctrdata_rv_t                  emitter_data_o[1:0],
+  output riscv::priv_lvl_t                    priv_lvl_o[1:0],
+  output logic [31:0]                         instr_o[1:0]
 );
 
   ACE_BUS #(
@@ -173,7 +178,12 @@ module cva6_synth_wrap
       .cvxif_req_o          (                       ),
       .cvxif_resp_i         ( '0                    ),
       .noc_req_o            ( ace_ariane_req[i]     ),
-      .noc_resp_i           ( ace_ariane_resp[i]    )
+      .noc_resp_i           ( ace_ariane_resp[i]    ),
+      .emitter_source_o     ( emitter_source_o[i]   ),
+      .emitter_target_o     ( emitter_target_o[i]   ),
+      .emitter_data_o       ( emitter_data_o[i]     ),
+      .priv_lvl_o           ( priv_lvl_o[i]         ),
+      .emitter_instr_o      ( instr_o[i]            )
     );
 
     `ACE_ASSIGN_FROM_REQ(core_to_CCU[i], ace_ariane_req[i])

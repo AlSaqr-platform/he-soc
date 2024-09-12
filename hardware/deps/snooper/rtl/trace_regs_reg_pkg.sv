@@ -47,6 +47,10 @@ package trace_regs_reg_pkg;
   } trace_regs_reg2hw_opcode_reg_t;
 
   typedef struct packed {
+    logic        q;
+  } trace_regs_reg2hw_valid_reg_t;
+
+  typedef struct packed {
     struct packed {
       logic [1:0]  d;
       logic        de;
@@ -87,26 +91,33 @@ package trace_regs_reg_pkg;
     logic        de;
   } trace_regs_hw2reg_opcode_reg_t;
 
+  typedef struct packed {
+    logic        d;
+    logic        de;
+  } trace_regs_hw2reg_valid_reg_t;
+
   // Register -> HW type
   typedef struct packed {
-    trace_regs_reg2hw_priv_lvl_reg_t priv_lvl; // [223:192]
-    trace_regs_reg2hw_pc_src_h_reg_t pc_src_h; // [191:160]
-    trace_regs_reg2hw_pc_src_l_reg_t pc_src_l; // [159:128]
-    trace_regs_reg2hw_pc_dst_h_reg_t pc_dst_h; // [127:96]
-    trace_regs_reg2hw_pc_dst_l_reg_t pc_dst_l; // [95:64]
-    trace_regs_reg2hw_metadata_reg_t metadata; // [63:32]
-    trace_regs_reg2hw_opcode_reg_t opcode; // [31:0]
+    trace_regs_reg2hw_priv_lvl_reg_t priv_lvl; // [224:193]
+    trace_regs_reg2hw_pc_src_h_reg_t pc_src_h; // [192:161]
+    trace_regs_reg2hw_pc_src_l_reg_t pc_src_l; // [160:129]
+    trace_regs_reg2hw_pc_dst_h_reg_t pc_dst_h; // [128:97]
+    trace_regs_reg2hw_pc_dst_l_reg_t pc_dst_l; // [96:65]
+    trace_regs_reg2hw_metadata_reg_t metadata; // [64:33]
+    trace_regs_reg2hw_opcode_reg_t opcode; // [32:1]
+    trace_regs_reg2hw_valid_reg_t valid; // [0:0]
   } trace_regs_reg2hw_t;
 
   // HW -> register type
   typedef struct packed {
-    trace_regs_hw2reg_priv_lvl_reg_t priv_lvl; // [231:198]
-    trace_regs_hw2reg_pc_src_h_reg_t pc_src_h; // [197:165]
-    trace_regs_hw2reg_pc_src_l_reg_t pc_src_l; // [164:132]
-    trace_regs_hw2reg_pc_dst_h_reg_t pc_dst_h; // [131:99]
-    trace_regs_hw2reg_pc_dst_l_reg_t pc_dst_l; // [98:66]
-    trace_regs_hw2reg_metadata_reg_t metadata; // [65:33]
-    trace_regs_hw2reg_opcode_reg_t opcode; // [32:0]
+    trace_regs_hw2reg_priv_lvl_reg_t priv_lvl; // [233:200]
+    trace_regs_hw2reg_pc_src_h_reg_t pc_src_h; // [199:167]
+    trace_regs_hw2reg_pc_src_l_reg_t pc_src_l; // [166:134]
+    trace_regs_hw2reg_pc_dst_h_reg_t pc_dst_h; // [133:101]
+    trace_regs_hw2reg_pc_dst_l_reg_t pc_dst_l; // [100:68]
+    trace_regs_hw2reg_metadata_reg_t metadata; // [67:35]
+    trace_regs_hw2reg_opcode_reg_t opcode; // [34:2]
+    trace_regs_hw2reg_valid_reg_t valid; // [1:0]
   } trace_regs_hw2reg_t;
 
   // Register offsets
@@ -117,6 +128,7 @@ package trace_regs_reg_pkg;
   parameter logic [BlockAw-1:0] TRACE_REGS_PC_DST_L_OFFSET = 5'h 10;
   parameter logic [BlockAw-1:0] TRACE_REGS_METADATA_OFFSET = 5'h 14;
   parameter logic [BlockAw-1:0] TRACE_REGS_OPCODE_OFFSET = 5'h 18;
+  parameter logic [BlockAw-1:0] TRACE_REGS_VALID_OFFSET = 5'h 1c;
 
   // Register index
   typedef enum int {
@@ -126,18 +138,20 @@ package trace_regs_reg_pkg;
     TRACE_REGS_PC_DST_H,
     TRACE_REGS_PC_DST_L,
     TRACE_REGS_METADATA,
-    TRACE_REGS_OPCODE
+    TRACE_REGS_OPCODE,
+    TRACE_REGS_VALID
   } trace_regs_id_e;
 
   // Register width information to check illegal writes
-  parameter logic [3:0] TRACE_REGS_PERMIT [7] = '{
+  parameter logic [3:0] TRACE_REGS_PERMIT [8] = '{
     4'b 1111, // index[0] TRACE_REGS_PRIV_LVL
     4'b 1111, // index[1] TRACE_REGS_PC_SRC_H
     4'b 1111, // index[2] TRACE_REGS_PC_SRC_L
     4'b 1111, // index[3] TRACE_REGS_PC_DST_H
     4'b 1111, // index[4] TRACE_REGS_PC_DST_L
     4'b 1111, // index[5] TRACE_REGS_METADATA
-    4'b 1111  // index[6] TRACE_REGS_OPCODE
+    4'b 1111, // index[6] TRACE_REGS_OPCODE
+    4'b 0001  // index[7] TRACE_REGS_VALID
   };
 
 endpackage

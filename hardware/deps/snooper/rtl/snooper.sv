@@ -45,7 +45,8 @@ module snooper
    input  axi_lite_req_t        axi_lite_cfg_req_i,
    output axi_lite_rsp_t        axi_lite_cfg_rsp_o,
    input  trace_t               traces_i,
-   output logic                 trigger_o
+   output logic                 trigger_o,
+   output logic                 core_select_o
 );
 
 /////////////////////////////
@@ -91,6 +92,8 @@ module snooper
    logic snoop_en;
 
    logic [MemAddrWidth-1:0] cnt;
+   logic [MemAddrWidth-1:0] first_valid;
+   logic [MemAddrWidth-1:0] last_valid;
 
    reg_req_t cfg_reg_req;
    reg_rsp_t cfg_reg_rsp;
@@ -114,6 +117,7 @@ module snooper
    assign trace_hw2reg.pc_dst_l.de          = 1'b1;
    assign trace_hw2reg.metadata.de          = 1'b1;
    assign trace_hw2reg.opcode.de            = 1'b1;
+   assign trace_hw2reg.valid.de             = 1'b1;
 
    assign trace_hw2reg.priv_lvl.unused.d    = '0;
    assign trace_hw2reg.priv_lvl.priv_lvl.d  = traces_i.priv_lvl;
@@ -123,6 +127,7 @@ module snooper
    assign trace_hw2reg.pc_dst_l.d           = traces_i.pc_dst_l;
    assign trace_hw2reg.metadata.d           = traces_i.metadata;
    assign trace_hw2reg.opcode.d             = traces_i.opcode;
+   assign trace_hw2reg.valid.d              = traces_i.pc_v;
 
    assign trace_buff.priv_lvl               = trace_reg2hw.priv_lvl.priv_lvl.q;
    assign trace_buff.pc_src_h               = trace_reg2hw.pc_src_h.q;
@@ -131,12 +136,18 @@ module snooper
    assign trace_buff.pc_dst_l               = trace_reg2hw.pc_dst_l.q;
    assign trace_buff.metadata               = trace_reg2hw.metadata.q;
    assign trace_buff.opcode                 = trace_reg2hw.opcode.q;
+   assign trace_buff.pc_v                   = trace_reg2hw.valid.q;
 
    assign cfg_hw2reg.base.de = 1'b1;
-   assign cfg_hw2reg.base.d  = 32'h0;
+   assign cfg_hw2reg.base.d  = first_valid;
 
    assign cfg_hw2reg.last.de = 1'b1;
-   assign cfg_hw2reg.last.d  = { {(32-MemAddrWidth){1'b0}},  cnt };
+   assign cfg_hw2reg.last.d  = last_valid;
+
+   assign cfg_hw2reg.ctrl.trace_mode.de = trigger_o;
+   assign cfg_hw2reg.ctrl.trace_mode.d  = 2'b11;
+
+   assign core_select_o = cfg_reg2hw.ctrl.core_select.q;
 
 ////////////////////
 // Snooping Logic //
@@ -158,9 +169,10 @@ module snooper
 
    // Enable the snooper to collect data only when needed
    trace_filter u_trace_filter (
-      .traces_i ( trace_buff   ),
-      .config_i ( cfg_reg2hw   ),
-      .enable_o ( snoop_en     )
+      .traces_i   ( trace_buff      ),
+      .config_i   ( cfg_reg2hw      ),
+      .pc_valid_i ( trace_buff.pc_v ),
+      .enable_o   ( snoop_en        )
    );
 
    snooping_engine #(
@@ -171,17 +183,19 @@ module snooper
        .clk_i           ( clk_i         ),
        .rst_ni          ( rst_ni        ),
        // Memory interface
-       .buff_req_o      ( buff_req   ),
-       .buff_add_o      ( buff_add   ),
-       .buff_wen_o      ( buff_wen   ),
-       .buff_wdata_o    ( buff_wdata ),
-       .buff_be_o       ( buff_be    ),
+       .buff_req_o      ( buff_req    ),
+       .buff_add_o      ( buff_add    ),
+       .buff_wen_o      ( buff_wen    ),
+       .buff_wdata_o    ( buff_wdata  ),
+       .buff_be_o       ( buff_be     ),
        // Control interface
-       .traces_i        ( trace_buff ),
-       .config_i        ( cfg_reg2hw ),
-       .snoop_en_i      ( snoop_en   ),
-       // Last valid entyr
-       .cnt_o           ( cnt        )
+       .traces_i        ( trace_buff  ),
+       .config_i        ( cfg_reg2hw  ),
+       .snoop_en_i      ( snoop_en    ),
+       // Last valid entry
+       .cnt_o           ( cnt         ),
+       .first_valid_o   ( first_valid ),
+       .last_valid_o    ( last_valid  )
    );
 
 ///////////////////////////

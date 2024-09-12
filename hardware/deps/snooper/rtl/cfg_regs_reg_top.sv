@@ -110,8 +110,50 @@ module cfg_regs_reg_top #(
   logic ctrl_cnt_rst_qs;
   logic ctrl_cnt_rst_wd;
   logic ctrl_cnt_rst_we;
-  logic [16:0] ctrl_unused_qs;
-  logic [16:0] ctrl_unused_wd;
+  logic ctrl_excinh_qs;
+  logic ctrl_excinh_wd;
+  logic ctrl_excinh_we;
+  logic ctrl_intrinh_qs;
+  logic ctrl_intrinh_wd;
+  logic ctrl_intrinh_we;
+  logic ctrl_tretinh_qs;
+  logic ctrl_tretinh_wd;
+  logic ctrl_tretinh_we;
+  logic ctrl_ntbren_qs;
+  logic ctrl_ntbren_wd;
+  logic ctrl_ntbren_we;
+  logic ctrl_tkbrinh_qs;
+  logic ctrl_tkbrinh_wd;
+  logic ctrl_tkbrinh_we;
+  logic ctrl_indcallinh_qs;
+  logic ctrl_indcallinh_wd;
+  logic ctrl_indcallinh_we;
+  logic ctrl_dircallinh_qs;
+  logic ctrl_dircallinh_wd;
+  logic ctrl_dircallinh_we;
+  logic ctrl_indjmpinh_qs;
+  logic ctrl_indjmpinh_wd;
+  logic ctrl_indjmpinh_we;
+  logic ctrl_dirjmpinh_qs;
+  logic ctrl_dirjmpinh_wd;
+  logic ctrl_dirjmpinh_we;
+  logic ctrl_corswapinh_qs;
+  logic ctrl_corswapinh_wd;
+  logic ctrl_corswapinh_we;
+  logic ctrl_retinh_qs;
+  logic ctrl_retinh_wd;
+  logic ctrl_retinh_we;
+  logic ctrl_indljmpinh_qs;
+  logic ctrl_indljmpinh_wd;
+  logic ctrl_indljmpinh_we;
+  logic ctrl_dirljmpinh_qs;
+  logic ctrl_dirljmpinh_wd;
+  logic ctrl_dirljmpinh_we;
+  logic ctrl_core_select_qs;
+  logic ctrl_core_select_wd;
+  logic ctrl_core_select_we;
+  logic [2:0] ctrl_unused_qs;
+  logic [2:0] ctrl_unused_wd;
   logic ctrl_unused_we;
   logic [31:0] base_qs;
   logic [31:0] last_qs;
@@ -491,8 +533,8 @@ module cfg_regs_reg_top #(
     .wd     (ctrl_trace_mode_wd),
 
     // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
+    .de     (hw2reg.ctrl.trace_mode.de),
+    .d      (hw2reg.ctrl.trace_mode.d ),
 
     // to internal hardware
     .qe     (),
@@ -555,11 +597,375 @@ module cfg_regs_reg_top #(
   );
 
 
-  //   F[unused]: 31:15
+  //   F[excinh]: 15:15
   prim_subreg #(
-    .DW      (17),
+    .DW      (1),
     .SWACCESS("RW"),
-    .RESVAL  (17'h0)
+    .RESVAL  (1'h0)
+  ) u_ctrl_excinh (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (ctrl_excinh_we),
+    .wd     (ctrl_excinh_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.ctrl.excinh.q ),
+
+    // to register interface (read)
+    .qs     (ctrl_excinh_qs)
+  );
+
+
+  //   F[intrinh]: 16:16
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h0)
+  ) u_ctrl_intrinh (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (ctrl_intrinh_we),
+    .wd     (ctrl_intrinh_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.ctrl.intrinh.q ),
+
+    // to register interface (read)
+    .qs     (ctrl_intrinh_qs)
+  );
+
+
+  //   F[tretinh]: 17:17
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h0)
+  ) u_ctrl_tretinh (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (ctrl_tretinh_we),
+    .wd     (ctrl_tretinh_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.ctrl.tretinh.q ),
+
+    // to register interface (read)
+    .qs     (ctrl_tretinh_qs)
+  );
+
+
+  //   F[ntbren]: 18:18
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h0)
+  ) u_ctrl_ntbren (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (ctrl_ntbren_we),
+    .wd     (ctrl_ntbren_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.ctrl.ntbren.q ),
+
+    // to register interface (read)
+    .qs     (ctrl_ntbren_qs)
+  );
+
+
+  //   F[tkbrinh]: 19:19
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h0)
+  ) u_ctrl_tkbrinh (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (ctrl_tkbrinh_we),
+    .wd     (ctrl_tkbrinh_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.ctrl.tkbrinh.q ),
+
+    // to register interface (read)
+    .qs     (ctrl_tkbrinh_qs)
+  );
+
+
+  //   F[indcallinh]: 20:20
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h0)
+  ) u_ctrl_indcallinh (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (ctrl_indcallinh_we),
+    .wd     (ctrl_indcallinh_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.ctrl.indcallinh.q ),
+
+    // to register interface (read)
+    .qs     (ctrl_indcallinh_qs)
+  );
+
+
+  //   F[dircallinh]: 21:21
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h0)
+  ) u_ctrl_dircallinh (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (ctrl_dircallinh_we),
+    .wd     (ctrl_dircallinh_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.ctrl.dircallinh.q ),
+
+    // to register interface (read)
+    .qs     (ctrl_dircallinh_qs)
+  );
+
+
+  //   F[indjmpinh]: 22:22
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h0)
+  ) u_ctrl_indjmpinh (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (ctrl_indjmpinh_we),
+    .wd     (ctrl_indjmpinh_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.ctrl.indjmpinh.q ),
+
+    // to register interface (read)
+    .qs     (ctrl_indjmpinh_qs)
+  );
+
+
+  //   F[dirjmpinh]: 23:23
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h0)
+  ) u_ctrl_dirjmpinh (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (ctrl_dirjmpinh_we),
+    .wd     (ctrl_dirjmpinh_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.ctrl.dirjmpinh.q ),
+
+    // to register interface (read)
+    .qs     (ctrl_dirjmpinh_qs)
+  );
+
+
+  //   F[corswapinh]: 24:24
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h0)
+  ) u_ctrl_corswapinh (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (ctrl_corswapinh_we),
+    .wd     (ctrl_corswapinh_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.ctrl.corswapinh.q ),
+
+    // to register interface (read)
+    .qs     (ctrl_corswapinh_qs)
+  );
+
+
+  //   F[retinh]: 25:25
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h0)
+  ) u_ctrl_retinh (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (ctrl_retinh_we),
+    .wd     (ctrl_retinh_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.ctrl.retinh.q ),
+
+    // to register interface (read)
+    .qs     (ctrl_retinh_qs)
+  );
+
+
+  //   F[indljmpinh]: 26:26
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h0)
+  ) u_ctrl_indljmpinh (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (ctrl_indljmpinh_we),
+    .wd     (ctrl_indljmpinh_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.ctrl.indljmpinh.q ),
+
+    // to register interface (read)
+    .qs     (ctrl_indljmpinh_qs)
+  );
+
+
+  //   F[dirljmpinh]: 27:27
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h0)
+  ) u_ctrl_dirljmpinh (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (ctrl_dirljmpinh_we),
+    .wd     (ctrl_dirljmpinh_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.ctrl.dirljmpinh.q ),
+
+    // to register interface (read)
+    .qs     (ctrl_dirljmpinh_qs)
+  );
+
+
+  //   F[core_select]: 28:28
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("RW"),
+    .RESVAL  (1'h0)
+  ) u_ctrl_core_select (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (ctrl_core_select_we),
+    .wd     (ctrl_core_select_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.ctrl.core_select.q ),
+
+    // to register interface (read)
+    .qs     (ctrl_core_select_qs)
+  );
+
+
+  //   F[unused]: 31:29
+  prim_subreg #(
+    .DW      (3),
+    .SWACCESS("RW"),
+    .RESVAL  (3'h0)
   ) u_ctrl_unused (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -1391,8 +1797,50 @@ module cfg_regs_reg_top #(
   assign ctrl_cnt_rst_we = addr_hit[0] & reg_we & !reg_error;
   assign ctrl_cnt_rst_wd = reg_wdata[14];
 
+  assign ctrl_excinh_we = addr_hit[0] & reg_we & !reg_error;
+  assign ctrl_excinh_wd = reg_wdata[15];
+
+  assign ctrl_intrinh_we = addr_hit[0] & reg_we & !reg_error;
+  assign ctrl_intrinh_wd = reg_wdata[16];
+
+  assign ctrl_tretinh_we = addr_hit[0] & reg_we & !reg_error;
+  assign ctrl_tretinh_wd = reg_wdata[17];
+
+  assign ctrl_ntbren_we = addr_hit[0] & reg_we & !reg_error;
+  assign ctrl_ntbren_wd = reg_wdata[18];
+
+  assign ctrl_tkbrinh_we = addr_hit[0] & reg_we & !reg_error;
+  assign ctrl_tkbrinh_wd = reg_wdata[19];
+
+  assign ctrl_indcallinh_we = addr_hit[0] & reg_we & !reg_error;
+  assign ctrl_indcallinh_wd = reg_wdata[20];
+
+  assign ctrl_dircallinh_we = addr_hit[0] & reg_we & !reg_error;
+  assign ctrl_dircallinh_wd = reg_wdata[21];
+
+  assign ctrl_indjmpinh_we = addr_hit[0] & reg_we & !reg_error;
+  assign ctrl_indjmpinh_wd = reg_wdata[22];
+
+  assign ctrl_dirjmpinh_we = addr_hit[0] & reg_we & !reg_error;
+  assign ctrl_dirjmpinh_wd = reg_wdata[23];
+
+  assign ctrl_corswapinh_we = addr_hit[0] & reg_we & !reg_error;
+  assign ctrl_corswapinh_wd = reg_wdata[24];
+
+  assign ctrl_retinh_we = addr_hit[0] & reg_we & !reg_error;
+  assign ctrl_retinh_wd = reg_wdata[25];
+
+  assign ctrl_indljmpinh_we = addr_hit[0] & reg_we & !reg_error;
+  assign ctrl_indljmpinh_wd = reg_wdata[26];
+
+  assign ctrl_dirljmpinh_we = addr_hit[0] & reg_we & !reg_error;
+  assign ctrl_dirljmpinh_wd = reg_wdata[27];
+
+  assign ctrl_core_select_we = addr_hit[0] & reg_we & !reg_error;
+  assign ctrl_core_select_wd = reg_wdata[28];
+
   assign ctrl_unused_we = addr_hit[0] & reg_we & !reg_error;
-  assign ctrl_unused_wd = reg_wdata[31:15];
+  assign ctrl_unused_wd = reg_wdata[31:29];
 
   assign range_0_base_h_we = addr_hit[3] & reg_we & !reg_error;
   assign range_0_base_h_wd = reg_wdata[31:0];
@@ -1485,7 +1933,21 @@ module cfg_regs_reg_top #(
         reg_rdata_next[12:11] = ctrl_trace_mode_qs;
         reg_rdata_next[13] = ctrl_test_mode_qs;
         reg_rdata_next[14] = ctrl_cnt_rst_qs;
-        reg_rdata_next[31:15] = ctrl_unused_qs;
+        reg_rdata_next[15] = ctrl_excinh_qs;
+        reg_rdata_next[16] = ctrl_intrinh_qs;
+        reg_rdata_next[17] = ctrl_tretinh_qs;
+        reg_rdata_next[18] = ctrl_ntbren_qs;
+        reg_rdata_next[19] = ctrl_tkbrinh_qs;
+        reg_rdata_next[20] = ctrl_indcallinh_qs;
+        reg_rdata_next[21] = ctrl_dircallinh_qs;
+        reg_rdata_next[22] = ctrl_indjmpinh_qs;
+        reg_rdata_next[23] = ctrl_dirjmpinh_qs;
+        reg_rdata_next[24] = ctrl_corswapinh_qs;
+        reg_rdata_next[25] = ctrl_retinh_qs;
+        reg_rdata_next[26] = ctrl_indljmpinh_qs;
+        reg_rdata_next[27] = ctrl_dirljmpinh_qs;
+        reg_rdata_next[28] = ctrl_core_select_qs;
+        reg_rdata_next[31:29] = ctrl_unused_qs;
       end
 
       addr_hit[1]: begin
