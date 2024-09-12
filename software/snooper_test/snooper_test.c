@@ -14,11 +14,19 @@
 #include "snooper_test.h"
 #include <stdbool.h>
 
+#define INSTR
+
 #define SNOOP_BASE    0x10405000
 #define AXI_PORT_BASE 0x71000000
 
-int main(int argc, char **argv) {
+// Function to set a specific bit in the register
+void set_register_bit(uint32_t base_addr, uint32_t reg_offset, uint32_t bit_position) {
+    uint32_t reg_value = pulp_write32(base_addr + reg_offset);
+    reg_value |= (1 << bit_position);
+    pulp_write32(base_addr + reg_offset, reg_value);
+}
 
+int main(int argc, char **argv) {
 
   #ifdef TARGET_SYNTHESIS
   int baud_rate = 115200;
@@ -37,20 +45,22 @@ int main(int argc, char **argv) {
   uart_wait_tx_done();
 
   pulp_write32(SNOOP_BASE + CFG_REGS_RANGE_0_BASE_H_REG_OFFSET, 0x00000000);
-  pulp_write32(SNOOP_BASE + CFG_REGS_RANGE_0_BASE_L_REG_OFFSET, 0x00000000);
-  pulp_write32(SNOOP_BASE + CFG_REGS_RANGE_0_LAST_H_REG_OFFSET, 0x0FFFFFFF);
-  pulp_write32(SNOOP_BASE + CFG_REGS_RANGE_0_LAST_L_REG_OFFSET, 0xFFFFFFFF);
-  pulp_write32(SNOOP_BASE + CFG_REGS_TRIG_PC0_H_REG_OFFSET, 0x00000004);
-  pulp_write32(SNOOP_BASE + CFG_REGS_TRIG_PC0_L_REG_OFFSET, 0x00000000);
+  pulp_write32(SNOOP_BASE + CFG_REGS_RANGE_0_BASE_L_REG_OFFSET, 0x80000e3c);
+  pulp_write32(SNOOP_BASE + CFG_REGS_RANGE_0_LAST_H_REG_OFFSET, 0x00000000);
+  pulp_write32(SNOOP_BASE + CFG_REGS_RANGE_0_LAST_L_REG_OFFSET, 0x80000f2a);
 
-  #ifdef INSTR
-  pulp_write32(SNOOP_BASE + CFG_REGS_CTRL_REG_OFFSET, 0x800 + 0x80 + 0x8 + 0x4);
-  #else
-  pulp_write32(SNOOP_BASE + CFG_REGS_CTRL_REG_OFFSET,         0x80 + 0x8 + 0x4);
-  #endif
+  printf("CVA6: configuring and starting snooper\r\n");
+  //#ifdef INSTR
+  set_register_bit(SNOOP_BASE, CFG_REGS_CTRL_REG_OFFSET,CFG_REGS_CTRL_M_MODE_BIT);
+  set_register_bit(SNOOP_BASE, CFG_REGS_CTRL_REG_OFFSET,CFG_REGS_CTRL_PC_RANGE_0_BIT);
 
-  while(pulp_read32(SNOOP_BASE + CFG_REGS_LAST_REG_OFFSET ) != 0x3FFC);
+  asm volatile ("wfi");
+  //pulp_write32(SNOOP_BASE + CFG_REGS_CTRL_REG_OFFSET, 0x800 + 0x80 + 0x8 + 0x4);
+  //#else
+  //pulp_write32(SNOOP_BASE + CFG_REGS_CTRL_REG_OFFSET,         0x80 + 0x8 + 0x4);
+  //#endif
 
+  /*
   #ifdef INSTR
   for(int i=0;i<0x3999;i+=0x1){
     p_reg = (int *) AXI_PORT_BASE + i;
@@ -67,12 +77,7 @@ int main(int argc, char **argv) {
       printf("Addr: %x Data: %x\r\n", AXI_PORT_BASE + i*4,  *p_reg);
     }
   }
-  #endif
-  
+  */
+
   return err;
 }
-
-// 1 << CFG_REGS_CTRL_TEST_MODE_BIT  +
-// 1 << CFG_REGS_CTRL_PC_RANGE_0_BIT +
-// 1 << CFG_REGS_CTRL_M_MODE_BIT     +
-// 1 << CFG_REGS_CTRL_TRIG_PC_0_BIT ;

@@ -37,7 +37,7 @@ import pkg_internal_alsaqr_periph_fpga_padframe_periphs::*;
 //`define POWER_CVA6
 `define PAD_MUX_REG_PATH dut.i_alsaqr_periph_padframe.i_periphs.i_periphs_muxer.s_reg2hw
 `define SIMPLE_PAD_MUX_REG_PATH dut.i_alsaqr_periph_fpga_padframe.i_periphs.i_periphs_muxer.s_reg2hw
-`define TEST_SNOOPER
+//`define TEST_SNOOPER
 
 import "DPI-C" function byte read_elf(input string filename);
 import "DPI-C" function byte get_entry(output longint entry);
@@ -49,7 +49,9 @@ module ariane_tb;
 
   static uvm_cmdline_processor uvcl = uvm_cmdline_processor::get_inst();
 
-  localparam int unsigned REFClockPeriod        = 1us; // jtag clock: 1MHz
+  localparam int unsigned REFClockPeriod       = 1us; // jtag clock: 1MHz
+  localparam int unsigned REFClockPeriodOt     = 25ns;
+
   `ifdef ETH2FMC_NO_PADFRAME
     localparam int unsigned REFClockPeriod300     = 3.33ns; // eth300 clock: 300MHz
     localparam int unsigned REFClockPeriod125     = 8ns;    // eth125 clock: 125MHz
@@ -217,6 +219,7 @@ module ariane_tb;
 
     string                stimuli_file      ;
     logic                 s_tck         ;
+    logic                 s_ot_tck      ;
     logic                 s_tms         ;
     logic                 s_tdi         ;
     logic                 s_trstn       ;
@@ -290,6 +293,7 @@ module ariane_tb;
     logic                 bootmode;
     logic                 boot_mode;
 
+    logic                  trace_mode_instruction;
     wire    pad_periphs_a_00_pad;
     wire    pad_periphs_a_01_pad;
     wire    pad_periphs_a_02_pad;
@@ -1144,7 +1148,7 @@ module ariane_tb;
   assign s_jtag_TDO_data      = s_jtag_to_alsaqr_tdo       ;
   assign s_tdo                = s_jtag_to_alsaqr_tdo       ;
 
-  assign s_jtag2ot_tck        = s_tck         ;
+  assign s_jtag2ot_tck        = s_ot_tck      ;
   assign s_jtag2ot_tms        = s_ot_tms      ;
   assign s_jtag2ot_tdi        = s_ot_tdi      ;
   assign s_jtag2ot_trstn      = s_ot_trstn    ;
@@ -3251,6 +3255,11 @@ module ariane_tb;
     forever
       #(REFClockPeriod/2) s_tck=~s_tck;
   end
+  initial begin
+    s_ot_tck = '0;
+    forever
+      #(REFClockPeriodOt/2) s_ot_tck=~s_ot_tck;
+  end
 
   `ifdef ETH2FMC_NO_PADFRAME
 
@@ -3348,11 +3357,11 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
 
     typedef jtag_ot_test::riscv_dbg #(
       .IrLength       (5                 ),
-      .TA             (REFClockPeriod*0.1),
-      .TT             (REFClockPeriod*0.9)
+      .TA             (REFClockPeriodOt*0.1),
+      .TT             (REFClockPeriodOt*0.9)
     ) riscv_dbg_ot_t;
 
-    JTAG_DV jtag_ibex_mst (s_tck);
+    JTAG_DV jtag_ibex_mst (s_ot_tck);
     riscv_dbg_ot_t::jtag_driver_t jtag_ibex_driver = new(jtag_ibex_mst);
     riscv_dbg_ot_t riscv_ibex_dbg = new(jtag_ibex_driver);
 
@@ -3386,29 +3395,12 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
 
 `ifdef TEST_SNOOPER
 
+
   assign dut.i_host_domain.i_cva6_subsystem.i_snooper.traces_i = traces;
+  assign trace_mode_instruction = 1'b1;
 
   initial  begin: handle_snoop_traces
-     if(dut.i_host_domain.i_cva6_subsystem.i_snooper.i_snooping_engine.config_i.ctrl.trace_mode.q) begin
-        traces.priv_lvl = 2'b11;
-        traces.pc_src_l = 32'h0;
-        traces.pc_src_h = 32'h4;
-        traces.pc_dst_l = 32'h8;
-        traces.pc_dst_h = 32'hC;
-        traces.metadata = 32'h10;
-        traces.opcode   = 32'b0;
-        @(posedge dut.i_host_domain.i_cva6_subsystem.i_snooper.snoop_en);
-        for(int i=32'h14;i<32'h3ffb;i+=32'h14) begin
-           traces.pc_src_l    = i;
-           traces.pc_src_h    = i + 32'h4;
-           traces.pc_dst_l    = i + 32'h8;
-           traces.pc_dst_h    = i + 32'hC;
-           traces.metadata    = i + 32'h10;
-           @(posedge dut.i_host_domain.i_cva6_subsystem.i_snooper.clk_i);
-        end
-        traces.pc_src_l = 32'hFFFFFFFF;
-        traces.pc_src_h = 32'hFFFFFFFF;
-     end else begin
+     if(trace_mode_instruction) begin
         traces.priv_lvl = 2'b11;
         traces.pc_src_l = 32'h0;
         traces.pc_src_h = 32'h0;
@@ -3417,9 +3409,28 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
         traces.metadata = 32'h0;
         traces.opcode   = 32'b0;
         @(posedge dut.i_host_domain.i_cva6_subsystem.i_snooper.snoop_en);
-        for(int i=32'h1;i<32'h3ffb;i+=32'h1) begin
-           traces.pc_src_l = i*4;
-           traces.opcode   = i*4;
+        for(int i=32'h4;i<=32'h3ffc;i+=32'h4) begin
+           traces.pc_src_l = i;
+           traces.opcode   = i;
+           @(posedge dut.i_host_domain.i_cva6_subsystem.i_snooper.clk_i);
+        end
+        traces.pc_src_l = 32'hFFFFFFFF;
+        traces.pc_src_h = 32'hFFFFFFFF;
+     end else begin
+        traces.priv_lvl = 2'b11;
+        traces.pc_src_l = 32'h0;
+        traces.pc_src_h = 32'h4;
+        traces.pc_dst_l = 32'h8;
+        traces.pc_dst_h = 32'hC;
+        traces.metadata = 32'h10;
+        traces.opcode   = 32'b0;
+        @(posedge dut.i_host_domain.i_cva6_subsystem.i_snooper.snoop_en);
+        for(int i=32'h14;i<32'h3fe8;i+=32'h14) begin
+           traces.pc_src_l    = i + 32'h0;
+           traces.pc_src_h    = i + 32'h4;
+           traces.pc_dst_l    = i + 32'h8;
+           traces.pc_dst_h    = i + 32'hC;
+           traces.metadata    = i + 32'h10;
            @(posedge dut.i_host_domain.i_cva6_subsystem.i_snooper.clk_i);
         end
         traces.pc_src_l = 32'hFFFFFFFF;

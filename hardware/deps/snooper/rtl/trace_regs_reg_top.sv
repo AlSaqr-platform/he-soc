@@ -270,9 +270,34 @@ module trace_regs_reg_top #(
   );
 
 
+  // R[valid]: V(False)
+
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("NONE"),
+    .RESVAL  (1'h0)
+  ) u_valid (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    .we     (1'b0),
+    .wd     ('0  ),
+
+    // from internal hardware
+    .de     (hw2reg.valid.de),
+    .d      (hw2reg.valid.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.valid.q ),
+
+    .qs     ()
+  );
 
 
-  logic [6:0] addr_hit;
+
+
+  logic [7:0] addr_hit;
   always_comb begin
     addr_hit = '0;
     addr_hit[0] = (reg_addr == TRACE_REGS_PRIV_LVL_OFFSET);
@@ -282,6 +307,7 @@ module trace_regs_reg_top #(
     addr_hit[4] = (reg_addr == TRACE_REGS_PC_DST_L_OFFSET);
     addr_hit[5] = (reg_addr == TRACE_REGS_METADATA_OFFSET);
     addr_hit[6] = (reg_addr == TRACE_REGS_OPCODE_OFFSET);
+    addr_hit[7] = (reg_addr == TRACE_REGS_VALID_OFFSET);
   end
 
   assign addrmiss = (reg_re || reg_we) ? ~|addr_hit : 1'b0 ;
@@ -295,7 +321,8 @@ module trace_regs_reg_top #(
                (addr_hit[3] & (|(TRACE_REGS_PERMIT[3] & ~reg_be))) |
                (addr_hit[4] & (|(TRACE_REGS_PERMIT[4] & ~reg_be))) |
                (addr_hit[5] & (|(TRACE_REGS_PERMIT[5] & ~reg_be))) |
-               (addr_hit[6] & (|(TRACE_REGS_PERMIT[6] & ~reg_be)))));
+               (addr_hit[6] & (|(TRACE_REGS_PERMIT[6] & ~reg_be))) |
+               (addr_hit[7] & (|(TRACE_REGS_PERMIT[7] & ~reg_be)))));
   end
 
   // Read data return
@@ -329,6 +356,10 @@ module trace_regs_reg_top #(
 
       addr_hit[6]: begin
         reg_rdata_next[31:0] = '0;
+      end
+
+      addr_hit[7]: begin
+        reg_rdata_next[0] = '0;
       end
 
       default: begin

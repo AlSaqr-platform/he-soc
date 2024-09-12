@@ -13,13 +13,14 @@
 package snooper_pkg;
 
   typedef struct packed {
-     logic [1:0]  priv_lvl;
-     logic [31:0] pc_src_h;
-     logic [31:0] pc_src_l;
-     logic [31:0] pc_dst_h;
-     logic [31:0] pc_dst_l;
-     logic [31:0] metadata;
-     logic [31:0] opcode;
+     riscv::priv_lvl_t priv_lvl;
+     logic [31:0]      pc_src_h;
+     logic [31:0]      pc_src_l;
+     logic [31:0]      pc_dst_h;
+     logic [31:0]      pc_dst_l;
+     logic             pc_v;
+     logic [31:0]      metadata;
+     logic [31:0]      opcode;
   } trace_t;
 
 endpackage
