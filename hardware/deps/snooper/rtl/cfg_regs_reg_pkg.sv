@@ -57,7 +57,49 @@ package cfg_regs_reg_pkg;
       logic        q;
     } cnt_rst;
     struct packed {
-      logic [16:0] q;
+      logic        q;
+    } excinh;
+    struct packed {
+      logic        q;
+    } intrinh;
+    struct packed {
+      logic        q;
+    } tretinh;
+    struct packed {
+      logic        q;
+    } ntbren;
+    struct packed {
+      logic        q;
+    } tkbrinh;
+    struct packed {
+      logic        q;
+    } indcallinh;
+    struct packed {
+      logic        q;
+    } dircallinh;
+    struct packed {
+      logic        q;
+    } indjmpinh;
+    struct packed {
+      logic        q;
+    } dirjmpinh;
+    struct packed {
+      logic        q;
+    } corswapinh;
+    struct packed {
+      logic        q;
+    } retinh;
+    struct packed {
+      logic        q;
+    } indljmpinh;
+    struct packed {
+      logic        q;
+    } dirljmpinh;
+    struct packed {
+      logic        q;
+    } core_select;
+    struct packed {
+      logic [2:0]  q;
     } unused;
   } cfg_regs_reg2hw_ctrl_reg_t;
 
@@ -158,6 +200,13 @@ package cfg_regs_reg_pkg;
   } cfg_regs_reg2hw_trig_pc3_l_reg_t;
 
   typedef struct packed {
+    struct packed {
+      logic [1:0]  d;
+      logic        de;
+    } trace_mode;
+  } cfg_regs_hw2reg_ctrl_reg_t;
+
+  typedef struct packed {
     logic [31:0] d;
     logic        de;
   } cfg_regs_hw2reg_base_reg_t;
@@ -198,6 +247,7 @@ package cfg_regs_reg_pkg;
 
   // HW -> register type
   typedef struct packed {
+    cfg_regs_hw2reg_ctrl_reg_t ctrl; // [68:66]
     cfg_regs_hw2reg_base_reg_t base; // [65:33]
     cfg_regs_hw2reg_last_reg_t last; // [32:0]
   } cfg_regs_hw2reg_t;

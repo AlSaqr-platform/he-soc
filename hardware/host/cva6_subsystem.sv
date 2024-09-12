@@ -114,6 +114,7 @@ module cva6_subsystem
   logic [31:0] jtag_req_bits_data;
   logic        jtag_resp_ready;
   logic        jtag_resp_valid;
+  logic        snoop_core_select;
 
   dm::dmi_req_t  jtag_dmi_req;
 
@@ -122,6 +123,23 @@ module cva6_subsystem
 
   ariane_axi_soc::req_slv_t  axi_snoop_req;
   ariane_axi_soc::resp_slv_t axi_snoop_rsp;
+
+  riscv::ctrsource_rv_t pc_src[2];
+  riscv::ctrtarget_rv_t pc_dst[2];
+  riscv::ctrdata_rv_t   metadata[2];
+  riscv::priv_lvl_t     priv_lvl[2];
+  logic [31:0]          instr[2];
+
+  snooper_pkg::trace_t cva6_traces;
+
+  assign cva6_traces.priv_lvl = snoop_core_select ? priv_lvl[1]                   : priv_lvl[0]                   ;
+  assign cva6_traces.pc_src_h = snoop_core_select ? { 1'b0, pc_src[1].pc[62:32] } : { 1'b0, pc_src[0].pc[62:32] } ;
+  assign cva6_traces.pc_src_l = snoop_core_select ? { pc_src[1].pc[31:1], 1'b0  } : { pc_src[0].pc[31:1], 1'b0  } ;
+  assign cva6_traces.pc_dst_h = snoop_core_select ? { 1'b0, pc_dst[1].pc[62:32] } : { 1'b0, pc_dst[0].pc[62:32] } ;
+  assign cva6_traces.pc_dst_l = snoop_core_select ? { pc_dst[1].pc[31:1], 1'b0  } : { pc_dst[0].pc[31:1], 1'b0  } ;
+  assign cva6_traces.metadata = snoop_core_select ? { 28'b0, metadata[1].cftype } : { 28'b0, metadata[0].cftype } ;
+  assign cva6_traces.opcode   = snoop_core_select ? instr[1]                      : instr[0]                      ;
+  assign cva6_traces.pc_v     = snoop_core_select ? pc_src[1].v                   : pc_src[0].v                   ;
 
   assign test_en = 1'b0;
   assign jtag_enable = JtagEnable;
@@ -828,7 +846,13 @@ module cva6_subsystem
     .data_master_r_rptr_o ( cva6_axi_master_dst.r_rptr  ),
     .data_master_b_wptr_i ( cva6_axi_master_dst.b_wptr  ),
     .data_master_b_data_i ( cva6_axi_master_dst.b_data  ),
-    .data_master_b_rptr_o ( cva6_axi_master_dst.b_rptr  )
+    .data_master_b_rptr_o ( cva6_axi_master_dst.b_rptr  ),
+    // CFI port
+    .emitter_source_o     ( pc_src                      ),
+    .emitter_target_o     ( pc_dst                      ),
+    .emitter_data_o       ( metadata                    ),
+    .priv_lvl_o           ( priv_lvl                    ),
+    .instr_o              ( instr                       )
   );
 
 
@@ -850,8 +874,9 @@ module cva6_subsystem
       .axi_lite_cfg_rsp_o ( axi_lite_snoop_rsp_o ),
       .axi_sw_req_i       ( axi_snoop_req        ),
       .axi_sw_rsp_o       ( axi_snoop_rsp        ),
-      .traces_i           (                      ),
-      .trigger_o          ( cfi_req_irq_o        )
+      .traces_i           ( cva6_traces          ),
+      .trigger_o          ( cfi_req_irq_o        ),
+      .core_select_o      ( snoop_core_select    )
   );
 
   axi_cdc_dst_intf #(

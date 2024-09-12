@@ -1001,7 +1001,7 @@ module al_saqr
      `AXI_ASSIGN_FROM_RESP(tlb_to_cluster_axi_bus,fake_cluster_s_resp)
 
      axi_err_slv #(
-       .AxiIdWidth ( ariane_soc::IdWidth        ),
+       .AxiIdWidth ( ariane_soc::IdWidthSlave   ),
        .axi_req_t  ( ariane_axi_soc::req_slv_t  ),
        .axi_resp_t ( ariane_axi_soc::resp_slv_t ),
        .RespWidth  ( 32'd64                     ),

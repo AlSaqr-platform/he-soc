@@ -119,6 +119,21 @@
                  resval: "0"
               }
             ]
+      },
+      {
+           name: valid
+           desc: "valid"
+           swaccess: "rw"
+           fields: [
+              {
+                 bits: "0"
+                 name: valid
+                 desc: '''valid'''
+                 swaccess: "none"
+                 hwaccess: "hrw"
+                 resval: "0"
+              }
+            ]
       }
   ]
 
