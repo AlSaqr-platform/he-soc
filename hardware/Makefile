@@ -274,7 +274,7 @@ check-fpga-hyper-conflicts:
 
 scripts-bender-fpga: | Bender.lock check-fpga-hyper-conflicts
 	mkdir -p $(BENDER_FPGA_SCRIPTS_DIR)
-	$(BENDER) script vivado -t $(CVA6_PKG) -t fpga -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga) EXCLUDE_PADFRAME" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
+	$(BENDER) script vivado -t $(CVA6_PKG) -t rtl -t fpga -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga) EXCLUDE_PADFRAME" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
 check-fpga-ddr-conflicts:
 	@if [ -n "$(exclude-rot)" ] && [ -z "$(test-eth)" ]; then \
@@ -284,7 +284,7 @@ check-fpga-ddr-conflicts:
 
 scripts-bender-fpga-ddr: | Bender.lock check-fpga-ddr-conflicts
 	mkdir -p $(BENDER_FPGA_SCRIPTS_DIR)
-	$(BENDER) script vivado -t $(CVA6_PKG) -t fpga -t ddr -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
+	$(BENDER) script vivado -t $(CVA6_PKG) -t rtl -t fpga -t ddr -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
 scripts-bender-synopsys: | Bender.lock
 	echo 'set ROOT [file normalize [file dirname [info script]]/../../../]' > $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl

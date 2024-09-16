@@ -695,7 +695,7 @@ module cva6_subsystem
 `else
     .InclSPI      ( 1'b0                     ),
 `endif
-ifdef ETH2FMC_NO_PADFRAME
+`ifdef ETH2FMC_NO_PADFRAME
     .InclEthernet ( 1'b1                     )
 `else
     .InclEthernet ( 1'b0                     )
