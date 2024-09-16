@@ -29,7 +29,7 @@ This is the multicore AlSaqr-variant of the PULP he-soc platform. It has a coher
 ## Steps to for synthesis:
 1. The steps for synthesizing a FPGA bitstream are given in `hardware/fpga`.
 
-*Note:* These instructions were written by Mohammed Sajjad Jafri (msjmoham@uwaterloo.ca).
+*Note:* If you have questions, please contact Mohammed Sajjad Jafri at msjmoham@uwaterloo.ca or jafri1999@gmail.com.
 
 ---
 
