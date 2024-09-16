@@ -89,7 +89,9 @@ int main(int argc, char const *argv[]) {
       write_counter_b(COUNTER_B_BASE_ADDR + COUNTER_BUNDLE_SIZE*i, ct);
     }
 
-    printf("CVA6-0 Over!\r\n");
+    uint32_t error = test_pmu_core_bubble_sort(ISPM_BASE_ADDR, DSPM_BASE_ADDR, PMC_STATUS_ADDR, 10, 2);
+
+    printf("Error: %d\r\n", error);
     end_test(mhartid);
     uart_wait_tx_done();
 
