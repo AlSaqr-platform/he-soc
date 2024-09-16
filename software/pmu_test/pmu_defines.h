@@ -64,7 +64,7 @@
 #define COUNTER_BUNDLE_SIZE     0x1000
 
 // PMU Core Addresses
-#define ISPM_BASE_ADDR  0x10407000
+#define ISPM_BASE_ADDR  0x10427000
 #define DSPM_BASE_ADDR  0x10428000
 
 /// **********************************************************************
