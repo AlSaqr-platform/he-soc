@@ -728,11 +728,11 @@ module cva6_subsystem
     .InclSPI      ( 1'b0                     ),
 `endif
 `ifdef ETH2FMC_NO_PADFRAME
-    .InclEthernet ( 1'b1                     )
+    .InclEthernet ( 1'b1                     ),
 `elsif INCLUDE_ETHERNET
-    .InclEthernet ( 1'b1                     )
+    .InclEthernet ( 1'b1                     ),
 `else
-    .InclEthernet ( 1'b0                     )
+    .InclEthernet ( 1'b0                     ),
 `endif
     .InclSDMA     ( 1'b1                     ),
     .InclIOMMU    ( 1'b1                     ),
