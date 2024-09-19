@@ -42,8 +42,7 @@ for row in csvreader:
 
     # Add conditional argument for ethernet
     if eth == 1:
-        scripts_args.append("exclude-rot=1")
-        scripts_args.append("test-eth=1")
+        scripts_args.append("include-ethernet=1")
 
     # Join all arguments into a single string
     scripts_args_str = " ".join(scripts_args)

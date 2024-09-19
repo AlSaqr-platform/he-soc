@@ -198,6 +198,12 @@ ifdef exclude-rot
   endif
 endif
 
+ifdef include-ethernet
+	questa-cmd += +INCLUDE_ETHERNET=$(include-ethernet)
+    compile_flag +=  +define+INCLUDE_ETHERNET
+    compile_fpga += INCLUDE_ETHERNET
+endif
+
 ifdef exclude-llc
   questa-cmd += +EXCLUDE_LLC=$(exclude-llc)
   compile_flag +=  +define+EXCLUDE_LLC
