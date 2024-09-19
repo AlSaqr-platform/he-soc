@@ -578,7 +578,51 @@ module ariane_peripherals
           .eth_rx_irq_o        ( irq_sources[2]         )
         );
     end else begin
+
+        ariane_axi_soc::req_t axi_req_i;
+        ariane_axi_soc::resp_t axi_rsp_o;
+        ariane_axi_soc::req_slv_t axi_req_o;
+        ariane_axi_soc::resp_slv_t axi_rsp_i;
+
+        `AXI_ASSIGN_FROM_REQ( eth_idma,axi_req_o  )
+        `AXI_ASSIGN_TO_RESP( axi_rsp_i, eth_idma )
+        `AXI_ASSIGN_TO_REQ(axi_req_i, eth_config )
+        `AXI_ASSIGN_FROM_RESP(eth_config,axi_rsp_o)
+
+        assign eth_to_pad.eth_txd3_o  = '0;
+        assign eth_to_pad.eth_txd2_o  = '0;
+        assign eth_to_pad.eth_txd1_o  = '0;
+        assign eth_to_pad.eth_txd0_o  = '0;
+        assign eth_to_pad.eth_md_oe   = '0;
+        assign eth_to_pad.eth_md_o    = '0;
+        assign eth_to_pad.eth_mdc_o   = '0;
+        assign eth_to_pad.eth_txck_o  = '0;
+        assign eth_to_pad.eth_txctl_o = '0;
+        assign eth_to_pad.eth_rstn_o  = '0;
         assign irq_sources [2] = 1'b0;
+        assign axi_req_o = '0;
+        assign eth_txck  = '0;
+        assign eth_txd   = '0;
+        assign eth_txctl = '0;
+        assign eth_rstn  = '0;
+        assign eth_md_o  = '0;
+        assign eth_md_oe = '0;
+        assign eth_mdc   = '0;
+
+        axi_err_slv #(
+        .AxiIdWidth ( ariane_soc::IdWidth    ),
+        .axi_req_t  ( ariane_axi_soc::req_t  ),
+        .axi_resp_t ( ariane_axi_soc::resp_t ),
+        .RespWidth  ( 32'd64                     ),
+        .RespData   ( 64'hdeadbeefdeadbeef       ),
+        .ATOPs      ( 1'b0                       ),
+        .MaxTrans   ( 1                          )
+        ) eth_not_implemented (
+          .clk_i,
+          .rst_ni,
+          .slv_req_i  ( axi_req_i           ),
+          .slv_resp_o ( axi_rsp_o           )
+        );
     end
 
     // ---------------
