@@ -43,6 +43,7 @@ hardware/fpga/alsaqr/alsaqr.cache/
 hardware/fpga/alsaqr/alsaqr.hw/
 hardware/fpga/alsaqr/alsaqr.xpr
 hardware/fpga/alsaqr/tcl/generated/
+hardware/fpga/alsaqr/*.gen
 hardware/fpga/alsaqr/tcl/ips/ddr/ddr4_0.cache/
 hardware/fpga/alsaqr/tcl/ips/ddr/ddr4_0.hw/
 hardware/fpga/alsaqr/tcl/ips/ddr/ddr4_0.ip_user_files/

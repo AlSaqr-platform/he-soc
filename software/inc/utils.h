@@ -23,6 +23,24 @@
 
 #define BOOT_ADDR 0x1c002080 // Cluster boot addr
 
+#define CSR_STR(s) _CSR_STR(s)
+#define _CSR_STR(s) #s
+
+#define CSRR(csr)                                     \
+    ({                                                \
+        uint64_t _temp;                               \
+        asm volatile("csrr  %0, " CSR_STR(csr) "\n\r" \
+                     : "=r"(_temp)::"memory");        \
+        _temp;                                        \
+    })
+
+#define CSRW(csr, rs) \
+    asm volatile("csrw  " CSR_STR(csr) ", %0\n\r" ::"rK"(rs) : "memory")
+#define CSRS(csr, rs) \
+    asm volatile("csrs  " CSR_STR(csr) ", %0\n\r" ::"rK"(rs) : "memory")
+#define CSRC(csr, rs) \
+    asm volatile("csrc  " CSR_STR(csr) ", %0\n\r" ::"rK"(rs) : "memory")
+
 static inline void barrier() {
     __sync_synchronize();
 }

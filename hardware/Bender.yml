@@ -5,7 +5,6 @@ package:
 
 dependencies:
   clint: { path: "deps/clint" }
-  rv_plic: { path: "deps/rv_plic" }
   util: { path: "deps/util" }
   alsaqr_padframe: { path: "deps/alsaqr_periph_padframe" }
   alsaqr_fpga_padframe: { path: "deps/alsaqr_periph_fpga_padframe" }
@@ -13,7 +12,7 @@ dependencies:
   apb_uart: { path: "../fpga/src/apb_uart" }
   axi_tlb: { path: "deps/axi_tlb"}
   axi_riscv_atomics: { git: "https://github.com/pulp-platform/axi_riscv_atomics.git", rev: "062bc36cbcca25629384e7f12efa6693273b3e07" } # branch: master
-  cva6: { git: "https://github.com/AlSaqr-platform/cva6.git", rev: "4cbd3ed30806740b20fce1001cf179f76918d9e9" } # branch: pulp-v1-culsans
+  cva6: { git: "git@github.com:alsaqr-platform/cva6.git", rev: "0db8161459907e442524204e97f6d3e825296ddc" } # branch pulp-v1-culsans
   ace: { git: "https://github.com/pulp-platform/ace.git", rev: "06180ec96531d38dc0c1c2b244bad621c5fe73a5" }
   riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0  }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.39.1-beta }
@@ -45,6 +44,10 @@ dependencies:
   pulp-ethernet: { git: "https://github.com/pulp-platform/pulp-ethernet.git", rev: "19a8d32a5fa8e234a710a22d179da6b56e21bb58" } # branch: chs-hs
   sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }
   culsans:  { git: "git@github.com:alsaqr-platform/culsans.git", rev: "dd62bc0741b4338ab43cb74bc65d864948b3418a" } # branch: main
+  riscv-iommu:  { git: "git@github.com:AlSaqr-platform/riscv-iommu.git", rev: "b8f23e417" } # branch: mc/bug-fix
+  riscv-iopmp:  { git: "git@github.com:AlSaqr-platform/riscv-iopmp.git", rev: "d4b409df1" } # branch: mc/latch-mem
+  riscv-aia: { git: "git@github.com:AlSaqr-platform/riscv-aia.git", rev: "35f8bdb84" } # branch: alsaqr
+  idma: { git: "git@github.com:alsaqr-platform/iDMA.git", rev: "dc80eb08" } # branch: mc/zdl/exp-path
 
 workspace:
   package_links:
@@ -60,6 +63,7 @@ sources:
   - include/apb_soc_pkg.sv
   - include/pulp_interfaces.sv
   - include/ariane_axi_soc_pkg.sv
+  - include/axi_ext_intf.sv
   - include/udma_subsystem_pkg.sv
   - include/gpio_pkg.sv
   - include/tcdm_macros.sv
@@ -82,6 +86,7 @@ sources:
   - ../fpga/src/axi_slice/src/axi_aw_buffer.sv
   - ../fpga/src/apb_timer/apb_timer.sv
   - ../fpga/src/apb_timer/timer.sv
+  - host/dma_core_wrap.sv
   - host/periph_bus_wrap.sv
   - host/freqmeter.sv
   - host/fll_dummy.sv

@@ -374,15 +374,15 @@ axi2mem #(
     .AXI_DATA_WIDTH ( AxiDataWidth        ),
     .AXI_USER_WIDTH ( AxiUserWidth        )
 ) i_dm_axi2mem (
-    .clk_i      ( clk                       ),
-    .rst_ni     ( rst_n                     ),
-    .slave      ( master[ariane_soc::Debug] ),
-    .req_o      ( dm_slave_req              ),
-    .we_o       ( dm_slave_we               ),
-    .addr_o     ( dm_slave_addr             ),
-    .be_o       ( dm_slave_be               ),
-    .data_o     ( dm_slave_wdata            ),
-    .data_i     ( dm_slave_rdata            )
+    .clk_i      ( clk                           ),
+    .rst_ni     ( rst_n                         ),
+    .slave      ( master[ariane_soc::Debug_Slv] ),
+    .req_o      ( dm_slave_req                  ),
+    .we_o       ( dm_slave_we                   ),
+    .addr_o     ( dm_slave_addr                 ),
+    .be_o       ( dm_slave_be                   ),
+    .data_o     ( dm_slave_wdata                ),
+    .data_i     ( dm_slave_rdata                )
 );
 
 axi_master_connect i_dm_axi_master_connect (

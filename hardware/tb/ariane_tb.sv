@@ -47,7 +47,9 @@ module ariane_tb;
 
   static uvm_cmdline_processor uvcl = uvm_cmdline_processor::get_inst();
 
-  localparam int unsigned REFClockPeriod        = 1us; // jtag clock: 1MHz
+  localparam int unsigned REFClockPeriod       = 1us; // jtag clock: 1MHz
+  localparam int unsigned REFClockPeriodOt     = 25ns;
+
   `ifdef ETH2FMC_NO_PADFRAME
     localparam int unsigned REFClockPeriod300     = 3.33ns; // eth300 clock: 300MHz
     localparam int unsigned REFClockPeriod125     = 8ns;    // eth125 clock: 125MHz
@@ -94,7 +96,7 @@ module ariane_tb;
   ////////////////////////////////
 
   // when preload is enabled LINKER_ENTRY specifies the linker address which must be L3 -> 32'h80000000
-  parameter  LINKER_ENTRY        = 32'h80000000;
+  parameter  LINKER_ENTRY        = 32'h80000080;
   // IMPORTANT : If you change the linkerscript check the tohost address and update this paramater
   // IMPORTANT : to host mapped in L2 non-cached region because we use WB cache
   parameter  TOHOST              = 32'h1C000000;
@@ -143,6 +145,7 @@ module ariane_tb;
 
     string                stimuli_file      ;
     logic                 s_tck         ;
+    logic                 s_ot_tck      ;
     logic                 s_tms         ;
     logic                 s_tdi         ;
     logic                 s_trstn       ;
@@ -1068,7 +1071,7 @@ module ariane_tb;
   assign s_jtag_TDO_data      = s_jtag_to_alsaqr_tdo       ;
   assign s_tdo                = s_jtag_to_alsaqr_tdo       ;
 
-  assign s_jtag2ot_tck        = s_tck         ;
+  assign s_jtag2ot_tck        = s_ot_tck      ;
   assign s_jtag2ot_tms        = s_ot_tms      ;
   assign s_jtag2ot_tdi        = s_ot_tdi      ;
   assign s_jtag2ot_trstn      = s_ot_trstn    ;
@@ -3156,6 +3159,11 @@ module ariane_tb;
     forever
       #(REFClockPeriod/2) s_tck=~s_tck;
   end
+  initial begin
+    s_ot_tck = '0;
+    forever
+      #(REFClockPeriodOt/2) s_ot_tck=~s_ot_tck;
+  end
 
   `ifdef ETH2FMC_NO_PADFRAME
 
@@ -3253,11 +3261,11 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
 
     typedef jtag_ot_test::riscv_dbg #(
       .IrLength       (5                 ),
-      .TA             (REFClockPeriod*0.1),
-      .TT             (REFClockPeriod*0.9)
+      .TA             (REFClockPeriodOt*0.1),
+      .TT             (REFClockPeriodOt*0.9)
     ) riscv_dbg_ot_t;
 
-    JTAG_DV jtag_ibex_mst (s_tck);
+    JTAG_DV jtag_ibex_mst (s_ot_tck);
     riscv_dbg_ot_t::jtag_driver_t jtag_ibex_driver = new(jtag_ibex_mst);
     riscv_dbg_ot_t riscv_ibex_dbg = new(jtag_ibex_driver);
 

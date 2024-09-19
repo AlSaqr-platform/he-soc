@@ -28,9 +28,17 @@ MEMORY
 
 SECTIONS
 {
-
-  /* text: for code & constants */
   . = 0x80000000;
+  /* init table vector */
+  .vectors :
+    {
+        . = ALIGN(4);
+		_vectors_start = .;
+        KEEP(*(.vectors))
+		_vectors_end = .;
+    } > L3
+  . = 0x80000080;
+  /* text: for code & constants */
   .text.init : { *(.text.init) } > L3
   . = 0x80000100;
   .nocache_share_region : { *(.nocache_share_region) } > L3
