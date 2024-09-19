@@ -96,7 +96,7 @@ module ariane_tb;
   ////////////////////////////////
 
   // when preload is enabled LINKER_ENTRY specifies the linker address which must be L3 -> 32'h80000000
-  parameter  LINKER_ENTRY        = 32'h80000080;
+  parameter  LINKER_ENTRY        = 32'h80000000;
   // IMPORTANT : If you change the linkerscript check the tohost address and update this paramater
   // IMPORTANT : to host mapped in L2 non-cached region because we use WB cache
   parameter  TOHOST              = 32'h1C000000;

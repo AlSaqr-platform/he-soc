@@ -44,6 +44,8 @@ root-dir := $(dir $(mkfile_path))
 # Example: <make clean sim acc=+u_RoT.>,  this will plot all the OpenTitan and subinstances signals (all the OT design)
 acc            ?= +acc
 noacc          ?=
+test_name      ?= hello_culsans
+test_path      ?= ../software/hello_culsans/hello_culsans.riscv
 
 # regression
 alsaqr-regression-dir        := ./
@@ -543,38 +545,17 @@ tb/vips/i2c_eeprom:
 
 vips: tb/vips/spi_flash tb/vips/hyperram_model tb/vips/i2c_eeprom
 
-init: bender vips update
+init: bender vips update scripts_vip
 	make -C ip_list/idma idma_hw_all
 
-.PHONY: culsans-sw-init
-culsans-sw-init:
-	make -C ip_list/culsans/tests/integration/ libs/libintegr.a
-	make -C ip_list/culsans/tests/performance/ libs/libintegr.a
-	make -C ip_list/culsans/tests/integration/testlist/access_nocache_noshare main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_cache_share main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_cache_share_overlap main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_modify_cache main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_modify_cache_share main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_modify_cache_share_intense main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_nocache_noshare main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_nocache_noshare_overlap main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_cleanunique_flush main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_evict main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_readshared_flush main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_readunique_flush main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_readunique_modify main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/write_cache_noshare main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/write_cache_share main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/write_cache_share_overlap main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_noshared_remote main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_noshared_remote_busy main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_noshared_remote_busy_snoop main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_busy main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_busy_snoop main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_remote main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_remote_busy main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_remote_busy_snoop main.riscv
+bin_to_slm:
+	../software/elf_to_slm.py --binary=../software/${test_name}/${test_name}.riscv --vector=hyperram0.slm
+
+bin_to_slm_path:
+	../software/elf_to_slm.py --binary=${test_path} --vector=hyperram0.slm
+
+compile_test:
+	make -C ../software/${test_name}/ clean all
 
 clean:
 	rm -rf $(riscv-torture-dir)/output/test*
