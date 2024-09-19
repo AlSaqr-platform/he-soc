@@ -50,8 +50,11 @@ module cva6_synth_wrap
   input  logic                         rst_ni,
   // Core ID, Cluster ID and boot address are considered more or less static
   input  logic [riscv::VLEN-1:0]       boot_addr_i,  // reset boot address
+  // IMSIC facilities
+  input  imsic_pkg::csr_channel_from_imsic_t [ariane_soc::NumCVA6-1:0]   imsic_csr_i,
+  output imsic_pkg::csr_channel_to_imsic_t   [ariane_soc::NumCVA6-1:0]   imsic_csr_o, 
   // Interrupt inputs
-  input  logic [ariane_soc::NumCVA6-1:0][1:0] irq_i,        // level sensitive IR lines, mip & sip (async)
+  input  logic [ariane_soc::NumCVA6-1:0][ariane_soc::NrIntpFiles-1:0] irq_i,// level sensitive IR lines, mip & sip (async)
   input  logic [ariane_soc::NumCVA6-1:0]      ipi_i,        // inter-processor interrupts (async)
   // Timer facilities
   input  logic [ariane_soc::NumCVA6-1:0]      time_irq_i,   // timer interrupt in (async)
@@ -152,7 +155,9 @@ module cva6_synth_wrap
       .rst_ni               ( rst_ni                ),
       .boot_addr_i          ( ariane_soc::ROMBase   ), // start fetching from ROM
       .hart_id_i            ( { 62'h0, hart_id[i] } ),
-      .irq_i                ( irq_i[i][1:0]         ),
+      .imsic_csr_i          ( imsic_csr_i[i]        ),
+      .imsic_csr_o          ( imsic_csr_o[i]        ),
+      .irq_i                ( irq_i[i]              ),
       .ipi_i                ( ipi_i[i]              ),
       .time_irq_i           ( time_irq_i[i]         ),
       .debug_req_i          ( debug_req_i[i]        ),
