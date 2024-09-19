@@ -556,7 +556,7 @@ module ariane_peripherals
           .rst_ni,
           .eth_clk125_i        ( eth_clk_i              ), // 125MHz in-phase
           .eth_clk125q_i       ( eth_phy_tx_clk_i       ), // 125 MHz with 90 phase shift
-          .eth_clk200_i        ( 0                      ),
+          .eth_clk200_i        ( '0                     ),
           .phy_rx_clk_i        ( eth_rxck               ),
           .phy_rxd_i           ( eth_rxd                ),
           .phy_rx_ctl_i        ( eth_rxctl              ),
