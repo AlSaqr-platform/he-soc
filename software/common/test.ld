@@ -29,15 +29,6 @@ MEMORY
 SECTIONS
 {
   . = 0x80000000;
-  /* init table vector */
-  .vectors :
-    {
-        . = ALIGN(4);
-		_vectors_start = .;
-        KEEP(*(.vectors))
-		_vectors_end = .;
-    } > L3
-  . = 0x80000080;
   /* text: for code & constants */
   .text.init : { *(.text.init) } > L3
   . = 0x80000100;
@@ -100,4 +91,12 @@ SECTIONS
 
   /* End of uninitalized data segement */
   _end = .;
+    /* init table vector */
+  .vectors :
+    {
+        . = ALIGN(4);
+		_vectors_start = .;
+        KEEP(*(.vectors))
+		_vectors_end = .;
+    } > L3
 }
