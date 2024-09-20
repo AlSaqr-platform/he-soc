@@ -15,7 +15,7 @@ tests_passed = 0
 num_tests = 0
 
 # The assumption is that all the cluster-related tests must be at the end of the list!!
-first_cl_test = 23
+minho_tests = 5
 
 for row in csvreader:
     num_tests += 1
@@ -47,21 +47,26 @@ for row in csvreader:
     # Join all arguments into a single string
     scripts_args_str = " ".join(scripts_args)
 
-    # Command for the subprocess, with branching logic for `first_cl_test`
-    if num_tests < first_cl_test:
+    # Command for the subprocess, with branching logic for `minho_tests`
+    if num_tests > minho_tests:
         command = (
             f"make scripts_vip_macro {scripts_args_str}; "
             f"make -C {cva6} clean all; "
             f"make clean macro_sim BOOTMODE={bm} ibex-elf-bin={ot} nogui=1; "
-            f"mv transcript regressions/regression_reports/transcript_test_{num_tests}"
+            f"mkdir regressions/regression_reports/test_{num_tests};"
+            f"mv transcript regressions/regression_reports/transcript_test_{num_tests}.log"
+            f"mv trace_hart_0.log regressions/regression_reports/trace_hart_0_{num_tests}.log"
+            f"mv trace_hart_1.log regressions/regression_reports/trace_hart_1_{num_tests}.log"
         )
     else:
         command = (
             f"make scripts_vip_macro {scripts_args_str}; "
-            f"make -C {os.path.join(cva6, 'stimuli')} clean all dump_header; "
-            f"make -C {cva6} clean all CLUSTER_BIN=1; "
-            f"make clean macro_sim BOOTMODE={bm} ibex-elf-bin={ot} nogui=1; "
-            f"mv transcript regressions/regression_reports/transcript_test_{num_tests}"
+            f"make bin_to_slm_path test_path={cva6}; "
+            f"make clean macro_sim nogui=1; "
+            f"mkdir regressions/regression_reports/test_{num_tests};"
+            f"mv transcript regressions/regression_reports/transcript_test_{num_tests}.log"
+            f"mv trace_hart_0.log regressions/regression_reports/trace_hart_0_{num_tests}.log"
+            f"mv trace_hart_1.log regressions/regression_reports/trace_hart_1_{num_tests}.log"
         )
 
     # Execute the command in a subprocess
@@ -80,4 +85,6 @@ for row in csvreader:
 
     # Increment the tests passed counter
     tests_passed += 1
+
+
 print("Passed tests: %d/%d\n" %(tests_passed, num_tests) )
