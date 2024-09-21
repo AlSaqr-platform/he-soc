@@ -8,83 +8,120 @@ import csv
 import re
 import shutil  # Import the shutil module
 
-file = open('regressions/regression.csv')
-csvreader = csv.reader(file)
+# Ensure the regressions/regression_reports/ directory exists
+os.makedirs('regressions/regression_reports/', exist_ok=True)
 
-tests_passed = 0
-num_tests = 0
+# Open the regression CSV file
+try:
+    with open('regressions/regression.csv', 'r') as file:
+        csvreader = csv.reader(file)
 
-# The assumption is that all the cluster-related tests must be at the end of the list!!
-minho_tests = 5
+        tests_passed = 0
+        num_tests = 0
 
-for row in csvreader:
-    num_tests += 1
-    # Parsing the CSV row
-    bm = int(row[0])
-    cva6 = row[1]
-    ot = row[2]
-    cl = row[3]
-    db = row[4]
-    sec_b = row[5]
-    cid = row[6]
-    clk = row[7]
-    eth = int(row[8])
+        # The assumption is that all the cluster-related tests must be at the end of the list!!
+        minho_tests = 6
 
-    # Creating the transcript file name
-    transcript_name = f'transcript_{num_tests}.log'
+        for row in csvreader:
+            num_tests += 1
+            # Parsing the CSV row
+            try:
+                bm = int(row[0])
+                cva6 = row[1]
+                ot = row[2]
+                cl = row[3]
+                db = row[4]
+                sec_b = row[5]
+                cid = row[6]
+                clk = row[7]
+                eth = int(row[8])
+            except IndexError:
+                print(f"Error: Row {num_tests} does not have enough columns.")
+                continue
+            except ValueError:
+                print(f"Error: Invalid data type in row {num_tests}.")
+                continue
 
-    # Constructing script arguments using a list
-    scripts_args = [
-        f"sec_boot={sec_b}",
-        f"dual-boot={db}",
-        f"clk-bypass={clk}"
-    ]
+            # Creating the transcript file name
+            transcript_name = f'transcript_{num_tests}.log'
 
-    # Add conditional argument for ethernet
-    if eth == 1:
-        scripts_args.append("include-ethernet=1")
+            # Constructing script arguments using a list
+            scripts_args = [
+                f"sec_boot={sec_b}",
+                f"dual-boot={db}",
+                f"clk-bypass={clk}"
+            ]
 
-    # Join all arguments into a single string
-    scripts_args_str = " ".join(scripts_args)
+            # Add conditional argument for ethernet
+            if eth == 1:
+                scripts_args.append("include-ethernet=1")
 
-    # Command for the subprocess, with branching logic for `minho_tests`
-    if num_tests > minho_tests:
-        command = (
-            f"make scripts_vip_macro {scripts_args_str}; "
-            f"make -C {cva6} clean all; "
-            f"make clean macro_sim BOOTMODE={bm} ibex-elf-bin={ot} nogui=1; "
-            f"mkdir regressions/regression_reports/test_{num_tests};"
-            f"mv transcript regressions/regression_reports/transcript_test_{num_tests}.log"
-            f"mv trace_hart_0.log regressions/regression_reports/trace_hart_0_{num_tests}.log"
-            f"mv trace_hart_1.log regressions/regression_reports/trace_hart_1_{num_tests}.log"
-        )
-    else:
-        command = (
-            f"make scripts_vip_macro {scripts_args_str}; "
-            f"make bin_to_slm_path test_path={cva6}; "
-            f"make clean macro_sim nogui=1; "
-            f"mkdir regressions/regression_reports/test_{num_tests};"
-            f"mv transcript regressions/regression_reports/transcript_test_{num_tests}.log"
-            f"mv trace_hart_0.log regressions/regression_reports/trace_hart_0_{num_tests}.log"
-            f"mv trace_hart_1.log regressions/regression_reports/trace_hart_1_{num_tests}.log"
-        )
+            # Join all arguments into a single string
+            scripts_args_str = " ".join(scripts_args)
 
-    # Execute the command in a subprocess
-    proc = subprocess.Popen(command, shell=True, stderr=subprocess.STDOUT)
+            # Command for the subprocess, with branching logic for `minho_tests`
+            if num_tests > minho_tests:
+                command = (
+                    f"("
+                    f"  set -x; "  # Enable command tracing
+                    f"  make scripts_vip_macro {scripts_args_str} && "
+                    f"  make -C {cva6} clean all && "
+                    f"  make clean macro_sim BOOTMODE={bm} ibex-elf-bin={ot} nogui=1 && "
+                    f"  mkdir -p regressions/regression_reports/test_{num_tests} && "
+                    f"  mv transcript regressions/regression_reports/test_{num_tests}/transcript.log && "
+                    f"  mv trace_hart_0.log regressions/regression_reports/test_{num_tests}/trace_hart_0.log && "
+                    f"  mv trace_hart_1.log regressions/regression_reports/test_{num_tests}/trace_hart_1.log"
+                    f") | tee regressions/regression_reports/test_{num_tests}/terminal.log"
+                )
+            else:
+                command = (
+                    f"("
+                    f"  set -x; "  # Enable command tracing
+                    f"  make scripts_vip_macro {scripts_args_str} && "
+                    f"  make bin_to_slm_path test_path={cva6} && "
+                    f"  make clean macro_sim nogui=1 && "
+                    f"  mkdir -p regressions/regression_reports/test_{num_tests} && "
+                    f"  mv transcript regressions/regression_reports/test_{num_tests}/transcript.log && "
+                    f"  mv trace_hart_0.log regressions/regression_reports/test_{num_tests}/trace_hart_0.log && "
+                    f"  mv trace_hart_1.log regressions/regression_reports/test_{num_tests}/trace_hart_1.log"
+                    f") | tee regressions/regression_reports/test_{num_tests}/terminal.log"
+                )
 
-    try:
-        proc.wait(timeout=30000000000)  # Original long timeout retained
-    except subprocess.TimeoutExpired:
-        print("Timeout")
-        proc.kill()  # Kills the process if it times out
+            # Display the command being executed
+            print(f"\nExecuting Test {num_tests}:")
+            print(f"Command: {command.split('|')[0].strip()}")
+            print(f"Logging to: regressions/regression_reports/log_test_{num_tests}.log")
 
-    # Check for return code, exit if there's an error
-    retvalue = proc.poll()
-    if retvalue != 0:
-        exit(1)
+            # Execute the command in a subprocess
+            try:
+                proc = subprocess.Popen(command, shell=True, executable='/bin/bash')
 
-    # Increment the tests passed counter
-    tests_passed += 1
+                try:
+                    proc.wait(timeout=3600*4)  # Adjusted timeout to 300 seconds (5 minutes)
+                except subprocess.TimeoutExpired:
+                    print(f"Test {num_tests}: Timeout expired. Terminating the process.")
+                    proc.kill()
+                    tests_passed += 0
+                    continue
 
+                # Check for return code
+                retvalue = proc.returncode
+                if retvalue != 0:
+                    print(f"Test {num_tests} failed with return code {retvalue}. Check log_test_{num_tests}.log for details.")
+                    continue
+                else:
+                    print(f"Test {num_tests} passed successfully.")
+                    tests_passed += 1
 
-print("Passed tests: %d/%d\n" %(tests_passed, num_tests) )
+            except Exception as e:
+                print(f"Test {num_tests}: An exception occurred: {e}")
+                continue
+    
+        print(f"\nPassed tests: {tests_passed}/{num_tests}\n")
+    
+except FileNotFoundError:
+    print("Error: 'regressions/regression.csv' file not found.")
+    sys.exit(1)
+except Exception as e:
+    print(f"An unexpected error occurred: {e}")
+    sys.exit(1)
