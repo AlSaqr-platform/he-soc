@@ -38,6 +38,12 @@ int main(int argc, char const *argv[]) {
   // Initialazing the uart
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
+  unsigned val_1 = 0x00001808;  // Set global interrupt enable in ibex regs
+  unsigned val_2 = 0x00000800;  // Set external interrupts
+
+  asm volatile("csrw  mstatus, %0\n" : : "r"(val_1));
+  asm volatile("csrw  mie, %0\n"     : : "r"(val_2));
+
   // Initialazing the interrupt controller
   pulp_write32(PLIC_BASE+mbox_id*4, 1);                                // set mbox interrupt priority to 1
   pulp_write32(PLIC_EN_BITS+(((int)(mbox_id/32))*4), 1<<(mbox_id%32)); // enable interrupt
