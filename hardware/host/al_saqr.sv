@@ -12,7 +12,7 @@
 // Author: Mattia Sinigaglia, University of Bologna
 // Date: 18.06.2021
 // Description: AlSaqr platform, it holds host_domain and cluster
-
+`define EXCLUDE_CLUSTER
 `include "register_interface/typedef.svh"
 `include "register_interface/assign.svh"
 
@@ -211,20 +211,20 @@ module al_saqr
   import edn_pkg::*;
   import top_earlgrey_pkg::*;
 
-  localparam int unsigned AsyncAxiOutAwWidth    = secure_subsystem_synth_pkg::SynthAsyncAxiOutAwWidth;
-  localparam int unsigned AsyncAxiOutWWidth     = secure_subsystem_synth_pkg::SynthAsyncAxiOutWWidth;
-  localparam int unsigned AsyncAxiOutBWidth     = secure_subsystem_synth_pkg::SynthAsyncAxiOutBWidth;
-  localparam int unsigned AsyncAxiOutArWidth    = secure_subsystem_synth_pkg::SynthAsyncAxiOutArWidth;
-  localparam int unsigned AsyncAxiOutRWidth     = secure_subsystem_synth_pkg::SynthAsyncAxiOutRWidth;
-  localparam int unsigned LogDepth              = secure_subsystem_synth_pkg::SynthLogDepth;
+  localparam int unsigned AsyncAxiOutAwWidth    = secure_subsystem_synth_astral_pkg::SynthAsyncAxiOutAwWidth;
+  localparam int unsigned AsyncAxiOutWWidth     = secure_subsystem_synth_astral_pkg::SynthAsyncAxiOutWWidth;
+  localparam int unsigned AsyncAxiOutBWidth     = secure_subsystem_synth_astral_pkg::SynthAsyncAxiOutBWidth;
+  localparam int unsigned AsyncAxiOutArWidth    = secure_subsystem_synth_astral_pkg::SynthAsyncAxiOutArWidth;
+  localparam int unsigned AsyncAxiOutRWidth     = secure_subsystem_synth_astral_pkg::SynthAsyncAxiOutRWidth;
+  localparam int unsigned LogDepth              = secure_subsystem_synth_astral_pkg::SynthLogDepth;
 
-  localparam type         axi_secd_aw_chan_t     = secure_subsystem_synth_pkg::synth_axi_out_aw_chan_t;
-  localparam type         axi_secd_w_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_w_chan_t;
-  localparam type         axi_secd_b_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_b_chan_t;
-  localparam type         axi_secd_ar_chan_t     = secure_subsystem_synth_pkg::synth_axi_out_ar_chan_t;
-  localparam type         axi_secd_r_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_r_chan_t;
-  localparam type         axi_secd_req_t         = secure_subsystem_synth_pkg::synth_axi_out_req_t;
-  localparam type         axi_secd_resp_t        = secure_subsystem_synth_pkg::synth_axi_out_resp_t;
+  localparam type         axi_secd_aw_chan_t     = secure_subsystem_synth_astral_pkg::synth_axi_out_aw_chan_t;
+  localparam type         axi_secd_w_chan_t      = secure_subsystem_synth_astral_pkg::synth_axi_out_w_chan_t;
+  localparam type         axi_secd_b_chan_t      = secure_subsystem_synth_astral_pkg::synth_axi_out_b_chan_t;
+  localparam type         axi_secd_ar_chan_t     = secure_subsystem_synth_astral_pkg::synth_axi_out_ar_chan_t;
+  localparam type         axi_secd_r_chan_t      = secure_subsystem_synth_astral_pkg::synth_axi_out_r_chan_t;
+  localparam type         axi_secd_req_t         = secure_subsystem_synth_astral_pkg::synth_axi_out_req_t;
+  localparam type         axi_secd_resp_t        = secure_subsystem_synth_astral_pkg::synth_axi_out_resp_t;
 
   // AXILITE parameters
   localparam int unsigned AXI_LITE_AW       = 32;
@@ -366,6 +366,8 @@ module al_saqr
 
   logic s_cluster_eoc;
   logic s_cluster_eoc_sync;
+
+  logic cfi_req_irq;
 
   uart_to_pad_t  s_cva6_uart_tx;
   pad_to_uart_t  s_cva6_uart_rx;
@@ -571,7 +573,8 @@ module al_saqr
       .ot_axi_req             ( ot_axi_req                      ),
       .ot_axi_rsp             ( ot_axi_rsp                      ),
 
-      .doorbell_irq_o         ( doorbell_irq                    )
+      .doorbell_irq_o         ( doorbell_irq                    ),
+      .cfi_req_irq_o          ( cfi_req_irq                     )
     );
 
    pad_frame #()
@@ -650,7 +653,9 @@ module al_saqr
       .dst_resp_i                ( ot_axi_rsp )
    );
 
-   secure_subsystem_synth_wrap i_RoT_wrap (
+   security_island  #(
+     .HartIdOffs(0)
+   ) i_RoT_wrap (
      .clk_i            ( clk_opentitan_o    ),
      .clk_ref_i        ( clk_opentitan_o    ),
      .rst_ni           ( s_rst_ni           ),
@@ -659,6 +664,7 @@ module al_saqr
      .bootmode_i       ( bootmode_i         ),
      .test_enable_i    ( '0                 ),
      .irq_ibex_i       ( doorbell_irq       ),
+     .cfi_req_irq_i    ( cfi_req_irq        ),
    // JTAG port
      .jtag_tck_i       ( jtag_ibex_i.tck    ),
      .jtag_tms_i       ( jtag_ibex_i.tms    ),
@@ -673,9 +679,6 @@ module al_saqr
      .gpio_1_o         (               ),
      .gpio_1_i         ( '0            ),
      .gpio_1_oe_o      (               ),
-   // axi isolated - not implemented
-     .axi_isolate_i    ( 1'b0          ),
-     .axi_isolated_o   (               ),
    // Uart - not implemented
      .ibex_uart_rx_i   ( '0            ),
      .ibex_uart_tx_o   (               ),
@@ -998,7 +1001,7 @@ module al_saqr
      `AXI_ASSIGN_FROM_RESP(tlb_to_cluster_axi_bus,fake_cluster_s_resp)
 
      axi_err_slv #(
-       .AxiIdWidth ( ariane_soc::IdWidth        ),
+       .AxiIdWidth ( ariane_soc::IdWidthSlave   ),
        .axi_req_t  ( ariane_axi_soc::req_slv_t  ),
        .axi_resp_t ( ariane_axi_soc::resp_slv_t ),
        .RespWidth  ( 32'd64                     ),

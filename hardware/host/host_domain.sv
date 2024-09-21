@@ -158,7 +158,8 @@ module host_domain
   output axi_rsp_t            ot_axi_rsp,
 
   // SCMI mailbox interrupt to Ibex
-  output  logic               doorbell_irq_o
+  output  logic               doorbell_irq_o,
+  output  logic               cfi_req_irq_o
 
 );
 
@@ -171,6 +172,9 @@ module host_domain
 
    ariane_axi_soc::req_lite_t  axi_llc_cfg_req;
    ariane_axi_soc::resp_lite_t axi_llc_cfg_res;
+
+   ariane_axi_soc::req_lite_t  axi_lite_snooper_req;
+   ariane_axi_soc::resp_lite_t axi_lite_snooper_rsp;
 
    // rule definitions
    typedef struct packed {
@@ -437,6 +441,7 @@ module host_domain
         .ot_axi_req,
         .ot_axi_rsp,
         .irq_mbox_i           ( completion_irq_o     ),
+        .cfi_req_irq_o        ( cfi_req_irq_o        ),
         .sync_rst_ni          ( s_synch_soc_rst      ),
         .udma_events_i        ( s_udma_events        ),
         .cluster_eoc_i        ( cluster_eoc_i        ),
@@ -464,7 +469,9 @@ module host_domain
 
         .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
         .cva6_uart_tx_o       ( cva6_uart_tx_o       ),
-        .axi_lite_master      ( host_lite_bus        )
+        .axi_lite_master      ( host_lite_bus        ),
+        .axi_lite_snoop_req_i ( axi_lite_snooper_req ),
+        .axi_lite_snoop_rsp_o ( axi_lite_snooper_rsp )
     );
 
 
@@ -600,6 +607,8 @@ module host_domain
        .llc_cfg_master         ( llc_cfg_bus             ),
        .h2c_irq_o              ( h2c_irq_o               ),
        .c2h_irq_o              ( s_c2h_irq               ),
+       .axi_lite_snoop_req_o   ( axi_lite_snooper_req    ),
+       .axi_lite_snoop_rsp_i   ( axi_lite_snooper_rsp    ),
        .doorbell_irq_o,
        .completion_irq_o
    );

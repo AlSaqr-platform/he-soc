@@ -35,8 +35,10 @@ module cva6_subsystem
   parameter bit          StallRandomOutput = 1'b0,
   parameter bit          StallRandomInput  = 1'b0,
   parameter bit          JtagEnable        = 1'b1,
-  parameter type         axi_req_t         = logic,
-  parameter type         axi_rsp_t         = logic
+  parameter type         axi_req_t         = ariane_axi_soc::req_t,
+  parameter type         axi_rsp_t         = ariane_axi_soc::resp_t,
+  parameter type         axi_lite_req_t    = ariane_axi_soc::req_lite_t,
+  parameter type         axi_lite_rsp_t    = ariane_axi_soc::resp_lite_t
 ) (
   input  logic             clk_i,
   input  logic             rtc_i,
@@ -84,8 +86,13 @@ module cva6_subsystem
   input  axi_req_t        ot_axi_req,
   output axi_rsp_t        ot_axi_rsp,
 
+  // Snooper AXI LITE slave cfg port
+  input  axi_lite_req_t   axi_lite_snoop_req_i,
+  output axi_lite_rsp_t   axi_lite_snoop_rsp_o,
+
   // SCMI mailbox interrupt to CVA6
-  input  logic            irq_mbox_i
+  input  logic            irq_mbox_i,
+  output logic            cfi_req_irq_o
 );
      // disable test-enable
   logic        test_en;
@@ -107,11 +114,32 @@ module cva6_subsystem
   logic [31:0] jtag_req_bits_data;
   logic        jtag_resp_ready;
   logic        jtag_resp_valid;
+  logic        snoop_core_select;
 
   dm::dmi_req_t  jtag_dmi_req;
 
   dm::dmi_req_t  debug_req;
   dm::dmi_resp_t debug_resp;
+
+  ariane_axi_soc::req_slv_t  axi_snoop_req;
+  ariane_axi_soc::resp_slv_t axi_snoop_rsp;
+
+  riscv::ctrsource_rv_t pc_src[2];
+  riscv::ctrtarget_rv_t pc_dst[2];
+  riscv::ctrdata_rv_t   metadata[2];
+  riscv::priv_lvl_t     priv_lvl[2];
+  logic [31:0]          instr[2];
+
+  snooper_pkg::trace_t cva6_traces;
+
+  assign cva6_traces.priv_lvl = snoop_core_select ? priv_lvl[1]                   : priv_lvl[0]                   ;
+  assign cva6_traces.pc_src_h = snoop_core_select ? { 1'b0, pc_src[1].pc[62:32] } : { 1'b0, pc_src[0].pc[62:32] } ;
+  assign cva6_traces.pc_src_l = snoop_core_select ? { pc_src[1].pc[31:1], 1'b0  } : { pc_src[0].pc[31:1], 1'b0  } ;
+  assign cva6_traces.pc_dst_h = snoop_core_select ? { 1'b0, pc_dst[1].pc[62:32] } : { 1'b0, pc_dst[0].pc[62:32] } ;
+  assign cva6_traces.pc_dst_l = snoop_core_select ? { pc_dst[1].pc[31:1], 1'b0  } : { pc_dst[0].pc[31:1], 1'b0  } ;
+  assign cva6_traces.metadata = snoop_core_select ? { 28'b0, metadata[1].cftype } : { 28'b0, metadata[0].cftype } ;
+  assign cva6_traces.opcode   = snoop_core_select ? instr[1]                      : instr[0]                      ;
+  assign cva6_traces.pc_v     = snoop_core_select ? pc_src[1].v                   : pc_src[0].v                   ;
 
   assign test_en = 1'b0;
   assign jtag_enable = JtagEnable;
@@ -410,6 +438,13 @@ module cva6_subsystem
 
 
   // ---------------
+  // AXI Snooper Slave
+  // ---------------
+
+  `AXI_ASSIGN_TO_REQ(axi_snoop_req, master[ariane_soc::Snooper])
+  `AXI_ASSIGN_FROM_RESP(master[ariane_soc::Snooper], axi_snoop_rsp)
+
+  // ---------------
   // AXI OpenTitan Master
   // ---------------
 
@@ -630,6 +665,12 @@ module cva6_subsystem
     end_addr:   ariane_soc::AXILiteBase + ariane_soc::AXILiteLength
   };
 
+  assign addr_map[ariane_soc::Snooper] = '{
+    idx:  ariane_soc::Snooper,
+    start_addr: ariane_soc::SnoopBase,
+    end_addr:   ariane_soc::SnoopBase + ariane_soc::SnoopLength
+  };
+
   assign addr_map[ariane_soc::HYAXI] = '{
     idx:  ariane_soc::HYAXI,
     start_addr: ariane_soc::HYAXIBase,
@@ -805,7 +846,37 @@ module cva6_subsystem
     .data_master_r_rptr_o ( cva6_axi_master_dst.r_rptr  ),
     .data_master_b_wptr_i ( cva6_axi_master_dst.b_wptr  ),
     .data_master_b_data_i ( cva6_axi_master_dst.b_data  ),
-    .data_master_b_rptr_o ( cva6_axi_master_dst.b_rptr  )
+    .data_master_b_rptr_o ( cva6_axi_master_dst.b_rptr  ),
+    // CFI port
+    .emitter_source_o     ( pc_src                      ),
+    .emitter_target_o     ( pc_dst                      ),
+    .emitter_data_o       ( metadata                    ),
+    .priv_lvl_o           ( priv_lvl                    ),
+    .instr_o              ( instr                       )
+  );
+
+
+  snooper #(
+      .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave      ),
+      .axi_ar_chan_t  ( ariane_axi_soc::ar_chan_slv_t ),
+      .axi_aw_chan_t  ( ariane_axi_soc::aw_chan_slv_t ),
+      .axi_b_chan_t   ( ariane_axi_soc::b_chan_slv_t  ),
+      .axi_r_chan_t   ( ariane_axi_soc::r_chan_slv_t  ),
+      .axi_w_chan_t   ( ariane_axi_soc::w_chan_t      ),
+      .axi_req_t      ( ariane_axi_soc::req_slv_t     ),
+      .axi_rsp_t      ( ariane_axi_soc::resp_slv_t    ),
+      .axi_lite_req_t ( ariane_axi_soc::req_lite_t    ),
+      .axi_lite_rsp_t ( ariane_axi_soc::resp_lite_t   )
+  ) i_snooper (
+      .clk_i              ( clk_i                ),
+      .rst_ni             ( rst_ni               ),
+      .axi_lite_cfg_req_i ( axi_lite_snoop_req_i ),
+      .axi_lite_cfg_rsp_o ( axi_lite_snoop_rsp_o ),
+      .axi_sw_req_i       ( axi_snoop_req        ),
+      .axi_sw_rsp_o       ( axi_snoop_rsp        ),
+      .traces_i           ( cva6_traces          ),
+      .trigger_o          ( cfi_req_irq_o        ),
+      .core_select_o      ( snoop_core_select    )
   );
 
   axi_cdc_dst_intf #(
