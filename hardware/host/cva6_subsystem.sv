@@ -126,7 +126,7 @@ module cva6_subsystem
 
   riscv::ctrsource_rv_t pc_src[2];
   riscv::ctrtarget_rv_t pc_dst[2];
-  riscv::ctrdata_rv_t   metadata[2];
+  riscv::ctr_type_t    metadata[2];
   riscv::priv_lvl_t     priv_lvl[2];
   logic [31:0]          instr[2];
 
@@ -137,7 +137,7 @@ module cva6_subsystem
   assign cva6_traces.pc_src_l = snoop_core_select ? { pc_src[1].pc[31:1], 1'b0  } : { pc_src[0].pc[31:1], 1'b0  } ;
   assign cva6_traces.pc_dst_h = snoop_core_select ? { 1'b0, pc_dst[1].pc[62:32] } : { 1'b0, pc_dst[0].pc[62:32] } ;
   assign cva6_traces.pc_dst_l = snoop_core_select ? { pc_dst[1].pc[31:1], 1'b0  } : { pc_dst[0].pc[31:1], 1'b0  } ;
-  assign cva6_traces.metadata = snoop_core_select ? { 28'b0, metadata[1].cftype } : { 28'b0, metadata[0].cftype } ;
+  assign cva6_traces.metadata = snoop_core_select ? { 28'b0, metadata[1]        } : { 28'b0, metadata[0]        } ;
   assign cva6_traces.opcode   = snoop_core_select ? instr[1]                      : instr[0]                      ;
   assign cva6_traces.pc_v     = snoop_core_select ? pc_src[1].v                   : pc_src[0].v                   ;
 

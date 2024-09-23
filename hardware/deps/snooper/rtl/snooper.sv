@@ -129,12 +129,12 @@ module snooper
    assign trace_hw2reg.opcode.d             = traces_i.opcode;
    assign trace_hw2reg.valid.d              = traces_i.pc_v;
 
-   assign trace_buff.priv_lvl               = trace_reg2hw.priv_lvl.priv_lvl.q;
+   assign trace_buff.priv_lvl               = riscv::priv_lvl_t'(trace_reg2hw.priv_lvl.priv_lvl.q);
    assign trace_buff.pc_src_h               = trace_reg2hw.pc_src_h.q;
    assign trace_buff.pc_src_l               = trace_reg2hw.pc_src_l.q;
    assign trace_buff.pc_dst_h               = trace_reg2hw.pc_dst_h.q;
    assign trace_buff.pc_dst_l               = trace_reg2hw.pc_dst_l.q;
-   assign trace_buff.metadata               = trace_reg2hw.metadata.q;
+   assign trace_buff.metadata               = riscv::ctr_type_t'(trace_reg2hw.metadata.q);
    assign trace_buff.opcode                 = trace_reg2hw.opcode.q;
    assign trace_buff.pc_v                   = trace_reg2hw.valid.q;
 

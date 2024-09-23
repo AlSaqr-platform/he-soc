@@ -35,6 +35,6 @@ int thread_entry(int cid, int nc){
   printf("Hello Culsans! I'm Core %d!\r\n", cid);
   uart_wait_tx_done();
   unlock(cid);
-  while(1);
+
   return 0;
 }

@@ -104,8 +104,10 @@ module snooping_engine
    end
 
    // Address counter
-   always_ff @(posedge clk_i or negedge rst_ni) begin : counter
-      if(~rst_ni | count_rst_comb) begin
+   always_ff @(posedge clk_i or negedge rst_ni or posedge count_rst_comb or posedge snoop_en_i) begin : counter
+      if(~rst_ni) begin
+         cnt_o <= '0;
+      end else if (count_rst_comb) begin
          cnt_o <= '0;
       end else if (snoop_en_i) begin
          if(config_i.ctrl.trace_mode.q == 2'b00 && cnt_o < 16'h3FFC) begin
