@@ -79,7 +79,7 @@ package ariane_soc;
 
   typedef enum int unsigned {
     HYAXI       = 18,
-    Snooper     = 17
+    Snooper     = 17,
     AXILiteDom  = 16,
     IOPMP_CFG   = 15,
     MDMA_CFG    = 14,

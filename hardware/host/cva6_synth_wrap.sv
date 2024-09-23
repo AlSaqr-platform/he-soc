@@ -90,7 +90,7 @@ module cva6_synth_wrap
   // CTR port
   output riscv::ctrsource_rv_t                emitter_source_o[1:0],
   output riscv::ctrtarget_rv_t                emitter_target_o[1:0],
-  output riscv::ctrdata_rv_t                  emitter_data_o[1:0],
+  output riscv::ctr_type_t                    emitter_data_o[1:0],
   output riscv::priv_lvl_t                    priv_lvl_o[1:0],
   output logic [31:0]                         instr_o[1:0]
 );
