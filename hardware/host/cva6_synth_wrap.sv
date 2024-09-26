@@ -217,7 +217,7 @@ module cva6_synth_wrap
           end_addr:   ariane_soc::HYAXIBase + ariane_soc::HYAXILength
     };
 
-    spu_top #(
+    ace_spu_top #(
       // Static configuration parameters of the cache.
       .SetAssociativity   ( ariane_soc::LLC_SET_ASSOC    ),
       .NumLines           ( ariane_soc::LLC_NUM_LINES    ),
