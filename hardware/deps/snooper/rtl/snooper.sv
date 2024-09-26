@@ -106,8 +106,8 @@ module snooper
 
    trace_t trace_buff;
 
-   axi_32_req_t  axi_32_sw_req;
-   axi_32_resp_t axi_32_sw_rsp;
+   axi_32_req_t  axi_32_sw_req, axi_req_cut;
+   axi_32_resp_t axi_32_sw_rsp, axi_rsp_cut;
 
    assign trace_hw2reg.priv_lvl.unused.de   = 1'b1;
    assign trace_hw2reg.priv_lvl.priv_lvl.de = 1'b1;
@@ -202,6 +202,7 @@ module snooper
 // Circular Buffer Logic //
 ///////////////////////////
 
+   // Datapath width conversion
    axi_dw_converter #(
        .AxiMaxReads         ( 8                   ),
        .AxiSlvPortDataWidth ( AXI_DATA_WIDTH      ),
@@ -230,6 +231,24 @@ module snooper
        .mst_resp_i ( axi_32_sw_rsp )
    );
 
+   // Break comb path between DW conv and AXI2MEM
+   axi_cut #(
+       .aw_chan_t  ( axi_32_aw_chan_t ),
+       .w_chan_t   ( axi_32_w_chan_t  ),
+       .b_chan_t   ( axi_32_b_chan_t  ),
+       .ar_chan_t  ( axi_32_ar_chan_t ),
+       .r_chan_t   ( axi_32_r_chan_t  ),
+       .axi_req_t  ( axi_32_req_t     ),
+       .axi_resp_t ( axi_32_resp_t    )
+   ) i_axi_cut (
+       .clk_i      ( clk_i         ),
+       .rst_ni     ( rst_ni        ),
+       .slv_req_i  ( axi_32_sw_req ),
+       .slv_resp_o ( axi_32_sw_rsp ),
+       .mst_req_o  ( axi_req_cut   ),
+       .mst_resp_i ( axi_rsp_cut   )
+   );
+
    axi_to_mem #(
        .axi_req_t    ( axi_32_req_t        ),
        .axi_resp_t   ( axi_32_resp_t       ),
@@ -244,8 +263,8 @@ module snooper
        .clk_i        ( clk_i         ),
        .rst_ni       ( rst_ni        ),
        .busy_o       (               ),
-       .axi_req_i    ( axi_32_sw_req ),
-       .axi_resp_o   ( axi_32_sw_rsp ),
+       .axi_req_i    ( axi_req_cut   ),
+       .axi_resp_o   ( axi_rsp_cut   ),
        .mem_req_o    ( sw_req        ),
        .mem_gnt_i    ( sw_gnt        ),
        .mem_addr_o   ( sw_add        ),

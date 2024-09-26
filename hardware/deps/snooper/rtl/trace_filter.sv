@@ -23,7 +23,9 @@ module trace_filter
 );
 
    logic priv_lvl_en, ctr_type_en;
-   logic [3:0] cfg_en;
+   logic [3:0] cfg_en, instr_en;
+
+   assign instr_en = config_i.ctrl.trace_mode.q[0];
 
    always_comb begin : ctr_filter
       ctr_type_en = 1'b0;
@@ -90,12 +92,9 @@ module trace_filter
                         ({ traces_i.pc_src_h, traces_i.pc_src_l                 } <=
                          { config_i.range_3_last_h.q, config_i.range_3_last_l.q });
 
-   assign enable_o  =   pc_valid_i  &
-                        priv_lvl_en &
-                        ctr_type_en &
-                        ( cfg_en[0] |
-                          cfg_en[1] |
-                          cfg_en[2] |
-                          cfg_en[3] );
+   assign enable_o  =   pc_valid_i   & priv_lvl_en &
+                        (ctr_type_en | instr_en )  &
+                        ( cfg_en[0]  | cfg_en[1]   |
+                          cfg_en[2]  | cfg_en[3]   );
 
 endmodule

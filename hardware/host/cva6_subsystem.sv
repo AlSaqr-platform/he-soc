@@ -402,9 +402,6 @@ module cva6_subsystem
   bootrom i_bootrom (
     .clk_i      ( clk_i     ),
     .req_i      ( rom_req   ),
- `ifdef FPGA_EMUL
-    .rst        ( ndmreset_n),
- `endif
     .addr_i     ( rom_addr  ),
     .rdata_o    ( rom_rdata )
   );

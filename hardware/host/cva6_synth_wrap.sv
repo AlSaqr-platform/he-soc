@@ -27,7 +27,7 @@ module cva6_synth_wrap
  import cv64a6_imafdch_wb_sv39_alsaqr_pkg::*;
  import ace_pkg::ccu_cfg_t; #(
 
-  localparam AXI_ID_WIDTH       = 8,
+  localparam AXI_ID_WIDTH       = ariane_soc::IdWidth,
   localparam AXI_ADDR_WIDTH     = 64,
   localparam AXI_USER_WIDTH     = ariane_axi_soc::UserWidth,
   localparam AXI_DATA_WIDTH     = 64,
