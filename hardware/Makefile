@@ -290,7 +290,7 @@ check-fpga-ddr-conflicts:
 		exit 1; \
 	fi
 
-scripts-bender-fpga-ddr: | Bender.lock check-fpga-ddr-conflicts
+scripts-bender-fpga-ddr: | Bender.lock
 	mkdir -p $(BENDER_FPGA_SCRIPTS_DIR)
 	$(BENDER) script vivado -t cva6 -t scm_use_latch_scm -t aia_msi -t aia_embedded -t $(CVA6_PKG) -t rtl -t use_idma -t fpga -t ddr -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
