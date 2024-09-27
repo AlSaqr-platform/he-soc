@@ -1,10 +1,9 @@
 #!/bin/bash
 echo "exporting RISCV"
 
-#algrin export PATH=/usr/scratch/lagrev5/lvalente/riscv_install/bin:$PATH
 export PATH=/opt/riscv/bin/:$PATH
+export QUESTA=questa-2022.3-bt
 
-#algrin export RISCV=/usr/scratch/lagrev5/lvalente/riscv_install
 export RISCV=/opt/riscv
 
 export SW_HOME=$(pwd)/software
@@ -13,8 +12,7 @@ export HW_HOME=$(pwd)/hardware
 
 echo "exporting QUESTASIM PATH"
 
-#algrin export QUESTASIM_HOME=/usr/pack/modelsim-10.7b-kgf/questasim/
-export QUESTASIM_HOME=/tools/Siemens/questasim/
+export QUESTASIM_HOME=/usr/pack/questa-2022.3-bt/questasim/
 
 echo "exporting RISCV 32 bit with zfinx"
 
