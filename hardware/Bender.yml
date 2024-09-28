@@ -17,12 +17,12 @@ dependencies:
   ace: { git: "https://github.com/pulp-platform/ace.git", rev: "06180ec96531d38dc0c1c2b244bad621c5fe73a5" }
   riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0  }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.39.1-beta }
-  axi_llc: { git: "https://github.com/AlSaqr-platform/axi_llc.git", rev: "29fd76fb438c91c692108c1f93ab221931653c5d" } 
+  # axi_llc: { git: "https://github.com/AlSaqr-platform/axi_llc.git", rev: "29fd76fb438c91c692108c1f93ab221931653c5d" } 
   # APMU_BLOCK START
   ibex_pmu: { git: "git@github.com:Arshaan-256/ibex.git", version: "1.0.1" }
-  # axi_llc: { git: "git@github.com:Arshaan-256/axi_llc.git", rev: "master" }
+  axi_llc: { git: "git@github.com:AlSaqr-platform/axi_llc.git", rev: "1.0.0" }
   spu: { git: "git@github.com:Arshaan-256/spu.git", version: "3.0.0" }
-  apmu: { git: "git@github.com:Arshaan-256/pmu_v1.0.git", version: "1.5.4" }
+  apmu: { git: "git@github.com:Arshaan-256/pmu_v1.0.git", version: "1.6.0" }
   # riscv-dbg: { git: "git@github.com:Arshaan-256/riscv-dbg.git", version: "0.0.4" }
   # APMU_BLOCK END
   axi_llc: { git: "https://github.com/AlSaqr-platform/axi_llc.git", rev: "29fd76fb438c91c692108c1f93ab221931653c5d" }
