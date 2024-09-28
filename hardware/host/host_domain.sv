@@ -327,8 +327,8 @@ module host_domain
    ) llc_cfg_bus();
 
    // APMU - Debug Request
-   ariane_axi_soc::req_lite_t  pmu_debug_req;
-   ariane_axi_soc::resp_lite_t pmu_debug_res;
+   ariane_axi_soc::req_lite_t  pmu_master_req;
+   ariane_axi_soc::resp_lite_t pmu_master_res;
 
    // APMU Configuration Signals
    ariane_axi_soc::req_lite_t  axi_lite_pmu_cfg_req;
@@ -559,12 +559,13 @@ module host_domain
 
   // The PMU only works with 32-bit AXI4-Lite port.
   pmu_top #(
-    .NUM_PORT         ( 4                             ),
+    .NUM_PORT         ( 5                             ),
     .NUM_COUNTER      ( APMU_NUM_COUNTER              ),
-    .DEBUG_START_ADDR ( ariane_soc::DebugBase         ),
-    .DEBUG_LENGTH     ( ariane_soc::DebugLength       ),
-    .lite_req_t       ( ariane_axi_soc::req_lite_t    ),
-    .lite_resp_t      ( ariane_axi_soc::resp_lite_t   ),
+    // APMU Addresses and SPM configuration
+    .MEMORY_BASE_ADDR ( ariane_soc::HYAXIBase         ),
+    .MEMORY_LENGTH    ( ariane_soc::HYAXILength       ),
+    .req_lite_t       ( ariane_axi_soc::req_lite_t    ),
+    .resp_lite_t      ( ariane_axi_soc::resp_lite_t   ),
     .aw_chan_lite_t   ( ariane_axi_soc::aw_chan_lite_t),
     .w_chan_lite_t    ( ariane_axi_soc::w_chan_lite_t ),
     .b_chan_lite_t    ( ariane_axi_soc::b_chan_lite_t ),
@@ -576,8 +577,8 @@ module host_domain
     .port_i           ( spu_o                         ),
     .conf_req_i       ( axi_lite_pmu_cfg_req          ),
     .conf_resp_o      ( axi_lite_pmu_cfg_res          ),
-    .debug_req_o      ( pmu_debug_req                 ),
-    .debug_resp_i     ( pmu_debug_res                 ),
+    .master_req_o     ( pmu_master_req                ),
+    .master_resp_i    ( pmu_master_res                ),
     .intr_o           ( pmu_intr_o                    )
   );
 
