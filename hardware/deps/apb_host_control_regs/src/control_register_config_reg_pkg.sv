@@ -7,7 +7,7 @@
 package control_register_config_reg_pkg;
 
   // Address widths within the block
-  parameter int BlockAw = 7;
+  parameter int BlockAw = 8;
 
   ////////////////////////////
   // Typedefs for registers //
@@ -56,19 +56,35 @@ package control_register_config_reg_pkg;
 
   typedef struct packed {
     logic [31:0] q;
-  } control_register_config_reg2hw_logic_locking_key_0_mreg_t;
+  } control_register_config_reg2hw_logic_locking_cluster_key_a_mreg_t;
 
   typedef struct packed {
     logic [31:0] q;
-  } control_register_config_reg2hw_logic_locking_key_1_mreg_t;
+  } control_register_config_reg2hw_logic_locking_cluster_key_b_mreg_t;
 
   typedef struct packed {
     logic [31:0] q;
-  } control_register_config_reg2hw_logic_locking_key_2_mreg_t;
+  } control_register_config_reg2hw_logic_locking_iommu_key_a_mreg_t;
 
   typedef struct packed {
     logic [31:0] q;
-  } control_register_config_reg2hw_logic_locking_key_3_mreg_t;
+  } control_register_config_reg2hw_logic_locking_iommu_key_b_mreg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } control_register_config_reg2hw_logic_locking_iopmp_key_a_mreg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } control_register_config_reg2hw_logic_locking_iopmp_key_b_mreg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } control_register_config_reg2hw_logic_locking_aia_key_a_mreg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } control_register_config_reg2hw_logic_locking_aia_key_b_mreg_t;
 
   typedef struct packed {
     logic [31:0] d;
@@ -92,18 +108,22 @@ package control_register_config_reg_pkg;
 
   // Register -> HW type
   typedef struct packed {
-    control_register_config_reg2hw_control_cluster_reg_t control_cluster; // [647:645]
-    control_register_config_reg2hw_enable_llc_counters_reg_t enable_llc_counters; // [644:644]
-    control_register_config_reg2hw_llc_cache_addr_start_reg_t llc_cache_addr_start; // [643:612]
-    control_register_config_reg2hw_llc_cache_addr_end_reg_t llc_cache_addr_end; // [611:580]
-    control_register_config_reg2hw_llc_spm_addr_start_reg_t llc_spm_addr_start; // [579:548]
-    control_register_config_reg2hw_ot_clk_sel_reg_t ot_clk_sel; // [547:546]
-    control_register_config_reg2hw_ot_clk_div_reg_t ot_clk_div; // [545:513]
-    control_register_config_reg2hw_ot_clk_gate_en_reg_t ot_clk_gate_en; // [512:512]
-    control_register_config_reg2hw_logic_locking_key_0_mreg_t [3:0] logic_locking_key_0; // [511:384]
-    control_register_config_reg2hw_logic_locking_key_1_mreg_t [3:0] logic_locking_key_1; // [383:256]
-    control_register_config_reg2hw_logic_locking_key_2_mreg_t [3:0] logic_locking_key_2; // [255:128]
-    control_register_config_reg2hw_logic_locking_key_3_mreg_t [3:0] logic_locking_key_3; // [127:0]
+    control_register_config_reg2hw_control_cluster_reg_t control_cluster; // [1159:1157]
+    control_register_config_reg2hw_enable_llc_counters_reg_t enable_llc_counters; // [1156:1156]
+    control_register_config_reg2hw_llc_cache_addr_start_reg_t llc_cache_addr_start; // [1155:1124]
+    control_register_config_reg2hw_llc_cache_addr_end_reg_t llc_cache_addr_end; // [1123:1092]
+    control_register_config_reg2hw_llc_spm_addr_start_reg_t llc_spm_addr_start; // [1091:1060]
+    control_register_config_reg2hw_ot_clk_sel_reg_t ot_clk_sel; // [1059:1058]
+    control_register_config_reg2hw_ot_clk_div_reg_t ot_clk_div; // [1057:1025]
+    control_register_config_reg2hw_ot_clk_gate_en_reg_t ot_clk_gate_en; // [1024:1024]
+    control_register_config_reg2hw_logic_locking_cluster_key_a_mreg_t [3:0] logic_locking_cluster_key_a; // [1023:896]
+    control_register_config_reg2hw_logic_locking_cluster_key_b_mreg_t [3:0] logic_locking_cluster_key_b; // [895:768]
+    control_register_config_reg2hw_logic_locking_iommu_key_a_mreg_t [3:0] logic_locking_iommu_key_a; // [767:640]
+    control_register_config_reg2hw_logic_locking_iommu_key_b_mreg_t [3:0] logic_locking_iommu_key_b; // [639:512]
+    control_register_config_reg2hw_logic_locking_iopmp_key_a_mreg_t [3:0] logic_locking_iopmp_key_a; // [511:384]
+    control_register_config_reg2hw_logic_locking_iopmp_key_b_mreg_t [3:0] logic_locking_iopmp_key_b; // [383:256]
+    control_register_config_reg2hw_logic_locking_aia_key_a_mreg_t [3:0] logic_locking_aia_key_a; // [255:128]
+    control_register_config_reg2hw_logic_locking_aia_key_b_mreg_t [3:0] logic_locking_aia_key_b; // [127:0]
   } control_register_config_reg2hw_t;
 
   // HW -> register type
@@ -115,34 +135,50 @@ package control_register_config_reg_pkg;
   } control_register_config_hw2reg_t;
 
   // Register offsets
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER_OFFSET = 7'h 0;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_ENABLE_LLC_COUNTERS_OFFSET = 7'h 4;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_READ_MISS_CACHE_OFFSET = 7'h 8;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_READ_HIT_CACHE_OFFSET = 7'h c;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_WRITE_MISS_CACHE_OFFSET = 7'h 10;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_WRITE_HIT_CACHE_OFFSET = 7'h 14;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_START_OFFSET = 7'h 18;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_END_OFFSET = 7'h 1c;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_SPM_ADDR_START_OFFSET = 7'h 20;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_OT_CLK_SEL_OFFSET = 7'h 24;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_OT_CLK_DIV_OFFSET = 7'h 28;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_OT_CLK_GATE_EN_OFFSET = 7'h 2c;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_0_OFFSET = 7'h 30;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_1_OFFSET = 7'h 34;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_2_OFFSET = 7'h 38;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_3_OFFSET = 7'h 3c;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_0_OFFSET = 7'h 40;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_1_OFFSET = 7'h 44;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_2_OFFSET = 7'h 48;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_3_OFFSET = 7'h 4c;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_0_OFFSET = 7'h 50;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_1_OFFSET = 7'h 54;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_2_OFFSET = 7'h 58;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_3_OFFSET = 7'h 5c;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_0_OFFSET = 7'h 60;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_1_OFFSET = 7'h 64;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_2_OFFSET = 7'h 68;
-  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_3_OFFSET = 7'h 6c;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER_OFFSET = 8'h 0;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_ENABLE_LLC_COUNTERS_OFFSET = 8'h 4;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_READ_MISS_CACHE_OFFSET = 8'h 8;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_READ_HIT_CACHE_OFFSET = 8'h c;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_WRITE_MISS_CACHE_OFFSET = 8'h 10;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_WRITE_HIT_CACHE_OFFSET = 8'h 14;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_START_OFFSET = 8'h 18;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_CACHE_ADDR_END_OFFSET = 8'h 1c;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LLC_SPM_ADDR_START_OFFSET = 8'h 20;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_OT_CLK_SEL_OFFSET = 8'h 24;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_OT_CLK_DIV_OFFSET = 8'h 28;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_OT_CLK_GATE_EN_OFFSET = 8'h 2c;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_A_0_OFFSET = 8'h 30;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_A_1_OFFSET = 8'h 34;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_A_2_OFFSET = 8'h 38;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_A_3_OFFSET = 8'h 3c;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_B_0_OFFSET = 8'h 40;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_B_1_OFFSET = 8'h 44;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_B_2_OFFSET = 8'h 48;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_B_3_OFFSET = 8'h 4c;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_A_0_OFFSET = 8'h 50;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_A_1_OFFSET = 8'h 54;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_A_2_OFFSET = 8'h 58;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_A_3_OFFSET = 8'h 5c;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_B_0_OFFSET = 8'h 60;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_B_1_OFFSET = 8'h 64;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_B_2_OFFSET = 8'h 68;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_B_3_OFFSET = 8'h 6c;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_A_0_OFFSET = 8'h 70;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_A_1_OFFSET = 8'h 74;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_A_2_OFFSET = 8'h 78;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_A_3_OFFSET = 8'h 7c;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_B_0_OFFSET = 8'h 80;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_B_1_OFFSET = 8'h 84;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_B_2_OFFSET = 8'h 88;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_B_3_OFFSET = 8'h 8c;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_A_0_OFFSET = 8'h 90;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_A_1_OFFSET = 8'h 94;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_A_2_OFFSET = 8'h 98;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_A_3_OFFSET = 8'h 9c;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_B_0_OFFSET = 8'h a0;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_B_1_OFFSET = 8'h a4;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_B_2_OFFSET = 8'h a8;
+  parameter logic [BlockAw-1:0] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_B_3_OFFSET = 8'h ac;
 
   // Register index
   typedef enum int {
@@ -158,26 +194,42 @@ package control_register_config_reg_pkg;
     CONTROL_REGISTER_CONFIG_OT_CLK_SEL,
     CONTROL_REGISTER_CONFIG_OT_CLK_DIV,
     CONTROL_REGISTER_CONFIG_OT_CLK_GATE_EN,
-    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_0,
-    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_1,
-    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_2,
-    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_3,
-    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_0,
-    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_1,
-    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_2,
-    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_3,
-    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_0,
-    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_1,
-    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_2,
-    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_3,
-    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_0,
-    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_1,
-    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_2,
-    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_3
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_A_0,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_A_1,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_A_2,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_A_3,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_B_0,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_B_1,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_B_2,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_B_3,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_A_0,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_A_1,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_A_2,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_A_3,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_B_0,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_B_1,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_B_2,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_B_3,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_A_0,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_A_1,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_A_2,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_A_3,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_B_0,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_B_1,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_B_2,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_B_3,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_A_0,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_A_1,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_A_2,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_A_3,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_B_0,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_B_1,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_B_2,
+    CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_B_3
   } control_register_config_id_e;
 
   // Register width information to check illegal writes
-  parameter logic [3:0] CONTROL_REGISTER_CONFIG_PERMIT [28] = '{
+  parameter logic [3:0] CONTROL_REGISTER_CONFIG_PERMIT [44] = '{
     4'b 0001, // index[ 0] CONTROL_REGISTER_CONFIG_CONTROL_CLUSTER
     4'b 0001, // index[ 1] CONTROL_REGISTER_CONFIG_ENABLE_LLC_COUNTERS
     4'b 1111, // index[ 2] CONTROL_REGISTER_CONFIG_LLC_READ_MISS_CACHE
@@ -190,22 +242,38 @@ package control_register_config_reg_pkg;
     4'b 0001, // index[ 9] CONTROL_REGISTER_CONFIG_OT_CLK_SEL
     4'b 1111, // index[10] CONTROL_REGISTER_CONFIG_OT_CLK_DIV
     4'b 0001, // index[11] CONTROL_REGISTER_CONFIG_OT_CLK_GATE_EN
-    4'b 1111, // index[12] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_0
-    4'b 1111, // index[13] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_1
-    4'b 1111, // index[14] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_2
-    4'b 1111, // index[15] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_0_3
-    4'b 1111, // index[16] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_0
-    4'b 1111, // index[17] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_1
-    4'b 1111, // index[18] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_2
-    4'b 1111, // index[19] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_1_3
-    4'b 1111, // index[20] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_0
-    4'b 1111, // index[21] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_1
-    4'b 1111, // index[22] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_2
-    4'b 1111, // index[23] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_2_3
-    4'b 1111, // index[24] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_0
-    4'b 1111, // index[25] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_1
-    4'b 1111, // index[26] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_2
-    4'b 1111  // index[27] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_KEY_3_3
+    4'b 1111, // index[12] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_A_0
+    4'b 1111, // index[13] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_A_1
+    4'b 1111, // index[14] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_A_2
+    4'b 1111, // index[15] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_A_3
+    4'b 1111, // index[16] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_B_0
+    4'b 1111, // index[17] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_B_1
+    4'b 1111, // index[18] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_B_2
+    4'b 1111, // index[19] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_CLUSTER_KEY_B_3
+    4'b 1111, // index[20] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_A_0
+    4'b 1111, // index[21] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_A_1
+    4'b 1111, // index[22] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_A_2
+    4'b 1111, // index[23] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_A_3
+    4'b 1111, // index[24] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_B_0
+    4'b 1111, // index[25] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_B_1
+    4'b 1111, // index[26] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_B_2
+    4'b 1111, // index[27] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOMMU_KEY_B_3
+    4'b 1111, // index[28] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_A_0
+    4'b 1111, // index[29] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_A_1
+    4'b 1111, // index[30] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_A_2
+    4'b 1111, // index[31] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_A_3
+    4'b 1111, // index[32] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_B_0
+    4'b 1111, // index[33] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_B_1
+    4'b 1111, // index[34] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_B_2
+    4'b 1111, // index[35] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_IOPMP_KEY_B_3
+    4'b 1111, // index[36] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_A_0
+    4'b 1111, // index[37] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_A_1
+    4'b 1111, // index[38] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_A_2
+    4'b 1111, // index[39] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_A_3
+    4'b 1111, // index[40] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_B_0
+    4'b 1111, // index[41] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_B_1
+    4'b 1111, // index[42] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_B_2
+    4'b 1111  // index[43] CONTROL_REGISTER_CONFIG_LOGIC_LOCKING_AIA_KEY_B_3
   };
 
 endpackage

@@ -36,17 +36,15 @@ module apb_soc_control
     output logic [31:0]  ot_clk_div_q_o,
     output logic         ot_clk_div_qe_o,
     output logic         ot_clk_gate_en_o,
-    output logic [127:0] xor_locking_blk_0,
-    output logic [127:0] xor_locking_blk_1
+    output logic [127:0] cluster_lock_xor_key_o,
+    output logic [127:0] iommu_lock_xor_key_o,
+    output logic [127:0] iopmp_lock_xor_key_o,
+    output logic [127:0] aia_lock_xor_key_o
    );
 
-   // Logic Locking Keys Block 0
-   logic [127:0] key_0;
-   logic [127:0] key_1;
-   
-   // Logic Locking Keys Block 1
-   logic [127:0] key_2;
-   logic [127:0] key_3;
+   // Logic Locking Keys
+   logic [127:0] cluster_key_a, iommu_key_a, iopmp_key_a, aia_key_a;
+   logic [127:0] cluster_key_b, iommu_key_b, iopmp_key_b, aia_key_b;
 
    localparam RegAw  = 32;
    localparam RegDw  = 32;
@@ -129,17 +127,21 @@ module apb_soc_control
    );
 
    for(genvar i=0;i<4;i++) begin : keysassign
-      assign key_0[(i+1)*32 -1 -: 32] = reg2hw_socctrl.logic_locking_key_0[i].q;
-      assign key_1[(i+1)*32 -1 -: 32] = reg2hw_socctrl.logic_locking_key_1[i].q;
-      assign key_2[(i+1)*32 -1 -: 32] = reg2hw_socctrl.logic_locking_key_2[i].q;
-      assign key_3[(i+1)*32 -1 -: 32] = reg2hw_socctrl.logic_locking_key_3[i].q;
+      assign cluster_key_a[(i+1)*32 -1 -: 32] = reg2hw_socctrl.logic_locking_cluster_key_a[i].q;
+      assign cluster_key_b[(i+1)*32 -1 -: 32] = reg2hw_socctrl.logic_locking_cluster_key_b[i].q;
+      assign iopmp_key_a  [(i+1)*32 -1 -: 32] = reg2hw_socctrl.logic_locking_iopmp_key_a[i].q;
+      assign iopmp_key_b  [(i+1)*32 -1 -: 32] = reg2hw_socctrl.logic_locking_iopmp_key_b[i].q;
+      assign iommu_key_a  [(i+1)*32 -1 -: 32] = reg2hw_socctrl.logic_locking_iommu_key_a[i].q;
+      assign iommu_key_b  [(i+1)*32 -1 -: 32] = reg2hw_socctrl.logic_locking_iommu_key_b[i].q;
+      assign aia_key_a    [(i+1)*32 -1 -: 32] = reg2hw_socctrl.logic_locking_aia_key_a[i].q;
+      assign aia_key_b    [(i+1)*32 -1 -: 32] = reg2hw_socctrl.logic_locking_aia_key_b[i].q;
    end
 
-   // XOR Logic Locking Keys Block 0
-   assign xor_locking_blk_0 = key_0 ^ key_1;
-
-   // XOR Logic Locking Keys Block 1
-   assign xor_locking_blk_1 = key_2 ^ key_3;
+   // XOR Logic Locking Keys
+   assign cluster_lock_xor_key_o = cluster_key_a ^ cluster_key_b;
+   assign iommu_lock_xor_key_o = iommu_key_a ^ iommu_key_b;
+   assign iopmp_lock_xor_key_o = iopmp_key_a ^ iopmp_key_b;
+   assign aia_lock_xor_key_o = aia_key_a ^ aia_key_b;
 
    assign cluster_ctrl_rstn_o = reg2hw_socctrl.control_cluster.reset_n.q;
    assign cluster_en_sa_boot_o = reg2hw_socctrl.control_cluster.en_sa_boot.q;
