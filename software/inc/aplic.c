@@ -129,3 +129,18 @@ void imsic_init(){
   CSRW(CSR_MISELECT, IMSIC_EITHRESHOLD);
   CSRW(CSR_MIREG, 0);
 }
+
+
+void aplic_reset(uint8_t irq_id){
+  CSRW(CSR_MTOPEI, 0);
+  CSRW(CSR_MISELECT, 0);
+  CSRW(CSR_MIREG, 1);
+  CSRW(CSR_MISELECT, 0);
+  CSRW(CSR_MIREG, 0);
+  pulp_write32(APLICM_ADDR+DOMAIN_OFF, 0);
+  pulp_write32(APLICM_ADDR+(SOURCECFG_OFF+(0x4*(irq_id-1))), 0);
+  pulp_write32(APLICM_ADDR+SETIENUM_OFF, 0);
+  pulp_write32(APLICM_ADDR+(TARGET_OFF+(0x4*(irq_id-1))), 0);
+  CSRW(CSR_MIREG, 0);
+  CSRW(CSR_MISELECT, 0);
+}
