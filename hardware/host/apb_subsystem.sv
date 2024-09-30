@@ -955,8 +955,10 @@ module apb_subsystem
     .llc_read_miss_cache_i(llc_read_miss_cache_i),
     .llc_write_hit_cache_i(llc_write_hit_cache_i),
     .llc_write_miss_cache_i(llc_write_miss_cache_i),
-    .xor_locking_blk_0(  ),
-    .xor_locking_blk_1(  )
+    .cluster_lock_xor_key_o(  ),
+    .iommu_lock_xor_key_o(  ),
+    .iopmp_lock_xor_key_o(  ),
+    .aia_lock_xor_key_o (  )
    );
 
     // Monitor Counters
