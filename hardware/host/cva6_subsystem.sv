@@ -124,11 +124,11 @@ module cva6_subsystem
   ariane_axi_soc::req_slv_t  axi_snoop_req;
   ariane_axi_soc::resp_slv_t axi_snoop_rsp;
 
-  riscv::ctrsource_rv_t pc_src[2];
-  riscv::ctrtarget_rv_t pc_dst[2];
-  riscv::ctr_type_t    metadata[2];
-  riscv::priv_lvl_t     priv_lvl[2];
-  logic [31:0]          instr[2];
+  riscv::ctrsource_rv_t pc_src[1:0];
+  riscv::ctrtarget_rv_t pc_dst[1:0];
+  riscv::ctr_type_t     metadata[1:0];
+  riscv::priv_lvl_t     priv_lvl[1:0];
+  logic [31:0]          instr[1:0];
 
   snooper_pkg::trace_t cva6_traces;
 
