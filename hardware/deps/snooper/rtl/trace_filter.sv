@@ -94,7 +94,6 @@ module trace_filter
 
    assign enable_o  =   pc_valid_i   & priv_lvl_en &
                         (ctr_type_en | instr_en )  &
-                        ( cfg_en[0]  | cfg_en[1]   |
-                          cfg_en[2]  | cfg_en[3]   );
+                        |cfg_en;
 
 endmodule
