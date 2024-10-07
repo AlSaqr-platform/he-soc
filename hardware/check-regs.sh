@@ -19,7 +19,7 @@ else
 fi
 
  #get NUM_TOTAL number of tests
-NUM_TOTAL=`ls | wc -l`
+NUM_TOTAL=22
 
 echo "list containing tests: $2"
 

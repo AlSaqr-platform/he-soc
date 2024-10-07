@@ -13,3 +13,4 @@ overrides:
   register_interface: { git: "https://github.com/pulp-platform/register_interface.git", version: 0.4.2                            }
   idma:               { git: "git@github.com:alsaqr-platform/iDMA.git", rev: "eb2433c3af512c617c89cf350d93c574c57f8bf1"           } # branch: mc/zdl/exp-path
   riscv:              { git: "https://github.com/AlSaqr-platform/riscv_nn.git", rev: "e437cff049443dac25a2c3a35e9890a577f9493a"   } # branch: alsaqr-2.0
+  pulp_cluster:       { git: "git@github.com:AlSaqr-platform/pulp_cluster.git", rev: "de1213c3bc60690615cadc93947fd0e312190321"   } # branch: mc/snicth-icache

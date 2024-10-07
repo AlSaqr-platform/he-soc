@@ -143,9 +143,9 @@ module apb_subsystem
 
    logic                                [63:0] can_timestamp;
 
-   typedef logic [AXI_ADDR_WIDTH-1:0]   reg_addr_t;
-   typedef logic [AXI_DATA_WIDTH-1:0]   reg_data_t;
-   typedef logic [AXI_DATA_WIDTH/8-1:0] reg_strb_t;
+   typedef logic [AXI_ADDR_WIDTH-1:0] reg_addr_t;
+   typedef logic [31:0]               reg_data_t;
+   typedef logic [3:0]                reg_strb_t;
 
    `REG_BUS_TYPEDEF_ALL(reg, reg_addr_t, reg_data_t, reg_strb_t)
 

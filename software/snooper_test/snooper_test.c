@@ -43,7 +43,6 @@ int thread_entry(int cid, int nc){
     uart_wait_tx_done();
     return -1;
   }
-  printf("Hello Culsans! I'm Core %d! Snooper test.\r\n", cid);
   uart_wait_tx_done();
   unlock(cid);
   while(1);
