@@ -581,10 +581,10 @@ module al_saqr
       .doorbell_irq_o         ( doorbell_irq                    ),
       .cfi_req_irq_o          ( cfi_req_irq                     ),
 
-      .cluster_lock_xor_key_o ( cluster_lock_xor_key_o          ),
-      .iommu_lock_xor_key_o   ( iommu_lock_xor_key_o            ),
-      .iopmp_lock_xor_key_o   ( iopmp_lock_xor_key_o            ),
-      .aia_lock_xor_key_o     ( aia_lock_xor_key_o              )
+      .cluster_lock_xor_key_o ( cluster_lock_xor_key            ),
+      .iommu_lock_xor_key_o   ( iommu_lock_xor_key              ),
+      .iopmp_lock_xor_key_o   ( iopmp_lock_xor_key              ),
+      .aia_lock_xor_key_o     ( aia_lock_xor_key                )
     );
 
    pad_frame #()
@@ -667,6 +667,7 @@ module al_saqr
      .HartIdOffs(0)
    ) i_RoT_wrap (
      .clk_i            ( clk_opentitan_o    ),
+     .clk_cluster_i    ( s_cluster_clk      ),
      .clk_ref_i        ( clk_opentitan_o    ),
      .rst_ni           ( s_rst_ni           ),
      .pwr_on_rst_ni    ( s_rst_ni           ),
@@ -716,7 +717,7 @@ module al_saqr
      .async_axi_out_r_data_i  ( async_axi_ot_out_r_data_i  ),
      .async_axi_out_r_wptr_i  ( async_axi_ot_out_r_wptr_i  ),
      .async_axi_out_r_rptr_o  ( async_axi_ot_out_r_rptr_o  ),
-     .cluster_lock_xor_key_i  ( cluster_lock_xor_key_o     )
+     .cluster_lock_xor_key_i  ( cluster_lock_xor_key       )
    );
   `else // !`ifndef EXCLUDE_ROT
 
