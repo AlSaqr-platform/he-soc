@@ -159,7 +159,12 @@ module host_domain
 
   // SCMI mailbox interrupt to Ibex
   output  logic               doorbell_irq_o,
-  output  logic               cfi_req_irq_o
+  output  logic               cfi_req_irq_o,
+    // Logic locking registers
+  output logic [127:0]        cluster_lock_xor_key_o,
+  output logic [127:0]        iommu_lock_xor_key_o,
+  output logic [127:0]        iopmp_lock_xor_key_o,
+  output logic [127:0]        aia_lock_xor_key_o
 
 );
 
@@ -588,7 +593,10 @@ module host_domain
 
       .fll_to_pad             ( fll_to_pad                     ),
       .gpio_to_pad            ( gpio_to_pad                    ),
-      .pad_to_gpio            ( pad_to_gpio                    )
+      .pad_to_gpio            ( pad_to_gpio                    ),
+
+      .*
+
       );
 
 
