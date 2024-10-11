@@ -1,19 +1,31 @@
-//#include <stdint.h>
-//#include "util.h"
-//#include "params.h"
-//#include "dif/clint.h"
-//#include "gpt.h"
-//#include "dif/uart.h"
-//#include "printf.h"
+// this is a bare-metal test intended to verify the correct 
+// functioning of the Shadow Stack RISC-V extension on CVA6 CPU.
+// The test executes in Machine mode and the CPU is extended
+// with a custom Shadow Stack test mode CSR at address 0xCA0
+// which can be enabled only in machine mode (supposed to be 
+// trusted) by writing the value 1 in that CSR. Once the SS 
+// test mode is enabled, the test verifies the correct execution
+// of the single Shadow Stack instructions by issueing a 
+// sequence of Shadow Stack Push instructions. 
+// In parallel a "golden model" of the Shadow Stack pointer
+// is updated and then the orginal content of the link register
+// is compared with the value written on the Shadow Stack by 
+// the Shadow Stack Push instructions adn the updated 
+// Shadow Stack pointer. The Shadow Stack Pointer
+// is verified by using the Shadow Stack pointer read instruction.
+// Then a sequence of Shadow Stack Pop Check instructions is executed. 
+// Also the compressed version of the instrction is verified.     
+
+#include <stdio.h>
+#include <stdlib.h>
+#include "utils.h"
+#include "encoding.h"
 #define CSR_SSP 0x011
 #define CSR_HENVCFG 0x60A
 #define CSR_MENVCFG 0x30A
 #define CSR_SENVCFG 0x10A
 #define LR_BASE 0x80008580
-#include <stdio.h>
-#include <stdlib.h>
-#include "utils.h"
-#include "encoding.h"
+#define CSR_SSTE 0xCA0
 
 int main(void) {
     
@@ -31,16 +43,25 @@ int main(void) {
 
     *ssp = 0xbaadc0de;
     
+    // Enable Shadow Stack test mode
+    asm volatile("csrw %0, %1"
+                  :
+                  : "i"(CSR_SSTE), "r"(1)
+                  : "memory");
+    
+    // Menv SS enable
     asm volatile("csrw %0, %1"
                   :
                   : "i"(CSR_MENVCFG), "r"(8)
                   : "memory");
 
+    // HENV SS enable
     asm volatile("csrw %0, %1"
                   :
                   : "i"(CSR_HENVCFG), "r"(8)
                   : "memory");
 
+    // SENV SS enable
     asm volatile("csrw %0, %1"
                   :
                   : "i"(CSR_SENVCFG), "r"(8)
@@ -91,7 +112,7 @@ int main(void) {
     } else {
         printf("Shadow Stack pointer read broken: ssp: %x, reg content: %x\n", ssp, ssprd_check);
         uart_wait_tx_done();
-	//return 1;
+	return 1;
     }
     
     printf("//--- Test compressed shadow stack push (on x1)\n");
@@ -127,7 +148,7 @@ int main(void) {
         if(ssp != ssprd_check || lr_content[i] != *ssp){
             printf("early exit, failed at: %d\n", i);
             uart_wait_tx_done();
-	    //return i;
+	    return i;
         }
     }
     
@@ -159,7 +180,8 @@ int main(void) {
           :
           :
         );
-
+        
+        // Check Shadow stack pointer
 	if (ssp != ssprd_check)
 	{      
              printf("Compressed Shadow Stack pop check iter %d wrong: Current CVA6 ssp: %x, GM ssp: %x\n", i, ssprd_check, ssp);
@@ -170,9 +192,6 @@ int main(void) {
 	uart_wait_tx_done();
 
     }
-
-
-
 
     printf("//------- Test Shadow Stack Push on x1\n");
     uart_wait_tx_done();
@@ -236,9 +255,6 @@ int main(void) {
           :
         );
  
-	//printf("Val at ssp GM 0x%x is: 0x%x, x1 content: 0x%x, CVA6 ssp:0x%x\n", (unsigned long)ssp, *ssp, lr_content[ssp_iter - i - 1], ssprd_check);
-	//uart_wait_tx_done();
-
 	// Shadow Stack pop check    
         asm volatile (".word 0xCDC0C073");
         for(int j = 0; j < 50; j++) asm volatile ("nop\n");
@@ -299,6 +315,7 @@ int main(void) {
         printf("Shadow Stack push %d: Val at address 0x%x is: 0x%x, x5 content: 0x%x, CVA6 ssp: 0x%x\n", i, (unsigned long)ssp, *ssp, lr_content[i], ssprd_check);
 	uart_wait_tx_done();
 
+        // Check Shadow astack pointer and content of the link register
         if(ssp != ssprd_check || lr_content[i] != *ssp){
             printf("early exit, failed at: %d\n", i);
             uart_wait_tx_done();
@@ -345,6 +362,9 @@ int main(void) {
         printf("ssppopchk iter %d ok: CVA6 ssp: %x, GM ssp: %x\n", i, ssprd_check, ssp); 
 	uart_wait_tx_done();
     }
+    
+    printf("Test succesfully finished"); 
+    uart_wait_tx_done();
 
     return 0;
 }
