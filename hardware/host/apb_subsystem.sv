@@ -129,7 +129,12 @@ module apb_subsystem
 
     //IRQ request of CH0 and CH1 from NUM_ADV_TIMER
     output logic                [NUM_ADV_TIMER-1 : 0] pwm_irq_o,
-    output                      pwm_to_pad_t pwm_to_pad
+    output                      pwm_to_pad_t pwm_to_pad,
+    // Logic locking registers
+    output logic [127:0]        cluster_lock_xor_key_o,
+    output logic [127:0]        iommu_lock_xor_key_o,
+    output logic [127:0]        iopmp_lock_xor_key_o,
+    output logic [127:0]        aia_lock_xor_key_o
 );
 
    logic                                s_rstn_soc_sync;
@@ -955,7 +960,7 @@ module apb_subsystem
     .llc_read_miss_cache_i(llc_read_miss_cache_i),
     .llc_write_hit_cache_i(llc_write_hit_cache_i),
     .llc_write_miss_cache_i(llc_write_miss_cache_i),
-    .cluster_lock_xor_key_o(  ),
+    .cluster_lock_xor_key_o(cluster_lock_xor_key_o),
     .iommu_lock_xor_key_o(  ),
     .iopmp_lock_xor_key_o(  ),
     .aia_lock_xor_key_o (  )

@@ -283,6 +283,11 @@ module al_saqr
   logic s_clk_125MHz;
   logic s_clk_125MHz90;
 
+  logic [127:0] cluster_lock_xor_key;
+  logic [127:0] iommu_lock_xor_key;
+  logic [127:0] iopmp_lock_xor_key;
+  logic [127:0] aia_lock_xor_key;
+
   AXI_BUS #(
      .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
@@ -574,7 +579,12 @@ module al_saqr
       .ot_axi_rsp             ( ot_axi_rsp                      ),
 
       .doorbell_irq_o         ( doorbell_irq                    ),
-      .cfi_req_irq_o          ( cfi_req_irq                     )
+      .cfi_req_irq_o          ( cfi_req_irq                     ),
+
+      .cluster_lock_xor_key_o ( cluster_lock_xor_key_o          ),
+      .iommu_lock_xor_key_o   ( iommu_lock_xor_key_o            ),
+      .iopmp_lock_xor_key_o   ( iopmp_lock_xor_key_o            ),
+      .aia_lock_xor_key_o     ( aia_lock_xor_key_o              )
     );
 
    pad_frame #()
@@ -705,7 +715,8 @@ module al_saqr
      .async_axi_out_ar_rptr_i ( async_axi_ot_out_ar_rptr_i ),
      .async_axi_out_r_data_i  ( async_axi_ot_out_r_data_i  ),
      .async_axi_out_r_wptr_i  ( async_axi_ot_out_r_wptr_i  ),
-     .async_axi_out_r_rptr_o  ( async_axi_ot_out_r_rptr_o  )
+     .async_axi_out_r_rptr_o  ( async_axi_ot_out_r_rptr_o  ),
+     .cluster_lock_xor_key_i  ( cluster_lock_xor_key_o     )
    );
   `else // !`ifndef EXCLUDE_ROT
 
