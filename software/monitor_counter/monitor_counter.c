@@ -32,6 +32,8 @@ int main(int argc, char const *argv[]) {
   parameter logic [BlockAw-1:0] PERFCOUNTERS_T_EVENT_CLK_COUNTER2_REG_OFFSET = 6'h 20;
   parameter logic [BlockAw-1:0] PERFCOUNTERS_T_EVENT_CLK_COUNTER1_REG_OFFSET = 6'h 24;
   parameter logic [BlockAw-1:0] PERFCOUNTERS_T_EVENT_CLK_COUNTER0_REG_OFFSET = 6'h 28;
+  parameter logic [BlockAw-1:0] MONITOR_COUNTERS_T_EVENT_CLK_COUNTERS_EN_REG_OFFSET = 6'h 2c;
+
   */
   
 
@@ -127,10 +129,13 @@ i  8:6	events_counter2_mux
 
   // *** EVENT CLK COUNTERS ****
   //
+  printf("EVENT CLK COUNTERS- ENABLE  \r\n");
+  pulp_write32(PERFMONITOR_BASE+0x2C, 0xF);
+
   printf("EVENT CLK COUNTER2- RESET  \r\n");
   pulp_write32(PERFMONITOR_BASE+0x8, 0x20);
-  printf("EVENT CLK COUNTERS  READ \r\n");
 
+  printf("EVENT CLK COUNTERS  READ \r\n");
   a = pulp_read32(PERFMONITOR_BASE+0x1C);
   printf("EVENT CLK_COUNTER3_REG  READ %x  \r\n",a);
   a = pulp_read32(PERFMONITOR_BASE+0x20);
@@ -140,6 +145,13 @@ i  8:6	events_counter2_mux
   a = pulp_read32(PERFMONITOR_BASE+0x28);
   printf("EVENT CLK_COUNTER0_REG  READ %x  \r\n",a);
 
+
+  printf("EVENT CLK COUNTERS- DISABLE \r\n");
+  pulp_write32(PERFMONITOR_BASE+0x2C, 0x0);
+
+
+  printf("EVENT CLK COUNTER0- ENABLE \r\n");
+  pulp_write32(PERFMONITOR_BASE+0x2C, 0x1);
 
   printf("EVENT CLK COUNTER0- RESET  \r\n");
   pulp_write32(PERFMONITOR_BASE+0x8, 0x02);
@@ -154,5 +166,16 @@ i  8:6	events_counter2_mux
   a = pulp_read32(PERFMONITOR_BASE+0x28);
   printf("EVENT CLK_COUNTER0_REG  READ %x  \r\n",a);
 
+  printf("EVENT CLK COUNTERS- RESET  \r\n");
+  pulp_write32(PERFMONITOR_BASE+0x8, 0xAA);
+
+  a = pulp_read32(PERFMONITOR_BASE+0x1C);
+  printf("EVENT CLK_COUNTER3_REG  READ %x  \r\n",a);
+  a = pulp_read32(PERFMONITOR_BASE+0x20);
+  printf("EVENT CLK_COUNTER2_REG  READ %x  \r\n",a);
+  a = pulp_read32(PERFMONITOR_BASE+0x24);
+  printf("EVENT CLK_COUNTER1_REG  READ %x  \r\n",a);
+  a = pulp_read32(PERFMONITOR_BASE+0x28);
+  printf("EVENT CLK_COUNTER0_REG  READ %x  \r\n",a);
   return 0;
 }
