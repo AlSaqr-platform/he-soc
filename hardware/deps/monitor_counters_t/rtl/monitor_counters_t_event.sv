@@ -239,10 +239,10 @@ logic	     event_clk_counter3_en;
 
   // EVENT CLK COUNTERS
 
-  assign event_clk_counter0_en = 1'b1;
-  assign event_clk_counter1_en = 1'b1;
-  assign event_clk_counter2_en = 1'b1;
-  assign event_clk_counter3_en = 1'b1;
+  assign event_clk_counter0_en = reg2hw.event_clk_counters_en_reg.event_clk_counter0_enable.q;
+  assign event_clk_counter1_en = reg2hw.event_clk_counters_en_reg.event_clk_counter1_enable.q;
+  assign event_clk_counter2_en = reg2hw.event_clk_counters_en_reg.event_clk_counter2_enable.q;
+  assign event_clk_counter3_en = reg2hw.event_clk_counters_en_reg.event_clk_counter3_enable.q;
 
   always_ff @(posedge clk_i or negedge rst_ni) begin
     if (!rst_ni) begin
@@ -280,7 +280,7 @@ logic	     event_clk_counter3_en;
   	 event_clk_counter3_reg <= 32'b0;
     end else if (event_clk_counters_rst[3] ) begin
   	 event_clk_counter3_reg <= 32'b0;
-    end else if (event_clk_counter0_en ) begin
+    end else if (event_clk_counter3_en ) begin
 	 event_clk_counter3_reg <= event_clk_counter3_reg + 1'b1;
     end
   end

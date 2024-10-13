@@ -1,0 +1,565 @@
+{
+    name: "htm_block"
+    clock_primary: "clk_i"
+    reset_primary: "rst_ni"
+    bus_interfaces: [
+        { protocol: "reg_iface", direction: "device"}
+    ]
+    regwidth: 32,
+    registers: [
+    { name: sdr_control_reg
+      desc: '''SDR_CONTROL register''',
+      swaccess: "rw1s",
+      hwaccess: "hrw",
+      fields: [
+        { bits: "0",
+          name: "start",
+          desc: "START BIT"
+        }
+        { bits: "31:1",
+          name: "UNUSED",
+          desc: "UNUSED bits"
+        }
+      ]
+    },
+    { name:     SDR_0_0
+      desc:     '''SDR 0 0 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_0"
+          desc: "SDR_0_0"
+        }
+      ]
+    }
+    { name:     SDR_0_1
+      desc:     '''SDR 0 1 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_1"
+          desc: "SDR_0_1"
+        }
+      ]
+    }
+    { name:     SDR_0_2
+      desc:     '''SDR 0 2 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_2"
+          desc: "SDR_0_2"
+        }
+      ]
+    }
+    { name:     SDR_0_3
+      desc:     '''SDR 0 3 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_3"
+          desc: "SDR_0_3"
+        }
+      ]
+    }
+    { name:     SDR_0_4
+      desc:     '''SDR 0 4 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_4"
+          desc: "SDR_0_4"
+        }
+      ]
+    }
+    { name:     SDR_0_5
+      desc:     '''SDR 0 5 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_5"
+          desc: "SDR_0_5"
+        }
+      ]
+    }
+    { name:     SDR_0_6
+      desc:     '''SDR 0 6 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_6"
+          desc: "SDR_0_6"
+        }
+      ]
+    }
+    { name:     SDR_0_7
+      desc:     '''SDR 0 7 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_7"
+          desc: "SDR_0_7"
+        }
+      ]
+    }
+    { name:     SDR_0_8
+      desc:     '''SDR 0 8 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_8"
+          desc: "SDR_0_8"
+        }
+      ]
+    }
+    { name:     SDR_0_9
+      desc:     '''SDR 0 9 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_9"
+          desc: "SDR_0_9"
+        }
+      ]
+    }
+    { name:     SDR_0_10
+      desc:     '''SDR 0 10 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_10"
+          desc: "SDR_0_10"
+        }
+      ]
+    }
+    { name:     SDR_0_11
+      desc:     '''SDR 0 11 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_11"
+          desc: "SDR_0_11"
+        }
+      ]
+    }
+    { name:     SDR_0_12
+      desc:     '''SDR 0 12 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_12"
+          desc: "SDR_0_12"
+        }
+      ]
+    }
+    { name:     SDR_0_13
+      desc:     '''SDR 0 13 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_13"
+          desc: "SDR_0_13"
+        }
+      ]
+    }
+    { name:     SDR_0_14
+      desc:     '''SDR 0 14 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_5"
+          desc: "SDR_0_5"
+        }
+      ]
+    }
+    { name:     SDR_0_15
+      desc:     '''SDR 0 15 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_15"
+          desc: "SDR_0_15"
+        }
+      ]
+    }
+    { name:     SDR_0_16
+      desc:     '''SDR 0 16 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_16"
+          desc: "SDR_0_16"
+        }
+      ]
+    }
+    { name:     SDR_0_17
+      desc:     '''SDR 0 17 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_17"
+          desc: "SDR_0_17"
+        }
+      ]
+    }
+    { name:     SDR_0_18
+      desc:     '''SDR 0 18 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_18"
+          desc: "SDR_0_18"
+        }
+      ]
+    }
+    { name:     SDR_0_19
+      desc:     '''SDR 0 19 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_19"
+          desc: "SDR_0_19"
+        }
+      ]
+    }
+    { name:     SDR_0_20
+      desc:     '''SDR 0 20 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_20"
+          desc: "SDR_0_20"
+        }
+      ]
+    }
+    { name:     SDR_0_21
+      desc:     '''SDR 0 21 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_21"
+          desc: "SDR_0_21"
+        }
+      ]
+    }
+    { name:     SDR_0_22
+      desc:     '''SDR 0 22 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_22"
+          desc: "SDR_0_22"
+        }
+      ]
+    }
+    { name:     SDR_0_23
+      desc:     '''SDR 0 23 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_23"
+          desc: "SDR_0_23"
+        }
+      ]
+    }
+    { name:     SDR_0_24
+      desc:     '''SDR 0 24 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_24"
+          desc: "SDR_0_24"
+        }
+      ]
+    }
+    { name:     SDR_0_25
+      desc:     '''SDR 0 25 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_25"
+          desc: "SDR_0_25"
+        }
+      ]
+    }
+    { name:     SDR_0_26
+      desc:     '''SDR 0 26 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_26"
+          desc: "SDR_0_26"
+        }
+      ]
+    }
+    { name:     SDR_0_27
+      desc:     '''SDR 0 27 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_27"
+          desc: "SDR_0_27"
+        }
+      ]
+    }
+    { name:     SDR_0_28
+      desc:     '''SDR 0 28 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_28"
+          desc: "SDR_0_28"
+        }
+      ]
+    }
+    { name:     SDR_0_29
+      desc:     '''SDR 0 29 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_29"
+          desc: "SDR_0_29"
+        }
+      ]
+    }
+    { name:     SDR_0_30
+      desc:     '''SDR 0 30 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_30"
+          desc: "SDR_0_30"
+        }
+      ]
+    }
+    { name:     SDR_0_31
+      desc:     '''SDR 0 31 register'''
+      swaccess: "rw"
+      hwaccess: "hro"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_0_31"
+          desc: "SDR_0_31"
+        }
+      ]
+    }
+    { name:     SDR_INDEX_0_0
+      desc:     '''SDR_INDEX 0 0 register'''
+      swaccess: "ro"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_INDEX_0_0"
+          desc: "SDR_INDEX_0_0"
+        }
+      ]
+    }
+    { name:     SDR_INDEX_0_1
+      desc:     '''SDR_INDEX 0 1 register'''
+      swaccess: "ro"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_INDEX_0_1"
+          desc: "SDR_INDEX_0_1"
+        }
+      ]
+    }
+    { name:     SDR_INDEX_0_2
+      desc:     '''SDR_INDEX 0 2 register'''
+      swaccess: "ro"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_INDEX_0_2"
+          desc: "SDR_INDEX_0_2"
+        }
+      ]
+    }
+    { name:     SDR_INDEX_0_3
+      desc:     '''SDR_INDEX 0 3 register'''
+      swaccess: "ro"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_INDEX_0_3"
+          desc: "SDR_INDEX_0_3"
+        }
+      ]
+    }
+    { name:     SDR_INDEX_0_4
+      desc:     '''SDR_INDEX 0 4 register'''
+      swaccess: "ro"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_INDEX_0_4"
+          desc: "SDR_INDEX_0_4"
+        }
+      ]
+    }
+    { name:     SDR_INDEX_0_5
+      desc:     '''SDR_INDEX 0 5 register'''
+      swaccess: "ro"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_INDEX_0_5"
+          desc: "SDR_INDEX_0_5"
+        }
+      ]
+    }
+    { name:     SDR_INDEX_0_6
+      desc:     '''SDR_INDEX 0 6 register'''
+      swaccess: "ro"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_INDEX_0_6"
+          desc: "SDR_INDEX_0_6"
+        }
+      ]
+    }
+    { name:     SDR_INDEX_0_7
+      desc:     '''SDR_INDEX 0 7 register'''
+      swaccess: "ro"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_INDEX_0_7"
+          desc: "SDR_INDEX_0_7"
+        }
+      ]
+    }
+    { name:     SDR_INDEX_0_8
+      desc:     '''SDR_INDEX 0 8 register'''
+      swaccess: "ro"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_INDEX_0_8"
+          desc: "SDR_INDEX_0_8"
+        }
+      ]
+    }
+    { name:     SDR_INDEX_0_9
+      desc:     '''SDR_INDEX 0 9 register'''
+      swaccess: "ro"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_INDEX_0_9"
+          desc: "SDR_INDEX_0_9"
+        }
+      ]
+    }
+    { name:     SDR_INDEX_0_10
+      desc:     '''SDR_INDEX 0 10 register'''
+      swaccess: "ro"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_INDEX_0_10"
+          desc: "SDR_INDEX_0_10"
+        }
+      ]
+    }
+    { name:     SDR_INDEX_0_11
+      desc:     '''SDR_INDEX 0 11 register'''
+      swaccess: "ro"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_INDEX_0_11"
+          desc: "SDR_INDEX_0_11"
+        }
+      ]
+    }
+    { name:     SDR_INDEX_0_12
+      desc:     '''SDR_INDEX 0 12 register'''
+      swaccess: "ro"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_INDEX_0_12"
+          desc: "SDR_INDEX_0_12"
+        }
+      ]
+    }
+    { name:     SDR_INDEX_0_13
+      desc:     '''SDR_INDEX 0 13 register'''
+      swaccess: "ro"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_INDEX_0_13"
+          desc: "SDR_INDEX_0_13"
+        }
+      ]
+    }
+    { name:     SDR_INDEX_0_14
+      desc:     '''SDR_INDEX 0 14 register'''
+      swaccess: "ro"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_INDEX_0_14"
+          desc: "SDR_INDEX_0_14"
+        }
+      ]
+    }
+    { name:     SDR_INDEX_0_15
+      desc:     '''SDR_INDEX 0 15 register'''
+      swaccess: "ro"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_INDEX_0_15"
+          desc: "SDR_INDEX_0_15"
+        }
+      ]
+    }
+    { name:     SDR_STATUS_0
+      desc:     '''SDR_INDEX 0 15 register'''
+      swaccess: "ro"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_INDEX_0_15"
+          desc: "SDR_INDEX_0_15"
+        }
+      ]
+    }
+  ]
+}
