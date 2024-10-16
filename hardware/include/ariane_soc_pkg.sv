@@ -133,7 +133,7 @@ package ariane_soc;
   `endif
   localparam logic[63:0] LLCSPMLength   = 64'h20000;     // up to 128KB of LLC that can be used as scratchpad
   localparam logic[63:0] L2SPMLength    = 64'h8000;      // 32KB of scratchpad memory
-  localparam logic[63:0] APB_SLVSLength = 64'h131000;
+  localparam logic[63:0] APB_SLVSLength = 64'h132000;
   localparam logic[63:0] SnoopLength    = 64'h4000;
 
   // Instantiate AXI protocol checkers

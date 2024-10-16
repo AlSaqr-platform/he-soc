@@ -157,6 +157,9 @@ module apb_subsystem
    reg_req_t monitor_counter_reg_req;
    reg_rsp_t monitor_counter_reg_rsp;
 
+   reg_req_t htm_block_reg_req;
+   reg_rsp_t htm_block_reg_rsp;
+
    assign rstn_soc_sync_o = s_rstn_soc_sync;
    assign rstn_cluster_sync_o = s_rstn_cluster_sync && s_cluster_ctrl_rstn;
 
@@ -220,6 +223,11 @@ module apb_subsystem
                .DATA_WIDTH(32)
    ) monitor_counter_master_bus();
 
+   APB  #(
+               .ADDR_WIDTH(32),
+               .DATA_WIDTH(32)
+   ) htm_block_master_bus();
+
    FLL_BUS fll_master_bus(
                 .clk_i(s_soc_clk)
     );
@@ -240,6 +248,16 @@ module apb_subsystem
 
    `REG_BUS_ASSIGN_TO_REQ(monitor_counter_reg_req, i_monitor_counter_bus)
    `REG_BUS_ASSIGN_FROM_RSP(i_monitor_counter_bus, monitor_counter_reg_rsp)
+
+   REG_BUS #(
+        .ADDR_WIDTH( 32 ),
+        .DATA_WIDTH( 32 )
+    ) i_htm_block_bus(
+        .clk_i (s_soc_clk)
+    );
+
+   `REG_BUS_ASSIGN_TO_REQ(htm_block_reg_req, i_htm_block_bus)
+   `REG_BUS_ASSIGN_FROM_RSP(i_htm_block_bus, htm_block_reg_rsp)
 
     //uDMA -> XBAR
    AXI_BUS #(
@@ -288,7 +306,8 @@ module apb_subsystem
     .apb_can1_master (apb_can1_master_bus),
     .socctrl_master(apb_socctrl_master_bus),
     .apb_uart_master(apb_uart_master_bus),
-    .monitor_counter(monitor_counter_master_bus)
+    .monitor_counter(monitor_counter_master_bus),
+    .htm_block(htm_block_master_bus)
     );
 
    // CLUSTER UART - FPGA ONLY
@@ -995,4 +1014,40 @@ module apb_subsystem
       .reg_rsp_o	( monitor_counter_reg_rsp )
     );
 
+    // HTM_BLOCK Counters
+    apb_to_reg i_apb_to_htm_block
+    (
+     .clk_i     ( clk_soc_o       ),
+     .rst_ni    ( s_rstn_soc_sync ),
+
+     .penable_i ( htm_block_master_bus.penable ),
+     .pwrite_i  ( htm_block_master_bus.pwrite  ),
+     .paddr_i   ( htm_block_master_bus.paddr   ),
+     .psel_i    ( htm_block_master_bus.psel    ),
+     .pwdata_i  ( htm_block_master_bus.pwdata  ),
+     .prdata_o  ( htm_block_master_bus.prdata  ),
+     .pready_o  ( htm_block_master_bus.pready  ),
+     .pslverr_o ( htm_block_master_bus.pslverr ),
+
+     .reg_o     ( i_htm_block_bus              )
+    );
+
+    // instantiate here the counter, and connect to
+    // reg_req_i reg_rsp_o port of the register to
+    // monitor_counter_reg_req and monitor_counter_reg_req structures
+    // the interconnect is already on place
+    // the base address to which you access the couters is: 0x1A22_A000 upto 0x1A22_AFFF
+ htm_block  # (
+    .reg_req_t	(reg_req_t) ,
+    .reg_rsp_t 	(reg_rsp_t)
+
+ ) htm_block
+ (
+  .clk_i	(clk_i),
+  .rst_ni	(rst_ni),
+
+  .reg_req_i	(htm_block_reg_req),
+  .reg_rsp_o	(htm_block_reg_rsp)
+
+);
 endmodule
