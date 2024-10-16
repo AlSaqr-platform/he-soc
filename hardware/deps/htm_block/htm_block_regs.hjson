@@ -22,6 +22,37 @@
         }
       ]
     },
+    { name: sdr_status_reg
+      desc: '''SDR_STATUS register''',
+      swaccess: "rw1s",
+      hwaccess: "hrw",
+      fields: [
+        { bits: "7:0",
+          name: "NUMBER_OF_INDEXES",
+          desc: "NUMBER OF INDEXES"
+        }
+        { bits: "24:8",
+          name: "NUMBER_OF_ONES",
+          desc: "NUMBER OF ONES"
+        }
+        { bits: "28:25",
+          name: "UNUSED",
+          desc: "UNUSED bits"
+        }
+        { bits: "29",
+          name: "ERROR_INDEXES_GT_32",
+          desc: "ERROR_INDEXES_GT_32"
+        }
+        { bits: "30",
+          name: "ERROR_FIFO_FULL",
+          desc: "ERROR_FIFO_FULL"
+        }
+        { bits: "31",
+          name: "DONE",
+          desc: "DONE"
+        }
+      ]
+    },
     { name:     SDR_0_0
       desc:     '''SDR 0 0 register'''
       swaccess: "rw"
@@ -540,17 +571,6 @@
       ]
     }
     { name:     SDR_INDEX_0_15
-      desc:     '''SDR_INDEX 0 15 register'''
-      swaccess: "ro"
-      hwaccess: "hrw"
-      fields: [
-        { bits: "31:0"
-          name: "SDR_INDEX_0_15"
-          desc: "SDR_INDEX_0_15"
-        }
-      ]
-    }
-    { name:     SDR_STATUS_0
       desc:     '''SDR_INDEX 0 15 register'''
       swaccess: "ro"
       hwaccess: "hrw"

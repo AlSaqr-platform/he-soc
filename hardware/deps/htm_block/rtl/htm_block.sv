@@ -31,12 +31,12 @@ module htm_block
 ////
 //
 //
-/*
-monitor_counters_t_reg_top  # (
+
+htm_block_reg_top  # (
     .reg_req_t  (reg_req_t) ,
     .reg_rsp_t  (reg_rsp_t)
 
- )monitor_counters_t_reg_top 
+ )htm_block_reg_top 
  (
         .clk_i          (clk_i),
         .rst_ni         (rst_ni),
@@ -52,17 +52,29 @@ monitor_counters_t_reg_top  # (
   	.devmode_i	(1'b1) // If 1, explicit error return for unmapped register access
 );
 
-module sdr_module (
-        input                       clk_i,
-        input                                           rst_ni,
-        output  logic [0:15][31:0]      sdr_index ,
-        output  logic       [31:0]      sdr_status ,
-        input   logic       [31:0]      sdr_control,
-        input   logic [0:31][31:0]      sdr_reg,
-        output  logic           [5:0]   shift_counter
+logic [0:15][31:0]      sdr_index;
+logic       [31:0]      sdr_status;
+logic       [31:0]      sdr_control;
+logic [0:31][31:0]      sdr_reg;
+logic       [5:0]	shift_counter;
+
+
+sdr_module sdr_module (
+        .clk_i		(clk_i),
+        .rst_ni		(rst_ni),
+/*
+        .sdr_index 	(sdr_index),
+        .sdr_status 	(sdr_status),
+        .sdr_control	(sdr_control),
+        .sdr_reg	(sdr_reg),
+        .shift_counter	(shift_counter),
+*/
+	.reg2hw     	(reg2hw),
+	.hw2reg     	(hw2reg)
+
 
 );
-
+/*
   monitor_counters_t_core monitor_counters_t_core (
     .clk_i	(clk_i),
     .rst_ni	(rst_ni),

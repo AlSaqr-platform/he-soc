@@ -74,6 +74,24 @@ module htm_block_reg_top #(
   logic [30:0] sdr_control_reg_unused_qs;
   logic [30:0] sdr_control_reg_unused_wd;
   logic sdr_control_reg_unused_we;
+  logic [7:0] sdr_status_reg_number_of_indexes_qs;
+  logic [7:0] sdr_status_reg_number_of_indexes_wd;
+  logic sdr_status_reg_number_of_indexes_we;
+  logic [16:0] sdr_status_reg_number_of_ones_qs;
+  logic [16:0] sdr_status_reg_number_of_ones_wd;
+  logic sdr_status_reg_number_of_ones_we;
+  logic [3:0] sdr_status_reg_unused_qs;
+  logic [3:0] sdr_status_reg_unused_wd;
+  logic sdr_status_reg_unused_we;
+  logic sdr_status_reg_error_indexes_gt_32_qs;
+  logic sdr_status_reg_error_indexes_gt_32_wd;
+  logic sdr_status_reg_error_indexes_gt_32_we;
+  logic sdr_status_reg_error_fifo_full_qs;
+  logic sdr_status_reg_error_fifo_full_wd;
+  logic sdr_status_reg_error_fifo_full_we;
+  logic sdr_status_reg_done_qs;
+  logic sdr_status_reg_done_wd;
+  logic sdr_status_reg_done_we;
   logic [31:0] sdr_0_0_qs;
   logic [31:0] sdr_0_0_wd;
   logic sdr_0_0_we;
@@ -239,6 +257,164 @@ module htm_block_reg_top #(
 
     // to register interface (read)
     .qs     (sdr_control_reg_unused_qs)
+  );
+
+
+  // R[sdr_status_reg]: V(False)
+
+  //   F[number_of_indexes]: 7:0
+  prim_subreg #(
+    .DW      (8),
+    .SWACCESS("W1S"),
+    .RESVAL  (8'h0)
+  ) u_sdr_status_reg_number_of_indexes (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_status_reg_number_of_indexes_we),
+    .wd     (sdr_status_reg_number_of_indexes_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_status_reg.number_of_indexes.de),
+    .d      (hw2reg.sdr_status_reg.number_of_indexes.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_status_reg.number_of_indexes.q ),
+
+    // to register interface (read)
+    .qs     (sdr_status_reg_number_of_indexes_qs)
+  );
+
+
+  //   F[number_of_ones]: 24:8
+  prim_subreg #(
+    .DW      (17),
+    .SWACCESS("W1S"),
+    .RESVAL  (17'h0)
+  ) u_sdr_status_reg_number_of_ones (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_status_reg_number_of_ones_we),
+    .wd     (sdr_status_reg_number_of_ones_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_status_reg.number_of_ones.de),
+    .d      (hw2reg.sdr_status_reg.number_of_ones.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_status_reg.number_of_ones.q ),
+
+    // to register interface (read)
+    .qs     (sdr_status_reg_number_of_ones_qs)
+  );
+
+
+  //   F[unused]: 28:25
+  prim_subreg #(
+    .DW      (4),
+    .SWACCESS("W1S"),
+    .RESVAL  (4'h0)
+  ) u_sdr_status_reg_unused (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_status_reg_unused_we),
+    .wd     (sdr_status_reg_unused_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_status_reg.unused.de),
+    .d      (hw2reg.sdr_status_reg.unused.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_status_reg.unused.q ),
+
+    // to register interface (read)
+    .qs     (sdr_status_reg_unused_qs)
+  );
+
+
+  //   F[error_indexes_gt_32]: 29:29
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("W1S"),
+    .RESVAL  (1'h0)
+  ) u_sdr_status_reg_error_indexes_gt_32 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_status_reg_error_indexes_gt_32_we),
+    .wd     (sdr_status_reg_error_indexes_gt_32_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_status_reg.error_indexes_gt_32.de),
+    .d      (hw2reg.sdr_status_reg.error_indexes_gt_32.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_status_reg.error_indexes_gt_32.q ),
+
+    // to register interface (read)
+    .qs     (sdr_status_reg_error_indexes_gt_32_qs)
+  );
+
+
+  //   F[error_fifo_full]: 30:30
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("W1S"),
+    .RESVAL  (1'h0)
+  ) u_sdr_status_reg_error_fifo_full (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_status_reg_error_fifo_full_we),
+    .wd     (sdr_status_reg_error_fifo_full_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_status_reg.error_fifo_full.de),
+    .d      (hw2reg.sdr_status_reg.error_fifo_full.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_status_reg.error_fifo_full.q ),
+
+    // to register interface (read)
+    .qs     (sdr_status_reg_error_fifo_full_qs)
+  );
+
+
+  //   F[done]: 31:31
+  prim_subreg #(
+    .DW      (1),
+    .SWACCESS("W1S"),
+    .RESVAL  (1'h0)
+  ) u_sdr_status_reg_done (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_status_reg_done_we),
+    .wd     (sdr_status_reg_done_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_status_reg.done.de),
+    .d      (hw2reg.sdr_status_reg.done.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_status_reg.done.q ),
+
+    // to register interface (read)
+    .qs     (sdr_status_reg_done_qs)
   );
 
 
@@ -1524,58 +1700,59 @@ module htm_block_reg_top #(
 
 
 
-  logic [48:0] addr_hit;
+  logic [49:0] addr_hit;
   always_comb begin
     addr_hit = '0;
     addr_hit[ 0] = (reg_addr == HTM_BLOCK_SDR_CONTROL_REG_OFFSET);
-    addr_hit[ 1] = (reg_addr == HTM_BLOCK_SDR_0_0_OFFSET);
-    addr_hit[ 2] = (reg_addr == HTM_BLOCK_SDR_0_1_OFFSET);
-    addr_hit[ 3] = (reg_addr == HTM_BLOCK_SDR_0_2_OFFSET);
-    addr_hit[ 4] = (reg_addr == HTM_BLOCK_SDR_0_3_OFFSET);
-    addr_hit[ 5] = (reg_addr == HTM_BLOCK_SDR_0_4_OFFSET);
-    addr_hit[ 6] = (reg_addr == HTM_BLOCK_SDR_0_5_OFFSET);
-    addr_hit[ 7] = (reg_addr == HTM_BLOCK_SDR_0_6_OFFSET);
-    addr_hit[ 8] = (reg_addr == HTM_BLOCK_SDR_0_7_OFFSET);
-    addr_hit[ 9] = (reg_addr == HTM_BLOCK_SDR_0_8_OFFSET);
-    addr_hit[10] = (reg_addr == HTM_BLOCK_SDR_0_9_OFFSET);
-    addr_hit[11] = (reg_addr == HTM_BLOCK_SDR_0_10_OFFSET);
-    addr_hit[12] = (reg_addr == HTM_BLOCK_SDR_0_11_OFFSET);
-    addr_hit[13] = (reg_addr == HTM_BLOCK_SDR_0_12_OFFSET);
-    addr_hit[14] = (reg_addr == HTM_BLOCK_SDR_0_13_OFFSET);
-    addr_hit[15] = (reg_addr == HTM_BLOCK_SDR_0_14_OFFSET);
-    addr_hit[16] = (reg_addr == HTM_BLOCK_SDR_0_15_OFFSET);
-    addr_hit[17] = (reg_addr == HTM_BLOCK_SDR_0_16_OFFSET);
-    addr_hit[18] = (reg_addr == HTM_BLOCK_SDR_0_17_OFFSET);
-    addr_hit[19] = (reg_addr == HTM_BLOCK_SDR_0_18_OFFSET);
-    addr_hit[20] = (reg_addr == HTM_BLOCK_SDR_0_19_OFFSET);
-    addr_hit[21] = (reg_addr == HTM_BLOCK_SDR_0_20_OFFSET);
-    addr_hit[22] = (reg_addr == HTM_BLOCK_SDR_0_21_OFFSET);
-    addr_hit[23] = (reg_addr == HTM_BLOCK_SDR_0_22_OFFSET);
-    addr_hit[24] = (reg_addr == HTM_BLOCK_SDR_0_23_OFFSET);
-    addr_hit[25] = (reg_addr == HTM_BLOCK_SDR_0_24_OFFSET);
-    addr_hit[26] = (reg_addr == HTM_BLOCK_SDR_0_25_OFFSET);
-    addr_hit[27] = (reg_addr == HTM_BLOCK_SDR_0_26_OFFSET);
-    addr_hit[28] = (reg_addr == HTM_BLOCK_SDR_0_27_OFFSET);
-    addr_hit[29] = (reg_addr == HTM_BLOCK_SDR_0_28_OFFSET);
-    addr_hit[30] = (reg_addr == HTM_BLOCK_SDR_0_29_OFFSET);
-    addr_hit[31] = (reg_addr == HTM_BLOCK_SDR_0_30_OFFSET);
-    addr_hit[32] = (reg_addr == HTM_BLOCK_SDR_0_31_OFFSET);
-    addr_hit[33] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_0_OFFSET);
-    addr_hit[34] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_1_OFFSET);
-    addr_hit[35] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_2_OFFSET);
-    addr_hit[36] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_3_OFFSET);
-    addr_hit[37] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_4_OFFSET);
-    addr_hit[38] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_5_OFFSET);
-    addr_hit[39] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_6_OFFSET);
-    addr_hit[40] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_7_OFFSET);
-    addr_hit[41] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_8_OFFSET);
-    addr_hit[42] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_9_OFFSET);
-    addr_hit[43] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_10_OFFSET);
-    addr_hit[44] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_11_OFFSET);
-    addr_hit[45] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_12_OFFSET);
-    addr_hit[46] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_13_OFFSET);
-    addr_hit[47] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_14_OFFSET);
-    addr_hit[48] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_15_OFFSET);
+    addr_hit[ 1] = (reg_addr == HTM_BLOCK_SDR_STATUS_REG_OFFSET);
+    addr_hit[ 2] = (reg_addr == HTM_BLOCK_SDR_0_0_OFFSET);
+    addr_hit[ 3] = (reg_addr == HTM_BLOCK_SDR_0_1_OFFSET);
+    addr_hit[ 4] = (reg_addr == HTM_BLOCK_SDR_0_2_OFFSET);
+    addr_hit[ 5] = (reg_addr == HTM_BLOCK_SDR_0_3_OFFSET);
+    addr_hit[ 6] = (reg_addr == HTM_BLOCK_SDR_0_4_OFFSET);
+    addr_hit[ 7] = (reg_addr == HTM_BLOCK_SDR_0_5_OFFSET);
+    addr_hit[ 8] = (reg_addr == HTM_BLOCK_SDR_0_6_OFFSET);
+    addr_hit[ 9] = (reg_addr == HTM_BLOCK_SDR_0_7_OFFSET);
+    addr_hit[10] = (reg_addr == HTM_BLOCK_SDR_0_8_OFFSET);
+    addr_hit[11] = (reg_addr == HTM_BLOCK_SDR_0_9_OFFSET);
+    addr_hit[12] = (reg_addr == HTM_BLOCK_SDR_0_10_OFFSET);
+    addr_hit[13] = (reg_addr == HTM_BLOCK_SDR_0_11_OFFSET);
+    addr_hit[14] = (reg_addr == HTM_BLOCK_SDR_0_12_OFFSET);
+    addr_hit[15] = (reg_addr == HTM_BLOCK_SDR_0_13_OFFSET);
+    addr_hit[16] = (reg_addr == HTM_BLOCK_SDR_0_14_OFFSET);
+    addr_hit[17] = (reg_addr == HTM_BLOCK_SDR_0_15_OFFSET);
+    addr_hit[18] = (reg_addr == HTM_BLOCK_SDR_0_16_OFFSET);
+    addr_hit[19] = (reg_addr == HTM_BLOCK_SDR_0_17_OFFSET);
+    addr_hit[20] = (reg_addr == HTM_BLOCK_SDR_0_18_OFFSET);
+    addr_hit[21] = (reg_addr == HTM_BLOCK_SDR_0_19_OFFSET);
+    addr_hit[22] = (reg_addr == HTM_BLOCK_SDR_0_20_OFFSET);
+    addr_hit[23] = (reg_addr == HTM_BLOCK_SDR_0_21_OFFSET);
+    addr_hit[24] = (reg_addr == HTM_BLOCK_SDR_0_22_OFFSET);
+    addr_hit[25] = (reg_addr == HTM_BLOCK_SDR_0_23_OFFSET);
+    addr_hit[26] = (reg_addr == HTM_BLOCK_SDR_0_24_OFFSET);
+    addr_hit[27] = (reg_addr == HTM_BLOCK_SDR_0_25_OFFSET);
+    addr_hit[28] = (reg_addr == HTM_BLOCK_SDR_0_26_OFFSET);
+    addr_hit[29] = (reg_addr == HTM_BLOCK_SDR_0_27_OFFSET);
+    addr_hit[30] = (reg_addr == HTM_BLOCK_SDR_0_28_OFFSET);
+    addr_hit[31] = (reg_addr == HTM_BLOCK_SDR_0_29_OFFSET);
+    addr_hit[32] = (reg_addr == HTM_BLOCK_SDR_0_30_OFFSET);
+    addr_hit[33] = (reg_addr == HTM_BLOCK_SDR_0_31_OFFSET);
+    addr_hit[34] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_0_OFFSET);
+    addr_hit[35] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_1_OFFSET);
+    addr_hit[36] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_2_OFFSET);
+    addr_hit[37] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_3_OFFSET);
+    addr_hit[38] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_4_OFFSET);
+    addr_hit[39] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_5_OFFSET);
+    addr_hit[40] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_6_OFFSET);
+    addr_hit[41] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_7_OFFSET);
+    addr_hit[42] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_8_OFFSET);
+    addr_hit[43] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_9_OFFSET);
+    addr_hit[44] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_10_OFFSET);
+    addr_hit[45] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_11_OFFSET);
+    addr_hit[46] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_12_OFFSET);
+    addr_hit[47] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_13_OFFSET);
+    addr_hit[48] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_14_OFFSET);
+    addr_hit[49] = (reg_addr == HTM_BLOCK_SDR_INDEX_0_15_OFFSET);
   end
 
   assign addrmiss = (reg_re || reg_we) ? ~|addr_hit : 1'b0 ;
@@ -1631,7 +1808,8 @@ module htm_block_reg_top #(
                (addr_hit[45] & (|(HTM_BLOCK_PERMIT[45] & ~reg_be))) |
                (addr_hit[46] & (|(HTM_BLOCK_PERMIT[46] & ~reg_be))) |
                (addr_hit[47] & (|(HTM_BLOCK_PERMIT[47] & ~reg_be))) |
-               (addr_hit[48] & (|(HTM_BLOCK_PERMIT[48] & ~reg_be)))));
+               (addr_hit[48] & (|(HTM_BLOCK_PERMIT[48] & ~reg_be))) |
+               (addr_hit[49] & (|(HTM_BLOCK_PERMIT[49] & ~reg_be)))));
   end
 
   assign sdr_control_reg_start_we = addr_hit[0] & reg_we & !reg_error;
@@ -1640,100 +1818,118 @@ module htm_block_reg_top #(
   assign sdr_control_reg_unused_we = addr_hit[0] & reg_we & !reg_error;
   assign sdr_control_reg_unused_wd = reg_wdata[31:1];
 
-  assign sdr_0_0_we = addr_hit[1] & reg_we & !reg_error;
+  assign sdr_status_reg_number_of_indexes_we = addr_hit[1] & reg_we & !reg_error;
+  assign sdr_status_reg_number_of_indexes_wd = reg_wdata[7:0];
+
+  assign sdr_status_reg_number_of_ones_we = addr_hit[1] & reg_we & !reg_error;
+  assign sdr_status_reg_number_of_ones_wd = reg_wdata[24:8];
+
+  assign sdr_status_reg_unused_we = addr_hit[1] & reg_we & !reg_error;
+  assign sdr_status_reg_unused_wd = reg_wdata[28:25];
+
+  assign sdr_status_reg_error_indexes_gt_32_we = addr_hit[1] & reg_we & !reg_error;
+  assign sdr_status_reg_error_indexes_gt_32_wd = reg_wdata[29];
+
+  assign sdr_status_reg_error_fifo_full_we = addr_hit[1] & reg_we & !reg_error;
+  assign sdr_status_reg_error_fifo_full_wd = reg_wdata[30];
+
+  assign sdr_status_reg_done_we = addr_hit[1] & reg_we & !reg_error;
+  assign sdr_status_reg_done_wd = reg_wdata[31];
+
+  assign sdr_0_0_we = addr_hit[2] & reg_we & !reg_error;
   assign sdr_0_0_wd = reg_wdata[31:0];
 
-  assign sdr_0_1_we = addr_hit[2] & reg_we & !reg_error;
+  assign sdr_0_1_we = addr_hit[3] & reg_we & !reg_error;
   assign sdr_0_1_wd = reg_wdata[31:0];
 
-  assign sdr_0_2_we = addr_hit[3] & reg_we & !reg_error;
+  assign sdr_0_2_we = addr_hit[4] & reg_we & !reg_error;
   assign sdr_0_2_wd = reg_wdata[31:0];
 
-  assign sdr_0_3_we = addr_hit[4] & reg_we & !reg_error;
+  assign sdr_0_3_we = addr_hit[5] & reg_we & !reg_error;
   assign sdr_0_3_wd = reg_wdata[31:0];
 
-  assign sdr_0_4_we = addr_hit[5] & reg_we & !reg_error;
+  assign sdr_0_4_we = addr_hit[6] & reg_we & !reg_error;
   assign sdr_0_4_wd = reg_wdata[31:0];
 
-  assign sdr_0_5_we = addr_hit[6] & reg_we & !reg_error;
+  assign sdr_0_5_we = addr_hit[7] & reg_we & !reg_error;
   assign sdr_0_5_wd = reg_wdata[31:0];
 
-  assign sdr_0_6_we = addr_hit[7] & reg_we & !reg_error;
+  assign sdr_0_6_we = addr_hit[8] & reg_we & !reg_error;
   assign sdr_0_6_wd = reg_wdata[31:0];
 
-  assign sdr_0_7_we = addr_hit[8] & reg_we & !reg_error;
+  assign sdr_0_7_we = addr_hit[9] & reg_we & !reg_error;
   assign sdr_0_7_wd = reg_wdata[31:0];
 
-  assign sdr_0_8_we = addr_hit[9] & reg_we & !reg_error;
+  assign sdr_0_8_we = addr_hit[10] & reg_we & !reg_error;
   assign sdr_0_8_wd = reg_wdata[31:0];
 
-  assign sdr_0_9_we = addr_hit[10] & reg_we & !reg_error;
+  assign sdr_0_9_we = addr_hit[11] & reg_we & !reg_error;
   assign sdr_0_9_wd = reg_wdata[31:0];
 
-  assign sdr_0_10_we = addr_hit[11] & reg_we & !reg_error;
+  assign sdr_0_10_we = addr_hit[12] & reg_we & !reg_error;
   assign sdr_0_10_wd = reg_wdata[31:0];
 
-  assign sdr_0_11_we = addr_hit[12] & reg_we & !reg_error;
+  assign sdr_0_11_we = addr_hit[13] & reg_we & !reg_error;
   assign sdr_0_11_wd = reg_wdata[31:0];
 
-  assign sdr_0_12_we = addr_hit[13] & reg_we & !reg_error;
+  assign sdr_0_12_we = addr_hit[14] & reg_we & !reg_error;
   assign sdr_0_12_wd = reg_wdata[31:0];
 
-  assign sdr_0_13_we = addr_hit[14] & reg_we & !reg_error;
+  assign sdr_0_13_we = addr_hit[15] & reg_we & !reg_error;
   assign sdr_0_13_wd = reg_wdata[31:0];
 
-  assign sdr_0_14_we = addr_hit[15] & reg_we & !reg_error;
+  assign sdr_0_14_we = addr_hit[16] & reg_we & !reg_error;
   assign sdr_0_14_wd = reg_wdata[31:0];
 
-  assign sdr_0_15_we = addr_hit[16] & reg_we & !reg_error;
+  assign sdr_0_15_we = addr_hit[17] & reg_we & !reg_error;
   assign sdr_0_15_wd = reg_wdata[31:0];
 
-  assign sdr_0_16_we = addr_hit[17] & reg_we & !reg_error;
+  assign sdr_0_16_we = addr_hit[18] & reg_we & !reg_error;
   assign sdr_0_16_wd = reg_wdata[31:0];
 
-  assign sdr_0_17_we = addr_hit[18] & reg_we & !reg_error;
+  assign sdr_0_17_we = addr_hit[19] & reg_we & !reg_error;
   assign sdr_0_17_wd = reg_wdata[31:0];
 
-  assign sdr_0_18_we = addr_hit[19] & reg_we & !reg_error;
+  assign sdr_0_18_we = addr_hit[20] & reg_we & !reg_error;
   assign sdr_0_18_wd = reg_wdata[31:0];
 
-  assign sdr_0_19_we = addr_hit[20] & reg_we & !reg_error;
+  assign sdr_0_19_we = addr_hit[21] & reg_we & !reg_error;
   assign sdr_0_19_wd = reg_wdata[31:0];
 
-  assign sdr_0_20_we = addr_hit[21] & reg_we & !reg_error;
+  assign sdr_0_20_we = addr_hit[22] & reg_we & !reg_error;
   assign sdr_0_20_wd = reg_wdata[31:0];
 
-  assign sdr_0_21_we = addr_hit[22] & reg_we & !reg_error;
+  assign sdr_0_21_we = addr_hit[23] & reg_we & !reg_error;
   assign sdr_0_21_wd = reg_wdata[31:0];
 
-  assign sdr_0_22_we = addr_hit[23] & reg_we & !reg_error;
+  assign sdr_0_22_we = addr_hit[24] & reg_we & !reg_error;
   assign sdr_0_22_wd = reg_wdata[31:0];
 
-  assign sdr_0_23_we = addr_hit[24] & reg_we & !reg_error;
+  assign sdr_0_23_we = addr_hit[25] & reg_we & !reg_error;
   assign sdr_0_23_wd = reg_wdata[31:0];
 
-  assign sdr_0_24_we = addr_hit[25] & reg_we & !reg_error;
+  assign sdr_0_24_we = addr_hit[26] & reg_we & !reg_error;
   assign sdr_0_24_wd = reg_wdata[31:0];
 
-  assign sdr_0_25_we = addr_hit[26] & reg_we & !reg_error;
+  assign sdr_0_25_we = addr_hit[27] & reg_we & !reg_error;
   assign sdr_0_25_wd = reg_wdata[31:0];
 
-  assign sdr_0_26_we = addr_hit[27] & reg_we & !reg_error;
+  assign sdr_0_26_we = addr_hit[28] & reg_we & !reg_error;
   assign sdr_0_26_wd = reg_wdata[31:0];
 
-  assign sdr_0_27_we = addr_hit[28] & reg_we & !reg_error;
+  assign sdr_0_27_we = addr_hit[29] & reg_we & !reg_error;
   assign sdr_0_27_wd = reg_wdata[31:0];
 
-  assign sdr_0_28_we = addr_hit[29] & reg_we & !reg_error;
+  assign sdr_0_28_we = addr_hit[30] & reg_we & !reg_error;
   assign sdr_0_28_wd = reg_wdata[31:0];
 
-  assign sdr_0_29_we = addr_hit[30] & reg_we & !reg_error;
+  assign sdr_0_29_we = addr_hit[31] & reg_we & !reg_error;
   assign sdr_0_29_wd = reg_wdata[31:0];
 
-  assign sdr_0_30_we = addr_hit[31] & reg_we & !reg_error;
+  assign sdr_0_30_we = addr_hit[32] & reg_we & !reg_error;
   assign sdr_0_30_wd = reg_wdata[31:0];
 
-  assign sdr_0_31_we = addr_hit[32] & reg_we & !reg_error;
+  assign sdr_0_31_we = addr_hit[33] & reg_we & !reg_error;
   assign sdr_0_31_wd = reg_wdata[31:0];
 
   // Read data return
@@ -1746,194 +1942,203 @@ module htm_block_reg_top #(
       end
 
       addr_hit[1]: begin
-        reg_rdata_next[31:0] = sdr_0_0_qs;
+        reg_rdata_next[7:0] = sdr_status_reg_number_of_indexes_qs;
+        reg_rdata_next[24:8] = sdr_status_reg_number_of_ones_qs;
+        reg_rdata_next[28:25] = sdr_status_reg_unused_qs;
+        reg_rdata_next[29] = sdr_status_reg_error_indexes_gt_32_qs;
+        reg_rdata_next[30] = sdr_status_reg_error_fifo_full_qs;
+        reg_rdata_next[31] = sdr_status_reg_done_qs;
       end
 
       addr_hit[2]: begin
-        reg_rdata_next[31:0] = sdr_0_1_qs;
+        reg_rdata_next[31:0] = sdr_0_0_qs;
       end
 
       addr_hit[3]: begin
-        reg_rdata_next[31:0] = sdr_0_2_qs;
+        reg_rdata_next[31:0] = sdr_0_1_qs;
       end
 
       addr_hit[4]: begin
-        reg_rdata_next[31:0] = sdr_0_3_qs;
+        reg_rdata_next[31:0] = sdr_0_2_qs;
       end
 
       addr_hit[5]: begin
-        reg_rdata_next[31:0] = sdr_0_4_qs;
+        reg_rdata_next[31:0] = sdr_0_3_qs;
       end
 
       addr_hit[6]: begin
-        reg_rdata_next[31:0] = sdr_0_5_qs;
+        reg_rdata_next[31:0] = sdr_0_4_qs;
       end
 
       addr_hit[7]: begin
-        reg_rdata_next[31:0] = sdr_0_6_qs;
+        reg_rdata_next[31:0] = sdr_0_5_qs;
       end
 
       addr_hit[8]: begin
-        reg_rdata_next[31:0] = sdr_0_7_qs;
+        reg_rdata_next[31:0] = sdr_0_6_qs;
       end
 
       addr_hit[9]: begin
-        reg_rdata_next[31:0] = sdr_0_8_qs;
+        reg_rdata_next[31:0] = sdr_0_7_qs;
       end
 
       addr_hit[10]: begin
-        reg_rdata_next[31:0] = sdr_0_9_qs;
+        reg_rdata_next[31:0] = sdr_0_8_qs;
       end
 
       addr_hit[11]: begin
-        reg_rdata_next[31:0] = sdr_0_10_qs;
+        reg_rdata_next[31:0] = sdr_0_9_qs;
       end
 
       addr_hit[12]: begin
-        reg_rdata_next[31:0] = sdr_0_11_qs;
+        reg_rdata_next[31:0] = sdr_0_10_qs;
       end
 
       addr_hit[13]: begin
-        reg_rdata_next[31:0] = sdr_0_12_qs;
+        reg_rdata_next[31:0] = sdr_0_11_qs;
       end
 
       addr_hit[14]: begin
-        reg_rdata_next[31:0] = sdr_0_13_qs;
+        reg_rdata_next[31:0] = sdr_0_12_qs;
       end
 
       addr_hit[15]: begin
-        reg_rdata_next[31:0] = sdr_0_14_qs;
+        reg_rdata_next[31:0] = sdr_0_13_qs;
       end
 
       addr_hit[16]: begin
-        reg_rdata_next[31:0] = sdr_0_15_qs;
+        reg_rdata_next[31:0] = sdr_0_14_qs;
       end
 
       addr_hit[17]: begin
-        reg_rdata_next[31:0] = sdr_0_16_qs;
+        reg_rdata_next[31:0] = sdr_0_15_qs;
       end
 
       addr_hit[18]: begin
-        reg_rdata_next[31:0] = sdr_0_17_qs;
+        reg_rdata_next[31:0] = sdr_0_16_qs;
       end
 
       addr_hit[19]: begin
-        reg_rdata_next[31:0] = sdr_0_18_qs;
+        reg_rdata_next[31:0] = sdr_0_17_qs;
       end
 
       addr_hit[20]: begin
-        reg_rdata_next[31:0] = sdr_0_19_qs;
+        reg_rdata_next[31:0] = sdr_0_18_qs;
       end
 
       addr_hit[21]: begin
-        reg_rdata_next[31:0] = sdr_0_20_qs;
+        reg_rdata_next[31:0] = sdr_0_19_qs;
       end
 
       addr_hit[22]: begin
-        reg_rdata_next[31:0] = sdr_0_21_qs;
+        reg_rdata_next[31:0] = sdr_0_20_qs;
       end
 
       addr_hit[23]: begin
-        reg_rdata_next[31:0] = sdr_0_22_qs;
+        reg_rdata_next[31:0] = sdr_0_21_qs;
       end
 
       addr_hit[24]: begin
-        reg_rdata_next[31:0] = sdr_0_23_qs;
+        reg_rdata_next[31:0] = sdr_0_22_qs;
       end
 
       addr_hit[25]: begin
-        reg_rdata_next[31:0] = sdr_0_24_qs;
+        reg_rdata_next[31:0] = sdr_0_23_qs;
       end
 
       addr_hit[26]: begin
-        reg_rdata_next[31:0] = sdr_0_25_qs;
+        reg_rdata_next[31:0] = sdr_0_24_qs;
       end
 
       addr_hit[27]: begin
-        reg_rdata_next[31:0] = sdr_0_26_qs;
+        reg_rdata_next[31:0] = sdr_0_25_qs;
       end
 
       addr_hit[28]: begin
-        reg_rdata_next[31:0] = sdr_0_27_qs;
+        reg_rdata_next[31:0] = sdr_0_26_qs;
       end
 
       addr_hit[29]: begin
-        reg_rdata_next[31:0] = sdr_0_28_qs;
+        reg_rdata_next[31:0] = sdr_0_27_qs;
       end
 
       addr_hit[30]: begin
-        reg_rdata_next[31:0] = sdr_0_29_qs;
+        reg_rdata_next[31:0] = sdr_0_28_qs;
       end
 
       addr_hit[31]: begin
-        reg_rdata_next[31:0] = sdr_0_30_qs;
+        reg_rdata_next[31:0] = sdr_0_29_qs;
       end
 
       addr_hit[32]: begin
-        reg_rdata_next[31:0] = sdr_0_31_qs;
+        reg_rdata_next[31:0] = sdr_0_30_qs;
       end
 
       addr_hit[33]: begin
-        reg_rdata_next[31:0] = sdr_index_0_0_qs;
+        reg_rdata_next[31:0] = sdr_0_31_qs;
       end
 
       addr_hit[34]: begin
-        reg_rdata_next[31:0] = sdr_index_0_1_qs;
+        reg_rdata_next[31:0] = sdr_index_0_0_qs;
       end
 
       addr_hit[35]: begin
-        reg_rdata_next[31:0] = sdr_index_0_2_qs;
+        reg_rdata_next[31:0] = sdr_index_0_1_qs;
       end
 
       addr_hit[36]: begin
-        reg_rdata_next[31:0] = sdr_index_0_3_qs;
+        reg_rdata_next[31:0] = sdr_index_0_2_qs;
       end
 
       addr_hit[37]: begin
-        reg_rdata_next[31:0] = sdr_index_0_4_qs;
+        reg_rdata_next[31:0] = sdr_index_0_3_qs;
       end
 
       addr_hit[38]: begin
-        reg_rdata_next[31:0] = sdr_index_0_5_qs;
+        reg_rdata_next[31:0] = sdr_index_0_4_qs;
       end
 
       addr_hit[39]: begin
-        reg_rdata_next[31:0] = sdr_index_0_6_qs;
+        reg_rdata_next[31:0] = sdr_index_0_5_qs;
       end
 
       addr_hit[40]: begin
-        reg_rdata_next[31:0] = sdr_index_0_7_qs;
+        reg_rdata_next[31:0] = sdr_index_0_6_qs;
       end
 
       addr_hit[41]: begin
-        reg_rdata_next[31:0] = sdr_index_0_8_qs;
+        reg_rdata_next[31:0] = sdr_index_0_7_qs;
       end
 
       addr_hit[42]: begin
-        reg_rdata_next[31:0] = sdr_index_0_9_qs;
+        reg_rdata_next[31:0] = sdr_index_0_8_qs;
       end
 
       addr_hit[43]: begin
-        reg_rdata_next[31:0] = sdr_index_0_10_qs;
+        reg_rdata_next[31:0] = sdr_index_0_9_qs;
       end
 
       addr_hit[44]: begin
-        reg_rdata_next[31:0] = sdr_index_0_11_qs;
+        reg_rdata_next[31:0] = sdr_index_0_10_qs;
       end
 
       addr_hit[45]: begin
-        reg_rdata_next[31:0] = sdr_index_0_12_qs;
+        reg_rdata_next[31:0] = sdr_index_0_11_qs;
       end
 
       addr_hit[46]: begin
-        reg_rdata_next[31:0] = sdr_index_0_13_qs;
+        reg_rdata_next[31:0] = sdr_index_0_12_qs;
       end
 
       addr_hit[47]: begin
-        reg_rdata_next[31:0] = sdr_index_0_14_qs;
+        reg_rdata_next[31:0] = sdr_index_0_13_qs;
       end
 
       addr_hit[48]: begin
+        reg_rdata_next[31:0] = sdr_index_0_14_qs;
+      end
+
+      addr_hit[49]: begin
         reg_rdata_next[31:0] = sdr_index_0_15_qs;
       end
 
