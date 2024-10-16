@@ -19,7 +19,7 @@ package apb_soc_pkg;
       logic [31:0] end_addr;
    } addr_map_rule_t;
 
-   localparam NUM_APB_SLAVES = 18;
+   localparam NUM_APB_SLAVES = 19;
    localparam NUM_ADV_TIMER  = 8;
 
    localparam NUM_GPIO = 64;
@@ -33,7 +33,8 @@ package apb_soc_pkg;
    localparam logic [31:0] PADFRAMELength      = 32'h1000;
    localparam logic [31:0] SOCCTRLLength       = 32'h1000;
    localparam logic [31:0] CanLength           = 32'h1000;
-   localparam logic [31:0] MonitoCounterLength = 32'h1000;
+   localparam logic [31:0] MonitorCounterLength = 32'h1000;
+   localparam logic [31:0] HTMLength = 32'h1000;
 
     typedef enum logic [31:0] {
      FLLBase            = 32'h1A10_0000,
@@ -53,6 +54,7 @@ package apb_soc_pkg;
      ADVTIMER5Base      = 32'h1A22_7000,
      ADVTIMER6Base      = 32'h1A22_8000,
      ADVTIMER7Base      = 32'h1A22_9000,
-     MonitorCounterBase = 32'h1A22_A000
+     MonitorCounterBase = 32'h1A22_A000,
+     HTMBase      	= 32'h1A23_0000
     } soc_apb_bus_start_t;
 endpackage

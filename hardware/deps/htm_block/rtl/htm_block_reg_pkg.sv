@@ -23,6 +23,27 @@ package htm_block_reg_pkg;
   } htm_block_reg2hw_sdr_control_reg_reg_t;
 
   typedef struct packed {
+    struct packed {
+      logic [7:0]  q;
+    } number_of_indexes;
+    struct packed {
+      logic [16:0] q;
+    } number_of_ones;
+    struct packed {
+      logic [3:0]  q;
+    } unused;
+    struct packed {
+      logic        q;
+    } error_indexes_gt_32;
+    struct packed {
+      logic        q;
+    } error_fifo_full;
+    struct packed {
+      logic        q;
+    } done;
+  } htm_block_reg2hw_sdr_status_reg_reg_t;
+
+  typedef struct packed {
     logic [31:0] q;
   } htm_block_reg2hw_sdr_0_0_reg_t;
 
@@ -226,6 +247,33 @@ package htm_block_reg_pkg;
   } htm_block_hw2reg_sdr_control_reg_reg_t;
 
   typedef struct packed {
+    struct packed {
+      logic [7:0]  d;
+      logic        de;
+    } number_of_indexes;
+    struct packed {
+      logic [16:0] d;
+      logic        de;
+    } number_of_ones;
+    struct packed {
+      logic [3:0]  d;
+      logic        de;
+    } unused;
+    struct packed {
+      logic        d;
+      logic        de;
+    } error_indexes_gt_32;
+    struct packed {
+      logic        d;
+      logic        de;
+    } error_fifo_full;
+    struct packed {
+      logic        d;
+      logic        de;
+    } done;
+  } htm_block_hw2reg_sdr_status_reg_reg_t;
+
+  typedef struct packed {
     logic [31:0] d;
     logic        de;
   } htm_block_hw2reg_sdr_index_0_0_reg_t;
@@ -307,7 +355,8 @@ package htm_block_reg_pkg;
 
   // Register -> HW type
   typedef struct packed {
-    htm_block_reg2hw_sdr_control_reg_reg_t sdr_control_reg; // [1567:1536]
+    htm_block_reg2hw_sdr_control_reg_reg_t sdr_control_reg; // [1599:1568]
+    htm_block_reg2hw_sdr_status_reg_reg_t sdr_status_reg; // [1567:1536]
     htm_block_reg2hw_sdr_0_0_reg_t sdr_0_0; // [1535:1504]
     htm_block_reg2hw_sdr_0_1_reg_t sdr_0_1; // [1503:1472]
     htm_block_reg2hw_sdr_0_2_reg_t sdr_0_2; // [1471:1440]
@@ -360,7 +409,8 @@ package htm_block_reg_pkg;
 
   // HW -> register type
   typedef struct packed {
-    htm_block_hw2reg_sdr_control_reg_reg_t sdr_control_reg; // [561:528]
+    htm_block_hw2reg_sdr_control_reg_reg_t sdr_control_reg; // [599:566]
+    htm_block_hw2reg_sdr_status_reg_reg_t sdr_status_reg; // [565:528]
     htm_block_hw2reg_sdr_index_0_0_reg_t sdr_index_0_0; // [527:495]
     htm_block_hw2reg_sdr_index_0_1_reg_t sdr_index_0_1; // [494:462]
     htm_block_hw2reg_sdr_index_0_2_reg_t sdr_index_0_2; // [461:429]
@@ -381,58 +431,60 @@ package htm_block_reg_pkg;
 
   // Register offsets
   parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_CONTROL_REG_OFFSET = 8'h 0;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_0_OFFSET = 8'h 4;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_1_OFFSET = 8'h 8;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_2_OFFSET = 8'h c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_3_OFFSET = 8'h 10;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_4_OFFSET = 8'h 14;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_5_OFFSET = 8'h 18;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_6_OFFSET = 8'h 1c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_7_OFFSET = 8'h 20;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_8_OFFSET = 8'h 24;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_9_OFFSET = 8'h 28;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_10_OFFSET = 8'h 2c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_11_OFFSET = 8'h 30;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_12_OFFSET = 8'h 34;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_13_OFFSET = 8'h 38;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_14_OFFSET = 8'h 3c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_15_OFFSET = 8'h 40;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_16_OFFSET = 8'h 44;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_17_OFFSET = 8'h 48;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_18_OFFSET = 8'h 4c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_19_OFFSET = 8'h 50;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_20_OFFSET = 8'h 54;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_21_OFFSET = 8'h 58;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_22_OFFSET = 8'h 5c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_23_OFFSET = 8'h 60;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_24_OFFSET = 8'h 64;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_25_OFFSET = 8'h 68;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_26_OFFSET = 8'h 6c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_27_OFFSET = 8'h 70;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_28_OFFSET = 8'h 74;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_29_OFFSET = 8'h 78;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_30_OFFSET = 8'h 7c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_31_OFFSET = 8'h 80;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_0_OFFSET = 8'h 84;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_1_OFFSET = 8'h 88;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_2_OFFSET = 8'h 8c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_3_OFFSET = 8'h 90;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_4_OFFSET = 8'h 94;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_5_OFFSET = 8'h 98;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_6_OFFSET = 8'h 9c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_7_OFFSET = 8'h a0;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_8_OFFSET = 8'h a4;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_9_OFFSET = 8'h a8;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_10_OFFSET = 8'h ac;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_11_OFFSET = 8'h b0;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_12_OFFSET = 8'h b4;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_13_OFFSET = 8'h b8;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_14_OFFSET = 8'h bc;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_15_OFFSET = 8'h c0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_STATUS_REG_OFFSET = 8'h 4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_0_OFFSET = 8'h 8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_1_OFFSET = 8'h c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_2_OFFSET = 8'h 10;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_3_OFFSET = 8'h 14;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_4_OFFSET = 8'h 18;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_5_OFFSET = 8'h 1c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_6_OFFSET = 8'h 20;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_7_OFFSET = 8'h 24;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_8_OFFSET = 8'h 28;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_9_OFFSET = 8'h 2c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_10_OFFSET = 8'h 30;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_11_OFFSET = 8'h 34;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_12_OFFSET = 8'h 38;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_13_OFFSET = 8'h 3c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_14_OFFSET = 8'h 40;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_15_OFFSET = 8'h 44;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_16_OFFSET = 8'h 48;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_17_OFFSET = 8'h 4c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_18_OFFSET = 8'h 50;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_19_OFFSET = 8'h 54;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_20_OFFSET = 8'h 58;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_21_OFFSET = 8'h 5c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_22_OFFSET = 8'h 60;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_23_OFFSET = 8'h 64;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_24_OFFSET = 8'h 68;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_25_OFFSET = 8'h 6c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_26_OFFSET = 8'h 70;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_27_OFFSET = 8'h 74;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_28_OFFSET = 8'h 78;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_29_OFFSET = 8'h 7c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_30_OFFSET = 8'h 80;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_31_OFFSET = 8'h 84;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_0_OFFSET = 8'h 88;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_1_OFFSET = 8'h 8c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_2_OFFSET = 8'h 90;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_3_OFFSET = 8'h 94;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_4_OFFSET = 8'h 98;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_5_OFFSET = 8'h 9c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_6_OFFSET = 8'h a0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_7_OFFSET = 8'h a4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_8_OFFSET = 8'h a8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_9_OFFSET = 8'h ac;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_10_OFFSET = 8'h b0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_11_OFFSET = 8'h b4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_12_OFFSET = 8'h b8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_13_OFFSET = 8'h bc;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_14_OFFSET = 8'h c0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_15_OFFSET = 8'h c4;
 
   // Register index
   typedef enum int {
     HTM_BLOCK_SDR_CONTROL_REG,
+    HTM_BLOCK_SDR_STATUS_REG,
     HTM_BLOCK_SDR_0_0,
     HTM_BLOCK_SDR_0_1,
     HTM_BLOCK_SDR_0_2,
@@ -484,56 +536,57 @@ package htm_block_reg_pkg;
   } htm_block_id_e;
 
   // Register width information to check illegal writes
-  parameter logic [3:0] HTM_BLOCK_PERMIT [49] = '{
+  parameter logic [3:0] HTM_BLOCK_PERMIT [50] = '{
     4'b 1111, // index[ 0] HTM_BLOCK_SDR_CONTROL_REG
-    4'b 1111, // index[ 1] HTM_BLOCK_SDR_0_0
-    4'b 1111, // index[ 2] HTM_BLOCK_SDR_0_1
-    4'b 1111, // index[ 3] HTM_BLOCK_SDR_0_2
-    4'b 1111, // index[ 4] HTM_BLOCK_SDR_0_3
-    4'b 1111, // index[ 5] HTM_BLOCK_SDR_0_4
-    4'b 1111, // index[ 6] HTM_BLOCK_SDR_0_5
-    4'b 1111, // index[ 7] HTM_BLOCK_SDR_0_6
-    4'b 1111, // index[ 8] HTM_BLOCK_SDR_0_7
-    4'b 1111, // index[ 9] HTM_BLOCK_SDR_0_8
-    4'b 1111, // index[10] HTM_BLOCK_SDR_0_9
-    4'b 1111, // index[11] HTM_BLOCK_SDR_0_10
-    4'b 1111, // index[12] HTM_BLOCK_SDR_0_11
-    4'b 1111, // index[13] HTM_BLOCK_SDR_0_12
-    4'b 1111, // index[14] HTM_BLOCK_SDR_0_13
-    4'b 1111, // index[15] HTM_BLOCK_SDR_0_14
-    4'b 1111, // index[16] HTM_BLOCK_SDR_0_15
-    4'b 1111, // index[17] HTM_BLOCK_SDR_0_16
-    4'b 1111, // index[18] HTM_BLOCK_SDR_0_17
-    4'b 1111, // index[19] HTM_BLOCK_SDR_0_18
-    4'b 1111, // index[20] HTM_BLOCK_SDR_0_19
-    4'b 1111, // index[21] HTM_BLOCK_SDR_0_20
-    4'b 1111, // index[22] HTM_BLOCK_SDR_0_21
-    4'b 1111, // index[23] HTM_BLOCK_SDR_0_22
-    4'b 1111, // index[24] HTM_BLOCK_SDR_0_23
-    4'b 1111, // index[25] HTM_BLOCK_SDR_0_24
-    4'b 1111, // index[26] HTM_BLOCK_SDR_0_25
-    4'b 1111, // index[27] HTM_BLOCK_SDR_0_26
-    4'b 1111, // index[28] HTM_BLOCK_SDR_0_27
-    4'b 1111, // index[29] HTM_BLOCK_SDR_0_28
-    4'b 1111, // index[30] HTM_BLOCK_SDR_0_29
-    4'b 1111, // index[31] HTM_BLOCK_SDR_0_30
-    4'b 1111, // index[32] HTM_BLOCK_SDR_0_31
-    4'b 1111, // index[33] HTM_BLOCK_SDR_INDEX_0_0
-    4'b 1111, // index[34] HTM_BLOCK_SDR_INDEX_0_1
-    4'b 1111, // index[35] HTM_BLOCK_SDR_INDEX_0_2
-    4'b 1111, // index[36] HTM_BLOCK_SDR_INDEX_0_3
-    4'b 1111, // index[37] HTM_BLOCK_SDR_INDEX_0_4
-    4'b 1111, // index[38] HTM_BLOCK_SDR_INDEX_0_5
-    4'b 1111, // index[39] HTM_BLOCK_SDR_INDEX_0_6
-    4'b 1111, // index[40] HTM_BLOCK_SDR_INDEX_0_7
-    4'b 1111, // index[41] HTM_BLOCK_SDR_INDEX_0_8
-    4'b 1111, // index[42] HTM_BLOCK_SDR_INDEX_0_9
-    4'b 1111, // index[43] HTM_BLOCK_SDR_INDEX_0_10
-    4'b 1111, // index[44] HTM_BLOCK_SDR_INDEX_0_11
-    4'b 1111, // index[45] HTM_BLOCK_SDR_INDEX_0_12
-    4'b 1111, // index[46] HTM_BLOCK_SDR_INDEX_0_13
-    4'b 1111, // index[47] HTM_BLOCK_SDR_INDEX_0_14
-    4'b 1111  // index[48] HTM_BLOCK_SDR_INDEX_0_15
+    4'b 1111, // index[ 1] HTM_BLOCK_SDR_STATUS_REG
+    4'b 1111, // index[ 2] HTM_BLOCK_SDR_0_0
+    4'b 1111, // index[ 3] HTM_BLOCK_SDR_0_1
+    4'b 1111, // index[ 4] HTM_BLOCK_SDR_0_2
+    4'b 1111, // index[ 5] HTM_BLOCK_SDR_0_3
+    4'b 1111, // index[ 6] HTM_BLOCK_SDR_0_4
+    4'b 1111, // index[ 7] HTM_BLOCK_SDR_0_5
+    4'b 1111, // index[ 8] HTM_BLOCK_SDR_0_6
+    4'b 1111, // index[ 9] HTM_BLOCK_SDR_0_7
+    4'b 1111, // index[10] HTM_BLOCK_SDR_0_8
+    4'b 1111, // index[11] HTM_BLOCK_SDR_0_9
+    4'b 1111, // index[12] HTM_BLOCK_SDR_0_10
+    4'b 1111, // index[13] HTM_BLOCK_SDR_0_11
+    4'b 1111, // index[14] HTM_BLOCK_SDR_0_12
+    4'b 1111, // index[15] HTM_BLOCK_SDR_0_13
+    4'b 1111, // index[16] HTM_BLOCK_SDR_0_14
+    4'b 1111, // index[17] HTM_BLOCK_SDR_0_15
+    4'b 1111, // index[18] HTM_BLOCK_SDR_0_16
+    4'b 1111, // index[19] HTM_BLOCK_SDR_0_17
+    4'b 1111, // index[20] HTM_BLOCK_SDR_0_18
+    4'b 1111, // index[21] HTM_BLOCK_SDR_0_19
+    4'b 1111, // index[22] HTM_BLOCK_SDR_0_20
+    4'b 1111, // index[23] HTM_BLOCK_SDR_0_21
+    4'b 1111, // index[24] HTM_BLOCK_SDR_0_22
+    4'b 1111, // index[25] HTM_BLOCK_SDR_0_23
+    4'b 1111, // index[26] HTM_BLOCK_SDR_0_24
+    4'b 1111, // index[27] HTM_BLOCK_SDR_0_25
+    4'b 1111, // index[28] HTM_BLOCK_SDR_0_26
+    4'b 1111, // index[29] HTM_BLOCK_SDR_0_27
+    4'b 1111, // index[30] HTM_BLOCK_SDR_0_28
+    4'b 1111, // index[31] HTM_BLOCK_SDR_0_29
+    4'b 1111, // index[32] HTM_BLOCK_SDR_0_30
+    4'b 1111, // index[33] HTM_BLOCK_SDR_0_31
+    4'b 1111, // index[34] HTM_BLOCK_SDR_INDEX_0_0
+    4'b 1111, // index[35] HTM_BLOCK_SDR_INDEX_0_1
+    4'b 1111, // index[36] HTM_BLOCK_SDR_INDEX_0_2
+    4'b 1111, // index[37] HTM_BLOCK_SDR_INDEX_0_3
+    4'b 1111, // index[38] HTM_BLOCK_SDR_INDEX_0_4
+    4'b 1111, // index[39] HTM_BLOCK_SDR_INDEX_0_5
+    4'b 1111, // index[40] HTM_BLOCK_SDR_INDEX_0_6
+    4'b 1111, // index[41] HTM_BLOCK_SDR_INDEX_0_7
+    4'b 1111, // index[42] HTM_BLOCK_SDR_INDEX_0_8
+    4'b 1111, // index[43] HTM_BLOCK_SDR_INDEX_0_9
+    4'b 1111, // index[44] HTM_BLOCK_SDR_INDEX_0_10
+    4'b 1111, // index[45] HTM_BLOCK_SDR_INDEX_0_11
+    4'b 1111, // index[46] HTM_BLOCK_SDR_INDEX_0_12
+    4'b 1111, // index[47] HTM_BLOCK_SDR_INDEX_0_13
+    4'b 1111, // index[48] HTM_BLOCK_SDR_INDEX_0_14
+    4'b 1111  // index[49] HTM_BLOCK_SDR_INDEX_0_15
   };
 
 endpackage
