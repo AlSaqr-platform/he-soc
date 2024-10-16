@@ -133,6 +133,24 @@ package monitor_counters_t_reg_pkg;
 
   typedef struct packed {
     struct packed {
+      logic        q;
+    } event_clk_counter0_enable;
+    struct packed {
+      logic        q;
+    } event_clk_counter1_enable;
+    struct packed {
+      logic        q;
+    } event_clk_counter2_enable;
+    struct packed {
+      logic        q;
+    } event_clk_counter3_enable;
+    struct packed {
+      logic [27:0] q;
+    } unused;
+  } monitor_counters_t_reg2hw_event_clk_counters_en_reg_reg_t;
+
+  typedef struct packed {
+    struct packed {
       logic        d;
       logic        de;
     } event_0;
@@ -251,17 +269,18 @@ package monitor_counters_t_reg_pkg;
 
   // Register -> HW type
   typedef struct packed {
-    monitor_counters_t_reg2hw_event_reg_reg_t event_reg; // [359:328]
-    monitor_counters_t_reg2hw_events_counters_mux_reg_reg_t events_counters_mux_reg; // [327:296]
-    monitor_counters_t_reg2hw_event_counters_rst_reg_reg_t event_counters_rst_reg; // [295:264]
-    monitor_counters_t_reg2hw_event_counter3_reg_reg_t event_counter3_reg; // [263:231]
-    monitor_counters_t_reg2hw_event_counter2_reg_reg_t event_counter2_reg; // [230:198]
-    monitor_counters_t_reg2hw_event_counter1_reg_reg_t event_counter1_reg; // [197:165]
-    monitor_counters_t_reg2hw_event_counter0_reg_reg_t event_counter0_reg; // [164:132]
-    monitor_counters_t_reg2hw_event_clk_counter3_reg_reg_t event_clk_counter3_reg; // [131:99]
-    monitor_counters_t_reg2hw_event_clk_counter2_reg_reg_t event_clk_counter2_reg; // [98:66]
-    monitor_counters_t_reg2hw_event_clk_counter1_reg_reg_t event_clk_counter1_reg; // [65:33]
-    monitor_counters_t_reg2hw_event_clk_counter0_reg_reg_t event_clk_counter0_reg; // [32:0]
+    monitor_counters_t_reg2hw_event_reg_reg_t event_reg; // [391:360]
+    monitor_counters_t_reg2hw_events_counters_mux_reg_reg_t events_counters_mux_reg; // [359:328]
+    monitor_counters_t_reg2hw_event_counters_rst_reg_reg_t event_counters_rst_reg; // [327:296]
+    monitor_counters_t_reg2hw_event_counter3_reg_reg_t event_counter3_reg; // [295:263]
+    monitor_counters_t_reg2hw_event_counter2_reg_reg_t event_counter2_reg; // [262:230]
+    monitor_counters_t_reg2hw_event_counter1_reg_reg_t event_counter1_reg; // [229:197]
+    monitor_counters_t_reg2hw_event_counter0_reg_reg_t event_counter0_reg; // [196:164]
+    monitor_counters_t_reg2hw_event_clk_counter3_reg_reg_t event_clk_counter3_reg; // [163:131]
+    monitor_counters_t_reg2hw_event_clk_counter2_reg_reg_t event_clk_counter2_reg; // [130:98]
+    monitor_counters_t_reg2hw_event_clk_counter1_reg_reg_t event_clk_counter1_reg; // [97:65]
+    monitor_counters_t_reg2hw_event_clk_counter0_reg_reg_t event_clk_counter0_reg; // [64:32]
+    monitor_counters_t_reg2hw_event_clk_counters_en_reg_reg_t event_clk_counters_en_reg; // [31:0]
   } monitor_counters_t_reg2hw_t;
 
   // HW -> register type
@@ -279,46 +298,49 @@ package monitor_counters_t_reg_pkg;
   } monitor_counters_t_hw2reg_t;
 
   // Register offsets
-  parameter logic [BlockAw-1:0] PERFCOUNTERS_T_EVENT_REG_OFFSET = 6'h 0;
-  parameter logic [BlockAw-1:0] PERFCOUNTERS_T_EVENTS_COUNTERS_MUX_REG_OFFSET = 6'h 4;
-  parameter logic [BlockAw-1:0] PERFCOUNTERS_T_EVENT_COUNTERS_RST_REG_OFFSET = 6'h 8;
-  parameter logic [BlockAw-1:0] PERFCOUNTERS_T_EVENT_COUNTER3_REG_OFFSET = 6'h c;
-  parameter logic [BlockAw-1:0] PERFCOUNTERS_T_EVENT_COUNTER2_REG_OFFSET = 6'h 10;
-  parameter logic [BlockAw-1:0] PERFCOUNTERS_T_EVENT_COUNTER1_REG_OFFSET = 6'h 14;
-  parameter logic [BlockAw-1:0] PERFCOUNTERS_T_EVENT_COUNTER0_REG_OFFSET = 6'h 18;
-  parameter logic [BlockAw-1:0] PERFCOUNTERS_T_EVENT_CLK_COUNTER3_REG_OFFSET = 6'h 1c;
-  parameter logic [BlockAw-1:0] PERFCOUNTERS_T_EVENT_CLK_COUNTER2_REG_OFFSET = 6'h 20;
-  parameter logic [BlockAw-1:0] PERFCOUNTERS_T_EVENT_CLK_COUNTER1_REG_OFFSET = 6'h 24;
-  parameter logic [BlockAw-1:0] PERFCOUNTERS_T_EVENT_CLK_COUNTER0_REG_OFFSET = 6'h 28;
+  parameter logic [BlockAw-1:0] MONITOR_COUNTERS_T_EVENT_REG_OFFSET = 6'h 0;
+  parameter logic [BlockAw-1:0] MONITOR_COUNTERS_T_EVENTS_COUNTERS_MUX_REG_OFFSET = 6'h 4;
+  parameter logic [BlockAw-1:0] MONITOR_COUNTERS_T_EVENT_COUNTERS_RST_REG_OFFSET = 6'h 8;
+  parameter logic [BlockAw-1:0] MONITOR_COUNTERS_T_EVENT_COUNTER3_REG_OFFSET = 6'h c;
+  parameter logic [BlockAw-1:0] MONITOR_COUNTERS_T_EVENT_COUNTER2_REG_OFFSET = 6'h 10;
+  parameter logic [BlockAw-1:0] MONITOR_COUNTERS_T_EVENT_COUNTER1_REG_OFFSET = 6'h 14;
+  parameter logic [BlockAw-1:0] MONITOR_COUNTERS_T_EVENT_COUNTER0_REG_OFFSET = 6'h 18;
+  parameter logic [BlockAw-1:0] MONITOR_COUNTERS_T_EVENT_CLK_COUNTER3_REG_OFFSET = 6'h 1c;
+  parameter logic [BlockAw-1:0] MONITOR_COUNTERS_T_EVENT_CLK_COUNTER2_REG_OFFSET = 6'h 20;
+  parameter logic [BlockAw-1:0] MONITOR_COUNTERS_T_EVENT_CLK_COUNTER1_REG_OFFSET = 6'h 24;
+  parameter logic [BlockAw-1:0] MONITOR_COUNTERS_T_EVENT_CLK_COUNTER0_REG_OFFSET = 6'h 28;
+  parameter logic [BlockAw-1:0] MONITOR_COUNTERS_T_EVENT_CLK_COUNTERS_EN_REG_OFFSET = 6'h 2c;
 
   // Register index
   typedef enum int {
-    PERFCOUNTERS_T_EVENT_REG,
-    PERFCOUNTERS_T_EVENTS_COUNTERS_MUX_REG,
-    PERFCOUNTERS_T_EVENT_COUNTERS_RST_REG,
-    PERFCOUNTERS_T_EVENT_COUNTER3_REG,
-    PERFCOUNTERS_T_EVENT_COUNTER2_REG,
-    PERFCOUNTERS_T_EVENT_COUNTER1_REG,
-    PERFCOUNTERS_T_EVENT_COUNTER0_REG,
-    PERFCOUNTERS_T_EVENT_CLK_COUNTER3_REG,
-    PERFCOUNTERS_T_EVENT_CLK_COUNTER2_REG,
-    PERFCOUNTERS_T_EVENT_CLK_COUNTER1_REG,
-    PERFCOUNTERS_T_EVENT_CLK_COUNTER0_REG
+    MONITOR_COUNTERS_T_EVENT_REG,
+    MONITOR_COUNTERS_T_EVENTS_COUNTERS_MUX_REG,
+    MONITOR_COUNTERS_T_EVENT_COUNTERS_RST_REG,
+    MONITOR_COUNTERS_T_EVENT_COUNTER3_REG,
+    MONITOR_COUNTERS_T_EVENT_COUNTER2_REG,
+    MONITOR_COUNTERS_T_EVENT_COUNTER1_REG,
+    MONITOR_COUNTERS_T_EVENT_COUNTER0_REG,
+    MONITOR_COUNTERS_T_EVENT_CLK_COUNTER3_REG,
+    MONITOR_COUNTERS_T_EVENT_CLK_COUNTER2_REG,
+    MONITOR_COUNTERS_T_EVENT_CLK_COUNTER1_REG,
+    MONITOR_COUNTERS_T_EVENT_CLK_COUNTER0_REG,
+    MONITOR_COUNTERS_T_EVENT_CLK_COUNTERS_EN_REG
   } monitor_counters_t_id_e;
 
   // Register width information to check illegal writes
-  parameter logic [3:0] PERFCOUNTERS_T_PERMIT [11] = '{
-    4'b 1111, // index[ 0] PERFCOUNTERS_T_EVENT_REG
-    4'b 1111, // index[ 1] PERFCOUNTERS_T_EVENTS_COUNTERS_MUX_REG
-    4'b 1111, // index[ 2] PERFCOUNTERS_T_EVENT_COUNTERS_RST_REG
-    4'b 1111, // index[ 3] PERFCOUNTERS_T_EVENT_COUNTER3_REG
-    4'b 1111, // index[ 4] PERFCOUNTERS_T_EVENT_COUNTER2_REG
-    4'b 1111, // index[ 5] PERFCOUNTERS_T_EVENT_COUNTER1_REG
-    4'b 1111, // index[ 6] PERFCOUNTERS_T_EVENT_COUNTER0_REG
-    4'b 1111, // index[ 7] PERFCOUNTERS_T_EVENT_CLK_COUNTER3_REG
-    4'b 1111, // index[ 8] PERFCOUNTERS_T_EVENT_CLK_COUNTER2_REG
-    4'b 1111, // index[ 9] PERFCOUNTERS_T_EVENT_CLK_COUNTER1_REG
-    4'b 1111  // index[10] PERFCOUNTERS_T_EVENT_CLK_COUNTER0_REG
+  parameter logic [3:0] MONITOR_COUNTERS_T_PERMIT [12] = '{
+    4'b 1111, // index[ 0] MONITOR_COUNTERS_T_EVENT_REG
+    4'b 1111, // index[ 1] MONITOR_COUNTERS_T_EVENTS_COUNTERS_MUX_REG
+    4'b 1111, // index[ 2] MONITOR_COUNTERS_T_EVENT_COUNTERS_RST_REG
+    4'b 1111, // index[ 3] MONITOR_COUNTERS_T_EVENT_COUNTER3_REG
+    4'b 1111, // index[ 4] MONITOR_COUNTERS_T_EVENT_COUNTER2_REG
+    4'b 1111, // index[ 5] MONITOR_COUNTERS_T_EVENT_COUNTER1_REG
+    4'b 1111, // index[ 6] MONITOR_COUNTERS_T_EVENT_COUNTER0_REG
+    4'b 1111, // index[ 7] MONITOR_COUNTERS_T_EVENT_CLK_COUNTER3_REG
+    4'b 1111, // index[ 8] MONITOR_COUNTERS_T_EVENT_CLK_COUNTER2_REG
+    4'b 1111, // index[ 9] MONITOR_COUNTERS_T_EVENT_CLK_COUNTER1_REG
+    4'b 1111, // index[10] MONITOR_COUNTERS_T_EVENT_CLK_COUNTER0_REG
+    4'b 1111  // index[11] MONITOR_COUNTERS_T_EVENT_CLK_COUNTERS_EN_REG
   };
 
 endpackage

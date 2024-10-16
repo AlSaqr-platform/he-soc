@@ -1,5 +1,5 @@
 {
-    name: "perfcounters_t"
+    name: "monitor_counters_t"
     clock_primary: "clk_i"
     reset_primary: "rst_ni"
     bus_interfaces: [
@@ -216,5 +216,32 @@
         }
       ]
     }
-  ]
+    { name: event_clk_counters_en_reg
+      desc: '''PERFCOUNTERS_T CLOCK COUNTERS ENABLEregister''',
+      swaccess: "rw",
+      hwaccess: "hro",
+      fields: [
+        { bits: "0",
+          name: "event_clk_counter0_enable",
+          desc: "EVENT CLK COUNTER0 ENABLE"
+        }
+        { bits: "1",
+          name: "event_clk_counter1_enable",
+          desc: "EVENT CLK COUNTER1 ENABLE"
+        }
+        { bits: "2",
+          name: "event_clk_counter2_enable",
+          desc: "EVENT CLK COUNTER2 ENABLE"
+        }
+        { bits: "3",
+          name: "event_clk_counter3_enable",
+          desc: "EVENT CLK COUNTER3 ENABLE"
+        }
+        { bits: "31:4",
+          name: "UNUSED",
+          desc: "UNUSED bits"
+        }
+      ]
+  }
+ ]
 }
