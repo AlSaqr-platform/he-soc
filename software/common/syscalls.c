@@ -120,16 +120,12 @@ void _init(int cid, int nc)
      int baud_rate = 115200;
      int test_freq = 100000000;
      #else
-     tmp = (int *) 0x1a104074;
-     *tmp = 1;
      tmp = (int *) 0x1a10407C;
      *tmp = 1;
+     tmp = (int *) 0x1a104084;
+     *tmp = 1;
      int baud_rate = 115200;
-     #ifndef FPGA_ETHERNET
-     int test_freq = 40000000;
-     #else
      int test_freq = 50000000;
-     #endif
      #endif
      uart_set_cfg(0,(test_freq/baud_rate)>>4);
      #ifndef FPGA_EMULATION

@@ -105,9 +105,9 @@ module alsaqr_xilinx
    localparam  APP_MASK_WIDTH   = 64;  // This parameter is controllerwise
 
   `ifdef EXCLUDE_LLC
-   localparam AXI_ID_WIDTH = 9;
+   localparam AXI_ID_WIDTH = 12;
   `else
-   localparam AXI_ID_WIDTH = 10;
+   localparam AXI_ID_WIDTH = 13;
   `endif
 
   parameter int unsigned AXI_USER_WIDTH = ariane_axi_soc::UserWidth;
