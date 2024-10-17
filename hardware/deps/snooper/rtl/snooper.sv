@@ -46,7 +46,8 @@ module snooper
    output axi_lite_rsp_t        axi_lite_cfg_rsp_o,
    input  trace_t               traces_i,
    output logic                 trigger_o,
-   output logic                 core_select_o
+   output logic                 core_select_o,
+   output logic                 watermark_irq_o
 );
 
 /////////////////////////////
@@ -94,6 +95,9 @@ module snooper
    logic [MemAddrWidth-1:0] cnt;
    logic [MemAddrWidth-1:0] first_valid;
    logic [MemAddrWidth-1:0] last_valid;
+
+   logic [31:0] watermark_lvl;
+   logic        read_en;
 
    reg_req_t cfg_reg_req;
    reg_rsp_t cfg_reg_rsp;
@@ -144,10 +148,44 @@ module snooper
    assign cfg_hw2reg.last.de = 1'b1;
    assign cfg_hw2reg.last.d  = last_valid;
 
-   assign cfg_hw2reg.ctrl.trace_mode.de = trigger_o;
-   assign cfg_hw2reg.ctrl.trace_mode.d  = 2'b11;
+   assign cfg_hw2reg.ctrl.pc_range_0.de = trigger_o;
+   assign cfg_hw2reg.ctrl.pc_range_0.d  = 1'b0;
+
+   assign cfg_hw2reg.ctrl.pc_range_1.de = trigger_o;
+   assign cfg_hw2reg.ctrl.pc_range_1.d  = 1'b0;
+
+   assign cfg_hw2reg.ctrl.pc_range_2.de = trigger_o;
+   assign cfg_hw2reg.ctrl.pc_range_2.d  = 1'b0;
+
+   assign cfg_hw2reg.ctrl.pc_range_3.de = trigger_o;
+   assign cfg_hw2reg.ctrl.pc_range_3.d  = 1'b0;
+
+   assign cfg_hw2reg.ctrl.trig_pc_0.de = trigger_o;
+   assign cfg_hw2reg.ctrl.trig_pc_0.d  = 1'b0;
+
+   assign cfg_hw2reg.ctrl.trig_pc_1.de = trigger_o;
+   assign cfg_hw2reg.ctrl.trig_pc_1.d  = 1'b0;
+
+   assign cfg_hw2reg.ctrl.trig_pc_2.de = trigger_o;
+   assign cfg_hw2reg.ctrl.trig_pc_2.d  = 1'b0;
+
+   assign cfg_hw2reg.ctrl.trig_pc_3.de = trigger_o;
+   assign cfg_hw2reg.ctrl.trig_pc_3.d  = 1'b0;
+
+   assign cfg_hw2reg.ctrl.u_mode.de = trigger_o;
+   assign cfg_hw2reg.ctrl.u_mode.d  = 1'b0;
+
+   assign cfg_hw2reg.ctrl.s_mode.de = trigger_o;
+   assign cfg_hw2reg.ctrl.s_mode.d  = 1'b0;
+
+   assign cfg_hw2reg.ctrl.m_mode.de = trigger_o;
+   assign cfg_hw2reg.ctrl.m_mode.d  = 1'b0;
 
    assign core_select_o = cfg_reg2hw.ctrl.core_select.q;
+
+   assign read_en = sw_req && sw_gnt && ~sw_wen;
+
+   assign watermark_lvl = cfg_reg2hw.watermark_lvl.q;
 
 ////////////////////
 // Snooping Logic //
@@ -180,22 +218,25 @@ module snooper
        .AddrWidth ( MemAddrWidth        ),
        .DataWidth ( AXI_LITE_DATA_WIDTH )
    ) i_snooping_engine (
-       .clk_i           ( clk_i         ),
-       .rst_ni          ( rst_ni        ),
+       .clk_i           ( clk_i           ),
+       .rst_ni          ( rst_ni          ),
        // Memory interface
-       .buff_req_o      ( buff_req    ),
-       .buff_add_o      ( buff_add    ),
-       .buff_wen_o      ( buff_wen    ),
-       .buff_wdata_o    ( buff_wdata  ),
-       .buff_be_o       ( buff_be     ),
+       .buff_req_o      ( buff_req        ),
+       .buff_add_o      ( buff_add        ),
+       .buff_wen_o      ( buff_wen        ),
+       .buff_wdata_o    ( buff_wdata      ),
+       .buff_be_o       ( buff_be         ),
        // Control interface
-       .traces_i        ( trace_buff  ),
-       .config_i        ( cfg_reg2hw  ),
-       .snoop_en_i      ( snoop_en    ),
+       .traces_i        ( trace_buff      ),
+       .config_i        ( cfg_reg2hw      ),
+       .snoop_en_i      ( snoop_en        ),
        // Last valid entry
-       .cnt_o           ( cnt         ),
-       .first_valid_o   ( first_valid ),
-       .last_valid_o    ( last_valid  )
+       .cnt_o           ( cnt             ),
+       .first_valid_o   ( first_valid     ),
+       .last_valid_o    ( last_valid      ),
+       .read_en_i       ( read_en         ),
+       .watermark_lvl_i ( watermark_lvl   ),
+       .watermark_irq_o ( watermark_irq_o )
    );
 
 ///////////////////////////

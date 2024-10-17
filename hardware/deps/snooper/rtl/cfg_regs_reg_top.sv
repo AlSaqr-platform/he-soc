@@ -8,12 +8,12 @@
 `include "common_cells/assertions.svh"
 
 module cfg_regs_reg_top #(
-    parameter type reg_req_t = logic,
-    parameter type reg_rsp_t = logic,
-    parameter int AW = 7
+  parameter type reg_req_t = logic,
+  parameter type reg_rsp_t = logic,
+  parameter int AW = 7
 ) (
-  input clk_i,
-  input rst_ni,
+  input logic clk_i,
+  input logic rst_ni,
   input  reg_req_t reg_req_i,
   output reg_rsp_t reg_rsp_o,
   // To HW
@@ -33,7 +33,7 @@ module cfg_regs_reg_top #(
   // register signals
   logic           reg_we;
   logic           reg_re;
-  logic [AW-1:0]  reg_addr;
+  logic [BlockAw-1:0]  reg_addr;
   logic [DW-1:0]  reg_wdata;
   logic [DBW-1:0] reg_be;
   logic [DW-1:0]  reg_rdata;
@@ -54,7 +54,7 @@ module cfg_regs_reg_top #(
 
   assign reg_we = reg_intf_req.valid & reg_intf_req.write;
   assign reg_re = reg_intf_req.valid & ~reg_intf_req.write;
-  assign reg_addr = reg_intf_req.addr;
+  assign reg_addr = reg_intf_req.addr[BlockAw-1:0];
   assign reg_wdata = reg_intf_req.wdata;
   assign reg_be = reg_intf_req.wstrb;
   assign reg_intf_rsp.rdata = reg_rdata;
@@ -152,8 +152,11 @@ module cfg_regs_reg_top #(
   logic ctrl_core_select_qs;
   logic ctrl_core_select_wd;
   logic ctrl_core_select_we;
-  logic [2:0] ctrl_unused_qs;
-  logic [2:0] ctrl_unused_wd;
+  logic ctrl_watermark_en_qs;
+  logic ctrl_watermark_en_wd;
+  logic ctrl_watermark_en_we;
+  logic [1:0] ctrl_unused_qs;
+  logic [1:0] ctrl_unused_wd;
   logic ctrl_unused_we;
   logic [31:0] base_qs;
   logic [31:0] last_qs;
@@ -229,6 +232,9 @@ module cfg_regs_reg_top #(
   logic [31:0] trig_pc3_l_qs;
   logic [31:0] trig_pc3_l_wd;
   logic trig_pc3_l_we;
+  logic [31:0] watermark_lvl_qs;
+  logic [31:0] watermark_lvl_wd;
+  logic watermark_lvl_we;
 
   // Register instances
   // R[ctrl]: V(False)
@@ -247,8 +253,8 @@ module cfg_regs_reg_top #(
     .wd     (ctrl_u_mode_wd),
 
     // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
+    .de     (hw2reg.ctrl.u_mode.de),
+    .d      (hw2reg.ctrl.u_mode.d ),
 
     // to internal hardware
     .qe     (),
@@ -273,8 +279,8 @@ module cfg_regs_reg_top #(
     .wd     (ctrl_s_mode_wd),
 
     // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
+    .de     (hw2reg.ctrl.s_mode.de),
+    .d      (hw2reg.ctrl.s_mode.d ),
 
     // to internal hardware
     .qe     (),
@@ -299,8 +305,8 @@ module cfg_regs_reg_top #(
     .wd     (ctrl_m_mode_wd),
 
     // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
+    .de     (hw2reg.ctrl.m_mode.de),
+    .d      (hw2reg.ctrl.m_mode.d ),
 
     // to internal hardware
     .qe     (),
@@ -325,8 +331,8 @@ module cfg_regs_reg_top #(
     .wd     (ctrl_pc_range_0_wd),
 
     // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
+    .de     (hw2reg.ctrl.pc_range_0.de),
+    .d      (hw2reg.ctrl.pc_range_0.d ),
 
     // to internal hardware
     .qe     (),
@@ -351,8 +357,8 @@ module cfg_regs_reg_top #(
     .wd     (ctrl_pc_range_1_wd),
 
     // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
+    .de     (hw2reg.ctrl.pc_range_1.de),
+    .d      (hw2reg.ctrl.pc_range_1.d ),
 
     // to internal hardware
     .qe     (),
@@ -377,8 +383,8 @@ module cfg_regs_reg_top #(
     .wd     (ctrl_pc_range_2_wd),
 
     // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
+    .de     (hw2reg.ctrl.pc_range_2.de),
+    .d      (hw2reg.ctrl.pc_range_2.d ),
 
     // to internal hardware
     .qe     (),
@@ -403,8 +409,8 @@ module cfg_regs_reg_top #(
     .wd     (ctrl_pc_range_3_wd),
 
     // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
+    .de     (hw2reg.ctrl.pc_range_3.de),
+    .d      (hw2reg.ctrl.pc_range_3.d ),
 
     // to internal hardware
     .qe     (),
@@ -429,8 +435,8 @@ module cfg_regs_reg_top #(
     .wd     (ctrl_trig_pc_0_wd),
 
     // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
+    .de     (hw2reg.ctrl.trig_pc_0.de),
+    .d      (hw2reg.ctrl.trig_pc_0.d ),
 
     // to internal hardware
     .qe     (),
@@ -455,8 +461,8 @@ module cfg_regs_reg_top #(
     .wd     (ctrl_trig_pc_1_wd),
 
     // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
+    .de     (hw2reg.ctrl.trig_pc_1.de),
+    .d      (hw2reg.ctrl.trig_pc_1.d ),
 
     // to internal hardware
     .qe     (),
@@ -481,8 +487,8 @@ module cfg_regs_reg_top #(
     .wd     (ctrl_trig_pc_2_wd),
 
     // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
+    .de     (hw2reg.ctrl.trig_pc_2.de),
+    .d      (hw2reg.ctrl.trig_pc_2.d ),
 
     // to internal hardware
     .qe     (),
@@ -507,8 +513,8 @@ module cfg_regs_reg_top #(
     .wd     (ctrl_trig_pc_3_wd),
 
     // from internal hardware
-    .de     (1'b0),
-    .d      ('0  ),
+    .de     (hw2reg.ctrl.trig_pc_3.de),
+    .d      (hw2reg.ctrl.trig_pc_3.d ),
 
     // to internal hardware
     .qe     (),
@@ -533,8 +539,8 @@ module cfg_regs_reg_top #(
     .wd     (ctrl_trace_mode_wd),
 
     // from internal hardware
-    .de     (hw2reg.ctrl.trace_mode.de),
-    .d      (hw2reg.ctrl.trace_mode.d ),
+    .de     (1'b0),
+    .d      ('0  ),
 
     // to internal hardware
     .qe     (),
@@ -961,11 +967,37 @@ module cfg_regs_reg_top #(
   );
 
 
-  //   F[unused]: 31:29
+  //   F[watermark_en]: 29:29
   prim_subreg #(
-    .DW      (3),
+    .DW      (1),
     .SWACCESS("RW"),
-    .RESVAL  (3'h0)
+    .RESVAL  (1'h0)
+  ) u_ctrl_watermark_en (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (ctrl_watermark_en_we),
+    .wd     (ctrl_watermark_en_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.ctrl.watermark_en.q ),
+
+    // to register interface (read)
+    .qs     (ctrl_watermark_en_qs)
+  );
+
+
+  //   F[unused]: 31:30
+  prim_subreg #(
+    .DW      (2),
+    .SWACCESS("RW"),
+    .RESVAL  (2'h0)
   ) u_ctrl_unused (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -1687,9 +1719,36 @@ module cfg_regs_reg_top #(
   );
 
 
+  // R[watermark_lvl]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_watermark_lvl (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (watermark_lvl_we),
+    .wd     (watermark_lvl_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.watermark_lvl.q ),
+
+    // to register interface (read)
+    .qs     (watermark_lvl_qs)
+  );
 
 
-  logic [26:0] addr_hit;
+
+
+  logic [27:0] addr_hit;
   always_comb begin
     addr_hit = '0;
     addr_hit[ 0] = (reg_addr == CFG_REGS_CTRL_OFFSET);
@@ -1719,6 +1778,7 @@ module cfg_regs_reg_top #(
     addr_hit[24] = (reg_addr == CFG_REGS_TRIG_PC2_L_OFFSET);
     addr_hit[25] = (reg_addr == CFG_REGS_TRIG_PC3_H_OFFSET);
     addr_hit[26] = (reg_addr == CFG_REGS_TRIG_PC3_L_OFFSET);
+    addr_hit[27] = (reg_addr == CFG_REGS_WATERMARK_LVL_OFFSET);
   end
 
   assign addrmiss = (reg_re || reg_we) ? ~|addr_hit : 1'b0 ;
@@ -1752,7 +1812,8 @@ module cfg_regs_reg_top #(
                (addr_hit[23] & (|(CFG_REGS_PERMIT[23] & ~reg_be))) |
                (addr_hit[24] & (|(CFG_REGS_PERMIT[24] & ~reg_be))) |
                (addr_hit[25] & (|(CFG_REGS_PERMIT[25] & ~reg_be))) |
-               (addr_hit[26] & (|(CFG_REGS_PERMIT[26] & ~reg_be)))));
+               (addr_hit[26] & (|(CFG_REGS_PERMIT[26] & ~reg_be))) |
+               (addr_hit[27] & (|(CFG_REGS_PERMIT[27] & ~reg_be)))));
   end
 
   assign ctrl_u_mode_we = addr_hit[0] & reg_we & !reg_error;
@@ -1839,8 +1900,11 @@ module cfg_regs_reg_top #(
   assign ctrl_core_select_we = addr_hit[0] & reg_we & !reg_error;
   assign ctrl_core_select_wd = reg_wdata[28];
 
+  assign ctrl_watermark_en_we = addr_hit[0] & reg_we & !reg_error;
+  assign ctrl_watermark_en_wd = reg_wdata[29];
+
   assign ctrl_unused_we = addr_hit[0] & reg_we & !reg_error;
-  assign ctrl_unused_wd = reg_wdata[31:29];
+  assign ctrl_unused_wd = reg_wdata[31:30];
 
   assign range_0_base_h_we = addr_hit[3] & reg_we & !reg_error;
   assign range_0_base_h_wd = reg_wdata[31:0];
@@ -1914,6 +1978,9 @@ module cfg_regs_reg_top #(
   assign trig_pc3_l_we = addr_hit[26] & reg_we & !reg_error;
   assign trig_pc3_l_wd = reg_wdata[31:0];
 
+  assign watermark_lvl_we = addr_hit[27] & reg_we & !reg_error;
+  assign watermark_lvl_wd = reg_wdata[31:0];
+
   // Read data return
   always_comb begin
     reg_rdata_next = '0;
@@ -1947,7 +2014,8 @@ module cfg_regs_reg_top #(
         reg_rdata_next[26] = ctrl_indljmpinh_qs;
         reg_rdata_next[27] = ctrl_dirljmpinh_qs;
         reg_rdata_next[28] = ctrl_core_select_qs;
-        reg_rdata_next[31:29] = ctrl_unused_qs;
+        reg_rdata_next[29] = ctrl_watermark_en_qs;
+        reg_rdata_next[31:30] = ctrl_unused_qs;
       end
 
       addr_hit[1]: begin
@@ -2054,6 +2122,10 @@ module cfg_regs_reg_top #(
         reg_rdata_next[31:0] = trig_pc3_l_qs;
       end
 
+      addr_hit[27]: begin
+        reg_rdata_next[31:0] = watermark_lvl_qs;
+      end
+
       default: begin
         reg_rdata_next = '1;
       end
@@ -2073,3 +2145,55 @@ module cfg_regs_reg_top #(
   `ASSERT(en2addrHit, (reg_we || reg_re) |-> $onehot0(addr_hit))
 
 endmodule
+
+module cfg_regs_reg_top_intf
+#(
+  parameter int AW = 7,
+  localparam int DW = 32
+) (
+  input logic clk_i,
+  input logic rst_ni,
+  REG_BUS.in  regbus_slave,
+  // To HW
+  output cfg_regs_reg_pkg::cfg_regs_reg2hw_t reg2hw, // Write
+  input  cfg_regs_reg_pkg::cfg_regs_hw2reg_t hw2reg, // Read
+  // Config
+  input devmode_i // If 1, explicit error return for unmapped register access
+);
+ localparam int unsigned STRB_WIDTH = DW/8;
+
+`include "register_interface/typedef.svh"
+`include "register_interface/assign.svh"
+
+  // Define structs for reg_bus
+  typedef logic [AW-1:0] addr_t;
+  typedef logic [DW-1:0] data_t;
+  typedef logic [STRB_WIDTH-1:0] strb_t;
+  `REG_BUS_TYPEDEF_ALL(reg_bus, addr_t, data_t, strb_t)
+
+  reg_bus_req_t s_reg_req;
+  reg_bus_rsp_t s_reg_rsp;
+  
+  // Assign SV interface to structs
+  `REG_BUS_ASSIGN_TO_REQ(s_reg_req, regbus_slave)
+  `REG_BUS_ASSIGN_FROM_RSP(regbus_slave, s_reg_rsp)
+
+  
+
+  cfg_regs_reg_top #(
+    .reg_req_t(reg_bus_req_t),
+    .reg_rsp_t(reg_bus_rsp_t),
+    .AW(AW)
+  ) i_regs (
+    .clk_i,
+    .rst_ni,
+    .reg_req_i(s_reg_req),
+    .reg_rsp_o(s_reg_rsp),
+    .reg2hw, // Write
+    .hw2reg, // Read
+    .devmode_i
+  );
+  
+endmodule
+
+

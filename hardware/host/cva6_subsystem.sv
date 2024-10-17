@@ -92,7 +92,13 @@ module cva6_subsystem
 
   // SCMI mailbox interrupt to CVA6
   input  logic            irq_mbox_i,
-  output logic            cfi_req_irq_o
+  output logic            cfi_req_irq_o,
+
+  // Logic locking Keys
+  input logic [127:0]    iommu_lock_xor_key_i,
+  input logic [127:0]    iopmp_lock_xor_key_i,
+  input logic [127:0]    aia_lock_xor_key_i
+
 );
      // disable test-enable
   logic        test_en;
@@ -129,6 +135,9 @@ module cva6_subsystem
   riscv::ctr_type_t     metadata[1:0];
   riscv::priv_lvl_t     priv_lvl[1:0];
   logic [31:0]          instr[1:0];
+
+  logic                 snoop_watermark_irq;
+
 
   snooper_pkg::trace_t cva6_traces;
 
@@ -812,6 +821,12 @@ module cva6_subsystem
     .eth_to_pad       ( eth_to_pad                    ),
     .pad_to_eth       ( pad_to_eth                    ),
 
+    .iommu_lock_xor_key_i ( iommu_lock_xor_key_i      ),
+    .iopmp_lock_xor_key_i ( iopmp_lock_xor_key_i      ),
+    .aia_lock_xor_key_i   ( aia_lock_xor_key_i        ),
+
+    .cfi_watermark_irq_i  ( snoop_watermark_irq       ),
+
     .irq_mbox_i
   );
 
@@ -873,6 +888,7 @@ module cva6_subsystem
       .axi_sw_rsp_o       ( axi_snoop_rsp        ),
       .traces_i           ( cva6_traces          ),
       .trigger_o          ( cfi_req_irq_o        ),
+      .watermark_irq_o    ( snoop_watermark_irq  ),
       .core_select_o      ( snoop_core_select    )
   );
 

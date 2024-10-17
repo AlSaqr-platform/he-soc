@@ -80,7 +80,14 @@ module ariane_peripherals
     input  pad_to_eth_t                                       pad_to_eth       ,
 
     // SCMI mailbox interrupt to CVA6
-    input  logic                                              irq_mbox_i
+    input  logic                                              irq_mbox_i       ,
+    input  logic                                              cfi_watermark_irq_i,
+
+    // Logic locking Keys
+    input logic [127:0]                                       iommu_lock_xor_key_i,
+    input logic [127:0]                                       iopmp_lock_xor_key_i,
+    input logic [127:0]                                       aia_lock_xor_key_i
+
 );
 
   AXI_BUS #(
@@ -110,7 +117,8 @@ module ariane_peripherals
     assign irq_sources[7]                            = c2h_irq_i;
     assign irq_sources[8]                            = cluster_eoc_i;
     assign irq_sources[9]                            = irq_mbox_i;
-    assign irq_sources[14:10]                        = '0; // reserved for future use
+    assign irq_sources[10]                           = cfi_watermark_irq_i;
+    assign irq_sources[14:11]                        = '0; // reserved for future use
     assign irq_sources[138:15]                       = udma_evt_i[123:0];
     assign irq_sources[139]                          = cl_dma_pe_evt_i;
     assign irq_sources[140]                          = can_irq_i[0];
@@ -311,9 +319,10 @@ module ariane_peripherals
         .i_req_cfg      ( aplic_regmap_req_o                ),
         .o_resp_cfg     ( aplic_regmap_resp_i               ),
         .i_imsic_csr    ( imsic_csr_i                       ),
-        .o_imsic_csr    ( imsic_csr_o                       ),         
+        .o_imsic_csr    ( imsic_csr_o                       ),
         .i_imsic_req    ( lite_msi_req                      ),
-        .o_imsic_resp   ( lite_msi_resp                     )
+        .o_imsic_resp   ( lite_msi_resp                     ),
+        .aia_lock_xor_key_i
     );
 
     // ---------------
@@ -1077,7 +1086,9 @@ module ariane_peripherals
         .prog_req_i			  ( axi_iommu_cfg_req		    ),
         .prog_resp_o		  ( axi_iommu_cfg_rsp		    ),
 
-        .wsi_wires_o      ( irq_sources[153:150]    )
+        .wsi_wires_o      ( irq_sources[153:150]    ),
+
+        .iommu_lock_xor_key_i
       );
 
     // ----------
@@ -1346,7 +1357,9 @@ module ariane_peripherals
         .initiator_req_o    ( axi_iopmp_ip_req  ),
         .initiator_rsp_i    ( axi_iopmp_ip_rsp  ),
 
-        .wsi_wire_o         ( irq_sources[154]  )
+        .wsi_wire_o         ( irq_sources[154]  ),
+
+        .iopmp_lock_xor_key_i
     );
 
     // ----------

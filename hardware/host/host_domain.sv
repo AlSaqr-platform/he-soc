@@ -161,11 +161,7 @@ module host_domain
   output  logic               doorbell_irq_o,
   output  logic               cfi_req_irq_o,
     // Logic locking registers
-  output logic [127:0]        cluster_lock_xor_key_o,
-  output logic [127:0]        iommu_lock_xor_key_o,
-  output logic [127:0]        iopmp_lock_xor_key_o,
-  output logic [127:0]        aia_lock_xor_key_o
-
+  output logic [127:0]        cluster_lock_xor_key_o
 );
 
 
@@ -236,6 +232,10 @@ module host_domain
    axi_llc_pkg::events_t llc_events;
 
    logic completion_irq_o;
+
+   logic [127:0] iommu_lock_xor_key;
+   logic [127:0] iopmp_lock_xor_key;
+   logic [127:0] aia_lock_xor_key;
 
    assign   soc_clk_o  = s_soc_clk;
    assign   soc_rst_no = s_synch_soc_rst;
@@ -476,7 +476,11 @@ module host_domain
         .cva6_uart_tx_o       ( cva6_uart_tx_o       ),
         .axi_lite_master      ( host_lite_bus        ),
         .axi_lite_snoop_req_i ( axi_lite_snooper_req ),
-        .axi_lite_snoop_rsp_o ( axi_lite_snooper_rsp )
+        .axi_lite_snoop_rsp_o ( axi_lite_snooper_rsp ),
+
+        .iommu_lock_xor_key_i ( iommu_lock_xor_key   ),
+        .iopmp_lock_xor_key_i ( iopmp_lock_xor_key   ),
+        .aia_lock_xor_key_i   ( aia_lock_xor_key     )
     );
 
 
@@ -595,7 +599,10 @@ module host_domain
       .gpio_to_pad            ( gpio_to_pad                    ),
       .pad_to_gpio            ( pad_to_gpio                    ),
 
-      .*
+      .cluster_lock_xor_key_o ( cluster_lock_xor_key_o         ),
+      .iopmp_lock_xor_key_o   ( iopmp_lock_xor_key             ),
+      .iommu_lock_xor_key_o   ( iommu_lock_xor_key             ),
+      .aia_lock_xor_key_o     ( aia_lock_xor_key               )
 
       );
 
