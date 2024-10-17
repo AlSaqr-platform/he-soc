@@ -34,7 +34,11 @@ module snooping_engine
    // Last Valid Entry
    output logic [AddrWidth-1:0]                   cnt_o,
    output logic [AddrWidth-1:0]                   first_valid_o,
-   output logic [AddrWidth-1:0]                   last_valid_o
+   output logic [AddrWidth-1:0]                   last_valid_o,
+   // New additions
+   input  logic                                   read_en_i,   // Input to indicate read on AXI
+   input  logic [31:0]                            watermark_lvl_i,
+   output logic                                   watermark_irq_o
 );
 
    typedef enum logic [1:0] {
@@ -42,15 +46,18 @@ module snooping_engine
        INSTRUCTION = 2'b01
    } modes_t;
 
-   localparam logic [AddrWidth-1:0] ADDR_MODE_MAX = 16'h3FE8;
-   localparam logic [AddrWidth-1:0] INSTR_MODE_MAX = 16'h3FFC;
-   localparam logic [AddrWidth-1:0] ADDR_MODE_INCR = 20; // 4*5 bytes
+   localparam logic [AddrWidth-1:0] ADDR_MODE_MAX   = 16'h3FE8;
+   localparam logic [AddrWidth-1:0] INSTR_MODE_MAX  = 16'h3FFC;
+   localparam logic [AddrWidth-1:0] ADDR_MODE_INCR  = 20; // 4*5 bytes
    localparam logic [AddrWidth-1:0] INSTR_MODE_INCR = 4;
 
    logic buffer_full;
    logic [AddrWidth-1:0] cnt_o_next;
    logic [AddrWidth-1:0] cnt_o_incr;
-   logic [AddrWidth-1:0] cnt_o_limit;
+   logic [15:0]          BUFFER_SIZE;
+   logic [AddrWidth-1:0] entries_in_buffer;
+
+   logic [AddrWidth-1:0] last_read; // Internal last_read pointer
 
    // Assign write data based on trace mode
    assign buff_wdata_o = config_i.ctrl.trace_mode.q[0] ?
@@ -64,6 +71,25 @@ module snooping_engine
                     traces_i.pc_dst_l,
                     traces_i.pc_src_h,
                     traces_i.pc_src_l };
+
+   assign cnt_o_incr = config_i.ctrl.trace_mode.q[0] ?
+                       INSTR_MODE_INCR               :
+                       ADDR_MODE_INCR                ;
+ 
+   // Set BUFFER_SIZE based on trace mode
+   always_comb begin : set_buffer_size
+      unique case (config_i.ctrl.trace_mode.q)
+          ADDRESS: begin
+              BUFFER_SIZE = ADDR_MODE_MAX + ADDR_MODE_INCR; // 16360 + 20 = 16380
+          end
+          INSTRUCTION: begin
+              BUFFER_SIZE = INSTR_MODE_MAX + INSTR_MODE_INCR; // 16380 + 4 = 16384
+          end
+          default: begin
+              BUFFER_SIZE = 16'h4000; // Default buffer size
+          end
+      endcase
+   end
 
    // Memory Interface FSM
    always_comb begin : mem_interface_fsm
@@ -105,35 +131,23 @@ module snooping_engine
       if(~rst_ni) begin
          cnt_o       <= '0;
          buffer_full <= 1'b0;
+         cnt_o_next  <= 1'b0;
       end else if (config_i.ctrl.cnt_rst.q) begin
          cnt_o       <= '0;
          buffer_full <= 1'b0;
+         cnt_o_next  <= 1'b0;
       end else if (snoop_en_i) begin
-         // Determine increment and limit based on trace mode
-         unique case (config_i.ctrl.trace_mode.q)
-             ADDRESS: begin
-                 cnt_o_incr = ADDR_MODE_INCR;
-                 cnt_o_limit = ADDR_MODE_MAX;
-             end
-             INSTRUCTION: begin
-                 cnt_o_incr = INSTR_MODE_INCR;
-                 cnt_o_limit = INSTR_MODE_MAX;
-             end
-             default: begin
-                 cnt_o_incr = '0;
-                 cnt_o_limit = {AddrWidth{1'b1}};
-             end
-         endcase
 
          cnt_o_next = cnt_o + cnt_o_incr;
 
-         if (cnt_o_next > cnt_o_limit) begin
-            cnt_o       <= '0;
+         if (cnt_o_next >= BUFFER_SIZE) begin
+            cnt_o_next  = cnt_o_next - BUFFER_SIZE;
             buffer_full <= 1'b1;
          end else begin
-            cnt_o       <= cnt_o_next;
             buffer_full <= 1'b0;
          end
+
+         cnt_o <= cnt_o_next;
       end
    end
 
@@ -149,20 +163,52 @@ module snooping_engine
            last_valid_o <= cnt_o;
 
            if (buffer_full) begin
-               unique case (config_i.ctrl.trace_mode.q)
-                   ADDRESS: begin
-                       first_valid_o <= cnt_o + ADDR_MODE_INCR;
-                   end
-                   INSTRUCTION: begin
-                       first_valid_o <= cnt_o + INSTR_MODE_INCR;
-                   end
-                   default: begin
-                       first_valid_o <= '0;
-                   end
-               endcase
+               first_valid_o <= first_valid_o + cnt_o_incr;
+               if (first_valid_o >= BUFFER_SIZE) begin
+                   first_valid_o <= first_valid_o - BUFFER_SIZE;
+               end
            end
        end
    end
 
-endmodule
+   // Update last_read pointer on read events
+   always_ff @(posedge clk_i or negedge rst_ni) begin : last_read_logic
+       if (~rst_ni) begin
+           last_read <= '0;
+       end else if (config_i.ctrl.cnt_rst.q) begin
+           last_read <= '0;
+       end else if (read_en_i) begin
+           // Determine increment based on trace mode
+           unique case (config_i.ctrl.trace_mode.q)
+               ADDRESS: begin
+                   last_read <= last_read + ADDR_MODE_INCR;
+                   if (last_read >= BUFFER_SIZE - ADDR_MODE_INCR) begin
+                       last_read <= last_read - BUFFER_SIZE;
+                   end
+               end
+               INSTRUCTION: begin
+                   last_read <= last_read + INSTR_MODE_INCR;
+                   if (last_read >= BUFFER_SIZE - INSTR_MODE_INCR) begin
+                       last_read <= last_read - BUFFER_SIZE;
+                   end
+               end
+               default: begin
+                   // Do nothing
+               end
+           endcase
+       end
+   end
 
+   // Compute entries in buffer considering wrap-around
+   always_comb begin : compute_entries_in_buffer
+       if (last_valid_o >= last_read) begin
+           entries_in_buffer = last_valid_o - last_read;
+       end else begin
+           entries_in_buffer = BUFFER_SIZE - last_read + last_valid_o;
+       end
+   end
+
+   // IRQ Logic
+   assign watermark_irq_o = config_i.ctrl.watermark_en.q ? ((entries_in_buffer >> 2) >= watermark_lvl_i) : 1'b0;
+
+endmodule
