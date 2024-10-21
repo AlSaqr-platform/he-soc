@@ -1787,14 +1787,15 @@ module ariane_tb;
           );
 
           initial begin
-            @(posedge eth_rx_irq);
             @(posedge clk_i);
 
-            reg_drv_rx.send_write( 'h30000000, 32'h00890702, 'hf, reg_error); //lower 32bits of MAC address
+            reg_drv_rx.send_write( 'h30000000, 32'h89000123, 'hf, reg_error); //lower 32bits of MAC address
             @(posedge clk_i);
           
-            reg_drv_rx.send_write( 'h30000004, 16'h2301, 'hf, reg_error); //upper 16bits of MAC address + other configuration set to false/0
+            reg_drv_rx.send_write( 'h30000004, 32'h00800207, 'hf, reg_error); //upper 16bits of MAC address + other configuration set to false/0
             @(posedge clk_i);
+
+            @(posedge eth_rx_irq);
             
             while(1) begin
               reg_drv_rx.send_read( 'h30000054, dma_en, reg_error);   // req ready 
@@ -1828,10 +1829,10 @@ module ariane_tb;
             end
 
             // Tx test starts here: external back to core
-            reg_drv_rx.send_write( 'h30000000, 32'h00890702, 'hf, reg_error); //lower 32bits of MAC address
+            reg_drv_rx.send_write( 'h30000000, 32'h89000123, 'hf, reg_error); //lower 32bits of MAC address
             @(posedge clk_i);
           
-            reg_drv_rx.send_write( 'h30000004, 16'h2301, 'hf, reg_error); //upper 16bits of MAC address + other configuration set to false/0
+            reg_drv_rx.send_write( 'h30000004, 32'h00800207, 'hf, reg_error); //upper 16bits of MAC address + other configuration set to false/0
             @(posedge clk_i);
 
             reg_drv_rx.send_write( 'h3000001c, 32'h0, 'hf, reg_error ); // SRC_ADDR  
@@ -2190,16 +2191,17 @@ module ariane_tb;
             .axi_req_i           ( axi_req_mem ),
             .axi_rsp_o           ( axi_rsp_mem )
           );
-
+          
           initial begin
-            @(posedge eth_rx_irq);
             @(posedge clk_i);
 
-            reg_drv_rx.send_write( 'h30000000, 32'h00890702, 'hf, reg_error); //lower 32bits of MAC address
+            reg_drv_rx.send_write( 'h30000000, 32'h89000123, 'hf, reg_error); //lower 32bits of MAC address
             @(posedge clk_i);
           
-            reg_drv_rx.send_write( 'h30000004, 16'h2301, 'hf, reg_error); //upper 16bits of MAC address + other configuration set to false/0
+            reg_drv_rx.send_write( 'h30000004, 32'h00800207, 'hf, reg_error); //upper 16bits of MAC address + other configuration set to false/0
             @(posedge clk_i);
+
+            @(posedge eth_rx_irq);
             
             while(1) begin
               reg_drv_rx.send_read( 'h30000054, dma_en, reg_error);   // req ready 
@@ -2233,30 +2235,30 @@ module ariane_tb;
             end
 
             // Tx test starts here: external back to core
-            reg_drv_rx.send_write( 'h30000000, 32'h00890702, 'hf, reg_error); //lower 32bits of MAC address
-            @(posedge clk);
+            reg_drv_rx.send_write( 'h30000000, 32'h89000123, 'hf, reg_error); //lower 32bits of MAC address
+            @(posedge clk_i);
           
-            reg_drv_rx.send_write( 'h30000004, 16'h2301, 'hf, reg_error); //upper 16bits of MAC address + other configuration set to false/0
-            @(posedge clk);
+            reg_drv_rx.send_write( 'h30000004, 32'h00800207, 'hf, reg_error); //upper 16bits of MAC address + other configuration set to false/0
+            @(posedge clk_i);
 
             reg_drv_rx.send_write( 'h3000001c, 32'h0, 'hf, reg_error ); // SRC_ADDR  
-            @(posedge clk);
+            @(posedge clk_i);
           
             reg_drv_rx.send_write( 'h30000020, 32'h0, 'hf, reg_error); // DST_ADDR
-            @(posedge clk);
+            @(posedge clk_i);
 
             reg_drv_rx.send_write( 'h30000024, 32'h40,'hf , reg_error); // Size in bytes 
-            @(posedge clk);
+            @(posedge clk_i);
           
             reg_drv_rx.send_write( 'h30000028, 32'h0,'hf , reg_error); // src protocol
-            @(posedge clk);
+            @(posedge clk_i);
 
             reg_drv_rx.send_write( 'h3000002c, 32'h5,'hf , reg_error); // dst protocol
-            @(posedge clk);
+            @(posedge clk_i);
 
             reg_drv_rx.send_write( 'h30000044, 'h1, 'hf , reg_error);   // req valid
-            @(posedge clk);   
-          end  
+            @(posedge clk_i);    
+          end
         end
 
         if(USE_UART == 1) begin
