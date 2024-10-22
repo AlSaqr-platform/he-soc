@@ -219,6 +219,7 @@ module host_domain
    logic [N_CAN-1:0]                     s_can_irq;
    logic [NUM_ADV_TIMER-1 : 0]           s_pwm_irq;
    logic                                 s_c2h_irq;
+   logic                                 s_gpio_irq;
 
    logic                                 s_llc_read_hit_cache;
    logic                                 s_llc_read_miss_cache;
@@ -453,6 +454,7 @@ module host_domain
         .c2h_irq_i            ( s_c2h_irq            ),
         .can_irq_i            ( s_can_irq            ),
         .pwm_irq_i            ( s_pwm_irq            ),
+        .gpio_irq_i           ( s_gpio_irq           ),
         .cl_dma_pe_evt_i      ( s_dma_pe_evt         ),
         .dm_rst_o             ( s_dm_rst             ),
         .l2_axi_master        ( l2_axi_bus           ),
@@ -564,7 +566,7 @@ module host_domain
       .events_o               ( s_udma_events                  ),
       .can_irq_o              ( s_can_irq                      ),
       .pwm_irq_o              ( s_pwm_irq                      ),
-
+      .gpio_irq_o             ( s_gpio_irq                     ),
       .spi_to_pad             ( spi_to_pad                     ),
       .pad_to_spi             ( pad_to_spi                     ),
       .qspi_to_pad            ( qspi_to_pad                    ),

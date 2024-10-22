@@ -79,6 +79,7 @@ module apb_subsystem
 
     output logic [31*4-1:0]     events_o,
     output logic                [N_CAN-1 : 0] can_irq_o,
+    output logic                gpio_irq_o,
 
     // SPIM
     output                      qspi_to_pad_t [N_SPI-1:0] spi_to_pad,
@@ -729,7 +730,7 @@ module apb_subsystem
         .gpio_out        ( s_gpio_out                  ),
         .gpio_dir        ( s_gpio_dir                  ),
         .gpio_padcfg     (                             ),
-        .interrupt       (                             )
+        .interrupt       ( gpio_irq_o                  )
     );
 
     gpio2padframe #(
