@@ -1,0 +1,14 @@
+package:
+  name: htm_block
+  authors:
+    - "low risc"
+    - "Florian Zaruba <zarubaf@iis.ee.ethz.ch>"
+    - "Luca Valente <luca.valente@unibo.it>"
+
+    
+sources:
+    - rtl/htm_block_reg_pkg.sv
+    - rtl/htm_block_reg_top.sv
+    - rtl/htm_block_event.sv
+    - rtl/htm_block_core.sv
+    - rtl/htm_block.sv
