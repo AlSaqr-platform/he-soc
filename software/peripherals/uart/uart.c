@@ -218,7 +218,6 @@ int main()
           printf("UART_%0d.%0d FAIL: tx %c, rx %c\n\r", u, v, tx_buffer[i],rx_buffer[i]);
           error++;
         }
-
         aplic_reset(tx_uart_imsic_id);
         aplic_reset(rx_uart_imsic_id);
       }

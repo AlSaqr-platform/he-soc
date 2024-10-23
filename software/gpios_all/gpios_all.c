@@ -406,6 +406,15 @@ int main() {
         }
 
         printf("Start pad_a GPIOs...\n");
+
+    //     // Insert wfi before starting the main test loop
+    // printf("Waiting for GPIO interrupt...\n");
+
+    // asm volatile ("wfi");  // Wait for interrupt
+
+    // printf("Interrupt detected, resuming test...\n");
+
+    
         gpio_val=1;
         for (int j = 0; j < 10; j++){
           for(int i = 0; i < NUM_GPIOS_A/2; i++) {
