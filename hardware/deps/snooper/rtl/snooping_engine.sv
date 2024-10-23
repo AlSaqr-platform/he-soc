@@ -138,10 +138,10 @@ module snooping_engine
          cnt_o_next  <= 1'b0;
       end else if (snoop_en_i) begin
 
-         cnt_o_next = cnt_o + cnt_o_incr;
+         cnt_o_next <= cnt_o + cnt_o_incr;
 
          if (cnt_o_next >= BUFFER_SIZE) begin
-            cnt_o_next  = cnt_o_next - BUFFER_SIZE;
+            cnt_o_next  <= cnt_o_next - BUFFER_SIZE;
             buffer_full <= 1'b1;
          end else begin
             buffer_full <= 1'b0;
