@@ -14,6 +14,7 @@
 `include "register_interface/typedef.svh"
 `include "axi/assign.svh"
 `include "axi/typedef.svh"
+`define APMU_IP
 
 module ariane_peripherals
     import udma_subsystem_pkg::N_CAN;
@@ -25,6 +26,7 @@ module ariane_peripherals
     parameter  int AxiDataWidth = -1,
     parameter  int AxiIdWidth   = -1,
     parameter  int AxiUserWidth = 1,
+    parameter  int APMU_NUM_COUNTER = 0,
     parameter  bit InclUART     = 1,
     parameter  bit InclSPI      = 0,
     parameter  bit InclEthernet = 1,
@@ -67,6 +69,11 @@ module ariane_peripherals
     input  logic [N_CAN-1:0]                                  can_irq_i        ,
     input  logic [NUM_ADV_TIMER-1:0]                          pwm_irq_i        ,
     input  logic                                              cl_dma_pe_evt_i  ,
+
+    // APMU
+    input  logic [APMU_NUM_COUNTER-1:0]   pmu_intr_i,
+
+    // output logic [NumCVA6-1:0][1:0]       irq_o,
 
     // UART
     input  logic                                              rx_i             ,
@@ -136,7 +143,16 @@ module ariane_peripherals
     assign irq_sources[148]                          = pwm_irq_i[6];
     assign irq_sources[149]                          = pwm_irq_i[7];
 
-    assign irq_sources[ariane_soc::NumSources-1:155] = '0;
+    `ifdef APMU_IP
+    assign irq_sources[155+APMU_NUM_COUNTER-1:155]                     = pmu_intr_i;
+    assign irq_sources[ariane_soc::NumSources-1:155+APMU_NUM_COUNTER]  = '0;
+    // assign irq_le[150+APMU_NUM_COUNTER-1:150]	                        = {APMU_NUM_COUNTER{1'b1}};
+    // assign irq_le[ariane_soc::NumSources-1:150+APMU_NUM_COUNTER]       = '0; 
+  `else
+    assign irq_sources[ariane_soc::NumSources-1:155]                  = '0;
+    // assign irq_le[ariane_soc::NumSources-1:150]                       = '0;
+  `endif
+
 
     ////////////////////////////////////////////////////////////////////
     /// Global Ideia
