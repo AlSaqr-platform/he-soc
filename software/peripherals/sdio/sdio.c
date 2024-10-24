@@ -298,7 +298,7 @@ void test_single_block_write (uint32_t u, uint32_t *tx_buffer, uint32_t *respons
   pulp_write32(UDMA_SDIO_DATA_SETUP(u), ( ((BLOCK_SIZE - 1) <<16) | (0 << 8) | (SDIO_QUAD_EN << 2) | (0 << 1) | 1 ));
 
   // Send CMD 24
-  sdio_send_cmd_trx(u, CMD24 | RSP_48_CRC, BLOCK_COUNT, response, eot_sdio_imsic_id);
+  sdio_send_cmd_trx(u, CMD24 | RSP_48_CRC, BLOCK_COUNT, response, tx_sdio_imsic_id);
 
   printf("trx test\n");
 
@@ -322,7 +322,7 @@ void test_single_block_write (uint32_t u, uint32_t *tx_buffer, uint32_t *respons
     #endif
 
     asm volatile ("wfi");
-    imsic_intp_arrive(tx_sdio_imsic_id);
+    imsic_intp_arrive(eot_sdio_imsic_id);
     CSRW(CSR_MTOPEI, 0);
 
     #ifdef PRINTF_ON
@@ -354,8 +354,8 @@ void test_single_block_read (uint32_t u, uint32_t *rx_buffer , uint32_t *respons
   pulp_write32(UDMA_SDIO_DATA_SETUP(u), ( ((BLOCK_SIZE - 1) <<16) | (0 << 8) | (SDIO_QUAD_EN << 2) | (1 << 1) | 1));
 
   // Send CMD 17
-  sdio_send_cmd_trx(u, CMD17 | RSP_48_CRC, BLOCK_COUNT, response, eot_sdio_imsic_id);
-
+  sdio_send_cmd_trx(u, CMD17 | RSP_48_CRC, BLOCK_COUNT, response, rx_sdio_imsic_id);
+  /*
   if (USE_PLIC==0){
     do {
       printf ("Polling on UDMA_SDIO_RX_ADDR until != 0...\n\r");
@@ -376,7 +376,7 @@ void test_single_block_read (uint32_t u, uint32_t *rx_buffer , uint32_t *respons
     #endif
 
     asm volatile ("wfi");
-    imsic_intp_arrive(rx_sdio_imsic_id);
+    imsic_intp_arrive(eot_sdio_imsic_id);
     CSRW(CSR_MTOPEI, 0);
 
     #ifdef PRINTF_ON
@@ -385,7 +385,7 @@ void test_single_block_read (uint32_t u, uint32_t *rx_buffer , uint32_t *respons
     #endif
 
   }
-
+  */
   #ifdef PRINTF_ON
     printf("End reading...\n\r");
     uart_wait_tx_done();
