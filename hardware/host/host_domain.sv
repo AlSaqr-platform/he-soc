@@ -18,6 +18,7 @@
 `include "axi/assign.svh"
 `include "axi/typedef.svh"
 `include "common_cells/registers.svh"
+`define APMU_IP
 
 module host_domain
   import axi_pkg::xbar_cfg_t;
@@ -197,6 +198,12 @@ module host_domain
 
    localparam NB_UDMA_TCDM_CHANNEL = 2;
 
+   `ifdef APMU_IP
+    localparam int unsigned APMU_NUM_COUNTER = 8;
+  `else
+    localparam int unsigned APMU_NUM_COUNTER = 0;
+  `endif
+
    // parameters for the LLC
    localparam NUM_WAYS   = 32'd8;
    localparam NUM_LINES  = 32'd256;
@@ -312,10 +319,33 @@ module host_domain
      .AXI_USER_WIDTH ( AXI_USER_WIDTH             )
    ) mem_axi_bus ();
 
+   AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH          ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH             ),
+    `ifdef EXCLUDE_LLC
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave   ),
+    `else
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave+1 ),
+    `endif
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH             )
+   ) mem_axi_bus_spu_o_bus();
+
    AXI_LITE #(
     .AXI_ADDR_WIDTH (AXI_LITE_AW),
     .AXI_DATA_WIDTH (AXI_LITE_DW)
    ) llc_cfg_bus();
+
+  // APMU - Debug Request
+   ariane_axi_soc::req_lite_t  pmu_master_req;
+   ariane_axi_soc::resp_lite_t pmu_master_res;
+
+   // APMU Configuration Signals
+   ariane_axi_soc::req_lite_t  axi_lite_pmu_cfg_req;
+   ariane_axi_soc::resp_lite_t axi_lite_pmu_cfg_res;
+
+   logic  [APMU_NUM_COUNTER-1:0] pmu_intr_o;
+   pmu_pkg::pmu_event_t [ariane_soc::NumCVA6:0] spu_o;
+
 
    XBAR_TCDM_BUS axi_bridge_2_interconnect[AXI64_2_TCDM32_N_PORTS]();
    XBAR_TCDM_BUS udma_2_tcdm_channels[NB_UDMA_TCDM_CHANNEL]();
@@ -377,8 +407,15 @@ module host_domain
 
    `AXI_ASSIGN_TO_REQ(axi_cpu_req,hyper_axi_bus)
    `AXI_ASSIGN_FROM_RESP(hyper_axi_bus,axi_cpu_res)
-   `AXI_ASSIGN_FROM_REQ(mem_axi_bus,axi_mem_req)
-   `AXI_ASSIGN_TO_RESP(axi_mem_res,mem_axi_bus)
+   `ifdef APMU_IP
+    // Converts request packets to AXI Bus signals.
+    `AXI_ASSIGN_FROM_REQ( mem_axi_bus_spu_o_bus, axi_mem_req )
+    `AXI_ASSIGN_TO_RESP( axi_mem_res, mem_axi_bus_spu_o_bus )
+  `else
+    // Converts request packets to AXI Bus signals.
+    `AXI_ASSIGN_FROM_REQ( mem_axi_bus, axi_mem_req )
+    `AXI_ASSIGN_TO_RESP( axi_mem_res, mem_axi_bus )
+  `endif
    `AXI_LITE_ASSIGN_TO_REQ(axi_llc_cfg_req,llc_cfg_bus)
    `AXI_LITE_ASSIGN_FROM_RESP(llc_cfg_bus,axi_llc_cfg_res)
 
@@ -425,6 +462,7 @@ module host_domain
    cva6_subsystem # (
         .NUM_WORDS         ( NUM_WORDS      ),
         .AXI_USER_WIDTH    ( AXI_USER_WIDTH ),
+        .APMU_NUM_COUNTER  ( APMU_NUM_COUNTER ),
         .InclSimDTM        ( 1'b1           ),
         .StallRandomOutput ( 1'b1           ),
         .StallRandomInput  ( 1'b1           ),
@@ -472,6 +510,11 @@ module host_domain
         .udma_rx_l3_axi_slave ( udma_rx_l3_axi_bus   ),
         .udma_tx_l3_axi_slave ( udma_tx_l3_axi_bus   ),
 
+        // EVU 
+        .spu_core_o           ( spu_o[ 0+:ariane_soc::NumCVA6 ]),
+        // APMU
+        .pmu_intr_i           ( pmu_intr_o           ),
+
         .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
         .cva6_uart_tx_o       ( cva6_uart_tx_o       ),
         .axi_lite_master      ( host_lite_bus        ),
@@ -482,6 +525,81 @@ module host_domain
         .iopmp_lock_xor_key_i ( iopmp_lock_xor_key   ),
         .aia_lock_xor_key_i   ( aia_lock_xor_key     )
     );
+
+    AXI_LITE #(
+    .AXI_ADDR_WIDTH (AXI_LITE_AW),
+    .AXI_DATA_WIDTH (AXI_LITE_DW)
+  ) apmu_cfg_lite_bus();
+
+  `ifdef APMU_IP
+  localparam N_ADDR_RULES = 2;
+  ariane_soc::addr_map_rule_t [N_ADDR_RULES-1:0]   spu_mem_addr_map;
+  assign spu_mem_addr_map[0] = '{
+        idx: 0,
+        start_addr: ariane_soc::DebugBase,
+        end_addr:   ariane_soc::HYAXIBase
+  };
+
+  assign spu_mem_addr_map[1] = '{
+        idx: 1,
+        start_addr: ariane_soc::HYAXIBase,
+        end_addr:   ariane_soc::HYAXIBase + ariane_soc::HYAXILength
+  };
+
+   axi_spu_top #(
+    // Static configuration parameters of the cache.
+    .SetAssociativity   ( ariane_soc::LLC_SET_ASSOC   ),
+    .NumLines           ( ariane_soc::LLC_NUM_LINES   ),
+    .NumBlocks          ( ariane_soc::LLC_NUM_BLOCKS  ),
+    // AXI4 Specifications
+    .IdWidthMasters     ( ariane_soc::IdWidth         ),
+    .IdWidthSlaves      ( ariane_soc::IdWidthSlave    ),
+    .AddrWidth          ( AXI_ADDRESS_WIDTH           ),
+    .DataWidth          ( AXI_DATA_WIDTH              ),
+    // Address Indexing
+    .addr_rule_t        ( ariane_soc::addr_map_rule_t ),
+    .N_ADDR_RULES       ( N_ADDR_RULES                ),
+    // FIFO and CAM Parameters
+    .CAM_DEPTH          ( 17                          ),
+    .FIFO_DEPTH         (  8                          )
+  ) i_spu_llc_mem (
+    .clk_i              ( s_soc_clk                   ),
+    .rst_ni             ( s_synch_soc_rst             ),
+    .addr_map_i         ( spu_mem_addr_map            ),
+    .spu_slv            ( mem_axi_bus_spu_o_bus       ),
+    .spu_mst            ( mem_axi_bus                 ),
+    .e_out              ( spu_o[ariane_soc::NumCVA6]  )
+  );
+
+
+  // The PMU only works with 32-bit AXI4-Lite port.
+  pmu_top #(
+    .NUM_PORT         ( 5                             ),
+    .NUM_COUNTER      ( APMU_NUM_COUNTER              ),
+    // APMU Addresses and SPM configuration
+    .MEMORY_BASE_ADDR ( ariane_soc::HYAXIBase         ),
+    .MEMORY_LENGTH    ( ariane_soc::HYAXILength       ),
+    .req_lite_t       ( ariane_axi_soc::req_lite_t    ),
+    .resp_lite_t      ( ariane_axi_soc::resp_lite_t   ),
+    .aw_chan_lite_t   ( ariane_axi_soc::aw_chan_lite_t),
+    .w_chan_lite_t    ( ariane_axi_soc::w_chan_lite_t ),
+    .b_chan_lite_t    ( ariane_axi_soc::b_chan_lite_t ),
+    .ar_chan_lite_t   ( ariane_axi_soc::ar_chan_lite_t),
+    .r_chan_lite_t    ( ariane_axi_soc::r_chan_lite_t )
+  ) i_pmu_top (
+    .clk_i            ( s_soc_clk                     ),
+    .rst_ni           ( s_synch_soc_rst               ),
+    .port_i           ( spu_o                         ),
+    .conf_req_i       ( axi_lite_pmu_cfg_req          ),
+    .conf_resp_o      ( axi_lite_pmu_cfg_res          ),
+    .master_req_o     ( pmu_master_req                ),
+    .master_resp_i    ( pmu_master_res                ),
+    .intr_o           ( pmu_intr_o                    )
+  );
+
+  `AXI_LITE_ASSIGN_TO_REQ( axi_lite_pmu_cfg_req, apmu_cfg_lite_bus    )
+  `AXI_LITE_ASSIGN_FROM_RESP( apmu_cfg_lite_bus, axi_lite_pmu_cfg_res )
+  `endif
 
 
    axi2tcdm_wrap #(
@@ -620,6 +738,8 @@ module host_domain
        .cluster_axi_lite_slave ( cluster_lite_slave      ),
        .c2h_tlb_cfg_master     ( c2h_tlb_cfg_lite_master ),
        .llc_cfg_master         ( llc_cfg_bus             ),
+       // APMU
+       .apmu_cfg_master        ( apmu_cfg_lite_bus       ),
        .h2c_irq_o              ( h2c_irq_o               ),
        .c2h_irq_o              ( s_c2h_irq               ),
        .axi_lite_snoop_req_o   ( axi_lite_snooper_req    ),
