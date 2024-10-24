@@ -26,6 +26,7 @@
 #define BUFFER_SIZE 64
 //#define VERBOSE
 //#define EXTRA_VERBOSE
+#define CSR_MTOPEI 0x35C
 
 int main() {
 
@@ -56,15 +57,14 @@ int main() {
     int plic_base = 0x0C000000;
     int tx_hyper_plic_id = 139;
     int rx_hyper_plic_id = 138;
-    // Plics events for a periph with id = N are mapped as
-    // n_evt[i]=N*4+8+i , with i=[0:3].
-    // Each periph has 4 event signals it can use. The first
-    // 8 events are already mapped to other non-udma signals.
-    int plic_en_bits = plic_base + 0x2080;
-    // set tx interrupt priority to 1
-    pulp_write32(plic_base+tx_hyper_plic_id*4, 1);
-    //enable interrupt for context 1 
-    pulp_write32(plic_en_bits+(((int)(tx_hyper_plic_id/32))*4), 1<<(tx_hyper_plic_id%32));
+    int tx_hyper_imsic_id = 2;
+    int rx_hyper_imsic_id = 1;
+    
+    aplic_init();
+    imsic_init();
+
+    config_irq_aplic(rx_hyper_plic_id, rx_hyper_imsic_id, 0);
+    config_irq_aplic(tx_hyper_plic_id, tx_hyper_imsic_id, 0);
 
     udma_hyper_setup();
     set_pagebound_hyper(2048);
@@ -91,21 +91,18 @@ int main() {
     }
   #endif
 
-    //  wfi until reading the tx hyper id from the PLIC
-      while(pulp_read32(plic_base+0x201004)!=tx_hyper_plic_id) {
-      asm volatile ("wfi");
-          }
-
-    // PLIC setup for RX
-    pulp_write32(plic_base+rx_hyper_plic_id*4, 1);
-    pulp_write32(plic_en_bits+(((int)(rx_hyper_plic_id/32))*4), 1<<(rx_hyper_plic_id%32));
+    asm volatile ("wfi");
+    imsic_intp_arrive(tx_hyper_imsic_id);
+    CSRW(CSR_MTOPEI, 0);
     
     udma_hyper_dread((BUFFER_SIZE*4),(unsigned int) l3_buffer, (unsigned int)rx_buffer, 128, 0);
 
-    // wfi until reading the rx hyper id from the PLIC
-    while(pulp_read32(plic_base+0x201004)!=rx_hyper_plic_id) {
-      asm volatile ("wfi");
-          }
+    asm volatile ("wfi");
+    imsic_intp_arrive(rx_hyper_imsic_id);
+    CSRW(CSR_MTOPEI, 0);
+
+    aplic_reset(tx_hyper_imsic_id);
+    aplic_reset(rx_hyper_imsic_id);
 
   #ifdef VERBOSE
     printf("start reading\n");

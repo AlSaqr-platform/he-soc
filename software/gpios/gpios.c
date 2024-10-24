@@ -179,7 +179,6 @@ int main() {
   uint32_t gpio_val;
   uint32_t address;
 
-
   #ifdef FPGA_EMULATION
     alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set( 1 ); //tx uart
     alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 1 ); //rx uart

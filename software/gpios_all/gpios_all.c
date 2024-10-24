@@ -52,6 +52,28 @@
 
 #define VERBOSE 1
 
+uint32_t irq_configure ( uint32_t number, uint32_t irq_en){
+  uint32_t address;
+  uint32_t gpio_inten;
+  if(number < 32){
+    address = ARCHI_GPIO_ADDR + GPIO_INTEN_OFFSET;
+    gpio_inten = pulp_read32(address);
+    //--- enable GPIO
+    //printf("GPIO_INTEN RD: %x\n",gpio_inten);
+    gpio_inten |= (1 << number);
+    //printf("GPIO_INTEN WR: %x\n",gpio_inten); 
+    pulp_write32(address, gpio_inten); 
+  } else {
+    address = ARCHI_GPIO_ADDR + GPIO_INTEN_32_63_OFFSET;
+    gpio_inten = pulp_read32(address);
+    //--- enable GPIO
+    //printf("GPIO_INTEN RD: %x\n",gpio_inten);
+    gpioen |= (1 << (number-32));
+    //printf("GPIO_INTEN WR: %x\n",gpio_inten);  
+    pulp_write32(address, gpioen);
+  }
+}
+
 uint32_t configure_gpio(uint32_t number, uint32_t direction){
   uint32_t address;
   uint32_t dir;
@@ -406,6 +428,15 @@ int main() {
         }
 
         printf("Start pad_a GPIOs...\n");
+
+    //     // Insert wfi before starting the main test loop
+    // printf("Waiting for GPIO interrupt...\n");
+
+    // asm volatile ("wfi");  // Wait for interrupt
+
+    // printf("Interrupt detected, resuming test...\n");
+
+    
         gpio_val=1;
         for (int j = 0; j < 10; j++){
           for(int i = 0; i < NUM_GPIOS_A/2; i++) {
