@@ -49,11 +49,11 @@ dependencies:
   riscv-aia: { git: "git@github.com:AlSaqr-platform/riscv-aia.git", rev: "9ab99c13a" } # branch: alsaqr
   idma: { git: "git@github.com:alsaqr-platform/iDMA.git", rev: "eb2433c3a" } # branch: mc/zdl/exp-path
   # APMU_BLOCK START: Branch: uw/pmu
-  ibex_pmu: { git: "git@github.com:Arshaan-256/ibex.git", version: "1.0.1" }
+  ibex_pmu: { git: "git@github.com:alsaqr-platform/ibex.git", version: "1.0.1" }
   # axi_llc: { git: "git@github.com:AlSaqr-platform/axi_llc.git", version: "1.0.0" }
-  axi_llc: { git: "git@github.com:Arshaan-256/axi_llc.git", rev: "master" }
-  spu: { git: "git@github.com:Arshaan-256/spu.git", version: "3.0.0" }
-  apmu: { git: "git@github.com:Arshaan-256/pmu_v1.0.git", version: "1.6.0" }
+  axi_llc: { git: "git@github.com:alsaqr-platform/axi_llc.git", rev: "uw/pmu" }
+  spu: { git: "git@github.com:alsaqr-platform/spu.git", version: "3.0.0" }
+  apmu: { git: "git@github.com:alsaqr-platform/pmu_v1.0.git", version: "1.6.0" }
 
 workspace:
   package_links:
