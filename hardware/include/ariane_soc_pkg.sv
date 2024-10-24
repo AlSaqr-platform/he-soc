@@ -194,5 +194,12 @@ package ariane_soc;
     logic clk_cva6_o;
   } fll_to_pad_t;
 
+  // AXI LLC
+  // Cache size = 8 x 128 x 8 x 8 = 8kB.
+  // Each core partition is 2kB.
+  localparam LLC_SET_ASSOC  = 32'd8;
+  localparam LLC_NUM_LINES  = 32'd128;
+  localparam LLC_NUM_BLOCKS = 32'd8;
+
 
 endpackage

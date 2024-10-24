@@ -16,6 +16,7 @@
 `include "axi/assign.svh"
 `include "register_interface/typedef.svh"
 `include "register_interface/assign.svh"
+`define APMU_IP
 
 module cva6_subsystem
   import axi_pkg::xbar_cfg_t;
@@ -26,6 +27,7 @@ module cva6_subsystem
   parameter int unsigned AXI_USER_WIDTH    = 1,
   parameter int unsigned AXI_ADDRESS_WIDTH = 64,
   parameter int unsigned AXI_DATA_WIDTH    = 64,
+  parameter int unsigned APMU_NUM_COUNTER = 0,
 `ifdef DROMAJO
   parameter bit          InclSimDTM        = 1'b0,
 `else
@@ -58,6 +60,11 @@ module cva6_subsystem
   input  logic             jtag_TRSTn,
   output logic             jtag_TDO_data,
   output logic             jtag_TDO_driven,
+
+  // APMU
+  output pmu_pkg::pmu_event_t [ariane_soc::NumCVA6-1:0] spu_core_o,
+  // PMU Interrupt Signal
+  input  logic [APMU_NUM_COUNTER-1:0]  pmu_intr_i,
 
   // CVA6 DEBUG UART
   input  logic            cva6_uart_rx_i,
@@ -717,6 +724,7 @@ module cva6_subsystem
     .AxiAddrWidth ( AXI_ADDRESS_WIDTH        ),
     .AxiDataWidth ( AXI_DATA_WIDTH           ),
     .AxiIdWidth   ( ariane_soc::IdWidthSlave ),
+    .APMU_NUM_COUNTER  ( APMU_NUM_COUNTER    ),
 `ifdef TARGET_SYNTHESIS
     .InclUART     ( 1'b1                     ),
 `else
@@ -767,6 +775,8 @@ module cva6_subsystem
     .rx_i             ( cva6_uart_rx_i                ),
     .tx_o             ( cva6_uart_tx_o                ),
 
+    .pmu_intr_i       ( pmu_intr_i                    ),
+
     .eth_clk_i        ( eth_clk_i                     ),
     .eth_phy_tx_clk_i ( eth_phy_tx_clk_i              ),
     .eth_clk_200MHz_i ( eth_clk_200MHz_i              ),
@@ -805,7 +815,8 @@ module cva6_subsystem
     .data_master_r_rptr_o ( cva6_axi_master_dst.r_rptr  ),
     .data_master_b_wptr_i ( cva6_axi_master_dst.b_wptr  ),
     .data_master_b_data_i ( cva6_axi_master_dst.b_data  ),
-    .data_master_b_rptr_o ( cva6_axi_master_dst.b_rptr  )
+    .data_master_b_rptr_o ( cva6_axi_master_dst.b_rptr  ),
+    .spu_core_o           ( spu_core_o                  )
   );
 
   axi_cdc_dst_intf #(
