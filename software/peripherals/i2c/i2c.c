@@ -65,7 +65,7 @@
 #endif
 
 #define VERBOSE
-// #define PRINTF_ON
+#define PRINTF_ON
 
 int main()
 {

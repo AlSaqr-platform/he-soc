@@ -13,7 +13,7 @@ dependencies:
   axi_tlb: { path: "deps/axi_tlb"}
   snooper: { path: "deps/snooper"}
   axi_riscv_atomics: { git: "https://github.com/pulp-platform/axi_riscv_atomics.git", rev: "062bc36cbcca25629384e7f12efa6693273b3e07" } # branch: master
-  cva6: { git: "https://github.com/AlSaqr-platform/cva6.git", rev: "27a0ac1fc263885d47bac99808cd88e97b3a6e68" } # branch: mc/ep/zicfilp
+  cva6: { git: "https://github.com/AlSaqr-platform/cva6.git", rev: "78d55c8f84600e307b4fc12435ec1662ab395d3b" } # branch: mc/ep/zicfilp
   ace: { git: "https://github.com/pulp-platform/ace.git", rev: "06180ec96531d38dc0c1c2b244bad621c5fe73a5" }
   riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0  }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.39.1-beta }

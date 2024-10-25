@@ -35,10 +35,14 @@ if [ "$MAIN_MEM" = "1" ]; then
     read -p "Are you instantiating OpenTitan? y/n " OT
     if [ "$OT" = "y" ]; then
         export USE_OT="1"
-        export ETH2FMC_NO_PAD="0"
     elif [ "$OT" = "n" ]; then
         export USE_OT="0"
-        export ETH2FMC_NO_PAD="1"
+        read -p "Are you instantiating Ethernet? y/n " ETH
+        if [ "$ETH" = "y" ]; then
+            export ETH2FMC_NO_PAD="1"
+        elif [ "$ETH" = "n" ]; then
+            export ETH2FMC_NO_PAD="0"
+        fi
     fi
 elif [ "$MAIN_MEM" = "2" ]; then
     export MAIN_MEM="HYPER"
@@ -62,7 +66,7 @@ echo "AXI_ID_DDR_WIDTH=$AXI_ID_DDR_WIDTH"
 echo "MAIN MEMORY = $MAIN_MEM"
 echo "NUM CORES = $NUM_CORES"
 echo "PERIPHERALS VALIDATION = $SIMPLE_PAD"
-echo "ETHERNET NO PADFRAME = $ETH2FMC_NO_PAD"
 echo "USE OT = $USE_OT"
+echo "USE ETH = $ETH2FMC_NO_PAD"
 
 export VSIM_PATH=$PWD/sim
