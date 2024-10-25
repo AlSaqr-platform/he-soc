@@ -27,7 +27,8 @@ if {$::env(MAIN_MEM)=="HYPER"} {
     add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_validation_$::env(BOARD).xdc"
     if {$::env(USE_OT)=="1"} {
         add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_opentitan_$::env(BOARD).xdc"
-    } else {
+    }
+    if {$::env(ETH2FMC_NO_PAD)=="1"} {
         add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_validation_$::env(BOARD)_eth-no_padframe.xdc"
     }
 }

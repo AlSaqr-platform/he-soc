@@ -41,8 +41,6 @@ package cv64a6_imafdch_wb_sv39_alsaqr_pkg;
       ZiCfiSSEn: bit'(CVA6ConfigZiCfiSSEn),
       ZiCfiLPEn: bit'(CVA6ConfigZiCfiLPEn),
       RVSCLIC: bit'(CVA6ConfigSclicExtEn),
-      ZiCfiLPEn: bit'(CVA6ConfigZiCfiLPEn),
-      ZiCfiSSEn: bit'(CVA6ConfigZiCfiSSEn),
       // Extended
       RVF:
       bit'(
