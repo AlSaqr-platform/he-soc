@@ -52,7 +52,7 @@ dependencies:
   ibex_pmu: { git: "git@github.com:alsaqr-platform/ibex.git", version: "1.0.1" }
   # axi_llc: { git: "git@github.com:AlSaqr-platform/axi_llc.git", version: "1.0.0" }
   axi_llc: { git: "git@github.com:alsaqr-platform/axi_llc.git", rev: "uw/pmu" }
-  spu: { git: "git@github.com:alsaqr-platform/spu.git", version: "3.0.0" }
+  spu: { git: "git@github.com:alsaqr-platform/spu.git", rev: "1b3a40aa4103064896bdcce2915845219962dcc3" } #branch: mc/ace-support
   apmu: { git: "git@github.com:alsaqr-platform/apmu.git", version: "1.6.0" }
 
 workspace:
