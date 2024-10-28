@@ -576,7 +576,7 @@ module host_domain
 
   // The PMU only works with 32-bit AXI4-Lite port.
   pmu_top #(
-    .NUM_PORT         ( 5                             ),
+    .NUM_PORT         ( 3                             ),
     .NUM_COUNTER      ( APMU_NUM_COUNTER              ),
     // APMU Addresses and SPM configuration
     .MEMORY_BASE_ADDR ( ariane_soc::HYAXIBase         ),
