@@ -218,13 +218,13 @@ module al_saqr
   localparam int unsigned AsyncAxiOutRWidth     = secure_subsystem_synth_astral_pkg::SynthAsyncAxiOutRWidth;
   localparam int unsigned LogDepth              = secure_subsystem_synth_astral_pkg::SynthLogDepth;
 
-  localparam type         axi_secd_aw_chan_t     = secure_subsystem_synth_astral_pkg::synth_axi_out_aw_chan_t;
-  localparam type         axi_secd_w_chan_t      = secure_subsystem_synth_astral_pkg::synth_axi_out_w_chan_t;
-  localparam type         axi_secd_b_chan_t      = secure_subsystem_synth_astral_pkg::synth_axi_out_b_chan_t;
-  localparam type         axi_secd_ar_chan_t     = secure_subsystem_synth_astral_pkg::synth_axi_out_ar_chan_t;
-  localparam type         axi_secd_r_chan_t      = secure_subsystem_synth_astral_pkg::synth_axi_out_r_chan_t;
-  localparam type         axi_secd_req_t         = secure_subsystem_synth_astral_pkg::synth_axi_out_req_t;
-  localparam type         axi_secd_resp_t        = secure_subsystem_synth_astral_pkg::synth_axi_out_resp_t;
+  localparam type         axi_secd_aw_chan_t     = secure_subsystem_synth_astral_pkg::synth_axi_remap_out_aw_chan_t;
+  localparam type         axi_secd_w_chan_t      = secure_subsystem_synth_astral_pkg::synth_axi_remap_out_w_chan_t;
+  localparam type         axi_secd_b_chan_t      = secure_subsystem_synth_astral_pkg::synth_axi_remap_out_b_chan_t;
+  localparam type         axi_secd_ar_chan_t     = secure_subsystem_synth_astral_pkg::synth_axi_remap_out_ar_chan_t;
+  localparam type         axi_secd_r_chan_t      = secure_subsystem_synth_astral_pkg::synth_axi_remap_out_r_chan_t;
+  localparam type         axi_secd_req_t         = secure_subsystem_synth_astral_pkg::synth_axi_remap_out_req_t;
+  localparam type         axi_secd_resp_t        = secure_subsystem_synth_astral_pkg::synth_axi_remap_out_resp_t;
 
   // AXILITE parameters
   localparam int unsigned AXI_LITE_AW       = 32;
@@ -488,8 +488,8 @@ module al_saqr
         .NUM_GPIO          ( NUM_GPIO                ),
         .JtagEnable        ( JtagEnable              ),
         .AXI_USER_WIDTH    ( AXI_USER_WIDTH          ),
-        .axi_req_t         ( tlul2axi_pkg::mst_req_t ),
-        .axi_rsp_t         ( tlul2axi_pkg::mst_rsp_t )
+        .axi_req_t         ( axi_secd_req_t          ),
+        .axi_rsp_t         ( axi_secd_resp_t         )
     ) i_host_domain (
       .rst_ni(s_rst_ni),
       .rtc_i(s_rtc_i),
