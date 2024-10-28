@@ -891,8 +891,8 @@ module cva6_subsystem
       .axi_lite_req_t ( ariane_axi_soc::req_lite_t    ),
       .axi_lite_rsp_t ( ariane_axi_soc::resp_lite_t   )
   ) i_snooper (
-      .clk_i              ( clk_i                ),
-      .rst_ni             ( rst_ni               ),
+      .clk_i              ( cva6_clk_i           ),
+      .rst_ni             ( cva6_rst_ni          ),
       .axi_lite_cfg_req_i ( axi_lite_snoop_req_i ),
       .axi_lite_cfg_rsp_o ( axi_lite_snoop_rsp_o ),
       .axi_sw_req_i       ( axi_snoop_req        ),
