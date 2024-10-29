@@ -53,7 +53,7 @@ module cva6_subsystem
   output logic             dm_rst_o,
   input  logic [31*4-1:0]  udma_events_i,
   input  logic             c2h_irq_i,
-  input  logic             gpio_irq_i,
+  input  logic [NUM_GPIO-1:0] gpio_irq_i,
   input  logic             cluster_eoc_i,
   input  logic [N_CAN-1:0] can_irq_i,
   input  logic [NUM_ADV_TIMER-1 : 0] pwm_irq_i,
@@ -680,7 +680,7 @@ module cva6_subsystem
     end_addr:   ariane_soc::UARTBase     + ariane_soc::UARTLength
   };
 
-  assign addr_map[ariane_soc::SDMA_CFG] = '{ 
+  assign addr_map[ariane_soc::SDMA_CFG] = '{
     idx:        ariane_soc::SDMA_CFG,
     start_addr: ariane_soc::SDMABase,
     end_addr:   ariane_soc::SDMABase + ariane_soc::SDMALength
@@ -692,7 +692,7 @@ module cva6_subsystem
     end_addr:   ariane_soc::IOMMUBase + ariane_soc::IOMMULength
   };
 
-  assign addr_map[ariane_soc::MDMA_CFG] = '{ 
+  assign addr_map[ariane_soc::MDMA_CFG] = '{
     idx:        ariane_soc::MDMA_CFG,
     start_addr: ariane_soc::MDMABase,
     end_addr:   ariane_soc::MDMABase + ariane_soc::MDMALength
@@ -801,7 +801,7 @@ module cva6_subsystem
   // ---------------
   logic tx, rx;
   logic [ariane_soc::NumCVA6-1:0][ariane_pkg::NrIntpFiles-1:0]    irqs;
-  imsic_pkg::csr_channel_to_imsic_t   [ariane_soc::NumCVA6-1:0]   ch_csr_to_imsic; 
+  imsic_pkg::csr_channel_to_imsic_t   [ariane_soc::NumCVA6-1:0]   ch_csr_to_imsic;
   imsic_pkg::csr_channel_from_imsic_t [ariane_soc::NumCVA6-1:0]   ch_imsic_to_csr;
 
   ariane_peripherals #(
