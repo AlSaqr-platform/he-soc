@@ -17,7 +17,6 @@ dependencies:
   ace: { git: "https://github.com/pulp-platform/ace.git", rev: "06180ec96531d38dc0c1c2b244bad621c5fe73a5" }
   riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0  }
   axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.39.1-beta }
-  # axi_llc: { git: "https://github.com/AlSaqr-platform/axi_llc.git", rev: "29fd76fb438c91c692108c1f93ab221931653c5d" }
   fpnew: { git: "https://github.com/pulp-platform/cvfpu.git", rev: pulp-v0.1.3 }
   tcdm_interconnect: { git: "https://github.com/pulp-platform/cluster_interconnect.git", version: "1.1.2" }
   apb: { git: "https://github.com/pulp-platform/apb.git", version: 0.2.1 }
@@ -33,7 +32,7 @@ dependencies:
   common_cells: { git: "https://github.com/pulp-platform/common_cells.git", version: 1.30.0 }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", rev: "d436ab3dad8260eadc1288bdc543c79b4d7462c7" }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "0e9f142f2f11278445c953ad011fce1c7ed85b66" }
-  hyperbus_udma: { git: "git@github.com:AlSaqr-platform/hyper_bus.git", rev: "4790e00c5fc1f0b8eb46a191a6bd7e814f3b8e76" }
+  hyperbus_udma: { git: "git@github.com:AlSaqr-platform/hyper_bus.git", rev: "2dbb753ecfcf9dd424e4a8b3130b9f552c272abb" }
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", version: 1.0.1 }
   register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
@@ -50,10 +49,9 @@ dependencies:
   idma: { git: "git@github.com:alsaqr-platform/iDMA.git", rev: "eb2433c3a" } # branch: mc/zdl/exp-path
   # APMU_BLOCK START: Branch: uw/pmu
   ibex_pmu: { git: "git@github.com:alsaqr-platform/ibex.git", version: "1.0.1" }
-  # axi_llc: { git: "git@github.com:AlSaqr-platform/axi_llc.git", version: "1.0.0" }
-  axi_llc: { git: "git@github.com:alsaqr-platform/axi_llc.git", rev: "uw/pmu" }
+  axi_llc: { git: "git@github.com:alsaqr-platform/axi_llc.git", rev: "8fa5d302f7407d9582630bcc3fb07f4f3c08f2c0" } #branch: uw/plru_paritioning
   spu: { git: "git@github.com:alsaqr-platform/spu.git", rev: "1b3a40aa4103064896bdcce2915845219962dcc3" } #branch: mc/ace-support
-  apmu: { git: "git@github.com:alsaqr-platform/apmu.git", version: "1.6.0" }
+  apmu: { git: "git@github.com:alsaqr-platform/apmu.git", rev: "7e8929099343760e63c990973da5d14cb16ac074" } #branch: mc/fixes
 
 workspace:
   package_links:

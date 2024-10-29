@@ -178,7 +178,7 @@ module axi_lite_subsystem
 
   localparam axi_pkg::xbar_cfg_t FromHostTlbCfgXbarCfg = '{
     NoSlvPorts:  2,
-    NoMstPorts:  6,
+    NoMstPorts:  7,
     MaxMstTrans: 2,
     MaxSlvTrans: 5,
     FallThrough: 0,
@@ -189,11 +189,12 @@ module axi_lite_subsystem
     UniqueIds   : 0,
     AxiAddrWidth: AXI_LITE_ADDR_WIDTH,
     AxiDataWidth: AXI_LITE_DATA_WIDTH,
-    NoAddrRules: 5
+    NoAddrRules: 7
   };
 
   localparam tlb_cfg_xbar_rule_t [FromHostTlbCfgXbarCfg.NoAddrRules-1:0]
       FromHostTlbCfgXbarAddrMap = '{
+    '{idx: 32'd6, start_addr: 32'h1060_5000, end_addr: 32'h1060_6000},  // Snooper
     '{idx: 32'd5, start_addr: 32'h1040_5000, end_addr: 32'h1060_5000},  // APMU IP
     '{idx: 32'd4, start_addr: 32'h1040_4000, end_addr: 32'h1040_5000},
     '{idx: 32'd3, start_addr: 32'h1040_3000, end_addr: 32'h1040_4000},
@@ -218,8 +219,8 @@ module axi_lite_subsystem
      .test_i                ( 1'b0                                                ),
      .slv_ports_req_i       ( {cluster_lite_req , host_lite_req }                 ),
      .slv_ports_resp_o      ( {cluster_lite_resp, host_lite_resp}                 ),
-     .mst_ports_req_o       ( { apmu_cfg_req, axi_lite_mbox_req, c2hmailbox_lite_req,  h2cmailbox_lite_req,  llc_cfg_req,  c2h_tlb_cfg_req } ),
-     .mst_ports_resp_i      ( { apmu_cfg_resp, axi_lite_mbox_rsp, c2hmailbox_lite_resp, h2cmailbox_lite_resp, llc_cfg_resp, c2h_tlb_cfg_resp } ),
+     .mst_ports_req_o       ( { axi_lite_snoop_req_o, apmu_cfg_req,  axi_lite_mbox_req, c2hmailbox_lite_req,  h2cmailbox_lite_req,  llc_cfg_req,  c2h_tlb_cfg_req } ),
+     .mst_ports_resp_i      ( { axi_lite_snoop_rsp_i, apmu_cfg_resp, axi_lite_mbox_rsp, c2hmailbox_lite_resp, h2cmailbox_lite_resp, llc_cfg_resp, c2h_tlb_cfg_resp } ),
      .addr_map_i            ( FromHostTlbCfgXbarAddrMap                           ),
      .en_default_mst_port_i ( {1'b0, 1'b0}                                        ),
      .default_mst_port_i    ( '0                                                  )
@@ -245,7 +246,7 @@ module axi_lite_subsystem
 
   localparam tlb_cfg_xbar_rule_t [FromHostTlbCfgXbarCfg.NoAddrRules-1:0]
       FromHostTlbCfgXbarAddrMap = '{
-    '{idx: 32'd5, start_addr: 32'h1040_5000, end_addr: 32'h1040_6000},
+    '{idx: 32'd5, start_addr: 32'h1060_5000, end_addr: 32'h1060_6000}, // Snooper
     '{idx: 32'd4, start_addr: 32'h1040_4000, end_addr: 32'h1040_5000},
     '{idx: 32'd3, start_addr: 32'h1040_3000, end_addr: 32'h1040_4000},
     '{idx: 32'd2, start_addr: 32'h1040_2000, end_addr: 32'h1040_3000},
