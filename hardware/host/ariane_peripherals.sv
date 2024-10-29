@@ -57,12 +57,12 @@ module ariane_peripherals
 
     // IMSIC
     AXI_BUS.Slave                                             imsic            ,
-    input  imsic_pkg::csr_channel_to_imsic_t   [NumCVA6-1:0]  imsic_csr_i      , 
+    input  imsic_pkg::csr_channel_to_imsic_t   [NumCVA6-1:0]  imsic_csr_i      ,
     output imsic_pkg::csr_channel_from_imsic_t [NumCVA6-1:0]  imsic_csr_o      ,
     output logic [NumCVA6-1:0][ariane_soc::NrIntpFiles-1:0]   irq_o            ,
     input  logic [31*4-1:0]                                   udma_evt_i       ,
     input  logic                                              c2h_irq_i        ,
-    input  logic                                              gpio_irq_i       ,
+    input  logic [NUM_GPIO-1:0]                               gpio_irq_i       ,
     input  logic                                              cluster_eoc_i    ,
     input  logic [N_CAN-1:0]                                  can_irq_i        ,
     input  logic [NUM_ADV_TIMER-1:0]                          pwm_irq_i        ,
@@ -118,7 +118,6 @@ module ariane_peripherals
     assign irq_sources[7]                            = c2h_irq_i;
     assign irq_sources[8]                            = cluster_eoc_i;
     assign irq_sources[9]                            = irq_mbox_i;
-    assign irq_sources[10]                           = gpio_irq_i;
     assign irq_sources[11]                           = cfi_watermark_irq_i;
     assign irq_sources[14:12]                        = '0; // reserved for future use
     assign irq_sources[138:15]                       = udma_evt_i[123:0];
@@ -136,7 +135,14 @@ module ariane_peripherals
     assign irq_sources[148]                          = pwm_irq_i[6];
     assign irq_sources[149]                          = pwm_irq_i[7];
 
-    assign irq_sources[ariane_soc::NumSources-1:155] = '0;
+    genvar i;
+    generate
+        for (i = 0; i < 64; i = i + 1) begin : irq_assignment
+            assign irq_sources[155 + i] = gpio_irq_i[i];
+        end
+    endgenerate
+
+    assign irq_sources[ariane_soc::NumSources-1:219] = '0;
 
     ////////////////////////////////////////////////////////////////////
     /// Global Ideia
@@ -169,7 +175,7 @@ module ariane_peripherals
 
     `AXI_ASSIGN_TO_REQ(aplic_cfg_req, aplic_cfg_cut)
     `AXI_ASSIGN_FROM_RESP(aplic_cfg_cut, aplic_cfg_rsp)
-    
+
     ////////////////////////////////////////////////////////////////////
     ////////////////  AXI Cut <==> AXI2APB
     ////////////////////////////////////////////////////////////////////
@@ -291,7 +297,7 @@ module ariane_peripherals
     ////////////////////////////////////////////////////////////////////
     ariane_axi_soc::req_slv_t    lite_msi_req;
     ariane_axi_soc::resp_slv_t   lite_msi_resp;
-    
+
     `AXI_ASSIGN_TO_REQ(lite_msi_req, imsic)
     `AXI_ASSIGN_FROM_RESP(imsic, lite_msi_resp)
     ////////////////////////////////////////////////////////////////////
@@ -560,7 +566,7 @@ module ariane_peripherals
         logic                      eth_txctl, eth_rxctl;
         logic                      eth_rstn;
         logic                      eth_md_i, eth_md_o, eth_md_oe, eth_mdc;
-        
+
         // should move to a configuration file
         localparam int unsigned NumAxInFlight    = 32'd9;
         localparam int unsigned BufferDepth      = 32'd3;
@@ -594,7 +600,7 @@ module ariane_peripherals
 
         `AXI_ASSIGN_FROM_REQ( eth_idma,axi_req_o  )
         `AXI_ASSIGN_TO_RESP( axi_rsp_i, eth_idma )
-      
+
         assign eth_rxd[3] = pad_to_eth.eth_rxd3_i;
         assign eth_rxd[2] = pad_to_eth.eth_rxd2_i;
         assign eth_rxd[1] = pad_to_eth.eth_rxd1_i;
@@ -619,7 +625,7 @@ module ariane_peripherals
             .AxiDataWidth ( AxiDataWidth           ),
             .AxiIdWidth   ( AxiIdWidth             ),
             .AxiUserWidth ( AxiUserWidth           ),
-            .RegDataWidth ( 32                     ), 
+            .RegDataWidth ( 32                     ),
             .axi_req_t    ( ariane_axi_soc::req_t  ),
             .axi_rsp_t    ( ariane_axi_soc::resp_t ),
             .reg_req_t    ( reg_bus_req_t          ),
@@ -627,16 +633,16 @@ module ariane_peripherals
         ) i_axi_to_reg (
             .clk_i       ( clk_i       ),
             .rst_ni      ( rst_ni      ),
-            .axi_req_i   ( axi_req_i   ), 
-            .axi_rsp_o   ( axi_rsp_o   ), 
+            .axi_req_i   ( axi_req_i   ),
+            .axi_rsp_o   ( axi_rsp_o   ),
             .reg_req_o   ( reg_req     ),
             .reg_rsp_i   ( reg_rsp     ),
             .reg_id_o    (             ),
             .busy_o      (             )
         );
-        
+
         eth_idma_wrap#(
-          .DataWidth           ( AxiDataWidth           ),    
+          .DataWidth           ( AxiDataWidth           ),
           .AddrWidth           ( AxiAddrWidth           ),
           .UserWidth           ( AxiUserWidth           ),
           .AxiIdWidth          ( AxiIdWidth             ),
@@ -663,13 +669,13 @@ module ariane_peripherals
           .phy_tx_clk_o        ( eth_txck               ),
           .phy_txd_o           ( eth_txd                ),
           .phy_tx_ctl_o        ( eth_txctl              ),
-          .phy_resetn_o        ( eth_rstn               ),  
+          .phy_resetn_o        ( eth_rstn               ),
           .phy_intn_i          ( 1'b1                   ),
           .phy_pme_i           ( 1'b1                   ),
           .phy_mdio_i          ( eth_md_i               ),
           .phy_mdio_o          ( eth_md_o               ),
           .phy_mdio_oe         ( eth_md_oe              ),
-          .phy_mdc_o           ( eth_mdc                ), 
+          .phy_mdc_o           ( eth_mdc                ),
           .testmode_i          ( 1'b0                   ),
           .axi_req_o           ( axi_req_o              ),
           .axi_rsp_i           ( axi_rsp_i              ),
@@ -1264,7 +1270,7 @@ module ariane_peripherals
     end
 
 	  // ---------------
-    //  No M-mode DMA 
+    //  No M-mode DMA
     // ---------------
 	  //
 	  // When no DMA engine is included, IOPMP Receiver Port xVALID/xREADY wires are set to zero

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/* 
+/*
  * Mantainer: Victor Isachi (victor.isachi@unibo.it)
  */
 
@@ -52,26 +52,43 @@
 
 #define VERBOSE 1
 
-uint32_t irq_configure ( uint32_t number, uint32_t irq_en){
-  uint32_t address;
-  uint32_t gpio_inten;
-  if(number < 32){
-    address = ARCHI_GPIO_ADDR + GPIO_INTEN_OFFSET;
-    gpio_inten = pulp_read32(address);
-    //--- enable GPIO
-    //printf("GPIO_INTEN RD: %x\n",gpio_inten);
-    gpio_inten |= (1 << number);
-    //printf("GPIO_INTEN WR: %x\n",gpio_inten); 
-    pulp_write32(address, gpio_inten); 
-  } else {
-    address = ARCHI_GPIO_ADDR + GPIO_INTEN_32_63_OFFSET;
-    gpio_inten = pulp_read32(address);
-    //--- enable GPIO
-    //printf("GPIO_INTEN RD: %x\n",gpio_inten);
-    gpioen |= (1 << (number-32));
-    //printf("GPIO_INTEN WR: %x\n",gpio_inten);  
-    pulp_write32(address, gpioen);
-  }
+uint32_t irq_configure(uint32_t number, uint32_t irq_en){
+    uint32_t address;
+    uint32_t gpio_inten;
+    uint32_t gpio_inttype;
+
+      if(number < 32){
+        // Interrupt Enable Register for GPIO 0-31
+        address = ARCHI_GPIO_ADDR + GPIO_INTEN_OFFSET;
+        gpio_inten = pulp_read32(address);
+        if (irq_en)
+            gpio_inten |= (1 << number);
+        else
+            gpio_inten &= ~(1 << number);
+        pulp_write32(address, gpio_inten);
+        // Interrupt Type Register for GPIO 0-31
+        address = ARCHI_GPIO_ADDR + GPIO_INTTYPE_OFFSET;
+        gpio_inttype = pulp_read32(address);
+        // Set inttype to 10 (binary)
+        gpio_inttype |= (0x2 << (number * 2));
+        pulp_write32(address, gpio_inttype);
+    } else {
+        // Interrupt Enable Register for GPIO 32-63
+        address = ARCHI_GPIO_ADDR + GPIO_INTEN_32_63_OFFSET;
+        gpio_inten = pulp_read32(address);
+        if (irq_en)
+            gpio_inten |= (1 << (number - 32));
+        else
+            gpio_inten &= ~(1 << (number - 32));
+        pulp_write32(address, gpio_inten);
+        // Interrupt Type Register for GPIO 32-63
+        address = ARCHI_GPIO_ADDR + GPIO_INTTYPE_32_63_OFFSET;
+        gpio_inttype = pulp_read32(address);
+        // Set inttype to 10 (binary)
+        gpio_inttype |= (0x2 << ((number - 32) * 2));
+        pulp_write32(address, gpio_inttype);
+    }
+    return 0;
 }
 
 uint32_t configure_gpio(uint32_t number, uint32_t direction){
@@ -86,7 +103,7 @@ uint32_t configure_gpio(uint32_t number, uint32_t direction){
       //--- enable GPIO
       //printf("GPIOEN RD: %x\n",gpioen);
       gpioen |= (1 << number);
-      //printf("GPIOEN WR: %x\n",gpioen); 
+      //printf("GPIOEN WR: %x\n",gpioen);
       pulp_write32(address, gpioen);
       //--- set direction
       address = ARCHI_GPIO_ADDR + GPIO_PADDIR_OFFSET;
@@ -95,13 +112,13 @@ uint32_t configure_gpio(uint32_t number, uint32_t direction){
       dir &= ~(1 << number);
       //printf("GPIODIR WR: %x\n",dir);
       pulp_write32(address, dir);
-    }else if (direction == OUT){ 
+    }else if (direction == OUT){
       address = ARCHI_GPIO_ADDR + GPIO_GPIOEN_OFFSET;
       gpioen = pulp_read32(address);
       //--- enable GPIO
       //printf("GPIOEN RD: %x\n",gpioen);
       gpioen |= (1 << number);
-      //printf("GPIOEN WR: %x\n",gpioen); 
+      //printf("GPIOEN WR: %x\n",gpioen);
       pulp_write32(address, gpioen);
       //--- set direction
       address = ARCHI_GPIO_ADDR + GPIO_PADDIR_OFFSET;
@@ -118,7 +135,7 @@ uint32_t configure_gpio(uint32_t number, uint32_t direction){
       //--- enable GPIO
       //printf("GPIOEN RD: %x\n",gpioen);
       gpioen |= (1 << (number-32));
-      //printf("GPIOEN WR: %x\n",gpioen); 
+      //printf("GPIOEN WR: %x\n",gpioen);
       pulp_write32(address, gpioen);
       //--- set direction
       address = ARCHI_GPIO_ADDR + GPIO_PADDIR_32_63_OFFSET;
@@ -133,7 +150,7 @@ uint32_t configure_gpio(uint32_t number, uint32_t direction){
       //--- enable GPIO
       //printf("GPIOEN RD: %x\n",gpioen);
       gpioen |= (1 << (number-32));
-      //printf("GPIOEN WR: %x\n",gpioen); 
+      //printf("GPIOEN WR: %x\n",gpioen);
       pulp_write32(address, gpioen);
       //--- set direction
       address = ARCHI_GPIO_ADDR + GPIO_PADDIR_32_63_OFFSET;
@@ -186,7 +203,7 @@ uint32_t get_gpio(uint32_t number){
     address = ARCHI_GPIO_ADDR + GPIO_PADIN_32_63_OFFSET;
     value_rd = pulp_read32(address);
     bit= 0x1 & (value_rd>>(number%32));
-  }  
+  }
   //printf("GPIO %d: HEX:%x Bit:%d \n",number,value_rd,bit);
   return bit;
 }
@@ -200,15 +217,15 @@ int main() {
   set_flls();
   int baud_rate = 115200;
   int test_freq = 100000000;
-  #endif  
+  #endif
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
-  
+
   uint32_t error;
   uint32_t gpio_val;
   uint32_t address;
 
   error=0;
-  
+
   for (int v = 0; v < NUM_REPS; v++){
     #ifdef FPGA_EMULATION
       alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 1 );
@@ -243,7 +260,7 @@ int main() {
         alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 1 );
       #else
         switch(v){
-          // pad_a GPIOs 
+          // pad_a GPIOs
           case 0:
             alsaqr_periph_padframe_periphs_a_00_mux_set(2);
             alsaqr_periph_padframe_periphs_a_01_mux_set(2);
@@ -275,7 +292,7 @@ int main() {
             alsaqr_periph_padframe_periphs_a_27_mux_set(3);
             alsaqr_periph_padframe_periphs_a_28_mux_set(3);
             alsaqr_periph_padframe_periphs_a_29_mux_set(3);
-            
+
             alsaqr_periph_padframe_periphs_b_00_mux_set(0);
             alsaqr_periph_padframe_periphs_b_01_mux_set(0);
             alsaqr_periph_padframe_periphs_b_02_mux_set(0);
@@ -357,7 +374,7 @@ int main() {
             alsaqr_periph_padframe_periphs_a_27_mux_set(0);
             alsaqr_periph_padframe_periphs_a_28_mux_set(0);
             alsaqr_periph_padframe_periphs_a_29_mux_set(0);
-            
+
             alsaqr_periph_padframe_periphs_b_00_mux_set(1);
             alsaqr_periph_padframe_periphs_b_01_mux_set(1);
             alsaqr_periph_padframe_periphs_b_02_mux_set(1);
@@ -408,8 +425,13 @@ int main() {
             alsaqr_periph_padframe_periphs_b_47_mux_set(2);
             break;
         }
-      #endif    
+      #endif
     #endif
+
+    uint32_t gpio_irq_id[64];
+    for(uint32_t i = 0; i < total_gpios; i++) {
+        gpio_irq_id[i] = 101 + i;
+    }
 
     switch(v){
       // pad_a GPIOs
@@ -429,14 +451,6 @@ int main() {
 
         printf("Start pad_a GPIOs...\n");
 
-    //     // Insert wfi before starting the main test loop
-    // printf("Waiting for GPIO interrupt...\n");
-
-    // asm volatile ("wfi");  // Wait for interrupt
-
-    // printf("Interrupt detected, resuming test...\n");
-
-    
         gpio_val=1;
         for (int j = 0; j < 10; j++){
           for(int i = 0; i < NUM_GPIOS_A/2; i++) {

@@ -215,7 +215,7 @@ module host_domain
    logic [N_CAN-1:0]                     s_can_irq;
    logic [NUM_ADV_TIMER-1 : 0]           s_pwm_irq;
    logic                                 s_c2h_irq;
-   logic                                 s_gpio_irq;
+   logic [NUM_GPIO-1:0]                  s_gpio_irq;
 
    logic                                 s_llc_read_hit_cache;
    logic                                 s_llc_read_miss_cache;
