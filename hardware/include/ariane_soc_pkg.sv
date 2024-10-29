@@ -118,7 +118,7 @@ package ariane_soc;
   localparam logic[63:0] IOMMULength    = 64'h1000;
   localparam logic[63:0] MDMALength     = 64'h1000;  
   localparam logic[63:0] IOPMPLength    = 64'h4000;
-  localparam logic[63:0] AXILiteLength  = 64'h100000; // Same on cluster side
+  localparam logic[63:0] AXILiteLength  = 64'h300000; // Same on cluster side
   localparam logic[63:0] CLINTLength    = 64'hC0000;
   localparam logic[63:0] PLICLength     = 64'h3FF_FFFF;
   localparam logic[63:0] ClusterLength  = 64'h400000;
