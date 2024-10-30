@@ -464,28 +464,6 @@ module cva6_subsystem
   // ---------------
   // AXI OpenTitan Master
   // ---------------
-/*
-  axi_id_remap #(
-    .AxiSlvPortIdWidth    ( 8 ),
-    .AxiSlvPortMaxUniqIds ( 4 ),
-    .AxiMaxTxnsPerId      ( 4 ),
-    .AxiMstPortIdWidth    ( 4 ),
-    .slv_req_t            ( axi_req_t ),
-    .slv_resp_t           ( axi_rsp_t ),
-    .mst_req_t            ( ariane_axi_soc::req_t  ),
-    .mst_resp_t           ( ariane_axi_soc::resp_t )
-  ) ot_id_remap (
-    .clk_i      ( clk_i         ),
-    .rst_ni     ( rst_ni        ),
-    .slv_req_i  ( ot_axi_req    ),
-    .slv_resp_o ( ot_axi_rsp    ),
-    .mst_req_o  ( ot_axi_id_req ),
-    .mst_resp_i ( ot_axi_id_rsp )
-  );
-  `AXI_ASSIGN_FROM_REQ(slave[ariane_soc::ROT], ot_axi_id_req)
-  `AXI_ASSIGN_TO_RESP (ot_axi_id_rsp, slave[ariane_soc::ROT])
-*/
-
 
   `AXI_ASSIGN_FROM_REQ(slave[ariane_soc::ROT], ot_axi_req)
   `AXI_ASSIGN_TO_RESP (ot_axi_rsp, slave[ariane_soc::ROT])
