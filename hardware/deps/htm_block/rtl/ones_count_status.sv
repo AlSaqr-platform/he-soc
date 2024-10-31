@@ -30,9 +30,10 @@ logic reset_counter;
 	calculate	 <= 1'b0;
     end
     else begin
-	reset_counter	<= sdr_start & ~sdr_start_d;
+//	reset_counter	<= sdr_start & ~sdr_start_d;
+	reset_counter	<= sdr_start ;
 	calculate	<= reset_counter;
-	sdr_start_d	<= sdr_start;
+//	sdr_start_d	<= sdr_start;
 	if (reset_counter) begin
 		ones_sdr_reg	<= 32'h0;
 		ones_total_value <= 32'h0;

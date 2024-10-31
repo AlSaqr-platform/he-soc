@@ -127,9 +127,9 @@ module sdr_control_fsm (
            	SHIFT_DATA_st:
            	begin
 	                 shift_counter_rst       <= 1'b0;
-			 if (shift_counter_cnt_dn)
-				shift_counter_en        <= 1'b0;
-			 else
+			 //if (shift_counter_cnt_dn)
+				//shift_counter_en        <= 1'b0;
+			 //else
        		         	shift_counter_en        <= 1'b1;
        		         fifo_rready_i           <= 1'b0;
        		         sdr_indexes_counter_rst <= 1'b1;

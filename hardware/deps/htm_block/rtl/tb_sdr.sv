@@ -53,15 +53,18 @@ initial begin
 	#1us
 	rst_ni = 1'b1;
 	#1us
-	sdr_control= 32'h1;
+	//sdr_control= 32'h1;
+	sdr_control= 32'h8000_0000;
 	#1us
 	sdr_control= 32'h0;
 	#15us
-	sdr_control= 32'h1;
+	//sdr_control= 32'h1;
+	sdr_control= 32'h8000_0000;
 	#1us
 	sdr_control= 32'h0;
 	#20us
-	sdr_control= 32'h1;
+	//sdr_control= 32'h1;
+	sdr_control= 32'h8000_0000;
 	#200ns
 	sdr_control= 32'h0;
 end
@@ -167,9 +170,9 @@ initial begin
 	my_sdr_union.my_sdr_union.sdr_reg[30] = { 32'hC000_0003};
 	my_sdr_union.sdr_reg[31] = { 32'hE000_0000 };
 */
-        @(posedge sdr_control);
+        @(posedge sdr_control[31]);
 total_ones_tb_print();
-        @(negedge sdr_control);
+        @(negedge sdr_control[31]);
 	wait (	sdr_status[31] == 1'b1) ;
 compare_indexes();
 	#8us
@@ -208,9 +211,9 @@ compare_indexes();
 	my_sdr_union.sdr_reg[29] = { 32'h0};
 	my_sdr_union.sdr_reg[30] = { 32'h0000_0000};
 	my_sdr_union.sdr_reg[31] = { 32'h1000_0000 };
-        @(posedge sdr_control);
+        @(posedge sdr_control[31]);
 total_ones_tb_print();
-	@(negedge sdr_control);
+	@(negedge sdr_control[31]);
 	wait (	sdr_status[31] == 1'b1) ;
 	compare_indexes();
 
@@ -250,9 +253,9 @@ total_ones_tb_print();
 	my_sdr_union.sdr_reg[29] = { 32'hFF};
 	my_sdr_union.sdr_reg[30] = { 32'hC000_0003};
 	my_sdr_union.sdr_reg[31] = { 32'hE000_0000 };
-        @(posedge sdr_control);
+        @(posedge sdr_control[31]);
 total_ones_tb_print();
-    	@(negedge sdr_control); 
+    	@(negedge sdr_control[31]); 
 	wait (	sdr_status[31] == 1'b1) ;
 	compare_indexes();
 

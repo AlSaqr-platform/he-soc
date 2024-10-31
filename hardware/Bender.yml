@@ -103,6 +103,7 @@ sources:
   - deps/htm_block/rtl/sdr_counter.sv
   - deps/htm_block/rtl/fifo_indexes_output_prioriy_encoder.sv
   - deps/htm_block/rtl/sdr_module.sv
+  - deps/htm_block/rtl/htm_reg_adaptor.sv
   - deps/htm_block/rtl/htm_block.sv
   - host/periph_bus_wrap.sv
   - host/freqmeter.sv
