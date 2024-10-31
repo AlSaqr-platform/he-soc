@@ -7,7 +7,7 @@
 package htm_block_reg_pkg;
 
   // Address widths within the block
-  parameter int BlockAw = 8;
+  parameter int BlockAw = 10;
 
   ////////////////////////////
   // Typedefs for registers //
@@ -20,7 +20,7 @@ package htm_block_reg_pkg;
     struct packed {
       logic [30:0] q;
     } unused;
-  } htm_block_reg2hw_sdr_control_reg_reg_t;
+  } htm_block_reg2hw_sdr_0_control_reg_reg_t;
 
   typedef struct packed {
     struct packed {
@@ -41,7 +41,7 @@ package htm_block_reg_pkg;
     struct packed {
       logic        q;
     } done;
-  } htm_block_reg2hw_sdr_status_reg_reg_t;
+  } htm_block_reg2hw_sdr_0_status_reg_reg_t;
 
   typedef struct packed {
     logic [31:0] q;
@@ -173,67 +173,733 @@ package htm_block_reg_pkg;
 
   typedef struct packed {
     logic [31:0] q;
-  } htm_block_reg2hw_sdr_index_0_0_reg_t;
+  } htm_block_reg2hw_sdr_0_index_0_reg_t;
 
   typedef struct packed {
     logic [31:0] q;
-  } htm_block_reg2hw_sdr_index_0_1_reg_t;
+  } htm_block_reg2hw_sdr_0_index_1_reg_t;
 
   typedef struct packed {
     logic [31:0] q;
-  } htm_block_reg2hw_sdr_index_0_2_reg_t;
+  } htm_block_reg2hw_sdr_0_index_2_reg_t;
 
   typedef struct packed {
     logic [31:0] q;
-  } htm_block_reg2hw_sdr_index_0_3_reg_t;
+  } htm_block_reg2hw_sdr_0_index_3_reg_t;
 
   typedef struct packed {
     logic [31:0] q;
-  } htm_block_reg2hw_sdr_index_0_4_reg_t;
+  } htm_block_reg2hw_sdr_0_index_4_reg_t;
 
   typedef struct packed {
     logic [31:0] q;
-  } htm_block_reg2hw_sdr_index_0_5_reg_t;
+  } htm_block_reg2hw_sdr_0_index_5_reg_t;
 
   typedef struct packed {
     logic [31:0] q;
-  } htm_block_reg2hw_sdr_index_0_6_reg_t;
+  } htm_block_reg2hw_sdr_0_index_6_reg_t;
 
   typedef struct packed {
     logic [31:0] q;
-  } htm_block_reg2hw_sdr_index_0_7_reg_t;
+  } htm_block_reg2hw_sdr_0_index_7_reg_t;
 
   typedef struct packed {
     logic [31:0] q;
-  } htm_block_reg2hw_sdr_index_0_8_reg_t;
+  } htm_block_reg2hw_sdr_0_index_8_reg_t;
 
   typedef struct packed {
     logic [31:0] q;
-  } htm_block_reg2hw_sdr_index_0_9_reg_t;
+  } htm_block_reg2hw_sdr_0_index_9_reg_t;
 
   typedef struct packed {
     logic [31:0] q;
-  } htm_block_reg2hw_sdr_index_0_10_reg_t;
+  } htm_block_reg2hw_sdr_0_index_10_reg_t;
 
   typedef struct packed {
     logic [31:0] q;
-  } htm_block_reg2hw_sdr_index_0_11_reg_t;
+  } htm_block_reg2hw_sdr_0_index_11_reg_t;
 
   typedef struct packed {
     logic [31:0] q;
-  } htm_block_reg2hw_sdr_index_0_12_reg_t;
+  } htm_block_reg2hw_sdr_0_index_12_reg_t;
 
   typedef struct packed {
     logic [31:0] q;
-  } htm_block_reg2hw_sdr_index_0_13_reg_t;
+  } htm_block_reg2hw_sdr_0_index_13_reg_t;
 
   typedef struct packed {
     logic [31:0] q;
-  } htm_block_reg2hw_sdr_index_0_14_reg_t;
+  } htm_block_reg2hw_sdr_0_index_14_reg_t;
 
   typedef struct packed {
     logic [31:0] q;
-  } htm_block_reg2hw_sdr_index_0_15_reg_t;
+  } htm_block_reg2hw_sdr_0_index_15_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } start;
+    struct packed {
+      logic [30:0] q;
+    } unused;
+  } htm_block_reg2hw_sdr_1_control_reg_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic [7:0]  q;
+    } number_of_indexes;
+    struct packed {
+      logic [16:0] q;
+    } number_of_ones;
+    struct packed {
+      logic [3:0]  q;
+    } unused;
+    struct packed {
+      logic        q;
+    } error_indexes_gt_32;
+    struct packed {
+      logic        q;
+    } error_fifo_full;
+    struct packed {
+      logic        q;
+    } done;
+  } htm_block_reg2hw_sdr_1_status_reg_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_0_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_1_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_2_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_3_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_4_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_5_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_6_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_7_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_8_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_9_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_10_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_11_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_12_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_13_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_14_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_15_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_16_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_17_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_18_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_19_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_20_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_21_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_22_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_23_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_24_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_25_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_26_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_27_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_28_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_29_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_30_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_31_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_index_0_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_index_1_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_index_2_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_index_3_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_index_4_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_index_5_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_index_6_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_index_7_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_index_8_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_index_9_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_index_10_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_index_11_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_index_12_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_index_13_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_index_14_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_1_index_15_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } start;
+    struct packed {
+      logic [30:0] q;
+    } unused;
+  } htm_block_reg2hw_sdr_2_control_reg_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic [7:0]  q;
+    } number_of_indexes;
+    struct packed {
+      logic [16:0] q;
+    } number_of_ones;
+    struct packed {
+      logic [3:0]  q;
+    } unused;
+    struct packed {
+      logic        q;
+    } error_indexes_gt_32;
+    struct packed {
+      logic        q;
+    } error_fifo_full;
+    struct packed {
+      logic        q;
+    } done;
+  } htm_block_reg2hw_sdr_2_status_reg_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_0_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_1_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_2_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_3_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_4_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_5_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_6_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_7_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_8_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_9_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_10_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_11_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_12_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_13_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_14_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_15_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_16_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_17_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_18_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_19_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_20_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_21_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_22_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_23_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_24_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_25_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_26_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_27_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_28_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_29_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_30_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_31_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_index_0_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_index_1_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_index_2_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_index_3_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_index_4_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_index_5_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_index_6_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_index_7_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_index_8_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_index_9_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_index_10_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_index_11_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_index_12_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_index_13_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_index_14_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_2_index_15_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        q;
+    } start;
+    struct packed {
+      logic [30:0] q;
+    } unused;
+  } htm_block_reg2hw_sdr_3_control_reg_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic [7:0]  q;
+    } number_of_indexes;
+    struct packed {
+      logic [16:0] q;
+    } number_of_ones;
+    struct packed {
+      logic [3:0]  q;
+    } unused;
+    struct packed {
+      logic        q;
+    } error_indexes_gt_32;
+    struct packed {
+      logic        q;
+    } error_fifo_full;
+    struct packed {
+      logic        q;
+    } done;
+  } htm_block_reg2hw_sdr_3_status_reg_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_0_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_1_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_2_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_3_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_4_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_5_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_6_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_7_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_8_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_9_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_10_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_11_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_12_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_13_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_14_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_15_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_16_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_17_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_18_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_19_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_20_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_21_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_22_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_23_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_24_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_25_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_26_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_27_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_28_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_29_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_30_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_31_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_index_0_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_index_1_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_index_2_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_index_3_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_index_4_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_index_5_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_index_6_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_index_7_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_index_8_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_index_9_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_index_10_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_index_11_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_index_12_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_index_13_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_index_14_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_3_index_15_reg_t;
 
   typedef struct packed {
     struct packed {
@@ -244,7 +910,7 @@ package htm_block_reg_pkg;
       logic [30:0] d;
       logic        de;
     } unused;
-  } htm_block_hw2reg_sdr_control_reg_reg_t;
+  } htm_block_hw2reg_sdr_0_control_reg_reg_t;
 
   typedef struct packed {
     struct packed {
@@ -271,220 +937,928 @@ package htm_block_reg_pkg;
       logic        d;
       logic        de;
     } done;
-  } htm_block_hw2reg_sdr_status_reg_reg_t;
+  } htm_block_hw2reg_sdr_0_status_reg_reg_t;
 
   typedef struct packed {
     logic [31:0] d;
     logic        de;
-  } htm_block_hw2reg_sdr_index_0_0_reg_t;
+  } htm_block_hw2reg_sdr_0_index_0_reg_t;
 
   typedef struct packed {
     logic [31:0] d;
     logic        de;
-  } htm_block_hw2reg_sdr_index_0_1_reg_t;
+  } htm_block_hw2reg_sdr_0_index_1_reg_t;
 
   typedef struct packed {
     logic [31:0] d;
     logic        de;
-  } htm_block_hw2reg_sdr_index_0_2_reg_t;
+  } htm_block_hw2reg_sdr_0_index_2_reg_t;
 
   typedef struct packed {
     logic [31:0] d;
     logic        de;
-  } htm_block_hw2reg_sdr_index_0_3_reg_t;
+  } htm_block_hw2reg_sdr_0_index_3_reg_t;
 
   typedef struct packed {
     logic [31:0] d;
     logic        de;
-  } htm_block_hw2reg_sdr_index_0_4_reg_t;
+  } htm_block_hw2reg_sdr_0_index_4_reg_t;
 
   typedef struct packed {
     logic [31:0] d;
     logic        de;
-  } htm_block_hw2reg_sdr_index_0_5_reg_t;
+  } htm_block_hw2reg_sdr_0_index_5_reg_t;
 
   typedef struct packed {
     logic [31:0] d;
     logic        de;
-  } htm_block_hw2reg_sdr_index_0_6_reg_t;
+  } htm_block_hw2reg_sdr_0_index_6_reg_t;
 
   typedef struct packed {
     logic [31:0] d;
     logic        de;
-  } htm_block_hw2reg_sdr_index_0_7_reg_t;
+  } htm_block_hw2reg_sdr_0_index_7_reg_t;
 
   typedef struct packed {
     logic [31:0] d;
     logic        de;
-  } htm_block_hw2reg_sdr_index_0_8_reg_t;
+  } htm_block_hw2reg_sdr_0_index_8_reg_t;
 
   typedef struct packed {
     logic [31:0] d;
     logic        de;
-  } htm_block_hw2reg_sdr_index_0_9_reg_t;
+  } htm_block_hw2reg_sdr_0_index_9_reg_t;
 
   typedef struct packed {
     logic [31:0] d;
     logic        de;
-  } htm_block_hw2reg_sdr_index_0_10_reg_t;
+  } htm_block_hw2reg_sdr_0_index_10_reg_t;
 
   typedef struct packed {
     logic [31:0] d;
     logic        de;
-  } htm_block_hw2reg_sdr_index_0_11_reg_t;
+  } htm_block_hw2reg_sdr_0_index_11_reg_t;
 
   typedef struct packed {
     logic [31:0] d;
     logic        de;
-  } htm_block_hw2reg_sdr_index_0_12_reg_t;
+  } htm_block_hw2reg_sdr_0_index_12_reg_t;
 
   typedef struct packed {
     logic [31:0] d;
     logic        de;
-  } htm_block_hw2reg_sdr_index_0_13_reg_t;
+  } htm_block_hw2reg_sdr_0_index_13_reg_t;
 
   typedef struct packed {
     logic [31:0] d;
     logic        de;
-  } htm_block_hw2reg_sdr_index_0_14_reg_t;
+  } htm_block_hw2reg_sdr_0_index_14_reg_t;
 
   typedef struct packed {
     logic [31:0] d;
     logic        de;
-  } htm_block_hw2reg_sdr_index_0_15_reg_t;
+  } htm_block_hw2reg_sdr_0_index_15_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        d;
+      logic        de;
+    } start;
+    struct packed {
+      logic [30:0] d;
+      logic        de;
+    } unused;
+  } htm_block_hw2reg_sdr_1_control_reg_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic [7:0]  d;
+      logic        de;
+    } number_of_indexes;
+    struct packed {
+      logic [16:0] d;
+      logic        de;
+    } number_of_ones;
+    struct packed {
+      logic [3:0]  d;
+      logic        de;
+    } unused;
+    struct packed {
+      logic        d;
+      logic        de;
+    } error_indexes_gt_32;
+    struct packed {
+      logic        d;
+      logic        de;
+    } error_fifo_full;
+    struct packed {
+      logic        d;
+      logic        de;
+    } done;
+  } htm_block_hw2reg_sdr_1_status_reg_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_1_index_0_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_1_index_1_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_1_index_2_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_1_index_3_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_1_index_4_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_1_index_5_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_1_index_6_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_1_index_7_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_1_index_8_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_1_index_9_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_1_index_10_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_1_index_11_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_1_index_12_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_1_index_13_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_1_index_14_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_1_index_15_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        d;
+      logic        de;
+    } start;
+    struct packed {
+      logic [30:0] d;
+      logic        de;
+    } unused;
+  } htm_block_hw2reg_sdr_2_control_reg_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic [7:0]  d;
+      logic        de;
+    } number_of_indexes;
+    struct packed {
+      logic [16:0] d;
+      logic        de;
+    } number_of_ones;
+    struct packed {
+      logic [3:0]  d;
+      logic        de;
+    } unused;
+    struct packed {
+      logic        d;
+      logic        de;
+    } error_indexes_gt_32;
+    struct packed {
+      logic        d;
+      logic        de;
+    } error_fifo_full;
+    struct packed {
+      logic        d;
+      logic        de;
+    } done;
+  } htm_block_hw2reg_sdr_2_status_reg_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_2_index_0_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_2_index_1_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_2_index_2_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_2_index_3_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_2_index_4_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_2_index_5_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_2_index_6_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_2_index_7_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_2_index_8_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_2_index_9_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_2_index_10_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_2_index_11_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_2_index_12_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_2_index_13_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_2_index_14_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_2_index_15_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic        d;
+      logic        de;
+    } start;
+    struct packed {
+      logic [30:0] d;
+      logic        de;
+    } unused;
+  } htm_block_hw2reg_sdr_3_control_reg_reg_t;
+
+  typedef struct packed {
+    struct packed {
+      logic [7:0]  d;
+      logic        de;
+    } number_of_indexes;
+    struct packed {
+      logic [16:0] d;
+      logic        de;
+    } number_of_ones;
+    struct packed {
+      logic [3:0]  d;
+      logic        de;
+    } unused;
+    struct packed {
+      logic        d;
+      logic        de;
+    } error_indexes_gt_32;
+    struct packed {
+      logic        d;
+      logic        de;
+    } error_fifo_full;
+    struct packed {
+      logic        d;
+      logic        de;
+    } done;
+  } htm_block_hw2reg_sdr_3_status_reg_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_3_index_0_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_3_index_1_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_3_index_2_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_3_index_3_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_3_index_4_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_3_index_5_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_3_index_6_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_3_index_7_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_3_index_8_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_3_index_9_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_3_index_10_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_3_index_11_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_3_index_12_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_3_index_13_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_3_index_14_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_3_index_15_reg_t;
 
   // Register -> HW type
   typedef struct packed {
-    htm_block_reg2hw_sdr_control_reg_reg_t sdr_control_reg; // [1599:1568]
-    htm_block_reg2hw_sdr_status_reg_reg_t sdr_status_reg; // [1567:1536]
-    htm_block_reg2hw_sdr_0_0_reg_t sdr_0_0; // [1535:1504]
-    htm_block_reg2hw_sdr_0_1_reg_t sdr_0_1; // [1503:1472]
-    htm_block_reg2hw_sdr_0_2_reg_t sdr_0_2; // [1471:1440]
-    htm_block_reg2hw_sdr_0_3_reg_t sdr_0_3; // [1439:1408]
-    htm_block_reg2hw_sdr_0_4_reg_t sdr_0_4; // [1407:1376]
-    htm_block_reg2hw_sdr_0_5_reg_t sdr_0_5; // [1375:1344]
-    htm_block_reg2hw_sdr_0_6_reg_t sdr_0_6; // [1343:1312]
-    htm_block_reg2hw_sdr_0_7_reg_t sdr_0_7; // [1311:1280]
-    htm_block_reg2hw_sdr_0_8_reg_t sdr_0_8; // [1279:1248]
-    htm_block_reg2hw_sdr_0_9_reg_t sdr_0_9; // [1247:1216]
-    htm_block_reg2hw_sdr_0_10_reg_t sdr_0_10; // [1215:1184]
-    htm_block_reg2hw_sdr_0_11_reg_t sdr_0_11; // [1183:1152]
-    htm_block_reg2hw_sdr_0_12_reg_t sdr_0_12; // [1151:1120]
-    htm_block_reg2hw_sdr_0_13_reg_t sdr_0_13; // [1119:1088]
-    htm_block_reg2hw_sdr_0_14_reg_t sdr_0_14; // [1087:1056]
-    htm_block_reg2hw_sdr_0_15_reg_t sdr_0_15; // [1055:1024]
-    htm_block_reg2hw_sdr_0_16_reg_t sdr_0_16; // [1023:992]
-    htm_block_reg2hw_sdr_0_17_reg_t sdr_0_17; // [991:960]
-    htm_block_reg2hw_sdr_0_18_reg_t sdr_0_18; // [959:928]
-    htm_block_reg2hw_sdr_0_19_reg_t sdr_0_19; // [927:896]
-    htm_block_reg2hw_sdr_0_20_reg_t sdr_0_20; // [895:864]
-    htm_block_reg2hw_sdr_0_21_reg_t sdr_0_21; // [863:832]
-    htm_block_reg2hw_sdr_0_22_reg_t sdr_0_22; // [831:800]
-    htm_block_reg2hw_sdr_0_23_reg_t sdr_0_23; // [799:768]
-    htm_block_reg2hw_sdr_0_24_reg_t sdr_0_24; // [767:736]
-    htm_block_reg2hw_sdr_0_25_reg_t sdr_0_25; // [735:704]
-    htm_block_reg2hw_sdr_0_26_reg_t sdr_0_26; // [703:672]
-    htm_block_reg2hw_sdr_0_27_reg_t sdr_0_27; // [671:640]
-    htm_block_reg2hw_sdr_0_28_reg_t sdr_0_28; // [639:608]
-    htm_block_reg2hw_sdr_0_29_reg_t sdr_0_29; // [607:576]
-    htm_block_reg2hw_sdr_0_30_reg_t sdr_0_30; // [575:544]
-    htm_block_reg2hw_sdr_0_31_reg_t sdr_0_31; // [543:512]
-    htm_block_reg2hw_sdr_index_0_0_reg_t sdr_index_0_0; // [511:480]
-    htm_block_reg2hw_sdr_index_0_1_reg_t sdr_index_0_1; // [479:448]
-    htm_block_reg2hw_sdr_index_0_2_reg_t sdr_index_0_2; // [447:416]
-    htm_block_reg2hw_sdr_index_0_3_reg_t sdr_index_0_3; // [415:384]
-    htm_block_reg2hw_sdr_index_0_4_reg_t sdr_index_0_4; // [383:352]
-    htm_block_reg2hw_sdr_index_0_5_reg_t sdr_index_0_5; // [351:320]
-    htm_block_reg2hw_sdr_index_0_6_reg_t sdr_index_0_6; // [319:288]
-    htm_block_reg2hw_sdr_index_0_7_reg_t sdr_index_0_7; // [287:256]
-    htm_block_reg2hw_sdr_index_0_8_reg_t sdr_index_0_8; // [255:224]
-    htm_block_reg2hw_sdr_index_0_9_reg_t sdr_index_0_9; // [223:192]
-    htm_block_reg2hw_sdr_index_0_10_reg_t sdr_index_0_10; // [191:160]
-    htm_block_reg2hw_sdr_index_0_11_reg_t sdr_index_0_11; // [159:128]
-    htm_block_reg2hw_sdr_index_0_12_reg_t sdr_index_0_12; // [127:96]
-    htm_block_reg2hw_sdr_index_0_13_reg_t sdr_index_0_13; // [95:64]
-    htm_block_reg2hw_sdr_index_0_14_reg_t sdr_index_0_14; // [63:32]
-    htm_block_reg2hw_sdr_index_0_15_reg_t sdr_index_0_15; // [31:0]
+    htm_block_reg2hw_sdr_0_control_reg_reg_t sdr_0_control_reg; // [6399:6368]
+    htm_block_reg2hw_sdr_0_status_reg_reg_t sdr_0_status_reg; // [6367:6336]
+    htm_block_reg2hw_sdr_0_0_reg_t sdr_0_0; // [6335:6304]
+    htm_block_reg2hw_sdr_0_1_reg_t sdr_0_1; // [6303:6272]
+    htm_block_reg2hw_sdr_0_2_reg_t sdr_0_2; // [6271:6240]
+    htm_block_reg2hw_sdr_0_3_reg_t sdr_0_3; // [6239:6208]
+    htm_block_reg2hw_sdr_0_4_reg_t sdr_0_4; // [6207:6176]
+    htm_block_reg2hw_sdr_0_5_reg_t sdr_0_5; // [6175:6144]
+    htm_block_reg2hw_sdr_0_6_reg_t sdr_0_6; // [6143:6112]
+    htm_block_reg2hw_sdr_0_7_reg_t sdr_0_7; // [6111:6080]
+    htm_block_reg2hw_sdr_0_8_reg_t sdr_0_8; // [6079:6048]
+    htm_block_reg2hw_sdr_0_9_reg_t sdr_0_9; // [6047:6016]
+    htm_block_reg2hw_sdr_0_10_reg_t sdr_0_10; // [6015:5984]
+    htm_block_reg2hw_sdr_0_11_reg_t sdr_0_11; // [5983:5952]
+    htm_block_reg2hw_sdr_0_12_reg_t sdr_0_12; // [5951:5920]
+    htm_block_reg2hw_sdr_0_13_reg_t sdr_0_13; // [5919:5888]
+    htm_block_reg2hw_sdr_0_14_reg_t sdr_0_14; // [5887:5856]
+    htm_block_reg2hw_sdr_0_15_reg_t sdr_0_15; // [5855:5824]
+    htm_block_reg2hw_sdr_0_16_reg_t sdr_0_16; // [5823:5792]
+    htm_block_reg2hw_sdr_0_17_reg_t sdr_0_17; // [5791:5760]
+    htm_block_reg2hw_sdr_0_18_reg_t sdr_0_18; // [5759:5728]
+    htm_block_reg2hw_sdr_0_19_reg_t sdr_0_19; // [5727:5696]
+    htm_block_reg2hw_sdr_0_20_reg_t sdr_0_20; // [5695:5664]
+    htm_block_reg2hw_sdr_0_21_reg_t sdr_0_21; // [5663:5632]
+    htm_block_reg2hw_sdr_0_22_reg_t sdr_0_22; // [5631:5600]
+    htm_block_reg2hw_sdr_0_23_reg_t sdr_0_23; // [5599:5568]
+    htm_block_reg2hw_sdr_0_24_reg_t sdr_0_24; // [5567:5536]
+    htm_block_reg2hw_sdr_0_25_reg_t sdr_0_25; // [5535:5504]
+    htm_block_reg2hw_sdr_0_26_reg_t sdr_0_26; // [5503:5472]
+    htm_block_reg2hw_sdr_0_27_reg_t sdr_0_27; // [5471:5440]
+    htm_block_reg2hw_sdr_0_28_reg_t sdr_0_28; // [5439:5408]
+    htm_block_reg2hw_sdr_0_29_reg_t sdr_0_29; // [5407:5376]
+    htm_block_reg2hw_sdr_0_30_reg_t sdr_0_30; // [5375:5344]
+    htm_block_reg2hw_sdr_0_31_reg_t sdr_0_31; // [5343:5312]
+    htm_block_reg2hw_sdr_0_index_0_reg_t sdr_0_index_0; // [5311:5280]
+    htm_block_reg2hw_sdr_0_index_1_reg_t sdr_0_index_1; // [5279:5248]
+    htm_block_reg2hw_sdr_0_index_2_reg_t sdr_0_index_2; // [5247:5216]
+    htm_block_reg2hw_sdr_0_index_3_reg_t sdr_0_index_3; // [5215:5184]
+    htm_block_reg2hw_sdr_0_index_4_reg_t sdr_0_index_4; // [5183:5152]
+    htm_block_reg2hw_sdr_0_index_5_reg_t sdr_0_index_5; // [5151:5120]
+    htm_block_reg2hw_sdr_0_index_6_reg_t sdr_0_index_6; // [5119:5088]
+    htm_block_reg2hw_sdr_0_index_7_reg_t sdr_0_index_7; // [5087:5056]
+    htm_block_reg2hw_sdr_0_index_8_reg_t sdr_0_index_8; // [5055:5024]
+    htm_block_reg2hw_sdr_0_index_9_reg_t sdr_0_index_9; // [5023:4992]
+    htm_block_reg2hw_sdr_0_index_10_reg_t sdr_0_index_10; // [4991:4960]
+    htm_block_reg2hw_sdr_0_index_11_reg_t sdr_0_index_11; // [4959:4928]
+    htm_block_reg2hw_sdr_0_index_12_reg_t sdr_0_index_12; // [4927:4896]
+    htm_block_reg2hw_sdr_0_index_13_reg_t sdr_0_index_13; // [4895:4864]
+    htm_block_reg2hw_sdr_0_index_14_reg_t sdr_0_index_14; // [4863:4832]
+    htm_block_reg2hw_sdr_0_index_15_reg_t sdr_0_index_15; // [4831:4800]
+    htm_block_reg2hw_sdr_1_control_reg_reg_t sdr_1_control_reg; // [4799:4768]
+    htm_block_reg2hw_sdr_1_status_reg_reg_t sdr_1_status_reg; // [4767:4736]
+    htm_block_reg2hw_sdr_1_0_reg_t sdr_1_0; // [4735:4704]
+    htm_block_reg2hw_sdr_1_1_reg_t sdr_1_1; // [4703:4672]
+    htm_block_reg2hw_sdr_1_2_reg_t sdr_1_2; // [4671:4640]
+    htm_block_reg2hw_sdr_1_3_reg_t sdr_1_3; // [4639:4608]
+    htm_block_reg2hw_sdr_1_4_reg_t sdr_1_4; // [4607:4576]
+    htm_block_reg2hw_sdr_1_5_reg_t sdr_1_5; // [4575:4544]
+    htm_block_reg2hw_sdr_1_6_reg_t sdr_1_6; // [4543:4512]
+    htm_block_reg2hw_sdr_1_7_reg_t sdr_1_7; // [4511:4480]
+    htm_block_reg2hw_sdr_1_8_reg_t sdr_1_8; // [4479:4448]
+    htm_block_reg2hw_sdr_1_9_reg_t sdr_1_9; // [4447:4416]
+    htm_block_reg2hw_sdr_1_10_reg_t sdr_1_10; // [4415:4384]
+    htm_block_reg2hw_sdr_1_11_reg_t sdr_1_11; // [4383:4352]
+    htm_block_reg2hw_sdr_1_12_reg_t sdr_1_12; // [4351:4320]
+    htm_block_reg2hw_sdr_1_13_reg_t sdr_1_13; // [4319:4288]
+    htm_block_reg2hw_sdr_1_14_reg_t sdr_1_14; // [4287:4256]
+    htm_block_reg2hw_sdr_1_15_reg_t sdr_1_15; // [4255:4224]
+    htm_block_reg2hw_sdr_1_16_reg_t sdr_1_16; // [4223:4192]
+    htm_block_reg2hw_sdr_1_17_reg_t sdr_1_17; // [4191:4160]
+    htm_block_reg2hw_sdr_1_18_reg_t sdr_1_18; // [4159:4128]
+    htm_block_reg2hw_sdr_1_19_reg_t sdr_1_19; // [4127:4096]
+    htm_block_reg2hw_sdr_1_20_reg_t sdr_1_20; // [4095:4064]
+    htm_block_reg2hw_sdr_1_21_reg_t sdr_1_21; // [4063:4032]
+    htm_block_reg2hw_sdr_1_22_reg_t sdr_1_22; // [4031:4000]
+    htm_block_reg2hw_sdr_1_23_reg_t sdr_1_23; // [3999:3968]
+    htm_block_reg2hw_sdr_1_24_reg_t sdr_1_24; // [3967:3936]
+    htm_block_reg2hw_sdr_1_25_reg_t sdr_1_25; // [3935:3904]
+    htm_block_reg2hw_sdr_1_26_reg_t sdr_1_26; // [3903:3872]
+    htm_block_reg2hw_sdr_1_27_reg_t sdr_1_27; // [3871:3840]
+    htm_block_reg2hw_sdr_1_28_reg_t sdr_1_28; // [3839:3808]
+    htm_block_reg2hw_sdr_1_29_reg_t sdr_1_29; // [3807:3776]
+    htm_block_reg2hw_sdr_1_30_reg_t sdr_1_30; // [3775:3744]
+    htm_block_reg2hw_sdr_1_31_reg_t sdr_1_31; // [3743:3712]
+    htm_block_reg2hw_sdr_1_index_0_reg_t sdr_1_index_0; // [3711:3680]
+    htm_block_reg2hw_sdr_1_index_1_reg_t sdr_1_index_1; // [3679:3648]
+    htm_block_reg2hw_sdr_1_index_2_reg_t sdr_1_index_2; // [3647:3616]
+    htm_block_reg2hw_sdr_1_index_3_reg_t sdr_1_index_3; // [3615:3584]
+    htm_block_reg2hw_sdr_1_index_4_reg_t sdr_1_index_4; // [3583:3552]
+    htm_block_reg2hw_sdr_1_index_5_reg_t sdr_1_index_5; // [3551:3520]
+    htm_block_reg2hw_sdr_1_index_6_reg_t sdr_1_index_6; // [3519:3488]
+    htm_block_reg2hw_sdr_1_index_7_reg_t sdr_1_index_7; // [3487:3456]
+    htm_block_reg2hw_sdr_1_index_8_reg_t sdr_1_index_8; // [3455:3424]
+    htm_block_reg2hw_sdr_1_index_9_reg_t sdr_1_index_9; // [3423:3392]
+    htm_block_reg2hw_sdr_1_index_10_reg_t sdr_1_index_10; // [3391:3360]
+    htm_block_reg2hw_sdr_1_index_11_reg_t sdr_1_index_11; // [3359:3328]
+    htm_block_reg2hw_sdr_1_index_12_reg_t sdr_1_index_12; // [3327:3296]
+    htm_block_reg2hw_sdr_1_index_13_reg_t sdr_1_index_13; // [3295:3264]
+    htm_block_reg2hw_sdr_1_index_14_reg_t sdr_1_index_14; // [3263:3232]
+    htm_block_reg2hw_sdr_1_index_15_reg_t sdr_1_index_15; // [3231:3200]
+    htm_block_reg2hw_sdr_2_control_reg_reg_t sdr_2_control_reg; // [3199:3168]
+    htm_block_reg2hw_sdr_2_status_reg_reg_t sdr_2_status_reg; // [3167:3136]
+    htm_block_reg2hw_sdr_2_0_reg_t sdr_2_0; // [3135:3104]
+    htm_block_reg2hw_sdr_2_1_reg_t sdr_2_1; // [3103:3072]
+    htm_block_reg2hw_sdr_2_2_reg_t sdr_2_2; // [3071:3040]
+    htm_block_reg2hw_sdr_2_3_reg_t sdr_2_3; // [3039:3008]
+    htm_block_reg2hw_sdr_2_4_reg_t sdr_2_4; // [3007:2976]
+    htm_block_reg2hw_sdr_2_5_reg_t sdr_2_5; // [2975:2944]
+    htm_block_reg2hw_sdr_2_6_reg_t sdr_2_6; // [2943:2912]
+    htm_block_reg2hw_sdr_2_7_reg_t sdr_2_7; // [2911:2880]
+    htm_block_reg2hw_sdr_2_8_reg_t sdr_2_8; // [2879:2848]
+    htm_block_reg2hw_sdr_2_9_reg_t sdr_2_9; // [2847:2816]
+    htm_block_reg2hw_sdr_2_10_reg_t sdr_2_10; // [2815:2784]
+    htm_block_reg2hw_sdr_2_11_reg_t sdr_2_11; // [2783:2752]
+    htm_block_reg2hw_sdr_2_12_reg_t sdr_2_12; // [2751:2720]
+    htm_block_reg2hw_sdr_2_13_reg_t sdr_2_13; // [2719:2688]
+    htm_block_reg2hw_sdr_2_14_reg_t sdr_2_14; // [2687:2656]
+    htm_block_reg2hw_sdr_2_15_reg_t sdr_2_15; // [2655:2624]
+    htm_block_reg2hw_sdr_2_16_reg_t sdr_2_16; // [2623:2592]
+    htm_block_reg2hw_sdr_2_17_reg_t sdr_2_17; // [2591:2560]
+    htm_block_reg2hw_sdr_2_18_reg_t sdr_2_18; // [2559:2528]
+    htm_block_reg2hw_sdr_2_19_reg_t sdr_2_19; // [2527:2496]
+    htm_block_reg2hw_sdr_2_20_reg_t sdr_2_20; // [2495:2464]
+    htm_block_reg2hw_sdr_2_21_reg_t sdr_2_21; // [2463:2432]
+    htm_block_reg2hw_sdr_2_22_reg_t sdr_2_22; // [2431:2400]
+    htm_block_reg2hw_sdr_2_23_reg_t sdr_2_23; // [2399:2368]
+    htm_block_reg2hw_sdr_2_24_reg_t sdr_2_24; // [2367:2336]
+    htm_block_reg2hw_sdr_2_25_reg_t sdr_2_25; // [2335:2304]
+    htm_block_reg2hw_sdr_2_26_reg_t sdr_2_26; // [2303:2272]
+    htm_block_reg2hw_sdr_2_27_reg_t sdr_2_27; // [2271:2240]
+    htm_block_reg2hw_sdr_2_28_reg_t sdr_2_28; // [2239:2208]
+    htm_block_reg2hw_sdr_2_29_reg_t sdr_2_29; // [2207:2176]
+    htm_block_reg2hw_sdr_2_30_reg_t sdr_2_30; // [2175:2144]
+    htm_block_reg2hw_sdr_2_31_reg_t sdr_2_31; // [2143:2112]
+    htm_block_reg2hw_sdr_2_index_0_reg_t sdr_2_index_0; // [2111:2080]
+    htm_block_reg2hw_sdr_2_index_1_reg_t sdr_2_index_1; // [2079:2048]
+    htm_block_reg2hw_sdr_2_index_2_reg_t sdr_2_index_2; // [2047:2016]
+    htm_block_reg2hw_sdr_2_index_3_reg_t sdr_2_index_3; // [2015:1984]
+    htm_block_reg2hw_sdr_2_index_4_reg_t sdr_2_index_4; // [1983:1952]
+    htm_block_reg2hw_sdr_2_index_5_reg_t sdr_2_index_5; // [1951:1920]
+    htm_block_reg2hw_sdr_2_index_6_reg_t sdr_2_index_6; // [1919:1888]
+    htm_block_reg2hw_sdr_2_index_7_reg_t sdr_2_index_7; // [1887:1856]
+    htm_block_reg2hw_sdr_2_index_8_reg_t sdr_2_index_8; // [1855:1824]
+    htm_block_reg2hw_sdr_2_index_9_reg_t sdr_2_index_9; // [1823:1792]
+    htm_block_reg2hw_sdr_2_index_10_reg_t sdr_2_index_10; // [1791:1760]
+    htm_block_reg2hw_sdr_2_index_11_reg_t sdr_2_index_11; // [1759:1728]
+    htm_block_reg2hw_sdr_2_index_12_reg_t sdr_2_index_12; // [1727:1696]
+    htm_block_reg2hw_sdr_2_index_13_reg_t sdr_2_index_13; // [1695:1664]
+    htm_block_reg2hw_sdr_2_index_14_reg_t sdr_2_index_14; // [1663:1632]
+    htm_block_reg2hw_sdr_2_index_15_reg_t sdr_2_index_15; // [1631:1600]
+    htm_block_reg2hw_sdr_3_control_reg_reg_t sdr_3_control_reg; // [1599:1568]
+    htm_block_reg2hw_sdr_3_status_reg_reg_t sdr_3_status_reg; // [1567:1536]
+    htm_block_reg2hw_sdr_3_0_reg_t sdr_3_0; // [1535:1504]
+    htm_block_reg2hw_sdr_3_1_reg_t sdr_3_1; // [1503:1472]
+    htm_block_reg2hw_sdr_3_2_reg_t sdr_3_2; // [1471:1440]
+    htm_block_reg2hw_sdr_3_3_reg_t sdr_3_3; // [1439:1408]
+    htm_block_reg2hw_sdr_3_4_reg_t sdr_3_4; // [1407:1376]
+    htm_block_reg2hw_sdr_3_5_reg_t sdr_3_5; // [1375:1344]
+    htm_block_reg2hw_sdr_3_6_reg_t sdr_3_6; // [1343:1312]
+    htm_block_reg2hw_sdr_3_7_reg_t sdr_3_7; // [1311:1280]
+    htm_block_reg2hw_sdr_3_8_reg_t sdr_3_8; // [1279:1248]
+    htm_block_reg2hw_sdr_3_9_reg_t sdr_3_9; // [1247:1216]
+    htm_block_reg2hw_sdr_3_10_reg_t sdr_3_10; // [1215:1184]
+    htm_block_reg2hw_sdr_3_11_reg_t sdr_3_11; // [1183:1152]
+    htm_block_reg2hw_sdr_3_12_reg_t sdr_3_12; // [1151:1120]
+    htm_block_reg2hw_sdr_3_13_reg_t sdr_3_13; // [1119:1088]
+    htm_block_reg2hw_sdr_3_14_reg_t sdr_3_14; // [1087:1056]
+    htm_block_reg2hw_sdr_3_15_reg_t sdr_3_15; // [1055:1024]
+    htm_block_reg2hw_sdr_3_16_reg_t sdr_3_16; // [1023:992]
+    htm_block_reg2hw_sdr_3_17_reg_t sdr_3_17; // [991:960]
+    htm_block_reg2hw_sdr_3_18_reg_t sdr_3_18; // [959:928]
+    htm_block_reg2hw_sdr_3_19_reg_t sdr_3_19; // [927:896]
+    htm_block_reg2hw_sdr_3_20_reg_t sdr_3_20; // [895:864]
+    htm_block_reg2hw_sdr_3_21_reg_t sdr_3_21; // [863:832]
+    htm_block_reg2hw_sdr_3_22_reg_t sdr_3_22; // [831:800]
+    htm_block_reg2hw_sdr_3_23_reg_t sdr_3_23; // [799:768]
+    htm_block_reg2hw_sdr_3_24_reg_t sdr_3_24; // [767:736]
+    htm_block_reg2hw_sdr_3_25_reg_t sdr_3_25; // [735:704]
+    htm_block_reg2hw_sdr_3_26_reg_t sdr_3_26; // [703:672]
+    htm_block_reg2hw_sdr_3_27_reg_t sdr_3_27; // [671:640]
+    htm_block_reg2hw_sdr_3_28_reg_t sdr_3_28; // [639:608]
+    htm_block_reg2hw_sdr_3_29_reg_t sdr_3_29; // [607:576]
+    htm_block_reg2hw_sdr_3_30_reg_t sdr_3_30; // [575:544]
+    htm_block_reg2hw_sdr_3_31_reg_t sdr_3_31; // [543:512]
+    htm_block_reg2hw_sdr_3_index_0_reg_t sdr_3_index_0; // [511:480]
+    htm_block_reg2hw_sdr_3_index_1_reg_t sdr_3_index_1; // [479:448]
+    htm_block_reg2hw_sdr_3_index_2_reg_t sdr_3_index_2; // [447:416]
+    htm_block_reg2hw_sdr_3_index_3_reg_t sdr_3_index_3; // [415:384]
+    htm_block_reg2hw_sdr_3_index_4_reg_t sdr_3_index_4; // [383:352]
+    htm_block_reg2hw_sdr_3_index_5_reg_t sdr_3_index_5; // [351:320]
+    htm_block_reg2hw_sdr_3_index_6_reg_t sdr_3_index_6; // [319:288]
+    htm_block_reg2hw_sdr_3_index_7_reg_t sdr_3_index_7; // [287:256]
+    htm_block_reg2hw_sdr_3_index_8_reg_t sdr_3_index_8; // [255:224]
+    htm_block_reg2hw_sdr_3_index_9_reg_t sdr_3_index_9; // [223:192]
+    htm_block_reg2hw_sdr_3_index_10_reg_t sdr_3_index_10; // [191:160]
+    htm_block_reg2hw_sdr_3_index_11_reg_t sdr_3_index_11; // [159:128]
+    htm_block_reg2hw_sdr_3_index_12_reg_t sdr_3_index_12; // [127:96]
+    htm_block_reg2hw_sdr_3_index_13_reg_t sdr_3_index_13; // [95:64]
+    htm_block_reg2hw_sdr_3_index_14_reg_t sdr_3_index_14; // [63:32]
+    htm_block_reg2hw_sdr_3_index_15_reg_t sdr_3_index_15; // [31:0]
   } htm_block_reg2hw_t;
 
   // HW -> register type
   typedef struct packed {
-    htm_block_hw2reg_sdr_control_reg_reg_t sdr_control_reg; // [599:566]
-    htm_block_hw2reg_sdr_status_reg_reg_t sdr_status_reg; // [565:528]
-    htm_block_hw2reg_sdr_index_0_0_reg_t sdr_index_0_0; // [527:495]
-    htm_block_hw2reg_sdr_index_0_1_reg_t sdr_index_0_1; // [494:462]
-    htm_block_hw2reg_sdr_index_0_2_reg_t sdr_index_0_2; // [461:429]
-    htm_block_hw2reg_sdr_index_0_3_reg_t sdr_index_0_3; // [428:396]
-    htm_block_hw2reg_sdr_index_0_4_reg_t sdr_index_0_4; // [395:363]
-    htm_block_hw2reg_sdr_index_0_5_reg_t sdr_index_0_5; // [362:330]
-    htm_block_hw2reg_sdr_index_0_6_reg_t sdr_index_0_6; // [329:297]
-    htm_block_hw2reg_sdr_index_0_7_reg_t sdr_index_0_7; // [296:264]
-    htm_block_hw2reg_sdr_index_0_8_reg_t sdr_index_0_8; // [263:231]
-    htm_block_hw2reg_sdr_index_0_9_reg_t sdr_index_0_9; // [230:198]
-    htm_block_hw2reg_sdr_index_0_10_reg_t sdr_index_0_10; // [197:165]
-    htm_block_hw2reg_sdr_index_0_11_reg_t sdr_index_0_11; // [164:132]
-    htm_block_hw2reg_sdr_index_0_12_reg_t sdr_index_0_12; // [131:99]
-    htm_block_hw2reg_sdr_index_0_13_reg_t sdr_index_0_13; // [98:66]
-    htm_block_hw2reg_sdr_index_0_14_reg_t sdr_index_0_14; // [65:33]
-    htm_block_hw2reg_sdr_index_0_15_reg_t sdr_index_0_15; // [32:0]
+    htm_block_hw2reg_sdr_0_control_reg_reg_t sdr_0_control_reg; // [2399:2366]
+    htm_block_hw2reg_sdr_0_status_reg_reg_t sdr_0_status_reg; // [2365:2328]
+    htm_block_hw2reg_sdr_0_index_0_reg_t sdr_0_index_0; // [2327:2295]
+    htm_block_hw2reg_sdr_0_index_1_reg_t sdr_0_index_1; // [2294:2262]
+    htm_block_hw2reg_sdr_0_index_2_reg_t sdr_0_index_2; // [2261:2229]
+    htm_block_hw2reg_sdr_0_index_3_reg_t sdr_0_index_3; // [2228:2196]
+    htm_block_hw2reg_sdr_0_index_4_reg_t sdr_0_index_4; // [2195:2163]
+    htm_block_hw2reg_sdr_0_index_5_reg_t sdr_0_index_5; // [2162:2130]
+    htm_block_hw2reg_sdr_0_index_6_reg_t sdr_0_index_6; // [2129:2097]
+    htm_block_hw2reg_sdr_0_index_7_reg_t sdr_0_index_7; // [2096:2064]
+    htm_block_hw2reg_sdr_0_index_8_reg_t sdr_0_index_8; // [2063:2031]
+    htm_block_hw2reg_sdr_0_index_9_reg_t sdr_0_index_9; // [2030:1998]
+    htm_block_hw2reg_sdr_0_index_10_reg_t sdr_0_index_10; // [1997:1965]
+    htm_block_hw2reg_sdr_0_index_11_reg_t sdr_0_index_11; // [1964:1932]
+    htm_block_hw2reg_sdr_0_index_12_reg_t sdr_0_index_12; // [1931:1899]
+    htm_block_hw2reg_sdr_0_index_13_reg_t sdr_0_index_13; // [1898:1866]
+    htm_block_hw2reg_sdr_0_index_14_reg_t sdr_0_index_14; // [1865:1833]
+    htm_block_hw2reg_sdr_0_index_15_reg_t sdr_0_index_15; // [1832:1800]
+    htm_block_hw2reg_sdr_1_control_reg_reg_t sdr_1_control_reg; // [1799:1766]
+    htm_block_hw2reg_sdr_1_status_reg_reg_t sdr_1_status_reg; // [1765:1728]
+    htm_block_hw2reg_sdr_1_index_0_reg_t sdr_1_index_0; // [1727:1695]
+    htm_block_hw2reg_sdr_1_index_1_reg_t sdr_1_index_1; // [1694:1662]
+    htm_block_hw2reg_sdr_1_index_2_reg_t sdr_1_index_2; // [1661:1629]
+    htm_block_hw2reg_sdr_1_index_3_reg_t sdr_1_index_3; // [1628:1596]
+    htm_block_hw2reg_sdr_1_index_4_reg_t sdr_1_index_4; // [1595:1563]
+    htm_block_hw2reg_sdr_1_index_5_reg_t sdr_1_index_5; // [1562:1530]
+    htm_block_hw2reg_sdr_1_index_6_reg_t sdr_1_index_6; // [1529:1497]
+    htm_block_hw2reg_sdr_1_index_7_reg_t sdr_1_index_7; // [1496:1464]
+    htm_block_hw2reg_sdr_1_index_8_reg_t sdr_1_index_8; // [1463:1431]
+    htm_block_hw2reg_sdr_1_index_9_reg_t sdr_1_index_9; // [1430:1398]
+    htm_block_hw2reg_sdr_1_index_10_reg_t sdr_1_index_10; // [1397:1365]
+    htm_block_hw2reg_sdr_1_index_11_reg_t sdr_1_index_11; // [1364:1332]
+    htm_block_hw2reg_sdr_1_index_12_reg_t sdr_1_index_12; // [1331:1299]
+    htm_block_hw2reg_sdr_1_index_13_reg_t sdr_1_index_13; // [1298:1266]
+    htm_block_hw2reg_sdr_1_index_14_reg_t sdr_1_index_14; // [1265:1233]
+    htm_block_hw2reg_sdr_1_index_15_reg_t sdr_1_index_15; // [1232:1200]
+    htm_block_hw2reg_sdr_2_control_reg_reg_t sdr_2_control_reg; // [1199:1166]
+    htm_block_hw2reg_sdr_2_status_reg_reg_t sdr_2_status_reg; // [1165:1128]
+    htm_block_hw2reg_sdr_2_index_0_reg_t sdr_2_index_0; // [1127:1095]
+    htm_block_hw2reg_sdr_2_index_1_reg_t sdr_2_index_1; // [1094:1062]
+    htm_block_hw2reg_sdr_2_index_2_reg_t sdr_2_index_2; // [1061:1029]
+    htm_block_hw2reg_sdr_2_index_3_reg_t sdr_2_index_3; // [1028:996]
+    htm_block_hw2reg_sdr_2_index_4_reg_t sdr_2_index_4; // [995:963]
+    htm_block_hw2reg_sdr_2_index_5_reg_t sdr_2_index_5; // [962:930]
+    htm_block_hw2reg_sdr_2_index_6_reg_t sdr_2_index_6; // [929:897]
+    htm_block_hw2reg_sdr_2_index_7_reg_t sdr_2_index_7; // [896:864]
+    htm_block_hw2reg_sdr_2_index_8_reg_t sdr_2_index_8; // [863:831]
+    htm_block_hw2reg_sdr_2_index_9_reg_t sdr_2_index_9; // [830:798]
+    htm_block_hw2reg_sdr_2_index_10_reg_t sdr_2_index_10; // [797:765]
+    htm_block_hw2reg_sdr_2_index_11_reg_t sdr_2_index_11; // [764:732]
+    htm_block_hw2reg_sdr_2_index_12_reg_t sdr_2_index_12; // [731:699]
+    htm_block_hw2reg_sdr_2_index_13_reg_t sdr_2_index_13; // [698:666]
+    htm_block_hw2reg_sdr_2_index_14_reg_t sdr_2_index_14; // [665:633]
+    htm_block_hw2reg_sdr_2_index_15_reg_t sdr_2_index_15; // [632:600]
+    htm_block_hw2reg_sdr_3_control_reg_reg_t sdr_3_control_reg; // [599:566]
+    htm_block_hw2reg_sdr_3_status_reg_reg_t sdr_3_status_reg; // [565:528]
+    htm_block_hw2reg_sdr_3_index_0_reg_t sdr_3_index_0; // [527:495]
+    htm_block_hw2reg_sdr_3_index_1_reg_t sdr_3_index_1; // [494:462]
+    htm_block_hw2reg_sdr_3_index_2_reg_t sdr_3_index_2; // [461:429]
+    htm_block_hw2reg_sdr_3_index_3_reg_t sdr_3_index_3; // [428:396]
+    htm_block_hw2reg_sdr_3_index_4_reg_t sdr_3_index_4; // [395:363]
+    htm_block_hw2reg_sdr_3_index_5_reg_t sdr_3_index_5; // [362:330]
+    htm_block_hw2reg_sdr_3_index_6_reg_t sdr_3_index_6; // [329:297]
+    htm_block_hw2reg_sdr_3_index_7_reg_t sdr_3_index_7; // [296:264]
+    htm_block_hw2reg_sdr_3_index_8_reg_t sdr_3_index_8; // [263:231]
+    htm_block_hw2reg_sdr_3_index_9_reg_t sdr_3_index_9; // [230:198]
+    htm_block_hw2reg_sdr_3_index_10_reg_t sdr_3_index_10; // [197:165]
+    htm_block_hw2reg_sdr_3_index_11_reg_t sdr_3_index_11; // [164:132]
+    htm_block_hw2reg_sdr_3_index_12_reg_t sdr_3_index_12; // [131:99]
+    htm_block_hw2reg_sdr_3_index_13_reg_t sdr_3_index_13; // [98:66]
+    htm_block_hw2reg_sdr_3_index_14_reg_t sdr_3_index_14; // [65:33]
+    htm_block_hw2reg_sdr_3_index_15_reg_t sdr_3_index_15; // [32:0]
   } htm_block_hw2reg_t;
 
   // Register offsets
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_CONTROL_REG_OFFSET = 8'h 0;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_STATUS_REG_OFFSET = 8'h 4;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_0_OFFSET = 8'h 8;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_1_OFFSET = 8'h c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_2_OFFSET = 8'h 10;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_3_OFFSET = 8'h 14;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_4_OFFSET = 8'h 18;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_5_OFFSET = 8'h 1c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_6_OFFSET = 8'h 20;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_7_OFFSET = 8'h 24;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_8_OFFSET = 8'h 28;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_9_OFFSET = 8'h 2c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_10_OFFSET = 8'h 30;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_11_OFFSET = 8'h 34;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_12_OFFSET = 8'h 38;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_13_OFFSET = 8'h 3c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_14_OFFSET = 8'h 40;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_15_OFFSET = 8'h 44;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_16_OFFSET = 8'h 48;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_17_OFFSET = 8'h 4c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_18_OFFSET = 8'h 50;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_19_OFFSET = 8'h 54;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_20_OFFSET = 8'h 58;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_21_OFFSET = 8'h 5c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_22_OFFSET = 8'h 60;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_23_OFFSET = 8'h 64;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_24_OFFSET = 8'h 68;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_25_OFFSET = 8'h 6c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_26_OFFSET = 8'h 70;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_27_OFFSET = 8'h 74;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_28_OFFSET = 8'h 78;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_29_OFFSET = 8'h 7c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_30_OFFSET = 8'h 80;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_31_OFFSET = 8'h 84;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_0_OFFSET = 8'h 88;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_1_OFFSET = 8'h 8c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_2_OFFSET = 8'h 90;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_3_OFFSET = 8'h 94;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_4_OFFSET = 8'h 98;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_5_OFFSET = 8'h 9c;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_6_OFFSET = 8'h a0;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_7_OFFSET = 8'h a4;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_8_OFFSET = 8'h a8;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_9_OFFSET = 8'h ac;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_10_OFFSET = 8'h b0;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_11_OFFSET = 8'h b4;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_12_OFFSET = 8'h b8;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_13_OFFSET = 8'h bc;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_14_OFFSET = 8'h c0;
-  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_INDEX_0_15_OFFSET = 8'h c4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_CONTROL_REG_OFFSET = 10'h 0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_STATUS_REG_OFFSET = 10'h 4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_0_OFFSET = 10'h 8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_1_OFFSET = 10'h c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_2_OFFSET = 10'h 10;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_3_OFFSET = 10'h 14;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_4_OFFSET = 10'h 18;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_5_OFFSET = 10'h 1c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_6_OFFSET = 10'h 20;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_7_OFFSET = 10'h 24;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_8_OFFSET = 10'h 28;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_9_OFFSET = 10'h 2c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_10_OFFSET = 10'h 30;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_11_OFFSET = 10'h 34;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_12_OFFSET = 10'h 38;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_13_OFFSET = 10'h 3c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_14_OFFSET = 10'h 40;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_15_OFFSET = 10'h 44;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_16_OFFSET = 10'h 48;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_17_OFFSET = 10'h 4c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_18_OFFSET = 10'h 50;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_19_OFFSET = 10'h 54;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_20_OFFSET = 10'h 58;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_21_OFFSET = 10'h 5c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_22_OFFSET = 10'h 60;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_23_OFFSET = 10'h 64;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_24_OFFSET = 10'h 68;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_25_OFFSET = 10'h 6c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_26_OFFSET = 10'h 70;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_27_OFFSET = 10'h 74;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_28_OFFSET = 10'h 78;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_29_OFFSET = 10'h 7c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_30_OFFSET = 10'h 80;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_31_OFFSET = 10'h 84;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_INDEX_0_OFFSET = 10'h 88;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_INDEX_1_OFFSET = 10'h 8c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_INDEX_2_OFFSET = 10'h 90;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_INDEX_3_OFFSET = 10'h 94;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_INDEX_4_OFFSET = 10'h 98;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_INDEX_5_OFFSET = 10'h 9c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_INDEX_6_OFFSET = 10'h a0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_INDEX_7_OFFSET = 10'h a4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_INDEX_8_OFFSET = 10'h a8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_INDEX_9_OFFSET = 10'h ac;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_INDEX_10_OFFSET = 10'h b0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_INDEX_11_OFFSET = 10'h b4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_INDEX_12_OFFSET = 10'h b8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_INDEX_13_OFFSET = 10'h bc;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_INDEX_14_OFFSET = 10'h c0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_0_INDEX_15_OFFSET = 10'h c4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_CONTROL_REG_OFFSET = 10'h c8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_STATUS_REG_OFFSET = 10'h cc;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_0_OFFSET = 10'h d0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_1_OFFSET = 10'h d4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_2_OFFSET = 10'h d8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_3_OFFSET = 10'h dc;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_4_OFFSET = 10'h e0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_5_OFFSET = 10'h e4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_6_OFFSET = 10'h e8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_7_OFFSET = 10'h ec;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_8_OFFSET = 10'h f0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_9_OFFSET = 10'h f4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_10_OFFSET = 10'h f8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_11_OFFSET = 10'h fc;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_12_OFFSET = 10'h 100;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_13_OFFSET = 10'h 104;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_14_OFFSET = 10'h 108;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_15_OFFSET = 10'h 10c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_16_OFFSET = 10'h 110;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_17_OFFSET = 10'h 114;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_18_OFFSET = 10'h 118;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_19_OFFSET = 10'h 11c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_20_OFFSET = 10'h 120;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_21_OFFSET = 10'h 124;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_22_OFFSET = 10'h 128;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_23_OFFSET = 10'h 12c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_24_OFFSET = 10'h 130;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_25_OFFSET = 10'h 134;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_26_OFFSET = 10'h 138;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_27_OFFSET = 10'h 13c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_28_OFFSET = 10'h 140;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_29_OFFSET = 10'h 144;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_30_OFFSET = 10'h 148;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_31_OFFSET = 10'h 14c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_INDEX_0_OFFSET = 10'h 150;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_INDEX_1_OFFSET = 10'h 154;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_INDEX_2_OFFSET = 10'h 158;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_INDEX_3_OFFSET = 10'h 15c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_INDEX_4_OFFSET = 10'h 160;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_INDEX_5_OFFSET = 10'h 164;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_INDEX_6_OFFSET = 10'h 168;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_INDEX_7_OFFSET = 10'h 16c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_INDEX_8_OFFSET = 10'h 170;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_INDEX_9_OFFSET = 10'h 174;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_INDEX_10_OFFSET = 10'h 178;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_INDEX_11_OFFSET = 10'h 17c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_INDEX_12_OFFSET = 10'h 180;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_INDEX_13_OFFSET = 10'h 184;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_INDEX_14_OFFSET = 10'h 188;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_1_INDEX_15_OFFSET = 10'h 18c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_CONTROL_REG_OFFSET = 10'h 190;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_STATUS_REG_OFFSET = 10'h 194;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_0_OFFSET = 10'h 198;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_1_OFFSET = 10'h 19c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_2_OFFSET = 10'h 1a0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_3_OFFSET = 10'h 1a4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_4_OFFSET = 10'h 1a8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_5_OFFSET = 10'h 1ac;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_6_OFFSET = 10'h 1b0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_7_OFFSET = 10'h 1b4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_8_OFFSET = 10'h 1b8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_9_OFFSET = 10'h 1bc;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_10_OFFSET = 10'h 1c0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_11_OFFSET = 10'h 1c4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_12_OFFSET = 10'h 1c8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_13_OFFSET = 10'h 1cc;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_14_OFFSET = 10'h 1d0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_15_OFFSET = 10'h 1d4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_16_OFFSET = 10'h 1d8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_17_OFFSET = 10'h 1dc;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_18_OFFSET = 10'h 1e0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_19_OFFSET = 10'h 1e4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_20_OFFSET = 10'h 1e8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_21_OFFSET = 10'h 1ec;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_22_OFFSET = 10'h 1f0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_23_OFFSET = 10'h 1f4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_24_OFFSET = 10'h 1f8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_25_OFFSET = 10'h 1fc;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_26_OFFSET = 10'h 200;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_27_OFFSET = 10'h 204;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_28_OFFSET = 10'h 208;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_29_OFFSET = 10'h 20c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_30_OFFSET = 10'h 210;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_31_OFFSET = 10'h 214;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_INDEX_0_OFFSET = 10'h 218;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_INDEX_1_OFFSET = 10'h 21c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_INDEX_2_OFFSET = 10'h 220;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_INDEX_3_OFFSET = 10'h 224;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_INDEX_4_OFFSET = 10'h 228;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_INDEX_5_OFFSET = 10'h 22c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_INDEX_6_OFFSET = 10'h 230;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_INDEX_7_OFFSET = 10'h 234;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_INDEX_8_OFFSET = 10'h 238;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_INDEX_9_OFFSET = 10'h 23c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_INDEX_10_OFFSET = 10'h 240;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_INDEX_11_OFFSET = 10'h 244;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_INDEX_12_OFFSET = 10'h 248;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_INDEX_13_OFFSET = 10'h 24c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_INDEX_14_OFFSET = 10'h 250;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_2_INDEX_15_OFFSET = 10'h 254;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_CONTROL_REG_OFFSET = 10'h 258;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_STATUS_REG_OFFSET = 10'h 25c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_0_OFFSET = 10'h 260;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_1_OFFSET = 10'h 264;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_2_OFFSET = 10'h 268;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_3_OFFSET = 10'h 26c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_4_OFFSET = 10'h 270;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_5_OFFSET = 10'h 274;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_6_OFFSET = 10'h 278;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_7_OFFSET = 10'h 27c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_8_OFFSET = 10'h 280;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_9_OFFSET = 10'h 284;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_10_OFFSET = 10'h 288;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_11_OFFSET = 10'h 28c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_12_OFFSET = 10'h 290;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_13_OFFSET = 10'h 294;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_14_OFFSET = 10'h 298;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_15_OFFSET = 10'h 29c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_16_OFFSET = 10'h 2a0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_17_OFFSET = 10'h 2a4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_18_OFFSET = 10'h 2a8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_19_OFFSET = 10'h 2ac;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_20_OFFSET = 10'h 2b0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_21_OFFSET = 10'h 2b4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_22_OFFSET = 10'h 2b8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_23_OFFSET = 10'h 2bc;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_24_OFFSET = 10'h 2c0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_25_OFFSET = 10'h 2c4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_26_OFFSET = 10'h 2c8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_27_OFFSET = 10'h 2cc;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_28_OFFSET = 10'h 2d0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_29_OFFSET = 10'h 2d4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_30_OFFSET = 10'h 2d8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_31_OFFSET = 10'h 2dc;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_0_OFFSET = 10'h 2e0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_1_OFFSET = 10'h 2e4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_2_OFFSET = 10'h 2e8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_3_OFFSET = 10'h 2ec;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_4_OFFSET = 10'h 2f0;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_5_OFFSET = 10'h 2f4;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_6_OFFSET = 10'h 2f8;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_7_OFFSET = 10'h 2fc;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_8_OFFSET = 10'h 300;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_9_OFFSET = 10'h 304;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_10_OFFSET = 10'h 308;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_11_OFFSET = 10'h 30c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_12_OFFSET = 10'h 310;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_13_OFFSET = 10'h 314;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_14_OFFSET = 10'h 318;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_15_OFFSET = 10'h 31c;
 
   // Register index
   typedef enum int {
-    HTM_BLOCK_SDR_CONTROL_REG,
-    HTM_BLOCK_SDR_STATUS_REG,
+    HTM_BLOCK_SDR_0_CONTROL_REG,
+    HTM_BLOCK_SDR_0_STATUS_REG,
     HTM_BLOCK_SDR_0_0,
     HTM_BLOCK_SDR_0_1,
     HTM_BLOCK_SDR_0_2,
@@ -517,76 +1891,376 @@ package htm_block_reg_pkg;
     HTM_BLOCK_SDR_0_29,
     HTM_BLOCK_SDR_0_30,
     HTM_BLOCK_SDR_0_31,
-    HTM_BLOCK_SDR_INDEX_0_0,
-    HTM_BLOCK_SDR_INDEX_0_1,
-    HTM_BLOCK_SDR_INDEX_0_2,
-    HTM_BLOCK_SDR_INDEX_0_3,
-    HTM_BLOCK_SDR_INDEX_0_4,
-    HTM_BLOCK_SDR_INDEX_0_5,
-    HTM_BLOCK_SDR_INDEX_0_6,
-    HTM_BLOCK_SDR_INDEX_0_7,
-    HTM_BLOCK_SDR_INDEX_0_8,
-    HTM_BLOCK_SDR_INDEX_0_9,
-    HTM_BLOCK_SDR_INDEX_0_10,
-    HTM_BLOCK_SDR_INDEX_0_11,
-    HTM_BLOCK_SDR_INDEX_0_12,
-    HTM_BLOCK_SDR_INDEX_0_13,
-    HTM_BLOCK_SDR_INDEX_0_14,
-    HTM_BLOCK_SDR_INDEX_0_15
+    HTM_BLOCK_SDR_0_INDEX_0,
+    HTM_BLOCK_SDR_0_INDEX_1,
+    HTM_BLOCK_SDR_0_INDEX_2,
+    HTM_BLOCK_SDR_0_INDEX_3,
+    HTM_BLOCK_SDR_0_INDEX_4,
+    HTM_BLOCK_SDR_0_INDEX_5,
+    HTM_BLOCK_SDR_0_INDEX_6,
+    HTM_BLOCK_SDR_0_INDEX_7,
+    HTM_BLOCK_SDR_0_INDEX_8,
+    HTM_BLOCK_SDR_0_INDEX_9,
+    HTM_BLOCK_SDR_0_INDEX_10,
+    HTM_BLOCK_SDR_0_INDEX_11,
+    HTM_BLOCK_SDR_0_INDEX_12,
+    HTM_BLOCK_SDR_0_INDEX_13,
+    HTM_BLOCK_SDR_0_INDEX_14,
+    HTM_BLOCK_SDR_0_INDEX_15,
+    HTM_BLOCK_SDR_1_CONTROL_REG,
+    HTM_BLOCK_SDR_1_STATUS_REG,
+    HTM_BLOCK_SDR_1_0,
+    HTM_BLOCK_SDR_1_1,
+    HTM_BLOCK_SDR_1_2,
+    HTM_BLOCK_SDR_1_3,
+    HTM_BLOCK_SDR_1_4,
+    HTM_BLOCK_SDR_1_5,
+    HTM_BLOCK_SDR_1_6,
+    HTM_BLOCK_SDR_1_7,
+    HTM_BLOCK_SDR_1_8,
+    HTM_BLOCK_SDR_1_9,
+    HTM_BLOCK_SDR_1_10,
+    HTM_BLOCK_SDR_1_11,
+    HTM_BLOCK_SDR_1_12,
+    HTM_BLOCK_SDR_1_13,
+    HTM_BLOCK_SDR_1_14,
+    HTM_BLOCK_SDR_1_15,
+    HTM_BLOCK_SDR_1_16,
+    HTM_BLOCK_SDR_1_17,
+    HTM_BLOCK_SDR_1_18,
+    HTM_BLOCK_SDR_1_19,
+    HTM_BLOCK_SDR_1_20,
+    HTM_BLOCK_SDR_1_21,
+    HTM_BLOCK_SDR_1_22,
+    HTM_BLOCK_SDR_1_23,
+    HTM_BLOCK_SDR_1_24,
+    HTM_BLOCK_SDR_1_25,
+    HTM_BLOCK_SDR_1_26,
+    HTM_BLOCK_SDR_1_27,
+    HTM_BLOCK_SDR_1_28,
+    HTM_BLOCK_SDR_1_29,
+    HTM_BLOCK_SDR_1_30,
+    HTM_BLOCK_SDR_1_31,
+    HTM_BLOCK_SDR_1_INDEX_0,
+    HTM_BLOCK_SDR_1_INDEX_1,
+    HTM_BLOCK_SDR_1_INDEX_2,
+    HTM_BLOCK_SDR_1_INDEX_3,
+    HTM_BLOCK_SDR_1_INDEX_4,
+    HTM_BLOCK_SDR_1_INDEX_5,
+    HTM_BLOCK_SDR_1_INDEX_6,
+    HTM_BLOCK_SDR_1_INDEX_7,
+    HTM_BLOCK_SDR_1_INDEX_8,
+    HTM_BLOCK_SDR_1_INDEX_9,
+    HTM_BLOCK_SDR_1_INDEX_10,
+    HTM_BLOCK_SDR_1_INDEX_11,
+    HTM_BLOCK_SDR_1_INDEX_12,
+    HTM_BLOCK_SDR_1_INDEX_13,
+    HTM_BLOCK_SDR_1_INDEX_14,
+    HTM_BLOCK_SDR_1_INDEX_15,
+    HTM_BLOCK_SDR_2_CONTROL_REG,
+    HTM_BLOCK_SDR_2_STATUS_REG,
+    HTM_BLOCK_SDR_2_0,
+    HTM_BLOCK_SDR_2_1,
+    HTM_BLOCK_SDR_2_2,
+    HTM_BLOCK_SDR_2_3,
+    HTM_BLOCK_SDR_2_4,
+    HTM_BLOCK_SDR_2_5,
+    HTM_BLOCK_SDR_2_6,
+    HTM_BLOCK_SDR_2_7,
+    HTM_BLOCK_SDR_2_8,
+    HTM_BLOCK_SDR_2_9,
+    HTM_BLOCK_SDR_2_10,
+    HTM_BLOCK_SDR_2_11,
+    HTM_BLOCK_SDR_2_12,
+    HTM_BLOCK_SDR_2_13,
+    HTM_BLOCK_SDR_2_14,
+    HTM_BLOCK_SDR_2_15,
+    HTM_BLOCK_SDR_2_16,
+    HTM_BLOCK_SDR_2_17,
+    HTM_BLOCK_SDR_2_18,
+    HTM_BLOCK_SDR_2_19,
+    HTM_BLOCK_SDR_2_20,
+    HTM_BLOCK_SDR_2_21,
+    HTM_BLOCK_SDR_2_22,
+    HTM_BLOCK_SDR_2_23,
+    HTM_BLOCK_SDR_2_24,
+    HTM_BLOCK_SDR_2_25,
+    HTM_BLOCK_SDR_2_26,
+    HTM_BLOCK_SDR_2_27,
+    HTM_BLOCK_SDR_2_28,
+    HTM_BLOCK_SDR_2_29,
+    HTM_BLOCK_SDR_2_30,
+    HTM_BLOCK_SDR_2_31,
+    HTM_BLOCK_SDR_2_INDEX_0,
+    HTM_BLOCK_SDR_2_INDEX_1,
+    HTM_BLOCK_SDR_2_INDEX_2,
+    HTM_BLOCK_SDR_2_INDEX_3,
+    HTM_BLOCK_SDR_2_INDEX_4,
+    HTM_BLOCK_SDR_2_INDEX_5,
+    HTM_BLOCK_SDR_2_INDEX_6,
+    HTM_BLOCK_SDR_2_INDEX_7,
+    HTM_BLOCK_SDR_2_INDEX_8,
+    HTM_BLOCK_SDR_2_INDEX_9,
+    HTM_BLOCK_SDR_2_INDEX_10,
+    HTM_BLOCK_SDR_2_INDEX_11,
+    HTM_BLOCK_SDR_2_INDEX_12,
+    HTM_BLOCK_SDR_2_INDEX_13,
+    HTM_BLOCK_SDR_2_INDEX_14,
+    HTM_BLOCK_SDR_2_INDEX_15,
+    HTM_BLOCK_SDR_3_CONTROL_REG,
+    HTM_BLOCK_SDR_3_STATUS_REG,
+    HTM_BLOCK_SDR_3_0,
+    HTM_BLOCK_SDR_3_1,
+    HTM_BLOCK_SDR_3_2,
+    HTM_BLOCK_SDR_3_3,
+    HTM_BLOCK_SDR_3_4,
+    HTM_BLOCK_SDR_3_5,
+    HTM_BLOCK_SDR_3_6,
+    HTM_BLOCK_SDR_3_7,
+    HTM_BLOCK_SDR_3_8,
+    HTM_BLOCK_SDR_3_9,
+    HTM_BLOCK_SDR_3_10,
+    HTM_BLOCK_SDR_3_11,
+    HTM_BLOCK_SDR_3_12,
+    HTM_BLOCK_SDR_3_13,
+    HTM_BLOCK_SDR_3_14,
+    HTM_BLOCK_SDR_3_15,
+    HTM_BLOCK_SDR_3_16,
+    HTM_BLOCK_SDR_3_17,
+    HTM_BLOCK_SDR_3_18,
+    HTM_BLOCK_SDR_3_19,
+    HTM_BLOCK_SDR_3_20,
+    HTM_BLOCK_SDR_3_21,
+    HTM_BLOCK_SDR_3_22,
+    HTM_BLOCK_SDR_3_23,
+    HTM_BLOCK_SDR_3_24,
+    HTM_BLOCK_SDR_3_25,
+    HTM_BLOCK_SDR_3_26,
+    HTM_BLOCK_SDR_3_27,
+    HTM_BLOCK_SDR_3_28,
+    HTM_BLOCK_SDR_3_29,
+    HTM_BLOCK_SDR_3_30,
+    HTM_BLOCK_SDR_3_31,
+    HTM_BLOCK_SDR_3_INDEX_0,
+    HTM_BLOCK_SDR_3_INDEX_1,
+    HTM_BLOCK_SDR_3_INDEX_2,
+    HTM_BLOCK_SDR_3_INDEX_3,
+    HTM_BLOCK_SDR_3_INDEX_4,
+    HTM_BLOCK_SDR_3_INDEX_5,
+    HTM_BLOCK_SDR_3_INDEX_6,
+    HTM_BLOCK_SDR_3_INDEX_7,
+    HTM_BLOCK_SDR_3_INDEX_8,
+    HTM_BLOCK_SDR_3_INDEX_9,
+    HTM_BLOCK_SDR_3_INDEX_10,
+    HTM_BLOCK_SDR_3_INDEX_11,
+    HTM_BLOCK_SDR_3_INDEX_12,
+    HTM_BLOCK_SDR_3_INDEX_13,
+    HTM_BLOCK_SDR_3_INDEX_14,
+    HTM_BLOCK_SDR_3_INDEX_15
   } htm_block_id_e;
 
   // Register width information to check illegal writes
-  parameter logic [3:0] HTM_BLOCK_PERMIT [50] = '{
-    4'b 1111, // index[ 0] HTM_BLOCK_SDR_CONTROL_REG
-    4'b 1111, // index[ 1] HTM_BLOCK_SDR_STATUS_REG
-    4'b 1111, // index[ 2] HTM_BLOCK_SDR_0_0
-    4'b 1111, // index[ 3] HTM_BLOCK_SDR_0_1
-    4'b 1111, // index[ 4] HTM_BLOCK_SDR_0_2
-    4'b 1111, // index[ 5] HTM_BLOCK_SDR_0_3
-    4'b 1111, // index[ 6] HTM_BLOCK_SDR_0_4
-    4'b 1111, // index[ 7] HTM_BLOCK_SDR_0_5
-    4'b 1111, // index[ 8] HTM_BLOCK_SDR_0_6
-    4'b 1111, // index[ 9] HTM_BLOCK_SDR_0_7
-    4'b 1111, // index[10] HTM_BLOCK_SDR_0_8
-    4'b 1111, // index[11] HTM_BLOCK_SDR_0_9
-    4'b 1111, // index[12] HTM_BLOCK_SDR_0_10
-    4'b 1111, // index[13] HTM_BLOCK_SDR_0_11
-    4'b 1111, // index[14] HTM_BLOCK_SDR_0_12
-    4'b 1111, // index[15] HTM_BLOCK_SDR_0_13
-    4'b 1111, // index[16] HTM_BLOCK_SDR_0_14
-    4'b 1111, // index[17] HTM_BLOCK_SDR_0_15
-    4'b 1111, // index[18] HTM_BLOCK_SDR_0_16
-    4'b 1111, // index[19] HTM_BLOCK_SDR_0_17
-    4'b 1111, // index[20] HTM_BLOCK_SDR_0_18
-    4'b 1111, // index[21] HTM_BLOCK_SDR_0_19
-    4'b 1111, // index[22] HTM_BLOCK_SDR_0_20
-    4'b 1111, // index[23] HTM_BLOCK_SDR_0_21
-    4'b 1111, // index[24] HTM_BLOCK_SDR_0_22
-    4'b 1111, // index[25] HTM_BLOCK_SDR_0_23
-    4'b 1111, // index[26] HTM_BLOCK_SDR_0_24
-    4'b 1111, // index[27] HTM_BLOCK_SDR_0_25
-    4'b 1111, // index[28] HTM_BLOCK_SDR_0_26
-    4'b 1111, // index[29] HTM_BLOCK_SDR_0_27
-    4'b 1111, // index[30] HTM_BLOCK_SDR_0_28
-    4'b 1111, // index[31] HTM_BLOCK_SDR_0_29
-    4'b 1111, // index[32] HTM_BLOCK_SDR_0_30
-    4'b 1111, // index[33] HTM_BLOCK_SDR_0_31
-    4'b 1111, // index[34] HTM_BLOCK_SDR_INDEX_0_0
-    4'b 1111, // index[35] HTM_BLOCK_SDR_INDEX_0_1
-    4'b 1111, // index[36] HTM_BLOCK_SDR_INDEX_0_2
-    4'b 1111, // index[37] HTM_BLOCK_SDR_INDEX_0_3
-    4'b 1111, // index[38] HTM_BLOCK_SDR_INDEX_0_4
-    4'b 1111, // index[39] HTM_BLOCK_SDR_INDEX_0_5
-    4'b 1111, // index[40] HTM_BLOCK_SDR_INDEX_0_6
-    4'b 1111, // index[41] HTM_BLOCK_SDR_INDEX_0_7
-    4'b 1111, // index[42] HTM_BLOCK_SDR_INDEX_0_8
-    4'b 1111, // index[43] HTM_BLOCK_SDR_INDEX_0_9
-    4'b 1111, // index[44] HTM_BLOCK_SDR_INDEX_0_10
-    4'b 1111, // index[45] HTM_BLOCK_SDR_INDEX_0_11
-    4'b 1111, // index[46] HTM_BLOCK_SDR_INDEX_0_12
-    4'b 1111, // index[47] HTM_BLOCK_SDR_INDEX_0_13
-    4'b 1111, // index[48] HTM_BLOCK_SDR_INDEX_0_14
-    4'b 1111  // index[49] HTM_BLOCK_SDR_INDEX_0_15
+  parameter logic [3:0] HTM_BLOCK_PERMIT [200] = '{
+    4'b 1111, // index[  0] HTM_BLOCK_SDR_0_CONTROL_REG
+    4'b 1111, // index[  1] HTM_BLOCK_SDR_0_STATUS_REG
+    4'b 1111, // index[  2] HTM_BLOCK_SDR_0_0
+    4'b 1111, // index[  3] HTM_BLOCK_SDR_0_1
+    4'b 1111, // index[  4] HTM_BLOCK_SDR_0_2
+    4'b 1111, // index[  5] HTM_BLOCK_SDR_0_3
+    4'b 1111, // index[  6] HTM_BLOCK_SDR_0_4
+    4'b 1111, // index[  7] HTM_BLOCK_SDR_0_5
+    4'b 1111, // index[  8] HTM_BLOCK_SDR_0_6
+    4'b 1111, // index[  9] HTM_BLOCK_SDR_0_7
+    4'b 1111, // index[ 10] HTM_BLOCK_SDR_0_8
+    4'b 1111, // index[ 11] HTM_BLOCK_SDR_0_9
+    4'b 1111, // index[ 12] HTM_BLOCK_SDR_0_10
+    4'b 1111, // index[ 13] HTM_BLOCK_SDR_0_11
+    4'b 1111, // index[ 14] HTM_BLOCK_SDR_0_12
+    4'b 1111, // index[ 15] HTM_BLOCK_SDR_0_13
+    4'b 1111, // index[ 16] HTM_BLOCK_SDR_0_14
+    4'b 1111, // index[ 17] HTM_BLOCK_SDR_0_15
+    4'b 1111, // index[ 18] HTM_BLOCK_SDR_0_16
+    4'b 1111, // index[ 19] HTM_BLOCK_SDR_0_17
+    4'b 1111, // index[ 20] HTM_BLOCK_SDR_0_18
+    4'b 1111, // index[ 21] HTM_BLOCK_SDR_0_19
+    4'b 1111, // index[ 22] HTM_BLOCK_SDR_0_20
+    4'b 1111, // index[ 23] HTM_BLOCK_SDR_0_21
+    4'b 1111, // index[ 24] HTM_BLOCK_SDR_0_22
+    4'b 1111, // index[ 25] HTM_BLOCK_SDR_0_23
+    4'b 1111, // index[ 26] HTM_BLOCK_SDR_0_24
+    4'b 1111, // index[ 27] HTM_BLOCK_SDR_0_25
+    4'b 1111, // index[ 28] HTM_BLOCK_SDR_0_26
+    4'b 1111, // index[ 29] HTM_BLOCK_SDR_0_27
+    4'b 1111, // index[ 30] HTM_BLOCK_SDR_0_28
+    4'b 1111, // index[ 31] HTM_BLOCK_SDR_0_29
+    4'b 1111, // index[ 32] HTM_BLOCK_SDR_0_30
+    4'b 1111, // index[ 33] HTM_BLOCK_SDR_0_31
+    4'b 1111, // index[ 34] HTM_BLOCK_SDR_0_INDEX_0
+    4'b 1111, // index[ 35] HTM_BLOCK_SDR_0_INDEX_1
+    4'b 1111, // index[ 36] HTM_BLOCK_SDR_0_INDEX_2
+    4'b 1111, // index[ 37] HTM_BLOCK_SDR_0_INDEX_3
+    4'b 1111, // index[ 38] HTM_BLOCK_SDR_0_INDEX_4
+    4'b 1111, // index[ 39] HTM_BLOCK_SDR_0_INDEX_5
+    4'b 1111, // index[ 40] HTM_BLOCK_SDR_0_INDEX_6
+    4'b 1111, // index[ 41] HTM_BLOCK_SDR_0_INDEX_7
+    4'b 1111, // index[ 42] HTM_BLOCK_SDR_0_INDEX_8
+    4'b 1111, // index[ 43] HTM_BLOCK_SDR_0_INDEX_9
+    4'b 1111, // index[ 44] HTM_BLOCK_SDR_0_INDEX_10
+    4'b 1111, // index[ 45] HTM_BLOCK_SDR_0_INDEX_11
+    4'b 1111, // index[ 46] HTM_BLOCK_SDR_0_INDEX_12
+    4'b 1111, // index[ 47] HTM_BLOCK_SDR_0_INDEX_13
+    4'b 1111, // index[ 48] HTM_BLOCK_SDR_0_INDEX_14
+    4'b 1111, // index[ 49] HTM_BLOCK_SDR_0_INDEX_15
+    4'b 1111, // index[ 50] HTM_BLOCK_SDR_1_CONTROL_REG
+    4'b 1111, // index[ 51] HTM_BLOCK_SDR_1_STATUS_REG
+    4'b 1111, // index[ 52] HTM_BLOCK_SDR_1_0
+    4'b 1111, // index[ 53] HTM_BLOCK_SDR_1_1
+    4'b 1111, // index[ 54] HTM_BLOCK_SDR_1_2
+    4'b 1111, // index[ 55] HTM_BLOCK_SDR_1_3
+    4'b 1111, // index[ 56] HTM_BLOCK_SDR_1_4
+    4'b 1111, // index[ 57] HTM_BLOCK_SDR_1_5
+    4'b 1111, // index[ 58] HTM_BLOCK_SDR_1_6
+    4'b 1111, // index[ 59] HTM_BLOCK_SDR_1_7
+    4'b 1111, // index[ 60] HTM_BLOCK_SDR_1_8
+    4'b 1111, // index[ 61] HTM_BLOCK_SDR_1_9
+    4'b 1111, // index[ 62] HTM_BLOCK_SDR_1_10
+    4'b 1111, // index[ 63] HTM_BLOCK_SDR_1_11
+    4'b 1111, // index[ 64] HTM_BLOCK_SDR_1_12
+    4'b 1111, // index[ 65] HTM_BLOCK_SDR_1_13
+    4'b 1111, // index[ 66] HTM_BLOCK_SDR_1_14
+    4'b 1111, // index[ 67] HTM_BLOCK_SDR_1_15
+    4'b 1111, // index[ 68] HTM_BLOCK_SDR_1_16
+    4'b 1111, // index[ 69] HTM_BLOCK_SDR_1_17
+    4'b 1111, // index[ 70] HTM_BLOCK_SDR_1_18
+    4'b 1111, // index[ 71] HTM_BLOCK_SDR_1_19
+    4'b 1111, // index[ 72] HTM_BLOCK_SDR_1_20
+    4'b 1111, // index[ 73] HTM_BLOCK_SDR_1_21
+    4'b 1111, // index[ 74] HTM_BLOCK_SDR_1_22
+    4'b 1111, // index[ 75] HTM_BLOCK_SDR_1_23
+    4'b 1111, // index[ 76] HTM_BLOCK_SDR_1_24
+    4'b 1111, // index[ 77] HTM_BLOCK_SDR_1_25
+    4'b 1111, // index[ 78] HTM_BLOCK_SDR_1_26
+    4'b 1111, // index[ 79] HTM_BLOCK_SDR_1_27
+    4'b 1111, // index[ 80] HTM_BLOCK_SDR_1_28
+    4'b 1111, // index[ 81] HTM_BLOCK_SDR_1_29
+    4'b 1111, // index[ 82] HTM_BLOCK_SDR_1_30
+    4'b 1111, // index[ 83] HTM_BLOCK_SDR_1_31
+    4'b 1111, // index[ 84] HTM_BLOCK_SDR_1_INDEX_0
+    4'b 1111, // index[ 85] HTM_BLOCK_SDR_1_INDEX_1
+    4'b 1111, // index[ 86] HTM_BLOCK_SDR_1_INDEX_2
+    4'b 1111, // index[ 87] HTM_BLOCK_SDR_1_INDEX_3
+    4'b 1111, // index[ 88] HTM_BLOCK_SDR_1_INDEX_4
+    4'b 1111, // index[ 89] HTM_BLOCK_SDR_1_INDEX_5
+    4'b 1111, // index[ 90] HTM_BLOCK_SDR_1_INDEX_6
+    4'b 1111, // index[ 91] HTM_BLOCK_SDR_1_INDEX_7
+    4'b 1111, // index[ 92] HTM_BLOCK_SDR_1_INDEX_8
+    4'b 1111, // index[ 93] HTM_BLOCK_SDR_1_INDEX_9
+    4'b 1111, // index[ 94] HTM_BLOCK_SDR_1_INDEX_10
+    4'b 1111, // index[ 95] HTM_BLOCK_SDR_1_INDEX_11
+    4'b 1111, // index[ 96] HTM_BLOCK_SDR_1_INDEX_12
+    4'b 1111, // index[ 97] HTM_BLOCK_SDR_1_INDEX_13
+    4'b 1111, // index[ 98] HTM_BLOCK_SDR_1_INDEX_14
+    4'b 1111, // index[ 99] HTM_BLOCK_SDR_1_INDEX_15
+    4'b 1111, // index[100] HTM_BLOCK_SDR_2_CONTROL_REG
+    4'b 1111, // index[101] HTM_BLOCK_SDR_2_STATUS_REG
+    4'b 1111, // index[102] HTM_BLOCK_SDR_2_0
+    4'b 1111, // index[103] HTM_BLOCK_SDR_2_1
+    4'b 1111, // index[104] HTM_BLOCK_SDR_2_2
+    4'b 1111, // index[105] HTM_BLOCK_SDR_2_3
+    4'b 1111, // index[106] HTM_BLOCK_SDR_2_4
+    4'b 1111, // index[107] HTM_BLOCK_SDR_2_5
+    4'b 1111, // index[108] HTM_BLOCK_SDR_2_6
+    4'b 1111, // index[109] HTM_BLOCK_SDR_2_7
+    4'b 1111, // index[110] HTM_BLOCK_SDR_2_8
+    4'b 1111, // index[111] HTM_BLOCK_SDR_2_9
+    4'b 1111, // index[112] HTM_BLOCK_SDR_2_10
+    4'b 1111, // index[113] HTM_BLOCK_SDR_2_11
+    4'b 1111, // index[114] HTM_BLOCK_SDR_2_12
+    4'b 1111, // index[115] HTM_BLOCK_SDR_2_13
+    4'b 1111, // index[116] HTM_BLOCK_SDR_2_14
+    4'b 1111, // index[117] HTM_BLOCK_SDR_2_15
+    4'b 1111, // index[118] HTM_BLOCK_SDR_2_16
+    4'b 1111, // index[119] HTM_BLOCK_SDR_2_17
+    4'b 1111, // index[120] HTM_BLOCK_SDR_2_18
+    4'b 1111, // index[121] HTM_BLOCK_SDR_2_19
+    4'b 1111, // index[122] HTM_BLOCK_SDR_2_20
+    4'b 1111, // index[123] HTM_BLOCK_SDR_2_21
+    4'b 1111, // index[124] HTM_BLOCK_SDR_2_22
+    4'b 1111, // index[125] HTM_BLOCK_SDR_2_23
+    4'b 1111, // index[126] HTM_BLOCK_SDR_2_24
+    4'b 1111, // index[127] HTM_BLOCK_SDR_2_25
+    4'b 1111, // index[128] HTM_BLOCK_SDR_2_26
+    4'b 1111, // index[129] HTM_BLOCK_SDR_2_27
+    4'b 1111, // index[130] HTM_BLOCK_SDR_2_28
+    4'b 1111, // index[131] HTM_BLOCK_SDR_2_29
+    4'b 1111, // index[132] HTM_BLOCK_SDR_2_30
+    4'b 1111, // index[133] HTM_BLOCK_SDR_2_31
+    4'b 1111, // index[134] HTM_BLOCK_SDR_2_INDEX_0
+    4'b 1111, // index[135] HTM_BLOCK_SDR_2_INDEX_1
+    4'b 1111, // index[136] HTM_BLOCK_SDR_2_INDEX_2
+    4'b 1111, // index[137] HTM_BLOCK_SDR_2_INDEX_3
+    4'b 1111, // index[138] HTM_BLOCK_SDR_2_INDEX_4
+    4'b 1111, // index[139] HTM_BLOCK_SDR_2_INDEX_5
+    4'b 1111, // index[140] HTM_BLOCK_SDR_2_INDEX_6
+    4'b 1111, // index[141] HTM_BLOCK_SDR_2_INDEX_7
+    4'b 1111, // index[142] HTM_BLOCK_SDR_2_INDEX_8
+    4'b 1111, // index[143] HTM_BLOCK_SDR_2_INDEX_9
+    4'b 1111, // index[144] HTM_BLOCK_SDR_2_INDEX_10
+    4'b 1111, // index[145] HTM_BLOCK_SDR_2_INDEX_11
+    4'b 1111, // index[146] HTM_BLOCK_SDR_2_INDEX_12
+    4'b 1111, // index[147] HTM_BLOCK_SDR_2_INDEX_13
+    4'b 1111, // index[148] HTM_BLOCK_SDR_2_INDEX_14
+    4'b 1111, // index[149] HTM_BLOCK_SDR_2_INDEX_15
+    4'b 1111, // index[150] HTM_BLOCK_SDR_3_CONTROL_REG
+    4'b 1111, // index[151] HTM_BLOCK_SDR_3_STATUS_REG
+    4'b 1111, // index[152] HTM_BLOCK_SDR_3_0
+    4'b 1111, // index[153] HTM_BLOCK_SDR_3_1
+    4'b 1111, // index[154] HTM_BLOCK_SDR_3_2
+    4'b 1111, // index[155] HTM_BLOCK_SDR_3_3
+    4'b 1111, // index[156] HTM_BLOCK_SDR_3_4
+    4'b 1111, // index[157] HTM_BLOCK_SDR_3_5
+    4'b 1111, // index[158] HTM_BLOCK_SDR_3_6
+    4'b 1111, // index[159] HTM_BLOCK_SDR_3_7
+    4'b 1111, // index[160] HTM_BLOCK_SDR_3_8
+    4'b 1111, // index[161] HTM_BLOCK_SDR_3_9
+    4'b 1111, // index[162] HTM_BLOCK_SDR_3_10
+    4'b 1111, // index[163] HTM_BLOCK_SDR_3_11
+    4'b 1111, // index[164] HTM_BLOCK_SDR_3_12
+    4'b 1111, // index[165] HTM_BLOCK_SDR_3_13
+    4'b 1111, // index[166] HTM_BLOCK_SDR_3_14
+    4'b 1111, // index[167] HTM_BLOCK_SDR_3_15
+    4'b 1111, // index[168] HTM_BLOCK_SDR_3_16
+    4'b 1111, // index[169] HTM_BLOCK_SDR_3_17
+    4'b 1111, // index[170] HTM_BLOCK_SDR_3_18
+    4'b 1111, // index[171] HTM_BLOCK_SDR_3_19
+    4'b 1111, // index[172] HTM_BLOCK_SDR_3_20
+    4'b 1111, // index[173] HTM_BLOCK_SDR_3_21
+    4'b 1111, // index[174] HTM_BLOCK_SDR_3_22
+    4'b 1111, // index[175] HTM_BLOCK_SDR_3_23
+    4'b 1111, // index[176] HTM_BLOCK_SDR_3_24
+    4'b 1111, // index[177] HTM_BLOCK_SDR_3_25
+    4'b 1111, // index[178] HTM_BLOCK_SDR_3_26
+    4'b 1111, // index[179] HTM_BLOCK_SDR_3_27
+    4'b 1111, // index[180] HTM_BLOCK_SDR_3_28
+    4'b 1111, // index[181] HTM_BLOCK_SDR_3_29
+    4'b 1111, // index[182] HTM_BLOCK_SDR_3_30
+    4'b 1111, // index[183] HTM_BLOCK_SDR_3_31
+    4'b 1111, // index[184] HTM_BLOCK_SDR_3_INDEX_0
+    4'b 1111, // index[185] HTM_BLOCK_SDR_3_INDEX_1
+    4'b 1111, // index[186] HTM_BLOCK_SDR_3_INDEX_2
+    4'b 1111, // index[187] HTM_BLOCK_SDR_3_INDEX_3
+    4'b 1111, // index[188] HTM_BLOCK_SDR_3_INDEX_4
+    4'b 1111, // index[189] HTM_BLOCK_SDR_3_INDEX_5
+    4'b 1111, // index[190] HTM_BLOCK_SDR_3_INDEX_6
+    4'b 1111, // index[191] HTM_BLOCK_SDR_3_INDEX_7
+    4'b 1111, // index[192] HTM_BLOCK_SDR_3_INDEX_8
+    4'b 1111, // index[193] HTM_BLOCK_SDR_3_INDEX_9
+    4'b 1111, // index[194] HTM_BLOCK_SDR_3_INDEX_10
+    4'b 1111, // index[195] HTM_BLOCK_SDR_3_INDEX_11
+    4'b 1111, // index[196] HTM_BLOCK_SDR_3_INDEX_12
+    4'b 1111, // index[197] HTM_BLOCK_SDR_3_INDEX_13
+    4'b 1111, // index[198] HTM_BLOCK_SDR_3_INDEX_14
+    4'b 1111  // index[199] HTM_BLOCK_SDR_3_INDEX_15
   };
 
 endpackage
