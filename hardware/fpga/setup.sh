@@ -35,6 +35,7 @@ if [ "$MAIN_MEM" = "1" ]; then
     read -p "Are you instantiating OpenTitan? y/n " OT
     if [ "$OT" = "y" ]; then
         export USE_OT="1"
+        export ETH2FMC_NO_PAD="0"
     elif [ "$OT" = "n" ]; then
         export USE_OT="0"
         read -p "Are you instantiating Ethernet? y/n " ETH
