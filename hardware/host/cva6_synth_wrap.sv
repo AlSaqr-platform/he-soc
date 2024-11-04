@@ -34,6 +34,7 @@ module cva6_synth_wrap
   localparam AXI_DATA_WIDTH     = 64,
   localparam AXI_STRB_WIDTH     = AXI_ADDR_WIDTH/8,
   localparam LOG_DEPTH          = 1,
+  localparam LOG_DEPTH_SPU      = 1,
 
   localparam AW_WIDTH           = AXI_ID_WIDTH+AXI_ADDR_WIDTH+AXI_USER_WIDTH+$bits(axi_pkg::len_t)+$bits(axi_pkg::size_t)+$bits(axi_pkg::burst_t)+$bits(axi_pkg::cache_t)+$bits(axi_pkg::prot_t)+$bits(axi_pkg::qos_t)+$bits(axi_pkg::region_t)+$bits(axi_pkg::atop_t)+1,
   localparam W_WIDTH            = AXI_USER_WIDTH+AXI_STRB_WIDTH+AXI_DATA_WIDTH+1,
@@ -41,11 +42,15 @@ module cva6_synth_wrap
   localparam B_WIDTH            = AXI_USER_WIDTH+AXI_ID_WIDTH+$bits(axi_pkg::resp_t),
   localparam AR_WIDTH           = AXI_ID_WIDTH+AXI_ADDR_WIDTH+AXI_USER_WIDTH+$bits(axi_pkg::len_t)+$bits(axi_pkg::size_t)+$bits(axi_pkg::burst_t)+$bits(axi_pkg::cache_t)+$bits(axi_pkg::prot_t)+$bits(axi_pkg::qos_t)+$bits(axi_pkg::region_t)+1,
 
+  localparam SPU_CORE_WIDTH     = $bits(pmu_pkg::pmu_event_t),
+
   localparam ASYNC_AW_DATA_WIDTH = (2**LOG_DEPTH)*AW_WIDTH,
   localparam ASYNC_W_DATA_WIDTH  = (2**LOG_DEPTH)*W_WIDTH,
   localparam ASYNC_B_DATA_WIDTH  = (2**LOG_DEPTH)*B_WIDTH,
   localparam ASYNC_AR_DATA_WIDTH = (2**LOG_DEPTH)*AR_WIDTH,
-  localparam ASYNC_R_DATA_WIDTH  = (2**LOG_DEPTH)*R_WIDTH
+  localparam ASYNC_R_DATA_WIDTH  = (2**LOG_DEPTH)*R_WIDTH,
+
+  localparam ASYNC_SPU_CORE_WIDTH  = (2**LOG_DEPTH_SPU)*SPU_CORE_WIDTH
 )  (
   input  logic                         clk_i,
   input  logic                         rst_ni,
@@ -96,7 +101,9 @@ module cva6_synth_wrap
   output logic [31:0]                         instr_o[1:0],
 
   // APMU
-  output pmu_pkg::pmu_event_t [ariane_soc::NumCVA6-1:0] spu_core_o
+  output logic [ariane_soc::NumCVA6-1:0] [LOG_DEPTH_SPU:0]          spu_core_cdc_wptr_o,
+  output logic [ariane_soc::NumCVA6-1:0] [ASYNC_SPU_CORE_WIDTH-1:0] spu_core_cdc_data_o,
+  input  logic [ariane_soc::NumCVA6-1:0] [LOG_DEPTH_SPU:0]          spu_core_cdc_rptr_i
 );
 
 `ifdef APMU_IP
@@ -161,6 +168,8 @@ module cva6_synth_wrap
   ariane_ace_soc::resp_t [ariane_soc::NumCVA6-1:0] ace_ariane_resp;
 
   logic [ariane_soc::NumCVA6-1:0][1:0] hart_id;
+
+  pmu_pkg::pmu_event_t [ariane_soc::NumCVA6-1:0] spu_core;
 
   for (genvar i = 0; i < ariane_soc::NumCVA6 ; i++ ) begin : gen_ariane
 
@@ -259,12 +268,31 @@ module cva6_synth_wrap
       .addr_map_i         ( spu_mem_addr_map             ),
       .spu_slv            ( core_to_SPU[i]               ),
       .spu_mst            ( SPU_to_CCU[i]                ),
-      .e_out              ( spu_core_o[i]                )
+      .e_out              ( spu_core[i]                  )
     );
-    `else 
-      spu_core_o[i].e_id   = '0;
-      spu_core_o[i].e_info = '0;
-      spu_core_o[i].s_id   = '0;
+
+    cdc_fifo_gray_src #(
+      .T           ( pmu_pkg::pmu_event_t ),
+      .LOG_DEPTH   ( LOG_DEPTH_SPU        ),
+      .SYNC_STAGES ( 3                    )
+    ) i_src (
+      .src_rst_ni  ( rst_ni            ),
+      .src_clk_i   ( clk_i             ),
+      .src_data_i  ( spu_core[i]       ),
+      .src_valid_i ( |spu_core[i].e_id ),
+      .src_ready_o (                   ),
+
+      (* async *) .async_data_o ( spu_core_cdc_data_o[i] ),
+      (* async *) .async_wptr_o ( spu_core_cdc_wptr_o[i] ),
+      (* async *) .async_rptr_i ( spu_core_cdc_rptr_i[i] )
+    );
+
+    `else
+      spu_core_cdc_data_o = '0;
+      spu_core_cdc_wptr_o = '0;
+      spu_core[i].e_id   = '0;
+      spu_core[i].e_info = '0;
+      spu_core[i].s_id   = '0;
     `endif
 
   end // block: gen_ariane
