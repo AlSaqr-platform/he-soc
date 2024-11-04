@@ -57,38 +57,38 @@ uint32_t irq_configure(uint32_t number, uint32_t irq_en){
     uint32_t gpio_inten;
     uint32_t gpio_inttype;
 
-      if(number < 32){
-        // Interrupt Enable Register for GPIO 0-31
-        address = ARCHI_GPIO_ADDR + GPIO_INTEN_OFFSET;
-        gpio_inten = pulp_read32(address);
-        if (irq_en)
-            gpio_inten |= (1 << number);
-        else
-            gpio_inten &= ~(1 << number);
-        pulp_write32(address, gpio_inten);
-        // Interrupt Type Register for GPIO 0-31
-        address = ARCHI_GPIO_ADDR + GPIO_INTTYPE_OFFSET;
-        gpio_inttype = pulp_read32(address);
-        // Set inttype to 10 (binary)
-        gpio_inttype |= (0x2 << (number * 2));
-        pulp_write32(address, gpio_inttype);
+    if(number < 32){
+      // Interrupt Enable Register for GPIO 0-31
+      address = ARCHI_GPIO_ADDR + GPIO_INTEN_OFFSET;
+      gpio_inten = pulp_read32(address);
+      if (irq_en)
+          gpio_inten |= (1 << number);
+      else
+          gpio_inten &= ~(1 << number);
+      pulp_write32(address, gpio_inten);
+      // Interrupt Type Register for GPIO 0-15
+      address = ARCHI_GPIO_ADDR + GPIO_INTTYPE0_OFFSET;
+      gpio_inttype = pulp_read32(address);
+      // Set inttype to 10 (binary)
+      gpio_inttype |= (0x2 << (number * 2));
+      pulp_write32(address, gpio_inttype);
     } else {
-        // Interrupt Enable Register for GPIO 32-63
-        address = ARCHI_GPIO_ADDR + GPIO_INTEN_32_63_OFFSET;
-        gpio_inten = pulp_read32(address);
-        if (irq_en)
-            gpio_inten |= (1 << (number - 32));
-        else
-            gpio_inten &= ~(1 << (number - 32));
-        pulp_write32(address, gpio_inten);
-        // Interrupt Type Register for GPIO 32-63
-        address = ARCHI_GPIO_ADDR + GPIO_INTTYPE_32_63_OFFSET;
-        gpio_inttype = pulp_read32(address);
-        // Set inttype to 10 (binary)
-        gpio_inttype |= (0x2 << ((number - 32) * 2));
-        pulp_write32(address, gpio_inttype);
+      // Interrupt Enable Register for GPIO 32-63
+      address = ARCHI_GPIO_ADDR + GPIO_INTEN_32_63_OFFSET;
+      gpio_inten = pulp_read32(address);
+      if (irq_en)
+          gpio_inten |= (1 << (number - 32));
+      else
+          gpio_inten &= ~(1 << (number - 32));
+      pulp_write32(address, gpio_inten);
+      // Interrupt Type Register for GPIO 32-47
+      address = ARCHI_GPIO_ADDR + GPIO_INTTYPE_32_47_OFFSET;
+      gpio_inttype = pulp_read32(address);
+      // Set inttype to 10 (binary)
+      gpio_inttype |= (0x2 << ((number - 32) * 2));
+      pulp_write32(address, gpio_inttype);
     }
-    return 0;
+  return 0;
 }
 
 uint32_t configure_gpio(uint32_t number, uint32_t direction){
@@ -429,8 +429,15 @@ int main() {
     #endif
 
     uint32_t gpio_irq_id[64];
-    for(uint32_t i = 0; i < total_gpios; i++) {
-        gpio_irq_id[i] = 101 + i;
+    uint32_t gpio_imsic_id[64];
+
+    aplic_init();
+    imsic_init();
+
+    for (uint32_t i = 0; i < 64; i++) {
+      gpio_irq_id[i] = 156 + i;
+      gpio_imsic_id[i] = i;
+      config_irq_aplic(gpio_irq_id[i], gpio_imsic_id[i], 0);
     }
 
     switch(v){
