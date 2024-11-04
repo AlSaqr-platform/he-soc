@@ -444,12 +444,14 @@ int main() {
       // pad_a GPIOs
       case 0:
         for(int i = 0; i < NUM_GPIOS_A/2; i++) {
+          irq_configure(i, 1);
           configure_gpio( i , OUT );
           #if VERBOSE > 1
             printf("gpio_a_%0d direction: %s\n", i, "OUT");
           #endif
         }
         for(int i = NUM_GPIOS_A/2; i < NUM_GPIOS_A; i++) {
+          irq_configure(i, 1);
           configure_gpio( i , IN );
           #if VERBOSE > 1
             printf("gpio_a_%0d direction: %s\n", i, "IN");
@@ -457,6 +459,9 @@ int main() {
         }
 
         printf("Start pad_a GPIOs...\n");
+        asm volatile ("wfi");
+        //imsic_intp_arrive(rx_uart_imsic_id);
+        CSRW(CSR_MTOPEI, 0);
 
         gpio_val=1;
         for (int j = 0; j < 10; j++){
@@ -478,12 +483,14 @@ int main() {
       // pad_b GPIOs
       case 1:
         for(int i = 0; i < NUM_GPIOS_B/2; i++) {
+          irq_configure(i, 1);
           configure_gpio( i , OUT );
           #if VERBOSE > 1
             printf("gpio_b_%0d direction: %s\n", i, "OUT");
           #endif
         }
         for(int i = NUM_GPIOS_B/2; i < NUM_GPIOS_B; i++) {
+          irq_configure(i, 1);
           configure_gpio( i , IN );
           #if VERBOSE > 1
             printf("gpio_b_%0d direction: %s\n", i, "IN");
