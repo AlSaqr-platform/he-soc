@@ -751,7 +751,7 @@ module apb_subsystem
         .gpio_out        ( s_gpio_out                  ),
         .gpio_dir        ( s_gpio_dir                  ),
         .gpio_padcfg     (                             ),
-        .interrupt       ( gpio_irq_o                  )
+        .interrupt_o     ( gpio_irq_o                  )
     );
 
     gpio2padframe #(
