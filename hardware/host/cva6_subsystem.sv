@@ -20,6 +20,7 @@
 module cva6_subsystem
   import axi_pkg::xbar_cfg_t;
   import apb_soc_pkg::NUM_ADV_TIMER;
+  import apb_soc_pkg::NUM_GPIO;
   import ariane_soc::*;
   import udma_subsystem_pkg::N_CAN;
 #(

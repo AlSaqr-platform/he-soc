@@ -27,6 +27,7 @@
 #define BUFFER_SIZE 32
 
 #define ARCHI_GPIO_ADDR 0x1A105000
+#define CSR_MTOPEI 0x35C
 
 #define OUT 1
 #define IN  0
@@ -223,6 +224,9 @@ int main() {
   uint32_t error;
   uint32_t gpio_val;
   uint32_t address;
+
+  aplic_init();
+  imsic_init();
 
   error=0;
 
@@ -431,9 +435,6 @@ int main() {
     uint32_t gpio_irq_id[64];
     uint32_t gpio_imsic_id[64];
 
-    aplic_init();
-    imsic_init();
-
     for (uint32_t i = 0; i < 64; i++) {
       gpio_irq_id[i] = 156 + i;
       gpio_imsic_id[i] = i;
@@ -444,29 +445,30 @@ int main() {
       // pad_a GPIOs
       case 0:
         for(int i = 0; i < NUM_GPIOS_A/2; i++) {
-          irq_configure(i, 1);
           configure_gpio( i , OUT );
           #if VERBOSE > 1
             printf("gpio_a_%0d direction: %s\n", i, "OUT");
           #endif
         }
         for(int i = NUM_GPIOS_A/2; i < NUM_GPIOS_A; i++) {
-          irq_configure(i, 1);
           configure_gpio( i , IN );
+          // enable interrupt of pins set as input
+          irq_configure( i, 1);
           #if VERBOSE > 1
             printf("gpio_a_%0d direction: %s\n", i, "IN");
           #endif
         }
 
         printf("Start pad_a GPIOs...\n");
-        asm volatile ("wfi");
-        //imsic_intp_arrive(rx_uart_imsic_id);
-        CSRW(CSR_MTOPEI, 0);
 
         gpio_val=1;
         for (int j = 0; j < 10; j++){
           for(int i = 0; i < NUM_GPIOS_A/2; i++) {
             set_gpio( i , gpio_val);
+            // asm volatile ("wfi");
+            // imsic_intp_arrive(gpio_imsic_id[i]);
+            // CSRW(CSR_MTOPEI, 0);
+            // aplic_reset(gpio_imsic_id[i]);
             #if VERBOSE > 5
               printf("gpio_a_%0d value: %0d\n", i, gpio_val);
             #endif
@@ -483,15 +485,14 @@ int main() {
       // pad_b GPIOs
       case 1:
         for(int i = 0; i < NUM_GPIOS_B/2; i++) {
-          irq_configure(i, 1);
           configure_gpio( i , OUT );
           #if VERBOSE > 1
             printf("gpio_b_%0d direction: %s\n", i, "OUT");
           #endif
         }
         for(int i = NUM_GPIOS_B/2; i < NUM_GPIOS_B; i++) {
-          irq_configure(i, 1);
           configure_gpio( i , IN );
+          irq_configure(i, 1);
           #if VERBOSE > 1
             printf("gpio_b_%0d direction: %s\n", i, "IN");
           #endif
@@ -502,6 +503,10 @@ int main() {
         for (int j = 0; j < 10; j++){
           for(int i = 0; i < NUM_GPIOS_B/2; i++) {
             set_gpio( i , gpio_val);
+            //asm volatile ("wfi");
+            // imsic_intp_arrive(gpio_imsic_id[i]);
+            // CSRW(CSR_MTOPEI, 0);
+            // aplic_reset(gpio_imsic_id[i]);
             #if VERBOSE > 5
               printf("gpio_b_%0d value: %0d\n", i, gpio_val);
             #endif

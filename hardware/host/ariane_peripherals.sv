@@ -17,6 +17,7 @@
 
 module ariane_peripherals
     import udma_subsystem_pkg::N_CAN;
+    import apb_soc_pkg::NUM_GPIO;
     import apb_soc_pkg::NUM_ADV_TIMER;
     import ariane_soc::*;
 #(
