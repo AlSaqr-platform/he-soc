@@ -578,6 +578,8 @@ module host_domain
   pmu_top #(
     .NUM_PORT         ( 3                             ),
     .NUM_COUNTER      ( APMU_NUM_COUNTER              ),
+    .ISPM_NUM_WORDS   ( 128                           ),
+    .DSPM_NUM_WORDS   ( 1024                          ),
     // APMU Addresses and SPM configuration
     .MEMORY_BASE_ADDR ( ariane_soc::HYAXIBase         ),
     .MEMORY_LENGTH    ( ariane_soc::HYAXILength       ),
