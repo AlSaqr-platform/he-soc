@@ -49,7 +49,7 @@ dependencies:
   idma: { git: "git@github.com:alsaqr-platform/iDMA.git", rev: "eb2433c3a" } # branch: mc/zdl/exp-path
   # APMU_BLOCK START: Branch: uw/pmu
   axi_llc: { git: "git@github.com:alsaqr-platform/axi_llc.git", rev: "8fa5d302f7407d9582630bcc3fb07f4f3c08f2c0" } #branch: uw/plru_paritioning
-  spu: { git: "git@github.com:alsaqr-platform/spu.git", rev: "520c91f58a9d14ac43cfad4684d01df27ae0f432" } #branch: mc/ace-support
+  spu: { git: "git@github.com:alsaqr-platform/spu.git", rev: "e213cb2e10d713531b718fdaddacdbd605f23ff6" } #branch: mc/ace-support
   apmu: { git: "git@github.com:alsaqr-platform/apmu.git", rev: "3e9227e1e853e324f48950b8dce09e6246113b47" } #branch: mc/fixes
 
 workspace:
