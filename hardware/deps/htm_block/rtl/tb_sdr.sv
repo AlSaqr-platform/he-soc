@@ -16,10 +16,10 @@ logic			rst_ni;
 logic [0:15][31:0]	sdr_index ;
 logic 	    [31:0]	sdr_status ;
 logic 	    [31:0]	sdr_control;
-logic [0:31][31:0]	sdr_reg;
+
 logic		[5:0]	shift_counter; 
 logic	[0:31][31:0]  INDEX;
-logic	[0:31][31:0]  INDEX_SDR;
+
 logic [31:0] sdr_status_expected;
 logic	[15:0] 		INDEX_EXPECTED ;
 logic	[15:0] 		INDEX_READ; 
@@ -34,14 +34,22 @@ typedef union packed {
 union_type my_sdr_union;
 
 class packet;
-rand bit [1023:0] src;
-constraint c_dist {
-src dist {[0:23]:=70, [24:32]:=40, [33:1023]:=1};
-//dst dist {0:=20, [1:3]:=70};
-}
+	rand bit [9:0] index;
+	constraint c_dist {
+		index dist 	{[0:1023]:=100};
+	}
+endclass
+
+class iterations;
+	rand bit [47:0] num_bits;
+	constraint c_dist {
+		num_bits dist	{[15:25]:=90, [25:64]:= 10};
+	}
 endclass
 
 packet my_packet;
+iterations my_iterations;
+int loop_count; 
 
 real period = 100ns;
 initial forever
@@ -53,17 +61,14 @@ initial begin
 	#1us
 	rst_ni = 1'b1;
 	#1us
-	//sdr_control= 32'h1;
 	sdr_control= 32'h8000_0000;
 	#1us
 	sdr_control= 32'h0;
 	#15us
-	//sdr_control= 32'h1;
 	sdr_control= 32'h8000_0000;
 	#1us
 	sdr_control= 32'h0;
 	#20us
-	//sdr_control= 32'h1;
 	sdr_control= 32'h8000_0000;
 	#200ns
 	sdr_control= 32'h0;
@@ -71,7 +76,6 @@ end
 
 task compare_indexes();
 
-	//assign INDEX_SDR = sdr_module.sdr_index;
 	assign index_count = sdr_status_expected[7:0];
 	for ( int z=0;z < index_count;z++) begin
 		index_place = 16*((z)%2);
@@ -80,7 +84,7 @@ task compare_indexes();
 
 		
 		if (INDEX_EXPECTED !== INDEX_READ)
-			$display("INDEXES MISMATCH REGISTER READ [%d] = %x %x",z, INDEX_EXPECTED, INDEX_READ);
+			$display("****** INDEXES MISMATCH REGISTER READ [%d] = %x %x",z, INDEX_EXPECTED, INDEX_READ);
 		else begin
 			$display("FINAL INDEX REGISTER READ [%d] = %x",z, INDEX_READ);
 			$display("INDEX EXPECTED            [%d] = %x",z, INDEX_EXPECTED);
@@ -128,12 +132,7 @@ endtask
 
 
 initial begin
-/*
-	sdr_reg[0] = { 32'h8203_8208};
-	sdr_reg[1] = { 32'h7402_8309};
-	sdr_reg[2] = { 32'h3451_8208};
-	sdr_reg[3] = { 32'h8000_0000 };
-*/
+
 	my_sdr_union.sdr_reg[0]  = { 32'h0000_FFFF};
 	my_sdr_union.sdr_reg[1]  = { 32'h0};
 	my_sdr_union.sdr_reg[2]  = { 32'h0};
@@ -166,10 +165,7 @@ initial begin
 	my_sdr_union.sdr_reg[29] = { 32'h0};
 	my_sdr_union.sdr_reg[30] = { 32'h0};
 	my_sdr_union.sdr_reg[31] = { 32'h0 };
-/*
-	my_sdr_union.my_sdr_union.sdr_reg[30] = { 32'hC000_0003};
-	my_sdr_union.sdr_reg[31] = { 32'hE000_0000 };
-*/
+
         @(posedge sdr_control[31]);
 total_ones_tb_print();
         @(negedge sdr_control[31]);
@@ -259,14 +255,30 @@ total_ones_tb_print();
 	wait (	sdr_status[31] == 1'b1) ;
 	compare_indexes();
 
- my_packet = new();
- repeat(50)begin 
-       my_packet.randomize();
-       $display ("src is %d", my_packet.src);
-       my_sdr_union.sdr_1024 = my_packet.src;
-
+ 
+my_packet = new();
+ my_iterations = new();
+ 
+ loop_count = 0;
+ repeat (10) begin
+ 	my_iterations.randomize();
+	my_sdr_union.sdr_1024 = '{default:'0};
+	loop_count = 0;
+        //$display ("****num_bits is %d\n", my_iterations.num_bits);
+ 	repeat(my_iterations.num_bits) begin
+		my_packet.randomize();
+           	//$display ("index is %d %d\n", my_packet.index, loop_count);
+		loop_count++;
+       		
+		my_sdr_union.sdr_1024[my_packet.index] = 1'b1;
+        end
+	sdr_control= 32'h8000_0000;
+	#1us
+	sdr_control= 32'h0;
+	total_ones_tb_print();
+	wait (	sdr_status[31] == 1'b1) ;
+	compare_indexes();
  end
-
 
 end
 
