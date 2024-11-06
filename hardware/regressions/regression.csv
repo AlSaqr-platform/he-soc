@@ -7,7 +7,6 @@
 0,../software/peripherals/spim_flash,none,none,,,,,0
 0,../software/peripherals/qspim_flash,none,none,,,,,0
 0,../software/peripherals/uart,none,none,,,,,0
-0,../software/peripherals/usart,none,none,,,,,0
 0,../software/peripherals/sdio,none,none,,,,,0
 0,../software/peripherals/cam,none,none,,,,,0
 0,../software/can,none,none,,,,,0
@@ -20,6 +19,7 @@
 0,../software/hello_culsans,none,none,,,,,0
 0,../software/bypass_cva6_clk,none,none,,,,,0
 0,../software/pmu_test,none,none,,,,,0
+0,../software/pmu_aplic_test,none,none,,,,,0
 0,../software/monitor_counter,none,none,,,,,0
 0,../software/mbox_test,opentitan/sw/tests/alsaqr/mbox_test/mbox_test.elf,none,,,,,0
 0,../software/snooper_test,opentitan/sw/tests/alsaqr/snooper_test/snooper_test_instr.elf,none,,,,,0
@@ -27,4 +27,3 @@
 0,../software/hello_culsans,opentitan/sw/tests/cluster/mbox_test/mbox_test.elf,none,,1,,,0
 0,../software/hello_culsans,opentitan/sw/tests/cluster/par_matmul_fp32/par_matmul_fp32.elf,none,,1,,,0
 0,../software/hello_culsans,opentitan/sw/tests/opentitan/monitor_counter/bazel-out/monitor_counter.elf,none,,1,,,0
-0,../software/peripherals/i2c,none,none,,,,,0
