@@ -460,94 +460,10 @@ module host_domain
 
   `endif
 
-   cva6_subsystem # (
-        .NUM_WORDS         ( NUM_WORDS      ),
-        .AXI_USER_WIDTH    ( AXI_USER_WIDTH ),
-        .APMU_NUM_COUNTER  ( APMU_NUM_COUNTER ),
-        .InclSimDTM        ( 1'b1           ),
-        .StallRandomOutput ( 1'b1           ),
-        .StallRandomInput  ( 1'b1           ),
-        .JtagEnable        ( JtagEnable     ),
-        .axi_req_t         ( axi_req_t      ),
-        .axi_rsp_t         ( axi_rsp_t      )
-   ) i_cva6_subsystem (
-        .clk_i(s_soc_clk),
-        .rst_ni(s_synch_global_rst),
-        .cva6_clk_i(s_clk_cva6),
-        .cva6_rst_ni(s_rstn_cva6_sync),
-        .rtc_i,
-        .jtag_TCK,
-        .jtag_TMS,
-        .jtag_TDI,
-        .jtag_TRSTn,
-        .jtag_TDO_data,
-        .jtag_TDO_driven,
-        .ot_axi_req,
-        .ot_axi_rsp,
-        .irq_mbox_i           ( completion_irq_o     ),
-        .cfi_req_irq_o        ( cfi_req_irq_o        ),
-        .sync_rst_ni          ( s_synch_soc_rst      ),
-        .udma_events_i        ( s_udma_events        ),
-        .cluster_eoc_i        ( cluster_eoc_i        ),
-        .c2h_irq_i            ( s_c2h_irq            ),
-        .can_irq_i            ( s_can_irq            ),
-        .pwm_irq_i            ( s_pwm_irq            ),
-        .gpio_irq_i           ( s_gpio_irq           ),
-        .cl_dma_pe_evt_i      ( s_dma_pe_evt         ),
-        .dm_rst_o             ( s_dm_rst             ),
-        .l2_axi_master        ( l2_axi_bus           ),
-        .apb_axi_master       ( apb_axi_bus          ),
-        .hyper_axi_master     ( hyper_axi_bus        ),
-        .pmu_axi_master       ( iopmp_mst            ),
-
-        //Ethernet
-        .eth_clk_i            ( s_eth_clk_i          ), // 125 MHz 90
-        .eth_phy_tx_clk_i     ( s_eth_phy_tx_clk_i   ), // 125 MHz 0
-        .eth_clk_300MHz_i     ( s_eth_clk_300MHz_i   ),
-        .eth_to_pad           ( eth_to_pad           ),
-        .pad_to_eth           ( pad_to_eth           ),
-
-        .cluster_axi_master   ( cluster_axi_master   ),
-        .cluster_axi_slave    ( cluster_axi_slave    ),
-
-        .udma_rx_l3_axi_slave ( udma_rx_l3_axi_bus   ),
-        .udma_tx_l3_axi_slave ( udma_tx_l3_axi_bus   ),
-
-        // EVU 
-        .spu_core_o           ( spu_o[ 0+:ariane_soc::NumCVA6 ]),
-        // APMU
-        .pmu_intr_i           ( pmu_intr_o           ),
-
-        .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
-        .cva6_uart_tx_o       ( cva6_uart_tx_o       ),
-        .axi_lite_master      ( host_lite_bus        ),
-        .axi_lite_snoop_req_i ( axi_lite_snooper_req ),
-        .axi_lite_snoop_rsp_o ( axi_lite_snooper_rsp ),
-
-        .iommu_lock_xor_key_i ( iommu_lock_xor_key   ),
-        .iopmp_lock_xor_key_i ( iopmp_lock_xor_key   ),
-        .aia_lock_xor_key_i   ( aia_lock_xor_key     )
-    );
-
-    AXI_LITE #(
+   AXI_LITE #(
     .AXI_ADDR_WIDTH (AXI_LITE_AW),
     .AXI_DATA_WIDTH (AXI_LITE_DW)
-  ) apmu_cfg_lite_bus();
-
-  `ifdef APMU_IP
-   localparam N_ADDR_RULES = 2;
-   ariane_soc::addr_map_rule_t [N_ADDR_RULES-1:0]   spu_mem_addr_map;
-   assign spu_mem_addr_map[0] = '{
-         idx: 0,
-         start_addr: ariane_soc::DebugBase,
-         end_addr:   ariane_soc::HYAXIBase
-   };
-
-   assign spu_mem_addr_map[1] = '{
-         idx: 1,
-         start_addr: ariane_soc::HYAXIBase,
-         end_addr:   ariane_soc::HYAXIBase + ariane_soc::HYAXILength
-   };
+   ) apmu_cfg_lite_bus();
 
    // AXI Bus: XBAR <=> AXI Cut (IOPMP Configuration Port)
    AXI_BUS #(
@@ -571,6 +487,23 @@ module host_domain
      .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
    ) iopmp_mst (); //to cva6_subsytem's inputs
 
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
+   ) axi_iopmp_rp ();
+
+   AXI_BUS_EXT #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
+   ) axi_iopmp_rp_ext ();
+
+   ariane_axi_soc::req_ext_t axi_iopmp_rp_ext_req;
+   ariane_axi_soc::resp_t axi_iopmp_rp_ext_rsp;
+
    ariane_axi_soc::req_t  axi_iopmp_rp_req, axi_iopmp_ip_req;
    ariane_axi_soc::resp_t axi_iopmp_rp_rsp, axi_iopmp_ip_rsp;
 
@@ -580,10 +513,45 @@ module host_domain
   `AXI_ASSIGN_TO_REQ(axi_iopmp_cp_req, iopmp_cp_cut)
   `AXI_ASSIGN_FROM_RESP(iopmp_cp_cut, axi_iopmp_cp_rsp)
 
-  `AXI_ASSIGN_FORM_REQ(iopmp_mst,axi_iopmp_ip_req)
+  `AXI_ASSIGN_FROM_REQ(iopmp_mst,axi_iopmp_ip_req)
   `AXI_ASSIGN_TO_RESP(axi_iopmp_ip_rsp, iopmp_mst)
 
   `REG_BUS_TYPEDEF_ALL(iopmp_reg, ariane_axi_soc::addr_t, ariane_axi_soc::data_t, ariane_axi_soc::strb_t)
+
+   // Manually assign extended signals
+
+  `AXI_ASSIGN_FROM_REQ(axi_iopmp_rp,axi_iopmp_rp_req)
+  `AXI_ASSIGN_TO_RESP(axi_iopmp_rp_rsp, axi_iopmp_rp)
+
+  `AXI_ASSIGN(axi_iopmp_rp_ext,axi_iopmp_rp)
+
+  `AXI_ASSIGN_TO_REQ(axi_iopmp_rp_ext_req, axi_iopmp_rp_ext)
+  `AXI_ASSIGN_FROM_RESP(axi_iopmp_rp_ext, axi_iopmp_rp_ext_rsp)
+
+   assign axi_iopmp_rp_ext_req.aw.stream_id    = 24'd1;
+   assign axi_iopmp_rp_ext_req.aw.ss_id_valid  = '0;
+   assign axi_iopmp_rp_ext_req.aw.substream_id = '0;
+   assign axi_iopmp_rp_ext_req.aw.nsaid        = 4'd1;
+
+   assign axi_iopmp_rp_ext_req.ar.stream_id    = 24'd1;
+   assign axi_iopmp_rp_ext_req.ar.ss_id_valid  = '0;
+   assign axi_iopmp_rp_ext_req.ar.substream_id = '0;
+   assign axi_iopmp_rp_ext_req.ar.nsaid        = 4'd1;
+
+  `ifdef APMU_IP
+   localparam N_ADDR_RULES = 2;
+   ariane_soc::addr_map_rule_t [N_ADDR_RULES-1:0]   spu_mem_addr_map;
+   assign spu_mem_addr_map[0] = '{
+         idx: 0,
+         start_addr: ariane_soc::DebugBase,
+         end_addr:   ariane_soc::HYAXIBase
+   };
+
+   assign spu_mem_addr_map[1] = '{
+         idx: 1,
+         start_addr: ariane_soc::HYAXIBase,
+         end_addr:   ariane_soc::HYAXIBase + ariane_soc::HYAXILength
+   };
 
    axi_spu_top #(
      // Static configuration parameters of the cache.
@@ -653,20 +621,20 @@ module host_domain
      .NUMBER_ENTRIES     ( 32                ),
      .NUMBER_MASTERS     ( 1                 )
    ) i_riscv_iopmp (
-     .clk_i				       ( clk_i						 ),
-     .rst_ni				     ( rst_ni					   ),
+     .clk_i				       ( clk_i						     ),
+     .rst_ni				     ( rst_ni					       ),
 
      // AXI Config Slave port
-     .control_req_i      ( axi_iopmp_cp_req  ),
-     .control_rsp_o      ( axi_iopmp_cp_rsp  ),
+     .control_req_i      ( axi_iopmp_cp_req      ),
+     .control_rsp_o      ( axi_iopmp_cp_rsp      ),
 
      // AXI Bus Slave port
-     .receiver_req_i     ( axi_iopmp_rp_req  ),
-     .receiver_rsp_o     ( axi_iopmp_rp_rsp  ),
+     .receiver_req_i     ( axi_iopmp_rp_ext_req  ),
+     .receiver_rsp_o     ( axi_iopmp_rp_ext_rsp  ),
 
      // AXI Bus Master port
-     .initiator_req_o    ( axi_iopmp_ip_req  ),
-     .initiator_rsp_i    ( axi_iopmp_ip_rsp  ),
+     .initiator_req_o    ( axi_iopmp_ip_req      ),
+     .initiator_rsp_i    ( axi_iopmp_ip_rsp      ),
 
      .wsi_wire_o         (   ),
      .iopmp_lock_xor_key_i ('0)
@@ -719,6 +687,74 @@ module host_domain
   `AXI_LITE_ASSIGN_FROM_RESP( apmu_cfg_lite_bus, axi_lite_pmu_cfg_res )
   `endif
 
+   cva6_subsystem # (
+        .NUM_WORDS         ( NUM_WORDS      ),
+        .AXI_USER_WIDTH    ( AXI_USER_WIDTH ),
+        .APMU_NUM_COUNTER  ( APMU_NUM_COUNTER ),
+        .InclSimDTM        ( 1'b1           ),
+        .StallRandomOutput ( 1'b1           ),
+        .StallRandomInput  ( 1'b1           ),
+        .JtagEnable        ( JtagEnable     ),
+        .axi_req_t         ( axi_req_t      ),
+        .axi_rsp_t         ( axi_rsp_t      )
+   ) i_cva6_subsystem (
+        .clk_i(s_soc_clk),
+        .rst_ni(s_synch_global_rst),
+        .cva6_clk_i(s_clk_cva6),
+        .cva6_rst_ni(s_rstn_cva6_sync),
+        .rtc_i,
+        .jtag_TCK,
+        .jtag_TMS,
+        .jtag_TDI,
+        .jtag_TRSTn,
+        .jtag_TDO_data,
+        .jtag_TDO_driven,
+        .ot_axi_req,
+        .ot_axi_rsp,
+        .irq_mbox_i           ( completion_irq_o     ),
+        .cfi_req_irq_o        ( cfi_req_irq_o        ),
+        .sync_rst_ni          ( s_synch_soc_rst      ),
+        .udma_events_i        ( s_udma_events        ),
+        .cluster_eoc_i        ( cluster_eoc_i        ),
+        .c2h_irq_i            ( s_c2h_irq            ),
+        .can_irq_i            ( s_can_irq            ),
+        .pwm_irq_i            ( s_pwm_irq            ),
+        .gpio_irq_i           ( s_gpio_irq           ),
+        .cl_dma_pe_evt_i      ( s_dma_pe_evt         ),
+        .dm_rst_o             ( s_dm_rst             ),
+        .l2_axi_master        ( l2_axi_bus           ),
+        .apb_axi_master       ( apb_axi_bus          ),
+        .hyper_axi_master     ( hyper_axi_bus        ),
+        .pmu_axi_master       ( iopmp_mst            ),
+
+        //Ethernet
+        .eth_clk_i            ( s_eth_clk_i          ), // 125 MHz 90
+        .eth_phy_tx_clk_i     ( s_eth_phy_tx_clk_i   ), // 125 MHz 0
+        .eth_clk_300MHz_i     ( s_eth_clk_300MHz_i   ),
+        .eth_to_pad           ( eth_to_pad           ),
+        .pad_to_eth           ( pad_to_eth           ),
+
+        .cluster_axi_master   ( cluster_axi_master   ),
+        .cluster_axi_slave    ( cluster_axi_slave    ),
+
+        .udma_rx_l3_axi_slave ( udma_rx_l3_axi_bus   ),
+        .udma_tx_l3_axi_slave ( udma_tx_l3_axi_bus   ),
+
+        // EVU 
+        .spu_core_o           ( spu_o[ 0+:ariane_soc::NumCVA6 ]),
+        // APMU
+        .pmu_intr_i           ( pmu_intr_o           ),
+
+        .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
+        .cva6_uart_tx_o       ( cva6_uart_tx_o       ),
+        .axi_lite_master      ( host_lite_bus        ),
+        .axi_lite_snoop_req_i ( axi_lite_snooper_req ),
+        .axi_lite_snoop_rsp_o ( axi_lite_snooper_rsp ),
+
+        .iommu_lock_xor_key_i ( iommu_lock_xor_key   ),
+        .iopmp_lock_xor_key_i ( iopmp_lock_xor_key   ),
+        .aia_lock_xor_key_i   ( aia_lock_xor_key     )
+    );
 
    axi2tcdm_wrap #(
       .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
