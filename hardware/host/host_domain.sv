@@ -18,6 +18,7 @@
 `include "axi/assign.svh"
 `include "axi/typedef.svh"
 `include "common_cells/registers.svh"
+`define APMU_IOPMP
 `define APMU_IP
 
 module host_domain
@@ -510,16 +511,17 @@ module host_domain
    ariane_axi_soc::req_slv_t  axi_iopmp_cp_req;
    ariane_axi_soc::resp_slv_t axi_iopmp_cp_rsp;
 
+  `REG_BUS_TYPEDEF_ALL(iopmp_reg, ariane_axi_soc::addr_t, ariane_axi_soc::data_t, ariane_axi_soc::strb_t)
+
+  `ifdef APMU_IOPMP
+
   `AXI_ASSIGN_TO_REQ(axi_iopmp_cp_req, iopmp_cp_cut)
   `AXI_ASSIGN_FROM_RESP(iopmp_cp_cut, axi_iopmp_cp_rsp)
 
   `AXI_ASSIGN_FROM_REQ(iopmp_mst,axi_iopmp_ip_req)
   `AXI_ASSIGN_TO_RESP(axi_iopmp_ip_rsp, iopmp_mst)
 
-  `REG_BUS_TYPEDEF_ALL(iopmp_reg, ariane_axi_soc::addr_t, ariane_axi_soc::data_t, ariane_axi_soc::strb_t)
-
    // Manually assign extended signals
-
   `AXI_ASSIGN_FROM_REQ(axi_iopmp_rp,axi_iopmp_rp_req)
   `AXI_ASSIGN_TO_RESP(axi_iopmp_rp_rsp, axi_iopmp_rp)
 
@@ -537,6 +539,13 @@ module host_domain
    assign axi_iopmp_rp_ext_req.ar.ss_id_valid  = '0;
    assign axi_iopmp_rp_ext_req.ar.substream_id = '0;
    assign axi_iopmp_rp_ext_req.ar.nsaid        = 4'd1;
+
+  `else
+
+   `AXI_ASSIGN_FROM_REQ(iopmp_mst,axi_iopmp_rp_req)
+   `AXI_ASSIGN_TO_RESP(axi_iopmp_rp_rsp, iopmp_mst)
+
+  `endif
 
   `ifdef APMU_IP
    localparam N_ADDR_RULES = 2;
