@@ -12,7 +12,7 @@ ifeq ($(SIMPLE_PAD), 1)
 constr_list += $(constrs_path)/constraints_fpga_padframe.xdc
 endif
 
-VITIS ?= vitis-2022.1
+VITIS ?= vitis-2020.2 
 
 clean:
 		rm -rf vivado*
