@@ -630,7 +630,7 @@ module host_domain
      .NUMBER_ENTRIES     ( 32                ),
      .NUMBER_MASTERS     ( 1                 )
    ) i_riscv_iopmp (
-     .clk_i				       ( clk_i						     ),
+     .clk_i				       ( s_soc_clk             ),
      .rst_ni				     ( rst_ni					       ),
 
      // AXI Config Slave port
