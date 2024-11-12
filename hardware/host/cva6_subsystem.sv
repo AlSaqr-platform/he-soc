@@ -78,6 +78,7 @@ module cva6_subsystem
   AXI_BUS.Master          apb_axi_master,
   AXI_BUS.Master          hyper_axi_master,
   AXI_BUS.Master          cluster_axi_master,
+  AXI_BUS.Slave           pmu_axi_master,
   AXI_BUS.Slave           cluster_axi_slave,
   AXI_BUS.Slave           udma_rx_l3_axi_slave,
   AXI_BUS.Slave           udma_tx_l3_axi_slave,
@@ -566,6 +567,11 @@ module cva6_subsystem
   // AXI ETHERNET-IDMA Master
   // ---------------
   `AXI_ASSIGN(slave[ariane_soc::ETH],ethernet_idma_master)
+
+  // ---------------
+  // AXI PMU Master
+  // ---------------
+  `AXI_ASSIGN(slave[ariane_soc::PMU],pmu_axi_master)
 
   // ---------------
   // AXI Xbar
