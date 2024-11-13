@@ -2303,5 +2303,384 @@
         }
       ]
     }
+	{ name: sdr_logical_op_control_reg
+      desc: '''SDR_LOGICAL_OP_CONTROL register''',
+      swaccess: "rw1s",
+      hwaccess: "hro",
+      fields: [
+        { bits: "3:0",
+          name: "SDR_SRC_1",
+          desc: "SDR_SRC_1"
+        }
+        { bits: "7:4",
+          name: "SDR_SRC_2",
+          desc: "SDR_SRC_2"
+        }
+        { bits: "11:8",
+          name: "DESTINATION_SDR",
+          desc: "DESTINATION_SDR"
+        }
+        { bits: "11:8",
+          name: "Bitwise_Logical_Operation",
+          desc: "Bitwise_Logical_operation"
+        }
+        { bits: "31:12",
+          name: "UNUSED",
+          desc: "UNUSED bits"
+        }
+      ]
+    } 
+    { name:     SDR_LOGICAL_RESULT_0
+      desc:     '''SDR_LOGICAL_RESULT_0 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_0"
+          desc: "SDR_LOGICAL_RESULT_0"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_1
+      desc:     '''SDR_LOGICAL_RESULT_1 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_1"
+          desc: "SDR_LOGICAL_RESULT_1"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_2
+      desc:     '''SDR_LOGICAL_RESULT_2 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_2"
+          desc: "SDR_LOGICAL_RESULT_2"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_3
+      desc:     '''SDR_LOGICAL_RESULT_3 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_3"
+          desc: "SDR_LOGICAL_RESULT_3"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_4
+      desc:     '''SDR_LOGICAL_RESULT_4 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_4"
+          desc: "SDR_LOGICAL_RESULT_4"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_5
+      desc:     '''SDR_LOGICAL_RESULT_5 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_5"
+          desc: "SDR_LOGICAL_RESULT_5"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_6
+      desc:     '''SDR_LOGICAL_RESULT_6 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_6"
+          desc: "SDR_LOGICAL_RESULT_6"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_7
+      desc:     '''SDR_LOGICAL_RESULT_7 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_7"
+          desc: "SDR_LOGICAL_RESULT_7"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_8
+      desc:     '''SDR_LOGICAL_RESULT_8 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_8"
+          desc: "SDR_LOGICAL_RESULT_8"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_9
+      desc:     '''SDR_LOGICAL_RESULT_9 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_9"
+          desc: "SDR_LOGICAL_RESULT_9"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_10
+      desc:     '''SDR_LOGICAL_RESULT_10 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_10"
+          desc: "SDR_LOGICAL_RESULT_10"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_11
+      desc:     '''SDR_LOGICAL_RESULT_11 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_11"
+          desc: "SDR_LOGICAL_RESULT_11"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_12
+      desc:     '''SDR_LOGICAL_RESULT_12 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_12"
+          desc: "SDR_LOGICAL_RESULT_12"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_13
+      desc:     '''SDR_LOGICAL_RESULT_13 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_13"
+          desc: "SDR_LOGICAL_RESULT_13"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_14
+      desc:     '''SDR_LOGICAL_RESULT_14 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_5"
+          desc: "SDR_LOGICAL_RESULT_5"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_15
+      desc:     '''SDR_LOGICAL_RESULT_15 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_15"
+          desc: "SDR_LOGICAL_RESULT_15"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_16
+      desc:     '''SDR_LOGICAL_RESULT_16 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_16"
+          desc: "SDR_LOGICAL_RESULT_16"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_17
+      desc:     '''SDR_LOGICAL_RESULT_17 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_17"
+          desc: "SDR_LOGICAL_RESULT_17"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_18
+      desc:     '''SDR_LOGICAL_RESULT_18 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_18"
+          desc: "SDR_LOGICAL_RESULT_18"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_19
+      desc:     '''SDR_LOGICAL_RESULT_19 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_19"
+          desc: "SDR_LOGICAL_RESULT_19"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_20
+      desc:     '''SDR_LOGICAL_RESULT_20 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_20"
+          desc: "SDR_LOGICAL_RESULT_20"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_21
+      desc:     '''SDR_LOGICAL_RESULT_21 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_21"
+          desc: "SDR_LOGICAL_RESULT_21"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_22
+      desc:     '''SDR_LOGICAL_RESULT_22 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_22"
+          desc: "SDR_LOGICAL_RESULT_22"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_23
+      desc:     '''SDR_LOGICAL_RESULT_23 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_23"
+          desc: "SDR_LOGICAL_RESULT_23"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_24
+      desc:     '''SDR_LOGICAL_RESULT_24 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_24"
+          desc: "SDR_LOGICAL_RESULT_24"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_25
+      desc:     '''SDR_LOGICAL_RESULT_25 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_25"
+          desc: "SDR_LOGICAL_RESULT_25"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_26
+      desc:     '''SDR_LOGICAL_RESULT_26 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_26"
+          desc: "SDR_LOGICAL_RESULT_26"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_27
+      desc:     '''SDR_LOGICAL_RESULT_27 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_27"
+          desc: "SDR_LOGICAL_RESULT_27"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_28
+      desc:     '''SDR_LOGICAL_RESULT_28 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_28"
+          desc: "SDR_LOGICAL_RESULT_28"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_29
+      desc:     '''SDR_LOGICAL_RESULT_29 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_29"
+          desc: "SDR_LOGICAL_RESULT_29"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_30
+      desc:     '''SDR_LOGICAL_RESULT_30 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_30"
+          desc: "SDR_LOGICAL_RESULT_30"
+        }
+      ]
+    }
+    { name:     SDR_LOGICAL_RESULT_31
+      desc:     '''SDR_LOGICAL_RESULT_31 register'''
+      swaccess: "rw"
+      hwaccess: "hrw"
+      fields: [
+        { bits: "31:0"
+          name: "SDR_LOGICAL_RESULT_31"
+          desc: "SDR_LOGICAL_RESULT_31"
+        }
+      ]
+    }
   ]
 }

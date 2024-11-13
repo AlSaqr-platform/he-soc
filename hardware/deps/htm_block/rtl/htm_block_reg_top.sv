@@ -612,6 +612,117 @@ module htm_block_reg_top #(
   logic [31:0] sdr_3_index_13_qs;
   logic [31:0] sdr_3_index_14_qs;
   logic [31:0] sdr_3_index_15_qs;
+  logic [3:0] sdr_logical_op_control_reg_sdr_src_1_qs;
+  logic [3:0] sdr_logical_op_control_reg_sdr_src_1_wd;
+  logic sdr_logical_op_control_reg_sdr_src_1_we;
+  logic [3:0] sdr_logical_op_control_reg_sdr_src_2_qs;
+  logic [3:0] sdr_logical_op_control_reg_sdr_src_2_wd;
+  logic sdr_logical_op_control_reg_sdr_src_2_we;
+  logic [3:0] sdr_logical_op_control_reg_destination_sdr_qs;
+  logic [3:0] sdr_logical_op_control_reg_destination_sdr_wd;
+  logic sdr_logical_op_control_reg_destination_sdr_we;
+  logic [3:0] sdr_logical_op_control_reg_bitwise_logical_operation_qs;
+  logic [3:0] sdr_logical_op_control_reg_bitwise_logical_operation_wd;
+  logic sdr_logical_op_control_reg_bitwise_logical_operation_we;
+  logic [19:0] sdr_logical_op_control_reg_unused_qs;
+  logic [19:0] sdr_logical_op_control_reg_unused_wd;
+  logic sdr_logical_op_control_reg_unused_we;
+  logic [31:0] sdr_logical_result_0_qs;
+  logic [31:0] sdr_logical_result_0_wd;
+  logic sdr_logical_result_0_we;
+  logic [31:0] sdr_logical_result_1_qs;
+  logic [31:0] sdr_logical_result_1_wd;
+  logic sdr_logical_result_1_we;
+  logic [31:0] sdr_logical_result_2_qs;
+  logic [31:0] sdr_logical_result_2_wd;
+  logic sdr_logical_result_2_we;
+  logic [31:0] sdr_logical_result_3_qs;
+  logic [31:0] sdr_logical_result_3_wd;
+  logic sdr_logical_result_3_we;
+  logic [31:0] sdr_logical_result_4_qs;
+  logic [31:0] sdr_logical_result_4_wd;
+  logic sdr_logical_result_4_we;
+  logic [31:0] sdr_logical_result_5_qs;
+  logic [31:0] sdr_logical_result_5_wd;
+  logic sdr_logical_result_5_we;
+  logic [31:0] sdr_logical_result_6_qs;
+  logic [31:0] sdr_logical_result_6_wd;
+  logic sdr_logical_result_6_we;
+  logic [31:0] sdr_logical_result_7_qs;
+  logic [31:0] sdr_logical_result_7_wd;
+  logic sdr_logical_result_7_we;
+  logic [31:0] sdr_logical_result_8_qs;
+  logic [31:0] sdr_logical_result_8_wd;
+  logic sdr_logical_result_8_we;
+  logic [31:0] sdr_logical_result_9_qs;
+  logic [31:0] sdr_logical_result_9_wd;
+  logic sdr_logical_result_9_we;
+  logic [31:0] sdr_logical_result_10_qs;
+  logic [31:0] sdr_logical_result_10_wd;
+  logic sdr_logical_result_10_we;
+  logic [31:0] sdr_logical_result_11_qs;
+  logic [31:0] sdr_logical_result_11_wd;
+  logic sdr_logical_result_11_we;
+  logic [31:0] sdr_logical_result_12_qs;
+  logic [31:0] sdr_logical_result_12_wd;
+  logic sdr_logical_result_12_we;
+  logic [31:0] sdr_logical_result_13_qs;
+  logic [31:0] sdr_logical_result_13_wd;
+  logic sdr_logical_result_13_we;
+  logic [31:0] sdr_logical_result_14_qs;
+  logic [31:0] sdr_logical_result_14_wd;
+  logic sdr_logical_result_14_we;
+  logic [31:0] sdr_logical_result_15_qs;
+  logic [31:0] sdr_logical_result_15_wd;
+  logic sdr_logical_result_15_we;
+  logic [31:0] sdr_logical_result_16_qs;
+  logic [31:0] sdr_logical_result_16_wd;
+  logic sdr_logical_result_16_we;
+  logic [31:0] sdr_logical_result_17_qs;
+  logic [31:0] sdr_logical_result_17_wd;
+  logic sdr_logical_result_17_we;
+  logic [31:0] sdr_logical_result_18_qs;
+  logic [31:0] sdr_logical_result_18_wd;
+  logic sdr_logical_result_18_we;
+  logic [31:0] sdr_logical_result_19_qs;
+  logic [31:0] sdr_logical_result_19_wd;
+  logic sdr_logical_result_19_we;
+  logic [31:0] sdr_logical_result_20_qs;
+  logic [31:0] sdr_logical_result_20_wd;
+  logic sdr_logical_result_20_we;
+  logic [31:0] sdr_logical_result_21_qs;
+  logic [31:0] sdr_logical_result_21_wd;
+  logic sdr_logical_result_21_we;
+  logic [31:0] sdr_logical_result_22_qs;
+  logic [31:0] sdr_logical_result_22_wd;
+  logic sdr_logical_result_22_we;
+  logic [31:0] sdr_logical_result_23_qs;
+  logic [31:0] sdr_logical_result_23_wd;
+  logic sdr_logical_result_23_we;
+  logic [31:0] sdr_logical_result_24_qs;
+  logic [31:0] sdr_logical_result_24_wd;
+  logic sdr_logical_result_24_we;
+  logic [31:0] sdr_logical_result_25_qs;
+  logic [31:0] sdr_logical_result_25_wd;
+  logic sdr_logical_result_25_we;
+  logic [31:0] sdr_logical_result_26_qs;
+  logic [31:0] sdr_logical_result_26_wd;
+  logic sdr_logical_result_26_we;
+  logic [31:0] sdr_logical_result_27_qs;
+  logic [31:0] sdr_logical_result_27_wd;
+  logic sdr_logical_result_27_we;
+  logic [31:0] sdr_logical_result_28_qs;
+  logic [31:0] sdr_logical_result_28_wd;
+  logic sdr_logical_result_28_we;
+  logic [31:0] sdr_logical_result_29_qs;
+  logic [31:0] sdr_logical_result_29_wd;
+  logic sdr_logical_result_29_we;
+  logic [31:0] sdr_logical_result_30_qs;
+  logic [31:0] sdr_logical_result_30_wd;
+  logic sdr_logical_result_30_we;
+  logic [31:0] sdr_logical_result_31_qs;
+  logic [31:0] sdr_logical_result_31_wd;
+  logic sdr_logical_result_31_we;
 
   // Register instances
   // R[sdr_0_control_reg]: V(False)
@@ -6582,9 +6693,1005 @@ module htm_block_reg_top #(
   );
 
 
+  // R[sdr_logical_op_control_reg]: V(False)
+
+  //   F[sdr_src_1]: 3:0
+  prim_subreg #(
+    .DW      (4),
+    .SWACCESS("W1S"),
+    .RESVAL  (4'h0)
+  ) u_sdr_logical_op_control_reg_sdr_src_1 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_op_control_reg_sdr_src_1_we),
+    .wd     (sdr_logical_op_control_reg_sdr_src_1_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_op_control_reg.sdr_src_1.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_op_control_reg_sdr_src_1_qs)
+  );
 
 
-  logic [199:0] addr_hit;
+  //   F[sdr_src_2]: 7:4
+  prim_subreg #(
+    .DW      (4),
+    .SWACCESS("W1S"),
+    .RESVAL  (4'h0)
+  ) u_sdr_logical_op_control_reg_sdr_src_2 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_op_control_reg_sdr_src_2_we),
+    .wd     (sdr_logical_op_control_reg_sdr_src_2_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_op_control_reg.sdr_src_2.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_op_control_reg_sdr_src_2_qs)
+  );
+
+
+  //   F[destination_sdr]: 11:8
+  prim_subreg #(
+    .DW      (4),
+    .SWACCESS("W1S"),
+    .RESVAL  (4'h0)
+  ) u_sdr_logical_op_control_reg_destination_sdr (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_op_control_reg_destination_sdr_we),
+    .wd     (sdr_logical_op_control_reg_destination_sdr_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_op_control_reg.destination_sdr.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_op_control_reg_destination_sdr_qs)
+  );
+
+
+  //   F[bitwise_logical_operation]: 11:8
+  prim_subreg #(
+    .DW      (4),
+    .SWACCESS("W1S"),
+    .RESVAL  (4'h0)
+  ) u_sdr_logical_op_control_reg_bitwise_logical_operation (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_op_control_reg_bitwise_logical_operation_we),
+    .wd     (sdr_logical_op_control_reg_bitwise_logical_operation_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_op_control_reg.bitwise_logical_operation.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_op_control_reg_bitwise_logical_operation_qs)
+  );
+
+
+  //   F[unused]: 31:12
+  prim_subreg #(
+    .DW      (20),
+    .SWACCESS("W1S"),
+    .RESVAL  (20'h0)
+  ) u_sdr_logical_op_control_reg_unused (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_op_control_reg_unused_we),
+    .wd     (sdr_logical_op_control_reg_unused_wd),
+
+    // from internal hardware
+    .de     (1'b0),
+    .d      ('0  ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_op_control_reg.unused.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_op_control_reg_unused_qs)
+  );
+
+
+  // R[sdr_logical_result_0]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_0 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_0_we),
+    .wd     (sdr_logical_result_0_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_0.de),
+    .d      (hw2reg.sdr_logical_result_0.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_0.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_0_qs)
+  );
+
+
+  // R[sdr_logical_result_1]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_1 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_1_we),
+    .wd     (sdr_logical_result_1_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_1.de),
+    .d      (hw2reg.sdr_logical_result_1.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_1.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_1_qs)
+  );
+
+
+  // R[sdr_logical_result_2]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_2 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_2_we),
+    .wd     (sdr_logical_result_2_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_2.de),
+    .d      (hw2reg.sdr_logical_result_2.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_2.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_2_qs)
+  );
+
+
+  // R[sdr_logical_result_3]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_3 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_3_we),
+    .wd     (sdr_logical_result_3_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_3.de),
+    .d      (hw2reg.sdr_logical_result_3.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_3.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_3_qs)
+  );
+
+
+  // R[sdr_logical_result_4]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_4 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_4_we),
+    .wd     (sdr_logical_result_4_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_4.de),
+    .d      (hw2reg.sdr_logical_result_4.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_4.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_4_qs)
+  );
+
+
+  // R[sdr_logical_result_5]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_5 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_5_we),
+    .wd     (sdr_logical_result_5_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_5.de),
+    .d      (hw2reg.sdr_logical_result_5.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_5.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_5_qs)
+  );
+
+
+  // R[sdr_logical_result_6]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_6 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_6_we),
+    .wd     (sdr_logical_result_6_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_6.de),
+    .d      (hw2reg.sdr_logical_result_6.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_6.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_6_qs)
+  );
+
+
+  // R[sdr_logical_result_7]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_7 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_7_we),
+    .wd     (sdr_logical_result_7_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_7.de),
+    .d      (hw2reg.sdr_logical_result_7.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_7.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_7_qs)
+  );
+
+
+  // R[sdr_logical_result_8]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_8 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_8_we),
+    .wd     (sdr_logical_result_8_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_8.de),
+    .d      (hw2reg.sdr_logical_result_8.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_8.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_8_qs)
+  );
+
+
+  // R[sdr_logical_result_9]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_9 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_9_we),
+    .wd     (sdr_logical_result_9_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_9.de),
+    .d      (hw2reg.sdr_logical_result_9.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_9.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_9_qs)
+  );
+
+
+  // R[sdr_logical_result_10]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_10 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_10_we),
+    .wd     (sdr_logical_result_10_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_10.de),
+    .d      (hw2reg.sdr_logical_result_10.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_10.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_10_qs)
+  );
+
+
+  // R[sdr_logical_result_11]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_11 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_11_we),
+    .wd     (sdr_logical_result_11_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_11.de),
+    .d      (hw2reg.sdr_logical_result_11.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_11.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_11_qs)
+  );
+
+
+  // R[sdr_logical_result_12]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_12 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_12_we),
+    .wd     (sdr_logical_result_12_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_12.de),
+    .d      (hw2reg.sdr_logical_result_12.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_12.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_12_qs)
+  );
+
+
+  // R[sdr_logical_result_13]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_13 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_13_we),
+    .wd     (sdr_logical_result_13_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_13.de),
+    .d      (hw2reg.sdr_logical_result_13.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_13.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_13_qs)
+  );
+
+
+  // R[sdr_logical_result_14]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_14 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_14_we),
+    .wd     (sdr_logical_result_14_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_14.de),
+    .d      (hw2reg.sdr_logical_result_14.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_14.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_14_qs)
+  );
+
+
+  // R[sdr_logical_result_15]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_15 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_15_we),
+    .wd     (sdr_logical_result_15_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_15.de),
+    .d      (hw2reg.sdr_logical_result_15.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_15.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_15_qs)
+  );
+
+
+  // R[sdr_logical_result_16]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_16 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_16_we),
+    .wd     (sdr_logical_result_16_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_16.de),
+    .d      (hw2reg.sdr_logical_result_16.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_16.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_16_qs)
+  );
+
+
+  // R[sdr_logical_result_17]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_17 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_17_we),
+    .wd     (sdr_logical_result_17_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_17.de),
+    .d      (hw2reg.sdr_logical_result_17.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_17.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_17_qs)
+  );
+
+
+  // R[sdr_logical_result_18]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_18 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_18_we),
+    .wd     (sdr_logical_result_18_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_18.de),
+    .d      (hw2reg.sdr_logical_result_18.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_18.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_18_qs)
+  );
+
+
+  // R[sdr_logical_result_19]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_19 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_19_we),
+    .wd     (sdr_logical_result_19_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_19.de),
+    .d      (hw2reg.sdr_logical_result_19.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_19.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_19_qs)
+  );
+
+
+  // R[sdr_logical_result_20]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_20 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_20_we),
+    .wd     (sdr_logical_result_20_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_20.de),
+    .d      (hw2reg.sdr_logical_result_20.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_20.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_20_qs)
+  );
+
+
+  // R[sdr_logical_result_21]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_21 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_21_we),
+    .wd     (sdr_logical_result_21_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_21.de),
+    .d      (hw2reg.sdr_logical_result_21.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_21.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_21_qs)
+  );
+
+
+  // R[sdr_logical_result_22]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_22 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_22_we),
+    .wd     (sdr_logical_result_22_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_22.de),
+    .d      (hw2reg.sdr_logical_result_22.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_22.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_22_qs)
+  );
+
+
+  // R[sdr_logical_result_23]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_23 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_23_we),
+    .wd     (sdr_logical_result_23_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_23.de),
+    .d      (hw2reg.sdr_logical_result_23.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_23.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_23_qs)
+  );
+
+
+  // R[sdr_logical_result_24]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_24 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_24_we),
+    .wd     (sdr_logical_result_24_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_24.de),
+    .d      (hw2reg.sdr_logical_result_24.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_24.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_24_qs)
+  );
+
+
+  // R[sdr_logical_result_25]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_25 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_25_we),
+    .wd     (sdr_logical_result_25_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_25.de),
+    .d      (hw2reg.sdr_logical_result_25.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_25.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_25_qs)
+  );
+
+
+  // R[sdr_logical_result_26]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_26 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_26_we),
+    .wd     (sdr_logical_result_26_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_26.de),
+    .d      (hw2reg.sdr_logical_result_26.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_26.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_26_qs)
+  );
+
+
+  // R[sdr_logical_result_27]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_27 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_27_we),
+    .wd     (sdr_logical_result_27_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_27.de),
+    .d      (hw2reg.sdr_logical_result_27.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_27.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_27_qs)
+  );
+
+
+  // R[sdr_logical_result_28]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_28 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_28_we),
+    .wd     (sdr_logical_result_28_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_28.de),
+    .d      (hw2reg.sdr_logical_result_28.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_28.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_28_qs)
+  );
+
+
+  // R[sdr_logical_result_29]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_29 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_29_we),
+    .wd     (sdr_logical_result_29_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_29.de),
+    .d      (hw2reg.sdr_logical_result_29.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_29.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_29_qs)
+  );
+
+
+  // R[sdr_logical_result_30]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_30 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_30_we),
+    .wd     (sdr_logical_result_30_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_30.de),
+    .d      (hw2reg.sdr_logical_result_30.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_30.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_30_qs)
+  );
+
+
+  // R[sdr_logical_result_31]: V(False)
+
+  prim_subreg #(
+    .DW      (32),
+    .SWACCESS("RW"),
+    .RESVAL  (32'h0)
+  ) u_sdr_logical_result_31 (
+    .clk_i   (clk_i    ),
+    .rst_ni  (rst_ni  ),
+
+    // from register interface
+    .we     (sdr_logical_result_31_we),
+    .wd     (sdr_logical_result_31_wd),
+
+    // from internal hardware
+    .de     (hw2reg.sdr_logical_result_31.de),
+    .d      (hw2reg.sdr_logical_result_31.d ),
+
+    // to internal hardware
+    .qe     (),
+    .q      (reg2hw.sdr_logical_result_31.q ),
+
+    // to register interface (read)
+    .qs     (sdr_logical_result_31_qs)
+  );
+
+
+
+
+  logic [232:0] addr_hit;
   always_comb begin
     addr_hit = '0;
     addr_hit[  0] = (reg_addr == HTM_BLOCK_SDR_0_CONTROL_REG_OFFSET);
@@ -6787,6 +7894,39 @@ module htm_block_reg_top #(
     addr_hit[197] = (reg_addr == HTM_BLOCK_SDR_3_INDEX_13_OFFSET);
     addr_hit[198] = (reg_addr == HTM_BLOCK_SDR_3_INDEX_14_OFFSET);
     addr_hit[199] = (reg_addr == HTM_BLOCK_SDR_3_INDEX_15_OFFSET);
+    addr_hit[200] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_OP_CONTROL_REG_OFFSET);
+    addr_hit[201] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_0_OFFSET);
+    addr_hit[202] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_1_OFFSET);
+    addr_hit[203] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_2_OFFSET);
+    addr_hit[204] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_3_OFFSET);
+    addr_hit[205] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_4_OFFSET);
+    addr_hit[206] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_5_OFFSET);
+    addr_hit[207] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_6_OFFSET);
+    addr_hit[208] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_7_OFFSET);
+    addr_hit[209] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_8_OFFSET);
+    addr_hit[210] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_9_OFFSET);
+    addr_hit[211] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_10_OFFSET);
+    addr_hit[212] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_11_OFFSET);
+    addr_hit[213] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_12_OFFSET);
+    addr_hit[214] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_13_OFFSET);
+    addr_hit[215] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_14_OFFSET);
+    addr_hit[216] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_15_OFFSET);
+    addr_hit[217] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_16_OFFSET);
+    addr_hit[218] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_17_OFFSET);
+    addr_hit[219] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_18_OFFSET);
+    addr_hit[220] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_19_OFFSET);
+    addr_hit[221] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_20_OFFSET);
+    addr_hit[222] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_21_OFFSET);
+    addr_hit[223] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_22_OFFSET);
+    addr_hit[224] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_23_OFFSET);
+    addr_hit[225] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_24_OFFSET);
+    addr_hit[226] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_25_OFFSET);
+    addr_hit[227] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_26_OFFSET);
+    addr_hit[228] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_27_OFFSET);
+    addr_hit[229] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_28_OFFSET);
+    addr_hit[230] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_29_OFFSET);
+    addr_hit[231] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_30_OFFSET);
+    addr_hit[232] = (reg_addr == HTM_BLOCK_SDR_LOGICAL_RESULT_31_OFFSET);
   end
 
   assign addrmiss = (reg_re || reg_we) ? ~|addr_hit : 1'b0 ;
@@ -6993,7 +8133,40 @@ module htm_block_reg_top #(
                (addr_hit[196] & (|(HTM_BLOCK_PERMIT[196] & ~reg_be))) |
                (addr_hit[197] & (|(HTM_BLOCK_PERMIT[197] & ~reg_be))) |
                (addr_hit[198] & (|(HTM_BLOCK_PERMIT[198] & ~reg_be))) |
-               (addr_hit[199] & (|(HTM_BLOCK_PERMIT[199] & ~reg_be)))));
+               (addr_hit[199] & (|(HTM_BLOCK_PERMIT[199] & ~reg_be))) |
+               (addr_hit[200] & (|(HTM_BLOCK_PERMIT[200] & ~reg_be))) |
+               (addr_hit[201] & (|(HTM_BLOCK_PERMIT[201] & ~reg_be))) |
+               (addr_hit[202] & (|(HTM_BLOCK_PERMIT[202] & ~reg_be))) |
+               (addr_hit[203] & (|(HTM_BLOCK_PERMIT[203] & ~reg_be))) |
+               (addr_hit[204] & (|(HTM_BLOCK_PERMIT[204] & ~reg_be))) |
+               (addr_hit[205] & (|(HTM_BLOCK_PERMIT[205] & ~reg_be))) |
+               (addr_hit[206] & (|(HTM_BLOCK_PERMIT[206] & ~reg_be))) |
+               (addr_hit[207] & (|(HTM_BLOCK_PERMIT[207] & ~reg_be))) |
+               (addr_hit[208] & (|(HTM_BLOCK_PERMIT[208] & ~reg_be))) |
+               (addr_hit[209] & (|(HTM_BLOCK_PERMIT[209] & ~reg_be))) |
+               (addr_hit[210] & (|(HTM_BLOCK_PERMIT[210] & ~reg_be))) |
+               (addr_hit[211] & (|(HTM_BLOCK_PERMIT[211] & ~reg_be))) |
+               (addr_hit[212] & (|(HTM_BLOCK_PERMIT[212] & ~reg_be))) |
+               (addr_hit[213] & (|(HTM_BLOCK_PERMIT[213] & ~reg_be))) |
+               (addr_hit[214] & (|(HTM_BLOCK_PERMIT[214] & ~reg_be))) |
+               (addr_hit[215] & (|(HTM_BLOCK_PERMIT[215] & ~reg_be))) |
+               (addr_hit[216] & (|(HTM_BLOCK_PERMIT[216] & ~reg_be))) |
+               (addr_hit[217] & (|(HTM_BLOCK_PERMIT[217] & ~reg_be))) |
+               (addr_hit[218] & (|(HTM_BLOCK_PERMIT[218] & ~reg_be))) |
+               (addr_hit[219] & (|(HTM_BLOCK_PERMIT[219] & ~reg_be))) |
+               (addr_hit[220] & (|(HTM_BLOCK_PERMIT[220] & ~reg_be))) |
+               (addr_hit[221] & (|(HTM_BLOCK_PERMIT[221] & ~reg_be))) |
+               (addr_hit[222] & (|(HTM_BLOCK_PERMIT[222] & ~reg_be))) |
+               (addr_hit[223] & (|(HTM_BLOCK_PERMIT[223] & ~reg_be))) |
+               (addr_hit[224] & (|(HTM_BLOCK_PERMIT[224] & ~reg_be))) |
+               (addr_hit[225] & (|(HTM_BLOCK_PERMIT[225] & ~reg_be))) |
+               (addr_hit[226] & (|(HTM_BLOCK_PERMIT[226] & ~reg_be))) |
+               (addr_hit[227] & (|(HTM_BLOCK_PERMIT[227] & ~reg_be))) |
+               (addr_hit[228] & (|(HTM_BLOCK_PERMIT[228] & ~reg_be))) |
+               (addr_hit[229] & (|(HTM_BLOCK_PERMIT[229] & ~reg_be))) |
+               (addr_hit[230] & (|(HTM_BLOCK_PERMIT[230] & ~reg_be))) |
+               (addr_hit[231] & (|(HTM_BLOCK_PERMIT[231] & ~reg_be))) |
+               (addr_hit[232] & (|(HTM_BLOCK_PERMIT[232] & ~reg_be)))));
   end
 
   assign sdr_0_control_reg_start_we = addr_hit[0] & reg_we & !reg_error;
@@ -7475,6 +8648,117 @@ module htm_block_reg_top #(
 
   assign sdr_3_31_we = addr_hit[183] & reg_we & !reg_error;
   assign sdr_3_31_wd = reg_wdata[31:0];
+
+  assign sdr_logical_op_control_reg_sdr_src_1_we = addr_hit[200] & reg_we & !reg_error;
+  assign sdr_logical_op_control_reg_sdr_src_1_wd = reg_wdata[3:0];
+
+  assign sdr_logical_op_control_reg_sdr_src_2_we = addr_hit[200] & reg_we & !reg_error;
+  assign sdr_logical_op_control_reg_sdr_src_2_wd = reg_wdata[7:4];
+
+  assign sdr_logical_op_control_reg_destination_sdr_we = addr_hit[200] & reg_we & !reg_error;
+  assign sdr_logical_op_control_reg_destination_sdr_wd = reg_wdata[11:8];
+
+  assign sdr_logical_op_control_reg_bitwise_logical_operation_we = addr_hit[200] & reg_we & !reg_error;
+  assign sdr_logical_op_control_reg_bitwise_logical_operation_wd = reg_wdata[11:8];
+
+  assign sdr_logical_op_control_reg_unused_we = addr_hit[200] & reg_we & !reg_error;
+  assign sdr_logical_op_control_reg_unused_wd = reg_wdata[31:12];
+
+  assign sdr_logical_result_0_we = addr_hit[201] & reg_we & !reg_error;
+  assign sdr_logical_result_0_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_1_we = addr_hit[202] & reg_we & !reg_error;
+  assign sdr_logical_result_1_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_2_we = addr_hit[203] & reg_we & !reg_error;
+  assign sdr_logical_result_2_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_3_we = addr_hit[204] & reg_we & !reg_error;
+  assign sdr_logical_result_3_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_4_we = addr_hit[205] & reg_we & !reg_error;
+  assign sdr_logical_result_4_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_5_we = addr_hit[206] & reg_we & !reg_error;
+  assign sdr_logical_result_5_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_6_we = addr_hit[207] & reg_we & !reg_error;
+  assign sdr_logical_result_6_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_7_we = addr_hit[208] & reg_we & !reg_error;
+  assign sdr_logical_result_7_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_8_we = addr_hit[209] & reg_we & !reg_error;
+  assign sdr_logical_result_8_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_9_we = addr_hit[210] & reg_we & !reg_error;
+  assign sdr_logical_result_9_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_10_we = addr_hit[211] & reg_we & !reg_error;
+  assign sdr_logical_result_10_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_11_we = addr_hit[212] & reg_we & !reg_error;
+  assign sdr_logical_result_11_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_12_we = addr_hit[213] & reg_we & !reg_error;
+  assign sdr_logical_result_12_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_13_we = addr_hit[214] & reg_we & !reg_error;
+  assign sdr_logical_result_13_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_14_we = addr_hit[215] & reg_we & !reg_error;
+  assign sdr_logical_result_14_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_15_we = addr_hit[216] & reg_we & !reg_error;
+  assign sdr_logical_result_15_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_16_we = addr_hit[217] & reg_we & !reg_error;
+  assign sdr_logical_result_16_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_17_we = addr_hit[218] & reg_we & !reg_error;
+  assign sdr_logical_result_17_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_18_we = addr_hit[219] & reg_we & !reg_error;
+  assign sdr_logical_result_18_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_19_we = addr_hit[220] & reg_we & !reg_error;
+  assign sdr_logical_result_19_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_20_we = addr_hit[221] & reg_we & !reg_error;
+  assign sdr_logical_result_20_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_21_we = addr_hit[222] & reg_we & !reg_error;
+  assign sdr_logical_result_21_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_22_we = addr_hit[223] & reg_we & !reg_error;
+  assign sdr_logical_result_22_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_23_we = addr_hit[224] & reg_we & !reg_error;
+  assign sdr_logical_result_23_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_24_we = addr_hit[225] & reg_we & !reg_error;
+  assign sdr_logical_result_24_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_25_we = addr_hit[226] & reg_we & !reg_error;
+  assign sdr_logical_result_25_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_26_we = addr_hit[227] & reg_we & !reg_error;
+  assign sdr_logical_result_26_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_27_we = addr_hit[228] & reg_we & !reg_error;
+  assign sdr_logical_result_27_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_28_we = addr_hit[229] & reg_we & !reg_error;
+  assign sdr_logical_result_28_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_29_we = addr_hit[230] & reg_we & !reg_error;
+  assign sdr_logical_result_29_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_30_we = addr_hit[231] & reg_we & !reg_error;
+  assign sdr_logical_result_30_wd = reg_wdata[31:0];
+
+  assign sdr_logical_result_31_we = addr_hit[232] & reg_we & !reg_error;
+  assign sdr_logical_result_31_wd = reg_wdata[31:0];
 
   // Read data return
   always_comb begin
@@ -8302,6 +9586,142 @@ module htm_block_reg_top #(
 
       addr_hit[199]: begin
         reg_rdata_next[31:0] = sdr_3_index_15_qs;
+      end
+
+      addr_hit[200]: begin
+        reg_rdata_next[3:0] = sdr_logical_op_control_reg_sdr_src_1_qs;
+        reg_rdata_next[7:4] = sdr_logical_op_control_reg_sdr_src_2_qs;
+        reg_rdata_next[11:8] = sdr_logical_op_control_reg_destination_sdr_qs;
+        reg_rdata_next[11:8] = sdr_logical_op_control_reg_bitwise_logical_operation_qs;
+        reg_rdata_next[31:12] = sdr_logical_op_control_reg_unused_qs;
+      end
+
+      addr_hit[201]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_0_qs;
+      end
+
+      addr_hit[202]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_1_qs;
+      end
+
+      addr_hit[203]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_2_qs;
+      end
+
+      addr_hit[204]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_3_qs;
+      end
+
+      addr_hit[205]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_4_qs;
+      end
+
+      addr_hit[206]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_5_qs;
+      end
+
+      addr_hit[207]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_6_qs;
+      end
+
+      addr_hit[208]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_7_qs;
+      end
+
+      addr_hit[209]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_8_qs;
+      end
+
+      addr_hit[210]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_9_qs;
+      end
+
+      addr_hit[211]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_10_qs;
+      end
+
+      addr_hit[212]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_11_qs;
+      end
+
+      addr_hit[213]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_12_qs;
+      end
+
+      addr_hit[214]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_13_qs;
+      end
+
+      addr_hit[215]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_14_qs;
+      end
+
+      addr_hit[216]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_15_qs;
+      end
+
+      addr_hit[217]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_16_qs;
+      end
+
+      addr_hit[218]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_17_qs;
+      end
+
+      addr_hit[219]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_18_qs;
+      end
+
+      addr_hit[220]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_19_qs;
+      end
+
+      addr_hit[221]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_20_qs;
+      end
+
+      addr_hit[222]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_21_qs;
+      end
+
+      addr_hit[223]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_22_qs;
+      end
+
+      addr_hit[224]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_23_qs;
+      end
+
+      addr_hit[225]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_24_qs;
+      end
+
+      addr_hit[226]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_25_qs;
+      end
+
+      addr_hit[227]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_26_qs;
+      end
+
+      addr_hit[228]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_27_qs;
+      end
+
+      addr_hit[229]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_28_qs;
+      end
+
+      addr_hit[230]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_29_qs;
+      end
+
+      addr_hit[231]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_30_qs;
+      end
+
+      addr_hit[232]: begin
+        reg_rdata_next[31:0] = sdr_logical_result_31_qs;
       end
 
       default: begin

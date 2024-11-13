@@ -28,7 +28,15 @@ module htm_reg_adaptor (
 	input 	logic 	[0:15]	[31:0]	sdr_3_index ,
 	input	logic 	    	[31:0]	sdr_3_status ,
 	output 	logic 	    	[31:0]	sdr_3_control,
-	output	logic 	[0:31]	[31:0]	sdr_3_reg,	
+	output	logic 	[0:31]	[31:0]	sdr_3_reg,
+
+	output	logic			[3:0]	sdr_logical_op_control_src_1, 			
+	output	logic			[3:0]	sdr_logical_op_control_src_2, 			
+	output	logic			[3:0]	sdr_logical_op_control_desination_sdr, 	
+	output	logic			[3:0]	sdr_logical_op_control_logical_operation,
+
+
+	input	logic 	[0:31]	[31:0]	sdr_logical_result, 	
 
   input  htm_block_reg_pkg::htm_block_reg2hw_t reg2hw,
   output htm_block_reg_pkg::htm_block_hw2reg_t hw2reg
@@ -463,6 +471,57 @@ assign hw2reg.sdr_3_status_reg.error_fifo_full.de = 1'b1;
 assign hw2reg.sdr_3_status_reg.done.d = sdr_3_status[31]; 
 assign hw2reg.sdr_3_status_reg.done.de = 1'b1;
 
+assign sdr_logical_op_control_src_1 			= reg2hw.sdr_logical_op_control_reg.sdr_src_1; //sdr_control_reg.start
+assign sdr_logical_op_control_src_2 			= reg2hw.sdr_logical_op_control_reg.sdr_src_2; //sdr_control_reg.start
+assign sdr_logical_op_control_desination_sdr 	= reg2hw.sdr_logical_op_control_reg.destination_sdr; //sdr_control_reg.start
+assign sdr_logical_op_control_logical_operation	= reg2hw.sdr_logical_op_control_reg.bitwise_logical_operation; //sdr_control_reg.start
 
+assign hw2reg.sdr_logical_result_0.d = sdr_logical_result[0];
+assign hw2reg.sdr_logical_result_0.de = 1'b1;
+
+assign hw2reg.sdr_logical_result_1.d = sdr_logical_result[1];
+assign hw2reg.sdr_logical_result_1.de = 1'b1;
+
+assign hw2reg.sdr_logical_result_2.d = sdr_logical_result[2];
+assign hw2reg.sdr_logical_result_2.de = 1'b1;
+
+assign hw2reg.sdr_logical_result_3.d = sdr_logical_result[3];
+assign hw2reg.sdr_logical_result_3.de = 1'b1;
+
+assign hw2reg.sdr_logical_result_4.d = sdr_logical_result[4];
+assign hw2reg.sdr_logical_result_4.de = 1'b1;
+
+assign hw2reg.sdr_logical_result_5.d = sdr_logical_result[5];
+assign hw2reg.sdr_logical_result_5.de = 1'b1;
+
+assign hw2reg.sdr_logical_result_6.d = sdr_logical_result[6];
+assign hw2reg.sdr_logical_result_6.de = 1'b1;
+
+assign hw2reg.sdr_logical_result_7.d = sdr_logical_result[7];
+assign hw2reg.sdr_logical_result_7.de = 1'b1;
+
+assign hw2reg.sdr_logical_result_8.d = sdr_logical_result[8];
+assign hw2reg.sdr_logical_result_8.de = 1'b1;
+
+assign hw2reg.sdr_logical_result_9.d = sdr_logical_result[9];
+assign hw2reg.sdr_logical_result_9.de = 1'b1;
+
+assign hw2reg.sdr_logical_result_10.d = sdr_logical_result[10];
+assign hw2reg.sdr_logical_result_10.de = 1'b1;
+
+assign hw2reg.sdr_logical_result_11.d = sdr_logical_result[11];
+assign hw2reg.sdr_logical_result_11.de = 1'b1;
+
+assign hw2reg.sdr_logical_result_12.d = sdr_logical_result[12];
+assign hw2reg.sdr_logical_result_12.de = 1'b1;
+
+assign hw2reg.sdr_logical_result_13.d = sdr_logical_result[13];
+assign hw2reg.sdr_logical_result_13.de = 1'b1;
+
+assign hw2reg.sdr_logical_result_14.d = sdr_logical_result[14];
+assign hw2reg.sdr_logical_result_14.de = 1'b1;
+
+assign hw2reg.sdr_logical_result_15.d = sdr_logical_result[15];
+assign hw2reg.sdr_logical_result_15.de = 1'b1; 
 
 endmodule

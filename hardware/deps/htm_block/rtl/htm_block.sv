@@ -72,6 +72,13 @@ logic       [31:0]      sdr_3_status;
 logic       [31:0]      sdr_3_control;
 logic [0:31][31:0]      sdr_3_reg;
 
+logic 	    	[31:0]	sdr_logical_op_control;
+logic 	[0:31]	[31:0]	sdr_logical_result; 	
+logic			[3:0]	sdr_logical_op_control_src_1; 			
+logic			[3:0]	sdr_logical_op_control_src_2; 			
+logic			[3:0]	sdr_logical_op_control_desination_sdr; 	
+logic			[3:0]	sdr_logical_op_control_logical_operation;
+
 logic       [5:0]	shift_counter;
 
 
@@ -119,30 +126,52 @@ sdr_module sdr_3_module (
 
 );
 htm_reg_adaptor htm_reg_adaptor (
-		.clk_i			(clk_i			),
+		.clk_i										(clk_i			),
+								
+		.sdr_0_index 								(sdr_0_index	),
+		.sdr_0_status 								(sdr_0_status	),
+		.sdr_0_control								(sdr_0_control	),
+		.sdr_0_reg									(sdr_0_reg		), 
+							
+		.sdr_1_index 								(sdr_1_index	),
+		.sdr_1_status 								(sdr_1_status	),
+		.sdr_1_control								(sdr_1_control	),
+		.sdr_1_reg									(sdr_1_reg		), 
+									
+		.sdr_2_index 								(sdr_2_index	),
+		.sdr_2_status 								(sdr_2_status	),
+		.sdr_2_control								(sdr_2_control	),
+		.sdr_2_reg									(sdr_2_reg		), 
+							
+		.sdr_3_index 								(sdr_3_index	),
+		.sdr_3_status 								(sdr_3_status	),
+		.sdr_3_control								(sdr_3_control	),
+		.sdr_3_reg									(sdr_3_reg		), 
+
+		.sdr_logical_op_control_src_1				(sdr_logical_op_control_src_1				), 			
+		.sdr_logical_op_control_src_2				(sdr_logical_op_control_src_2				), 			
+		.sdr_logical_op_control_desination_sdr		(sdr_logical_op_control_desination_sdr		), 	
+		.sdr_logical_op_control_logical_operation	(sdr_logical_op_control_logical_operation	),
+		.sdr_logical_result							(sdr_logical_result							), 			
+					
+		.reg2hw										(reg2hw										),
+		.hw2reg										(hw2reg										)
+
+);
+
+sdr_logical_module sdr_logical_module (
+        .clk_i										(clk_i					),
+        .rst_ni										(rst_ni					),
+        .sdr_0_reg 									(sdr_0_reg				),
+        .sdr_1_reg 									(sdr_1_reg				),
+        .sdr_2_reg 									(sdr_2_reg				),
+        .sdr_3_reg 									(sdr_3_reg				),
+		.sdr_logical_op_control_src_1				(sdr_logical_op_control_src_1), 			
+		.sdr_logical_op_control_src_2				(sdr_logical_op_control_src_2), 			
+		.sdr_logical_op_control_desination_sdr		(sdr_logical_op_control_desination_sdr), 	
+		.sdr_logical_op_control_logical_operation	(sdr_logical_op_control_logical_operation),
 	
-		.sdr_0_index 	(sdr_0_index	),
-		.sdr_0_status 	(sdr_0_status	),
-		.sdr_0_control	(sdr_0_control	),
-		.sdr_0_reg		(sdr_0_reg		), 
-
-		.sdr_1_index 	(sdr_1_index	),
-		.sdr_1_status 	(sdr_1_status	),
-		.sdr_1_control	(sdr_1_control	),
-		.sdr_1_reg		(sdr_1_reg		), 
-		
-		.sdr_2_index 	(sdr_2_index	),
-		.sdr_2_status 	(sdr_2_status	),
-		.sdr_2_control	(sdr_2_control	),
-		.sdr_2_reg		(sdr_2_reg		), 
-
-		.sdr_3_index 	(sdr_3_index	),
-		.sdr_3_status 	(sdr_3_status	),
-		.sdr_3_control	(sdr_3_control	),
-		.sdr_3_reg		(sdr_3_reg		), 		
-
-		.reg2hw			(reg2hw			),
-		.hw2reg			(hw2reg			)
+        .sdr_logical_result							(sdr_logical_result		)
 
 );
 endmodule

@@ -90,6 +90,7 @@ sources:
   - deps/monitor_counters_t/rtl/monitor_counters_t.sv
   - deps/htm_block/rtl/htm_block_reg_pkg.sv
   - deps/htm_block/rtl/htm_block_reg_top.sv
+  - deps/htm_block/rtl/sdr_logical_module.sv
   - deps/htm_block/rtl/sdr_control_fsm.sv
   - deps/htm_block/rtl/ones_count_status.sv
   - deps/htm_block/rtl/sdr_counter.sv
