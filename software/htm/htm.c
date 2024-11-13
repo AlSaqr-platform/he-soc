@@ -297,21 +297,29 @@ int sdr_reg[3][32];
 	printf("SET SDR REGISTERS \r\n");
 	for (int y=0;y<=3;y++) {
 		for (int i=0;i<32;i++) {
-			printf("WRITE SDR_0 REGS %d addr= %x %x  \r\n",i, i*4,sdr_reg[0][i]);
+			printf("WRITE SDR_%d REGS %d addr= %x %x  \r\n",y,i, i*4,sdr_reg[0][i]);
 			pulp_write32(HTM_BASE+sdr_reg_array_offset[y]+i*4, sdr_reg[0][i]);
 		}
 	}
+	for (int y=0;y<=3;y++) {
+			printf("WRITE SDR_ %d CONTROL_REG   %x  \r\n",y,0x00000001);
+			pulp_write32(HTM_BASE+sdr_control_reg_array_offset[y], 0x1);
+	}
     for (int y=0;y<=3;y++) {
-		printf(" **************** READ SDR_0 STATUS REGISTER ************************   \r\n");
+		printf(" **************** READ SDR_%d STATUS REGISTER ************************   \r\n",y);
+		while (!(pulp_read32(HTM_BASE+sdr_status_reg_array_offset[y]) & 0x80000000)) {
+			a = pulp_read32(HTM_BASE+sdr_status_reg_array_offset[y]);
+			printf(" **************** READING SDR_%d STATUS REGISTER %x ************************   \r\n",y,a);
+		}
 		a = pulp_read32(HTM_BASE+sdr_status_reg_array_offset[y]);
-		printf("READ SDR_0 STATUS REGISTER  %x  \r\n",a);
+		printf("READ SDR_%d STATUS REGISTER  %x  \r\n",y,a);
 	}
 
 	for (int y=0;y<=3;y++) {
 		for (int i=0;i<16;i++) {
 			addr = HTM_BASE+sdr_index_array_offset[y] + i*4;
 			a = pulp_read32(addr);
-		printf("READ SDR_0 INDEXES REG %d addr= %x %x  \r\n",i, addr, a);
+			printf("READ SDR_%d INDEXES REG %d addr= %x %x  \r\n",y,i, addr, a);
 		}
 	}
 
@@ -351,42 +359,31 @@ int sdr_reg[3][32];
 
 	for (int y=0;y<=3;y++) {
 		for (int i=0;i<32;i++) {
-			printf("WRITE SDR_0 REGS %d addr= %x %x  \r\n",i, i*4,sdr_reg[1][i]);
+			printf("WRITE SDR_%d REGS %d addr= %x %x  \r\n",y,i, i*4,sdr_reg[1][i]);
 			pulp_write32(HTM_BASE+sdr_reg_array_offset[y]+i*4, sdr_reg[1][i]);
 		}
 	}
+	for (int y=0;y<=3;y++) {
+			printf("WRITE SDR_ %d CONTROL_REG   %x  \r\n",y,0x00000001);
+			pulp_write32(HTM_BASE+sdr_control_reg_array_offset[y], 0x1);
+	}
     for (int y=0;y<=3;y++) {
-		printf(" **************** READ SDR_0 STATUS REGISTER ************************   \r\n");
+		printf(" **************** READ SDR_%d STATUS REGISTER ************************   \r\n",y);
+		while (!(pulp_read32(HTM_BASE+sdr_status_reg_array_offset[y]) & 0x80000000)) {
+			a = pulp_read32(HTM_BASE+sdr_status_reg_array_offset[y]);
+			printf(" **************** READING SDR_%d STATUS REGISTER %x ************************   \r\n",y,a);
+		}
 		a = pulp_read32(HTM_BASE+sdr_status_reg_array_offset[y]);
-		printf("READ SDR_0 STATUS REGISTER  %x  \r\n",a);
+		printf("READ SDR_%d STATUS REGISTER  %x  \r\n",y,a);
 	}
 
 	for (int y=0;y<=3;y++) {
 		for (int i=0;i<16;i++) {
 			addr = HTM_BASE+sdr_index_array_offset[y] + i*4;
 			a = pulp_read32(addr);
-		printf("READ SDR_0 INDEXES REG %d addr= %x %x  \r\n",i, addr, a);
+			printf("READ SDR_%d INDEXES REG %d addr= %x %x  \r\n",y,i, addr, a);
 		}
 	}
-/*	
-  printf("SET SDR_0 REGISTERS \r\n");
-  for (int i=0;i<32;i++) {
-  	printf("WRITE SDR REG %d addr= %x %x  \r\n",i, i*4,sdr_reg[1][i]);
-        pulp_write32(HTM_BASE+HTM_BLOCK_SDR_0_0_OFFSET+i*4, sdr_reg[1][i]);
-  }
-  printf("WRITE SDR_0 CONTROL_REG   %x  \r\n",0x00000001);
-  pulp_write32(HTM_BASE+HTM_BLOCK_SDR_0_CONTROL_REG_OFFSET, 0x1);
-
-  printf(" **************** READ STATUS REGISTER ************************   \r\n");
-  a = pulp_read32(HTM_BASE+HTM_BLOCK_SDR_0_STATUS_REG_OFFSET);
-  printf("READ SDR_0 STATUS REGISTER %x  \r\n",a);
-
-  for (int i=0;i<16;i++) {
-	addr = HTM_BASE+HTM_BLOCK_SDR_0_INDEX_0_OFFSET + i*4;
-  	a = pulp_read32(addr);
-    printf("READ SDR_0 INDEXES REG %d addr= %x %x  \r\n",i, addr, a);
-  }
-  */
 
         			 sdr_reg[2][0] = 0xA7F31650;
         			 sdr_reg[2][1] = 0x740289A0;
@@ -424,41 +421,49 @@ int sdr_reg[3][32];
   printf("SET SDR REGISTERS \r\n");
 	for (int y=0;y<=3;y++) {
 		for (int i=0;i<32;i++) {
-			printf("WRITE SDR_0 REGS %d addr= %x %x  \r\n",i, i*4,sdr_reg[2][i]);
+			printf("WRITE SDR_%d REGS %d addr= %x %x  \r\n",y,i, i*4,sdr_reg[2][i]);
 			pulp_write32(HTM_BASE+sdr_reg_array_offset[y]+i*4, sdr_reg[2][i]);
 		}
 	}
-    for (int y=0;y<=3;y++) {
-		printf(" **************** READ SDR_0 STATUS REGISTER ************************   \r\n");
+	for (int y=0;y<=3;y++) {
+			printf("WRITE SDR_ %d CONTROL_REG   %x  \r\n",y,0x00000001);
+			pulp_write32(HTM_BASE+sdr_control_reg_array_offset[y], 0x1);
+	}
+    	for (int y=0;y<=3;y++) {
+		printf(" **************** READ SDR_%d STATUS REGISTER ************************   \r\n",y);
+		while (!(pulp_read32(HTM_BASE+sdr_status_reg_array_offset[y]) & 0x80000000)) {
+			a = pulp_read32(HTM_BASE+sdr_status_reg_array_offset[y]);
+			printf(" **************** READING SDR_%d STATUS REGISTER %x ************************   \r\n",y,a);
+		}
 		a = pulp_read32(HTM_BASE+sdr_status_reg_array_offset[y]);
-		printf("READ SDR_0 STATUS REGISTER  %x  \r\n",a);
+		printf("READ SDR_%d STATUS REGISTER  %x  \r\n",y,a);
 	}
 
 	for (int y=0;y<=3;y++) {
 		for (int i=0;i<16;i++) {
 			addr = HTM_BASE+sdr_index_array_offset[y] + i*4;
 			a = pulp_read32(addr);
-		printf("READ SDR_0 INDEXES REG %d addr= %x %x  \r\n",i, addr, a);
+			printf("READ SDR_%d INDEXES REG %d addr= %x %x  \r\n",y,i, addr, a);
 		}
 	}
-/*	
+printf("CHECK LOGIC OPERATIONS \r\n");
+int z;
+int control_reg;
+z=0;
+		for (int i=0;i<32;i++) {
+         		printf("WRITE SDR_%d REGS %d addr= %x %x  \r\n",z,i, i*4,sdr_reg[2][i]);
+         		pulp_write32(HTM_BASE+sdr_reg_array_offset[z]+i*4, sdr_reg[2][i]);
+         		printf("WRITE SDR_%d REGS %d addr= %x %x  \r\n",z+1,i, i*4,sdr_reg[2][i]);
+         		pulp_write32(HTM_BASE+sdr_reg_array_offset[z+1]+i*4, sdr_reg[1][i]);
+		}
+control_reg=0x00001010; 
+                        printf("WRITE SDR_LOGICAL_MODULE CONTROL REG  addr= %x %x  \r\n", 0x320,control_reg);
+                        pulp_write32(HTM_BASE+0x320, control_reg);
+		for (int i=0;i<32;i++) {
+			addr = HTM_BASE+0x324 + i*4;
+			a = pulp_read32(addr);
+			printf("READ SDR_LOGICAL_RESULT_%d REG %d addr= %x %x  \r\n",i, addr, a);
+		}
 
-  for (int i=0;i<32;i++) {
-  	printf("WRITE SDR_0 REG %d addr= %x %x  \r\n",i, i*4,sdr_reg[2][i]);
-        pulp_write32(HTM_BASE+HTM_BLOCK_SDR_0_0_OFFSET+i*4, sdr_reg[2][i]);
-  }
-  printf("WRITE SDR_0 CONTROL_REG   %x  \r\n",0x00000001);
-  pulp_write32(HTM_BASE+HTM_BLOCK_SDR_0_CONTROL_REG_OFFSET, 0x1);
-
-  printf(" **************** READ SDR_0 STATUS REGISTER ************************   \r\n");
-  a = pulp_read32(HTM_BASE+HTM_BLOCK_SDR_0_STATUS_REG_OFFSET);
-  printf("READ STATUS REGISTER %x  \r\n",a);
-
-  for (int i=0;i<16;i++) {
-	addr = HTM_BASE+HTM_BLOCK_SDR_0_INDEX_0_OFFSET + i*4;
-  	a = pulp_read32(addr);
-    printf("READ SDR_0 INDEXES REG %d addr= %x %x  \r\n",i, addr, a);
-  }
-*/
   return 0;
 }

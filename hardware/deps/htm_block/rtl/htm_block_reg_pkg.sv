@@ -903,6 +903,152 @@ package htm_block_reg_pkg;
 
   typedef struct packed {
     struct packed {
+      logic [3:0]  q;
+    } sdr_src_1;
+    struct packed {
+      logic [3:0]  q;
+    } sdr_src_2;
+    struct packed {
+      logic [3:0]  q;
+    } destination_sdr;
+    struct packed {
+      logic [3:0]  q;
+    } bitwise_logical_operation;
+    struct packed {
+      logic [19:0] q;
+    } unused;
+  } htm_block_reg2hw_sdr_logical_op_control_reg_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_0_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_1_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_2_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_3_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_4_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_5_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_6_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_7_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_8_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_9_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_10_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_11_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_12_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_13_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_14_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_15_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_16_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_17_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_18_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_19_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_20_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_21_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_22_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_23_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_24_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_25_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_26_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_27_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_28_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_29_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_30_reg_t;
+
+  typedef struct packed {
+    logic [31:0] q;
+  } htm_block_reg2hw_sdr_logical_result_31_reg_t;
+
+  typedef struct packed {
+    struct packed {
       logic        d;
       logic        de;
     } start;
@@ -1373,284 +1519,509 @@ package htm_block_reg_pkg;
     logic        de;
   } htm_block_hw2reg_sdr_3_index_15_reg_t;
 
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_0_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_1_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_2_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_3_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_4_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_5_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_6_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_7_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_8_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_9_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_10_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_11_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_12_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_13_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_14_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_15_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_16_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_17_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_18_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_19_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_20_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_21_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_22_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_23_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_24_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_25_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_26_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_27_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_28_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_29_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_30_reg_t;
+
+  typedef struct packed {
+    logic [31:0] d;
+    logic        de;
+  } htm_block_hw2reg_sdr_logical_result_31_reg_t;
+
   // Register -> HW type
   typedef struct packed {
-    htm_block_reg2hw_sdr_0_control_reg_reg_t sdr_0_control_reg; // [6399:6368]
-    htm_block_reg2hw_sdr_0_status_reg_reg_t sdr_0_status_reg; // [6367:6336]
-    htm_block_reg2hw_sdr_0_0_reg_t sdr_0_0; // [6335:6304]
-    htm_block_reg2hw_sdr_0_1_reg_t sdr_0_1; // [6303:6272]
-    htm_block_reg2hw_sdr_0_2_reg_t sdr_0_2; // [6271:6240]
-    htm_block_reg2hw_sdr_0_3_reg_t sdr_0_3; // [6239:6208]
-    htm_block_reg2hw_sdr_0_4_reg_t sdr_0_4; // [6207:6176]
-    htm_block_reg2hw_sdr_0_5_reg_t sdr_0_5; // [6175:6144]
-    htm_block_reg2hw_sdr_0_6_reg_t sdr_0_6; // [6143:6112]
-    htm_block_reg2hw_sdr_0_7_reg_t sdr_0_7; // [6111:6080]
-    htm_block_reg2hw_sdr_0_8_reg_t sdr_0_8; // [6079:6048]
-    htm_block_reg2hw_sdr_0_9_reg_t sdr_0_9; // [6047:6016]
-    htm_block_reg2hw_sdr_0_10_reg_t sdr_0_10; // [6015:5984]
-    htm_block_reg2hw_sdr_0_11_reg_t sdr_0_11; // [5983:5952]
-    htm_block_reg2hw_sdr_0_12_reg_t sdr_0_12; // [5951:5920]
-    htm_block_reg2hw_sdr_0_13_reg_t sdr_0_13; // [5919:5888]
-    htm_block_reg2hw_sdr_0_14_reg_t sdr_0_14; // [5887:5856]
-    htm_block_reg2hw_sdr_0_15_reg_t sdr_0_15; // [5855:5824]
-    htm_block_reg2hw_sdr_0_16_reg_t sdr_0_16; // [5823:5792]
-    htm_block_reg2hw_sdr_0_17_reg_t sdr_0_17; // [5791:5760]
-    htm_block_reg2hw_sdr_0_18_reg_t sdr_0_18; // [5759:5728]
-    htm_block_reg2hw_sdr_0_19_reg_t sdr_0_19; // [5727:5696]
-    htm_block_reg2hw_sdr_0_20_reg_t sdr_0_20; // [5695:5664]
-    htm_block_reg2hw_sdr_0_21_reg_t sdr_0_21; // [5663:5632]
-    htm_block_reg2hw_sdr_0_22_reg_t sdr_0_22; // [5631:5600]
-    htm_block_reg2hw_sdr_0_23_reg_t sdr_0_23; // [5599:5568]
-    htm_block_reg2hw_sdr_0_24_reg_t sdr_0_24; // [5567:5536]
-    htm_block_reg2hw_sdr_0_25_reg_t sdr_0_25; // [5535:5504]
-    htm_block_reg2hw_sdr_0_26_reg_t sdr_0_26; // [5503:5472]
-    htm_block_reg2hw_sdr_0_27_reg_t sdr_0_27; // [5471:5440]
-    htm_block_reg2hw_sdr_0_28_reg_t sdr_0_28; // [5439:5408]
-    htm_block_reg2hw_sdr_0_29_reg_t sdr_0_29; // [5407:5376]
-    htm_block_reg2hw_sdr_0_30_reg_t sdr_0_30; // [5375:5344]
-    htm_block_reg2hw_sdr_0_31_reg_t sdr_0_31; // [5343:5312]
-    htm_block_reg2hw_sdr_0_index_0_reg_t sdr_0_index_0; // [5311:5280]
-    htm_block_reg2hw_sdr_0_index_1_reg_t sdr_0_index_1; // [5279:5248]
-    htm_block_reg2hw_sdr_0_index_2_reg_t sdr_0_index_2; // [5247:5216]
-    htm_block_reg2hw_sdr_0_index_3_reg_t sdr_0_index_3; // [5215:5184]
-    htm_block_reg2hw_sdr_0_index_4_reg_t sdr_0_index_4; // [5183:5152]
-    htm_block_reg2hw_sdr_0_index_5_reg_t sdr_0_index_5; // [5151:5120]
-    htm_block_reg2hw_sdr_0_index_6_reg_t sdr_0_index_6; // [5119:5088]
-    htm_block_reg2hw_sdr_0_index_7_reg_t sdr_0_index_7; // [5087:5056]
-    htm_block_reg2hw_sdr_0_index_8_reg_t sdr_0_index_8; // [5055:5024]
-    htm_block_reg2hw_sdr_0_index_9_reg_t sdr_0_index_9; // [5023:4992]
-    htm_block_reg2hw_sdr_0_index_10_reg_t sdr_0_index_10; // [4991:4960]
-    htm_block_reg2hw_sdr_0_index_11_reg_t sdr_0_index_11; // [4959:4928]
-    htm_block_reg2hw_sdr_0_index_12_reg_t sdr_0_index_12; // [4927:4896]
-    htm_block_reg2hw_sdr_0_index_13_reg_t sdr_0_index_13; // [4895:4864]
-    htm_block_reg2hw_sdr_0_index_14_reg_t sdr_0_index_14; // [4863:4832]
-    htm_block_reg2hw_sdr_0_index_15_reg_t sdr_0_index_15; // [4831:4800]
-    htm_block_reg2hw_sdr_1_control_reg_reg_t sdr_1_control_reg; // [4799:4768]
-    htm_block_reg2hw_sdr_1_status_reg_reg_t sdr_1_status_reg; // [4767:4736]
-    htm_block_reg2hw_sdr_1_0_reg_t sdr_1_0; // [4735:4704]
-    htm_block_reg2hw_sdr_1_1_reg_t sdr_1_1; // [4703:4672]
-    htm_block_reg2hw_sdr_1_2_reg_t sdr_1_2; // [4671:4640]
-    htm_block_reg2hw_sdr_1_3_reg_t sdr_1_3; // [4639:4608]
-    htm_block_reg2hw_sdr_1_4_reg_t sdr_1_4; // [4607:4576]
-    htm_block_reg2hw_sdr_1_5_reg_t sdr_1_5; // [4575:4544]
-    htm_block_reg2hw_sdr_1_6_reg_t sdr_1_6; // [4543:4512]
-    htm_block_reg2hw_sdr_1_7_reg_t sdr_1_7; // [4511:4480]
-    htm_block_reg2hw_sdr_1_8_reg_t sdr_1_8; // [4479:4448]
-    htm_block_reg2hw_sdr_1_9_reg_t sdr_1_9; // [4447:4416]
-    htm_block_reg2hw_sdr_1_10_reg_t sdr_1_10; // [4415:4384]
-    htm_block_reg2hw_sdr_1_11_reg_t sdr_1_11; // [4383:4352]
-    htm_block_reg2hw_sdr_1_12_reg_t sdr_1_12; // [4351:4320]
-    htm_block_reg2hw_sdr_1_13_reg_t sdr_1_13; // [4319:4288]
-    htm_block_reg2hw_sdr_1_14_reg_t sdr_1_14; // [4287:4256]
-    htm_block_reg2hw_sdr_1_15_reg_t sdr_1_15; // [4255:4224]
-    htm_block_reg2hw_sdr_1_16_reg_t sdr_1_16; // [4223:4192]
-    htm_block_reg2hw_sdr_1_17_reg_t sdr_1_17; // [4191:4160]
-    htm_block_reg2hw_sdr_1_18_reg_t sdr_1_18; // [4159:4128]
-    htm_block_reg2hw_sdr_1_19_reg_t sdr_1_19; // [4127:4096]
-    htm_block_reg2hw_sdr_1_20_reg_t sdr_1_20; // [4095:4064]
-    htm_block_reg2hw_sdr_1_21_reg_t sdr_1_21; // [4063:4032]
-    htm_block_reg2hw_sdr_1_22_reg_t sdr_1_22; // [4031:4000]
-    htm_block_reg2hw_sdr_1_23_reg_t sdr_1_23; // [3999:3968]
-    htm_block_reg2hw_sdr_1_24_reg_t sdr_1_24; // [3967:3936]
-    htm_block_reg2hw_sdr_1_25_reg_t sdr_1_25; // [3935:3904]
-    htm_block_reg2hw_sdr_1_26_reg_t sdr_1_26; // [3903:3872]
-    htm_block_reg2hw_sdr_1_27_reg_t sdr_1_27; // [3871:3840]
-    htm_block_reg2hw_sdr_1_28_reg_t sdr_1_28; // [3839:3808]
-    htm_block_reg2hw_sdr_1_29_reg_t sdr_1_29; // [3807:3776]
-    htm_block_reg2hw_sdr_1_30_reg_t sdr_1_30; // [3775:3744]
-    htm_block_reg2hw_sdr_1_31_reg_t sdr_1_31; // [3743:3712]
-    htm_block_reg2hw_sdr_1_index_0_reg_t sdr_1_index_0; // [3711:3680]
-    htm_block_reg2hw_sdr_1_index_1_reg_t sdr_1_index_1; // [3679:3648]
-    htm_block_reg2hw_sdr_1_index_2_reg_t sdr_1_index_2; // [3647:3616]
-    htm_block_reg2hw_sdr_1_index_3_reg_t sdr_1_index_3; // [3615:3584]
-    htm_block_reg2hw_sdr_1_index_4_reg_t sdr_1_index_4; // [3583:3552]
-    htm_block_reg2hw_sdr_1_index_5_reg_t sdr_1_index_5; // [3551:3520]
-    htm_block_reg2hw_sdr_1_index_6_reg_t sdr_1_index_6; // [3519:3488]
-    htm_block_reg2hw_sdr_1_index_7_reg_t sdr_1_index_7; // [3487:3456]
-    htm_block_reg2hw_sdr_1_index_8_reg_t sdr_1_index_8; // [3455:3424]
-    htm_block_reg2hw_sdr_1_index_9_reg_t sdr_1_index_9; // [3423:3392]
-    htm_block_reg2hw_sdr_1_index_10_reg_t sdr_1_index_10; // [3391:3360]
-    htm_block_reg2hw_sdr_1_index_11_reg_t sdr_1_index_11; // [3359:3328]
-    htm_block_reg2hw_sdr_1_index_12_reg_t sdr_1_index_12; // [3327:3296]
-    htm_block_reg2hw_sdr_1_index_13_reg_t sdr_1_index_13; // [3295:3264]
-    htm_block_reg2hw_sdr_1_index_14_reg_t sdr_1_index_14; // [3263:3232]
-    htm_block_reg2hw_sdr_1_index_15_reg_t sdr_1_index_15; // [3231:3200]
-    htm_block_reg2hw_sdr_2_control_reg_reg_t sdr_2_control_reg; // [3199:3168]
-    htm_block_reg2hw_sdr_2_status_reg_reg_t sdr_2_status_reg; // [3167:3136]
-    htm_block_reg2hw_sdr_2_0_reg_t sdr_2_0; // [3135:3104]
-    htm_block_reg2hw_sdr_2_1_reg_t sdr_2_1; // [3103:3072]
-    htm_block_reg2hw_sdr_2_2_reg_t sdr_2_2; // [3071:3040]
-    htm_block_reg2hw_sdr_2_3_reg_t sdr_2_3; // [3039:3008]
-    htm_block_reg2hw_sdr_2_4_reg_t sdr_2_4; // [3007:2976]
-    htm_block_reg2hw_sdr_2_5_reg_t sdr_2_5; // [2975:2944]
-    htm_block_reg2hw_sdr_2_6_reg_t sdr_2_6; // [2943:2912]
-    htm_block_reg2hw_sdr_2_7_reg_t sdr_2_7; // [2911:2880]
-    htm_block_reg2hw_sdr_2_8_reg_t sdr_2_8; // [2879:2848]
-    htm_block_reg2hw_sdr_2_9_reg_t sdr_2_9; // [2847:2816]
-    htm_block_reg2hw_sdr_2_10_reg_t sdr_2_10; // [2815:2784]
-    htm_block_reg2hw_sdr_2_11_reg_t sdr_2_11; // [2783:2752]
-    htm_block_reg2hw_sdr_2_12_reg_t sdr_2_12; // [2751:2720]
-    htm_block_reg2hw_sdr_2_13_reg_t sdr_2_13; // [2719:2688]
-    htm_block_reg2hw_sdr_2_14_reg_t sdr_2_14; // [2687:2656]
-    htm_block_reg2hw_sdr_2_15_reg_t sdr_2_15; // [2655:2624]
-    htm_block_reg2hw_sdr_2_16_reg_t sdr_2_16; // [2623:2592]
-    htm_block_reg2hw_sdr_2_17_reg_t sdr_2_17; // [2591:2560]
-    htm_block_reg2hw_sdr_2_18_reg_t sdr_2_18; // [2559:2528]
-    htm_block_reg2hw_sdr_2_19_reg_t sdr_2_19; // [2527:2496]
-    htm_block_reg2hw_sdr_2_20_reg_t sdr_2_20; // [2495:2464]
-    htm_block_reg2hw_sdr_2_21_reg_t sdr_2_21; // [2463:2432]
-    htm_block_reg2hw_sdr_2_22_reg_t sdr_2_22; // [2431:2400]
-    htm_block_reg2hw_sdr_2_23_reg_t sdr_2_23; // [2399:2368]
-    htm_block_reg2hw_sdr_2_24_reg_t sdr_2_24; // [2367:2336]
-    htm_block_reg2hw_sdr_2_25_reg_t sdr_2_25; // [2335:2304]
-    htm_block_reg2hw_sdr_2_26_reg_t sdr_2_26; // [2303:2272]
-    htm_block_reg2hw_sdr_2_27_reg_t sdr_2_27; // [2271:2240]
-    htm_block_reg2hw_sdr_2_28_reg_t sdr_2_28; // [2239:2208]
-    htm_block_reg2hw_sdr_2_29_reg_t sdr_2_29; // [2207:2176]
-    htm_block_reg2hw_sdr_2_30_reg_t sdr_2_30; // [2175:2144]
-    htm_block_reg2hw_sdr_2_31_reg_t sdr_2_31; // [2143:2112]
-    htm_block_reg2hw_sdr_2_index_0_reg_t sdr_2_index_0; // [2111:2080]
-    htm_block_reg2hw_sdr_2_index_1_reg_t sdr_2_index_1; // [2079:2048]
-    htm_block_reg2hw_sdr_2_index_2_reg_t sdr_2_index_2; // [2047:2016]
-    htm_block_reg2hw_sdr_2_index_3_reg_t sdr_2_index_3; // [2015:1984]
-    htm_block_reg2hw_sdr_2_index_4_reg_t sdr_2_index_4; // [1983:1952]
-    htm_block_reg2hw_sdr_2_index_5_reg_t sdr_2_index_5; // [1951:1920]
-    htm_block_reg2hw_sdr_2_index_6_reg_t sdr_2_index_6; // [1919:1888]
-    htm_block_reg2hw_sdr_2_index_7_reg_t sdr_2_index_7; // [1887:1856]
-    htm_block_reg2hw_sdr_2_index_8_reg_t sdr_2_index_8; // [1855:1824]
-    htm_block_reg2hw_sdr_2_index_9_reg_t sdr_2_index_9; // [1823:1792]
-    htm_block_reg2hw_sdr_2_index_10_reg_t sdr_2_index_10; // [1791:1760]
-    htm_block_reg2hw_sdr_2_index_11_reg_t sdr_2_index_11; // [1759:1728]
-    htm_block_reg2hw_sdr_2_index_12_reg_t sdr_2_index_12; // [1727:1696]
-    htm_block_reg2hw_sdr_2_index_13_reg_t sdr_2_index_13; // [1695:1664]
-    htm_block_reg2hw_sdr_2_index_14_reg_t sdr_2_index_14; // [1663:1632]
-    htm_block_reg2hw_sdr_2_index_15_reg_t sdr_2_index_15; // [1631:1600]
-    htm_block_reg2hw_sdr_3_control_reg_reg_t sdr_3_control_reg; // [1599:1568]
-    htm_block_reg2hw_sdr_3_status_reg_reg_t sdr_3_status_reg; // [1567:1536]
-    htm_block_reg2hw_sdr_3_0_reg_t sdr_3_0; // [1535:1504]
-    htm_block_reg2hw_sdr_3_1_reg_t sdr_3_1; // [1503:1472]
-    htm_block_reg2hw_sdr_3_2_reg_t sdr_3_2; // [1471:1440]
-    htm_block_reg2hw_sdr_3_3_reg_t sdr_3_3; // [1439:1408]
-    htm_block_reg2hw_sdr_3_4_reg_t sdr_3_4; // [1407:1376]
-    htm_block_reg2hw_sdr_3_5_reg_t sdr_3_5; // [1375:1344]
-    htm_block_reg2hw_sdr_3_6_reg_t sdr_3_6; // [1343:1312]
-    htm_block_reg2hw_sdr_3_7_reg_t sdr_3_7; // [1311:1280]
-    htm_block_reg2hw_sdr_3_8_reg_t sdr_3_8; // [1279:1248]
-    htm_block_reg2hw_sdr_3_9_reg_t sdr_3_9; // [1247:1216]
-    htm_block_reg2hw_sdr_3_10_reg_t sdr_3_10; // [1215:1184]
-    htm_block_reg2hw_sdr_3_11_reg_t sdr_3_11; // [1183:1152]
-    htm_block_reg2hw_sdr_3_12_reg_t sdr_3_12; // [1151:1120]
-    htm_block_reg2hw_sdr_3_13_reg_t sdr_3_13; // [1119:1088]
-    htm_block_reg2hw_sdr_3_14_reg_t sdr_3_14; // [1087:1056]
-    htm_block_reg2hw_sdr_3_15_reg_t sdr_3_15; // [1055:1024]
-    htm_block_reg2hw_sdr_3_16_reg_t sdr_3_16; // [1023:992]
-    htm_block_reg2hw_sdr_3_17_reg_t sdr_3_17; // [991:960]
-    htm_block_reg2hw_sdr_3_18_reg_t sdr_3_18; // [959:928]
-    htm_block_reg2hw_sdr_3_19_reg_t sdr_3_19; // [927:896]
-    htm_block_reg2hw_sdr_3_20_reg_t sdr_3_20; // [895:864]
-    htm_block_reg2hw_sdr_3_21_reg_t sdr_3_21; // [863:832]
-    htm_block_reg2hw_sdr_3_22_reg_t sdr_3_22; // [831:800]
-    htm_block_reg2hw_sdr_3_23_reg_t sdr_3_23; // [799:768]
-    htm_block_reg2hw_sdr_3_24_reg_t sdr_3_24; // [767:736]
-    htm_block_reg2hw_sdr_3_25_reg_t sdr_3_25; // [735:704]
-    htm_block_reg2hw_sdr_3_26_reg_t sdr_3_26; // [703:672]
-    htm_block_reg2hw_sdr_3_27_reg_t sdr_3_27; // [671:640]
-    htm_block_reg2hw_sdr_3_28_reg_t sdr_3_28; // [639:608]
-    htm_block_reg2hw_sdr_3_29_reg_t sdr_3_29; // [607:576]
-    htm_block_reg2hw_sdr_3_30_reg_t sdr_3_30; // [575:544]
-    htm_block_reg2hw_sdr_3_31_reg_t sdr_3_31; // [543:512]
-    htm_block_reg2hw_sdr_3_index_0_reg_t sdr_3_index_0; // [511:480]
-    htm_block_reg2hw_sdr_3_index_1_reg_t sdr_3_index_1; // [479:448]
-    htm_block_reg2hw_sdr_3_index_2_reg_t sdr_3_index_2; // [447:416]
-    htm_block_reg2hw_sdr_3_index_3_reg_t sdr_3_index_3; // [415:384]
-    htm_block_reg2hw_sdr_3_index_4_reg_t sdr_3_index_4; // [383:352]
-    htm_block_reg2hw_sdr_3_index_5_reg_t sdr_3_index_5; // [351:320]
-    htm_block_reg2hw_sdr_3_index_6_reg_t sdr_3_index_6; // [319:288]
-    htm_block_reg2hw_sdr_3_index_7_reg_t sdr_3_index_7; // [287:256]
-    htm_block_reg2hw_sdr_3_index_8_reg_t sdr_3_index_8; // [255:224]
-    htm_block_reg2hw_sdr_3_index_9_reg_t sdr_3_index_9; // [223:192]
-    htm_block_reg2hw_sdr_3_index_10_reg_t sdr_3_index_10; // [191:160]
-    htm_block_reg2hw_sdr_3_index_11_reg_t sdr_3_index_11; // [159:128]
-    htm_block_reg2hw_sdr_3_index_12_reg_t sdr_3_index_12; // [127:96]
-    htm_block_reg2hw_sdr_3_index_13_reg_t sdr_3_index_13; // [95:64]
-    htm_block_reg2hw_sdr_3_index_14_reg_t sdr_3_index_14; // [63:32]
-    htm_block_reg2hw_sdr_3_index_15_reg_t sdr_3_index_15; // [31:0]
+    htm_block_reg2hw_sdr_0_control_reg_reg_t sdr_0_control_reg; // [7459:7428]
+    htm_block_reg2hw_sdr_0_status_reg_reg_t sdr_0_status_reg; // [7427:7396]
+    htm_block_reg2hw_sdr_0_0_reg_t sdr_0_0; // [7395:7364]
+    htm_block_reg2hw_sdr_0_1_reg_t sdr_0_1; // [7363:7332]
+    htm_block_reg2hw_sdr_0_2_reg_t sdr_0_2; // [7331:7300]
+    htm_block_reg2hw_sdr_0_3_reg_t sdr_0_3; // [7299:7268]
+    htm_block_reg2hw_sdr_0_4_reg_t sdr_0_4; // [7267:7236]
+    htm_block_reg2hw_sdr_0_5_reg_t sdr_0_5; // [7235:7204]
+    htm_block_reg2hw_sdr_0_6_reg_t sdr_0_6; // [7203:7172]
+    htm_block_reg2hw_sdr_0_7_reg_t sdr_0_7; // [7171:7140]
+    htm_block_reg2hw_sdr_0_8_reg_t sdr_0_8; // [7139:7108]
+    htm_block_reg2hw_sdr_0_9_reg_t sdr_0_9; // [7107:7076]
+    htm_block_reg2hw_sdr_0_10_reg_t sdr_0_10; // [7075:7044]
+    htm_block_reg2hw_sdr_0_11_reg_t sdr_0_11; // [7043:7012]
+    htm_block_reg2hw_sdr_0_12_reg_t sdr_0_12; // [7011:6980]
+    htm_block_reg2hw_sdr_0_13_reg_t sdr_0_13; // [6979:6948]
+    htm_block_reg2hw_sdr_0_14_reg_t sdr_0_14; // [6947:6916]
+    htm_block_reg2hw_sdr_0_15_reg_t sdr_0_15; // [6915:6884]
+    htm_block_reg2hw_sdr_0_16_reg_t sdr_0_16; // [6883:6852]
+    htm_block_reg2hw_sdr_0_17_reg_t sdr_0_17; // [6851:6820]
+    htm_block_reg2hw_sdr_0_18_reg_t sdr_0_18; // [6819:6788]
+    htm_block_reg2hw_sdr_0_19_reg_t sdr_0_19; // [6787:6756]
+    htm_block_reg2hw_sdr_0_20_reg_t sdr_0_20; // [6755:6724]
+    htm_block_reg2hw_sdr_0_21_reg_t sdr_0_21; // [6723:6692]
+    htm_block_reg2hw_sdr_0_22_reg_t sdr_0_22; // [6691:6660]
+    htm_block_reg2hw_sdr_0_23_reg_t sdr_0_23; // [6659:6628]
+    htm_block_reg2hw_sdr_0_24_reg_t sdr_0_24; // [6627:6596]
+    htm_block_reg2hw_sdr_0_25_reg_t sdr_0_25; // [6595:6564]
+    htm_block_reg2hw_sdr_0_26_reg_t sdr_0_26; // [6563:6532]
+    htm_block_reg2hw_sdr_0_27_reg_t sdr_0_27; // [6531:6500]
+    htm_block_reg2hw_sdr_0_28_reg_t sdr_0_28; // [6499:6468]
+    htm_block_reg2hw_sdr_0_29_reg_t sdr_0_29; // [6467:6436]
+    htm_block_reg2hw_sdr_0_30_reg_t sdr_0_30; // [6435:6404]
+    htm_block_reg2hw_sdr_0_31_reg_t sdr_0_31; // [6403:6372]
+    htm_block_reg2hw_sdr_0_index_0_reg_t sdr_0_index_0; // [6371:6340]
+    htm_block_reg2hw_sdr_0_index_1_reg_t sdr_0_index_1; // [6339:6308]
+    htm_block_reg2hw_sdr_0_index_2_reg_t sdr_0_index_2; // [6307:6276]
+    htm_block_reg2hw_sdr_0_index_3_reg_t sdr_0_index_3; // [6275:6244]
+    htm_block_reg2hw_sdr_0_index_4_reg_t sdr_0_index_4; // [6243:6212]
+    htm_block_reg2hw_sdr_0_index_5_reg_t sdr_0_index_5; // [6211:6180]
+    htm_block_reg2hw_sdr_0_index_6_reg_t sdr_0_index_6; // [6179:6148]
+    htm_block_reg2hw_sdr_0_index_7_reg_t sdr_0_index_7; // [6147:6116]
+    htm_block_reg2hw_sdr_0_index_8_reg_t sdr_0_index_8; // [6115:6084]
+    htm_block_reg2hw_sdr_0_index_9_reg_t sdr_0_index_9; // [6083:6052]
+    htm_block_reg2hw_sdr_0_index_10_reg_t sdr_0_index_10; // [6051:6020]
+    htm_block_reg2hw_sdr_0_index_11_reg_t sdr_0_index_11; // [6019:5988]
+    htm_block_reg2hw_sdr_0_index_12_reg_t sdr_0_index_12; // [5987:5956]
+    htm_block_reg2hw_sdr_0_index_13_reg_t sdr_0_index_13; // [5955:5924]
+    htm_block_reg2hw_sdr_0_index_14_reg_t sdr_0_index_14; // [5923:5892]
+    htm_block_reg2hw_sdr_0_index_15_reg_t sdr_0_index_15; // [5891:5860]
+    htm_block_reg2hw_sdr_1_control_reg_reg_t sdr_1_control_reg; // [5859:5828]
+    htm_block_reg2hw_sdr_1_status_reg_reg_t sdr_1_status_reg; // [5827:5796]
+    htm_block_reg2hw_sdr_1_0_reg_t sdr_1_0; // [5795:5764]
+    htm_block_reg2hw_sdr_1_1_reg_t sdr_1_1; // [5763:5732]
+    htm_block_reg2hw_sdr_1_2_reg_t sdr_1_2; // [5731:5700]
+    htm_block_reg2hw_sdr_1_3_reg_t sdr_1_3; // [5699:5668]
+    htm_block_reg2hw_sdr_1_4_reg_t sdr_1_4; // [5667:5636]
+    htm_block_reg2hw_sdr_1_5_reg_t sdr_1_5; // [5635:5604]
+    htm_block_reg2hw_sdr_1_6_reg_t sdr_1_6; // [5603:5572]
+    htm_block_reg2hw_sdr_1_7_reg_t sdr_1_7; // [5571:5540]
+    htm_block_reg2hw_sdr_1_8_reg_t sdr_1_8; // [5539:5508]
+    htm_block_reg2hw_sdr_1_9_reg_t sdr_1_9; // [5507:5476]
+    htm_block_reg2hw_sdr_1_10_reg_t sdr_1_10; // [5475:5444]
+    htm_block_reg2hw_sdr_1_11_reg_t sdr_1_11; // [5443:5412]
+    htm_block_reg2hw_sdr_1_12_reg_t sdr_1_12; // [5411:5380]
+    htm_block_reg2hw_sdr_1_13_reg_t sdr_1_13; // [5379:5348]
+    htm_block_reg2hw_sdr_1_14_reg_t sdr_1_14; // [5347:5316]
+    htm_block_reg2hw_sdr_1_15_reg_t sdr_1_15; // [5315:5284]
+    htm_block_reg2hw_sdr_1_16_reg_t sdr_1_16; // [5283:5252]
+    htm_block_reg2hw_sdr_1_17_reg_t sdr_1_17; // [5251:5220]
+    htm_block_reg2hw_sdr_1_18_reg_t sdr_1_18; // [5219:5188]
+    htm_block_reg2hw_sdr_1_19_reg_t sdr_1_19; // [5187:5156]
+    htm_block_reg2hw_sdr_1_20_reg_t sdr_1_20; // [5155:5124]
+    htm_block_reg2hw_sdr_1_21_reg_t sdr_1_21; // [5123:5092]
+    htm_block_reg2hw_sdr_1_22_reg_t sdr_1_22; // [5091:5060]
+    htm_block_reg2hw_sdr_1_23_reg_t sdr_1_23; // [5059:5028]
+    htm_block_reg2hw_sdr_1_24_reg_t sdr_1_24; // [5027:4996]
+    htm_block_reg2hw_sdr_1_25_reg_t sdr_1_25; // [4995:4964]
+    htm_block_reg2hw_sdr_1_26_reg_t sdr_1_26; // [4963:4932]
+    htm_block_reg2hw_sdr_1_27_reg_t sdr_1_27; // [4931:4900]
+    htm_block_reg2hw_sdr_1_28_reg_t sdr_1_28; // [4899:4868]
+    htm_block_reg2hw_sdr_1_29_reg_t sdr_1_29; // [4867:4836]
+    htm_block_reg2hw_sdr_1_30_reg_t sdr_1_30; // [4835:4804]
+    htm_block_reg2hw_sdr_1_31_reg_t sdr_1_31; // [4803:4772]
+    htm_block_reg2hw_sdr_1_index_0_reg_t sdr_1_index_0; // [4771:4740]
+    htm_block_reg2hw_sdr_1_index_1_reg_t sdr_1_index_1; // [4739:4708]
+    htm_block_reg2hw_sdr_1_index_2_reg_t sdr_1_index_2; // [4707:4676]
+    htm_block_reg2hw_sdr_1_index_3_reg_t sdr_1_index_3; // [4675:4644]
+    htm_block_reg2hw_sdr_1_index_4_reg_t sdr_1_index_4; // [4643:4612]
+    htm_block_reg2hw_sdr_1_index_5_reg_t sdr_1_index_5; // [4611:4580]
+    htm_block_reg2hw_sdr_1_index_6_reg_t sdr_1_index_6; // [4579:4548]
+    htm_block_reg2hw_sdr_1_index_7_reg_t sdr_1_index_7; // [4547:4516]
+    htm_block_reg2hw_sdr_1_index_8_reg_t sdr_1_index_8; // [4515:4484]
+    htm_block_reg2hw_sdr_1_index_9_reg_t sdr_1_index_9; // [4483:4452]
+    htm_block_reg2hw_sdr_1_index_10_reg_t sdr_1_index_10; // [4451:4420]
+    htm_block_reg2hw_sdr_1_index_11_reg_t sdr_1_index_11; // [4419:4388]
+    htm_block_reg2hw_sdr_1_index_12_reg_t sdr_1_index_12; // [4387:4356]
+    htm_block_reg2hw_sdr_1_index_13_reg_t sdr_1_index_13; // [4355:4324]
+    htm_block_reg2hw_sdr_1_index_14_reg_t sdr_1_index_14; // [4323:4292]
+    htm_block_reg2hw_sdr_1_index_15_reg_t sdr_1_index_15; // [4291:4260]
+    htm_block_reg2hw_sdr_2_control_reg_reg_t sdr_2_control_reg; // [4259:4228]
+    htm_block_reg2hw_sdr_2_status_reg_reg_t sdr_2_status_reg; // [4227:4196]
+    htm_block_reg2hw_sdr_2_0_reg_t sdr_2_0; // [4195:4164]
+    htm_block_reg2hw_sdr_2_1_reg_t sdr_2_1; // [4163:4132]
+    htm_block_reg2hw_sdr_2_2_reg_t sdr_2_2; // [4131:4100]
+    htm_block_reg2hw_sdr_2_3_reg_t sdr_2_3; // [4099:4068]
+    htm_block_reg2hw_sdr_2_4_reg_t sdr_2_4; // [4067:4036]
+    htm_block_reg2hw_sdr_2_5_reg_t sdr_2_5; // [4035:4004]
+    htm_block_reg2hw_sdr_2_6_reg_t sdr_2_6; // [4003:3972]
+    htm_block_reg2hw_sdr_2_7_reg_t sdr_2_7; // [3971:3940]
+    htm_block_reg2hw_sdr_2_8_reg_t sdr_2_8; // [3939:3908]
+    htm_block_reg2hw_sdr_2_9_reg_t sdr_2_9; // [3907:3876]
+    htm_block_reg2hw_sdr_2_10_reg_t sdr_2_10; // [3875:3844]
+    htm_block_reg2hw_sdr_2_11_reg_t sdr_2_11; // [3843:3812]
+    htm_block_reg2hw_sdr_2_12_reg_t sdr_2_12; // [3811:3780]
+    htm_block_reg2hw_sdr_2_13_reg_t sdr_2_13; // [3779:3748]
+    htm_block_reg2hw_sdr_2_14_reg_t sdr_2_14; // [3747:3716]
+    htm_block_reg2hw_sdr_2_15_reg_t sdr_2_15; // [3715:3684]
+    htm_block_reg2hw_sdr_2_16_reg_t sdr_2_16; // [3683:3652]
+    htm_block_reg2hw_sdr_2_17_reg_t sdr_2_17; // [3651:3620]
+    htm_block_reg2hw_sdr_2_18_reg_t sdr_2_18; // [3619:3588]
+    htm_block_reg2hw_sdr_2_19_reg_t sdr_2_19; // [3587:3556]
+    htm_block_reg2hw_sdr_2_20_reg_t sdr_2_20; // [3555:3524]
+    htm_block_reg2hw_sdr_2_21_reg_t sdr_2_21; // [3523:3492]
+    htm_block_reg2hw_sdr_2_22_reg_t sdr_2_22; // [3491:3460]
+    htm_block_reg2hw_sdr_2_23_reg_t sdr_2_23; // [3459:3428]
+    htm_block_reg2hw_sdr_2_24_reg_t sdr_2_24; // [3427:3396]
+    htm_block_reg2hw_sdr_2_25_reg_t sdr_2_25; // [3395:3364]
+    htm_block_reg2hw_sdr_2_26_reg_t sdr_2_26; // [3363:3332]
+    htm_block_reg2hw_sdr_2_27_reg_t sdr_2_27; // [3331:3300]
+    htm_block_reg2hw_sdr_2_28_reg_t sdr_2_28; // [3299:3268]
+    htm_block_reg2hw_sdr_2_29_reg_t sdr_2_29; // [3267:3236]
+    htm_block_reg2hw_sdr_2_30_reg_t sdr_2_30; // [3235:3204]
+    htm_block_reg2hw_sdr_2_31_reg_t sdr_2_31; // [3203:3172]
+    htm_block_reg2hw_sdr_2_index_0_reg_t sdr_2_index_0; // [3171:3140]
+    htm_block_reg2hw_sdr_2_index_1_reg_t sdr_2_index_1; // [3139:3108]
+    htm_block_reg2hw_sdr_2_index_2_reg_t sdr_2_index_2; // [3107:3076]
+    htm_block_reg2hw_sdr_2_index_3_reg_t sdr_2_index_3; // [3075:3044]
+    htm_block_reg2hw_sdr_2_index_4_reg_t sdr_2_index_4; // [3043:3012]
+    htm_block_reg2hw_sdr_2_index_5_reg_t sdr_2_index_5; // [3011:2980]
+    htm_block_reg2hw_sdr_2_index_6_reg_t sdr_2_index_6; // [2979:2948]
+    htm_block_reg2hw_sdr_2_index_7_reg_t sdr_2_index_7; // [2947:2916]
+    htm_block_reg2hw_sdr_2_index_8_reg_t sdr_2_index_8; // [2915:2884]
+    htm_block_reg2hw_sdr_2_index_9_reg_t sdr_2_index_9; // [2883:2852]
+    htm_block_reg2hw_sdr_2_index_10_reg_t sdr_2_index_10; // [2851:2820]
+    htm_block_reg2hw_sdr_2_index_11_reg_t sdr_2_index_11; // [2819:2788]
+    htm_block_reg2hw_sdr_2_index_12_reg_t sdr_2_index_12; // [2787:2756]
+    htm_block_reg2hw_sdr_2_index_13_reg_t sdr_2_index_13; // [2755:2724]
+    htm_block_reg2hw_sdr_2_index_14_reg_t sdr_2_index_14; // [2723:2692]
+    htm_block_reg2hw_sdr_2_index_15_reg_t sdr_2_index_15; // [2691:2660]
+    htm_block_reg2hw_sdr_3_control_reg_reg_t sdr_3_control_reg; // [2659:2628]
+    htm_block_reg2hw_sdr_3_status_reg_reg_t sdr_3_status_reg; // [2627:2596]
+    htm_block_reg2hw_sdr_3_0_reg_t sdr_3_0; // [2595:2564]
+    htm_block_reg2hw_sdr_3_1_reg_t sdr_3_1; // [2563:2532]
+    htm_block_reg2hw_sdr_3_2_reg_t sdr_3_2; // [2531:2500]
+    htm_block_reg2hw_sdr_3_3_reg_t sdr_3_3; // [2499:2468]
+    htm_block_reg2hw_sdr_3_4_reg_t sdr_3_4; // [2467:2436]
+    htm_block_reg2hw_sdr_3_5_reg_t sdr_3_5; // [2435:2404]
+    htm_block_reg2hw_sdr_3_6_reg_t sdr_3_6; // [2403:2372]
+    htm_block_reg2hw_sdr_3_7_reg_t sdr_3_7; // [2371:2340]
+    htm_block_reg2hw_sdr_3_8_reg_t sdr_3_8; // [2339:2308]
+    htm_block_reg2hw_sdr_3_9_reg_t sdr_3_9; // [2307:2276]
+    htm_block_reg2hw_sdr_3_10_reg_t sdr_3_10; // [2275:2244]
+    htm_block_reg2hw_sdr_3_11_reg_t sdr_3_11; // [2243:2212]
+    htm_block_reg2hw_sdr_3_12_reg_t sdr_3_12; // [2211:2180]
+    htm_block_reg2hw_sdr_3_13_reg_t sdr_3_13; // [2179:2148]
+    htm_block_reg2hw_sdr_3_14_reg_t sdr_3_14; // [2147:2116]
+    htm_block_reg2hw_sdr_3_15_reg_t sdr_3_15; // [2115:2084]
+    htm_block_reg2hw_sdr_3_16_reg_t sdr_3_16; // [2083:2052]
+    htm_block_reg2hw_sdr_3_17_reg_t sdr_3_17; // [2051:2020]
+    htm_block_reg2hw_sdr_3_18_reg_t sdr_3_18; // [2019:1988]
+    htm_block_reg2hw_sdr_3_19_reg_t sdr_3_19; // [1987:1956]
+    htm_block_reg2hw_sdr_3_20_reg_t sdr_3_20; // [1955:1924]
+    htm_block_reg2hw_sdr_3_21_reg_t sdr_3_21; // [1923:1892]
+    htm_block_reg2hw_sdr_3_22_reg_t sdr_3_22; // [1891:1860]
+    htm_block_reg2hw_sdr_3_23_reg_t sdr_3_23; // [1859:1828]
+    htm_block_reg2hw_sdr_3_24_reg_t sdr_3_24; // [1827:1796]
+    htm_block_reg2hw_sdr_3_25_reg_t sdr_3_25; // [1795:1764]
+    htm_block_reg2hw_sdr_3_26_reg_t sdr_3_26; // [1763:1732]
+    htm_block_reg2hw_sdr_3_27_reg_t sdr_3_27; // [1731:1700]
+    htm_block_reg2hw_sdr_3_28_reg_t sdr_3_28; // [1699:1668]
+    htm_block_reg2hw_sdr_3_29_reg_t sdr_3_29; // [1667:1636]
+    htm_block_reg2hw_sdr_3_30_reg_t sdr_3_30; // [1635:1604]
+    htm_block_reg2hw_sdr_3_31_reg_t sdr_3_31; // [1603:1572]
+    htm_block_reg2hw_sdr_3_index_0_reg_t sdr_3_index_0; // [1571:1540]
+    htm_block_reg2hw_sdr_3_index_1_reg_t sdr_3_index_1; // [1539:1508]
+    htm_block_reg2hw_sdr_3_index_2_reg_t sdr_3_index_2; // [1507:1476]
+    htm_block_reg2hw_sdr_3_index_3_reg_t sdr_3_index_3; // [1475:1444]
+    htm_block_reg2hw_sdr_3_index_4_reg_t sdr_3_index_4; // [1443:1412]
+    htm_block_reg2hw_sdr_3_index_5_reg_t sdr_3_index_5; // [1411:1380]
+    htm_block_reg2hw_sdr_3_index_6_reg_t sdr_3_index_6; // [1379:1348]
+    htm_block_reg2hw_sdr_3_index_7_reg_t sdr_3_index_7; // [1347:1316]
+    htm_block_reg2hw_sdr_3_index_8_reg_t sdr_3_index_8; // [1315:1284]
+    htm_block_reg2hw_sdr_3_index_9_reg_t sdr_3_index_9; // [1283:1252]
+    htm_block_reg2hw_sdr_3_index_10_reg_t sdr_3_index_10; // [1251:1220]
+    htm_block_reg2hw_sdr_3_index_11_reg_t sdr_3_index_11; // [1219:1188]
+    htm_block_reg2hw_sdr_3_index_12_reg_t sdr_3_index_12; // [1187:1156]
+    htm_block_reg2hw_sdr_3_index_13_reg_t sdr_3_index_13; // [1155:1124]
+    htm_block_reg2hw_sdr_3_index_14_reg_t sdr_3_index_14; // [1123:1092]
+    htm_block_reg2hw_sdr_3_index_15_reg_t sdr_3_index_15; // [1091:1060]
+    htm_block_reg2hw_sdr_logical_op_control_reg_reg_t sdr_logical_op_control_reg; // [1059:1024]
+    htm_block_reg2hw_sdr_logical_result_0_reg_t sdr_logical_result_0; // [1023:992]
+    htm_block_reg2hw_sdr_logical_result_1_reg_t sdr_logical_result_1; // [991:960]
+    htm_block_reg2hw_sdr_logical_result_2_reg_t sdr_logical_result_2; // [959:928]
+    htm_block_reg2hw_sdr_logical_result_3_reg_t sdr_logical_result_3; // [927:896]
+    htm_block_reg2hw_sdr_logical_result_4_reg_t sdr_logical_result_4; // [895:864]
+    htm_block_reg2hw_sdr_logical_result_5_reg_t sdr_logical_result_5; // [863:832]
+    htm_block_reg2hw_sdr_logical_result_6_reg_t sdr_logical_result_6; // [831:800]
+    htm_block_reg2hw_sdr_logical_result_7_reg_t sdr_logical_result_7; // [799:768]
+    htm_block_reg2hw_sdr_logical_result_8_reg_t sdr_logical_result_8; // [767:736]
+    htm_block_reg2hw_sdr_logical_result_9_reg_t sdr_logical_result_9; // [735:704]
+    htm_block_reg2hw_sdr_logical_result_10_reg_t sdr_logical_result_10; // [703:672]
+    htm_block_reg2hw_sdr_logical_result_11_reg_t sdr_logical_result_11; // [671:640]
+    htm_block_reg2hw_sdr_logical_result_12_reg_t sdr_logical_result_12; // [639:608]
+    htm_block_reg2hw_sdr_logical_result_13_reg_t sdr_logical_result_13; // [607:576]
+    htm_block_reg2hw_sdr_logical_result_14_reg_t sdr_logical_result_14; // [575:544]
+    htm_block_reg2hw_sdr_logical_result_15_reg_t sdr_logical_result_15; // [543:512]
+    htm_block_reg2hw_sdr_logical_result_16_reg_t sdr_logical_result_16; // [511:480]
+    htm_block_reg2hw_sdr_logical_result_17_reg_t sdr_logical_result_17; // [479:448]
+    htm_block_reg2hw_sdr_logical_result_18_reg_t sdr_logical_result_18; // [447:416]
+    htm_block_reg2hw_sdr_logical_result_19_reg_t sdr_logical_result_19; // [415:384]
+    htm_block_reg2hw_sdr_logical_result_20_reg_t sdr_logical_result_20; // [383:352]
+    htm_block_reg2hw_sdr_logical_result_21_reg_t sdr_logical_result_21; // [351:320]
+    htm_block_reg2hw_sdr_logical_result_22_reg_t sdr_logical_result_22; // [319:288]
+    htm_block_reg2hw_sdr_logical_result_23_reg_t sdr_logical_result_23; // [287:256]
+    htm_block_reg2hw_sdr_logical_result_24_reg_t sdr_logical_result_24; // [255:224]
+    htm_block_reg2hw_sdr_logical_result_25_reg_t sdr_logical_result_25; // [223:192]
+    htm_block_reg2hw_sdr_logical_result_26_reg_t sdr_logical_result_26; // [191:160]
+    htm_block_reg2hw_sdr_logical_result_27_reg_t sdr_logical_result_27; // [159:128]
+    htm_block_reg2hw_sdr_logical_result_28_reg_t sdr_logical_result_28; // [127:96]
+    htm_block_reg2hw_sdr_logical_result_29_reg_t sdr_logical_result_29; // [95:64]
+    htm_block_reg2hw_sdr_logical_result_30_reg_t sdr_logical_result_30; // [63:32]
+    htm_block_reg2hw_sdr_logical_result_31_reg_t sdr_logical_result_31; // [31:0]
   } htm_block_reg2hw_t;
 
   // HW -> register type
   typedef struct packed {
-    htm_block_hw2reg_sdr_0_control_reg_reg_t sdr_0_control_reg; // [2399:2366]
-    htm_block_hw2reg_sdr_0_status_reg_reg_t sdr_0_status_reg; // [2365:2328]
-    htm_block_hw2reg_sdr_0_index_0_reg_t sdr_0_index_0; // [2327:2295]
-    htm_block_hw2reg_sdr_0_index_1_reg_t sdr_0_index_1; // [2294:2262]
-    htm_block_hw2reg_sdr_0_index_2_reg_t sdr_0_index_2; // [2261:2229]
-    htm_block_hw2reg_sdr_0_index_3_reg_t sdr_0_index_3; // [2228:2196]
-    htm_block_hw2reg_sdr_0_index_4_reg_t sdr_0_index_4; // [2195:2163]
-    htm_block_hw2reg_sdr_0_index_5_reg_t sdr_0_index_5; // [2162:2130]
-    htm_block_hw2reg_sdr_0_index_6_reg_t sdr_0_index_6; // [2129:2097]
-    htm_block_hw2reg_sdr_0_index_7_reg_t sdr_0_index_7; // [2096:2064]
-    htm_block_hw2reg_sdr_0_index_8_reg_t sdr_0_index_8; // [2063:2031]
-    htm_block_hw2reg_sdr_0_index_9_reg_t sdr_0_index_9; // [2030:1998]
-    htm_block_hw2reg_sdr_0_index_10_reg_t sdr_0_index_10; // [1997:1965]
-    htm_block_hw2reg_sdr_0_index_11_reg_t sdr_0_index_11; // [1964:1932]
-    htm_block_hw2reg_sdr_0_index_12_reg_t sdr_0_index_12; // [1931:1899]
-    htm_block_hw2reg_sdr_0_index_13_reg_t sdr_0_index_13; // [1898:1866]
-    htm_block_hw2reg_sdr_0_index_14_reg_t sdr_0_index_14; // [1865:1833]
-    htm_block_hw2reg_sdr_0_index_15_reg_t sdr_0_index_15; // [1832:1800]
-    htm_block_hw2reg_sdr_1_control_reg_reg_t sdr_1_control_reg; // [1799:1766]
-    htm_block_hw2reg_sdr_1_status_reg_reg_t sdr_1_status_reg; // [1765:1728]
-    htm_block_hw2reg_sdr_1_index_0_reg_t sdr_1_index_0; // [1727:1695]
-    htm_block_hw2reg_sdr_1_index_1_reg_t sdr_1_index_1; // [1694:1662]
-    htm_block_hw2reg_sdr_1_index_2_reg_t sdr_1_index_2; // [1661:1629]
-    htm_block_hw2reg_sdr_1_index_3_reg_t sdr_1_index_3; // [1628:1596]
-    htm_block_hw2reg_sdr_1_index_4_reg_t sdr_1_index_4; // [1595:1563]
-    htm_block_hw2reg_sdr_1_index_5_reg_t sdr_1_index_5; // [1562:1530]
-    htm_block_hw2reg_sdr_1_index_6_reg_t sdr_1_index_6; // [1529:1497]
-    htm_block_hw2reg_sdr_1_index_7_reg_t sdr_1_index_7; // [1496:1464]
-    htm_block_hw2reg_sdr_1_index_8_reg_t sdr_1_index_8; // [1463:1431]
-    htm_block_hw2reg_sdr_1_index_9_reg_t sdr_1_index_9; // [1430:1398]
-    htm_block_hw2reg_sdr_1_index_10_reg_t sdr_1_index_10; // [1397:1365]
-    htm_block_hw2reg_sdr_1_index_11_reg_t sdr_1_index_11; // [1364:1332]
-    htm_block_hw2reg_sdr_1_index_12_reg_t sdr_1_index_12; // [1331:1299]
-    htm_block_hw2reg_sdr_1_index_13_reg_t sdr_1_index_13; // [1298:1266]
-    htm_block_hw2reg_sdr_1_index_14_reg_t sdr_1_index_14; // [1265:1233]
-    htm_block_hw2reg_sdr_1_index_15_reg_t sdr_1_index_15; // [1232:1200]
-    htm_block_hw2reg_sdr_2_control_reg_reg_t sdr_2_control_reg; // [1199:1166]
-    htm_block_hw2reg_sdr_2_status_reg_reg_t sdr_2_status_reg; // [1165:1128]
-    htm_block_hw2reg_sdr_2_index_0_reg_t sdr_2_index_0; // [1127:1095]
-    htm_block_hw2reg_sdr_2_index_1_reg_t sdr_2_index_1; // [1094:1062]
-    htm_block_hw2reg_sdr_2_index_2_reg_t sdr_2_index_2; // [1061:1029]
-    htm_block_hw2reg_sdr_2_index_3_reg_t sdr_2_index_3; // [1028:996]
-    htm_block_hw2reg_sdr_2_index_4_reg_t sdr_2_index_4; // [995:963]
-    htm_block_hw2reg_sdr_2_index_5_reg_t sdr_2_index_5; // [962:930]
-    htm_block_hw2reg_sdr_2_index_6_reg_t sdr_2_index_6; // [929:897]
-    htm_block_hw2reg_sdr_2_index_7_reg_t sdr_2_index_7; // [896:864]
-    htm_block_hw2reg_sdr_2_index_8_reg_t sdr_2_index_8; // [863:831]
-    htm_block_hw2reg_sdr_2_index_9_reg_t sdr_2_index_9; // [830:798]
-    htm_block_hw2reg_sdr_2_index_10_reg_t sdr_2_index_10; // [797:765]
-    htm_block_hw2reg_sdr_2_index_11_reg_t sdr_2_index_11; // [764:732]
-    htm_block_hw2reg_sdr_2_index_12_reg_t sdr_2_index_12; // [731:699]
-    htm_block_hw2reg_sdr_2_index_13_reg_t sdr_2_index_13; // [698:666]
-    htm_block_hw2reg_sdr_2_index_14_reg_t sdr_2_index_14; // [665:633]
-    htm_block_hw2reg_sdr_2_index_15_reg_t sdr_2_index_15; // [632:600]
-    htm_block_hw2reg_sdr_3_control_reg_reg_t sdr_3_control_reg; // [599:566]
-    htm_block_hw2reg_sdr_3_status_reg_reg_t sdr_3_status_reg; // [565:528]
-    htm_block_hw2reg_sdr_3_index_0_reg_t sdr_3_index_0; // [527:495]
-    htm_block_hw2reg_sdr_3_index_1_reg_t sdr_3_index_1; // [494:462]
-    htm_block_hw2reg_sdr_3_index_2_reg_t sdr_3_index_2; // [461:429]
-    htm_block_hw2reg_sdr_3_index_3_reg_t sdr_3_index_3; // [428:396]
-    htm_block_hw2reg_sdr_3_index_4_reg_t sdr_3_index_4; // [395:363]
-    htm_block_hw2reg_sdr_3_index_5_reg_t sdr_3_index_5; // [362:330]
-    htm_block_hw2reg_sdr_3_index_6_reg_t sdr_3_index_6; // [329:297]
-    htm_block_hw2reg_sdr_3_index_7_reg_t sdr_3_index_7; // [296:264]
-    htm_block_hw2reg_sdr_3_index_8_reg_t sdr_3_index_8; // [263:231]
-    htm_block_hw2reg_sdr_3_index_9_reg_t sdr_3_index_9; // [230:198]
-    htm_block_hw2reg_sdr_3_index_10_reg_t sdr_3_index_10; // [197:165]
-    htm_block_hw2reg_sdr_3_index_11_reg_t sdr_3_index_11; // [164:132]
-    htm_block_hw2reg_sdr_3_index_12_reg_t sdr_3_index_12; // [131:99]
-    htm_block_hw2reg_sdr_3_index_13_reg_t sdr_3_index_13; // [98:66]
-    htm_block_hw2reg_sdr_3_index_14_reg_t sdr_3_index_14; // [65:33]
-    htm_block_hw2reg_sdr_3_index_15_reg_t sdr_3_index_15; // [32:0]
+    htm_block_hw2reg_sdr_0_control_reg_reg_t sdr_0_control_reg; // [3455:3422]
+    htm_block_hw2reg_sdr_0_status_reg_reg_t sdr_0_status_reg; // [3421:3384]
+    htm_block_hw2reg_sdr_0_index_0_reg_t sdr_0_index_0; // [3383:3351]
+    htm_block_hw2reg_sdr_0_index_1_reg_t sdr_0_index_1; // [3350:3318]
+    htm_block_hw2reg_sdr_0_index_2_reg_t sdr_0_index_2; // [3317:3285]
+    htm_block_hw2reg_sdr_0_index_3_reg_t sdr_0_index_3; // [3284:3252]
+    htm_block_hw2reg_sdr_0_index_4_reg_t sdr_0_index_4; // [3251:3219]
+    htm_block_hw2reg_sdr_0_index_5_reg_t sdr_0_index_5; // [3218:3186]
+    htm_block_hw2reg_sdr_0_index_6_reg_t sdr_0_index_6; // [3185:3153]
+    htm_block_hw2reg_sdr_0_index_7_reg_t sdr_0_index_7; // [3152:3120]
+    htm_block_hw2reg_sdr_0_index_8_reg_t sdr_0_index_8; // [3119:3087]
+    htm_block_hw2reg_sdr_0_index_9_reg_t sdr_0_index_9; // [3086:3054]
+    htm_block_hw2reg_sdr_0_index_10_reg_t sdr_0_index_10; // [3053:3021]
+    htm_block_hw2reg_sdr_0_index_11_reg_t sdr_0_index_11; // [3020:2988]
+    htm_block_hw2reg_sdr_0_index_12_reg_t sdr_0_index_12; // [2987:2955]
+    htm_block_hw2reg_sdr_0_index_13_reg_t sdr_0_index_13; // [2954:2922]
+    htm_block_hw2reg_sdr_0_index_14_reg_t sdr_0_index_14; // [2921:2889]
+    htm_block_hw2reg_sdr_0_index_15_reg_t sdr_0_index_15; // [2888:2856]
+    htm_block_hw2reg_sdr_1_control_reg_reg_t sdr_1_control_reg; // [2855:2822]
+    htm_block_hw2reg_sdr_1_status_reg_reg_t sdr_1_status_reg; // [2821:2784]
+    htm_block_hw2reg_sdr_1_index_0_reg_t sdr_1_index_0; // [2783:2751]
+    htm_block_hw2reg_sdr_1_index_1_reg_t sdr_1_index_1; // [2750:2718]
+    htm_block_hw2reg_sdr_1_index_2_reg_t sdr_1_index_2; // [2717:2685]
+    htm_block_hw2reg_sdr_1_index_3_reg_t sdr_1_index_3; // [2684:2652]
+    htm_block_hw2reg_sdr_1_index_4_reg_t sdr_1_index_4; // [2651:2619]
+    htm_block_hw2reg_sdr_1_index_5_reg_t sdr_1_index_5; // [2618:2586]
+    htm_block_hw2reg_sdr_1_index_6_reg_t sdr_1_index_6; // [2585:2553]
+    htm_block_hw2reg_sdr_1_index_7_reg_t sdr_1_index_7; // [2552:2520]
+    htm_block_hw2reg_sdr_1_index_8_reg_t sdr_1_index_8; // [2519:2487]
+    htm_block_hw2reg_sdr_1_index_9_reg_t sdr_1_index_9; // [2486:2454]
+    htm_block_hw2reg_sdr_1_index_10_reg_t sdr_1_index_10; // [2453:2421]
+    htm_block_hw2reg_sdr_1_index_11_reg_t sdr_1_index_11; // [2420:2388]
+    htm_block_hw2reg_sdr_1_index_12_reg_t sdr_1_index_12; // [2387:2355]
+    htm_block_hw2reg_sdr_1_index_13_reg_t sdr_1_index_13; // [2354:2322]
+    htm_block_hw2reg_sdr_1_index_14_reg_t sdr_1_index_14; // [2321:2289]
+    htm_block_hw2reg_sdr_1_index_15_reg_t sdr_1_index_15; // [2288:2256]
+    htm_block_hw2reg_sdr_2_control_reg_reg_t sdr_2_control_reg; // [2255:2222]
+    htm_block_hw2reg_sdr_2_status_reg_reg_t sdr_2_status_reg; // [2221:2184]
+    htm_block_hw2reg_sdr_2_index_0_reg_t sdr_2_index_0; // [2183:2151]
+    htm_block_hw2reg_sdr_2_index_1_reg_t sdr_2_index_1; // [2150:2118]
+    htm_block_hw2reg_sdr_2_index_2_reg_t sdr_2_index_2; // [2117:2085]
+    htm_block_hw2reg_sdr_2_index_3_reg_t sdr_2_index_3; // [2084:2052]
+    htm_block_hw2reg_sdr_2_index_4_reg_t sdr_2_index_4; // [2051:2019]
+    htm_block_hw2reg_sdr_2_index_5_reg_t sdr_2_index_5; // [2018:1986]
+    htm_block_hw2reg_sdr_2_index_6_reg_t sdr_2_index_6; // [1985:1953]
+    htm_block_hw2reg_sdr_2_index_7_reg_t sdr_2_index_7; // [1952:1920]
+    htm_block_hw2reg_sdr_2_index_8_reg_t sdr_2_index_8; // [1919:1887]
+    htm_block_hw2reg_sdr_2_index_9_reg_t sdr_2_index_9; // [1886:1854]
+    htm_block_hw2reg_sdr_2_index_10_reg_t sdr_2_index_10; // [1853:1821]
+    htm_block_hw2reg_sdr_2_index_11_reg_t sdr_2_index_11; // [1820:1788]
+    htm_block_hw2reg_sdr_2_index_12_reg_t sdr_2_index_12; // [1787:1755]
+    htm_block_hw2reg_sdr_2_index_13_reg_t sdr_2_index_13; // [1754:1722]
+    htm_block_hw2reg_sdr_2_index_14_reg_t sdr_2_index_14; // [1721:1689]
+    htm_block_hw2reg_sdr_2_index_15_reg_t sdr_2_index_15; // [1688:1656]
+    htm_block_hw2reg_sdr_3_control_reg_reg_t sdr_3_control_reg; // [1655:1622]
+    htm_block_hw2reg_sdr_3_status_reg_reg_t sdr_3_status_reg; // [1621:1584]
+    htm_block_hw2reg_sdr_3_index_0_reg_t sdr_3_index_0; // [1583:1551]
+    htm_block_hw2reg_sdr_3_index_1_reg_t sdr_3_index_1; // [1550:1518]
+    htm_block_hw2reg_sdr_3_index_2_reg_t sdr_3_index_2; // [1517:1485]
+    htm_block_hw2reg_sdr_3_index_3_reg_t sdr_3_index_3; // [1484:1452]
+    htm_block_hw2reg_sdr_3_index_4_reg_t sdr_3_index_4; // [1451:1419]
+    htm_block_hw2reg_sdr_3_index_5_reg_t sdr_3_index_5; // [1418:1386]
+    htm_block_hw2reg_sdr_3_index_6_reg_t sdr_3_index_6; // [1385:1353]
+    htm_block_hw2reg_sdr_3_index_7_reg_t sdr_3_index_7; // [1352:1320]
+    htm_block_hw2reg_sdr_3_index_8_reg_t sdr_3_index_8; // [1319:1287]
+    htm_block_hw2reg_sdr_3_index_9_reg_t sdr_3_index_9; // [1286:1254]
+    htm_block_hw2reg_sdr_3_index_10_reg_t sdr_3_index_10; // [1253:1221]
+    htm_block_hw2reg_sdr_3_index_11_reg_t sdr_3_index_11; // [1220:1188]
+    htm_block_hw2reg_sdr_3_index_12_reg_t sdr_3_index_12; // [1187:1155]
+    htm_block_hw2reg_sdr_3_index_13_reg_t sdr_3_index_13; // [1154:1122]
+    htm_block_hw2reg_sdr_3_index_14_reg_t sdr_3_index_14; // [1121:1089]
+    htm_block_hw2reg_sdr_3_index_15_reg_t sdr_3_index_15; // [1088:1056]
+    htm_block_hw2reg_sdr_logical_result_0_reg_t sdr_logical_result_0; // [1055:1023]
+    htm_block_hw2reg_sdr_logical_result_1_reg_t sdr_logical_result_1; // [1022:990]
+    htm_block_hw2reg_sdr_logical_result_2_reg_t sdr_logical_result_2; // [989:957]
+    htm_block_hw2reg_sdr_logical_result_3_reg_t sdr_logical_result_3; // [956:924]
+    htm_block_hw2reg_sdr_logical_result_4_reg_t sdr_logical_result_4; // [923:891]
+    htm_block_hw2reg_sdr_logical_result_5_reg_t sdr_logical_result_5; // [890:858]
+    htm_block_hw2reg_sdr_logical_result_6_reg_t sdr_logical_result_6; // [857:825]
+    htm_block_hw2reg_sdr_logical_result_7_reg_t sdr_logical_result_7; // [824:792]
+    htm_block_hw2reg_sdr_logical_result_8_reg_t sdr_logical_result_8; // [791:759]
+    htm_block_hw2reg_sdr_logical_result_9_reg_t sdr_logical_result_9; // [758:726]
+    htm_block_hw2reg_sdr_logical_result_10_reg_t sdr_logical_result_10; // [725:693]
+    htm_block_hw2reg_sdr_logical_result_11_reg_t sdr_logical_result_11; // [692:660]
+    htm_block_hw2reg_sdr_logical_result_12_reg_t sdr_logical_result_12; // [659:627]
+    htm_block_hw2reg_sdr_logical_result_13_reg_t sdr_logical_result_13; // [626:594]
+    htm_block_hw2reg_sdr_logical_result_14_reg_t sdr_logical_result_14; // [593:561]
+    htm_block_hw2reg_sdr_logical_result_15_reg_t sdr_logical_result_15; // [560:528]
+    htm_block_hw2reg_sdr_logical_result_16_reg_t sdr_logical_result_16; // [527:495]
+    htm_block_hw2reg_sdr_logical_result_17_reg_t sdr_logical_result_17; // [494:462]
+    htm_block_hw2reg_sdr_logical_result_18_reg_t sdr_logical_result_18; // [461:429]
+    htm_block_hw2reg_sdr_logical_result_19_reg_t sdr_logical_result_19; // [428:396]
+    htm_block_hw2reg_sdr_logical_result_20_reg_t sdr_logical_result_20; // [395:363]
+    htm_block_hw2reg_sdr_logical_result_21_reg_t sdr_logical_result_21; // [362:330]
+    htm_block_hw2reg_sdr_logical_result_22_reg_t sdr_logical_result_22; // [329:297]
+    htm_block_hw2reg_sdr_logical_result_23_reg_t sdr_logical_result_23; // [296:264]
+    htm_block_hw2reg_sdr_logical_result_24_reg_t sdr_logical_result_24; // [263:231]
+    htm_block_hw2reg_sdr_logical_result_25_reg_t sdr_logical_result_25; // [230:198]
+    htm_block_hw2reg_sdr_logical_result_26_reg_t sdr_logical_result_26; // [197:165]
+    htm_block_hw2reg_sdr_logical_result_27_reg_t sdr_logical_result_27; // [164:132]
+    htm_block_hw2reg_sdr_logical_result_28_reg_t sdr_logical_result_28; // [131:99]
+    htm_block_hw2reg_sdr_logical_result_29_reg_t sdr_logical_result_29; // [98:66]
+    htm_block_hw2reg_sdr_logical_result_30_reg_t sdr_logical_result_30; // [65:33]
+    htm_block_hw2reg_sdr_logical_result_31_reg_t sdr_logical_result_31; // [32:0]
   } htm_block_hw2reg_t;
 
   // Register offsets
@@ -1854,6 +2225,39 @@ package htm_block_reg_pkg;
   parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_13_OFFSET = 10'h 314;
   parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_14_OFFSET = 10'h 318;
   parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_3_INDEX_15_OFFSET = 10'h 31c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_OP_CONTROL_REG_OFFSET = 10'h 320;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_0_OFFSET = 10'h 324;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_1_OFFSET = 10'h 328;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_2_OFFSET = 10'h 32c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_3_OFFSET = 10'h 330;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_4_OFFSET = 10'h 334;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_5_OFFSET = 10'h 338;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_6_OFFSET = 10'h 33c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_7_OFFSET = 10'h 340;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_8_OFFSET = 10'h 344;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_9_OFFSET = 10'h 348;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_10_OFFSET = 10'h 34c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_11_OFFSET = 10'h 350;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_12_OFFSET = 10'h 354;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_13_OFFSET = 10'h 358;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_14_OFFSET = 10'h 35c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_15_OFFSET = 10'h 360;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_16_OFFSET = 10'h 364;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_17_OFFSET = 10'h 368;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_18_OFFSET = 10'h 36c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_19_OFFSET = 10'h 370;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_20_OFFSET = 10'h 374;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_21_OFFSET = 10'h 378;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_22_OFFSET = 10'h 37c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_23_OFFSET = 10'h 380;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_24_OFFSET = 10'h 384;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_25_OFFSET = 10'h 388;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_26_OFFSET = 10'h 38c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_27_OFFSET = 10'h 390;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_28_OFFSET = 10'h 394;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_29_OFFSET = 10'h 398;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_30_OFFSET = 10'h 39c;
+  parameter logic [BlockAw-1:0] HTM_BLOCK_SDR_LOGICAL_RESULT_31_OFFSET = 10'h 3a0;
 
   // Register index
   typedef enum int {
@@ -2056,11 +2460,44 @@ package htm_block_reg_pkg;
     HTM_BLOCK_SDR_3_INDEX_12,
     HTM_BLOCK_SDR_3_INDEX_13,
     HTM_BLOCK_SDR_3_INDEX_14,
-    HTM_BLOCK_SDR_3_INDEX_15
+    HTM_BLOCK_SDR_3_INDEX_15,
+    HTM_BLOCK_SDR_LOGICAL_OP_CONTROL_REG,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_0,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_1,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_2,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_3,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_4,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_5,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_6,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_7,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_8,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_9,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_10,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_11,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_12,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_13,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_14,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_15,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_16,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_17,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_18,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_19,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_20,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_21,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_22,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_23,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_24,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_25,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_26,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_27,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_28,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_29,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_30,
+    HTM_BLOCK_SDR_LOGICAL_RESULT_31
   } htm_block_id_e;
 
   // Register width information to check illegal writes
-  parameter logic [3:0] HTM_BLOCK_PERMIT [200] = '{
+  parameter logic [3:0] HTM_BLOCK_PERMIT [233] = '{
     4'b 1111, // index[  0] HTM_BLOCK_SDR_0_CONTROL_REG
     4'b 1111, // index[  1] HTM_BLOCK_SDR_0_STATUS_REG
     4'b 1111, // index[  2] HTM_BLOCK_SDR_0_0
@@ -2260,7 +2697,40 @@ package htm_block_reg_pkg;
     4'b 1111, // index[196] HTM_BLOCK_SDR_3_INDEX_12
     4'b 1111, // index[197] HTM_BLOCK_SDR_3_INDEX_13
     4'b 1111, // index[198] HTM_BLOCK_SDR_3_INDEX_14
-    4'b 1111  // index[199] HTM_BLOCK_SDR_3_INDEX_15
+    4'b 1111, // index[199] HTM_BLOCK_SDR_3_INDEX_15
+    4'b 1111, // index[200] HTM_BLOCK_SDR_LOGICAL_OP_CONTROL_REG
+    4'b 1111, // index[201] HTM_BLOCK_SDR_LOGICAL_RESULT_0
+    4'b 1111, // index[202] HTM_BLOCK_SDR_LOGICAL_RESULT_1
+    4'b 1111, // index[203] HTM_BLOCK_SDR_LOGICAL_RESULT_2
+    4'b 1111, // index[204] HTM_BLOCK_SDR_LOGICAL_RESULT_3
+    4'b 1111, // index[205] HTM_BLOCK_SDR_LOGICAL_RESULT_4
+    4'b 1111, // index[206] HTM_BLOCK_SDR_LOGICAL_RESULT_5
+    4'b 1111, // index[207] HTM_BLOCK_SDR_LOGICAL_RESULT_6
+    4'b 1111, // index[208] HTM_BLOCK_SDR_LOGICAL_RESULT_7
+    4'b 1111, // index[209] HTM_BLOCK_SDR_LOGICAL_RESULT_8
+    4'b 1111, // index[210] HTM_BLOCK_SDR_LOGICAL_RESULT_9
+    4'b 1111, // index[211] HTM_BLOCK_SDR_LOGICAL_RESULT_10
+    4'b 1111, // index[212] HTM_BLOCK_SDR_LOGICAL_RESULT_11
+    4'b 1111, // index[213] HTM_BLOCK_SDR_LOGICAL_RESULT_12
+    4'b 1111, // index[214] HTM_BLOCK_SDR_LOGICAL_RESULT_13
+    4'b 1111, // index[215] HTM_BLOCK_SDR_LOGICAL_RESULT_14
+    4'b 1111, // index[216] HTM_BLOCK_SDR_LOGICAL_RESULT_15
+    4'b 1111, // index[217] HTM_BLOCK_SDR_LOGICAL_RESULT_16
+    4'b 1111, // index[218] HTM_BLOCK_SDR_LOGICAL_RESULT_17
+    4'b 1111, // index[219] HTM_BLOCK_SDR_LOGICAL_RESULT_18
+    4'b 1111, // index[220] HTM_BLOCK_SDR_LOGICAL_RESULT_19
+    4'b 1111, // index[221] HTM_BLOCK_SDR_LOGICAL_RESULT_20
+    4'b 1111, // index[222] HTM_BLOCK_SDR_LOGICAL_RESULT_21
+    4'b 1111, // index[223] HTM_BLOCK_SDR_LOGICAL_RESULT_22
+    4'b 1111, // index[224] HTM_BLOCK_SDR_LOGICAL_RESULT_23
+    4'b 1111, // index[225] HTM_BLOCK_SDR_LOGICAL_RESULT_24
+    4'b 1111, // index[226] HTM_BLOCK_SDR_LOGICAL_RESULT_25
+    4'b 1111, // index[227] HTM_BLOCK_SDR_LOGICAL_RESULT_26
+    4'b 1111, // index[228] HTM_BLOCK_SDR_LOGICAL_RESULT_27
+    4'b 1111, // index[229] HTM_BLOCK_SDR_LOGICAL_RESULT_28
+    4'b 1111, // index[230] HTM_BLOCK_SDR_LOGICAL_RESULT_29
+    4'b 1111, // index[231] HTM_BLOCK_SDR_LOGICAL_RESULT_30
+    4'b 1111  // index[232] HTM_BLOCK_SDR_LOGICAL_RESULT_31
   };
 
 endpackage
