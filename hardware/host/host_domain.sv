@@ -593,8 +593,8 @@ module host_domain
      .DATA_WIDTH ( AXI_DATA_WIDTH            ),
      .ID_WIDTH   ( ariane_soc::IdWidthSlave  ),
      .USER_WIDTH ( AXI_USER_WIDTH             )
-   ) axi_iopmp_cp_cut(
-     .clk_i  ( clk_i        ),
+   ) axi_iopmp_cp_cut (
+     .clk_i  ( s_soc_clk    ),
      .rst_ni ( rst_ni       ),
      .in     ( iopmp_cfg    ),
      .out    ( iopmp_cp_cut )
