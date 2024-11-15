@@ -809,8 +809,8 @@ module cva6_subsystem
 `endif
     .InclSDMA     ( 1'b1                     ),
     .InclIOMMU    ( 1'b1                     ),
-    .InclMDMA     ( 1'b1                     ),
-    .InclIOPMP    ( 1'b1                     )
+    .InclMDMA     ( 1'b0                     ),
+    .InclIOPMP    ( 1'b0                     )
   ) i_ariane_peripherals (
     .clk_i            ( clk_i                         ),
     .rst_ni           ( ndmreset_n                    ),

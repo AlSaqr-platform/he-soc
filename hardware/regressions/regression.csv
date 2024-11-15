@@ -1,5 +1,4 @@
 0,../software/aia/aia_test.elf,none,none,,,,,0
-0,../software/iopmp/iopmp_test.elf,none,none,,,,,0
 0,../software/iommu/iommu_test_01_04.elf,none,none,,,,,0
 0,../software/iommu/iommu_test_05.elf,none,none,,,,,0
 0,../software/iommu/iommu_test_06_10.elf,none,none,,,,,0
