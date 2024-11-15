@@ -2,7 +2,7 @@
 
 This repository contains the hardware files needed to build the AlSaqr-SoC. The architecture of the SoC is briefly described in the block diagram below.
 
-![alt text](./hardware/docs/AlSaqr.jpg)
+![alt text](./hardware/docs/AlSaqr.png)
 
 The repository is organized as follows
 
