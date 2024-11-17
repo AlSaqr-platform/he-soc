@@ -453,7 +453,7 @@ z=0;
 		for (int i=0;i<32;i++) {
          		printf("WRITE SDR_%d REGS %d addr= %x %x  \r\n",z,i, i*4,sdr_reg[2][i]);
          		pulp_write32(HTM_BASE+sdr_reg_array_offset[z]+i*4, sdr_reg[2][i]);
-         		printf("WRITE SDR_%d REGS %d addr= %x %x  \r\n",z+1,i, i*4,sdr_reg[2][i]);
+         		printf("WRITE SDR_%d REGS %d addr= %x %x  \r\n",z+1,i, i*4,sdr_reg[1][i]);
          		pulp_write32(HTM_BASE+sdr_reg_array_offset[z+1]+i*4, sdr_reg[1][i]);
 		}
 control_reg=0x00001010; 
