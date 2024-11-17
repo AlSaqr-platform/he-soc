@@ -624,8 +624,8 @@ module htm_block_reg_top #(
   logic [3:0] sdr_logical_op_control_reg_bitwise_logical_operation_qs;
   logic [3:0] sdr_logical_op_control_reg_bitwise_logical_operation_wd;
   logic sdr_logical_op_control_reg_bitwise_logical_operation_we;
-  logic [19:0] sdr_logical_op_control_reg_unused_qs;
-  logic [19:0] sdr_logical_op_control_reg_unused_wd;
+  logic [15:0] sdr_logical_op_control_reg_unused_qs;
+  logic [15:0] sdr_logical_op_control_reg_unused_wd;
   logic sdr_logical_op_control_reg_unused_we;
   logic [31:0] sdr_logical_result_0_qs;
   logic [31:0] sdr_logical_result_0_wd;
@@ -6698,7 +6698,7 @@ module htm_block_reg_top #(
   //   F[sdr_src_1]: 3:0
   prim_subreg #(
     .DW      (4),
-    .SWACCESS("W1S"),
+    .SWACCESS("RW"),
     .RESVAL  (4'h0)
   ) u_sdr_logical_op_control_reg_sdr_src_1 (
     .clk_i   (clk_i    ),
@@ -6724,7 +6724,7 @@ module htm_block_reg_top #(
   //   F[sdr_src_2]: 7:4
   prim_subreg #(
     .DW      (4),
-    .SWACCESS("W1S"),
+    .SWACCESS("RW"),
     .RESVAL  (4'h0)
   ) u_sdr_logical_op_control_reg_sdr_src_2 (
     .clk_i   (clk_i    ),
@@ -6750,7 +6750,7 @@ module htm_block_reg_top #(
   //   F[destination_sdr]: 11:8
   prim_subreg #(
     .DW      (4),
-    .SWACCESS("W1S"),
+    .SWACCESS("RW"),
     .RESVAL  (4'h0)
   ) u_sdr_logical_op_control_reg_destination_sdr (
     .clk_i   (clk_i    ),
@@ -6773,10 +6773,10 @@ module htm_block_reg_top #(
   );
 
 
-  //   F[bitwise_logical_operation]: 11:8
+  //   F[bitwise_logical_operation]: 15:12
   prim_subreg #(
     .DW      (4),
-    .SWACCESS("W1S"),
+    .SWACCESS("RW"),
     .RESVAL  (4'h0)
   ) u_sdr_logical_op_control_reg_bitwise_logical_operation (
     .clk_i   (clk_i    ),
@@ -6799,11 +6799,11 @@ module htm_block_reg_top #(
   );
 
 
-  //   F[unused]: 31:12
+  //   F[unused]: 31:16
   prim_subreg #(
-    .DW      (20),
-    .SWACCESS("W1S"),
-    .RESVAL  (20'h0)
+    .DW      (16),
+    .SWACCESS("RW"),
+    .RESVAL  (16'h0)
   ) u_sdr_logical_op_control_reg_unused (
     .clk_i   (clk_i    ),
     .rst_ni  (rst_ni  ),
@@ -8659,10 +8659,10 @@ module htm_block_reg_top #(
   assign sdr_logical_op_control_reg_destination_sdr_wd = reg_wdata[11:8];
 
   assign sdr_logical_op_control_reg_bitwise_logical_operation_we = addr_hit[200] & reg_we & !reg_error;
-  assign sdr_logical_op_control_reg_bitwise_logical_operation_wd = reg_wdata[11:8];
+  assign sdr_logical_op_control_reg_bitwise_logical_operation_wd = reg_wdata[15:12];
 
   assign sdr_logical_op_control_reg_unused_we = addr_hit[200] & reg_we & !reg_error;
-  assign sdr_logical_op_control_reg_unused_wd = reg_wdata[31:12];
+  assign sdr_logical_op_control_reg_unused_wd = reg_wdata[31:16];
 
   assign sdr_logical_result_0_we = addr_hit[201] & reg_we & !reg_error;
   assign sdr_logical_result_0_wd = reg_wdata[31:0];
@@ -9592,8 +9592,8 @@ module htm_block_reg_top #(
         reg_rdata_next[3:0] = sdr_logical_op_control_reg_sdr_src_1_qs;
         reg_rdata_next[7:4] = sdr_logical_op_control_reg_sdr_src_2_qs;
         reg_rdata_next[11:8] = sdr_logical_op_control_reg_destination_sdr_qs;
-        reg_rdata_next[11:8] = sdr_logical_op_control_reg_bitwise_logical_operation_qs;
-        reg_rdata_next[31:12] = sdr_logical_op_control_reg_unused_qs;
+        reg_rdata_next[15:12] = sdr_logical_op_control_reg_bitwise_logical_operation_qs;
+        reg_rdata_next[31:16] = sdr_logical_op_control_reg_unused_qs;
       end
 
       addr_hit[201]: begin

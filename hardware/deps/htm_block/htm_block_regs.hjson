@@ -24,7 +24,7 @@
     },
     { name: sdr_0_status_reg
       desc: '''SDR_0_STATUS register''',
-      swaccess: "rw1s",
+      swaccess: "ro",
       hwaccess: "hrw",
       fields: [
         { bits: "7:0",
@@ -598,7 +598,7 @@
     },
     { name: sdr_1_status_reg
       desc: '''SDR_1_STATUS register''',
-      swaccess: "rw1s",
+      swaccess: "ro",
       hwaccess: "hrw",
       fields: [
         { bits: "7:0",
@@ -1172,7 +1172,7 @@
     },
     { name: sdr_2_status_reg
       desc: '''SDR_2_STATUS register''',
-      swaccess: "rw1s",
+      swaccess: "ro",
       hwaccess: "hrw",
       fields: [
         { bits: "7:0",
@@ -1746,7 +1746,7 @@
     },
     { name: sdr_3_status_reg
       desc: '''SDR_3_STATUS register''',
-      swaccess: "rw1s",
+      swaccess: "ro",
       hwaccess: "hrw",
       fields: [
         { bits: "7:0",
@@ -2305,7 +2305,7 @@
     }
 	{ name: sdr_logical_op_control_reg
       desc: '''SDR_LOGICAL_OP_CONTROL register''',
-      swaccess: "rw1s",
+      swaccess: "rw",
       hwaccess: "hro",
       fields: [
         { bits: "3:0",
@@ -2320,11 +2320,11 @@
           name: "DESTINATION_SDR",
           desc: "DESTINATION_SDR"
         }
-        { bits: "11:8",
+        { bits: "15:12",
           name: "Bitwise_Logical_Operation",
           desc: "Bitwise_Logical_operation"
         }
-        { bits: "31:12",
+        { bits: "31:16",
           name: "UNUSED",
           desc: "UNUSED bits"
         }
