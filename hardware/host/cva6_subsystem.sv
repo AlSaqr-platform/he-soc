@@ -78,7 +78,8 @@ module cva6_subsystem
   AXI_BUS.Master          apb_axi_master,
   AXI_BUS.Master          hyper_axi_master,
   AXI_BUS.Master          cluster_axi_master,
-  AXI_BUS.Slave           pmu_axi_master,
+  AXI_BUS.Master          iopmp_axi_master,
+  AXI_BUS.Slave           pmu_axi_slave,
   AXI_BUS.Slave           cluster_axi_slave,
   AXI_BUS.Slave           udma_rx_l3_axi_slave,
   AXI_BUS.Slave           udma_tx_l3_axi_slave,
@@ -457,6 +458,12 @@ module cva6_subsystem
   );
 
   // ---------------
+  // AXI PMU's IOPMP
+  // ---------------
+
+  `AXI_ASSIGN(iopmp_axi_master,master[ariane_soc::PMUS_IOPMP])
+
+  // ---------------
   // AXI APB Slave
   // ---------------
 
@@ -569,9 +576,9 @@ module cva6_subsystem
   `AXI_ASSIGN(slave[ariane_soc::ETH],ethernet_idma_master)
 
   // ---------------
-  // AXI PMU Master
+  // AXI PMU Slave
   // ---------------
-  `AXI_ASSIGN(slave[ariane_soc::PMU],pmu_axi_master)
+  `AXI_ASSIGN(slave[ariane_soc::PMU],pmu_axi_slave)
 
   // ---------------
   // AXI Xbar
@@ -682,6 +689,12 @@ module cva6_subsystem
     idx:        ariane_soc::MDMA_CFG,
     start_addr: ariane_soc::MDMABase,
     end_addr:   ariane_soc::MDMABase + ariane_soc::MDMALength
+  };
+
+  assign addr_map[ariane_soc::PMUS_IOPMP] = '{
+    idx:        ariane_soc::PMUS_IOPMP,
+    start_addr: ariane_soc::IOPMP_PMUBase,
+    end_addr:   ariane_soc::IOPMP_PMUBase + ariane_soc::IOPMP_PMULength
   };
 
   assign addr_map[ariane_soc::IOPMP_CFG] = '{

@@ -493,6 +493,13 @@ module host_domain
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
      .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
      .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
+   ) iopmp_mst_cut (); //to cva6_subsytem's inputs
+
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH      ),
+     .AXI_ID_WIDTH   ( ariane_soc::IdWidth ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
    ) axi_iopmp_rp ();
 
    AXI_BUS_EXT #(
@@ -598,6 +605,19 @@ module host_domain
      .rst_ni ( rst_ni       ),
      .in     ( iopmp_cfg    ),
      .out    ( iopmp_cp_cut )
+   );
+
+   // AXI Cut for IOPMP Initiator Port
+   axi_cut_intf #(
+     .ADDR_WIDTH ( AXI_ADDRESS_WIDTH         ),
+     .DATA_WIDTH ( AXI_DATA_WIDTH            ),
+     .ID_WIDTH   ( ariane_soc::IdWidth       ),
+     .USER_WIDTH ( AXI_USER_WIDTH             )
+   ) axi_iopmp_ip_cut (
+     .clk_i  ( s_soc_clk     ),
+     .rst_ni ( rst_ni        ),
+     .in     ( iopmp_mst     ),
+     .out    ( iopmp_mst_cut )
    );
 
    riscv_iopmp #(
@@ -734,7 +754,8 @@ module host_domain
         .l2_axi_master        ( l2_axi_bus           ),
         .apb_axi_master       ( apb_axi_bus          ),
         .hyper_axi_master     ( hyper_axi_bus        ),
-        .pmu_axi_master       ( iopmp_mst            ),
+        .pmu_axi_slave        ( iopmp_mst_cut        ),
+        .iopmp_axi_master     ( iopmp_cfg            ),
 
         //Ethernet
         .eth_clk_i            ( s_eth_clk_i          ), // 125 MHz 90
