@@ -40,11 +40,11 @@ logic reset_counter;
 	end
 	else if (calculate) begin
                for (int i=0;i <= 31;i= i + 1) begin
-                  ones_sdr_reg = 0;
+                  ones_sdr_reg <= 0;
                   for (int y=0;y <= 31;y++) begin
-                    ones_sdr_reg = ones_sdr_reg + sdr_reg[i][y];
+                    ones_sdr_reg <= ones_sdr_reg + sdr_reg[i][y];
                   end
-                  ones_total_value = ones_total_value + ones_sdr_reg;
+                  ones_total_value <= ones_total_value + ones_sdr_reg;
 	           end
 	         end
 	end
