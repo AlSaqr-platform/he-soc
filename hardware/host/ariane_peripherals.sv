@@ -1379,7 +1379,7 @@ module ariane_peripherals
 
         .wsi_wire_o         ( irq_sources[154]  ),
 
-        .iopmp_lock_xor_key_i ( '0              ),
+        .iopmp_lock_xor_key_i ( '0              )
     );
 
     // ----------
