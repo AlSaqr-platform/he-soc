@@ -224,6 +224,40 @@ int main(int argc, char const *argv[]) {
 #define HTM_BLOCK_SDR_3_INDEX_13_OFFSET 0x314
 #define HTM_BLOCK_SDR_3_INDEX_14_OFFSET 0x318
 #define HTM_BLOCK_SDR_3_INDEX_15_OFFSET 0x31c
+#define HTM_BLOCK_SDR_LOGICAL_OP_CONTROL_REG_OFFSET  0x320
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_0_OFFSET  0x324
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_1_OFFSET  0x328
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_2_OFFSET  0x32c
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_3_OFFSET  330
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_4_OFFSET  0x334
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_5_OFFSET  0x338
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_6_OFFSET  0x33c
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_7_OFFSET  0x340
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_8_OFFSET  0x344
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_9_OFFSET  0x348
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_10_OFFSET  0x34c
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_11_OFFSET  0x350
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_12_OFFSET  0x354
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_13_OFFSET  358
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_14_OFFSET  0x35c
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_15_OFFSET  0x360
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_16_OFFSET  0x364
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_17_OFFSET  0x368
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_18_OFFSET  0x36c
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_19_OFFSET  0x370
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_20_OFFSET  0x374
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_21_OFFSET  0x378
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_22_OFFSET  0x37c
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_23_OFFSET  380
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_24_OFFSET  0x384
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_25_OFFSET  0x388
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_26_OFFSET  0x38c
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_27_OFFSET  0x390
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_28_OFFSET  0x394
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_29_OFFSET  0x398
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_30_OFFSET  0x39c
+#define HTM_BLOCK_SDR_LOGICAL_RESULT_31_OFFSET  0x3a0
+
 
 
 
@@ -277,7 +311,7 @@ int sdr_reg[3][32];
         			 sdr_reg[0][14] = 0x0;
         			 sdr_reg[0][15] = 0x0;
         			 sdr_reg[0][16] = 0x0;
-        			 sdr_reg[0][17] = 0x0;
+        			 sdr_reg[0][17] = 0xE7543211;
         			 sdr_reg[0][18] = 0x0;
         			 sdr_reg[0][19] = 0x0;
         			 sdr_reg[0][20] = 0x0;
@@ -362,6 +396,39 @@ int sdr_reg[3][32];
         			 sdr_reg[2][30] = 0xC0000003;
         			 sdr_reg[2][31] = 0xE0000000; 
 
+        			 sdr_reg[3][3] = 0xF2038208;
+        			 sdr_reg[3][1] = 0x74028309;
+        			 sdr_reg[3][2] = 0x34518208;
+        			 sdr_reg[3][3] = 0x80700000;
+        			 sdr_reg[3][4] = 0x0;
+        			 sdr_reg[3][5] = 0x0;
+        			 sdr_reg[3][6] = 0x0;
+        			 sdr_reg[3][7] = 0x0;
+        			 sdr_reg[3][8] = 0x0;
+        			 sdr_reg[3][9] = 0x0;
+        			 sdr_reg[3][10] = 0x355555;
+        			 sdr_reg[3][11] = 0x0;
+        			 sdr_reg[3][12] = 0x0;
+        			 sdr_reg[3][13] = 0x0;
+        			 sdr_reg[3][14] = 0x0;
+        			 sdr_reg[3][15] = 0x0;
+        			 sdr_reg[3][16] = 0x0;
+        			 sdr_reg[3][17] = 0xE7543211;
+        			 sdr_reg[3][18] = 0x0;
+        			 sdr_reg[3][19] = 0x0;
+        			 sdr_reg[3][20] = 0x0;
+        			 sdr_reg[3][21] = 0x0;
+        			 sdr_reg[3][22] = 0x0;
+        			 sdr_reg[3][23] = 0x0;
+        			 sdr_reg[3][24] = 0x0;
+        			 sdr_reg[3][25] = 0x0;
+        			 sdr_reg[3][26] = 0x0;
+        			 sdr_reg[3][27] = 0x0;
+        			 sdr_reg[3][28] = 0x0;
+        			 sdr_reg[3][29] = 0x0;
+        			 sdr_reg[3][30] = 0xC0000003;
+        			 sdr_reg[3][31] = 0xE0000000; 		
+
 printf("CHECK LOGIC OPERATIONS \r\n");
 int z;
 int control_reg;
@@ -370,7 +437,9 @@ z=0;
          //		printf("WRITE SDR_%d REGS %d addr= %x %x  \r\n",z,i, i*4,sdr_reg[2][i]);
          		pulp_write32(HTM_BASE+sdr_reg_array_offset[0]+i*4, sdr_reg[2][i]);
          	//	printf("WRITE SDR_%d REGS %d addr= %x %x  \r\n",z+1,i, i*4,sdr_reg[2][i]);
-         		pulp_write32(HTM_BASE+sdr_reg_array_offset[1]+i*4, sdr_reg[1][i]);
+         		pulp_write32(HTM_BASE+sdr_reg_array_offset[1]+i*4, sdr_reg[0][i]);
+         		pulp_write32(HTM_BASE+sdr_reg_array_offset[2]+i*4, sdr_reg[3][i]);
+         		pulp_write32(HTM_BASE+sdr_reg_array_offset[3]+i*4, sdr_reg[1][i]);
 		}
 control_reg=0x00001501; 
                 printf("WRITE SDR_LOGICAL_MODULE CONTROL REG OR OPERATION addr= %x %x  \r\n", 0x320,control_reg);
@@ -390,6 +459,14 @@ control_reg=0x00002910;
 		//	printf("READ SDR_LOGICAL_RESULT_%d REG  addr= %x %x  \r\n",i, addr, a);
 		}
 control_reg=0x00000901; 
+                printf("WRITE SDR_LOGICAL_MODULE CONTROL REG  AND OPERATION addr= %x %x  \r\n", 0x320,control_reg);
+                pulp_write32(HTM_BASE+0x320, control_reg);
+		for (int i=0;i<32;i++) {
+			addr = HTM_BASE+0x324 + i*4;
+			a = pulp_read32(addr);
+		//	printf("READ SDR_LOGICAL_RESULT_%d REG  addr= %x %x  \r\n",i, addr, a);
+		}
+control_reg=0x00002932; 
                 printf("WRITE SDR_LOGICAL_MODULE CONTROL REG  AND OPERATION addr= %x %x  \r\n", 0x320,control_reg);
                 pulp_write32(HTM_BASE+0x320, control_reg);
 		for (int i=0;i<32;i++) {
