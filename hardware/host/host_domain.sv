@@ -743,7 +743,7 @@ module host_domain
         .ot_axi_req,
         .ot_axi_rsp,
         .irq_mbox_i           ( completion_irq_o     ),
-        .cfi_req_irq_o        ( cfi_req_irq_o        ),
+        .snoop_trigger_irq_o  ( cfi_req_irq_o        ),
         .sync_rst_ni          ( s_synch_soc_rst      ),
         .udma_events_i        ( s_udma_events        ),
         .cluster_eoc_i        ( cluster_eoc_i        ),

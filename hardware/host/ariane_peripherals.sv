@@ -90,8 +90,9 @@ module ariane_peripherals
     input logic                                               iopmp_irq_i      ,
 
     // SCMI mailbox interrupt to CVA6
-    input  logic                                              irq_mbox_i       ,
+    input  logic                                              irq_mbox_i         ,
     input  logic                                              cfi_watermark_irq_i,
+    input  logic                                              cfi_trigger_irq_i  ,
 
     // Logic locking Keys
     input logic [127:0]                                       iommu_lock_xor_key_i,
@@ -127,9 +128,10 @@ module ariane_peripherals
     assign irq_sources[8]                            = cluster_eoc_i;
     assign irq_sources[9]                            = irq_mbox_i;
     assign irq_sources[10]                           = gpio_irq_i;
-    assign irq_sources[11]                           = cfi_watermark_irq_i;
-    assign irq_sources[12]                           = iopmp_irq_i;
-    assign irq_sources[14:13]                        = '0; // reserved for future use
+    assign irq_sources[11]                           = cfi_trigger_irq_i;
+    assign irq_sources[12]                           = cfi_watermark_irq_i;
+    assign irq_sources[13]                           = iopmp_irq_i;
+    assign irq_sources[14]                           = '0; // reserved for future use
     assign irq_sources[138:15]                       = udma_evt_i[123:0];
     assign irq_sources[139]                          = cl_dma_pe_evt_i;
     assign irq_sources[140]                          = can_irq_i[0];
