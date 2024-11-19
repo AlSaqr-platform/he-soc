@@ -100,13 +100,14 @@ module cva6_subsystem
   input  axi_lite_req_t   axi_lite_snoop_req_i,
   output axi_lite_rsp_t   axi_lite_snoop_rsp_o,
 
+  input  logic            iopmp_irq_i,
+
   // SCMI mailbox interrupt to CVA6
   input  logic            irq_mbox_i,
   output logic            cfi_req_irq_o,
 
   // Logic locking Keys
   input logic [127:0]    iommu_lock_xor_key_i,
-  input logic [127:0]    iopmp_lock_xor_key_i,
   input logic [127:0]    aia_lock_xor_key_i
 
 );
@@ -855,6 +856,7 @@ module cva6_subsystem
     .tx_o             ( cva6_uart_tx_o                ),
 
     .pmu_intr_i       ( pmu_intr_i                    ),
+    .iopmp_irq_i      ( iopmp_irq_i                   ),
 
     .eth_clk_i        ( eth_clk_i                     ),
     .eth_phy_tx_clk_i ( eth_phy_tx_clk_i              ),
@@ -864,7 +866,6 @@ module cva6_subsystem
     .pad_to_eth       ( pad_to_eth                    ),
 
     .iommu_lock_xor_key_i ( iommu_lock_xor_key_i      ),
-    .iopmp_lock_xor_key_i ( iopmp_lock_xor_key_i      ),
     .aia_lock_xor_key_i   ( aia_lock_xor_key_i        ),
 
     .cfi_watermark_irq_i  ( snoop_watermark_irq       ),

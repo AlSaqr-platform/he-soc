@@ -238,6 +238,8 @@ module host_domain
    logic                                 s_eth_clk_i;
    logic                                 s_eth_phy_tx_clk_i;
 
+   logic                                 iopmp_irq;
+
    axi_llc_pkg::events_t llc_events;
 
    logic completion_irq_o;
@@ -665,8 +667,8 @@ module host_domain
      .initiator_req_o    ( axi_iopmp_ip_req      ),
      .initiator_rsp_i    ( axi_iopmp_ip_rsp      ),
 
-     .wsi_wire_o         (   ),
-     .iopmp_lock_xor_key_i ('0)
+     .wsi_wire_o         ( iopmp_irq             ),
+     .iopmp_lock_xor_key_i ( iopmp_lock_xor_key )
    );
 
    axi_lite_to_axi #(
@@ -774,6 +776,7 @@ module host_domain
         .spu_core_o           ( spu_o[ 0+:ariane_soc::NumCVA6 ]),
         // APMU
         .pmu_intr_i           ( pmu_intr_o           ),
+        .iopmp_irq_i          ( iopmp_irq            ),
 
         .cva6_uart_rx_i       ( cva6_uart_rx_i       ),
         .cva6_uart_tx_o       ( cva6_uart_tx_o       ),
@@ -782,7 +785,6 @@ module host_domain
         .axi_lite_snoop_rsp_o ( axi_lite_snooper_rsp ),
 
         .iommu_lock_xor_key_i ( iommu_lock_xor_key   ),
-        .iopmp_lock_xor_key_i ( iopmp_lock_xor_key   ),
         .aia_lock_xor_key_i   ( aia_lock_xor_key     )
     );
 
