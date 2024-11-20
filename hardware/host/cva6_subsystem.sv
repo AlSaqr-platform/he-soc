@@ -27,6 +27,8 @@ module cva6_subsystem
   parameter int unsigned AXI_USER_WIDTH    = 1,
   parameter int unsigned AXI_ADDRESS_WIDTH = 64,
   parameter int unsigned AXI_DATA_WIDTH    = 64,
+  parameter int unsigned AXI_LITE_ADDR_WIDTH = 32,
+  parameter int unsigned AXI_LITE_DATA_WIDTH = 32,
   parameter int unsigned APMU_NUM_COUNTER = 0,
 `ifdef DROMAJO
   parameter bit          InclSimDTM        = 1'b0,
@@ -101,10 +103,10 @@ module cva6_subsystem
   output axi_lite_rsp_t   axi_lite_snoop_rsp_o,
 
   input  logic            iopmp_irq_i,
+  output logic            snoop_trigger_irq_o,
 
   // SCMI mailbox interrupt to CVA6
   input  logic            irq_mbox_i,
-  output logic            cfi_req_irq_o,
 
   // Logic locking Keys
   input logic [127:0]    iommu_lock_xor_key_i,
@@ -146,34 +148,53 @@ module cva6_subsystem
   dm::dmi_req_t  debug_req;
   dm::dmi_resp_t debug_resp;
 
-  ariane_axi_soc::req_slv_t  axi_snoop_req;
-  ariane_axi_soc::resp_slv_t axi_snoop_rsp;
-
   ariane_axi_soc::req_t  ot_axi_id_req;
   ariane_axi_soc::resp_t ot_axi_id_rsp;
 
-  riscv::ctrsource_rv_t pc_src[1:0];
-  riscv::ctrtarget_rv_t pc_dst[1:0];
-  riscv::ctr_type_t     metadata[1:0];
-  riscv::priv_lvl_t     priv_lvl[1:0];
-  logic [31:0]          instr[1:0];
-
-  logic                 snoop_watermark_irq;
-
-
-  snooper_pkg::trace_t cva6_traces;
-
-  assign cva6_traces.priv_lvl = snoop_core_select ? priv_lvl[1]                   : priv_lvl[0]                   ;
-  assign cva6_traces.pc_src_h = snoop_core_select ? { 1'b0, pc_src[1].pc[62:32] } : { 1'b0, pc_src[0].pc[62:32] } ;
-  assign cva6_traces.pc_src_l = snoop_core_select ? { pc_src[1].pc[31:1], 1'b0  } : { pc_src[0].pc[31:1], 1'b0  } ;
-  assign cva6_traces.pc_dst_h = snoop_core_select ? { 1'b0, pc_dst[1].pc[62:32] } : { 1'b0, pc_dst[0].pc[62:32] } ;
-  assign cva6_traces.pc_dst_l = snoop_core_select ? { pc_dst[1].pc[31:1], 1'b0  } : { pc_dst[0].pc[31:1], 1'b0  } ;
-  assign cva6_traces.metadata = snoop_core_select ? { 28'b0, metadata[1]        } : { 28'b0, metadata[0]        } ;
-  assign cva6_traces.opcode   = snoop_core_select ? instr[1]                      : instr[0]                      ;
-  assign cva6_traces.pc_v     = snoop_core_select ? pc_src[1].v                   : pc_src[0].v                   ;
+  logic snoop_watermark_irq;
 
   assign test_en = 1'b0;
   assign jtag_enable = JtagEnable;
+
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+  ) snooper_axi_slv_intf();
+
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_LITE_ADDR_WIDTH      ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+  ) snooper_axi_lite_to_axi_64();
+
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_LITE_ADDR_WIDTH      ),
+    .AXI_DATA_WIDTH ( AXI_LITE_DATA_WIDTH      ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+  ) snooper_axi_lite_to_axi_32();
+
+  AXI_BUS_ASYNC_GRAY #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH           ),
+    .LOG_DEPTH      ( 1                        )
+  ) snooper_axi_slv_asynch();
+
+  AXI_LITE #(
+    .AXI_ADDR_WIDTH ( AXI_LITE_ADDR_WIDTH  ),
+    .AXI_DATA_WIDTH ( AXI_LITE_DATA_WIDTH  )
+  ) snooper_lite_slv_intf();
+
+  AXI_LITE_ASYNC_GRAY #(
+    .AXI_ADDR_WIDTH ( AXI_LITE_ADDR_WIDTH  ),
+    .AXI_DATA_WIDTH ( AXI_LITE_DATA_WIDTH  ),
+    .LOG_DEPTH      ( 1                         )
+  ) snooper_lite_slv_asynch();
 
   AXI_BUS_ASYNC_GRAY #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH   ),
@@ -475,8 +496,7 @@ module cva6_subsystem
   // AXI Snooper Slave
   // ---------------
 
-  `AXI_ASSIGN_TO_REQ(axi_snoop_req, master[ariane_soc::Snooper])
-  `AXI_ASSIGN_FROM_RESP(master[ariane_soc::Snooper], axi_snoop_rsp)
+  `AXI_ASSIGN(snooper_axi_slv_intf, master[ariane_soc::Snooper])
 
   // ---------------
   // AXI OpenTitan Master
@@ -869,6 +889,7 @@ module cva6_subsystem
     .aia_lock_xor_key_i   ( aia_lock_xor_key_i        ),
 
     .cfi_watermark_irq_i  ( snoop_watermark_irq       ),
+    .cfi_trigger_irq_i    ( snoop_trigger_irq_o       ),
 
     .irq_mbox_i
   );
@@ -887,6 +908,7 @@ module cva6_subsystem
     .ipi_i                ( ipi                         ), // async signal
     .time_irq_i           ( timer_irq                   ), // async signal
     .debug_req_i          ( debug_req_core              ), // async signal
+    // CVA6 Master
     .data_master_aw_wptr_o( cva6_axi_master_dst.aw_wptr ),
     .data_master_aw_data_o( cva6_axi_master_dst.aw_data ),
     .data_master_aw_rptr_i( cva6_axi_master_dst.aw_rptr ),
@@ -902,12 +924,42 @@ module cva6_subsystem
     .data_master_b_wptr_i ( cva6_axi_master_dst.b_wptr  ),
     .data_master_b_data_i ( cva6_axi_master_dst.b_data  ),
     .data_master_b_rptr_o ( cva6_axi_master_dst.b_rptr  ),
-    // CFI port
-    .emitter_source_o     ( pc_src                      ),
-    .emitter_target_o     ( pc_dst                      ),
-    .emitter_data_o       ( metadata                    ),
-    .priv_lvl_o           ( priv_lvl                    ),
-    .instr_o              ( instr                       ),
+    // Snooper AXI Slave
+    .snooper_lite_cfg_aw_wptr_i( snooper_lite_slv_asynch.aw_wptr ),
+    .snooper_lite_cfg_aw_data_i( snooper_lite_slv_asynch.aw_data ),
+    .snooper_lite_cfg_aw_rptr_o( snooper_lite_slv_asynch.aw_rptr ),
+    .snooper_lite_cfg_ar_wptr_i( snooper_lite_slv_asynch.ar_wptr ),
+    .snooper_lite_cfg_ar_data_i( snooper_lite_slv_asynch.ar_data ),
+    .snooper_lite_cfg_ar_rptr_o( snooper_lite_slv_asynch.ar_rptr ),
+    .snooper_lite_cfg_w_wptr_i ( snooper_lite_slv_asynch.w_wptr  ),
+    .snooper_lite_cfg_w_data_i ( snooper_lite_slv_asynch.w_data  ),
+    .snooper_lite_cfg_w_rptr_o ( snooper_lite_slv_asynch.w_rptr  ),
+    .snooper_lite_cfg_r_wptr_o ( snooper_lite_slv_asynch.r_wptr  ),
+    .snooper_lite_cfg_r_data_o ( snooper_lite_slv_asynch.r_data  ),
+    .snooper_lite_cfg_r_rptr_i ( snooper_lite_slv_asynch.r_rptr  ),
+    .snooper_lite_cfg_b_wptr_o ( snooper_lite_slv_asynch.b_wptr  ),
+    .snooper_lite_cfg_b_data_o ( snooper_lite_slv_asynch.b_data  ),
+    .snooper_lite_cfg_b_rptr_i ( snooper_lite_slv_asynch.b_rptr  ),
+    // Snooper AXI LITE Slave
+    .snooper_slave_aw_wptr_i( snooper_axi_slv_asynch.aw_wptr ),
+    .snooper_slave_aw_data_i( snooper_axi_slv_asynch.aw_data ),
+    .snooper_slave_aw_rptr_o( snooper_axi_slv_asynch.aw_rptr ),
+    .snooper_slave_ar_wptr_i( snooper_axi_slv_asynch.ar_wptr ),
+    .snooper_slave_ar_data_i( snooper_axi_slv_asynch.ar_data ),
+    .snooper_slave_ar_rptr_o( snooper_axi_slv_asynch.ar_rptr ),
+    .snooper_slave_w_wptr_i ( snooper_axi_slv_asynch.w_wptr  ),
+    .snooper_slave_w_data_i ( snooper_axi_slv_asynch.w_data  ),
+    .snooper_slave_w_rptr_o ( snooper_axi_slv_asynch.w_rptr  ),
+    .snooper_slave_r_wptr_o ( snooper_axi_slv_asynch.r_wptr  ),
+    .snooper_slave_r_data_o ( snooper_axi_slv_asynch.r_data  ),
+    .snooper_slave_r_rptr_i ( snooper_axi_slv_asynch.r_rptr  ),
+    .snooper_slave_b_wptr_o ( snooper_axi_slv_asynch.b_wptr  ),
+    .snooper_slave_b_data_o ( snooper_axi_slv_asynch.b_data  ),
+    .snooper_slave_b_rptr_i ( snooper_axi_slv_asynch.b_rptr  ),
+    // Snooper Irqs
+    .snoop_watermark_irq_o  ( snoop_watermark_irq       ),
+    .snoop_trigger_irq_o    ( snoop_trigger_irq_o       ),
+    // PMU port
     .spu_core_cdc_data_o  ( spu_core_cdc_data           ),
     .spu_core_cdc_wptr_o  ( spu_core_cdc_wptr           ),
     .spu_core_cdc_rptr_i  ( spu_core_cdc_rptr           )
@@ -934,28 +986,30 @@ module cva6_subsystem
       );
   end
 
-  snooper #(
-      .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave      ),
-      .axi_ar_chan_t  ( ariane_axi_soc::ar_chan_slv_t ),
-      .axi_aw_chan_t  ( ariane_axi_soc::aw_chan_slv_t ),
-      .axi_b_chan_t   ( ariane_axi_soc::b_chan_slv_t  ),
-      .axi_r_chan_t   ( ariane_axi_soc::r_chan_slv_t  ),
-      .axi_w_chan_t   ( ariane_axi_soc::w_chan_t      ),
-      .axi_req_t      ( ariane_axi_soc::req_slv_t     ),
-      .axi_rsp_t      ( ariane_axi_soc::resp_slv_t    ),
-      .axi_lite_req_t ( ariane_axi_soc::req_lite_t    ),
-      .axi_lite_rsp_t ( ariane_axi_soc::resp_lite_t   )
-  ) i_snooper (
-      .clk_i              ( cva6_clk_i           ),
-      .rst_ni             ( cva6_rst_ni          ),
-      .axi_lite_cfg_req_i ( axi_lite_snoop_req_i ),
-      .axi_lite_cfg_rsp_o ( axi_lite_snoop_rsp_o ),
-      .axi_sw_req_i       ( axi_snoop_req        ),
-      .axi_sw_rsp_o       ( axi_snoop_rsp        ),
-      .traces_i           ( cva6_traces          ),
-      .trigger_o          ( cfi_req_irq_o        ),
-      .watermark_irq_o    ( snoop_watermark_irq  ),
-      .core_select_o      ( snoop_core_select    )
+  `AXI_LITE_ASSIGN_FROM_REQ(snooper_lite_slv_intf,axi_lite_snoop_req_i)
+  `AXI_LITE_ASSIGN_TO_RESP(axi_lite_snoop_rsp_o,snooper_lite_slv_intf)
+
+  axi_lite_to_axi_intf #(
+    .AXI_DATA_WIDTH ( AXI_LITE_DATA_WIDTH      )
+  ) axi_lite_to_axi_snooper (
+    // Slave AXI LITE port
+    .in              ( snooper_lite_slv_intf      ),
+    .slv_aw_cache_i  ( '0                         ),
+    .slv_ar_cache_i  ( '0                         ),
+    .out             ( snooper_axi_lite_to_axi_32 )
+  );
+
+  axi_dw_converter_intf #(
+    .AXI_ID_WIDTH            ( ariane_soc::IdWidthSlave ),
+    .AXI_ADDR_WIDTH          ( AXI_LITE_ADDR_WIDTH      ),
+    .AXI_SLV_PORT_DATA_WIDTH ( AXI_LITE_DATA_WIDTH      ),
+    .AXI_MST_PORT_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+    .AXI_USER_WIDTH          ( AXI_USER_WIDTH           )
+  ) axi_dw_conv_snooper (
+    .clk_i  ( clk_i                      ),
+    .rst_ni ( rst_ni                     ),
+    .slv    ( snooper_axi_lite_to_axi_32 ),
+    .mst    ( snooper_axi_lite_to_axi_64 )
   );
 
   axi_cdc_dst_intf #(
@@ -971,5 +1025,31 @@ module cva6_subsystem
       .dst_rst_ni(ndmreset_n),
       .dst(slave[0])
       );
+
+  axi_lite_cdc_src_intf #(
+    .AXI_ADDR_WIDTH ( AXI_LITE_ADDR_WIDTH ),
+    .AXI_DATA_WIDTH ( AXI_LITE_DATA_WIDTH ),
+    .LOG_DEPTH      ( 1                   ),
+    .SYNC_STAGES    ( ariane_soc::CdcSyncStages )
+  ) snooper_lite_slv_cdc (
+      .src_clk_i  ( clk_i                      ),
+      .src_rst_ni ( ndmreset_n                 ),
+      .src        ( snooper_axi_lite_to_axi_64 ),
+      .dst        ( snooper_lite_slv_asynch    )
+  );
+
+  axi_cdc_src_intf #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH         ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH            ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave  ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH            ),
+    .LOG_DEPTH      ( 1                         ),
+    .SYNC_STAGES    ( ariane_soc::CdcSyncStages )
+  ) snooper_axi_slv_cdc (
+      .src_clk_i  ( clk_i                  ),
+      .src_rst_ni ( ndmreset_n             ),
+      .src        ( snooper_axi_slv_intf   ),
+      .dst        ( snooper_axi_slv_asynch )
+  );
 
 endmodule
