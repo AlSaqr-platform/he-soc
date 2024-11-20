@@ -3,8 +3,8 @@
 0,../software/iommu/iommu_test_05.elf,none,none,,,,,0
 0,../software/iommu/iommu_test_06_10.elf,none,none,,,,,0
 0,../software/iommu/iommu_test_11_12.elf,none,none,,,,,0
-0,../software/peripherals/spim_flash,none,none,,,,,0
 0,../software/peripherals/qspim_flash,none,none,,,,,0
+0,../software/peripherals/spim_flash,none,none,,,,,0
 0,../software/peripherals/uart,none,none,,,,,0
 0,../software/peripherals/sdio,none,none,,,,,0
 0,../software/peripherals/cam,none,none,,,,,0

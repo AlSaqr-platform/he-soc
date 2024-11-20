@@ -162,13 +162,20 @@ module cva6_subsystem
     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
   ) snooper_axi_slv_intf();
-   
+
   AXI_BUS #(
-    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
+    .AXI_ADDR_WIDTH ( AXI_LITE_ADDR_WIDTH      ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-  ) snooper_axi_lite_to_axi();
+  ) snooper_axi_lite_to_axi_64();
+
+  AXI_BUS #(
+    .AXI_ADDR_WIDTH ( AXI_LITE_ADDR_WIDTH      ),
+    .AXI_DATA_WIDTH ( AXI_LITE_DATA_WIDTH      ),
+    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
+    .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
+  ) snooper_axi_lite_to_axi_32();
 
   AXI_BUS_ASYNC_GRAY #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
@@ -983,13 +990,26 @@ module cva6_subsystem
   `AXI_LITE_ASSIGN_TO_RESP(axi_lite_snoop_rsp_o,snooper_lite_slv_intf)
 
   axi_lite_to_axi_intf #(
-    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           )
+    .AXI_DATA_WIDTH ( AXI_LITE_DATA_WIDTH      )
   ) axi_lite_to_axi_snooper (
     // Slave AXI LITE port
-    .in              ( snooper_lite_slv_intf   ),
-    .slv_aw_cache_i  ( '0                      ),
-    .slv_ar_cache_i  ( '0                      ),
-    .out             ( snooper_axi_lite_to_axi )
+    .in              ( snooper_lite_slv_intf      ),
+    .slv_aw_cache_i  ( '0                         ),
+    .slv_ar_cache_i  ( '0                         ),
+    .out             ( snooper_axi_lite_to_axi_32 )
+  );
+
+  axi_dw_converter_intf #(
+    .AXI_ID_WIDTH            ( ariane_soc::IdWidthSlave ),
+    .AXI_ADDR_WIDTH          ( AXI_LITE_ADDR_WIDTH      ),
+    .AXI_SLV_PORT_DATA_WIDTH ( AXI_LITE_DATA_WIDTH      ),
+    .AXI_MST_PORT_DATA_WIDTH ( AXI_DATA_WIDTH           ),
+    .AXI_USER_WIDTH          ( AXI_USER_WIDTH           )
+  ) axi_dw_conv_snooper (
+    .clk_i  ( clk_i                      ),
+    .rst_ni ( rst_ni                     ),
+    .slv    ( snooper_axi_lite_to_axi_32 ),
+    .mst    ( snooper_axi_lite_to_axi_64 )
   );
 
   axi_cdc_dst_intf #(
@@ -1011,12 +1031,12 @@ module cva6_subsystem
     .AXI_DATA_WIDTH ( AXI_LITE_DATA_WIDTH ),
     .LOG_DEPTH      ( 1                   ),
     .SYNC_STAGES    ( ariane_soc::CdcSyncStages )
-    ) snooper_lite_slv_cdc (
-      .src_clk_i  ( clk_i                   ),
-      .src_rst_ni ( ndmreset_n              ),
-      .src        ( snooper_axi_lite_to_axi ),
-      .dst        ( snooper_lite_slv_asynch )
-      );
+  ) snooper_lite_slv_cdc (
+      .src_clk_i  ( clk_i                      ),
+      .src_rst_ni ( ndmreset_n                 ),
+      .src        ( snooper_axi_lite_to_axi_64 ),
+      .dst        ( snooper_lite_slv_asynch    )
+  );
 
   axi_cdc_src_intf #(
     .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH         ),
@@ -1025,11 +1045,11 @@ module cva6_subsystem
     .AXI_USER_WIDTH ( AXI_USER_WIDTH            ),
     .LOG_DEPTH      ( 1                         ),
     .SYNC_STAGES    ( ariane_soc::CdcSyncStages )
-    ) snooper_axi_slv_cdc (
+  ) snooper_axi_slv_cdc (
       .src_clk_i  ( clk_i                  ),
       .src_rst_ni ( ndmreset_n             ),
       .src        ( snooper_axi_slv_intf   ),
       .dst        ( snooper_axi_slv_asynch )
-      );
+  );
 
 endmodule

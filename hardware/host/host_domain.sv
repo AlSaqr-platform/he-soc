@@ -199,6 +199,8 @@ module host_domain
 
    localparam NB_UDMA_TCDM_CHANNEL = 2;
 
+   localparam AXI_LITE_DATA_WIDTH = 32;
+
    `ifdef APMU_IP
     localparam int unsigned APMU_NUM_COUNTER = 8;
   `else
@@ -338,6 +340,16 @@ module host_domain
     .AXI_ADDR_WIDTH (AXI_LITE_AW),
     .AXI_DATA_WIDTH (AXI_LITE_DW)
    ) llc_cfg_bus();
+
+   AXI_LITE #(
+    .AXI_ADDR_WIDTH (AXI_LITE_AW),
+    .AXI_DATA_WIDTH (AXI_LITE_DW)
+   ) axi_lite_pmu_32();
+
+   AXI_LITE #(
+    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH ),
+    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH    )
+   ) axi_lite_pmu_64();
 
   // APMU - Debug Request
    ariane_axi_soc::req_lite_t  pmu_master_req;
@@ -514,8 +526,8 @@ module host_domain
    ariane_axi_soc::req_ext_t axi_iopmp_rp_ext_req;
    ariane_axi_soc::resp_t axi_iopmp_rp_ext_rsp;
 
-   ariane_axi_soc::req_t  axi_iopmp_rp_req, axi_iopmp_ip_req;
-   ariane_axi_soc::resp_t axi_iopmp_rp_rsp, axi_iopmp_ip_rsp;
+   ariane_axi_soc::req_t  axi_iopmp_ip_req;
+   ariane_axi_soc::resp_t axi_iopmp_ip_rsp;
 
    ariane_axi_soc::req_slv_t  axi_iopmp_cp_req;
    ariane_axi_soc::resp_slv_t axi_iopmp_cp_rsp;
@@ -530,9 +542,10 @@ module host_domain
   `AXI_ASSIGN_FROM_REQ(iopmp_mst,axi_iopmp_ip_req)
   `AXI_ASSIGN_TO_RESP(axi_iopmp_ip_rsp, iopmp_mst)
 
+  `AXI_LITE_ASSIGN_FROM_REQ(axi_lite_pmu_32,pmu_master_req)
+  `AXI_LITE_ASSIGN_TO_RESP(pmu_master_res, axi_lite_pmu_32)
+
    // Manually assign extended signals
-  `AXI_ASSIGN_FROM_REQ(axi_iopmp_rp,axi_iopmp_rp_req)
-  `AXI_ASSIGN_TO_RESP(axi_iopmp_rp_rsp, axi_iopmp_rp)
 
   `AXI_ASSIGN(axi_iopmp_rp_ext,axi_iopmp_rp)
 
@@ -549,10 +562,9 @@ module host_domain
    assign axi_iopmp_rp_ext_req.ar.substream_id = '0;
    assign axi_iopmp_rp_ext_req.ar.nsaid        = 4'd1;
 
-  `else
+  `else // !`ifdef APMU_IOPMP
 
-   `AXI_ASSIGN_FROM_REQ(iopmp_mst,axi_iopmp_rp_req)
-   `AXI_ASSIGN_TO_RESP(axi_iopmp_rp_rsp, iopmp_mst)
+   `AXI_ASSIGN(iopmp_mst, axi_iopmp_rp)
 
   `endif
 
@@ -671,20 +683,25 @@ module host_domain
      .iopmp_lock_xor_key_i ( iopmp_lock_xor_key )
    );
 
-   axi_lite_to_axi #(
-     .AxiDataWidth ( AXI_DATA_WIDTH              ),
-     .req_lite_t   ( ariane_axi_soc::req_lite_t  ),
-     .resp_lite_t  ( ariane_axi_soc::resp_lite_t ),
-     .axi_req_t    ( ariane_axi_soc::req_t       ),
-     .axi_resp_t   ( ariane_axi_soc::resp_t      )
+   axi_lite_dw_converter_intf #(
+     .AXI_ADDR_WIDTH          ( AXI_ADDRESS_WIDTH        ),
+     .AXI_SLV_PORT_DATA_WIDTH ( AXI_LITE_DATA_WIDTH      ),
+     .AXI_MST_PORT_DATA_WIDTH ( AXI_DATA_WIDTH           )
+   ) axi_dw_conv_snooper (
+     .clk_i  ( clk_i            ),
+     .rst_ni ( rst_ni           ),
+     .slv    ( axi_lite_pmu_32  ),
+     .mst    ( axi_lite_pmu_64  )
+   );
+
+   axi_lite_to_axi_intf #(
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH   )
    ) axi_lite_to_axi_pmu (
      // Slave AXI LITE port
-     .slv_req_lite_i  ( pmu_master_req   ),
-     .slv_resp_lite_o ( pmu_master_res   ),
-     .slv_aw_cache_i  ( '0               ),
-     .slv_ar_cache_i  ( '0               ),
-     .mst_req_o       ( axi_iopmp_rp_req ),
-     .mst_resp_i      ( axi_iopmp_rp_rsp )
+     .in              ( axi_lite_pmu_64 ),
+     .slv_aw_cache_i  ( '0              ),
+     .slv_ar_cache_i  ( '0              ),
+     .out             ( axi_iopmp_rp    )
    );
 
    // The PMU only works with 32-bit AXI4-Lite port.
