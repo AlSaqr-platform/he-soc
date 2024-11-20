@@ -20,6 +20,8 @@
 `include "register_interface/assign.svh"
 `include "tcdm_macros.sv"
 
+`define HTM
+
 module apb_subsystem
   import apb_soc_pkg::*;
   import ariane_soc::*;
@@ -1015,8 +1017,10 @@ module apb_subsystem
       .reg_rsp_o	( monitor_counter_reg_rsp )
     );
 
+   `ifdef HTM
+
     // HTM_BLOCK Counters
-    apb_to_reg i_apb_to_htm_block
+   apb_to_reg i_apb_to_htm_block
     (
      .clk_i     ( clk_soc_o       ),
      .rst_ni    ( s_rstn_soc_sync ),
@@ -1033,22 +1037,24 @@ module apb_subsystem
      .reg_o     ( i_htm_block_bus              )
     );
 
-    // instantiate here the counter, and connect to
-    // reg_req_i reg_rsp_o port of the register to
-    // monitor_counter_reg_req and monitor_counter_reg_req structures
-    // the interconnect is already on place
-    // the base address to which you access the couters is: 0x1A22_A000 upto 0x1A22_AFFF
- htm_block  # (
-    .reg_req_t	(reg_req_t) ,
-    .reg_rsp_t 	(reg_rsp_t)
+    htm_block  # (
+       .reg_req_t	(reg_req_t) ,
+       .reg_rsp_t 	(reg_rsp_t)
+    ) htm_block
+    (
+     .clk_i	(clk_i),
+     .rst_ni	(rst_ni),
+     .reg_req_i	(htm_block_reg_req),
+     .reg_rsp_o	(htm_block_reg_rsp)
+    );
 
- ) htm_block
- (
-  .clk_i	(clk_i),
-  .rst_ni	(rst_ni),
+ `else
 
-  .reg_req_i	(htm_block_reg_req),
-  .reg_rsp_o	(htm_block_reg_rsp)
+    htm_block_master_bus.prdata = '0;
+    htm_block_master_bus.pready = '0;
+    htm_block_master_bus.pslverr = '0;
+    htm_block_reg_rsp = '0;
 
-);
+ `endif
+
 endmodule
