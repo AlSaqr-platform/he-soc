@@ -96,6 +96,16 @@ sources:
   - deps/monitor_counters_t/rtl/monitor_counters_t_event.sv
   - deps/monitor_counters_t/rtl/monitor_counters_t_core.sv
   - deps/monitor_counters_t/rtl/monitor_counters_t.sv
+  - deps/htm_block/rtl/htm_block_reg_pkg.sv
+  - deps/htm_block/rtl/htm_block_reg_top.sv
+  - deps/htm_block/rtl/sdr_logical_module.sv
+  - deps/htm_block/rtl/sdr_control_fsm.sv
+  - deps/htm_block/rtl/ones_count_status.sv
+  - deps/htm_block/rtl/sdr_counter.sv
+  - deps/htm_block/rtl/fifo_indexes_output_prioriy_encoder.sv
+  - deps/htm_block/rtl/sdr_module.sv
+  - deps/htm_block/rtl/htm_reg_adaptor.sv
+  - deps/htm_block/rtl/htm_block.sv
   - host/periph_bus_wrap.sv
   - host/freqmeter.sv
   - host/fll_dummy.sv
