@@ -77,6 +77,7 @@ sources:
   - host/ariane_peripherals.sv
   - host/udma_subsystem.sv
   - host/dma_core_wrap.sv
+  - host/axi_lite_cdc_src_alsaqr_intf.sv
   - deps/axi2apb/src/axi2apb.sv
   - deps/axi2apb/src/axi2apb_64_32.sv
   - deps/axi2apb/src/axi2apb_wrap.sv

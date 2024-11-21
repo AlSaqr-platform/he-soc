@@ -615,10 +615,10 @@ module host_domain
      .ID_WIDTH   ( ariane_soc::IdWidthSlave  ),
      .USER_WIDTH ( AXI_USER_WIDTH             )
    ) axi_iopmp_cp_cut (
-     .clk_i  ( s_soc_clk    ),
-     .rst_ni ( rst_ni       ),
-     .in     ( iopmp_cfg    ),
-     .out    ( iopmp_cp_cut )
+     .clk_i  ( s_soc_clk       ),
+     .rst_ni ( s_synch_soc_rst ),
+     .in     ( iopmp_cfg       ),
+     .out    ( iopmp_cp_cut    )
    );
 
    // AXI Cut for IOPMP Initiator Port
@@ -628,10 +628,10 @@ module host_domain
      .ID_WIDTH   ( ariane_soc::IdWidth       ),
      .USER_WIDTH ( AXI_USER_WIDTH             )
    ) axi_iopmp_ip_cut (
-     .clk_i  ( s_soc_clk     ),
-     .rst_ni ( rst_ni        ),
-     .in     ( iopmp_mst     ),
-     .out    ( iopmp_mst_cut )
+     .clk_i  ( s_soc_clk       ),
+     .rst_ni ( s_synch_soc_rst ),
+     .in     ( iopmp_mst       ),
+     .out    ( iopmp_mst_cut   )
    );
 
    riscv_iopmp #(
@@ -665,7 +665,7 @@ module host_domain
      .NUMBER_MASTERS     ( 1                 )
    ) i_riscv_iopmp (
      .clk_i				       ( s_soc_clk             ),
-     .rst_ni				     ( rst_ni					       ),
+     .rst_ni				     ( s_synch_soc_rst			 ),
 
      // AXI Config Slave port
      .control_req_i      ( axi_iopmp_cp_req      ),
@@ -688,8 +688,8 @@ module host_domain
      .AXI_SLV_PORT_DATA_WIDTH ( AXI_LITE_DATA_WIDTH      ),
      .AXI_MST_PORT_DATA_WIDTH ( AXI_DATA_WIDTH           )
    ) axi_dw_conv_snooper (
-     .clk_i  ( clk_i            ),
-     .rst_ni ( rst_ni           ),
+     .clk_i  ( s_soc_clk        ),
+     .rst_ni ( s_synch_soc_rst  ),
      .slv    ( axi_lite_pmu_32  ),
      .mst    ( axi_lite_pmu_64  )
    );
