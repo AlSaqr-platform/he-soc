@@ -54,42 +54,77 @@
 #define VERBOSE 1
 
 uint32_t irq_configure(uint32_t number, uint32_t irq_en){
-    uint32_t address;
-    uint32_t gpio_inten;
-    uint32_t gpio_inttype;
+  uint32_t address;
+  uint32_t gpio_inten;
+  uint32_t gpio_inttype;
 
-    if(number < 32){
-      // Interrupt Enable Register for GPIO 0-31
-      address = ARCHI_GPIO_ADDR + GPIO_INTEN_OFFSET;
-      gpio_inten = pulp_read32(address);
-      if (irq_en)
-          gpio_inten |= (1 << number);
-      else
-          gpio_inten &= ~(1 << number);
-      pulp_write32(address, gpio_inten);
-      // Interrupt Type Register for GPIO 0-15
-      address = ARCHI_GPIO_ADDR + GPIO_INTTYPE0_OFFSET;
-      gpio_inttype = pulp_read32(address);
-      // Set inttype to 10 (binary)
-      gpio_inttype |= (0x2 << (number * 2));
-      pulp_write32(address, gpio_inttype);
+  if(number < 32){
+    // Interrupt Enable Register for GPIO 0-31
+    address = ARCHI_GPIO_ADDR + GPIO_INTEN_OFFSET;
+    gpio_inten = pulp_read32(address);
+    if(irq_en) {
+      gpio_inten |= (1 << number);
     } else {
+        gpio_inten &= ~(1 << number);
+    }
+    pulp_write32(address, gpio_inten);
+
+    // Interrupt Type Register for GPIO 0-15 or 16-31
+    if (number < 16) {
+        address = ARCHI_GPIO_ADDR + GPIO_INTTYPE0_OFFSET;
+        gpio_inttype = pulp_read32(address);
+        // Set interrupt type to both edges (0x2)
+        gpio_inttype |= (0x2 << (number * 2));
+    } else {
+        address = ARCHI_GPIO_ADDR + GPIO_INTTYPE1_OFFSET;
+        gpio_inttype = pulp_read32(address);
+        // Set interrupt type to both edges (0x2)
+        gpio_inttype |= (0x2 << ((number-16)* 2));
+    }
+    pulp_write32(address, gpio_inttype);
+  } else {
       // Interrupt Enable Register for GPIO 32-63
       address = ARCHI_GPIO_ADDR + GPIO_INTEN_32_63_OFFSET;
       gpio_inten = pulp_read32(address);
-      if (irq_en)
+
+      if (irq_en) {
           gpio_inten |= (1 << (number - 32));
-      else
+      } else {
           gpio_inten &= ~(1 << (number - 32));
+      }
       pulp_write32(address, gpio_inten);
-      // Interrupt Type Register for GPIO 32-47
-      address = ARCHI_GPIO_ADDR + GPIO_INTTYPE_32_47_OFFSET;
-      gpio_inttype = pulp_read32(address);
-      // Set inttype to 10 (binary)
-      gpio_inttype |= (0x2 << ((number - 32) * 2));
+
+      // Interrupt Type Register for GPIO 0-15 or 16-31
+      if (number < 48) {
+          address = ARCHI_GPIO_ADDR + GPIO_INTTYPE_32_47_OFFSET;
+          gpio_inttype = pulp_read32(address);
+          // Set interrupt type to both edges (0x2)
+          gpio_inttype |= (0x2 << ((number-32) * 2));
+      } else {
+          address = ARCHI_GPIO_ADDR + GPIO_INTTYPE_48_63_OFFSET;
+          gpio_inttype = pulp_read32(address);
+          // Set interrupt type to both edges (0x2)
+          gpio_inttype |= (0x2 << ((number-48)* 2));
+      }
       pulp_write32(address, gpio_inttype);
-    }
+  }
   return 0;
+}
+
+// function to read the INTSTATUS register. interrupt is cleared when the status reg is read
+uint32_t read_gpio_intstatus(uint32_t number) {
+  uint32_t address;
+  uint32_t status;
+
+  if (number < 32) {
+      address = ARCHI_GPIO_ADDR + GPIO_INTSTATUS_OFFSET;
+      status = pulp_read32(address);
+  } else {
+      address = ARCHI_GPIO_ADDR + GPIO_INTSTATUS_32_63_OFFSET;
+      status = pulp_read32(address);
+  }
+
+  return status;
 }
 
 uint32_t configure_gpio(uint32_t number, uint32_t direction){
@@ -225,8 +260,10 @@ int main() {
   uint32_t gpio_val;
   uint32_t address;
 
-  aplic_init();
-  imsic_init();
+  uint32_t gpio_plic_id ;
+  uint32_t gpio_imsic_id;
+
+
 
   error=0;
 
@@ -432,18 +469,17 @@ int main() {
       #endif
     #endif
 
-    uint32_t gpio_irq_id[64];
-    uint32_t gpio_imsic_id[64];
-
-    for (uint32_t i = 0; i < 64; i++) {
-      gpio_irq_id[i] = 156 + i;
-      gpio_imsic_id[i] = i;
-      config_irq_aplic(gpio_irq_id[i], gpio_imsic_id[i], 0);
-    }
+    uint32_t gpio_a_irq_id = 171;
+    uint32_t gpio_b_irq_id = 180;
+    uint32_t gpio_a_imsic_id = 1;
+    uint32_t gpio_b_imsic_id = 2;
 
     switch(v){
       // pad_a GPIOs
       case 0:
+        aplic_init();
+        imsic_init();
+        config_irq_aplic(gpio_a_irq_id, gpio_a_imsic_id, 0);
         for(int i = 0; i < NUM_GPIOS_A/2; i++) {
           configure_gpio( i , OUT );
           #if VERBOSE > 1
@@ -452,38 +488,47 @@ int main() {
         }
         for(int i = NUM_GPIOS_A/2; i < NUM_GPIOS_A; i++) {
           configure_gpio( i , IN );
-          // enable interrupt of pins set as input
-          irq_configure( i, 1);
           #if VERBOSE > 1
             printf("gpio_a_%0d direction: %s\n", i, "IN");
           #endif
         }
-
+        irq_configure(15, 1);
         printf("Start pad_a GPIOs...\n");
 
         gpio_val=1;
         for (int j = 0; j < 10; j++){
           for(int i = 0; i < NUM_GPIOS_A/2; i++) {
             set_gpio( i , gpio_val);
-            // asm volatile ("wfi");
-            // imsic_intp_arrive(gpio_imsic_id[i]);
-            // CSRW(CSR_MTOPEI, 0);
-            // aplic_reset(gpio_imsic_id[i]);
             #if VERBOSE > 5
               printf("gpio_a_%0d value: %0d\n", i, gpio_val);
             #endif
           }
           for(int i = NUM_GPIOS_A/2; i < NUM_GPIOS_A; i++) {
+            if(i==15) {
+              asm volatile ("wfi");
+              imsic_intp_arrive(gpio_a_imsic_id);
+              read_gpio_intstatus(15);
+              CSRW(CSR_MTOPEI, 0);
+              aplic_reset(gpio_a_imsic_id);
+            }
+
             if(get_gpio(i) != gpio_val){
               printf("ERROR: gpio_a_%0d value != %0d\n", i, gpio_val);
               error++;
             }
+
           }
           gpio_val=!gpio_val;
         }
         break;
+
+
+
       // pad_b GPIOs
       case 1:
+        aplic_init();
+        imsic_init();
+        config_irq_aplic(gpio_b_irq_id, gpio_b_imsic_id, 0);
         for(int i = 0; i < NUM_GPIOS_B/2; i++) {
           configure_gpio( i , OUT );
           #if VERBOSE > 1
@@ -492,26 +537,31 @@ int main() {
         }
         for(int i = NUM_GPIOS_B/2; i < NUM_GPIOS_B; i++) {
           configure_gpio( i , IN );
-          irq_configure(i, 1);
           #if VERBOSE > 1
             printf("gpio_b_%0d direction: %s\n", i, "IN");
           #endif
         }
+        irq_configure(24, 1);
 
         printf("Start pad_b GPIOs...\n");
         gpio_val=1;
         for (int j = 0; j < 10; j++){
           for(int i = 0; i < NUM_GPIOS_B/2; i++) {
             set_gpio( i , gpio_val);
-            //asm volatile ("wfi");
-            // imsic_intp_arrive(gpio_imsic_id[i]);
-            // CSRW(CSR_MTOPEI, 0);
-            // aplic_reset(gpio_imsic_id[i]);
             #if VERBOSE > 5
               printf("gpio_b_%0d value: %0d\n", i, gpio_val);
             #endif
           }
+
           for(int i = NUM_GPIOS_B/2; i < NUM_GPIOS_B; i++) {
+            if(i==24) {
+              asm volatile ("wfi");
+              imsic_intp_arrive(gpio_b_imsic_id);
+              read_gpio_intstatus(24);
+              CSRW(CSR_MTOPEI, 0);
+              aplic_reset(gpio_b_imsic_id);
+            }
+
             if(get_gpio(i) != gpio_val){
               printf("ERROR: gpio_b_%0d value != %0d\n", i, gpio_val);
               error++;
