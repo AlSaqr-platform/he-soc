@@ -49,7 +49,7 @@ module ariane_tb;
   `ifndef SEC_BOOT
   localparam int unsigned REFClockPeriod = 1us; // jtag clock: 1MHz
   `else
-  localparam int unsigned REFClockPeriod = 40ns; // jtag clock: 1MHz
+  localparam int unsigned REFClockPeriod = 20ns; // jtag clock: 1MHz
   `endif
   // toggle with RTC period
   `ifndef TEST_CLOCK_BYPASS
