@@ -32,7 +32,7 @@ dependencies:
   tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.11 }
   common_cells: { git: "https://github.com/pulp-platform/common_cells.git", version: 1.30.0 }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", rev: "d436ab3dad8260eadc1288bdc543c79b4d7462c7" }
-  apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "a60cdc1e84154a76dc4615aad6a430e857adfe7b" }
+  apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "c1feb0b348d15fecce907ae847f78c2f91d43bde" }
   hyperbus_udma: { git: "git@github.com:AlSaqr-platform/hyper_bus.git", rev: "4790e00c5fc1f0b8eb46a191a6bd7e814f3b8e76" }
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", version: 1.0.1 }
   register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
