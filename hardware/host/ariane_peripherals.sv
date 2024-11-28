@@ -149,13 +149,12 @@ module ariane_peripherals
     assign irq_sources[149]                          = pwm_irq_i[7];
 
     `ifdef APMU_IP
-    assign irq_sources[155+APMU_NUM_COUNTER-1:155]                     = pmu_intr_i;
-    assign irq_sources[ariane_soc::NumSources-1:155+APMU_NUM_COUNTER]  = '0;
-    // assign irq_le[150+APMU_NUM_COUNTER-1:150]	                        = {APMU_NUM_COUNTER{1'b1}};
-    // assign irq_le[ariane_soc::NumSources-1:150+APMU_NUM_COUNTER]       = '0; 
+    assign irq_sources[155+APMU_NUM_COUNTER-1:155]                  = pmu_intr_i;
+    // assign irq_le[150+APMU_NUM_COUNTER-1:150]	                  = {APMU_NUM_COUNTER{1'b1}};
+    // assign irq_le[ariane_soc::NumSources-1:150+APMU_NUM_COUNTER] = '0;
   `else
-    assign irq_sources[ariane_soc::NumSources-1:155]                  = '0;
-    // assign irq_le[ariane_soc::NumSources-1:150]                       = '0;
+    assign irq_sources[155+APMU_NUM_COUNTER-1:155]                  = '0;
+    // assign irq_le[ariane_soc::NumSources-1:150]                  = '0;
   `endif
 
     genvar i;

@@ -14,8 +14,8 @@
  * limitations under the License.
  */
 
-/* 
- * Mantainer: Luca Valente (luca.valente2@unibo.it)
+/*
+ * Mantainer: Victor Isachi (victor.isachi@unibo.it)
  */
 
 #include <stdio.h>
@@ -27,97 +27,187 @@
 #define BUFFER_SIZE 32
 
 #define ARCHI_GPIO_ADDR 0x1A105000
+#define CSR_MTOPEI 0x35C
 
 #define OUT 1
 #define IN  0
 
-//#define FPGA_EMULATION
-//#define SIMPLE_PAD
+// #define FPGA_EMULATION
+// #define SIMPLE_PAD
 
-//#define VERBOSE
-//#define EXTRA_VERBOSE
+#ifndef FPGA_EMULATION
+  #ifndef SIMPLE_PAD
+    #define NUM_GPIOS_A 30
+    #define NUM_GPIOS_B 48
+    #define NUM_REPS 2
+  #else
+    #define NUM_GPIOS_A 0
+    #define NUM_GPIOS_B 14
+    #define NUM_REPS 1
+  #endif
+#else
+  #define NUM_GPIOS_A 0
+  #define NUM_GPIOS_B 14
+  #define NUM_REPS 1
+#endif
+
+#define VERBOSE 1
+
+uint32_t irq_configure(uint32_t number, uint32_t irq_en){
+  uint32_t address;
+  uint32_t gpio_inten;
+  uint32_t gpio_inttype;
+
+  if(number < 32){
+    // Interrupt Enable Register for GPIO 0-31
+    address = ARCHI_GPIO_ADDR + GPIO_INTEN_OFFSET;
+    gpio_inten = pulp_read32(address);
+    if(irq_en) {
+      gpio_inten |= (1 << number);
+    } else {
+        gpio_inten &= ~(1 << number);
+    }
+    pulp_write32(address, gpio_inten);
+
+    // Interrupt Type Register for GPIO 0-15 or 16-31
+    if (number < 16) {
+        address = ARCHI_GPIO_ADDR + GPIO_INTTYPE0_OFFSET;
+        gpio_inttype = pulp_read32(address);
+        // Set interrupt type to both edges (0x2)
+        gpio_inttype |= (0x2 << (number * 2));
+    } else {
+        address = ARCHI_GPIO_ADDR + GPIO_INTTYPE1_OFFSET;
+        gpio_inttype = pulp_read32(address);
+        // Set interrupt type to both edges (0x2)
+        gpio_inttype |= (0x2 << ((number-16)* 2));
+    }
+    pulp_write32(address, gpio_inttype);
+  } else {
+      // Interrupt Enable Register for GPIO 32-63
+      address = ARCHI_GPIO_ADDR + GPIO_INTEN_32_63_OFFSET;
+      gpio_inten = pulp_read32(address);
+
+      if (irq_en) {
+          gpio_inten |= (1 << (number - 32));
+      } else {
+          gpio_inten &= ~(1 << (number - 32));
+      }
+      pulp_write32(address, gpio_inten);
+
+      // Interrupt Type Register for GPIO 0-15 or 16-31
+      if (number < 48) {
+          address = ARCHI_GPIO_ADDR + GPIO_INTTYPE_32_47_OFFSET;
+          gpio_inttype = pulp_read32(address);
+          // Set interrupt type to both edges (0x2)
+          gpio_inttype |= (0x2 << ((number-32) * 2));
+      } else {
+          address = ARCHI_GPIO_ADDR + GPIO_INTTYPE_48_63_OFFSET;
+          gpio_inttype = pulp_read32(address);
+          // Set interrupt type to both edges (0x2)
+          gpio_inttype |= (0x2 << ((number-48)* 2));
+      }
+      pulp_write32(address, gpio_inttype);
+  }
+  return 0;
+}
+
+// function to read the INTSTATUS register. interrupt is cleared when the status reg is read
+uint32_t read_gpio_intstatus(uint32_t number) {
+  uint32_t address;
+  uint32_t status;
+
+  if (number < 32) {
+      address = ARCHI_GPIO_ADDR + GPIO_INTSTATUS_OFFSET;
+      status = pulp_read32(address);
+  } else {
+      address = ARCHI_GPIO_ADDR + GPIO_INTSTATUS_32_63_OFFSET;
+      status = pulp_read32(address);
+  }
+
+  return status;
+}
 
 uint32_t configure_gpio(uint32_t number, uint32_t direction){
   uint32_t address;
   uint32_t dir;
   uint32_t gpioen;
-
   //--- set GPIO
-  if(number < 32)
-  {
-    if (direction == IN) 
-    {
-
+  if(number < 32){
+    if (direction == IN) {
       address = ARCHI_GPIO_ADDR + GPIO_GPIOEN_OFFSET;
-
       gpioen = pulp_read32(address);
       //--- enable GPIO
       //printf("GPIOEN RD: %x\n",gpioen);
       gpioen |= (1 << number);
-      //printf("GPIOEN WR: %x\n",gpioen); 
+      //printf("GPIOEN WR: %x\n",gpioen);
       pulp_write32(address, gpioen);
       //--- set direction
       address = ARCHI_GPIO_ADDR + GPIO_PADDIR_OFFSET;
       dir = pulp_read32(address);
       //printf("GPIODIR RD: %x\n",dir);
-      dir |= (0 << number);
-      //printf("GPIODIR WR: %x\n",dir);
-      pulp_write32(address, dir);
-
-    }else if (direction == OUT){ 
-      //--- enable GPIO
-      address = ARCHI_GPIO_ADDR + GPIO_GPIOEN_OFFSET;
-      gpioen = pulp_read32(address);
-      gpioen |= (1 << number);
-      pulp_write32(address, gpioen);
-      //--- set direction
-      dir=gpioen;
-      address = ARCHI_GPIO_ADDR + GPIO_PADDIR_OFFSET;
-      pulp_write32(address, dir);
-    }
-  }else{
-    if (direction == IN)
-    {
-      address = ARCHI_GPIO_ADDR + GPIO_GPIOEN_32_63_OFFSET;
-      gpioen = pulp_read32(address);
-      //--- enable GPIO
-      //printf("GPIOEN RD: %x\n",gpioen);
-      gpioen |= (1 << (number-32));
-      //printf("GPIOEN WR: %x\n",gpioen); 
-      pulp_write32(address, gpioen);
-      //--- set direction
-      address = ARCHI_GPIO_ADDR + GPIO_PADDIR_32_63_OFFSET;
-      dir = pulp_read32(address);
-      //printf("GPIODIR RD: %x\n",dir);
-      dir |= (0 << (number-32));
+      dir &= ~(1 << number);
       //printf("GPIODIR WR: %x\n",dir);
       pulp_write32(address, dir);
     }else if (direction == OUT){
-      //--- enable GPIO
-      address = ARCHI_GPIO_ADDR + GPIO_GPIOEN_32_63_OFFSET;
+      address = ARCHI_GPIO_ADDR + GPIO_GPIOEN_OFFSET;
       gpioen = pulp_read32(address);
-      gpioen |= (1 << (number-32));
+      //--- enable GPIO
+      //printf("GPIOEN RD: %x\n",gpioen);
+      gpioen |= (1 << number);
+      //printf("GPIOEN WR: %x\n",gpioen);
       pulp_write32(address, gpioen);
       //--- set direction
-      dir=gpioen;
+      address = ARCHI_GPIO_ADDR + GPIO_PADDIR_OFFSET;
+      dir = pulp_read32(address);
+      //printf("GPIODIR RD: %x\n",dir);
+      dir |= (1 << number);
+      //printf("GPIODIR WR: %x\n",dir);
+      pulp_write32(address, dir);
+    }
+  }else{
+    if (direction == IN){
+      address = ARCHI_GPIO_ADDR + GPIO_GPIOEN_32_63_OFFSET;
+      gpioen = pulp_read32(address);
+      //--- enable GPIO
+      //printf("GPIOEN RD: %x\n",gpioen);
+      gpioen |= (1 << (number-32));
+      //printf("GPIOEN WR: %x\n",gpioen);
+      pulp_write32(address, gpioen);
+      //--- set direction
       address = ARCHI_GPIO_ADDR + GPIO_PADDIR_32_63_OFFSET;
+      dir = pulp_read32(address);
+      //printf("GPIODIR RD: %x\n",dir);
+      dir &= ~(1 << (number-32));
+      //printf("GPIODIR WR: %x\n",dir);
+      pulp_write32(address, dir);
+    }else if (direction == OUT){
+      address = ARCHI_GPIO_ADDR + GPIO_GPIOEN_32_63_OFFSET;
+      gpioen = pulp_read32(address);
+      //--- enable GPIO
+      //printf("GPIOEN RD: %x\n",gpioen);
+      gpioen |= (1 << (number-32));
+      //printf("GPIOEN WR: %x\n",gpioen);
+      pulp_write32(address, gpioen);
+      //--- set direction
+      address = ARCHI_GPIO_ADDR + GPIO_PADDIR_32_63_OFFSET;
+      dir = pulp_read32(address);
+      //printf("GPIODIR RD: %x\n",dir);
+      dir |= (1 << (number-32));
+      //printf("GPIODIR WR: %x\n",dir);
       pulp_write32(address, dir);
     }
   }
 
   while(pulp_read32(address) != dir);
-
 }
 
 void set_gpio(uint32_t number, uint32_t value){
   uint32_t value_wr;
   uint32_t address;
-  if (number < 32)
-  {
+  if (number < 32){
     address = ARCHI_GPIO_ADDR + GPIO_PADOUT_OFFSET;
     value_wr = pulp_read32(address);
-    if (value == 1)
-    {
+    if (value == 1){
       value_wr |= (1 << (number));
     }else{
       value_wr &= ~(1 << (number));
@@ -126,8 +216,7 @@ void set_gpio(uint32_t number, uint32_t value){
   }else{
     address = ARCHI_GPIO_ADDR + GPIO_PADOUT_32_63_OFFSET;
     value_wr = pulp_read32(address);
-    if (value == 1)
-    {
+    if (value == 1){
       value_wr |= (1 << (number % 32));
     }else{
       value_wr &= ~(1 << (number % 32));
@@ -138,13 +227,11 @@ void set_gpio(uint32_t number, uint32_t value){
   while(pulp_read32(address) != value_wr);
 }
 
-
 uint32_t get_gpio(uint32_t number){
   uint32_t value_rd;
   uint32_t address;
   uint32_t bit;
-  if (number < 32)
-  {
+  if (number < 32){
     address = ARCHI_GPIO_ADDR + GPIO_PADIN_OFFSET;
     value_rd = pulp_read32(address);
     bit= 0x1 & (value_rd>>number);
@@ -152,7 +239,7 @@ uint32_t get_gpio(uint32_t number){
     address = ARCHI_GPIO_ADDR + GPIO_PADIN_32_63_OFFSET;
     value_rd = pulp_read32(address);
     bit= 0x1 & (value_rd>>(number%32));
-  }  
+  }
   //printf("GPIO %d: HEX:%x Bit:%d \n",number,value_rd,bit);
   return bit;
 }
@@ -166,103 +253,329 @@ int main() {
   set_flls();
   int baud_rate = 115200;
   int test_freq = 100000000;
-  #endif  
+  #endif
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
-  
-  uint32_t error [3]= {0,0,0};
-  uint32_t simple=0;
-  uint32_t val_wr = 0x00000000;
-  uint32_t val_rd = 0;
-  uint32_t gpio_out;
-  uint32_t gpio_in;
-  uint32_t val_rd1;
+
+  uint32_t error;
   uint32_t gpio_val;
   uint32_t address;
 
-  #ifdef FPGA_EMULATION
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set( 1 ); //tx uart
-    alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 1 ); //rx uart
-    simple=1;
-  #else
-    #ifdef SIMPLE_PAD
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set( 1 ); //tx uart
-      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 1 ); //rx uart
-      simple=1;
+  uint32_t gpio_plic_id ;
+  uint32_t gpio_imsic_id;
+
+
+
+  error=0;
+
+  for (int v = 0; v < NUM_REPS; v++){
+    #ifdef FPGA_EMULATION
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 1 );
+      alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 1 );
     #else
-      alsaqr_periph_padframe_periphs_b_05_mux_set(1);
-      alsaqr_periph_padframe_periphs_b_06_mux_set(1);
-      alsaqr_periph_padframe_periphs_b_07_mux_set(1);
+      #ifdef SIMPLE_PAD
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_00_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_01_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_02_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_03_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_04_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_05_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_06_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_07_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_08_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_09_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_10_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_11_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_12_mux_set( 1 );
+        alsaqr_periph_fpga_padframe_periphs_pad_gpio_b_13_mux_set( 1 );
+      #else
+        switch(v){
+          // pad_a GPIOs
+          case 0:
+            alsaqr_periph_padframe_periphs_a_00_mux_set(2);
+            alsaqr_periph_padframe_periphs_a_01_mux_set(2);
+            alsaqr_periph_padframe_periphs_a_02_mux_set(2);
+            alsaqr_periph_padframe_periphs_a_03_mux_set(2);
+            alsaqr_periph_padframe_periphs_a_04_mux_set(2);
+            alsaqr_periph_padframe_periphs_a_05_mux_set(1);
+            alsaqr_periph_padframe_periphs_a_06_mux_set(1);
+            alsaqr_periph_padframe_periphs_a_07_mux_set(1);
+            alsaqr_periph_padframe_periphs_a_08_mux_set(1);
+            alsaqr_periph_padframe_periphs_a_09_mux_set(1);
+            alsaqr_periph_padframe_periphs_a_10_mux_set(1);
+            alsaqr_periph_padframe_periphs_a_11_mux_set(1);
+            alsaqr_periph_padframe_periphs_a_12_mux_set(1);
+            alsaqr_periph_padframe_periphs_a_13_mux_set(1);
+            alsaqr_periph_padframe_periphs_a_14_mux_set(1);
+            alsaqr_periph_padframe_periphs_a_15_mux_set(2);
+            alsaqr_periph_padframe_periphs_a_16_mux_set(2);
+            alsaqr_periph_padframe_periphs_a_17_mux_set(2);
+            alsaqr_periph_padframe_periphs_a_18_mux_set(3);
+            alsaqr_periph_padframe_periphs_a_19_mux_set(3);
+            alsaqr_periph_padframe_periphs_a_20_mux_set(3);
+            alsaqr_periph_padframe_periphs_a_21_mux_set(3);
+            alsaqr_periph_padframe_periphs_a_22_mux_set(3);
+            alsaqr_periph_padframe_periphs_a_23_mux_set(3);
+            alsaqr_periph_padframe_periphs_a_24_mux_set(3);
+            alsaqr_periph_padframe_periphs_a_25_mux_set(3);
+            alsaqr_periph_padframe_periphs_a_26_mux_set(3);
+            alsaqr_periph_padframe_periphs_a_27_mux_set(3);
+            alsaqr_periph_padframe_periphs_a_28_mux_set(3);
+            alsaqr_periph_padframe_periphs_a_29_mux_set(3);
 
-      alsaqr_periph_padframe_periphs_b_37_mux_set(1);
-      alsaqr_periph_padframe_periphs_b_38_mux_set(1);
-      alsaqr_periph_padframe_periphs_b_39_mux_set(1);
-    #endif    
-  #endif 
-  
-  if (simple==1){
-    configure_gpio( 6 , OUT );
-    configure_gpio( 7 , IN );
-  }else{
-    configure_gpio( 5 , OUT );
-    configure_gpio( 6 , OUT );
-    configure_gpio( 7 , OUT );
+            alsaqr_periph_padframe_periphs_b_00_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_01_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_02_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_03_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_04_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_05_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_06_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_07_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_08_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_09_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_10_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_11_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_12_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_13_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_14_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_15_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_16_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_17_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_18_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_19_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_20_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_21_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_22_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_23_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_24_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_25_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_26_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_27_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_28_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_29_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_30_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_31_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_32_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_33_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_34_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_35_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_36_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_37_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_38_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_39_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_40_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_41_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_42_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_43_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_44_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_45_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_46_mux_set(0);
+            alsaqr_periph_padframe_periphs_b_47_mux_set(0);
+            break;
+          // pad_b GPIOs
+          case 1:
+            alsaqr_periph_padframe_periphs_a_00_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_01_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_02_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_03_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_04_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_05_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_06_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_07_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_08_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_09_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_10_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_11_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_12_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_13_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_14_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_15_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_16_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_17_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_18_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_19_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_20_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_21_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_22_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_23_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_24_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_25_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_26_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_27_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_28_mux_set(0);
+            alsaqr_periph_padframe_periphs_a_29_mux_set(0);
 
-    configure_gpio( 37 , IN );
-    configure_gpio( 38 , IN );
-    configure_gpio( 39 , IN );
+            alsaqr_periph_padframe_periphs_b_00_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_01_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_02_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_03_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_04_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_05_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_06_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_07_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_08_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_09_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_10_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_11_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_12_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_13_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_14_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_15_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_16_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_17_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_18_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_19_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_20_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_21_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_22_mux_set(1);
+            alsaqr_periph_padframe_periphs_b_23_mux_set(2);
+            alsaqr_periph_padframe_periphs_b_24_mux_set(2);
+            alsaqr_periph_padframe_periphs_b_25_mux_set(2);
+            alsaqr_periph_padframe_periphs_b_26_mux_set(2);
+            alsaqr_periph_padframe_periphs_b_27_mux_set(2);
+            alsaqr_periph_padframe_periphs_b_28_mux_set(2);
+            alsaqr_periph_padframe_periphs_b_29_mux_set(2);
+            alsaqr_periph_padframe_periphs_b_30_mux_set(3);
+            alsaqr_periph_padframe_periphs_b_31_mux_set(3);
+            alsaqr_periph_padframe_periphs_b_32_mux_set(2);
+            alsaqr_periph_padframe_periphs_b_33_mux_set(2);
+            alsaqr_periph_padframe_periphs_b_34_mux_set(2);
+            alsaqr_periph_padframe_periphs_b_35_mux_set(2);
+            alsaqr_periph_padframe_periphs_b_36_mux_set(3);
+            alsaqr_periph_padframe_periphs_b_37_mux_set(3);
+            alsaqr_periph_padframe_periphs_b_38_mux_set(2);
+            alsaqr_periph_padframe_periphs_b_39_mux_set(2);
+            alsaqr_periph_padframe_periphs_b_40_mux_set(2);
+            alsaqr_periph_padframe_periphs_b_41_mux_set(2);
+            alsaqr_periph_padframe_periphs_b_42_mux_set(3);
+            alsaqr_periph_padframe_periphs_b_43_mux_set(3);
+            alsaqr_periph_padframe_periphs_b_44_mux_set(2);
+            alsaqr_periph_padframe_periphs_b_45_mux_set(2);
+            alsaqr_periph_padframe_periphs_b_46_mux_set(2);
+            alsaqr_periph_padframe_periphs_b_47_mux_set(2);
+            break;
+        }
+      #endif
+    #endif
 
-    /*configure_gpio( 5 , IN );
-    configure_gpio( 6 , IN );
-    configure_gpio( 7 , IN );
+    uint32_t gpio_a_irq_id = 179;
+    uint32_t gpio_b_irq_id = 188;
+    uint32_t gpio_a_imsic_id = 1;
+    uint32_t gpio_b_imsic_id = 2;
 
-    configure_gpio( 37 , OUT );
-    configure_gpio( 38 , OUT );
-    configure_gpio( 39 , OUT );*/
+    switch(v){
+      // pad_a GPIOs
+      case 0:
+        aplic_init();
+        imsic_init();
+        config_irq_aplic(gpio_a_irq_id, gpio_a_imsic_id, 0);
+        for(int i = 0; i < NUM_GPIOS_A/2; i++) {
+          configure_gpio( i , OUT );
+          #if VERBOSE > 1
+            printf("gpio_a_%0d direction: %s\n", i, "OUT");
+          #endif
+        }
+        for(int i = NUM_GPIOS_A/2; i < NUM_GPIOS_A; i++) {
+          configure_gpio( i , IN );
+          #if VERBOSE > 1
+            printf("gpio_a_%0d direction: %s\n", i, "IN");
+          #endif
+        }
+        irq_configure(15, 1);
+        printf("Start pad_a GPIOs...\n");
 
-  }
-  
-  gpio_val=1;
-  printf("Start...\n");
+        gpio_val=1;
+        for (int j = 0; j < 10; j++){
+          for(int i = 0; i < NUM_GPIOS_A/2; i++) {
+            set_gpio( i , gpio_val);
+            #if VERBOSE > 5
+              printf("gpio_a_%0d value: %0d\n", i, gpio_val);
+            #endif
+          }
+          for(int i = NUM_GPIOS_A/2; i < NUM_GPIOS_A; i++) {
+            if(i==15) {
+              asm volatile ("wfi");
+              imsic_intp_arrive(gpio_a_imsic_id);
+              read_gpio_intstatus(15);
+              CSRW(CSR_MTOPEI, 0);
+              aplic_reset(gpio_a_imsic_id);
+            }
 
-  for (int i=0; i<100; i++){
-    if(simple==1){
-      //TEST FOR SIMPLE PADFRAME AND FPGA
-      set_gpio(6,gpio_val);
-      if (gpio_val!=get_gpio(7))
-        error[0]++;
-    }else{
-      //TEST FOR FULL PADFRAME
-      
-      set_gpio(5,gpio_val);
-      set_gpio(6,gpio_val);  
-      set_gpio(7,gpio_val);
-      
-      if (gpio_val!=get_gpio(37))
-        error[0]++;
-      if (gpio_val!=get_gpio(38))
-        error[1]++;
-      if (gpio_val!=get_gpio(39))
-        error[2]++;
+            if(get_gpio(i) != gpio_val){
+              printf("ERROR: gpio_a_%0d value != %0d\n", i, gpio_val);
+              error++;
+            }
 
-      /*set_gpio(37,gpio_val);
-      set_gpio(38,gpio_val);  
-      set_gpio(39,gpio_val);
-      
-      if (gpio_val!=get_gpio(5))
-        error[0]++;
-      if (gpio_val!=get_gpio(6))
-        error[1]++;
-      if (gpio_val!=get_gpio(7))
-        error[2]++;*/
+          }
+          gpio_val=!gpio_val;
+        }
+        break;
+
+
+
+      // pad_b GPIOs
+      case 1:
+        aplic_init();
+        imsic_init();
+        config_irq_aplic(gpio_b_irq_id, gpio_b_imsic_id, 0);
+        for(int i = 0; i < NUM_GPIOS_B/2; i++) {
+          configure_gpio( i , OUT );
+          #if VERBOSE > 1
+            printf("gpio_b_%0d direction: %s\n", i, "OUT");
+          #endif
+        }
+        for(int i = NUM_GPIOS_B/2; i < NUM_GPIOS_B; i++) {
+          configure_gpio( i , IN );
+          #if VERBOSE > 1
+            printf("gpio_b_%0d direction: %s\n", i, "IN");
+          #endif
+        }
+        irq_configure(24, 1);
+
+        printf("Start pad_b GPIOs...\n");
+        gpio_val=1;
+        for (int j = 0; j < 10; j++){
+          for(int i = 0; i < NUM_GPIOS_B/2; i++) {
+            set_gpio( i , gpio_val);
+            #if VERBOSE > 5
+              printf("gpio_b_%0d value: %0d\n", i, gpio_val);
+            #endif
+          }
+
+          for(int i = NUM_GPIOS_B/2; i < NUM_GPIOS_B; i++) {
+            if(i==24) {
+              asm volatile ("wfi");
+              imsic_intp_arrive(gpio_b_imsic_id);
+              read_gpio_intstatus(24);
+              CSRW(CSR_MTOPEI, 0);
+              aplic_reset(gpio_b_imsic_id);
+            }
+
+            if(get_gpio(i) != gpio_val){
+              printf("ERROR: gpio_b_%0d value != %0d\n", i, gpio_val);
+              error++;
+            }
+          }
+          gpio_val=!gpio_val;
+        }
+        break;
     }
-    gpio_val=!gpio_val;
   }
 
-  if (error[0]+error[1]+error[2]!=0)
-    printf ("TEST GPIO FAIL with: %d %d %d\n", error[0], error[1], error[2]);
+  if(!error)
+    printf("Test PASSED\n\r");
   else
-    printf ("TEST GPIO PASSED\n");
-
-  uart_wait_tx_done();  
-  return error[0]+error[1]+error[2];
+    printf("Test FAILED\n\r");
+  return error;
 }
