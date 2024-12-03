@@ -38,7 +38,7 @@ if [ "$MAIN_MEM" = "1" ]; then
         export ETH2FMC_NO_PAD="0"
     elif [ "$OT" = "n" ]; then
         export USE_OT="0"
-        export ETH2FMC_NO_PAD="1"
+        export ETH2FMC_NO_PAD="0"
     fi
 elif [ "$MAIN_MEM" = "2" ]; then
     export MAIN_MEM="HYPER"
