@@ -96,21 +96,6 @@ void aplic_trigger_intp(uint8_t intp_id){
 }
 
 
-void imsic_en_intp(uint8_t intp_id, uint8_t imsic_id, uint8_t core_id){
-  uint32_t prev_val = 0;
-  /** Config intp TARGET by writing target reg */
-  // Im writing EEID to target. Only for MSI mode
-  pulp_write32(APLICM_ADDR+(TARGET_OFF+(0x4*(intp_id-1))), (core_id << 18) | (0 << 12) | imsic_id);
-  CSRW(CSR_MISELECT, IMSIC_EIE);
-  prev_val = CSRR(CSR_MIREG);
-  CSRW(CSR_MIREG, prev_val | (1 << imsic_id));
-}
-
-void config_irq_aplic(uint8_t intp_id, uint8_t imsic_id, uint8_t core_id){
-  config_intp(intp_id);
-  imsic_en_intp(intp_id,imsic_id,core_id);
-}
-
 bool imsic_intp_arrive(uint8_t intp_id){
   bool cond_ctl = false;
   do
