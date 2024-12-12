@@ -293,19 +293,19 @@ module cva6_subsystem
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
   ) i_dm_axi2mem (
-    .clk_i      ( clk_i                     ),
-    .rst_ni     ( rst_ni                    ),
-    .slave      ( master[ariane_soc::Debug] ),
-    .req_o      ( dm_slave_req              ),
-    .we_o       ( dm_slave_we               ),
-    .addr_o     ( dm_slave_addr             ),
-    .be_o       ( dm_slave_be               ),
-    .data_o     ( dm_slave_wdata            ),
-    .data_i     ( dm_slave_rdata            )
+    .clk_i      ( clk_i                         ),
+    .rst_ni     ( rst_ni                        ),
+    .slave      ( master[ariane_soc::Debug_Slv] ),
+    .req_o      ( dm_slave_req                  ),
+    .we_o       ( dm_slave_we                   ),
+    .addr_o     ( dm_slave_addr                 ),
+    .be_o       ( dm_slave_be                   ),
+    .data_o     ( dm_slave_wdata                ),
+    .data_i     ( dm_slave_rdata                )
   );
 
-  `AXI_ASSIGN_FROM_REQ(slave[1],dm_axi_m_req)
-  `AXI_ASSIGN_TO_RESP(dm_axi_m_resp,slave[1])
+  `AXI_ASSIGN_FROM_REQ(slave[ariane_soc::DEBUG_MST],dm_axi_m_req)
+  `AXI_ASSIGN_TO_RESP(dm_axi_m_resp,slave[ariane_soc::DEBUG_MST])
 
   axi_adapter #(
     .CVA6Cfg               (cv64a6_imafdch_wb_sv39_alsaqr_pkg::ArianeSocCfg),
@@ -413,8 +413,8 @@ module cva6_subsystem
   // AXI OpenTitan Master
   // ---------------
 
-  `AXI_ASSIGN_FROM_REQ(slave[3], ot_axi_req)
-  `AXI_ASSIGN_TO_RESP (ot_axi_rsp, slave[3])
+  `AXI_ASSIGN_FROM_REQ(slave[ariane_soc::ROT], ot_axi_req)
+  `AXI_ASSIGN_TO_RESP (ot_axi_rsp, slave[ariane_soc::ROT])
 
   // ---------------
   // AXI hyperbus Slave
@@ -472,7 +472,7 @@ module cva6_subsystem
   // AXI CLUSTER Slave
   // ---------------
 
-  `AXI_ASSIGN(cluster_axi_master_cut,master[ariane_soc::Cluster])
+  `AXI_ASSIGN(cluster_axi_master_cut,master[ariane_soc::Cluster_Slv])
 
   axi_cut_intf #(
     .BYPASS     ( 1'b0                     ),
@@ -490,22 +490,22 @@ module cva6_subsystem
   // ---------------
   // AXI CLUSTER Master
   // ---------------
-  `AXI_ASSIGN(slave[2],cluster_axi_slave)
+  `AXI_ASSIGN(slave[ariane_soc::CLUSTER_MST], cluster_axi_slave)
 
   // ---------------
   // AXI uDMA TX L3 Master (READ ONLY from MEM)
   // ---------------
-  `AXI_ASSIGN(slave[4],udma_tx_l3_axi_slave)
+  `AXI_ASSIGN(slave[ariane_soc::UDMA_TX], udma_tx_l3_axi_slave)
 
   // ---------------
   // AXI uDMA RX L3 Master (WRITE ONLY to MEM)
   // ---------------
-  `AXI_ASSIGN(slave[5],udma_rx_l3_axi_slave)
-  
+  `AXI_ASSIGN(slave[ariane_soc::UDMA_RX],udma_rx_l3_axi_slave)
+
   // ---------------
   // AXI ETHERNET-IDMA Master
   // ---------------
-  `AXI_ASSIGN(slave[6],ethernet_idma_master)
+  `AXI_ASSIGN(slave[ariane_soc::ETH_IDMA],ethernet_idma_master)
 
   // ---------------
   // AXI Xbar
@@ -528,8 +528,8 @@ module cva6_subsystem
 
   ariane_soc::addr_map_rule_t [ariane_soc::NB_PERIPHERALS:0] addr_map; // One extra for the LLCSPM
 
- assign addr_map[ariane_soc::Debug] = '{
-    idx:  ariane_soc::Debug,
+ assign addr_map[ariane_soc::Debug_Slv] = '{
+    idx:  ariane_soc::Debug_Slv,
     start_addr: ariane_soc::DebugBase,
     end_addr:   ariane_soc::DebugBase    + ariane_soc::DebugLength
   };
@@ -552,8 +552,8 @@ module cva6_subsystem
     end_addr:   ariane_soc::PLICBase     + ariane_soc::PLICLength
   };
 
-  assign addr_map[ariane_soc::Cluster] = '{
-    idx:  ariane_soc::Cluster,
+  assign addr_map[ariane_soc::Cluster_Slv] = '{
+    idx:  ariane_soc::Cluster_Slv,
     start_addr: ariane_soc::ClusterBase,
     end_addr:   ariane_soc::ClusterBase     + ariane_soc::ClusterLength
   };
@@ -582,6 +582,12 @@ module cva6_subsystem
     end_addr:   ariane_soc::SPIBase      + ariane_soc::SPILength
   };
 
+  assign addr_map[ariane_soc::IMSIC] = '{
+    idx:  ariane_soc::IMSIC,
+    start_addr: ariane_soc::IMSICBase,
+    end_addr:   ariane_soc::IMSICBase    + ariane_soc::IMSICLength
+  };
+
   assign addr_map[ariane_soc::Ethernet] = '{
     idx:  ariane_soc::Ethernet,
     start_addr: ariane_soc::EthernetBase,
@@ -592,6 +598,30 @@ module cva6_subsystem
     idx:  ariane_soc::UART,
     start_addr: ariane_soc::UARTBase,
     end_addr:   ariane_soc::UARTBase     + ariane_soc::UARTLength
+  };
+
+  assign addr_map[ariane_soc::SDMA_CFG] = '{ 
+    idx:        ariane_soc::SDMA_CFG,
+    start_addr: ariane_soc::SDMABase,
+    end_addr:   ariane_soc::SDMABase + ariane_soc::SDMALength
+  };
+
+  assign addr_map[ariane_soc::IOMMU_CFG] = '{
+    idx:        ariane_soc::IOMMU_CFG,
+    start_addr: ariane_soc::IOMMUBase,
+    end_addr:   ariane_soc::IOMMUBase + ariane_soc::IOMMULength
+  };
+
+  assign addr_map[ariane_soc::MDMA_CFG] = '{ 
+    idx:        ariane_soc::MDMA_CFG,
+    start_addr: ariane_soc::MDMABase,
+    end_addr:   ariane_soc::MDMABase + ariane_soc::MDMALength
+  };
+
+  assign addr_map[ariane_soc::IOPMP_CFG] = '{
+    idx:        ariane_soc::IOPMP_CFG,
+    start_addr: ariane_soc::IOPMPBase,
+    end_addr:   ariane_soc::IOPMPBase + ariane_soc::IOPMPLength
   };
 
   assign addr_map[ariane_soc::AXILiteDom] = '{
@@ -678,7 +708,9 @@ module cva6_subsystem
   // Peripherals
   // ---------------
   logic tx, rx;
-  logic [ariane_soc::NumCVA6-1:0][1:0] irqs;
+  logic [ariane_soc::NumCVA6-1:0][ariane_pkg::NrIntpFiles-1:0]    irqs;
+  imsic_pkg::csr_channel_to_imsic_t   [ariane_soc::NumCVA6-1:0]   ch_csr_to_imsic; 
+  imsic_pkg::csr_channel_from_imsic_t [ariane_soc::NumCVA6-1:0]   ch_imsic_to_csr;
 
   ariane_peripherals #(
     .NumCVA6      ( ariane_soc::NumCVA6      ),
@@ -696,12 +728,16 @@ module cva6_subsystem
     .InclSPI      ( 1'b0                     ),
 `endif
 `ifdef ETH2FMC_NO_PADFRAME
-    .InclEthernet ( 1'b1                     )
+    .InclEthernet ( 1'b1                     ),
 `elsif INCLUDE_ETHERNET
-    .InclEthernet ( 1'b1                     )
+    .InclEthernet ( 1'b1                     ),
 `else
-    .InclEthernet ( 1'b0                     )
+    .InclEthernet ( 1'b0                     ),
 `endif
+    .InclSDMA     ( 1'b1                     ),
+    .InclIOMMU    ( 1'b1                     ),
+    .InclMDMA     ( 1'b1                     ),
+    .InclIOPMP    ( 1'b1                     )
   ) i_ariane_peripherals (
     .clk_i           ( clk_i                        ),
     .rst_ni          ( ndmreset_n                   ),
@@ -720,13 +756,25 @@ module cva6_subsystem
     .irq_o           ( irqs                         ),
     .rx_i            ( cva6_uart_rx_i               ),
     .tx_o            ( cva6_uart_tx_o               ),
+    .sdma_cfg        ( master[ariane_soc::SDMA_CFG]  ),
+    .iommu_comp      ( slave[ariane_soc::IOMMU_COMP] ),
+    .iommu_ds        ( slave[ariane_soc::IOMMU_DS]   ),
+    .iommu_cfg       ( master[ariane_soc::IOMMU_CFG] ),
+    .mdma_cfg        ( master[ariane_soc::MDMA_CFG]  ),
+    .iopmp_init      ( slave[ariane_soc::IOPMP_INIT] ),
+    .iopmp_cfg       ( master[ariane_soc::IOPMP_CFG] ),
+    .imsic           ( master[ariane_soc::IMSIC]     ),
+    .imsic_csr_i     ( ch_csr_to_imsic               ),
+    .imsic_csr_o     ( ch_imsic_to_csr               ),
+
 
     .eth_clk_i        ( eth_clk_i                   ),
     .eth_phy_tx_clk_i ( eth_phy_tx_clk_i            ),
     .eth_clk_300MHz_i ( eth_clk_300MHz_i            ),
 
-    .eth_to_pad       ( eth_to_pad                  ),
-    .pad_to_eth       ( pad_to_eth                  ),
+
+    .eth_to_pad       ( eth_to_pad                    ),
+    .pad_to_eth       ( pad_to_eth                    ),
 
     .irq_mbox_i
   );
@@ -739,6 +787,8 @@ module cva6_subsystem
     .clk_i                ( cva6_clk_i                  ),
     .rst_ni               ( cva6_rst_ni                 ),
     .boot_addr_i          ( ariane_soc::ROMBase         ), // start fetching from ROM
+    .imsic_csr_i          ( ch_imsic_to_csr             ),
+    .imsic_csr_o          ( ch_csr_to_imsic             ),
     .irq_i                ( irqs                        ), // async signal
     .ipi_i                ( ipi                         ), // async signal
     .time_irq_i           ( timer_irq                   ), // async signal
