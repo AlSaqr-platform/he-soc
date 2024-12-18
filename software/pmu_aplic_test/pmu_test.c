@@ -3,6 +3,11 @@
 #include <stdlib.h>
 #include "utils.h"
 #include "pmu_test_func.c"
+#include "aplic.h"
+
+
+#define APLIC_IRQ_ID 156 // Kept it as a safe number for PMU to be in range with irq_sources & APLIC_ID
+#define APLIC_IMSIC_ID 1  // Kept it as 1
 
 // The CUA will always miss in the L1 but after one run of the loop, it will never miss in the LLC.
 #define NUM_NON_CUA 3
@@ -48,7 +53,13 @@ int main(int argc, char const *argv[]) {
   volatile uint32_t read_target_2;
   volatile uint32_t read_target_3;
 
-  
+  // ************************************************************************
+  // APLIC Code
+  aplic_init();
+  imsic_init();
+
+  config_irq_aplic(APLIC_IRQ_ID,APLIC_IMSIC_ID);
+  // ************************************************************************
 
   uint32_t mhartid;
   asm volatile (
@@ -84,30 +95,17 @@ int main(int argc, char const *argv[]) {
 
     uint32_t event_info_val = OVERFLOW_EN; 
     // Counter 0:
-    // write_32b (EVENT_INFO_BASE_ADDR, event_info_val);
-    // write_32b (COUNTER_BASE_ADDR, 0x40000000);
+    write_32b (EVENT_INFO_BASE_ADDR, event_info_val);
+    write_32b (COUNTER_BASE_ADDR, 0x40000000);
     // Counter 1:
     // write_32b (EVENT_INFO_BASE_ADDR + COUNTER_BUNDLE_SIZE, event_info_val);
     // write_32b (COUNTER_BASE_ADDR + COUNTER_BUNDLE_SIZE, 0x40000000);
-
-    for (uint32_t i = 0; i<8; i++) {
-      write_32b (EVENT_INFO_BASE_ADDR + (COUNTER_BUNDLE_SIZE*i), event_info_val);
-      write_32b (COUNTER_BASE_ADDR + (COUNTER_BUNDLE_SIZE*i), 0x40000000);
-    }
-    
-    
-    // counter_b_t ct;
-    // for (uint32_t i=0; i<8; i++) {
-    //  ct.counter    = i*1;
-    //  ct.event_sel  = i*2;
-    //  ct.event_info = i*4;
-
-    // write_counter_b(COUNTER_B_BASE_ADDR + COUNTER_BUNDLE_SIZE*i, ct);
-    // }
-
-    // uint32_t error = test_pmu_core_bubble_sort(ISPM_BASE_ADDR, DSPM_BASE_ADDR, PMC_STATUS_ADDR, 10, 2);
-
-    // printf("Error: %d\r\n", error);
+    // Setting overflow for all the counters
+    //for (uint32_t i = 0; i<8; i++) {
+    //  write_32b (EVENT_INFO_BASE_ADDR + (COUNTER_BUNDLE_SIZE*i), event_info_val);
+    //  write_32b (COUNTER_BASE_ADDR + (COUNTER_BUNDLE_SIZE*i), 0x40000000);
+    //  printf("PMU raising %d :)\r\n", i);
+    //}
     end_test(mhartid);
     uart_wait_tx_done();
 
@@ -121,15 +119,7 @@ int main(int argc, char const *argv[]) {
     write_32b(DSPM_BASE_ADDR+0x24+mhartid*0x4, 1);
 
     while (1) {
-      // volatile uint64_t *array = (uint64_t*)(uint64_t)(0x83000000 + mhartid * 0x01000000);
-      // for (int a_idx = 0; a_idx < 262144; a_idx +=8) {
-      //     var = a_idx;
-      //     asm volatile (
-      //       "sd   %0, 0(%1)\n"
-      //       :: "r"(var),
-      //           "r"(array - a_idx)
-      //     );
-      // } 
+      
     }
     
   } else {
@@ -137,6 +127,10 @@ int main(int argc, char const *argv[]) {
     uart_wait_tx_done();
     while (1);
   }
-  
+  printf("This is a line before wfi! :)\r\n");
+  asm volatile ("wfi");
+  printf("This is a line after wfi! :)\r\n");
+  printf("Test Succeeded!!!\r\n");
+  uart_wait_tx_done();
   return 0;
 }
