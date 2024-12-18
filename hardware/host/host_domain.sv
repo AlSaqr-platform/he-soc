@@ -18,7 +18,7 @@
 `include "axi/assign.svh"
 `include "axi/typedef.svh"
 `include "common_cells/registers.svh"
-`define APMU_IOPMP
+// `define APMU_IOPMP
 `define APMU_IP
 
 module host_domain
@@ -436,9 +436,9 @@ module host_domain
    `AXI_LITE_ASSIGN_FROM_RESP(llc_cfg_bus,axi_llc_cfg_res)
 
     axi_llc_top #(
-      .SetAssociativity ( NUM_WAYS                       ),
-      .NumLines         ( NUM_LINES                      ),
-      .NumBlocks        ( NUM_BLOCKS                     ),
+      .SetAssociativity ( ariane_soc::LLC_SET_ASSOC      ),
+      .NumLines         ( ariane_soc::LLC_NUM_LINES      ),
+      .NumBlocks        ( ariane_soc::LLC_NUM_BLOCKS     ),
       .AxiIdWidth       ( ariane_soc::IdWidthSlave       ),
       .AxiAddrWidth     ( AXI_ADDRESS_WIDTH              ),
       .AxiDataWidth     ( AXI_DATA_WIDTH                 ),
@@ -565,6 +565,8 @@ module host_domain
   `else // !`ifdef APMU_IOPMP
 
    `AXI_ASSIGN(iopmp_mst, axi_iopmp_rp)
+   `AXI_LITE_ASSIGN_FROM_REQ(axi_lite_pmu_32,pmu_master_req)
+   `AXI_LITE_ASSIGN_TO_RESP(pmu_master_res, axi_lite_pmu_32)
 
   `endif
 
@@ -711,8 +713,8 @@ module host_domain
      .ISPM_NUM_WORDS   ( 128                            ),
      .DSPM_NUM_WORDS   ( 1024                           ),
      // APMU Addresses and SPM configuration
-     .MEMORY_BASE_ADDR ( ariane_soc::HYAXIBase          ),
-     .MEMORY_LENGTH    ( ariane_soc::HYAXILength        ),
+     .MEMORY_BASE_ADDR ( ariane_soc::L2SPMBase          ),
+     .MEMORY_LENGTH    ( ariane_soc::L2SPMBase + ariane_soc::L2SPMLength        ),
      .req_lite_t       ( ariane_axi_soc::req_lite_t     ),
      .resp_lite_t      ( ariane_axi_soc::resp_lite_t    ),
      .aw_chan_lite_t   ( ariane_axi_soc::aw_chan_lite_t ),
