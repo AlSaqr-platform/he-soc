@@ -131,8 +131,15 @@ void _init(int cid, int nc)
      #ifndef FPGA_EMULATION
      set_flls();
      #endif
-     /* Enable IRQ to core 1 */
-     imsic_en_intp(10,10,1);
+     /* Set plic mbox IRQ priority to 1 */
+     tmp = (int *) 0xC000028;
+     *tmp = 0x1;
+     /* Disable interrupt from mbox scmi to core 0 */
+     tmp = (int *) 0xC002080;
+     *tmp = 0;
+     /* Disable interrupt from mbox scmi to core 1 */
+     tmp = (int *) 0xC002180;
+     *tmp = 0x400;
      /* Write .text.init address in the mailbox */
      tmp = (int *) 0x10404000;
      *tmp = 0x80000000;

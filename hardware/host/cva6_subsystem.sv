@@ -809,9 +809,11 @@ module cva6_subsystem
   // Peripherals
   // ---------------
   logic tx, rx;
-  logic [ariane_soc::NumCVA6-1:0][ariane_pkg::NrIntpFiles-1:0]    irqs;
+  logic [ariane_soc::NumCVA6-1:0][1:0] irqs;
+  `ifdef USE_APLIC
   imsic_pkg::csr_channel_to_imsic_t   [ariane_soc::NumCVA6-1:0]   ch_csr_to_imsic;
   imsic_pkg::csr_channel_from_imsic_t [ariane_soc::NumCVA6-1:0]   ch_imsic_to_csr;
+  `endif
 
   ariane_peripherals #(
     .NumCVA6      ( ariane_soc::NumCVA6      ),
@@ -857,8 +859,10 @@ module cva6_subsystem
     .iopmp_init       ( slave[ariane_soc::IOPMP_INIT] ),
     .iopmp_cfg        ( master[ariane_soc::IOPMP_CFG] ),
     .imsic            ( master[ariane_soc::IMSIC]     ),
+ `ifdef USE_APLIC
     .imsic_csr_i      ( ch_csr_to_imsic               ),
     .imsic_csr_o      ( ch_imsic_to_csr               ),
+ `endif
     .irq_o            ( irqs                          ),
     .udma_evt_i       ( udma_events_i                 ),
     .cluster_eoc_i    ( cluster_eoc_i                 ),
@@ -897,8 +901,10 @@ module cva6_subsystem
     .clk_i                ( cva6_clk_i                  ),
     .rst_ni               ( cva6_rst_ni                 ),
     .boot_addr_i          ( ariane_soc::ROMBase         ), // start fetching from ROM
+  `ifdef USE_APLIC
     .imsic_csr_i          ( ch_imsic_to_csr             ),
     .imsic_csr_o          ( ch_csr_to_imsic             ),
+  `endif
     .irq_i                ( irqs                        ), // async signal
     .ipi_i                ( ipi                         ), // async signal
     .time_irq_i           ( timer_irq                   ), // async signal
