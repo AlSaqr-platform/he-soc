@@ -11,12 +11,11 @@ _start:
     # That will park all 32-bit cores since it isn't a supported instruction.
     lwu   t0, main
     call  main
+exception:
+    wfi
+    j     exception
 entry_addr:
     .word exception
-
-exception:
-    j     handle_trap
-
 .align 3
 .globl device_tree
 device_tree:
