@@ -53,11 +53,11 @@ module cva6_synth_wrap
   localparam B_WIDTH_SLV        = AXI_USER_WIDTH+AXI_ID_WIDTH_SLV+$bits(axi_pkg::resp_t),
   localparam AR_WIDTH_SLV       = AXI_ID_WIDTH_SLV+AXI_ADDR_WIDTH+AXI_USER_WIDTH+$bits(axi_pkg::len_t)+$bits(axi_pkg::size_t)+$bits(axi_pkg::burst_t)+$bits(axi_pkg::cache_t)+$bits(axi_pkg::prot_t)+$bits(axi_pkg::qos_t)+$bits(axi_pkg::region_t)+1,
 
-  localparam AW_WIDTH_LITE  = AXI_LITE_ADDR_WIDTH + $bits(axi_pkg::prot_t),
-  localparam W_WIDTH_LITE   = AXI_LITE_DATA_WIDTH + AXI_LITE_STRB_WIDTH,
-  localparam B_WIDTH_LITE   = $bits(axi_pkg::resp_t),
-  localparam R_WIDTH_LITE   = AXI_LITE_DATA_WIDTH + $bits(axi_pkg::resp_t),
-  localparam AR_WIDTH_LITE  = AXI_LITE_ADDR_WIDTH + $bits(axi_pkg::prot_t),
+  localparam AW_WIDTH_SLV_32    = AXI_ID_WIDTH_SLV+AXI_LITE_ADDR_WIDTH+AXI_USER_WIDTH+$bits(axi_pkg::len_t)+$bits(axi_pkg::size_t)+$bits(axi_pkg::burst_t)+$bits(axi_pkg::cache_t)+$bits(axi_pkg::prot_t)+$bits(axi_pkg::qos_t)+$bits(axi_pkg::region_t)+$bits(axi_pkg::atop_t)+1,
+  localparam W_WIDTH_SLV_32     = AXI_USER_WIDTH+AXI_LITE_STRB_WIDTH+AXI_LITE_DATA_WIDTH+1,
+  localparam R_WIDTH_SLV_32     = AXI_ID_WIDTH_SLV+AXI_LITE_DATA_WIDTH+AXI_USER_WIDTH+$bits(axi_pkg::resp_t)+1,
+  localparam B_WIDTH_SLV_32     = AXI_USER_WIDTH+AXI_ID_WIDTH_SLV+$bits(axi_pkg::resp_t),
+  localparam AR_WIDTH_SLV_32    = AXI_ID_WIDTH_SLV+AXI_LITE_ADDR_WIDTH+AXI_USER_WIDTH+$bits(axi_pkg::len_t)+$bits(axi_pkg::size_t)+$bits(axi_pkg::burst_t)+$bits(axi_pkg::cache_t)+$bits(axi_pkg::prot_t)+$bits(axi_pkg::qos_t)+$bits(axi_pkg::region_t)+1,
 
   localparam SPU_CORE_WIDTH     = $bits(pmu_pkg::pmu_event_t),
 
@@ -67,11 +67,11 @@ module cva6_synth_wrap
   localparam ASYNC_AR_DATA_WIDTH = (2**LOG_DEPTH)*AR_WIDTH,
   localparam ASYNC_R_DATA_WIDTH  = (2**LOG_DEPTH)*R_WIDTH,
 
-  localparam ASYNC_LITE_AW_DATA_WIDTH = (2**LOG_DEPTH)*AW_WIDTH_LITE,
-  localparam ASYNC_LITE_W_DATA_WIDTH  = (2**LOG_DEPTH)*W_WIDTH_LITE,
-  localparam ASYNC_LITE_B_DATA_WIDTH  = (2**LOG_DEPTH)*B_WIDTH_LITE,
-  localparam ASYNC_LITE_AR_DATA_WIDTH = (2**LOG_DEPTH)*AR_WIDTH_LITE,
-  localparam ASYNC_LITE_R_DATA_WIDTH  = (2**LOG_DEPTH)*R_WIDTH_LITE,
+  localparam ASYNC_32_AW_DATA_WIDTH = (2**LOG_DEPTH)*AW_WIDTH_SLV_32,
+  localparam ASYNC_32_W_DATA_WIDTH  = (2**LOG_DEPTH)*W_WIDTH_SLV_32,
+  localparam ASYNC_32_B_DATA_WIDTH  = (2**LOG_DEPTH)*B_WIDTH_SLV_32,
+  localparam ASYNC_32_AR_DATA_WIDTH = (2**LOG_DEPTH)*AR_WIDTH_SLV_32,
+  localparam ASYNC_32_R_DATA_WIDTH  = (2**LOG_DEPTH)*R_WIDTH_SLV_32,
 
   localparam ASYNC_AW_DATA_WIDTH_SLV = (2**LOG_DEPTH)*AW_WIDTH_SLV,
   localparam ASYNC_W_DATA_WIDTH_SLV  = (2**LOG_DEPTH)*W_WIDTH_SLV,
@@ -133,29 +133,29 @@ module cva6_synth_wrap
   //***************************************
 
   // WRITE ADDRESS CHANNEL
-  input logic [LOG_DEPTH:0]                   snooper_lite_cfg_aw_wptr_i,
-  input logic [ASYNC_LITE_AW_DATA_WIDTH-1:0]  snooper_lite_cfg_aw_data_i,
-  output logic [LOG_DEPTH:0]                  snooper_lite_cfg_aw_rptr_o,
+  input logic [LOG_DEPTH:0]                   snooper_32_cfg_aw_wptr_i,
+  input logic [ASYNC_32_AW_DATA_WIDTH-1:0]    snooper_32_cfg_aw_data_i,
+  output logic [LOG_DEPTH:0]                  snooper_32_cfg_aw_rptr_o,
 
   // READ ADDRESS CHANNEL
-  input logic [LOG_DEPTH:0]                   snooper_lite_cfg_ar_wptr_i,
-  input logic [ASYNC_LITE_AR_DATA_WIDTH-1:0]  snooper_lite_cfg_ar_data_i,
-  output logic [LOG_DEPTH:0]                  snooper_lite_cfg_ar_rptr_o,
+  input logic [LOG_DEPTH:0]                   snooper_32_cfg_ar_wptr_i,
+  input logic [ASYNC_32_AR_DATA_WIDTH-1:0]    snooper_32_cfg_ar_data_i,
+  output logic [LOG_DEPTH:0]                  snooper_32_cfg_ar_rptr_o,
 
   // WRITE DATA CHANNEL
-  input logic [LOG_DEPTH:0]                   snooper_lite_cfg_w_wptr_i,
-  input logic [ASYNC_LITE_W_DATA_WIDTH-1:0]   snooper_lite_cfg_w_data_i,
-  output logic [LOG_DEPTH:0]                  snooper_lite_cfg_w_rptr_o,
+  input logic [LOG_DEPTH:0]                   snooper_32_cfg_w_wptr_i,
+  input logic [ASYNC_32_W_DATA_WIDTH-1:0]     snooper_32_cfg_w_data_i,
+  output logic [LOG_DEPTH:0]                  snooper_32_cfg_w_rptr_o,
 
   // READ DATA CHANNEL
-  output logic [LOG_DEPTH:0]                  snooper_lite_cfg_r_wptr_o,
-  output logic [ASYNC_LITE_R_DATA_WIDTH-1:0]  snooper_lite_cfg_r_data_o,
-  input logic [LOG_DEPTH:0]                   snooper_lite_cfg_r_rptr_i,
+  output logic [LOG_DEPTH:0]                  snooper_32_cfg_r_wptr_o,
+  output logic [ASYNC_32_R_DATA_WIDTH-1:0]    snooper_32_cfg_r_data_o,
+  input logic [LOG_DEPTH:0]                   snooper_32_cfg_r_rptr_i,
 
   // WRITE RESPONSE CHANNEL
-  output logic [LOG_DEPTH:0]                  snooper_lite_cfg_b_wptr_o,
-  output logic [ASYNC_LITE_B_DATA_WIDTH-1:0]  snooper_lite_cfg_b_data_o,
-  input logic [LOG_DEPTH:0]                   snooper_lite_cfg_b_rptr_i,
+  output logic [LOG_DEPTH:0]                  snooper_32_cfg_b_wptr_o,
+  output logic [ASYNC_32_B_DATA_WIDTH-1:0]    snooper_32_cfg_b_data_o,
+  input logic [LOG_DEPTH:0]                   snooper_32_cfg_b_rptr_i,
 
   //***************************************
   // Snooper AXI Slave port
@@ -503,23 +503,30 @@ module cva6_synth_wrap
    ariane_axi_soc::req_lite_t  cfi_snooper_lite_cfg_req;
    ariane_axi_soc::resp_lite_t cfi_snooper_lite_cfg_rsp;
 
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH (AXI_LITE_ADDR_WIDTH),
+     .AXI_DATA_WIDTH (AXI_LITE_DATA_WIDTH)
+   ) cfi_snooper_32_cfg_slv_intf();
+
    AXI_LITE #(
      .AXI_ADDR_WIDTH (AXI_LITE_ADDR_WIDTH),
      .AXI_DATA_WIDTH (AXI_LITE_DATA_WIDTH)
-   ) cfi_snooper_lite_cfg_slv_intf();
+   ) cfi_snooper_32_lite_cfg_slv_intf();
 
-   AXI_LITE_ASYNC_GRAY #(
-     .AXI_ADDR_WIDTH (AXI_LITE_ADDR_WIDTH),
-     .AXI_DATA_WIDTH (AXI_LITE_DATA_WIDTH),
-     .LOG_DEPTH      ( 1    )
-   ) cfi_snooper_lite_cfg_slv_asynch();
+   AXI_BUS_ASYNC_GRAY #(
+     .AXI_ADDR_WIDTH ( AXI_LITE_ADDR_WIDTH ),
+     .AXI_DATA_WIDTH ( AXI_LITE_DATA_WIDTH ),
+     .AXI_ID_WIDTH   ( AXI_ID_WIDTH_SLV    ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH      ),
+     .LOG_DEPTH      ( 1                   )
+   ) cfi_snooper_32_cfg_slv_asynch();
 
-  AXI_BUS #(
-    .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH   ),
-    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH   ),
-    .AXI_ID_WIDTH   ( AXI_ID_WIDTH_SLV ),
-    .AXI_USER_WIDTH ( AXI_USER_WIDTH   )
-  ) cfi_snooper_axi_slv_intf();
+   AXI_BUS #(
+     .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH   ),
+     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH   ),
+     .AXI_ID_WIDTH   ( AXI_ID_WIDTH_SLV ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH   )
+   ) cfi_snooper_axi_slv_intf();
 
    AXI_BUS_ASYNC_GRAY #(
      .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH   ),
@@ -529,13 +536,13 @@ module cva6_synth_wrap
      .LOG_DEPTH      ( 1    )
    ) cfi_snooper_axi_slv_asynch();
 
-   `AXI_LITE_ASSIGN_TO_REQ(cfi_snooper_lite_cfg_req,cfi_snooper_lite_cfg_slv_intf)
-   `AXI_LITE_ASSIGN_FROM_RESP(cfi_snooper_lite_cfg_slv_intf,cfi_snooper_lite_cfg_rsp)
+   `AXI_LITE_ASSIGN_TO_REQ(cfi_snooper_lite_cfg_req,cfi_snooper_32_lite_cfg_slv_intf)
+   `AXI_LITE_ASSIGN_FROM_RESP(cfi_snooper_32_lite_cfg_slv_intf,cfi_snooper_lite_cfg_rsp)
 
    `AXI_ASSIGN_TO_REQ(cfi_snooper_axi_req,cfi_snooper_axi_slv_intf)
    `AXI_ASSIGN_FROM_RESP(cfi_snooper_axi_slv_intf,cfi_snooper_axi_rsp)
 
-   // AXI LITE interface
+   // AXI interface
    assign cfi_snooper_axi_slv_asynch.aw_wptr = snooper_slave_aw_wptr_i;
    assign cfi_snooper_axi_slv_asynch.aw_data = snooper_slave_aw_data_i;
    assign snooper_slave_aw_rptr_o = cfi_snooper_axi_slv_asynch.aw_rptr;
@@ -556,39 +563,41 @@ module cva6_synth_wrap
    assign snooper_slave_b_data_o = cfi_snooper_axi_slv_asynch.b_data;
    assign cfi_snooper_axi_slv_asynch.b_rptr = snooper_slave_b_rptr_i;
 
-   // AXI interface
-   assign cfi_snooper_lite_cfg_slv_asynch.aw_wptr = snooper_lite_cfg_aw_wptr_i;
-   assign cfi_snooper_lite_cfg_slv_asynch.aw_data = snooper_lite_cfg_aw_data_i;
-   assign snooper_lite_cfg_aw_rptr_o = cfi_snooper_lite_cfg_slv_asynch.aw_rptr;
+   // AXI Lite interface
+   assign cfi_snooper_32_cfg_slv_asynch.aw_wptr = snooper_32_cfg_aw_wptr_i;
+   assign cfi_snooper_32_cfg_slv_asynch.aw_data = snooper_32_cfg_aw_data_i;
+   assign snooper_32_cfg_aw_rptr_o = cfi_snooper_32_cfg_slv_asynch.aw_rptr;
 
-   assign cfi_snooper_lite_cfg_slv_asynch.ar_wptr = snooper_lite_cfg_ar_wptr_i;
-   assign cfi_snooper_lite_cfg_slv_asynch.ar_data = snooper_lite_cfg_ar_data_i;
-   assign snooper_lite_cfg_ar_rptr_o = cfi_snooper_lite_cfg_slv_asynch.ar_rptr;
+   assign cfi_snooper_32_cfg_slv_asynch.ar_wptr = snooper_32_cfg_ar_wptr_i;
+   assign cfi_snooper_32_cfg_slv_asynch.ar_data = snooper_32_cfg_ar_data_i;
+   assign snooper_32_cfg_ar_rptr_o = cfi_snooper_32_cfg_slv_asynch.ar_rptr;
 
-   assign cfi_snooper_lite_cfg_slv_asynch.w_wptr = snooper_lite_cfg_w_wptr_i;
-   assign cfi_snooper_lite_cfg_slv_asynch.w_data = snooper_lite_cfg_w_data_i;
-   assign snooper_lite_cfg_w_rptr_o = cfi_snooper_lite_cfg_slv_asynch.w_rptr;
+   assign cfi_snooper_32_cfg_slv_asynch.w_wptr = snooper_32_cfg_w_wptr_i;
+   assign cfi_snooper_32_cfg_slv_asynch.w_data = snooper_32_cfg_w_data_i;
+   assign snooper_32_cfg_w_rptr_o = cfi_snooper_32_cfg_slv_asynch.w_rptr;
 
-   assign snooper_lite_cfg_r_wptr_o = cfi_snooper_lite_cfg_slv_asynch.r_wptr;
-   assign snooper_lite_cfg_r_data_o = cfi_snooper_lite_cfg_slv_asynch.r_data;
-   assign cfi_snooper_lite_cfg_slv_asynch.r_rptr = snooper_lite_cfg_r_rptr_i;
+   assign snooper_32_cfg_r_wptr_o = cfi_snooper_32_cfg_slv_asynch.r_wptr;
+   assign snooper_32_cfg_r_data_o = cfi_snooper_32_cfg_slv_asynch.r_data;
+   assign cfi_snooper_32_cfg_slv_asynch.r_rptr = snooper_32_cfg_r_rptr_i;
 
-   assign snooper_lite_cfg_b_wptr_o = cfi_snooper_lite_cfg_slv_asynch.b_wptr;
-   assign snooper_lite_cfg_b_data_o = cfi_snooper_lite_cfg_slv_asynch.b_data;
-   assign cfi_snooper_lite_cfg_slv_asynch.b_rptr = snooper_lite_cfg_b_rptr_i;
+   assign snooper_32_cfg_b_wptr_o = cfi_snooper_32_cfg_slv_asynch.b_wptr;
+   assign snooper_32_cfg_b_data_o = cfi_snooper_32_cfg_slv_asynch.b_data;
+   assign cfi_snooper_32_cfg_slv_asynch.b_rptr = snooper_32_cfg_b_rptr_i;
 
-   axi_lite_cdc_dst_intf #( //mettere cdc src lite in cva6_subsystem
+   axi_cdc_dst_intf #(
      .AXI_ADDR_WIDTH ( AXI_LITE_ADDR_WIDTH ),
      .AXI_DATA_WIDTH ( AXI_LITE_DATA_WIDTH ),
+     .AXI_ID_WIDTH   ( AXI_ID_WIDTH_SLV    ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH      ),
      .LOG_DEPTH      ( 1                   )
-   ) cfi_snooper_cdc_dst_lite (
-       .dst_clk_i  ( clk_i                       ),
-       .dst_rst_ni ( rst_ni                      ),
-       .src        ( cfi_snooper_lite_cfg_slv_asynch ),
-       .dst        ( cfi_snooper_lite_cfg_slv_intf   )
+   ) cfi_snooper_cdc_dst_cfg (
+       .dst_clk_i  ( clk_i                         ),
+       .dst_rst_ni ( rst_ni                        ),
+       .src        ( cfi_snooper_32_cfg_slv_asynch ),
+       .dst        ( cfi_snooper_32_cfg_slv_intf   )
    );
 
-   axi_cdc_dst_intf #( //mettere cdc src in cva6_subsystem
+   axi_cdc_dst_intf #(
      .AXI_ID_WIDTH   ( AXI_ID_WIDTH_SLV ),
      .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH   ),
      .AXI_DATA_WIDTH ( AXI_DATA_WIDTH   ),
@@ -599,6 +608,19 @@ module cva6_synth_wrap
        .dst_rst_ni ( rst_ni                     ),
        .src        ( cfi_snooper_axi_slv_asynch ),
        .dst        ( cfi_snooper_axi_slv_intf   )
+   );
+
+   axi_to_axi_lite_intf #(
+     .AXI_ID_WIDTH   ( AXI_ID_WIDTH_SLV    ),
+     .AXI_ADDR_WIDTH ( AXI_LITE_ADDR_WIDTH ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH      ),
+     .AXI_DATA_WIDTH ( AXI_LITE_DATA_WIDTH )
+   ) axi_to_axi_lite_snooper (
+     .clk_i      ( clk_i                            ),
+     .rst_ni     ( rst_ni                           ),
+     .testmode_i ( '0                               ),
+     .slv        ( cfi_snooper_32_cfg_slv_intf      ),
+     .mst        ( cfi_snooper_32_lite_cfg_slv_intf )
    );
 
   //------------------
