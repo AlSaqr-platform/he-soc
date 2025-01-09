@@ -274,7 +274,6 @@
     asm volatile("csrc  " CSR_STR(csr) ", %0\n\r" ::"rK"(rs) : "memory")
 
 
-void imsic_en_intp(uint8_t intp_id, uint8_t imsic_id, uint8_t core_id){};
 
 #endif
 
