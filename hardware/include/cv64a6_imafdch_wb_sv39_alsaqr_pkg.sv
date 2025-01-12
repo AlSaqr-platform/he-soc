@@ -107,12 +107,16 @@ package cv64a6_imafdch_wb_sv39_alsaqr_pkg;
   };
 
   // AIA Config
-  localparam CVA6ConfigNrVSIntpFiles      = 2;
-  localparam CVA6ConfigNrVSIntpFilesW     = $clog2(CVA6ConfigNrVSIntpFiles);
-  localparam CVA6ConfigNrIntpFiles        = 2 + CVA6ConfigNrVSIntpFiles;
-  // multiple of 64, and may be a minimum of 64 and a maximum of 2048
+`ifdef USE_APLIC
+  localparam CVA6ConfigNrVSIntpFiles     = aia_pkg::UserNrVSIntpFiles;
+  localparam CVA6ConfigNrSourcesImsic    = aia_pkg::UserNrSourcesImsic;
+`else
+  localparam CVA6ConfigNrVSIntpFiles     = 2;
   localparam CVA6ConfigNrSourcesImsic    = 64;
-  localparam CVA6ConfigNrSourcesW       = $clog2(CVA6ConfigNrSourcesImsic);
+`endif
+  localparam CVA6ConfigNrVSIntpFilesW    = $clog2(CVA6ConfigNrVSIntpFiles);
+  localparam CVA6ConfigNrIntpFiles       = 2 + CVA6ConfigNrVSIntpFiles;
+  localparam CVA6ConfigNrSourcesW        = $clog2(CVA6ConfigNrSourcesImsic);
 
 endpackage // cv64a6_imafdch_wb_sv39_alsaqr_pkg
 
