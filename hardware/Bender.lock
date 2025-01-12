@@ -217,7 +217,7 @@ packages:
       Git: "git@github.com:alsaqr-platform/culsans.git"
     dependencies: []
   cva6:
-    revision: fd2726cebcd3012784cf1287863072cea9a42fc5
+    revision: 46332f874b0345e25e85930f4d1b2704083f83c8
     version: ~
     source:
       Git: "https://github.com/AlSaqr-platform/cva6.git"
@@ -616,6 +616,12 @@ packages:
     dependencies:
       - common_cells
       - udma_core
+  rv_plic:
+    revision: ~
+    version: ~
+    source:
+      Path: /scratch2/mciani/alsaqr-2/he-soc-master/hardware/deps/rv_plic
+    dependencies: []
   util:
     revision: ~
     version: ~

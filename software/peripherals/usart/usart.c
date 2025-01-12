@@ -23,14 +23,17 @@
 #include <stdint.h>
 #include "utils.h"
 #include "udma.h"
-#include "aplic.h"
 
 #include "udma_uart_v1.h"
 
 #define BUFFER_SIZE 16
 #define UART_BAUDRATE 115200
 #define N_USART 4
-#define CSR_MTOPEI 0x35C
+
+#define PLIC_BASE 0x0C000000
+#define PLIC_CHECK PLIC_BASE + 0x201004
+//enable bits for sources 0-31
+#define PLIC_EN_BITS  PLIC_BASE + 0x2080
 
 /*******************************************************************************
 **                             IMPORTANT                                      **
@@ -78,12 +81,10 @@ int main()
   int *tx_buffer= (int*) 0x1C001000;
 
   //int rx_buffer[BUFFER_SIZE];
-  int *rx_buffer= (int*) 0x1C002000;   // L2
+  int *rx_buffer= (int*) 0x1C002000;
 
   uint32_t tx_usart_plic_id ;
   uint32_t rx_usart_plic_id ; 
-  uint32_t tx_usart_imsic_id ;
-  uint32_t rx_usart_imsic_id ;
 
   #ifdef FPGA_EMULATION
   int baud_rate = 115200;
@@ -97,9 +98,6 @@ int main()
 
   printf("USART start...\n\r");
   uart_wait_tx_done();
-
-  aplic_init();
-  imsic_init();
 
   tx_buffer[0]= 'S';
   tx_buffer[1]= 't';
@@ -197,11 +195,6 @@ int main()
 
       rx_usart_plic_id = ARCHI_UDMA_USART_ID(u)*4 +16 ;
       tx_usart_plic_id = ARCHI_UDMA_USART_ID(u)*4 +16 +1;
-      rx_usart_imsic_id = 1;
-      tx_usart_imsic_id = 2;
-
-      config_irq_aplic(tx_usart_plic_id, tx_usart_imsic_id, 0);
-      config_irq_aplic(rx_usart_plic_id, rx_usart_imsic_id, 0);
 
       //printf("[%d, %d] Start test uart %d\n",  get_cluster_id(), get_core_id(), u);
       udma_usart_open(u,test_freq,UART_BAUDRATE);
@@ -209,20 +202,38 @@ int main()
       for (int i = 0; i < BUFFER_SIZE; ++i)
       {
         usart_write_nb(u,tx_buffer + i,1); //--- non blocking write
-        // it wont start if config separate 
-        //config_irq_aplic(tx_usart_plic_id, tx_usart_imsic_id, 0);
-        asm volatile ("wfi");
-        imsic_intp_arrive(tx_usart_imsic_id);
-        CSRW(CSR_MTOPEI, 0);
+        
+        //set tx interrupt
+        pulp_write32(PLIC_BASE+tx_usart_plic_id*4, 1); // set rx interrupt priority to 1
+
+        //enable interrupt
+        pulp_write32(PLIC_EN_BITS+(((int)(tx_usart_plic_id/32))*4), 1<<(tx_usart_plic_id%32)); //enable interrupt
+
+        //  wfi until reading the rx id from the PLIC
+        while(pulp_read32(PLIC_CHECK)!=tx_usart_plic_id) {
+          asm volatile ("wfi");
+        }
+
+        //Set completed Interrupt
+        pulp_write32(PLIC_CHECK,tx_usart_plic_id);
 
         //printf("TX Interrupt received\n\r");
 
         udma_usart_read(u,rx_buffer + i,1);     //--- blocking read
-        
-        //config_irq_aplic(rx_usart_plic_id, rx_usart_imsic_id, 0);
-        asm volatile ("wfi");
-        imsic_intp_arrive(rx_usart_imsic_id);
-        CSRW(CSR_MTOPEI, 0);
+
+        //set rx interrupt
+        pulp_write32(PLIC_BASE+rx_usart_plic_id*4, 1); // set rx interrupt priority to 1
+
+        //enable interrupt
+        pulp_write32(PLIC_EN_BITS+(((int)(rx_usart_plic_id/32))*4), 1<<(rx_usart_plic_id%32)); //enable interrupt
+
+        //  wfi until reading the rx id from the PLIC
+        while(pulp_read32(PLIC_CHECK)!=rx_usart_plic_id) {
+          asm volatile ("wfi");
+        }
+
+        //Set completed Interrupt
+        pulp_write32(PLIC_CHECK,rx_usart_plic_id);
 
         //printf("RX Interrupt received\n\r");
         
@@ -233,8 +244,6 @@ int main()
           printf("USART_%0d.%0d[control flow OFF] FAIL: tx %c, rx %c\n\r", u, v, tx_buffer[i],rx_buffer[i]);
           error++;
         }
-        aplic_reset(tx_usart_imsic_id);
-        aplic_reset(rx_usart_imsic_id);
       }
 
       printf("USART_%0d.%0d[control flow ON] test started...\n\r", u, v);
@@ -272,13 +281,10 @@ int main()
           printf("USART_%0d.%0d[control flow ON] FAIL: tx %c, rx %c\n\r", u, v, tx_buffer[i],rx_buffer[i]);
           error++;
         }
-        aplic_reset(tx_usart_imsic_id);
-        aplic_reset(rx_usart_imsic_id);
       }
+
       udma_usart_close(u);
     }
-
-
   }
 
   if (error==0)
