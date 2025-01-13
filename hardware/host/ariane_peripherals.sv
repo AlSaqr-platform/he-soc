@@ -44,8 +44,7 @@ module ariane_peripherals
     AXI_BUS.Slave                                             uart             ,
     AXI_BUS.Slave                                             spi              ,
     AXI_BUS.Slave                                             timer            ,
-    AXI_BUS.Slave                                             eth_config       ,
-    AXI_BUS.Master                                            eth_idma         ,
+    AXI_BUS.Slave                                             ethernet         ,
 
     // IOMMU
     AXI_BUS.Slave                                             sdma_cfg         ,
@@ -728,144 +727,90 @@ module ariane_peripherals
         assign spi.r_last = 1'b1;
     end
 
-
     // ---------------
     // 4. Ethernet
     // ---------------
-    if (InclEthernet) begin
-        logic [3:0]                eth_txd, eth_rxd;
-        logic                      eth_txck, eth_rxck;
-        logic                      eth_txctl, eth_rxctl;
-        logic                      eth_rstn;
-        logic                      eth_md_i, eth_md_o, eth_md_oe, eth_mdc;
+    if (InclEthernet)
+      begin
 
-        // should move to a configuration file
-        localparam int unsigned NumAxInFlight    = 32'd9;
-        localparam int unsigned BufferDepth      = 32'd3;
-        localparam int unsigned TFLenWidth       = 32'd32;
-        localparam int unsigned MemSysDepth      = 32'd0;
-        localparam int unsigned RejectZeroTransfers = 32'd1;
-        localparam int unsigned TxFifoLogDepth   = 32'd5;
-        localparam int unsigned RxFifoLogDepth   = 32'd4;
+        logic [3:0] eth_txd_o, eth_rxd_i;
+        logic                      eth_en, eth_we, eth_int_n, eth_mdio_i, eth_mdio_o, eth_mdio_oe;
+        logic [AxiAddrWidth-1:0]   eth_addr;
+        logic [AxiDataWidth-1:0]   eth_wrdata, eth_rdata;
+        logic [AxiDataWidth/8-1:0] eth_be;
 
-        /// Register interface parameters
-        localparam int unsigned RegBusDw   = 32;
-        localparam int unsigned RegBusAw   = 32;
-        localparam int unsigned RegBusStrb = RegBusDw/8;
+        assign eth_rxd_i[3] = pad_to_eth.eth_rxd3_i;
+        assign eth_rxd_i[2] = pad_to_eth.eth_rxd2_i;
+        assign eth_rxd_i[1] = pad_to_eth.eth_rxd1_i;
+        assign eth_rxd_i[0] = pad_to_eth.eth_rxd0_i;
 
-        /// Regsiter bus typedefs
-        typedef logic [RegBusAw-1:0]   reg_bus_addr_t;
-        typedef logic [RegBusDw-1:0]   reg_bus_data_t;
-        typedef logic [RegBusStrb-1:0]  reg_bus_strb_t;
+        assign eth_to_pad.eth_txd3_o = eth_txd_o[3];
+        assign eth_to_pad.eth_txd2_o = eth_txd_o[2];
+        assign eth_to_pad.eth_txd1_o = eth_txd_o[1];
+        assign eth_to_pad.eth_txd0_o = eth_txd_o[0];
 
-        `REG_BUS_TYPEDEF_ALL(reg_bus, reg_bus_addr_t, reg_bus_data_t, reg_bus_strb_t)
-
-        ariane_axi_soc::req_t axi_req_i;
-        ariane_axi_soc::req_slv_t axi_req_o;
-        ariane_axi_soc::resp_slv_t axi_rsp_i;
-        ariane_axi_soc::resp_t axi_rsp_o;
-        reg_bus_req_t reg_req;
-        reg_bus_rsp_t reg_rsp;
-
-        `AXI_ASSIGN_TO_REQ(axi_req_i, eth_config )
-        `AXI_ASSIGN_FROM_RESP(eth_config,axi_rsp_o)
-
-        `AXI_ASSIGN_FROM_REQ( eth_idma,axi_req_o  )
-        `AXI_ASSIGN_TO_RESP( axi_rsp_i, eth_idma )
-
-        assign eth_rxd[3] = pad_to_eth.eth_rxd3_i;
-        assign eth_rxd[2] = pad_to_eth.eth_rxd2_i;
-        assign eth_rxd[1] = pad_to_eth.eth_rxd1_i;
-        assign eth_rxd[0] = pad_to_eth.eth_rxd0_i;
-        assign eth_rxck   = pad_to_eth.eth_rxck_i;
-        assign eth_rxctl  = pad_to_eth.eth_rxctl_i;
-        assign eth_md_i   = pad_to_eth.eth_md_i;
-
-        assign eth_to_pad.eth_txd3_o = eth_txd[3];
-        assign eth_to_pad.eth_txd2_o = eth_txd[2];
-        assign eth_to_pad.eth_txd1_o = eth_txd[1];
-        assign eth_to_pad.eth_txd0_o = eth_txd[0];
-        assign eth_to_pad.eth_md_oe  = eth_md_oe;
-        assign eth_to_pad.eth_md_o   = eth_md_o;
-        assign eth_to_pad.eth_mdc_o  = eth_mdc;
-        assign eth_to_pad.eth_txck_o = eth_txck;
-        assign eth_to_pad.eth_txctl_o = eth_txctl;
-        assign eth_to_pad.eth_rstn_o = eth_rstn;
-
-        axi_to_reg_v2 #(
-            .AxiAddrWidth ( AxiAddrWidth           ),
-            .AxiDataWidth ( AxiDataWidth           ),
-            .AxiIdWidth   ( AxiIdWidth             ),
-            .AxiUserWidth ( AxiUserWidth           ),
-            .RegDataWidth ( 32                     ),
-            .axi_req_t    ( ariane_axi_soc::req_t  ),
-            .axi_rsp_t    ( ariane_axi_soc::resp_t ),
-            .reg_req_t    ( reg_bus_req_t          ),
-            .reg_rsp_t    ( reg_bus_rsp_t          )
-        ) i_axi_to_reg (
-            .clk_i       ( clk_i       ),
-            .rst_ni      ( rst_ni      ),
-            .axi_req_i   ( axi_req_i   ),
-            .axi_rsp_o   ( axi_rsp_o   ),
-            .reg_req_o   ( reg_req     ),
-            .reg_rsp_i   ( reg_rsp     ),
-            .reg_id_o    (             ),
-            .busy_o      (             )
+        axi2mem #(
+        .AXI_ID_WIDTH   ( AxiIdWidth       ),
+        .AXI_ADDR_WIDTH ( AxiAddrWidth     ),
+        .AXI_DATA_WIDTH ( AxiDataWidth     ),
+        .AXI_USER_WIDTH ( AxiUserWidth     )
+        ) axi2ethernet (
+            .clk_i  ( clk_i                   ),
+            .rst_ni ( rst_ni                  ),
+            .slave  ( ethernet                ),
+            .req_o  ( eth_en                  ),
+            .we_o   ( eth_we                  ),
+            .addr_o ( eth_addr                ),
+            .be_o   ( eth_be                  ),
+            .data_o ( eth_wrdata              ),
+            .data_i ( eth_rdata               )
         );
 
-        eth_idma_wrap#(
-          .DataWidth           ( AxiDataWidth           ),
-          .AddrWidth           ( AxiAddrWidth           ),
-          .UserWidth           ( AxiUserWidth           ),
-          .AxiIdWidth          ( AxiIdWidth             ),
-          .NumAxInFlight       ( NumAxInFlight          ),
-          .BufferDepth         ( BufferDepth            ),
-          .TFLenWidth          ( TFLenWidth             ),
-          .MemSysDepth         ( MemSysDepth            ),
-          .RejectZeroTransfers ( RejectZeroTransfers    ),
-          .TxFifoLogDepth      ( TxFifoLogDepth         ),
-          .RxFifoLogDepth      ( RxFifoLogDepth         ),
-          .axi_req_t           ( ariane_axi_soc::req_slv_t  ),
-          .axi_rsp_t           ( ariane_axi_soc::resp_slv_t ),
-          .reg_req_t           ( reg_bus_req_t          ),
-          .reg_rsp_t           ( reg_bus_rsp_t          )
-        ) i_ethernet (
-          .clk_i,
-          .rst_ni,
-          .eth_clk125_i        ( eth_clk_i              ), // 125MHz in-phase
-          .eth_clk125q_i       ( eth_phy_tx_clk_i       ), // 125 MHz with 90 phase shift
-          .eth_clk200_i        ( '0                     ),
-          .phy_rx_clk_i        ( eth_rxck               ),
-          .phy_rxd_i           ( eth_rxd                ),
-          .phy_rx_ctl_i        ( eth_rxctl              ),
-          .phy_tx_clk_o        ( eth_txck               ),
-          .phy_txd_o           ( eth_txd                ),
-          .phy_tx_ctl_o        ( eth_txctl              ),
-          .phy_resetn_o        ( eth_rstn               ),
-          .phy_intn_i          ( 1'b1                   ),
-          .phy_pme_i           ( 1'b1                   ),
-          .phy_mdio_i          ( eth_md_i               ),
-          .phy_mdio_o          ( eth_md_o               ),
-          .phy_mdio_oe         ( eth_md_oe              ),
-          .phy_mdc_o           ( eth_mdc                ),
-          .testmode_i          ( 1'b0                   ),
-          .axi_req_o           ( axi_req_o              ),
-          .axi_rsp_i           ( axi_rsp_i              ),
-          .reg_req_i           ( reg_req                ),
-          .reg_rsp_o           ( reg_rsp                ),
-          .eth_rx_irq_o        ( irq_sources[2]         )
-        );
-    end else begin
+        framing_top eth_rgmii (
+           .msoc_clk(clk_i),
+           .core_lsu_addr(eth_addr[14:0]),
+           .core_lsu_wdata(eth_wrdata),
+           .core_lsu_be(eth_be),
+           .ce_d(eth_en),
+           .we_d(eth_en & eth_we),
+           .framing_sel(eth_en),
+           .framing_rdata(eth_rdata),
+           .rst_int(!rst_ni),
 
+           .clk_int( eth_clk_i  ), // 125 MHz in-phase
+           .clk90_int(  eth_phy_tx_clk_i  ),    // 125 MHz quadrature
+           .clk_200_int( eth_clk_200MHz_i ),
+           /*
+            * Ethernet: 1000BASE-T RGMII
+            */
+           .phy_rx_clk( pad_to_eth.eth_rxck_i ),
+           .phy_rxd( eth_rxd_i ),
+           .phy_rx_ctl(pad_to_eth.eth_rxctl_i),
+
+           .phy_tx_clk(eth_to_pad.eth_txck_o),
+           .phy_txd( eth_txd_o ),
+           .phy_tx_ctl( eth_to_pad.eth_txctl_o ),
+           .phy_reset_n( eth_to_pad.eth_rstn_o ),
+           .phy_mdc( eth_to_pad.eth_mdc_o ),
+
+           .phy_int_n( ),
+           .phy_pme_n( ),
+
+           .phy_mdio_i(pad_to_eth.eth_md_i),
+           .phy_mdio_o(eth_to_pad.eth_md_o),
+           .phy_mdio_oe(eth_to_pad.eth_md_oe),
+
+           .eth_irq(irq_sources[2])
+        );
+
+      end
+    else
+      begin
         ariane_axi_soc::req_t axi_req_i;
         ariane_axi_soc::resp_t axi_rsp_o;
-        ariane_axi_soc::req_slv_t axi_req_o;
-        ariane_axi_soc::resp_slv_t axi_rsp_i;
 
-        `AXI_ASSIGN_FROM_REQ( eth_idma,axi_req_o  )
-        `AXI_ASSIGN_TO_RESP( axi_rsp_i, eth_idma )
-        `AXI_ASSIGN_TO_REQ(axi_req_i, eth_config )
-        `AXI_ASSIGN_FROM_RESP(eth_config,axi_rsp_o)
+        `AXI_ASSIGN_TO_REQ(axi_req_i,ethernet )
+        `AXI_ASSIGN_FROM_RESP(ethernet,axi_rsp_o)
 
         assign eth_to_pad.eth_txd3_o  = '0;
         assign eth_to_pad.eth_txd2_o  = '0;
@@ -878,14 +823,6 @@ module ariane_peripherals
         assign eth_to_pad.eth_txctl_o = '0;
         assign eth_to_pad.eth_rstn_o  = '0;
         assign irq_sources [2] = 1'b0;
-        assign axi_req_o = '0;
-        assign eth_txck  = '0;
-        assign eth_txd   = '0;
-        assign eth_txctl = '0;
-        assign eth_rstn  = '0;
-        assign eth_md_o  = '0;
-        assign eth_md_oe = '0;
-        assign eth_mdc   = '0;
 
         axi_err_slv #(
         .AxiIdWidth ( ariane_soc::IdWidth    ),

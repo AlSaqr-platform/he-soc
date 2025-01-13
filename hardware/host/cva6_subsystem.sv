@@ -234,13 +234,6 @@ module cva6_subsystem
     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
   ) cluster_axi_master_cut();
 
-  AXI_BUS #(
-    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
-    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-    .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-  ) ethernet_idma_master();
-
   assign ndmreset_n = sync_rst_ni;
 
   // ---------------
@@ -587,11 +580,6 @@ module cva6_subsystem
   `AXI_ASSIGN(slave[ariane_soc::UDMA_RX], udma_rx_l3_axi_slave)
 
   // ---------------
-  // AXI ETHERNET-IDMA Master
-  // ---------------
-  `AXI_ASSIGN(slave[ariane_soc::ETH],ethernet_idma_master)
-
-  // ---------------
   // AXI PMU Slave
   // ---------------
   `AXI_ASSIGN(slave[ariane_soc::PMU],pmu_axi_slave)
@@ -848,8 +836,7 @@ module cva6_subsystem
     .plic             ( master[ariane_soc::PLIC]      ),
     .uart             ( master[ariane_soc::UART]      ),
     .spi              ( master[ariane_soc::SPI]       ),
-    .eth_config       ( master[ariane_soc::Ethernet]  ),
-    .eth_idma         ( ethernet_idma_master          ),
+    .ethernet         ( master[ariane_soc::Ethernet]  ),
     .timer            ( master[ariane_soc::Timer]     ),
     .sdma_cfg         ( master[ariane_soc::SDMA_CFG]  ),
     .iommu_comp       ( slave[ariane_soc::IOMMU_COMP] ),

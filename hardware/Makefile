@@ -260,6 +260,7 @@ bender:
 	./bender --version | grep -q "bender 0.22.0"
 
 update:
+	rm -rf Bender.lock ip_list/ .bender/
 	$(BENDER) update
 
 libbender:
