@@ -10,6 +10,7 @@
 //
 // Author: Florian Zaruba, ETH Zurich
 // Description: Contains SoC information as constants
+
 `ifdef TARGET_FPGA
  `ifndef TARGET_DDR
   `define HYPER_FPGA_DDR
@@ -28,7 +29,12 @@ package ariane_soc;
   // M-Mode Hart, S-Mode Hart
   localparam int unsigned NumTargets = 2*NumCVA6;
   // Uart, SPI, Ethernet, reserved
+`ifdef USE_APLIC
   localparam int unsigned NumSources = 256;
+`else
+  localparam int unsigned NumSources = 255;
+`endif
+
   localparam int unsigned MaxPriority = 7;
 
   // AIA

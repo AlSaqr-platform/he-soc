@@ -1,0 +1,84 @@
+// Copyright 2021 ETH Zurich and University of Bologna.
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+
+// TODO(niwis) auto generate
+/dts-v1/;
+/ {
+  #address-cells = <2>;
+  #size-cells = <2>;
+  compatible = "eth,occamy-dev";
+  model = "eth,occamy";
+  chosen {
+    stdout-path = "/soc/uart@40000000:115200";
+  };
+  memory@80000000 {
+    device_type = "memory";
+    reg = <0x0 0x80000000 0x0 0x20000000>;
+  };
+  cpus {
+    #address-cells = <1>;
+    #size-cells = <0>;
+    timebase-frequency = <25000000>;
+    CPU0: cpu@0 {
+      device_type = "cpu";
+      status = "okay";
+      compatible = "eth,ariane", "riscv";
+      clock-frequency = <50000000>;
+      riscv,isa = "rv64fimadch";
+      mmu-type = "riscv,sv39";
+      tlb-split;
+      reg = <0>;
+      CPU0_intc: interrupt-controller {
+        #interrupt-cells = <1>;
+        interrupt-controller;
+        compatible = "riscv,cpu-intc";
+      };
+    };
+  };
+  soc: soc {
+    #address-cells = <2>;
+    #size-cells = <2>;
+    compatible = "eth,ariane-bare-soc", "simple-bus";
+    ranges;
+    clint@2000000 {
+      compatible = "riscv,clint0";
+      interrupts-extended = <&CPU0_intc 3 &CPU0_intc 7>;
+      reg = <0x0 0x2000000 0x0 0xc0000>;
+      reg-names = "control";
+    };
+    PLIC0: interrupt-controller@c000000 {
+      #address-cells = <0>;
+      #interrupt-cells = <1>;
+      compatible = "riscv,plic0";
+      interrupt-controller;
+      interrupts-extended = <&CPU0_intc 11 &CPU0_intc 9>;
+      reg = <0x0 0xc000000 0x0 0x4000000>;
+      riscv,max-priority = <7>;
+      riscv,ndev = <255>;
+    };
+    debug-controller@0 {
+      compatible = "riscv,debug-013";
+      interrupts-extended = <&CPU0_intc 65535>;
+      reg = <0x0 0x0 0x0 0x1000>;
+      reg-names = "control";
+    };
+    uart@40000000 {
+      compatible = "ns16550";
+      reg = <0x0 0x40000000 0x0 0x1000>;
+      clock-frequency = <50000000>;
+      current-speed = <115200>;
+      interrupt-parent = <&PLIC0>;
+      interrupts = <2>;
+      reg-shift = <2>; // regs are spaced on 32 bit boundary
+      reg-io-width = <4>; // only 32-bit access are supported
+    };
+    timer@18000000 {
+      compatible = "pulp,apb_timer";
+      interrupts = <0x00000004 0x00000005 0x00000006 0x00000007>;
+      reg = <0x00000000 0x18000000 0x00000000 0x00001000>;
+      interrupt-parent = <&PLIC0>;
+      reg-names = "control";
+    };
+  };
+};

@@ -10,10 +10,15 @@
 //
 //
 
-//#include "util.h"
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
 #include "utils.h"
+#include "aplic.h"
+
+#define CSR_MTOPEI 	0x35C
+#define MBOX_IRQ_ID 10
+#define MBOX_IMSIC_ID 1
 
 int main(int argc, char const *argv[]) {
 
@@ -26,21 +31,22 @@ int main(int argc, char const *argv[]) {
   int test_freq = 100000000;
   #endif
 
-  #define PLIC_BASE     0x0C000000
-  #define PLIC_CHECK    PLIC_BASE + 0x201004
-
-  //enable bits for sources 0-31
-  #define PLIC_EN_BITS  PLIC_BASE + 0x2080
-
   int a, b, c, d, e, f;
-  int mbox_id = 10;
+  bool cond_ctl = false;
 
   // Initialazing the uart
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
-  // Initialazing the interrupt controller
-  pulp_write32(PLIC_BASE+mbox_id*4, 1);                                // set mbox interrupt priority to 1
-  pulp_write32(PLIC_EN_BITS+(((int)(mbox_id/32))*4), 1<<(mbox_id%32)); // enable interrupt
+  unsigned val_1 = 0x00001808;  // Set global interrupt enable in ibex regs
+  unsigned val_2 = 0x00000800;  // Set external interrupts
+
+  asm volatile("csrw  mstatus, %0\n" : : "r"(val_1));
+  asm volatile("csrw  mie, %0\n"     : : "r"(val_2));
+
+  aplic_init();
+  imsic_init();
+
+  config_irq_aplic(MBOX_IRQ_ID,MBOX_IMSIC_ID);
 
   ////////////////////// start memory test //////////////////////
 
@@ -60,8 +66,7 @@ int main(int argc, char const *argv[]) {
      printf("Ariane: Populating mbox memory and ringing doorbell, Hello Ibex :)\r\n");
      uart_wait_tx_done();
      pulp_write32(0x10404020, 0x00000001); // ring doorbell
-     while(pulp_read32(PLIC_CHECK)!=mbox_id)
-       asm volatile ("wfi"); // the handler just returns here + 4
+     asm volatile ("wfi"); // the handler just returns here + 4
   }
   else{
      printf("Mailbox failure!\n");
@@ -70,10 +75,9 @@ int main(int argc, char const *argv[]) {
   }
 
   // Start of """Interrupt Service Routine""" (this code should be into an IRQ Handler)
+ 
   printf("Ibex: the mbox irq has been received and processed.\r\nIbex: raising the completion irq, Hello Ariane :)\r\n");
   uart_wait_tx_done();
-  pulp_write32(0x10404024, 0x00000000); // Cleaning the irq source
-  pulp_write32(PLIC_CHECK, mbox_id);    // Completing irq (according to riscv specs)
   printf("Ariane: completion irq received\r\n");
   uart_wait_tx_done();
 
@@ -83,4 +87,13 @@ int main(int argc, char const *argv[]) {
   uart_wait_tx_done();
 
   return 0;
+}
+
+
+void handle_trap(uintptr_t cause, uintptr_t epc, uintptr_t regs[32])
+{
+  bool cond_ctl = imsic_intp_arrive(MBOX_IMSIC_ID);
+  pulp_write32(0x10404024, 0x00000000); // Cleaning the irq source
+  CSRW(CSR_MTOPEI, 0);
+  return;
 }
