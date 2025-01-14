@@ -200,10 +200,10 @@ ifdef exclude-rot
   endif
 endif
 
-ifdef include-ethernet
-	questa-cmd += +INCLUDE_ETHERNET=$(include-ethernet)
-    compile_flag +=  +define+INCLUDE_ETHERNET
-    compile_fpga += INCLUDE_ETHERNET
+ifdef exclude-ethernet
+	questa-cmd += +EXCLUDE_ETHERNET=$(include-ethernet)
+    compile_flag +=  +define+EXCLUDE_ETHERNET
+    compile_fpga += EXCLUDE_ETHERNET
 endif
 
 ifdef exclude-llc

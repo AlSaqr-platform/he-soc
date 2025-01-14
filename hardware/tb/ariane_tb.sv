@@ -53,8 +53,8 @@ module ariane_tb;
   localparam int unsigned REFClockPeriodOt     = 25ns;
 
   `ifdef ETH2FMC_NO_PADFRAME
-    localparam int unsigned REFClockPeriod300     = 3.33ns; // eth300 clock: 300MHz
-    localparam int unsigned REFClockPeriod125     = 8ns;    // eth125 clock: 125MHz
+    localparam int unsigned REFClockPeriod200     = 5ns; // eth200 clock: 200MHz
+    localparam int unsigned REFClockPeriod125     = 8ns; // eth125 clock: 125MHz
   `endif
 
   // toggle with RTC period
@@ -73,7 +73,7 @@ module ariane_tb;
   logic s_bypass;
   logic s_eth_clk125_0;
   logic s_eth_clk125_90;
-  logic s_eth_clk300;
+  logic s_eth_clk200;
   logic s_eth_rstni;
 
   localparam NumPhys = ariane_soc::HyperbusNumPhys;
@@ -244,7 +244,7 @@ module ariane_tb;
     trace_t traces;
 
     `ifdef ETH2FMC_NO_PADFRAME
-      logic               s_tck300;
+      logic               s_tck200;
       logic               s_tck125_0;
       logic               s_tck125_90;
       wire                s_core_eth_rstn;
@@ -1293,7 +1293,7 @@ module ariane_tb;
         `ifdef ETH2FMC_NO_PADFRAME
         .clk_125MHz       ( s_eth_clk125_0     ),
         .clk_125MHz90     ( s_eth_clk125_90    ),
-        .clk_300MHz       ( s_eth_clk300       ),
+        .clk_200MHz       ( s_eth_clk200       ),
         .eth_rstn         ( s_core_eth_rstn    ),
         .eth_rxck         ( s_core_eth_rxck    ),
         .eth_rxctl        ( s_core_eth_rxctl   ),
@@ -3213,11 +3213,11 @@ module ariane_tb;
   `ifdef ETH2FMC_NO_PADFRAME
     assign s_eth_clk125_0   = s_tck125_0;
     assign s_eth_clk125_90  = s_tck125_90;
-    assign s_eth_clk300     = s_tck300;
+    assign s_eth_clk200     = s_tck200;
   `else
     assign s_eth_clk125_0 = dut.i_host_domain.i_clk_gen_ethernet.clk0_o;
     assign s_eth_clk125_90 = dut.i_host_domain.i_clk_gen_ethernet.clk90_o;
-    assign s_eth_clk300 = dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o;
+    assign s_eth_clk200 = dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o;
   `endif
 
   assign s_eth_rstni =  dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.rstn_soc_sync_o;
@@ -3237,9 +3237,9 @@ module ariane_tb;
 
     // Ethernet 200 MHz clock
     initial begin
-      s_tck300 = '0;
+      s_tck200 = '0;
       forever
-        #(REFClockPeriod300/2) s_tck300=~s_tck300;
+        #(REFClockPeriod200/2) s_tck200=~s_tck200;
     end
 
     // Ethernet 125 MHz clock

@@ -90,7 +90,7 @@ module cva6_subsystem
   //ETHERNET
   input  logic            eth_clk_i       , // 125 MHz 90
   input  logic            eth_phy_tx_clk_i, // 125 MHz 0
-  input  logic            eth_clk_300MHz_i,
+  input  logic            eth_clk_200MHz_i,
 
   output eth_to_pad_t     eth_to_pad,
   input  pad_to_eth_t     pad_to_eth,
@@ -819,12 +819,10 @@ module cva6_subsystem
 `else
     .InclSPI      ( 1'b0                     ),
 `endif
-`ifdef ETH2FMC_NO_PADFRAME
-    .InclEthernet ( 1'b1                     ),
-`elsif INCLUDE_ETHERNET
-    .InclEthernet ( 1'b1                     ),
-`else
+`ifdef EXCLUDE_ETHERNET
     .InclEthernet ( 1'b0                     ),
+`else
+    .InclEthernet ( 1'b1                     ),
 `endif
     .InclSDMA     ( 1'b1                     ),
     .InclIOMMU    ( 1'b1                     ),

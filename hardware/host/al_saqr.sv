@@ -180,7 +180,7 @@ module al_saqr
  `ifdef ETH2FMC_NO_PADFRAME
   input  logic       clk_125MHz,
   input  logic       clk_125MHz90,
-  input  logic       clk_300MHz,
+  input  logic       clk_200MHz,
   output wire        eth_rstn,
   input  wire        eth_rxck,
   input  wire        eth_rxctl,
@@ -279,7 +279,7 @@ module al_saqr
 
   logic s_h2c_mailbox_irq;
 
-  logic s_clk_300MHz;
+  logic s_clk_200MHz;
   logic s_clk_125MHz;
   logic s_clk_125MHz90;
 
@@ -546,7 +546,7 @@ module al_saqr
       .pad_to_gpio            ( s_pad_to_gpio_b                 ),
 
       `ifdef ETH2FMC_NO_PADFRAME
-      .clk_300MHz             ( clk_300MHz                      ),
+      .clk_200MHz             ( clk_200MHz                      ),
       .clk_125MHz             ( clk_125MHz                      ),
       .clk_125MHz90           ( clk_125MHz90                    ),
       `endif
