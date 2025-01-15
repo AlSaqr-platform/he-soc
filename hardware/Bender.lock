@@ -17,7 +17,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-master/hardware/deps/alsaqr_periph_fpga_padframe
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-second-delivery/hardware/deps/alsaqr_periph_fpga_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -25,7 +25,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-master/hardware/deps/alsaqr_periph_padframe
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-second-delivery/hardware/deps/alsaqr_periph_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -60,7 +60,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-master/hardware/deps/apb_host_control_regs
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-second-delivery/hardware/deps/apb_host_control_regs
     dependencies:
       - common_cells
       - register_interface
@@ -75,7 +75,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-master/hardware/deps/apb_uart
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-second-delivery/hardware/deps/apb_uart
     dependencies: []
   apmu:
     revision: 3e9227e1e853e324f48950b8dce09e6246113b47
@@ -121,6 +121,13 @@ packages:
       - common_cells
       - common_verification
       - tech_cells_generic
+  axi_mem_if:
+    revision: 3567273b4f67bd57a81a2a503394a49641bae53a
+    version: 0.2.1
+    source:
+      Git: "git@github.com:pulp-platform/axi_mem_if.git"
+    dependencies:
+      - axi
   axi_riscv_atomics:
     revision: 062bc36cbcca25629384e7f12efa6693273b3e07
     version: ~
@@ -157,7 +164,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-master/hardware/deps/axi_tlb
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-second-delivery/hardware/deps/axi_tlb
     dependencies:
       - axi
       - common_cells
@@ -173,7 +180,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-master/hardware/deps/clint
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-second-delivery/hardware/deps/clint
     dependencies:
       - cva6
   cluster_interconnect:
@@ -226,8 +233,16 @@ packages:
       - axi
       - common_cells
       - fpnew
-      - riscv-aia
       - tech_cells_generic
+  ethernet:
+    revision: f2c8a5040596476ee1769292a7c48df9b1c05949
+    version: ~
+    source:
+      Git: "git@github.com:AlSaqr-platform/ethernet.git"
+    dependencies:
+      - axi
+      - axi_mem_if
+      - common_verification
   event_unit_flex:
     revision: 53fb3a1093aaaedfe883739fd8a3155d601210bc
     version: ~
@@ -358,7 +373,7 @@ packages:
       - common_cells
       - scm
   idma:
-    revision: eb2433c3af512c617c89cf350d93c574c57f8bf1
+    revision: 559f94af44873eecccd51b6282668e57f302fb98
     version: ~
     source:
       Git: "git@github.com:alsaqr-platform/iDMA.git"
@@ -385,7 +400,7 @@ packages:
       - common_cells
       - common_verification
   opentitan:
-    revision: 89dec3454b791f6cf30d91e4fc67a6954d6a81ee
+    revision: a2ad3e50207547dffea3db3adcca824b319e6011
     version: ~
     source:
       Git: "https://github.com/AlSaqr-platform/opentitan.git"
@@ -402,18 +417,6 @@ packages:
       Git: "https://github.com/pulp-platform/per2axi.git"
     dependencies:
       - axi_slice
-  pulp-ethernet:
-    revision: 85739c2d1ccd6c1c2ea1c5b95effcace234baa81
-    version: ~
-    source:
-      Git: "https://github.com/pulp-platform/pulp-ethernet.git"
-    dependencies:
-      - axi
-      - axi_stream
-      - common_cells
-      - common_verification
-      - idma
-      - register_interface
   pulp_cluster:
     revision: 2ba2c6f6d826356422fd35e7c6c51e3bbb2b8db5
     version: ~
@@ -456,14 +459,14 @@ packages:
     revision: 5daa85d164cf6b54ad061ea1e4c6f3624556e467
     version: 0.4.5
     source:
-      Git: "https://github.com/pulp-platform/register_interface.git"
+      Git: "git@github.com:pulp-platform/register_interface.git"
     dependencies:
       - apb
       - axi
       - common_cells
       - common_verification
   riscv:
-    revision: e437cff049443dac25a2c3a35e9890a577f9493a
+    revision: 4b1716289e8ec6f19621e27c324d430512dc4037
     version: ~
     source:
       Git: "https://github.com/AlSaqr-platform/riscv_nn.git"
@@ -503,6 +506,12 @@ packages:
       - common_cells
       - register_interface
       - tech_cells_generic
+  rv_plic:
+    revision: ~
+    version: ~
+    source:
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-second-delivery/hardware/deps/rv_plic
+    dependencies: []
   scm:
     revision: 998466d2a3c2d7d572e43d2666d93c4f767d8d60
     version: 1.1.1
@@ -519,7 +528,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-master/hardware/deps/snooper
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-second-delivery/hardware/deps/snooper
     dependencies: []
   spu:
     revision: e213cb2e10d713531b718fdaddacdbd605f23ff6
@@ -616,17 +625,11 @@ packages:
     dependencies:
       - common_cells
       - udma_core
-  rv_plic:
-    revision: ~
-    version: ~
-    source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-master/hardware/deps/rv_plic
-    dependencies: []
   util:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-master/hardware/deps/util
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-second-delivery/hardware/deps/util
     dependencies:
       - axi
       - common_cells

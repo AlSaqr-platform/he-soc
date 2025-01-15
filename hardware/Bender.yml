@@ -16,11 +16,11 @@ dependencies:
   axi_riscv_atomics: { git: "https://github.com/pulp-platform/axi_riscv_atomics.git", rev: "062bc36cbcca25629384e7f12efa6693273b3e07" } # branch: master
   cva6: { git: "https://github.com/AlSaqr-platform/cva6.git", rev: "46332f874b0345e25e85930f4d1b2704083f83c8" } # branch: mc/revert-aia-ext
   ace: { git: "https://github.com/pulp-platform/ace.git", rev: "06180ec96531d38dc0c1c2b244bad621c5fe73a5" }
-  riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", version: 0.8.0  }
-  axi: { git: "https://github.com/pulp-platform/axi.git", version: 0.39.1-beta }
-  fpnew: { git: "https://github.com/pulp-platform/cvfpu.git", rev: pulp-v0.1.3 }
-  tcdm_interconnect: { git: "https://github.com/pulp-platform/cluster_interconnect.git", version: "1.1.2" }
-  apb: { git: "https://github.com/pulp-platform/apb.git", version: 0.2.1 }
+  riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", rev: "358f90110220adf7a083f8b65d157e836d706236" } # version: 0.8.1
+  axi: { git: "https://github.com/pulp-platform/axi.git", rev: "39f5f2d51c5e524f6fc5cf8b6e901f7dcc5622d7" } # version: 0.39.6
+  fpnew: { git: "https://github.com/pulp-platform/cvfpu.git", rev: a8e0cba6dd50f357ece73c2c955d96efc3c6c315 } # version: pulp-v0.1.3
+  tcdm_interconnect: { git: "https://github.com/pulp-platform/cluster_interconnect.git", rev: "7d0a4f8acae71a583a6713cab5554e60b9bb8d27" } # version: 1.2.1
+  apb: { git: "https://github.com/pulp-platform/apb.git", rev: "77ddf073f194d44b9119949d2421be59789e69ae" } # version: 0.2.4
   udma_core: { git: "https://github.com/Alsaqr-platform/udma_core.git", rev: "ea1c783641910b5f45f680cd4a7665bc311ab5ec" }
   udma_uart: { git: "https://github.com/Alsaqr-platform/udma_uart.git", rev: "b24d96dc38829005ae165053a8145b1be3683f0b" }
   udma_i2c: { git: "https://github.com/Alsaqr-platform/udma_i2c.git", rev: "a0713d439e11b3b85f0071dc6b59d9fb758633ca" }
@@ -29,25 +29,25 @@ dependencies:
   udma_camera: { git: "https://github.com/Alsaqr-platform/udma_camera.git", rev: "0339ff06f0b62310d9c6c4b095d46b83064e0a23" }
   udma_filter: { git: "https://github.com/Alsaqr-platform/udma_filter.git", rev: "3e1fe269bcb70a7eef115ca8dc7e668229f04b46" }
   udma_external_per: { git: "https://github.com/Alsaqr-platform/udma_external_per.git", rev: "2b43a6a5b1c6d11dc7a6a6ada5233682adb76447" }
-  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", version: 0.2.11 }
-  common_cells: { git: "https://github.com/pulp-platform/common_cells.git", version: 1.30.0 }
+  tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", rev: "7968dd6e6180df2c644636bc6d2908a49f2190cf" } # version: 0.2.13
+  common_cells: { git: "https://github.com/pulp-platform/common_cells.git", rev: "c27bce39ebb2e6bae52f60960814a2afca7bd4cb" } # version: 1.37.0 }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", rev: "d436ab3dad8260eadc1288bdc543c79b4d7462c7" }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "c1feb0b348d15fecce907ae847f78c2f91d43bde" }
   hyperbus_udma: { git: "git@github.com:AlSaqr-platform/hyper_bus.git", rev: "2dbb753ecfcf9dd424e4a8b3130b9f552c272abb" }
-  apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", version: 1.0.1 }
-  register_interface: { git: "git@github.com:AlSaqr-platform/register_interface.git",   version:  0.3.2 }
-  apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", version: 1.0.4 }
+  apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", rev: "41e03443848a533df99dbe416b0d8c8ff67bc21e" } #  version: 1.0.1
+  register_interface: { git: "git@github.com:pulp-platform/register_interface.git",   rev: "5daa85d164cf6b54ad061ea1e4c6f3624556e467" } # version:  0.4.5
+  apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", rev: "c8faec1e1755386d0e0f31a55ebd80612a3dcea9" } # version: 1.0.4
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "0ec0bf8b7dab6d5e4b3f7ec58338a8efee066379" }
-  common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", version: 0.0.4 }
-  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "89dec3454b791f6cf30d91e4fc67a6954d6a81ee" } # branch: alsaqr-2
+  common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", rev: "4ce2907ab2313e67836e251f6deea67d885aef5f" } # version: 0.0.4
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "a2ad3e50207547dffea3db3adcca824b319e6011" } # branch: alsaqr-2
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
-  pulp-ethernet: { git: "https://github.com/pulp-platform/pulp-ethernet.git", rev: "85739c2d1ccd6c1c2ea1c5b95effcace234baa81" } # branch: chs-hs
+  ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "f2c8a5040596476ee1769292a7c48df9b1c05949" }
   sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }
   culsans:  { git: "git@github.com:alsaqr-platform/culsans.git", rev: "dd62bc0741b4338ab43cb74bc65d864948b3418a" } # branch: main
   riscv-iommu:  { git: "git@github.com:AlSaqr-platform/riscv-iommu.git", rev: "2b91818bf" } # branch: mc/bug-fix
   riscv-iopmp:  { git: "git@github.com:AlSaqr-platform/riscv-iopmp.git", rev: "a4ceb98da" } # branch: mc/latch-mem
   riscv-aia: { git: "git@github.com:AlSaqr-platform/riscv-aia.git", rev: "9ab99c13a" } # branch: alsaqr
-  idma: { git: "git@github.com:alsaqr-platform/iDMA.git", rev: "eb2433c3a" } # branch: mc/zdl/exp-path
+  idma: { git: "git@github.com:alsaqr-platform/iDMA.git", rev: "559f94af" } # branch: alsaqr-2
   # APMU_BLOCK START: Branch: uw/pmu
   axi_llc: { git: "git@github.com:alsaqr-platform/axi_llc.git", rev: "8fa5d302f7407d9582630bcc3fb07f4f3c08f2c0" } #branch: uw/plru_paritioning
   spu: { git: "git@github.com:alsaqr-platform/spu.git", rev: "e213cb2e10d713531b718fdaddacdbd605f23ff6" } #branch: mc/ace-support

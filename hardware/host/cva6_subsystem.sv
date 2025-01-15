@@ -90,7 +90,7 @@ module cva6_subsystem
   //ETHERNET
   input  logic            eth_clk_i       , // 125 MHz 90
   input  logic            eth_phy_tx_clk_i, // 125 MHz 0
-  input  logic            eth_clk_300MHz_i,
+  input  logic            eth_clk_200MHz_i,
 
   output eth_to_pad_t     eth_to_pad,
   input  pad_to_eth_t     pad_to_eth,
@@ -233,13 +233,6 @@ module cva6_subsystem
     .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
   ) cluster_axi_master_cut();
-
-  AXI_BUS #(
-    .AXI_ADDR_WIDTH ( AXI_ADDRESS_WIDTH        ),
-    .AXI_DATA_WIDTH ( AXI_DATA_WIDTH           ),
-    .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave ),
-    .AXI_USER_WIDTH ( AXI_USER_WIDTH           )
-  ) ethernet_idma_master();
 
   assign ndmreset_n = sync_rst_ni;
 
@@ -587,11 +580,6 @@ module cva6_subsystem
   `AXI_ASSIGN(slave[ariane_soc::UDMA_RX], udma_rx_l3_axi_slave)
 
   // ---------------
-  // AXI ETHERNET-IDMA Master
-  // ---------------
-  `AXI_ASSIGN(slave[ariane_soc::ETH],ethernet_idma_master)
-
-  // ---------------
   // AXI PMU Slave
   // ---------------
   `AXI_ASSIGN(slave[ariane_soc::PMU],pmu_axi_slave)
@@ -831,12 +819,10 @@ module cva6_subsystem
 `else
     .InclSPI      ( 1'b0                     ),
 `endif
-`ifdef ETH2FMC_NO_PADFRAME
-    .InclEthernet ( 1'b1                     ),
-`elsif INCLUDE_ETHERNET
-    .InclEthernet ( 1'b1                     ),
-`else
+`ifdef EXCLUDE_ETHERNET
     .InclEthernet ( 1'b0                     ),
+`else
+    .InclEthernet ( 1'b1                     ),
 `endif
     .InclSDMA     ( 1'b1                     ),
     .InclIOMMU    ( 1'b1                     ),
@@ -848,8 +834,7 @@ module cva6_subsystem
     .plic             ( master[ariane_soc::PLIC]      ),
     .uart             ( master[ariane_soc::UART]      ),
     .spi              ( master[ariane_soc::SPI]       ),
-    .eth_config       ( master[ariane_soc::Ethernet]  ),
-    .eth_idma         ( ethernet_idma_master          ),
+    .ethernet         ( master[ariane_soc::Ethernet]  ),
     .timer            ( master[ariane_soc::Timer]     ),
     .sdma_cfg         ( master[ariane_soc::SDMA_CFG]  ),
     .iommu_comp       ( slave[ariane_soc::IOMMU_COMP] ),

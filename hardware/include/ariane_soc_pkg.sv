@@ -55,8 +55,7 @@ package ariane_soc;
     IOMMU_COMP  = 6,  // IOMMU Completion Interface
     IOMMU_DS    = 7,  // IOMMU Data Structure Interface
     IOPMP_INIT  = 8,  // IOPMP Initiator Port
-    ETH         = 9,  // Ethernet's iDMA Port
-    PMU         = 10  // PMU's port
+    PMU         = 9   // PMU's port
   } axi_masters_t;
 
   localparam NrSlaves = PMU + 1;   // 10

@@ -53,8 +53,8 @@ module ariane_tb;
   localparam int unsigned REFClockPeriodOt     = 25ns;
 
   `ifdef ETH2FMC_NO_PADFRAME
-    localparam int unsigned REFClockPeriod300     = 3.33ns; // eth300 clock: 300MHz
-    localparam int unsigned REFClockPeriod125     = 8ns;    // eth125 clock: 125MHz
+    localparam int unsigned REFClockPeriod200     = 5ns; // eth200 clock: 200MHz
+    localparam int unsigned REFClockPeriod125     = 8ns; // eth125 clock: 125MHz
   `endif
 
   // toggle with RTC period
@@ -73,7 +73,7 @@ module ariane_tb;
   logic s_bypass;
   logic s_eth_clk125_0;
   logic s_eth_clk125_90;
-  logic s_eth_clk300;
+  logic s_eth_clk200;
   logic s_eth_rstni;
 
   localparam NumPhys = ariane_soc::HyperbusNumPhys;
@@ -90,6 +90,75 @@ module ariane_tb;
   parameter  USE_SDIO             = 1;
   parameter  USE_CAN              = 1;
   parameter  USE_ETHERNET         = 1;
+
+  parameter DW       = ariane_axi_soc::DataWidth;
+  parameter AW       = ariane_axi_soc::AddrWidth;
+  parameter UW       = ariane_axi_soc::UserWidth;
+  parameter IW       = ariane_soc::IdWidth;
+
+  AXI_BUS_DV#(
+    .AXI_ADDR_WIDTH(AW),
+    .AXI_DATA_WIDTH(DW),
+    .AXI_ID_WIDTH(IW),
+    .AXI_USER_WIDTH(UW)
+  )axi_master_dv(clk_i);
+
+  AXI_BUS#(
+    .AXI_ADDR_WIDTH(AW),
+    .AXI_DATA_WIDTH(DW),
+    .AXI_ID_WIDTH(IW),
+    .AXI_USER_WIDTH(UW)
+  )axi_master();
+
+  `AXI_ASSIGN(axi_master, axi_master_dv)
+
+  typedef axi_test::axi_driver #(.AW(AW), .DW(DW), .IW(IW), .UW(UW), .TA(200ps), .TT(700ps)) axi_drv_t;
+  axi_drv_t axi_master_drv =  new(axi_master_dv);
+
+  typedef logic [AW-1:0]   axi_addr_t;
+  typedef logic [DW-1:0]   axi_data_t;
+  typedef logic [DW/8-1:0] axi_strb_t;
+  typedef logic [IW-1:0]   axi_id_t;
+
+  //beats
+  axi_test::axi_ax_beat #(.AW(AW), .IW(IW), .UW(UW)) ar_beat = new();
+  axi_test::axi_r_beat  #(.DW(DW), .IW(IW), .UW(UW)) r_beat  = new();
+  axi_test::axi_ax_beat #(.AW(AW), .IW(IW), .UW(UW)) aw_beat = new();
+  axi_test::axi_w_beat  #(.DW(DW), .UW(UW))          w_beat  = new();
+  axi_test::axi_b_beat  #(.IW(IW), .UW(UW))          b_beat  = new();
+
+  task reset_master;
+    input axi_drv_t axi_master_drv;
+    axi_master_drv.reset_master();
+  endtask
+
+  task read_axi;
+    input axi_drv_t axi_master_drv;
+    input axi_addr_t raddr;
+
+    ar_beat.ax_addr  = raddr;
+    axi_master_drv.send_ar(ar_beat);
+    axi_master_drv.recv_r(r_beat);
+    $display("Read data: %x", r_beat.r_data);
+  endtask // read_axi
+ 
+  task write_axi;
+    input axi_drv_t axi_master_drv;    
+    input axi_addr_t waddr;
+    input axi_data_t wdata;
+    input axi_strb_t wstrb;
+
+    aw_beat.ax_addr  = waddr;
+    w_beat.w_strb    = wstrb;
+    w_beat.w_last    = 1'b1;
+    w_beat.w_data    = wdata;
+
+    axi_master_drv.send_aw(aw_beat);
+    axi_master_drv.send_w(w_beat);
+    $display("Written data: %x", w_beat.w_data);
+    axi_master_drv.recv_b(b_beat);
+    
+  endtask; // write_axi
 
   ////////////////////////////////
   //                            //
@@ -171,7 +240,7 @@ module ariane_tb;
     trace_t traces;
 
     `ifdef ETH2FMC_NO_PADFRAME
-      logic               s_tck300;
+      logic               s_tck200;
       logic               s_tck125_0;
       logic               s_tck125_90;
       wire                s_core_eth_rstn;
@@ -1220,7 +1289,7 @@ module ariane_tb;
         `ifdef ETH2FMC_NO_PADFRAME
         .clk_125MHz       ( s_eth_clk125_0     ),
         .clk_125MHz90     ( s_eth_clk125_90    ),
-        .clk_300MHz       ( s_eth_clk300       ),
+        .clk_200MHz       ( s_eth_clk200       ),
         .eth_rstn         ( s_core_eth_rstn    ),
         .eth_rxck         ( s_core_eth_rxck    ),
         .eth_rxctl        ( s_core_eth_rxctl   ),
@@ -1670,189 +1739,177 @@ module ariane_tb;
 
         if(USE_ETHERNET == 1) begin
 
-          localparam time   TAppl          = 1ns;
-          localparam time   TTest          = 9ns;
+          logic            eth_en, eth_we, eth_int_n, eth_mdio_i, eth_mdio_o, eth_mdio_oe, w_eth_rstn;
+          logic [AW-1:0]   eth_addr;
+          logic [DW-1:0]   eth_wrdata, eth_rdata;
+          logic [DW/8-1:0] eth_be;
 
-          localparam int unsigned RegBusAw     = 32;
-          localparam int unsigned RegBusDw     = 32;
-          localparam int unsigned RegBusStrb = RegBusDw/8;
-
-          // Regsiter bus typedefs
-          typedef logic [RegBusAw-1:0]   reg_bus_addr_t;
-          typedef logic [RegBusDw-1:0]   reg_bus_data_t;
-          typedef logic [RegBusStrb-1:0]  reg_bus_strb_t;
-
-          `REG_BUS_TYPEDEF_ALL(reg_bus, reg_bus_addr_t, reg_bus_data_t, reg_bus_strb_t)
-
-          typedef reg_test::reg_driver #(
-            .AW(RegBusAw),
-            .DW(RegBusDw),
-            .TT(TTest),
-            .TA(TAppl)
-          ) reg_bus_drv_t;
-
-          REG_BUS #(
-            .DATA_WIDTH(RegBusDw),
-            .ADDR_WIDTH(RegBusAw)
-          ) reg_bus_rx (
-            .clk_i(clk_i)
+          axi2mem #(
+            .AXI_ID_WIDTH   ( IW ),
+            .AXI_ADDR_WIDTH ( AW ),
+            .AXI_DATA_WIDTH ( DW ),
+            .AXI_USER_WIDTH ( UW )
+          ) axi2ethernet_alt2 (
+                .clk_i  ( clk_i                   ),
+                .rst_ni ( s_eth_rstni             ),
+                .slave  ( axi_master              ),
+                .req_o  ( eth_en                  ),
+                .we_o   ( eth_we                  ),
+                .addr_o ( eth_addr                ),
+                .be_o   ( eth_be                  ),
+                .data_o ( eth_wrdata              ),
+                .data_i ( eth_rdata               )
           );
 
-          logic reg_error;
-          logic eth_rx_irq;
-          logic dma_en;
-          logic [RegBusDw-1:0] rx_req_ready, rx_rsp_valid;
+          framing_top eth_rgmii_alt2 (
+             .msoc_clk(clk_i),
+             .core_lsu_addr(eth_addr[14:0]),
+             .core_lsu_wdata(eth_wrdata),
+             .core_lsu_be(eth_be),
+             .ce_d(eth_en),
+             .we_d(eth_en & eth_we),
+             .framing_sel(eth_en),
+             .framing_rdata(eth_rdata),
+             .rst_int(!s_eth_rstni),
 
-          reg_bus_drv_t reg_drv_rx  = new(reg_bus_rx);
+             .clk_int( s_eth_clk125_0  ), // 125 MHz in-phase
+             .clk90_int(  s_eth_clk125_90 ),    // 125 MHz quadrature
+             .clk_200_int(s_eth_clk200),
+             /*
+              * Ethernet: 1000BASE-T RGMII
+              */
+             .phy_rx_clk( alt_2_pad_periphs_a_22_pad_ETH_TXCK ),
+             .phy_rxd( w_eth_tx2_data ),
+             .phy_rx_ctl( alt_2_pad_periphs_a_23_pad_ETH_TXCTL),
 
-          reg_bus_req_t reg_bus_rx_req;
-          reg_bus_rsp_t reg_bus_rx_rsp;
+             .phy_tx_clk( alt_2_pad_periphs_a_16_pad_ETH_RXCK ),
+             .phy_txd ( w_eth_rx2_data ),
+             .phy_tx_ctl( alt_2_pad_periphs_a_17_pad_ETH_RXCTL),
+             .phy_reset_n(w_eth_rstn) ,
+             .phy_mdc( ),
 
-          `REG_BUS_ASSIGN_TO_REQ (reg_bus_rx_req, reg_bus_rx)
-          `REG_BUS_ASSIGN_FROM_RSP (reg_bus_rx, reg_bus_rx_rsp)
+             .phy_int_n(1'b1  ),
+             .phy_pme_n( 1'b1 ),
 
-          ariane_axi_soc::req_t  axi_read_req, axi_write_req, axi_req_mem;
-          ariane_axi_soc::resp_t axi_read_rsp, axi_write_rsp, axi_rsp_mem;
-          
+             .phy_mdio_i(1'b0 ),
+             .phy_mdio_o(),
+             .phy_mdio_oe(),
+
+             .eth_irq()
+          );
+
           assign alt_2_pad_periphs_a_18_pad_ETH_RXD0 = w_eth_rx2_data[0] ;
           assign alt_2_pad_periphs_a_19_pad_ETH_RXD1 = w_eth_rx2_data[1] ;
           assign alt_2_pad_periphs_a_20_pad_ETH_RXD2 = w_eth_rx2_data[2] ;
           assign alt_2_pad_periphs_a_21_pad_ETH_RXD3 = w_eth_rx2_data[3] ;
-
+          
           assign w_eth_tx2_data[0] = alt_2_pad_periphs_a_24_pad_ETH_TXD0 ;
           assign w_eth_tx2_data[1] = alt_2_pad_periphs_a_25_pad_ETH_TXD1 ;
           assign w_eth_tx2_data[2] = alt_2_pad_periphs_a_26_pad_ETH_TXD2 ;
           assign w_eth_tx2_data[3] = alt_2_pad_periphs_a_27_pad_ETH_TXD3 ;
 
-          eth_idma_wrap #(
-            .DataWidth           ( ariane_axi_soc::DataWidth  ),    
-            .AddrWidth           ( ariane_axi_soc::AddrWidth  ),
-            .UserWidth           ( ariane_axi_soc::UserWidth  ),
-            .AxiIdWidth          ( ariane_soc::IdWidth        ),
-            .NumAxInFlight       ( 32'd9                ),
-            .BufferDepth         ( 32'd2                ),
-            .TFLenWidth          ( 32'd20               ),
-            .MemSysDepth         ( 32'd0                ),
-            .TxFifoLogDepth      ( 32'd2                ),
-            .RxFifoLogDepth      ( 32'd1                ),
-            .axi_req_t           ( ariane_axi_soc::req_t      ),
-            .axi_rsp_t           ( ariane_axi_soc::resp_t     ),
-            .reg_req_t           ( reg_bus_req_t              ),
-            .reg_rsp_t           ( reg_bus_rsp_t              )
-          ) i_ethernet_alt2 (
-            .clk_i               ( clk_i                                ),
-            .rst_ni              ( s_eth_rstni                          ),
-             /// Etherent Internal clocks
-            .eth_clk125_i        ( s_eth_clk125_0                       ), // 125MHz in-phase
-            .eth_clk125q_i       ( s_eth_clk125_90                      ), // 125 MHz with 90 phase shift
-            .eth_clk200_i        ( '0                                   ),
-            .phy_rx_clk_i        ( alt_2_pad_periphs_a_22_pad_ETH_TXCK  ),
-            .phy_rxd_i           ( w_eth_tx2_data                       ),
-            .phy_rx_ctl_i        ( alt_2_pad_periphs_a_23_pad_ETH_TXCTL ),
-            .phy_tx_clk_o        ( alt_2_pad_periphs_a_16_pad_ETH_RXCK  ),
-            .phy_txd_o           ( w_eth_rx2_data                       ),
-            .phy_tx_ctl_o        ( alt_2_pad_periphs_a_17_pad_ETH_RXCTL ),
-            .phy_resetn_o        ( w_eth_rstn                           ),  
-            .phy_intn_i          ( 1'b1                ),
-            .phy_pme_i           ( 1'b1                ),
-            .phy_mdio_i          ( 1'b0                ),
-            .phy_mdio_o          (                     ),
-            .phy_mdio_oe         (                     ),
-            .phy_mdc_o           (                     ),
-            .reg_req_i           ( reg_bus_rx_req      ),
-            .reg_rsp_o           ( reg_bus_rx_rsp      ),
-            .testmode_i          ( 1'b0                ),
-            .axi_req_o           ( axi_req_mem         ),
-            .axi_rsp_i           ( axi_rsp_mem         ),
-            .eth_rx_irq_o        ( eth_rx_irq          )
-          );
+          logic [DW:0] data_array [7:0];
+          
+          initial begin
+            data_array[0] = 64'h1032207098001032; //1 --> 230100890702 2301, mac dest + inizio di mac source
+            data_array[1] = 64'h3210E20020709800; //2 --> 00890702 002E 0123, fine mac source + length + payload
+            data_array[2] = 64'h1716151413121110; // payload
+            data_array[3] = 64'h2726252423222120;
+            data_array[4] = 64'h3736353433323130;
+            data_array[5] = 64'h4746454443424140;
+            data_array[6] = 64'h5756555453525150;
+            data_array[7] = 64'h6766656463626160;
+          end
 
-          axi_sim_mem #(
-            .AddrWidth           ( ariane_axi_soc::AddrWidth ),
-            .DataWidth           ( ariane_axi_soc::DataWidth ),
-            .IdWidth             ( ariane_soc::IdWidth       ),
-            .UserWidth           ( ariane_axi_soc::UserWidth ),
-            .axi_req_t           ( ariane_axi_soc::req_t     ),
-            .axi_rsp_t           ( ariane_axi_soc::resp_t    ),
-            .WarnUninitialized   ( 1'b0                      ),
-            .ClearErrOnAccess    ( 1'b1                      ),
-            .ApplDelay           ( TAppl                     ),
-            .AcqDelay            ( TTest                     ),
-            .UninitializedData   ( "zeros"                   )
-          ) i_eth_tb_mem (
-            .clk_i               ( clk_i       ),
-            .rst_ni              ( s_eth_rstni ),
-            .axi_req_i           ( axi_req_mem ),
-            .axi_rsp_o           ( axi_rsp_mem )
-          );
+          // initialization read addresses
+          logic [AW-1:0] read_addr [7:0];
+          initial begin
+            read_addr[0] = 64'h3000_4000;
+            read_addr[1] = 64'h3000_4008;
+            read_addr[2] = 64'h3000_4010;
+            read_addr[3] = 64'h3000_4018;
+            read_addr[4] = 64'h3000_4020;
+            read_addr[5] = 64'h3000_4028;
+            read_addr[6] = 64'h3000_4030;
+            read_addr[7] = 64'h3000_4038;
+          end
+           
+          // initialization write addresses
+          logic [AW-1:0] write_addr [7:0];
+          initial begin
+            write_addr[0] = 64'h3000_1000;
+            write_addr[1] = 64'h3000_1008;
+            write_addr[2] = 64'h3000_1010;
+            write_addr[3] = 64'h3000_1018;
+            write_addr[4] = 64'h3000_1020;
+            write_addr[5] = 64'h3000_1028;
+            write_addr[6] = 64'h3000_1030;
+            write_addr[7] = 64'h3000_1038;
+          end
+
+          logic [63:0] rx_read_data;
+          assign rx_read_data=axi_master.r_data;
+            
+          event       tx_complete;
+          logic       en_rx_memw;
+          assign en_rx_memw = eth_rgmii_alt2.RAMB16_inst_rx.genblk1[0].mem_wrap_rx_inst.enaB;
 
           initial begin
-            @(posedge clk_i);
-
-            reg_drv_rx.send_write( 'h30000000, 32'h89000123, 'hf, reg_error); //lower 32bits of MAC address
-            @(posedge clk_i);
-          
-            reg_drv_rx.send_write( 'h30000004, 32'h00800207, 'hf, reg_error); //upper 16bits of MAC address + other configuration set to false/0
-            @(posedge clk_i);
-
-            @(posedge eth_rx_irq);
-            
             while(1) begin
-              reg_drv_rx.send_read( 'h30000054, dma_en, reg_error);   // req ready 
-              if( dma_en )
-                break;
-              @(posedge clk_i);
+               @(posedge en_rx_memw);
+               @(negedge en_rx_memw);
+               -> tx_complete;
             end
-    
-            reg_drv_rx.send_write( 'h3000001c, 32'h0, 'hf, reg_error ); // SRC_ADDR  
-            @(posedge clk_i);
-          
-            reg_drv_rx.send_write( 'h30000020, 32'h0, 'hf, reg_error); // DST_ADDR
-            @(posedge clk_i);
-          
-            reg_drv_rx.send_write( 'h30000028, 32'h5,'hf , reg_error); // src protocol
-            @(posedge clk_i);
-
-            reg_drv_rx.send_write( 'h3000002c, 32'h0,'hf , reg_error); // dst protocol
-            @(posedge clk_i);
-
-            reg_drv_rx.send_write( 'h30000044, 'h1, 'hf , reg_error);   // req valid
-            @(posedge clk_i);
-            
-            //wait till all data written into rx_axi_sim_mem
-            while(1) begin
-              reg_drv_rx.send_read( 'h30000050, rx_rsp_valid, reg_error);
-              if( rx_rsp_valid ) begin
-                break;
-              end
-              @(posedge clk_i);
-            end
-
-            // Tx test starts here: external back to core
-            reg_drv_rx.send_write( 'h30000000, 32'h89000123, 'hf, reg_error); //lower 32bits of MAC address
-            @(posedge clk_i);
-          
-            reg_drv_rx.send_write( 'h30000004, 32'h00800207, 'hf, reg_error); //upper 16bits of MAC address + other configuration set to false/0
-            @(posedge clk_i);
-
-            reg_drv_rx.send_write( 'h3000001c, 32'h0, 'hf, reg_error ); // SRC_ADDR  
-            @(posedge clk_i);
-          
-            reg_drv_rx.send_write( 'h30000020, 32'h0, 'hf, reg_error); // DST_ADDR
-            @(posedge clk_i);
-
-            reg_drv_rx.send_write( 'h30000024, 32'h40,'hf , reg_error); // Size in bytes 
-            @(posedge clk_i);
-          
-            reg_drv_rx.send_write( 'h30000028, 32'h0,'hf , reg_error); // src protocol
-            @(posedge clk_i);
-
-            reg_drv_rx.send_write( 'h3000002c, 32'h5,'hf , reg_error); // dst protocol
-            @(posedge clk_i);
-
-            reg_drv_rx.send_write( 'h30000044, 'h1, 'hf , reg_error);   // req valid
-            @(posedge clk_i);    
           end
+
+          // Check if the data received and stored in the rx memory matches the transmitted data
+       
+          initial begin
+            int continue_loop = 1;
+
+            while(continue_loop) begin
+              wait(tx_complete.triggered);
+              for(int i=0; i<8; i++) begin
+                read_axi(axi_master_drv, read_addr[i]);
+                if(rx_read_data == data_array[i]) 
+                  $display(" data correct");
+                else
+                   $display("Data wrong");
+              end
+              continue_loop = 0;
+            end
+
+            reset_master(axi_master_drv);
+            repeat(5) @(posedge clk_i);
+            #3000ns;
+                      // Packet length
+            write_axi(axi_master_drv,'h30000810,'h00000040, 'h0f);
+            repeat(5) @(posedge clk_i);
+
+            // TX BUFFER FILLING ----------------------------------------------
+            for(int j=0; j<8; j++) begin
+               write_axi(axi_master_drv, write_addr[j], data_array[j], 'hff);
+               @(posedge clk_i);
+            end
+            repeat(10) @(posedge clk_i);
+
+            // TRANSMISSION OF PACKET -----------------------------------------
+            // 1 --> mac_address[31:0]
+            write_axi(axi_master_drv,'h30000800,'h00890702, 'h0f);
+            @(posedge clk_i);
+
+            // 2 --> {irq_en,promiscuous,spare,loopback,cooked,mac_address[47:32]}
+            write_axi(axi_master_drv,'h30000808,'h00802301, 'h0f); 
+            @(posedge clk_i);
+
+            // 3 --> Rx frame check sequence register(read) and last register(write)
+            write_axi(axi_master_drv,'h30000828,'h00000008, 'h0f);
+            @(posedge clk_i);
+
+            repeat(20) @(posedge rtc_i);
+            $finish;
+
+          end // initial begin
         end
 
         //**************************************************
@@ -3152,11 +3209,11 @@ module ariane_tb;
   `ifdef ETH2FMC_NO_PADFRAME
     assign s_eth_clk125_0   = s_tck125_0;
     assign s_eth_clk125_90  = s_tck125_90;
-    assign s_eth_clk300     = s_tck300;
+    assign s_eth_clk200     = s_tck200;
   `else
     assign s_eth_clk125_0 = dut.i_host_domain.i_clk_gen_ethernet.clk0_o;
     assign s_eth_clk125_90 = dut.i_host_domain.i_clk_gen_ethernet.clk90_o;
-    assign s_eth_clk300 = dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o;
+    assign s_eth_clk200 = dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.clk_soc_o;
   `endif
 
   assign s_eth_rstni =  dut.i_host_domain.i_apb_subsystem.i_alsaqr_clk_rst_gen.rstn_soc_sync_o;
@@ -3176,9 +3233,9 @@ module ariane_tb;
 
     // Ethernet 200 MHz clock
     initial begin
-      s_tck300 = '0;
+      s_tck200 = '0;
       forever
-        #(REFClockPeriod300/2) s_tck300=~s_tck300;
+        #(REFClockPeriod200/2) s_tck200=~s_tck200;
     end
 
     // Ethernet 125 MHz clock

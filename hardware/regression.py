@@ -97,7 +97,7 @@ try:
                 proc = subprocess.Popen(command, shell=True, executable='/bin/bash')
 
                 try:
-                    proc.wait(timeout=3600*4)  # Adjusted timeout to 300 seconds (5 minutes)
+                    proc.wait(timeout=3600*7)
                 except subprocess.TimeoutExpired:
                     print(f"Test {num_tests}: Timeout expired. Terminating the process.")
                     proc.kill()
