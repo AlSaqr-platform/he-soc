@@ -90,10 +90,6 @@ module ariane_tb;
   parameter  USE_SDIO             = 1;
   parameter  USE_CAN              = 1;
   parameter  USE_ETHERNET         = 1;
- logic                 s_eth_clk125_0;
-  logic                 s_eth_clk125_90;
-  logic                 s_eth_clk200;  
-  logic                 s_eth_rstni;
 
   parameter DW       = ariane_axi_soc::DataWidth;
   parameter AW       = ariane_axi_soc::AddrWidth;
