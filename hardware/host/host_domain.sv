@@ -18,7 +18,7 @@
 `include "axi/assign.svh"
 `include "axi/typedef.svh"
 `include "common_cells/registers.svh"
-// `define APMU_IOPMP
+`define APMU_IOPMP
 `define APMU_IP
 
 module host_domain
