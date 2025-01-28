@@ -17,6 +17,7 @@
 0,../software/hello_culsans,none,none,,,,,0
 0,../software/bypass_cva6_dco,none,none,,,,,0
 0,../software/pmu_test,none,none,,,,,0
+0,../software/pmu_IOPMP_L2RW_test,none,none,,,,,0
 0,../software/monitor_counter,none,none,,,,,0
 0,../software/htm,none,none,,,,,0
 0,../software/mbox_test,opentitan/sw/tests/alsaqr/mbox_test/mbox_test.elf,none,,,,,0
