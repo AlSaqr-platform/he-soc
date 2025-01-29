@@ -217,12 +217,6 @@ packages:
     source:
       Git: "https://github.com/pulp-platform/common_verification.git"
     dependencies: []
-  culsans:
-    revision: dd62bc0741b4338ab43cb74bc65d864948b3418a
-    version: ~
-    source:
-      Git: "git@github.com:alsaqr-platform/culsans.git"
-    dependencies: []
   cva6:
     revision: 46332f874b0345e25e85930f4d1b2704083f83c8
     version: ~
