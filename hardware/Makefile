@@ -469,13 +469,6 @@ macro_sim: build_macro run
 
 synth_sim: build_synth run
 
-$(alsaqr-regression): build_macro
-	mkdir -p tmp
-	$(MAKE) -C $(SW_HOME)/$@ clean all
-	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8386 -suppress 8360 -lib $(library) +OT_FLASH=$(OT_FLASH) +CORE_ID=$(CORE_ID) +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$@ +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
-	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi   \
-	${top_level}_optimized +permissive-off ++$(alsaqr-regression-dir)/$@ ++$(target-options) | tee tmp/alsaqr-regression-$@.log
-
 check-benchmarks:
 	echo $(alsaqr-regression)
 	./check-regs.sh
@@ -495,13 +488,6 @@ run_regression_netlist:
 	mkdir regressions/regression_netlist_reports
 	python3 regression_netlist.py
 	regressions/check_netlist_regs.sh
-
-$(alsaqr-regression-post-synth): build_synth
-	mkdir -p tmp
-	$(MAKE) -C $(SW_HOME)/$@ clean all
-	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8386 -suppress 8360 -lib $(library) +OT_FLASH=$(OT_FLASH) +CORE_ID=$(CORE_ID) +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$@ +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
-	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi   \
-	${top_level}_optimized +permissive-off ++$(alsaqr-regression-dir)/$@ ++$(target-options) | tee tmp/alsaqr-regression-$@.log
 
 # NB: This regression for post synthesis requires preload=1 or localjtag=1 otherwise it will not work!!!!
 run-regressions-post-synth:	$(alsaqr-regression-post-synth)
