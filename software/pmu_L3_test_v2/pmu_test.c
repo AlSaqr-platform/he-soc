@@ -116,6 +116,8 @@ int main(int argc, char const *argv[]) {
     #endif
     uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
+    write_32b(0x1C + 0x1A106000, 0xA0000000);
+
     // Partition the cache.
     // write_32b(0x50 + 0x10401000, 0xFFFFFF00);
     // write_32b(0x54 + 0x10401000, 0xFFFF00FF);
