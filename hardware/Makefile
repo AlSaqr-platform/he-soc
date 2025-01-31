@@ -183,6 +183,12 @@ ifdef quad-core
   compile_fpga += QUAD_CORE
 endif
 
+ifdef aplic
+  questa-cmd += +USE_APLIC=$(APLIC)
+  compile_flag +=  +define+USE_APLIC
+  compile_fpga += USE_APLIC
+endif
+
 ifdef exclude-cluster
   questa-cmd += +EXCLUDE_CLUSTER=$(exclude-cluster)
   compile_flag +=  +define+EXCLUDE_CLUSTER

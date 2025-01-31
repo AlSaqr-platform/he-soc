@@ -62,9 +62,10 @@ module ariane_peripherals
 `ifdef USE_APLIC
     input  imsic_pkg::csr_channel_to_imsic_t   [NumCVA6-1:0]  imsic_csr_i      ,
     output imsic_pkg::csr_channel_from_imsic_t [NumCVA6-1:0]  imsic_csr_o      ,
-`endif
-
+    output logic [NumCVA6-1:0][ariane_soc::NrIntpFiles-1:0]   irq_o            ,
+`else
     output logic [NumCVA6-1:0][1:0]                           irq_o            ,
+`endif
     input  logic [31*4-1:0]                                   udma_evt_i       ,
     input  logic                                              c2h_irq_i        ,
     input  logic [NUM_GPIO-1:0]                               gpio_irq_i       ,

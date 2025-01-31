@@ -797,7 +797,13 @@ module cva6_subsystem
   // Peripherals
   // ---------------
   logic tx, rx;
+
+ `ifdef USE_APLIC
+  logic [ariane_soc::NumCVA6-1:0][ariane_soc::NrIntpFiles-1:0] irqs;
+ `else
   logic [ariane_soc::NumCVA6-1:0][1:0] irqs;
+ `endif
+
   `ifdef USE_APLIC
   imsic_pkg::csr_channel_to_imsic_t   [ariane_soc::NumCVA6-1:0]   ch_csr_to_imsic;
   imsic_pkg::csr_channel_from_imsic_t [ariane_soc::NumCVA6-1:0]   ch_imsic_to_csr;

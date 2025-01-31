@@ -90,10 +90,11 @@ module cva6_synth_wrap
   // IMSIC facilities
   input  imsic_pkg::csr_channel_from_imsic_t [ariane_soc::NumCVA6-1:0]   imsic_csr_i,
   output imsic_pkg::csr_channel_to_imsic_t   [ariane_soc::NumCVA6-1:0]   imsic_csr_o,
-`endif
-
-  // Interrupt inputs
+  input  logic [ariane_soc::NumCVA6-1:0][ariane_soc::NrIntpFiles-1:0] irq_i,// level sensitive IR lines, mip & sip (async)
+`else
   input  logic [ariane_soc::NumCVA6-1:0][1:0] irq_i,// level sensitive IR lines, mip & sip (async)
+`endif
+  // Interrupt inputs
   input  logic [ariane_soc::NumCVA6-1:0]      ipi_i,        // inter-processor interrupts (async)
   // Timer facilities
   input  logic [ariane_soc::NumCVA6-1:0]      time_irq_i,   // timer interrupt in (async)
