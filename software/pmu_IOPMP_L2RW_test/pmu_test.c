@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "utils.h"
 #include "pmu_test_func.c"
+#include "iopmp.h"
 
 // The CUA will always miss in the L1 but after one run of the loop, it will never miss in the LLC.
 #define NUM_NON_CUA 3
@@ -74,6 +75,18 @@ int main(int argc, char const *argv[]) {
     uint32_t test_freq = 50000000;
     #endif
     uart_set_cfg(0,(test_freq/baud_rate)>>4);
+
+    uint16_t  md = 0;
+    uintptr_t start_raddr = 0x1C000000;
+
+    // Configure IOPMP
+    enable_iopmp();
+    mdcfg_entry_config(5, 0);
+    srcmd_entry_config(&md, 1, 0, 0);
+
+    // Put 1 TOR entry allowing reads and writes
+    //set_entry_off(start_raddr, ACCESS_NONE, 0);
+    set_entry_tor(start_raddr + 64, ACCESS_READ | ACCESS_WRITE, 1);
 
     // Partition the cache.
     // write_32b(0x50 + 0x10401000, 0xFFFFFF00);

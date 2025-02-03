@@ -52,10 +52,10 @@ module snooping_engine
    localparam logic [AddrWidth-1:0] INSTR_MODE_INCR = 4;
 
    logic buffer_full;
-   logic [AddrWidth-1:0] cnt_o_next;
    logic [AddrWidth-1:0] cnt_o_incr;
    logic [15:0]          BUFFER_SIZE;
    logic [AddrWidth-1:0] entries_in_buffer;
+   logic                 overflow;
 
    logic [AddrWidth-1:0] last_read; // Internal last_read pointer
 
@@ -126,31 +126,6 @@ module snooping_engine
       endcase
    end
 
-   // Address Counter and Buffer Full Logic
-   always_ff @(posedge clk_i or negedge rst_ni) begin : counter_logic
-      if(~rst_ni) begin
-         cnt_o       <= '0;
-         buffer_full <= 1'b0;
-         cnt_o_next  <= 1'b0;
-      end else if (config_i.ctrl.cnt_rst.q) begin
-         cnt_o       <= '0;
-         buffer_full <= 1'b0;
-         cnt_o_next  <= 1'b0;
-      end else if (snoop_en_i) begin
-
-         cnt_o_next <= cnt_o + cnt_o_incr;
-
-         if (cnt_o_next >= BUFFER_SIZE) begin
-            cnt_o_next  <= cnt_o_next - BUFFER_SIZE;
-            buffer_full <= 1'b1;
-         end else begin
-            buffer_full <= 1'b0;
-         end
-
-         cnt_o <= cnt_o_next;
-      end
-   end
-
    // Update Valid Entry Registers
    always_ff @(posedge clk_i or negedge rst_ni) begin
        if (~rst_ni) begin
@@ -206,6 +181,29 @@ module snooping_engine
        end else begin
            entries_in_buffer = BUFFER_SIZE - last_read + last_valid_o;
        end
+   end
+
+   always_ff @(posedge clk_i or negedge rst_ni) begin : counter_logic
+      if (~rst_ni || config_i.ctrl.cnt_rst.q || cnt_o >= BUFFER_SIZE) begin
+         cnt_o = '0;
+         overflow = 1'b0;
+      end else begin
+         if(snoop_en_i) begin
+           cnt_o = cnt_o + cnt_o_incr;
+           if(cnt_o >= BUFFER_SIZE)
+             overflow = 1;
+         end
+      end
+   end
+
+   always_ff @(posedge clk_i or negedge rst_ni) begin
+      if (~rst_ni || config_i.ctrl.cnt_rst.q) begin
+         buffer_full = '0;
+      end else begin
+         if(overflow) begin
+           buffer_full = 1'b1;
+         end
+      end
    end
 
    // IRQ Logic
