@@ -53,8 +53,14 @@ module fll_dummy #(
  `endif
 
    `ifdef GENERATE_CLOCK
-   logic  clk;
-   parameter time ClkPeriod = 10ns;
+   logic clk_100;
+   logic clk_250;
+   // logic clk_800;
+   // logic clk_333;
+   parameter time ClkPeriod_100 = 10ns;       // 100 MHz Frequency
+   parameter time ClkPeriod_250 = 4ns;        // 250 MHz Frquency
+   // parameter time ClkPeriod_800 = 1.25ns;     // 800 MHz Frquency
+   // parameter time ClkPeriod_333 = 3.03ns;     // 333 MHz Frquency
 
 
    assign CFGACK = 1'b1;
@@ -64,24 +70,84 @@ module fll_dummy #(
    assign JTQ = 1'b0;
 
    `ifndef TEST_CLOCK_BYPASS
+     // Generate 100 MHz clock
      initial begin
-        clk = 1'b0;
+        clk_100 = 1'b0;
      end
      always begin
        // Emit rising clock edge.
-       clk = 1'b1;
+       clk_100 = 1'b1;
        // Wait for at most half the clock period before emitting falling clock edge.  Due to integer
        // division, this is not always exactly half the clock period but as close as we can get.
-       #(ClkPeriod/2);
+       #(ClkPeriod_100/2);
        // Emit falling clock edge.
-       clk = 1'b0;
+       clk_100 = 1'b0;
        // Wait for remainder of clock period before continuing with next cycle.
-       #(ClkPeriod/2);
+       #(ClkPeriod_100/2);
      end // always
 
-     for (genvar i=0;i<NB_FLL;i++) begin
-        assign OUTCLK[i] = clk & RSTB;
+     // Generate 250 MHz clock
+     initial begin
+        clk_250 = 1'b0;
      end
+     always begin
+       // Emit rising clock edge.
+       clk_250 = 1'b1;
+       // Wait for at most half the clock period before emitting falling clock edge.  Due to integer
+       // division, this is not always exactly half the clock period but as close as we can get.
+       #(ClkPeriod_250/2);
+       // Emit falling clock edge.
+       clk_250 = 1'b0;
+       // Wait for remainder of clock period before continuing with next cycle.
+       #(ClkPeriod_250/2);
+     end // always
+
+
+      ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    //  // Generate 333 MHz clock
+    //  initial begin
+    //     clk_333 = 1'b0;
+    //  end
+    //  always begin
+    //    // Emit rising clock edge.
+    //    clk_333 = 1'b1;
+    //    // Wait for at most half the clock period before emitting falling clock edge.  Due to integer
+    //    // division, this is not always exactly half the clock period but as close as we can get.
+    //    #(ClkPeriod_333/2);
+    //    // Emit falling clock edge.
+    //    clk_333 = 1'b0;
+    //    // Wait for remainder of clock period before continuing with next cycle.
+    //    #(ClkPeriod_333/2);
+    //  end // always
+
+    //  // Generate 800 MHz clock
+    //  initial begin
+    //     clk_800 = 1'b0;
+    //  end
+    //  always begin
+    //    // Emit rising clock edge.
+    //    clk_800 = 1'b1;
+    //    // Wait for at most half the clock period before emitting falling clock edge.  Due to integer
+    //    // division, this is not always exactly half the clock period but as close as we can get.
+    //    #(ClkPeriod_800/2);
+    //    // Emit falling clock edge.
+    //    clk_800 = 1'b0;
+    //    // Wait for remainder of clock period before continuing with next cycle.
+    //    #(ClkPeriod_800/2);
+    //  end // always
+
+     // Assigning clocks to OUTCLK
+     // OUTCLK [0] for CVA6 250 MHz
+     for (genvar i=0;i<NB_FLL;i++) begin
+        if (i == 0) begin
+          assign OUTCLK[i] = clk_250 & RSTB;
+        end else begin
+          assign OUTCLK[i] = clk_100 & RSTB;
+        end
+     end
+    //  for (genvar i=0;i<NB_FLL;i++) begin
+    //     assign OUTCLK[i] = clk & RSTB;
+    //  end
    `endif
 
   `endif //  `ifdef GENERATE_CLOCK
