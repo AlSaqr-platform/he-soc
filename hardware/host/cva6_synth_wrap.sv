@@ -35,7 +35,7 @@ module cva6_synth_wrap
   localparam AXI_DATA_WIDTH     = 64,
   localparam AXI_STRB_WIDTH     = AXI_ADDR_WIDTH/8,
   localparam LOG_DEPTH          = 1,
-  localparam LOG_DEPTH_SPU      = 1,
+  localparam LOG_DEPTH_SPU      = 2,
 
   localparam AXI_LITE_ADDR_WIDTH = 32,
   localparam AXI_LITE_DATA_WIDTH = 32,
@@ -365,6 +365,7 @@ module cva6_synth_wrap
       .e_out              ( spu_core[i]                  )
     );
 
+    logic spu_core_ready;
     cdc_fifo_gray_src #(
       .T           ( pmu_pkg::pmu_event_t ),
       .LOG_DEPTH   ( LOG_DEPTH_SPU        ),
@@ -373,8 +374,8 @@ module cva6_synth_wrap
       .src_rst_ni  ( rst_ni            ),
       .src_clk_i   ( clk_i             ),
       .src_data_i  ( spu_core[i]       ),
-      .src_valid_i ( |spu_core[i].e_id ),
-      .src_ready_o (                   ),
+      .src_valid_i ( |spu_core[i].e_id ), // This will exclude event_ID = 0. To capture all events change it to 1
+      .src_ready_o ( spu_core_ready    ),
 
       (* async *) .async_data_o ( spu_core_cdc_data_o[i] ),
       (* async *) .async_wptr_o ( spu_core_cdc_wptr_o[i] ),
