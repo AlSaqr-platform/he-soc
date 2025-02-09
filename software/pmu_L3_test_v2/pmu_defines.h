@@ -105,31 +105,34 @@
 ///     MEM:1        |                    |    RES: 3, 4
 ///  ________________|____________________|_____ RD, WR ______
  
+
+// If numCVA6 = 2 => PortID = 3 for LLC <=> Main Memory
+// If numCVA6 = 4 => PortID = 5 for LLC <=> Main Memory
 // Read and write requests of all cores to Main Memory from LLC
-#define MEM_RD_REQ   0x5F001F  
-#define MEM_WR_REQ   0x5F002F
+#define MEM_RD_REQ   0x3F001F  
+#define MEM_WR_REQ   0x3F002F
 // Read and write responses of all cores to LLC from Main Memory
-#define MEM_RD_RES   0x5F003F  
-#define MEM_WR_RES   0x5F004F
+#define MEM_RD_RES   0x3F003F  
+#define MEM_WR_RES   0x3F004F
  
 // Read and write requests of Core X to Main Memory from LLC
-#define MEM_RD_REQ_CORE_0  0x5F4F1F
-#define MEM_RD_REQ_CORE_1  0x5F5F1F
-#define MEM_RD_REQ_CORE_2  0x5F6F1F
-#define MEM_RD_REQ_CORE_3  0x5F7F1F
-#define MEM_WR_REQ_CORE_0  0x5F4F2F
-#define MEM_WR_REQ_CORE_1  0x5F5F2F
-#define MEM_WR_REQ_CORE_2  0x5F6F2F
-#define MEM_WR_REQ_CORE_3  0x5F7F2F
+#define MEM_RD_REQ_CORE_0  0x3F4F1F
+#define MEM_RD_REQ_CORE_1  0x3F5F1F
+#define MEM_RD_REQ_CORE_2  0x3F6F1F
+#define MEM_RD_REQ_CORE_3  0x3F7F1F
+#define MEM_WR_REQ_CORE_0  0x3F4F2F
+#define MEM_WR_REQ_CORE_1  0x3F5F2F
+#define MEM_WR_REQ_CORE_2  0x3F6F2F
+#define MEM_WR_REQ_CORE_3  0x3F7F2F
 // Read and write responses of Core X to LLC from Main Memory
-#define MEM_RD_RES_CORE_0  0x5F4F3F
-#define MEM_RD_RES_CORE_1  0x5F5F3F
-#define MEM_RD_RES_CORE_2  0x5F6F3F
-#define MEM_RD_RES_CORE_3  0x5F7F3F
-#define MEM_WR_RES_CORE_0  0x5F4F4F
-#define MEM_WR_RES_CORE_1  0x5F5F4F
-#define MEM_WR_RES_CORE_2  0x5F6F4F
-#define MEM_WR_RES_CORE_3  0x5F7F4F
+#define MEM_RD_RES_CORE_0  0x3F4F3F
+#define MEM_RD_RES_CORE_1  0x3F5F3F
+#define MEM_RD_RES_CORE_2  0x3F6F3F
+#define MEM_RD_RES_CORE_3  0x3F7F3F
+#define MEM_WR_RES_CORE_0  0x3F4F4F
+#define MEM_WR_RES_CORE_1  0x3F5F4F
+#define MEM_WR_RES_CORE_2  0x3F6F4F
+#define MEM_WR_RES_CORE_3  0x3F7F4F
 
 
 /// **********************************************************************
