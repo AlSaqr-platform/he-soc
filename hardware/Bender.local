@@ -13,4 +13,4 @@ overrides:
   register_interface: { git: "git@github.com:pulp-platform/register_interface.git",   rev: "5daa85d164cf6b54ad061ea1e4c6f3624556e467"   } # version:  0.4.5
   idma:               { git: "git@github.com:alsaqr-platform/iDMA.git", rev: "559f94af44873eecccd51b6282668e57f302fb98"                 } # branch: alsaqr-2
   riscv:              { git: "https://github.com/AlSaqr-platform/riscv_nn.git", rev: "4f35da2270e97e24723bdfa51cf2665cee05c2bd"         } # branch: alsaqr-2.0
-  apmu:               { git: "git@github.com:alsaqr-platform/apmu.git", rev: "61deeacc12378650f813a848aaed52b2fdea92d6"                 } #branch: alsaqr-2
+  apmu:               { git: "git@github.com:alsaqr-platform/apmu.git", rev: "f8d57d3ede962e50e90aa037d55acc37b98f09c7"                 } #branch: alsaqr-2

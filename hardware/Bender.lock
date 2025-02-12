@@ -78,7 +78,7 @@ packages:
       Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/apb_uart
     dependencies: []
   apmu:
-    revision: 61deeacc12378650f813a848aaed52b2fdea92d6
+    revision: f8d57d3ede962e50e90aa037d55acc37b98f09c7
     version: ~
     source:
       Git: "git@github.com:alsaqr-platform/apmu.git"
