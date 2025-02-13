@@ -17,7 +17,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-2/hardware/deps/alsaqr_periph_fpga_padframe
+      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/alsaqr_periph_fpga_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -25,7 +25,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-2/hardware/deps/alsaqr_periph_padframe
+      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/alsaqr_periph_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -60,7 +60,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-2/hardware/deps/apb_host_control_regs
+      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/apb_host_control_regs
     dependencies:
       - common_cells
       - register_interface
@@ -75,10 +75,10 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-2/hardware/deps/apb_uart
+      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/apb_uart
     dependencies: []
   apmu:
-    revision: 3e9227e1e853e324f48950b8dce09e6246113b47
+    revision: f8d57d3ede962e50e90aa037d55acc37b98f09c7
     version: ~
     source:
       Git: "git@github.com:alsaqr-platform/apmu.git"
@@ -164,7 +164,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-2/hardware/deps/axi_tlb
+      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/axi_tlb
     dependencies:
       - axi
       - common_cells
@@ -180,7 +180,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-2/hardware/deps/clint
+      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/clint
     dependencies:
       - cva6
   cluster_interconnect:
@@ -335,10 +335,10 @@ packages:
       - tech_cells_generic
       - udma_core
   ibex_pmu:
-    revision: a6dfcb42c16aa2469ff8e2fdb70edb85c35a1328
-    version: ~
+    revision: b93d8502157a52ea3825b964400904d2ba0d52c8
+    version: 1.0.1
     source:
-      Git: "git@github.com:alsaqr-platform/ibex.git"
+      Git: "git@github.com:Arshaan-256/ibex.git"
     dependencies:
       - tech_cells_generic
   icache-intc:
@@ -460,7 +460,7 @@ packages:
       - common_cells
       - common_verification
   riscv:
-    revision: e437cff049443dac25a2c3a35e9890a577f9493a
+    revision: 4f35da2270e97e24723bdfa51cf2665cee05c2bd
     version: ~
     source:
       Git: "https://github.com/AlSaqr-platform/riscv_nn.git"
@@ -504,7 +504,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-2/hardware/deps/rv_plic
+      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/rv_plic
     dependencies: []
   scm:
     revision: 998466d2a3c2d7d572e43d2666d93c4f767d8d60
@@ -522,7 +522,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-2/hardware/deps/snooper
+      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/snooper
     dependencies: []
   spu:
     revision: e213cb2e10d713531b718fdaddacdbd605f23ff6
@@ -623,7 +623,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-2/hardware/deps/util
+      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/util
     dependencies:
       - axi
       - common_cells

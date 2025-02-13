@@ -136,7 +136,7 @@ module cva6_subsystem
   logic        jtag_resp_valid;
   logic        snoop_core_select;
 
-  localparam   LOG_DEPTH_SPU = 1;
+  localparam   LOG_DEPTH_SPU = 2;
   localparam   SPU_CORE_WIDTH = $bits(pmu_pkg::pmu_event_t);
   localparam   ASYNC_SPU_CORE_WIDTH  = (2**LOG_DEPTH_SPU)*SPU_CORE_WIDTH;
 
@@ -951,9 +951,16 @@ module cva6_subsystem
     .spu_core_cdc_rptr_i  ( spu_core_cdc_rptr           )
   );
 
+  pmu_pkg::pmu_event_t [ariane_soc::NumCVA6-1:0] spu_core_o_temp;
+  
   for (genvar i = 0; i < ariane_soc::NumCVA6 ; i++ ) begin
 
       logic dst_valid_pmu;
+      pmu_pkg::pmu_event_t expanded_dst_valid_pmu;
+      assign expanded_dst_valid_pmu = {SPU_CORE_WIDTH{dst_valid_pmu}};
+      // assign expanded_dst_valid_pmu.e_id = {4{dst_valid_pmu}};
+      // assign expanded_dst_valid_pmu.e_info = {17{dst_valid_pmu}};
+      // assign expanded_dst_valid_pmu.s_id = {8{dst_valid_pmu}};
 
       cdc_fifo_gray_dst #(
         .T           ( pmu_pkg::pmu_event_t ),
@@ -962,7 +969,7 @@ module cva6_subsystem
       ) i_dst (
         .dst_rst_ni  ( rst_ni        ),
         .dst_clk_i   ( clk_i         ),
-        .dst_data_o  ( spu_core_o[i] ),
+        .dst_data_o  ( spu_core_o_temp[i]),
         .dst_valid_o ( dst_valid_pmu ),
         .dst_ready_i ( dst_valid_pmu ),
 
@@ -970,6 +977,8 @@ module cva6_subsystem
         (* async *) .async_wptr_i ( spu_core_cdc_wptr[i] ),
         (* async *) .async_rptr_o ( spu_core_cdc_rptr[i] )
       );
+
+      assign spu_core_o[i] = spu_core_o_temp[i] & expanded_dst_valid_pmu;
   end
 
   `AXI_LITE_ASSIGN_FROM_REQ(snooper_lite_slv_intf,axi_lite_snoop_req_i)

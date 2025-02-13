@@ -50,7 +50,7 @@ dependencies:
   # APMU_BLOCK START: Branch: uw/pmu
   axi_llc: { git: "git@github.com:alsaqr-platform/axi_llc.git", rev: "8fa5d302f7407d9582630bcc3fb07f4f3c08f2c0" } #branch: uw/plru_paritioning
   spu: { git: "git@github.com:alsaqr-platform/spu.git", rev: "e213cb2e10d713531b718fdaddacdbd605f23ff6" } #branch: mc/ace-support
-  apmu: { git: "git@github.com:alsaqr-platform/apmu.git", rev: "3e9227e1e853e324f48950b8dce09e6246113b47" } #branch: mc/fixes
+  apmu: { git: "git@github.com:alsaqr-platform/apmu.git", rev: "f8d57d3ede962e50e90aa037d55acc37b98f09c7" } #branch: alsaqr-2
 
 workspace:
   package_links:
