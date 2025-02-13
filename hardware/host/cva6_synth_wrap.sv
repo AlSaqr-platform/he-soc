@@ -33,7 +33,7 @@ module cva6_synth_wrap
   localparam AXI_ADDR_WIDTH     = 64,
   localparam AXI_USER_WIDTH     = ariane_axi_soc::UserWidth,
   localparam AXI_DATA_WIDTH     = 64,
-  localparam AXI_STRB_WIDTH     = AXI_ADDR_WIDTH/8,
+  localparam AXI_STRB_WIDTH     = AXI_DATA_WIDTH/8,
   localparam LOG_DEPTH          = 1,
   localparam LOG_DEPTH_SPU      = 1,
 
@@ -48,8 +48,8 @@ module cva6_synth_wrap
   localparam AR_WIDTH           = AXI_ID_WIDTH+AXI_ADDR_WIDTH+AXI_USER_WIDTH+$bits(axi_pkg::len_t)+$bits(axi_pkg::size_t)+$bits(axi_pkg::burst_t)+$bits(axi_pkg::cache_t)+$bits(axi_pkg::prot_t)+$bits(axi_pkg::qos_t)+$bits(axi_pkg::region_t)+1,
 
   localparam AW_WIDTH_SLV       = AXI_ID_WIDTH_SLV+AXI_ADDR_WIDTH+AXI_USER_WIDTH+$bits(axi_pkg::len_t)+$bits(axi_pkg::size_t)+$bits(axi_pkg::burst_t)+$bits(axi_pkg::cache_t)+$bits(axi_pkg::prot_t)+$bits(axi_pkg::qos_t)+$bits(axi_pkg::region_t)+$bits(axi_pkg::atop_t)+1,
-  localparam W_WIDTH_SLV        = AXI_USER_WIDTH+AXI_STRB_WIDTH+AXI_DATA_WIDTH+1,
-  localparam R_WIDTH_SLV        = AXI_ID_WIDTH_SLV+AXI_DATA_WIDTH+AXI_USER_WIDTH+$bits(axi_pkg::resp_t)+1,
+  localparam W_WIDTH_SLV        = AXI_USER_WIDTH+AXI_LITE_STRB_WIDTH+AXI_LITE_DATA_WIDTH+1,
+  localparam R_WIDTH_SLV        = AXI_ID_WIDTH_SLV+AXI_LITE_DATA_WIDTH+AXI_USER_WIDTH+$bits(axi_pkg::resp_t)+1,
   localparam B_WIDTH_SLV        = AXI_USER_WIDTH+AXI_ID_WIDTH_SLV+$bits(axi_pkg::resp_t),
   localparam AR_WIDTH_SLV       = AXI_ID_WIDTH_SLV+AXI_ADDR_WIDTH+AXI_USER_WIDTH+$bits(axi_pkg::len_t)+$bits(axi_pkg::size_t)+$bits(axi_pkg::burst_t)+$bits(axi_pkg::cache_t)+$bits(axi_pkg::prot_t)+$bits(axi_pkg::qos_t)+$bits(axi_pkg::region_t)+1,
 
@@ -163,29 +163,29 @@ module cva6_synth_wrap
   //***************************************
 
   // WRITE ADDRESS CHANNEL
-  input logic [LOG_DEPTH:0]                   snooper_slave_aw_wptr_i,
-  input logic [ASYNC_AW_DATA_WIDTH_SLV-1:0]   snooper_slave_aw_data_i,
-  output logic [LOG_DEPTH:0]                  snooper_slave_aw_rptr_o,
+  input logic [LOG_DEPTH:0]                  snooper_slave_aw_wptr_i,
+  input logic [ASYNC_AW_DATA_WIDTH_SLV-1:0]  snooper_slave_aw_data_i,
+  output logic [LOG_DEPTH:0]                 snooper_slave_aw_rptr_o,
 
   // READ ADDRESS CHANNEL
-  input logic [LOG_DEPTH:0]                   snooper_slave_ar_wptr_i,
-  input logic [ASYNC_AR_DATA_WIDTH_SLV-1:0]   snooper_slave_ar_data_i,
-  output logic [LOG_DEPTH:0]                  snooper_slave_ar_rptr_o,
+  input logic [LOG_DEPTH:0]                  snooper_slave_ar_wptr_i,
+  input logic [ASYNC_AR_DATA_WIDTH_SLV-1:0]  snooper_slave_ar_data_i,
+  output logic [LOG_DEPTH:0]                 snooper_slave_ar_rptr_o,
 
   // WRITE DATA CHANNEL
-  input logic [LOG_DEPTH:0]                   snooper_slave_w_wptr_i,
-  input logic [ASYNC_W_DATA_WIDTH_SLV-1:0]    snooper_slave_w_data_i,
-  output logic [LOG_DEPTH:0]                  snooper_slave_w_rptr_o,
+  input logic [LOG_DEPTH:0]                  snooper_slave_w_wptr_i,
+  input logic [ASYNC_W_DATA_WIDTH_SLV-1:0]   snooper_slave_w_data_i,
+  output logic [LOG_DEPTH:0]                 snooper_slave_w_rptr_o,
 
   // READ DATA CHANNEL
-  output logic [LOG_DEPTH:0]                  snooper_slave_r_wptr_o,
-  output logic [ASYNC_R_DATA_WIDTH_SLV-1:0]   snooper_slave_r_data_o,
-  input logic [LOG_DEPTH:0]                   snooper_slave_r_rptr_i,
+  output logic [LOG_DEPTH:0]                 snooper_slave_r_wptr_o,
+  output logic [ASYNC_R_DATA_WIDTH_SLV-1:0]  snooper_slave_r_data_o,
+  input logic [LOG_DEPTH:0]                  snooper_slave_r_rptr_i,
 
   // WRITE RESPONSE CHANNEL
-  output logic [LOG_DEPTH:0]                  snooper_slave_b_wptr_o,
-  output logic [ASYNC_B_DATA_WIDTH_SLV-1:0]   snooper_slave_b_data_o,
-  input logic [LOG_DEPTH:0]                   snooper_slave_b_rptr_i,
+  output logic [LOG_DEPTH:0]                 snooper_slave_b_wptr_o,
+  output logic [ASYNC_B_DATA_WIDTH_SLV-1:0]  snooper_slave_b_data_o,
+  input logic [LOG_DEPTH:0]                  snooper_slave_b_rptr_i,
 
   // APMU
   output logic [ariane_soc::NumCVA6-1:0] [LOG_DEPTH_SPU:0]          spu_core_cdc_wptr_o,
@@ -497,8 +497,8 @@ module cva6_synth_wrap
    // CDC FIFOs Logic
    //-----------------
 
-   ariane_axi_soc::req_slv_t   cfi_snooper_axi_req;
-   ariane_axi_soc::resp_slv_t  cfi_snooper_axi_rsp;
+   ariane_axi_soc::req_slv_32_t   cfi_snooper_axi_req;
+   ariane_axi_soc::resp_slv_32_t  cfi_snooper_axi_rsp;
 
    ariane_axi_soc::req_lite_t  cfi_snooper_lite_cfg_req;
    ariane_axi_soc::resp_lite_t cfi_snooper_lite_cfg_rsp;
@@ -522,17 +522,17 @@ module cva6_synth_wrap
    ) cfi_snooper_32_cfg_slv_asynch();
 
    AXI_BUS #(
-     .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH   ),
-     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH   ),
-     .AXI_ID_WIDTH   ( AXI_ID_WIDTH_SLV ),
-     .AXI_USER_WIDTH ( AXI_USER_WIDTH   )
+     .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH      ),
+     .AXI_DATA_WIDTH ( AXI_LITE_DATA_WIDTH ),
+     .AXI_ID_WIDTH   ( AXI_ID_WIDTH_SLV    ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH      )
    ) cfi_snooper_axi_slv_intf();
 
    AXI_BUS_ASYNC_GRAY #(
-     .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH   ),
-     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH   ),
-     .AXI_ID_WIDTH   ( AXI_ID_WIDTH_SLV ),
-     .AXI_USER_WIDTH ( AXI_USER_WIDTH   ),
+     .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH        ),
+     .AXI_DATA_WIDTH ( AXI_LITE_DATA_WIDTH   ),
+     .AXI_ID_WIDTH   ( AXI_ID_WIDTH_SLV      ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH        ),
      .LOG_DEPTH      ( 1    )
    ) cfi_snooper_axi_slv_asynch();
 
@@ -598,11 +598,11 @@ module cva6_synth_wrap
    );
 
    axi_cdc_dst_intf #(
-     .AXI_ID_WIDTH   ( AXI_ID_WIDTH_SLV ),
-     .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH   ),
-     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH   ),
-     .AXI_USER_WIDTH ( AXI_USER_WIDTH   ),
-     .LOG_DEPTH      ( 1                )
+     .AXI_ID_WIDTH   ( AXI_ID_WIDTH_SLV    ),
+     .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH      ),
+     .AXI_DATA_WIDTH ( AXI_LITE_DATA_WIDTH ),
+     .AXI_USER_WIDTH ( AXI_USER_WIDTH      ),
+     .LOG_DEPTH      ( 1                   )
    ) cfi_snooper_cdc_dst (
        .dst_clk_i  ( clk_i                      ),
        .dst_rst_ni ( rst_ni                     ),
@@ -641,16 +641,16 @@ module cva6_synth_wrap
   assign cva6_traces.pc_v     = snoop_core_select ? emitter_source[1].v                   : emitter_source[0].v                   ;
 
   snooper #(
-      .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave      ),
-      .axi_ar_chan_t  ( ariane_axi_soc::ar_chan_slv_t ),
-      .axi_aw_chan_t  ( ariane_axi_soc::aw_chan_slv_t ),
-      .axi_b_chan_t   ( ariane_axi_soc::b_chan_slv_t  ),
-      .axi_r_chan_t   ( ariane_axi_soc::r_chan_slv_t  ),
-      .axi_w_chan_t   ( ariane_axi_soc::w_chan_t      ),
-      .axi_req_t      ( ariane_axi_soc::req_slv_t     ),
-      .axi_rsp_t      ( ariane_axi_soc::resp_slv_t    ),
-      .axi_lite_req_t ( ariane_axi_soc::req_lite_t    ),
-      .axi_lite_rsp_t ( ariane_axi_soc::resp_lite_t   )
+      .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave        ),
+      .axi_ar_chan_t  ( ariane_axi_soc::ar_chan_slv_t   ),
+      .axi_aw_chan_t  ( ariane_axi_soc::aw_chan_slv_t   ),
+      .axi_b_chan_t   ( ariane_axi_soc::b_chan_slv_t    ),
+      .axi_r_chan_t   ( ariane_axi_soc::r_chan_slv_32_t ),
+      .axi_w_chan_t   ( ariane_axi_soc::w_chan_32_t     ),
+      .axi_req_t      ( ariane_axi_soc::req_slv_32_t    ),
+      .axi_rsp_t      ( ariane_axi_soc::resp_slv_32_t   ),
+      .axi_lite_req_t ( ariane_axi_soc::req_lite_t      ),
+      .axi_lite_rsp_t ( ariane_axi_soc::resp_lite_t     )
   ) i_snooper (
       .clk_i              ( clk_i                     ),
       .rst_ni             ( rst_ni                    ),

@@ -52,6 +52,10 @@ module snooping_engine
    localparam logic [AddrWidth-1:0] INSTR_MODE_INCR = 4;
 
    logic buffer_full;
+   logic cnt_rst;
+
+   logic [AddrWidth-1:0] next_cnt;
+
    logic [AddrWidth-1:0] cnt_o_incr;
    logic [15:0]          BUFFER_SIZE;
    logic [AddrWidth-1:0] entries_in_buffer;
@@ -75,7 +79,9 @@ module snooping_engine
    assign cnt_o_incr = config_i.ctrl.trace_mode.q[0] ?
                        INSTR_MODE_INCR               :
                        ADDR_MODE_INCR                ;
- 
+
+   assign cnt_rst = config_i.ctrl.cnt_rst.q;
+
    // Set BUFFER_SIZE based on trace mode
    always_comb begin : set_buffer_size
       unique case (config_i.ctrl.trace_mode.q)
@@ -174,7 +180,6 @@ module snooping_engine
        end
    end
 
-   // Compute entries in buffer considering wrap-around
    always_comb begin : compute_entries_in_buffer
        if (last_valid_o >= last_read) begin
            entries_in_buffer = last_valid_o - last_read;
@@ -183,27 +188,39 @@ module snooping_engine
        end
    end
 
-   always_ff @(posedge clk_i or negedge rst_ni) begin : counter_logic
-      if (~rst_ni || config_i.ctrl.cnt_rst.q || cnt_o >= BUFFER_SIZE) begin
-         cnt_o = '0;
+   always_comb begin
+     next_cnt = cnt_o;
+     overflow = 1'b0;
+     if (snoop_en_i) begin
+       if (cnt_o + cnt_o_incr >= BUFFER_SIZE) begin
+         next_cnt = '0;
+         overflow = 1'b1;
+       end else begin
+         next_cnt = cnt_o + cnt_o_incr;
          overflow = 1'b0;
-      end else begin
-         if(snoop_en_i) begin
-           cnt_o = cnt_o + cnt_o_incr;
-           if(cnt_o >= BUFFER_SIZE)
-             overflow = 1;
-         end
-      end
+       end
+     end
    end
 
-   always_ff @(posedge clk_i or negedge rst_ni) begin
-      if (~rst_ni || config_i.ctrl.cnt_rst.q) begin
-         buffer_full = '0;
-      end else begin
-         if(overflow) begin
-           buffer_full = 1'b1;
-         end
-      end
+   always_ff @(posedge clk_i or negedge rst_ni or posedge config_i.ctrl.cnt_rst.q) begin
+     if (!rst_ni) begin
+       cnt_o = 1'b0;
+     end else if(config_i.ctrl.cnt_rst.q) begin
+       cnt_o = 1'b0;
+     end else begin
+       cnt_o = next_cnt;
+     end
+   end
+
+   always_ff @(posedge clk_i or negedge rst_ni or posedge overflow or posedge config_i.ctrl.cnt_rst.q) begin
+     if (!rst_ni) begin
+       buffer_full = 1'b0;
+     end else if (config_i.ctrl.cnt_rst.q) begin
+       buffer_full = 1'b0;
+     end else begin
+       if (overflow)
+         buffer_full = 1'b1;
+     end
    end
 
    // IRQ Logic

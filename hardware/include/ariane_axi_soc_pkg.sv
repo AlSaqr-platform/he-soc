@@ -27,6 +27,7 @@ package ariane_axi_soc;
    `endif
     localparam AddrWidth = 64;
     localparam DataWidth = 64;
+    localparam DataWidth32 = 32;
     localparam StrbWidth = DataWidth / 8;
 
     typedef logic [ariane_soc::IdWidth-1:0]      id_t;
@@ -36,6 +37,7 @@ package ariane_axi_soc;
     typedef logic [DataWidth-1:0] data_t;
     typedef logic [StrbWidth-1:0] strb_t;
     typedef logic [UserWidth-1:0] user_t;
+    typedef logic [DataWidth32-1:0] data32_t;
 
     // AXI extension for untranslated transactions - IOMMU (Chapter A14)
     typedef logic [23:0]    sid_t;
@@ -119,6 +121,14 @@ package ariane_axi_soc;
         logic  last;
         user_t user;
     } w_chan_t;
+
+    // W Channel 32bit - AXI4 doesn't define a wid
+    typedef struct packed {
+        data32_t data;
+        strb_t   strb;
+        logic    last;
+        user_t   user;
+    } w_chan_32_t;
 
     // B Channel
     typedef struct packed {
@@ -222,6 +232,15 @@ package ariane_axi_soc;
         user_t          user;
     } r_chan_slv_t;
 
+    // R Channel - Slave 32bit
+    typedef struct packed {
+        id_slv_t        id;
+        data32_t        data;
+        axi_pkg::resp_t resp;
+        logic           last;
+        user_t          user;
+    } r_chan_slv_32_t;
+
     // R Channel
     typedef struct packed {
         id_slv_mem_t    id;
@@ -273,6 +292,27 @@ package ariane_axi_soc;
         logic         r_valid;
         r_chan_slv_t  r;
     } resp_slv_t;
+
+    typedef struct packed {
+        aw_chan_slv_t aw;
+        logic         aw_valid;
+        w_chan_32_t   w;
+        logic         w_valid;
+        logic         b_ready;
+        ar_chan_slv_t ar;
+        logic         ar_valid;
+        logic         r_ready;
+    } req_slv_32_t;
+
+    typedef struct packed {
+        logic           aw_ready;
+        logic           ar_ready;
+        logic           w_ready;
+        logic           b_valid;
+        b_chan_slv_t    b;
+        logic           r_valid;
+        r_chan_slv_32_t r;
+    } resp_slv_32_t;
 
     typedef struct packed {
         aw_chan_slv_mem_t aw;
