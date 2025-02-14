@@ -195,7 +195,7 @@ sources:
       - gf22/synopsys/fll/netlists/gf22_fll.v
       - gf22/synopsys/hyperbus/trial/netlists/hyperbus_async_macro.v
       - gf22/synopsys/culsans/trial/netlists/cva6_synth_wrap.v
-      - gf22/synopsys/opentitan/trial/netlists/security_island.sv
+      - gf22/synopsys/opentitan/trial/netlists/security_island.v
       - gf22/synopsys/cluster/trial/netlists/pulp_cluster.v
       - gf22/synopsys/top/trial/netlists/alsaqr_chip.v
 
@@ -247,7 +247,7 @@ sources:
   # RTL (USES FLL DUMMY) + OPENTITAN NETLIST
   - target: post_synth_opentitan
     files:
-      - gf22/synopsys/opentitan/trial/netlists/security_island.sv
+      - gf22/synopsys/opentitan/trial/netlists/security_island.v
 
   # RTL (USES FLL DUMMY) + CLUSTER NETLIST
   - target: post_synth_cluster
@@ -269,7 +269,7 @@ sources:
       - gf22/synopsys/fll/netlists/gf22_fll.v
       - gf22/innovus/hyperbus/out/hyperbus_synth_wrap.v
       - gf22/innovus/culsans/out/culsans_synth_wrap.v
-      - gf22/innovus/opentitan/out/security_island.sv
+      - gf22/innovus/opentitan/out/security_island.v
       - gf22/innovus/cluster/out/pulp_cluster.v
       - gf22/innovus/top/out/alsaqr_chip.v
 
