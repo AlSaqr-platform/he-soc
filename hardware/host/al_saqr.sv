@@ -657,9 +657,7 @@ module al_saqr
       .dst_resp_i                ( ot_axi_rsp )
    );
 
-   security_island  #(
-     .HartIdOffs(0)
-   ) i_RoT_wrap (
+   security_island i_RoT_wrap (
      .clk_i            ( clk_opentitan_o    ),
      .clk_cluster_i    ( s_cluster_clk      ),
      .clk_ref_i        ( clk_opentitan_o    ),

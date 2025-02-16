@@ -17,7 +17,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/alsaqr_periph_fpga_padframe
+      Path: /scratch2/mciani/alsaqr-2/he-soc-dw-snooper-rebase/hardware/deps/alsaqr_periph_fpga_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -25,7 +25,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/alsaqr_periph_padframe
+      Path: /scratch2/mciani/alsaqr-2/he-soc-dw-snooper-rebase/hardware/deps/alsaqr_periph_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -60,7 +60,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/apb_host_control_regs
+      Path: /scratch2/mciani/alsaqr-2/he-soc-dw-snooper-rebase/hardware/deps/apb_host_control_regs
     dependencies:
       - common_cells
       - register_interface
@@ -75,7 +75,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/apb_uart
+      Path: /scratch2/mciani/alsaqr-2/he-soc-dw-snooper-rebase/hardware/deps/apb_uart
     dependencies: []
   apmu:
     revision: f8d57d3ede962e50e90aa037d55acc37b98f09c7
@@ -164,7 +164,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/axi_tlb
+      Path: /scratch2/mciani/alsaqr-2/he-soc-dw-snooper-rebase/hardware/deps/axi_tlb
     dependencies:
       - axi
       - common_cells
@@ -180,7 +180,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/clint
+      Path: /scratch2/mciani/alsaqr-2/he-soc-dw-snooper-rebase/hardware/deps/clint
     dependencies:
       - cva6
   cluster_interconnect:
@@ -218,7 +218,7 @@ packages:
       Git: "https://github.com/pulp-platform/common_verification.git"
     dependencies: []
   cva6:
-    revision: 46332f874b0345e25e85930f4d1b2704083f83c8
+    revision: 9406f7ca9584f4921533eb366ab6cbdf5954f057
     version: ~
     source:
       Git: "https://github.com/AlSaqr-platform/cva6.git"
@@ -335,10 +335,10 @@ packages:
       - tech_cells_generic
       - udma_core
   ibex_pmu:
-    revision: b93d8502157a52ea3825b964400904d2ba0d52c8
-    version: 1.0.1
+    revision: a6dfcb42c16aa2469ff8e2fdb70edb85c35a1328
+    version: ~
     source:
-      Git: "git@github.com:Arshaan-256/ibex.git"
+      Git: "git@github.com:alsaqr-platform/ibex.git"
     dependencies:
       - tech_cells_generic
   icache-intc:
@@ -394,7 +394,7 @@ packages:
       - common_cells
       - common_verification
   opentitan:
-    revision: 01e084059f764d894f8544f450dbd7d12a6f4072
+    revision: 7dc51c542d9e494809e93257c2f0bc34c73eda59
     version: ~
     source:
       Git: "https://github.com/AlSaqr-platform/opentitan.git"
@@ -504,7 +504,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/rv_plic
+      Path: /scratch2/mciani/alsaqr-2/he-soc-dw-snooper-rebase/hardware/deps/rv_plic
     dependencies: []
   scm:
     revision: 998466d2a3c2d7d572e43d2666d93c4f767d8d60
@@ -522,7 +522,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/snooper
+      Path: /scratch2/mciani/alsaqr-2/he-soc-dw-snooper-rebase/hardware/deps/snooper
     dependencies: []
   spu:
     revision: e213cb2e10d713531b718fdaddacdbd605f23ff6
@@ -623,7 +623,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-uw-apmu-3/hardware/deps/util
+      Path: /scratch2/mciani/alsaqr-2/he-soc-dw-snooper-rebase/hardware/deps/util
     dependencies:
       - axi
       - common_cells

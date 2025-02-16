@@ -63,14 +63,7 @@ module snooper
    typedef logic [AXI_LITE_DATA_WIDTH-1:0]   data_lite_t;
    typedef logic [AXI_LITE_DATA_WIDTH/8-1:0] strb_lite_t;
 
-   typedef logic [AXI_ID_WIDTH-1:0]          id_32_t;
-   typedef logic [AXI_USER_WIDTH-1:0]        user_32_t;
-   typedef logic [AXI_ADDR_WIDTH-1:0]        addr_32_t;
-   typedef logic [AXI_LITE_DATA_WIDTH-1:0]   data_32_t;
-   typedef logic [AXI_LITE_DATA_WIDTH/8-1:0] strb_32_t;
-
    `REG_BUS_TYPEDEF_ALL(reg, addr_lite_t, data_lite_t, strb_lite_t)
-   `AXI_TYPEDEF_ALL(axi_32, addr_32_t, id_32_t, data_32_t, strb_32_t, user_32_t)
 
    logic [NumFields-1:0]                             buff_req;
    logic [NumFields-1:0] [MemAddrWidth-1:0 ]         buff_add;
@@ -110,8 +103,8 @@ module snooper
 
    trace_t trace_buff;
 
-   axi_32_req_t  axi_32_sw_req, axi_req_cut;
-   axi_32_resp_t axi_32_sw_rsp, axi_rsp_cut;
+   axi_req_t   axi_req_cut;
+   axi_rsp_t  axi_rsp_cut;
 
    assign trace_hw2reg.priv_lvl.unused.de   = 1'b1;
    assign trace_hw2reg.priv_lvl.priv_lvl.de = 1'b1;
@@ -243,56 +236,27 @@ module snooper
 // Circular Buffer Logic //
 ///////////////////////////
 
-   // Datapath width conversion
-   axi_dw_converter #(
-       .AxiMaxReads         ( 8                   ),
-       .AxiSlvPortDataWidth ( AXI_DATA_WIDTH      ),
-       .AxiMstPortDataWidth ( AXI_LITE_DATA_WIDTH ),
-       .AxiAddrWidth        ( AXI_ADDR_WIDTH      ),
-       .AxiIdWidth          ( AXI_ID_WIDTH        ),
-       .aw_chan_t           ( axi_32_aw_chan_t    ),
-       .mst_w_chan_t        ( axi_32_w_chan_t     ),
-       .slv_w_chan_t        ( axi_w_chan_t        ),
-       .b_chan_t            ( axi_32_b_chan_t     ),
-       .ar_chan_t           ( axi_32_ar_chan_t    ),
-       .mst_r_chan_t        ( axi_32_r_chan_t     ),
-       .slv_r_chan_t        ( axi_r_chan_t        ),
-       .axi_mst_req_t       ( axi_32_req_t        ),
-       .axi_mst_resp_t      ( axi_32_resp_t       ),
-       .axi_slv_req_t       ( axi_req_t           ),
-       .axi_slv_resp_t      ( axi_rsp_t           )
-   )  i_axi_dw_converter (
-       .clk_i      ( clk_i         ),
-       .rst_ni     ( rst_ni        ),
-       // slave port
-       .slv_req_i  ( axi_sw_req_i  ),
-       .slv_resp_o ( axi_sw_rsp_o  ),
-       // master port
-       .mst_req_o  ( axi_32_sw_req ),
-       .mst_resp_i ( axi_32_sw_rsp )
-   );
-
    // Break comb path between DW conv and AXI2MEM
    axi_cut #(
-       .aw_chan_t  ( axi_32_aw_chan_t ),
-       .w_chan_t   ( axi_32_w_chan_t  ),
-       .b_chan_t   ( axi_32_b_chan_t  ),
-       .ar_chan_t  ( axi_32_ar_chan_t ),
-       .r_chan_t   ( axi_32_r_chan_t  ),
-       .axi_req_t  ( axi_32_req_t     ),
-       .axi_resp_t ( axi_32_resp_t    )
+       .aw_chan_t  ( axi_aw_chan_t ),
+       .w_chan_t   ( axi_w_chan_t  ),
+       .b_chan_t   ( axi_b_chan_t  ),
+       .ar_chan_t  ( axi_ar_chan_t ),
+       .r_chan_t   ( axi_r_chan_t  ),
+       .axi_req_t  ( axi_req_t     ),
+       .axi_resp_t ( axi_rsp_t     )
    ) i_axi_cut (
        .clk_i      ( clk_i         ),
        .rst_ni     ( rst_ni        ),
-       .slv_req_i  ( axi_32_sw_req ),
-       .slv_resp_o ( axi_32_sw_rsp ),
+       .slv_req_i  ( axi_sw_req_i  ),
+       .slv_resp_o ( axi_sw_rsp_o  ),
        .mst_req_o  ( axi_req_cut   ),
        .mst_resp_i ( axi_rsp_cut   )
    );
 
    axi_to_mem #(
-       .axi_req_t    ( axi_32_req_t        ),
-       .axi_resp_t   ( axi_32_resp_t       ),
+       .axi_req_t    ( axi_req_t        ),
+       .axi_resp_t   ( axi_rsp_t        ),
        .AddrWidth    ( MemAddrWidth        ),
        .DataWidth    ( AXI_LITE_DATA_WIDTH ),
        .IdWidth      ( AXI_ID_WIDTH        ),
