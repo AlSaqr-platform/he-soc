@@ -20,7 +20,7 @@ try:
         num_tests = 0
 
         # The assumption is that all the cluster-related tests must be at the end of the list!!
-        minho_tests = 2
+        minho_tests = 0
 
         for row in csvreader:
             num_tests += 1

@@ -119,6 +119,7 @@ void _init(int cid, int nc)
      *tmp = 3;
      int baud_rate = 115200;
      int test_freq = 100000000;
+     set_flls();
      #else
      tmp = (int *) 0x1a10407C;
      *tmp = 1;

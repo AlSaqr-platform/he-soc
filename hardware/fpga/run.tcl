@@ -17,7 +17,7 @@ if {$::env(MAIN_MEM)=="HYPER"} {
     if {$::env(NUM_CORES)==4} {
         set SRC_CLK_PERIOD 50
     } else {
-        set SRC_CLK_PERIOD 50
+        set SRC_CLK_PERIOD 100
     }
 }
 if {$::env(MAIN_MEM)=="HYPER"} {
