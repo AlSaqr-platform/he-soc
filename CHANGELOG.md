@@ -4,6 +4,29 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.0.0 - Stable Release Alsaqr 2 branch: alsaqr_2_160225 - 16/02/2025
+
+### Hardware
+
+### Interface/Feature frozen macros:
+- Culsans
+- Hyperbus
+- OpenTitan
+- Cluster
+- TOP
+
+### Work In progress (RTL FROZEN)
+- Further testing
+
+### Testing:
+- Ran subset of regression tests on the chip's netlist: all works.
+
+### Changed:
+- CVA6: moved the snooper's dw converter outside to resolve timing violation -> changed pin count (smaller DW for AXI intf of snooper).
+- CVA6: bug fix to h-ext -> no relevant changes.
+- TOP: fixed bug within PMU AXI interface.
+- TOP: bug fixed into PMU's CDCs
+
 ## 1.0.0 - alsaqr_2_101124 - 10/11/2024
 
 ## Interface frozen macros:
