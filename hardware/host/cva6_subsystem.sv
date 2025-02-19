@@ -122,6 +122,8 @@ module cva6_subsystem
 
   logic        jtag_enable;
   logic        init_done;
+  logic        jtag_dmi_rst;
+
 
   logic        debug_req_valid;
   logic        debug_req_ready;
@@ -269,7 +271,7 @@ module cva6_subsystem
     .dmi_resp_i       ( debug_resp      ),
     .dmi_resp_ready_o ( jtag_resp_ready ),
     .dmi_resp_valid_i ( jtag_resp_valid ),
-    .dmi_rst_no       (                 ), // not connected
+    .dmi_rst_no       ( jtag_dmi_rst    ),
     .tck_i            ( jtag_TCK        ),
     .tms_i            ( jtag_TMS        ),
     .trst_ni          ( jtag_TRSTn      ),
@@ -351,7 +353,7 @@ module cva6_subsystem
     .master_r_rdata_i     ( dm_master_r_rdata           ),
     .master_r_other_err_i ( '0                          ),
     .master_r_err_i       ( '0                          ),
-    .dmi_rst_ni           ( rst_ni                      ),
+    .dmi_rst_ni           ( jtag_dmi_rst                ),
     .dmi_req_valid_i      ( debug_req_valid             ),
     .dmi_req_ready_o      ( debug_req_ready             ),
     .dmi_req_i            ( debug_req                   ),
