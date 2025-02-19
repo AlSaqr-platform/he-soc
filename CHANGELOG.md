@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.0.1 - Stable Release Alsaqr 2 branch: alsaqr_2_190225 - 19/02/2025
+
+### Hardware
+
+### Interface/Feature frozen macros:
+- Culsans
+- Hyperbus
+- OpenTitan
+- Cluster
+- TOP
+
+### Work In progress (RTL FROZEN)
+- Further testing
+
+### Testing:
+- Ran subset of regression tests on the chip's netlist: all works.
+
+### Changed:
+- TOP: recast connection of a debug module reset signal (was connected the wrong one). This fixes a timing violation on TOP.
+
 ## 2.0.0 - Stable Release Alsaqr 2 branch: alsaqr_2_160225 - 16/02/2025
 
 ### Hardware
