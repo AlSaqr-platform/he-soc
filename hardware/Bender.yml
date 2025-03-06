@@ -14,7 +14,7 @@ dependencies:
   snooper: { path: "deps/snooper"}
   rv_plic: { path: "deps/rv_plic" }
   axi_riscv_atomics: { git: "https://github.com/pulp-platform/axi_riscv_atomics.git", rev: "062bc36cbcca25629384e7f12efa6693273b3e07" } # branch: master
-  cva6: { git: "https://github.com/AlSaqr-platform/cva6.git", rev: "9406f7ca9584f4921533eb366ab6cbdf5954f057" } # branch: pulp-v1-culsans
+  cva6: { git: "https://github.com/AlSaqr-platform/cva6.git", rev: "8bb74bef1274a7dcadece7ae29b1db322b1d6f7a" } # branch: pulp-v1-culsans
   ace: { git: "https://github.com/pulp-platform/ace.git", rev: "06180ec96531d38dc0c1c2b244bad621c5fe73a5" }
   riscv-dbg: { git: "https://github.com/pulp-platform/riscv-dbg", rev: "358f90110220adf7a083f8b65d157e836d706236" } # version: 0.8.1
   axi: { git: "https://github.com/pulp-platform/axi.git", rev: "39f5f2d51c5e524f6fc5cf8b6e901f7dcc5622d7" } # version: 0.39.6
@@ -39,7 +39,7 @@ dependencies:
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", rev: "c8faec1e1755386d0e0f31a55ebd80612a3dcea9" } # version: 1.0.4
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "0ec0bf8b7dab6d5e4b3f7ec58338a8efee066379" }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", rev: "4ce2907ab2313e67836e251f6deea67d885aef5f" } # version: 0.0.4
-  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "7dc51c542d9e494809e93257c2f0bc34c73eda59" } # branch: alsaqr-2
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "ecdfd35fb79403a166ea21aea363e89310b038ae" } # branch: alsaqr-2
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
   ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "f2c8a5040596476ee1769292a7c48df9b1c05949" }
   sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }

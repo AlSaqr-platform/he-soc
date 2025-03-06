@@ -23,9 +23,17 @@ inc_dirs = . drivers/inc string_lib/inc padframe/inc fpga_padframe/inc udma udma
 
 src_dirs = . drivers/src string_lib/src udma/uart padframe/src fpga_padframe/src
 
+inc_dirs_l2 = . drivers/inc string_lib/inc
+
+src_dirs_l2 = . drivers/src string_lib/src
+
 SRC+=$(foreach d, $(src_dirs), $(wildcard $(utils_dir)$d/*.c))
 
 INC+=$(foreach d, $(inc_dirs), -I$(utils_dir)$d)
+
+SRC_L2+=$(foreach d, $(src_dirs_l2), $(wildcard $(utils_dir)$d/*.c))
+
+INC_L2+=$(foreach d, $(inc_dirs_l2), -I$(utils_dir)$d)
 
 ifneq ($(strip $(wildcard $(HW_HOME)/ip_list/fll_behav/driver)),)
 	FLL_DRIVER=1
@@ -72,6 +80,9 @@ clean:
 build:
 	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir)/test.ld $(RISCV_LINK_OPTS) $(cc-elf-y) $(inc_dir)/crt.S $(inc_dir)/syscalls.c -L $(inc_dir) $(APP).c $(SRC) -o $(APP).riscv
 
+build_l2:
+	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir)/test_l2.ld $(RISCV_LINK_OPTS) $(cc-elf-y) $(inc_dir)/crt.S $(inc_dir)/syscalls.c -L $(inc_dir) $(APP).c $(SRC_L2) -o $(APP).riscv
+
 dis:
 	$(RISCV_OBJDUMP) $(APP).riscv > $(APP).dump
 
@@ -82,6 +93,8 @@ dump:
 	echo $(APP).riscv | tee -a  $(HW_HOME)/regression.list
 
 all: clean build dis dump
+
+all_l2: clean build_l2 dis dump
 
 rtl:
 	 $(MAKE) -C $(SW_HOME)/../hardware/ -B all

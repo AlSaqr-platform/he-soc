@@ -48,9 +48,8 @@ import "DPI-C" context function byte read_section(input longint address, inout b
 module ariane_tb;
 
   static uvm_cmdline_processor uvcl = uvm_cmdline_processor::get_inst();
-
-  localparam int unsigned REFClockPeriod       = 1us; // jtag clock: 1MHz
-  localparam int unsigned REFClockPeriodOt     = 25ns;
+  localparam int unsigned REFClockPeriod       = 1us; // jtag clock: 40MHz
+  localparam int unsigned REFClockPeriodOt     = 25ns; // jtag clock: 40MHz
 
   `ifdef ETH2FMC_NO_PADFRAME
     localparam int unsigned REFClockPeriod200     = 5ns; // eth200 clock: 200MHz
@@ -166,11 +165,16 @@ module ariane_tb;
   //                            //
   ////////////////////////////////
 
+  `ifdef NO_L3_CONNECTION
+  parameter  LINKER_ENTRY        = 32'h1C000000;
+  parameter  TOHOST              = 32'h1C000140;
+  `else
   // when preload is enabled LINKER_ENTRY specifies the linker address which must be L3 -> 32'h80000000
   parameter  LINKER_ENTRY        = 32'h80000000;
   // IMPORTANT : If you change the linkerscript check the tohost address and update this paramater
   // IMPORTANT : to host mapped in L2 non-cached region because we use WB cache
   parameter  TOHOST              = 32'h1C000000;
+  `endif
 
   `ifdef USE_LOCAL_JTAG
     parameter  PRELOAD_HYPERRAM = 0;
@@ -1301,13 +1305,21 @@ module ariane_tb;
         .eth_mdc          ( s_core_eth_mdc     ),
         `endif
 
+        `ifdef NO_L3_CONNECTION
+        .pad_hyper_csn        (   ),
+        .pad_hyper_ck         (   ),
+        .pad_hyper_ckn        (   ),
+        .pad_hyper_rwds       (   ),
+        .pad_hyper_reset      (   ),
+        .pad_hyper_dq         (   ),
+        `else
         .pad_hyper_csn        ( hyper_cs_n_wire        ),
         .pad_hyper_ck         ( hyper_ck_wire          ),
         .pad_hyper_ckn        ( hyper_ck_n_wire        ),
         .pad_hyper_rwds       ( hyper_rwds_wire        ),
         .pad_hyper_reset      ( hyper_reset_n_wire     ),
         .pad_hyper_dq         ( hyper_dq_wire          ),
-
+        `endif
         .pad_bootmode         ( bootmode               )
       );
 
