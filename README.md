@@ -114,7 +114,7 @@ make clean all sim
 To run tests in L2, you compile for L2 and then disconnect the L3 with following commands and flags:
 ```
 make -C ../software/hello_culsans clean all_l2
-make scripts_vip exclude-l3-tb=1 localjtag=1 clean sim
+make scripts_vip exclude-l3-tb=1 localjtag=1 elf-bin=<path-to-test.riscv> clean sim
 ```
 The code must be preloaded into L2 via JTAG.
 
