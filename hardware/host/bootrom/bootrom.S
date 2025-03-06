@@ -4,7 +4,7 @@
 
 .global _start
 _start:
-    li    sp, 0x84000000
+    la    sp, __stack_pointer$
     # write exception vector
     la    t0, exception
     csrw  mtvec, t0

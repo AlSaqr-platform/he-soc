@@ -189,6 +189,12 @@ ifdef exclude-cluster
   compile_fpga += EXCLUDE_CLUSTER
 endif
 
+ifdef exclude-l3-tb
+  questa-cmd += +NO_L3_CONNECTION=$(exclude-l3-tb)
+  compile_flag +=  +define+NO_L3_CONNECTION
+  compile_fpga += NO_L3_CONNECTION
+endif
+
 ifdef exclude-rot
   questa-cmd += +EXCLUDE_ROT=$(exclude-rot)
   compile_flag +=  +define+EXCLUDE_ROT

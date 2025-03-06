@@ -48,7 +48,6 @@ git clone git@github.com:AlSaqr-platform/he-soc.git
 cd he-soc
 git checkout tags/<tag-name> 
 source setup.sh
-source software/pulp-runtime/configs/pulp_cluster.sh
 ```
 
 To install, configure bender and download the git dependencies + verification IPs, from he-soc/ run:
@@ -99,17 +98,6 @@ Be aware that the preload of the code is slower in this case.
 make -C ../software/"test you want to run" clean all
 make clean sim
 ```
-If you want to speed up the simulation (of about 2x), you can use the "max-opt" flag, which will deactivate the logs of all the waveforms. This is not suitable for debugging, but just to get the result of a test as fast as passible.
-To avoid the Questa GUI to be opened, you can use the "nogui=1" flag, which applies the same opts as max-opt and do not open the gui.
-```
-make scripts_vip max-opt=1
-make clean sim max-opt=1
-```
-or
-```
-make scripts_vip nogui=1
-make clean sim nogui=1
-```
 
 The code that will be laoded is the last that has been compiled. Thus, to run a test with preload in L3, you shall compile the test you want to run (as shown above) and then run the simulation without providing the path to the binary.
 
@@ -136,46 +124,17 @@ make -C ../software/hello_culsans/ clean all
 make clean sim BOOTMODE=1 sec_boot=1
 
 ```
+The sec_boot=1 flag can be used to prevent CVA6 from booting (to run tests on OpenTitan as a standalone environment)
 
-### Running code on the cluster
-
-To run code on the cluster we must first source its runtime:
-```
-cd software
-source pulp-runtime/configs/pulp_cluster.sh
-```
-Each test designed for the cluster is structured as follows:
-```
-- your-test-folder
-  |
-  |
-  -- stimuli
-```
-The parent folder contains the code executed by the host (CVA6) and the `stimuli` folder contains the cluster code.
-
-You can compile all the needed files with the following commands:
-```
-cd your-test-folder
-make -C stimuli clean all dump_header
-make clean all CLUSTER_BIN=1
-```
-The tests that will run is the last that's been compiled. Thus, compile a test among the ones in software/cluster_regression.list then run the following commands:
-```
-cd ../../hardware
-make scripts_vip
-make clean sim
-```
 ### Run regressions
 
 Before merging any modification into the master it is important to run the regression tests to check we did not break anything. To do so, execute the following commands:
 
-To run the regressions including the CVA6 various dual boot mode, FLL bypass and secure boot/mbox test and periphs, run:
+To run the regressions including the CVA6 boot, FLL, secure boot/mbox test and periphs, run:
 ```
 cd hardware/
 make run_regression
 ```
-The tests executed here can be found in `hardware/regressions/regression.csv`, they are 23 and all of them pass.
-
 
 ### FPGA Emulation
 
