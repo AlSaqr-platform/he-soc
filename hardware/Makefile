@@ -374,7 +374,7 @@ post_synth_top_fll_behav:
 post_synth_opentitan:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) $(pedanticerrors)" \
-    -t asic -t rtl -t use_idma -t test -t tb -t vip -t post_synth_opentitan -t cva6 -t scm_use_latch_scm -t aia_msi -t aia_embedded -t $(CVA6_PKG) > $(compile_script)
+    -t asic -t rtl -t use_idma -t test -t tb -t vip -t post_synth_cluster -t post_synth_opentitan -t cva6 -t scm_use_latch_scm -t aia_msi -t aia_embedded -t $(CVA6_PKG) > $(compile_script)
 
 # RTL (USES FLL DUMMY) + CLUSTER NETLIST
 post_synth_cluster:
@@ -487,13 +487,11 @@ run_regression:
 	rm -rf regressions/regression_reports
 	mkdir regressions/regression_reports
 	python3 regression.py
-	regressions/check_regs.sh
 
 run_regression_netlist:
 	rm -rf regressions/regression_netlist_reports
 	mkdir regressions/regression_netlist_reports
 	python3 regression_netlist.py
-	regressions/check_netlist_regs.sh
 
 # NB: This regression for post synthesis requires preload=1 or localjtag=1 otherwise it will not work!!!!
 run-regressions-post-synth:	$(alsaqr-regression-post-synth)

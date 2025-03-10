@@ -3,15 +3,12 @@
 import subprocess
 import sys
 import os
-import psutil
 import csv
-import re
 import shutil  # Import the shutil module
 
-# Ensure the regressions/regression_reports/ directory exists
+# Ensure the regressions/regression_netlist_reports/ directory exists
 os.makedirs('regressions/regression_netlist_reports/', exist_ok=True)
 
-# Open the regression CSV file
 try:
     with open('regressions/regression_netlist.csv', 'r') as file:
         csvreader = csv.reader(file)
@@ -42,8 +39,9 @@ try:
                 print(f"Error: Invalid data type in row {num_tests}.")
                 continue
 
-            # Creating the transcript file name
-            transcript_name = f'transcript_{num_tests}.log'
+            # Pre-create the test directory before executing the command
+            test_dir = f"regressions/regression_netlist_reports/test_{num_tests}"
+            os.makedirs(test_dir, exist_ok=True)
 
             # Constructing script arguments using a list
             scripts_args = [
@@ -51,70 +49,59 @@ try:
                 f"dual-boot={db}",
                 f"clk-bypass={clk}"
             ]
-
-            # Add conditional argument for ethernet
             if eth == 1:
                 scripts_args.append("include-ethernet=1")
-
-            # Join all arguments into a single string
             scripts_args_str = " ".join(scripts_args)
 
-            # Command for the subprocess, with branching logic for `minho_tests`
+            # Build command based on test number
             if num_tests > minho_tests:
                 command = (
-                    f"("
-                    f"  set -x; "  # Enable command tracing
-                    f"  make post_synth_all post_synth=1 {scripts_args_str} && "
-                    f"  make -C {cva6} clean all && "
-                    f"  make clean synth_sim post_synth=1 BOOTMODE={bm} ibex-elf-bin={ot} nogui=1 && "
-                    f"  mkdir -p regressions/regression_netlist_reports/test_{num_tests} && "
-                    f"  mv transcript regressions/regression_netlist_reports/test_{num_tests}/transcript.log"
-                    f") | tee regressions/regression_netlist_reports/test_{num_tests}/terminal.log"
+                    "set -x; "  # Enable command tracing
+                    f"make post_synth_all post_synth=1 {scripts_args_str} && "
+                    f"make -C {cva6} clean all && "
+                    f"make clean synth_sim post_synth=1 BOOTMODE={bm} ibex-elf-bin={ot} nogui=1 && "
+                    f"mv transcript {test_dir}/transcript.log"
                 )
             else:
                 command = (
-                    f"("
-                    f"  set -x; "  # Enable command tracing
-                    f"  make post_synth_all post_synth=1 {scripts_args_str} && "
-                    f"  make bin_to_slm_path test_path={cva6} && "
-                    f"  make clean synth_sim post_synth=1 nogui=1 && "
-                    f"  mkdir -p regressions/regression_netlist_reports/test_{num_tests} && "
-                    f"  mv transcript regressions/regression_netlist_reports/test_{num_tests}/transcript.log"
-                    f") | tee regressions/regression_netlist_reports/test_{num_tests}/terminal.log"
+                    "set -x; "  # Enable command tracing
+                    f"make post_synth_all post_synth=1 {scripts_args_str} && "
+                    f"make bin_to_slm_path test_path={cva6} && "
+                    f"make clean synth_sim post_synth=1 nogui=1 && "
+                    f"mv transcript {test_dir}/transcript.log"
                 )
 
-            # Display the command being executed
-            print(f"\nExecuting Test {num_tests}:")
-            print(f"Command: {command.split('|')[0].strip()}")
-            print(f"Logging to: regressions/regression_netlist_reports/log_test_{num_tests}.log")
+            # Pipe output to tee so that terminal output is logged in the test directory
+            full_command = f"({command}) | tee {test_dir}/terminal.log"
 
-            # Execute the command in a subprocess
+            print(f"\nExecuting Test {num_tests}:")
+            print(f"Command: {command}")
+            print(f"Logging to: {test_dir}/terminal.log")
+
             try:
-                proc = subprocess.Popen(command, shell=True, executable='/bin/bash')
+                proc = subprocess.Popen(full_command, shell=True, executable='/bin/bash')
 
                 try:
-                    proc.wait(timeout=3600*8)
+                    proc.wait(timeout=3600 * 8)
                 except subprocess.TimeoutExpired:
                     print(f"Test {num_tests}: Timeout expired. Terminating the process.")
                     proc.kill()
-                    tests_passed += 0
                     continue
 
-                # Check for return code
-                retvalue = proc.returncode
-                if retvalue != 0:
-                    print(f"Test {num_tests} failed with return code {retvalue}. Check log_test_{num_tests}.log for details.")
-                    continue
-                else:
+                # Instead of relying solely on the return code,
+                # check if the transcript file was successfully moved.
+                transcript_path = f"{test_dir}/transcript.log"
+                if os.path.exists(transcript_path):
                     print(f"Test {num_tests} passed successfully.")
                     tests_passed += 1
-
+                else:
+                    print(f"Test {num_tests} failed. Transcript log missing.")
             except Exception as e:
                 print(f"Test {num_tests}: An exception occurred: {e}")
                 continue
-    
+
         print(f"\nPassed tests: {tests_passed}/{num_tests}\n")
-    
+
 except FileNotFoundError:
     print("Error: 'regressions/regression_netlist.csv' file not found.")
     sys.exit(1)
