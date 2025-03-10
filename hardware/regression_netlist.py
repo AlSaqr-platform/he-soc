@@ -57,7 +57,7 @@ try:
             if num_tests > minho_tests:
                 command = (
                     "set -x; "  # Enable command tracing
-                    f"make post_synth_opentitan post_synth=1 {scripts_args_str} && "
+                    f"make post_synth_all post_synth=1 {scripts_args_str} && "
                     f"make -C {cva6} clean all && "
                     f"make clean synth_sim post_synth=1 BOOTMODE={bm} ibex-elf-bin={ot} nogui=1 && "
                     f"mv transcript {test_dir}/transcript.log"
@@ -65,7 +65,7 @@ try:
             else:
                 command = (
                     "set -x; "  # Enable command tracing
-                    f"make post_synth_opentitan post_synth=1 {scripts_args_str} && "
+                    f"make post_synth_all post_synth=1 {scripts_args_str} && "
                     f"make bin_to_slm_path test_path={cva6} && "
                     f"make clean synth_sim post_synth=1 nogui=1 && "
                     f"mv transcript {test_dir}/transcript.log"
