@@ -4,6 +4,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.0.2 - Stable Release Alsaqr 2 branch: alsaqr_2_130325 - 13/03/2025
+
+### Hardware
+
+### Interface/Feature frozen macros:
+- Culsans
+- Hyperbus
+- OpenTitan
+- Cluster
+- TOP
+
+### Work In progress (RTL FROZEN)
+- Further testing
+
+### Testing:
+- Ran subset of regression tests on the chip's netlist: all works.
+- Added more tests
+- Enhanced regression scripts: now more clear reports and error logging.
+
+### Changed:
+- TOP: Updated Bootrom, moved stack pointer from L3 to L2 (avoid deadlocks when L3 unconnected).
+
 ## 2.0.1 - Stable Release Alsaqr 2 branch: alsaqr_2_190225 - 19/02/2025
 
 ### Hardware
