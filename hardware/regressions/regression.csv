@@ -4,6 +4,7 @@
 0,../software/iommu/iommu_test_11_12.elf,none,none,,,,,0
 0,../software/snooper_test,opentitan/sw/tests/alsaqr/snooper_test/snooper_test_instr.elf,none,,,,,0
 0,../software/snooper_test,opentitan/sw/tests/alsaqr/snooper_test/snooper_test_addr.elf,none,,,,,0
+0,../software/snooper_test,opentitan/sw/tests/cluster/addressability/addressability.elf,none,,,,,0
 0,../software/peripherals/qspim_flash,none,none,,,,,0
 0,../software/peripherals/spim_flash,none,none,,,,,0
 0,../software/peripherals/uart,none,none,,,,,0
