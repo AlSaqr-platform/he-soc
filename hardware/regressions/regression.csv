@@ -7,6 +7,7 @@
 0,../software/snooper_test,opentitan/sw/tests/cluster/addressability/addressability.elf,none,,,,,0
 0,../software/peripherals/qspim_flash,none,none,,,,,0
 0,../software/peripherals/spim_flash,none,none,,,,,0
+0,../software/peripherals/i2c,none,none,,,,,0
 0,../software/peripherals/uart,none,none,,,,,0
 0,../software/peripherals/usart,none,none,,,,,0
 0,../software/peripherals/sdio,none,none,,,,,0
