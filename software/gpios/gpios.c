@@ -14,9 +14,6 @@
  * limitations under the License.
  */
 
-/*
- * Mantainer: Victor Isachi (victor.isachi@unibo.it)
- */
 
 #include <stdio.h>
 #include <stdint.h>
@@ -25,9 +22,6 @@
 #include "udma.h"
 
 #define BUFFER_SIZE 32
-
-#define ARCHI_GPIO_ADDR 0x1A105000
-#define CSR_MTOPEI 0x35C
 
 #define OUT 1
 #define IN  0
@@ -471,15 +465,11 @@ int main() {
 
     uint32_t gpio_a_irq_id = 179;
     uint32_t gpio_b_irq_id = 188;
-    uint32_t gpio_a_imsic_id = 1;
-    uint32_t gpio_b_imsic_id = 2;
 
     switch(v){
       // pad_a GPIOs
       case 0:
-        aplic_init();
-        imsic_init();
-        config_irq_aplic(gpio_a_irq_id, gpio_a_imsic_id, 0);
+        config_irq_plic(gpio_a_irq_id);
         for(int i = 0; i < NUM_GPIOS_A/2; i++) {
           configure_gpio( i , OUT );
           #if VERBOSE > 1
@@ -506,10 +496,8 @@ int main() {
           for(int i = NUM_GPIOS_A/2; i < NUM_GPIOS_A; i++) {
             if(i==15) {
               asm volatile ("wfi");
-              imsic_intp_arrive(gpio_a_imsic_id);
+              wait_for_irq(gpio_a_irq_id);
               read_gpio_intstatus(15);
-              CSRW(CSR_MTOPEI, 0);
-              aplic_reset(gpio_a_imsic_id);
             }
 
             if(get_gpio(i) != gpio_val){
@@ -526,9 +514,7 @@ int main() {
 
       // pad_b GPIOs
       case 1:
-        aplic_init();
-        imsic_init();
-        config_irq_aplic(gpio_b_irq_id, gpio_b_imsic_id, 0);
+        config_irq_plic(gpio_b_irq_id);
         for(int i = 0; i < NUM_GPIOS_B/2; i++) {
           configure_gpio( i , OUT );
           #if VERBOSE > 1
@@ -556,10 +542,8 @@ int main() {
           for(int i = NUM_GPIOS_B/2; i < NUM_GPIOS_B; i++) {
             if(i==24) {
               asm volatile ("wfi");
-              imsic_intp_arrive(gpio_b_imsic_id);
+              wait_for_irq(gpio_b_irq_id);
               read_gpio_intstatus(24);
-              CSRW(CSR_MTOPEI, 0);
-              aplic_reset(gpio_b_imsic_id);
             }
 
             if(get_gpio(i) != gpio_val){

@@ -1,5 +1,10 @@
 #include "utils.h"
 
+#define PLIC_BASE 0x0C000000
+#define PLIC_CHECK PLIC_BASE + 0x201004
+//enable bits for sources 0-31
+#define PLIC_EN_BITS  PLIC_BASE + 0x2080
+
 void uart_sim_cfg() {
     int baud_rate = 115200;
     int test_freq = 50000000; 
@@ -114,4 +119,19 @@ void apb_timer_start() {
 
 unsigned int apb_timer_get(){
   return pulp_read32(0x18000000);
+}
+
+void config_irq_plic (int irq_id){
+  pulp_write32(PLIC_BASE+irq_id*4, 1); // set eot interrupt priority to 1
+  pulp_write32(PLIC_EN_BITS+(((int)(irq_id/32))*4), 1<<(irq_id%32)); //enable interrupt
+  return;
+}
+
+void wait_for_irq(int irq_id){
+    while(pulp_read32(PLIC_CHECK)!=irq_id)
+      asm volatile ("wfi");
+
+    //Set completed Interrupt
+    pulp_write32(PLIC_CHECK,irq_id);
+    return;
 }

@@ -86,6 +86,10 @@ void dma_wait_trnf_done (uint32_t trnf_id);
 
 void apb_timer_start();
 
+void config_irq_plic (int irq_id);
+
+void wait_for_irq(int irq_id);
+
 unsigned int apb_timer_get();
 
 static inline void synch_barrier() {
