@@ -5,8 +5,6 @@
 BENDER:=./bender
 # questa library
 library        ?= work
-# verilator lib
-ver-library    ?= work-ver
 # library for DPI
 dpi-library    ?= work-dpi
 # Top level module to compile
@@ -15,18 +13,12 @@ top_level      ?= ariane_tb
 max_cycles     ?= 10000000
 # Test case to run
 test_case      ?= core_test
-# QuestaSim Version
-questa_version ?=
-# verilator version
-verilator      ?= verilator
 # traget option
 target-options ?=
 # additional definess
 defines        ?= WT_DCACHE
 # test name for torture runs (binary name)
 test-location  ?= output/test
-# set to either nothing or -log
-torture-logs   :=
 # custom elf bin to run with sim or sim-verilator
 CORE_ID        ?= 0
 elf-bin        ?= $(SW_HOME)/hello_culsans/hello_culsans.riscv
@@ -34,8 +26,6 @@ elf-bin        ?= $(SW_HOME)/hello_culsans/hello_culsans.riscv
 ibex-elf-bin   ?= none
 BOOTMODE       ?= 0
 OT_FLASH       ?= ./opentitan/sw/tests/alsaqr/flash_alsaqr_boot/bazel-out/flash_alsaqr_boot_signed8.vmem
-#cl-bin         ?= ../software/pulp/mm.riscv
-cl-bin         ?= none
 # root pathelf-bin
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 root-dir := $(dir $(mkfile_path))
@@ -46,13 +36,6 @@ acc            ?= +acc
 noacc          ?=
 test_name      ?= hello_culsans
 test_path      ?= ../software/hello_culsans/hello_culsans.riscv
-
-# regression
-alsaqr-regression-dir        := ./
-alsaqr-regression-list       := $(SW_HOME)/regression.list
-alsaqr-regression            := $(shell xargs printf '\n%s' < $(alsaqr-regression-list) | cut -b 1-)
-
-alsaqr-regression-post-synth := $(shell xargs printf '\n%s' < $(alsaqr-regression-list) | cut -b 1-)
 
 BENDER_FPGA_SCRIPTS_DIR = fpga/alsaqr/tcl/generated
 BENDER_SYNTH_DIR = gf22
@@ -83,48 +66,15 @@ else
     compile_script := post_synth_compile.tcl
 endif
 
-# spike tandem verification
-ifdef spike-tandem
-    compile_flag += -define SPIKE_TANDEM
-    ifndef preload
-        $(error Tandem verification requires preloading)
-    endif
-endif
-
-
-ifdef spike-tandem
-    util += tb/common/spike.sv
-endif
-
 util := $(addprefix $(root-dir), $(util))
-# Test packages
-test_pkg := $(wildcard tb/test/*/*sequence_pkg.sv*) \
-			$(wildcard tb/test/*/*_pkg.sv*)
-
 # DPI
 dpi := $(patsubst tb/dpi/%.cc, ${dpi-library}/%.o, $(wildcard tb/dpi/*.cc))
-
-# filter spike stuff if tandem is not activated
-ifndef spike-tandem
-    dpi := $(filter-out ${dpi-library}/spike.o ${dpi-library}/sim_spike.o, $(dpi))
-endif
-
-# filter dromajo stuff if dromajo is not activated
-ifndef DROMAJO
-    dpi := $(filter-out ${dpi-library}/dromajo_cosim_dpi.o, $(dpi))
-endif
 
 dpi_hdr := $(wildcard tb/dpi/*.h)
 dpi_hdr := $(addprefix $(root-dir), $(dpi_hdr))
 CFLAGS := -I$(QUESTASIM_HOME)/include         \
           -I$(RISCV)/include                  \
-          -I$(SPIKE_ROOT)/include             \
-          $(if $(DROMAJO), -I../tb/dromajo/src,) \
           -std=c++11 -I../tb/dpi -O3
-
-ifdef spike-tandem
-    CFLAGS += -Itb/riscv-isa-sim/install/include/spike
-endif
 
 # Compile and sim flags
 compile_flag     += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 13262 -suppress 3999 -suppress 3009 -suppress 8386 -suppress 8360 -permissive +define+$(defines)
@@ -149,13 +99,6 @@ ifdef nogui
 	questa-cmd   := -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; run -all;"
 endif
 
-ifdef max-opt
-  acc   :=
-	noacc := +noacc=+ariane_tb.
-	questa-cmd   := -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; run -all;"
-	compile_flag += -O5
-endif
-
 # if defined, calls the questa targets in batch mode
 ifdef batch-mode
 	questa-flags += -c
@@ -163,18 +106,6 @@ ifdef batch-mode
 	noacc := +noacc=p+dut.
 	questa-cmd   := -do "coverage save -onexit ./test.ucdb; run -a; quit -code [coverage attribute -name TESTSTATUS -concise]"
 	questa-cmd   += -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; run -all;"
-endif
-
-ifdef preload
-  questa-cmd += +PRELOAD=$(preload)
-  compile_flag +=  +PRELOAD=$(preload)
-  elf-bin = none
-endif
-
-ifdef l3-fake
-  questa-cmd += +L3_TCSRAM=$(l3-fake)
-  compile_flag +=  +define+L3_TCSRAM
-  compile_fpga += L3_TCSRAM
 endif
 
 ifdef quad-core
@@ -222,10 +153,6 @@ ifdef simple-padframe
   questa-cmd   += +SIMPLE_PADFRAME=$(simple-padframe)
   compile_flag += +define+SIMPLE_PADFRAME
   compile_fpga += SIMPLE_PADFRAME
-endif
-
-ifdef spike-tandem
-    questa-cmd += -gblso tb/riscv-isa-sim/install/lib/libriscv.so
 endif
 
 # remote bitbang is enabled
@@ -445,15 +372,6 @@ $(dpi-library)/ariane_dpi.so: $(dpi)
 	# Compile C-code and generate .so file
 	$(CXX) -shared -m64 -o $(dpi-library)/ariane_dpi.so $? -L$(RISCV)/lib -L$(SPIKE_ROOT)/lib -Wl,-rpath,$(RISCV)/lib -Wl,-rpath,$(SPIKE_ROOT)/lib
 
-# single test runs on Questa can be started by calling make <testname>, e.g. make towers.riscv
-# the test names are defined in ci/riscv-asm-tests.list, and in ci/riscv-benchmarks.list
-# if you want to run in batch mode, use make <testname> batch-mode=1
-# alternatively you can call make sim elf-bin=<path/to/elf-bin> in order to load an arbitrary binary
-
-generate-trace-vsim:
-	make sim preload=$(preload) elf-bin= batch-mode=1
-	make generate-trace
-
 run:
 	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8386 -suppress 8360 -lib $(library) +OT_FLASH=$(OT_FLASH) +CORE_ID=$(CORE_ID) +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi  \
@@ -464,9 +382,6 @@ run_dbg:
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi  \
 	${top_level}_optimized +permissive-off ++$(elf-bin) ++$(target-options) ++$(cl-bin) | tee sim.log
 
-#	vsim${questa_version} +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -lib $(library) +notimingchecks +nospecify +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) -t 1ps \
-#	-sdfnoerror -sdfnowarn  -sdfmin /ariane_tb/dut/i_host_domain/i_cva6_subsystem/i_ariane_wrap=./gf22/innovus/cva6/out/cva6_synth_wrap.sdf.gz +sdf_verbose \
-
 sim: build run
 
 sim_dbg: build_dbg run_dbg
@@ -474,14 +389,6 @@ sim_dbg: build_dbg run_dbg
 macro_sim: build_macro run
 
 synth_sim: build_synth run
-
-check-benchmarks:
-	echo $(alsaqr-regression)
-	./check-regs.sh
-
-run-regressions:	$(alsaqr-regression)
-	$(MAKE) scripts_vip_macro
-	$(MAKE) check-benchmarks
 
 run_regression:
 	rm -rf regressions/regression_reports
@@ -492,14 +399,6 @@ run_regression_netlist:
 	rm -rf regressions/regression_netlist_reports
 	mkdir regressions/regression_netlist_reports
 	python3 regression_netlist.py
-
-# NB: This regression for post synthesis requires preload=1 or localjtag=1 otherwise it will not work!!!!
-run-regressions-post-synth:	$(alsaqr-regression-post-synth)
-	$(MAKE) check-benchmarks-synth
-
-check-benchmarks-synth:
-	echo $(alsaqr-regression-post-synth)
-	./check-regs.sh
 
 tb/vips/spi_flash:
 	rm -rf $@
@@ -549,16 +448,8 @@ compile_test:
 	make -C ../software/${test_name}/ clean all
 
 clean:
-	rm -rf $(riscv-torture-dir)/output/test*
-	rm -rf $(library)/ $(dpi-library)/ $(ver-library)/
+	rm -rf $(library)/ $(dpi-library)/
 	rm -f tmp/*.ucdb tmp/*.log *.wlf *vstf wlft* *.ucdb
 	rm -f *log
 	rm -f transcript
 	rm -f uart
-
-clean_regs:
-	rm -f *.riscv
-	rm -f regression.list
-
-
-all: clean build

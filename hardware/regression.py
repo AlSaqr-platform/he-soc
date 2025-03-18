@@ -56,23 +56,25 @@ try:
             # Build command based on test type
             if num_tests > minho_tests:
                 command = (
-                    "set -x; "  # Enable command tracing
+                    "set -ex; "  # Enable command tracing and exit on error
                     f"make scripts_vip_macro {scripts_args_str} && "
                     f"make -C {cva6} clean all && "
                     f"make clean macro_sim BOOTMODE={bm} ibex-elf-bin={ot} nogui=1 && "
                     f"mv transcript {test_dir}/transcript.log && "
-                    f"mv trace_hart_0.log {test_dir}/trace_hart_0.log && "
-                    f"mv trace_hart_1.log {test_dir}/trace_hart_1.log"
+                    f"mv trace_core*.log {test_dir}/ && "
+                    f"mv trace_hart_0.log {test_dir}/ && "
+                    f"mv trace_hart_1.log {test_dir}/"
                 )
             else:
                 command = (
-                    "set -x; "  # Enable command tracing
+                    "set -ex; "  # Enable command tracing and exit on error
                     f"make scripts_vip_macro {scripts_args_str} && "
                     f"make bin_to_slm_path test_path={cva6} && "
                     f"make clean macro_sim nogui=1 && "
                     f"mv transcript {test_dir}/transcript.log && "
-                    f"mv trace_hart_0.log {test_dir}/trace_hart_0.log && "
-                    f"mv trace_hart_1.log {test_dir}/trace_hart_1.log"
+                    f"mv trace_core*.log {test_dir}/ && "
+                    f"mv trace_hart_0.log {test_dir}/ && "
+                    f"mv trace_hart_1.log {test_dir}/"
                 )
 
             # Pipe output to tee so that terminal output is logged in test_dir/terminal.log
@@ -89,19 +91,26 @@ try:
                 except subprocess.TimeoutExpired:
                     print(f"Test {num_tests}: Timeout expired. Terminating the process.")
                     proc.kill()
-                    continue
+                    sys.exit(1)  # Stop executing further tests
 
-                # Instead of relying solely on the return code (which may be 1 on success),
+                # Check the process return code
+                if proc.returncode != 0:
+                    print(f"Test {num_tests}: Command failed with return code {proc.returncode}. Stopping further execution.")
+                    sys.exit(1)
+
+                # Instead of relying solely on the return code,
                 # check if the transcript log was successfully moved.
                 transcript_path = f"{test_dir}/transcript.log"
-                if os.path.exists(transcript_path):
+                if not os.path.exists(transcript_path):
+                    print(f"Test {num_tests} failed. Transcript log missing. Stopping further execution.")
+                    sys.exit(1)
+                else:
                     print(f"Test {num_tests} passed successfully.")
                     tests_passed += 1
-                else:
-                    print(f"Test {num_tests} failed. Transcript log missing.")
+
             except Exception as e:
                 print(f"Test {num_tests}: An exception occurred: {e}")
-                continue
+                sys.exit(1)  # Stop on exception
 
         print(f"\nPassed tests: {tests_passed}/{num_tests}\n")
 

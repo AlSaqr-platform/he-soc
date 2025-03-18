@@ -88,3 +88,4 @@ hardware/fll_behav
 hardware/opentitan
 hardware/regressions/regression_reports
 hardware/regressions/regression_netlist_reports
+hardware/post_synth_compile.tcl
