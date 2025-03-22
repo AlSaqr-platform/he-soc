@@ -79,15 +79,15 @@ uint32_t array_traversal(uint32_t len);
 //    [PortID_Val, PortID_Mask, SourceID_Val, SourceID_Mask, EventID_Val, EventID_Mask].
 //    |<---- PortIDWidth*2 --->||<---- SourceIDWidth*2 ---->||<--- EventIDWidth*2 --->| 
 uint32_t gen_event_sel_reg_value (
-            uint32_t EVENT_ID_WIDTH,
-            uint32_t SOURCE_ID_WIDTH,
-            uint32_t PORT_ID_WIDTH,
-            uint32_t EVENT_ID_MASK,
-            uint32_t EVENT_ID_VAL,
-            uint32_t SOURCE_ID_MASK,
-            uint32_t SOURCE_ID_VAL,
-            uint32_t PORT_ID_MASK,
-            uint32_t PORT_ID_VAL);
+            uint32_t event_id_width,
+            uint32_t source_id_width,
+            uint32_t port_id_width,
+            uint32_t event_id_mask,
+            uint32_t event_id_val,
+            uint32_t source_id_mask,
+            uint32_t source_id_val,
+            uint32_t port_id_mask,
+            uint32_t port_id_val);
 
 // Function to test read and writes to the SPM.
 // This test will make `num_rw` number of writes, from array `val[]`,  and then reads to the DSPM, starting from addreses `base_addr`.
