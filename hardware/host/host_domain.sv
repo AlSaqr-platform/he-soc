@@ -590,14 +590,16 @@ module host_domain
      .SetAssociativity   ( ariane_soc::LLC_SET_ASSOC   ),
      .NumLines           ( ariane_soc::LLC_NUM_LINES   ),
      .NumBlocks          ( ariane_soc::LLC_NUM_BLOCKS  ),
+     // Source ID Specifications
+     .SourceIDStart      (  2                          ),
+     .SourceIDEnd        (  7                          ),
      // AXI4 Specifications
-     .IdWidthMasters     ( ariane_soc::IdWidth         ),
-     .IdWidthSlaves      ( ariane_soc::IdWidthSlave    ),
+     .IdWidth            ( ariane_soc::IdWidth         ),
      .AddrWidth          ( AXI_ADDRESS_WIDTH           ),
      .DataWidth          ( AXI_DATA_WIDTH              ),
      // Address Indexing
-     .addr_rule_t        ( ariane_soc::addr_map_rule_t ),
      .N_ADDR_RULES       ( N_ADDR_RULES                ),
+     .addr_rule_t        ( ariane_soc::addr_map_rule_t ),
      // FIFO and CAM Parameters
      .CAM_DEPTH          ( 17                          ),
      .FIFO_DEPTH         (  8                          )
@@ -711,7 +713,7 @@ module host_domain
      .NUM_PORT         ( 3                              ),
      .NUM_COUNTER      ( APMU_NUM_COUNTER               ),
      .ISPM_NUM_WORDS   ( 128                            ),
-     .DSPM_NUM_WORDS   ( 1024                           ),
+     .DSPM_NUM_WORDS   ( 1600                           ),
      // APMU Addresses and SPM configuration
      .MEMORY_BASE_ADDR ( ariane_soc::L2SPMBase          ),
      .MEMORY_LENGTH    ( ariane_soc::L2SPMBase + ariane_soc::L2SPMLength        ),
