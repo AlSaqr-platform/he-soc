@@ -38,6 +38,7 @@
 ///     3. Event Info Configuration Register      BASE_ADDR + 0x8
 ///     4. Initial Budget Register                BASE_ADDR + 0xc
 
+#define NUM_CVA6    2
 #define NUM_COUNTER 12
 
 #define TIMER_WIDTH     0x8
@@ -70,66 +71,27 @@
 /// **********************************************************************
 /// PMU Event Defines for Event Selection Register
 /// **********************************************************************
-/// Defines for Core to/from LLC
+/// Verify against pmu_pkg, and spu_top.
 /// ****************************
-// Read requests from Core X to LLC
-#define LLC_RD_REQ          0x00001F
-#define LLC_RD_REQ_CORE_0   0x2F001F
-#define LLC_RD_REQ_CORE_1   0x3F001F
-#define LLC_RD_REQ_CORE_2   0x4F001F
-#define LLC_RD_REQ_CORE_3   0x5F001F
-// Read responses to Core X from LLC
-#define LLC_RD_RES          0x00003F
-#define LLC_RD_RES_CORE_0   0x2F003F
-#define LLC_RD_RES_CORE_1   0x3F003F
-#define LLC_RD_RES_CORE_2   0x4F003F
-#define LLC_RD_RES_CORE_3   0x5F003F
-// Write requests from Core X to LLC
-#define LLC_WR_REQ          0x00002F
-#define LLC_WR_REQ_CORE_0   0x2F002F
-#define LLC_WR_REQ_CORE_1   0x3F002F
-#define LLC_WR_REQ_CORE_2   0x4F002F
-#define LLC_WR_REQ_CORE_3   0x5F002F
-// Write responses to Core X from LLC
-#define LLC_RD_RES          0x00004F
-#define LLC_WR_RES_CORE_0   0x2F004F
-#define LLC_WR_RES_CORE_1   0x3F004F
-#define LLC_WR_RES_CORE_2   0x4F004F
-#define LLC_WR_RES_CORE_3   0x5F004F
+#define EVENT_ID_WIDTH      0x4
+#define SOURCE_ID_WIDTH     0x6
+#define PORT_ID_WIDTH       0x4
 
-/// ***********************************
-/// Defines for LLC to/from Main Memory
-/// ***********************************
-/// Port ID and Mask | Source ID and Mask | Event ID and Mask
-///     LLC:0        |     4, 5, 6, 7     |    REQ: 1, 2 
-///     MEM:1        |                    |    RES: 3, 4
-///  ________________|____________________|_____ RD, WR ______
+#define SOURCE_ID_CORE_0    0x1
+#define SOURCE_ID_CORE_1    0x2
+#define SOURCE_ID_CORE_2    0x3
+#define SOURCE_ID_CORE_3    0x4
 
-// Read and write requests of all cores to Main Memory from LLC
-#define MEM_RD_REQ   0x1F001F  
-#define MEM_WR_REQ   0x1F002F
-// Read and write responses of all cores to LLC from Main Memory
-#define MEM_RD_RES   0x1F003F  
-#define MEM_WR_RES   0x1F004F
+#define EVENT_ID_RD_REQ     0x1
+#define EVENT_ID_RD_RES     0x2
+#define EVENT_ID_WR_REQ     0x3
+#define EVENT_ID_WR_RES     0x4
 
-// Read and write requests of Core X to Main Memory from LLC
-#define MEM_RD_REQ_CORE_0  0x1F4F1F
-#define MEM_RD_REQ_CORE_1  0x1F5F1F
-#define MEM_RD_REQ_CORE_2  0x1F6F1F
-#define MEM_RD_REQ_CORE_3  0x1F7F1F
-#define MEM_WR_REQ_CORE_0  0x1F4F2F
-#define MEM_WR_REQ_CORE_1  0x1F5F2F
-#define MEM_WR_REQ_CORE_2  0x1F6F2F
-#define MEM_WR_REQ_CORE_3  0x1F7F2F
-// Read and write responses of Core X to LLC from Main Memory
-#define MEM_RD_RES_CORE_0  0x1F4F3F
-#define MEM_RD_RES_CORE_1  0x1F5F3F
-#define MEM_RD_RES_CORE_2  0x1F6F3F
-#define MEM_RD_RES_CORE_3  0x1F7F3F
-#define MEM_WR_RES_CORE_0  0x1F4F4F
-#define MEM_WR_RES_CORE_1  0x1F5F4F
-#define MEM_WR_RES_CORE_2  0x1F6F4F
-#define MEM_WR_RES_CORE_3  0x1F7F4F
+#define PORT_ID_LLC_MEM     NUM_CVA6
+#define PORT_ID_CORE_0_LLC  0x1
+#define PORT_ID_CORE_1_LLC  0x2
+#define PORT_ID_CORE_2_LLC  0x3
+#define PORT_ID_CORE_3_LLC  0x4
 
 /// **********************************************************************
 /// Defines for Event Info Register
