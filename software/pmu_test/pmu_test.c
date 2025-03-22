@@ -43,22 +43,13 @@ void end_test(uint32_t mhartid){
 // *********************************************************************
 int main(int argc, char const *argv[]) {
   
-  volatile uint32_t read_target_0;
-  volatile uint32_t read_target_1;
-  volatile uint32_t read_target_2;
-  volatile uint32_t read_target_3;
-
-  
-
   uint32_t mhartid;
   asm volatile (
     "csrr %0, 0xF14\n"
     : "=r" (mhartid)
   );
 
-  uint32_t dspm_base_addr;
-  uint32_t read_target;
-  uint32_t error_count = 0;
+  uint32_t error = 0;
 
   // *******************************************************************
   // Core 0
@@ -80,17 +71,78 @@ int main(int argc, char const *argv[]) {
     // write_32b(0x58 + 0x10401000, 0xFF00FFFF);
     // write_32b(0x5c + 0x10401000, 0x00FFFFFF);
 
-    
-    counter_b_t ct;
-     for (uint32_t i=0; i<8; i++) {
-      ct.counter    = i*1;
-      ct.event_sel  = i*2;
-      ct.event_info = i*4;
+    uint32_t program[] = {
+      0x33,
+      0x10428437,
+      0x30040413,
+      0x104287b7,
+      0x40078793,
+      0xfef42423,
+      0xfe042623,
+      0xfec42703,
+      0x3ff00793,
+      0x02e7ca63,
+      0xfec42783,
+      0x00279793,
+      0xfe842703,
+      0x00f707b3,
+      0xfec42683,
+      0xfec42703,
+      0x02e68733,
+      0x00e7a023,
+      0xfec42783,
+      0x00178793,
+      0xfef42623,
+      0xfc9ff06f,
+      0x104287b7,
+      0xfef42223,
+      0xfe442783,
+      0x10000713,
+      0x00e7a023,
+      0xfadff06f
+    };
 
-     write_counter_b(COUNTER_B_BASE_ADDR + COUNTER_BUNDLE_SIZE*i, ct);
+    uint32_t program_size = sizeof(program) / sizeof(program[0]);
+
+    printf("Halt PMU core before writing to ISPM-hehe!\n");
+    write_32b(PMC_STATUS_ADDR, 1);
+
+    error += test_spm(ISPM_BASE_ADDR, program_size, program);
+
+    printf("Start PMU core!\n");
+    write_32b(PMC_STATUS_ADDR, 0);
+
+    volatile uint32_t *read_addr = (uint32_t*)(DSPM_BASE_ADDR + 0x400);
+    volatile uint32_t read_val;
+
+    asm volatile ("fence");
+    volatile uint32_t *done_ptr = (uint32_t*)(DSPM_BASE_ADDR);
+    while (*done_ptr != 256);
+
+    while (1) {
+      printf("Run.\n");
+      for (int a_idx=1; a_idx<1024; a_idx++) {
+        asm volatile (
+          "lw %0, 0(%1)\n"
+          : "=r"(read_val)
+          : "r"(read_addr + a_idx)
+        );
+
+        if (read_val != a_idx*a_idx) {
+          printf("Error - %d vs %d!\n", a_idx*a_idx, read_val);
+        }
+      }
     }
+    asm volatile ("fence");
 
-    uint32_t error = test_pmu_core_bubble_sort(ISPM_BASE_ADDR, DSPM_BASE_ADDR, PMC_STATUS_ADDR, 10, 2);
+    // test_pmu_core_bubble_sort (ISPM_BASE_ADDR, DSPM_BASE_ADDR, PMC_STATUS_ADDR, 20, 1);
+    // test_pmu_core_bubble_sort (ISPM_BASE_ADDR+0x400, DSPM_BASE_ADDR+0x1000, PMC_STATUS_ADDR, 20);
+    // run_pmu_core_test_suite(ISPM_BASE_ADDR,
+    //                         COUNTER_B_BASE_ADDR,
+    //                         DSPM_BASE_ADDR,
+    //                         PMC_STATUS_ADDR, 
+    //                         COUNTER_BUNDLE_SIZE,
+    //                         8, 20, 1);
 
     printf("Error: %d\r\n", error);
     end_test(mhartid);
