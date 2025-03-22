@@ -364,7 +364,7 @@ module cva6_synth_wrap
       .SourceIDEnd        (  7                          ),
       // AXI4 Specifications
       .IdWidth            ( ariane_soc::IdWidth         ),
-      .AddrWidth          ( AXI_ADDRESS_WIDTH           ),
+      .AddrWidth          ( AXI_ADDR_WIDTH              ),
       .DataWidth          ( AXI_DATA_WIDTH              ),
       // Address Indexing
       .N_ADDR_RULES       ( N_ADDR_RULES                ),
