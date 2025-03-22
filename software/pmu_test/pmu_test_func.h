@@ -38,6 +38,9 @@ typedef struct {
 #define Bin(x) S_to_binary_(#x)
 uint32_t S_to_binary_(const char *s);
 
+// Functiona to create a number with N LSB bits set to 1.
+uint32_t set_n_lsb_bits (uint32_t n);
+
 // The AXI4-Lite interconnect is 32bit.
 // Can only read-write to 32bits at a time.
 #define read_32b(addr)         (*(volatile uint32_t *)(long)(addr))
@@ -70,6 +73,21 @@ uint32_t test_counter_bundle(uint64_t base_addr, uint32_t num_rw, uint32_t bundl
 uint32_t test_counter_bundle_rand(uint64_t base_addr, uint32_t num_rw, uint32_t bundle_size);
 
 uint32_t array_traversal(uint32_t len);
+
+// Function that generates event_sel register value based on specified parameters.
+// Assuming the following register format:
+//    [PortID_Val, PortID_Mask, SourceID_Val, SourceID_Mask, EventID_Val, EventID_Mask].
+//    |<---- PortIDWidth*2 --->||<---- SourceIDWidth*2 ---->||<--- EventIDWidth*2 --->| 
+uint32_t gen_event_sel_reg_value (
+            uint32_t EVENT_ID_WIDTH,
+            uint32_t SOURCE_ID_WIDTH,
+            uint32_t PORT_ID_WIDTH,
+            uint32_t EVENT_ID_MASK,
+            uint32_t EVENT_ID_VAL,
+            uint32_t SOURCE_ID_MASK,
+            uint32_t SOURCE_ID_VAL,
+            uint32_t PORT_ID_MASK,
+            uint32_t PORT_ID_VAL);
 
 // Function to test read and writes to the SPM.
 // This test will make `num_rw` number of writes, from array `val[]`,  and then reads to the DSPM, starting from addreses `base_addr`.
@@ -133,48 +151,3 @@ uint32_t run_pmu_core_test_suite (
             uint32_t num_counter,
             uint32_t arr_len,
             uint32_t DEBUG);
-
-// Send a halting request to the debug module (0x512) the selected core using `core_id`.
-uint32_t pmu_halt_core (
-              uint32_t program_start_addr,
-              uint32_t pmc_status_base_addr, 
-              uint32_t core_id,
-              uint32_t DEBUG);
-
-// Send a resume request to the debug module (0x512 + 0x8) the selected core using `core_id`.
-uint32_t pmu_resume_core (
-              uint32_t program_start_addr,
-              uint32_t pmc_status_base_addr, 
-              uint32_t core_id,
-              uint32_t DEBUG);
-
-// Tests the debug module capabilities by halting and resuming all the cores.
-// The PMU core will halt all cores, then wait `wait_before_resuming` clock cycles, and resume all cores.
-// This function works well in simulation. On board functionality is not guaranteed.
-uint32_t test_pmu_debug_func (
-              uint32_t program_start_addr,
-              uint32_t pmc_status_base_addr, 
-              uint32_t num_core,
-              uint32_t wait_before_resuming,
-              uint32_t DEBUG); 
-
-uint32_t test_case_study_with_debug (
-              uint32_t ispm_base_addr,
-              uint32_t dspm_base_addr,
-              uint32_t pmc_status_base_addr, 
-              uint32_t counter_base_addr,
-              uint32_t counter_bundle_size,
-              uint32_t period_base_addr,
-              uint32_t num_intf_core,
-              uint32_t DEBUG);
-
-uint32_t test_case_study_without_debug (
-              uint32_t ispm_base_addr,
-              uint32_t dspm_base_addr,
-              uint32_t pmc_status_base_addr, 
-              uint32_t counter_base_addr,
-              uint32_t counter_bundle_size,
-              uint32_t period_base_addr,
-              uint32_t num_intf_core,
-              uint32_t PRINT_TRACE,
-              uint32_t DEBUG);               
