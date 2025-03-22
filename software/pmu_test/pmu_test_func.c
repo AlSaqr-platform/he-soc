@@ -97,46 +97,43 @@ void write_64b_regs(uint64_t base_addr, uint32_t len, uint64_t val[], uint32_t s
 }
 
 uint32_t gen_reg_val (
-    uint32_t EVENT_ID_WIDTH,
-    uint32_t SOURCE_ID_WIDTH,
-    uint32_t PORT_ID_WIDTH,
-    
-    uint32_t EVENT_ID_MASK,
-    uint32_t EVENT_ID_VAL,
-    
-    uint32_t SOURCE_ID_MASK,
-    uint32_t SOURCE_ID_VAL,
-    
-    uint32_t PORT_ID_MASK,
-    uint32_t PORT_ID_VAL
-) {
+          uint32_t event_id_width,
+          uint32_t source_id_width,
+          uint32_t port_id_width,
+          uint32_t event_id_mask,
+          uint32_t event_id_val,
+          uint32_t source_id_mask,
+          uint32_t source_id_val,
+          uint32_t port_id_mask,
+          uint32_t port_id_val) {
+  
     uint32_t reg_value = 0;
     
-    uint32_t event_id_width_mask  = set_n_lsb_bits (EVENT_ID_WIDTH);
-    uint32_t source_id_width_mask = set_n_lsb_bits (SOURCE_ID_WIDTH);
-    uint32_t port_id_width_mask   = set_n_lsb_bits (PORT_ID_WIDTH);
+    uint32_t event_id_width_mask  = set_n_lsb_bits (event_id_width);
+    uint32_t source_id_width_mask = set_n_lsb_bits (source_id_width);
+    uint32_t port_id_width_mask   = set_n_lsb_bits (port_id_width);
     
     uint32_t shift_bits = 0;
     
     // Add Event ID Mask to reg_value.
-    reg_value += (event_id_width_mask & EVENT_ID_MASK) << shift_bits;
-    shift_bits += EVENT_ID_WIDTH;
+    reg_value += (event_id_width_mask & event_id_mask) << shift_bits;
+    shift_bits += event_id_width;
     // Add Event ID Value to reg_value.
-    reg_value += (event_id_width_mask & EVENT_ID_VAL) << shift_bits;
-    shift_bits += EVENT_ID_WIDTH;
+    reg_value += (event_id_width_mask & event_id_val) << shift_bits;
+    shift_bits += event_id_width;
     
     // Add Source ID Mask to reg_value.
-    reg_value += (source_id_width_mask & SOURCE_ID_MASK) << shift_bits;
-    shift_bits += SOURCE_ID_WIDTH;
+    reg_value += (source_id_width_mask & source_id_mask) << shift_bits;
+    shift_bits += source_id_width;
     // Add Source ID Value to reg_value.
-    reg_value += (source_id_width_mask & SOURCE_ID_VAL) << shift_bits;
-    shift_bits += SOURCE_ID_WIDTH;
+    reg_value += (source_id_width_mask & source_id_val) << shift_bits;
+    shift_bits += source_id_width;
     
     // Add Port ID Mask to reg_value.
-    reg_value += (port_id_width_mask & PORT_ID_MASK) << shift_bits;
-    shift_bits += PORT_ID_WIDTH;
+    reg_value += (port_id_width_mask & port_id_mask) << shift_bits;
+    shift_bits += port_id_width;
     // Add Port ID Value to reg_value.
-    reg_value += (port_id_width_mask & PORT_ID_VAL) << shift_bits;
+    reg_value += (port_id_width_mask & port_id_val) << shift_bits;
     
     return reg_value;
 }
