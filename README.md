@@ -4,16 +4,6 @@ This repository contains the hardware files needed to build the AlSaqr-SoC. The 
 
 ![alt text](./hardware/docs/AlSaqr.png)
 
-The repository is organized as follows
-
-```
-|-- bootrom
-|-- fpga 
-|-- hardware
-|-- software
-```
-
- * The `fpga` folder contains some git submodules.
 
  * The `hardware` folder is organized as follows:
 
@@ -50,10 +40,26 @@ git checkout tags/<tag-name>
 source setup.sh
 ```
 
-To install, configure bender and download the git dependencies + verification IPs, from he-soc/ run:
+Two IPs from Infineon must be downloaded manually, as they require to create an account on Infineon website and log-in. The two IPs are [hyperram_models](https://www.infineon.com/dgdl/Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6349a14f68) and [spi_flash](https://www.infineon.com/dgdl/Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b). 
+
+In Makefile, the variable VIPS_ROOT must be updated with the location of your VIPs directory. For those who have already worked with this repository, it is enough to copy somewhere in /home/ directory the VIPs folder from an old he-soc/ local repository (located under he-soc/hardware/tb/vips), and provide as VIPS_ROOT its new location.
+
+For those approaching for the first time this setup, you need to create a directory "vips" somewhere in your /home/ and copy into that the hyperram models and spi flash models. The structure must be the following:
 
 ```
-cd hardware/
+vips
+|-- spi_flash
+|----- s25fs256s.v
+|----- s25fs256s_verilog.sdf
+|-- hyperram_model
+|----- s27ks0641.v
+|----- s27ks0641_verilog.sdf
+```
+
+After configuring the vips directory and updating the VIPS_ROOT variable pointing to it, you can proceed with initialization command:
+
+```
+cd he-soc/hardware/
 make init
 ```
 make init step may fail on slower networks as connection breaks before getting all repositories.
