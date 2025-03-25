@@ -1,8 +1,13 @@
 # Author: Florian Zaruba, ETH Zurich
 # Date: 03/19/2017
 # Description: Makefile for linting and testing Ariane.
+
 # Bender
 BENDER:=./bender
+
+# VIPS location
+VIPS_ROOT ?= /usr/scratch2/lagrev5/mciani/vips/
+
 # questa library
 library        ?= work
 # verilator lib
@@ -534,7 +539,13 @@ tb/vips/i2c_eeprom:
 	cp model_tmp/24AA1025.v model_tmp/24FC1025.v model_tmp/24LC1025.v $@
 	rm -rf model_tmp
 
-vips: tb/vips/spi_flash tb/vips/hyperram_model tb/vips/i2c_eeprom
+vips: vips_link tb/vips/i2c_eeprom
+
+vips_link:
+	rm -rf $(HW_HOME)/tb/vips/spi_flash
+	rm -rf $(HW_HOME)/tb/vips/hyperram_model
+	ln -s  $(VIPS_ROOT)/spi_flash $(HW_HOME)/tb/vips/
+	ln -s  $(VIPS_ROOT)/hyperram_model $(HW_HOME)/tb/vips/
 
 init: bender vips update scripts_vip
 	make -C ip_list/idma idma_hw_all
