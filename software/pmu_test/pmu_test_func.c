@@ -519,3 +519,47 @@ uint32_t test_pmu_core_counter_b_writes (
 
   return error_count;
 }
+
+uint32_t run_pmu_core_test_suite (
+            uint32_t ispm_base_addr, 
+            uint32_t counter_b_base_addr,
+            uint32_t dspm_base_addr,
+            uint32_t pmc_status_base_addr, 
+            uint32_t counter_b_size,
+            uint32_t num_counter,
+            uint32_t arr_len,
+            uint32_t DEBUG) {
+  uint32_t error;
+  uint32_t error_count = 0;
+
+  error = test_spm_rand(ispm_base_addr, arr_len);
+  error_count += error;
+  printf("Reads-writes to ISPM completed. Errors: %0d!\n", error);
+
+  error = test_spm_rand(dspm_base_addr, arr_len);
+  error_count += error;
+  printf("Reads-writes to DSPM completed. Errors: %0d!\n", error);
+
+  error = test_pmu_core_bubble_sort(
+              ispm_base_addr,
+              dspm_base_addr,
+              pmc_status_base_addr,
+              arr_len,            
+              DEBUG);
+  error_count += error;                  
+  printf("BubbleSort test completed. Errors: %0d!\n", error);
+                                    
+  error = test_pmu_core_counter_b_writes(
+            ispm_base_addr,
+            counter_b_base_addr,
+            dspm_base_addr,
+            pmc_status_base_addr,
+            counter_b_size,
+            num_counter,            
+            DEBUG);
+  error_count += error;                  
+  printf("PMU core reads-writes to PMU registers completed. Errors: %0d!\n", error);
+
+  printf("pmu_core_test_suite completed. Errors: %0d!\n", error_count);
+  return error_count;
+}
