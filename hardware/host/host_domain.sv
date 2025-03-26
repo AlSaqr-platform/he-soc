@@ -451,7 +451,11 @@ module host_domain
       .mst_resp_t       ( ariane_axi_soc::resp_slv_mem_t ),
       .lite_req_t       ( ariane_axi_soc::req_lite_t     ),
       .lite_resp_t      ( ariane_axi_soc::resp_lite_t    ),
-      .rule_full_t      ( rule_full_t                    )
+      .rule_full_t      ( rule_full_t                    ),
+      // Source ID Specifications
+      .SourceIDStart    ( 2                              ),
+      .SourceIDEnd      ( 7                              ),
+      .NumCfgRegcp      ( 4                              )
     ) i_axi_llc (
       .clk_i               ( s_soc_clk                                                                           ),
       .rst_ni              ( s_synch_soc_rst                                                                     ),
