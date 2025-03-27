@@ -150,6 +150,8 @@ module apb_subsystem
    logic                                ot_clk_gate_en_o;
 
    logic                                [63:0] can_timestamp;
+   logic out_fll_clk_soc_o;
+   logic out_fll_clk_cva6_o;
 
    typedef logic [AXI_ADDR_WIDTH-1:0]   reg_addr_t;
    typedef logic [AXI_DATA_WIDTH-1:0]   reg_data_t;
@@ -806,12 +808,14 @@ module apb_subsystem
         .clk_soc_o          ( clk_soc_o           ),
         .clk_per_o          ( s_clk_per_o         ),
         .clk_cluster_o      ( clk_cluster_o       ),
-        .clk_opentitan_o    ( clk_opentitan_o     )
+        .clk_opentitan_o    ( clk_opentitan_o     ),
+        .out_fll_clk_soc_o  ( out_fll_clk_soc     ),
+        .out_fll_clk_cva6_o ( out_fll_clk_cva6    )
        );
 
     // Here is the FLL output to the PADFRAME
-    assign  fll_to_pad.clk_cva6_o = clk_cva6_o;
-    assign  fll_to_pad.clk_soc_o  = clk_soc_o;
+    assign  fll_to_pad.clk_cva6_o = out_fll_clk_cva6_o;
+    assign  fll_to_pad.clk_soc_o  = out_fll_clk_soc_o;
 
     apb_to_reg i_apb_to_hyaxicfg
     (

@@ -30,6 +30,8 @@ module alsaqr_clk_rst_gen (
   input logic         ot_clk_div_qe_i,
   input logic         ot_clk_gate_en_i,
 
+  output logic out_fll_clk_soc_o,
+  output logic out_fll_clk_cva6_o,
   output logic clk_soc_o,
   output logic clk_cva6_o,
   output logic clk_per_o,
@@ -256,6 +258,9 @@ module alsaqr_clk_rst_gen (
   assign rstn_cva6_sync_o    = s_rstn_cva6_sync;
   assign rstn_global_sync_o  = s_rst_glob_sync;
   assign rstn_cluster_sync_o = s_rstn_cluster_sync;
+
+  assign out_fll_clk_cva6_o = s_clk[0];
+  assign out_fll_clk_soc_o = s_clk[1];
 
   `ifdef DO_NOT_USE_FLL
     assert property (
