@@ -360,8 +360,8 @@ module cva6_synth_wrap
       .NumLines           ( ariane_soc::LLC_NUM_LINES   ),
       .NumBlocks          ( ariane_soc::LLC_NUM_BLOCKS  ),
       // Source ID Specifications
-      .SourceIDStart      (  2                          ),
-      .SourceIDEnd        (  7                          ),
+      .SourceIDStart      (  0                          ),
+      .SourceIDEnd        (  0                          ),
       // AXI4 Specifications
       .IdWidth            ( ariane_soc::IdWidth         ),
       .AddrWidth          ( AXI_ADDR_WIDTH              ),
