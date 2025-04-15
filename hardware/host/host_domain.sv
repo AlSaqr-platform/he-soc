@@ -598,7 +598,7 @@ module host_domain
      .SourceIDStart      (  2                          ),
      .SourceIDEnd        (  7                          ),
      // AXI4 Specifications
-     .IdWidth            ( ariane_soc::IdWidth         ),
+     .IdWidth            ( ariane_soc::IdWidthSlave    ),
      .AddrWidth          ( AXI_ADDRESS_WIDTH           ),
      .DataWidth          ( AXI_DATA_WIDTH              ),
      // Address Indexing
