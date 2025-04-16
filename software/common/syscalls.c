@@ -113,6 +113,7 @@ void _init(int cid, int nc)
      int * tmp;
      /* Set UART MUX with hardcoded write */
      #ifndef FPGA_EMULATION
+     // RTL SIMULATION + CHIP
      tmp = (int *) 0x1a104004;
      *tmp = 3;
      tmp = (int *) 0x1a10400C;
@@ -120,11 +121,14 @@ void _init(int cid, int nc)
      int baud_rate = 115200;
        // Here we define the frequency for the SoC specified in the gdb.cfg file
        #ifndef CHIP_BRINGUP
+        // RTL SIMULATION
         int test_freq = 100*MHZ;
        #else
+        // CHIP
         int test_freq = SOC_FREQ*MHZ;
        #endif
      #else
+     // FPGA_EMULATION
      tmp = (int *) 0x1a104074;
      *tmp = 1;
      tmp = (int *) 0x1a10407C;
