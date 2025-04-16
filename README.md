@@ -242,3 +242,34 @@ There is a framwork to run the regressions with the netlist of the chip as well.
 cd hardware/
 make run_regression_netlist
 ```
+
+### AlSaqr silicon bringup
+This section contains useful information for the AlSaqr bringup.
+
+#### Build the Code
+The software reuntime contains two linkerscripts under the following paths:
+
+* software/common/test.ld
+* software/common/test_l2.ld
+
+The first `test.ld` uses the offchip 256MB L3 memory as main memory, while `test_l2.ld` uses the onchip L2 32KB memory and includes the minimal runtime.
+
+At compile time you can chose the following options to use `test.ld` or `test_l2.ld`:
+
+```
+make clean all
+```
+or
+```
+make clean all_l2
+```
+
+Moreover, accordingly to the `bringup/alsaqr.cfg` file, the SoC frequency can be specified (in MHz) at compile time with:
+```
+make clean chip=1 SOC_FREQ=100 all
+```
+
+By default `SOC_FREQ` is 50MHz, so if you change the `bringup/alsaqr.cfg` do not forget to compile the binary specifying the new frequency target. This has impact to the UART baudrate which is fixed to 115200.
+
+#### Openocd
+The openocd binary v0.10 is already available in `bringup/openocd`.
