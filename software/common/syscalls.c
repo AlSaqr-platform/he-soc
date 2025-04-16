@@ -10,6 +10,7 @@
 #include "utils.h"
 
 #define SYS_write 64
+#define MHZ 1000000
 
 #undef strcmp
 
@@ -117,17 +118,26 @@ void _init(int cid, int nc)
      tmp = (int *) 0x1a10400C;
      *tmp = 3;
      int baud_rate = 115200;
-     int test_freq = 100000000;
+       // Here we define the frequency for the SoC specified in the gdb.cfg file
+       #ifndef CHIP_BRINGUP
+        int test_freq = 100*MHZ;
+       #else
+        int test_freq = SOC_FREQ*MHZ;
+       #endif
      #else
      tmp = (int *) 0x1a104074;
      *tmp = 1;
      tmp = (int *) 0x1a10407C;
      *tmp = 1;
      int baud_rate = 115200;
-     int test_freq = 40000000;
+     int test_freq = 40*MHZ;
      #endif
      uart_set_cfg(0,(test_freq/baud_rate)>>4);
-     set_flls();
+     #ifndef FPGA_EMULATION
+      #ifndef CHIP_BRINGUP
+      set_flls();
+      #endif
+     #endif
      /* Set plic mbox IRQ priority to 1 */
      tmp = (int *) 0xC000028;
      *tmp = 0x1;
