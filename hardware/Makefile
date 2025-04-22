@@ -244,7 +244,7 @@ scripts-bender-fpga: | Bender.lock
 
 scripts-bender-fpga-ddr: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
-	$(BENDER) script vivado -t cv64a6_imafdc_sv39_wb -t fpga -t ddr -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
+	$(BENDER) script vivado -t cv64a6_imafdc_sv39_wb -t rtl -t fpga -t ddr -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
 scripts-bender-synopsys: | Bender.lock
 	echo 'set ROOT [file normalize [file dirname [info script]]/../../../]' > $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
@@ -466,7 +466,7 @@ tb/vips/spi_flash:
 	rm -rf $@
 	mkdir $@
 	rm -rf model_tmp && mkdir model_tmp
-	cd model_tmp; wget https://www.infineon.com/dgdl/Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b
+	cd model_tmp; wget --content-disposition "https://www.infineon.com/dgdl/Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b"
 	cd model_tmp; mv 'Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b' model.zip
 	cd model_tmp; unzip model.zip
 	cd model_tmp; mv 'S25fs256s' exe_folder
@@ -478,7 +478,7 @@ tb/vips/hyperram_model:
 	rm -rf $@
 	mkdir $@
 	rm -rf model_tmp && mkdir model_tmp
-	cd model_tmp; wget https://www.infineon.com/dgdl/Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6349a14f68
+	cd model_tmp; wget --content-disposition "https://www.infineon.com/dgdl/Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6349a14f68&da=t"
 	cd model_tmp; mv 'Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6349a14f68' model.zip
 	cd model_tmp; unzip model.zip
 	cd model_tmp; mv 'S27KL0641 S27KS0641' exe_folder
