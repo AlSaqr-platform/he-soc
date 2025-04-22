@@ -46,7 +46,7 @@ dependencies:
   ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "f2c8a5040596476ee1769292a7c48df9b1c05949" }
   sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }
   culsans:  { git: "git@github.com:alsaqr-platform/culsans.git", rev: "dd62bc0741b4338ab43cb74bc65d864948b3418a" } # branch: main
-  idma:  { git: "git@github.com:pulp-platform/idma.git", version: 0.5.1 }
+  idma:  { git: "git@github.com:pulp-platform/idma.git", version: 0.6.3 }
 
 workspace:
   package_links:
