@@ -243,26 +243,26 @@ scripts-bender-fpga: | Bender.lock
 
 scripts-bender-fpga-ddr: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
-	$(BENDER) script vivado -t cv64a6_imafdc_sv39_wb -t fpga -t ddr -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
+	$(BENDER) script vivado -t rtl -t use_idma -t cv64a6_imafdc_sv39_wb -t fpga -t ddr -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga)" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
 
 scripts-bender-synopsys: | Bender.lock
 	echo 'set ROOT [file normalize [file dirname [info script]]/../../../]' > $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
-	$(BENDER) script synopsys -t rtl -t synthesis -t cv64a6_imafdc_sv39_wb -t asic -t top_level | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
+	$(BENDER) script synopsys -t rtl -t use_idma -t synthesis -t cv64a6_imafdc_sv39_wb -t asic -t top_level | grep -v "set ROOT" >> $(BENDER_SYNTH_DIR)/synopsys/scripts/analyze_alsaqr.tcl
 
 scripts:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t tb  -t cv64a6_imafdc_sv39_wb > $(compile_script)
+    -t rtl -t use_idma -t test -t tb  -t cv64a6_imafdc_sv39_wb > $(compile_script)
 
 scripts_vip_macro:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t asic -t rtl -t test -t tb -t vip -t cv64a6_imafdc_sv39_wb > $(compile_script)
+    -t asic -t rtl -t use_idma -t test -t tb -t vip -t cv64a6_imafdc_sv39_wb > $(compile_script)
 
 scripts_vip:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 " --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t tb -t vip -t cv64a6_imafdc_sv39_wb > $(compile_script)
+    -t rtl -t use_idma -t test -t tb -t vip -t cv64a6_imafdc_sv39_wb > $(compile_script)
 
 # The following scripts must be used only for post synthesis simulations and provides different configuration to simulate the design
 
@@ -270,73 +270,73 @@ scripts_vip:
 gf22_fll_behav:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t gf22_fll_behav -t test -t tb -t vip -t cv64a6_imafdc_sv39_wb > $(compile_script)
+    -t rtl -t use_idma -t gf22_fll_behav -t test -t tb -t vip -t cv64a6_imafdc_sv39_wb > $(compile_script)
 
 # ONLY NETLSISTS: TOP - FLL - CVA6 -OPENTITAN - CLUSTER - HYPER
 post_synth_all:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t asic -t rtl -t test -t tb_synth -t vip -t post_synth_all -t cv64a6_imafdc_sv39_wb > $(compile_script)
+    -t asic -t rtl -t use_idma -t test -t tb_synth -t vip -t post_synth_all -t cv64a6_imafdc_sv39_wb > $(compile_script)
 
 # RTL: OPENTITAN - CLUSTER - CVA6  / NETLIST: TOP - FLL - HYPER
 post_synth_top:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t asic -t rtl -t test -t tb_synth -t vip -t post_synth_top -t cv64a6_imafdc_sv39_wb > $(compile_script)
+    -t asic -t rtl -t use_idma -t test -t tb_synth -t vip -t post_synth_top -t cv64a6_imafdc_sv39_wb > $(compile_script)
 
 # RTL: TOP - CLUSTER - OPENTITAN - FLL BEHAV (YOU NEED ACCESS TO THE FLL REPO FOR THIS)  / NETLIST: CVA6 - HYPER
 post_synth_cva6_hyper:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag) -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t asic -t rtl -t test -t tb_synth -t vip -t post_synth_cva6_hyper -t cv64a6_imafdc_sv39_wb > $(compile_script)
+    -t asic -t rtl -t use_idma -t test -t tb_synth -t vip -t post_synth_cva6_hyper -t cv64a6_imafdc_sv39_wb > $(compile_script)
 
 # RTL: TOP (USES FLL DUMMY) + CVA6 NETLIST
 post_synth_cva6:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag) -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-	-t asic -t asic -t rtl -t test -t tb_synth -t vip -t post_synth_cva6 -t cv64a6_imafdc_sv39_wb > $(compile_script)
+	-t asic -t asic -t rtl -t use_idma -t test -t tb_synth -t vip -t post_synth_cva6 -t cv64a6_imafdc_sv39_wb > $(compile_script)
 
 # RTL: TOP - CLUSTER - OPENTITAN / NETLIST: CVA6 - HYPER - FLL
 post_synth_cva6_hyper_fll:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t asic -t rtl -t test -t tb_synth -t vip -t post_synth_cva6_hyper_fll -t cv64a6_imafdc_sv39_wb > $(compile_script)
+    -t asic -t rtl -t use_idma -t test -t tb_synth -t vip -t post_synth_cva6_hyper_fll -t cv64a6_imafdc_sv39_wb > $(compile_script)
 
 # RTL + FLL NETLIST
 post_synth_fll:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t asic -t rtl -t test -t tb_synth -t vip -t post_synth_fll -t cv64a6_imafdc_sv39_wb > $(compile_script)
+    -t asic -t rtl -t use_idma -t test -t tb_synth -t vip -t post_synth_fll -t cv64a6_imafdc_sv39_wb > $(compile_script)
 
 # RTL + FLL NETLIST
 post_synth_top_fll_behav:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t asic -t rtl -t test -t tb_synth -t vip -t post_synth_top_fll_behav -t cv64a6_imafdc_sv39_wb > $(compile_script)
+    -t asic -t rtl -t use_idma -t test -t tb_synth -t vip -t post_synth_top_fll_behav -t cv64a6_imafdc_sv39_wb > $(compile_script)
 
 # RTL (USES FLL DUMMY) + OPENTITAN NETLIST 
 post_synth_opentitan:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t asic -t rtl -t test -t tb -t vip -t post_synth_opentitan -t cv64a6_imafdc_sv39_wb > $(compile_script)
+    -t asic -t rtl -t use_idma -t test -t tb -t vip -t post_synth_opentitan -t cv64a6_imafdc_sv39_wb > $(compile_script)
 
 # RTL (USES FLL DUMMY) + CLUSTER NETLIST
 post_synth_cluster:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t asic -t rtl -t test -t tb -t vip -t post_synth_cluster -t cv64a6_imafdc_sv39_wb > $(compile_script)
+    -t asic -t rtl -t use_idma -t test -t tb -t vip -t post_synth_cluster -t cv64a6_imafdc_sv39_wb > $(compile_script)
 
 # RTL (USES FLL DUMMY) + HYPER NETLIST
 post_synth_hyper:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t asic -t rtl -t test -t tb -t vip -t post_synth_hyper -t cv64a6_imafdc_sv39_wb > $(compile_script)
+    -t asic -t rtl -t use_idma -t test -t tb -t vip -t post_synth_hyper -t cv64a6_imafdc_sv39_wb > $(compile_script)
 
 # NOT TESTED YET
 post_pr_scripts_vip:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
-    -t rtl -t test -t tb_synth -t cv64a6_imafdc_sv39_wb -t top_post_pr_sim -t vip > post_pr_compile.tcl
+    -t rtl -t use_idma -t test -t tb_synth -t cv64a6_imafdc_sv39_wb -t top_post_pr_sim -t vip > post_pr_compile.tcl
 
 ## -sdfnoerror -sdfnowarn -sdfmin ./gf22/innovus/cva6/out
 
@@ -496,7 +496,7 @@ tb/vips/i2c_eeprom:
 
 vips: tb/vips/spi_flash tb/vips/hyperram_model tb/vips/i2c_eeprom
 
-init: bender vips update
+init: bender update
 
 .PHONY: culsans-sw-init
 culsans-sw-init:

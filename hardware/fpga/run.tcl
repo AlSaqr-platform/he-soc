@@ -1,4 +1,3 @@
-start_gui
 set outputDir reports
 file mkdir $outputDir
 create_project alsaqr $::env(PROJECT_HOME) -part $::env(XILINX_PART)

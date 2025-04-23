@@ -195,20 +195,20 @@ module al_saqr
   import edn_pkg::*;
   import top_earlgrey_pkg::*;
 
-  localparam int unsigned AsyncAxiOutAwWidth    = secure_subsystem_synth_pkg::SynthAsyncAxiOutAwWidth;
-  localparam int unsigned AsyncAxiOutWWidth     = secure_subsystem_synth_pkg::SynthAsyncAxiOutWWidth;
-  localparam int unsigned AsyncAxiOutBWidth     = secure_subsystem_synth_pkg::SynthAsyncAxiOutBWidth;
-  localparam int unsigned AsyncAxiOutArWidth    = secure_subsystem_synth_pkg::SynthAsyncAxiOutArWidth;
-  localparam int unsigned AsyncAxiOutRWidth     = secure_subsystem_synth_pkg::SynthAsyncAxiOutRWidth;
-  localparam int unsigned LogDepth              = secure_subsystem_synth_pkg::SynthLogDepth;
+  localparam int unsigned AsyncAxiOutAwWidth    = secure_subsystem_synth_astral_pkg::SynthAsyncAxiOutAwWidth;
+  localparam int unsigned AsyncAxiOutWWidth     = secure_subsystem_synth_astral_pkg::SynthAsyncAxiOutWWidth;
+  localparam int unsigned AsyncAxiOutBWidth     = secure_subsystem_synth_astral_pkg::SynthAsyncAxiOutBWidth;
+  localparam int unsigned AsyncAxiOutArWidth    = secure_subsystem_synth_astral_pkg::SynthAsyncAxiOutArWidth;
+  localparam int unsigned AsyncAxiOutRWidth     = secure_subsystem_synth_astral_pkg::SynthAsyncAxiOutRWidth;
+  localparam int unsigned LogDepth              = secure_subsystem_synth_astral_pkg::SynthLogDepth;
 
-  localparam type         axi_secd_aw_chan_t     = secure_subsystem_synth_pkg::synth_axi_out_aw_chan_t;
-  localparam type         axi_secd_w_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_w_chan_t;
-  localparam type         axi_secd_b_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_b_chan_t;
-  localparam type         axi_secd_ar_chan_t     = secure_subsystem_synth_pkg::synth_axi_out_ar_chan_t;
-  localparam type         axi_secd_r_chan_t      = secure_subsystem_synth_pkg::synth_axi_out_r_chan_t;
-  localparam type         axi_secd_req_t         = secure_subsystem_synth_pkg::synth_axi_out_req_t;
-  localparam type         axi_secd_resp_t        = secure_subsystem_synth_pkg::synth_axi_out_resp_t;
+  localparam type         axi_secd_aw_chan_t     = secure_subsystem_synth_astral_pkg::synth_axi_remap_out_aw_chan_t;
+  localparam type         axi_secd_w_chan_t      = secure_subsystem_synth_astral_pkg::synth_axi_remap_out_w_chan_t;
+  localparam type         axi_secd_b_chan_t      = secure_subsystem_synth_astral_pkg::synth_axi_remap_out_b_chan_t;
+  localparam type         axi_secd_ar_chan_t     = secure_subsystem_synth_astral_pkg::synth_axi_remap_out_ar_chan_t;
+  localparam type         axi_secd_r_chan_t      = secure_subsystem_synth_astral_pkg::synth_axi_remap_out_r_chan_t;
+  localparam type         axi_secd_req_t         = secure_subsystem_synth_astral_pkg::synth_axi_remap_out_req_t;
+  localparam type         axi_secd_resp_t        = secure_subsystem_synth_astral_pkg::synth_axi_remap_out_resp_t;
 
   // AXILITE parameters
   localparam int unsigned AXI_LITE_AW       = 32;
@@ -457,14 +457,14 @@ module al_saqr
          );
 
     host_domain #(
-        .NUM_WORDS         ( NUM_WORDS  ),
-        .InclSimDTM        ( 1'b1       ),
-        .StallRandomOutput ( 1'b1       ),
-        .StallRandomInput  ( 1'b1       ),
-        .NUM_GPIO          ( NUM_GPIO   ),
-        .JtagEnable        ( JtagEnable ),
-        .axi_req_t         ( tlul2axi_pkg::mst_req_t ),
-        .axi_rsp_t         ( tlul2axi_pkg::mst_rsp_t )
+        .NUM_WORDS         ( NUM_WORDS       ),
+        .InclSimDTM        ( 1'b1            ),
+        .StallRandomOutput ( 1'b1            ),
+        .StallRandomInput  ( 1'b1            ),
+        .NUM_GPIO          ( NUM_GPIO        ),
+        .JtagEnable        ( JtagEnable      ),
+        .axi_req_t         ( axi_secd_req_t  ),
+        .axi_rsp_t         ( axi_secd_resp_t )
     ) i_host_domain (
       .rst_ni(s_rst_ni),
       .rtc_i(s_rtc_i),
@@ -622,9 +622,11 @@ module al_saqr
       .dst_req_o                 ( ot_axi_req ),
       .dst_resp_i                ( ot_axi_rsp )
    );
-
-   secure_subsystem_synth_wrap i_RoT_wrap (
+ security_island  #(
+     .HartIdOffs(0)
+   ) i_RoT_wrap (
      .clk_i            ( clk_opentitan_o    ),
+     .clk_cluster_i    ( s_cluster_clk      ),
      .clk_ref_i        ( clk_opentitan_o    ),
      .rst_ni           ( s_rst_ni           ),
      .pwr_on_rst_ni    ( s_rst_ni           ),
@@ -632,6 +634,7 @@ module al_saqr
      .bootmode_i       ( bootmode_i         ),
      .test_enable_i    ( '0                 ),
      .irq_ibex_i       ( doorbell_irq       ),
+     .cfi_req_irq_i    ( cfi_req_irq        ),
    // JTAG port
      .jtag_tck_i       ( jtag_ibex_i.tck    ),
      .jtag_tms_i       ( jtag_ibex_i.tms    ),
@@ -646,9 +649,6 @@ module al_saqr
      .gpio_1_o         (               ),
      .gpio_1_i         ( '0            ),
      .gpio_1_oe_o      (               ),
-   // axi isolated - not implemented
-     .axi_isolate_i    ( 1'b0          ),
-     .axi_isolated_o   (               ),
    // Uart - not implemented
      .ibex_uart_rx_i   ( '0            ),
      .ibex_uart_tx_o   (               ),
