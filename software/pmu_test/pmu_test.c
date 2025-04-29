@@ -20,23 +20,15 @@
 
 #define INTF_RD
 
-// Sometimes the UART skips over output.
-// Gives the UART more time to finish output before filling up the UART Tx FIFO with more data.
-void my_sleep() {
-  uint32_t sleep = 100000;
-  for (volatile uint32_t i=0; i<sleep; i++) {
-    asm volatile ("fence");
-    asm volatile ("addi x1, x1, 1");
-    asm volatile ("fence");
-  }  
-}
+#define read_32b(addr)         (*(volatile uint32_t *)(long)(addr))
+#define write_32b(addr, val_)  (*(volatile uint32_t *)(long)(addr) = val_)
+
+
+#define DSPM_SIZE  0x4000
 
 void end_test(uint32_t mhartid){
   printf("Exiting: %0d.\r\n", mhartid);
 }
-
-#define read_32b(addr)         (*(volatile uint32_t *)(long)(addr))
-#define write_32b(addr, val_)  (*(volatile uint32_t *)(long)(addr) = val_)
 
 // *********************************************************************
 // Main Function
@@ -74,54 +66,26 @@ int main(int argc, char const *argv[]) {
     #endif
     uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
-    // Partition the cache.
-    // write_32b(0x50 + 0x10401000, 0xFFFFFF00);
-    // write_32b(0x54 + 0x10401000, 0xFFFF00FF);
-    // write_32b(0x58 + 0x10401000, 0xFF00FFFF);
-    // write_32b(0x5c + 0x10401000, 0x00FFFFFF);
+    uint32_t error = 0;
 
-    
-    counter_b_t ct;
-     for (uint32_t i=0; i<8; i++) {
-      ct.counter    = i*1;
-      ct.event_sel  = i*2;
-      ct.event_info = i*4;
+    for(int i=0;i<4096;i++)
+      pulp_write32(DSPM_BASE_ADDR+i*4,i);
 
-     write_counter_b(COUNTER_B_BASE_ADDR + COUNTER_BUNDLE_SIZE*i, ct);
-    }
-
-    uint32_t error = test_pmu_core_bubble_sort(ISPM_BASE_ADDR, DSPM_BASE_ADDR, PMC_STATUS_ADDR, 10, 2);
+    for(int i=0;i<4096;i++)
+      if(pulp_read32(DSPM_BASE_ADDR+i*4) != i)
+        error++;
 
     printf("Error: %d\r\n", error);
+
     end_test(mhartid);
+
     uart_wait_tx_done();
 
-  // *******************************************************************
-  // Core 1-3
-  // *******************************************************************
-  } else if (mhartid <= NUM_NON_CUA) {
-    uint64_t var;
-
-    // 1 - 0x28, 2 - 0x2c, 3 - 0x30
-    write_32b(DSPM_BASE_ADDR+0x24+mhartid*0x4, 1);
-
-    while (1) {
-      // volatile uint64_t *array = (uint64_t*)(uint64_t)(0x83000000 + mhartid * 0x01000000);
-      // for (int a_idx = 0; a_idx < 262144; a_idx +=8) {
-      //     var = a_idx;
-      //     asm volatile (
-      //       "sd   %0, 0(%1)\n"
-      //       :: "r"(var),
-      //           "r"(array - a_idx)
-      //     );
-      // } 
-    }
-    
   } else {
     end_test(mhartid);
     uart_wait_tx_done();
     while (1);
   }
-  
+
   return 0;
 }
