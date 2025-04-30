@@ -15,6 +15,8 @@ if {$::env(MAIN_MEM)=="HYPER"} {
 } elseif {$::env(MAIN_MEM)=="DDR4"} {
     if {$::env(NUM_CORES)==4} {
         set SRC_CLK_PERIOD 50
+    } elseif {$::env(USE_OT)=="1"} {
+        set SRC_CLK_PERIOD 40
     } else {
         set SRC_CLK_PERIOD 25
     }

@@ -12,6 +12,8 @@ if {$::env(MAIN_MEM)=="HYPER"} {
 } elseif {$::env(MAIN_MEM)=="DDR4"} {
     if {$::env(NUM_CORES)==4} {
         set CLK_FREQ_MHZ 20
+    } elseif {$::env(USE_OT)=="1"} {
+        set CLK_FREQ_MHZ 25
     } else {
         set CLK_FREQ_MHZ 40
     }
