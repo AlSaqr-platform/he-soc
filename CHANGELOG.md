@@ -4,6 +4,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.0.3 - Stable Release Alsaqr 2 branch: alsaqr_2_050525 - 05/05/2025
+
+### Hardware
+
+### Interface/Feature frozen macros:
+- Culsans
+- Hyperbus
+- OpenTitan
+- Cluster
+- TOP
+
+### Work In progress (RTL FROZEN)
+- Further testing
+
+### Changed (bug fixes):
+- OpenTitan: added a Data Width converter for the iDMA.
+- TOP: Axi LLC has been reverted to the version of alsaqr 1 due to bugs. No impact on macro interfaces o memory count.
+- TOP: Fixed the register file of hyperbus pads, which handles the driving strength. Mem map was not 32bit aligned.
+- REPO: Fixed scripts to clone VIPs. No need anymore to keep a local copy pointed by symlinks.
+
 ## 2.0.2 - Stable Release Alsaqr 2 branch: alsaqr_2_130325 - 13/03/2025
 
 ### Hardware
