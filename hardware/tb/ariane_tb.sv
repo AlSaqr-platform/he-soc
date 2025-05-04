@@ -48,7 +48,12 @@ import "DPI-C" context function byte read_section(input longint address, inout b
 module ariane_tb;
 
   static uvm_cmdline_processor uvcl = uvm_cmdline_processor::get_inst();
-  localparam int unsigned REFClockPeriod       = 1us; // jtag clock: 40MHz
+  `ifdef TARGET_POST_SYNTH_SIM_TOP
+  localparam int unsigned REFClockPeriod       = 1us; // jtag clock: 1MHz
+  `else
+  localparam int unsigned REFClockPeriod       = 25ns; // jtag clock: 40MzH
+  `endif
+
   localparam int unsigned REFClockPeriodOt     = 25ns; // jtag clock: 40MHz
 
   `ifdef ETH2FMC_NO_PADFRAME

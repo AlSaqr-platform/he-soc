@@ -573,3 +573,7 @@ clean_regs:
 
 
 all: clean build
+
+l2_no_tb:
+	make -C ../software/hello clean all_l2
+	make scripts_vip clean exclude-l3-tb=1 localjtag=1 nogui=1 elf-bin=../software/hello/hello.riscv sim
