@@ -510,8 +510,8 @@ tb/vips/spi_flash:
 	rm -rf $@
 	mkdir $@
 	rm -rf model_tmp && mkdir model_tmp
-	cd model_tmp; wget https://www.infineon.com/dgdl/Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b
-	cd model_tmp; mv 'Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b' model.zip
+	cd model_tmp; wget --content-disposition "https://www.infineon.com/dgdl/Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b&da=t"
+	cd model_tmp; mv 'Infineon-S25fs256s-SimulationModels-v02_00-EN.zip' model.zip
 	cd model_tmp; unzip model.zip
 	cd model_tmp; mv 'S25fs256s' exe_folder
 	cd model_tmp/exe_folder; unzip S25fs256s.exe
@@ -522,8 +522,8 @@ tb/vips/hyperram_model:
 	rm -rf $@
 	mkdir $@
 	rm -rf model_tmp && mkdir model_tmp
-	cd model_tmp; wget https://www.infineon.com/dgdl/Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6349a14f68
-	cd model_tmp; mv 'Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6349a14f68' model.zip
+	cd model_tmp; wget --content-disposition "https://www.infineon.com/dgdl/Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6349a14f68&da=t"
+	cd model_tmp; mv 'Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip' model.zip
 	cd model_tmp; unzip model.zip
 	cd model_tmp; mv 'S27KL0641 S27KS0641' exe_folder
 	cd model_tmp/exe_folder; unzip S27ks0641.exe
@@ -539,7 +539,7 @@ tb/vips/i2c_eeprom:
 	cp model_tmp/24AA1025.v model_tmp/24FC1025.v model_tmp/24LC1025.v $@
 	rm -rf model_tmp
 
-vips: vips_link tb/vips/i2c_eeprom
+vips:  tb/vips/hyperram_model tb/vips/spi_flash tb/vips/i2c_eeprom
 
 vips_link:
 	rm -rf $(HW_HOME)/tb/vips/spi_flash
