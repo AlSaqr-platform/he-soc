@@ -1919,6 +1919,9 @@ module ariane_tb;
             @(posedge clk_i);
 
             repeat(20) @(posedge rtc_i);
+
+            $display("[JTAG] SUCCESS");
+
             $finish;
 
           end // initial begin
