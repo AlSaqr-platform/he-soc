@@ -322,7 +322,7 @@ packages:
       - register_interface
       - tech_cells_generic
   hyperbus_udma:
-    revision: 2dbb753ecfcf9dd424e4a8b3130b9f552c272abb
+    revision: 600063d2b2ea3d8447820a94ab046bf532c0da71
     version: ~
     source:
       Git: "git@github.com:AlSaqr-platform/hyper_bus.git"
