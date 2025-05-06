@@ -64,8 +64,6 @@ BENDER_SYNTH_DIR = gf22
 BENDER_BUILD_DIR:=.
 CULSANS_ROOT := ip_list/culsans
 
-CVA6_PKG := cv64a6_imafdch_sv39_wb
-
 #  fix pedantic questa 2024 veer error
 ifdef QUESTA
 	pedanticerrors ?= -pedanticerrors
@@ -278,6 +276,7 @@ libbender:
 	$(QUESTA) vlib work
 	$(QUESTA) vmap work ./work
 
+
 check-fpga-hyper-conflicts:
 	@if [ -z "$(exclude-rot)" ]; then \
 		echo "Error: On FPGA the Hyperram and OT share the same FMC pads"; \
@@ -332,6 +331,7 @@ gf22_fll_behav:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) $(pedanticerrors)" \
     -t rtl -t use_idma -t gf22_fll_behav -t test -t tb -t vip -t cva6 -t scm_use_latch_scm -t aia_msi -t aia_embedded -t $(CVA6_PKG) > $(compile_script)
+
 
 # ONLY NETLSISTS: TOP - FLL - CVA6 -OPENTITAN - CLUSTER - HYPER
 post_synth_all:
