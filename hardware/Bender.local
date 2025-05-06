@@ -2,13 +2,13 @@ overrides:
   axi:                { git: "https://github.com/pulp-platform/axi.git", rev: "39f5f2d51c5e524f6fc5cf8b6e901f7dcc5622d7"                } # version: 0.39.6
   riscv-dbg:          { git: "https://github.com/pulp-platform/riscv-dbg", rev: "358f90110220adf7a083f8b65d157e836d706236"              } # version: 0.8.1
   tech_cells_generic: { git: "https://github.com/pulp-platform/tech_cells_generic.git", rev: "7968dd6e6180df2c644636bc6d2908a49f2190cf" } # version: 0.2.13
-  common_cells:       { git: "https://github.com/pulp-platform/common_cells.git", rev: "c27bce39ebb2e6bae52f60960814a2afca7bd4cb"       } # version: 1.37.0 }
+  common_cells:       { git: "https://github.com/pulp-platform/common_cells.git", rev: "c27bce39ebb2e6bae52f60960814a2afca7bd4cb"       } # version: 1.37.0
   fpnew:              { git: "https://github.com/pulp-platform/cvfpu.git", rev: a8e0cba6dd50f357ece73c2c955d96efc3c6c315                } # version: pulp-v0.1.3
   hci:                { git: "https://github.com/pulp-platform/hci.git", rev: b2e6f391aa6c10c03f45b693d80a0aaddecf169b                  }
   hwpe-stream:        { git: "https://github.com/pulp-platform/hwpe-stream.git", rev: ddc154424187dff42a8fcec946c768ceb13f13de          }
   cv32e40p:           { git: "https://github.com/pulp-platform/cv32e40p.git", rev: "f914f3d2fd013a2d2c4c70f7afae3e6592496db7"           } # branch: shaheen
-  cva6:               { git: "git@github.com:Alsaqr-platform/cva6.git", rev: alsaqr-v1.0                                          }
-  ace:                { git: "https://github.com/pulp-platform/ace.git", rev: "06180ec96531d38dc0c1c2b244bad621c5fe73a5"          }
+  cva6:               { git: "git@github.com:Alsaqr-platform/cva6.git", rev: alsaqr-v1.0                                                }
+  ace:                { git: "https://github.com/planvtech/ace.git", rev: "fc2056f9f560ec55192c6b09ef682c822fad90fe"                    }
   udma_core:          { git: "https://github.com/Alsaqr-platform/udma_core.git", rev: "ea1c783641910b5f45f680cd4a7665bc311ab5ec"        }
   register_interface: { git: "git@github.com:pulp-platform/register_interface.git",   rev: "5daa85d164cf6b54ad061ea1e4c6f3624556e467"   } # version:  0.4.5
   idma:               { git: "git@github.com:alsaqr-platform/iDMA.git", rev: "559f94af44873eecccd51b6282668e57f302fb98"                 } # branch: alsaqr-2
