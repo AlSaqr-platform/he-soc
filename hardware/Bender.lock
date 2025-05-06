@@ -17,7 +17,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-master/hardware/deps/alsaqr_periph_fpga_padframe
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-bug-fixes/hardware/deps/alsaqr_periph_fpga_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -25,7 +25,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-master/hardware/deps/alsaqr_periph_padframe
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-bug-fixes/hardware/deps/alsaqr_periph_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -60,7 +60,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-master/hardware/deps/apb_host_control_regs
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-bug-fixes/hardware/deps/apb_host_control_regs
     dependencies:
       - common_cells
       - register_interface
@@ -75,7 +75,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-master/hardware/deps/apb_uart
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-bug-fixes/hardware/deps/apb_uart
     dependencies: []
   apmu:
     revision: f8d57d3ede962e50e90aa037d55acc37b98f09c7
@@ -112,7 +112,7 @@ packages:
     dependencies:
       - common_cells
   axi_llc:
-    revision: 8fa5d302f7407d9582630bcc3fb07f4f3c08f2c0
+    revision: 29fd76fb438c91c692108c1f93ab221931653c5d
     version: ~
     source:
       Git: "git@github.com:alsaqr-platform/axi_llc.git"
@@ -164,7 +164,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-master/hardware/deps/axi_tlb
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-bug-fixes/hardware/deps/axi_tlb
     dependencies:
       - axi
       - common_cells
@@ -180,7 +180,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-master/hardware/deps/clint
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-bug-fixes/hardware/deps/clint
     dependencies:
       - cva6
   cluster_interconnect:
@@ -322,7 +322,7 @@ packages:
       - register_interface
       - tech_cells_generic
   hyperbus_udma:
-    revision: 2dbb753ecfcf9dd424e4a8b3130b9f552c272abb
+    revision: 600063d2b2ea3d8447820a94ab046bf532c0da71
     version: ~
     source:
       Git: "git@github.com:AlSaqr-platform/hyper_bus.git"
@@ -386,15 +386,15 @@ packages:
     dependencies:
       - common_cells
   obi:
-    revision: 5321106817e177d6c16ecc4daa922b96b1bc946b
-    version: 0.1.5
+    revision: 8097928cf1b43712f93d5356f336397879b4ad2c
+    version: 0.1.6
     source:
       Git: "https://github.com/pulp-platform/obi.git"
     dependencies:
       - common_cells
       - common_verification
   opentitan:
-    revision: 24ecdd0f8be69c426f46d76452ae0ab0edf5d9f6
+    revision: 43cc146123965eb518b6e5ff63dd2dbf596e551f
     version: ~
     source:
       Git: "https://github.com/AlSaqr-platform/opentitan.git"
@@ -504,7 +504,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-master/hardware/deps/rv_plic
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-bug-fixes/hardware/deps/rv_plic
     dependencies: []
   scm:
     revision: 998466d2a3c2d7d572e43d2666d93c4f767d8d60
@@ -522,7 +522,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-master/hardware/deps/snooper
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-bug-fixes/hardware/deps/snooper
     dependencies: []
   spu:
     revision: e213cb2e10d713531b718fdaddacdbd605f23ff6
@@ -623,7 +623,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-master/hardware/deps/util
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-bug-fixes/hardware/deps/util
     dependencies:
       - axi
       - common_cells

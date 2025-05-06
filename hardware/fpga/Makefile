@@ -33,5 +33,8 @@ constr:
 		cat $(constr_list) > ./timing_constr.xdc
 
 run: constr
+		$(VITIS) vivado -mode batch -source run.tcl
+
+run_gui: constr
 		$(VITIS) vivado -mode gui -source run.tcl
 

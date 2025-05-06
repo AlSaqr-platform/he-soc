@@ -33,13 +33,13 @@ dependencies:
   common_cells: { git: "https://github.com/pulp-platform/common_cells.git", rev: "c27bce39ebb2e6bae52f60960814a2afca7bd4cb" } # version: 1.37.0 }
   apb_node: { git: "https://github.com/pulp-platform/apb_node.git", rev: "d436ab3dad8260eadc1288bdc543c79b4d7462c7" }
   apb_gpio: { git: "https://github.com/pulp-platform/apb_gpio.git", rev: "c1feb0b348d15fecce907ae847f78c2f91d43bde" }
-  hyperbus_udma: { git: "git@github.com:AlSaqr-platform/hyper_bus.git", rev: "2dbb753ecfcf9dd424e4a8b3130b9f552c272abb" }
+  hyperbus_udma: { git: "git@github.com:AlSaqr-platform/hyper_bus.git", rev: "600063d2b2ea3d8447820a94ab046bf532c0da71" } # branch: master
   apb_fll_if: { git: "git@github.com:AlSaqr-platform/apb_fll_if.git", rev: "41e03443848a533df99dbe416b0d8c8ff67bc21e" } #  version: 1.0.1
   register_interface: { git: "git@github.com:pulp-platform/register_interface.git",   rev: "5daa85d164cf6b54ad061ea1e4c6f3624556e467" } # version:  0.4.5
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", rev: "c8faec1e1755386d0e0f31a55ebd80612a3dcea9" } # version: 1.0.4
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "0ec0bf8b7dab6d5e4b3f7ec58338a8efee066379" }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", rev: "4ce2907ab2313e67836e251f6deea67d885aef5f" } # version: 0.0.4
-  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "24ecdd0f8be69c426f46d76452ae0ab0edf5d9f6" } # branch: alsaqr-2
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "43cc146123965eb518b6e5ff63dd2dbf596e551f" } # branch: alsaqr-2
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
   ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "f2c8a5040596476ee1769292a7c48df9b1c05949" }
   sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }
@@ -48,7 +48,7 @@ dependencies:
   riscv-aia: { git: "git@github.com:AlSaqr-platform/riscv-aia.git", rev: "9ab99c13a" } # branch: alsaqr
   idma: { git: "git@github.com:alsaqr-platform/iDMA.git", rev: "559f94af" } # branch: alsaqr-2
   # APMU_BLOCK START: Branch: uw/pmu
-  axi_llc: { git: "git@github.com:alsaqr-platform/axi_llc.git", rev: "8fa5d302f7407d9582630bcc3fb07f4f3c08f2c0" } #branch: uw/plru_paritioning
+  axi_llc: { git: "git@github.com:alsaqr-platform/axi_llc.git", rev: "29fd76fb438c91c692108c1f93ab221931653c5d" } #branch: master
   spu: { git: "git@github.com:alsaqr-platform/spu.git", rev: "e213cb2e10d713531b718fdaddacdbd605f23ff6" } #branch: mc/ace-support
   apmu: { git: "git@github.com:alsaqr-platform/apmu.git", rev: "f8d57d3ede962e50e90aa037d55acc37b98f09c7" } #branch: alsaqr-2
 
