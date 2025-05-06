@@ -19,13 +19,13 @@
 module cva6_synth_wrap
  import ariane_pkg::*;
  import ariane_soc::*;
- import ariane_ace_soc::ar_chan_t;
- import ariane_ace_soc::aw_chan_t;
- import ariane_ace_soc::req_t;
- import ariane_ace_soc::resp_t;
+ import ariane_ace::ar_chan_t;
+ import ariane_ace::aw_chan_t;
+ import ariane_axi::w_chan_t;
+ import ariane_ace::req_t;
+ import ariane_ace::resp_t;
  import ariane_axi_soc::*;
  import snoop_pkg::*;
- import cv64a6_imafdch_wb_sv39_alsaqr_pkg::*;
  import ace_pkg::ccu_cfg_t; #(
 
   localparam AXI_ID_WIDTH       = ariane_soc::IdWidth,
@@ -197,6 +197,9 @@ module cva6_synth_wrap
   output logic snoop_trigger_irq_o
 );
 
+  localparam  CVA6AXiIdWidth = 4; // Do not change, CVA6 from planV only supports IdWidth = 4
+  localparam  CCUAxiIdWidth = CVA6AXiIdWidth + $clog2(ariane_soc::NumCVA6) + $clog2(ariane_soc::NumCVA6+1) + 1;
+
 `ifdef APMU_IP
   ACE_BUS #(
     .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH ),
@@ -212,10 +215,11 @@ module cva6_synth_wrap
     .AXI_USER_WIDTH ( AXI_USER_WIDTH )
   ) SPU_to_CCU[ariane_soc::NumCVA6-1:0]();
 `else
+
   ACE_BUS #(
     .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
-    .AXI_ID_WIDTH   ( CVA6AXIIdWidth ),
+    .AXI_ID_WIDTH   ( CVA6AXiIdWidth ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH )
   ) core_to_CCU[ariane_soc::NumCVA6-1:0]();
 `endif
@@ -228,14 +232,14 @@ module cva6_synth_wrap
   AXI_BUS #(
     .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
-    .AXI_ID_WIDTH   ( CCUAXIIdWidth  ),
+    .AXI_ID_WIDTH   ( CCUAxiIdWidth  ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH )
   ) ccu_axi_master();
 
   AXI_BUS #(
     .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH ),
     .AXI_DATA_WIDTH ( AXI_DATA_WIDTH ),
-    .AXI_ID_WIDTH   ( CCUAXIIdWidth  ),
+    .AXI_ID_WIDTH   ( CCUAxiIdWidth   ),
     .AXI_USER_WIDTH ( AXI_USER_WIDTH )
   ) ccu_axi_master_cut();
 
@@ -255,15 +259,16 @@ module cva6_synth_wrap
   ) cva6_axi_master_src();
 
 
+/*
   // CTR port
   riscv::ctrsource_rv_t emitter_source[1:0];
   riscv::ctrtarget_rv_t emitter_target[1:0];
   riscv::ctr_type_t     emitter_data[1:0];
   riscv::priv_lvl_t     priv_lvl[1:0];
   logic [31:0]          instr[1:0];
-
-  ariane_ace_soc::req_t [ariane_soc::NumCVA6-1:0] ace_ariane_req;
-  ariane_ace_soc::resp_t [ariane_soc::NumCVA6-1:0] ace_ariane_resp;
+*/
+  ariane_ace::req_t [ariane_soc::NumCVA6-1:0] ace_ariane_req;
+  ariane_ace::resp_t [ariane_soc::NumCVA6-1:0] ace_ariane_resp;
 
   logic [ariane_soc::NumCVA6-1:0][1:0] hart_id;
 
@@ -274,14 +279,15 @@ module cva6_synth_wrap
     assign hart_id[i] = i;
 
     cva6 #(
-      .CVA6Cfg       ( ArianeSocCfg ),
-      .axi_ar_chan_t ( ariane_ace_soc::ar_chan_t ),
-      .axi_aw_chan_t ( ariane_ace_soc::aw_chan_t ),
-      .axi_w_chan_t  ( ariane_axi_soc::w_chan_t  ),
-      .b_chan_t      ( ariane_axi_soc::b_chan_t  ),
-      .r_chan_t      ( ariane_ace_soc::r_chan_t  ),
-      .noc_req_t     ( ariane_ace_soc::req_t     ),
-      .noc_resp_t    ( ariane_ace_soc::resp_t    )
+      .ArianeCfg     ( ariane_soc::ArianeSocCfg ),
+      .AxiAddrWidth  ( AXI_ADDR_WIDTH           ),
+      .AxiDataWidth  ( AXI_DATA_WIDTH           ),
+      .AxiIdWidth    ( CVA6AXiIdWidth           ),
+      .axi_ar_chan_t ( ariane_ace::ar_chan_t    ),
+      .axi_aw_chan_t ( ariane_ace::aw_chan_t    ),
+      .axi_w_chan_t  ( ariane_axi::w_chan_t     ),
+      .axi_req_t     ( ariane_ace::req_t        ),
+      .axi_rsp_t     ( ariane_ace::resp_t       )
     ) i_ariane (
       .clk_i                ( clk_i                 ),
       .rst_ni               ( rst_ni                ),
@@ -303,16 +309,20 @@ module cva6_synth_wrap
       .clic_irq_ready_o     (                       ),
       .clic_kill_req_i      ( 1'b0                  ),
       .clic_kill_ack_o      (                       ),
-      .rvfi_probes_o        (                       ),
+      .rvfi_o               (                       ),
       .cvxif_req_o          (                       ),
       .cvxif_resp_i         ( '0                    ),
-      .noc_req_o            ( ace_ariane_req[i]     ),
-      .noc_resp_i           ( ace_ariane_resp[i]    ),
+/*
       .emitter_source_o     ( emitter_source[i]     ),
       .emitter_target_o     ( emitter_target[i]     ),
       .emitter_data_o       ( emitter_data[i]       ),
       .priv_lvl_o           ( priv_lvl[i]           ),
       .emitter_instr_o      ( instr[i]              )
+*/
+      .l15_req_o            (                       ),
+      .l15_rtrn_i           ( '0                    ),
+      .axi_req_o            ( ace_ariane_req[i]     ),
+      .axi_resp_i           ( ace_ariane_resp[i]    )
     );
 
     `ifdef APMU_IP
@@ -404,8 +414,8 @@ module cva6_synth_wrap
     MaxSlvTrans: 2, // Probably requires update
     FallThrough: 1'b0,
     LatencyMode: ace_pkg::NO_LATENCY,
-    AxiIdWidthSlvPorts:CVA6AXIIdWidth,
-    AxiIdUsedSlvPorts: CVA6AXIIdWidth,
+    AxiIdWidthSlvPorts:CVA6AXiIdWidth,
+    AxiIdUsedSlvPorts: CVA6AXiIdWidth,
     UniqueIds: 1'b1,
     AxiAddrWidth: AXI_ADDR_WIDTH,
     AxiDataWidth: AXI_DATA_WIDTH,
@@ -433,7 +443,7 @@ module cva6_synth_wrap
     .BYPASS     ( 1'b0           ),
     .ADDR_WIDTH ( AXI_ADDR_WIDTH ),
     .DATA_WIDTH ( AXI_DATA_WIDTH ),
-    .ID_WIDTH   ( CCUAXIIdWidth  ),
+    .ID_WIDTH   ( CCUAxiIdWidth  ),
     .USER_WIDTH ( AXI_USER_WIDTH )
   )  i_ccu_cut (
     .clk_i  ( clk_i                 ),
@@ -443,7 +453,7 @@ module cva6_synth_wrap
   );
 
   axi_id_remap_intf #(
-    .AXI_SLV_PORT_ID_WIDTH     ( CCUAXIIdWidth  ),
+    .AXI_SLV_PORT_ID_WIDTH     ( CCUAxiIdWidth  ),
     .AXI_SLV_PORT_MAX_UNIQ_IDS ( 4              ),
     .AXI_MAX_TXNS_PER_ID       ( 1              ),
     .AXI_MST_PORT_ID_WIDTH     ( AXI_ID_WIDTH   ),
