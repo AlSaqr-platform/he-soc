@@ -7,17 +7,17 @@ packages:
       Git: "https://github.com/pulp-platform/L2_tcdm_hybrid_interco.git"
     dependencies: []
   ace:
-    revision: 06180ec96531d38dc0c1c2b244bad621c5fe73a5
+    revision: fc2056f9f560ec55192c6b09ef682c822fad90fe
     version: ~
     source:
-      Git: "https://github.com/pulp-platform/ace.git"
+      Git: "https://github.com/planvtech/ace.git"
     dependencies:
       - axi
   alsaqr_fpga_padframe:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-bug-fixes/hardware/deps/alsaqr_periph_fpga_padframe
+      Path: /scratch2/mciani/alsaqr-2/he-soc-revert-core-ccu/hardware/deps/alsaqr_periph_fpga_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -25,7 +25,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-bug-fixes/hardware/deps/alsaqr_periph_padframe
+      Path: /scratch2/mciani/alsaqr-2/he-soc-revert-core-ccu/hardware/deps/alsaqr_periph_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -60,7 +60,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-bug-fixes/hardware/deps/apb_host_control_regs
+      Path: /scratch2/mciani/alsaqr-2/he-soc-revert-core-ccu/hardware/deps/apb_host_control_regs
     dependencies:
       - common_cells
       - register_interface
@@ -75,7 +75,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-bug-fixes/hardware/deps/apb_uart
+      Path: /scratch2/mciani/alsaqr-2/he-soc-revert-core-ccu/hardware/deps/apb_uart
     dependencies: []
   apmu:
     revision: f8d57d3ede962e50e90aa037d55acc37b98f09c7
@@ -132,7 +132,7 @@ packages:
     revision: 062bc36cbcca25629384e7f12efa6693273b3e07
     version: ~
     source:
-      Git: "https://github.com/pulp-platform/axi_riscv_atomics.git"
+      Git: "git@github.com:pulp-platform/axi_riscv_atomics.git"
     dependencies:
       - axi
       - common_cells
@@ -164,7 +164,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-bug-fixes/hardware/deps/axi_tlb
+      Path: /scratch2/mciani/alsaqr-2/he-soc-revert-core-ccu/hardware/deps/axi_tlb
     dependencies:
       - axi
       - common_cells
@@ -180,7 +180,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-bug-fixes/hardware/deps/clint
+      Path: /scratch2/mciani/alsaqr-2/he-soc-revert-core-ccu/hardware/deps/clint
     dependencies:
       - cva6
   cluster_interconnect:
@@ -218,10 +218,10 @@ packages:
       Git: "https://github.com/pulp-platform/common_verification.git"
     dependencies: []
   cva6:
-    revision: 8bb74bef1274a7dcadece7ae29b1db322b1d6f7a
+    revision: 80f7ad193e57835398de3b0228f7370444f765fe
     version: ~
     source:
-      Git: "https://github.com/AlSaqr-platform/cva6.git"
+      Git: "git@github.com:Alsaqr-platform/cva6.git"
     dependencies:
       - ace
       - axi
@@ -504,7 +504,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-bug-fixes/hardware/deps/rv_plic
+      Path: /scratch2/mciani/alsaqr-2/he-soc-revert-core-ccu/hardware/deps/rv_plic
     dependencies: []
   scm:
     revision: 998466d2a3c2d7d572e43d2666d93c4f767d8d60
@@ -522,7 +522,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-bug-fixes/hardware/deps/snooper
+      Path: /scratch2/mciani/alsaqr-2/he-soc-revert-core-ccu/hardware/deps/snooper
     dependencies: []
   spu:
     revision: e213cb2e10d713531b718fdaddacdbd605f23ff6
@@ -623,7 +623,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-bug-fixes/hardware/deps/util
+      Path: /scratch2/mciani/alsaqr-2/he-soc-revert-core-ccu/hardware/deps/util
     dependencies:
       - axi
       - common_cells
