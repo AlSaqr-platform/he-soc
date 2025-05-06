@@ -36,14 +36,14 @@ package ariane_soc;
 `endif
 
   localparam int unsigned MaxPriority = 7;
-
+/*
   // AIA
   localparam int unsigned NumSourcesImsic = cva6_config_pkg::CVA6ConfigNrSourcesImsic;
   localparam int unsigned NrVSIntpFiles   = cva6_config_pkg::CVA6ConfigNrVSIntpFiles;
   localparam int unsigned NrVSIntpFilesW  = cva6_config_pkg::CVA6ConfigNrVSIntpFilesW;
   localparam int unsigned NrIntpFiles     = cva6_config_pkg::CVA6ConfigNrIntpFiles; 
   localparam int unsigned NrSourcesW      = cva6_config_pkg::CVA6ConfigNrSourcesW;
-
+*/
   // actually masters, but slaves on the crossbar
   typedef enum int unsigned {
     CVA6        = 0,  // CVA6
