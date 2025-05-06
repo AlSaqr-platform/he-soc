@@ -64,7 +64,7 @@ BENDER_SYNTH_DIR = gf22
 BENDER_BUILD_DIR:=.
 CULSANS_ROOT := ip_list/culsans
 
-CVA6_PKG := cv64a6_imafdch_sv39_wb_alsaqr
+CVA6_PKG := cv64a6_imafdch_sv39_wb
 
 #  fix pedantic questa 2024 veer error
 ifdef QUESTA
