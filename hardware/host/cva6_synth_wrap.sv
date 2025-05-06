@@ -198,7 +198,7 @@ module cva6_synth_wrap
 );
 
   localparam  CVA6AXiIdWidth = 4; // Do not change, CVA6 from planV only supports IdWidth = 4
-  localparam  CCUAxiIdWidth = CVA6AXiIdWidth + $clog2(ariane_soc::NumCVA6) + $clog2(ariane_soc::NumCVA6+1) + 1;
+  localparam  CCUAxiIdWidth = CVA6AXiIdWidth + $clog2(ariane_soc::NumCVA6) + $clog2(ariane_soc::NumCVA6+1);
 
 `ifdef APMU_IP
   ACE_BUS #(
@@ -420,8 +420,7 @@ module cva6_synth_wrap
     AxiAddrWidth: AXI_ADDR_WIDTH,
     AxiDataWidth: AXI_DATA_WIDTH,
     AxiUserWidth: AXI_USER_WIDTH,
-    DcacheLineWidth: ariane_pkg::DCACHE_LINE_WIDTH,
-    DcacheIndexWidth: ariane_pkg::DCACHE_INDEX_WIDTH
+    DcacheLineWidth: ariane_pkg::DCACHE_LINE_WIDTH
   };
 
   ace_ccu_top_intf #(
