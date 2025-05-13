@@ -502,37 +502,8 @@ init: bender vips update
 
 init_unibo: bender vips update
 	rm -rf gf22/
-	ln -s /home/mciani/alsaqr_1_bringup/gf22/ $(HW_HOME)/
-
-.PHONY: culsans-sw-init
-culsans-sw-init:
-	make -C ip_list/culsans/tests/integration/ libs/libintegr.a
-	make -C ip_list/culsans/tests/performance/ libs/libintegr.a
-	make -C ip_list/culsans/tests/integration/testlist/access_nocache_noshare main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_cache_share main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_cache_share_overlap main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_modify_cache main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_modify_cache_share main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_modify_cache_share_intense main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_nocache_noshare main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_nocache_noshare_overlap main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_cleanunique_flush main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_evict main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_readshared_flush main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_readunique_flush main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_readunique_modify main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/write_cache_noshare main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/write_cache_share main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/write_cache_share_overlap main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_noshared_remote main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_noshared_remote_busy main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_noshared_remote_busy_snoop main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_busy main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_busy_snoop main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_remote main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_remote_busy main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_remote_busy_snoop main.riscv
+	git clone -b alsaqr_260124 git@github.com:pulp-unibo/alsaqr_gf22.git gf22
+	make -C gf22 init
 
 clean:
 	rm -rf $(riscv-torture-dir)/output/test*
