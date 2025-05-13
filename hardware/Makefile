@@ -497,6 +497,12 @@ tb/vips/i2c_eeprom:
 vips: tb/vips/spi_flash tb/vips/hyperram_model tb/vips/i2c_eeprom
 
 init: bender vips update
+	rm -rf gf22/
+	git clone -b alsaqr_1_bringup git@github.com:alsaqr-platform/gf22.git
+
+init_unibo: bender vips update
+	rm -rf gf22/
+	ln -s /home/mciani/alsaqr_1_bringup/gf22/ $(HW_HOME)/
 
 .PHONY: culsans-sw-init
 culsans-sw-init:
