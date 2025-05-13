@@ -57,6 +57,8 @@ int main(int argc, char const *argv[]) {
   int baud_rate = 115200;
   int test_freq = 100000000;
   #endif 
+  printf("Test cluster_redmule starting...\r\n");
+  uart_wait_tx_done();
 
   unsigned int msg = -1;
   int retval = 0;

@@ -112,6 +112,8 @@ int main()
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
+  printf("Test UART starting...\r\n");
+  uart_wait_tx_done();
   printf("uart start\n");
   uart_wait_tx_done();
 

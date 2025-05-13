@@ -166,6 +166,8 @@ int main(){
     int test_freq = 100000000;
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4); 
+  printf("Test CAN starting...\r\n");
+  uart_wait_tx_done();
 
   /* This test is intended to perform only read and write op on CAN register from APB
      For the configuration of the can check its datasheet from: https://canbus.pages.fel.cvut.cz/ctucanfd_ip_core/doc/Datasheet.pdf

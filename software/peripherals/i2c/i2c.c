@@ -99,6 +99,8 @@ int main()
   int test_freq = 100000000;
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
+  printf("Test I2C starting...\r\n");
+  uart_wait_tx_done();
 
   #ifdef PRINTF_ON
     printf ("I2C Variable Declaration...\n\r");
