@@ -96,6 +96,8 @@ int main()
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
+  printf("Test USART starting...\r\n");
+  uart_wait_tx_done();
   printf("USART start...\n\r");
   uart_wait_tx_done();
 

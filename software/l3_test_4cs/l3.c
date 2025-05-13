@@ -54,6 +54,9 @@ int main(int argc, char const *argv[]) {
 
   uint32_t cnt = 0;
   uint32_t cnt2= 0; // (ADDR_LAST_SCND_HALF-ADDR_BASE_FIRST_HALF)/STRIDE
+  
+  printf("Test L3_test_4cs starting...\r\n");
+  uart_wait_tx_done();
   printf("WRITE \n" );
   uart_wait_tx_done();  
 
