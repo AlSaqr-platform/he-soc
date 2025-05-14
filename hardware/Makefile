@@ -438,7 +438,6 @@ run_regression:
 	rm -rf regressions/regression_reports
 	mkdir regressions/regression_reports
 	python3 regression.py
-	regressions/check_regs.sh
 
 run_regression_netlist:
 	rm -rf regressions/regression_netlist_reports

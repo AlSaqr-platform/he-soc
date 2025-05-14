@@ -5,6 +5,7 @@ import sys
 import os
 import csv
 import shutil
+import glob
 
 # Ensure output directory exists
 REPORT_ROOT = 'regressions/regression_reports'
@@ -26,14 +27,14 @@ try:
 
             # Unpack columns
             try:
-                bm        = int(row[0])
-                cva6      = row[1]
-                ot        = row[2]
-                cl        = row[3]
-                db        = row[4]
-                sec_b     = row[5]
-                cid       = row[6]
-                clk       = row[7]
+                bm    = int(row[0])
+                cva6  = row[1]
+                ot    = row[2]
+                cl    = row[3]
+                db    = row[4]
+                sec_b = row[5]
+                cid   = row[6]
+                clk   = row[7]
             except (IndexError, ValueError) as e:
                 print(f"[Test {num_tests}] CSV parse error: {e!s}")
                 sys.exit(1)
@@ -45,10 +46,11 @@ try:
             # Build the sequence of make commands, chained with &&
             common = (
                 f"make scripts_vip_macro sec_boot={sec_b} dual-boot={db} clk-bypass={clk}"
-                f" && make -C {cva6} clean all"
             )
             if num_tests < first_cl_test:
-                sim_cmd = f"make clean macro_sim BOOTMODE={bm} ibex-elf-bin={ot} nogui=1"
+                sim_cmd = ( f"make -C {cva6} clean all"
+                            f"&& make clean macro_sim BOOTMODE={bm} ibex-elf-bin={ot} nogui=1"
+                          )
             else:
                 sim_cmd = (
                     f"make -C {cva6}/stimuli clean all dump_header"
@@ -72,7 +74,7 @@ try:
                     shell=True,
                     executable='/bin/bash',
                     check=True,
-                    timeout=3600*7  # e.g. 7 hour timeout
+                    timeout=3600*7  # 7 hour timeout
                 )
             except subprocess.TimeoutExpired:
                 print(f"[Test {num_tests}] TIMEOUT after 7h. Aborting.")
@@ -81,11 +83,20 @@ try:
                 print(f"[Test {num_tests}] FAILED (exit {e.returncode}). See terminal.log for details.")
                 sys.exit(e.returncode)
 
-            # If we reach here, the make+sim succeeded: move transcript into the report dir
+            # Move transcript
             try:
                 shutil.move('transcript', os.path.join(test_dir, 'transcript.log'))
             except FileNotFoundError:
                 print(f"[Test {num_tests}] WARNING: transcript file not found.")
+
+            # Move trace files
+            for pattern in ('trace_core*.log', 'trace_hart*.log'):
+                for src in glob.glob(pattern):
+                    try:
+                        shutil.move(src, os.path.join(test_dir, os.path.basename(src)))
+                    except Exception as e:
+                        print(f"[Test {num_tests}] WARNING: could not move {src}: {e}")
+
             tests_passed += 1
 
         # Summary
