@@ -151,6 +151,8 @@ int main(){
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
+  printf("Test QSPIM starting...\r\n");
+  uart_wait_tx_done();
   //--- refer to this manual for the commands
   //--- https://www.cypress.com/file/216421/download
 

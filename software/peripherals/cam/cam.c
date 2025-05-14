@@ -62,6 +62,8 @@ int main(){
   int test_freq = 100000000;
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4);
+  printf("Test CAM starting...\r\n");
+  uart_wait_tx_done();
 
   #ifdef FPGA_EMULATION
     return 0;

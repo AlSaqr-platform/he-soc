@@ -64,6 +64,8 @@ int main(int argc, char const *argv[]) {
   int retval = 0;
 
   //uart_set_cfg(0,(test_freq/baud_rate)>>4);
+  printf("Test cluster_l1_test_random starting...\r\n");
+  uart_wait_tx_done();
 
   printf("Test init\r\n");
   uart_wait_tx_done();

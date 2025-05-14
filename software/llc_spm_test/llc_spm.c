@@ -17,6 +17,8 @@ int main(int argc, char const *argv[]) {
   pulp_write32(APB_SOC_CTRL_BASE + APB_SOC_CTRL_LLC_CACHE_ADDR_END  , LLC_CACHE_END);      //LLC cache address end (8MB)
   pulp_write32(APB_SOC_CTRL_BASE + APB_SOC_CTRL_LLC_SPM_ADDR_START  , LLC_SPM_START);      //LLC SPM address end
   axi_llc_reg32_all_spm(AXI_LITE_BASE);   //set LLC in SPM mode
+  printf("Test llc_spm_test starting...\r\n");
+  uart_wait_tx_done();
   #if VERBOSE > 9
     printf("Configured LLC (SPM mode)...\n");
     uart_wait_tx_done();

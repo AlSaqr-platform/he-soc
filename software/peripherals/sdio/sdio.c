@@ -469,6 +469,9 @@ int main(){
   int test_freq = 100000000;
   #endif  
   uart_set_cfg(0,(test_freq/baud_rate)>>4); 
+
+  printf("Test SDIO starting...\r\n");
+  uart_wait_tx_done();
     
   for (int u = 0; u < N_SDIO; u++){
     for (int v = 0; v < N_REPS[u]; v++){
