@@ -43,8 +43,12 @@ root-dir := $(dir $(mkfile_path))
 # acc options
 # guide: define acc=<+"instance name".> , the dot includes all the child instances.
 # Example: <make clean sim acc=+u_RoT.>,  this will plot all the OpenTitan and subinstances signals (all the OT design)
-acc            ?= +acc
-noacc          ?=
+
+#acc            ?= +acc
+#noacc          ?=
+
+acc   := +acc=p+ariane_tb.
+noacc := +noacc=p+dut.
 
 # regression
 alsaqr-regression-dir        := ./
@@ -518,3 +522,10 @@ clean_regs:
 
 
 all: clean build
+
+#works only with CVA6 stand alone tests (no cluster, no OT)
+l3_test_4cs:
+	make -C ../software/l3_test_4cs clean all
+	make scripts_vip clean sim
+
+#	make scripts_vip clean localjtag=1 elf-bin=../software/l3_test_4cs/l3.riscv sim
