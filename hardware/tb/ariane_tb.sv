@@ -47,7 +47,7 @@ module ariane_tb;
 
   static uvm_cmdline_processor uvcl = uvm_cmdline_processor::get_inst();
 
-  localparam int unsigned REFClockPeriod = 1us; // jtag clock: 1MHz
+  localparam int unsigned REFClockPeriod = 400ns; // jtag clock: 1MHz
 
   // toggle with RTC period
   `ifndef TEST_CLOCK_BYPASS
@@ -3110,22 +3110,22 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
       end
       jtag_config_llc_spm();
       jtag_config_hyper();
-/*      for(int i=0;i<2;i++) begin
-         addr = 32'h81000000 + 32'h1000*i;
+      for(int i=0;i<256;i++) begin
+         addr = 32'h80000000 + 32'h2000*i;
          jtag_write_reg(addr, {32'hdeadcaca, 32'habbaabba});
       end
-      for(int i=0;i<4;i++) begin
-         addr = 32'h84000000 + 32'h1000*i;
+      for(int i=0;i<256;i++) begin
+         addr = 32'h84000000 + 32'h2000*i;
          jtag_write_reg(addr, {32'hdeadcaca, 32'habbaabba});
       end
-      for(int i=0;i<4;i++) begin
-         addr = 32'h88000000 + 32'h1000*i;
+      for(int i=0;i<256;i++) begin
+         addr = 32'h88000000 + 32'h2000*i;
          jtag_write_reg(addr, {32'hdeadcaca, 32'habbaabba});
       end
-      for(int i=0;i<4;i++) begin
-         addr = 32'h8C000000 + 32'h1000*i;
+      for(int i=0;i<256;i++) begin
+         addr = 32'h8C000000 + 32'h2000*i;
          jtag_write_reg(addr, {32'hdeadcaca, 32'habbaabba});
-      end*/
+      end
       binary_entry={32'h00000000,LINKER_ENTRY};
       $display("Wakeup here at %x!!", binary_entry);
    `ifndef SEC_BOOT
@@ -3139,7 +3139,7 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
    `endif
       $display("Wait EOC...");
       jtag_wait_for_eoc( TOHOST );
-    end
+    end // else: !if(PRELOAD_HYPERRAM==0)
   end
 
   task automatic jtag_read_reg_32;
