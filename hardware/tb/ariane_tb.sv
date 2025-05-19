@@ -2795,7 +2795,6 @@ module ariane_tb;
   //**************************************************
 
   assign hyper_rwds_wire[1] = hyper_rwds_wire[0];
-  assign hyper_dq_wire[1] = hyper_dq_wire[0];
 
   generate
      for (genvar i=0; i< NumChips ; i++) begin : hyperrams
@@ -3111,7 +3110,7 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
       end
       jtag_config_llc_spm();
       jtag_config_hyper();
-      for(int i=0;i<4;i++) begin
+/*      for(int i=0;i<2;i++) begin
          addr = 32'h81000000 + 32'h1000*i;
          jtag_write_reg(addr, {32'hdeadcaca, 32'habbaabba});
       end
@@ -3126,7 +3125,7 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
       for(int i=0;i<4;i++) begin
          addr = 32'h8C000000 + 32'h1000*i;
          jtag_write_reg(addr, {32'hdeadcaca, 32'habbaabba});
-      end
+      end*/
       binary_entry={32'h00000000,LINKER_ENTRY};
       $display("Wakeup here at %x!!", binary_entry);
    `ifndef SEC_BOOT
@@ -3217,14 +3216,7 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
   task automatic jtag_config_llc_spm();
 
      $display("Configurin LLC in SPM mode");
-
      jtag_write_reg_32(32'h10401000,32'hFFFFFFFF);
-
-     @(negedge dut.i_host_domain.i_axi_llc.llc_isolated);
-
-     jtag_write_reg_32(32'h10401004,32'hFFFFFFFF);
-     jtag_write_reg_32(32'h10401010,32'h1);
-     $display("End configuring LLC in SPM mode");
 
   endtask
 
@@ -3233,8 +3225,8 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
      $display("Configurin HyperBus to use only PHY0");
 
      //Config Hyper Controller to use PHY0 only
-     jtag_write_reg_32(32'h1A101000,32'h7);
-     jtag_write_reg_32(32'h1A101018,32'h1B);
+     //jtag_write_reg_32(32'h1A101000,32'h7);
+     //jtag_write_reg_32(32'h1A101018,32'h1B);
      jtag_write_reg_32(32'h1A10101C,32'h0);
      jtag_write_reg_32(32'h1A101020,32'h0);
      jtag_write_reg_32(32'h1A101024,32'h0);
