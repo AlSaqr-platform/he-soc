@@ -4,18 +4,12 @@
 #include "utils.h"
 #define DEFAULT_SEED 0xcaca5a5adeadbeef
 #define FEEDBACK  0x6c0000397f000032
-// These are the sizes of the VIP hyperram verilog model (64Byte each hyperram chip)
-// So, 4chips for the only PHY0 means 64MB*4=256MB, in offset: 0x1000_0000
-// Here is the base of the first 4 Hyperram CS0 - CS1
-#define ADDR_BASE_FIRST_HALF 0x80000000
-#define ADDR_LAST_FIRST_HALF 0x90000000
 
-// PHY1 is unconnected, commenting it out.
-// Here is the base of the scnd 4 Hyperram CS2 - CS3
-/*
-#define ADDR_BASE_SCND_HALF 0x81000000
-#define ADDR_LAST_SCND_HALF 0x82000000
-*/
+#define ADDR_BASE_FIRST_HALF 0x80000000
+#define ADDR_LAST_FIRST_HALF 0x82000000
+
+#define ADDR_BASE_SECOND_HALF 0x82000000
+#define ADDR_LAST_SECOND_HALF 0x84000000
 
 //  Be careful, this is the size of the hyperram we have on fpga.
 //  The test takes a while also @ 10MHz. Don't run this on Questa.

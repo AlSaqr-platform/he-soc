@@ -165,7 +165,7 @@ module ariane_tb;
   parameter  LINKER_ENTRY        = 32'h80000000;
   // IMPORTANT : If you change the linkerscript check the tohost address and update this paramater
   // IMPORTANT : to host mapped in L2 non-cached region because we use WB cache
-  parameter  TOHOST              = 32'h1c0001C0;
+  parameter  TOHOST              = 32'h1c000000;
 
   `ifdef USE_LOCAL_JTAG
     parameter  PRELOAD_HYPERRAM = 0;
@@ -3110,22 +3110,6 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
       end
       jtag_config_llc_spm();
       jtag_config_hyper();
-      for(int i=0;i<256;i++) begin
-         addr = 32'h80000000 + 32'h2000*i;
-         jtag_write_reg(addr, {32'hdeadcaca, 32'habbaabba});
-      end
-      for(int i=0;i<256;i++) begin
-         addr = 32'h84000000 + 32'h2000*i;
-         jtag_write_reg(addr, {32'hdeadcaca, 32'habbaabba});
-      end
-      for(int i=0;i<256;i++) begin
-         addr = 32'h88000000 + 32'h2000*i;
-         jtag_write_reg(addr, {32'hdeadcaca, 32'habbaabba});
-      end
-      for(int i=0;i<256;i++) begin
-         addr = 32'h8C000000 + 32'h2000*i;
-         jtag_write_reg(addr, {32'hdeadcaca, 32'habbaabba});
-      end
       binary_entry={32'h00000000,LINKER_ENTRY};
       $display("Wakeup here at %x!!", binary_entry);
    `ifndef SEC_BOOT
@@ -3232,17 +3216,17 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
      jtag_write_reg_32(32'h1A101024,32'h0);
      // CS0 range
      jtag_write_reg_32(32'h1A101028,32'h80000000);
-     jtag_write_reg_32(32'h1A10102C,32'h84000000);
+     jtag_write_reg_32(32'h1A10102C,32'h80800000);
      // CS1 range
-     jtag_write_reg_32(32'h1A101030,32'h84000000);
-     jtag_write_reg_32(32'h1A101034,32'h88000000);
+     jtag_write_reg_32(32'h1A101030,32'h80800000);
+     jtag_write_reg_32(32'h1A101034,32'h81000000);
 
      // CS2 range
-     jtag_write_reg_32(32'h1A101038,32'h88000000);
-     jtag_write_reg_32(32'h1A10103C,32'h8C000000);
+     jtag_write_reg_32(32'h1A101038,32'h81000000);
+     jtag_write_reg_32(32'h1A10103C,32'h81800000);
      // CS3 range
-     jtag_write_reg_32(32'h1A101040,32'h8C000000);
-     jtag_write_reg_32(32'h1A101044,32'h90000000);
+     jtag_write_reg_32(32'h1A101040,32'h81800000);
+     jtag_write_reg_32(32'h1A101044,32'h82000000);
   endtask
 
   task automatic jtag_write_reg(input logic [31:0] start_addr, input doub_bt value);
