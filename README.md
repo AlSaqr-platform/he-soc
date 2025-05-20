@@ -101,11 +101,60 @@ The code that will be laoded is the last that has been compiled. Thus, to run a 
 
 In case of localjtag preload, you need to provide the path to the binary you want to execute. `make clean sim elf-bin=../software/hello_culsans/hello_culsans.riscv` if you used the localjtag preload flag.
 
- * Option 2: go to the test folder (ex `software/hello_culsans`)
- 
+ * Option 2: Compilation and execution within the test folder (ex `software/hello_culsans`)
+
+Within `software/testname`, the user can compile the software and build the RTL targeting different configurations, and run the simulation.
+The targets are the following:
+- linkerscript mapping: L2/L3
+- packages: QFN100/CPGA200
+
+The software reuntime contains two linkerscripts under the following paths:
+
+* software/common/test.ld
+* software/common/test_l2.ld
+
+The first `test.ld` uses the offchip 256MB L3 memory as main memory, while `test_l2.ld` uses the onchip L2 32KB memory and includes the minimal runtime.
+
+At compile time you can chose the following options to use `test.ld` or `test_l2.ld`:
+
 ```
-make clean all sim
+make clean all
 ```
+or
+```
+make clean all_l2
+```
+
+Note that building the RTL for the two packages implies modification to the Testbench only, the SoC does not change!
+
+This SoC development targets 2 prototypes packages:
+- QFN100
+- CPGA200
+
+The main difference between the two package options is the number of pads exposed.
+In the QFN100 only the PHY0 of the Hyperram Controller is attached to external Hyperram memories so we provided additional support that builds the testbench accordingly.
+
+Here are the commands for the targets supported: 
+
+Linker: L3 - Package CPGA200 
+```
+make clean all rtl 
+```
+Linker: L2 - Package CPGA200
+```
+make clean all_l2 rtl_l2 
+```
+Linker: L3 - Package QFN100
+```
+make clean all rtl_qfn 
+```
+Linker: L2 - Package QFN100
+```
+make clean all_l2 rtl_l2_qfn 
+```
+
+To run the simulation you can append `sim` command to the previous examples.
+
 ### Run test with OpenTitan:
 
 To run mbox test between cva6 and ibex, in he-soc/hardware run:
@@ -246,25 +295,11 @@ make run_regression_netlist
 ### AlSaqr silicon bringup
 This section contains useful information for the AlSaqr bringup.
 
-#### Build the Code
-The software reuntime contains two linkerscripts under the following paths:
+#### Build the Code for the chip
 
-* software/common/test.ld
-* software/common/test_l2.ld
+In addition to the explanation provided above regarding the compilation and execution of tests for different targets (liker/package), we've updated the runtime to support compilation of the code for the AlSaqr chip.
+Acordingly to the `bringup/alsaqr.cfg` file, the SoC frequency can be specified (in MHz) at compile time with:
 
-The first `test.ld` uses the offchip 256MB L3 memory as main memory, while `test_l2.ld` uses the onchip L2 32KB memory and includes the minimal runtime.
-
-At compile time you can chose the following options to use `test.ld` or `test_l2.ld`:
-
-```
-make clean all
-```
-or
-```
-make clean all_l2
-```
-
-Moreover, accordingly to the `bringup/alsaqr.cfg` file, the SoC frequency can be specified (in MHz) at compile time with:
 ```
 make clean chip=1 SOC_FREQ=100 all
 ```
