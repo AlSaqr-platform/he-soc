@@ -4,6 +4,7 @@
 #include "utils.h"
 #define DEFAULT_SEED 0xcaca5a5adeadbeef
 #define FEEDBACK  0x6c0000397f000032
+
 // Here is the base of the first 4 Hyperram CS0 - CS1
 #define ADDR_BASE_FIRST_HALF 0x80000000 
 #define ADDR_LAST_FIRST_HALF 0x81000000
@@ -58,7 +59,7 @@ int main(int argc, char const *argv[]) {
   printf("Test L3_test_4cs starting...\r\n");
   uart_wait_tx_done();
   printf("WRITE \n" );
-  uart_wait_tx_done();  
+  uart_wait_tx_done();
 
   //WRITE all the memory with stride=128B
   uint64_t lfsr = DEFAULT_SEED;
@@ -77,12 +78,12 @@ int main(int argc, char const *argv[]) {
       if(lfsr!=(*(uint64_t *)(addr)))
         cnt++;
   }
-    
+
   if(cnt==0)
     printf("Test Passed: %d correct!\n", cnt2);
   else
     printf("Test FAILED: number of errors: %d/%d \n", cnt, cnt2 );
-  uart_wait_tx_done();  
+  uart_wait_tx_done();
   return cnt;
-  
+
 }

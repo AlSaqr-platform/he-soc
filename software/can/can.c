@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/* 
+/*
  * Mantainer: Luca Valente (luca.valente2@unibo.it)
  */
 
@@ -157,15 +157,6 @@ int main(){
 
   int j;
 
-  #ifdef FPGA_EMULATION
-    int baud_rate = 9600;
-    int test_freq = 10000000;
-  #else
-    set_flls(); //sets 100MHz
-    int baud_rate = 115200;
-    int test_freq = 100000000;
-  #endif  
-  uart_set_cfg(0,(test_freq/baud_rate)>>4); 
   printf("Test CAN starting...\r\n");
   uart_wait_tx_done();
 
@@ -201,7 +192,7 @@ int main(){
         alsaqr_periph_padframe_periphs_b_31_mux_set( 1 );
         break;
     }
-    
+
     // WAR SETTING REG CAN 0
     address = CAN0_APB_BASE + CTU_CAN_FD_MODE;
     reg32 = pulp_read32(address);
@@ -213,7 +204,7 @@ int main(){
     if(reg_val==reg32){
       error++;
       printf("ERROR: CAN0.%0d\n\r", v);
-    } 
+    }
 
     // WAR SETTING REG CAN 1
     address = CAN1_APB_BASE + CTU_CAN_FD_MODE;
@@ -226,9 +217,9 @@ int main(){
     if(reg_val==reg32){
       error++;
       printf("ERROR: CAN1.%0d\n\r", v);
-    } 
+    }
   }
-  
+
   if(error!=0)
     printf("Test FAILED with :%d\n", error);
   else

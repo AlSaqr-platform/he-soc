@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/* 
+/*
  * Mantainer: Luca Valente (luca.valente2@unibo.it)
  */
 
@@ -53,15 +53,7 @@ int main(){
 
   uint16_t *rx_addr= (uint16_t*) 0x1C001000;
 
-   #ifdef FPGA_EMULATION
-  int baud_rate = 115200;
-  int test_freq = 50000000;
-  #else
-  set_flls();
-  int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif  
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
+
   printf("Test CAM starting...\r\n");
   uart_wait_tx_done();
 
@@ -100,7 +92,7 @@ int main(){
       alsaqr_periph_padframe_periphs_b_44_mux_set( 1 );
       alsaqr_periph_padframe_periphs_b_45_mux_set( 1 );
       alsaqr_periph_padframe_periphs_b_46_mux_set( 1 );
-    #endif    
+    #endif
   #endif
 
   for(int u = 0; u < N_CAM; u++){
@@ -119,7 +111,7 @@ int main(){
     }
     pulp_write32(address, val_wr);
     while(pulp_read32(address) != val_wr);
-    
+
     //Set GPIO direction
     address = ARCHI_GPIO_ADDR + GPIO_PADDIR_0_31_OFFSET;
     switch(u){
@@ -138,7 +130,7 @@ int main(){
     val_wr = 0x0;
     pulp_write32(address, val_wr);
     while(pulp_read32(address) != val_wr);
-    
+
     #ifdef PRINTF_ON
       printf("Camera Vip Disabled\n");
       uart_wait_tx_done();
@@ -164,10 +156,10 @@ int main(){
     #endif
     barrier();
 
-    //write RX_SADDR register: it sets the L2 start address 
+    //write RX_SADDR register: it sets the L2 start address
     udma_cpi_cam_rx_saddr_set(udma_cam_channel_base, 0x1C001000);
     barrier();
-      
+
     //write RX_SIZE register: it sets the buffer syze in bytes
     udma_cpi_cam_rx_size_set(udma_cam_channel_base, N_PIXEL);
 
@@ -211,7 +203,7 @@ int main(){
       printf("Camera Vip Enabled\n");
       uart_wait_tx_done();
     #endif
-    
+
     //wait_cycles(70000);
     do{
       #ifdef PRINTF_ON

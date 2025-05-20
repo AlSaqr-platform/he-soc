@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/* 
+/*
  * Mantainer: Luca Valente (luca.valente2@unibo.it)
  */
 
@@ -29,15 +29,6 @@
 
 int main() {
 
-    #ifdef FPGA_EMULATION
-    int baud_rate = 115200;
-    int test_freq = 40000000;
-    #else
-    set_flls();
-    int baud_rate = 115200;
-    int test_freq = 100000000;
-    #endif
-    uart_set_cfg(0,(test_freq/baud_rate)>>4);
     printf("Test Hyperbus starting...\r\n");
     uart_wait_tx_done();
 
@@ -65,24 +56,24 @@ int main() {
     int plic_en_bits = plic_base + 0x2080;
     // set tx interrupt priority to 1
     pulp_write32(plic_base+tx_hyper_plic_id*4, 1);
-    //enable interrupt for context 1 
+    //enable interrupt for context 1
     pulp_write32(plic_en_bits+(((int)(tx_hyper_plic_id/32))*4), 1<<(tx_hyper_plic_id%32));
 
     udma_hyper_setup();
     set_pagebound_hyper(2048);
-    
+
     set_chipsel_hyper(0);
     for (int i=0; i< (BUFFER_SIZE); i++)
     {
       tx_buffer[i]=0xffff0000+i;
-    } 
+    }
   #ifdef VERBOSE
     printf("hyper_addr: %d \n", hyper_addr);
   #endif
     barrier();
     udma_hyper_dwrite((BUFFER_SIZE*4),(unsigned int) l3_buffer, (unsigned int)tx_buffer, 128, 0);
     barrier();
-    
+
   #ifdef VERBOSE
     printf("started writing\n");
     int busy=udma_hyper_busy(0);
@@ -101,7 +92,7 @@ int main() {
     // PLIC setup for RX
     pulp_write32(plic_base+rx_hyper_plic_id*4, 1);
     pulp_write32(plic_en_bits+(((int)(rx_hyper_plic_id/32))*4), 1<<(rx_hyper_plic_id%32));
-    
+
     udma_hyper_dread((BUFFER_SIZE*4),(unsigned int) l3_buffer, (unsigned int)rx_buffer, 128, 0);
 
     // wfi until reading the rx hyper id from the PLIC
@@ -113,7 +104,7 @@ int main() {
     printf("start reading\n");
   #endif
     for (int i=0; i< BUFFER_SIZE; i++)
-      {      
+      {
       #ifdef EXTRA_VERBOSE
       printf("%x\n", rx_buffer[i]);
       #endif
@@ -122,8 +113,8 @@ int main() {
       #ifdef EXTRA_VERBOSE
       uart_wait_tx_done();
       #endif
-      
-      if(error!=0) { 
+
+      if(error!=0) {
           printf("Test FAILED\n");
           pass=1;
           }
@@ -131,6 +122,6 @@ int main() {
       uart_wait_tx_done();
 
       return pass;
-  
-    
+
+
 }
