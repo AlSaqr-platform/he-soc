@@ -21,19 +21,19 @@
 //#define FPGA_EMULATION
 uint64_t *lfsr_byte_feedback;
 
-uint32_t lfsr_iter_bit(uint64_t lfsr) {
+uint64_t lfsr_iter_bit(uint64_t lfsr) {
   return (lfsr & 1) ? ((lfsr >> 1) ^ FEEDBACK) : (lfsr >> 1);
 }
 
-uint32_t lfsr_iter_byte(uint64_t lfsr, uint64_t *lfsr_byte_feedback) {
-  uint32_t l = lfsr;
+uint64_t lfsr_iter_byte(uint64_t lfsr, uint64_t *lfsr_byte_feedback) {
+  uint64_t l = lfsr;
   for(int i=0; i<8; i++)
     l = lfsr_iter_bit(l);
   return l;
 }
 
-uint32_t lfsr_iter_word(uint64_t lfsr, uint64_t *lfsr_byte_feedback) {
-  uint32_t l = lfsr_iter_byte(lfsr, lfsr_byte_feedback);
+uint64_t lfsr_iter_word(uint64_t lfsr, uint64_t *lfsr_byte_feedback) {
+  uint64_t l = lfsr_iter_byte(lfsr, lfsr_byte_feedback);
   l = lfsr_iter_byte(l, lfsr_byte_feedback);
   l = lfsr_iter_byte(l, lfsr_byte_feedback);
   return lfsr_iter_byte(l, lfsr_byte_feedback);
