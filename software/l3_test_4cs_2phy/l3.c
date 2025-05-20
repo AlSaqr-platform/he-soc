@@ -4,14 +4,14 @@
 #include "utils.h"
 #define DEFAULT_SEED 0xcaca5a5adeadbeef
 #define FEEDBACK  0x6c0000397f000032
+
 // Here is the base of the first 4 Hyperram CS0 - CS1
 #define ADDR_BASE_FIRST_HALF 0x80000000
-#define ADDR_LAST_FIRST_HALF 0x81000000
+#define ADDR_LAST_FIRST_HALF 0x83000000
 
 // Here is the base of the scnd 4 Hyperram CS2 - CS3
-#define ADDR_BASE_SCND_HALF 0x81000000
-#define ADDR_LAST_SCND_HALF 0x82000000
-
+#define ADDR_BASE_SCND_HALF 0x83000000
+#define ADDR_LAST_SCND_HALF 0x84000000
 
 //  Be careful, this is the size of the hyperram we have on fpga.
 //  The test takes a while also @ 10MHz. Don't run this on Questa.
@@ -55,7 +55,7 @@ int main(int argc, char const *argv[]) {
   uint32_t cnt = 0;
   uint32_t cnt2= 0; // (ADDR_LAST_SCND_HALF-ADDR_BASE_FIRST_HALF)/STRIDE
   printf("WRITE \n" );
-  uart_wait_tx_done();  
+  uart_wait_tx_done();
 
   printf("Test L3 test with two Phy and 4cs starting...\r\n");
 
@@ -76,12 +76,12 @@ int main(int argc, char const *argv[]) {
       if(lfsr!=(*(uint64_t *)(addr)))
         cnt++;
   }
-    
+
   if(cnt==0)
     printf("Test Passed: %d correct!\n", cnt2);
   else
     printf("Test FAILED: number of errors: %d/%d \n", cnt, cnt2 );
-  uart_wait_tx_done();  
+  uart_wait_tx_done();
   return cnt;
-  
+
 }

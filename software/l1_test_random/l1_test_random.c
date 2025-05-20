@@ -7,7 +7,7 @@
 //#define FPGA_EMULATION
 
 int launch_cluster() {
-  
+
   tlb_cfg(C2H_TLB_BASE_ADDR, 0, c2h_first_va, c2h_last_va, c2h_base_pa, 0x07);
 
   load_cluster_code();
@@ -50,20 +50,11 @@ int launch_cluster() {
 }
 
 int main(int argc, char const *argv[]) {
-    
-  /*#ifdef FPGA_EMULATION
-  int baud_rate = 9600;
-  int test_freq = 10000000;
-  #else
-  set_flls();
-  int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif*/
+
 
   unsigned int msg = -1;
   int retval = 0;
 
-  //uart_set_cfg(0,(test_freq/baud_rate)>>4);
   printf("Test cluster_l1_test_random starting...\r\n");
   uart_wait_tx_done();
 
@@ -81,9 +72,9 @@ int main(int argc, char const *argv[]) {
 
   printf("UART BASE: %X\n", UART_BASE_ADDR);
   uart_wait_tx_done();
-  
+
   printf("Test Done\r\n");
   uart_wait_tx_done();
-    
+
   return (msg != 0);
 }
