@@ -165,7 +165,11 @@ module ariane_tb;
   parameter  LINKER_ENTRY        = 32'h80000000;
   // IMPORTANT : If you change the linkerscript check the tohost address and update this paramater
   // IMPORTANT : to host mapped in L2 non-cached region because we use WB cache
+  `ifndef CODE_IN_L2
   parameter  TOHOST              = 32'h1c000000;
+  `else
+   parameter TOHOST              = 32'h1c0001c0;
+  `endif
 
   `ifdef USE_LOCAL_JTAG
     parameter  PRELOAD_HYPERRAM = 0;
@@ -2794,7 +2798,9 @@ module ariane_tb;
   // VIP MUXING END
   //**************************************************
 
-  assign hyper_rwds_wire[1] = hyper_rwds_wire[0];
+  `ifdef ONE_PHY
+     assign hyper_rwds_wire[1] = hyper_rwds_wire[0];
+  `endif
 
   generate
      for (genvar i=0; i< NumChips ; i++) begin : hyperrams
@@ -2804,7 +2810,11 @@ module ariane_tb;
            s27ks0641 #(
                  .TimingModel   ( "S27KS0641DPBHI020"    ),
                  .UserPreload   ( PRELOAD_HYPERRAM       ),
+               `ifdef ONE_PHY
                  .mem_file_name ( "./hyperram.slm"      )
+               `else
+                 .mem_file_name ( "./hyperram0.slm"       )
+               `endif
              ) i_main_hyperram0 (
                     .DQ7           ( hyper_dq_wire[0][7]      ),
                     .DQ6           ( hyper_dq_wire[0][6]      ),
@@ -2819,7 +2829,8 @@ module ariane_tb;
                     .CK            ( hyper_ck_wire[0]         ),
                     .CKNeg         ( hyper_ck_n_wire[0]       ),
                     .RESETNeg      ( hyper_reset_n_wire[0]    )
-           );/*
+           );
+           `ifndef ONE_PHY
            s27ks0641 #(
                  .TimingModel   ( "S27KS0641DPBHI020"    ),
                  .UserPreload   ( PRELOAD_HYPERRAM       ),
@@ -2838,7 +2849,8 @@ module ariane_tb;
                     .CK            ( hyper_ck_wire[1]         ),
                     .CKNeg         ( hyper_ck_n_wire[1]       ),
                     .RESETNeg      ( hyper_reset_n_wire[1]    )
-           );*/
+           );
+           `endif
         end else begin : single
 
            s27ks0641 #(
@@ -3086,8 +3098,10 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
         jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
         $display("Load binary...");
         jtag_elf_load(binary, binary_entry, cid);
+   `ifdef ONE_PHY
         jtag_config_llc_spm();
         jtag_config_hyper();
+   `endif
         $display("Wakeup Core..");
    `ifndef SEC_BOOT
         jtag_elf_run(binary_entry, cid);
@@ -3108,8 +3122,10 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
          jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
          binary_entry={32'h00000000,LINKER_ENTRY};
       end
+   `ifdef ONE_PHY
       jtag_config_llc_spm();
       jtag_config_hyper();
+   `endif
       binary_entry={32'h00000000,LINKER_ENTRY};
       $display("Wakeup here at %x!!", binary_entry);
    `ifndef SEC_BOOT
@@ -3187,14 +3203,7 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
     jtag_write(dm::SBAddress0, start_addr);
     // Write data
     jtag_write(dm::SBData0, value);
-/*
-    //Check correctess
-    jtag_read_reg_32(start_addr, rdata);
-    if(rdata!=value) begin
-      $fatal(1,"rdata at %x: %x" , start_addr, rdata);
-    end else begin
-      $display("W/R sanity check at %x ok! : %x", start_addr, rdata);
-    end*/
+
   endtask
 
   task automatic jtag_config_llc_spm();
@@ -3208,24 +3217,21 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
 
      $display("Configurin HyperBus to use only PHY0");
 
-     //Config Hyper Controller to use PHY0 only
-     //jtag_write_reg_32(32'h1A101000,32'h7);
-     //jtag_write_reg_32(32'h1A101018,32'h1B);
+     // Config Hyper Controller to use PHY0 only. Default config already meet the VIP config.
      jtag_write_reg_32(32'h1A10101C,32'h0);
      jtag_write_reg_32(32'h1A101020,32'h0);
      jtag_write_reg_32(32'h1A101024,32'h0);
      // CS0 range
-     jtag_write_reg_32(32'h1A101028,32'h80000000);
+     jtag_write_reg_32(32'h1A101028,32'h80000000); //64Mb (megaBIT)
      jtag_write_reg_32(32'h1A10102C,32'h80800000);
      // CS1 range
-     jtag_write_reg_32(32'h1A101030,32'h80800000);
+     jtag_write_reg_32(32'h1A101030,32'h80800000); //64Mb (megaBIT)
      jtag_write_reg_32(32'h1A101034,32'h81000000);
-
      // CS2 range
-     jtag_write_reg_32(32'h1A101038,32'h81000000);
+     jtag_write_reg_32(32'h1A101038,32'h81000000); //64Mb (megaBIT)
      jtag_write_reg_32(32'h1A10103C,32'h81800000);
      // CS3 range
-     jtag_write_reg_32(32'h1A101040,32'h81800000);
+     jtag_write_reg_32(32'h1A101040,32'h81800000); //64Mb (megaBIT)
      jtag_write_reg_32(32'h1A101044,32'h82000000);
   endtask
 

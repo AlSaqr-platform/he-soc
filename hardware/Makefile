@@ -176,6 +176,18 @@ ifdef exclude-cluster
   compile_fpga += EXCLUDE_CLUSTER
 endif
 
+ifdef l2-code
+	questa-cmd += +CODE_IN_L2=$(l2-code)
+  compile_flag +=  +define+CODE_IN_L2
+  compile_fpga += CODE_IN_L2
+endif
+
+ifdef one-phy
+	questa-cmd += +ONE_PHY=$(one-phy)
+  compile_flag +=  +define+ONE_PHY
+  compile_fpga += ONE_PHY
+endif
+
 ifdef exclude-rot
 	questa-cmd += +EXCLUDE_ROT=$(exclude-rot)
   compile_flag +=  +define+EXCLUDE_ROT
@@ -524,8 +536,6 @@ clean_regs:
 all: clean build
 
 #works only with CVA6 stand alone tests (no cluster, no OT)
-l3_test_4cs:
-	make -C ../software/l3_test_4cs clean all
-	make scripts_vip clean sim
-
-#	make scripts_vip clean localjtag=1 elf-bin=../software/l3_test_4cs/l3.riscv sim
+l3_test_4cs_1phy_from_l2:
+	make -C ../software/l3_test_4cs_1phy clean all_l2
+	make scripts_vip clean l2-code=1 one-phy=1 localjtag=1 elf-bin=../software/l3_test_4cs_1phy/l3.riscv sim
