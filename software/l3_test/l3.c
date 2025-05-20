@@ -4,7 +4,7 @@
 #include "utils.h"
 #define DEFAULT_SEED 0xcaca5a5adeadbeef
 #define FEEDBACK  0x6c0000397f000032
-#define ADDR_FIRST 0x80000000 
+#define ADDR_FIRST 0x80000000
 #define ADDR_LAST 0x80800000
 //  Be careful, this is the size of the hyperram we have on fpga.
 //  The test takes a while also @ 10MHz. Don't run this on Questa.
@@ -45,20 +45,10 @@ uint64_t lfsr_64bits(uint64_t lfsr,  uint64_t *lfsr_byte_feedback) {
 
 int main(int argc, char const *argv[]) {
 
-  #ifdef FPGA_EMULATION
-  int baud_rate = 9600;
-  int test_freq = 10000000;
-  #else
-  set_flls();
-  int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif  
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
-
   uint32_t cnt = 0;
   uint32_t cnt2= 0; // (ADDR_LAST-ADDR_FIRST)/STRIDE
   printf("WRITE \n" );
-  uart_wait_tx_done();  
+  uart_wait_tx_done();
 
   //WRITE all the memory with stride=128B
   uint64_t lfsr = DEFAULT_SEED;
@@ -76,12 +66,12 @@ int main(int argc, char const *argv[]) {
       if(lfsr!=(*(uint64_t *)(addr)))
         cnt++;
   }
-    
+
   if(cnt==0)
     printf("Test Passed: %d correct!\n", cnt2);
   else
     printf("Test FAILED: number of errors: %d/%d \n", cnt, cnt2 );
-  uart_wait_tx_done();  
+  uart_wait_tx_done();
   return cnt;
-  
+
 }

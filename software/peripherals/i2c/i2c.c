@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/* 
+/*
  * Mantainer: Luca Valente (luca.valente2@unibo.it)
  */
 
@@ -78,68 +78,59 @@ int main()
   #else
     int N_REPS[N_I2C] = {1};
   #endif
-  
+
   int error = 0;
   int u=0;
 
   uint32_t tx_i2c_plic_id ;
-  uint32_t rx_i2c_plic_id ; 
-  uint32_t cmd_i2c_plic_id ; 
-  uint32_t eot_i2c_plic_id ; 
+  uint32_t rx_i2c_plic_id ;
+  uint32_t cmd_i2c_plic_id ;
+  uint32_t eot_i2c_plic_id ;
 
   uint32_t timer_0_plic_id ; // 3 e 4
 
 
-  #ifdef FPGA_EMULATION
-  int baud_rate = 115200;
-  int test_freq = 50000000;
-  #else
-  set_flls();
-  int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif  
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
   printf("Test I2C starting...\r\n");
   uart_wait_tx_done();
 
   #ifdef PRINTF_ON
     printf ("I2C Variable Declaration...\n\r");
     uart_wait_tx_done();
-  #endif 
+  #endif
 
   uint8_t *expected_rx_buffer= (uint8_t*) 0x1C001000;
-  
+
   #ifdef PRINTF_ON
     printf ("Declare expected_rx_buffer..\n\r");
     uart_wait_tx_done();
-  #endif 
+  #endif
 
   uint8_t *rx_buffer= (uint8_t*) 0x1C002000;
 
   #ifdef PRINTF_ON
     printf ("Declare rx_buffer..\n\r");
-    uart_wait_tx_done();   
+    uart_wait_tx_done();
   #endif
-  
+
   uint32_t *cmd_buffer_wr = (uint32_t*) 0x1C003000;
-  
+
   #ifdef PRINTF_ON
     printf ("Declare cmd_buffer_wr..\n\r");
-    uart_wait_tx_done();    
+    uart_wait_tx_done();
   #endif
 
   uint32_t *cmd_buffer_rd = (uint32_t*) 0x1C004000;
-  
+
   #ifdef PRINTF_ON
     printf ("Declare cmd_buffer_rd..\n\r");
-    uart_wait_tx_done(); 
+    uart_wait_tx_done();
   #endif
 
   for (u=0;u<N_I2C;u++) {
     for (int v = 0; v < N_REPS[u]; v++){
       #ifdef PRINTF_ON
       printf ("Test I2C: %d.%d \n\r", u, v);
-      uart_wait_tx_done(); 
+      uart_wait_tx_done();
       #endif
 
       //Expected datas
@@ -177,7 +168,7 @@ int main()
           cmd_buffer_wr[2]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM5_ADDR_BASE | 0x0; // write I2C_MEM5 address + direction bit
           break;
       }
-      cmd_buffer_wr[3]= (((uint32_t)I2C_CMD_WRB)<<24); 
+      cmd_buffer_wr[3]= (((uint32_t)I2C_CMD_WRB)<<24);
       cmd_buffer_wr[4]= (((uint32_t)I2C_CMD_WRB)<<24);
       cmd_buffer_wr[5]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[0]; //DATA0
       cmd_buffer_wr[6]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[1]; //DATA1
@@ -241,8 +232,8 @@ int main()
 
       #ifdef PRINTF_ON
         printf ("Setting padmux...\n\r");
-        uart_wait_tx_done();     
-      #endif   
+        uart_wait_tx_done();
+      #endif
 
 
       #ifdef FPGA_EMULATION
@@ -309,14 +300,14 @@ int main()
               alsaqr_periph_padframe_periphs_a_17_mux_set( 3 );
               break;
           }
-        #endif    
-      #endif 
+        #endif
+      #endif
 
       #ifdef PRINTF_ON
         printf ("End setting padmux...\n\r");
-        uart_wait_tx_done(); 
-      #endif  
-      
+        uart_wait_tx_done();
+      #endif
+
       //WRITE
 
       //--- enable all the udma channels (see below for selective enable)
@@ -325,7 +316,7 @@ int main()
         printf ("Enable CG peripherals...\n\r");
         uart_wait_tx_done();
       #endif
-      
+
       plp_udma_cg_set(plp_udma_cg_get() | (0xffffffff));
 
       #ifdef PRINTF_ON
@@ -364,17 +355,17 @@ int main()
 
         #ifdef PRINTF_ON
           printf ("Set interrupt on cmd_i2c_plic_id...\n\r");
-          uart_wait_tx_done();    
-        #endif 
-        
+          uart_wait_tx_done();
+        #endif
+
         //Set CMD interrupt
         pulp_write32(PLIC_BASE+cmd_i2c_plic_id*4, 1); // set rx interrupt priority to 1
-        
+
         #ifdef PRINTF_ON
           printf ("Enable interrupt on rx_spi_plic_id...\n\r");
           uart_wait_tx_done();
-        #endif 
-        
+        #endif
+
         pulp_write32(PLIC_EN_BITS+(((int)(cmd_i2c_plic_id/32))*4), 1<<(cmd_i2c_plic_id%32)); //enable interrupt
 
         //  wfi until reading the rx id from the PLIC
@@ -385,7 +376,7 @@ int main()
         #ifdef PRINTF_ON
           printf ("Interrupt received and clear...\n\r");
           uart_wait_tx_done();
-        #endif 
+        #endif
 
         //Set completed Interrupt
         pulp_write32(PLIC_CHECK,cmd_i2c_plic_id);
@@ -397,8 +388,8 @@ int main()
         apb_timer_set_compare(N_TIMER-1,1500000);
 
         apb_timer_enable(N_TIMER-1,8); //it count every 8 cycles
-        
-        pulp_write32(PLIC_BASE+timer_0_plic_id*4, 1); 
+
+        pulp_write32(PLIC_BASE+timer_0_plic_id*4, 1);
         pulp_write32(PLIC_EN_BITS+(((int)(timer_0_plic_id/32))*4), 1<<(timer_0_plic_id%32)); //enable interrupt
         //  wfi until reading the rx id from the PLIC
         while(pulp_read32(PLIC_CHECK)!=timer_0_plic_id) {
@@ -412,8 +403,8 @@ int main()
         //Timer EXPIRED
         #ifdef PRINTF_ON
           printf ("Interrupt received from TIMER 0...\n\r");
-          uart_wait_tx_done();    
-        #endif 
+          uart_wait_tx_done();
+        #endif
       }
 
       //READ FROM MEMORY
@@ -430,7 +421,7 @@ int main()
 
       #ifdef PRINTF_ON
         printf ("Enqueue UDMA_I2C_DATA_ADDR...\n\r");
-        uart_wait_tx_done();  
+        uart_wait_tx_done();
       #endif
 
       plp_udma_enqueue(UDMA_I2C_DATA_ADDR(u) ,  (int)rx_buffer  , 4  , 0);
@@ -441,7 +432,7 @@ int main()
       #endif
 
       plp_udma_enqueue(UDMA_I2C_CMD_ADDR(u) ,  (int)cmd_buffer_rd  , BUFFER_SIZE_READ*4, 0);
-      
+
       /*for (int i=0; i<BUFFER_SIZE_READ; i++){
         printf ("cmd_buffer_rd[%d]=0x%0x ..\n\r",i, cmd_buffer_rd[i]);
         uart_wait_tx_done();
@@ -457,17 +448,17 @@ int main()
 
         #ifdef PRINTF_ON
           printf ("Set interrupt on cmd_i2c_plic_id...\n\r");
-          uart_wait_tx_done();    
-        #endif 
-        
+          uart_wait_tx_done();
+        #endif
+
         //Set CMD interrupt
         pulp_write32(PLIC_BASE+cmd_i2c_plic_id*4, 1); // set rx interrupt priority to 1
-        
+
         #ifdef PRINTF_ON
           printf ("Enable interrupt on rx_spi_plic_id...\n\r");
           uart_wait_tx_done();
-        #endif 
-        
+        #endif
+
         pulp_write32(PLIC_EN_BITS+(((int)(cmd_i2c_plic_id/32))*4), 1<<(cmd_i2c_plic_id%32)); //enable interrupt
 
         //  wfi until reading the rx id from the PLIC
@@ -478,7 +469,7 @@ int main()
         #ifdef PRINTF_ON
           printf ("Interrupt received and clear...\n\r");
           uart_wait_tx_done();
-        #endif 
+        #endif
 
         //Set completed Interrupt
         pulp_write32(PLIC_CHECK,cmd_i2c_plic_id);
@@ -488,8 +479,8 @@ int main()
         apb_timer_set_compare(N_TIMER-1,10000);
 
         apb_timer_enable(N_TIMER-1,8); //it count every 8 cycles
-        
-        pulp_write32(PLIC_BASE+timer_0_plic_id*4, 1); 
+
+        pulp_write32(PLIC_BASE+timer_0_plic_id*4, 1);
         pulp_write32(PLIC_EN_BITS+(((int)(timer_0_plic_id/32))*4), 1<<(timer_0_plic_id%32)); //enable interrupt
         //  wfi until reading the rx id from the PLIC
         while(pulp_read32(PLIC_CHECK)!=timer_0_plic_id) {
@@ -504,22 +495,22 @@ int main()
         //Timer EXPIRED
         #ifdef PRINTF_ON
           printf ("Interrupt received from TIMER 0...\n\r");
-          uart_wait_tx_done();    
+          uart_wait_tx_done();
         #endif */
 
         #ifdef PRINTF_ON
           printf ("Set interrupt on rx_i2c_plic_id...\n\r");
-          uart_wait_tx_done();    
-        #endif 
-        
+          uart_wait_tx_done();
+        #endif
+
         //Set CMD interrupt
         pulp_write32(PLIC_BASE+rx_i2c_plic_id*4, 1); // set rx interrupt priority to 1
-        
+
         #ifdef PRINTF_ON
           printf ("Enable interrupt on rx_spi_plic_id...\n\r");
           uart_wait_tx_done();
-        #endif 
-        
+        #endif
+
         pulp_write32(PLIC_EN_BITS+(((int)(rx_i2c_plic_id/32))*4), 1<<(rx_i2c_plic_id%32)); //enable interrupt
 
         //  wfi until reading the rx id from the PLIC
@@ -530,7 +521,7 @@ int main()
         #ifdef PRINTF_ON
           printf ("Interrupt received and clear...\n\r");
           uart_wait_tx_done();
-        #endif 
+        #endif
 
         //Set completed Interrupt
         pulp_write32(PLIC_CHECK,rx_i2c_plic_id);
