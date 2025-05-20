@@ -96,11 +96,19 @@ dump:
 
 all: clean build dis dump
 
-
 all_l2: clean build_l2 dis dump
 
 rtl:
 	 $(MAKE) -C $(SW_HOME)/../hardware/ -B all
+
+rtl_qfn:
+	 $(MAKE) -C $(SW_HOME)/../hardware/ -B one-phy=1 all
+
+rtl_l2:
+	 $(MAKE) -C $(SW_HOME)/../hardware/ -B l2-code=1 localjtag=1 all
+
+rtl_l2_qfn:
+	 $(MAKE) -C $(SW_HOME)/../hardware/ -B l2-code=1 localjtag=1 one-phy=1 all
 
 sim:
 	$(MAKE) -C  $(SW_HOME)/../hardware/ -B sim $(sim_flags) elf-bin=$(shell pwd)/$(APP).riscv

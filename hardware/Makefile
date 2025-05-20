@@ -330,7 +330,7 @@ post_synth_top_fll_behav:
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t asic -t rtl -t test -t tb_synth -t vip -t post_synth_top_fll_behav -t cv64a6_imafdc_sv39_wb > $(compile_script)
 
-# RTL (USES FLL DUMMY) + OPENTITAN NETLIST 
+# RTL (USES FLL DUMMY) + OPENTITAN NETLIST
 post_synth_opentitan:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
@@ -534,8 +534,3 @@ clean_regs:
 
 
 all: clean build
-
-#works only with CVA6 stand alone tests (no cluster, no OT)
-l3_test_4cs_1phy_from_l2:
-	make -C ../software/l3_test_4cs_1phy clean all_l2
-	make scripts_vip clean l2-code=1 one-phy=1 localjtag=1 elf-bin=../software/l3_test_4cs_1phy/l3.riscv sim
