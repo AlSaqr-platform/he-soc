@@ -120,12 +120,13 @@ The steps to be followed are the following:
  * Run the execution of CVA6 (it must be executing the bootrom to be waken up from OT).
  * Preload OpenTitan with [this binary](https://github.com/AlSaqr-platform/opentitan/blob/122cd13195437362a533e9dd7863a33554f81f83/sw/tests/alsaqr/flash_alsaqr_boot_preload/flash_alsaqr_boot_preload.elf)!
  * The latter binary consists of the flash image (as payload) and a simple fw which instructs ibex to move the payload to the emulated flash (an SRAM).
- * Run this binary and then stop the execution (ctrl+c). You can verify that the content of the Flash (base address is 0xF0000000), which must comply [with this header file](https://github.com/AlSaqr-platform/opentitan/blob/122cd13195437362a533e9dd7863a33554f81f83/sw/tests/alsaqr/flash_alsaqr_boot/bazel-out/flash_alsaqr_boot_signed32.h)!.
- * Now set the PC of Ibex from JTAG to the Bootrom boot address: 0xD0008000.
- * Run the execution of Ibex, starting the secure boot executing from the bootrom. This will verify the Flash image and jump to it.
+ * Run this binary and then stop the execution (ctrl+c). You can verify that the content of the Flash (base address is 0xF0000000).
+ * To verify the flash has been writte, read back some values starting from 0xF0000480 (the start address, the lower addresses host the manifest) and compare [with this header file](https://github.com/AlSaqr-platform/opentitan/blob/122cd13195437362a533e9dd7863a33554f81f83/sw/tests/alsaqr/flash_alsaqr_boot/bazel-out/flash_alsaqr_boot_signed32.h)!.
+ * Now set the PC of Ibex from JTAG to the Bootrom boot address: 0xD0008080.
+ * Run the execution of Ibex, starting the secure boot from the bootrom. This will verify the Flash image and jump to it  (this is the last action required).
  * Automatically, the [Flash image](https://github.com/AlSaqr-platform/opentitan/blob/122cd13195437362a533e9dd7863a33554f81f83/sw/tests/alsaqr/flash_alsaqr_boot/flash_alsaqr_boot.c)! writes to the mailbox the boot address for CVA6 (in L3, 0x80000000) and triggers the irq to CVA6 through the mailbox.
- * CVA6 processes the IRQ and jumps to the boot address.
- * If you preload hello_culsans, you should see the corresping prints on UART, after running Ibex on its bootrom code (the last action required).
+ * CVA6 processes the IRQ (Bootrom code) and jumps to the boot address.
+ * If you preload hello_culsans, you should see the corresping prints on UART, after running Ibex on its bootrom code.
 
 ### Running code on the cluster
 
