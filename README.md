@@ -85,17 +85,6 @@ Be aware that the preload of the code is slower in this case.
 make -C ../software/"test you want to run" clean all
 make clean sim
 ```
-If you want to speed up the simulation (of about 2x), you can use the "max-opt" flag, which will deactivate the logs of all the waveforms. This is not suitable for debugging, but just to get the result of a test as fast as passible.
-To avoid the Questa GUI to be opened, you can use the "nogui=1" flag, which applies the same opts as max-opt and do not open the gui.
-```
-make scripts_vip max-opt=1
-make clean sim max-opt=1
-```
-or
-```
-make scripts_vip nogui=1
-make clean sim nogui=1
-```
 
 The code that will be laoded is the last that has been compiled. Thus, to run a test with preload in L3, you shall compile the test you want to run (as shown above) and then run the simulation without providing the path to the binary.
 
@@ -122,6 +111,21 @@ make -C ../software/hello_culsans/ clean all
 make clean sim BOOTMODE=1 sec_boot=1
 
 ```
+To run the secure boot on CHIP/FPGA, the procedure is a bit more tricky as we do not rely on an external flash.
+The steps to be followed are the following:
+
+ * Open 5 terminals (the two openocd + gdb processes for both the JTAG, and the uart screen). I suggest using tmux to handle more terminals from the same window.
+ * Preload CVA6 with the desired test (i.e. hello_culsans).
+ * Set CVA6 PC to 0x10000, that correspond to the boot address of CVA6 ROM.
+ * Run the execution of CVA6 (it must be executing the bootrom to be waken up from OT).
+ * Preload OpenTitan with [this binary](https://github.com/AlSaqr-platform/opentitan/blob/122cd13195437362a533e9dd7863a33554f81f83/sw/tests/alsaqr/flash_alsaqr_boot_preload/flash_alsaqr_boot_preload.elf)!
+ * The latter binary consists of the flash image (as payload) and a simple fw which instructs ibex to move the payload to the emulated flash (an SRAM).
+ * Run this binary and then stop the execution (ctrl+c). You can verify that the content of the Flash (base address is 0xF0000000), which must comply [with this header file](https://github.com/AlSaqr-platform/opentitan/blob/122cd13195437362a533e9dd7863a33554f81f83/sw/tests/alsaqr/flash_alsaqr_boot/bazel-out/flash_alsaqr_boot_signed32.h)!.
+ * Now set the PC of Ibex from JTAG to the Bootrom boot address: 0xD0008000.
+ * Run the execution of Ibex, starting the secure boot executing from the bootrom. This will verify the Flash image and jump to it.
+ * Automatically, the [Flash image](https://github.com/AlSaqr-platform/opentitan/blob/122cd13195437362a533e9dd7863a33554f81f83/sw/tests/alsaqr/flash_alsaqr_boot/flash_alsaqr_boot.c)! writes to the mailbox the boot address for CVA6 (in L3, 0x80000000) and triggers the irq to CVA6 through the mailbox.
+ * CVA6 processes the IRQ and jumps to the boot address.
+ * If you preload hello_culsans, you should see the corresping prints on UART, after running Ibex on its bootrom code (the last action required).
 
 ### Running code on the cluster
 
