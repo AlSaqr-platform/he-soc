@@ -6,11 +6,11 @@
 #define FEEDBACK  0x6c0000397f000032
 // Here is the base of the first 4 Hyperram CS0 - CS1
 #define ADDR_BASE_FIRST_HALF 0x80000000
-#define ADDR_LAST_FIRST_HALF 0x81000000
+#define ADDR_LAST_FIRST_HALF 0x82000000
 
 // Here is the base of the scnd 4 Hyperram CS2 - CS3
-#define ADDR_BASE_SCND_HALF 0x81000000
-#define ADDR_LAST_SCND_HALF 0x82000000
+#define ADDR_BASE_SCND_HALF 0x82000000
+#define ADDR_LAST_SCND_HALF 0x84000000
 
 
 //  Be careful, this is the size of the hyperram we have on fpga.
