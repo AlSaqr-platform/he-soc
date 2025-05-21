@@ -259,14 +259,14 @@ module cva6_synth_wrap
   ) cva6_axi_master_src();
 
 
-/*
+
   // CTR port
   riscv::ctrsource_rv_t emitter_source[1:0];
   riscv::ctrtarget_rv_t emitter_target[1:0];
   riscv::ctr_type_t     emitter_data[1:0];
   riscv::priv_lvl_t     priv_lvl[1:0];
   logic [31:0]          instr[1:0];
-*/
+
   ariane_ace::req_t [ariane_soc::NumCVA6-1:0] ace_ariane_req;
   ariane_ace::resp_t [ariane_soc::NumCVA6-1:0] ace_ariane_resp;
 
@@ -312,13 +312,11 @@ module cva6_synth_wrap
       .rvfi_o               (                       ),
       .cvxif_req_o          (                       ),
       .cvxif_resp_i         ( '0                    ),
-/*
       .emitter_source_o     ( emitter_source[i]     ),
       .emitter_target_o     ( emitter_target[i]     ),
       .emitter_data_o       ( emitter_data[i]       ),
       .priv_lvl_o           ( priv_lvl[i]           ),
-      .emitter_instr_o      ( instr[i]              )
-*/
+      .emitter_instr_o      ( instr[i]              ),
       .l15_req_o            (                       ),
       .l15_rtrn_i           ( '0                    ),
       .axi_req_o            ( ace_ariane_req[i]     ),
@@ -640,7 +638,7 @@ module cva6_synth_wrap
   logic snoop_core_select;
 
   snooper_pkg::trace_t cva6_traces;
-/*
+
   assign cva6_traces.priv_lvl = snoop_core_select ? priv_lvl[1]                   : priv_lvl[0]                   ;
   assign cva6_traces.pc_src_h = snoop_core_select ? { 1'b0, emitter_source[1].pc[62:32] } : { 1'b0, emitter_source[0].pc[62:32] } ;
   assign cva6_traces.pc_src_l = snoop_core_select ? { emitter_source[1].pc[31:1], 1'b0  } : { emitter_source[0].pc[31:1], 1'b0  } ;
@@ -649,7 +647,7 @@ module cva6_synth_wrap
   assign cva6_traces.metadata = snoop_core_select ? { 28'b0, emitter_data[1]            } : { 28'b0, emitter_data[0]            } ;
   assign cva6_traces.opcode   = snoop_core_select ? instr[1]                              : instr[0]                              ;
   assign cva6_traces.pc_v     = snoop_core_select ? emitter_source[1].v                   : emitter_source[0].v                   ;
-*/
+
   snooper #(
       .AXI_ID_WIDTH   ( ariane_soc::IdWidthSlave        ),
       .axi_ar_chan_t  ( ariane_axi_soc::ar_chan_slv_t   ),
@@ -669,8 +667,7 @@ module cva6_synth_wrap
       .axi_sw_req_i       ( cfi_snooper_axi_req       ),
       .axi_sw_rsp_o       ( cfi_snooper_axi_rsp       ),
 
-//    .traces_i           ( cva6_traces               ),
-      .traces_i           ( '0                        ),
+      .traces_i           ( cva6_traces               ),
       .trigger_o          ( snoop_trigger_irq_o       ),
       .watermark_irq_o    ( snoop_watermark_irq_o     ),
       .core_select_o      ( snoop_core_select         )
