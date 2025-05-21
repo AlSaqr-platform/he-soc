@@ -131,7 +131,7 @@ module snooper
    assign trace_buff.pc_src_l               = trace_reg2hw.pc_src_l.q;
    assign trace_buff.pc_dst_h               = trace_reg2hw.pc_dst_h.q;
    assign trace_buff.pc_dst_l               = trace_reg2hw.pc_dst_l.q;
-   assign trace_buff.metadata               = snooper_pkg::ctr_type_t'(trace_reg2hw.metadata.q);
+   assign trace_buff.metadata               = riscv::ctr_type_t'(trace_reg2hw.metadata.q);
    assign trace_buff.opcode                 = trace_reg2hw.opcode.q;
    assign trace_buff.pc_v                   = trace_reg2hw.valid.q;
 

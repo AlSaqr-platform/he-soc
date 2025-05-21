@@ -23,21 +23,4 @@ package snooper_pkg;
      logic [31:0]      opcode;
   } trace_t;
 
-  typedef enum logic[3:0] {
-    CTR_TYPE_NONE    = 4'd0,
-    CTR_TYPE_EXC     = 4'd1,
-    CTR_TYPE_INTR    = 4'd2,
-    CTR_TYPE_TRET    = 4'd3,
-    CTR_TYPE_NTBR    = 4'd4,
-    CTR_TYPE_TKBR    = 4'd5,
-    CTR_TYPE_INDCALL = 4'd8,
-    CTR_TYPE_DIRCALL = 4'd9,
-    CTR_TYPE_INDJMP  = 4'd10,
-    CTR_TYPE_DIRJMP  = 4'd11,
-    CTR_TYPE_CORSWAP = 4'd12,
-    CTR_TYPE_RET     = 4'd13,
-    CTR_TYPE_INDLJMP = 4'd14,
-    CTR_TYPE_DIRLJMP = 4'd15
-  } ctr_type_t;
-
 endpackage
