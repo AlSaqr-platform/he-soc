@@ -86,7 +86,7 @@ SECTIONS
   /* stack 256K */
   .stack :
   {
-    . = . + 0x1000;
+    . = . + 0x500;
     _stack = .;
   } > L2
 

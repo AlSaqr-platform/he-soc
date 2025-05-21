@@ -96,11 +96,23 @@ dump:
 
 all: clean build dis dump
 
-
 all_l2: clean build_l2 dis dump
 
 rtl:
-	 $(MAKE) -C $(SW_HOME)/../hardware/ -B all
+	rm -rf $(SW_HOME)/../hardware/compile.tcl
+	$(MAKE) -C $(SW_HOME)/../hardware/ -B clean scripts_vip one-phy=0 preload=1 build
+
+rtl_qfn:
+	rm -rf $(SW_HOME)/../hardware/compile.tcl
+	$(MAKE) -C $(SW_HOME)/../hardware/ -B clean scripts_vip one-phy=1 preload=1 build
+
+rtl_l2:
+	rm -rf $(SW_HOME)/../hardware/compile.tcl
+	$(MAKE) -C $(SW_HOME)/../hardware/ -B clean scripts_vip one-phy=0 l2-code=1 preload=0 localjtag=1 build
+
+rtl_l2_qfn:
+	rm -rf $(SW_HOME)/../hardware/compile.tcl
+	$(MAKE) -C $(SW_HOME)/../hardware/ -B clean scripts_vip l2-code=1 localjtag=1 one-phy=1 preload=0 build
 
 sim:
 	$(MAKE) -C  $(SW_HOME)/../hardware/ -B sim $(sim_flags) elf-bin=$(shell pwd)/$(APP).riscv

@@ -85,27 +85,65 @@ Be aware that the preload of the code is slower in this case.
 make -C ../software/"test you want to run" clean all
 make clean sim
 ```
-If you want to speed up the simulation (of about 2x), you can use the "max-opt" flag, which will deactivate the logs of all the waveforms. This is not suitable for debugging, but just to get the result of a test as fast as passible.
-To avoid the Questa GUI to be opened, you can use the "nogui=1" flag, which applies the same opts as max-opt and do not open the gui.
-```
-make scripts_vip max-opt=1
-make clean sim max-opt=1
-```
-or
-```
-make scripts_vip nogui=1
-make clean sim nogui=1
-```
 
 The code that will be laoded is the last that has been compiled. Thus, to run a test with preload in L3, you shall compile the test you want to run (as shown above) and then run the simulation without providing the path to the binary.
 
 In case of localjtag preload, you need to provide the path to the binary you want to execute. `make clean sim elf-bin=../software/hello_culsans/hello_culsans.riscv` if you used the localjtag preload flag.
 
- * Option 2: go to the test folder (ex `software/hello_culsans`)
- 
+ * Option 2: Compilation and execution within the test folder (ex `software/hello_culsans`)
+
+Within `software/testname`, the user can compile the software and build the RTL targeting different configurations, and run the simulation.
+The targets are the following:
+- linkerscript mapping: L2/L3
+- packages: QFN100/CPGA200
+
+The software reuntime contains two linkerscripts under the following paths:
+
+* software/common/test.ld
+* software/common/test_l2.ld
+
+The first `test.ld` uses the offchip 256MB L3 memory as main memory, while `test_l2.ld` uses the onchip L2 32KB memory and includes the minimal runtime.
+
+At compile time you can chose the following options to use `test.ld` or `test_l2.ld`:
+
 ```
-make clean all sim
+make clean all
 ```
+or
+```
+make clean all_l2
+```
+
+Note that building the RTL for the two packages implies modification to the Testbench only, the SoC does not change!
+
+This SoC development targets 2 prototypes packages:
+- QFN100
+- CPGA200
+
+The main difference between the two package options is the number of pads exposed.
+In the QFN100 only the PHY0 of the Hyperram Controller is attached to external Hyperram memories so we provided additional support that builds the testbench accordingly.
+
+Here are the commands for the targets supported: 
+
+Linker: L3 - Package CPGA200 
+```
+make clean all rtl 
+```
+Linker: L2 - Package CPGA200
+```
+make clean all_l2 rtl_l2 
+```
+Linker: L3 - Package QFN100
+```
+make clean all rtl_qfn 
+```
+Linker: L2 - Package QFN100
+```
+make clean all_l2 rtl_l2_qfn 
+```
+
+To run the simulation you can append `sim` command to the previous examples.
+
 ### Run test with OpenTitan:
 
 To run mbox test between cva6 and ibex, in he-soc/hardware run:
@@ -122,6 +160,22 @@ make -C ../software/hello_culsans/ clean all
 make clean sim BOOTMODE=1 sec_boot=1
 
 ```
+To run the secure boot on CHIP/FPGA, the procedure is a bit more tricky as we do not rely on an external flash.
+The steps to be followed are the following:
+
+ * Open 5 terminals (the two openocd + gdb processes for both the JTAG, and the uart screen). I suggest using tmux to handle more terminals from the same window.
+ * Preload CVA6 with the desired test (i.e. hello_culsans).
+ * Set CVA6 PC to 0x10000, that correspond to the boot address of CVA6 ROM.
+ * Run the execution of CVA6 (it must be executing the bootrom to be waken up from OT).
+ * Preload OpenTitan with [this binary](https://github.com/AlSaqr-platform/opentitan/blob/122cd13195437362a533e9dd7863a33554f81f83/sw/tests/alsaqr/flash_alsaqr_boot_preload/flash_alsaqr_boot_preload.elf)!
+ * The latter binary consists of the flash image (as payload) and a simple fw which instructs ibex to move the payload to the emulated flash (an SRAM).
+ * Run this binary and then stop the execution (ctrl+c). You can verify that the content of the Flash (base address is 0xF0000000).
+ * To verify the flash has been writte, read back some values starting from 0xF0000480 (the start address, the lower addresses host the manifest) and compare [with this header file](https://github.com/AlSaqr-platform/opentitan/blob/122cd13195437362a533e9dd7863a33554f81f83/sw/tests/alsaqr/flash_alsaqr_boot/bazel-out/flash_alsaqr_boot_signed32.h)!.
+ * Now set the PC of Ibex from JTAG to the Bootrom boot address: 0xD0008080.
+ * Run the execution of Ibex, starting the secure boot from the bootrom. This will verify the Flash image and jump to it  (this is the last action required).
+ * Automatically, the [Flash image](https://github.com/AlSaqr-platform/opentitan/blob/122cd13195437362a533e9dd7863a33554f81f83/sw/tests/alsaqr/flash_alsaqr_boot/flash_alsaqr_boot.c)! writes to the mailbox the boot address for CVA6 (in L3, 0x80000000) and triggers the irq to CVA6 through the mailbox.
+ * CVA6 processes the IRQ (Bootrom code) and jumps to the boot address.
+ * If you preload hello_culsans, you should see the corresping prints on UART, after running Ibex on its bootrom code.
 
 ### Running code on the cluster
 
@@ -246,30 +300,47 @@ make run_regression_netlist
 ### AlSaqr silicon bringup
 This section contains useful information for the AlSaqr bringup.
 
-#### Build the Code
-The software reuntime contains two linkerscripts under the following paths:
+#### Build the Code for the chip
 
-* software/common/test.ld
-* software/common/test_l2.ld
+In addition to the explanation provided above regarding the compilation and execution of tests for different targets (liker/package), we've updated the runtime to support compilation of the code for the AlSaqr chip.
+Acordingly to the `bringup/alsaqr.cfg` file, the SoC frequency can be specified (in MHz) at compile time with:
 
-The first `test.ld` uses the offchip 256MB L3 memory as main memory, while `test_l2.ld` uses the onchip L2 32KB memory and includes the minimal runtime.
-
-At compile time you can chose the following options to use `test.ld` or `test_l2.ld`:
-
-```
-make clean all
-```
-or
-```
-make clean all_l2
-```
-
-Moreover, accordingly to the `bringup/alsaqr.cfg` file, the SoC frequency can be specified (in MHz) at compile time with:
 ```
 make clean chip=1 SOC_FREQ=100 all
 ```
 
 By default `SOC_FREQ` is 50MHz, so if you change the `bringup/alsaqr.cfg` do not forget to compile the binary specifying the new frequency target. This has impact to the UART baudrate which is fixed to 115200.
+
+#### Config Hyperbus to Use PHY0 only targeting QFN package
+
+```
+# Config Hyperram delay
+mww 0x1A101000 0x7
+# Config Address Mask MSB
+mww 0x1A101018 0x1B
+
+# Config Address space
+mww 0x1A10101C 0x0
+
+#Config PHY in use to 0
+mww 0x1A101020 0x0
+
+#Config which PHY to 0
+mww 0x1A101024 0x0
+
+# CS0 range
+mww 0x1A101028 0x80000000
+mww 0x1A10102C 0x84000000
+# CS1 range
+mww 0x1A101030 0x84000000
+mww 0x1A101034 0x88000000
+# CS2 range
+mww 0x1A101038 0x88000000
+mww 0x1A10103C 0x8C000000
+# CS3 range
+mww 0x1A101040 0x8C000000
+mww 0x1A101044 0x90000000
+```
 
 #### Openocd
 The openocd binary v0.10 is already available in `bringup/openocd`.

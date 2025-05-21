@@ -4,15 +4,7 @@
 #define VERBOSE 1
 
 int main(int argc, char const *argv[]) {
-  #ifdef FPGA_EMULATION
-  int baud_rate = 115200;
-  int test_freq = 40000000;
-  #else
-  set_flls();
-  int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
+
   int *w_i, *w_f;
   w_i = 0x1C000000 + 0x4;   //NOTE: 0x1C000000 already used by the jtag sanity check => do not READ/WRITE that register
   w_f = 0x1C000000 + 0x8000 - 0x4;  //32kB of L2

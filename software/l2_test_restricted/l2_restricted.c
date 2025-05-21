@@ -14,6 +14,8 @@ int main(int argc, char const *argv[]) {
   b[0*STEP]=0;
   b[1*STEP]=1;
   b[2*STEP]=1;
+  printf("Test L2_restricted starting...\r\n");
+  uart_wait_tx_done();
   for(i=3;i<10;i++)
     {
       b[i*STEP]=b[(i-1)*STEP]+b[(i-2)*STEP];

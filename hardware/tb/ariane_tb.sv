@@ -47,7 +47,7 @@ module ariane_tb;
 
   static uvm_cmdline_processor uvcl = uvm_cmdline_processor::get_inst();
 
-  localparam int unsigned REFClockPeriod = 1us; // jtag clock: 1MHz
+  localparam int unsigned REFClockPeriod = 400ns; // jtag clock: 1MHz
 
   // toggle with RTC period
   `ifndef TEST_CLOCK_BYPASS
@@ -71,9 +71,9 @@ module ariane_tb;
   parameter UW       = 1;
   logic                 s_eth_clk125_0;
   logic                 s_eth_clk125_90;
-  logic                 s_eth_clk200;  
+  logic                 s_eth_clk200;
   logic                 s_eth_rstni;
- 
+
   AXI_BUS_DV#(
     .AXI_ADDR_WIDTH(AW),
     .AXI_DATA_WIDTH(DW),
@@ -86,26 +86,26 @@ module ariane_tb;
     .AXI_DATA_WIDTH(DW),
     .AXI_ID_WIDTH(IW),
     .AXI_USER_WIDTH(UW)
-  )axi_master();       
+  )axi_master();
 
   `AXI_ASSIGN(axi_master, axi_master_dv)
-  
+
   typedef axi_test::axi_driver #(.AW(AW), .DW(DW), .IW(IW), .UW(UW), .TA(200ps), .TT(700ps)) axi_drv_t;
   axi_drv_t axi_master_drv =  new(axi_master_dv);
-   
+
   typedef logic [AW-1:0]   axi_addr_t;
   typedef logic [DW-1:0]   axi_data_t;
   typedef logic [DW/8-1:0] axi_strb_t;
   typedef logic [IW-1:0]   axi_id_t;
 
   //beats
-  axi_test::axi_ax_beat #(.AW(AW), .IW(IW), .UW(UW)) ar_beat = new();  
+  axi_test::axi_ax_beat #(.AW(AW), .IW(IW), .UW(UW)) ar_beat = new();
   axi_test::axi_r_beat  #(.DW(DW), .IW(IW), .UW(UW)) r_beat  = new();
   axi_test::axi_ax_beat #(.AW(AW), .IW(IW), .UW(UW)) aw_beat = new();
   axi_test::axi_w_beat  #(.DW(DW), .UW(UW))          w_beat  = new();
   axi_test::axi_b_beat  #(.IW(IW), .UW(UW))          b_beat  = new();
 
-     
+
   task reset_master;
     input axi_drv_t axi_master_drv;
     axi_master_drv.reset_master();
@@ -120,9 +120,9 @@ module ariane_tb;
     axi_master_drv.recv_r(r_beat);
     $display("Read data: %x", r_beat.r_data);
   endtask // read_axi
- 
+
   task write_axi;
-    input axi_drv_t axi_master_drv;    
+    input axi_drv_t axi_master_drv;
     input axi_addr_t waddr;
     input axi_data_t wdata;
     input axi_strb_t wstrb;
@@ -136,7 +136,7 @@ module ariane_tb;
     axi_master_drv.send_w(w_beat);
     $display("Written data: %x", w_beat.w_data);
     axi_master_drv.recv_b(b_beat);
-    
+
   endtask; // write_axi
 
 
@@ -165,7 +165,11 @@ module ariane_tb;
   parameter  LINKER_ENTRY        = 32'h80000000;
   // IMPORTANT : If you change the linkerscript check the tohost address and update this paramater
   // IMPORTANT : to host mapped in L2 non-cached region because we use WB cache
-  parameter  TOHOST              = 32'h1C000000;
+  `ifndef CODE_IN_L2
+  parameter  TOHOST              = 32'h1c000000;
+  `else
+   parameter TOHOST              = 32'h1c0001c0;
+  `endif
 
   `ifdef USE_LOCAL_JTAG
     parameter  PRELOAD_HYPERRAM = 0;
@@ -1669,7 +1673,7 @@ module ariane_tb;
           logic [AW-1:0]   eth_addr;
           logic [DW-1:0]   eth_wrdata, eth_rdata;
           logic [DW/8-1:0] eth_be;
-          
+
           axi2mem #(
             .AXI_ID_WIDTH   ( IW    ),
             .AXI_ADDR_WIDTH ( AW    ),
@@ -1728,14 +1732,14 @@ module ariane_tb;
           assign alt_2_pad_periphs_a_19_pad_ETH_RXD1 = w_eth_rx2_data[1] ;
           assign alt_2_pad_periphs_a_20_pad_ETH_RXD2 = w_eth_rx2_data[2] ;
           assign alt_2_pad_periphs_a_21_pad_ETH_RXD3 = w_eth_rx2_data[3] ;
-          
+
           assign w_eth_tx2_data[0] = alt_2_pad_periphs_a_24_pad_ETH_TXD0 ;
           assign w_eth_tx2_data[1] = alt_2_pad_periphs_a_25_pad_ETH_TXD1 ;
           assign w_eth_tx2_data[2] = alt_2_pad_periphs_a_26_pad_ETH_TXD2 ;
           assign w_eth_tx2_data[3] = alt_2_pad_periphs_a_27_pad_ETH_TXD3 ;
 
           logic [DW:0] data_array [7:0];
-          
+
           initial begin
             data_array[0] = 64'h1032207098001032; //1 --> 230100890702 2301, mac dest + inizio di mac source
             data_array[1] = 64'h3210E20020709800; //2 --> 00890702 002E 0123, fine mac source + length + payload
@@ -1759,7 +1763,7 @@ module ariane_tb;
             read_addr[6] = 64'h3000_4030;
             read_addr[7] = 64'h3000_4038;
           end
-           
+
           // initialization write addresses
           logic [AW-1:0] write_addr [7:0];
           initial begin
@@ -1775,7 +1779,7 @@ module ariane_tb;
 
           logic [63:0] rx_read_data;
           assign rx_read_data=axi_master.r_data;
-            
+
           event       tx_complete;
           logic       en_rx_memw;
           assign en_rx_memw = eth_rgmii_alt2.RAMB16_inst_rx.genblk1[0].mem_wrap_rx_inst.enaB;
@@ -1789,7 +1793,7 @@ module ariane_tb;
           end
 
           // Check if the data received and stored in the rx memory matches the transmitted data
-       
+
           initial begin
             int continue_loop = 1;
 
@@ -1797,7 +1801,7 @@ module ariane_tb;
               wait(tx_complete.triggered);
               for(int i=0; i<8; i++) begin
                 read_axi(axi_master_drv, read_addr[i]);
-                if(rx_read_data == data_array[i]) 
+                if(rx_read_data == data_array[i])
                   $display(" data correct");
                 else
                    $display("Data wrong");
@@ -1825,7 +1829,7 @@ module ariane_tb;
             @(posedge clk_i);
 
             // 2 --> {irq_en,promiscuous,spare,loopback,cooked,mac_address[47:32]}
-            write_axi(axi_master_drv,'h30000808,'h00802301, 'h0f); 
+            write_axi(axi_master_drv,'h30000808,'h00802301, 'h0f);
             @(posedge clk_i);
 
             // 3 --> Rx frame check sequence register(read) and last register(write)
@@ -2794,6 +2798,10 @@ module ariane_tb;
   // VIP MUXING END
   //**************************************************
 
+  `ifdef ONE_PHY
+     assign hyper_rwds_wire[1] = hyper_rwds_wire[0];
+  `endif
+
   generate
      for (genvar i=0; i< NumChips ; i++) begin : hyperrams
 
@@ -2802,7 +2810,11 @@ module ariane_tb;
            s27ks0641 #(
                  .TimingModel   ( "S27KS0641DPBHI020"    ),
                  .UserPreload   ( PRELOAD_HYPERRAM       ),
-                 .mem_file_name ( "./hyperram0.slm"      )
+               `ifdef ONE_PHY
+                 .mem_file_name ( "./hyperram.slm"      )
+               `else
+                 .mem_file_name ( "./hyperram0.slm"       )
+               `endif
              ) i_main_hyperram0 (
                     .DQ7           ( hyper_dq_wire[0][7]      ),
                     .DQ6           ( hyper_dq_wire[0][6]      ),
@@ -2818,6 +2830,7 @@ module ariane_tb;
                     .CKNeg         ( hyper_ck_n_wire[0]       ),
                     .RESETNeg      ( hyper_reset_n_wire[0]    )
            );
+           `ifndef ONE_PHY
            s27ks0641 #(
                  .TimingModel   ( "S27KS0641DPBHI020"    ),
                  .UserPreload   ( PRELOAD_HYPERRAM       ),
@@ -2837,6 +2850,7 @@ module ariane_tb;
                     .CKNeg         ( hyper_ck_n_wire[1]       ),
                     .RESETNeg      ( hyper_reset_n_wire[1]    )
            );
+           `endif
         end else begin : single
 
            s27ks0641 #(
@@ -2979,9 +2993,17 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
   localparam dm::sbcs_t JtagInitSbcs = dm::sbcs_t'{
                                       sbautoincrement: 1'b1,
                                       sbreadondata: 1'b1,
-                                      sbaccess: 3,
+                                      sbaccess: 3'h3,
                                       default: '0
                                     };
+
+  localparam dm::sbcs_t JtagInitSbcs32 = dm::sbcs_t'{
+                                        sbautoincrement: 1'b1,
+                                        sbreadondata: 1'b1,
+                                        sbaccess: 3'h2,
+                                        sbaccess32: 1,
+                                        default: '0
+                                      };
 
     // Connect DUT to test bus
     assign s_trstn      = jtag_mst.trst_n;
@@ -3067,13 +3089,23 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
     jtag_init(cid);
 
     if(PRELOAD_HYPERRAM==0) begin
+      $display("Localjtag preload...");
       // Load cluster code
       if(cluster_binary!="none")
         jtag_elf_load(cluster_binary, binary_entry, cid);
       if(binary!="none") begin
+        $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);
+        addr = 32'h1c000000;
+        jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
         $display("Load binary...");
-        // Load host code
         jtag_elf_load(binary, binary_entry, cid);
+   `ifdef ONE_PHY
+      $display("Configuration QFN100!");
+      jtag_config_llc_spm();
+      jtag_config_hyper();
+   `else
+      $display("Configuration CPGA200!");
+   `endif
         $display("Wakeup Core..");
    `ifndef SEC_BOOT
         jtag_elf_run(binary_entry, cid);
@@ -3089,10 +3121,19 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
       end
     end else begin
       $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);
-      addr = 32'h1c000000;
-      jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
+      for(int i=0;i<2;i++) begin
+         addr = 32'h1c000000;
+         jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
+         binary_entry={32'h00000000,LINKER_ENTRY};
+      end
+   `ifdef ONE_PHY
+      $display("Configuration QFN100!");
+      jtag_config_llc_spm();
+      jtag_config_hyper();
+   `else
+      $display("Configuration CPGA200!");
+   `endif
       binary_entry={32'h00000000,LINKER_ENTRY};
-      #(REFClockPeriod);
       $display("Wakeup here at %x!!", binary_entry);
    `ifndef SEC_BOOT
       jtag_ariane_wakeup( LINKER_ENTRY, cid );
@@ -3105,8 +3146,33 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
    `endif
       $display("Wait EOC...");
       jtag_wait_for_eoc( TOHOST );
-    end
+    end // else: !if(PRELOAD_HYPERRAM==0)
   end
+
+  task automatic jtag_read_reg_32;
+    input logic [31:0] addr;
+    output logic [31:0] rdata;
+
+    automatic dm::sbcs_t sbcs = '{
+      sbautoincrement: 1'b1,
+      sbreadondata   : 1'b1,
+      sbaccess       : 2,
+      sbaccess32     : 1,
+      default        : 1'b0
+    };
+
+    sbcs.sbreadonaddr = 1;
+    jtag_dbg.write_dmi(dm::SBCS, sbcs);
+    do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    jtag_dbg.write_dmi(dm::SBAddress0, addr);
+    do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+    jtag_dbg.read_dmi_exp_backoff(dm::SBData0, rdata);
+    // Wait until SBA is free to read another 32 bits
+    do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
+    while (sbcs.sbbusy);
+  endtask
 
   task automatic jtag_read_reg;
     input logic [31:0] addr;
@@ -3133,6 +3199,47 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
     // Wait until SBA is free to read another 32 bits
     do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
     while (sbcs.sbbusy);
+  endtask
+
+  task automatic jtag_write_reg_32(input logic [31:0] start_addr,input word_bt value);
+    logic [31:0]      rdata;
+
+    $display("[JTAG] Start writing at %x ", start_addr);
+    jtag_write(dm::SBCS, JtagInitSbcs32, 1, 1);
+    // Write address
+    jtag_write(dm::SBAddress0, start_addr);
+    // Write data
+    jtag_write(dm::SBData0, value);
+
+  endtask
+
+  task automatic jtag_config_llc_spm();
+
+     $display("Configurin LLC in SPM mode");
+     jtag_write_reg_32(32'h10401000,32'hFFFFFFFF);
+
+  endtask
+
+  task automatic jtag_config_hyper();
+
+     $display("Configurin HyperBus to use only PHY0");
+
+     // Config Hyper Controller to use PHY0 only. Default config already meet the VIP config.
+     jtag_write_reg_32(32'h1A10101C,32'h0);
+     jtag_write_reg_32(32'h1A101020,32'h0);
+     jtag_write_reg_32(32'h1A101024,32'h0);
+     // CS0 range
+     jtag_write_reg_32(32'h1A101028,32'h80000000); //64Mb (megaBIT)
+     jtag_write_reg_32(32'h1A10102C,32'h80800000);
+     // CS1 range
+     jtag_write_reg_32(32'h1A101030,32'h80800000); //64Mb (megaBIT)
+     jtag_write_reg_32(32'h1A101034,32'h81000000);
+     // CS2 range
+     jtag_write_reg_32(32'h1A101038,32'h81000000); //64Mb (megaBIT)
+     jtag_write_reg_32(32'h1A10103C,32'h81800000);
+     // CS3 range
+     jtag_write_reg_32(32'h1A101040,32'h81800000); //64Mb (megaBIT)
+     jtag_write_reg_32(32'h1A101044,32'h82000000);
   endtask
 
   task automatic jtag_write_reg(input logic [31:0] start_addr, input doub_bt value);

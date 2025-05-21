@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/* 
+/*
  * Mantainer: Luca Valente (luca.valente2@unibo.it)
  */
 
@@ -45,7 +45,7 @@ uint32_t configure_gpio(uint32_t number, uint32_t direction){
   //--- set GPIO
   if(number < 32)
   {
-    if (direction == IN) 
+    if (direction == IN)
     {
 
       address = ARCHI_GPIO_ADDR + GPIO_GPIOEN_OFFSET;
@@ -54,7 +54,7 @@ uint32_t configure_gpio(uint32_t number, uint32_t direction){
       //--- enable GPIO
       //printf("GPIOEN RD: %x\n",gpioen);
       gpioen |= (1 << number);
-      //printf("GPIOEN WR: %x\n",gpioen); 
+      //printf("GPIOEN WR: %x\n",gpioen);
       pulp_write32(address, gpioen);
       //--- set direction
       address = ARCHI_GPIO_ADDR + GPIO_PADDIR_OFFSET;
@@ -64,7 +64,7 @@ uint32_t configure_gpio(uint32_t number, uint32_t direction){
       //printf("GPIODIR WR: %x\n",dir);
       pulp_write32(address, dir);
 
-    }else if (direction == OUT){ 
+    }else if (direction == OUT){
       //--- enable GPIO
       address = ARCHI_GPIO_ADDR + GPIO_GPIOEN_OFFSET;
       gpioen = pulp_read32(address);
@@ -83,7 +83,7 @@ uint32_t configure_gpio(uint32_t number, uint32_t direction){
       //--- enable GPIO
       //printf("GPIOEN RD: %x\n",gpioen);
       gpioen |= (1 << (number-32));
-      //printf("GPIOEN WR: %x\n",gpioen); 
+      //printf("GPIOEN WR: %x\n",gpioen);
       pulp_write32(address, gpioen);
       //--- set direction
       address = ARCHI_GPIO_ADDR + GPIO_PADDIR_32_63_OFFSET;
@@ -152,23 +152,14 @@ uint32_t get_gpio(uint32_t number){
     address = ARCHI_GPIO_ADDR + GPIO_PADIN_32_63_OFFSET;
     value_rd = pulp_read32(address);
     bit= 0x1 & (value_rd>>(number%32));
-  }  
+  }
   //printf("GPIO %d: HEX:%x Bit:%d \n",number,value_rd,bit);
   return bit;
 }
 
 int main() {
 
-  #ifdef FPGA_EMULATION
-  int baud_rate = 115200;
-  int test_freq = 50000000;
-  #else
-  set_flls();
-  int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif  
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
-  
+
   uint32_t error [3]= {0,0,0};
   uint32_t simple=0;
   uint32_t val_wr = 0x00000000;
@@ -197,9 +188,9 @@ int main() {
       alsaqr_periph_padframe_periphs_b_37_mux_set(1);
       alsaqr_periph_padframe_periphs_b_38_mux_set(1);
       alsaqr_periph_padframe_periphs_b_39_mux_set(1);
-    #endif    
-  #endif 
-  
+    #endif
+  #endif
+
   if (simple==1){
     configure_gpio( 6 , OUT );
     configure_gpio( 7 , IN );
@@ -221,7 +212,7 @@ int main() {
     configure_gpio( 39 , OUT );*/
 
   }
-  
+
   gpio_val=1;
   printf("Start...\n");
 
@@ -233,11 +224,11 @@ int main() {
         error[0]++;
     }else{
       //TEST FOR FULL PADFRAME
-      
+
       set_gpio(5,gpio_val);
-      set_gpio(6,gpio_val);  
+      set_gpio(6,gpio_val);
       set_gpio(7,gpio_val);
-      
+
       if (gpio_val!=get_gpio(37))
         error[0]++;
       if (gpio_val!=get_gpio(38))
@@ -246,9 +237,9 @@ int main() {
         error[2]++;
 
       /*set_gpio(37,gpio_val);
-      set_gpio(38,gpio_val);  
+      set_gpio(38,gpio_val);
       set_gpio(39,gpio_val);
-      
+
       if (gpio_val!=get_gpio(5))
         error[0]++;
       if (gpio_val!=get_gpio(6))
@@ -264,6 +255,6 @@ int main() {
   else
     printf ("TEST GPIO PASSED\n");
 
-  uart_wait_tx_done();  
+  uart_wait_tx_done();
   return error[0]+error[1]+error[2];
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-/* 
+/*
  * Mantainer: Luca Valente (luca.valente2@unibo.it)
  */
 
@@ -90,7 +90,7 @@ int main()
   #else
     int N_REPS[N_UART] = {1};
   #endif
-  
+
   int error = 0;
 
   //int tx_buffer[BUFFER_SIZE] = {'S','t','a','y',' ','a','t',' ','h','o','m','e','!','!','!','!'};
@@ -100,18 +100,10 @@ int main()
   int *rx_buffer= (int*) 0x1C002000;
 
   uint32_t tx_uart_plic_id ;
-  uint32_t rx_uart_plic_id ; 
+  uint32_t rx_uart_plic_id ;
 
-  #ifdef FPGA_EMULATION
-  int baud_rate = 115200;
-  int test_freq = 50000000;
-  #else
-  set_flls();
-  int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif  
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
-
+  printf("Test UART starting...\r\n");
+  uart_wait_tx_done();
   printf("uart start\n");
   uart_wait_tx_done();
 
@@ -173,9 +165,9 @@ int main()
               alsaqr_periph_padframe_periphs_a_15_mux_set(4);
               break;
           }
-        #endif    
+        #endif
       #endif
-      
+
       for (int j = 0; j < BUFFER_SIZE; ++j)
       {
         rx_buffer[j] = 0;
@@ -190,7 +182,7 @@ int main()
       for (int i = 0; i < BUFFER_SIZE; ++i)
       {
         uart_write_nb(u,tx_buffer + i,1); //--- non blocking write
-        
+
         //set tx interrupt
         pulp_write32(PLIC_BASE+tx_uart_plic_id*4, 1); // set rx interrupt priority to 1
 
@@ -224,7 +216,7 @@ int main()
         pulp_write32(PLIC_CHECK,rx_uart_plic_id);
 
         //printf("RX Interrupt received\n\r");
-        
+
         if (tx_buffer[i] == rx_buffer[i])
         {
           printf("UART_%0d.%0d PASS: tx %c, rx %c\n\r", u, v, tx_buffer[i],rx_buffer[i]);

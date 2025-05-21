@@ -17,14 +17,6 @@
 
 int main(int argc, char const *argv[]) {
 
-  #ifdef FPGA_EMULATION
-  int baud_rate = 115200;
-  int test_freq = 40000000;
-  #else
-  set_flls();
-  int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif
 
   #define PLIC_BASE     0x0C000000
   #define PLIC_CHECK    PLIC_BASE + 0x201004
@@ -35,8 +27,6 @@ int main(int argc, char const *argv[]) {
   int a, b, c, d, e, f;
   int mbox_id = 10;
 
-  // Initialazing the uart
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
   // Initialazing the interrupt controller
   pulp_write32(PLIC_BASE+mbox_id*4, 1);                                // set mbox interrupt priority to 1

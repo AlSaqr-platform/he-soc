@@ -117,6 +117,8 @@ int main() {
 	// }
 
     
+  printf("Test ETH starting...\r\n");
+  uart_wait_tx_done();
 
     // Write data to respective addresses
     *(volatile uint64_t *)0x30001000 = 0x1032207098001032;  // 1 --> 230100890702 2301, mac dest + start of mac source

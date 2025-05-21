@@ -43,8 +43,12 @@ root-dir := $(dir $(mkfile_path))
 # acc options
 # guide: define acc=<+"instance name".> , the dot includes all the child instances.
 # Example: <make clean sim acc=+u_RoT.>,  this will plot all the OpenTitan and subinstances signals (all the OT design)
-acc            ?= +acc
-noacc          ?=
+
+#acc            ?= +acc
+#noacc          ?=
+
+acc   := +acc=p+ariane_tb.
+noacc := +noacc=p+dut.
 
 # regression
 alsaqr-regression-dir        := ./
@@ -170,6 +174,18 @@ ifdef exclude-cluster
 	questa-cmd += +EXCLUDE_CLUSTER=$(exclude-cluster)
   compile_flag +=  +define+EXCLUDE_CLUSTER
   compile_fpga += EXCLUDE_CLUSTER
+endif
+
+ifdef l2-code
+	questa-cmd += +CODE_IN_L2=$(l2-code)
+  compile_flag +=  +define+CODE_IN_L2
+  compile_fpga += CODE_IN_L2
+endif
+
+ifdef one-phy
+	questa-cmd += +ONE_PHY=$(one-phy)
+  compile_flag +=  +define+ONE_PHY
+  compile_fpga += ONE_PHY
 endif
 
 ifdef exclude-rot
@@ -314,7 +330,7 @@ post_synth_top_fll_behav:
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
     -t asic -t rtl -t test -t tb_synth -t vip -t post_synth_top_fll_behav -t cv64a6_imafdc_sv39_wb > $(compile_script)
 
-# RTL (USES FLL DUMMY) + OPENTITAN NETLIST 
+# RTL (USES FLL DUMMY) + OPENTITAN NETLIST
 post_synth_opentitan:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) -pedanticerrors" \
@@ -438,7 +454,6 @@ run_regression:
 	rm -rf regressions/regression_reports
 	mkdir regressions/regression_reports
 	python3 regression.py
-	regressions/check_regs.sh
 
 run_regression_netlist:
 	rm -rf regressions/regression_netlist_reports
@@ -465,8 +480,8 @@ tb/vips/spi_flash:
 	rm -rf $@
 	mkdir $@
 	rm -rf model_tmp && mkdir model_tmp
-	cd model_tmp; wget https://www.infineon.com/dgdl/Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b
-	cd model_tmp; mv 'Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b' model.zip
+	cd model_tmp; wget --no-check-certificate --content-disposition "https://www.infineon.com/dgdl/Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b&da=t"
+	cd model_tmp; mv 'Infineon-S25fs256s-SimulationModels-v02_00-EN.zip' model.zip
 	cd model_tmp; unzip model.zip
 	cd model_tmp; mv 'S25fs256s' exe_folder
 	cd model_tmp/exe_folder; unzip S25fs256s.exe
@@ -477,8 +492,8 @@ tb/vips/hyperram_model:
 	rm -rf $@
 	mkdir $@
 	rm -rf model_tmp && mkdir model_tmp
-	cd model_tmp; wget https://www.infineon.com/dgdl/Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6349a14f68
-	cd model_tmp; mv 'Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6349a14f68' model.zip
+	cd model_tmp; wget --no-check-certificate --content-disposition "https://www.infineon.com/dgdl/Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6349a14f68&da=t"
+	cd model_tmp; mv 'Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip' model.zip
 	cd model_tmp; unzip model.zip
 	cd model_tmp; mv 'S27KL0641 S27KS0641' exe_folder
 	cd model_tmp/exe_folder; unzip S27ks0641.exe
@@ -497,36 +512,13 @@ tb/vips/i2c_eeprom:
 vips: tb/vips/spi_flash tb/vips/hyperram_model tb/vips/i2c_eeprom
 
 init: bender vips update
+	rm -rf gf22/
+	git clone -b alsaqr_1_bringup git@github.com:alsaqr-platform/gf22.git
 
-.PHONY: culsans-sw-init
-culsans-sw-init:
-	make -C ip_list/culsans/tests/integration/ libs/libintegr.a
-	make -C ip_list/culsans/tests/performance/ libs/libintegr.a
-	make -C ip_list/culsans/tests/integration/testlist/access_nocache_noshare main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_cache_share main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_cache_share_overlap main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_modify_cache main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_modify_cache_share main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_modify_cache_share_intense main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_nocache_noshare main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/read_nocache_noshare_overlap main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_cleanunique_flush main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_evict main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_readshared_flush main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_readunique_flush main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/writeback_readunique_modify main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/write_cache_noshare main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/write_cache_share main.riscv
-	make -C ip_list/culsans/tests/integration/testlist/write_cache_share_overlap main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_noshared_remote main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_noshared_remote_busy main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_noshared_remote_busy_snoop main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_busy main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_busy_snoop main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_remote main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_remote_busy main.riscv
-	make -C ip_list/culsans/tests/performance/testlist/read_shared_remote_busy_snoop main.riscv
+init_unibo: bender vips update
+	rm -rf gf22/
+	git clone -b alsaqr_260124 git@github.com:pulp-unibo/alsaqr_gf22.git gf22
+	make -C gf22 init
 
 clean:
 	rm -rf $(riscv-torture-dir)/output/test*
