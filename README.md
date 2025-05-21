@@ -311,5 +311,36 @@ make clean chip=1 SOC_FREQ=100 all
 
 By default `SOC_FREQ` is 50MHz, so if you change the `bringup/alsaqr.cfg` do not forget to compile the binary specifying the new frequency target. This has impact to the UART baudrate which is fixed to 115200.
 
+#### Config Hyperbus to Use PHY0 only targeting QFN package
+
+```
+# Config Hyperram delay
+mww 0x1A101000 0x7
+# Config Address Mask MSB
+mww 0x1A101018 0x1B
+
+# Config Address space
+mww 0x1A10101C 0x0
+
+#Config PHY in use to 0
+mww 0x1A101020 0x0
+
+#Config which PHY to 0
+mww 0x1A101024 0x0
+
+# CS0 range
+mww 0x1A101028 0x80000000
+mww 0x1A10102C 0x84000000
+# CS1 range
+mww 0x1A101030 0x84000000
+mww 0x1A101034 0x88000000
+# CS2 range
+mww 0x1A101038 0x88000000
+mww 0x1A10103C 0x8C000000
+# CS3 range
+mww 0x1A101040 0x8C000000
+mww 0x1A101044 0x90000000
+```
+
 #### Openocd
 The openocd binary v0.10 is already available in `bringup/openocd`.
