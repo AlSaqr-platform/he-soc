@@ -370,6 +370,9 @@ module ariane_tb;
     bit [31:0]  exit_code;
 
     string        binary ;
+    string        slm_file;
+    string        slm_file0;
+    string        slm_file1;
     string        cluster_binary;
     string        ot_sram;
     string        ot_flash;
@@ -2807,15 +2810,7 @@ module ariane_tb;
 
         if ( NumPhys == 2 ) begin : double
 
-           s27ks0641 #(
-                 .TimingModel   ( "S27KS0641DPBHI020"    ),
-                 .UserPreload   ( PRELOAD_HYPERRAM       ),
-               `ifdef ONE_PHY
-                 .mem_file_name ( "./hyperram.slm"      )
-               `else
-                 .mem_file_name ( "./hyperram0.slm"       )
-               `endif
-             ) i_main_hyperram0 (
+           s80ks5122 i_main_hyperram0 (
                     .DQ7           ( hyper_dq_wire[0][7]      ),
                     .DQ6           ( hyper_dq_wire[0][6]      ),
                     .DQ5           ( hyper_dq_wire[0][5]      ),
@@ -2827,15 +2822,11 @@ module ariane_tb;
                     .RWDS          ( hyper_rwds_wire[0]       ),
                     .CSNeg         ( hyper_cs_n_wire[0][i]    ),
                     .CK            ( hyper_ck_wire[0]         ),
-                    .CKNeg         ( hyper_ck_n_wire[0]       ),
+                    .CKn           ( hyper_ck_n_wire[0]       ),
                     .RESETNeg      ( hyper_reset_n_wire[0]    )
            );
            `ifndef ONE_PHY
-           s27ks0641 #(
-                 .TimingModel   ( "S27KS0641DPBHI020"    ),
-                 .UserPreload   ( PRELOAD_HYPERRAM       ),
-                 .mem_file_name ( "./hyperram1.slm"      )
-             ) i_main_hyperram1 (
+           s80ks5122  i_main_hyperram1 (
                     .DQ7           ( hyper_dq_wire[1][7]      ),
                     .DQ6           ( hyper_dq_wire[1][6]      ),
                     .DQ5           ( hyper_dq_wire[1][5]      ),
@@ -2847,17 +2838,13 @@ module ariane_tb;
                     .RWDS          ( hyper_rwds_wire[1]       ),
                     .CSNeg         ( hyper_cs_n_wire[1][i]    ),
                     .CK            ( hyper_ck_wire[1]         ),
-                    .CKNeg         ( hyper_ck_n_wire[1]       ),
+                    .CKn           ( hyper_ck_n_wire[1]       ),
                     .RESETNeg      ( hyper_reset_n_wire[1]    )
            );
            `endif
         end else begin : single
 
-           s27ks0641 #(
-                 .TimingModel   ( "S27KS0641DPBHI020"    ),
-                 .UserPreload   ( PRELOAD_HYPERRAM       ),
-                 .mem_file_name ( "./hyperram.slm"       )
-             ) i_main_hyperram0 (
+            s80ks5122 i_main_hyperram (
                     .DQ7           ( hyper_dq_wire[0][7]      ),
                     .DQ6           ( hyper_dq_wire[0][6]      ),
                     .DQ5           ( hyper_dq_wire[0][5]      ),
@@ -2869,7 +2856,7 @@ module ariane_tb;
                     .RWDS          ( hyper_rwds_wire[0]       ),
                     .CSNeg         ( hyper_cs_n_wire[0][i]    ),
                     .CK            ( hyper_ck_wire[0]         ),
-                    .CKNeg         ( hyper_ck_n_wire[0]       ),
+                    .CKn           ( hyper_ck_n_wire[0]       ),
                     .RESETNeg      ( hyper_reset_n_wire[0]    )
            );
         end // block: single
@@ -3077,6 +3064,16 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
       if ( $value$plusargs ("CL_STRING=%s", cluster_binary));
         if(cluster_binary!="none")
           $display("Testing cluster: %s", cluster_binary);
+    end else begin
+   `ifdef ONE_PHY
+      if ( $value$plusargs ("CVA6_STRING_SLM=%s", slm_file));
+        $display("Testing %s", slm_file);
+   `else
+      if ( $value$plusargs ("CVA6_STRING_SLM_0=%s", slm_file0));
+        $display("Testing %s", slm_file0);
+      if ( $value$plusargs ("CVA6_STRING_SLM_1=%s", slm_file1));
+        $display("Testing %s", slm_file1);
+   `endif
     end
 
     $display("PRELOAD_HYPERRAM : %d", PRELOAD_HYPERRAM);
@@ -3095,8 +3092,11 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
         jtag_elf_load(cluster_binary, binary_entry, cid);
       if(binary!="none") begin
         $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);
-        addr = 32'h1c000000;
-        jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
+        for(int i=0;i<3;i++) begin
+           addr = 32'h1c000000;
+           jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
+           binary_entry={32'h00000000,LINKER_ENTRY};
+        end
         $display("Load binary...");
         jtag_elf_load(binary, binary_entry, cid);
    `ifdef ONE_PHY
@@ -3121,7 +3121,7 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
       end
     end else begin
       $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);
-      for(int i=0;i<2;i++) begin
+      for(int i=0;i<3;i++) begin
          addr = 32'h1c000000;
          jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
          binary_entry={32'h00000000,LINKER_ENTRY};
@@ -3130,8 +3130,10 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
       $display("Configuration QFN100!");
       jtag_config_llc_spm();
       jtag_config_hyper();
+      l3_preload_1phy(slm_file);
    `else
       $display("Configuration CPGA200!");
+      l3_preload_2phy(slm_file0, slm_file1);
    `endif
       binary_entry={32'h00000000,LINKER_ENTRY};
       $display("Wakeup here at %x!!", binary_entry);
@@ -3228,18 +3230,18 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
      jtag_write_reg_32(32'h1A10101C,32'h0);
      jtag_write_reg_32(32'h1A101020,32'h0);
      jtag_write_reg_32(32'h1A101024,32'h0);
-     // CS0 range
-     jtag_write_reg_32(32'h1A101028,32'h80000000); //64Mb (megaBIT)
-     jtag_write_reg_32(32'h1A10102C,32'h80800000);
-     // CS1 range
-     jtag_write_reg_32(32'h1A101030,32'h80800000); //64Mb (megaBIT)
-     jtag_write_reg_32(32'h1A101034,32'h81000000);
-     // CS2 range
-     jtag_write_reg_32(32'h1A101038,32'h81000000); //64Mb (megaBIT)
-     jtag_write_reg_32(32'h1A10103C,32'h81800000);
-     // CS3 range
-     jtag_write_reg_32(32'h1A101040,32'h81800000); //64Mb (megaBIT)
-     jtag_write_reg_32(32'h1A101044,32'h82000000);
+     // CS0 range - one phy so 0x80_0000 or 64MB (512Mb)
+     jtag_write_reg_32(32'h1A101028,32'h80000000);
+     jtag_write_reg_32(32'h1A10102C,32'h84000000);
+     // CS1 range - one phy so 0x80_0000 or 64MB (512Mb)
+     jtag_write_reg_32(32'h1A101030,32'h84000000);
+     jtag_write_reg_32(32'h1A101034,32'h88000000);
+     // CS2 range - one phy so 0x80_0000 or 64MB (512Mb)
+     jtag_write_reg_32(32'h1A101038,32'h88000000);
+     jtag_write_reg_32(32'h1A10103C,32'h8C00000);
+     // CS3 range - one phy so 0x80_0000 or 64MB (512Mb)
+     jtag_write_reg_32(32'h1A101040,32'h8C000000);
+     jtag_write_reg_32(32'h1A101044,32'h90000000);
   endtask
 
   task automatic jtag_write_reg(input logic [31:0] start_addr, input doub_bt value);
@@ -3260,6 +3262,28 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
     end else begin
       $display("W/R sanity check at %x ok! : %x", start_addr, rdata);
     end
+  endtask
+
+  task automatic l3_preload_1phy(input  string slm);
+    $readmemh(slm, hyperrams[0].double.i_main_hyperram0.top.Mem);
+    $readmemh(slm, hyperrams[0].double.i_main_hyperram0.bottom.Mem);
+    $readmemh(slm, hyperrams[1].double.i_main_hyperram0.top.Mem);
+    $readmemh(slm, hyperrams[1].double.i_main_hyperram0.bottom.Mem);
+    $readmemh(slm, hyperrams[2].double.i_main_hyperram0.top.Mem);
+    $readmemh(slm, hyperrams[2].double.i_main_hyperram0.bottom.Mem);
+    $readmemh(slm, hyperrams[3].double.i_main_hyperram0.top.Mem);
+    $readmemh(slm, hyperrams[3].double.i_main_hyperram0.bottom.Mem);
+  endtask
+
+  task automatic l3_preload_2phy(input string slm0,input string slm1);
+    $readmemh(slm1, hyperrams[0].double.i_main_hyperram0.top.Mem);
+    $readmemh(slm0, hyperrams[0].double.i_main_hyperram0.bottom.Mem);
+    $readmemh(slm1, hyperrams[1].double.i_main_hyperram0.top.Mem);
+    $readmemh(slm0, hyperrams[1].double.i_main_hyperram0.bottom.Mem);
+    $readmemh(slm1, hyperrams[2].double.i_main_hyperram0.top.Mem);
+    $readmemh(slm0, hyperrams[2].double.i_main_hyperram0.bottom.Mem);
+    $readmemh(slm1, hyperrams[3].double.i_main_hyperram0.top.Mem);
+    $readmemh(slm0, hyperrams[3].double.i_main_hyperram0.bottom.Mem);
   endtask
 
   task automatic jtag_write(

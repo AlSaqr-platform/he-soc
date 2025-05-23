@@ -248,7 +248,7 @@ sources:
 
   - target: vip
     files:
-      - tb/vips/hyperram_model/s27ks0641.v
+      - tb/vips/hyperram_model/s80ks5122.v
       - tb/vips/i2c_eeprom/24FC1025.v
       - tb/vips/spi_flash/s25fs256s.v
       - tb/vips/camera/cam_vip.sv

@@ -31,6 +31,9 @@ torture-logs   :=
 # custom elf bin to run with sim or sim-verilator
 CORE_ID        ?= 0
 elf-bin        ?= ../software/hello_culsans/hello_culsans.riscv
+elf-bin-slm    := ./hyperram.slm
+elf-bin-slm0   := ./hyperram0.slm
+elf-bin-slm1   := ./hyperram1.slm
 # opentitan variables
 ibex-elf-bin   ?= none
 BOOTMODE       ?= 0
@@ -415,7 +418,7 @@ generate-trace-vsim:
 	make generate-trace
 
 run:
-	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8386 -suppress 8360 -lib $(library) +OT_FLASH=$(OT_FLASH) +CORE_ID=$(CORE_ID) +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
+	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8386 -suppress 8360 -lib $(library) +CVA6_STRING_SLM=$(elf-bin-slm) +CVA6_STRING_SLM_0=$(elf-bin-slm0) +CVA6_STRING_SLM_1=$(elf-bin-slm1) +OT_FLASH=$(OT_FLASH) +CORE_ID=$(CORE_ID) +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi  \
 	${top_level}_optimized +permissive-off ++$(elf-bin) ++$(target-options) ++$(cl-bin) | tee sim.log
 
@@ -492,12 +495,10 @@ tb/vips/hyperram_model:
 	rm -rf $@
 	mkdir $@
 	rm -rf model_tmp && mkdir model_tmp
-	cd model_tmp; wget --no-check-certificate --content-disposition "https://www.infineon.com/dgdl/Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6349a14f68&da=t"
-	cd model_tmp; mv 'Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip' model.zip
+	cd model_tmp; wget --no-check-certificate --content-disposition "https://www.infineon.com/dgdl/Infineon-S80KS5122-HYPERRAM-SimulationModels-v01_00-EN.zip?fileId=8ac78c8c80027ecd018094fbebc677b1&da=t"
+	cd model_tmp; mv 'Infineon-S80KS5122-HYPERRAM-SimulationModels-v01_00-EN.zip' model.zip
 	cd model_tmp; unzip model.zip
-	cd model_tmp; mv 'S27KL0641 S27KS0641' exe_folder
-	cd model_tmp/exe_folder; unzip S27ks0641.exe
-	cp model_tmp/exe_folder/S27ks0641/model/s27ks0641.v model_tmp/exe_folder/S27ks0641/model/s27ks0641_verilog.sdf $@
+	cd model_tmp; cp 's80ks5122.v' ../$@
 	rm -rf model_tmp
 
 tb/vips/i2c_eeprom:
