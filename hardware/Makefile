@@ -482,14 +482,6 @@ macro_sim: build_macro run
 
 synth_sim: build_synth run
 
-check-benchmarks:
-	echo $(alsaqr-regression)
-	./check-regs.sh
-
-run-regressions:	$(alsaqr-regression)
-	$(MAKE) scripts_vip_macro
-	$(MAKE) check-benchmarks
-
 run_regression:
 	rm -rf regressions/regression_reports
 	mkdir regressions/regression_reports
@@ -500,13 +492,6 @@ run_regression_netlist:
 	mkdir regressions/regression_netlist_reports
 	python3 regression_netlist.py
 
-# NB: This regression for post synthesis requires preload=1 or localjtag=1 otherwise it will not work!!!!
-run-regressions-post-synth:	$(alsaqr-regression-post-synth)
-	$(MAKE) check-benchmarks-synth
-
-check-benchmarks-synth:
-	echo $(alsaqr-regression-post-synth)
-	./check-regs.sh
 
 tb/vips/spi_flash:
 	rm -rf $@
@@ -551,6 +536,11 @@ vips_link:
 
 init: bender vips update scripts_vip
 	make -C ip_list/idma idma_hw_all
+
+init_unibo: bender vips update
+	rm -rf gf22/
+	git clone git@github.com:pulp-unibo/alsaqr_gf22.git gf22
+	make -C gf22 init
 
 bin_to_slm:
 	../software/elf_to_slm.py --binary=../software/${test_name}/${test_name}.riscv --vector=hyperram0.slm
