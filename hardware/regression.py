@@ -61,8 +61,7 @@ try:
                     f"make -C {cva6} clean all && "
                     f"make clean macro_sim BOOTMODE={bm} ibex-elf-bin={ot} nogui=1 && "
                     f"mv transcript {test_dir}/transcript.log && "
-                    f"mv trace_hart_0.log {test_dir}/trace_hart_0.log && "
-                    f"mv trace_hart_1.log {test_dir}/trace_hart_1.log"
+                    f"mv trace_*.log {test_dir}/"
                 )
             else:
                 command = (
@@ -71,8 +70,7 @@ try:
                     f"make bin_to_slm_path test_path={cva6} && "
                     f"make clean macro_sim nogui=1 && "
                     f"mv transcript {test_dir}/transcript.log && "
-                    f"mv trace_hart_0.log {test_dir}/trace_hart_0.log && "
-                    f"mv trace_hart_1.log {test_dir}/trace_hart_1.log"
+                    f"mv trace_*.log {test_dir}/"
                 )
 
             # Pipe output to tee so that terminal output is logged in test_dir/terminal.log
