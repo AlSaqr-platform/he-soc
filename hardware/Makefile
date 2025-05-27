@@ -182,6 +182,18 @@ ifdef l3-fake
   compile_fpga += L3_TCSRAM
 endif
 
+ifdef l2-code
+	questa-cmd += +CODE_IN_L2=$(l2-code)
+  compile_flag +=  +define+CODE_IN_L2
+  compile_fpga += CODE_IN_L2
+endif
+
+ifdef one-phy
+	questa-cmd += +ONE_PHY=$(one-phy)
+  compile_flag +=  +define+ONE_PHY
+  compile_fpga += ONE_PHY
+endif
+
 ifdef quad-core
   questa-cmd += +QUAD_CORE=1
   compile_flag += +define+QUAD_CORE
