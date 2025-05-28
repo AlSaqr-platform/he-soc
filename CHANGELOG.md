@@ -4,6 +4,60 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.0.7 - Stable Release Alsaqr 2 branch: alsaqr_2_280525 - 28/05/2025
+
+### Hardware
+
+### Interface/Feature frozen macros:
+- Culsans
+- Hyperbus
+- OpenTitan
+- Cluster
+- TOP
+
+### Work In progress (RTL FROZEN)
+- Further testing
+
+### Changed (bug fixes):
+- CULSANS: fixed a bug preventing linux to work with custom kernels. Shouldn't impact on backend.
+- REPO: adding prints to each test printing test name
+- REPO: updated regression list scripts.
+- REPO: started porting commands from bringup to master branch
+
+## 2.0.6 - Stable Release Alsaqr 2 branch: alsaqr_2_220525 - 22/05/2025
+
+### Hardware
+
+### Interface/Feature frozen macros:
+- Culsans
+- Hyperbus
+- OpenTitan
+- Cluster
+- TOP
+
+### Work In progress (RTL FROZEN)
+- Further testing
+
+### Changed (bug fixes):
+- REPO: fixed Bender manifest and VIP clone.
+
+## 2.0.5 - Stable Release Alsaqr 2 branch: alsaqr_2_130525 - 13/05/2025
+
+### Hardware
+
+### Interface/Feature frozen macros:
+- Culsans
+- Hyperbus
+- OpenTitan
+- Cluster
+- TOP
+
+### Work In progress (RTL FROZEN)
+- Further testing
+
+### Changed (bug fixes):
+- REPO: removed gitlab dependencies  (not needed and causing errors due to permissions)
+
 ## 2.0.4 - Stable Release Alsaqr 2 branch: alsaqr_2_130525 - 13/05/2025
 
 ### Hardware
