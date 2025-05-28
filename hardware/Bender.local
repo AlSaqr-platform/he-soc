@@ -7,7 +7,7 @@ overrides:
   hci:                { git: "https://github.com/pulp-platform/hci.git", rev: b2e6f391aa6c10c03f45b693d80a0aaddecf169b                  }
   hwpe-stream:        { git: "https://github.com/pulp-platform/hwpe-stream.git", rev: ddc154424187dff42a8fcec946c768ceb13f13de          }
   cv32e40p:           { git: "https://github.com/pulp-platform/cv32e40p.git", rev: "f914f3d2fd013a2d2c4c70f7afae3e6592496db7"           } # branch: shaheen
-  cva6:               { git: "git@github.com:Alsaqr-platform/cva6.git", rev: "1e71cec3eaf208c4483126598c061271739ccf35"                 } # branch: revert-pulp-v1-culsans
+  cva6:               { git: "git@github.com:Alsaqr-platform/cva6.git", rev: "ee9ad26e77a6d25bf6d03d01f445c3893ccc14d7"                 } # branch: revert-pulp-v1-culsans
   ace:                { git: "https://github.com/planvtech/ace.git", rev: "fc2056f9f560ec55192c6b09ef682c822fad90fe"                    }
   udma_core:          { git: "https://github.com/Alsaqr-platform/udma_core.git", rev: "ea1c783641910b5f45f680cd4a7665bc311ab5ec"        }
   register_interface: { git: "git@github.com:pulp-platform/register_interface.git",   rev: "5daa85d164cf6b54ad061ea1e4c6f3624556e467"   } # version:  0.4.5
