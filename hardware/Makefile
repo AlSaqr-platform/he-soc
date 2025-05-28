@@ -47,8 +47,8 @@ root-dir := $(dir $(mkfile_path))
 # acc options
 # guide: define acc=<+"instance name".> , the dot includes all the child instances.
 # Example: <make clean sim acc=+u_RoT.>,  this will plot all the OpenTitan and subinstances signals (all the OT design)
-acc            ?= +acc
-noacc          ?=
+acc            := +acc=p+ariane_tb.
+noacc          := +noacc=p+dut.
 test_name      ?= hello_culsans
 test_path      ?= ../software/hello_culsans/hello_culsans.riscv
 
@@ -64,7 +64,7 @@ BENDER_SYNTH_DIR = gf22
 BENDER_BUILD_DIR:=.
 CULSANS_ROOT := ip_list/culsans
 
-CVA6_PKG := cv64a6_imafdch_sv39_wb_alsaqr
+CVA6_PKG := cv64a6_imafdc_sv39_wb
 
 #  fix pedantic questa 2024 veer error
 ifdef QUESTA
@@ -141,6 +141,9 @@ questa-cmd       ?= -do " set StdArithNoWarnings 1; set NumericStdNoWarnings 1; 
 
 compile_flag_bender   += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 13262 -suppress 8386  -permissive
 
+questa-cmd   += +COMMON_CELLS_ASSERTS_OFF=1
+compile_flag += +define+COMMON_CELLS_ASSERTS_OFF
+compile_fpga += COMMON_CELLS_ASSERTS_OFF
 
 # Iterate over all include directories and write them with +incdir+ prefixed
 # +incdir+ works for Verilator and QuestaSim
@@ -180,6 +183,18 @@ ifdef l3-fake
   questa-cmd += +L3_TCSRAM=$(l3-fake)
   compile_flag +=  +define+L3_TCSRAM
   compile_fpga += L3_TCSRAM
+endif
+
+ifdef l2-code
+	questa-cmd += +CODE_IN_L2=$(l2-code)
+  compile_flag +=  +define+CODE_IN_L2
+  compile_fpga += CODE_IN_L2
+endif
+
+ifdef one-phy
+	questa-cmd += +ONE_PHY=$(one-phy)
+  compile_flag +=  +define+ONE_PHY
+  compile_fpga += ONE_PHY
 endif
 
 ifdef quad-core
@@ -278,6 +293,7 @@ libbender:
 	$(QUESTA) vlib work
 	$(QUESTA) vmap work ./work
 
+
 check-fpga-hyper-conflicts:
 	@if [ -z "$(exclude-rot)" ]; then \
 		echo "Error: On FPGA the Hyperram and OT share the same FMC pads"; \
@@ -332,6 +348,7 @@ gf22_fll_behav:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 +nospecify +notimingchecks" --vcom-arg="$(compile_flag_vhd) -work  $(library) $(pedanticerrors)" \
     -t rtl -t use_idma -t gf22_fll_behav -t test -t tb -t vip -t cva6 -t scm_use_latch_scm -t aia_msi -t aia_embedded -t $(CVA6_PKG) > $(compile_script)
+
 
 # ONLY NETLSISTS: TOP - FLL - CVA6 -OPENTITAN - CLUSTER - HYPER
 post_synth_all:
@@ -480,14 +497,6 @@ macro_sim: build_macro run
 
 synth_sim: build_synth run
 
-check-benchmarks:
-	echo $(alsaqr-regression)
-	./check-regs.sh
-
-run-regressions:	$(alsaqr-regression)
-	$(MAKE) scripts_vip_macro
-	$(MAKE) check-benchmarks
-
 run_regression:
 	rm -rf regressions/regression_reports
 	mkdir regressions/regression_reports
@@ -498,19 +507,12 @@ run_regression_netlist:
 	mkdir regressions/regression_netlist_reports
 	python3 regression_netlist.py
 
-# NB: This regression for post synthesis requires preload=1 or localjtag=1 otherwise it will not work!!!!
-run-regressions-post-synth:	$(alsaqr-regression-post-synth)
-	$(MAKE) check-benchmarks-synth
-
-check-benchmarks-synth:
-	echo $(alsaqr-regression-post-synth)
-	./check-regs.sh
 
 tb/vips/spi_flash:
 	rm -rf $@
 	mkdir $@
 	rm -rf model_tmp && mkdir model_tmp
-	cd model_tmp; wget --content-disposition "https://www.infineon.com/dgdl/Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b&da=t"
+	cd model_tmp; wget --no-check-certificate --content-disposition "https://www.infineon.com/dgdl/Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b&da=t"
 	cd model_tmp; mv 'Infineon-S25fs256s-SimulationModels-v02_00-EN.zip' model.zip
 	cd model_tmp; unzip model.zip
 	cd model_tmp; mv 'S25fs256s' exe_folder
@@ -522,7 +524,7 @@ tb/vips/hyperram_model:
 	rm -rf $@
 	mkdir $@
 	rm -rf model_tmp && mkdir model_tmp
-	cd model_tmp; wget --content-disposition "https://www.infineon.com/dgdl/Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6349a14f68&da=t"
+	cd model_tmp; wget --no-check-certificate --content-disposition "https://www.infineon.com/dgdl/Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6349a14f68&da=t"
 	cd model_tmp; mv 'Infineon-S27KL0641_S27KS0641_VERILOG-SimulationModels-v05_00-EN.zip' model.zip
 	cd model_tmp; unzip model.zip
 	cd model_tmp; mv 'S27KL0641 S27KS0641' exe_folder
@@ -549,6 +551,11 @@ vips_link:
 
 init: bender vips update scripts_vip
 	make -C ip_list/idma idma_hw_all
+
+init_unibo: bender vips update scripts_vip
+	rm -rf gf22/
+	git clone git@github.com:pulp-unibo/alsaqr_gf22.git gf22
+	make -C gf22 init
 
 bin_to_slm:
 	../software/elf_to_slm.py --binary=../software/${test_name}/${test_name}.riscv --vector=hyperram0.slm

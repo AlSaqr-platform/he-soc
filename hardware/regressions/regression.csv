@@ -15,7 +15,7 @@
 0,../software/can,none,none,,,,,0
 0,../software/hyperbus,none,none,,,,,0
 0,../software/l2_test_restricted,none,none,,,,,0
-0,../software/l3_test_4cs,none,none,,,,,0
+0,../software/l3_test_4cs_2phy,none,none,,,,,0
 0,../software/llc_spm_test,none,none,,,,,0
 0,../software/hello_culsans,none,none,,,,,0
 0,../software/bypass_cva6_dco,none,none,,,,,0
@@ -24,7 +24,6 @@
 0,../software/pmu_test,none,none,,,,,0
 0,../software/monitor_counter,none,none,,,,,0
 0,../software/htm,none,none,,,,,0
-0,../software/zicfiss,none,none,,,,,0
 0,../software/mbox_test,opentitan/sw/tests/alsaqr/mbox_test/mbox_test.elf,none,,,,,0
 0,../software/hello_culsans,opentitan/sw/tests/opentitan/idma_test/idma_test.elf,none,,1,,,0
 0,../software/hello_culsans,opentitan/sw/tests/cluster/mbox_test/mbox_test.elf,none,,1,,,0

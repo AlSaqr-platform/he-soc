@@ -125,8 +125,8 @@ void _init(int cid, int nc)
      *tmp = 1;
      tmp = (int *) 0x1a104084;
      *tmp = 1;
-     int baud_rate = 115200;
-     int test_freq = 50000000;
+     int baud_rate = 9600;
+     int test_freq = 25000000;
      #endif
      uart_set_cfg(0,(test_freq/baud_rate)>>4);
      #ifndef FPGA_EMULATION

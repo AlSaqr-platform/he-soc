@@ -45,15 +45,6 @@
 
 int main() {
 
-  #ifdef FPGA_EMULATION
-  int baud_rate = 115200;
-  int test_freq = 50000000;
-  #else
-  set_flls();
-  int baud_rate = 115200;
-  int test_freq = 100000000;
-  #endif
-  uart_set_cfg(0,(test_freq/baud_rate)>>4);
 
   #ifdef FPGA_EMULATION
       //out pwm0 - pwm3
