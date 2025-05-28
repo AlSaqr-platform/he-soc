@@ -17,7 +17,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-revert-core-ccu/hardware/deps/alsaqr_periph_fpga_padframe
+      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-delivery-28-05-25/hardware/deps/alsaqr_periph_fpga_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -25,7 +25,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-revert-core-ccu/hardware/deps/alsaqr_periph_padframe
+      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-delivery-28-05-25/hardware/deps/alsaqr_periph_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -60,7 +60,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-revert-core-ccu/hardware/deps/apb_host_control_regs
+      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-delivery-28-05-25/hardware/deps/apb_host_control_regs
     dependencies:
       - common_cells
       - register_interface
@@ -75,7 +75,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-revert-core-ccu/hardware/deps/apb_uart
+      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-delivery-28-05-25/hardware/deps/apb_uart
     dependencies: []
   apmu:
     revision: f8d57d3ede962e50e90aa037d55acc37b98f09c7
@@ -132,7 +132,7 @@ packages:
     revision: 062bc36cbcca25629384e7f12efa6693273b3e07
     version: ~
     source:
-      Git: "git@github.com:pulp-platform/axi_riscv_atomics.git"
+      Git: "https://github.com/pulp-platform/axi_riscv_atomics.git"
     dependencies:
       - axi
       - common_cells
@@ -164,7 +164,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-revert-core-ccu/hardware/deps/axi_tlb
+      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-delivery-28-05-25/hardware/deps/axi_tlb
     dependencies:
       - axi
       - common_cells
@@ -180,7 +180,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-revert-core-ccu/hardware/deps/clint
+      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-delivery-28-05-25/hardware/deps/clint
     dependencies:
       - cva6
   cluster_interconnect:
@@ -218,7 +218,7 @@ packages:
       Git: "https://github.com/pulp-platform/common_verification.git"
     dependencies: []
   cva6:
-    revision: 1e71cec3eaf208c4483126598c061271739ccf35
+    revision: ee9ad26e77a6d25bf6d03d01f445c3893ccc14d7
     version: ~
     source:
       Git: "git@github.com:Alsaqr-platform/cva6.git"
@@ -387,7 +387,7 @@ packages:
       - common_cells
   obi:
     revision: 5321106817e177d6c16ecc4daa922b96b1bc946b
-    version: 0.1.7
+    version: 0.1.5
     source:
       Git: "https://github.com/pulp-platform/obi.git"
     dependencies:
@@ -504,7 +504,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-revert-core-ccu/hardware/deps/rv_plic
+      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-delivery-28-05-25/hardware/deps/rv_plic
     dependencies: []
   scm:
     revision: 998466d2a3c2d7d572e43d2666d93c4f767d8d60
@@ -522,7 +522,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-revert-core-ccu/hardware/deps/snooper
+      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-delivery-28-05-25/hardware/deps/snooper
     dependencies: []
   spu:
     revision: e213cb2e10d713531b718fdaddacdbd605f23ff6
@@ -623,7 +623,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/he-soc-revert-core-ccu/hardware/deps/util
+      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-delivery-28-05-25/hardware/deps/util
     dependencies:
       - axi
       - common_cells
