@@ -87,6 +87,15 @@ int main()
   uint32_t rx_usart_plic_id ;
 
 
+
+  #ifndef FPGA_EMULATION
+     int baud_rate = 115200;
+     int test_freq = 100000000;
+  #else
+     int baud_rate = 9600;
+     int test_freq = 25000000;
+  #endif
+
   printf("Test USART starting...\r\n");
   uart_wait_tx_done();
   printf("USART start...\n\r");

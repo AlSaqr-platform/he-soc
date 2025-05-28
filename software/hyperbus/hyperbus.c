@@ -44,7 +44,6 @@ int main() {
     int id1, id2;
     int pass = 0;
     int periph_id = 28;
-    uart_set_cfg(0,(test_freq/baud_rate)>>4);
     // PLIC setup for hyper tx
     int plic_base = 0x0C000000;
     int tx_hyper_plic_id = 139;

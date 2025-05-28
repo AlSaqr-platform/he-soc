@@ -91,6 +91,15 @@ int main()
     int N_REPS[N_UART] = {1};
   #endif
 
+
+  #ifndef FPGA_EMULATION
+     int baud_rate = 115200;
+     int test_freq = 100000000;
+  #else
+     int baud_rate = 9600;
+     int test_freq = 25000000;
+  #endif
+
   int error = 0;
 
   //int tx_buffer[BUFFER_SIZE] = {'S','t','a','y',' ','a','t',' ','h','o','m','e','!','!','!','!'};
