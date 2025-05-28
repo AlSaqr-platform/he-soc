@@ -165,17 +165,21 @@ module ariane_tb;
   //  LINKER SCRIPT PARAMETERS  //
   //                            //
   ////////////////////////////////
-
-  `ifdef NO_L3_CONNECTION
+ `ifdef NO_L3_CONNECTION
   parameter  LINKER_ENTRY        = 32'h1C000000;
-  parameter  TOHOST              = 32'h1C000140;
-  `else
+  parameter  TOHOST              = 32'h1C000100;
+ `else
   // when preload is enabled LINKER_ENTRY specifies the linker address which must be L3 -> 32'h80000000
   parameter  LINKER_ENTRY        = 32'h80000000;
   // IMPORTANT : If you change the linkerscript check the tohost address and update this paramater
   // IMPORTANT : to host mapped in L2 non-cached region because we use WB cache
-  parameter  TOHOST              = 32'h1C000000;
+  `ifndef CODE_IN_L2
+  parameter  TOHOST              = 32'h1c000000;
+  `else
+   parameter TOHOST              = 32'h1c000100;
   `endif
+
+ `endif
 
   `ifdef USE_LOCAL_JTAG
     parameter  PRELOAD_HYPERRAM = 0;
@@ -3100,6 +3104,10 @@ module ariane_tb;
   // VIP MUXING END
   //**************************************************
 
+  `ifdef ONE_PHY
+     assign hyper_rwds_wire[1] = hyper_rwds_wire[0];
+  `endif
+
   generate
      for (genvar i=0; i< NumChips ; i++) begin : hyperrams
 
@@ -3124,6 +3132,7 @@ module ariane_tb;
                     .CKNeg         ( hyper_ck_n_wire[0]       ),
                     .RESETNeg      ( hyper_reset_n_wire[0]    )
            );
+           `ifndef ONE_PHY
            s27ks0641 #(
                  .TimingModel   ( "S27KS0641DPBHI020"    ),
                  .UserPreload   ( PRELOAD_HYPERRAM       ),
@@ -3143,6 +3152,7 @@ module ariane_tb;
                     .CKNeg         ( hyper_ck_n_wire[1]       ),
                     .RESETNeg      ( hyper_reset_n_wire[1]    )
            );
+           `endif
         end else begin : single
 
            s27ks0641 #(
@@ -3327,6 +3337,14 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
                                       default: '0
                                     };
 
+
+  localparam dm::sbcs_t JtagInitSbcs32 = dm::sbcs_t'{
+                                        sbautoincrement: 1'b1,
+                                        sbreadondata: 1'b1,
+                                        sbaccess: 3'h2,
+                                        sbaccess32: 1,
+                                        default: '0
+                                      };
     // Connect DUT to test bus
     assign s_trstn      = jtag_mst.trst_n;
     assign s_tms        = jtag_mst.tms;
@@ -3463,6 +3481,13 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
         $display("Load binary...");
         // Load host code
         jtag_elf_load(binary, binary_entry, cid);
+   `ifdef ONE_PHY
+        $display("Configuration QFN100!");
+        jtag_config_llc_spm();
+        jtag_config_hyper();
+   `else
+      $display("Configuration CPGA200!");
+   `endif
         $display("Wakeup Core..");
    `ifndef SEC_BOOT
         jtag_elf_run(binary_entry, cid);
@@ -3478,10 +3503,19 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
       end
     end else begin
       $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);
-      addr = 32'h1c000000;
-      jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
+      for(int i=0;i<3;i++) begin
+         addr = 32'h1c000000;
+         jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
+         binary_entry={32'h00000000,LINKER_ENTRY};
+      end
+   `ifdef ONE_PHY
+      $display("Configuration QFN100!");
+      jtag_config_llc_spm();
+      jtag_config_hyper();
+   `else
+      $display("Configuration CPGA200!");
+   `endif
       binary_entry={32'h00000000,LINKER_ENTRY};
-      #(REFClockPeriod);
       $display("Wakeup here at %x!!", binary_entry);
    `ifndef SEC_BOOT
       jtag_ariane_wakeup( LINKER_ENTRY, cid );
@@ -3522,6 +3556,47 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
     // Wait until SBA is free to read another 32 bits
     do jtag_dbg.read_dmi_exp_backoff(dm::SBCS, sbcs);
     while (sbcs.sbbusy);
+  endtask
+
+  task automatic jtag_write_reg_32(input logic [31:0] start_addr,input word_bt value);
+    logic [31:0]      rdata;
+
+    $display("[JTAG] Start writing at %x ", start_addr);
+    jtag_write(dm::SBCS, JtagInitSbcs32, 1, 1);
+    // Write address
+    jtag_write(dm::SBAddress0, start_addr);
+    // Write data
+    jtag_write(dm::SBData0, value);
+
+  endtask
+
+  task automatic jtag_config_llc_spm();
+
+     $display("Configurin LLC in SPM mode");
+     jtag_write_reg_32(32'h10401000,32'hFFFFFFFF);
+
+  endtask
+
+  task automatic jtag_config_hyper();
+
+     $display("Configurin HyperBus to use only PHY0");
+
+     // Config Hyper Controller to use PHY0 only. Default config already meet the VIP config.
+     jtag_write_reg_32(32'h1A10101C,32'h0);
+     jtag_write_reg_32(32'h1A101020,32'h0);
+     jtag_write_reg_32(32'h1A101024,32'h0);
+     // CS0 range - one phy so 0x80_0000 or 64MB (512Mb)
+     jtag_write_reg_32(32'h1A101028,32'h80000000);
+     jtag_write_reg_32(32'h1A10102C,32'h80400000);
+     // CS1 range - one phy so 0x80_0000 or 64MB (512Mb)
+     jtag_write_reg_32(32'h1A101030,32'h80400000);
+     jtag_write_reg_32(32'h1A101034,32'h80800000);
+     // CS2 range - one phy so 0x80_0000 or 64MB (512Mb)
+     jtag_write_reg_32(32'h1A101038,32'h80800000);
+     jtag_write_reg_32(32'h1A10103C,32'h80C00000);
+     // CS3 range - one phy so 0x80_0000 or 64MB (512Mb)
+     jtag_write_reg_32(32'h1A101040,32'h80C00000);
+     jtag_write_reg_32(32'h1A101044,32'h81000000);
   endtask
 
   task automatic jtag_write_reg(input logic [31:0] start_addr, input doub_bt value);

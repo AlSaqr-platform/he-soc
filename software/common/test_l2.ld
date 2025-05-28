@@ -25,10 +25,12 @@ MEMORY
 /* Sections                                                             */
 /*----------------------------------------------------------------------*/
 
+
 SECTIONS
 {
-  . = 0x1C000000;
+
   /* text: for code & constants */
+  . = 0x1C000000;
   .text.init : { *(.text.init) } > L2
   . = 0x1C000100;
   .nocache_share_region : { *(.nocache_share_region) } > L2
@@ -39,6 +41,9 @@ SECTIONS
 
   /* SPM DATA */
   .spm_data : { *(.heapl2ram) } > L2
+
+  /* data: for initialized data */
+  /*.data : { *(.data) } > L2*/
 
   .sdata : {
     __global_pointer$ = . + 0x800;
@@ -81,7 +86,7 @@ SECTIONS
   /* stack 256K */
   .stack :
   {
-    . = . + 0x1000;
+    . = . + 0x500;
     _stack = .;
   } > L2
 
