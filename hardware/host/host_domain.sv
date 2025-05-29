@@ -717,7 +717,7 @@ module host_domain
      .NUM_PORT         ( 3                              ),
      .NUM_COUNTER      ( APMU_NUM_COUNTER               ),
      .ISPM_NUM_WORDS   ( 128                            ),
-     .DSPM_NUM_WORDS   ( 1600                           ),
+     .DSPM_NUM_WORDS   ( 1024                           ),
      // APMU Addresses and SPM configuration
      .MEMORY_BASE_ADDR ( ariane_soc::L2SPMBase          ),
      .MEMORY_LENGTH    ( ariane_soc::L2SPMBase + ariane_soc::L2SPMLength        ),
