@@ -454,7 +454,7 @@ module host_domain
       .rule_full_t      ( rule_full_t                    ),
       // Source ID Specifications
       .SourceIDStart    ( 2                              ),
-      .SourceIDEnd      ( 7                              ),
+      .SourceIDEnd      (  ariane_soc::IdWidthSlave-1    ),
       .NumCfgRegcp      ( 4                              )
     ) i_axi_llc (
       .clk_i               ( s_soc_clk                                                                           ),
@@ -596,7 +596,7 @@ module host_domain
      .NumBlocks          ( ariane_soc::LLC_NUM_BLOCKS  ),
      // Source ID Specifications
      .SourceIDStart      (  2                          ),
-     .SourceIDEnd        (  7                          ),
+     .SourceIDEnd        (  ariane_soc::IdWidthSlave-1 ),
      // AXI4 Specifications
      .IdWidth            ( ariane_soc::IdWidthSlave    ),
      .AddrWidth          ( AXI_ADDRESS_WIDTH           ),
