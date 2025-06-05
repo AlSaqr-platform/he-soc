@@ -253,6 +253,12 @@ libbender:
 	$(QUESTA) vlib work
 	$(QUESTA) vmap work ./work
 
+# uses HyperRAM FMC with 4 CS
+scripts-bender-fpga-4cs: | Bender.lock
+	mkdir -p fpga/alsaqr/tcl/generated
+	$(BENDER) script vivado -t cv64a6_imafdc_sv39_wb -t fpga -t 4cs -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga) EXCLUDE_PADFRAME" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl
+
+# uses HyperRAM FMC with 2 CS by default
 scripts-bender-fpga: | Bender.lock
 	mkdir -p fpga/alsaqr/tcl/generated
 	$(BENDER) script vivado -t cv64a6_imafdc_sv39_wb -t fpga -t xilinx -t tech_cells_generic_include_xilinx_xpm --define="$(compile_fpga) EXCLUDE_PADFRAME" > $(BENDER_FPGA_SCRIPTS_DIR)/compile.tcl

@@ -40,6 +40,8 @@ module alsaqr_xilinx
     inout       FMC_hyper0_ckn   ,
     inout       FMC_hyper0_csn0  ,
     inout       FMC_hyper0_csn1  ,
+    inout       FMC_hyper0_csn2  ,
+    inout       FMC_hyper0_csn3  ,
     inout       FMC_hyper0_rwds  ,
     inout       FMC_hyper0_reset ,
 
@@ -55,6 +57,8 @@ module alsaqr_xilinx
     inout       FMC_hyper1_ckn   ,
     inout       FMC_hyper1_csn0  ,
     inout       FMC_hyper1_csn1  ,
+    inout       FMC_hyper1_csn2  ,
+    inout       FMC_hyper1_csn3  ,
     inout       FMC_hyper1_rwds  ,
     inout       FMC_hyper1_reset ,
 
@@ -78,9 +82,9 @@ module alsaqr_xilinx
   );
 
   `ifdef EXCLUDE_LLC
-   localparam AXI_ID_WIDTH = 7;
-  `else
    localparam AXI_ID_WIDTH = 8;
+  `else
+   localparam AXI_ID_WIDTH = 9;
   `endif
 
    wire        ref_clk;
@@ -126,7 +130,13 @@ module alsaqr_xilinx
                                       );
 
     localparam NumPhys = 2;
-    wire  [NumPhys-1:0][1:0] hyper_cs_n_wire    ;
+    `ifdef TARGET_4CS
+      localparam NumChips = 4;
+    `else
+      localparam NumChips = 2;
+    `endif
+
+    wire  [NumPhys-1:0][NumChips-1:0] hyper_cs_n_wire    ;
     wire  [NumPhys-1:0]      hyper_ck_wire      ;
     wire  [NumPhys-1:0]      hyper_ck_n_wire    ;
     wire  [NumPhys-1:0]      hyper_rwds_wire    ;
@@ -171,6 +181,10 @@ module alsaqr_xilinx
 
    assign hyper_cs_n_wire[0][0] = FMC_hyper0_csn0;
    assign hyper_cs_n_wire[0][1] = FMC_hyper0_csn1;
+   `ifdef TARGET_4CS
+   assign hyper_cs_n_wire[0][2] = FMC_hyper0_csn2;
+   assign hyper_cs_n_wire[0][3] = FMC_hyper0_csn3;
+   `endif
    assign hyper_ck_wire[0]      = FMC_hyper0_ck;
    assign hyper_ck_n_wire[0]    = FMC_hyper0_ckn;
    assign hyper_rwds_wire[0]    = FMC_hyper0_rwds;
@@ -186,6 +200,10 @@ module alsaqr_xilinx
 
    assign hyper_cs_n_wire[1][0] = FMC_hyper1_csn0;
    assign hyper_cs_n_wire[1][1] = FMC_hyper1_csn1;
+   `ifdef TARGET_4CS
+   assign hyper_cs_n_wire[1][2] = FMC_hyper1_csn2;
+   assign hyper_cs_n_wire[1][3] = FMC_hyper1_csn3;
+   `endif
    assign hyper_ck_wire[1]      = FMC_hyper1_ck;
    assign hyper_ck_n_wire[1]    = FMC_hyper1_ckn;
    assign hyper_rwds_wire[1]    = FMC_hyper1_rwds;
