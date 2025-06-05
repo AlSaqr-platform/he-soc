@@ -10,11 +10,6 @@
 //
 // Author: Florian Zaruba, ETH Zurich
 // Description: Contains SoC information as constants
-`ifdef TARGET_FPGA
- `ifndef TARGET_DDR
-  `define HYPER_FPGA_DDR
- `endif
-`endif
 
 package ariane_soc;
 
@@ -69,13 +64,23 @@ package ariane_soc;
 
   localparam NB_PERIPHERALS = HYAXI + 1;
 
-  `ifdef HYPER_FPGA_DDR
-  localparam HyperbusNumPhys          = 2;
-  localparam NumChipsPerHyperbus      = 2;
+  `ifdef TARGET_DDR
+    localparam HyperbusNumPhys          = 2;
+    localparam NumChipsPerHyperbus      = 2;
   `else
-  localparam HyperbusNumPhys          = 2;
-  localparam NumChipsPerHyperbus      = 4;
+    localparam HyperbusNumPhys          = 2;
+    `ifndef TARGET_FPGA
+      localparam NumChipsPerHyperbus    = 4;
+    `else
+      // here we define how many cs we want on the FPGA
+      `ifndef TARGET_4CS
+        localparam NumChipsPerHyperbus  = 2;
+      `else
+        localparam NumChipsPerHyperbus   = 4;
+      `endif
+    `endif
   `endif
+
   localparam logic[63:0] HyperRamSize = 64'h4000000; // 64MB
 
 
@@ -89,10 +94,10 @@ package ariane_soc;
   localparam logic[63:0] TimerLength    = 64'h1000;
   localparam logic[63:0] SPILength      = 64'h800000;
   localparam logic[63:0] EthernetLength = 64'h10000;
-  `ifdef HYPER_FPGA_DDR
+  `ifdef TARGET_FPGA
   localparam logic[63:0] HYAXILength    = 64'h2000000;  //32MB of hyperrams
   `else
-  localparam logic[63:0] HYAXILength    = 64'h20000000;  //HyperRamSize*NumChipsPerHyperbus*HyperbusNumPhys;  // 256MB of hyperrams
+  localparam logic[63:0] HYAXILength    = 64'h20000000;  //HyperRamSize*NumChipsPerHyperbus*HyperbusNumPhys;  // 512MB of hyperrams
   `endif
   localparam logic[63:0] LLCSPMLength   = 64'h20000;     // up to 128KB of LLC that can be used as scratchpad
   localparam logic[63:0] L2SPMLength    = 64'h8000;      // 32KB of scratchpad memory

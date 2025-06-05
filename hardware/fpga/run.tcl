@@ -14,7 +14,11 @@ add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_$::env(BOARD).xdc"
 set SRC_CLK_PERIOD 25
 if {$::env(MAIN_MEM)=="HYPER"} {
     set SRC_CLK_PERIOD 100
-    add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_hyper_$::env(BOARD).xdc"
+    if {$::env(NUM_CS)=="2"} {
+        add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_hyper_$::env(BOARD).xdc"
+    } elseif {$::env(NUM_CS)=="4"} {
+        add_files -fileset constrs_1 -norecurse "alsaqr/tcl/fmc_board_hyper_4cs_$::env(BOARD).xdc"
+    }
 } elseif {$::env(MAIN_MEM)=="DDR4"} {
     add_files -fileset constrs_1 -norecurse "alsaqr/tcl/ddr_$::env(BOARD).xdc"
     if {$::env(SIMPLE_PAD)=="1"} {
@@ -47,4 +51,12 @@ report_route_status -file $outputDir/post_route_status.rpt
 report_timing_summary -file $outputDir/post_route_timing_summary.rpt
 report_power -file $outputDir/post_route_power.rpt
 report_drc -file $outputDir/post_imp_drc.rpt
-write_bitstream -force $outputDir/alsaqr_xilinx.bit
+if {$::env(MAIN_MEM)=="HYPER"} {
+    if {$::env(NUM_CS)=="2"} {
+        write_bitstream -force $outputDir/alsaqr_xilinx_hyper_2cs.bit
+    } elseif {$::env(NUM_CS)=="4"} {
+        write_bitstream -force $outputDir/alsaqr_xilinx_hyper_4cs.bit
+    }
+} else {
+    write_bitstream -force $outputDir/alsaqr_xilinx_ddr.bit
+}

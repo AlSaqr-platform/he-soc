@@ -35,21 +35,25 @@ elif [ "$OT" = "n" ]; then
     export USE_OT="0"
 fi
 
-if [ -z "$MAIN_MEM"  ]; then
-    read -p "Which main memory are you using:  1-DDR 2-HYPER: " MAIN_MEM
-
-    if [ "$MAIN_MEM" = "1" ]; then
-        export MAIN_MEM="DDR4"
-        read -p "Are you validating the peripherals? y/n " SIMPLE_PAD
-        if [ "$SIMPLE_PAD" = "y" ]; then
-            export SIMPLE_PAD="1"
-        elif [ "$SIMPLE_PAD" = "n" ]; then
-            export SIMPLE_PAD="0"
-        fi
-    elif [ "$MAIN_MEM" = "2" ]; then
-        export MAIN_MEM="HYPER"
+read -p "Which main memory are you using:  1-DDR 2-HYPER: " MAIN_MEM
+if [ "$MAIN_MEM" = "1" ]; then
+    export MAIN_MEM="DDR4"
+    export NUM_CS="2"
+    read -p "Are you validating the peripherals? y/n " SIMPLE_PAD
+    if [ "$SIMPLE_PAD" = "y" ]; then
+        export SIMPLE_PAD="1"
+    elif [ "$SIMPLE_PAD" = "n" ]; then
         export SIMPLE_PAD="0"
     fi
+elif [ "$MAIN_MEM" = "2" ]; then
+    export MAIN_MEM="HYPER"
+    read -p "How Many CS (2 or 4)?" NUM_CS
+    if [ "$NUM_CS" = "2" ]; then
+        export NUM_CS="2"
+    elif [ "$NUM_CS" = "4" ]; then
+        export NUM_CS="4"
+    fi
+    export SIMPLE_PAD="0"
 fi
 
 echo "$BOARD"
@@ -57,6 +61,7 @@ echo "XILINX_PART=$XILINX_PART"
 echo "XILINX_BOARD=$XILINX_BOARD"
 echo "AXI_ID_DDR_WIDTH=$AXI_ID_DDR_WIDTH"
 echo "MAIN MEMORY = $MAIN_MEM"
+echo "NUM CS = $NUM_CS"
 echo "PERIPHERALS VALIDATION = $SIMPLE_PAD"
 echo "USE OT = $USE_OT"
 
