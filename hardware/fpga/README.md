@@ -12,7 +12,8 @@ To generate the bitstream, with a DDR configuration (the one available in VCU118
 make simple-padframe=1 scripts-bender-fpga-ddr
 
 ```
-To use the hyperram use `make scripts-bender-fpga`, without simple-padframe.
+To use the hyperram with 2CS use `make scripts-bender-fpga`, without simple-padframe.
+To use the hyperram with 4CS use `make scripts-bender-fpga-4cs`, without simple-padframe. 
 
 You can also use the `exclude-cluster=1`, `exclude-rot=1` and `exclude-llc=1` option, in case you don't want to emulate the cluster/opentitan/llc as well.
 
