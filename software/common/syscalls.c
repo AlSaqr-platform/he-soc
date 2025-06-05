@@ -118,7 +118,7 @@ void _init(int cid, int nc)
      *tmp = 3;
      tmp = (int *) 0x1a10400C;
      *tmp = 3;
-     int baud_rate = 115200;
+     int baud_rate = 9600;
        // Here we define the frequency for the SoC specified in the gdb.cfg file
        #ifndef CHIP_BRINGUP
         // RTL SIMULATION
@@ -133,8 +133,15 @@ void _init(int cid, int nc)
      *tmp = 1;
      tmp = (int *) 0x1a10407C;
      *tmp = 1;
-     int baud_rate = 115200;
-     int test_freq = 40*MHZ;
+     int baud_rate = 38400;
+     //int test_freq = 40*MHZ;
+     #ifdef DDR
+      // FPGA USES DDR - 40MHz
+      int test_freq = 40*MHZ;
+     #else
+      // FPGA USES FMC HYPERRAM - 10MHz
+      int test_freq = 10*MHZ;
+     #endif
      #endif
      uart_set_cfg(0,(test_freq/baud_rate)>>4);
      #ifndef FPGA_EMULATION
