@@ -78,7 +78,7 @@ packages:
       Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu/hardware/deps/apb_uart
     dependencies: []
   apmu:
-    revision: 63edcbe8b3f8980ba6be94dee6e995c7f3409ccd
+    revision: 7759565d38a15891b71937db70c2250f2c6418e8
     version: ~
     source:
       Git: "git@github.com:alsaqr-platform/apmu.git"
@@ -112,7 +112,7 @@ packages:
     dependencies:
       - common_cells
   axi_llc:
-    revision: c49a60715849362574d112c09d28073d1c00192c
+    revision: 02c51da0f1a36d7a06bc5c72fceb516c0b0c6c67
     version: ~
     source:
       Git: "git@github.com:AlSaqr-platform/axi_llc.git"

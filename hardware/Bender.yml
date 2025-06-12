@@ -48,9 +48,9 @@ dependencies:
   riscv-aia: { git: "git@github.com:AlSaqr-platform/riscv-aia.git", rev: "9ab99c13a" } # branch: alsaqr
   idma: { git: "git@github.com:alsaqr-platform/iDMA.git", rev: "559f94af" } # branch: alsaqr-2
   # APMU_BLOCK START: Branch: uw/pmu
-  axi_llc: { git: "git@github.com:AlSaqr-platform/axi_llc.git", rev: "c49a60715849362574d112c09d28073d1c00192c" } #branch: uw/id_fix
-  spu: { git: "git@github.com:AlSaqr-platform/spu.git", rev: "dd5f79d5072be4571511a57d200f5aa18fd93f8d" } #branch: uw/id_fix
-  apmu: { git: "git@github.com:AlSaqr-platform/apmu.git", rev: "63edcbe8b3f8980ba6be94dee6e995c7f3409ccd" } #branch: uw/id_fix
+  axi_llc: { git: "git@github.com:AlSaqr-platform/axi_llc.git", rev: "02c51da0f1a36d7a06bc5c72fceb516c0b0c6c67" } #branch: uw/id_fix
+  spu: { git: "git@github.com:AlSaqr-platform/spu.git", rev: "dd5f79d5072be4571511a57d200f5aa18fd93f8d" } #branch: master
+  apmu: { git: "git@github.com:AlSaqr-platform/apmu.git", rev: "7759565d38a15891b71937db70c2250f2c6418e8" } #branch: alsaqr-2
 
 workspace:
   package_links:
