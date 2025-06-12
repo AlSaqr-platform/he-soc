@@ -163,7 +163,8 @@ module ariane_tb;
 
   // when preload is enabled LINKER_ENTRY specifies the linker address which must be L3 -> 32'h80000000
   parameter  LINKER_ENTRY         = 32'h80000000;
-  parameter  BOOTROM_LINKER_ENTRY = 32'h00010000;
+  // This linker is used to run CVA6 on its bootrom, waiting for OpenTitan to boot it.
+  parameter  SECURE_BOOT_ROM_LINKER_ENTRY = 32'h00010000;
   // IMPORTANT : If you change the linkerscript check the tohost address and update this paramater
   // IMPORTANT : to host mapped in L2 non-cached region because we use WB cache
   `ifndef CODE_IN_L2
@@ -3117,7 +3118,7 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
         jtag_ariane_wakeup( LINKER_ENTRY, cid+1 );
      `endif
    `else
-        jtag_elf_run(BOOTROM_LINKER_ENTRY, cid);
+        jtag_elf_run(SECURE_BOOT_ROM_LINKER_ENTRY, cid);
    `endif
         $display("Wait EOC...");
         jtag_wait_for_eoc ( TOHOST );
@@ -3147,7 +3148,7 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
       jtag_ariane_wakeup( LINKER_ENTRY, cid+1 );
      `endif
    `else
-      jtag_ariane_wakeup( BOOTROM_LINKER_ENTRY, cid );
+      jtag_ariane_wakeup( SECURE_BOOT_ROM_LINKER_ENTRY, cid );
    `endif
       $display("Wait EOC...");
       jtag_wait_for_eoc( TOHOST );
