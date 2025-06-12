@@ -17,7 +17,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /usr/scratch2/lagrev1/smatt/alsaqr/tapeout/latest/he-soc/hardware/deps/alsaqr_periph_fpga_padframe
+      Path: /scratch2/mciani/alsaqr-1/bringup/alsaqr-bringup/hardware/deps/alsaqr_periph_fpga_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -25,7 +25,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /usr/scratch2/lagrev1/smatt/alsaqr/tapeout/latest/he-soc/hardware/deps/alsaqr_periph_padframe
+      Path: /scratch2/mciani/alsaqr-1/bringup/alsaqr-bringup/hardware/deps/alsaqr_periph_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -60,7 +60,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /usr/scratch2/lagrev1/smatt/alsaqr/tapeout/latest/he-soc/hardware/deps/apb_host_control_regs
+      Path: /scratch2/mciani/alsaqr-1/bringup/alsaqr-bringup/hardware/deps/apb_host_control_regs
     dependencies:
       - common_cells
       - register_interface
@@ -75,7 +75,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /usr/scratch2/lagrev1/smatt/alsaqr/tapeout/latest/he-soc/hardware/../fpga/src/apb_uart
+      Path: /scratch2/mciani/alsaqr-1/bringup/alsaqr-bringup/hardware/../fpga/src/apb_uart
     dependencies: []
   axi:
     revision: fccffb5953ec8564218ba05e20adbedec845e014
@@ -139,14 +139,14 @@ packages:
     revision: a4f72bc21ac4d7da631e8309d9f8d0c34b735c23
     version: 1.1.4
     source:
-      Git: "https://github.com/pulp-platform/axi_slice.git"
+      Git: "git@github.com:pulp-platform/axi_slice.git"
     dependencies:
       - common_cells
   axi_tlb:
     revision: ~
     version: ~
     source:
-      Path: /usr/scratch2/lagrev1/smatt/alsaqr/tapeout/latest/he-soc/hardware/deps/axi_tlb
+      Path: /scratch2/mciani/alsaqr-1/bringup/alsaqr-bringup/hardware/deps/axi_tlb
     dependencies:
       - axi
       - common_cells
@@ -162,7 +162,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /usr/scratch2/lagrev1/smatt/alsaqr/tapeout/latest/he-soc/hardware/deps/clint
+      Path: /scratch2/mciani/alsaqr-1/bringup/alsaqr-bringup/hardware/deps/clint
     dependencies:
       - cva6
   cluster_interconnect:
@@ -357,7 +357,7 @@ packages:
     dependencies:
       - common_cells
   opentitan:
-    revision: f5c55d8d753dad5da0f685d695feb5a8ad54ca92
+    revision: 2bea8d1589280ab74aa1305ab053d6be0476501c
     version: ~
     source:
       Git: "https://github.com/AlSaqr-platform/opentitan.git"
@@ -428,7 +428,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /usr/scratch2/lagrev1/smatt/alsaqr/tapeout/latest/he-soc/hardware/deps/rv_plic
+      Path: /scratch2/mciani/alsaqr-1/bringup/alsaqr-bringup/hardware/deps/rv_plic
     dependencies: []
   scm:
     revision: 998466d2a3c2d7d572e43d2666d93c4f767d8d60
@@ -529,7 +529,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /usr/scratch2/lagrev1/smatt/alsaqr/tapeout/latest/he-soc/hardware/deps/util
+      Path: /scratch2/mciani/alsaqr-1/bringup/alsaqr-bringup/hardware/deps/util
     dependencies:
       - axi
       - common_cells
