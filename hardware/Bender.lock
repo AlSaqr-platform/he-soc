@@ -112,7 +112,7 @@ packages:
     dependencies:
       - common_cells
   axi_llc:
-    revision: 02c51da0f1a36d7a06bc5c72fceb516c0b0c6c67
+    revision: c49a60715849362574d112c09d28073d1c00192c
     version: ~
     source:
       Git: "git@github.com:AlSaqr-platform/axi_llc.git"
