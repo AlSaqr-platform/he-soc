@@ -105,6 +105,7 @@ module cva6_subsystem
 
   input  logic            iopmp_irq_i,
   output logic            snoop_trigger_irq_o,
+  output logic            snoop_watermark_irq_o,
 
   // SCMI mailbox interrupt to CVA6
   input  logic            irq_mbox_i,
@@ -153,8 +154,6 @@ module cva6_subsystem
 
   ariane_axi_soc::req_t  ot_axi_id_req;
   ariane_axi_soc::resp_t ot_axi_id_rsp;
-
-  logic snoop_watermark_irq;
 
   assign test_en = 1'b0;
   assign jtag_enable = JtagEnable;
@@ -882,7 +881,7 @@ module cva6_subsystem
     .iommu_lock_xor_key_i ( iommu_lock_xor_key_i      ),
     .aia_lock_xor_key_i   ( aia_lock_xor_key_i        ),
 
-    .cfi_watermark_irq_i  ( snoop_watermark_irq       ),
+    .cfi_watermark_irq_i  ( snoop_watermark_irq_o     ),
     .cfi_trigger_irq_i    ( snoop_trigger_irq_o       ),
 
     .irq_mbox_i
@@ -953,7 +952,7 @@ module cva6_subsystem
     .snooper_slave_b_data_o ( snooper_axi_slv_asynch.b_data  ),
     .snooper_slave_b_rptr_i ( snooper_axi_slv_asynch.b_rptr  ),
     // Snooper Irqs
-    .snoop_watermark_irq_o  ( snoop_watermark_irq       ),
+    .snoop_watermark_irq_o  ( snoop_watermark_irq_o     ),
     .snoop_trigger_irq_o    ( snoop_trigger_irq_o       ),
     // PMU port
     .spu_core_cdc_data_o  ( spu_core_cdc_data           ),
