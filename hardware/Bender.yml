@@ -39,7 +39,7 @@ dependencies:
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", rev: "c8faec1e1755386d0e0f31a55ebd80612a3dcea9" } # version: 1.0.4
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "0ec0bf8b7dab6d5e4b3f7ec58338a8efee066379" }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", rev: "4ce2907ab2313e67836e251f6deea67d885aef5f" } # version: 0.0.4
-  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "43cc146123965eb518b6e5ff63dd2dbf596e551f" } # branch: alsaqr-2
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "cc9d4be27eeeb4e45a0309d284886767e786f3ed" } # branch: alsaqr-2
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
   ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "f2c8a5040596476ee1769292a7c48df9b1c05949" }
   sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }

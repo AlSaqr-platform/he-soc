@@ -162,6 +162,7 @@ module host_domain
   // SCMI mailbox interrupt to Ibex
   output  logic               doorbell_irq_o,
   output  logic               cfi_req_irq_o,
+  output  logic               snoop_watermark_irq_o,
     // Logic locking registers
   output logic [127:0]        cluster_lock_xor_key_o
 );
@@ -825,22 +826,23 @@ axi_spu_top #(
         .jtag_TDO_driven,
         .ot_axi_req,
         .ot_axi_rsp,
-        .irq_mbox_i           ( completion_irq_o     ),
-        .snoop_trigger_irq_o  ( cfi_req_irq_o        ),
-        .sync_rst_ni          ( s_synch_soc_rst      ),
-        .udma_events_i        ( s_udma_events        ),
-        .cluster_eoc_i        ( cluster_eoc_i        ),
-        .c2h_irq_i            ( s_c2h_irq            ),
-        .can_irq_i            ( s_can_irq            ),
-        .pwm_irq_i            ( s_pwm_irq            ),
-        .gpio_irq_i           ( s_gpio_irq           ),
-        .cl_dma_pe_evt_i      ( s_dma_pe_evt         ),
-        .dm_rst_o             ( s_dm_rst             ),
-        .l2_axi_master        ( l2_axi_bus           ),
-        .apb_axi_master       ( apb_axi_bus          ),
-        .hyper_axi_master     ( hyper_axi_bus        ),
-        .pmu_axi_slave        ( iopmp_mst_cut        ),
-        .iopmp_axi_master     ( iopmp_cfg            ),
+        .irq_mbox_i            ( completion_irq_o      ),
+        .snoop_trigger_irq_o   ( cfi_req_irq_o         ),
+        .snoop_watermark_irq_o ( snoop_watermark_irq_o ),
+        .sync_rst_ni           ( s_synch_soc_rst       ),
+        .udma_events_i         ( s_udma_events         ),
+        .cluster_eoc_i         ( cluster_eoc_i         ),
+        .c2h_irq_i             ( s_c2h_irq             ),
+        .can_irq_i             ( s_can_irq             ),
+        .pwm_irq_i             ( s_pwm_irq             ),
+        .gpio_irq_i            ( s_gpio_irq            ),
+        .cl_dma_pe_evt_i       ( s_dma_pe_evt          ),
+        .dm_rst_o              ( s_dm_rst              ),
+        .l2_axi_master         ( l2_axi_bus            ),
+        .apb_axi_master        ( apb_axi_bus           ),
+        .hyper_axi_master      ( hyper_axi_bus         ),
+        .pmu_axi_slave         ( iopmp_mst_cut         ),
+        .iopmp_axi_master      ( iopmp_cfg             ),
 
         //Ethernet
         .eth_clk_i            ( s_eth_clk_i          ), // 125 MHz 90
