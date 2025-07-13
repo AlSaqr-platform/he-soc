@@ -48,9 +48,13 @@ dependencies:
   riscv-aia: { git: "git@github.com:AlSaqr-platform/riscv-aia.git", rev: "9ab99c13a" } # branch: alsaqr
   idma: { git: "git@github.com:alsaqr-platform/iDMA.git", rev: "559f94af" } # branch: alsaqr-2
   # APMU_BLOCK START: Branch: uw/pmu
-  axi_llc: { git: "git@github.com:alsaqr-platform/axi_llc.git", rev: "8fa5d302f7407d9582630bcc3fb07f4f3c08f2c0" } #branch: master
-  spu: { git: "git@github.com:alsaqr-platform/spu.git", rev: "e213cb2e10d713531b718fdaddacdbd605f23ff6" } #branch: mc/ace-support
-  apmu: { git: "git@github.com:alsaqr-platform/apmu.git", rev: "f8d57d3ede962e50e90aa037d55acc37b98f09c7" } #branch: alsaqr-2
+  # axi_llc: { git: "git@github.com:alsaqr-platform/axi_llc.git", rev: "8fa5d302f7407d9582630bcc3fb07f4f3c08f2c0" } #branch: master
+  # spu: { git: "git@github.com:alsaqr-platform/spu.git", rev: "e213cb2e10d713531b718fdaddacdbd605f23ff6" } #branch: mc/ace-support
+  # apmu: { git: "git@github.com:alsaqr-platform/apmu.git", rev: "f8d57d3ede962e50e90aa037d55acc37b98f09c7" } #branch: alsaqr-2
+  # APMU_BLOCK START: Branch: uw/pmu
+  axi_llc: { git: "git@github.com:AlSaqr-platform/axi_llc.git", rev: "c49a60715849362574d112c09d28073d1c00192c" } #branch: uw/id_fix
+  spu: { git: "git@github.com:AlSaqr-platform/spu.git", rev: "dd5f79d5072be4571511a57d200f5aa18fd93f8d" } #branch: uw/id_fix
+  apmu: { git: "git@github.com:AlSaqr-platform/apmu.git", rev: "5b171f24071885ed1d51bc09d5c0b3a1a44644fa" } #branch: uw/id_fix
 
 workspace:
   package_links:
@@ -114,6 +118,7 @@ sources:
   - host/apb_soc_control.sv
   - host/apb_subsystem.sv
   - host/gpio2padframe.sv
+  - host/cva6_axi_id_remap.sv
   - host/cva6_synth_wrap.sv
   - host/l3_onchip_subsystem.sv
   - host/cva6_subsystem.sv
