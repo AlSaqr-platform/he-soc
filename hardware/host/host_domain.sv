@@ -436,39 +436,6 @@ module host_domain
    `AXI_LITE_ASSIGN_TO_REQ(axi_llc_cfg_req,llc_cfg_bus)
    `AXI_LITE_ASSIGN_FROM_RESP(llc_cfg_bus,axi_llc_cfg_res)
 
-    // axi_llc_top #(
-    //   .SetAssociativity ( ariane_soc::LLC_SET_ASSOC      ),
-    //   .NumLines         ( ariane_soc::LLC_NUM_LINES      ),
-    //   .NumBlocks        ( ariane_soc::LLC_NUM_BLOCKS     ),
-    //   .AxiIdWidth       ( ariane_soc::IdWidthSlave       ),
-    //   .AxiAddrWidth     ( AXI_ADDRESS_WIDTH              ),
-    //   .AxiDataWidth     ( AXI_DATA_WIDTH                 ),
-    //   .AxiUserWidth     ( AXI_USER_WIDTH                 ),
-    //   .AxiLiteAddrWidth ( AXI_LITE_AW                    ),
-    //   .AxiLiteDataWidth ( AXI_LITE_DW                    ),
-    //   .slv_req_t        ( ariane_axi_soc::req_slv_t      ),
-    //   .slv_resp_t       ( ariane_axi_soc::resp_slv_t     ),
-    //   .mst_req_t        ( ariane_axi_soc::req_slv_mem_t  ),
-    //   .mst_resp_t       ( ariane_axi_soc::resp_slv_mem_t ),
-    //   .lite_req_t       ( ariane_axi_soc::req_lite_t     ),
-    //   .lite_resp_t      ( ariane_axi_soc::resp_lite_t    ),
-    //   .rule_full_t      ( rule_full_t                    )
-    // ) i_axi_llc (
-    //   .clk_i               ( s_soc_clk                                                                           ),
-    //   .rst_ni              ( s_synch_soc_rst                                                                     ),
-    //   .test_i              ( 1'b0                                                                                ),
-    //   .slv_req_i           ( axi_cpu_req                                                                         ),
-    //   .slv_resp_o          ( axi_cpu_res                                                                         ),
-    //   .mst_req_o           ( axi_mem_req                                                                         ),
-    //   .mst_resp_i          ( axi_mem_res                                                                         ),
-    //   .conf_req_i          ( axi_llc_cfg_req                                                                     ),
-    //   .conf_resp_o         ( axi_llc_cfg_res                                                                     ),
-    //   .cached_start_addr_i ( {{(AXI_ADDRESS_WIDTH-$bits(s_llc_cache_addr_start)){1'b0}}, s_llc_cache_addr_start} ),
-    //   .cached_end_addr_i   ( {{(AXI_ADDRESS_WIDTH-$bits(s_llc_cache_addr_end)){1'b0}}  , s_llc_cache_addr_end  } ),
-    //   .spm_start_addr_i    ( {{(AXI_ADDRESS_WIDTH-$bits(s_llc_spm_addr_start)){1'b0}}  , s_llc_spm_addr_start  } ),
-    //   .axi_llc_events_o    ( llc_events                                                                          )
-    // );
-
     axi_llc_top #(
       .SetAssociativity ( ariane_soc::LLC_SET_ASSOC      ),
       .NumLines         ( ariane_soc::LLC_NUM_LINES      ),
@@ -622,31 +589,6 @@ module host_domain
          start_addr: ariane_soc::HYAXIBase,
          end_addr:   ariane_soc::HYAXIBase + ariane_soc::HYAXILength
    };
-
-  //  axi_spu_top #(
-  //    // Static configuration parameters of the cache.
-  //    .SetAssociativity   ( ariane_soc::LLC_SET_ASSOC   ),
-  //    .NumLines           ( ariane_soc::LLC_NUM_LINES   ),
-  //    .NumBlocks          ( ariane_soc::LLC_NUM_BLOCKS  ),
-  //    // AXI4 Specifications
-  //    .IdWidthMasters     ( ariane_soc::IdWidth         ),
-  //    .IdWidthSlaves      ( ariane_soc::IdWidthSlave    ),
-  //    .AddrWidth          ( AXI_ADDRESS_WIDTH           ),
-  //    .DataWidth          ( AXI_DATA_WIDTH              ),
-  //    // Address Indexing
-  //    .addr_rule_t        ( ariane_soc::addr_map_rule_t ),
-  //    .N_ADDR_RULES       ( N_ADDR_RULES                ),
-  //    // FIFO and CAM Parameters
-  //    .CAM_DEPTH          ( 17                          ),
-  //    .FIFO_DEPTH         (  8                          )
-  //  ) i_spu_llc_mem (
-  //    .clk_i              ( s_soc_clk                   ),
-  //    .rst_ni             ( s_synch_soc_rst             ),
-  //    .addr_map_i         ( spu_mem_addr_map            ),
-  //    .spu_slv            ( mem_axi_bus_spu_o_bus       ),
-  //    .spu_mst            ( mem_axi_bus                 ),
-  //    .e_out              ( spu_o[ariane_soc::NumCVA6]  )
-  //  );
 
 axi_spu_top #(
      // Static configuration parameters of the cache.
