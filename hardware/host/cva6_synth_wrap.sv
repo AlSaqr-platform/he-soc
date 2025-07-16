@@ -334,11 +334,6 @@ module cva6_synth_wrap
     `SNOOP_ASSIGN_FROM_RESP(CCU_to_core[i], ace_ariane_req[i])
     `SNOOP_ASSIGN_TO_REQ(ace_ariane_resp[i], CCU_to_core[i])
 
-    // `ACE_ASSIGN_FROM_REQ(core_to_CCU[i], ace_ariane_req[i])
-    // `ACE_ASSIGN_TO_RESP(ace_ariane_resp[i], core_to_CCU[i])
-    // `SNOOP_ASSIGN_FROM_RESP(CCU_to_core[i], ace_ariane_req[i])
-    // `SNOOP_ASSIGN_TO_REQ(ace_ariane_resp[i], CCU_to_core[i])
-
     `ifdef APMU_IP
     localparam N_ADDR_RULES = 2;
     ariane_soc::addr_map_rule_t [N_ADDR_RULES-1:0]   spu_mem_addr_map;
@@ -353,30 +348,31 @@ module cva6_synth_wrap
           start_addr: ariane_soc::HYAXIBase,
           end_addr:   ariane_soc::HYAXIBase + ariane_soc::HYAXILength
     };
-
     ace_spu_top #(
       // Static configuration parameters of the cache.
-      .SetAssociativity   ( ariane_soc::LLC_SET_ASSOC    ),
-      .NumLines           ( ariane_soc::LLC_NUM_LINES    ),
-      .NumBlocks          ( ariane_soc::LLC_NUM_BLOCKS   ),
+      .SetAssociativity   ( ariane_soc::LLC_SET_ASSOC   ),
+      .NumLines           ( ariane_soc::LLC_NUM_LINES   ),
+      .NumBlocks          ( ariane_soc::LLC_NUM_BLOCKS  ),
+      // Source ID Specifications
+      .SourceIDStart      (  0                          ),
+      .SourceIDEnd        (  0                          ),
       // AXI4 Specifications
-      .IdWidthMasters     ( ariane_soc::IdWidth          ),
-      .IdWidthSlaves      ( ariane_soc::IdWidthSlave     ),
-      .AddrWidth          ( AXI_ADDR_WIDTH               ),
-      .DataWidth          ( AXI_DATA_WIDTH               ),
+      .IdWidth            ( ariane_soc::IdWidth         ),
+      .AddrWidth          ( AXI_ADDR_WIDTH              ),
+      .DataWidth          ( AXI_DATA_WIDTH              ),
       // Address Indexing
-      .addr_rule_t        ( ariane_soc::addr_map_rule_t  ),
-      .N_ADDR_RULES       ( N_ADDR_RULES                 ),
+      .N_ADDR_RULES       ( N_ADDR_RULES                ),
+      .addr_rule_t        ( ariane_soc::addr_map_rule_t ),
       // FIFO and CAM Parameters
-      .CAM_DEPTH          ( 17                           ),
-      .FIFO_DEPTH         (  8                           )
+      .CAM_DEPTH          ( 17                          ),
+      .FIFO_DEPTH         (  8                          )
     ) i_spu_core_llc (
-      .clk_i              ( clk_i                        ),
-      .rst_ni             ( rst_ni                       ),
-      .addr_map_i         ( spu_mem_addr_map             ),
-      .spu_slv            ( core_to_SPU[i]               ),
-      .spu_mst            ( SPU_to_CCU[i]                ),
-      .e_out              ( spu_core[i]                  )
+      .clk_i              ( clk_i                       ),
+      .rst_ni             ( rst_ni                      ),
+      .addr_map_i         ( spu_mem_addr_map            ),
+      .spu_slv            ( core_to_SPU[i]              ),
+      .spu_mst            ( SPU_to_CCU[i]               ),
+      .e_out              ( spu_core[i]                 )
     );
 
     logic spu_core_ready;
@@ -449,7 +445,7 @@ module cva6_synth_wrap
     .out    ( ccu_axi_master        )
   );
 
-  axi_id_remap_intf #(
+  cva6_axi_id_remap_intf #(
     .AXI_SLV_PORT_ID_WIDTH     ( CCUAxiIdWidth  ),
     .AXI_SLV_PORT_MAX_UNIQ_IDS ( 4              ),
     .AXI_MAX_TXNS_PER_ID       ( 1              ),
@@ -457,13 +453,13 @@ module cva6_synth_wrap
     .AXI_ADDR_WIDTH            ( AXI_ADDR_WIDTH ),
     .AXI_DATA_WIDTH            ( AXI_DATA_WIDTH ),
     .AXI_USER_WIDTH            ( AXI_USER_WIDTH )
-  ) i_axi_id_remapper (
+  ) i_cva6_axi_id_remapper (
       .clk_i  ( clk_i           ),
       .rst_ni ( rst_ni          ),
       .slv    ( ccu_axi_master  ),
       .mst    ( cva6_axi_master )
   );
-
+ 
    axi_cdc_src_intf #(
      .AXI_ID_WIDTH   ( AXI_ID_WIDTH   ),
      .AXI_ADDR_WIDTH ( AXI_ADDR_WIDTH ),

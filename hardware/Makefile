@@ -549,10 +549,11 @@ vips_link:
 	ln -s  $(VIPS_ROOT)/spi_flash $(HW_HOME)/tb/vips/
 	ln -s  $(VIPS_ROOT)/hyperram_model $(HW_HOME)/tb/vips/
 
-init: bender vips update scripts_vip
+init: bender update scripts_vip
 	make -C ip_list/idma idma_hw_all
 
-init_unibo: bender vips update scripts_vip
+init_unibo: bender update scripts_vip
+	make -C ip_list/idma idma_hw_all
 	rm -rf gf22/
 	git clone git@github.com:pulp-unibo/alsaqr_gf22.git gf22
 	make -C gf22 init

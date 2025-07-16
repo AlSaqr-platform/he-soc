@@ -39,7 +39,7 @@ dependencies:
   apb_adv_timer: { git: "https://github.com/pulp-platform/apb_adv_timer.git", rev: "c8faec1e1755386d0e0f31a55ebd80612a3dcea9" } # version: 1.0.4
   can_bus: { git: "git@github.com:alsaqr-platform/can_bus.git", rev: "0ec0bf8b7dab6d5e4b3f7ec58338a8efee066379" }
   common_pads: { git: "git@github.com:AlSaqr-platform/common_pads.git", rev: "4ce2907ab2313e67836e251f6deea67d885aef5f" } # version: 0.0.4
-  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "43cc146123965eb518b6e5ff63dd2dbf596e551f" } # branch: alsaqr-2
+  opentitan: { git: "https://github.com/AlSaqr-platform/opentitan.git", rev: "cc9d4be27eeeb4e45a0309d284886767e786f3ed" } # branch: alsaqr-2
   axi_scmi_mailbox: { git: "git@github.com:AlSaqr-platform/axi_scmi_mailbox.git", rev: "96650c4c39dcfc683e48015abb1453d182c1d837" }
   ethernet: { git: "git@github.com:AlSaqr-platform/ethernet.git", rev: "f2c8a5040596476ee1769292a7c48df9b1c05949" }
   sdio_vip: { git: "git@github.com:AlSaqr-platform/sdio_vip.git", rev: "9793d5f0ac7c72bf06a5ebfedf242dae42eb57f7" }
@@ -48,9 +48,13 @@ dependencies:
   riscv-aia: { git: "git@github.com:AlSaqr-platform/riscv-aia.git", rev: "9ab99c13a" } # branch: alsaqr
   idma: { git: "git@github.com:alsaqr-platform/iDMA.git", rev: "559f94af" } # branch: alsaqr-2
   # APMU_BLOCK START: Branch: uw/pmu
-  axi_llc: { git: "git@github.com:alsaqr-platform/axi_llc.git", rev: "8fa5d302f7407d9582630bcc3fb07f4f3c08f2c0" } #branch: master
-  spu: { git: "git@github.com:alsaqr-platform/spu.git", rev: "e213cb2e10d713531b718fdaddacdbd605f23ff6" } #branch: mc/ace-support
-  apmu: { git: "git@github.com:alsaqr-platform/apmu.git", rev: "f8d57d3ede962e50e90aa037d55acc37b98f09c7" } #branch: alsaqr-2
+  # axi_llc: { git: "git@github.com:alsaqr-platform/axi_llc.git", rev: "8fa5d302f7407d9582630bcc3fb07f4f3c08f2c0" } #branch: master
+  # spu: { git: "git@github.com:alsaqr-platform/spu.git", rev: "e213cb2e10d713531b718fdaddacdbd605f23ff6" } #branch: mc/ace-support
+  # apmu: { git: "git@github.com:alsaqr-platform/apmu.git", rev: "f8d57d3ede962e50e90aa037d55acc37b98f09c7" } #branch: alsaqr-2
+  # APMU_BLOCK START: Branch: uw/pmu
+  axi_llc: { git: "git@github.com:AlSaqr-platform/axi_llc.git", rev: "d50b8668ab6699f598990deb8b163a8466ef01c0" } #branch: uw/id_fix
+  spu: { git: "git@github.com:AlSaqr-platform/spu.git", rev: "dd5f79d5072be4571511a57d200f5aa18fd93f8d" } #branch: uw/id_fix
+  apmu: { git: "git@github.com:AlSaqr-platform/apmu.git", rev: "1fa3c20ecab83df124a2f14483a761522c96cb50" } #branch: mc/fix-spm-data
 
 workspace:
   package_links:
@@ -114,6 +118,7 @@ sources:
   - host/apb_soc_control.sv
   - host/apb_subsystem.sv
   - host/gpio2padframe.sv
+  - host/cva6_axi_id_remap.sv
   - host/cva6_synth_wrap.sv
   - host/l3_onchip_subsystem.sv
   - host/cva6_subsystem.sv

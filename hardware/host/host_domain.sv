@@ -162,6 +162,7 @@ module host_domain
   // SCMI mailbox interrupt to Ibex
   output  logic               doorbell_irq_o,
   output  logic               cfi_req_irq_o,
+  output  logic               snoop_watermark_irq_o,
     // Logic locking registers
   output logic [127:0]        cluster_lock_xor_key_o
 );
@@ -451,7 +452,11 @@ module host_domain
       .mst_resp_t       ( ariane_axi_soc::resp_slv_mem_t ),
       .lite_req_t       ( ariane_axi_soc::req_lite_t     ),
       .lite_resp_t      ( ariane_axi_soc::resp_lite_t    ),
-      .rule_full_t      ( rule_full_t                    )
+      .rule_full_t      ( rule_full_t                    ),
+      // Source ID Specifications
+      .SourceIDStart    ( 2                              ),
+      .SourceIDEnd      (  ariane_soc::IdWidthSlave-1    ),
+      .NumCfgRegcp      ( 64                             )
     ) i_axi_llc (
       .clk_i               ( s_soc_clk                                                                           ),
       .rst_ni              ( s_synch_soc_rst                                                                     ),
@@ -585,19 +590,21 @@ module host_domain
          end_addr:   ariane_soc::HYAXIBase + ariane_soc::HYAXILength
    };
 
-   axi_spu_top #(
+axi_spu_top #(
      // Static configuration parameters of the cache.
      .SetAssociativity   ( ariane_soc::LLC_SET_ASSOC   ),
      .NumLines           ( ariane_soc::LLC_NUM_LINES   ),
      .NumBlocks          ( ariane_soc::LLC_NUM_BLOCKS  ),
+     // Source ID Specifications
+     .SourceIDStart      (  2                          ),
+     .SourceIDEnd        (  ariane_soc::IdWidthSlave-1 ),
      // AXI4 Specifications
-     .IdWidthMasters     ( ariane_soc::IdWidth         ),
-     .IdWidthSlaves      ( ariane_soc::IdWidthSlave    ),
+     .IdWidth            ( ariane_soc::IdWidthSlave    ),
      .AddrWidth          ( AXI_ADDRESS_WIDTH           ),
      .DataWidth          ( AXI_DATA_WIDTH              ),
      // Address Indexing
-     .addr_rule_t        ( ariane_soc::addr_map_rule_t ),
      .N_ADDR_RULES       ( N_ADDR_RULES                ),
+     .addr_rule_t        ( ariane_soc::addr_map_rule_t ),
      // FIFO and CAM Parameters
      .CAM_DEPTH          ( 17                          ),
      .FIFO_DEPTH         (  8                          )
@@ -710,8 +717,8 @@ module host_domain
    pmu_top #(
      .NUM_PORT         ( 3                              ),
      .NUM_COUNTER      ( APMU_NUM_COUNTER               ),
-     .ISPM_NUM_WORDS   ( 128                            ),
-     .DSPM_NUM_WORDS   ( 1024                           ),
+     .ISPM_NUM_WORDS   ( 512                            ),
+     .DSPM_NUM_WORDS   ( 4096                           ),
      // APMU Addresses and SPM configuration
      .MEMORY_BASE_ADDR ( ariane_soc::L2SPMBase          ),
      .MEMORY_LENGTH    ( ariane_soc::L2SPMBase + ariane_soc::L2SPMLength        ),
@@ -761,22 +768,23 @@ module host_domain
         .jtag_TDO_driven,
         .ot_axi_req,
         .ot_axi_rsp,
-        .irq_mbox_i           ( completion_irq_o     ),
-        .snoop_trigger_irq_o  ( cfi_req_irq_o        ),
-        .sync_rst_ni          ( s_synch_soc_rst      ),
-        .udma_events_i        ( s_udma_events        ),
-        .cluster_eoc_i        ( cluster_eoc_i        ),
-        .c2h_irq_i            ( s_c2h_irq            ),
-        .can_irq_i            ( s_can_irq            ),
-        .pwm_irq_i            ( s_pwm_irq            ),
-        .gpio_irq_i           ( s_gpio_irq           ),
-        .cl_dma_pe_evt_i      ( s_dma_pe_evt         ),
-        .dm_rst_o             ( s_dm_rst             ),
-        .l2_axi_master        ( l2_axi_bus           ),
-        .apb_axi_master       ( apb_axi_bus          ),
-        .hyper_axi_master     ( hyper_axi_bus        ),
-        .pmu_axi_slave        ( iopmp_mst_cut        ),
-        .iopmp_axi_master     ( iopmp_cfg            ),
+        .irq_mbox_i            ( completion_irq_o      ),
+        .snoop_trigger_irq_o   ( cfi_req_irq_o         ),
+        .snoop_watermark_irq_o ( snoop_watermark_irq_o ),
+        .sync_rst_ni           ( s_synch_soc_rst       ),
+        .udma_events_i         ( s_udma_events         ),
+        .cluster_eoc_i         ( cluster_eoc_i         ),
+        .c2h_irq_i             ( s_c2h_irq             ),
+        .can_irq_i             ( s_can_irq             ),
+        .pwm_irq_i             ( s_pwm_irq             ),
+        .gpio_irq_i            ( s_gpio_irq            ),
+        .cl_dma_pe_evt_i       ( s_dma_pe_evt          ),
+        .dm_rst_o              ( s_dm_rst              ),
+        .l2_axi_master         ( l2_axi_bus            ),
+        .apb_axi_master        ( apb_axi_bus           ),
+        .hyper_axi_master      ( hyper_axi_bus         ),
+        .pmu_axi_slave         ( iopmp_mst_cut         ),
+        .iopmp_axi_master      ( iopmp_cfg             ),
 
         //Ethernet
         .eth_clk_i            ( s_eth_clk_i          ), // 125 MHz 90

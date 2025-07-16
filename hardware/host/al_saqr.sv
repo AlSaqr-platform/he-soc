@@ -370,6 +370,7 @@ module al_saqr
   logic s_cluster_eoc_sync;
 
   logic cfi_req_irq;
+  logic cfi_watermark_irq;
 
   uart_to_pad_t  s_cva6_uart_tx;
   pad_to_uart_t  s_cva6_uart_rx;
@@ -577,7 +578,7 @@ module al_saqr
 
       .doorbell_irq_o         ( doorbell_irq                    ),
       .cfi_req_irq_o          ( cfi_req_irq                     ),
-
+      .snoop_watermark_irq_o  ( cfi_watermark_irq               ),
       .cluster_lock_xor_key_o ( cluster_lock_xor_key            )
     );
 
@@ -658,41 +659,42 @@ module al_saqr
    );
 
    security_island i_RoT_wrap (
-     .clk_i            ( clk_opentitan_o    ),
-     .clk_cluster_i    ( s_cluster_clk      ),
-     .clk_ref_i        ( clk_opentitan_o    ),
-     .rst_ni           ( s_rst_ni           ),
-     .pwr_on_rst_ni    ( s_rst_ni           ),
-     .fetch_en_i       ( '0                 ),
-     .bootmode_i       ( bootmode_i         ),
-     .test_enable_i    ( '0                 ),
-     .irq_ibex_i       ( doorbell_irq       ),
-     .cfi_req_irq_i    ( cfi_req_irq        ),
+     .clk_i               ( clk_opentitan_o     ),
+     .clk_cluster_i       ( s_cluster_clk       ),
+     .clk_ref_i           ( clk_opentitan_o     ),
+     .rst_ni              ( s_rst_ni            ),
+     .pwr_on_rst_ni       ( s_rst_ni            ),
+     .fetch_en_i          ( '0                  ),
+     .bootmode_i          ( bootmode_i          ),
+     .test_enable_i       ( '0                  ),
+     .irq_ibex_i          ( doorbell_irq        ),
+     .cfi_req_irq_i       ( cfi_req_irq         ),
+     .cfi_watermark_irq_i ( cfi_watermark_irq   ),
    // JTAG port
-     .jtag_tck_i       ( jtag_ibex_i.tck    ),
-     .jtag_tms_i       ( jtag_ibex_i.tms    ),
-     .jtag_trst_n_i    ( jtag_ibex_i.trst_n ),
-     .jtag_tdi_i       ( jtag_ibex_i.tdi    ),
-     .jtag_tdo_o       ( jtag_ibex_o.tdo    ),
-     .jtag_tdo_oe_o    (                    ),
+     .jtag_tck_i          ( jtag_ibex_i.tck    ),
+     .jtag_tms_i          ( jtag_ibex_i.tms    ),
+     .jtag_trst_n_i       ( jtag_ibex_i.trst_n ),
+     .jtag_tdi_i          ( jtag_ibex_i.tdi    ),
+     .jtag_tdo_o          ( jtag_ibex_o.tdo    ),
+     .jtag_tdo_oe_o       (                    ),
    // GPIOs
-     .gpio_0_o         (               ),
-     .gpio_0_i         ( '0            ),
-     .gpio_0_oe_o      (               ),
-     .gpio_1_o         (               ),
-     .gpio_1_i         ( '0            ),
-     .gpio_1_oe_o      (               ),
+     .gpio_0_o            (               ),
+     .gpio_0_i            ( '0            ),
+     .gpio_0_oe_o         (               ),
+     .gpio_1_o            (               ),
+     .gpio_1_i            ( '0            ),
+     .gpio_1_oe_o         (               ),
    // Uart - not implemented
-     .ibex_uart_rx_i   ( '0            ),
-     .ibex_uart_tx_o   (               ),
+     .ibex_uart_rx_i      ( '0            ),
+     .ibex_uart_tx_o      (               ),
    // SPI host
-     .spi_host_SCK_o    ( s_ot_spi_to_pad.clk_o  ),
-     .spi_host_SCK_en_o (                         ),
-     .spi_host_CSB_o    ( s_ot_spi_to_pad.csn0_o ),
-     .spi_host_CSB_en_o (                         ),
-     .spi_host_SD_o     ( spi_ot_sd_o             ),
-     .spi_host_SD_i     ( spi_ot_sd_i             ),
-     .spi_host_SD_en_o  ( spi_ot_sd_en            ),
+     .spi_host_SCK_o      ( s_ot_spi_to_pad.clk_o  ),
+     .spi_host_SCK_en_o   (                         ),
+     .spi_host_CSB_o      ( s_ot_spi_to_pad.csn0_o ),
+     .spi_host_CSB_en_o   (                         ),
+     .spi_host_SD_o       ( spi_ot_sd_o             ),
+     .spi_host_SD_i       ( spi_ot_sd_i             ),
+     .spi_host_SD_en_o    ( spi_ot_sd_en            ),
    // Asynch axi port
      .async_axi_out_aw_data_o ( async_axi_ot_out_aw_data_o ),
      .async_axi_out_aw_wptr_o ( async_axi_ot_out_aw_wptr_o ),

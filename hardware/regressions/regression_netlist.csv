@@ -9,5 +9,3 @@
 0,../software/iommu/iommu_test_05.elf,none,none,,,,,0
 0,../software/hello_culsans,opentitan/sw/tests/opentitan/idma_test/idma_test.elf,none,,1,,,0
 0,../software/hello_culsans,opentitan/sw/tests/cluster/par_matmul_fp32/par_matmul_fp32.elf,none,,1,,,0
-0,../software/peripherals/cam,none,none,,,,,0
-0,../software/peripherals/ethernet,none,none,,,,0,

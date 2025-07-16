@@ -17,7 +17,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-delivery-28-05-25/hardware/deps/alsaqr_periph_fpga_padframe
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu-2/hardware/deps/alsaqr_periph_fpga_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -25,7 +25,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-delivery-28-05-25/hardware/deps/alsaqr_periph_padframe
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu-2/hardware/deps/alsaqr_periph_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -60,7 +60,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-delivery-28-05-25/hardware/deps/apb_host_control_regs
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu-2/hardware/deps/apb_host_control_regs
     dependencies:
       - common_cells
       - register_interface
@@ -75,7 +75,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-delivery-28-05-25/hardware/deps/apb_uart
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu-2/hardware/deps/apb_uart
     dependencies: []
   apmu:
     revision: f8d57d3ede962e50e90aa037d55acc37b98f09c7
@@ -112,10 +112,10 @@ packages:
     dependencies:
       - common_cells
   axi_llc:
-    revision: 8fa5d302f7407d9582630bcc3fb07f4f3c08f2c0
+    revision: d50b8668ab6699f598990deb8b163a8466ef01c0
     version: ~
     source:
-      Git: "git@github.com:alsaqr-platform/axi_llc.git"
+      Git: "git@github.com:AlSaqr-platform/axi_llc.git"
     dependencies:
       - axi
       - common_cells
@@ -164,7 +164,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-delivery-28-05-25/hardware/deps/axi_tlb
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu-2/hardware/deps/axi_tlb
     dependencies:
       - axi
       - common_cells
@@ -180,7 +180,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-delivery-28-05-25/hardware/deps/clint
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu-2/hardware/deps/clint
     dependencies:
       - cva6
   cluster_interconnect:
@@ -394,7 +394,7 @@ packages:
       - common_cells
       - common_verification
   opentitan:
-    revision: 43cc146123965eb518b6e5ff63dd2dbf596e551f
+    revision: cc9d4be27eeeb4e45a0309d284886767e786f3ed
     version: ~
     source:
       Git: "https://github.com/AlSaqr-platform/opentitan.git"
@@ -504,7 +504,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-delivery-28-05-25/hardware/deps/rv_plic
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu-2/hardware/deps/rv_plic
     dependencies: []
   scm:
     revision: 998466d2a3c2d7d572e43d2666d93c4f767d8d60
@@ -522,13 +522,13 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-delivery-28-05-25/hardware/deps/snooper
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu-2/hardware/deps/snooper
     dependencies: []
   spu:
-    revision: e213cb2e10d713531b718fdaddacdbd605f23ff6
+    revision: dd5f79d5072be4571511a57d200f5aa18fd93f8d
     version: ~
     source:
-      Git: "git@github.com:alsaqr-platform/spu.git"
+      Git: "git@github.com:AlSaqr-platform/spu.git"
     dependencies:
       - ace
       - apmu
@@ -623,7 +623,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/tags/he-soc-delivery-28-05-25/hardware/deps/util
+      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu-2/hardware/deps/util
     dependencies:
       - axi
       - common_cells
