@@ -717,8 +717,8 @@ axi_spu_top #(
    pmu_top #(
      .NUM_PORT         ( 3                              ),
      .NUM_COUNTER      ( APMU_NUM_COUNTER               ),
-     .ISPM_NUM_WORDS   ( 128                            ),
-     .DSPM_NUM_WORDS   ( 1024                           ),
+     .ISPM_NUM_WORDS   ( 512                            ),
+     .DSPM_NUM_WORDS   ( 4096                           ),
      // APMU Addresses and SPM configuration
      .MEMORY_BASE_ADDR ( ariane_soc::L2SPMBase          ),
      .MEMORY_LENGTH    ( ariane_soc::L2SPMBase + ariane_soc::L2SPMLength        ),

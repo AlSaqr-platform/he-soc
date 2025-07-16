@@ -52,9 +52,9 @@ dependencies:
   # spu: { git: "git@github.com:alsaqr-platform/spu.git", rev: "e213cb2e10d713531b718fdaddacdbd605f23ff6" } #branch: mc/ace-support
   # apmu: { git: "git@github.com:alsaqr-platform/apmu.git", rev: "f8d57d3ede962e50e90aa037d55acc37b98f09c7" } #branch: alsaqr-2
   # APMU_BLOCK START: Branch: uw/pmu
-  axi_llc: { git: "git@github.com:AlSaqr-platform/axi_llc.git", rev: "c49a60715849362574d112c09d28073d1c00192c" } #branch: uw/id_fix
+  axi_llc: { git: "git@github.com:AlSaqr-platform/axi_llc.git", rev: "d50b8668ab6699f598990deb8b163a8466ef01c0" } #branch: uw/id_fix
   spu: { git: "git@github.com:AlSaqr-platform/spu.git", rev: "dd5f79d5072be4571511a57d200f5aa18fd93f8d" } #branch: uw/id_fix
-  apmu: { git: "git@github.com:AlSaqr-platform/apmu.git", rev: "5b171f24071885ed1d51bc09d5c0b3a1a44644fa" } #branch: uw/id_fix
+  apmu: { git: "git@github.com:AlSaqr-platform/apmu.git", rev: "1fa3c20ecab83df124a2f14483a761522c96cb50" } #branch: mc/fix-spm-data
 
 workspace:
   package_links:

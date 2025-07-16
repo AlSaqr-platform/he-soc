@@ -445,20 +445,6 @@ module cva6_synth_wrap
     .out    ( ccu_axi_master        )
   );
 
-  // axi_id_remap_intf #(
-  //   .AXI_SLV_PORT_ID_WIDTH     ( CCUAxiIdWidth  ),
-  //   .AXI_SLV_PORT_MAX_UNIQ_IDS ( 4              ),
-  //   .AXI_MAX_TXNS_PER_ID       ( 1              ),
-  //   .AXI_MST_PORT_ID_WIDTH     ( AXI_ID_WIDTH   ),
-  //   .AXI_ADDR_WIDTH            ( AXI_ADDR_WIDTH ),
-  //   .AXI_DATA_WIDTH            ( AXI_DATA_WIDTH ),
-  //   .AXI_USER_WIDTH            ( AXI_USER_WIDTH )
-  // ) i_axi_id_remapper (
-  //     .clk_i  ( clk_i           ),
-  //     .rst_ni ( rst_ni          ),
-  //     .slv    ( ccu_axi_master  ),
-  //     .mst    ( cva6_axi_master )
-  // );
   cva6_axi_id_remap_intf #(
     .AXI_SLV_PORT_ID_WIDTH     ( CCUAxiIdWidth  ),
     .AXI_SLV_PORT_MAX_UNIQ_IDS ( 4              ),
