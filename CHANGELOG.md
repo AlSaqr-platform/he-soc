@@ -4,6 +4,27 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.0.8 - Stable Release Alsaqr 2 branch: alsaqr_2_220725 - 22/07/2025
+
+### Hardware
+
+### Interface/Feature frozen macros:
+- Culsans
+- Hyperbus
+- OpenTitan
+- Cluster
+- TOP
+
+### Work In progress (RTL FROZEN)
+- Further testing
+
+### Changed (bug fixes):
+- CULSANS: fixed a bug preventing linux to work with custom kernels. pin count changed together with axi ID.
+- OPENTITAN: fixed different bugs on TCDM and iDMA datapaths (requiring interface changes, few more signals).
+- CULSANS: updated ID remapper, and changes in CULSANS macro pincount.
+- TOP: bug fixes on PMU. all good now, minor impact on backend
+- REPO: VIP clone again broken due to changes on INFINEON website. You MUST copy vips from an older directory (under he-soc/hardware/tb/vips)
+
 ## 2.0.7 - Stable Release Alsaqr 2 branch: alsaqr_2_280525 - 28/05/2025
 
 ### Hardware
@@ -19,7 +40,6 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Further testing
 
 ### Changed (bug fixes):
-- CULSANS: fixed a bug preventing linux to work with custom kernels. Shouldn't impact on backend.
 - REPO: adding prints to each test printing test name
 - REPO: updated regression list scripts.
 - REPO: started porting commands from bringup to master branch
