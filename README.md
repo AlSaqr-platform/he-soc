@@ -41,6 +41,8 @@ source setup.sh
 cd he-soc/hardware/
 make init
 ```
+** NB: Before proceeding with simulations, you must copy a VIP folder from old clones under "he-soc/hardware/tb/vips"**.
+
 make init step may fail on slower networks as connection breaks before getting all repositories.
 Repeat 'make init' step until all repositories downloaded and bender lock generated.
 
