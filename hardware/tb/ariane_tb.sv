@@ -166,17 +166,17 @@ module ariane_tb;
   //                            //
   ////////////////////////////////
  `ifdef NO_L3_CONNECTION
-  parameter  LINKER_ENTRY        = 32'h1C000000;
-  parameter  TOHOST              = 32'h1C000100;
+  parameter  LINKER_ENTRY        = 32'hB1000000;
+  parameter  TOHOST              = 32'hB1000100;
  `else
   // when preload is enabled LINKER_ENTRY specifies the linker address which must be L3 -> 32'h80000000
   parameter  LINKER_ENTRY        = 32'h80000000;
   // IMPORTANT : If you change the linkerscript check the tohost address and update this paramater
   // IMPORTANT : to host mapped in L2 non-cached region because we use WB cache
   `ifndef CODE_IN_L2
-  parameter  TOHOST              = 32'h1c000000;
+  parameter  TOHOST              = 32'hA0000000;
   `else
-   parameter TOHOST              = 32'h1c000100;
+   parameter TOHOST              = 32'hA0000100;
   `endif
 
  `endif
@@ -402,6 +402,7 @@ module ariane_tb;
     string        cluster_binary;
     string        ot_sram;
     string        ot_flash;
+    string        ot_cluster;
 
     logic         cid;
 
@@ -3504,7 +3505,7 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
     end else begin
       $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);
       for(int i=0;i<3;i++) begin
-         addr = 32'h1c000000;
+         addr = 32'h80000000;
          jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
          binary_entry={32'h00000000,LINKER_ENTRY};
       end
@@ -3790,6 +3791,10 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
 
    initial  begin : bootmodes
 
+     if(!$value$plusargs("OT_CLUSTER=%s", ot_cluster)) begin
+        ot_cluster="none";
+        $display("OT_CLUSTER: %s", ot_cluster);
+     end
      if(!$value$plusargs("OT_FLASH=%s", ot_flash)) begin
         ot_flash="none";
         $display("OT_FLASH: %s", ot_flash);
@@ -3812,6 +3817,10 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
                 debug_secd_module_init();
                 load_secd_binary(ot_sram);
                 jtag_secd_data_preload();
+                if(ot_cluster != "none") begin
+                   load_secd_binary(ot_cluster);
+                   jtag_secd_data_preload();
+                end
                 jtag_secd_wakeup(32'h e0000080); //preload the flashif
                 jtag_secd_wait_eoc();
            end

@@ -139,7 +139,7 @@ package ariane_soc;
   localparam logic[63:0] HYAXILength    = 64'h20000000;  //HyperRamSize*NumChipsPerHyperbus*HyperbusNumPhys;  // 256MB of hyperrams
   `endif
   localparam logic[63:0] LLCSPMLength   = 64'h20000;     // up to 128KB of LLC that can be used as scratchpad
-  localparam logic[63:0] L2SPMLength    = 64'h8000;      // 32KB of scratchpad memory
+  localparam logic[63:0] L2SPMLength    = 64'h80000;      // 512KB of scratchpad memory
   localparam logic[63:0] APB_SLVSLength = 64'h132000;
   localparam logic[63:0] SnoopLength    = 64'h4000;
   localparam logic[63:0] IOPMP_PMULength = 64'h4000;
@@ -155,7 +155,7 @@ package ariane_soc;
     ClusterBase   = 64'h1000_0000,
     AXILiteBase   = 64'h1040_0000,
     APB_SLVSBase  = 64'h1A10_0000,
-    L2SPMBase     = 64'h1C00_0000,
+    L2SPMBase     = 64'hA000_0000,
     TimerBase     = 64'h1800_0000,
     SPIBase       = 64'h2000_0000,
     IMSICBase     = 64'h2400_0000,
