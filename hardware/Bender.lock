@@ -394,7 +394,7 @@ packages:
       - common_cells
       - common_verification
   opentitan:
-    revision: cc9d4be27eeeb4e45a0309d284886767e786f3ed
+    revision: 727b020381b5e6bd14fb23acb3f250c522f64f14
     version: ~
     source:
       Git: "https://github.com/AlSaqr-platform/opentitan.git"
@@ -412,7 +412,7 @@ packages:
     dependencies:
       - axi_slice
   pulp_cluster:
-    revision: 4aa4951c832a782a4ef9dbcb4a32592b0a499d44
+    revision: 4f7ccca3ee65028b3b251a8f7d9a644e8f8ffac4
     version: ~
     source:
       Git: "git@github.com:AlSaqr-platform/pulp_cluster.git"
