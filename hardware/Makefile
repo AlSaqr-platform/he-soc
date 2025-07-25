@@ -41,6 +41,7 @@ BOOTMODE       ?= 0
 OT_FLASH       ?= ./opentitan/sw/tests/alsaqr/flash_alsaqr_boot/bazel-out/flash_alsaqr_boot_signed8.vmem
 #cl-bin         ?= ../software/pulp/mm.riscv
 cl-bin         ?= none
+OT_CLUSTER     = $(cl-bin)
 # root pathelf-bin
 mkfile_path := $(abspath $(lastword $(MAKEFILE_LIST)))
 root-dir := $(dir $(mkfile_path))
@@ -477,12 +478,12 @@ generate-trace-vsim:
 	make generate-trace
 
 run:
-	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8386 -suppress 8360 -lib $(library) +OT_FLASH=$(OT_FLASH) +CORE_ID=$(CORE_ID) +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
+	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8386 -suppress 8360 -lib $(library) +OT_CLUSTER=$(OT_CLUSTER) +OT_FLASH=$(OT_FLASH) +CORE_ID=$(CORE_ID) +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi  \
 	${top_level}_optimized +permissive-off ++$(elf-bin) ++$(target-options) ++$(cl-bin) | tee sim.log
 
 run_dbg:
-	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -debugDB -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8386 -suppress 8360 -lib $(library) +OT_FLASH=$(OT_FLASH) +CORE_ID=$(CORE_ID) +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
+	$(QUESTA) vsim +permissive $(questa-flags) $(questa-cmd) -debugDB -suppress 3053 -suppress 8885 -suppress 3999 -suppress 8386 -suppress 8360 -lib $(library) +OT_CLUSTER=$(OT_CLUSTER) +OT_FLASH=$(OT_FLASH) +CORE_ID=$(CORE_ID) +BOOTMODE=$(BOOTMODE) +OT_SRAM=$(ibex-elf-bin)  +MAX_CYCLES=$(max_cycles) +UVM_TESTNAME=$(test_case) +CVA6_STRING=$(elf-bin) +CL_STRING=$(cl-bin) +notimingchecks +nospecify  -t 1ps \
 	$(uvm-flags) $(QUESTASIM_FLAGS) -sv_lib $(dpi-library)/ariane_dpi  \
 	${top_level}_optimized +permissive-off ++$(elf-bin) ++$(target-options) ++$(cl-bin) | tee sim.log
 
@@ -553,6 +554,7 @@ init: bender vips update scripts_vip
 	make -C ip_list/idma idma_hw_all
 
 init_unibo: bender vips update scripts_vip
+	make -C ip_list/idma idma_hw_all
 	rm -rf gf22/
 	git clone git@github.com:pulp-unibo/alsaqr_gf22.git gf22
 	make -C gf22 init
