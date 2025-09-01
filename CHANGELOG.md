@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## 2.0.9 - Stable Release Alsaqr 2 branch: alsaqr_2_010925 - 01/09/2025
+
+### Hardware
+
+### Interface/Feature frozen macros:
+- Culsans
+- Hyperbus
+- OpenTitan
+- Cluster
+- TOP
+
+### Work In progress (RTL FROZEN, TEST FROZEN)
+- At the time being, all the known bugs have been fixed. No more updates expected
+
+### Changed (bug fixes):
+- OPENTITAN: fixed reset connection of cluster's slave port CDC.
+- CLUSTER: Remapped L1 to avoid conflicts in OpenTitan mem map.
+
 ## 2.0.8 - Stable Release Alsaqr 2 branch: alsaqr_2_220725 - 22/07/2025
 
 ### Hardware

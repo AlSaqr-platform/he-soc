@@ -17,7 +17,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu-2/hardware/deps/alsaqr_periph_fpga_padframe
+      Path: /scratch2/mciani/alsaqr-2/deliveries/tapeout/he-soc/hardware/deps/alsaqr_periph_fpga_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -25,7 +25,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu-2/hardware/deps/alsaqr_periph_padframe
+      Path: /scratch2/mciani/alsaqr-2/deliveries/tapeout/he-soc/hardware/deps/alsaqr_periph_padframe
     dependencies:
       - common_cells
       - register_interface
@@ -60,7 +60,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu-2/hardware/deps/apb_host_control_regs
+      Path: /scratch2/mciani/alsaqr-2/deliveries/tapeout/he-soc/hardware/deps/apb_host_control_regs
     dependencies:
       - common_cells
       - register_interface
@@ -75,7 +75,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu-2/hardware/deps/apb_uart
+      Path: /scratch2/mciani/alsaqr-2/deliveries/tapeout/he-soc/hardware/deps/apb_uart
     dependencies: []
   apmu:
     revision: f8d57d3ede962e50e90aa037d55acc37b98f09c7
@@ -164,7 +164,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu-2/hardware/deps/axi_tlb
+      Path: /scratch2/mciani/alsaqr-2/deliveries/tapeout/he-soc/hardware/deps/axi_tlb
     dependencies:
       - axi
       - common_cells
@@ -180,7 +180,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu-2/hardware/deps/clint
+      Path: /scratch2/mciani/alsaqr-2/deliveries/tapeout/he-soc/hardware/deps/clint
     dependencies:
       - cva6
   cluster_interconnect:
@@ -394,7 +394,7 @@ packages:
       - common_cells
       - common_verification
   opentitan:
-    revision: 727b020381b5e6bd14fb23acb3f250c522f64f14
+    revision: 4b5358fbfcb3eba36f6d450350aa8c9e775f82ea
     version: ~
     source:
       Git: "https://github.com/AlSaqr-platform/opentitan.git"
@@ -504,7 +504,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu-2/hardware/deps/rv_plic
+      Path: /scratch2/mciani/alsaqr-2/deliveries/tapeout/he-soc/hardware/deps/rv_plic
     dependencies: []
   scm:
     revision: 998466d2a3c2d7d572e43d2666d93c4f767d8d60
@@ -522,7 +522,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu-2/hardware/deps/snooper
+      Path: /scratch2/mciani/alsaqr-2/deliveries/tapeout/he-soc/hardware/deps/snooper
     dependencies: []
   spu:
     revision: dd5f79d5072be4571511a57d200f5aa18fd93f8d
@@ -623,7 +623,7 @@ packages:
     revision: ~
     version: ~
     source:
-      Path: /scratch2/mciani/alsaqr-2/deliveries/he-soc-fix-apmu-2/hardware/deps/util
+      Path: /scratch2/mciani/alsaqr-2/deliveries/tapeout/he-soc/hardware/deps/util
     dependencies:
       - axi
       - common_cells
