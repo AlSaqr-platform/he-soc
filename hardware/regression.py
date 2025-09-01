@@ -59,7 +59,7 @@ try:
                     "set -x; "  # Enable command tracing
                     f"make scripts_vip_macro {scripts_args_str} && "
                     f"make -C {cva6} clean all && "
-                    f"make clean macro_sim BOOTMODE={bm} ibex-elf-bin={ot} nogui=1 && "
+                    f"make clean macro_sim BOOTMODE={bm} ibex-elf-bin={ot} cl-bin={cl} nogui=1 && "
                     f"mv transcript {test_dir}/transcript.log && "
                     f"mv trace_*.log {test_dir}/"
                 )

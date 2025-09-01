@@ -401,6 +401,7 @@ module ariane_tb;
     string        binary ;
     string        cluster_binary;
     string        ot_sram;
+    string        ot_cluster;
     string        ot_flash;
 
     logic         cid;
@@ -3802,6 +3803,11 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
         ot_sram="none";
         $display("Loading to SRAM: %s", ot_sram);
      end
+     //if(!$value$plusargs("OT_CLUSTER=%s", ot_cluster)) begin
+     //   ot_cluster="none";
+     //   $display("OT_CLUSTER: %s", ot_cluster);
+     //end
+     ot_cluster="none";
      case(boot_mode)
          0:begin
            bootmode = 1'b0;
@@ -3812,6 +3818,10 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
                 debug_secd_module_init();
                 load_secd_binary(ot_sram);
                 jtag_secd_data_preload();
+                if(ot_cluster != "none") begin
+                   load_secd_binary(ot_cluster);
+                   jtag_secd_data_preload();
+                end
                 jtag_secd_wakeup(32'h e0000080); //preload the flashif
                 jtag_secd_wait_eoc();
            end
