@@ -60,7 +60,11 @@
 
 #ifndef FPGA_EMULATION
   #ifndef SIMPLE_PAD
-    #define N_I2C 6
+    #ifndef CHIP_BRINGUP
+      #define N_I2C 6
+    #else
+      #define N_I2C 1
+    #endif
   #else
     #define N_I2C 1
   #endif
@@ -69,7 +73,7 @@
 #endif
 
 #define VERBOSE
-// #define PRINTF_ON
+#define PRINTF_ON
 
 int main()
 {
@@ -98,28 +102,28 @@ int main()
     uart_wait_tx_done();
   #endif
 
-  uint8_t *expected_rx_buffer= (uint8_t*) 0x1C001000;
+  static uint8_t  expected_rx_buffer[DATA_SIZE];
 
   #ifdef PRINTF_ON
     printf ("Declare expected_rx_buffer..\n\r");
     uart_wait_tx_done();
   #endif
 
-  uint8_t *rx_buffer= (uint8_t*) 0x1C002000;
+  static uint8_t  rx_buffer[DATA_SIZE];
 
   #ifdef PRINTF_ON
     printf ("Declare rx_buffer..\n\r");
     uart_wait_tx_done();
   #endif
 
-  uint32_t *cmd_buffer_wr = (uint32_t*) 0x1C003000;
+  static uint32_t cmd_buffer_wr[BUFFER_SIZE];
 
   #ifdef PRINTF_ON
     printf ("Declare cmd_buffer_wr..\n\r");
     uart_wait_tx_done();
   #endif
 
-  uint32_t *cmd_buffer_rd = (uint32_t*) 0x1C004000;
+  static uint32_t cmd_buffer_rd[BUFFER_SIZE_READ];
 
   #ifdef PRINTF_ON
     printf ("Declare cmd_buffer_rd..\n\r");
@@ -145,7 +149,9 @@ int main()
           The IP automatically sends the data to the i2c device selected by the address.
           To do so you only need to write the cmd_buffer into the UDMA_I2C_CMD_ADDR register of the I2C peripheral
       */
-
+      // -----------------------------
+      // WRITE SEQUENCE
+      // -----------------------------
       cmd_buffer_wr[0]= (((uint32_t)I2C_CMD_CFG) << 24) | 0x40; // sets 16 bit clock divider
       cmd_buffer_wr[1]= (((uint32_t)I2C_CMD_START)<<24); //cmd start
       switch(u){
@@ -168,16 +174,17 @@ int main()
           cmd_buffer_wr[2]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM5_ADDR_BASE | 0x0; // write I2C_MEM5 address + direction bit
           break;
       }
-      cmd_buffer_wr[3]= (((uint32_t)I2C_CMD_WRB)<<24);
-      cmd_buffer_wr[4]= (((uint32_t)I2C_CMD_WRB)<<24);
+      cmd_buffer_wr[3]= (((uint32_t)I2C_CMD_WRB)<<24) | 0x00; // high addr
+      cmd_buffer_wr[4]= (((uint32_t)I2C_CMD_WRB)<<24) | 0x00; // low addr
       cmd_buffer_wr[5]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[0]; //DATA0
       cmd_buffer_wr[6]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[1]; //DATA1
       cmd_buffer_wr[7]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[2]; //DATA2
       cmd_buffer_wr[8]= (((uint32_t)I2C_CMD_WRB)<<24) | expected_rx_buffer[3]; //DATA3
       cmd_buffer_wr[9]= (((uint32_t)I2C_CMD_STOP)<<24);
 
-
-
+      // -----------------------------
+      // READ SEQUENCE
+      // -----------------------------
       cmd_buffer_rd[0]= (((uint32_t)I2C_CMD_CFG)<<24) | 0x40; // set 16bit clock divider
       cmd_buffer_rd[1]= (((uint32_t)I2C_CMD_START)<<24);
       switch(u){
@@ -200,8 +207,8 @@ int main()
           cmd_buffer_rd[2]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM5_ADDR_BASE | 0x0; // write I2C_MEM5 address + direction bit
           break;
       }
-      cmd_buffer_rd[3]= (((uint32_t)I2C_CMD_WRB)<<24);
-      cmd_buffer_rd[4]= (((uint32_t)I2C_CMD_WRB)<<24);
+      cmd_buffer_rd[3]= (((uint32_t)I2C_CMD_WRB)<<24) | 0x00; // high addr
+      cmd_buffer_rd[4]= (((uint32_t)I2C_CMD_WRB)<<24) | 0x00; // low addr
       cmd_buffer_rd[5]= (((uint32_t)I2C_CMD_START)<<24);
       switch(u){
         case 0:
@@ -223,6 +230,7 @@ int main()
           cmd_buffer_rd[6]= (((uint32_t)I2C_CMD_WRB)<<24) | I2C_MEM5_ADDR_BASE | 0x1; // write I2C_MEM5 address + direction bit
           break;
       }
+      // Read 4 bytes
       cmd_buffer_rd[7]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
       cmd_buffer_rd[8]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
       cmd_buffer_rd[9]= (((uint32_t)I2C_CMD_RD_ACK)<<24);
@@ -263,6 +271,7 @@ int main()
               }
               break;
             // I2C1
+            #ifndef CHIP_BRINGUP
             case 1:
               switch(v){
                 case 0:
@@ -299,6 +308,7 @@ int main()
               alsaqr_periph_padframe_periphs_a_16_mux_set( 3 );
               alsaqr_periph_padframe_periphs_a_17_mux_set( 3 );
               break;
+            #endif
           }
         #endif
       #endif
@@ -385,7 +395,7 @@ int main()
 
         //SET TIMER INTERRUPT FOR MEMORY CONSTRAINT (BEFORE TO STORE THE DATA IT REQUIRES SOME TIME)
         apb_timer_set_value(N_TIMER-1,0);
-        apb_timer_set_compare(N_TIMER-1,1500000);
+        apb_timer_set_compare(N_TIMER-1,150000000);
 
         apb_timer_enable(N_TIMER-1,8); //it count every 8 cycles
 
@@ -532,11 +542,11 @@ int main()
         if (rx_buffer[i]!=expected_rx_buffer[i])
         {
           #ifdef VERBOSE
-            printf("i2c_%0d.%0d: rx_buffer[%0d]=0x%0x different from expected 0x%0x\n", u, v, i, rx_buffer[i], expected_rx_buffer[i]);
+            printf("i2c_%0d.%0d: rx_buffer[%0d]=0x%0x different from expected 0x%0x\n\r", u, v, i, rx_buffer[i], expected_rx_buffer[i]);
+            uart_wait_tx_done();
           #endif
           error++;
         }
-        uart_wait_tx_done();
       }
     }
   }
