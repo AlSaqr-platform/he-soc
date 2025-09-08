@@ -118,7 +118,7 @@ void _init(int cid, int nc)
      *tmp = 3;
      tmp = (int *) 0x1a10400C;
      *tmp = 3;
-     int baud_rate = 9600;
+     int baud_rate = 115200;
        // Here we define the frequency for the SoC specified in the gdb.cfg file
        #ifndef CHIP_BRINGUP
         // RTL SIMULATION
