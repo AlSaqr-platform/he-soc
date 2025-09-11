@@ -31,9 +31,9 @@ INC=$(foreach d, $(inc_dirs), -I$(utils_dir)$d)
 
 # Include lightweight runtime  for L2 (32KB) mapping
 
-inc_dirs_l2 = . drivers/inc string_lib/inc padframe/inc udma/spim
+inc_dirs_l2 = . drivers/inc string_lib/inc padframe/inc udma/spim udma/uart
 
-src_dirs_l2 = . drivers/src string_lib/src padframe/src
+src_dirs_l2 = . drivers/src string_lib/src padframe/src udma/uart
 
 SRC_L2+=$(foreach d, $(src_dirs_l2), $(wildcard $(utils_dir)$d/*.c))
 

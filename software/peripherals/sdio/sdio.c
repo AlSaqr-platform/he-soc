@@ -47,7 +47,7 @@
 // #define FPGA_EMULATION
 // #define SIMPLE_PAD
 
-#ifdef FPGA_EMULATION
+#if defined(FPGA_EMULATION) || defined(CHIP_BRINGUP)
   #define N_SDIO 1
 #else
   #ifdef SIMPLE_PAD
@@ -58,7 +58,7 @@
 #endif
 
 #define FPGA_CLK_DIV 1920
-
+#define CHIP_BRINGUP_CLK_DIV 1920
 
 #define PLIC_BASE 0x0C000000
 #define PLIC_CHECK PLIC_BASE + 0x201004
@@ -82,14 +82,12 @@ void init_sdio (int32_t u, uint32_t * response, int32_t eot_sdio_plic_id, int32_
 
   // CMD 8. Get voltage (Only 2.0 Card response to this) - Resp R7
   //0x1AA tell the uSD that the host power supply is between 2.7 - 3.3 Volt
-  #ifdef FPGA_EMULATION
+  #if defined(FPGA_EMULATION) || defined(CHIP_BRINGUP)
     sdio_send_cmd(u, CMD8 | RSP_48_CRC, 0x1AA, response, eot_sdio_plic_id, err_sdio_plic_id);
     arg|= 0x5<<28 | 0<<24 | 0xF<<20;
   #else
     arg= 0xC0100000;
   #endif
-
-
 
   // Wait until busy is clear into the card
   do {
@@ -122,7 +120,7 @@ void init_sdio (int32_t u, uint32_t * response, int32_t eot_sdio_plic_id, int32_
   #endif
 
 
-  #ifdef FPGA_EMULATION
+  #if defined(FPGA_EMULATION) || defined(CHIP_BRINGUP)
     sdio_send_cmd (u, CMD13 | RSP_48_CRC , (rca<<16) , response, eot_sdio_plic_id, err_sdio_plic_id);
   #endif
 
@@ -441,9 +439,9 @@ int main(){
   int error = 0;
   int clk_div=0;
 
-  uint32_t *tx_buffer= (uint32_t*) 0x1C001000;
-  uint32_t *rx_buffer= (uint32_t*) 0x1C002000;
-  uint32_t *response=  (uint32_t*) 0x1C003000;
+  static uint32_t tx_buffer[BLOCK_SIZE*2];
+  static uint32_t rx_buffer[BLOCK_SIZE*2];
+  static uint32_t response[BLOCK_SIZE*2];
 
   uint32_t tx_sdio_plic_id ;
   uint32_t rx_sdio_plic_id ;
@@ -455,6 +453,8 @@ int main(){
 
   #ifdef FPGA_EMULATION
     clk_div= (1<<8) | FPGA_CLK_DIV; //200KHz FPGA
+  #elif CHIP_BRINGUP
+    clk_div= (1<<8) | CHIP_BRINGUP_CLK_DIV;
   #else
     clk_div= (1<<8) | 3;
   #endif
@@ -496,41 +496,43 @@ int main(){
               alsaqr_periph_padframe_periphs_a_06_mux_set( 3 );
               alsaqr_periph_padframe_periphs_a_07_mux_set( 3 );
               break;
-            // SPIO1
-            case 1:
-              switch(v){
-                case 0:
-                  alsaqr_periph_padframe_periphs_a_09_mux_set( 4 );
-                  alsaqr_periph_padframe_periphs_a_10_mux_set( 4 );
-                  alsaqr_periph_padframe_periphs_a_11_mux_set( 4 );
-                  alsaqr_periph_padframe_periphs_a_12_mux_set( 4 );
-                  alsaqr_periph_padframe_periphs_a_13_mux_set( 4 );
-                  alsaqr_periph_padframe_periphs_a_14_mux_set( 2 );
+            #ifndef CHIP_BRINGUP
+              // SPIO1
+              case 1:
+                switch(v){
+                  case 0:
+                    alsaqr_periph_padframe_periphs_a_09_mux_set( 4 );
+                    alsaqr_periph_padframe_periphs_a_10_mux_set( 4 );
+                    alsaqr_periph_padframe_periphs_a_11_mux_set( 4 );
+                    alsaqr_periph_padframe_periphs_a_12_mux_set( 4 );
+                    alsaqr_periph_padframe_periphs_a_13_mux_set( 4 );
+                    alsaqr_periph_padframe_periphs_a_14_mux_set( 2 );
 
-                  alsaqr_periph_padframe_periphs_b_00_mux_set( 0 );
-                  alsaqr_periph_padframe_periphs_b_01_mux_set( 0 );
-                  alsaqr_periph_padframe_periphs_b_02_mux_set( 0 );
-                  alsaqr_periph_padframe_periphs_b_03_mux_set( 0 );
-                  alsaqr_periph_padframe_periphs_b_04_mux_set( 0 );
-                  alsaqr_periph_padframe_periphs_b_05_mux_set( 0 );
-                  break;
-                case 1:
-                  alsaqr_periph_padframe_periphs_a_09_mux_set( 0 );
-                  alsaqr_periph_padframe_periphs_a_10_mux_set( 0 );
-                  alsaqr_periph_padframe_periphs_a_11_mux_set( 0 );
-                  alsaqr_periph_padframe_periphs_a_12_mux_set( 0 );
-                  alsaqr_periph_padframe_periphs_a_13_mux_set( 0 );
-                  alsaqr_periph_padframe_periphs_a_14_mux_set( 0 );
+                    alsaqr_periph_padframe_periphs_b_00_mux_set( 0 );
+                    alsaqr_periph_padframe_periphs_b_01_mux_set( 0 );
+                    alsaqr_periph_padframe_periphs_b_02_mux_set( 0 );
+                    alsaqr_periph_padframe_periphs_b_03_mux_set( 0 );
+                    alsaqr_periph_padframe_periphs_b_04_mux_set( 0 );
+                    alsaqr_periph_padframe_periphs_b_05_mux_set( 0 );
+                    break;
+                  case 1:
+                    alsaqr_periph_padframe_periphs_a_09_mux_set( 0 );
+                    alsaqr_periph_padframe_periphs_a_10_mux_set( 0 );
+                    alsaqr_periph_padframe_periphs_a_11_mux_set( 0 );
+                    alsaqr_periph_padframe_periphs_a_12_mux_set( 0 );
+                    alsaqr_periph_padframe_periphs_a_13_mux_set( 0 );
+                    alsaqr_periph_padframe_periphs_a_14_mux_set( 0 );
 
-                  alsaqr_periph_padframe_periphs_b_00_mux_set( 2 );
-                  alsaqr_periph_padframe_periphs_b_01_mux_set( 2 );
-                  alsaqr_periph_padframe_periphs_b_02_mux_set( 3 );
-                  alsaqr_periph_padframe_periphs_b_03_mux_set( 3 );
-                  alsaqr_periph_padframe_periphs_b_04_mux_set( 2 );
-                  alsaqr_periph_padframe_periphs_b_05_mux_set( 2 );
-                  break;
-              }
-              break;
+                    alsaqr_periph_padframe_periphs_b_00_mux_set( 2 );
+                    alsaqr_periph_padframe_periphs_b_01_mux_set( 2 );
+                    alsaqr_periph_padframe_periphs_b_02_mux_set( 3 );
+                    alsaqr_periph_padframe_periphs_b_03_mux_set( 3 );
+                    alsaqr_periph_padframe_periphs_b_04_mux_set( 2 );
+                    alsaqr_periph_padframe_periphs_b_05_mux_set( 2 );
+                    break;
+                }
+                break;
+            #endif
           }
         #endif
       #endif
@@ -630,12 +632,10 @@ int main(){
         //uart_wait_tx_done();
           if(rx_buffer[i] != tx_buffer[i]){
             error++;
-            printf ("SDIO_%0d: [%d] TX = %x - RX = %x \n\r", u, i, tx_buffer[i], rx_buffer[i]);
+            //printf ("SDIO_%0d: [%d] TX = %x - RX = %x \n\r", u, i, tx_buffer[i], rx_buffer[i]);
             //uart_wait_tx_done();
           }
       }
-
-      uart_wait_tx_done();
     }
   }
   if(error!=0)
