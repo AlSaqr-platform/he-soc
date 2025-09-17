@@ -34,6 +34,8 @@
 //enable bits for sources 0-31
 #define PLIC_EN_BITS  PLIC_BASE + 0x2080
 
+#define MHZ 1000000
+
 /*******************************************************************************
 **                             IMPORTANT                                      **
 **  FPGA_EMULATION AND SIMPLE_PAD MUST BE DEFINED IN MUTUAL EXCLUSION         **
@@ -47,7 +49,11 @@
 
 #ifndef FPGA_EMULATION
   #ifndef SIMPLE_PAD
-    #define N_UART 3
+    #ifndef CHIP_BRINGUP
+      #define N_UART 3
+    #else
+      #define N_UART 1
+    #endif
   #else
     #define N_UART 1
   #endif
@@ -91,20 +97,28 @@ int main()
     int N_REPS[N_UART] = {1};
   #endif
 
+  #ifndef CHIP_BRINGUP
+    // RTL SIMULATION
+    int test_freq = 100*MHZ;
+  #else
+    // CHIP
+    int test_freq = SOC_FREQ*MHZ;
+  #endif
+
   int error = 0;
 
   //int tx_buffer[BUFFER_SIZE] = {'S','t','a','y',' ','a','t',' ','h','o','m','e','!','!','!','!'};
-  int *tx_buffer= (int*) 0x1C001000;
+  static int tx_buffer[BUFFER_SIZE];
 
   //int rx_buffer[BUFFER_SIZE];
-  int *rx_buffer= (int*) 0x1C002000;
+  static int rx_buffer[BUFFER_SIZE];
 
   uint32_t tx_uart_plic_id ;
   uint32_t rx_uart_plic_id ;
 
   printf("Test UART starting...\r\n");
   uart_wait_tx_done();
-  printf("uart start\n");
+  printf("uart start\r\n");
   uart_wait_tx_done();
 
   tx_buffer[0]= 'S';
@@ -143,27 +157,33 @@ int main()
                 case 0:
                   alsaqr_periph_padframe_periphs_a_26_mux_set(4);
                   alsaqr_periph_padframe_periphs_a_27_mux_set(4);
-                  alsaqr_periph_padframe_periphs_b_00_mux_set(0);
-                  alsaqr_periph_padframe_periphs_b_01_mux_set(0);
+                  #ifndef CHIP_BRINGUP
+                    alsaqr_periph_padframe_periphs_b_00_mux_set(0);
+                    alsaqr_periph_padframe_periphs_b_01_mux_set(0);
+                  #endif
                   break;
-                case 1:
-                  alsaqr_periph_padframe_periphs_a_26_mux_set(0);
-                  alsaqr_periph_padframe_periphs_a_27_mux_set(0);
-                  alsaqr_periph_padframe_periphs_b_00_mux_set(3);
-                  alsaqr_periph_padframe_periphs_b_01_mux_set(3);
-                  break;
+                #ifndef CHIP_BRINGUP
+                  case 1:
+                    alsaqr_periph_padframe_periphs_a_26_mux_set(0);
+                    alsaqr_periph_padframe_periphs_a_27_mux_set(0);
+                    alsaqr_periph_padframe_periphs_b_00_mux_set(3);
+                    alsaqr_periph_padframe_periphs_b_01_mux_set(3);
+                    break;
+                #endif
               }
               break;
-            // UART1
-            case 1:
-              alsaqr_periph_padframe_periphs_b_17_mux_set(3);
-              alsaqr_periph_padframe_periphs_b_18_mux_set(3);
-              break;
-            // UART2
-            case 2:
-              alsaqr_periph_padframe_periphs_a_14_mux_set(4);
-              alsaqr_periph_padframe_periphs_a_15_mux_set(4);
-              break;
+            #ifndef CHIP_BRINGUP
+              // UART1
+              case 1:
+                alsaqr_periph_padframe_periphs_b_17_mux_set(3);
+                alsaqr_periph_padframe_periphs_b_18_mux_set(3);
+                break;
+              // UART2
+              case 2:
+                alsaqr_periph_padframe_periphs_a_14_mux_set(4);
+                alsaqr_periph_padframe_periphs_a_15_mux_set(4);
+                break;
+            #endif
           }
         #endif
       #endif
@@ -219,9 +239,11 @@ int main()
 
         if (tx_buffer[i] == rx_buffer[i])
         {
-          printf("UART_%0d.%0d PASS: tx %c, rx %c\n\r", u, v, tx_buffer[i],rx_buffer[i]);
+          printf("UART_%0d.%0d PASS: tx %c, rx %c\r\n", u, v, tx_buffer[i],rx_buffer[i]);
+          uart_wait_tx_done();
         }else{
-          printf("UART_%0d.%0d FAIL: tx %c, rx %c\n\r", u, v, tx_buffer[i],rx_buffer[i]);
+          printf("UART_%0d.%0d FAIL: tx %c, rx %c\r\n", u, v, tx_buffer[i],rx_buffer[i]);
+          uart_wait_tx_done();
           error++;
         }
       }
@@ -229,11 +251,13 @@ int main()
     }
   }
 
-  if (error==0)
-    printf("Test PASSED\n\r");
-  else
-    printf("Test FAILED\n\r");
-
-  uart_wait_tx_done();
+  if (error==0){
+    printf("Test PASSED\r\n");
+    uart_wait_tx_done();
+  }
+  else{
+    printf("Test FAILED\r\n");
+    uart_wait_tx_done();
+  }
   return error;
 }

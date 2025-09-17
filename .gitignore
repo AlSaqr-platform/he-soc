@@ -27,7 +27,6 @@ build/
 *.dump
 *.slm
 *.bin
-uart
 work-ver/*
 fpga/work-fpga
 stdout/

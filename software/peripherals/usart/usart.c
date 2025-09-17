@@ -28,12 +28,13 @@
 
 #define BUFFER_SIZE 16
 #define UART_BAUDRATE 115200
-#define N_USART 4
 
 #define PLIC_BASE 0x0C000000
 #define PLIC_CHECK PLIC_BASE + 0x201004
 //enable bits for sources 0-31
 #define PLIC_EN_BITS  PLIC_BASE + 0x2080
+
+#define MHZ 1000000
 
 /*******************************************************************************
 **                             IMPORTANT                                      **
@@ -45,6 +46,21 @@
 
 //#define FPGA_EMULATION
 //#define SIMPLE_PAD
+
+#ifndef FPGA_EMULATION
+  #ifndef SIMPLE_PAD
+    #ifndef CHIP_BRINGUP
+      #define N_USART 4
+    #else
+      #define N_USART 2
+    #endif
+  #else
+    #define N_USART 2
+  #endif
+#else
+  #define N_USART 2
+#endif
+
 
 int usart_read_nb(int usart_id, void *buffer, uint32_t size)
 {
@@ -72,16 +88,28 @@ int usart_write_nb(int usart_id, void *buffer, uint32_t size)
 
 int main()
 {
-  int N_REPS[N_USART] = {2, 2, 1, 1};
+  #if N_USART == 4
+    int N_REPS[N_USART] = {2, 2, 1, 1};
+  #else
+    int N_REPS[N_USART] = {1,1};
+  #endif
+
+  #ifndef CHIP_BRINGUP
+    // RTL SIMULATION
+    int test_freq = 100*MHZ;
+  #else
+    // CHIP
+    int test_freq = SOC_FREQ*MHZ;
+  #endif
 
   int error = 0;
   int a, k, setup;
 
-  //int tx_buffer[BUFFER_SIZE] = {'S','t','a','y',' ','a','t',' ','h','o','m','e','!','!','!','!'};
-  int *tx_buffer= (int*) 0x1C001000;
+  //int *tx_buffer= (int*) 0x1C001000;
+  static int tx_buffer[BUFFER_SIZE];
 
-  //int rx_buffer[BUFFER_SIZE];
-  int *rx_buffer= (int*) 0x1C002000;
+  //int *rx_buffer= (int*) 0x1C002000;
+  static int rx_buffer[BUFFER_SIZE];
 
   uint32_t tx_usart_plic_id ;
   uint32_t rx_usart_plic_id ;
@@ -111,34 +139,40 @@ int main()
 
   for (int u = 0; u < N_USART; ++u)
   {
+    #ifdef CHIP_BRINGUP
+      if (u == 0) continue;
+    #endif
     for (int v = 0; v < N_REPS[u]; v++)
     {
       switch(u){
         // USART0
-        case 0:
-          switch(v){
-            case 0:
-              alsaqr_periph_padframe_periphs_b_00_mux_set(4);
-              alsaqr_periph_padframe_periphs_b_01_mux_set(4);
-              alsaqr_periph_padframe_periphs_b_02_mux_set(4);
-              alsaqr_periph_padframe_periphs_b_03_mux_set(4);
-              alsaqr_periph_padframe_periphs_b_10_mux_set(0);
-              alsaqr_periph_padframe_periphs_b_11_mux_set(0);
-              alsaqr_periph_padframe_periphs_b_12_mux_set(0);
-              alsaqr_periph_padframe_periphs_b_13_mux_set(0);
+        #ifndef CHIP_BRINGUP
+          case 0:
+            switch(v){
+              case 0:
+                alsaqr_periph_padframe_periphs_b_00_mux_set(4);
+                alsaqr_periph_padframe_periphs_b_01_mux_set(4);
+                alsaqr_periph_padframe_periphs_b_02_mux_set(4);
+                alsaqr_periph_padframe_periphs_b_03_mux_set(4);
+                alsaqr_periph_padframe_periphs_b_10_mux_set(0);
+                alsaqr_periph_padframe_periphs_b_11_mux_set(0);
+                alsaqr_periph_padframe_periphs_b_12_mux_set(0);
+                alsaqr_periph_padframe_periphs_b_13_mux_set(0);
               break;
-            case 1:
-              alsaqr_periph_padframe_periphs_b_00_mux_set(0);
-              alsaqr_periph_padframe_periphs_b_01_mux_set(0);
-              alsaqr_periph_padframe_periphs_b_02_mux_set(0);
-              alsaqr_periph_padframe_periphs_b_03_mux_set(0);
-              alsaqr_periph_padframe_periphs_b_10_mux_set(4);
-              alsaqr_periph_padframe_periphs_b_11_mux_set(4);
-              alsaqr_periph_padframe_periphs_b_12_mux_set(4);
-              alsaqr_periph_padframe_periphs_b_13_mux_set(4);
+              case 1:
+                alsaqr_periph_padframe_periphs_b_00_mux_set(0);
+                alsaqr_periph_padframe_periphs_b_01_mux_set(0);
+                alsaqr_periph_padframe_periphs_b_02_mux_set(0);
+                alsaqr_periph_padframe_periphs_b_03_mux_set(0);
+                alsaqr_periph_padframe_periphs_b_10_mux_set(4);
+                alsaqr_periph_padframe_periphs_b_11_mux_set(4);
+                alsaqr_periph_padframe_periphs_b_12_mux_set(4);
+                alsaqr_periph_padframe_periphs_b_13_mux_set(4);
               break;
-          }
+            }
           break;
+        #endif
+
         // USART1
         case 1:
           switch(v){
@@ -147,38 +181,47 @@ int main()
               alsaqr_periph_padframe_periphs_a_06_mux_set(4);
               alsaqr_periph_padframe_periphs_a_07_mux_set(4);
               alsaqr_periph_padframe_periphs_a_08_mux_set(4);
-              alsaqr_periph_padframe_periphs_b_19_mux_set(0);
-              alsaqr_periph_padframe_periphs_b_20_mux_set(0);
-              alsaqr_periph_padframe_periphs_b_21_mux_set(0);
-              alsaqr_periph_padframe_periphs_b_22_mux_set(0);
-              break;
+              #ifndef CHIP_BRINGUP  
+                alsaqr_periph_padframe_periphs_b_19_mux_set(0);
+                alsaqr_periph_padframe_periphs_b_20_mux_set(0);
+                alsaqr_periph_padframe_periphs_b_21_mux_set(0);
+                alsaqr_periph_padframe_periphs_b_22_mux_set(0);
+              #endif
+            break;
             case 1:
-              alsaqr_periph_padframe_periphs_a_05_mux_set(0);
-              alsaqr_periph_padframe_periphs_a_06_mux_set(0);
-              alsaqr_periph_padframe_periphs_a_07_mux_set(0);
-              alsaqr_periph_padframe_periphs_a_08_mux_set(0);
-              alsaqr_periph_padframe_periphs_b_19_mux_set(3);
-              alsaqr_periph_padframe_periphs_b_20_mux_set(3);
-              alsaqr_periph_padframe_periphs_b_21_mux_set(3);
-              alsaqr_periph_padframe_periphs_b_22_mux_set(4);
-              break;
+              #ifndef CHIP_BRINGUP
+                alsaqr_periph_padframe_periphs_a_05_mux_set(0);
+                alsaqr_periph_padframe_periphs_a_06_mux_set(0);
+                alsaqr_periph_padframe_periphs_a_07_mux_set(0);
+                alsaqr_periph_padframe_periphs_a_08_mux_set(0);
+                alsaqr_periph_padframe_periphs_b_19_mux_set(3);
+                alsaqr_periph_padframe_periphs_b_20_mux_set(3);
+                alsaqr_periph_padframe_periphs_b_21_mux_set(3);
+                alsaqr_periph_padframe_periphs_b_22_mux_set(4);
+              #endif
+            break;
           }
-          break;
+        break;
         // USART2
         case 2:
-          alsaqr_periph_padframe_periphs_b_14_mux_set(4);
-          alsaqr_periph_padframe_periphs_b_15_mux_set(4);
-          alsaqr_periph_padframe_periphs_b_16_mux_set(4);
-          alsaqr_periph_padframe_periphs_b_17_mux_set(4);
-          break;
+          #ifndef CHIP_BRINGUP
+            alsaqr_periph_padframe_periphs_b_14_mux_set(4);
+            alsaqr_periph_padframe_periphs_b_15_mux_set(4);
+            alsaqr_periph_padframe_periphs_b_16_mux_set(4);
+            alsaqr_periph_padframe_periphs_b_17_mux_set(4);
+          #endif
+        break;
         // USART3
         case 3:
-          alsaqr_periph_padframe_periphs_b_18_mux_set(4);
-          alsaqr_periph_padframe_periphs_b_19_mux_set(4);
-          alsaqr_periph_padframe_periphs_b_20_mux_set(4);
-          alsaqr_periph_padframe_periphs_b_21_mux_set(4);
-          break;
+          #ifndef CHIP_BRINGUP
+            alsaqr_periph_padframe_periphs_b_18_mux_set(4);
+            alsaqr_periph_padframe_periphs_b_19_mux_set(4);
+            alsaqr_periph_padframe_periphs_b_20_mux_set(4);
+            alsaqr_periph_padframe_periphs_b_21_mux_set(4);
+          #endif
+        break;
       }
+    
 
       printf("USART_%0d.%0d[control flow OFF] test started...\n\r", u, v);
       for (int j = 0; j < BUFFER_SIZE; ++j)

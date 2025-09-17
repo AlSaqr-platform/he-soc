@@ -51,7 +51,7 @@
 #define OUT 1
 #define IN  0
 
-// #define PRINTF_ON
+#define PRINTF_ON
 
 /*******************************************************************************
 **                             IMPORTANT                                      **
@@ -119,19 +119,30 @@ int main(){
   int u=0;
   int poll_var=0;
 
-  // Store all udma's buffers into the L2 memory
-  int *memory_page = (int*) 0x1C003000;
-  int *tx_buffer_cmd_program = (int*) 0x1C003500;
-  int *addr_buffer = (int*) 0x1C004000;
-  int *tx_buffer_cmd_read = (int*) 0x1C004500;
-  int *rx_page= (int*) 0x1C005000;
-  int *tx_buffer_cmd_read_ID= (int*) 0x1C005500;
-  int *tx_buffer_cmd_read_WIP = (int*) 0x1C006000;
-  int *sr1= (int*) 0x1C006500;
-  int *tx_buffer_cmd_erase= (int*) 0x1C007000;
+  // // Store all udma's buffers into the L2 memory
+  // int *memory_page = (int*) 0x1C003000;
+  // int *tx_buffer_cmd_program = (int*) 0x1C003500;
+  // int *addr_buffer = (int*) 0x1C004000;
+  // int *tx_buffer_cmd_read = (int*) 0x1C004500;
+  // int *rx_page= (int*) 0x1C005000;
+  // int *tx_buffer_cmd_read_ID= (int*) 0x1C005500;
+  // int *tx_buffer_cmd_read_WIP = (int*) 0x1C006000;
+  // int *sr1= (int*) 0x1C006500;
+  // int *tx_buffer_cmd_erase= (int*) 0x1C007000;
+  // int *rems_resp= (int*) 0x1C007500;
 
-
-  int *rems_resp= (int*) 0x1C007500;
+  static int memory_page[260];
+  static int tx_buffer_cmd_program[16];
+  static int addr_buffer[16];
+  static int tx_buffer_cmd_read[16];
+  static int rx_page[TEST_PAGE_SIZE];
+  static int tx_buffer_cmd_read_ID[8];
+  static int tx_buffer_cmd_read_WIP[8];
+  static volatile uint32_t sr1_word;     /* replaces int* sr1 at fixed addr */
+  static int tx_buffer_cmd_erase[8];
+  static int rems_resp[8];
+  sr1_word=0;
+  
 
   int error[N_QSPI];
   int temp=0;
@@ -272,8 +283,11 @@ int main(){
     tx_qspi_plic_id = ARCHI_UDMA_QSPIM_ID(u)*4 +16 +1;
     cmd_qspi_plic_id = ARCHI_UDMA_QSPIM_ID(u)*4 +16 +2;
     eot_qspi_plic_id = ARCHI_UDMA_QSPIM_ID(u)*4 +16 +3;
-
-    printf("[%d, %d] Start test flash page programming over qspi %d\n",  0, 0, u);
+    
+    #ifdef PRINTF_ON
+      printf("[%d, %d] Start test flash page programming over qspi %d\n",  0, 0, u);
+      uart_wait_tx_done();
+    #endif
 
     #ifdef PRINTF_ON
       printf ("Enable CG peripherals...\n\r");
@@ -361,7 +375,7 @@ int main(){
       pulp_write32(PLIC_CHECK,rx_qspi_plic_id);
     }
 
-    #ifdef FPGA_EMULATION {
+    //#ifdef FPGA_EMULATION {
 
       #ifdef PRINTF_ON
         printf ("ERASE THE FLASH...\n\r");
@@ -371,7 +385,7 @@ int main(){
       plp_udma_enqueue(UDMA_QSPIM_CMD_ADDR(u),  (int)tx_buffer_cmd_erase , 28, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
 
       temp=0;
-      pulp_write32(sr1,0);
+      pulp_write32(&sr1_word,0);
 
       #ifdef PRINTF_ON
         printf ("Check WIP flag of the Status Register 1 of the flash memory...\n\r");
@@ -384,7 +398,7 @@ int main(){
           uart_wait_tx_done();
         #endif
 
-        plp_udma_enqueue(UDMA_QSPIM_RX_ADDR(u) ,  (unsigned int)sr1, 1*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
+        plp_udma_enqueue(UDMA_QSPIM_RX_ADDR(u) ,  (unsigned int)&sr1_word, 1*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
         barrier();
         //printf ("Enqueue UDMA_QSPIM_CMD_ADDR with tx_buffer_cmd_read_WIP...\n\r");
         //uart_wait_tx_done();
@@ -420,13 +434,13 @@ int main(){
 
         //printf ("Check WIP on Sr1\n\r");
         uart_wait_tx_done();
-        temp=pulp_read32(sr1);
+        temp=pulp_read32(&sr1_word);
         barrier();
         temp &=1;
         barrier();
       } while( temp != 0);
 
-    #endif
+    //#endif
 
     #ifdef PRINTF_ON
       printf ("WRITING MEMORY PAGE ON THE FLASH...\n\r");
@@ -449,7 +463,7 @@ int main(){
     barrier();
 
     temp=0;
-    pulp_write32(sr1,0);
+    pulp_write32(&sr1_word,0);
 
     #ifdef PRINTF_ON
       printf ("Check WIP flag of the Status Register 1 of the flash memory...\n\r");
@@ -461,7 +475,7 @@ int main(){
         uart_wait_tx_done();
     #endif
     do {
-      plp_udma_enqueue(UDMA_QSPIM_RX_ADDR(u) ,  (unsigned int)sr1, 1*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
+      plp_udma_enqueue(UDMA_QSPIM_RX_ADDR(u) ,  (unsigned int)&sr1_word, 1*4, UDMA_CHANNEL_CFG_EN | UDMA_CHANNEL_CFG_SIZE_32);
       barrier();
 
       #ifdef PRINTF_ON
@@ -519,7 +533,7 @@ int main(){
         uart_wait_tx_done();
       #endif
 
-      temp=pulp_read32(sr1);
+      temp=pulp_read32(&sr1_word);
       barrier();
       temp &=1;
       barrier();
@@ -615,8 +629,10 @@ int main(){
 
     if (error[u] == 0){
       printf("Test QSPI_%d PASSED\n", u);
+      uart_wait_tx_done();
     }else{
       printf("Test QSPI_%d FAILED with %d errors\n\r", u, error[u]);
+      uart_wait_tx_done();
     }
     uart_wait_tx_done();
   }
@@ -627,8 +643,10 @@ int main(){
   }
   if (temp == 0){
     printf("Test PASSED\n");
+    uart_wait_tx_done();
   }else{
     printf("Test FAILED with %d errors\n\r", temp);
+    uart_wait_tx_done();
   }
 
   return temp;

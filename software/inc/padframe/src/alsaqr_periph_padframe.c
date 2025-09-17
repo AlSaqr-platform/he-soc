@@ -2798,6 +2798,7 @@ alsaqr_periph_padframe_periphs_a_29_mux_sel_t alsaqr_periph_padframe_periphs_a_2
   return REG_READ32(address) & field_mask;
 }
 
+#ifndef CHIP_BRINGUP
 void alsaqr_periph_padframe_periphs_b_00_cfg_chip2pad_set(uint8_t value) {
   uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_00_CFG_REG_OFFSET;
   uint32_t reg = REG_READ32(address);
@@ -7633,3 +7634,4 @@ alsaqr_periph_padframe_periphs_ot_spi_03_mux_sel_t alsaqr_periph_padframe_periph
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;
 }
+#endif
