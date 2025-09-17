@@ -38,7 +38,7 @@ make clean chip=1 SOC_FREQ=100 all_l2
 - `CHIP_BRINGUP` — used to exclude padframe B functions for QFN packages.
 
 ### SRC / INC notes
-- L2 build uses a reduced set of includes and sources (`INC_L2`, `SRC_L2`) — ensure UART, SPI, padframe, and minimal UDMA drivers are included for your tests.
+- L2 build uses a reduced set of includes and sources (`INC_L2`, `SRC_L2`) — ensure UART,USART, SPI, padframe, and minimal UDMA drivers are included for your tests.
 
 ---
 
@@ -110,7 +110,8 @@ So selecting `4` on a_02..a_04 explicitly maps SDIO `DATA0..DATA2` to those phys
 **Note**: Only one of `FPGA_EMULATION`, `SIMPLE_PAD`, `CHIP_BRINGUP` should be active for padmux/clock choices. Use `#if defined(...) || defined(...)` in code where needed.
 
 ## Clock divider recommendations (safe starting values)
-- **UART**: aim for 115200 baud (compute divider from SoC clock).
+- **UART** : aim for 115200 baud (compute divider from SoC clock).
+- **USART**: aim for 115200 baud (compute divider from SoC clock).
 - **SPI**: start with `divider = 128` (safe in FPGA/QFN bring-up).
 - **I2C**: start with `divider ≈ 1920` (safe for ~100 kHz).
 - **SDIO**: MUST start slow with `divider = 1920`.
@@ -119,6 +120,8 @@ So selecting `4` on a_02..a_04 explicitly maps SDIO `DATA0..DATA2` to those phys
 ```c
 // UART
 set_padmux(UART_PADS);
+// USART
+set_padmux(USART_PADS);
 // SPI
 set_padmux(SPI_PADS);
 // I2C
@@ -139,6 +142,11 @@ FMC Test Module:
 
 UART:
 - Al Saqr board TX -\> Al Saqr board RX
+
+USART:
+- Al Saqr board USART_TX -\> Al Saqr board USART_RX
+- Al Saqr board USART_RTS -\> Al Saqr board USART_CTS
+
 
 SPI (peripheral):
 - Al Saqr board MOSI -\> FMC Test Module QSPI IO1
@@ -166,6 +174,7 @@ SDIO (SD card / eMMC):
 ![alt text](Chip_SDIO_test_pass-1.png)
 ![alt text](Chip_SPI_test_pass-1.png)
 ![alt text](Chip_UART_test_pass-1.png)
+![alt text](Chip_USART_test_pass-1.png)
 
 # Part E — Debugging & Troubleshooting (practical)
 
