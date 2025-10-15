@@ -166,8 +166,8 @@ module ariane_tb;
   //                            //
   ////////////////////////////////
  `ifdef NO_L3_CONNECTION
-  parameter  LINKER_ENTRY        = 32'hB1000000;
-  parameter  TOHOST              = 32'hB1000100;
+  parameter  LINKER_ENTRY        = 32'hA0000000;
+  parameter  TOHOST              = 32'hA0000100;
  `else
   // when preload is enabled LINKER_ENTRY specifies the linker address which must be L3 -> 32'h80000000
   parameter  LINKER_ENTRY        = 32'h80000000;
@@ -3503,9 +3503,9 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
         jtag_wait_for_eoc ( TOHOST );
       end
     end else begin
-      $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);
+      $display("Preload at %x - Sanity write/read at 0xA0000000", LINKER_ENTRY);
       for(int i=0;i<3;i++) begin
-         addr = 32'h80000000;
+         addr = 32'hA0000000;
          jtag_write_reg (addr, {32'hdeadcaca, 32'habbaabba});
          binary_entry={32'h00000000,LINKER_ENTRY};
       end
@@ -3610,7 +3610,6 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
     // Write data
     jtag_write(dm::SBData1, value[63:32]);
     jtag_write(dm::SBData0, value[31:0]);
-
     //Check correctess
     jtag_read_reg(start_addr, rdata);
     if(rdata!=value) begin
