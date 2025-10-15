@@ -109,7 +109,7 @@ The code must be preloaded into L2 via JTAG.
 To run mbox test between cva6 and ibex, in he-soc/hardware run:
 ```
 make -C ../software/mbox_test clean all
-make clean sim ibex-elf-bin=./opentitan/sw/tests/alsaqr/mbox_test/mbox_test.elf 
+make clean sim ibex-elf-bin=./opentitan/sw/tests/alsaqr/mbox_test/mbox_test.elf
 ```
 
 To run the full secure boot, use the following commands (for instance, opentitan boots CVA6 which runs an hello world):
@@ -121,6 +121,16 @@ make clean sim BOOTMODE=1 sec_boot=1
 
 ```
 The sec_boot=1 flag can be used to prevent CVA6 from booting (to run tests on OpenTitan as a standalone environment)
+
+
+### Run test with OpenTitan's Cluster:
+
+To run mbox test between cluster and OT, in he-soc/hardware run:
+```
+make clean sim ibex-elf-bin=./opentitan/sw/tests/cluster/mbox_test/mbox_test.elf cl-bin=./opentitan/sw/tests/cluster/mbox_test/stimuli/build/stimuli
+```
+Providing cl-bin, the L2 memory is preloaded with cluster binary.
+
 
 ### Run regressions
 
