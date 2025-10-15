@@ -155,7 +155,7 @@ package ariane_soc;
     ClusterBase   = 64'h1000_0000,
     AXILiteBase   = 64'h1040_0000,
     APB_SLVSBase  = 64'h1A10_0000,
-    L2SPMBase     = 64'hA000_0000,
+    L2SPMBase     = 64'h1C00_0000,
     TimerBase     = 64'h1800_0000,
     SPIBase       = 64'h2000_0000,
     IMSICBase     = 64'h2400_0000,
