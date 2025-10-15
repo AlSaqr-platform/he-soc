@@ -508,18 +508,9 @@ run_regression_netlist:
 	mkdir regressions/regression_netlist_reports
 	python3 regression_netlist.py
 
-
 tb/vips/spi_flash:
-	rm -rf $@
 	mkdir $@
-	rm -rf model_tmp && mkdir model_tmp
-	cd model_tmp; wget --no-check-certificate --content-disposition "https://www.infineon.com/dgdl/Infineon-S25fs256s-SimulationModels-v02_00-EN.zip?fileId=8ac78c8c7d0d8da4017d0f6251a24e7b&da=t"
-	cd model_tmp; mv 'Infineon-S25fs256s-SimulationModels-v02_00-EN.zip' model.zip
-	cd model_tmp; unzip model.zip
-	cd model_tmp; mv 'S25fs256s' exe_folder
-	cd model_tmp/exe_folder; unzip S25fs256s.exe
-	cp model_tmp/exe_folder/S25fs256s/model/s25fs256s.v model_tmp/exe_folder/S25fs256s/model/s25fs256s_verilog.sdf $@
-	rm -rf model_tmp
+	wget --no-check-certificate --content-disposition "https://freemodelfoundry.com/fmf_vlog_models/flash/s25fs256s.v" -O ./tb/vips/spi_flash/s25fs256s.v
 
 tb/vips/hyperram_model:
 	rm -rf $@
@@ -542,7 +533,7 @@ tb/vips/i2c_eeprom:
 	cp model_tmp/24AA1025.v model_tmp/24FC1025.v model_tmp/24LC1025.v $@
 	rm -rf model_tmp
 
-vips:  tb/vips/hyperram_model tb/vips/spi_flash tb/vips/i2c_eeprom
+vips:  tb/vips/spi_flash tb/vips/i2c_eeprom
 
 vips_link:
 	rm -rf $(HW_HOME)/tb/vips/spi_flash
@@ -550,10 +541,10 @@ vips_link:
 	ln -s  $(VIPS_ROOT)/spi_flash $(HW_HOME)/tb/vips/
 	ln -s  $(VIPS_ROOT)/hyperram_model $(HW_HOME)/tb/vips/
 
-init: bender update scripts_vip
+init: bender vips update scripts_vip
 	make -C ip_list/idma idma_hw_all
 
-init_unibo: bender update scripts_vip
+init_unibo: bender vips update scripts_vip
 	make -C ip_list/idma idma_hw_all
 	rm -rf gf22/
 	git clone git@github.com:pulp-unibo/alsaqr_gf22.git gf22
@@ -571,7 +562,7 @@ compile_test:
 clean:
 	rm -rf $(riscv-torture-dir)/output/test*
 	rm -rf $(library)/ $(dpi-library)/ $(ver-library)/
-	rm -f tmp/*.ucdb tmp/*.log *.wlf *vstf wlft* *.ucdb
+	rm -f tmp/*.ucdb tmp/*.log *.wlf *vstf wlft* *.ucdb *.ini
 	rm -f *log
 	rm -f transcript
 	rm -f uart
