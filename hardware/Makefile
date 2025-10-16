@@ -133,7 +133,7 @@ ifdef spike-tandem
 endif
 
 # Compile and sim flags
-compile_flag     += +cover=bcfst+/dut -incr -64 -nologo -quiet -suppress 13262 -suppress 3999 -suppress 3009 -suppress 8386 -suppress 8360 -permissive +define+$(defines)
+compile_flag     += +cover=bcfst+/dut -incr -64 -nologo -suppress 13262 -suppress 3999 -suppress 3009 -suppress 8386 -suppress 8360 -permissive +define+$(defines)
 uvm-flags        += +UVM_NO_RELNOTES +UVM_VERBOSITY=LOW
 questa-flags     += -t 1ns -64 -coverage -classdebug -suppress 3999 -suppress 3009 -suppress 8360 -suppress 8386 $(gui-sim) $(QUESTASIM_FLAGS)
 compile_flag_vhd += -64 -nologo -quiet -2008
@@ -287,7 +287,6 @@ bender:
 	./bender --version | grep -q "bender 0.22.0"
 
 update:
-	rm -rf Bender.lock ip_list/ .bender/
 	$(BENDER) update
 
 libbender:
