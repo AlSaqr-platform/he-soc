@@ -3,7 +3,7 @@
 # Description: Makefile for linting and testing Ariane.
 
 # Bender
-BENDER:=./bender
+BENDER:= bender
 
 # VIPS location
 VIPS_ROOT ?= /usr/scratch2/lagrev5/mciani/vips/
@@ -339,7 +339,7 @@ scripts_vip_macro:
 scripts_vip:
 	$(BENDER) script vsim \
 		--vlog-arg="$(compile_flag)  -work  $(library) -suppress 2583 -suppress 13314 -suppress 8386 " --vcom-arg="$(compile_flag_vhd) -work  $(library) $(pedanticerrors)" \
-    -t rtl -t use_idma -t test -t tb -t vip -t cva6 -t scm_use_latch_scm -t aia_msi -t aia_embedded -t $(CVA6_PKG) > $(compile_script)
+    -t rtl -t use_idma -t test -t tb -t vip -t cva6 -t scm_use_latch_scm -t aia_msi -t aia_embedded -t $(CVA6_PKG) -D FEATURE_ICACHE_STAT > $(compile_script)
 
 # The following scripts must be used only for post synthesis simulations and provides different configuration to simulate the design
 
