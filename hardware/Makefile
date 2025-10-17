@@ -3,7 +3,7 @@
 # Description: Makefile for linting and testing Ariane.
 
 # Bender
-BENDER:= bender
+BENDER:= ./bender
 
 # VIPS location
 VIPS_ROOT ?= /usr/scratch2/lagrev5/mciani/vips/
@@ -508,6 +508,7 @@ run_regression_netlist:
 	python3 regression_netlist.py
 
 tb/vips/spi_flash:
+	rm -rf $@
 	mkdir $@
 	wget --no-check-certificate --content-disposition "https://freemodelfoundry.com/fmf_vlog_models/flash/s25fs256s.v" -O ./tb/vips/spi_flash/s25fs256s.v
 
