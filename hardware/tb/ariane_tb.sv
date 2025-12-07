@@ -3498,9 +3498,9 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
         jtag_init(cid+1);
         jtag_ariane_wakeup( LINKER_ENTRY, cid+1 );
      `endif
-   `endif
         $display("Wait EOC...");
         jtag_wait_for_eoc ( TOHOST );
+   `endif
       end
     end else begin
       $display("Preload at %x - Sanity write/read at 0x1C000000", LINKER_ENTRY);
@@ -3526,9 +3526,9 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
       jtag_init(cid+1);
       jtag_ariane_wakeup( LINKER_ENTRY, cid+1 );
      `endif
-   `endif
       $display("Wait EOC...");
       jtag_wait_for_eoc( TOHOST );
+   `endif
     end
   end
 
@@ -3815,11 +3815,10 @@ uart_bus #(.BAUD_RATE(115200), .PARITY_EN(0)) i_uart0_bus (.rx(pad_periphs_a_00_
                   @(posedge rtc_i);
                 debug_secd_module_init();
                 load_secd_binary(ot_sram);
-                jtag_secd_data_preload();
                 if(ot_cluster != "none") begin
                    load_secd_binary(ot_cluster);
-                   jtag_secd_data_preload();
                 end
+                jtag_secd_data_preload();
                 jtag_secd_wakeup(32'h e0000080); //preload the flashif
                 jtag_secd_wait_eoc();
            end
