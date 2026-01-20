@@ -31,9 +31,9 @@ INC=$(foreach d, $(inc_dirs), -I$(utils_dir)$d)
 
 # Include lightweight runtime  for L2 (32KB) mapping
 
-inc_dirs_l2 = . drivers/inc string_lib/inc
+inc_dirs_l2 = . drivers/inc string_lib/inc padframe/inc
 
-src_dirs_l2 = . drivers/src string_lib/src
+src_dirs_l2 = . drivers/src string_lib/src padframe/src
 
 SRC_L2+=$(foreach d, $(src_dirs_l2), $(wildcard $(utils_dir)$d/*.c))
 
@@ -43,6 +43,8 @@ ifneq ($(strip $(wildcard $(HW_HOME)/ip_list/fll_behav/driver)),)
 	FLL_DRIVER=1
 	INC += -I$(HW_HOME)/ip_list/fll_behav/driver/inc
 	SRC += $(wildcard $(HW_HOME)/ip_list/fll_behav/driver/src/*.c)
+	INC_L2+= -I$(HW_HOME)/ip_list/fll_behav/driver/inc
+	SRC_L2 += $(wildcard $(HW_HOME)/ip_list/fll_behav/driver/src/*.c)
 endif
 
 inc_dir := $(SW_HOME)/common/
@@ -52,6 +54,8 @@ RISCV_PREFIX ?= riscv$(XLEN)-unknown-elf-
 RISCV_GCC ?= $(RISCV_PREFIX)gcc
 
 RISCV_OBJDUMP ?= $(RISCV_PREFIX)objdump -h --disassemble-all --disassemble-zeroes --section=.text --section=.text.startup --section=.text.init --section=.data --section=.tohost --section=.sdata --section=.rodata --section=.sbss --section=.bss --section=.tdata --section=.tbss --section=.stack -t -s
+
+RISCV_OBJCOPY ?= $(RISCV_PREFIX)objcopy
 
 RISCV_FLAGS     := -mcmodel=medany -static -std=gnu99 -DNUM_CORES=2 -O3 -ffast-math -fno-common -fno-builtin-printf $(INC)
 RISCV_LINK_OPTS := -static -nostdlib -nostartfiles -lm -lgcc
@@ -70,12 +74,26 @@ ifdef FLL_DRIVER
 	RISCV_FLAGS += -DFLL_DRIVER
 endif
 
-SOC_FREQ ?= 50
+# Maximum Frequency targets
+# HOST(CVA6) UP TO 800
+# SOC UP TO 344
+# HYPER UP TO 200
+# CLUSTER UP TO 500
+SOC_FREQ ?= 100
+CVA6_FREQ ?= 50
+CL_FREQ ?= 50
+PER_FREQ?= 50
 
+HYP_FREQ ?= 25
+
+# This flag acts on syscalls.c to and peripheral_padframe.c
+# syscalls.c: disables the FLL configurations
+# peripheral_padframe.c : excludes pad functions not bonded in the QFN package, making runtime lighter
 ifdef chip
 	RISCV_FLAGS += -DCHIP_BRINGUP
-	RISCV_FLAGS += -DSOC_FREQ=$(SOC_FREQ)
 endif
+
+RISCV_FLAGS += -DSOC_FREQ=$(SOC_FREQ) -DCVA6_FREQ=$(CVA6_FREQ) -DCL_FREQ=$(CL_FREQ) -DHYP_FREQ=$(HYP_FREQ)
 
 clean:
 	rm -f $(APP).riscv
@@ -92,6 +110,11 @@ build_l2:
 	$(info SOC_FREQ = $(SOC_FREQ))
 	$(info RISCV_FLAGS = $(RISCV_FLAGS))
 
+build_llc:
+	$(RISCV_GCC) $(RISCV_FLAGS) -T $(inc_dir)/test_llc.ld $(RISCV_LINK_OPTS) $(cc-elf-y) $(inc_dir)/crt.S $(inc_dir)/syscalls.c -L $(inc_dir) $(APP).c $(SRC_L2) -o $(APP).riscv
+	$(info SOC_FREQ = $(SOC_FREQ))
+	$(info RISCV_FLAGS = $(RISCV_FLAGS))
+
 dis:
 	$(RISCV_OBJDUMP) $(APP).riscv > $(APP).dump
 
@@ -101,9 +124,14 @@ dump:
 	cp $(APP).riscv  $(HW_HOME)/
 	echo $(APP).riscv | tee -a  $(HW_HOME)/regression.list
 
+srec:
+	$(RISCV_OBJCOPY) -O srec $(APP).riscv $(APP).srec
+
 all: clean build dis dump
 
-all_l2: clean build_l2 dis dump
+all_l2: clean build_l2 dis dump srec
+
+all_llc: clean build_llc dis dump srec
 
 rtl:
 	rm -rf $(SW_HOME)/../hardware/compile.tcl
@@ -117,17 +145,26 @@ rtl_qfn:
 	rm -rf $(SW_HOME)/../hardware/work-dpi
 	$(MAKE) -C $(SW_HOME)/../hardware/ -B clean scripts_vip one-phy=1 preload=1 build
 
+net_fll:
+	rm -rf $(SW_HOME)/../hardware/compile.tcl
+	rm -rf $(SW_HOME)/../hardware/work
+	rm -rf $(SW_HOME)/../hardware/work-dpi
+	$(MAKE) -C $(SW_HOME)/../hardware/ -B clean scripts_vip_macro preload=1 post_synth=1 post_synth_fll build_synth
+
 rtl_l2:
 	rm -rf $(SW_HOME)/../hardware/compile.tcl
 	rm -rf $(SW_HOME)/../hardware/work
 	rm -rf $(SW_HOME)/../hardware/work-dpi
-	$(MAKE) -C $(SW_HOME)/../hardware/ -B clean scripts_vip l2-code=1 localjtag=1 build
+	$(MAKE) -C $(SW_HOME)/../hardware/ -B clean scripts_vip l2-code=1 preload=0 localjtag=1 build
 
 rtl_l2_qfn:
 	rm -rf $(SW_HOME)/../hardware/compile.tcl
 	rm -rf $(SW_HOME)/../hardware/work
 	rm -rf $(SW_HOME)/../hardware/work-dpi
-	$(MAKE) -C $(SW_HOME)/../hardware/ -B clean scripts_vip l2-code=1 localjtag=1 one-phy=1 build
+	$(MAKE) -C $(SW_HOME)/../hardware/ -B clean scripts_vip l2-code=1 preload=0 localjtag=1 one-phy=1 build
 
 sim:
 	$(MAKE) -C  $(SW_HOME)/../hardware/ -B sim $(sim_flags) elf-bin=$(shell pwd)/$(APP).riscv
+
+sim_net:
+	$(MAKE) -C  $(SW_HOME)/../hardware/ -B synth_sim acc=+acc=p+ariane_tb. $(sim_flags) elf-bin=$(shell pwd)/$(APP).riscv

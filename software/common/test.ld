@@ -83,7 +83,7 @@ SECTIONS
     *(.tbss.end)
   } > L3
 
-  /* stack 256K */
+  /* stack 32K */
   .stack :
   {
     . = . + 0x8000;

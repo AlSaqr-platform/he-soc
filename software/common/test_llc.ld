@@ -18,38 +18,39 @@ ENTRY(_start)
 
 MEMORY
 {
+  LLC     (rwx) : ORIGIN = 0x70000000, LENGTH = 0x00020000
   L2      (rwx) : ORIGIN = 0x1C000000, LENGTH = 0x00008000
+  L3      (rwx) : ORIGIN = 0x80000000, LENGTH = 0x20000000
 }
 
 /*----------------------------------------------------------------------*/
 /* Sections                                                             */
 /*----------------------------------------------------------------------*/
 
-
 SECTIONS
 {
 
   /* text: for code & constants */
-  . = 0x1C000000;
-  .text.init : { *(.text.init) } > L2
-  . = 0x1C000100;
-  .nocache_share_region : { *(.nocache_share_region) } > L2
+  . = 0x70000000;
+  .text.init : { *(.text.init) } > LLC
+  . = 0x70000100;
+  .nocache_share_region : { *(.nocache_share_region) } > LLC
   . = ALIGN(0x1000);
   .tohost : { *(.tohost) } > L2
 
-  .text : { *(.text) } > L2
+  .text : { *(.text) } > LLC
 
   /* SPM DATA */
   .spm_data : { *(.heapl2ram) } > L2
 
   /* data: for initialized data */
-  .data : { *(.data) } > L2
+  .data : { *(.data) } > LLC
 
   .sdata : {
     __global_pointer$ = . + 0x800;
     *(.srodata.cst16) *(.srodata.cst8) *(.srodata.cst4) *(.srodata.cst2) *(.srodata*)
     *(.sdata .sdata.* .gnu.linkonce.s.*)
-  } > L2
+  } > LLC
 
   /* Read Only Cluster Code */
   .rodata :  {
@@ -58,16 +59,16 @@ SECTIONS
     __cluster_code_start = . ;
     KEEP(*(.clusterraw*))
     __cluster_code_end = . ;
-    } > L2
+    } > LLC
 
   /* bss: for uninitialized data */
   .sbss : {
     *(.sbss .sbss.* .gnu.linkonce.sb.*)
     *(.scommon)
-  } > L2
+  } > LLC
   .bss : {
     *(.bss)
-  } > L2
+  } > LLC
 
   /* thread-local data segment */
   .tdata :
@@ -76,28 +77,20 @@ SECTIONS
     *(.tdata.begin)
     *(.tdata)
     *(.tdata.end)
-  } > L2
+  } > LLC
   .tbss :
   {
     *(.tbss)
     *(.tbss.end)
-  } > L2
+  } > LLC
 
-  /* stack 4K */
+  /* stack 16K */
   .stack :
   {
-    . = . + 0x100;
+    . = . + 0x4000;
     _stack = .;
-  } > L2
+  } > LLC
 
   /* End of uninitalized data segement */
   _end = .;
-    /* init table vector */
-  .vectors :
-    {
-        . = ALIGN(4);
-		_vectors_start = .;
-        KEEP(*(.vectors))
-		_vectors_end = .;
-    } > L2
 }

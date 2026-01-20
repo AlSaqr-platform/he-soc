@@ -118,35 +118,72 @@ void _init(int cid, int nc)
      *tmp = 3;
      tmp = (int *) 0x1a10400C;
      *tmp = 3;
-     int baud_rate = 9600;
-       // Here we define the frequency for the SoC specified in the gdb.cfg file
+     int baud_rate = 38400;
+       // Here we define the frequency for the SoC specified in the gdb.cfg file of applied by the runtime
        #ifndef CHIP_BRINGUP
         // RTL SIMULATION
         int test_freq = 100*MHZ;
+        #ifdef FLL_DRIVER
+          // FLL DRIVER CONFIGURATION
+          __pi_fll_init_all();
+          * ( ( int * ) 0x1a100030 ) = 0x00001111;
+          pi_freq_set(PI_FREQ_DOMAIN_SOC,(SOC_FREQ*MHZ));
+          pi_freq_set(PI_FREQ_DOMAIN_CVA6,(CVA6_FREQ*MHZ));
+          pi_freq_set(PI_FREQ_DOMAIN_CL,(CL_FREQ*MHZ));
+          //HYPER has an internal (by 2) divider
+          pi_freq_set(PI_FREQ_DOMAIN_PER,(HYP_FREQ*MHZ*2));
+          test_freq = pi_freq_get(PI_FREQ_DOMAIN_SOC);
+        #endif
        #else
         // CHIP
         int test_freq = SOC_FREQ*MHZ;
+        // Include FLL driver
+        #ifdef FLL_DRIVER
+          // FLL DRIVER CONFIGURATION
+          __pi_fll_init_all();
+          * ( ( int * ) 0x1a100030 ) = 0x00001111;
+          pi_freq_set(PI_FREQ_DOMAIN_SOC,(SOC_FREQ*MHZ));
+          pi_freq_set(PI_FREQ_DOMAIN_CVA6,(CVA6_FREQ*MHZ));
+          pi_freq_set(PI_FREQ_DOMAIN_CL,(CL_FREQ*MHZ));
+          //HYPER has an internal (by 2) divider
+          pi_freq_set(PI_FREQ_DOMAIN_PER,(HYP_FREQ*MHZ*2));
+          test_freq = pi_freq_get(PI_FREQ_DOMAIN_SOC);
+        #endif
        #endif
      #else
-     // FPGA_EMULATION
-     tmp = (int *) 0x1a104074;
-     *tmp = 1;
-     tmp = (int *) 0x1a10407C;
-     *tmp = 1;
-     int baud_rate = 38400;
-     //int test_freq = 40*MHZ;
-     #ifdef DDR
-      // FPGA USES DDR - 40MHz
-      int test_freq = 40*MHZ;
-     #else
-      // FPGA USES FMC HYPERRAM - 10MHz
-      int test_freq = 10*MHZ;
-     #endif
+       // FPGA_EMULATION
+       tmp = (int *) 0x1a104074;
+       *tmp = 1;
+       tmp = (int *) 0x1a10407C;
+       *tmp = 1;
+       int baud_rate = 38400;
+       //int test_freq = 40*MHZ;
+         #ifdef DDR
+          // FPGA USES DDR - 40MHz
+          int test_freq = 40*MHZ;
+         #else
+          // FPGA USES FMC HYPERRAM - 10MHz
+          int test_freq = 10*MHZ;
+         #endif
      #endif
      uart_set_cfg(0,(test_freq/baud_rate)>>4);
      #ifndef FPGA_EMULATION
       #ifndef CHIP_BRINGUP
-      set_flls();
+      // RTL Simulation
+      // Include FLL driver
+        #ifdef FLL_DRIVER
+          // FLL DRIVER CONFIGURATION
+          __pi_fll_init_all();
+          * ( ( int * ) 0x1a100030 ) = 0x104321;
+          pi_freq_set(PI_FREQ_DOMAIN_SOC,(SOC_FREQ*MHZ));
+          pi_freq_set(PI_FREQ_DOMAIN_CVA6,(CVA6_FREQ*MHZ));
+          pi_freq_set(PI_FREQ_DOMAIN_CL,(CL_FREQ*MHZ));
+          // HYPER has an internal (by 2) divider
+          pi_freq_set(PI_FREQ_DOMAIN_PER,(HYP_FREQ*MHZ));
+          test_freq = pi_freq_get(PI_FREQ_DOMAIN_SOC);
+        #else
+          set_flls();
+        #endif
       #endif
      #endif
      /* Set plic mbox IRQ priority to 1 */
