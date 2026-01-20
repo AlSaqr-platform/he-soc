@@ -277,6 +277,8 @@ void alsaqr_periph_padframe_periphs_a_02_mux_set(alsaqr_periph_padframe_periphs_
   const uint32_t sel_size = 3;
   uint32_t field_mask = (1<<sel_size)-1;
   REG_WRITE32(address, mux_sel & field_mask);
+  /*printf("Mux Address: %x  Val: %x\n\r",address, mux_sel & field_mask);
+  uart_wait_tx_done();*/
 }
 
 alsaqr_periph_padframe_periphs_a_02_mux_sel_t alsaqr_periph_padframe_periphs_a_02_mux_get() {
@@ -2797,6 +2799,8 @@ alsaqr_periph_padframe_periphs_a_29_mux_sel_t alsaqr_periph_padframe_periphs_a_2
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;
 }
+
+#ifndef CHIP_BRINGUP
 
 void alsaqr_periph_padframe_periphs_b_00_cfg_chip2pad_set(uint8_t value) {
   uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_B_00_CFG_REG_OFFSET;
@@ -7261,6 +7265,8 @@ alsaqr_periph_padframe_periphs_b_47_mux_sel_t alsaqr_periph_padframe_periphs_b_4
   uint32_t field_mask = (1<<sel_size)-1;
   return REG_READ32(address) & field_mask;
 }
+
+#endif
 
 void alsaqr_periph_padframe_periphs_ot_spi_00_cfg_chip2pad_set(uint8_t value) {
   uint32_t address = ALSAQR_PERIPH_PADFRAME_BASE_ADDRESS + ALSAQR_PERIPH_PADFRAME_PERIPHS_CONFIG_OT_SPI_00_CFG_REG_OFFSET;
