@@ -2,7 +2,7 @@
 
 void uart_sim_cfg() {
     int baud_rate = 115200;
-    int test_freq = 50000000; 
+    int test_freq = 50000000;
     uart_set_cfg(0,(test_freq/baud_rate)/16);
 }
 
@@ -12,9 +12,34 @@ static uint64_t lfsr(uint64_t x)
   return (x >> 1) | (bit << 62);
 }
 
+void  clock_gating_cluster(){
+
+    uint32_t fll_CCR2_reg= 0;
+    uint32_t fll_F3CR1_reg= 0;
+    uint32_t old_bits01 =  0;
+
+    // This function Enable/Disable the CG for the Cluster inside the FLL and turn ON/OFF the DCO for its FLL
+
+    fll_CCR2_reg = pulp_read32(0x1A100030);
+    fll_F3CR1_reg = pulp_read32(0x1A100024);
+
+    // Set to 0 the CG bits for the 4th FLL output used by the PULP CLuster
+    fll_CCR2_reg&= ~(0x8<<16);
+
+    // Disable/Enable FLL PULP CLuster CG
+    pulp_write32(0x1A100030, fll_CCR2_reg);
+
+    old_bits01= fll_F3CR1_reg & 0x3;
+    fll_F3CR1_reg |=  (~old_bits01) & 0x3;
+
+    // Disable/Enable DCO CLuster
+    pulp_write32(0x1A100024, fll_F3CR1_reg);
+
+}
+
 void set_flls() {
   #ifdef FLL_DRIVER
-  unsigned int freq_all = 200 * 1000000; 
+  unsigned int freq_all = 200 * 1000000;
   pi_fll_init_all();
   * ( ( int * ) 0x1a100030 ) = 0x104321;
   pi_freq_set(PI_FREQ_DOMAIN_ALL, freq_all);
@@ -32,17 +57,17 @@ void set_flls() {
   data = 0x25C350;
   pulp_write32(addr, data);
 
-  // enable fll 0 
+  // enable fll 0
   addr = 0x1A100030;
   data = 0x11;
   pulp_write32(addr, data);
-  
+
   // put fll 0 to open loop
   addr = 0x1A10000C;
   data = 0x40030A73;
   pulp_write32(addr, data);
-   
-  // put ffl output clock to every clock 
+
+  // put ffl output clock to every clock
   addr = 0x1A100030;
   data = 0x1111;
   pulp_write32(addr, data);
@@ -75,7 +100,7 @@ uint32_t dma_h2c_trnf_cfg( uint64_t src,
 
   pulp_write32(CL_DMA_BASE + DST_LOW_OFFS , dst        );
   pulp_write32(CL_DMA_BASE + DST_HIGH_OFFS, 0x00000000 );
-                                                       
+
   pulp_write32(CL_DMA_BASE + TRNF_LEN_OFFS , dim       );
 
   // Reading the transfer id starts the DMA transaction
@@ -90,7 +115,7 @@ uint32_t dma_c2h_trnf_cfg( uint32_t src,
                          ) {
   pulp_write32(CL_DMA_BASE + SRC_LOW_OFFS , src        );
   pulp_write32(CL_DMA_BASE + SRC_HIGH_OFFS, 0x00000000 );
-                                                       
+
   pulp_write32(CL_DMA_BASE + DST_LOW_OFFS , dst        );
   pulp_write32(CL_DMA_BASE + DST_HIGH_OFFS, (dst >> 32));
 
