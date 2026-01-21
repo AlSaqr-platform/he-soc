@@ -183,14 +183,14 @@ int main(int argc, char const *argv[]) {
   uint32_t gpio_val= 0x00000004;
 
   // Config Pad GPIO 2
-  //alsaqr_periph_padframe_periphs_a_02_mux_set(2);
+  alsaqr_periph_padframe_periphs_a_02_mux_set(2);
 
   // FLL SoC OUT
   //alsaqr_periph_padframe_periphs_a_04_mux_set(1);
 
   // Set GPIO 0 OUT
-  //configure_gpio(2, OUT);
-  //pulp_write32(GPIO2_PAD_A2_ADDR,gpio_val);
+  configure_gpio(2, OUT);
+  pulp_write32(GPIO2_PAD_A2_ADDR,gpio_val);
 
   // Core in sleep for IDLE
 
