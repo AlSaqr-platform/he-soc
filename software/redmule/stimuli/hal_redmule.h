@@ -30,6 +30,9 @@
 #include "inc/golden.h"
 #include "inc/tensor_dim.h"
 
+#define ERR_LIMIT 0x0100
+
+
 /*
  *
  * For control, generic configuration register layout,
@@ -41,8 +44,8 @@
 // instead of classic load/store because otherwise the compiler is not able to correctly factorize
 // the HWPE base in case several accesses are done, ending up with twice more code
 
-#define HWPE_WRITE(value, offset) *(int *)(ARCHI_CLUST_HWPE_BASE + offset) = value
-#define HWPE_READ(offset) *(int *)(ARCHI_CLUST_HWPE_BASE + offset)
+#define HWPE_WRITE(value, offset) pulp_write32(ARCHI_CLUST_HWPE_BASE + offset, value)
+#define HWPE_READ(offset) pulp_read32(ARCHI_CLUST_HWPE_BASE + offset)
 
 static inline void redmule_x_add_set (unsigned int value) {
   HWPE_WRITE(value, REDMULE_REG_OFFS + REDMULE_REG_X_PTR);
@@ -349,7 +352,8 @@ int redmule_compare16 (int z_start_addr, int m_size, int k_size) {
 
   for (int z_addr = z_start_addr; z_addr < z_end_addr; z_addr += 2) {
     int z = z_addr - z_start_addr;
-    z_computed = *(uint32_t *)(z_addr);
+    //z_computed = *(uint32_t *)(z_addr);
+    z_computed = pulp_read32(z_addr);
 
     if ( z_computed != z_oup[z/2] ) {
       diff_1 = z_computed - z_oup[z/2];
@@ -365,6 +369,35 @@ int redmule_compare16 (int z_start_addr, int m_size, int k_size) {
   return err;
 
 }
+
+
+int redmule_compare16_err (int z_start_addr, int m_size, int k_size) {
+  int err_count = 0;
+  int err=0;
+  int z_end_addr = z_start_addr + 2*m_size*k_size;
+  uint16_t z_computed;
+  uint16_t diff, diff_1, diff_2;
+
+  for (int z_addr = z_start_addr; z_addr < z_end_addr; z_addr += 2) {
+    int z = z_addr - z_start_addr;
+    //z_computed = *(uint32_t *)(z_addr);
+    z_computed = pulp_read32(z_addr);
+
+    if (z_computed > z_oup[z/2]){
+      err= z_computed - z_oup[z/2];
+    }else{
+      err= z_oup[z/2]- z_computed;
+    }
+
+    if ( err>ERR_LIMIT ) {
+      err_count++;
+    }
+  }
+
+  return err;
+
+}
+
 
 int redmule16_compare_int(uint32_t *actual_z, uint32_t *golden_z, int len) {
   #define ERR 0x0011
