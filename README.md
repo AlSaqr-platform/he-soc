@@ -1,6 +1,6 @@
-# AlSaqr SoC
+# AlSaqr2 SoC
 
-This repository contains the hardware files needed to build the AlSaqr-SoC. The architecture of the SoC is briefly described in the block diagram below.
+This repository contains the hardware files needed to build the AlSaqr2-SoC. The architecture of the SoC is briefly described in the block diagram below.
 
 ![alt text](./hardware/docs/AlSaqr.png)
 
@@ -11,7 +11,7 @@ This repository contains the hardware files needed to build the AlSaqr-SoC. The 
    - `host` contains the host-system: it wraps the core and plugs it into the `axi_node` to which the slaves are attached
    - `tb` contains the testbench
    - `fpga` contains the scripts to generate the bitstream
-   - `docs` contains the datasheet of AlSaqr SoC and the related padframe specification 
+   - `docs` contains the datasheet of AlSaqr2 SoC and the related padframe specification 
 
  * `software` contains the bare metals tests you can run on the SoC
 
@@ -215,9 +215,20 @@ make run_regression_netlist
 ```
 ## Pubblication
 
-If you use AlSaqr in your work, please cite us:
+If you use the AlSaqr platform in your work, please cite us:
 
 ```
+@ARTICLE{11523040,
+  author={Sinigaglia, Mattia and Garofalo, Angelo and Cereda, Elia and Tedeschi, Riccardo and Ciani, Maicol and Tesfai, Huruy Tekle and Tolba, Mohammed and Isachi, Victor and Saleh, Hani and Palossi, Daniele and Psiakis, Rafail and Mohammad, Baker and Rossi, Davide},
+  journal={IEEE Open Journal of the Solid-State Circuits Society}, 
+  title={A Heterogeneous System-on-Chip with an 83 GFLOp/s, 1.2 TFLOp/s/W Parallel Programmable Accelerator for Real-time On-device Learning in Autonomous Nano-UAVs}, 
+  year={2026},
+  volume={},
+  number={},
+  pages={1-1},
+  keywords={Licenses;System-on-chip;Memory;Nuclear facility regulation;Tensors;Measurement units;Tuning;Design methodology;Educational institutions;Timing;Heterogeneous;RISC-V;Low-Power;SoC;UAVs;on-device learning},
+  doi={10.1109/OJSSCS.2026.3694318}}
+
 @ARTICLE{10423921,
   author={Valente, Luca and Nadalini, Alessandro and Veeran, Asif Hussain Chiralil and Sinigaglia, Mattia and Sá, Bruno and Wistoff, Nils and Tortorella, Yvan and Benatti, Simone and Psiakis, Rafail and Kulmala, Ari and Mohammad, Baker and Pinto, Sandro and Palossi, Daniele and Benini, Luca and Rossi, Davide},
   journal={IEEE Transactions on Circuits and Systems I: Regular Papers}, 
